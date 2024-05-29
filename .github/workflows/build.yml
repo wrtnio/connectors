@@ -28,4 +28,7 @@ jobs:
       - run: npm install
       - run: npm run build:test
       - run: rm .env
+      - run: jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - run: npm run test
