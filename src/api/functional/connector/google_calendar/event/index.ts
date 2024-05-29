@@ -217,7 +217,9 @@ export async function deleteEvent(
       );
 }
 export namespace deleteEvent {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/calendar"]>
+  >;
 
   export const METADATA = {
     method: "DELETE",

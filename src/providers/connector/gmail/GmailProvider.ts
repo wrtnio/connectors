@@ -246,7 +246,7 @@ export class GmailProvider {
 
   async findEmail(
     id: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<IGmail.IFindGmailOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -318,7 +318,7 @@ export class GmailProvider {
 
   async removeEmail(
     id: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);

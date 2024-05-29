@@ -200,7 +200,15 @@ export async function deleteById(
       );
 }
 export namespace deleteById {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >
+  >;
 
   export const METADATA = {
     method: "DELETE",

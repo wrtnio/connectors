@@ -48,7 +48,9 @@ export async function findEmail(
       );
 }
 export namespace findEmail {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://mail.google.com/"]>
+  >;
   export type Output = Primitive<IGmail.IFindGmailOutput>;
 
   export const METADATA = {

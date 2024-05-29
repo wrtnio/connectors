@@ -12,7 +12,7 @@ export class GoogleDriveProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
   async folderList(
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -94,7 +94,7 @@ export class GoogleDriveProvider {
 
   async deleteFolder(
     id: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -137,7 +137,7 @@ export class GoogleDriveProvider {
 
   async deleteFile(
     id: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -209,7 +209,7 @@ export class GoogleDriveProvider {
 
   async readFile(
     id: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);

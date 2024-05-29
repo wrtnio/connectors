@@ -48,7 +48,9 @@ export async function readFile(
       );
 }
 export namespace readFile {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+  >;
   export type Output = Primitive<IGoogleDrive.IReadFileGoogleDriveOutput>;
 
   export const METADATA = {

@@ -25,7 +25,8 @@ export class GoogleDriveController {
    */
   @core.TypedRoute.Post("get/folders")
   async folderList(
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     return await this.googleDriveProvider.folderList(input);
   }
@@ -105,7 +106,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<void> {
     return await this.googleDriveProvider.deleteFile(id, input);
   }
@@ -124,7 +126,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<void> {
     return await this.googleDriveProvider.deleteFolder(id, input);
   }
@@ -184,7 +187,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
     return await this.googleDriveProvider.readFile(id, input);
   }

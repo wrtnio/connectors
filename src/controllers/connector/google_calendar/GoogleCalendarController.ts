@@ -24,7 +24,11 @@ export class GoogleCalendarController {
    */
   @core.TypedRoute.Post("get-list")
   async readCalenders(
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    >,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
     return this.googleCalendarProvider.calendarList(input);
   }
@@ -63,7 +67,11 @@ export class GoogleCalendarController {
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
     @core.TypedParam("calendarId") calendarId: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    >,
   ): Promise<void> {
     return this.googleCalendarProvider.deleteCalendar(calendarId, input);
   }
@@ -208,7 +216,11 @@ export class GoogleCalendarController {
   async deleteEvent(
     @core.TypedParam("calendarId") calendarId: string,
     @core.TypedParam("eventId") eventId: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    >,
   ): Promise<void> {
     return this.googleCalendarProvider.deleteEvent(calendarId, eventId, input);
   }

@@ -46,7 +46,15 @@ export async function list(
       );
 }
 export namespace list {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >
+  >;
   export type Output = Primitive<IGoogleDocs.IListGoogleDocsOutput>;
 
   export const METADATA = {

@@ -65,7 +65,14 @@ export class GoogleDocsController {
   @core.TypedRoute.Post("get/:id")
   async readDocs(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
     return await this.googleDocsProvider.readDocs(id, input);
   }
@@ -104,7 +111,14 @@ export class GoogleDocsController {
   @core.TypedRoute.Delete(":id")
   async deleteById(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >,
   ): Promise<void> {
     return await this.googleDocsProvider.deleteById(id, input);
   }
@@ -122,7 +136,14 @@ export class GoogleDocsController {
    */
   @core.TypedRoute.Post("get-list")
   async list(
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
     return await this.googleDocsProvider.list(input);
   }

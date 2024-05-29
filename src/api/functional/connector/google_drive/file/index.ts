@@ -125,7 +125,9 @@ export async function deleteFile(
       );
 }
 export namespace deleteFile {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+  >;
 
   export const METADATA = {
     method: "DELETE",

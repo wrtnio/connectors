@@ -273,7 +273,9 @@ export async function removeMail(
       );
 }
 export namespace removeMail {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://mail.google.com/"]>
+  >;
 
   export const METADATA = {
     method: "DELETE",
