@@ -4,7 +4,6 @@ dist/
 lib/
 node_modules/
 packages/api/lib/
-src/api/functional/
 #assets
 
 Session.vim
