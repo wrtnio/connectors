@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 25
+    # versioning-strategy: increase
+    allow:
+      - dependency-name: "@nestjs/*"
+      - dependency-name: "@nestia/*"
+      - dependency-name: "nestia"
+      - dependency-name: "typia"
+      - dependency-name: "typescript"
+      - dependency-name: "ts-node"
+      - dependency-name: "ts-patch"
+    groups:
+      NestJS:
+        patterns:
+          - "@nestjs/*"
+          - "@nestia/*"
+          - "nestia"
+          - "typia"
+      Builder:
+        patterns:
+          - "typescript"
+          - "ts-node"
+          - "ts-patch"

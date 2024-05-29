@@ -1,0 +1,278 @@
+[
+  [
+    "6470f4454a08393f0d56d6d2",
+    {
+      "_id": {
+        "$oid": "64c30a5650cbc1965cdd6e45"
+      },
+      "description": "오늘 먹은 음식들의 칼로리를 계산해줍니다.",
+      "forms": [
+        {
+          "type": "textarea",
+          "id": "Aw4304Vz1eG6fM5TRQBix",
+          "data": {
+            "description": "오늘 먹은 음식들을 적어주세요",
+            "placeholder": "피자\n햄버거\n치킨",
+            "label": "오늘 먹은 음식들"
+          }
+        }
+      ],
+      "model": "gpt-4",
+      "promptForDifficult": " 당신은 오늘 먹은 음식들의 칼로리를 계산해야합니다. 음식들의 이름과 양을 입력해주세요. 칼로리를 계산하기 전에, 입력하는 음식들의 단위도 확인해주세요. 모든 음식을 입력하고 난 후, 계산한 총 칼로리를 확인해주세요.",
+      "promptForEasy": {
+        "directive": " 당신은 오늘 먹은 음식들의 칼로리를 계산해야합니다. 음식들의 이름과 양을 입력해주세요. 칼로리를 계산하기 전에, 입력하는 음식들의 단위도 확인해주세요. 모든 음식을 입력하고 난 후, 계산한 총 칼로리를 확인해주세요.",
+        "example": "오늘 먹은 음식들: 소세지빵\n아이스 아메리카노\n맥반석 계란 3알\n훈제 메추리알 3알\n우육탕면\n하가우 1알\n소룡포 1알\n답변: 2500\n###",
+        "userInput": "오늘 먹은 음식들: #오늘 먹은 음식들\n답변:"
+      },
+      "title": "칼로리 계산기",
+      "icon": "pig",
+      "category": ["기타"],
+      "openType": "공개",
+      "isDeleted": false,
+      "priceType": "무료",
+      "maxTokens": 500,
+      "difficulty": "easy",
+      "userId": {
+        "$oid": "6469fd741597e35db7dd2ab2"
+      },
+      "b2bIdList": [],
+      "userName": "김짱구",
+      "toolId": {
+        "$oid": "6470f4454a08393f0d56d6d2"
+      },
+      "createdAt": {
+        "$date": "2023-05-26T18:02:45.092Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-23T20:11:54.442Z"
+      },
+      "__v": 0
+    }
+  ],
+  [
+    "6481e4108b4366573bfd28d6",
+    {
+      "_id": {
+        "$oid": "64c30a5650cbc1965cdd6ebe"
+      },
+      "description": "휴가철이 다가오는 지금 휴가 때 무엇을 하면 좋을지를 추천해줍니다.",
+      "forms": [
+        {
+          "type": "dropdown",
+          "id": "xjDcS6OGcTuK_EQ_d_aVW",
+          "data": {
+            "description": "휴가 일정을 골라주세요",
+            "placeholder": "",
+            "label": "휴가 일정",
+            "options": [
+              {
+                "label": "당일",
+                "value": "당일",
+                "id": "tYH86SxmyT-w9lbCyAI-N"
+              },
+              {
+                "id": "q2b6Vxoho0r4osukxwMtS",
+                "label": "1박2일",
+                "value": "1박2일"
+              },
+              {
+                "id": "VcNQc4xtuWJw1ubKKzHOz",
+                "label": "2박3일",
+                "value": "2박3일"
+              },
+              {
+                "id": "rN9gDWlCcAb7AJw3jfFES",
+                "label": "3박4일",
+                "value": "3박4일"
+              },
+              {
+                "id": "_tqTh8E0SVsZ74cQvwfWY",
+                "label": "4박5일 이상",
+                "value": "4박5일 이상"
+              }
+            ]
+          }
+        },
+        {
+          "type": "textarea",
+          "id": "kC_SEfvuQVSul82qAyyEf",
+          "data": {
+            "description": "휴가 목적을 입력해주세요",
+            "placeholder": "나는 지금 너무 지쳤다. 아무도 없는 곳에 가서 조용히 아무것도 안하며 쉬고싶다. 힐링을 위한 휴가를 떠나고 싶다.",
+            "label": "휴가 목적"
+          }
+        },
+        {
+          "type": "dropdown",
+          "id": "ZC1oXVNgOhncXRLLO_rbq",
+          "data": {
+            "description": "휴가 장소를 선택해주세요",
+            "placeholder": "",
+            "label": "휴가 장소",
+            "options": [
+              {
+                "label": "산",
+                "value": "산",
+                "id": "6bKsys3ZXMWiH4GLNvp84"
+              },
+              {
+                "id": "luUjfodVBOp9Q7Ld6FdNQ",
+                "label": "바다",
+                "value": "바다"
+              },
+              {
+                "id": "3h1gVGkd3KNWHGWz2yVJD",
+                "label": "계곡",
+                "value": "계곡"
+              }
+            ]
+          }
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "promptForDifficult": " 휴가 일정, 목적, 장소 등의 정보를 보고 휴가 때 뭐하지?를 추천해주세요. 휴가 때 꼭 해야 할 것만 추천하지 말고, 하고 싶은 일을 추천해주세요. 즐거운 말투로 작성해주세요.",
+      "promptForEasy": {
+        "directive": " 휴가 일정, 목적, 장소 등의 정보를 보고 휴가 때 뭐하지?를 추천해주세요. 휴가 때 꼭 해야 할 것만 추천하지 말고, 하고 싶은 일을 추천해주세요. 즐거운 말투로 작성해주세요.",
+        "example": "휴가 일정: 당일\n휴가 목적: 나는 지금 너무 지쳤다. 아무도 없는 곳에 가서 조용히 아무것도 안하며 쉬고싶다. 힐링을 위한 휴가를 떠나고 싶다.\n휴가 장소: 산\n답변: 휴양림에 가서 선선한 바람을 쐬며 좋은 음악과 함께 맛있는 음식을 먹으며 하루종일 힐링을 즐기시기 바랍니다.\n###",
+        "userInput": "휴가 일정: #휴가 일정\n휴가 목적: #휴가 목적\n휴가 장소: #휴가 장소\n답변:"
+      },
+      "title": "휴가 때 뭐하지?",
+      "icon": "jugling",
+      "category": ["엔터테인먼트"],
+      "openType": "비공개",
+      "isDeleted": false,
+      "priceType": "무료",
+      "maxTokens": 500,
+      "difficulty": "easy",
+      "userId": {
+        "$oid": "6469fd741597e35db7dd2ab2"
+      },
+      "b2bIdList": [
+        {
+          "$oid": "6481d7435aeed283d9c9826b"
+        }
+      ],
+      "userName": "김철수",
+      "toolId": {
+        "$oid": "6481e4108b4366573bfd28d6"
+      },
+      "createdAt": {
+        "$date": "2023-06-08T14:22:08.814Z"
+      },
+      "updatedAt": {
+        "$date": "2023-07-20T13:29:18.865Z"
+      },
+      "__v": 0
+    }
+  ],
+  [
+    "64c75e7a1baabd009eb08ee1",
+    {
+      "_id": {
+        "$oid": "64c75fe40a7c79982d6a87a0"
+      },
+      "description": "과자이름을 생성해줍니다",
+      "forms": [
+        {
+          "type": "input",
+          "id": "eNaJob1fdS_JDSfLzXzXL",
+          "data": {
+            "description": "과자 맛",
+            "placeholder": "딸기맛",
+            "label": "과자 맛"
+          }
+        },
+        {
+          "type": "input",
+          "id": "Mdrv3gLPchKmdU5h8czFr",
+          "data": {
+            "description": "과자 식감",
+            "placeholder": "바삭바삭",
+            "label": "과자 식감",
+            "value": ""
+          }
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "promptForDifficult": "당신은 과자 이름 제작사의 마케팅 담당자입니다. '과자 맛'과 '과자 식감'을 보고 과자 이름을 생성해야합니다. 과자의 특징을 반영하여 생각나는 단어들을 사용해주세요. 재미있고 독특한 이름이 좋습니다.",
+      "promptForEasy": {
+        "directive": "당신은 과자 이름 제작사의 마케팅 담당자입니다. '과자 맛'과 '과자 식감'을 보고 과자 이름을 생성해야합니다. 과자의 특징을 반영하여 생각나는 단어들을 사용해주세요. 재미있고 독특한 이름이 좋습니다.",
+        "example": "과자 맛: 딸기맛\n과자 식감: 바삭바삭\n답변: 빠삭스트로베리베리\n###",
+        "userInput": "과자 맛: #과자 맛\n과자 식감: #과자 식감\n답변:"
+      },
+      "title": "과자 이름 생성기",
+      "icon": "faceSmile",
+      "category": ["범용/일반"],
+      "openType": "공개",
+      "isDeleted": false,
+      "priceType": "무료",
+      "maxTokens": 500,
+      "difficulty": "easy",
+      "userId": {
+        "$oid": "6469fd741597e35db7dd2ab2"
+      },
+      "b2bIdList": [],
+      "userName": "김맹구",
+      "toolId": {
+        "$oid": "64c75e7a1baabd009eb08ee1"
+      },
+      "createdAt": {
+        "$date": "2023-07-31T07:16:52.686Z"
+      },
+      "updatedAt": {
+        "$date": "2023-07-31T07:18:13.910Z"
+      },
+      "__v": 0
+    }
+  ],
+  [
+    "6543620b701512655d753aa7",
+    {
+      "_id": {
+        "$oid": "65436230701512655d753c26"
+      },
+      "description": "과자 이름 생성해줍니다.",
+      "forms": [
+        {
+          "type": "input",
+          "id": "FWCa1xMiG-razG4_rM0y9",
+          "data": {
+            "description": "맛을 입력하세요",
+            "placeholder": "딸기맛",
+            "label": "맛"
+          }
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "promptForDifficult": "당신은 과자 이름을 만드는 마케팅팀의 일원입니다. '맛'에 대한 정보를 입력하면 과자 이름을 생성해야합니다. 과자의 맛을 잘 표현한 이름을 만들어주세요. 과자를 먹으면서 떠오르는 생각이나 상상을 활용해보세요. 이름은 쉽게 외우기 쉬워야합니다.\n\n맛: 딸기맛\n답변: 이 문장은 지우고 이곳에 답변의 예시를 적어주세요.\n###\n\n맛: #맛\n답변:",
+      "promptForEasy": {
+        "directive": "당신은 과자 이름을 만드는 마케팅팀의 일원입니다. '맛'에 대한 정보를 입력하면 과자 이름을 생성해야합니다. 과자의 맛을 잘 표현한 이름을 만들어주세요. 과자를 먹으면서 떠오르는 생각이나 상상을 활용해보세요. 이름은 쉽게 외우기 쉬워야합니다.",
+        "example": "맛: 딸기맛\n답변: 이 문장은 지우고 이곳에 답변의 예시를 적어주세요.\n###",
+        "userInput": "맛: #맛\n답변:"
+      },
+      "title": "과자 이름 생성기",
+      "icon": "faceSmile",
+      "category": ["범용/일반"],
+      "openType": "공개",
+      "isDeleted": false,
+      "priceType": "무료",
+      "maxTokens": 1000,
+      "difficulty": "easy",
+      "userId": {
+        "$oid": "6469fd741597e35db7dd2ab2"
+      },
+      "b2bIdList": [],
+      "userName": "김훈",
+      "toolId": {
+        "$oid": "6543620b701512655d753aa7"
+      },
+      "createdAt": {
+        "$date": "2023-11-02T08:47:44.419Z"
+      },
+      "updatedAt": {
+        "$date": "2023-11-02T08:56:11.251Z"
+      },
+      "__v": 0
+    }
+  ]
+]
