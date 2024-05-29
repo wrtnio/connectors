@@ -46,7 +46,7 @@ export class ChatbotProvider {
       : [systemMessage, userMessage];
 
     return await axios.post(
-      `${this.HAMLET_URL}v2/openai/deployments/wrtn-gpt-35-turbo/chat/completions`,
+      `${this.HAMLET_URL}/v2/openai/deployments/wrtn-gpt-35-turbo/chat/completions`,
       {
         messages: messageBody,
         max_tokens: 512,
