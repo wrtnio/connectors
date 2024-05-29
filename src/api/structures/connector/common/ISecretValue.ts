@@ -1,7 +1,10 @@
 import { SecretKey } from "@wrtn/decorators";
 
 export namespace ICommon {
-  export interface ISecret<T extends string, S extends string[] = []> {
+  export interface ISecret<
+    T extends string,
+    S extends undefined | never | string[] = never,
+  > {
     /**
      * secret key.
      *
