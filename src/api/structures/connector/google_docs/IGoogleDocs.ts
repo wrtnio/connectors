@@ -79,7 +79,14 @@ export namespace IGoogleDocs {
     id: string;
   }
 
-  export interface ICreateGoogleDocsInput extends ICommon.ISecret<"Google"> {
+  export interface ICreateGoogleDocsInput
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
     /**
      * 생성할 docs의 제목입니다.
      *
@@ -89,7 +96,13 @@ export namespace IGoogleDocs {
   }
 
   export interface IPermissionGoogleDocsInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
     /**
      * 접근 권한을 부여할 구글 docs의 id입니다.
      *
@@ -114,7 +127,14 @@ export namespace IGoogleDocs {
     data: IGoogleDocs;
   }
 
-  export interface ICreateDocByTemplateInput extends ICommon.ISecret<"Google"> {
+  export interface ICreateDocByTemplateInput
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
     /**
      * 복제할 구글 docs.
      *
@@ -163,7 +183,13 @@ export namespace IGoogleDocs {
   }
 
   export interface IAppendTextGoogleDocsInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
     /**
      * 텍스트를 추가할 구글 docs를 선택합니다.
      *
