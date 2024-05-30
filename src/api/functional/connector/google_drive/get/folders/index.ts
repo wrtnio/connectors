@@ -46,7 +46,9 @@ export async function folderList(
       );
 }
 export namespace folderList {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+  >;
   export type Output = Primitive<IGoogleDrive.IFolderListGoogleDriveOutput>;
 
   export const METADATA = {

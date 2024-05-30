@@ -32,7 +32,10 @@ type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
 export namespace IGoogleDrive {
   export interface ICreateFolderGoogleDriveInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/drive"]
+    > {
     /**
      * 생성할 drive 폴더명.
      *
@@ -50,7 +53,11 @@ export namespace IGoogleDrive {
     id: string;
   }
 
-  export interface IFileListGoogleDriveInput extends ICommon.ISecret<"Google"> {
+  export interface IFileListGoogleDriveInput
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/drive"]
+    > {
     /**
      * 파일을 불러 올 폴더.
      *
@@ -106,7 +113,10 @@ export namespace IGoogleDrive {
   }
 
   export interface ICreateFileGoogleDriveInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/drive"]
+    > {
     /**
      * drive에 생성할 파일명.
      *
@@ -162,7 +172,10 @@ export namespace IGoogleDrive {
   }
 
   export interface IPermissionGoogleDriveInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/drive"]
+    > {
     /**
      * 접근 권한을 부여할 drive 파일 id.
      *
@@ -186,7 +199,10 @@ export namespace IGoogleDrive {
   }
 
   export interface IAppendTextGoogleDriveInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/drive"]
+    > {
     /**
      * drive 파일에 추가할 text.
      *

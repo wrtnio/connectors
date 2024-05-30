@@ -29,7 +29,14 @@ interface IPermission {
 }
 
 export namespace IGoogleSheet {
-  export interface IReadGoogleSheetInput extends ICommon.ISecret<"Google"> {
+  export interface IReadGoogleSheetInput
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
     /**
      * 읽어올 구글 시트의 ID입니다.
      *
@@ -46,7 +53,13 @@ export namespace IGoogleSheet {
   }
 
   export interface IReadGoogleSheetHeadersInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
     /**
      * 헤더 정보를 읽어올 시트의 url 주소입니다.
      *
@@ -71,7 +84,14 @@ export namespace IGoogleSheet {
     data: any;
   }
 
-  export interface IPermissionInput extends ICommon.ISecret<"Google"> {
+  export interface IPermissionInput
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
     /**
      * 권한을 부여할 시트의 url 입니다.
      *
@@ -88,7 +108,13 @@ export namespace IGoogleSheet {
   }
 
   export interface IWriteGoogleSheetHeadersInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
     /**
      * 헤더를 추가할 시트의 url 입니다.
      *
@@ -141,7 +167,14 @@ export namespace IGoogleSheet {
     to: string[];
   }
 
-  export interface IGetWorkSheetInput extends ICommon.ISecret<"Google"> {
+  export interface IGetWorkSheetInput
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
     /**
      * 읽어올 시트의 url 입니다.
      *
@@ -159,7 +192,14 @@ export namespace IGoogleSheet {
     data: string[];
   }
 
-  export interface IReadGoogleSheetRowsInput extends ICommon.ISecret<"Google"> {
+  export interface IReadGoogleSheetRowsInput
+    extends ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
     /**
      * 행을 읽어올 시트의 url 입니다.
      *

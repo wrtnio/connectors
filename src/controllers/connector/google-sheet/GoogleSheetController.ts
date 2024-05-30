@@ -20,8 +20,6 @@ export class GoogleSheetController {
    * @returns 구글 시트 헤더 정보.
    *
    * @tag Google Sheet
-   *
-   * @internal
    */
   @core.TypedRoute.Post()
   async getHeaders(
@@ -38,8 +36,6 @@ export class GoogleSheetController {
    * @param input 권한 부여를 위한 정보.
    *
    * @tag Google Sheet
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/permission")
   async permission(
@@ -56,8 +52,6 @@ export class GoogleSheetController {
    * @param input 구글 시트 url과 추가할 헤더 이름.
    *
    * @tag Google Sheet
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/header")
   async writeHeaders(
@@ -74,8 +68,6 @@ export class GoogleSheetController {
    * @param input 워크시트 목록을 가져올 구글 시트 url.
    *
    * @tag Google Sheet
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
@@ -94,8 +86,6 @@ export class GoogleSheetController {
    * @tag Google Sheet
    *
    * @Todo determine api endpoint in later because not decided select options
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/get-rows")
   async readRows(

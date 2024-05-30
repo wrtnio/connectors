@@ -20,12 +20,11 @@ export class GoogleDriveController {
    * @returns 구글 드라이브 폴더 목록.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get/folders")
   async folderList(
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     return await this.googleDriveProvider.folderList(input);
   }
@@ -40,8 +39,6 @@ export class GoogleDriveController {
    * @returns 구글 드라이브 파일 목록.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get/files")
   async fileList(
@@ -61,8 +58,6 @@ export class GoogleDriveController {
    * @returns 생성된 폴더 고유 ID.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/folder")
   async createFolder(
@@ -81,8 +76,6 @@ export class GoogleDriveController {
    * @returns 생성된 파일 고유 ID.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/file")
   async createFile(
@@ -99,13 +92,12 @@ export class GoogleDriveController {
    * @param id 삭제할 파일 고유 ID.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<void> {
     return await this.googleDriveProvider.deleteFile(id, input);
   }
@@ -118,13 +110,12 @@ export class GoogleDriveController {
    * @param id 삭제할 폴더 고유 ID.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<void> {
     return await this.googleDriveProvider.deleteFolder(id, input);
   }
@@ -137,8 +128,6 @@ export class GoogleDriveController {
    * @param input 권한 부여를 위한 정보.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("permission")
   async permission(
@@ -157,8 +146,6 @@ export class GoogleDriveController {
    * @param input 추가할 텍스트.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
@@ -178,13 +165,12 @@ export class GoogleDriveController {
    * @returns 파일 텍스트 내용.
    *
    * @tag Google Drive
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
     return await this.googleDriveProvider.readFile(id, input);
   }

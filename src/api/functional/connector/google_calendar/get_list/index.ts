@@ -46,7 +46,9 @@ export async function readCalenders(
       );
 }
 export namespace readCalenders {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/calendar"]>
+  >;
   export type Output = Primitive<Array<IGoogleCalendar.IGoogleCalendarOutput>>;
 
   export const METADATA = {

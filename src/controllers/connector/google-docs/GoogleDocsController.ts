@@ -19,8 +19,6 @@ export class GoogleDocsController {
    * @returns 생성된 구글 docs 고유 ID.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post()
   async createDocs(
@@ -37,8 +35,6 @@ export class GoogleDocsController {
    * @param input 구글 docs 권한 부여를 위한 정보.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/permission")
   async permission(
@@ -59,13 +55,18 @@ export class GoogleDocsController {
    * @returns 구글 docs 내용.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get/:id")
   async readDocs(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
     return await this.googleDocsProvider.readDocs(id, input);
   }
@@ -80,8 +81,6 @@ export class GoogleDocsController {
    * @returns 생성된 구글 docs 고유 ID.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/template")
   async createDocByTemplate(
@@ -98,13 +97,18 @@ export class GoogleDocsController {
    * @param id 삭제할 구글 docs 고유 ID.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Delete(":id")
   async deleteById(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >,
   ): Promise<void> {
     return await this.googleDocsProvider.deleteById(id, input);
   }
@@ -117,12 +121,17 @@ export class GoogleDocsController {
    * @returns 구글 docs 목록.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get-list")
   async list(
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    >,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
     return await this.googleDocsProvider.list(input);
   }
@@ -133,8 +142,6 @@ export class GoogleDocsController {
    * @summary 구글 docs 텍스트 추가.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/append")
   async append(

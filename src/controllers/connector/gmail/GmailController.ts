@@ -19,8 +19,6 @@ export class GmailController {
    * @returns 전송된 메일의 ID.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("send")
   async send(
@@ -37,8 +35,6 @@ export class GmailController {
    * @param input 메일 초안을 생성하기 위한 정보.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
@@ -53,8 +49,6 @@ export class GmailController {
    * @param input 메일 답장에 필요한 정보.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("reply")
   async reply(@core.TypedBody() input: IGmail.IReplyInput): Promise<void> {
@@ -71,13 +65,12 @@ export class GmailController {
    * @returns 해당 메일의 정보.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get/:id")
   async findEmail(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://mail.google.com/"]>,
   ): Promise<IGmail.IFindGmailOutput> {
     return this.gmailProvider.findEmail(id, input);
   }
@@ -92,8 +85,6 @@ export class GmailController {
    * @returns 메일 리스트.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("read-list")
   async findEmails(
@@ -110,13 +101,12 @@ export class GmailController {
    * @param id 삭제할 메일의 고유 ID.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Delete(":id")
   async removeMail(
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<"Google", ["https://mail.google.com/"]>,
   ): Promise<void> {
     return this.gmailProvider.removeEmail(id, input);
   }
@@ -131,8 +121,6 @@ export class GmailController {
    * @returns 생성된 라벨의 고유 ID.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("label")
   async createLabel(
@@ -151,8 +139,6 @@ export class GmailController {
    * @param input 부여할 라벨의 고유 ID 목록.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
@@ -172,8 +158,6 @@ export class GmailController {
    * @param input 제거할 라벨의 고유 ID 목록.
    *
    * @tag Gmail
-   *
-   * @internal
    */
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(

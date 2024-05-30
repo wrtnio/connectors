@@ -10,7 +10,7 @@ import { GoogleProvider } from "../../internal/google/GoogleProvider";
 export class GoogleCalendarProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
   async calendarList(
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -76,7 +76,7 @@ export class GoogleCalendarProvider {
 
   async deleteCalendar(
     calendarId: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -274,7 +274,7 @@ export class GoogleCalendarProvider {
   async deleteEvent(
     calendarId: string,
     eventId: string,
-    input: ICommon.ISecret<"Google">,
+    input: ICommon.ISecret<"Google", any>,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);

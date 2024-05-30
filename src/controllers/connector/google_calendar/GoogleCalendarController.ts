@@ -19,12 +19,14 @@ export class GoogleCalendarController {
    * @returns 구글 캘린더 목록.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get-list")
   async readCalenders(
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    >,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
     return this.googleCalendarProvider.calendarList(input);
   }
@@ -39,8 +41,6 @@ export class GoogleCalendarController {
    * @returns 캘린더 고유 ID와 캘린더 제목.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Post("")
   async createCalendar(
@@ -57,13 +57,15 @@ export class GoogleCalendarController {
    * @param calendarId 삭제할 캘린더 고유 ID.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
     @core.TypedParam("calendarId") calendarId: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    >,
   ): Promise<void> {
     return this.googleCalendarProvider.deleteCalendar(calendarId, input);
   }
@@ -80,8 +82,6 @@ export class GoogleCalendarController {
    * @returns 구글 캘린더 이벤트 목록.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
@@ -101,8 +101,6 @@ export class GoogleCalendarController {
    * @param input 이벤트를 추가할 캘린더 고유 ID, 이벤트 명.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
@@ -124,8 +122,6 @@ export class GoogleCalendarController {
    * @returns 추가한 이벤트 정보.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
@@ -149,8 +145,6 @@ export class GoogleCalendarController {
    * @returns 업데이트 된 이벤트 정보.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
@@ -175,8 +169,6 @@ export class GoogleCalendarController {
    * @returns 참석자가 추가된 이벤트 정보.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
@@ -201,14 +193,16 @@ export class GoogleCalendarController {
    * @param eventId 삭제할 이벤트 고유 ID.
    *
    * @tag Google Calendar
-   *
-   * @internal
    */
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
     @core.TypedParam("calendarId") calendarId: string,
     @core.TypedParam("eventId") eventId: string,
-    @core.TypedBody() input: ICommon.ISecret<"Google">,
+    @core.TypedBody()
+    input: ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    >,
   ): Promise<void> {
     return this.googleCalendarProvider.deleteEvent(calendarId, eventId, input);
   }

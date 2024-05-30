@@ -3,7 +3,11 @@ import { tags } from "typia";
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 
 export namespace IGoogleCalendar {
-  export interface ICreateCalendarInput extends ICommon.ISecret<"Google"> {
+  export interface ICreateCalendarInput
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    > {
     /**
      * 생성할 캘린더의 제목 입니다.
      *
@@ -54,7 +58,10 @@ export namespace IGoogleCalendar {
    */
   type OrderBy = "startTime" | "updated";
   export interface IReadGoogleCalendarEventInput
-    extends ICommon.ISecret<"Google"> {
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    > {
     /**
      * 캘린더 데이터에서 가져올 데이터 정보입니다.
      *
@@ -480,7 +487,11 @@ export namespace IGoogleCalendar {
     }
   }
 
-  export interface ICreateQuickEventInput extends ICommon.ISecret<"Google"> {
+  export interface ICreateQuickEventInput
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    > {
     /**
      * 캘린더 빠른 이벤트 생성 문구입니다.
      *
@@ -489,7 +500,11 @@ export namespace IGoogleCalendar {
     text: string;
   }
 
-  export interface IEventRequestBodyInput extends ICommon.ISecret<"Google"> {
+  export interface IEventRequestBodyInput
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    > {
     /**
      * 생성할 이벤트 제목입니다.
      *
@@ -646,7 +661,11 @@ export namespace IGoogleCalendar {
     id?: string | null;
   }
 
-  export interface IAddAttendeesToEventInput extends ICommon.ISecret<"Google"> {
+  export interface IAddAttendeesToEventInput
+    extends ICommon.ISecret<
+      "Google",
+      ["https://www.googleapis.com/auth/calendar"]
+    > {
     /**
      * 추가할 참석자 이메일입니다.
      *

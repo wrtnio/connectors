@@ -123,7 +123,9 @@ export async function deleteFolder(
       );
 }
 export namespace deleteFolder {
-  export type Input = Primitive<ICommon.ISecret<"Google">>;
+  export type Input = Primitive<
+    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+  >;
 
   export const METADATA = {
     method: "DELETE",
