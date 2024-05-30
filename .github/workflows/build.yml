@@ -37,3 +37,5 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Run Test Program
         run: npm run test
+      - name: Run Test Program of Inhouse
+        run: npm run test:inhouse
