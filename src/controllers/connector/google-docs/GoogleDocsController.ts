@@ -19,8 +19,6 @@ export class GoogleDocsController {
    * @returns 생성된 구글 docs 고유 ID.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post()
   async createDocs(
@@ -37,8 +35,6 @@ export class GoogleDocsController {
    * @param input 구글 docs 권한 부여를 위한 정보.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/permission")
   async permission(
@@ -59,8 +55,6 @@ export class GoogleDocsController {
    * @returns 구글 docs 내용.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get/:id")
   async readDocs(
@@ -87,8 +81,6 @@ export class GoogleDocsController {
    * @returns 생성된 구글 docs 고유 ID.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/template")
   async createDocByTemplate(
@@ -105,8 +97,6 @@ export class GoogleDocsController {
    * @param id 삭제할 구글 docs 고유 ID.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Delete(":id")
   async deleteById(
@@ -131,8 +121,6 @@ export class GoogleDocsController {
    * @returns 구글 docs 목록.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("get-list")
   async list(
@@ -154,8 +142,6 @@ export class GoogleDocsController {
    * @summary 구글 docs 텍스트 추가.
    *
    * @tag Google Docs
-   *
-   * @internal
    */
   @core.TypedRoute.Post("/append")
   async append(
