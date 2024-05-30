@@ -80,6 +80,8 @@ export namespace ISwaggerSchema {
     minLength?: number & tags.Type<"uint32">;
     maxLength?: number & tags.Type<"uint32">;
     contentMediaType?: string;
+    "x-wrtn-secret-key"?: string;
+    "x-wrtn-secret-scopes"?: string[];
   }
 
   export interface IArray extends ISignificant<"array"> {
