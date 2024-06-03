@@ -26,4 +26,11 @@ export class FigmaController {
   ): Promise<IFigma.IReadFileOutput> {
     return this.figmaProvider.getFiles(input);
   }
+
+  @core.TypedRoute.Post("get-comments")
+  async readComments(
+    @core.TypedBody() input: IFigma.IReadCommentInput,
+  ): Promise<IFigma.IReadCommentOutput> {
+    return null!;
+  }
 }

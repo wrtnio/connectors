@@ -2,6 +2,8 @@ import {
   Component,
   ComponentSet,
   DocumentNode,
+  GetCommentsQueryParams,
+  GetCommentsResponse,
   Style,
 } from "@figma/rest-api-spec";
 import { tags } from "typia";
@@ -179,4 +181,17 @@ export namespace IFigma {
       last_modified: string;
     }[];
   }
+
+  export interface IReadCommentInput
+    extends ICommon.ISecret<"figma", ["https://api.figma.com"]>,
+      GetCommentsQueryParams {
+    /**
+     * 파일의 키를 의미합니다.
+     *
+     * @title 피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값
+     */
+    fileKey: string;
+  }
+
+  export type IReadCommentOutput = GetCommentsResponse;
 }
