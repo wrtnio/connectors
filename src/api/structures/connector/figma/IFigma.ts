@@ -92,8 +92,6 @@ export namespace IFigma {
     /**
      * 파일이 마지막으로 수정된 UTC ISO 8601 시간입니다.
      *
-     * @format date-time
-     *
      * @title 파일이 마지막으로 수정된 시간.
      */
     lastModified: string & tags.Format<"date-time">;
