@@ -19,7 +19,6 @@ import type { IGoogleDrive } from "../../../../../structures/connector/google_dr
  * @param id 파일 고유 ID.
  * @returns 파일 텍스트 내용.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.readFile
  * @path POST /connector/google-drive/get/file/:id
@@ -49,7 +48,7 @@ export async function readFile(
 }
 export namespace readFile {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
   export type Output = Primitive<IGoogleDrive.IReadFileGoogleDriveOutput>;
 

@@ -18,7 +18,6 @@ import type { IGoogleDrive } from "../../../../../structures/connector/google_dr
  * @summary 구글 드라이브 폴더 목록 가져오기.
  * @returns 구글 드라이브 폴더 목록.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.folderList
  * @path POST /connector/google-drive/get/folders
@@ -47,7 +46,7 @@ export async function folderList(
 }
 export namespace folderList {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
   export type Output = Primitive<IGoogleDrive.IFolderListGoogleDriveOutput>;
 

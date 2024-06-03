@@ -18,7 +18,6 @@ import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
  * @param input 메일 리스트를 가져오기 위한 정보.
  * @returns 메일 리스트.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.findEmails
  * @path POST /connector/gmail/read-list

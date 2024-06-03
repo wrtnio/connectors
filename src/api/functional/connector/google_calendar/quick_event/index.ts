@@ -18,7 +18,6 @@ import type { IGoogleCalendar } from "../../../../structures/connector/google_ca
  * @param calendarId 이벤트를 추가할 캘린더 고유 ID.
  * @param input 이벤트를 추가할 캘린더 고유 ID, 이벤트 명.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.createQuickEvent
  * @path POST /connector/google-calendar/:calendarId/quick-event

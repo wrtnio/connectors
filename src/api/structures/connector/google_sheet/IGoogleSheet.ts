@@ -31,7 +31,7 @@ interface IPermission {
 export namespace IGoogleSheet {
   export interface IReadGoogleSheetInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive",
@@ -54,7 +54,7 @@ export namespace IGoogleSheet {
 
   export interface IReadGoogleSheetHeadersInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive",
@@ -86,7 +86,7 @@ export namespace IGoogleSheet {
 
   export interface IPermissionInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive",
@@ -109,7 +109,7 @@ export namespace IGoogleSheet {
 
   export interface IWriteGoogleSheetHeadersInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive",
@@ -169,7 +169,7 @@ export namespace IGoogleSheet {
 
   export interface IGetWorkSheetInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive",
@@ -194,7 +194,7 @@ export namespace IGoogleSheet {
 
   export interface IReadGoogleSheetRowsInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive",

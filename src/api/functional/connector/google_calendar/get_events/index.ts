@@ -19,7 +19,6 @@ import type { IGoogleCalendar } from "../../../../structures/connector/google_ca
  * @param input 이벤트 목록을 가져오기 위한 조건.
  * @returns 구글 캘린더 이벤트 목록.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.readEvents
  * @path POST /connector/google-calendar/:calendarId/get-events

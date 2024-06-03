@@ -18,7 +18,6 @@ import type { IGoogleDocs } from "../../../../structures/connector/google_docs/I
  * @summary 구글 docs 목록 가져오기.
  * @returns 구글 docs 목록.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.list
  * @path POST /connector/google-docs/get-list
@@ -48,7 +47,7 @@ export async function list(
 export namespace list {
   export type Input = Primitive<
     ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",

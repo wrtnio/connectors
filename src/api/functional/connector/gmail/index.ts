@@ -23,7 +23,6 @@ export * as label from "./label";
  * @param input 메일을 보내기 위해 필요한 정보.
  * @returns 전송된 메일의 ID.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.send
  * @path POST /connector/gmail/send
@@ -98,7 +97,6 @@ export namespace send {
  * @summary GMAIL 초안 생성.
  * @param input 메일 초안을 생성하기 위한 정보.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.draft
  * @path POST /connector/gmail/draft
@@ -171,7 +169,6 @@ export namespace draft {
  * @summary GMAIL 답장.
  * @param input 메일 답장에 필요한 정보.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.reply
  * @path POST /connector/gmail/reply
@@ -244,7 +241,6 @@ export namespace reply {
  * @summary GMAIL 삭제.
  * @param id 삭제할 메일의 고유 ID.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.removeMail
  * @path DELETE /connector/gmail/:id
@@ -274,7 +270,7 @@ export async function removeMail(
 }
 export namespace removeMail {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://mail.google.com/"]>
+    ICommon.ISecret<"google", ["https://mail.google.com/"]>
   >;
 
   export const METADATA = {

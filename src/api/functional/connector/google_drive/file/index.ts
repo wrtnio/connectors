@@ -21,7 +21,6 @@ export * as text from "./text";
  * @param input 생성할 파일명과 파일을 생성할 폴더 고유 ID.
  * @returns 생성된 파일 고유 ID.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.createFile
  * @path POST /connector/google-drive/file
@@ -96,7 +95,6 @@ export namespace createFile {
  * @summary 구글 드라이브 파일 삭제.
  * @param id 삭제할 파일 고유 ID.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.deleteFile
  * @path DELETE /connector/google-drive/file/:id
@@ -126,7 +124,7 @@ export async function deleteFile(
 }
 export namespace deleteFile {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
 
   export const METADATA = {

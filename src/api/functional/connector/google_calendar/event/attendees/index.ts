@@ -20,7 +20,6 @@ import type { IGoogleCalendar } from "../../../../../structures/connector/google
  * @param input 추가할 참석자 이메일 목록.
  * @returns 참석자가 추가된 이벤트 정보.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.addAttendeesToEvent
  * @path PUT /connector/google-calendar/:calendarId/event/:eventId/attendees

@@ -18,7 +18,6 @@ import type { IGoogleCalendar } from "../../../../structures/connector/google_ca
  * @summary 구글 캘린더 목록 가져오기.
  * @returns 구글 캘린더 목록.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.readCalenders
  * @path POST /connector/google-calendar/get-list
@@ -47,7 +46,7 @@ export async function readCalenders(
 }
 export namespace readCalenders {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/calendar"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
   >;
   export type Output = Primitive<Array<IGoogleCalendar.IGoogleCalendarOutput>>;
 

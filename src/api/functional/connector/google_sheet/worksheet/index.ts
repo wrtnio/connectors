@@ -17,7 +17,6 @@ import type { IGoogleSheet } from "../../../../structures/connector/google_sheet
  * @summary 구글 시트 워크시트 목록 가져오기.
  * @param input 워크시트 목록을 가져올 구글 시트 url.
  * @tag Google Sheet
- * @internal
  *
  * @controller GoogleSheetController.getWorkSheet
  * @path POST /connector/google-sheet/worksheet

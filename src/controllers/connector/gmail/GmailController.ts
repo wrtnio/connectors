@@ -70,7 +70,7 @@ export class GmailController {
   async findEmail(
     @core.TypedParam("id") id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"Google", ["https://mail.google.com/"]>,
+    input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
   ): Promise<IGmail.IFindGmailOutput> {
     return this.gmailProvider.findEmail(id, input);
   }
@@ -106,7 +106,7 @@ export class GmailController {
   async removeMail(
     @core.TypedParam("id") id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"Google", ["https://mail.google.com/"]>,
+    input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
   ): Promise<void> {
     return this.gmailProvider.removeEmail(id, input);
   }

@@ -18,7 +18,6 @@ import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
  * @param input 라벨 생성을 위한 정보.
  * @returns 생성된 라벨의 고유 ID.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.createLabel
  * @path POST /connector/gmail/label
@@ -94,7 +93,6 @@ export namespace createLabel {
  * @param mailId 라벨을 부여할 메일의 고유 ID.
  * @param input 부여할 라벨의 고유 ID 목록.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.addLabelToMail
  * @path POST /connector/gmail/label/:mailId
@@ -172,7 +170,6 @@ export namespace addLabelToMail {
  * @param mailId 라벨을 제거할 메일의 고유 ID.
  * @param input 제거할 라벨의 고유 ID 목록.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.removeLabelFromMail
  * @path DELETE /connector/gmail/label/:mailId

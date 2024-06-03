@@ -19,7 +19,6 @@ import type { IGoogleDrive } from "../../../../structures/connector/google_drive
  * @param input 생성할 폴더 이름.
  * @returns 생성된 폴더 고유 ID.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.createFolder
  * @path POST /connector/google-drive/folder
@@ -94,7 +93,6 @@ export namespace createFolder {
  * @summary 구글 드라이브 폴더 삭제.
  * @param id 삭제할 폴더 고유 ID.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.deleteFolder
  * @path DELETE /connector/google-drive/folder/:id
@@ -124,7 +122,7 @@ export async function deleteFolder(
 }
 export namespace deleteFolder {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/drive"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
 
   export const METADATA = {

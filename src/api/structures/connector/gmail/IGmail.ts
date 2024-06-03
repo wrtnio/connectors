@@ -4,7 +4,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 
 export namespace IGmail {
   export interface ICreateMailInput
-    extends ICommon.ISecret<"Google", ["https://mail.google.com/"]> {
+    extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
      * 메일을 보내는 사람의 이메일 주소.
      *
@@ -58,7 +58,7 @@ export namespace IGmail {
   }
 
   export interface IReplyInput
-    extends ICommon.ISecret<"Google", ["https://mail.google.com/"]> {
+    extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
      * 답장할 메일.
      *
@@ -91,7 +91,7 @@ export namespace IGmail {
   }
 
   export interface ILabelInput
-    extends ICommon.ISecret<"Google", ["https://mail.google.com/"]> {
+    extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
      * 생성할 라벨의 이름.
      *
@@ -150,7 +150,7 @@ export namespace IGmail {
   }
 
   export interface IMailLabelOperationInput
-    extends ICommon.ISecret<"Google", ["https://mail.google.com/"]> {
+    extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
      * 부여하거나 삭제할 라벨 목록들.
      *
@@ -160,7 +160,7 @@ export namespace IGmail {
   }
 
   export interface IFindEmailListInput
-    extends ICommon.ISecret<"Google", ["https://mail.google.com/"]> {
+    extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
      * 이메일을 보낸 사람의 이메일 주소.
      *

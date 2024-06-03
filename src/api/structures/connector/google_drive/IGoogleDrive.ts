@@ -33,7 +33,7 @@ type PermissionTypes = "user" | "group" | "domain" | "anyone";
 export namespace IGoogleDrive {
   export interface ICreateFolderGoogleDriveInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
@@ -55,7 +55,7 @@ export namespace IGoogleDrive {
 
   export interface IFileListGoogleDriveInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
@@ -114,7 +114,7 @@ export namespace IGoogleDrive {
 
   export interface ICreateFileGoogleDriveInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
@@ -173,7 +173,7 @@ export namespace IGoogleDrive {
 
   export interface IPermissionGoogleDriveInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
@@ -200,7 +200,7 @@ export namespace IGoogleDrive {
 
   export interface IAppendTextGoogleDriveInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
