@@ -611,9 +611,6 @@ export interface IBbsArticle {
  
   /**
    * Title of the article.
-   *
-   * @minLength 5
-   * @maxLength 100
    */
   title: null | (string & tags.MinLength<5> & tags.MaxLength<100>);
  
@@ -624,8 +621,6 @@ export interface IBbsArticle {
  
   /**
    * Creation time of article.
-   *
-   * @format date-time
    */
   created_at: string & tags.Format<"date-time">;
 }

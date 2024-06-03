@@ -8,6 +8,7 @@ import { CsvController } from "./csv/CsvController";
 import { DaumController } from "./daum/DaumController";
 import { ExcelModule } from "./excel/ExcelModule";
 import { KeywordExtractModule } from "./extract/KeywordExtractModule";
+import { FigmaModule } from "./figma/FigmaModule";
 import { GmailModule } from "./gmail/GmailModule";
 import { GoogleDocsModule } from "./google-docs/GoogleDocsModule";
 import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
@@ -49,6 +50,7 @@ import { YoutubeSearchController } from "./youtube_search/YoutubeSearchControlle
     LoggerModule,
     ToolModule,
     ChatbotModule,
+    FigmaModule,
   ],
   controllers: [
     ArxivSearchController,
