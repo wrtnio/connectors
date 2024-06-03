@@ -60,7 +60,7 @@ export class GoogleDocsProvider {
 
   async readDocs(
     id: string,
-    input: ICommon.ISecret<"Google", any>,
+    input: ICommon.ISecret<"google", any>,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -167,7 +167,7 @@ export class GoogleDocsProvider {
 
   async deleteById(
     id: string,
-    input: ICommon.ISecret<"Google", any>,
+    input: ICommon.ISecret<"google", any>,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -185,7 +185,7 @@ export class GoogleDocsProvider {
   }
 
   async list(
-    input: ICommon.ISecret<"Google", any>,
+    input: ICommon.ISecret<"google", any>,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);

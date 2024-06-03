@@ -23,7 +23,6 @@ export * as get_list from "./get_list";
  * @param input 생성할 구글 docs 제목.
  * @returns 생성된 구글 docs 고유 ID.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.createDocs
  * @path POST /connector/google-docs
@@ -98,7 +97,6 @@ export namespace createDocs {
  * @summary 구글 docs 권한 부여.
  * @param input 구글 docs 권한 부여를 위한 정보.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.permission
  * @path POST /connector/google-docs/permission
@@ -171,7 +169,6 @@ export namespace permission {
  * @summary 구글 docs 삭제.
  * @param id 삭제할 구글 docs 고유 ID.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.deleteById
  * @path DELETE /connector/google-docs/:id
@@ -202,7 +199,7 @@ export async function deleteById(
 export namespace deleteById {
   export type Input = Primitive<
     ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",
@@ -255,7 +252,6 @@ export namespace deleteById {
  *
  * @summary 구글 docs 텍스트 추가.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.append
  * @path POST /connector/google-docs/append

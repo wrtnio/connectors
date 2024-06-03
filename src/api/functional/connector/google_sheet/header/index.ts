@@ -17,7 +17,6 @@ import type { IGoogleSheet } from "../../../../structures/connector/google_sheet
  * @summary 구글 시트 헤더 추가.
  * @param input 구글 시트 url과 추가할 헤더 이름.
  * @tag Google Sheet
- * @internal
  *
  * @controller GoogleSheetController.writeHeaders
  * @path POST /connector/google-sheet/header

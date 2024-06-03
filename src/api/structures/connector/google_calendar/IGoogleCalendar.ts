@@ -5,7 +5,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 export namespace IGoogleCalendar {
   export interface ICreateCalendarInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
@@ -59,7 +59,7 @@ export namespace IGoogleCalendar {
   type OrderBy = "startTime" | "updated";
   export interface IReadGoogleCalendarEventInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
@@ -489,7 +489,7 @@ export namespace IGoogleCalendar {
 
   export interface ICreateQuickEventInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
@@ -502,7 +502,7 @@ export namespace IGoogleCalendar {
 
   export interface IEventRequestBodyInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
@@ -663,7 +663,7 @@ export namespace IGoogleCalendar {
 
   export interface IAddAttendeesToEventInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**

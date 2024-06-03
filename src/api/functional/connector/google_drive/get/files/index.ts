@@ -17,7 +17,6 @@ import type { IGoogleDrive } from "../../../../../structures/connector/google_dr
  * @summary 구글 드라이브 파일 목록 가져오기.
  * @returns 구글 드라이브 파일 목록.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.fileList
  * @path POST /connector/google-drive/get/files

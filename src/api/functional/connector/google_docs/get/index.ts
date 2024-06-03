@@ -20,7 +20,6 @@ import type { IGoogleDocs } from "../../../../structures/connector/google_docs/I
  * @param id 구글 docs 고유 ID.
  * @returns 구글 docs 내용.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.readDocs
  * @path POST /connector/google-docs/get/:id
@@ -51,7 +50,7 @@ export async function readDocs(
 export namespace readDocs {
   export type Input = Primitive<
     ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",

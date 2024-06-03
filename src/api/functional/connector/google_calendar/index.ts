@@ -24,7 +24,6 @@ export * as event from "./event";
  * @param input 생성할 캘린더 제목.
  * @returns 캘린더 고유 ID와 캘린더 제목.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.createCalendar
  * @path POST /connector/google-calendar
@@ -99,7 +98,6 @@ export namespace createCalendar {
  * @summary 구글 캘린더 삭제.
  * @param calendarId 삭제할 캘린더 고유 ID.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.deleteCalendar
  * @path DELETE /connector/google-calendar/:calendarId
@@ -129,7 +127,7 @@ export async function deleteCalendar(
 }
 export namespace deleteCalendar {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/calendar"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
   >;
 
   export const METADATA = {

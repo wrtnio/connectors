@@ -18,7 +18,6 @@ import type { IGoogleSheet } from "../../../../structures/connector/google_sheet
  * @returns 구글 시트 Row 정보.
  * @tag Google Sheet
  * @Todo determine api endpoint in later because not decided select options
- * @internal
  *
  * @controller GoogleSheetController.readRows
  * @path POST /connector/google-sheet/get-rows

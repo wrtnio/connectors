@@ -18,7 +18,6 @@ import type { IGoogleDocs } from "../../../../structures/connector/google_docs/I
  * @param input 복사할 구글 docs 링크와 생성할 구글 docs 제목.
  * @returns 생성된 구글 docs 고유 ID.
  * @tag Google Docs
- * @internal
  *
  * @controller GoogleDocsController.createDocByTemplate
  * @path POST /connector/google-docs/template

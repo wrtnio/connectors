@@ -22,7 +22,6 @@ export * as get_rows from "./get_rows";
  * @param input 구글 시트 URL과 가져올 헤더 index.
  * @returns 구글 시트 헤더 정보.
  * @tag Google Sheet
- * @internal
  *
  * @controller GoogleSheetController.getHeaders
  * @path POST /connector/google-sheet
@@ -97,7 +96,6 @@ export namespace getHeaders {
  * @summary 구글 시트 권한 부여.
  * @param input 권한 부여를 위한 정보.
  * @tag Google Sheet
- * @internal
  *
  * @controller GoogleSheetController.permission
  * @path POST /connector/google-sheet/permission

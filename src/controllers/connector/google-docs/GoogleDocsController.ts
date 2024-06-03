@@ -61,7 +61,7 @@ export class GoogleDocsController {
     @core.TypedParam("id") id: string,
     @core.TypedBody()
     input: ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",
@@ -103,7 +103,7 @@ export class GoogleDocsController {
     @core.TypedParam("id") id: string,
     @core.TypedBody()
     input: ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",
@@ -126,7 +126,7 @@ export class GoogleDocsController {
   async list(
     @core.TypedBody()
     input: ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",

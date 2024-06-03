@@ -24,7 +24,7 @@ export class GoogleCalendarController {
   async readCalenders(
     @core.TypedBody()
     input: ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     >,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
@@ -63,7 +63,7 @@ export class GoogleCalendarController {
     @core.TypedParam("calendarId") calendarId: string,
     @core.TypedBody()
     input: ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     >,
   ): Promise<void> {
@@ -200,7 +200,7 @@ export class GoogleCalendarController {
     @core.TypedParam("eventId") eventId: string,
     @core.TypedBody()
     input: ICommon.ISecret<
-      "Google",
+      "google",
       ["https://www.googleapis.com/auth/calendar"]
     >,
   ): Promise<void> {

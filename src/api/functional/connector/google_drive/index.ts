@@ -21,7 +21,6 @@ export * as file from "./file";
  * @summary 구글 드라이브 권한 부여.
  * @param input 권한 부여를 위한 정보.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.permission
  * @path POST /connector/google-drive/permission

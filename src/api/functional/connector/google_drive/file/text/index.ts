@@ -18,7 +18,6 @@ import type { IGoogleDrive } from "../../../../../structures/connector/google_dr
  * @param id 파일 고유 ID.
  * @param input 추가할 텍스트.
  * @tag Google Drive
- * @internal
  *
  * @controller GoogleDriveController.createText
  * @path POST /connector/google-drive/file/:id/text

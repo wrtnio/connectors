@@ -81,7 +81,7 @@ export namespace IGoogleDocs {
 
   export interface ICreateGoogleDocsInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",
@@ -97,7 +97,7 @@ export namespace IGoogleDocs {
 
   export interface IPermissionGoogleDocsInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",
@@ -129,7 +129,7 @@ export namespace IGoogleDocs {
 
   export interface ICreateDocByTemplateInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",
@@ -184,7 +184,7 @@ export namespace IGoogleDocs {
 
   export interface IAppendTextGoogleDocsInput
     extends ICommon.ISecret<
-      "Google",
+      "google",
       [
         "https://www.googleapis.com/auth/drive",
         "https://www.googleapis.com/auth/documents",

@@ -19,7 +19,6 @@ import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
  * @param id 해당 메일의 고유 ID.
  * @returns 해당 메일의 정보.
  * @tag Gmail
- * @internal
  *
  * @controller GmailController.findEmail
  * @path POST /connector/gmail/get/:id
@@ -49,7 +48,7 @@ export async function findEmail(
 }
 export namespace findEmail {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://mail.google.com/"]>
+    ICommon.ISecret<"google", ["https://mail.google.com/"]>
   >;
   export type Output = Primitive<IGmail.IFindGmailOutput>;
 

@@ -22,7 +22,6 @@ export * as attendees from "./attendees";
  * @param input 이벤트 추가를 위한 정보.
  * @returns 추가한 이벤트 정보.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.createEvent
  * @path POST /connector/google-calendar/:calendarId/event
@@ -104,7 +103,6 @@ export namespace createEvent {
  * @param input 업데이트 할 이벤트 정보.
  * @returns 업데이트 된 이벤트 정보.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.updateEvent
  * @path PUT /connector/google-calendar/:calendarId/event/:eventId
@@ -187,7 +185,6 @@ export namespace updateEvent {
  * @param calendarId 이벤트가 있는 캘린더 고유 ID.
  * @param eventId 삭제할 이벤트 고유 ID.
  * @tag Google Calendar
- * @internal
  *
  * @controller GoogleCalendarController.deleteEvent
  * @path DELETE /connector/google-calendar/:calendarId/event/:eventId
@@ -218,7 +215,7 @@ export async function deleteEvent(
 }
 export namespace deleteEvent {
   export type Input = Primitive<
-    ICommon.ISecret<"Google", ["https://www.googleapis.com/auth/calendar"]>
+    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
   >;
 
   export const METADATA = {
