@@ -16,13 +16,14 @@ export class FigmaController {
    *
    * @returns 피그마 파일 목록
    *
-   * @param input
-   * @returns
+   * @param input 파일을 가져오기 위한 조건 값.
+   *
+   * @tag figma
    */
   @core.TypedRoute.Post("get-files")
   async readFiles(
     @core.TypedBody() input: IFigma.IReadFileInput,
   ): Promise<IFigma.IReadFileOutput> {
-    return null!;
+    return this.figmaProvider.getFiles(input);
   }
 }
