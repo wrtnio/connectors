@@ -46,6 +46,7 @@
   },
   "homepage": "https://github.com/samchon/nestia-template#readme",
   "devDependencies": {
+    "@figma/rest-api-spec": "^0.14.0",
     "@nestia/e2e": "^0.4.3",
     "@nestia/sdk": "^3.2.0",
     "@trivago/prettier-plugin-sort-imports": "^3.3.1",
