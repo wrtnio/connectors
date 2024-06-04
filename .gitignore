@@ -9,3 +9,5 @@ packages/api/lib/
 Session.vim
 
 *.log
+
+**/*.DS_Store

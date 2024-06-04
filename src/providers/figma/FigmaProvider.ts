@@ -40,4 +40,24 @@ export class FigmaProvider {
 
     return res.data;
   }
+
+  async getComments(
+    input: IFigma.IReadCommentInput,
+  ): Promise<IFigma.IReadCommentOutput> {
+    const { fileKey, secretKey, ...getCommentQueryParam } = input;
+    const queryParams = Object.entries(getCommentQueryParam)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(
+      `https://api.figma.com/v1/files/${fileKey}/comments?${queryParams}`,
+      {
+        headers: {
+          "X-Figma-Token": secretKey,
+        },
+      },
+    );
+
+    return res.data;
+  }
 }
