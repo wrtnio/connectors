@@ -3,6 +3,61 @@ import { tags } from "typia";
 import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {
+  export interface IAddMeetingRegistrantInput
+    extends ICommon.ISecret<"zoom", ["meeting:write:admin", "meeting:write"]> {
+    /**
+     * You can get this value with the Get a meeting API.
+     *
+     * @title A comma-separated list of meeting occurrence IDs.
+     */
+    occurrenceIds: string;
+  }
+
+  export interface IAddMeetingRegistrantOutput {
+    /**
+     * @title The meeting ID.
+     */
+    id: number & tags.Type<"int64">;
+
+    /**
+     * @title The URL the registrant can use to join the meeting.
+     */
+    join_url: string & tags.Format<"url">;
+
+    /**
+     * @title The registrant's ID.
+     **/
+    registrant_id: string;
+
+    /**
+     * @title The meeting's start time.
+     **/
+    start_time: string & tags.Format<"date-time">;
+
+    /**
+     * @title The meeting's topic.
+     * Constraints: Max 200 chars
+     */
+    topic: string & tags.MaxLength<200>;
+
+    /**
+     * This object is only returned for Recurring Webinars.
+     *
+     * @title Array of occurrence objects.
+     **/
+    occurrences?: IZoom.Occurrence[];
+
+    /**
+     * @title Duration of the meeting.
+     **/
+    duration: number;
+
+    /**
+     * @title The participant PIN code used to authenticate audio participants before they join the meeting.
+     **/
+    participant_pin_code: number;
+  }
+
   export interface ICreateMeetingInput
     extends ICommon.ISecret<"zoom", ["meeting:write:admin", "meeting:write"]> {
     userId: string;

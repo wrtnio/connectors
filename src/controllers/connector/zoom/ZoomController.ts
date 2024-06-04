@@ -7,6 +7,14 @@ import { ZoomProvider } from "../../../providers/zoom/ZoomProvider";
 
 @Controller("connector/zoom")
 export class ZoomController {
+  @core.TypedRoute.Post("meetings/:meetingId/registrants")
+  async addMeetingRegistrant(
+    @core.TypedParam("meetingId") meetingId: number,
+    @core.TypedBody() input: IZoom.IAddMeetingRegistrantInput,
+  ) {
+    return null!;
+  }
+
   /**
    * zoom 미팅을 생성합니다.
    *
