@@ -10,7 +10,7 @@ const requestBody: IFigma.IReadFileInput = {
   fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
 };
 
-export const test_api_connector_figma = async (
+export const test_api_connector_figma_read_file = async (
   connection: CApi.IConnection,
 ) => {
   /**
@@ -23,14 +23,14 @@ export const test_api_connector_figma = async (
     );
 
   typia.assertEquals(readFileEvent);
+};
 
-  const addCommentEvent =
-    await CApi.functional.connector.figma.comments.addComment(connection, {
-      ...requestBody,
-      message: typia.random<string>(),
-    });
-
-  typia.assertEquals(addCommentEvent);
+export const test_api_connector_figma_read_comment = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * read comment API
+   */
   const readCommentEvent =
     await CApi.functional.connector.figma.get_comments.readComments(
       connection,
@@ -41,4 +41,30 @@ export const test_api_connector_figma = async (
     );
 
   typia.assert(readCommentEvent);
+  return readCommentEvent;
+};
+
+export const test_api_connector_figma_add_comment = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * add comment API
+   */
+  const addCommentEvent =
+    await CApi.functional.connector.figma.comments.addComment(connection, {
+      ...requestBody,
+      message: typia.random<string>(),
+    });
+
+  typia.assertEquals(addCommentEvent);
+
+  /**
+   * 방금 추가한 댓글이 조회되어야 한다.
+   */
+  const readCommentEvent = await test_api_connector_figma_read_comment(
+    connection,
+  );
+  typia.assert(
+    readCommentEvent.comments.find((el) => el.id === addCommentEvent.id)!,
+  );
 };
