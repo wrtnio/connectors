@@ -2,6 +2,8 @@ import {
   Component,
   ComponentSet,
   DocumentNode,
+  GetCommentsQueryParams,
+  GetCommentsResponse,
   Style,
 } from "@figma/rest-api-spec";
 import { tags } from "typia";
@@ -179,4 +181,25 @@ export namespace IFigma {
       last_modified: string;
     }[];
   }
+
+  /**
+   * 피그마 특정 프레임으로부터 댓글을 조회하는 DTO.
+   *
+   * 한 번에 하나의 프레임으로부터 댓글을 읽을 수 있다.
+   */
+  export interface IReadCommentInput
+    extends ICommon.ISecret<"figma", ["https://api.figma.com"]>,
+      GetCommentsQueryParams {
+    /**
+     * 파일의 키를 의미합니다.
+     *
+     * @title 피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값
+     */
+    fileKey: string;
+  }
+
+  /**
+   * 읽어온 피그마 댓글의 정보에 해당하는 DTO.
+   */
+  export type IReadCommentOutput = GetCommentsResponse;
 }
