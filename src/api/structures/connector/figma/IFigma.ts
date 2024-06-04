@@ -2,6 +2,8 @@ import {
   Component,
   ComponentSet,
   DocumentNode,
+  PostCommentRequestBody,
+  PostCommentResponse,
   Style,
 } from "@figma/rest-api-spec";
 import { tags } from "typia";
@@ -179,4 +181,17 @@ export namespace IFigma {
       last_modified: string;
     }[];
   }
+
+  /**
+   * 특정 영역에 댓글을 추가하기 위한 DTO.
+   * 한 번의 하나의 댓글을 작성할 수 있으며, 좌표 값이나 노드, 또는 부모 댓글(root comment) 이용해 댓글을 작성할 수 있다.
+   */
+  export interface IAddCommentInput
+    extends ICommon.ISecret<"figma", ["https://api.figma.com"]>,
+      PostCommentRequestBody {}
+
+  /**
+   * 방금 작성한 댓글의 정보에 해당하는 DTO.
+   */
+  export type IAddCommentOutput = PostCommentResponse;
 }
