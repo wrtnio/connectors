@@ -63,7 +63,7 @@ export namespace IZoom {
     userId: string;
   }
 
-  export type ICreateMeetingOutput = Partial<Meeting>;
+  export type ICreateMeetingOutput = Meeting;
 
   export interface Meeting {
     /**
@@ -71,14 +71,14 @@ export namespace IZoom {
      *
      * @title 미팅의 안건.
      */
-    agenda: string & tags.MaxLength<2000>;
+    agenda?: string & tags.MaxLength<2000>;
 
     /**
      * 이 값이 true이고 사용자가 비밀번호로 PMI 설정을 활성화한 경우 사용자 미팅에서는 PMI 비밀번호를 사용한다.
      *
      * @title 기본 비밀번호 생성 여부.
      */
-    default_password: boolean & tags.Default<false>;
+    default_password?: boolean & tags.Default<false>;
 
     /**
      * 회의의 예정된 시간으로 분 단위를 의미한다.
@@ -104,7 +104,7 @@ export namespace IZoom {
     /**
      * @title 이 미팅을 주최한 사용자의 ID.
      */
-    assistant_id: string;
+    assistant_id?: string;
 
     /**
      * @title 미팅 주최자의 이메일 주소.
@@ -119,7 +119,7 @@ export namespace IZoom {
     /**
      * @title 참가자들이 등록할 수 있는 URL.
      */
-    registration_url: string & tags.Format<"url">;
+    registration_url?: string & tags.Format<"url">;
 
     /**
      * @title 이 미팅이 생성된 날짜와 시간.
@@ -149,22 +149,22 @@ export namespace IZoom {
     /**
      * @title 채팅에 참여할 수 있는 URL.
      */
-    chat_join_url: string & tags.Format<"url">;
+    chat_join_url?: string & tags.Format<"url">;
 
     /**
      * @title 반복 웨비나에 대한 정보.
      */
-    occurrences: IZoom.Occurrence[];
+    occurrences?: IZoom.Occurrence[];
 
     /**
      * @title Personal meeting ID (PMI).
      */
-    pmi: string;
+    pmi?: string;
 
     /**
      * @title 미팅의 반복 주기에 대한 정보.
      */
-    recurrence: IZoom.Recurrence;
+    recurrence?: IZoom.Recurrence;
 
     /**
      * @title Zoom 세팅 정보.
@@ -196,9 +196,9 @@ export namespace IZoom {
     topic: string;
 
     /**
-     *
+     * Information about the meeting's tracking fields.
      */
-    tracking_fields: TrackingField[];
+    tracking_fields?: TrackingField[];
 
     /**
      * - 1 : 즉석 미팅.
@@ -214,7 +214,7 @@ export namespace IZoom {
     /**
      * @title 미팅의 dynamic_host_key.
      */
-    dynamic_host_key: string;
+    dynamic_host_key?: string;
   }
 
   /**
