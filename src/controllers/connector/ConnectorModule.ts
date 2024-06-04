@@ -26,6 +26,7 @@ import { StudentReportGeneratorModule } from "./student_report_generator/Student
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchController } from "./youtube_search/YoutubeSearchController";
+import { ZoomModule } from "./zoom/ZoomModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -51,6 +52,7 @@ import { YoutubeSearchController } from "./youtube_search/YoutubeSearchControlle
     ToolModule,
     ChatbotModule,
     FigmaModule,
+    ZoomModule,
   ],
   controllers: [
     ArxivSearchController,

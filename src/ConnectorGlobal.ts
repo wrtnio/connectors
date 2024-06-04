@@ -48,6 +48,11 @@ export namespace ConnectorGlobal {
     FIGMA_TEST_SECRET: string;
     FIGMA_TEST_FILE_KEY: string;
 
+    // ZOOM
+    ZOOM_TEST_REFRESH_TOKEN: string;
+    ZOOM_TEST_AUTHORIZATION_CODE: string;
+    ZOOM_TEST_AUTHORIZATION_HEADER: string;
+
     //----
     // INHOUSE SERVERS
     //----
