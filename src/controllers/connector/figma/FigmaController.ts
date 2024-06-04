@@ -28,6 +28,24 @@ export class FigmaController {
   }
 
   /**
+   * 댓글을 작성합니다.
+   *
+   * @summary 캔버스 내 댓글 작성하기.
+   *
+   * @returns 방금 작성된 댓글의 정보.
+   *
+   * @param input 댓글을 작성하기 위한 조건 값.
+   *
+   * @tag figma
+   */
+  @core.TypedRoute.Post("comments")
+  async addComment(
+    @core.TypedBody() input: IFigma.IAddCommentInput,
+  ): Promise<IFigma.IAddCommentOutput> {
+    return this.figmaProvider.addComment(input);
+  }
+
+  /*
    * 피그마 댓글들을 가져옵니다.
    *
    * @summary 피그마 댓글 가져오기.

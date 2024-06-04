@@ -5,4 +5,5 @@
  */
 //================================================================
 export * as get_files from "./get_files";
+export * as comments from "./comments";
 export * as get_comments from "./get_comments";
