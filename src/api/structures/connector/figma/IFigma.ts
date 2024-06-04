@@ -20,6 +20,7 @@ export namespace IFigma {
     extends ICommon.ISecret<"figma", ["https://api.figma.com"]> {
     /**
      * 파일의 키를 의미합니다.
+     *
      * 여기서의 파일 키는 피그마 프레임을 의미합니다.
      *
      * @title 피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값.
@@ -184,6 +185,7 @@ export namespace IFigma {
 
   /**
    * 특정 영역에 댓글을 추가하기 위한 DTO.
+   *
    * 한 번의 하나의 댓글을 작성할 수 있으며, 좌표 값이나 노드, 또는 부모 댓글(root comment) 이용해 댓글을 작성할 수 있다.
    */
   export interface IAddCommentInput
@@ -191,6 +193,7 @@ export namespace IFigma {
       PostCommentRequestBody {
     /**
      * 파일의 키를 의미합니다.
+     *
      * 여기서의 파일 키는 피그마 프레임을 의미합니다.
      *
      * @title 피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값.
