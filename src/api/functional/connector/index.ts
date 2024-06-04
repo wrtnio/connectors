@@ -34,6 +34,7 @@ export * as gmail from "./gmail";
 export * as tool from "./tool";
 export * as chatbot from "./chatbot";
 export * as figma from "./figma";
+export * as zoom from "./zoom";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
