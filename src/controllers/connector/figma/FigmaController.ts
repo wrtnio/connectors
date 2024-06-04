@@ -42,6 +42,6 @@ export class FigmaController {
   async addComment(
     @core.TypedBody() input: IFigma.IAddCommentInput,
   ): Promise<IFigma.IAddCommentOutput> {
-    return null!;
+    return this.figmaProvider.addComment(input);
   }
 }

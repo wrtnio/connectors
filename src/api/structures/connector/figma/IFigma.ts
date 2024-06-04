@@ -188,7 +188,15 @@ export namespace IFigma {
    */
   export interface IAddCommentInput
     extends ICommon.ISecret<"figma", ["https://api.figma.com"]>,
-      PostCommentRequestBody {}
+      PostCommentRequestBody {
+    /**
+     * 파일의 키를 의미합니다.
+     * 여기서의 파일 키는 피그마 프레임을 의미합니다.
+     *
+     * @title 피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값.
+     */
+    fileKey: string;
+  }
 
   /**
    * 방금 작성한 댓글의 정보에 해당하는 DTO.

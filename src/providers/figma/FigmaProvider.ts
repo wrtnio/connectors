@@ -24,4 +24,20 @@ export class FigmaProvider {
 
     return res.data;
   }
+
+  async addComment(input: IFigma.IAddCommentInput) {
+    const { secretKey, fileKey, ...requestBody } = input;
+
+    const res = await axios.post(
+      `https://api.figma.com/v1/files/${fileKey}/comments`,
+      requestBody,
+      {
+        headers: {
+          "X-Figma-Token": secretKey,
+        },
+      },
+    );
+
+    return res.data;
+  }
 }

@@ -13,11 +13,19 @@ const requestBody: IFigma.IReadFileInput = {
 export const test_api_connector_figma = async (
   connection: CApi.IConnection,
 ) => {
-  const result = await CApi.functional.connector.figma.get_files.readFiles(
-    connection,
-    requestBody,
-  );
+  const readFileEvent =
+    await CApi.functional.connector.figma.get_files.readFiles(
+      connection,
+      requestBody,
+    );
 
-  typia.assertEquals(result);
-  return result;
+  typia.assertEquals(readFileEvent);
+
+  const addCommentEvent =
+    await CApi.functional.connector.figma.comments.addComment(connection, {
+      ...requestBody,
+      message: typia.random<string>(),
+    });
+
+  typia.assertEquals(addCommentEvent);
 };
