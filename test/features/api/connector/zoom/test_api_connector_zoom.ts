@@ -6,9 +6,7 @@ import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_connector_zoom_create_meeting = async (
-  connection: CApi.IConnection,
-) => {
+async function getAccessToken() {
   /**
    * 토큰 만료 시간이 1시간이기 때문에 차라리 refresh token을 configuration에 넣고 테스트에 활용.
    */
@@ -31,7 +29,13 @@ export const test_api_connector_zoom_create_meeting = async (
     },
   );
 
-  const access_token = refreshResponse.data.access_token;
+  return refreshResponse.data.access_token;
+}
+
+export const test_api_connector_zoom_create_meeting = async (
+  connection: CApi.IConnection,
+) => {
+  const access_token = await getAccessToken();
   const requestBody: IZoom.ICreateMeetingInput = {
     secretKey: access_token,
     userId: "studio@wrtn.io",
@@ -41,6 +45,30 @@ export const test_api_connector_zoom_create_meeting = async (
     connection,
     requestBody,
   );
+
+  typia.assertEquals(res);
+  return res;
+};
+
+export const test_api_connector_zoom_create_meeting_registrant = async (
+  connection: CApi.IConnection,
+) => {
+  const access_token = await getAccessToken();
+
+  const meeting = await test_api_connector_zoom_create_meeting(connection);
+
+  const requestBody: IZoom.IAddMeetingRegistrantInput = {
+    secretKey: access_token,
+    occurrenceIds:
+      meeting.occurrences?.map((el) => el.occurrence_id).join(",") ?? "",
+  };
+
+  const res =
+    await CApi.functional.connector.zoom.meetings.registrants.addMeetingRegistrant(
+      connection,
+      meeting.id,
+      requestBody,
+    );
 
   typia.assertEquals(res);
 };
