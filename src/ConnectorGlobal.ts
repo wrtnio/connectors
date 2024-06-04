@@ -51,6 +51,7 @@ export namespace ConnectorGlobal {
     // ZOOM
     ZOOM_TEST_REFRESH_TOKEN: string;
     ZOOM_TEST_AUTHORIZATION_CODE: string;
+    ZOOM_TEST_AUTHORIZATION_HEADER: string;
 
     //----
     // INHOUSE SERVERS

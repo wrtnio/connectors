@@ -3,6 +3,8 @@ import { Controller } from "@nestjs/common";
 
 import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
+import { ZoomProvider } from "../../../providers/zoom/ZoomProvider";
+
 @Controller("connector/zoom")
 export class ZoomController {
   /**
@@ -17,6 +19,6 @@ export class ZoomController {
   async createMeeting(
     @core.TypedBody() input: IZoom.ICreateMeetingInput,
   ): Promise<IZoom.ICreateMeetingOutput> {
-    return null!;
+    return ZoomProvider.createMeeting(input);
   }
 }

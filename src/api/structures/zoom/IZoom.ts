@@ -8,7 +8,9 @@ export namespace IZoom {
     userId: string;
   }
 
-  export interface ICreateMeetingOutput {
+  export type ICreateMeetingOutput = Partial<Meeting>;
+
+  export interface Meeting {
     /**
      *  The meeting's agenda.
      *
@@ -112,7 +114,7 @@ export namespace IZoom {
     /**
      * @title Zoom 세팅 정보.
      */
-    settings: IZoom.Settings;
+    settings: Partial<IZoom.Settings>;
 
     /**
      * @title 미팅 시작 시간.
@@ -331,12 +333,12 @@ export namespace IZoom {
       /**
        * @title 승인된 국가 또는 지역의 목록.
        */
-      approved_list: string[];
+      approved_list?: string[];
 
       /**
        * @title 차단된 국가 또는 지역의 목록.
        */
-      denied_list: string[];
+      denied_list?: string[];
 
       /**
        * @title 특정 국가, 지역의 사용자 승인 또는 차단 설정의 활성화 여부.
@@ -346,7 +348,7 @@ export namespace IZoom {
       /**
        * @title 방식.
        */
-      method: "deny" | "approve";
+      method?: "deny" | "approve";
     };
 
     /**
@@ -363,7 +365,7 @@ export namespace IZoom {
     /**
      * @title Third party audio conference info.
      */
-    audio_conference_info: string & tags.MaxLength<2048>;
+    audio_conference_info?: string & tags.MaxLength<2048>;
 
     /**
      * The meeting's authenticated domains.
@@ -426,7 +428,7 @@ export namespace IZoom {
       /**
        * Create a room or rooms.
        */
-      rooms: {
+      rooms?: {
         /**
          * The breakout room's name.
          */
@@ -600,7 +602,7 @@ export namespace IZoom {
       /**
        * Information about the meeting's sign language interpreters.
        */
-      interpreters: {
+      interpreters?: {
         /**
          * The interpreter's email address.
          */
@@ -633,7 +635,7 @@ export namespace IZoom {
       /**
        * Information about the meeting's sign language interpreters.
        */
-      interpreters: {
+      interpreters?: {
         /**
          * The interpreter's email address.
          */
@@ -758,7 +760,7 @@ export namespace IZoom {
       /**
        * The channel's ID.
        */
-      channel_id: string;
+      channel_id?: string;
     };
 
     /**
