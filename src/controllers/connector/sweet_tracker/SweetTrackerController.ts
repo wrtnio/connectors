@@ -43,6 +43,6 @@ export class SweetTrackerController {
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,
   ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
-    return null!;
+    return SweetTrackerProvider.getTrackingInfo(input);
   }
 }

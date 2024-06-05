@@ -79,14 +79,16 @@ export namespace ISweetTracker {
     lastDetail: TrackingDetail;
 
     /**
+     * '15시~17시' 형식의 텍스트.
+     *
      * @title 배송 예정 시간.
      */
-    estimate: string & tags.Format<"date-time">;
+    estimate: string;
 
     /**
      * @title 상품 이미지 URL.
      */
-    itemImage: string & tags.Format<"url">;
+    itemImage: string;
 
     /**
      * @title 택배사에서 광고용으로 사용하는 주소.
@@ -96,12 +98,12 @@ export namespace ISweetTracker {
     /**
      * @title lastStateDetail.
      */
-    lastStateDetail: string;
+    lastStateDetail: ISweetTracker.TrackingDetail;
 
     /**
      * @title 우편주소.
      */
-    zipCode: string;
+    zipCode: string | null;
 
     /**
      * @title 운송장 번호.
@@ -116,7 +118,7 @@ export namespace ISweetTracker {
     /**
      * @title 주문 번호.
      */
-    orderNumber: string;
+    orderNumber: string | null;
 
     /**
      * @title 배송 완료 여부.
@@ -141,7 +143,7 @@ export namespace ISweetTracker {
     /**
      * @title 상품 정보.
      */
-    productInfo: string;
+    productInfo: string | null;
 
     /**
      * @title 상품 이름.
@@ -170,7 +172,7 @@ export namespace ISweetTracker {
     /**
      * @title 배송 상태 코드
      */
-    code: string;
+    code: string | null;
 
     /**
      * @title 진행 상태.
@@ -195,7 +197,7 @@ export namespace ISweetTracker {
     /**
      * @title 비고.
      */
-    remark: string;
+    remark: string | null;
 
     /**
      * @title 배송기사 전화번호.
@@ -215,7 +217,7 @@ export namespace ISweetTracker {
     /**
      * @title 진행 시간.
      */
-    timeString: string & tags.Format<"date-time">;
+    timeString: string;
 
     /**
      * @title 진행 위치.

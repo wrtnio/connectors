@@ -22,6 +22,22 @@ export namespace SweetTrackerProvider {
     const res = await axios.get(
       "https://info.sweettracker.co.kr/api/v1/companylist/refresh",
     );
+
+    return res.data;
+  }
+
+  export async function getTrackingInfo(
+    input: ISweetTracker.IGetTrackingInfoInput,
+  ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
+    const queryParams =
+      Object.entries(input)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&") ?? "";
+
+    const res = await axios.get(
+      `https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`,
+    );
+
     return res.data;
   }
 }
