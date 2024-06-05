@@ -55,6 +55,7 @@ export namespace ConnectorGlobal {
 
     // SWEET_TRACKER
     TEST_SWEET_TRACKER_KEY: string;
+    TEST_SWEET_TRACKER_T_INVOICE: string;
 
     //----
     // INHOUSE SERVERS

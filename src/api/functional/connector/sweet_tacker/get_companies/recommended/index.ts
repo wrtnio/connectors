@@ -12,9 +12,12 @@ import typia from "typia";
 import type { ISweetTracker } from "../../../../../structures/connector/sweet_tracker/ISweetTacker";
 
 /**
+ * 송장번호에 매칭되는 택배사 목록을 조회합니다.
  *
- * @param input
- * @returns
+ * @summary 송장 번호에 매칭되는 택배사 목록.
+ * @returns 택배사 목록.
+ * @param input 택배사 조회를 위한 조건 DTO.
+ * @tag sweet-tracker
  *
  * @controller SweetTrackerController.getRecommendedCompanyList
  * @path POST /connector/sweet-tacker/get-companies/recommended
@@ -43,7 +46,8 @@ export async function getRecommendedCompanyList(
 }
 export namespace getRecommendedCompanyList {
   export type Input = Primitive<ISweetTracker.IGetRecommendedCompanyListInput>;
-  export type Output = Primitive<ISweetTracker.IGetCompanyListOutput>;
+  export type Output =
+    Primitive<ISweetTracker.IGetRecommendedCompanyListOutput>;
 
   export const METADATA = {
     method: "POST",
@@ -62,8 +66,8 @@ export namespace getRecommendedCompanyList {
   export const path = () => "/connector/sweet-tacker/get-companies/recommended";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ISweetTracker.IGetCompanyListOutput>> =>
-    typia.random<Primitive<ISweetTracker.IGetCompanyListOutput>>(g);
+  ): Resolved<Primitive<ISweetTracker.IGetRecommendedCompanyListOutput>> =>
+    typia.random<Primitive<ISweetTracker.IGetRecommendedCompanyListOutput>>(g);
   export const simulate = (
     connection: IConnection,
     input: getRecommendedCompanyList.Input,

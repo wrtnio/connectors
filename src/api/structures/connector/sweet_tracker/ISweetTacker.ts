@@ -14,6 +14,16 @@ export namespace ISweetTracker {
   }
 
   /**
+   * @title 송장 번호에 매칭되는 택배사 목록 DTO.
+   */
+  export interface IGetRecommendedCompanyListOutput {
+    /**
+     * @title 택배사 목록.
+     */
+    Recommend: Omit<ISweetTracker.Company, "International">[];
+  }
+
+  /**
    * @title 택배사 조회 응답 DTO.
    */
   export interface IGetCompanyListOutput {

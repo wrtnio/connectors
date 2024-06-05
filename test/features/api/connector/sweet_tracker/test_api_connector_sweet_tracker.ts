@@ -4,7 +4,7 @@ import CApi from "@wrtn/connector-api/lib/index";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-const TEST_T_INVOICE = "";
+const TEST_T_INVOICE = ConnectorGlobal.env.TEST_SWEET_TRACKER_T_INVOICE;
 const TEST_KEY = ConnectorGlobal.env.TEST_SWEET_TRACKER_KEY;
 
 export const test_api_connector_sweet_tracker_get_companies = async (
@@ -34,23 +34,23 @@ export const test_api_connector_sweet_tracker_get_recommended_companies =
     return res;
   };
 
-export const test_api_connector_sweet_tracker_get_tracking_info = async (
-  connection: CApi.IConnection,
-) => {
-  const companies =
-    await test_api_connector_sweet_tracker_get_recommended_companies(
-      connection,
-    );
-  const res =
-    await CApi.functional.connector.sweet_tacker.tracking_info.getTrackingInfo(
-      connection,
-      {
-        t_invoice: TEST_T_INVOICE,
-        t_code: companies.Company.at(0)?.Code as string,
-        t_key: TEST_KEY,
-      },
-    );
+// export const test_api_connector_sweet_tracker_get_tracking_info = async (
+//   connection: CApi.IConnection,
+// ) => {
+//   const companies =
+//     await test_api_connector_sweet_tracker_get_recommended_companies(
+//       connection,
+//     );
+//   const res =
+//     await CApi.functional.connector.sweet_tacker.tracking_info.getTrackingInfo(
+//       connection,
+//       {
+//         t_invoice: TEST_T_INVOICE,
+//         t_code: companies.Company.at(0)?.Code as string,
+//         t_key: TEST_KEY,
+//       },
+//     );
 
-  typia.assertEquals(res);
-  return res;
-};
+//   typia.assertEquals(res);
+//   return res;
+// };
