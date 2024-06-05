@@ -53,6 +53,9 @@ export namespace ConnectorGlobal {
     ZOOM_TEST_AUTHORIZATION_CODE: string;
     ZOOM_TEST_AUTHORIZATION_HEADER: string;
 
+    // SWEET_TRACKER
+    TEST_SWEET_TRACKER_KEY: string;
+
     //----
     // INHOUSE SERVERS
     //----
