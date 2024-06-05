@@ -12,7 +12,7 @@ export class ZoomController {
     @core.TypedParam("meetingId") meetingId: number,
     @core.TypedBody() input: IZoom.IAddMeetingRegistrantInput,
   ) {
-    return null!;
+    return ZoomProvider.addMeetingRegistrant(meetingId, input);
   }
 
   /**

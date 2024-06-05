@@ -4,13 +4,31 @@ import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {
   export interface IAddMeetingRegistrantInput
-    extends ICommon.ISecret<"zoom", ["meeting:write:admin", "meeting:write"]> {
+    extends ICommon.ISecret<
+      "zoom",
+      [
+        "meeting:write",
+        "meeting:write:admin",
+        "meeting:write:registrant",
+        "meeting:write:registrant:admin",
+      ]
+    > {
     /**
      * You can get this value with the Get a meeting API.
      *
      * @title A comma-separated list of meeting occurrence IDs.
      */
     occurrenceIds: string;
+
+    /**
+     * @title The registrant's first name.
+     */
+    first_name: string & tags.MaxLength<64>;
+
+    /**
+     * @title The registrant's email address.
+     */
+    email: string & tags.Format<"email">;
   }
 
   export interface IAddMeetingRegistrantOutput {
@@ -59,7 +77,15 @@ export namespace IZoom {
   }
 
   export interface ICreateMeetingInput
-    extends ICommon.ISecret<"zoom", ["meeting:write:admin", "meeting:write"]> {
+    extends ICommon.ISecret<
+      "zoom",
+      [
+        "meeting:write",
+        "meeting:write:admin",
+        "meeting:write:meeting",
+        "meeting:write:meeting:admin",
+      ]
+    > {
     userId: string;
   }
 

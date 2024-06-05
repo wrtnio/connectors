@@ -59,8 +59,9 @@ export const test_api_connector_zoom_create_meeting_registrant = async (
 
   const requestBody: IZoom.IAddMeetingRegistrantInput = {
     secretKey: access_token,
-    occurrenceIds:
-      meeting.occurrences?.map((el) => el.occurrence_id).join(",") ?? "",
+    occurrenceIds: "",
+    first_name: "kakasoo",
+    email: "studio@wrtn.io",
   };
 
   const res =

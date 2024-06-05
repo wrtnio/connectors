@@ -40,7 +40,7 @@ export async function addMeetingRegistrant(
 }
 export namespace addMeetingRegistrant {
   export type Input = Primitive<IZoom.IAddMeetingRegistrantInput>;
-  export type Output = Primitive<never>;
+  export type Output = Primitive<IZoom.IAddMeetingRegistrantOutput>;
 
   export const METADATA = {
     method: "POST",
@@ -60,7 +60,8 @@ export namespace addMeetingRegistrant {
     `/connector/zoom/meetings/${encodeURIComponent(meetingId ?? "null")}/registrants`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<never>> => typia.random<Primitive<never>>(g);
+  ): Resolved<Primitive<IZoom.IAddMeetingRegistrantOutput>> =>
+    typia.random<Primitive<IZoom.IAddMeetingRegistrantOutput>>(g);
   export const simulate = (
     connection: IConnection,
     meetingId: number,
