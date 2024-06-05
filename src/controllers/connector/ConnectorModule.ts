@@ -23,6 +23,7 @@ import { NaverController } from "./naver/NaverController";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
+import { SweetTackerModule } from "./sweet-tracker/SweetTackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchController } from "./youtube_search/YoutubeSearchController";
@@ -53,6 +54,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ChatbotModule,
     FigmaModule,
     ZoomModule,
+    SweetTackerModule,
   ],
   controllers: [
     ArxivSearchController,
