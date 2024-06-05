@@ -20,9 +20,11 @@ export class SweetTrackerController {
   }
 
   /**
+   * 택배사 목록을 조회합니다.
    *
-   * @param input
-   * @returns
+   * @summary 택배사 목록 조회.
+   * @returns 택배사 목록.
+   * @tag sweet-tracker
    */
   @core.TypedRoute.Post("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
