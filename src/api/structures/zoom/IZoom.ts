@@ -3,6 +3,9 @@ import { tags } from "typia";
 import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {
+  /**
+   * 참가자가 추가된 미팅에 대한 요청 DTO.
+   */
   export interface IAddMeetingRegistrantInput
     extends ICommon.ISecret<
       "zoom",
@@ -31,6 +34,9 @@ export namespace IZoom {
     email: string & tags.Format<"email">;
   }
 
+  /**
+   * 참가자가 추가된 미팅에 대한 DTO.
+   */
   export interface IAddMeetingRegistrantOutput {
     /**
      * @title The meeting ID.
