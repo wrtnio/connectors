@@ -23,7 +23,7 @@ import { NaverController } from "./naver/NaverController";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
-import { SweetTackerModule } from "./sweet-tracker/SweetTackerModule";
+import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchController } from "./youtube_search/YoutubeSearchController";

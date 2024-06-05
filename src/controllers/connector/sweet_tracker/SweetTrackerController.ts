@@ -1,7 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
-import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet-tracker/ISweetTacker";
+import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
 
 @Controller("connector/sweet-tacker")
 export class SweetTrackerController {

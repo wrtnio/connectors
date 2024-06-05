@@ -9,7 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ISweetTracker } from "../../../../structures/connector/sweet-tracker/ISweetTacker";
+import type { ISweetTracker } from "../../../../structures/connector/sweet_tracker/ISweetTacker";
 
 /**
  *

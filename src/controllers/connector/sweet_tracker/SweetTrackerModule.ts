@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 
-import { SweetTrackerController } from "./SweetTackerController";
+import { SweetTrackerController } from "./SweetTrackerController";
 
 @Module({
   controllers: [SweetTrackerController],
