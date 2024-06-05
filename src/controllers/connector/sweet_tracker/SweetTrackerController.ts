@@ -3,6 +3,8 @@ import { Controller } from "@nestjs/common";
 
 import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
 
+import { SweetTrackerProvider } from "../../../providers/connector/sweet_tracker/SweetTrackerProvider";
+
 @Controller("connector/sweet-tacker")
 export class SweetTrackerController {
   /**
@@ -24,7 +26,7 @@ export class SweetTrackerController {
    */
   @core.TypedRoute.Post("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
-    return null!;
+    return SweetTrackerProvider.getCompanyList();
   }
 
   /**
