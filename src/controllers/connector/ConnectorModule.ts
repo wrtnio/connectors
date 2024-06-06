@@ -15,6 +15,7 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
+import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
 import { LlmModule } from "./llm/LlmModule";
@@ -55,6 +56,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     FigmaModule,
     ZoomModule,
     SweetTackerModule,
+    HancellModule,
   ],
   controllers: [
     ArxivSearchController,
