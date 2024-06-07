@@ -57,6 +57,10 @@ export namespace ConnectorGlobal {
     TEST_SWEET_TRACKER_KEY: string;
     TEST_SWEET_TRACKER_T_INVOICE: string;
 
+    // META(facebook, instagram)
+    META_CLIENT_ID: string;
+    META_CLIENT_SECRET: string;
+
     //----
     // INHOUSE SERVERS
     //----
