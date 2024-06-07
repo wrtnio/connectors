@@ -19,6 +19,7 @@ import { HwpModule } from "./hwp/HwpModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
+import { MetaModule } from "./meta/metaModule";
 import { NaverController } from "./naver/NaverController";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
@@ -55,6 +56,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     FigmaModule,
     ZoomModule,
     SweetTackerModule,
+    MetaModule,
   ],
   controllers: [
     ArxivSearchController,
