@@ -26,10 +26,23 @@ export class KakaoTalkController {
   /**
    * @internal
    *
+   * @param input Refresh를 위한 요청 DTO.
+   */
+  async refresh(
+    @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
+  ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
+    return null!;
+  }
+
+  /**
+   * @internal
+   *
    * @param query Authorization Code Dto.
    */
   @Get("auth")
-  authorization(@Query() query: IKakaoTalk.IAuthorizationCode) {
-    return query.code;
+  authorization(
+    @Query() query: IKakaoTalk.IAuthorizationCode,
+  ): Promise<IKakaoTalk.IGetAccessTokenOutput> {
+    return null!;
   }
 }
