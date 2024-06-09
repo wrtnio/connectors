@@ -7,7 +7,11 @@ export namespace IKakaoTalk {
   /**
    * 전송할 메시지의 입력 DTO.
    */
-  export interface ITextMemoInput extends ICommon.ISecret<"kakao", []> {
+  export interface ITextMemoInput
+    extends ICommon.ISecret<
+      "kakao",
+      ["talk_message", "profile_image", "profile_nickname"]
+    > {
     object_template: {
       /**
        * @title 전송할 메시지의 타입.
