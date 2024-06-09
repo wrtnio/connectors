@@ -12,6 +12,7 @@ import typia from "typia";
 import type { IKakaoTalk } from "../../../../structures/connector/kakao_talk/IKakaoTalk";
 
 /**
+ * 카카오톡 액세스 토큰 발급.
  *
  * @internal
  * @param query Authorization Code Dto.

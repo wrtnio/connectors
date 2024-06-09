@@ -3,6 +3,8 @@ import { Controller, Get, Query } from "@nestjs/common";
 
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
+import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/KakaoTalkProvider";
+
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
   /**
@@ -24,17 +26,22 @@ export class KakaoTalkController {
   }
 
   /**
+   * 카카오톡 액세스 토큰 갱신.
+   *
    * @internal
    *
    * @param input Refresh를 위한 요청 DTO.
    */
+  @core.TypedRoute.Post("refresh")
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
-    return null!;
+    return await KakaoTalkProvider.refresh(input);
   }
 
   /**
+   * 카카오톡 액세스 토큰 발급.
+   *
    * @internal
    *
    * @param query Authorization Code Dto.
