@@ -29,7 +29,7 @@ export class KakaoTalkController {
    * @param query Authorization Code Dto.
    */
   @Get("auth")
-  authorization(@Query() query: { code: string }) {
+  authorization(@Query() query: IKakaoTalk.IAuthorizationCode) {
     return query.code;
   }
 }

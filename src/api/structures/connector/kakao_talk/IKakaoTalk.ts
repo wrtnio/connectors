@@ -4,6 +4,13 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
+  export interface IAuthorizationCode {
+    /**
+     * @title kakaoTalk OAuth2 authorization code.
+     */
+    code: string;
+  }
+
   /**
    * 전송할 메시지의 입력 DTO.
    */
