@@ -4,12 +4,65 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
+  /**
+   * @title 카카오 로그인 후 받게 되는 코드 DTO.
+   */
   export interface IAuthorizationCode {
     /**
      * @title kakaoTalk OAuth2 authorization code.
      */
     code: string;
   }
+
+  /**
+   * @title 액세스 토큰 출력 DTO.
+   */
+  export interface IGetAccessTokenOutput {
+    /**
+     * @title 액세스 토큰.
+     */
+    access_token: string;
+
+    /**
+     * @title 토큰 타입.
+     */
+    token_type: "bearer";
+
+    /**
+     * @title 리프레시 토큰.
+     */
+    refresh_token: string;
+
+    /**
+     * @title 이 액세스 토큰의 권한 범위.
+     */
+    scope: string;
+
+    /**
+     * @title 액세스 토큰 만료 시간.
+     */
+    expires_in: number;
+
+    /**
+     * @title 리프레시 토큰 만료 시간.
+     */
+    refresh_token_expires_in: number;
+  }
+
+  /**
+   * @title 카카오 액세스 토큰을 갱신하기 위한 DTO.
+   */
+  export interface IRefreshAccessTokenInput {
+    refresh_token: string;
+  }
+
+  /**
+   * @title 액세스 토큰 갱신 출력 DTO.
+   */
+  export type IRefreshAccessTokenOutput = Pick<
+    IGetAccessTokenOutput,
+    "access_token" | "expires_in" | "token_type"
+  >;
 
   /**
    * 전송할 메시지의 입력 DTO.
