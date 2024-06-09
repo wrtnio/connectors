@@ -3,6 +3,7 @@ import { LoggerModule } from "nestjs-pino";
 
 import { ArxivSearchController } from "./arxiv_search/ArxivSearchController";
 import { AwsModule } from "./aws/AwsModule";
+import { Cafe24Module } from "./cafe24/Cafe24Module";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
 import { CsvController } from "./csv/CsvController";
 import { DaumController } from "./daum/DaumController";
@@ -55,6 +56,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     FigmaModule,
     ZoomModule,
     SweetTackerModule,
+    Cafe24Module,
   ],
   controllers: [
     ArxivSearchController,
