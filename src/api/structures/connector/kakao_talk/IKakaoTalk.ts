@@ -87,7 +87,7 @@ export namespace IKakaoTalk {
       /**
        * @title message body.
        */
-      text: string;
+      text: string & tags.MaxLength<200>;
 
       /**
        * @title message link.
