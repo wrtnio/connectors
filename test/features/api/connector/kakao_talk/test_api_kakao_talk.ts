@@ -170,6 +170,9 @@ export const test_api_kakao_talk_get_calendar_events = async (
 
   typia.assertEquals(res);
 
+  /**
+   * 일정 조회.
+   */
   const events =
     await CApi.functional.connector.kakao_talk.get_events.getEvents(
       connection,
@@ -183,4 +186,37 @@ export const test_api_kakao_talk_get_calendar_events = async (
   typia.assertEquals(events);
 
   return events;
+};
+
+export const test_api_kakao_talk_create_event = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 액세스 토큰 갱신.
+   */
+  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
+    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+  });
+
+  typia.assertEquals(res);
+
+  /**
+   * 일정 생성.
+   */
+  const event =
+    await CApi.functional.connector.kakao_talk.calendars.events.createEvent(
+      connection,
+      {
+        event: {
+          time: {
+            start_at: "2023-12-31T15:00:00Z",
+            end_at: "2024-01-01T15:00:00Z",
+          },
+          title: "created_by_wrtn",
+        },
+        secretKey: res.access_token,
+      },
+    );
+
+  typia.assertEquals(event);
 };
