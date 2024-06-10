@@ -216,4 +216,20 @@ export namespace INaver {
      */
     items: IBlogNaverItemOutput[];
   }
+
+  export interface INaverBlogInput {
+    /**
+     * 블로그 상세 url
+     *
+     * @title 꼭 들어가야하는 키워드
+     */
+    blogUrl: string & Placeholder<"https://blog.naver.com/xxxx">;
+  }
+
+  export interface INaverBlogOutput {
+    /**
+     * 블로그 상세 결과
+     */
+    result: string;
+  }
 }

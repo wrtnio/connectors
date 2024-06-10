@@ -1,4 +1,5 @@
 import axios from "axios";
+import cheerio from "cheerio";
 
 import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 
@@ -67,6 +68,49 @@ export namespace NaverProvider {
     } catch (e) {
       console.log(e);
       throw e;
+    }
+  }
+
+  export async function getBlogDetail(
+    input: INaver.INaverBlogInput,
+  ): Promise<INaver.INaverBlogOutput> {
+    const { blogUrl } = input;
+    // 결과를 INaverBlogOutput 형식으로 반환
+    const result: INaver.INaverBlogOutput = {
+      result: "",
+    };
+
+    try {
+      // 블로그 페이지 가져오기
+      const { data } = await axios.get(blogUrl);
+      const $ = cheerio.load(data);
+
+      // 본문 내용이 포함된 iframe의 src 추출
+      const iframeSrc = $("#mainFrame").attr("src");
+      if (!iframeSrc) {
+        result["result"] = "Cannot find iframe source";
+        // throw new Error("Cannot find iframe source");
+      }
+
+      // iframe 페이지 가져오기
+      const iframeUrl = `https://blog.naver.com${iframeSrc}`;
+      const iframeResponse = await axios.get(iframeUrl);
+      const $$ = cheerio.load(iframeResponse.data);
+
+      // 본문 내용 추출
+      const content = $$(".se-main-container").html();
+      if (!content) {
+        result["result"] = "Cannot find blog content";
+        // throw new Error("Cannot find blog content");
+      } else {
+        result["result"] = content;
+      }
+
+      return result;
+    } catch (error) {
+      // @ts-ignore
+      result["result"] = error.message;
+      return result;
     }
   }
 

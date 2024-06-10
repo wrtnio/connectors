@@ -45,4 +45,23 @@ export class NaverController {
   ): Promise<INaver.IBlogNaverOutput> {
     return await NaverProvider.getBlog(input);
   }
+
+  /**
+   * 네이버 블로그 컨텐츠를 불러옵니다.
+   *
+   * @summary 네이버 블로그 상세
+   *
+   * @param input 네이버 블로그 상세를 위한 blog url
+   *
+   * @tag Naver 네이버 블로그
+   */
+  @core.TypedRoute.Post("/blog/detail")
+  // @RouteIcon(
+  // 	"https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg",
+  // )
+  async blogDetail(
+    @core.TypedBody() input: INaver.INaverBlogInput,
+  ): Promise<INaver.INaverBlogOutput> {
+    return await NaverProvider.getBlogDetail(input);
+  }
 }

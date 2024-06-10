@@ -11,6 +11,8 @@ import typia from "typia";
 
 import type { INaver } from "../../../../structures/connector/naver/INaver";
 
+export * as detail from "./detail";
+
 /**
  * 네이버 블로그 컨텐츠를 검색합니다.
  *
