@@ -72,7 +72,7 @@ export namespace IKakaoTalk {
       "kakao",
       ["talk_message", "profile_image", "profile_nickname"]
     > {
-    object_template: {
+    template_object: {
       /**
        * @title 전송할 메시지의 타입.
        */
@@ -96,6 +96,11 @@ export namespace IKakaoTalk {
         web_url: string & tags.Format<"url">;
         mobile_web_url: string & tags.Format<"url">;
       };
+
+      /**
+       * @title 버튼의 이름.
+       */
+      button_title?: string;
     };
   }
 

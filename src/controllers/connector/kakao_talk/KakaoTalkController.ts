@@ -22,7 +22,7 @@ export class KakaoTalkController {
   async memo(
     @TypedBody() input: IKakaoTalk.ITextMemoInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    return null!;
+    return KakaoTalkProvider.memo(input);
   }
 
   /**
@@ -36,7 +36,7 @@ export class KakaoTalkController {
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
-    return await KakaoTalkProvider.refresh(input);
+    return KakaoTalkProvider.refresh(input);
   }
 
   /**
