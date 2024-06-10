@@ -6,6 +6,12 @@ import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_t
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KakaoTalkProvider {
+  export async function createEvent(
+    input: IKakaoTalk.ICreateEventInput,
+  ): Promise<IKakaoTalk.ICreateEventOutput> {
+    return null!;
+  }
+
   export async function getEvents(
     input: IKakaoTalk.IGetEventInput,
   ): Promise<IKakaoTalk.IGetEventOutput> {

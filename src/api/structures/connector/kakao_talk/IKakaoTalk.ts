@@ -154,6 +154,99 @@ export namespace IKakaoTalk {
     lunar?: boolean & tags.Default<false>;
   }
 
+  export interface ICreateEventOutput {
+    /**
+     * 생성한 일정 ID.
+     */
+    event_id: string;
+  }
+
+  /**
+   * @title 일정을 생성하기 위한 요청 DTO.
+   */
+  export interface ICreateEventInput
+    extends ICommon.ISecret<"kakao", ["talk_calendar"]> {
+    /**
+     * @title 일정을 생성할 캘린더 ID.
+     */
+    calendar_id?: string & tags.Default<"primary">;
+
+    /**
+     * 생성할 일정 정보.
+     */
+    event: {
+      /**
+       * @title 일정 제목.
+       */
+      title: string & tags.Maximum<50>;
+
+      /**
+       * @title 일정 시간.
+       */
+      time: IKakaoTalk.Time;
+
+      /**
+       * @title 일정의 반복 주기.
+       *
+       * RFC5545의 RRULE 형식.
+       */
+      rrule?: string;
+
+      /**
+       * @title 일정 설명.
+       */
+      description?: string & tags.MaxLength<5000>;
+
+      /**
+       * @title 일정 장소.
+       */
+      location?: IKakaoTalk.Location;
+
+      /**
+       * @title 미리 알림 설정.
+       *
+       * 분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능.
+       *
+       * 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
+       */
+      reminders?: ((number & tags.MultipleOf<5>)[] & tags.MaxItems<2>) &
+        tags.Minimum<-1440> &
+        tags.Maximum<43200>;
+
+      /**
+       * @title 일정 색상.
+       */
+      color: IKakaoTalk.Color;
+    };
+  }
+
+  export interface Location {
+    /**
+     * @title 장소 이름.
+     */
+    name?: string & tags.MaxLength<50>;
+
+    /**
+     * @title 장소 ID.
+     */
+    location_id?: number;
+
+    /**
+     * @title 주소.
+     */
+    address?: string;
+
+    /**
+     * @title 위도.
+     */
+    latitude?: number;
+
+    /**
+     * @title 경도.
+     */
+    longitude?: number;
+  }
+
   /**
    * @title 캘린더 이벤트를 조회하기 위한 요청 DTO.
    *
