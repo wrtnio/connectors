@@ -36,6 +36,7 @@ export * as chatbot from "./chatbot";
 export * as figma from "./figma";
 export * as zoom from "./zoom";
 export * as sweet_tacker from "./sweet_tacker";
+export * as discord from "./discord";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
