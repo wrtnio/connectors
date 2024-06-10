@@ -40,6 +40,18 @@ export class KakaoTalkController {
     return KakaoTalkProvider.refresh(input);
   }
 
+  /**
+   * 카카오톡 캘린더 목록들을 모두 조회합니다.
+   *
+   * @summary 카카오톡 캘린더 목록 조회.
+   *
+   *
+   * @param input 캘린더를 조회하기 위한 요청 DTO.
+   *
+   * @returns 캘린더 목록 객체.
+   *
+   * @tag 카카오톡
+   */
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
