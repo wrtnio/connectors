@@ -177,7 +177,7 @@ export namespace IKakaoTalk {
       /**
        * @title 일정 제목.
        */
-      title: string & tags.Maximum<50>;
+      title: string & tags.MaxLength<50>;
 
       /**
        * @title 일정 시간.
@@ -208,17 +208,22 @@ export namespace IKakaoTalk {
        *
        * 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
        */
-      reminders?: ((number & tags.MultipleOf<5>)[] & tags.MaxItems<2>) &
+      reminders?: (number &
+        tags.MultipleOf<5> &
         tags.Minimum<-1440> &
-        tags.Maximum<43200>;
+        tags.Maximum<43200>)[] &
+        tags.MaxItems<2>;
 
       /**
        * @title 일정 색상.
        */
-      color: IKakaoTalk.Color;
+      color?: IKakaoTalk.Color;
     };
   }
 
+  /**
+   * @title 일정 장소.
+   */
   export interface Location {
     /**
      * @title 장소 이름.
