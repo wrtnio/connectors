@@ -69,6 +69,12 @@ export namespace ConnectorGlobal {
     // LLM PROXY
     HAMLET_URL: string & tags.Format<"uri">;
     SHAKESPEARE_URL: string & tags.Format<"uri">;
+
+    // DISCORD
+    DISCORD_BOT_TOKEN: string;
+    DISCORD_TEST_GUILDID: string;
+    DISCORD_TEST_CHENNELID: string;
+    DISCORD_TEST_USERID: string;
   }
 }
 

@@ -6,6 +6,7 @@ import { AwsModule } from "./aws/AwsModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
 import { CsvController } from "./csv/CsvController";
 import { DaumController } from "./daum/DaumController";
+import { DiscordModule } from "./discord/DiscordModule";
 import { ExcelModule } from "./excel/ExcelModule";
 import { KeywordExtractModule } from "./extract/KeywordExtractModule";
 import { FigmaModule } from "./figma/FigmaModule";
@@ -55,6 +56,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     FigmaModule,
     ZoomModule,
     SweetTackerModule,
+    DiscordModule,
   ],
   controllers: [
     ArxivSearchController,
