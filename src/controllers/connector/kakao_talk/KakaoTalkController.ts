@@ -20,7 +20,7 @@ export class KakaoTalkController {
    */
   @core.TypedRoute.Post("memo")
   async memo(
-    @TypedBody() input: IKakaoTalk.ITextMemoInput,
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
     return KakaoTalkProvider.memo(input);
   }

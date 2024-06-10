@@ -26,20 +26,9 @@ export namespace KakaoTalkProvider {
   }
 
   export async function memo(
-    input: IKakaoTalk.ITextMemoInput,
+    input: IKakaoTalk.ISendKakaoTalkInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
     try {
-      console.log(
-        "https://kapi.kakao.com/v2/api/talk/memo/default/send",
-        {
-          template_object: JSON.stringify(input.template_object),
-        },
-        {
-          headers: {
-            Authorization: `bearer ${input.secretKey}`,
-          },
-        },
-      );
       const res = await axios.post(
         "https://kapi.kakao.com/v2/api/talk/memo/default/send",
         {
