@@ -474,7 +474,45 @@ export namespace IKakaoTalk {
      *
      * 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나.
      */
-    template_object: IFeedMemoInput | ITextMemoInput | ICalendarMemoInput;
+    template_object:
+      | IFeedMemoInput
+      | ITextMemoInput
+      | ICalendarMemoInput
+      | IListMemoInput;
+  }
+
+  export interface IListMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "list";
+
+    /**
+     * @title 리스트 상단에 노출되는 메인 타이틀.
+     */
+    header_title: string & tags.MaxLength<200>;
+
+    /**
+     * @title 헤더 타이틀 내용에 해당하는 링크 정보.
+     */
+    header_link: IKakaoTalk.ButtonLink;
+
+    /**
+     * @title 리스트에 노출되는 콘텐츠 목록.
+     */
+    contents: IKakaoTalk.Content[] & tags.MinItems<2> & tags.MaxItems<3>;
+
+    /**
+     * @title 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
+     */
+    button_title?: string;
+
+    /**
+     * @title 버튼 목록.
+     *
+     * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   export interface ICalendarMemoInput {
