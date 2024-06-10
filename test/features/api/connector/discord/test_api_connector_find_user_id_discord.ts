@@ -1,4 +1,3 @@
-import { Placeholder } from "@wrtn/decorators";
 import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
@@ -6,16 +5,14 @@ import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/I
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_connector_send_direct_message_discord = async (
+export const test_api_connector_find_user_id_discord = async (
   connection: CApi.IConnection,
-): Promise<IDiscord.IDiscordDirectMessageOutput> => {
-  const input: IDiscord.IDiscordDirectMessageInput = {
+): Promise<IDiscord.IDiscordFindUserOutput> => {
+  const input: IDiscord.IDiscordFindUserInput = {
     userId: ConnectorGlobal.env.DISCORD_TEST_USERID,
-    message: "Hello, WRTN",
   };
-
   const result =
-    await CApi.functional.connector.discord.channel.direct_message.directMessage(
+    await CApi.functional.connector.discord.user.find_user_by_id.findUserById(
       connection,
       input,
     );

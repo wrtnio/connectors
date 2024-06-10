@@ -30,6 +30,22 @@ export namespace DiscordProvider {
     }
   }
 
+  export async function getChannels(
+    input: IDiscord.IDiscordGetChannelInput,
+  ): Promise<IDiscord.IDiscordGetChannelOutput[]> {
+    try {
+      const response = await axios.get(
+        `${DISCORD_API_BASE_URL}/guilds/${input.guildId}/channels`,
+        { headers },
+      );
+      return response.data;
+    } catch (error) {
+      // @ts-ignore
+      console.error("Error finding channels:", error.response.data);
+      throw error;
+    }
+  }
+
   export async function sendMessage(
     input: IDiscord.IDiscordMessageInput,
   ): Promise<IDiscord.IDiscordMessageOutput> {
@@ -94,6 +110,27 @@ export namespace DiscordProvider {
     } catch (error) {
       // @ts-ignore
       console.error("Error sending direct message:", error.response.data);
+      throw error;
+    }
+  }
+
+  export async function findUserById(
+    input: IDiscord.IDiscordFindUserInput,
+  ): Promise<IDiscord.IDiscordFindUserOutput> {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/findUserById",
+        {
+          userId: input.userId,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      // @ts-ignore
+      console.error("Error finding user by ID:", error.response.data);
       throw error;
     }
   }

@@ -35,6 +35,27 @@ export namespace IDiscord {
   }
 
   /**
+   * @title 유저 정보 검색
+   */
+  export interface IDiscordGetChannelInput {
+    /**
+     * @userId 사용자 아이디
+     */
+    guildId: string & Placeholder<"서버 아이디">;
+  }
+
+  export interface IDiscordGetChannelOutput {
+    id: string; // 채널 아이디
+    type: number; // 채널 유형 (e.g., 0 for text, 2 for voice, 4 for category)
+    flags: number; // 채널 플래그
+    guild_id: string; // 소속된 서버의 ID
+    name: string; // 채널 이름
+    parent_id: string | null; // 상위 카테고리의 ID (null 가능)
+    position: number; // 채널 위치
+    permission_overwrites: Array<any>; // 권한 덮어쓰기 정보
+  }
+
+  /**
    * @title 메세지 전송
    */
   export interface IDiscordMessageInput {
@@ -319,5 +340,80 @@ export namespace IDiscord {
      * @title TTS 여부
      */
     tts: boolean;
+  }
+
+  /**
+   * @title 유저 정보 검색
+   */
+  export interface IDiscordFindUserInput {
+    /**
+     * @userId 사용자 아이디
+     */
+    userId: string & Placeholder<"사용자 아이디">;
+  }
+
+  /**
+   * @title 유저 정보 검색
+   */
+  export interface IDiscordFindUserOutput {
+    /**
+     * 사용자 아이디
+     */
+    id: string;
+
+    /**
+     * 사용자 이름
+     */
+    username: string;
+
+    /**
+     * 아바타
+     */
+    avatar: string | null;
+
+    /**
+     * 구별자
+     */
+    discriminator: string;
+
+    /**
+     * 공용 플래그
+     */
+    public_flags: number;
+
+    /**
+     * 플래그
+     */
+    flags: number;
+
+    /**
+     * 배너
+     */
+    banner: string | null;
+
+    /**
+     * 강조 색상
+     */
+    accent_color: number | null;
+
+    /**
+     * 전역 이름
+     */
+    global_name: string;
+
+    /**
+     * 아바타 장식 데이터
+     */
+    avatar_decoration_data: any | null;
+
+    /**
+     * 배너 색상
+     */
+    banner_color: string | null;
+
+    /**
+     * 클랜
+     */
+    clan: string | null;
   }
 }
