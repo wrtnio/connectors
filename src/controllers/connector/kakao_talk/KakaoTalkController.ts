@@ -58,8 +58,21 @@ export class KakaoTalkController {
     return KakaoTalkProvider.createEvent(input);
   }
 
+  /**
+   * 카카오톡 캘린더 일정을 조회합니다.
+   *
+   * @summary 카카오톡 캘린더 일정 조회.
+   *
+   * @param input 일정 조회를 위한 DTO.
+   *
+   * @returns 일정 정보 DTO.
+   *
+   * @tag 카카오톡
+   */
   @core.TypedRoute.Post("get-events")
-  async getEvents(@TypedBody() input: IKakaoTalk.IGetEventInput) {
+  async getEvents(
+    @TypedBody() input: IKakaoTalk.IGetEventInput,
+  ): Promise<IKakaoTalk.IGetEventOutput> {
     return KakaoTalkProvider.getEvents(input);
   }
 
@@ -67,7 +80,6 @@ export class KakaoTalkController {
    * 카카오톡 캘린더 목록들을 모두 조회합니다.
    *
    * @summary 카카오톡 캘린더 목록 조회.
-   *
    *
    * @param input 캘린더를 조회하기 위한 요청 DTO.
    *
