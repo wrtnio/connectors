@@ -12,4 +12,21 @@ export const test_api_kakao_talk_memo = async (
   });
 
   typia.assertEquals(res);
+
+  const memoResponse = await CApi.functional.connector.kakao_talk.memo(
+    connection,
+    {
+      secretKey: res.access_token,
+      template_object: {
+        object_type: "text",
+        text: "텍스트 영역입니다. 최대 200자 표시 가능합니다.",
+        link: {
+          web_url: "https://developers.kakao.com",
+          mobile_web_url: "https://developers.kakao.com",
+        },
+      },
+    },
+  );
+
+  typia.assertEquals(memoResponse);
 };

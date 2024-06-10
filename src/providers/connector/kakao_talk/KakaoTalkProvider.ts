@@ -24,4 +24,39 @@ export namespace KakaoTalkProvider {
 
     return res.data;
   }
+
+  export async function memo(
+    input: IKakaoTalk.ITextMemoInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    try {
+      console.log(
+        "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+        {
+          template_object: JSON.stringify(input.template_object),
+        },
+        {
+          headers: {
+            Authorization: `bearer ${input.secretKey}`,
+          },
+        },
+      );
+      const res = await axios.post(
+        "https://kapi.kakao.com/v2/api/talk/memo/default/send",
+        {
+          template_object: JSON.stringify(input.template_object),
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `bearer ${input.secretKey}`,
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
 }
