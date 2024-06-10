@@ -277,3 +277,98 @@ export const test_api_kakao_talk_create_event = async (
 
 //   typia.assertEquals(sendTextForm);
 // };
+
+export const test_api_kakao_talk_list_memo = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 액세스 토큰 갱신.
+   */
+  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
+    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+  });
+
+  typia.assertEquals(res);
+
+  /**
+   * 피드 메시지 발송.
+   */
+  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
+    connection,
+    {
+      secretKey: res.access_token,
+      template_object: {
+        object_type: "list",
+        header_title: "WEEKELY MAGAZINE",
+        header_link: {
+          web_url: "http://www.daum.net",
+          mobile_web_url: "http://m.daum.net",
+          android_execution_params: "main",
+          ios_execution_params: "main",
+        },
+        contents: [
+          {
+            title: "자전거 라이더를 위한 공간",
+            description: "매거진",
+            image_url:
+              "https://mud-kage.kakao.com/dn/QNvGY/btqfD0SKT9m/k4KUlb1m0dKPHxGV8WbIK1/openlink_640x640s.jpg",
+            image_width: 640,
+            image_height: 640,
+            link: {
+              web_url: "http://www.daum.net/contents/1",
+              mobile_web_url: "http://m.daum.net/contents/1",
+              android_execution_params: "/contents/1",
+              ios_execution_params: "/contents/1",
+            },
+          },
+          {
+            title: "비쥬얼이 끝내주는 오레오 카푸치노",
+            description: "매거진",
+            image_url:
+              "https://mud-kage.kakao.com/dn/boVWEm/btqfFGlOpJB/mKsq9z6U2Xpms3NztZgiD1/openlink_640x640s.jpg",
+            image_width: 640,
+            image_height: 640,
+            link: {
+              web_url: "http://www.daum.net/contents/2",
+              mobile_web_url: "http://m.daum.net/contents/2",
+              android_execution_params: "/contents/2",
+              ios_execution_params: "/contents/2",
+            },
+          },
+          {
+            title: "감성이 가득한 분위기",
+            description: "매거진",
+            image_url:
+              "https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+            image_width: 640,
+            image_height: 640,
+            link: {
+              web_url: "http://www.daum.net/contents/3",
+              mobile_web_url: "http://m.daum.net/contents/3",
+              android_execution_params: "/contents/3",
+              ios_execution_params: "/contents/3",
+            },
+          },
+        ],
+        buttons: [
+          {
+            title: "웹으로 이동",
+            link: {
+              web_url: "http://www.daum.net",
+              mobile_web_url: "http://m.daum.net",
+            },
+          },
+          {
+            title: "앱으로 이동",
+            link: {
+              android_execution_params: "main",
+              ios_execution_params: "main",
+            },
+          },
+        ],
+      },
+    },
+  );
+
+  typia.assertEquals(sendTextForm);
+};
