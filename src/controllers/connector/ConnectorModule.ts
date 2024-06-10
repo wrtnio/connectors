@@ -20,6 +20,7 @@ import { GoogleModule } from "./internal/google/GoogleModule";
 import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
+import { MiroModule } from "./miro/MiroModule";
 import { NaverController } from "./naver/NaverController";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
@@ -57,6 +58,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     KakaoTalkModule,
+    MiroModule,
   ],
   controllers: [
     ArxivSearchController,

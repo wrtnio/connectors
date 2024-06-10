@@ -61,6 +61,11 @@ export namespace ConnectorGlobal {
     KAKAO_TALK_CLIENT_ID: string;
     KAKAO_TALK_TEST_REFRESH_TOKEN: string;
 
+    // MIRO
+    MIRO_CLIENT_ID: string;
+    MIRO_CLIENT_SECRET: string;
+    TEST_MIRO_REFRESH_TOKEN: string;
+
     //----
     // INHOUSE SERVERS
     //----
