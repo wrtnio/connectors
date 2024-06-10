@@ -65,7 +65,52 @@ export namespace IKakaoTalk {
   >;
 
   /**
-   * 전송할 메시지의 입력 DTO.
+   * @title 카카오 메시지 본문 상의 버튼을 의미.
+   */
+  export interface Button {
+    title: string;
+    link: IWebLink | IMobileWebLink | IAndroidAppLink | IiOSAppLink;
+  }
+
+  export interface IWebLink {
+    /**
+     * @title PC버전 카카오톡에서 사용하는 웹 링크 URL.
+     *
+     * 도메인 부분은 [내 애플리케이션] > [플랫폼] > [Web]에서 등록한 사이트 도메인과 일치해야 함.
+     */
+
+    web_url: string;
+  }
+
+  export interface IMobileWebLink {
+    /**
+     * @title 모바일 카카오톡에서 사용하는 웹 링크 URL.
+     *
+     * 도메인 부분은 [내 애플리케이션] > [플랫폼] > [Web]에서 등록한 사이트 도메인과 일치해야 함.
+     */
+    mobile_web_url: string;
+  }
+
+  export interface IAndroidAppLink {
+    /**
+     * @title 안드로이드 카카오톡에서 사용하는 앱 링크 URL에 사용될 파라미터.
+     *
+     * 해당 값이 없을 경우 mobile_web_url 이용.
+     */
+    android_execution_params: string;
+  }
+
+  export interface IiOSAppLink {
+    /**
+     * @title iOS 카카오톡에서 사용하는 앱 링크 URL에 사용될 파라미터.
+     *
+     * 해당 값이 없을 경우 mobile_web_url 이용.
+     */
+    ios_execution_params: string;
+  }
+
+  /**
+   * 텍스트 타입으로 전송할 메시지의 입력 DTO.
    */
   export interface ITextMemoInput
     extends ICommon.ISecret<
@@ -99,8 +144,21 @@ export namespace IKakaoTalk {
 
       /**
        * @title 버튼의 이름.
+       *
+       * `button`이 있을 시에는 `button` 프로퍼티를 우선시한다.
+       *
+       * 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
        */
       button_title?: string;
+
+      /**
+       * @title 버튼.
+       *
+       * 버튼 목록, 최대 2개.
+       *
+       * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+       */
+      buttons?: IKakaoTalk.Button & tags.MaxLength<2>;
     };
   }
 
