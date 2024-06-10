@@ -13,7 +13,7 @@ export const test_api_kakao_talk_memo = async (
 
   typia.assertEquals(res);
 
-  const memoResponse = await CApi.functional.connector.kakao_talk.memo(
+  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
     {
       secretKey: res.access_token,
@@ -28,5 +28,5 @@ export const test_api_kakao_talk_memo = async (
     },
   );
 
-  typia.assertEquals(memoResponse);
+  typia.assertEquals(sendTextForm);
 };

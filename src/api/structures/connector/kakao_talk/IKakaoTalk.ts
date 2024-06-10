@@ -125,6 +125,19 @@ export namespace IKakaoTalk {
     ios_execution_params: string;
   }
 
+  export interface ISendKakaoTalkInput
+    extends ICommon.ISecret<
+      "kakao",
+      ["talk_message", "profile_image", "profile_nickname"]
+    > {
+    /**
+     * @title 메시지 구성 요소를 담은 객체(Object).
+     *
+     * 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나.
+     */
+    template_object: IFeedMemoInput | ITextMemoInput;
+  }
+
   export interface IFeedMemoInput {
     /**
      * @title 템플릿 종류.
@@ -206,7 +219,7 @@ export namespace IKakaoTalk {
     /**
      * @title 각 텍스트 아이템 정보.
      */
-    items?: IKakaoTalk.ItemInfo[] & tags.MaxLength<5>;
+    items?: IKakaoTalk.ItemInfo[] & tags.MaxItems<5>;
 
     /**
      * @title 주문금액, 결제금액 등 아이템 영역의 요약 정보 제목.
@@ -313,54 +326,48 @@ export namespace IKakaoTalk {
   /**
    * 텍스트 타입으로 전송할 메시지의 입력 DTO.
    */
-  export interface ITextMemoInput
-    extends ICommon.ISecret<
-      "kakao",
-      ["talk_message", "profile_image", "profile_nickname"]
-    > {
-    template_object: {
-      /**
-       * @title 전송할 메시지의 타입.
-       */
-      object_type: Constant<
-        "text",
-        {
-          title: "텍스트 타입의 템플릿.";
-          description: "단순히 텍스트 메세지를 보내기 위해 사용한다.";
-        }
-      >;
+  export interface ITextMemoInput {
+    /**
+     * @title 전송할 메시지의 타입.
+     */
+    object_type: Constant<
+      "text",
+      {
+        title: "텍스트 타입의 템플릿.";
+        description: "단순히 텍스트 메세지를 보내기 위해 사용한다.";
+      }
+    >;
 
-      /**
-       * @title message body.
-       */
-      text: string & tags.MaxLength<200>;
+    /**
+     * @title message body.
+     */
+    text: string & tags.MaxLength<200>;
 
-      /**
-       * @title message link.
-       */
-      link: {
-        web_url: string & tags.Format<"url">;
-        mobile_web_url: string & tags.Format<"url">;
-      };
-
-      /**
-       * @title 버튼의 이름.
-       *
-       * `button`이 있을 시에는 `button` 프로퍼티를 우선시한다.
-       *
-       * 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
-       */
-      button_title?: string;
-
-      /**
-       * @title 버튼.
-       *
-       * 버튼 목록, 최대 2개.
-       *
-       * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
-       */
-      buttons?: IKakaoTalk.Button & tags.MaxLength<2>;
+    /**
+     * @title message link.
+     */
+    link: {
+      web_url: string & tags.Format<"url">;
+      mobile_web_url: string & tags.Format<"url">;
     };
+
+    /**
+     * @title 버튼의 이름.
+     *
+     * `button`이 있을 시에는 `button` 프로퍼티를 우선시한다.
+     *
+     * 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
+     */
+    button_title?: string;
+
+    /**
+     * @title 버튼.
+     *
+     * 버튼 목록, 최대 2개.
+     *
+     * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+     */
+    buttons?: IKakaoTalk.Button & tags.MaxLength<2>;
   }
 
   export interface IMemoOutput {

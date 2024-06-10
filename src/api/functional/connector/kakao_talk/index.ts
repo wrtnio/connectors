@@ -47,7 +47,7 @@ export async function memo(
       );
 }
 export namespace memo {
-  export type Input = Primitive<IKakaoTalk.ITextMemoInput>;
+  export type Input = Primitive<IKakaoTalk.ISendKakaoTalkInput>;
   export type Output = Primitive<IKakaoTalk.IMemoOutput>;
 
   export const METADATA = {
