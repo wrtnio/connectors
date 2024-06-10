@@ -291,7 +291,7 @@ export const test_api_kakao_talk_list_memo = async (
   typia.assertEquals(res);
 
   /**
-   * 피드 메시지 발송.
+   * 리스트 메시지 발송.
    */
   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
@@ -366,6 +366,59 @@ export const test_api_kakao_talk_list_memo = async (
             },
           },
         ],
+      },
+    },
+  );
+
+  typia.assertEquals(sendTextForm);
+};
+
+export const test_api_kakao_talk_location_memo = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 액세스 토큰 갱신.
+   */
+  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
+    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+  });
+
+  typia.assertEquals(res);
+
+  /**
+   * 위치 메시지 발송.
+   */
+  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
+    connection,
+    {
+      secretKey: res.access_token,
+      template_object: {
+        object_type: "location",
+        content: {
+          title: "카카오 판교오피스",
+          description: "카카오 판교오피스 위치입니다.",
+          image_url:
+            "https://mud-kage.kakao.com/dn/drTdbB/bWYf06POFPf/owUHIt7K7NoGD0hrzFLeW0/kakaolink40_original.png",
+          image_width: 800,
+          image_height: 800,
+          link: {
+            web_url: "https://developers.kakao.com",
+            mobile_web_url: "https://developers.kakao.com/mobile",
+            android_execution_params: "platform=android",
+            ios_execution_params: "platform=ios",
+          },
+        },
+        buttons: [
+          {
+            title: "웹으로 보기",
+            link: {
+              web_url: "https://developers.kakao.com",
+              mobile_web_url: "https://developers.kakao.com/mobile",
+            },
+          },
+        ],
+        address: "경기 성남시 분당구 판교역로 235 에이치스퀘어 N동 7층",
+        address_title: "카카오 판교오피스",
       },
     },
   );
