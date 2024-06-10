@@ -1,6 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller, Get, Query } from "@nestjs/common";
 
+import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/KakaoTalkProvider";
@@ -37,6 +38,13 @@ export class KakaoTalkController {
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
     return KakaoTalkProvider.refresh(input);
+  }
+
+  @core.TypedRoute.Post("get-calendars")
+  async getCalendars(
+    @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
+  ): Promise<IKakaoTalk.IGetCalendarOutput> {
+    return KakaoTalkProvider.getCalendars(input);
   }
 
   /**

@@ -55,6 +55,85 @@ export namespace IKakaoTalk {
     refresh_token: string;
   }
 
+  export interface IGetCalendarOutput {
+    /**
+     * @title 기본 캘린더, 서브 캘린더 목록.
+     */
+    calendars?: IKakaoTalk.Calendar[];
+
+    /**
+     * @title 구독한 구독 캘린더 목록.
+     */
+    subscribe_calendars?: IKakaoTalk.SubscribeCalendars[];
+  }
+
+  /**
+   * @tite 구독한 구독 캘린더 목록.
+   */
+  export interface SubscribeCalendars extends IKakaoTalk.Calendar {
+    /**
+     * @title 채널에서 설정한 구독 캘린더 설명.
+     */
+    description?: string;
+
+    /**
+     * @title 구독 캘린더의 프로필 이미지 URL.
+     */
+    profile_image_url?: string;
+
+    /**
+     * @title 구독 캘린더의 말풍선 썸네일 URL.
+     */
+    thumbnail_url?: string;
+  }
+
+  /**
+   * @title 기본 캘린더, 서브 캘린더 목록.
+   */
+  export interface Calendar {
+    /**
+     * @title 캘린더 ID.
+     *
+     * 유저마다 기본적으로 가지고 있는 캘린더의 경우 `primary`라고 한다.
+     */
+    id: string & tags.Default<"primary">;
+
+    /**
+     * @title 캘린더의 이름.
+     */
+    name?: string;
+
+    /**
+     * @title 캘린더 일정의 기본 색상.
+     */
+    color?:
+      | Constant<"BLUE", { title: "BLUE"; description: "2C88DE" }>
+      | Constant<"ROYAL_BLUE", { title: "ROYAL_BLUE"; description: "2D69E0" }>
+      | Constant<"NAVY_BLUE", { title: "NAVY_BLUE"; description: "223788" }>
+      | Constant<"RED", { title: "RED"; description: "D42726" }>
+      | Constant<"PINK", { title: "PINK"; description: "ED5683" }>
+      | Constant<"ORANGE", { title: "ORANGE"; description: "FF9429" }>
+      | Constant<"GREEN", { title: "GREEN"; description: "149959" }>
+      | Constant<"LIME", { title: "LIME"; description: "7CB343" }>
+      | Constant<"OLIVE", { title: "OLIVE"; description: "A4AD15" }>
+      | Constant<"MINT", { title: "MINT"; description: "5CC5BE" }>
+      | Constant<"MAGENTA", { title: "MAGENTA"; description: "AB47BC" }>
+      | Constant<"VIOLET", { title: "VIOLET"; description: "8A4B9B" }>
+      | Constant<"LAVENDER", { title: "LAVENDER"; description: "7986CB" }>
+      | Constant<"BROWN", { title: "BROWN"; description: "945C1F" }>
+      | Constant<"GRAY", { title: "GRAY"; description: "666666" }>;
+
+    /**
+     * @title 종일 일정이 아닌 일정의 기본 알림 시간.
+     */
+    reminder?: number & tags.Type<"int64">;
+
+    /**
+     * @title 종일 일정의 기본 알림 시간.
+     */
+    reminder_all_day?: number & tags.Type<"int64">;
+  }
+
   /**
    * @title 액세스 토큰 갱신 출력 DTO.
    */
@@ -134,7 +213,40 @@ export namespace IKakaoTalk {
      *
      * 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나.
      */
-    template_object: IFeedMemoInput | ITextMemoInput;
+    template_object: IFeedMemoInput | ITextMemoInput | ICalendarMemoInput;
+  }
+
+  export interface ICalendarMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "calendar";
+
+    /**
+     * @title `id`의 타입.
+     */
+    id_type:
+      | Constant<"event", { title: "공개 일정" }>
+      | Constant<"calendar", { title: "구독 캘린더" }>;
+
+    /**
+     * @title 공개 일정 혹은 구독 캘린더의 ID.
+     */
+    id: string;
+
+    /**
+     * @title 일정 제목과 설명.
+     */
+    content: IKakaoTalk.Content;
+
+    /**
+     * @title 사용자 정의 버튼 정보.
+     *
+     * 캘린더 메시지는 기본적으로 공개 일정 추가 또는 구독 캘린더 구독을 위한 기본 버튼을 제공함.
+     *
+     * 따라서 1개의 사용자 정의 버튼을 선택적으로 추가 가능.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<1>;
   }
 
   export interface IFeedMemoInput {

@@ -1,10 +1,27 @@
 import axios from "axios";
 
+import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KakaoTalkProvider {
+  export async function getCalendars(
+    input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
+  ): Promise<IKakaoTalk.IGetCalendarOutput> {
+    const res = await axios.get(
+      "https://kapi.kakao.com/v2/api/calendar/calendars",
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `bearer ${input.secretKey}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
+
   export async function refresh(
     input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
