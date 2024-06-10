@@ -181,4 +181,6 @@ export const test_api_kakao_talk_get_calendar_events = async (
     );
 
   typia.assertEquals(events);
+
+  return events;
 };
