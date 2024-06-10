@@ -175,7 +175,7 @@ export namespace IKakaoTalk {
      *
      * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
      */
-    buttons?: IKakaoTalk.Button & tags.MaxLength<2>;
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   export interface ItemContent {
@@ -241,7 +241,7 @@ export namespace IKakaoTalk {
     /**
      * @title 아이템 가격.
      */
-    item_op: `${number}` & tags.MaxLength<14>;
+    item_op: string & tags.MaxLength<14>;
   }
 
   /**
