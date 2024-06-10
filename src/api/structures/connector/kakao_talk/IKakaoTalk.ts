@@ -479,7 +479,47 @@ export namespace IKakaoTalk {
       | IFeedMemoInput
       | ITextMemoInput
       | ICalendarMemoInput
-      | IListMemoInput;
+      | IListMemoInput
+      | ILocationMemoInput;
+  }
+
+  export interface ILocationMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "location";
+
+    /**
+     * @title 공유할 위치의 주소.
+     */
+    address: string;
+
+    /**
+     * @title 카카오톡 내의 지도 뷰에서 사용되는 타이틀.
+     */
+    address_title?: string;
+
+    /**
+     * @title 위치에 대해 설명하는 콘텐츠 정보.
+     */
+    content: IKakaoTalk.Content;
+
+    /**
+     * @title 부가적인 소셜 정보.
+     */
+    social?: IKakaoTalk.Social;
+
+    /**
+     * @title 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
+     */
+    button_title?: string;
+
+    /**
+     * @title 버튼 목록.
+     *
+     * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   export interface IListMemoInput {
