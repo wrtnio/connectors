@@ -40,6 +40,13 @@ export class KakaoTalkController {
     return KakaoTalkProvider.refresh(input);
   }
 
+  @core.TypedRoute.Post("calendars/events")
+  async createEvent(
+    @TypedBody() input: IKakaoTalk.ICreateEventInput,
+  ): Promise<IKakaoTalk.ICreateEventOutput> {
+    return KakaoTalkProvider.createEvent(input);
+  }
+
   @core.TypedRoute.Post("get-events")
   async getEvents(@TypedBody() input: IKakaoTalk.IGetEventInput) {
     return KakaoTalkProvider.getEvents(input);

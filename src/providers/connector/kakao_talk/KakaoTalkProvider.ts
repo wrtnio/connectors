@@ -9,7 +9,19 @@ export namespace KakaoTalkProvider {
   export async function createEvent(
     input: IKakaoTalk.ICreateEventInput,
   ): Promise<IKakaoTalk.ICreateEventOutput> {
-    return null!;
+    const { secretKey, ...createEventDto } = input;
+    const res = await axios.post(
+      "https://kapi.kakao.com/v2/api/calendar/create/event",
+      createEventDto,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `bearer ${secretKey}`,
+        },
+      },
+    );
+
+    return res.data;
   }
 
   export async function getEvents(
