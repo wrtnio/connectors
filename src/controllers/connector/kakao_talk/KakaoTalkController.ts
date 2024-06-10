@@ -40,6 +40,11 @@ export class KakaoTalkController {
     return KakaoTalkProvider.refresh(input);
   }
 
+  @core.TypedRoute.Post("get-events")
+  async getEvents(@TypedBody() input: IKakaoTalk.IGetEventInput) {
+    return KakaoTalkProvider.getEvents(input);
+  }
+
   /**
    * 카카오톡 캘린더 목록들을 모두 조회합니다.
    *
