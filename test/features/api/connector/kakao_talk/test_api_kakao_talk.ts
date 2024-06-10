@@ -157,3 +157,28 @@ export const test_api_kakao_talk_get_calendars = async (
 
   typia.assertEquals(calendarInfo);
 };
+
+export const test_api_kakao_talk_get_calendar_events = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 액세스 토큰 갱신.
+   */
+  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
+    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+  });
+
+  typia.assertEquals(res);
+
+  const events =
+    await CApi.functional.connector.kakao_talk.get_events.getEvents(
+      connection,
+      {
+        secretKey: res.access_token,
+        from: "2024-01-01T12:00:00Z",
+        to: "2024-01-31T12:00:00Z",
+      },
+    );
+
+  typia.assertEquals(events);
+};
