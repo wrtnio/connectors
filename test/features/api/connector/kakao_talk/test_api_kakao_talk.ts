@@ -220,3 +220,60 @@ export const test_api_kakao_talk_create_event = async (
 
   typia.assertEquals(event);
 };
+
+/**
+ * @todo 캘린더형 메시지는 공개 일정, 즉 카카오톡 채널에 일정을 생성한 후에 사용할 수 있다.
+ */
+// export const test_api_kakao_talk_calendar_memo = async (
+//   connection: CApi.IConnection,
+// ) => {
+//   /**
+//    * 액세스 토큰 갱신.
+//    */
+//   const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
+//     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+//   });
+
+//   typia.assertEquals(res);
+
+//   const events = await test_api_kakao_talk_get_calendar_events(connection);
+//   const firstEvent = events.events.find((el) => el.id);
+//   if (!firstEvent?.id) {
+//     throw new Error("생성된 이벤트가 없어 캘린더 타입 메시지 전송 실패.");
+//   }
+
+//   /**
+//    * 캘린더 메시지 발송.
+//    */
+//   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
+//     connection,
+//     {
+//       secretKey: res.access_token,
+//       template_object: {
+//         object_type: "calendar",
+//         content: {
+//           title: "일정 제목",
+//           description: "일정 설명",
+//           image_url:
+//             "https://developers.kakao.com/static/images/pc/txt_visual1.png",
+//           link: {
+//             web_url: "https://kakao.com",
+//           },
+//         },
+//         buttons: [
+//           {
+//             title: "일정 정보 보기",
+//             link: {
+//               web_url: "https://developers.kakao.com",
+//               mobile_web_url: "https://developers.kakao.com/mobile",
+//             },
+//           },
+//         ],
+//         id_type: "event",
+//         id: firstEvent.id,
+//       },
+//     },
+//   );
+
+//   typia.assertEquals(sendTextForm);
+// };
