@@ -38,6 +38,9 @@ export namespace DiscordProvider {
         `${DISCORD_API_BASE_URL}/guilds/${input.guildId}/channels`,
         { headers },
       );
+      // response.data.forEach((item: { last_message_id: any }) => {
+      //   console.log(item.last_message_id);
+      // });
       return response.data;
     } catch (error) {
       // @ts-ignore
@@ -115,17 +118,12 @@ export namespace DiscordProvider {
   }
 
   export async function findUserById(
-    input: IDiscord.IDiscordFindUserInput,
+    userId: string,
   ): Promise<IDiscord.IDiscordFindUserOutput> {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/findUserById",
-        {
-          userId: input.userId,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        },
+      const response = await axios.get(
+        `${DISCORD_API_BASE_URL}/users/${userId}`,
+        { headers },
       );
       return response.data;
     } catch (error) {

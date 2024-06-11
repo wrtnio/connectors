@@ -17,9 +17,6 @@ export class DiscordController {
    * @tag Discord Channel
    */
   @core.TypedRoute.Post("/channel")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  // )
   async createChannel(
     @core.TypedBody() input: IDiscord.IDiscordChannelInput,
   ): Promise<IDiscord.IDiscordChannelOutput> {
@@ -27,9 +24,6 @@ export class DiscordController {
   }
 
   @core.TypedRoute.Post("/channels")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  // )
   async getChannel(
     @core.TypedBody() input: IDiscord.IDiscordGetChannelInput,
   ): Promise<IDiscord.IDiscordGetChannelOutput[]> {
@@ -37,9 +31,6 @@ export class DiscordController {
   }
 
   @core.TypedRoute.Post("/channel/message")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  // )
   async sendMessage(
     @core.TypedBody() input: IDiscord.IDiscordMessageInput,
   ): Promise<IDiscord.IDiscordMessageOutput> {
@@ -47,9 +38,6 @@ export class DiscordController {
   }
 
   @core.TypedRoute.Post("/channel/invite")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  // )
   async inviteChnnel(
     @core.TypedBody() input: IDiscord.IDiscordInviteChannelInput,
   ): Promise<IDiscord.IDiscordInviteChannelOutput> {
@@ -57,22 +45,16 @@ export class DiscordController {
   }
 
   @core.TypedRoute.Post("/channel/direct-message")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  // )
   async directMessage(
     @core.TypedBody() input: IDiscord.IDiscordDirectMessageInput,
   ): Promise<IDiscord.IDiscordDirectMessageOutput> {
     return await DiscordProvider.directMessage(input);
   }
 
-  @core.TypedRoute.Post("/user/find-user-by-id")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  // )
+  @core.TypedRoute.Post("/user/:id")
   async findUserById(
-    @core.TypedBody() input: IDiscord.IDiscordFindUserInput,
+    @core.TypedParam("id") userId: string,
   ): Promise<IDiscord.IDiscordFindUserOutput> {
-    return await DiscordProvider.findUserById(input);
+    return await DiscordProvider.findUserById(userId);
   }
 }
