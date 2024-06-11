@@ -24,8 +24,6 @@ export namespace MiroProvider {
         },
       );
 
-      console.log("refresh : ", res);
-
       return res.data;
     } catch (err) {
       console.error("err : ", err);
@@ -50,8 +48,6 @@ export namespace MiroProvider {
           },
         },
       );
-
-      console.log("createBoard : ", res);
 
       return res.data;
     } catch (err) {
@@ -81,8 +77,6 @@ export namespace MiroProvider {
         },
       );
 
-      console.log("copyBoard : ", res);
-
       return res.data;
     } catch (err) {
       console.error("err : ", err);
@@ -110,8 +104,6 @@ export namespace MiroProvider {
           },
         },
       );
-
-      console.log("copyBoard : ", res);
 
       return res.data;
     } catch (err) {
