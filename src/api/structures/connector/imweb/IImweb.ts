@@ -1,11 +1,13 @@
 import { Constant } from "@wrtn/decorators";
 import { tags } from "typia";
 
+import { ICommon } from "../common/ISecretValue";
+
 export namespace IImweb {
   /**
    * @title 상품 조회 요청 DTO.
    */
-  export interface IGetProductInput {
+  export interface IGetProductInput extends ICommon.ISecret<"imweb", []> {
     /**
      * @title 특정 상태.
      *
