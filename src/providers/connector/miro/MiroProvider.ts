@@ -60,8 +60,6 @@ export namespace MiroProvider {
     }
   }
 
-  // export async function getBoard()
-
   export async function copyBoard(
     input: IMiro.ICopyBoardInput,
   ): Promise<IMiro.ICopyBoardOutput> {
@@ -79,6 +77,36 @@ export namespace MiroProvider {
           },
           params: {
             copy_from: input.copy_from,
+          },
+        },
+      );
+
+      console.log("copyBoard : ", res);
+
+      return res.data;
+    } catch (err) {
+      console.error("err : ", err);
+      throw err;
+    }
+  }
+
+  export async function createCard(
+    input: IMiro.ICreateCardItemInput,
+  ): Promise<IMiro.ICreateCardItemOutput> {
+    try {
+      const res = await axios.post(
+        `https://api.miro.com/v2/boards/${input.board_id}/cards`,
+        {
+          data: input.data,
+          style: input.style,
+          position: input.position,
+          geometry: input.geometry,
+          parent: input.parent,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+            "Content-Type": "application/json",
           },
         },
       );

@@ -62,4 +62,18 @@ export class MiroController {
   ): Promise<IMiro.ICopyBoardOutput> {
     return MiroProvider.copyBoard(input);
   }
+
+  /**
+   * Miro Card 생성.
+   *
+   * @internal
+   *
+   * @param input Create Card DTO.
+   */
+  @core.TypedRoute.Post("createCard")
+  async createCard(
+    @TypedBody() input: IMiro.ICreateCardItemInput,
+  ): Promise<IMiro.ICreateCardItemOutput> {
+    return MiroProvider.createCard(input);
+  }
 }
