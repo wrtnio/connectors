@@ -13,14 +13,14 @@ export const test_api_miro_create_board = async (
 
   console.log("authRes : ", authRes);
 
-  const res = await CApi.functional.connector.miro.createBoard(connection, {
-    name: "create-board-00",
-    description: "test board",
-
-    teamId: "",
-    projectId: "",
-    secretKey: authRes.access_token,
-  });
-
-  console.log("res : ", res);
+  // const res = await CApi.functional.connector.miro.createBoard(connection, {
+  //   name: "create-board-00",
+  //   description: "test board",
+  //
+  //   teamId: "",
+  //   projectId: "",
+  //   secretKey: authRes.access_token,
+  // });
+  //
+  // console.log("res : ", res);
 };

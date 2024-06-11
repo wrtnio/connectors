@@ -13,9 +13,9 @@ export namespace MiroProvider {
         "https://api.miro.com/v1/oauth/token",
         {
           grant_type: "refresh_token",
-          refresh_token: input.refresh_token,
           client_id: ConnectorGlobal.env.MIRO_CLIENT_ID,
           client_secret: ConnectorGlobal.env.MIRO_CLIENT_SECRET,
+          refresh_token: input.refresh_token,
         },
         {
           headers: {

@@ -63,7 +63,12 @@ export namespace IMiro {
    */
   export type IRefreshAccessTokenOutput = Pick<
     IGetAccessTokenOutput,
-    "access_token" | "expires_in" | "token_type"
+    | "token_type"
+    | "team_id"
+    | "access_token"
+    | "refresh_token"
+    | "scope"
+    | "expires_in"
   >;
 
   /**
