@@ -33,8 +33,8 @@ export async function authorization(
       });
 }
 export namespace authorization {
-  export type Query = Resolved<IMiro.IAuthorizationCode>;
-  export type Output = Primitive<IMiro.IGetAccessTokenOutput>;
+  export type Query = Resolved<IMiro.IAccessTokenInput>;
+  export type Output = Primitive<IMiro.IAccessTokenOutput>;
 
   export const METADATA = {
     method: "GET",
@@ -61,8 +61,8 @@ export namespace authorization {
   };
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMiro.IGetAccessTokenOutput>> =>
-    typia.random<Primitive<IMiro.IGetAccessTokenOutput>>(g);
+  ): Resolved<Primitive<IMiro.IAccessTokenOutput>> =>
+    typia.random<Primitive<IMiro.IAccessTokenOutput>>(g);
   export const simulate = (
     connection: IConnection,
     query: authorization.Query,

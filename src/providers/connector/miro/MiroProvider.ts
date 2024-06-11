@@ -6,16 +6,23 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace MiroProvider {
   export async function refresh(
-    input: IMiro.IRefreshAccessTokenInput,
-  ): Promise<IMiro.IRefreshAccessTokenOutput> {
+    input: IMiro.IRefreshTokenInput,
+  ): Promise<IMiro.IRefreshTokenOutput> {
     try {
+      const {
+        grant_type = "refresh_token",
+        client_id,
+        client_secret,
+        refresh_token,
+      } = input;
+
       const res = await axios.post(
         "https://api.miro.com/v1/oauth/token",
         {
-          grant_type: "refresh_token",
-          client_id: ConnectorGlobal.env.MIRO_CLIENT_ID,
-          client_secret: ConnectorGlobal.env.MIRO_CLIENT_SECRET,
-          refresh_token: input.refresh_token,
+          grant_type: grant_type,
+          client_id: client_id,
+          client_secret: client_secret,
+          refresh_token: refresh_token,
         },
         {
           headers: {
@@ -35,19 +42,14 @@ export namespace MiroProvider {
     input: IMiro.ICreateBoardInput,
   ): Promise<IMiro.ICreateBoardOutput> {
     try {
-      const res = await axios.post(
-        "https://api.miro.com/v2/boards",
-        {
-          name: input.name,
-          description: input.description,
+      const { secretKey, ...data } = input;
+
+      const res = await axios.post("https://api.miro.com/v2/boards", data, {
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${input.secretKey}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
+      });
 
       return res.data;
     } catch (err) {
@@ -60,22 +62,17 @@ export namespace MiroProvider {
     input: IMiro.ICopyBoardInput,
   ): Promise<IMiro.ICopyBoardOutput> {
     try {
-      const res = await axios.put(
-        `https://api.miro.com/v2/boards`,
-        {
-          name: input.name,
-          description: input.description,
+      const { secretKey, ...data } = input;
+
+      const res = await axios.put(`https://api.miro.com/v2/boards`, data, {
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${input.secretKey}`,
-            "Content-Type": "application/json",
-          },
-          params: {
-            copy_from: input.copy_from,
-          },
+        params: {
+          copy_from: input.copy_from,
         },
-      );
+      });
 
       return res.data;
     } catch (err) {
@@ -88,18 +85,14 @@ export namespace MiroProvider {
     input: IMiro.ICreateCardItemInput,
   ): Promise<IMiro.ICreateCardItemOutput> {
     try {
+      const { secretKey, board_id, ...data } = input;
+
       const res = await axios.post(
-        `https://api.miro.com/v2/boards/${input.board_id}/cards`,
-        {
-          data: input.data,
-          style: input.style,
-          position: input.position,
-          geometry: input.geometry,
-          parent: input.parent,
-        },
+        `https://api.miro.com/v2/boards/${board_id}/cards`,
+        data,
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${secretKey}`,
             "Content-Type": "application/json",
           },
         },

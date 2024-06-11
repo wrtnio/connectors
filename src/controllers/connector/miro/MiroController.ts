@@ -16,8 +16,8 @@ export class MiroController {
    */
   @Get("auth")
   authorization(
-    @Query() query: IMiro.IAuthorizationCode,
-  ): Promise<IMiro.IGetAccessTokenOutput> {
+    @Query() query: IMiro.IAccessTokenInput,
+  ): Promise<IMiro.IAccessTokenOutput> {
     return null!;
   }
 
@@ -30,8 +30,8 @@ export class MiroController {
    */
   @core.TypedRoute.Post("refresh")
   async refresh(
-    @TypedBody() input: IMiro.IRefreshAccessTokenInput,
-  ): Promise<IMiro.IRefreshAccessTokenOutput> {
+    @TypedBody() input: IMiro.IRefreshTokenInput,
+  ): Promise<IMiro.IRefreshTokenOutput> {
     return MiroProvider.refresh(input);
   }
 

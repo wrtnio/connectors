@@ -2,10 +2,10 @@ import CApi from "@wrtn/connector-api/lib/index";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_miro_create_board = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_miro = async (connection: CApi.IConnection) => {
   const authRes = await CApi.functional.connector.miro.refresh(connection, {
+    client_id: ConnectorGlobal.env.MIRO_CLIENT_ID,
+    client_secret: ConnectorGlobal.env.MIRO_CLIENT_SECRET,
     refresh_token: ConnectorGlobal.env.TEST_MIRO_REFRESH_TOKEN,
   });
 

@@ -45,8 +45,8 @@ export async function refresh(
       );
 }
 export namespace refresh {
-  export type Input = Primitive<IMiro.IRefreshAccessTokenInput>;
-  export type Output = Primitive<IMiro.IRefreshAccessTokenOutput>;
+  export type Input = Primitive<IMiro.IRefreshTokenInput>;
+  export type Output = Primitive<IMiro.IRefreshTokenOutput>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +65,8 @@ export namespace refresh {
   export const path = () => "/connector/miro/refresh";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMiro.IRefreshAccessTokenOutput>> =>
-    typia.random<Primitive<IMiro.IRefreshAccessTokenOutput>>(g);
+  ): Resolved<Primitive<IMiro.IRefreshTokenOutput>> =>
+    typia.random<Primitive<IMiro.IRefreshTokenOutput>>(g);
   export const simulate = (
     connection: IConnection,
     input: refresh.Input,
