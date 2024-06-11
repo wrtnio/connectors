@@ -94,6 +94,13 @@ export class KakaoTalkController {
     return KakaoTalkProvider.getCalendars(input);
   }
 
+  @core.TypedRoute.Post("get-friends")
+  async getFriends(
+    @TypedBody() input: IKakaoTalk.IGetFriendInput,
+  ): Promise<IKakaoTalk.IGetFirendOutput> {
+    return null!;
+  }
+
   /**
    * 카카오톡 액세스 토큰 발급.
    *

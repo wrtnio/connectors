@@ -5,6 +5,104 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
   /**
+   * @title 친구 조회 결과 DTO.
+   */
+  export interface IGetFirendOutput {
+    /**
+     * @title 친구의 정보 배열.
+     */
+    elements?: IKakaoTalk.Friend[];
+
+    /**
+     * @title 전체 친구 수.
+     */
+    total_count: number & tags.Type<"int64">;
+
+    /**
+     * @title 친구 목록 이전 페이지 URL.
+     */
+    before_url?: string & tags.Format<"url">;
+
+    /**
+     * @title 친구 목록 다음 페이지 URL.
+     */
+    after_url?: string & tags.Format<"url">;
+
+    /**
+     * @title 즐겨찾기(favorite) 친구 수.
+     */
+    favorite_count?: number & tags.Type<"int64">;
+  }
+
+  /**
+   * @title 카카오톡 친구 DTO.
+   */
+  export interface Friend {
+    /**
+     * @title 회원번호.
+     */
+    id: number & tags.Type<"int64">;
+
+    /**
+     * @title 친구마다 고유한 값을 가지는 참고용 코드 값.
+     *
+     * 카카오톡 메시지 전송 시 사용한다.
+     */
+    uuid: string & tags.Format<"uuid">;
+
+    /**
+     * @title 해당 친구 즐겨찾기 여부.
+     */
+    favorite?: boolean;
+
+    /**
+     * @title 프로필 닉네임.
+     */
+    profile_nickname?: string;
+
+    /**
+     * @title 프로필 썸네일(Thumbnail) 이미지.
+     */
+    profile_thumbnail_image?: string & tags.Format<"url">;
+  }
+
+  /**
+   * @title 친구 목록 조회를 위한 요청 DTO.
+   */
+  export interface IGetFriendInput
+    extends ICommon.ISecret<"kakao", ["friends"]> {
+    /**
+     * @title 친구 목록 시작 지점.
+     */
+    offset?: number & tags.Type<"int64"> & tags.Default<0>;
+
+    /**
+     * @title 한 페이지에 가져올 친구 최대 수.
+     */
+    limit?: number & tags.Type<"int64"> & tags.Minimum<0> & tags.Maximum<100>;
+
+    /**
+     * @title 친구 목록 정렬 순서.
+     */
+    order?: (
+      | Constant<"asc", { title: "오름차순" }>
+      | Constant<"desc", { title: "내림차순" }>
+    ) &
+      tags.Default<"asc">;
+
+    /**
+     *
+     */
+    friend_order?:
+      | ((
+          | Constant<"favorite", { title: "즐겨찾기 친구 우선 정렬" }>
+          | Constant<"nickname", { title: "닉네임 정렬로 기준 설정" }>
+        ) &
+          tags.Default<"favorite">)
+      | "nickname";
+  }
+
+  /**
    * @title 카카오 로그인 후 받게 되는 코드 DTO.
    */
   export interface IAuthorizationCode {

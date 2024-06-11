@@ -14,6 +14,7 @@ import type { IKakaoTalk } from "../../../structures/connector/kakao_talk/IKakao
 export * as calendars from "./calendars";
 export * as get_events from "./get_events";
 export * as get_calendars from "./get_calendars";
+export * as get_friends from "./get_friends";
 export * as auth from "./auth";
 
 /**
