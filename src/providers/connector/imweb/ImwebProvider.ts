@@ -6,16 +6,21 @@ export namespace ImwebProvider {
   export async function getProducts(
     input: IImweb.IGetProductInput,
   ): Promise<IImweb.IGetProductOutput> {
-    const res = await axios.get(
-      `https://api.imweb.me/v2/shop/products?product_status=${input.prod_status}&category=${input.category}`,
-      {
-        headers: {
-          "access-token": input.secretKey,
+    try {
+      const res = await axios.get(
+        `https://api.imweb.me/v2/shop/products?product_status=${input.prod_status}&category=${input.category}`,
+        {
+          headers: {
+            "access-token": input.secretKey,
+          },
         },
-      },
-    );
+      );
 
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 
   export async function getAccessToken(
