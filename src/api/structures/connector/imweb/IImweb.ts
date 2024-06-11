@@ -4,6 +4,28 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
+  export interface ResponseForm {
+    /**
+     * 응답에 대한 요약 메시지.
+     */
+    msg: Constant<"SUCCESS", { title: "성공" }>;
+
+    /**
+     * @title status code.
+     */
+    code: 200;
+
+    /**
+     * @title 해당 키에서 사용된 요청 횟수.
+     */
+    request_count: number;
+
+    /**
+     * @title 현재 사용 중인 API의 버전.
+     */
+    version: `${number}`;
+  }
+
   /**
    * @title 상품 조회 요청 DTO.
    */
@@ -21,7 +43,22 @@ export namespace IImweb {
     category?: string;
   }
 
-  export interface IGetProductOutput {
+  /**
+   * @title 상품 조회 응답 DTO.
+   */
+  export interface IGetProductOutput extends ResponseForm {
+    /**
+     * @title 상품 정보.
+     */
+    data: {
+      /**
+       * @title 상품의 배열.
+       */
+      list: IImweb.Product[];
+    };
+  }
+
+  export interface Product {
     /**
      * @title 상품번호.
      */
