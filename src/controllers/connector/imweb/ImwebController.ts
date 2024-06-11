@@ -7,6 +7,12 @@ import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider"
 
 @Controller("connector/imweb")
 export class ImwebController {
+  async getProducts(
+    @TypedBody() input: IImweb.IGetProductInput,
+  ): Promise<IImweb.IGetProductOutput> {
+    return null!;
+  }
+
   /**
    * 아임웹 액세스 토큰 발급.
    *
