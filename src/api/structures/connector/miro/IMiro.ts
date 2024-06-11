@@ -75,32 +75,77 @@ export namespace IMiro {
    * @title Create Board DTO
    */
   export interface ICreateBoardInput
-    extends ICommon.ISecret<"miro", ["boards:read", "boards:write"]> {
+    extends ICommon.ISecret<"miro", ["boards:write"]> {
     /**
-     * @title Description of the board.
+     * @title 보드 설명
+     * @description Description of the board.
      */
     description: string;
 
     /**
-     * @title Name for the board.
+     * @title 보드 이름
+     * @description Name for the board.
      */
     name: string;
 
     /**
-     * @title Unique identifier (ID) of the team where the board must be placed.
+     * @title 팀 아이디
+     * @description Unique identifier (ID) of the team where the board must be placed.
      */
-    teamId: string;
+    teamId?: string;
 
     /**
-     * @title Unique identifier (ID) of the project to which the board must be added.
+     * @title 프로젝트 아이디
+     * @description Unique identifier (ID) of the project to which the board must be added.
      */
-    projectId: string;
+    projectId?: string;
   }
 
   /**
    * @title Create Board DTO
    */
   export interface ICreateBoardOutput {
+    id: string;
+  }
+
+  /**
+   * @title Create Board DTO
+   */
+  export interface ICopyBoardInput
+    extends ICommon.ISecret<"miro", ["boards:write"]> {
+    /**
+     * @title
+     * @description Unique identifier (ID) of the board that you want to copy.
+     */
+    copy_from: string;
+
+    /**
+     * @title
+     * @description Description of the board.
+     */
+    description: string;
+
+    /**
+     * @title
+     * @description Name for the board.
+     */
+    name: string;
+
+    /**
+     * @title
+     * @description Unique identifier (ID) of the team where the board must be placed.
+     */
+    teamId?: string;
+  }
+
+  /**
+   * @title Copy Board DTO
+   */
+  export interface ICopyBoardOutput {
+    /**
+     * @title board ID
+     * @description Unique identifier (ID) of the board.
+     */
     id: string;
   }
 }

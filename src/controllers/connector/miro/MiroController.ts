@@ -8,17 +8,17 @@ import { MiroProvider } from "../../../providers/connector/miro/MiroProvider";
 @Controller("connector/miro")
 export class MiroController {
   /**
-   * Miro Board 생성.
+   * Miro 액세스 토큰 발급.
    *
    * @internal
    *
-   * @param input Board 생성을 위한 .
+   * @param query Authorization Code Dto.
    */
-  @core.TypedRoute.Post("createBoard")
-  async createBoard(
-    @TypedBody() input: IMiro.ICreateBoardInput,
-  ): Promise<IMiro.ICreateBoardOutput> {
-    return MiroProvider.createBoard(input);
+  @Get("auth")
+  authorization(
+    @Query() query: IMiro.IAuthorizationCode,
+  ): Promise<IMiro.IGetAccessTokenOutput> {
+    return null!;
   }
 
   /**
@@ -36,16 +36,30 @@ export class MiroController {
   }
 
   /**
-   * Miro 액세스 토큰 발급.
+   * Miro Board 생성.
    *
    * @internal
    *
-   * @param query Authorization Code Dto.
+   * @param input Create Board DTO.
    */
-  @Get("auth")
-  authorization(
-    @Query() query: IMiro.IAuthorizationCode,
-  ): Promise<IMiro.IGetAccessTokenOutput> {
-    return null!;
+  @core.TypedRoute.Post("createBoard")
+  async createBoard(
+    @TypedBody() input: IMiro.ICreateBoardInput,
+  ): Promise<IMiro.ICreateBoardOutput> {
+    return MiroProvider.createBoard(input);
+  }
+
+  /**
+   * Miro Board 생성.
+   *
+   * @internal
+   *
+   * @param input Copy Board DTO.
+   */
+  @core.TypedRoute.Post("copyBoard")
+  async copyBoard(
+    @TypedBody() input: IMiro.ICopyBoardInput,
+  ): Promise<IMiro.ICopyBoardOutput> {
+    return MiroProvider.copyBoard(input);
   }
 }

@@ -11,16 +11,27 @@ export const test_api_miro_create_board = async (
 
   // typia.assertEquals(authRes);
 
-  console.log("authRes : ", authRes);
+  console.log("refresh auth res : ", authRes);
 
-  // const res = await CApi.functional.connector.miro.createBoard(connection, {
-  //   name: "create-board-00",
-  //   description: "test board",
-  //
-  //   teamId: "",
-  //   projectId: "",
-  //   secretKey: authRes.access_token,
-  // });
-  //
-  // console.log("res : ", res);
+  const createRes = await CApi.functional.connector.miro.createBoard(
+    connection,
+    {
+      name: "create-board-00",
+      description: "test board create",
+
+      secretKey: authRes.access_token,
+    },
+  );
+
+  console.log("create board res : ", createRes);
+
+  const copyRes = await CApi.functional.connector.miro.copyBoard(connection, {
+    name: "copy-board-00",
+    description: "test board copy",
+
+    secretKey: authRes.access_token,
+    copy_from: createRes.id,
+  });
+
+  console.log("copy board res : ", copyRes);
 };

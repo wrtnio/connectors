@@ -59,4 +59,36 @@ export namespace MiroProvider {
       throw err;
     }
   }
+
+  // export async function getBoard()
+
+  export async function copyBoard(
+    input: IMiro.ICopyBoardInput,
+  ): Promise<IMiro.ICopyBoardOutput> {
+    try {
+      const res = await axios.put(
+        `https://api.miro.com/v2/boards`,
+        {
+          name: input.name,
+          description: input.description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+            "Content-Type": "application/json",
+          },
+          params: {
+            copy_from: input.copy_from,
+          },
+        },
+      );
+
+      console.log("copyBoard : ", res);
+
+      return res.data;
+    } catch (err) {
+      console.error("err : ", err);
+      throw err;
+    }
+  }
 }
