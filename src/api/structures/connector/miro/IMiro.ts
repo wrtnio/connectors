@@ -32,7 +32,7 @@ export namespace IMiro {
     code: string;
 
     /**
-     * @title
+     * @title redirect URI
      * @description Paste the redirect URI. The URI must match the original redirect URI that was used when requesting the authorization (including slash at the end).
      */
     redirect_uri: string;
@@ -134,17 +134,17 @@ export namespace IMiro {
     name?: string & tags.MinLength<1> & tags.MaxLength<60>;
 
     /**
-     * @title
+     * @title 정책 정보
      * @description Defines the permissions policies and sharing policies for the board.
      */
     policy?: {
       /**
-       * @title
+       * @title 권한 정책
        * @description Defines the permissions policies for the board.
        */
       permissionsPolicy?: {
         /**
-         * @title
+         * @title 협업 설정
          * @description Defines who can start or stop timer, voting, video chat, screen sharing, attention management. Others will only be able to join. To change the value for the collaborationToolsStartAccess parameter, contact Miro Customer Support.
          *
          * @default all_editors
@@ -154,7 +154,7 @@ export namespace IMiro {
           | "board_owners_and_coowners";
 
         /**
-         * @title
+         * @title 보드 복사 설정
          * @description Defines who can copy the board, copy objects, download images, and save the board as a template or PDF.
          *
          * @default anyone
@@ -162,7 +162,7 @@ export namespace IMiro {
         copyAccess?: "anyone" | "team_members" | "team_editors" | "board_owner";
 
         /**
-         * @title
+         * @title 공유 설정
          * @description Defines who can change access and invite users to this board. To change the value for the sharingAccess parameter, contact Miro Customer Support.
          *
          * @default team_members_with_editing_rights
@@ -173,12 +173,12 @@ export namespace IMiro {
       };
 
       /**
-       * @title
+       * @title 공유 정책
        * @description Defines the public-level, organization-level, and team-level access for the board. The access level that a user gets depends on the highest level of access that results from considering the public-level, team-level, organization-level, and direct sharing access.
        */
       sharingPolicy?: {
         /**
-         * @title
+         * @title 공개 수준
          * @description Defines the public-level access to the board
          *
          * @default private
@@ -186,7 +186,7 @@ export namespace IMiro {
         access?: "private" | "view" | "edit" | "comment";
 
         /**
-         * @title
+         * @title 초대시 사용자 역할 정의
          * @description Defines the user role when inviting a user via the invite to team and board link. For Enterprise users, the inviteToAccountAndBoardLinkAccess parameter is always set to no_access regardless of the value that you assign for this parameter.
          *
          * @default no_access
@@ -198,7 +198,7 @@ export namespace IMiro {
           | "commenter";
 
         /**
-         * @title
+         * @title 조직 권한
          * @description Defines the organization-level access to the board. If the board is created for a team that does not belong to an organization, the organizationAccess parameter is always set to the default value.
          *
          * @default private
@@ -206,7 +206,7 @@ export namespace IMiro {
         organizationAccess?: "private" | "view" | "edit" | "comment";
 
         /**
-         * @title
+         * @title 팀 권한
          * @description Defines the team-level access to the board.
          *
          * @default private
@@ -495,7 +495,7 @@ export namespace IMiro {
      */
     links: {
       /**
-       * @title
+       * @title 관련 링크
        * @description Link to obtain information about the board members associated with the board.
        */
       related: string;
@@ -520,35 +520,35 @@ export namespace IMiro {
   export interface ICopyBoardInput
     extends ICommon.ISecret<"miro", ["boards:write"]> {
     /**
-     * @title
+     * @title 복사할 보드의 ID
      * @description Unique identifier (ID) of the board that you want to copy.
      */
     copy_from: string;
 
     /**
-     * @title
+     * @title 보드 설명
      * @description Description of the board.
      */
     description?: string & tags.MinLength<0> & tags.MaxLength<300>;
 
     /**
-     * @title
+     * @title 보드 이름
      * @description Name for the board.
      */
     name?: string & tags.MinLength<1> & tags.MaxLength<60>;
 
     /**
-     * @title
+     * @title 정책 정보
      * @description Defines the permissions policies and sharing policies for the board.
      */
     policy?: {
       /**
-       * @title
+       * @title 권한 정책
        * @description Defines the permissions policies for the board.
        */
       permissionsPolicy?: {
         /**
-         * @title
+         * @title 협업 설정
          * @description Defines who can start or stop timer, voting, video chat, screen sharing, attention management. Others will only be able to join. To change the value for the collaborationToolsStartAccess parameter, contact Miro Customer Support.
          *
          * @default all_editors
@@ -558,7 +558,7 @@ export namespace IMiro {
           | "board_owners_and_coowners";
 
         /**
-         * @title
+         * @title 보드 복사 설정
          * @description Defines who can copy the board, copy objects, download images, and save the board as a template or PDF.
          *
          * @default anyone
@@ -566,7 +566,7 @@ export namespace IMiro {
         copyAccess?: "anyone" | "team_members" | "team_editors" | "board_owner";
 
         /**
-         * @title
+         * @title 공유 설정
          * @description Defines who can change access and invite users to this board. To change the value for the sharingAccess parameter, contact Miro Customer Support.
          *
          * @default team_members_with_editing_rights
@@ -577,12 +577,12 @@ export namespace IMiro {
       };
 
       /**
-       * @title
+       * @title 공유 정책
        * @description Defines the public-level, organization-level, and team-level access for the board. The access level that a user gets depends on the highest level of access that results from considering the public-level, team-level, organization-level, and direct sharing access.
        */
       sharingPolicy?: {
         /**
-         * @title
+         * @title 공개 수준
          * @description Defines the public-level access to the board
          *
          * @default private
@@ -590,7 +590,7 @@ export namespace IMiro {
         access?: "private" | "view" | "edit" | "comment";
 
         /**
-         * @title
+         * @title 초대시 사용자 역할 정의
          * @description Defines the user role when inviting a user via the invite to team and board link. For Enterprise users, the inviteToAccountAndBoardLinkAccess parameter is always set to no_access regardless of the value that you assign for this parameter.
          *
          * @default no_access
@@ -602,7 +602,7 @@ export namespace IMiro {
           | "commenter";
 
         /**
-         * @title
+         * @title 조직 권한
          * @description Defines the organization-level access to the board. If the board is created for a team that does not belong to an organization, the organizationAccess parameter is always set to the default value.
          *
          * @default private
@@ -610,7 +610,7 @@ export namespace IMiro {
         organizationAccess?: "private" | "view" | "edit" | "comment";
 
         /**
-         * @title
+         * @title 팀 권한
          * @description Defines the team-level access to the board.
          *
          * @default private
@@ -620,7 +620,7 @@ export namespace IMiro {
     };
 
     /**
-     * @title
+     * @title 팀 ID
      * @description Unique identifier (ID) of the team where the board must be placed.
      */
     teamId?: string;
@@ -635,7 +635,7 @@ export namespace IMiro {
     | "name"
     | "description"
     | "team"
-    // | "picture"
+    | "picture"
     | "policy"
     | "viewLink"
     | "owner"
@@ -826,7 +826,7 @@ export namespace IMiro {
      */
     position: {
       /**
-       * @title
+       * @title origin
        * @description Area of the item that is referenced by its x and y coordinates. For example, an item with a center origin will have its x and y coordinates point to its center. The center point of the board has x: 0 and y: 0 coordinates.
        * Currently, only one option is supported (center).
        */
@@ -945,12 +945,12 @@ export namespace IMiro {
       id: string;
 
       /**
-       * @title
+       * @title 링크 정보
        * @description Contains applicable links for the current object.
        */
       links: {
         /**
-         * @title
+         * @title 링크 URL
          * @description Link to obtain more information about the current object.
          */
         self: string;
@@ -963,13 +963,13 @@ export namespace IMiro {
      */
     links: {
       /**
-       * @title
+       * @title 링크 정보???
        * @description Link to obtain information about the child items related to the frame.
        */
       related?: string;
 
       /**
-       * @title
+       * @title 링크 URL
        * @description Link to obtain information about the current item.
        */
       self: string;
