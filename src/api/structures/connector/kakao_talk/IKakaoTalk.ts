@@ -474,7 +474,159 @@ export namespace IKakaoTalk {
      *
      * 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나.
      */
-    template_object: IFeedMemoInput | ITextMemoInput | ICalendarMemoInput;
+    template_object:
+      | IFeedMemoInput
+      | ITextMemoInput
+      | ICalendarMemoInput
+      | IListMemoInput
+      | ILocationMemoInput
+      | ICommerceMemoInput;
+  }
+
+  export interface ICommerceMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "commerce";
+
+    /**
+     * @title 메시지의 콘텐츠 정보.
+     */
+    content: IKakaoTalk.Content;
+
+    /**
+     * @title 상품 이름 및 가격 정보.
+     */
+    commerce: IKakaoTalk.Commerce;
+
+    /**
+     * @title 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
+     */
+    button_title?: string;
+
+    /**
+     * @title 버튼 목록.
+     *
+     * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
+  }
+
+  export interface Commerce {
+    /**
+     * @title 상품 이름 및 제목.
+     */
+    product_name?: string;
+
+    /**
+     * @title 정상 가격.
+     */
+    regular_price: number & tags.Type<"int64">;
+
+    /**
+     * @title 할인된 가격.
+     */
+    discount_price?: number & tags.Type<"int64">;
+
+    /**
+     * @title 할인률.
+     */
+    discount_rate?: number &
+      tags.Type<"int64"> &
+      tags.Minimum<0> &
+      tags.Maximum<100>;
+
+    /**
+     * @title 정액 할인 가격.
+     *
+     * 할인율과 동시 사용 불가.
+     */
+    fixedDiscountPrice?: number & tags.Type<"int64"> & tags.Minimum<0>;
+
+    /**
+     * @title 통화 단위 또는 기호.
+     */
+    currency_unit?: string & tags.Default<"원">;
+
+    /**
+     * @title 통화 단위 표시 위치.
+     */
+    currency_unit_position?:
+      | Constant<0, { title: "가격 뒤에 표시" }>
+      | Constant<1, { title: "가격 앞에 표시" }>;
+  }
+
+  export interface ILocationMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "location";
+
+    /**
+     * @title 공유할 위치의 주소.
+     */
+    address: string;
+
+    /**
+     * @title 카카오톡 내의 지도 뷰에서 사용되는 타이틀.
+     */
+    address_title?: string;
+
+    /**
+     * @title 위치에 대해 설명하는 콘텐츠 정보.
+     */
+    content: IKakaoTalk.Content;
+
+    /**
+     * @title 부가적인 소셜 정보.
+     */
+    social?: IKakaoTalk.Social;
+
+    /**
+     * @title 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
+     */
+    button_title?: string;
+
+    /**
+     * @title 버튼 목록.
+     *
+     * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
+  }
+
+  export interface IListMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "list";
+
+    /**
+     * @title 리스트 상단에 노출되는 메인 타이틀.
+     */
+    header_title: string & tags.MaxLength<200>;
+
+    /**
+     * @title 헤더 타이틀 내용에 해당하는 링크 정보.
+     */
+    header_link: IKakaoTalk.ButtonLink;
+
+    /**
+     * @title 리스트에 노출되는 콘텐츠 목록.
+     */
+    contents: IKakaoTalk.Content[] & tags.MinItems<2> & tags.MaxItems<3>;
+
+    /**
+     * @title 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정.
+     */
+    button_title?: string;
+
+    /**
+     * @title 버튼 목록.
+     *
+     * 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   export interface ICalendarMemoInput {
