@@ -49,10 +49,350 @@ export namespace IKakaoTalk {
   }
 
   /**
+   * @title 일정 조회 결과 DTO.
+   */
+  export interface IGetEventOutput {
+    /**
+     * @title 가져온 일정 목록.
+     */
+    events: IKakaoTalk.EventBriref[];
+
+    /**
+     * @title 다음 페이지 존재 여부.
+     */
+    has_next: boolean;
+
+    /**
+     * @title 다음 페이지 URL.
+     *
+     * 다음 페이지를 조회하기 위한 파라미터와 값을 포함한 URL이므로, 다음 페이지 요청 시 그대로 사용.
+     *
+     * 제공 조건은 `has_next`가 true인 경우이다.
+     */
+    after_url?: string;
+  }
+
+  export interface EventBriref {
+    /**
+     * 	@title 일정 ID.
+     */
+    id?: string;
+
+    /**
+     * @title	일정 제목.
+     */
+    title?: string;
+
+    /**
+     * 	@title 일정 타입.
+     */
+    type?: string;
+
+    /**
+     * @title	캘린더 ID.
+     *
+     * 기본 캘린더의 경우 primary로 고정.
+     */
+    calendar_id?: string & tags.Default<"primary">;
+
+    /**
+     * @title 일정 시간.
+     */
+    time: IKakaoTalk.Time;
+
+    /**
+     * @title 일정 작성자인지 여부.
+     *
+     * 공개/구독 일정 또는 초대 받은 일정인 경우
+     */
+    is_host?: boolean & tags.Default<false>;
+
+    /**
+     * @title 반복 일정 여부.
+     *
+     * type이 USER인 경우 필수.
+     */
+    is_recur_event?: boolean;
+
+    /**
+     *	@title 일정 색상.
+     *
+     * 일정 생성 또는 편집 시 지정하지 않은 경우 미포함.
+     */
+    color?: IKakaoTalk.Color;
+  }
+
+  export interface Time {
+    /**
+     * @title 일정 시작 시각.
+     *
+     * 5분 간격으로 설정 가능.
+     */
+    start_at?: string;
+
+    /**
+     * @title 일정 종료 시각.
+     */
+    end_at?: string;
+
+    /**
+     * @title 타임존 설정.
+     *
+     * TZID 형식.
+     */
+    time_zone?: string & tags.Default<"Asia/Seoul">;
+
+    /**
+     * @title 종일 일정 여부.
+     */
+    all_day?: boolean & tags.Default<false>;
+
+    /**
+     * @title 날짜 기준을 음력으로 설정.
+     */
+    lunar?: boolean & tags.Default<false>;
+  }
+
+  export interface ICreateEventOutput {
+    /**
+     * 생성한 일정 ID.
+     */
+    event_id: string;
+  }
+
+  /**
+   * @title 일정을 생성하기 위한 요청 DTO.
+   */
+  export interface ICreateEventInput
+    extends ICommon.ISecret<"kakao", ["talk_calendar"]> {
+    /**
+     * @title 일정을 생성할 캘린더 ID.
+     */
+    calendar_id?: string & tags.Default<"primary">;
+
+    /**
+     * 생성할 일정 정보.
+     */
+    event: {
+      /**
+       * @title 일정 제목.
+       */
+      title: string & tags.MaxLength<50>;
+
+      /**
+       * @title 일정 시간.
+       */
+      time: IKakaoTalk.Time;
+
+      /**
+       * @title 일정의 반복 주기.
+       *
+       * RFC5545의 RRULE 형식.
+       */
+      rrule?: string;
+
+      /**
+       * @title 일정 설명.
+       */
+      description?: string & tags.MaxLength<5000>;
+
+      /**
+       * @title 일정 장소.
+       */
+      location?: IKakaoTalk.Location;
+
+      /**
+       * @title 미리 알림 설정.
+       *
+       * 분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능.
+       *
+       * 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
+       */
+      reminders?: (number &
+        tags.MultipleOf<5> &
+        tags.Minimum<-1440> &
+        tags.Maximum<43200>)[] &
+        tags.MaxItems<2>;
+
+      /**
+       * @title 일정 색상.
+       */
+      color?: IKakaoTalk.Color;
+    };
+  }
+
+  /**
+   * @title 일정 장소.
+   */
+  export interface Location {
+    /**
+     * @title 장소 이름.
+     */
+    name?: string & tags.MaxLength<50>;
+
+    /**
+     * @title 장소 ID.
+     */
+    location_id?: number;
+
+    /**
+     * @title 주소.
+     */
+    address?: string;
+
+    /**
+     * @title 위도.
+     */
+    latitude?: number;
+
+    /**
+     * @title 경도.
+     */
+    longitude?: number;
+  }
+
+  /**
+   * @title 캘린더 이벤트를 조회하기 위한 요청 DTO.
+   *
+   * `from`, `to` 쌍 또는 `next_page_token` 둘 중 하나는 필수적으로 들어가야 한다.
+   */
+  export type IGetEventInput = ICommon.ISecret<"kakao", ["talk_calendar"]> & {
+    /**
+     * @title 일정을 조회할 캘린더 ID.
+     *
+     * 값이 없을 시의 기본 값은 전체 캘린더 조회이다.
+     */
+    calender_id?: string;
+
+    /**
+     * @title 미리 정의된 일정 조회 기간.
+     *
+     * 주의: from과 to가 포함되지 않은 경우 필수.
+     *
+     * 주의: next_page_token가 포함된 경우 무시됨.
+     */
+    preset?:
+      | Constant<"TODAY", { title: "조회 당일" }>
+      | Constant<
+          "THIS_WEEK",
+          { title: "일요일로 시작하는 조회일이 포함된 한 주" }
+        >
+      | Constant<
+          "THIS_MONTH",
+          { title: "1일로 시작하는 조회일이 포함된 한 달" }
+        >;
+
+    /**
+     * @title 기한 일자의 타임존.
+     *
+     * TZID 형식.
+     */
+    time_zone?: string;
+
+    /**
+     * @title 응답으로 받을 최대 일정 수.
+     */
+    limit?: number &
+      tags.Type<"int64"> &
+      tags.Minimum<100> &
+      tags.Maximum<1000>;
+  } & (
+      | {
+          /**
+           * @title 일정을 조회할 기간의 시작 시각.
+           *
+           * `from`과 `to` 사이 간격은 31일 이내여야 한다.
+           *
+           * 주의: preset 또는 next_page_token가 포함된 경우 무시됨.
+           */
+          from: string & tags.Format<"date-time">;
+
+          /**
+           * @title 일정을 조회할 기간의 종료 시각.
+           *
+           * `from`과 `to` 사이 간격은 31일 이내여야 한다.
+           *
+           * 주의: preset 또는 next_page_token가 포함된 경우 무시됨.
+           */
+          to: string & tags.Format<"date-time">;
+        }
+      | {
+          /**
+           * @title 다음 페이지 조회를 위한 from, to, limit 값이 포함된 조회 조건 토큰, 응답으로 받은 after_url에서 확인 가능.
+           */
+          next_page_token: string;
+        }
+    );
+
+  /**
    * @title 카카오 액세스 토큰을 갱신하기 위한 DTO.
    */
   export interface IRefreshAccessTokenInput {
     refresh_token: string;
+  }
+
+  export interface IGetCalendarOutput {
+    /**
+     * @title 기본 캘린더, 서브 캘린더 목록.
+     */
+    calendars?: IKakaoTalk.Calendar[];
+
+    /**
+     * @title 구독한 구독 캘린더 목록.
+     */
+    subscribe_calendars?: IKakaoTalk.SubscribeCalendars[];
+  }
+
+  /**
+   * @tite 구독한 구독 캘린더 목록.
+   */
+  export interface SubscribeCalendars extends IKakaoTalk.Calendar {
+    /**
+     * @title 채널에서 설정한 구독 캘린더 설명.
+     */
+    description?: string;
+
+    /**
+     * @title 구독 캘린더의 프로필 이미지 URL.
+     */
+    profile_image_url?: string;
+
+    /**
+     * @title 구독 캘린더의 말풍선 썸네일 URL.
+     */
+    thumbnail_url?: string;
+  }
+
+  /**
+   * @title 기본 캘린더, 서브 캘린더 목록.
+   */
+  export interface Calendar {
+    /**
+     * @title 캘린더 ID.
+     *
+     * 유저마다 기본적으로 가지고 있는 캘린더의 경우 `primary`라고 한다.
+     */
+    id: string & tags.Default<"primary">;
+
+    /**
+     * @title 캘린더의 이름.
+     */
+    name?: string;
+
+    /**
+     * @title 캘린더 일정의 기본 색상.
+     */
+    color?: IKakaoTalk.Color;
+
+    /**
+     * @title 종일 일정이 아닌 일정의 기본 알림 시간.
+     */
+    reminder?: number & tags.Type<"int64">;
+
+    /**
+     * @title 종일 일정의 기본 알림 시간.
+     */
+    reminder_all_day?: number & tags.Type<"int64">;
   }
 
   /**
@@ -134,7 +474,40 @@ export namespace IKakaoTalk {
      *
      * 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나.
      */
-    template_object: IFeedMemoInput | ITextMemoInput;
+    template_object: IFeedMemoInput | ITextMemoInput | ICalendarMemoInput;
+  }
+
+  export interface ICalendarMemoInput {
+    /**
+     * @title 템플릿 종류.
+     */
+    object_type: "calendar";
+
+    /**
+     * @title `id`의 타입.
+     */
+    id_type:
+      | Constant<"event", { title: "공개 일정" }>
+      | Constant<"calendar", { title: "구독 캘린더" }>;
+
+    /**
+     * @title 공개 일정 혹은 구독 캘린더의 ID.
+     */
+    id: string;
+
+    /**
+     * @title 일정 제목과 설명.
+     */
+    content: IKakaoTalk.Content;
+
+    /**
+     * @title 사용자 정의 버튼 정보.
+     *
+     * 캘린더 메시지는 기본적으로 공개 일정 추가 또는 구독 캘린더 구독을 위한 기본 버튼을 제공함.
+     *
+     * 따라서 1개의 사용자 정의 버튼을 선택적으로 추가 가능.
+     */
+    buttons?: IKakaoTalk.Button[] & tags.MaxItems<1>;
   }
 
   export interface IFeedMemoInput {
@@ -381,4 +754,21 @@ export namespace IKakaoTalk {
       }
     >;
   }
+
+  export type Color =
+    | Constant<"BLUE", { title: "BLUE"; description: "2C88DE" }>
+    | Constant<"ROYAL_BLUE", { title: "ROYAL_BLUE"; description: "2D69E0" }>
+    | Constant<"NAVY_BLUE", { title: "NAVY_BLUE"; description: "223788" }>
+    | Constant<"RED", { title: "RED"; description: "D42726" }>
+    | Constant<"PINK", { title: "PINK"; description: "ED5683" }>
+    | Constant<"ORANGE", { title: "ORANGE"; description: "FF9429" }>
+    | Constant<"GREEN", { title: "GREEN"; description: "149959" }>
+    | Constant<"LIME", { title: "LIME"; description: "7CB343" }>
+    | Constant<"OLIVE", { title: "OLIVE"; description: "A4AD15" }>
+    | Constant<"MINT", { title: "MINT"; description: "5CC5BE" }>
+    | Constant<"MAGENTA", { title: "MAGENTA"; description: "AB47BC" }>
+    | Constant<"VIOLET", { title: "VIOLET"; description: "8A4B9B" }>
+    | Constant<"LAVENDER", { title: "LAVENDER"; description: "7986CB" }>
+    | Constant<"BROWN", { title: "BROWN"; description: "945C1F" }>
+    | Constant<"GRAY", { title: "GRAY"; description: "666666" }>;
 }
