@@ -1,4 +1,4 @@
-import { Constant } from "@wrtn/decorators";
+import { tags } from "typia";
 
 export namespace ISweetTracker {
   export interface IGetRecommendedCompanyListInput {
@@ -114,14 +114,14 @@ export namespace ISweetTracker {
      * @title 배송 완료 여부.
      */
     completeYN:
-      | Constant<
+      | tags.Constant<
           "Y",
           {
             title: "배송 완료.";
             description: "배송이 완료된 경우에는 Y로 표기된다.";
           }
         >
-      | Constant<
+      | tags.Constant<
           "N",
           {
             title: "배송 중.";
@@ -243,42 +243,42 @@ export namespace ISweetTracker {
    * @title 진행 단계
    */
   export type Level =
-    | Constant<
+    | tags.Constant<
         1,
         {
           title: "배송 준비 중";
           description: "배송 준비 중";
         }
       >
-    | Constant<
+    | tags.Constant<
         2,
         {
           title: "집화 완료";
           description: "집화 완료";
         }
       >
-    | Constant<
+    | tags.Constant<
         3,
         {
           title: "배송 중";
           description: "배송 중";
         }
       >
-    | Constant<
+    | tags.Constant<
         4,
         {
           title: "지점 도착";
           description: "지점 도착";
         }
       >
-    | Constant<
+    | tags.Constant<
         5,
         {
           title: "배송 출발";
           description: "배송 출발";
         }
       >
-    | Constant<
+    | tags.Constant<
         6,
         {
           title: "배송 완료";
