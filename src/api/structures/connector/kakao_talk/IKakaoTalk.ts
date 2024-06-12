@@ -1,4 +1,3 @@
-import { Constant } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
@@ -330,7 +329,7 @@ export namespace IKakaoTalk {
     /**
      * @title 전송할 메시지의 타입.
      */
-    object_type: Constant<
+    object_type: tags.Constant<
       "text",
       {
         title: "텍스트 타입의 템플릿.";
@@ -374,7 +373,7 @@ export namespace IKakaoTalk {
     /**
      * @title 응답 코드.
      */
-    result_code: Constant<
+    result_code: tags.Constant<
       0,
       {
         title: "성공.";
