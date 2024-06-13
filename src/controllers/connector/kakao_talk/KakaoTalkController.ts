@@ -1,5 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller, Get, Query } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
@@ -19,6 +20,7 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
+  @Standalone()
   @core.TypedRoute.Post("memo")
   async memo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkInput,
@@ -51,6 +53,7 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
+  @Standalone()
   @core.TypedRoute.Post("calendars/events")
   async createEvent(
     @TypedBody() input: IKakaoTalk.ICreateEventInput,
@@ -69,6 +72,7 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
+  @Standalone()
   @core.TypedRoute.Post("get-events")
   async getEvents(
     @TypedBody() input: IKakaoTalk.IGetEventInput,
@@ -87,6 +91,7 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
+  @Standalone()
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,

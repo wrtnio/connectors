@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
@@ -20,6 +21,7 @@ export class GoogleCalendarController {
    *
    * @tag Google Calendar
    */
+  @Standalone()
   @core.TypedRoute.Post("get-list")
   async readCalenders(
     @core.TypedBody()
@@ -42,6 +44,7 @@ export class GoogleCalendarController {
    *
    * @tag Google Calendar
    */
+  @Standalone()
   @core.TypedRoute.Post("")
   async createCalendar(
     @core.TypedBody() input: IGoogleCalendar.ICreateCalendarInput,
