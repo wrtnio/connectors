@@ -37,6 +37,7 @@ export * as figma from "./figma";
 export * as zoom from "./zoom";
 export * as sweet_tacker from "./sweet_tacker";
 export * as kakao_talk from "./kakao_talk";
+export * as google_slides from "./google_slides";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.

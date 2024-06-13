@@ -1,5 +1,9 @@
-import core from "@nestia/core";
+import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+
+import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
+
+import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
@@ -7,5 +11,9 @@ export class GoogleSlidesController {
   async getPresentation() {}
 
   @core.TypedRoute.Post("presentations")
-  async createPresentation() {}
+  async createPresentation(
+    @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
+  ): Promise<IGoogleSlides.Presentation> {
+    return GoogleSlidesProvider.createPresentation(input);
+  }
 }
