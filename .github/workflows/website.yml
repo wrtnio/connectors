@@ -2,11 +2,19 @@ name: website
 on:
   push:
     branches:
+<<<<<<< HEAD
       - master
     paths:
       - "./src/**"
       - "./package.json"
       - "./nestia.config.js"
+=======
+      - main
+    paths:
+      - "src/**"
+      - "package.json"
+      - "nestia.config.js"
+>>>>>>> main
       - "website/**"
       - "website/package.json"
 jobs:
