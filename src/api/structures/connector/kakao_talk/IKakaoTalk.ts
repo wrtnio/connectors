@@ -272,12 +272,12 @@ export namespace IKakaoTalk {
      * 주의: next_page_token가 포함된 경우 무시됨.
      */
     preset?:
-      | Constant<"TODAY", { title: "조회 당일" }>
-      | Constant<
+      | tags.Constant<"TODAY", { title: "조회 당일" }>
+      | tags.Constant<
           "THIS_WEEK",
           { title: "일요일로 시작하는 조회일이 포함된 한 주" }
         >
-      | Constant<
+      | tags.Constant<
           "THIS_MONTH",
           { title: "1일로 시작하는 조회일이 포함된 한 달" }
         >;
@@ -552,8 +552,8 @@ export namespace IKakaoTalk {
      * @title 통화 단위 표시 위치.
      */
     currency_unit_position?:
-      | Constant<0, { title: "가격 뒤에 표시" }>
-      | Constant<1, { title: "가격 앞에 표시" }>;
+      | tags.Constant<0, { title: "가격 뒤에 표시" }>
+      | tags.Constant<1, { title: "가격 앞에 표시" }>;
   }
 
   export interface ILocationMemoInput {
@@ -639,8 +639,8 @@ export namespace IKakaoTalk {
      * @title `id`의 타입.
      */
     id_type:
-      | Constant<"event", { title: "공개 일정" }>
-      | Constant<"calendar", { title: "구독 캘린더" }>;
+      | tags.Constant<"event", { title: "공개 일정" }>
+      | tags.Constant<"calendar", { title: "구독 캘린더" }>;
 
     /**
      * @title 공개 일정 혹은 구독 캘린더의 ID.
@@ -908,19 +908,22 @@ export namespace IKakaoTalk {
   }
 
   export type Color =
-    | Constant<"BLUE", { title: "BLUE"; description: "2C88DE" }>
-    | Constant<"ROYAL_BLUE", { title: "ROYAL_BLUE"; description: "2D69E0" }>
-    | Constant<"NAVY_BLUE", { title: "NAVY_BLUE"; description: "223788" }>
-    | Constant<"RED", { title: "RED"; description: "D42726" }>
-    | Constant<"PINK", { title: "PINK"; description: "ED5683" }>
-    | Constant<"ORANGE", { title: "ORANGE"; description: "FF9429" }>
-    | Constant<"GREEN", { title: "GREEN"; description: "149959" }>
-    | Constant<"LIME", { title: "LIME"; description: "7CB343" }>
-    | Constant<"OLIVE", { title: "OLIVE"; description: "A4AD15" }>
-    | Constant<"MINT", { title: "MINT"; description: "5CC5BE" }>
-    | Constant<"MAGENTA", { title: "MAGENTA"; description: "AB47BC" }>
-    | Constant<"VIOLET", { title: "VIOLET"; description: "8A4B9B" }>
-    | Constant<"LAVENDER", { title: "LAVENDER"; description: "7986CB" }>
-    | Constant<"BROWN", { title: "BROWN"; description: "945C1F" }>
-    | Constant<"GRAY", { title: "GRAY"; description: "666666" }>;
+    | tags.Constant<"BLUE", { title: "BLUE"; description: "2C88DE" }>
+    | tags.Constant<
+        "ROYAL_BLUE",
+        { title: "ROYAL_BLUE"; description: "2D69E0" }
+      >
+    | tags.Constant<"NAVY_BLUE", { title: "NAVY_BLUE"; description: "223788" }>
+    | tags.Constant<"RED", { title: "RED"; description: "D42726" }>
+    | tags.Constant<"PINK", { title: "PINK"; description: "ED5683" }>
+    | tags.Constant<"ORANGE", { title: "ORANGE"; description: "FF9429" }>
+    | tags.Constant<"GREEN", { title: "GREEN"; description: "149959" }>
+    | tags.Constant<"LIME", { title: "LIME"; description: "7CB343" }>
+    | tags.Constant<"OLIVE", { title: "OLIVE"; description: "A4AD15" }>
+    | tags.Constant<"MINT", { title: "MINT"; description: "5CC5BE" }>
+    | tags.Constant<"MAGENTA", { title: "MAGENTA"; description: "AB47BC" }>
+    | tags.Constant<"VIOLET", { title: "VIOLET"; description: "8A4B9B" }>
+    | tags.Constant<"LAVENDER", { title: "LAVENDER"; description: "7986CB" }>
+    | tags.Constant<"BROWN", { title: "BROWN"; description: "945C1F" }>
+    | tags.Constant<"GRAY", { title: "GRAY"; description: "666666" }>;
 }

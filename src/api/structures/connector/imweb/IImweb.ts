@@ -1,4 +1,3 @@
-import { Constant } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
@@ -8,7 +7,7 @@ export namespace IImweb {
     /**
      * 응답에 대한 요약 메시지.
      */
-    msg: Constant<"SUCCESS", { title: "성공" }>;
+    msg: tags.Constant<"SUCCESS", { title: "성공" }>;
 
     /**
      * @title status code.
@@ -118,9 +117,9 @@ export namespace IImweb {
      * @title 판매 방식 설정.
      */
     prod_type:
-      | Constant<"normal", { title: "일반 상품" }>
-      | Constant<"digital", { title: "디지털 상품" }>
-      | Constant<"subscribe", { title: "회원그룹 이용권" }>;
+      | tags.Constant<"normal", { title: "일반 상품" }>
+      | tags.Constant<"digital", { title: "디지털 상품" }>
+      | tags.Constant<"subscribe", { title: "회원그룹 이용권" }>;
 
     /**
      * @title 판매 방식 데이터.
@@ -174,9 +173,9 @@ export namespace IImweb {
      * @title 할인 사용 설정.
      */
     product_discount_options: (
-      | Constant<"coupon", { title: "쿠폰" }>
-      | Constant<"point", { title: "적립금" }>
-      | Constant<"shopping_group_dc", { title: "쇼핑등급 할인" }>
+      | tags.Constant<"coupon", { title: "쿠폰" }>
+      | tags.Constant<"point", { title: "적립금" }>
+      | tags.Constant<"shopping_group_dc", { title: "쇼핑등급 할인" }>
     )[];
 
     /**
@@ -235,15 +234,15 @@ export namespace IImweb {
      * @title 상품의 옵션 유무.
      */
     is_exist_options:
-      | Constant<"Y", { title: "옵션이 존재하는 경우" }>
-      | Constant<"N", { title: "단일 상품인 경우" }>;
+      | tags.Constant<"Y", { title: "옵션이 존재하는 경우" }>
+      | tags.Constant<"N", { title: "단일 상품인 경우" }>;
 
     /**
      * @title 상품의 조합형 옵션 여부.
      */
     is_mix:
-      | Constant<"Y", { title: "조합형 옵션" }>
-      | Constant<"N", { title: "단일 옵션" }>;
+      | tags.Constant<"Y", { title: "조합형 옵션" }>
+      | tags.Constant<"N", { title: "단일 옵션" }>;
 
     /**
      * @title 상품 추가시간 Timestamp.
@@ -257,9 +256,9 @@ export namespace IImweb {
   }
 
   export type ProductStatus =
-    | Constant<"sale", { title: "판매중" }>
-    | Constant<"soldout", { title: "품절" }>
-    | Constant<"nosale", { title: "숨김" }>;
+    | tags.Constant<"sale", { title: "판매중" }>
+    | tags.Constant<"soldout", { title: "품절" }>
+    | tags.Constant<"nosale", { title: "숨김" }>;
 
   export namespace ProdTypeData {
     export interface DigitalData {
@@ -300,15 +299,15 @@ export namespace IImweb {
      * @title 적립금 설정 타입.
      */
     type:
-      | Constant<"common", { title: "기본 설정을 따름." }>
-      | Constant<"individual", { title: "개별 적립금 설정" }>;
+      | tags.Constant<"common", { title: "기본 설정을 따름." }>
+      | tags.Constant<"individual", { title: "개별 적립금 설정" }>;
 
     /**
      * @title 적립금 적립 단위.
      */
     value_type:
-      | Constant<"percent", { title: "퍼센트" }>
-      | Constant<"price", { title: "통화 단위" }>;
+      | tags.Constant<"percent", { title: "퍼센트" }>
+      | tags.Constant<"price", { title: "통화 단위" }>;
 
     /**
      * @title 적립금 값
@@ -411,24 +410,24 @@ export namespace IImweb {
      * @title 네이버 쇼핑 판매 방식.
      */
     product_flag:
-      | Constant<"소매", { title: "소매" }>
-      | Constant<"도매", { title: "도매" }>
-      | Constant<"렌탈", { title: "렌탈" }>
-      | Constant<"대여", { title: "대여" }>
-      | Constant<"할부", { title: "할부" }>
-      | Constant<"예약판매", { title: "예약판매" }>
-      | Constant<"구매대행", { title: "구매대행" }>;
+      | tags.Constant<"소매", { title: "소매" }>
+      | tags.Constant<"도매", { title: "도매" }>
+      | tags.Constant<"렌탈", { title: "렌탈" }>
+      | tags.Constant<"대여", { title: "대여" }>
+      | tags.Constant<"할부", { title: "할부" }>
+      | tags.Constant<"예약판매", { title: "예약판매" }>
+      | tags.Constant<"구매대행", { title: "구매대행" }>;
 
     /**
      * @title 네이버 쇼핑 상품상태.
      */
     product_condition:
-      | Constant<"신상품", { title: "신상품" }>
-      | Constant<"중고", { title: "중고" }>
-      | Constant<"리퍼", { title: "리퍼" }>
-      | Constant<"전시", { title: "전시" }>
-      | Constant<"반품", { title: "반품" }>
-      | Constant<"스크래치", { title: "스크래치" }>;
+      | tags.Constant<"신상품", { title: "신상품" }>
+      | tags.Constant<"중고", { title: "중고" }>
+      | tags.Constant<"리퍼", { title: "리퍼" }>
+      | tags.Constant<"전시", { title: "전시" }>
+      | tags.Constant<"반품", { title: "반품" }>
+      | tags.Constant<"스크래치", { title: "스크래치" }>;
 
     /**
      * @title 해외구매대행 여부.
@@ -474,9 +473,9 @@ export namespace IImweb {
      * @title 0원 선택옵션 구매 시 최대 구매수량 제한 타입.
      */
     optional_limit_type:
-      | Constant<"relative", { title: "본상품 구매 수량만큼 구매 가능" }>
-      | Constant<"limit", { title: "최대 구매 수량 제한" }>
-      | Constant<"unique", { title: "1개만 구매 가능" }>;
+      | tags.Constant<"relative", { title: "본상품 구매 수량만큼 구매 가능" }>
+      | tags.Constant<"limit", { title: "최대 구매 수량 제한" }>
+      | tags.Constant<"unique", { title: "1개만 구매 가능" }>;
 
     /**
      * @title 0원 선택옵션 구매 시 최대 구매수량.
@@ -486,15 +485,15 @@ export namespace IImweb {
     optional_limit: number & tags.Type<"int64">;
 
     use_unipass_number:
-      | Constant<
+      | tags.Constant<
           "default",
           {
             title: "기본 방법을 따름";
             description: "쇼핑 환경 설정마다 다를 수 있다.";
           }
         >
-      | Constant<"Y", { title: "사용" }>
-      | Constant<"N", { title: "사용안함" }>;
+      | tags.Constant<"Y", { title: "사용" }>
+      | tags.Constant<"N", { title: "사용안함" }>;
 
     /**
      * @title 미성년자 구매 제한.
@@ -533,12 +532,12 @@ export namespace IImweb {
     /**
      * @title IMWEB custom code.
      */
-    code: Constant<200, { title: "성공을 의미하는 값" }>;
+    code: tags.Constant<200, { title: "성공을 의미하는 값" }>;
 
     /**
      * @title HTTP status code.
      */
-    http_code: Constant<200, { title: "HTTP STATUS CODE 200" }>;
+    http_code: tags.Constant<200, { title: "HTTP STATUS CODE 200" }>;
 
     /**
      * @title access token.
