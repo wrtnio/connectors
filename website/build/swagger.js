@@ -7,8 +7,8 @@ const main = () => {
     cwd: `${__dirname}/../..`,
   });
   fs.copyFileSync(
-    `${__dirname}/../packages/api/swagger.json`,
-    `${__dirname}/out/swagger/swagger.json`,
+    `${__dirname}/../../packages/api/swagger.json`,
+    `${__dirname}/../out/swagger/swagger.json`,
   );
 };
 main();
