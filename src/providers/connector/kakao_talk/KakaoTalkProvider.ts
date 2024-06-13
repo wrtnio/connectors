@@ -1,10 +1,79 @@
 import axios from "axios";
 
+import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KakaoTalkProvider {
+  export async function createEvent(
+    input: IKakaoTalk.ICreateEventInput,
+  ): Promise<IKakaoTalk.ICreateEventOutput> {
+    try {
+      const { secretKey, ...createEventDto } = input;
+      const res = await axios.post(
+        "https://kapi.kakao.com/v2/api/calendar/create/event",
+        {
+          caelndar_id: createEventDto.calendar_id,
+          event: JSON.stringify(createEventDto.event),
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `bearer ${secretKey}`,
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  export async function getEvents(
+    input: IKakaoTalk.IGetEventInput,
+  ): Promise<IKakaoTalk.IGetEventOutput> {
+    try {
+      const { secretKey, ...getEventQueryParam } = input;
+      const queryParams = Object.entries(getEventQueryParam)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+
+      const res = await axios.get(
+        `https://kapi.kakao.com/v2/api/calendar/events?${queryParams}`,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `bearer ${secretKey}`,
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  export async function getCalendars(
+    input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
+  ): Promise<IKakaoTalk.IGetCalendarOutput> {
+    const res = await axios.get(
+      "https://kapi.kakao.com/v2/api/calendar/calendars",
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `bearer ${input.secretKey}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
+
   export async function refresh(
     input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {

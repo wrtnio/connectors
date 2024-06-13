@@ -2,6 +2,10 @@ import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
 
+type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
+  ? Record<K, T[K]>
+  : never;
+
 export namespace IGoogleSlides {
   /**
    * @title Google Slides의 프레젠테이션을 생성하기 위한 요청 DTO.
@@ -150,32 +154,29 @@ export namespace IGoogleSlides {
      * @title 페이지의 속성.
      */
     pageProperties: PageProperties;
-  } & (
-    | {
-        /**
-         * @title 특정 속성을 슬라이드한다.
-         */
-        slideProperties: SlideProperties;
-      }
-    | {
-        /**
-         * @title 레이아웃 속성.
-         */
-        layoutProperties: LayoutProperties;
-      }
-    | {
-        /**
-         * @title 메모 속성.
-         */
-        notesProperties: NotesProperties;
-      }
-    | {
-        /**
-         * @title 특정 속성을 마스터한다.
-         */
-        masterProperties: MasterProperties;
-      }
-  );
+  } & PageProperty;
+
+  export type PageProperty = OneOf<{
+    /**
+     * @title 특정 속성을 슬라이드한다.
+     */
+    slideProperties: SlideProperties;
+
+    /**
+     * @title 레이아웃 속성.
+     */
+    layoutProperties: LayoutProperties;
+
+    /**
+     * @title 메모 속성.
+     */
+    notesProperties: NotesProperties;
+
+    /**
+     * @title 특정 속성을 마스터한다.
+     */
+    masterProperties: MasterProperties;
+  }>;
 
   export interface MasterProperties {
     /**
@@ -320,20 +321,19 @@ export namespace IGoogleSlides {
      * @title 배경 채우기 속성 상태입니다.
      */
     propertyState: PropertyState;
-  } & (
-    | {
-        /**
-         * @title 단색 채우기.
-         */
-        solidFill: SolidFill;
-      }
-    | {
-        /**
-         * @title 늘린 사진 채우기.
-         */
-        stretchedPictureFill: StretchedPictureFill;
-      }
-  );
+  } & FillOption;
+
+  type FillOption = OneOf<{
+    /**
+     * @title 단색 채우기.
+     */
+    solidFill: SolidFill;
+
+    /**
+     * @title 늘린 사진 채우기.
+     */
+    stretchedPictureFill: StretchedPictureFill;
+  }>;
 
   /**
    * @title 늘린 사진 채우기.
@@ -420,64 +420,54 @@ export namespace IGoogleSlides {
      * 제목과 결합하여 대체 텍스트를 표시한다.
      */
     description: string;
-  } & (
-    | {
-        /**
-         * @title 하나의 단위로 결합된 페이지 요소의 모음.
-         */
-        elementGroup: Group;
-      }
-    | {
-        /**
-         * @title 일반 셰이프.
-         */
-        shape: Shape;
-      }
-    | {
-        /**
-         * @title 이미지 페이지 요소.
-         */
-        image: Image;
-      }
-    // | {
+  } & PageElementKind;
+
+  export type PageElementKind = OneOf<{
+    /**
+     * @title 하나의 단위로 결합된 페이지 요소의 모음.
+     */
+    // elementGroup: Group;
+
+    /**
+     * @title 일반 셰이프.
+     */
+    shape: Shape;
+
+    /**
+     * @title 이미지 페이지 요소.
+     */
+    image: Image;
+
     //     /**
     //      * @title 동영상 페이지 요소.
     //      */
     //     video: Video;
-    //   }
-    | {
-        /**
-         * @title 라인 페이지 요소.
-         */
-        line: Line;
-      }
-  );
-  // | {
-  //     /**
-  //      * @title 표 페이지 요소.
-  //      */
-  //     table: Table;
-  //   }
-  // | {
-  //     /**
-  //      * @title 워드아트 페이지 요소.
-  //      */
-  //     wordArt: WordArt;
-  //   }
-  // | {
-  //     /**
-  //      * @title Google Sheets에서 삽입된 연결된 차트 연결.
-  //      *
-  //      * 해제된 차트는 이미지로 표시됩니다.
-  //      */
-  //     sheetsChart: SheetsChart;
-  //   }
-  // | {
-  //     /**
-  //      * @title 발표자 스포트라이트.
-  //      */
-  //     speakerSpotlight: SpeakerSpotlight;
-  //   }
+
+    /**
+     * @title 라인 페이지 요소.
+     */
+    line: Line;
+
+    //     /**
+    //      * @title 표 페이지 요소.
+    //      */
+    //     table: Table;
+
+    //     /**
+    //      * @title 워드아트 페이지 요소.
+    //      */
+    //     wordArt: WordArt;
+
+    //     /**
+    //      * @title Google Sheets에서 삽입된 연결된 차트 연결.
+    //      */
+    //     sheetsChart: SheetsChart;
+
+    //     /**
+    //      * @title 발표자 스포트라이트.
+    //      */
+    //     speakerSpotlight: SpeakerSpotlight;
+  }>;
 
   /**
    * @title 항목 그룹.
@@ -709,35 +699,31 @@ export namespace IGoogleSlides {
   /**
    * @title 하이퍼 텍스트 링크.
    */
-  export type Link =
-    | {
-        /**
-         * 설정된 경우 이 URL이 외부 웹 페이지의 링크임을 나타낸다.
-         */
-        url: string;
-      }
-    | {
-        /**
-         * 이 값이 설정된 경우 이 프레젠테이션에서 슬라이드의 위치에 따라 링크로 연결됩니다.
-         */
-        relativeLink: RelativeSlideLink;
-      }
-    | {
-        /**
-         * 설정된 경우 이 ID를 가진 프레젠테이션의 특정 페이지에 대한 링크임을 나타냅니다.
-         *
-         * 이 ID를 가진 페이지가 존재하지 않을 수 있습니다.
-         */
-        pageObject: string;
-      }
-    | {
-        /**
-         * 설정된 경우 프레젠테이션에서 이 0부터 시작하는 색인의 슬라이드 링크임을 나타냅니다.
-         *
-         * 이 인덱스에 슬라이드가 없을 수 있습니다.
-         */
-        slideIndex: number & tags.Type<"int64">;
-      };
+  export type Link = OneOf<{
+    /**
+     * 설정된 경우 이 URL이 외부 웹 페이지의 링크임을 나타낸다.
+     */
+    url: string;
+
+    /**
+     * 이 값이 설정된 경우 이 프레젠테이션에서 슬라이드의 위치에 따라 링크로 연결됩니다.
+     */
+    relativeLink: RelativeSlideLink;
+
+    /**
+     * 설정된 경우 이 ID를 가진 프레젠테이션의 특정 페이지에 대한 링크임을 나타냅니다.
+     *
+     * 이 ID를 가진 페이지가 존재하지 않을 수 있습니다.
+     */
+    pageObject: string;
+
+    /**
+     * 설정된 경우 프레젠테이션에서 이 0부터 시작하는 색인의 슬라이드 링크임을 나타냅니다.
+     *
+     * 이 인덱스에 슬라이드가 없을 수 있습니다.
+     */
+    slideIndex: number & tags.Type<"int64">;
+  }>;
 
   /**
    * @title 상대 링크의 종류.
@@ -948,7 +934,9 @@ export namespace IGoogleSlides {
      *
      * 목록 ID로 키가 지정된다.
      */
-    lists: Map<string, List>;
+    lists: {
+      [Key: string]: List;
+    };
   }
 
   /**
@@ -969,12 +957,9 @@ export namespace IGoogleSlides {
      *
      * 지정된 중첩 수준에서 목록 글머리 기호의 디자인을 설명하는 속성이 포함되어 있습니다.
      */
-    nestingLevel: Map<
-      0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8,
-      {
-        bulletStyle: TextStyle;
-      }
-    >;
+    nestingLevel: {
+      [Key in 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8]: { bulletStyle: TextStyle };
+    };
   }
 
   export type TextElement = {
@@ -987,32 +972,70 @@ export namespace IGoogleSlides {
      * @title 이 텍스트 요소의 0부터 시작되는 종료 색인. (유니코드 코드 단위 제외)
      */
     endIndex: number & tags.Type<"int64">;
-  } & (
-    | {
-        /**
-         * @title 단락 마커.
-         *
-         * 새 단락의 시작을 나타내는 TextElement 종류입니다.
-         */
-        paragraphMarker: ParagraphMarker;
-      }
-    | {
-        /**
-         * @title 런의 모든 문자가 동일한 TextStyle인 텍스트 런을 나타내는 TextElement입니다.
-         *
-         * TextRun의 startIndex 및 endIndex는 항상 단일 paragraphMarker TextElement의 색인 범위에 완전히 포함됩니다.
-         *
-         * 즉, TextRun은 여러 단락으로 확장되지 않습니다.
-         */
-        textRun: TextRun;
-      }
-    | {
-        /**
-         * @title 시간이 지남에 따라 변할 수 있는 콘텐츠로 동적으로 대체되는 텍스트의 한 지점을 나타내는 TextElement입니다.
-         */
-        autoText: AutoText;
-      }
-  );
+  } & OneOf<{
+    /**
+     * @title 단락 마커.
+     *
+     * 새 단락의 시작을 나타내는 TextElement 종류입니다.
+     */
+    paragraphMarker: ParagraphMarker;
+
+    /**
+     * @title 런의 모든 문자가 동일한 TextStyle인 텍스트 런을 나타내는 TextElement입니다.
+     *
+     * TextRun의 startIndex 및 endIndex는 항상 단일 paragraphMarker TextElement의 색인 범위에 완전히 포함됩니다.
+     *
+     * 즉, TextRun은 여러 단락으로 확장되지 않습니다.
+     */
+    textRun: TextRun;
+
+    /**
+     * @title 시간이 지남에 따라 변할 수 있는 콘텐츠로 동적으로 대체되는 텍스트의 한 지점을 나타내는 TextElement입니다.
+     */
+    autoText: AutoText;
+  }>;
+
+  /**
+   * @title 텍스트 실행.
+   *
+   * 모든 스타일이 동일한 RON을 나타내는 TextElement의 종류.
+   */
+  export interface TextRun {
+    /**
+     * @title 이 실행의 텍스트.
+     */
+    content: string;
+
+    /**
+     * @title 이 실행에 적용된 스타일 지정.
+     */
+    stype: TextStyle;
+  }
+
+  export interface AutoText {
+    /**
+     * @title 이 자동 텍스트의 유형.
+     */
+    type:
+      | tags.Constant<
+          "TYPE_UNSPECIFIED",
+          { title: "지정되지 않은 자동 텍스트 유형" }
+        >
+      | tags.Constant<
+          "SLIDE_NUMBER",
+          { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }
+        >;
+
+    /**
+     * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
+     */
+    content: string;
+
+    /**
+     * @title 이 자동 텍스트에 적용되는 스타일.
+     */
+    style: TextStyle;
+  }
 
   /**
    * @title 텍스트 실행.

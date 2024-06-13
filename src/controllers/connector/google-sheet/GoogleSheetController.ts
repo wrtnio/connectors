@@ -1,7 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
 import { GoogleSheetProvider } from "../../../providers/connector/google_sheet/GoogleSheetProvider";
@@ -21,6 +21,7 @@ export class GoogleSheetController {
    *
    * @tag Google Sheet
    */
+  @Standalone()
   @core.TypedRoute.Post()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
@@ -37,6 +38,7 @@ export class GoogleSheetController {
    *
    * @tag Google Sheet
    */
+  @Standalone()
   @core.TypedRoute.Post("/permission")
   async permission(
     @core.TypedBody() input: IGoogleSheet.IPermissionInput,
@@ -53,6 +55,7 @@ export class GoogleSheetController {
    *
    * @tag Google Sheet
    */
+  @Standalone()
   @core.TypedRoute.Post("/header")
   async writeHeaders(
     @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
@@ -69,6 +72,7 @@ export class GoogleSheetController {
    *
    * @tag Google Sheet
    */
+  @Standalone()
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
@@ -87,6 +91,7 @@ export class GoogleSheetController {
    *
    * @Todo determine api endpoint in later because not decided select options
    */
+  @Standalone()
   @core.TypedRoute.Post("/get-rows")
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,
