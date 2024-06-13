@@ -1,3 +1,4 @@
+import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -18,7 +19,7 @@ interface IPermission {
    *
    * @title 권한을 부여할 사용자의 이메일.
    */
-  email: string & tags.Format<"email">;
+  email: string & tags.Format<"email"> & Placeholder<"abc@gmail.com">;
 
   /**
    * 부여할 권한의 종류입니다.
@@ -42,7 +43,7 @@ export namespace IGoogleSheet {
      *
      * @title 구글 시트 ID.
      */
-    sheet_id: string;
+    sheet_id: string & Placeholder<"asdasdasdad">;
 
     /**
      * 읽어올 구글 시트의 범위입니다.
@@ -65,14 +66,16 @@ export namespace IGoogleSheet {
      *
      * @title 시트 url.
      */
-    url: string;
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://docs.google.com/spreadsheets/d/12312313123">;
 
     /**
      * 읽어올 시트의 헤더 index입니다.
      *
      * @title 시트 헤더 index.
      */
-    index?: number;
+    index?: number & Placeholder<"0">;
   }
 
   export interface IReadGoogleSheetOutput {
@@ -97,7 +100,9 @@ export namespace IGoogleSheet {
      *
      * @title 시트 url.
      */
-    url: string & tags.Format<"uri">;
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://docs.google.com/spreadsheets/d/12312313123">;
 
     /**
      * 접근 가능하게 할 이메일과 부여할 권한 리스트 입니다.
@@ -120,21 +125,23 @@ export namespace IGoogleSheet {
      *
      * @title 시트 url.
      */
-    url: string;
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://docs.google.com/spreadsheets/d/12312313123">;
 
     /**
      * 추가할 헤더의 index 입니다.
      *
      * @title 시트 index.
      */
-    index?: number;
+    index?: number & Placeholder<"0">;
 
     /**
      * 시트에 추가할 헤더 리스트 입니다.
      *
      * @title 시트에 추가할 헤더 리스트.
      */
-    headerNames: string[];
+    headerNames: Array<string & Placeholder<"이름">> & tags.MinItems<1>;
   }
 
   export interface IWriteGoogleSheetRowsInput {
@@ -180,7 +187,9 @@ export namespace IGoogleSheet {
      *
      * @title 시트 url.
      */
-    url: string;
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://docs.google.com/spreadsheets/d/12312313123">;
   }
 
   export interface IGetWorkSheetOutput {
@@ -205,14 +214,16 @@ export namespace IGoogleSheet {
      *
      * @title 시트 url.
      */
-    url: string;
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://docs.google.com/spreadsheets/d/12312313123">;
 
     /**
      * 작업할 시트의 제목입니다.
      *
      * @title 작업할 시트 제목.
      */
-    workSheetTitle: string;
+    workSheetTitle: string & Placeholder<"Sheet1">;
   }
 
   interface IReadGoogleSheetRowData {

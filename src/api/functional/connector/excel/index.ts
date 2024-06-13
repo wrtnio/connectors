@@ -19,7 +19,55 @@ export * as rows from "./rows";
  *
  * @summary 엑셀 파일 안의 내용 가져오기
  * @param input 내용을 가져올 엑셀 파일 정보
- * @tag Excel 엑셀 파일
+ * @tag 엑셀
+ * @tag 파일
+ * @tag 내보내기
+ * @tag 다운로드
+ * @tag 추출
+ * @tag 추출하기
+ * @tag 스프레드시트
+ * @tag 데이터 저장
+ * @tag 데이터 불러오기
+ * @tag 데이터 분석
+ * @tag 데이터 베이스
+ * @tag 데이터 내보내기
+ * @tag 데이터 가져오기
+ * @tag 엑셀 변환
+ * @tag 텍스트 파일
+ * @tag 데이터 처리
+ * @tag 대량 데이터
+ * @tag 데이터 편집
+ * @tag 파일 분할
+ * @tag 데이터 통합
+ * @tag 엑셀 만들기
+ * @tag 엑셀 파일 열기
+ * @tag 데이터 추출
+ * @tag 데이터 필터링
+ * @tag 데이터 병합
+ * @tag Excel
+ * @tag File
+ * @tag Export
+ * @tag Download
+ * @tag Extract
+ * @tag Spreadsheet
+ * @tag Save Data
+ * @tag Load Data
+ * @tag Data Analysis
+ * @tag Database
+ * @tag Export Data
+ * @tag Import Data
+ * @tag Convert to Excel
+ * @tag Text File
+ * @tag Data Processing
+ * @tag Large Data
+ * @tag Edit Data
+ * @tag Split File
+ * @tag Integrate Data
+ * @tag Create Excel
+ * @tag Open Excel File
+ * @tag Extract Data
+ * @tag Filter Data
+ * @tag Merge Data
  *
  * @controller ExcelController.read
  * @path POST /connector/excel/read

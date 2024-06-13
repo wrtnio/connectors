@@ -19,7 +19,63 @@ import type { IGoogleCalendar } from "../../../../../structures/connector/google
  * @param eventId 참석자를 추가할 이벤트 고유 ID.
  * @param input 추가할 참석자 이메일 목록.
  * @returns 참석자가 추가된 이벤트 정보.
+ * @tag 구글 캘린더
+ * @tag 캘린더
+ * @tag 일정 관리
+ * @tag 일정 추가
+ * @tag 일정 생성
+ * @tag 일정 공유
+ * @tag 일정 알림
+ * @tag 회의 추가
+ * @tag 약속 추가
+ * @tag 시간 관리
+ * @tag 달력
+ * @tag 스케줄 관리
+ * @tag 일정 조정
+ * @tag 반복 일정
+ * @tag 일정 동기화
+ * @tag 일정 초대
+ * @tag 일정 리마인더
+ * @tag 캘린더 공유
+ * @tag 시간표
+ * @tag 구글 일정
+ * @tag 스케줄러
+ * @tag 이번 주 일정
+ * @tag 다음 주 일정
+ * @tag 월간 일정
+ * @tag 개인 일정
+ * @tag 팀 일정
+ * @tag 회의 예약
+ * @tag 업무 캘린더
+ * @tag 휴가 일정
  * @tag Google Calendar
+ * @tag Calendar
+ * @tag Manage Schedule
+ * @tag Add Event
+ * @tag Create Event
+ * @tag Share Event
+ * @tag Event Reminder
+ * @tag Add Meeting
+ * @tag Add Appointment
+ * @tag Time Management
+ * @tag Schedule Management
+ * @tag Adjust Schedule
+ * @tag Recurring Event
+ * @tag Sync Calendar
+ * @tag Invite to Event
+ * @tag Share Calendar
+ * @tag Timetable
+ * @tag Google Schedule
+ * @tag Scheduler
+ * @tag This Week's Schedule
+ * @tag Next Week's Schedule
+ * @tag Monthly Schedule
+ * @tag Personal Schedule
+ * @tag Team Schedule
+ * @tag Schedule Meeting
+ * @tag Work Calendar
+ * @tag Vacation Schedule
+ * @internal
  *
  * @controller GoogleCalendarController.addAttendeesToEvent
  * @path PUT /connector/google-calendar/:calendarId/event/:eventId/attendees

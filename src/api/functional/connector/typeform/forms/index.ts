@@ -18,7 +18,53 @@ export * as fields from "./fields";
  *
  * @summary 타입폼 폼 필드 옵션 업데이트.
  * @param input 업데이트할 폼 필드명과 업데이트 할 값.
+ * @tag 타입폼
+ * @tag 설문조사
+ * @tag 온라인 폼
+ * @tag 설문지
+ * @tag 고객 만족도 조사
+ * @tag 설문 양식
+ * @tag 퀴즈
+ * @tag 응답 확인
+ * @tag 응답 관리
+ * @tag 응답자 관리
+ * @tag 설문 분석
+ * @tag 응답 데이터
+ * @tag 설문지 템플릿
+ * @tag 설문 응답
+ * @tag 설문지 공유
+ * @tag 설문조사 결과
+ * @tag 질문지 작성
+ * @tag 인터뷰 신청
+ * @tag 응답 수집
+ * @tag 행사
+ * @tag 피드백
+ * @tag 사용자 조사
+ * @tag 이벤트 피드백
+ * @tag 행사 피드백
  * @tag Typeform
+ * @tag Survey
+ * @tag Online Form
+ * @tag Questionnaire
+ * @tag Customer Satisfaction Survey
+ * @tag Survey Form
+ * @tag Quiz
+ * @tag Survey Responses
+ * @tag Manage Responses
+ * @tag Manage Respondents
+ * @tag Survey Analysis
+ * @tag Response Data
+ * @tag Survey Template
+ * @tag Survey Answers
+ * @tag Share Survey
+ * @tag Survey Results
+ * @tag Create Questionnaire
+ * @tag Interview Application
+ * @tag Collect Responses
+ * @tag Event
+ * @tag Feedback
+ * @tag User Survey
+ * @tag Event Feedback
  * @internal
  *
  * @controller TypeformController.updateFormFieldValue
@@ -97,7 +143,53 @@ export namespace updateFormFieldValue {
  *
  * @summary 타입폼 폼 삭제.
  * @param formId 삭제할 폼 ID.
+ * @tag 타입폼
+ * @tag 설문조사
+ * @tag 온라인 폼
+ * @tag 설문지
+ * @tag 고객 만족도 조사
+ * @tag 설문 양식
+ * @tag 퀴즈
+ * @tag 응답 확인
+ * @tag 응답 관리
+ * @tag 응답자 관리
+ * @tag 설문 분석
+ * @tag 응답 데이터
+ * @tag 설문지 템플릿
+ * @tag 설문 응답
+ * @tag 설문지 공유
+ * @tag 설문조사 결과
+ * @tag 질문지 작성
+ * @tag 인터뷰 신청
+ * @tag 응답 수집
+ * @tag 행사
+ * @tag 피드백
+ * @tag 사용자 조사
+ * @tag 이벤트 피드백
+ * @tag 행사 피드백
  * @tag Typeform
+ * @tag Survey
+ * @tag Online Form
+ * @tag Questionnaire
+ * @tag Customer Satisfaction Survey
+ * @tag Survey Form
+ * @tag Quiz
+ * @tag Survey Responses
+ * @tag Manage Responses
+ * @tag Manage Respondents
+ * @tag Survey Analysis
+ * @tag Response Data
+ * @tag Survey Template
+ * @tag Survey Answers
+ * @tag Share Survey
+ * @tag Survey Results
+ * @tag Create Questionnaire
+ * @tag Interview Application
+ * @tag Collect Responses
+ * @tag Event
+ * @tag Feedback
+ * @tag User Survey
+ * @tag Event Feedback
  * @internal
  *
  * @controller TypeformController.deleteForm

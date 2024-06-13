@@ -1,3 +1,4 @@
+import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -36,7 +37,7 @@ interface IPermission {
    *
    * @title 권한을 부여할 사용자의 이메일.
    */
-  email: string & tags.Format<"email">;
+  email: string & tags.Format<"email"> & Placeholder<"abc@gmail.com">;
 
   /**
    * 부여할 권한의 종류입니다.
@@ -92,7 +93,7 @@ export namespace IGoogleDocs {
      *
      * @title 구글 docs 제목.
      */
-    title: string;
+    title: string & Placeholder<"실험결과 레포트">;
   }
 
   export interface IPermissionGoogleDocsInput
@@ -108,7 +109,7 @@ export namespace IGoogleDocs {
      *
      * @title 구글 docs id.
      */
-    documentId: string;
+    documentId: string & Placeholder<"xczczxcxczxczc">;
 
     /**
      * 접근 가능하게 할 이메일과 부여할 권한 리스트입니다.
@@ -140,14 +141,14 @@ export namespace IGoogleDocs {
      *
      * @title 복제할 구글 docs.
      */
-    templateId: string;
+    templateId: string & Placeholder<"xczczxcxczxczc">;
 
     /**
      * 복제하여 새로 생성할 docs의 제목입니다.
      *
      * @title 생성할 docs 제목.
      */
-    title: string;
+    title: string & Placeholder<"실험결과 레포트 복제본">;
   }
 
   export interface ICreateDocByTemplateOutput {
@@ -195,13 +196,13 @@ export namespace IGoogleDocs {
      *
      * @title 구글 docs.
      */
-    documentId: string;
+    documentId: string & Placeholder<"xczczxcxczxczc">;
 
     /**
      * 추가할 텍스트입니다.
      *
      * @title 텍스트.
      */
-    text: string;
+    text: string & Placeholder<"실험 결과입니다.">;
   }
 }

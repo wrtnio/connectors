@@ -1,3 +1,4 @@
+import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -7,45 +8,46 @@ export namespace IGmail {
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
      * 메일을 보내는 사람의 이메일 주소.
+     * 자신이 보낸다면 me를 입력해도 됩니다.
      *
      * @title 보내는 사람 이메일 주소.
      */
-    from: string;
+    from: string & Placeholder<"abc@gmail.com">;
 
     /**
      * 메일을 받는 사람의 이메일 주소.
      *
      * @title 받는 사람 이메일 주소.
      */
-    to: string[];
+    to: Array<string & Placeholder<"abc@gmail.com">> & tags.MinItems<1>;
 
     /**
      * 보낼 메일의 제목.
      *
      * @title 이메일 제목.
      */
-    subject: string;
+    subject: string & Placeholder<"공지사항 안내">;
 
     /**
      * 보낼 메일의 본문.
      *
      * @title 이메일 본문.
      */
-    body: string;
+    body: string & Placeholder<"이번주 공지사항에 대해 안내드립니다.">;
 
     /**
      * 참조할 사람 이메일 주소.
      *
      * @title 참조할 사람 이메일.
      */
-    cc?: string[];
+    cc?: Array<string & Placeholder<"abc@gmail.com">>;
 
     /**
      * 숨은참조할 사람 이메일 주소.
      *
      * @title 숨은참조할 사람 이메일.
      */
-    Bcc?: string[];
+    Bcc?: Array<string & Placeholder<"abc@gmail.com">>;
   }
 
   export interface ISendMailOutput {
@@ -64,14 +66,14 @@ export namespace IGmail {
      *
      * @title 답장할 메일.
      */
-    originalMailId: string;
+    originalMailId: string & Placeholder<"19000dsfsadfasdf">; // SelectedParams 필요
 
     /**
      * 답장할 문구.
      *
      * @title 답장할 문구.
      */
-    replyText: string;
+    replyText: string & Placeholder<"감사합니다. 좋은 하루 보내세요.">;
   }
 
   export interface ILabelColor {
@@ -80,14 +82,14 @@ export namespace IGmail {
      *
      * @title 라벨 글씨 색.
      */
-    textColor: string;
+    textColor: string & Placeholder<"#000000">;
 
     /**
      * 라벨 배경 색상.
      *
      * @title 라벨 배경 색.
      */
-    backgroundColor: string;
+    backgroundColor: string & Placeholder<"#000000">;
   }
 
   export interface ILabelInput
@@ -97,7 +99,7 @@ export namespace IGmail {
      *
      * @title 라벨 이름.
      */
-    labelName: string;
+    labelName: string & Placeholder<"업무용">;
 
     /**
      * 생성할 라벨의 공개 상태.
@@ -156,7 +158,7 @@ export namespace IGmail {
      *
      * @title 라벨 목록.
      */
-    labelIds: string[];
+    labelIds: Array<string & Placeholder<"asdasdasd">> & tags.MinItems<1>; // // SelectedParams 필요
   }
 
   export interface IFindEmailListInput
@@ -194,7 +196,7 @@ export namespace IGmail {
      *
      * @title 특정 날짜 이전.
      */
-    before?: string; // 특정 날짜 이전
+    before?: string;
 
     /**
      * 메일에 부여된 라벨.
@@ -215,7 +217,7 @@ export namespace IGmail {
      *
      * @title 필터링할 라벨 목록.
      */
-    labelIds?: string[];
+    labelIds?: string[]; // SelectedParams 필요
   }
 
   export interface IFindGmailListOutput {

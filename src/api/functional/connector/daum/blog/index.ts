@@ -16,7 +16,43 @@ import type { IDaum } from "../../../../structures/connector/daum/IDaum";
  *
  * @summary 다음 블로그 검색
  * @param input 다음 블로그 검색을 위한 조건
- * @tag Daum 다음 포털 사이트
+ * @tag 다음 블로그
+ * @tag 블로그
+ * @tag 블로그 작성
+ * @tag 블로그 트래픽
+ * @tag 블로그 마케팅
+ * @tag 블로그 SEO
+ * @tag 블로그 통계
+ * @tag 블로그 공유
+ * @tag 블로그 댓글
+ * @tag 블로그 팔로우
+ * @tag 블로그 검색
+ * @tag 블로그 포스팅
+ * @tag 블로그 이미지
+ * @tag 블로그 동영상
+ * @tag 블로그 업로드
+ * @tag 블로그 글쓰기
+ * @tag 블로그 수익화
+ * @tag 블로그 방문자
+ * @tag 블로그 피드
+ * @tag Daum Blog
+ * @tag Blog
+ * @tag Blog Writing
+ * @tag Blog Traffic
+ * @tag Blog Marketing
+ * @tag Blog SEO
+ * @tag Blog Statistics
+ * @tag Blog Sharing
+ * @tag Blog Comments
+ * @tag Blog Follow
+ * @tag Blog Search
+ * @tag Blog Posting
+ * @tag Blog Images
+ * @tag Blog Videos
+ * @tag Blog Upload
+ * @tag Blog Monetization
+ * @tag Blog Visitors
+ * @tag Blog Feed
  *
  * @controller DaumController.searchBlog
  * @path POST /connector/daum/blog

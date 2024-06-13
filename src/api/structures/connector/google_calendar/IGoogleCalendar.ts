@@ -1,3 +1,4 @@
+import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -13,7 +14,7 @@ export namespace IGoogleCalendar {
      *
      * @title 생성할 캘린더 제목.
      */
-    title: string;
+    title: string & Placeholder<"휴가용">;
   }
   export interface IGoogleCalendarOutput {
     /**
@@ -88,7 +89,7 @@ export namespace IGoogleCalendar {
      *
      * @title 몇 개의 결과를 반환할지.
      */
-    max_results?: number & tags.Type<"uint32">;
+    max_results?: number & tags.Type<"uint32"> & Placeholder<"10">;
 
     /**
      * 캘린더 이벤트 정렬 순서입니다.
@@ -104,7 +105,7 @@ export namespace IGoogleCalendar {
      *
      * @title 이벤트 검색어.
      */
-    query?: string;
+    query?: string & Placeholder<"">;
   }
 
   export interface IReadGoogleCalendarEventOutput {
@@ -462,28 +463,28 @@ export namespace IGoogleCalendar {
        *
        * @title 연도.
        */
-      year: number;
+      year: number & Placeholder<"2024">;
 
       /**
        * 달입니다.
        *
        * @title 달.
        */
-      month: number;
+      month: number & Placeholder<"1">;
 
       /**
        * 일입니다.
        *
        * @title 일.
        */
-      date: number;
+      date: number & Placeholder<"26">;
 
       /**
        * 시입니다.
        *
        * @title 시.
        */
-      hour: number;
+      hour: number & Placeholder<"9">;
     }
   }
 
@@ -497,7 +498,7 @@ export namespace IGoogleCalendar {
      *
      * @title 캘린더 빠른 이벤트 생성 문구.
      */
-    text: string;
+    text: string & Placeholder<"정기 타운홀 미팅">;
   }
 
   export interface IEventRequestBodyInput
@@ -510,21 +511,22 @@ export namespace IGoogleCalendar {
      *
      * @title 이벤트 제목.
      */
-    title?: string;
+    title?: string & Placeholder<"정기 타운홀 미팅">;
 
     /**
      * 생성할 이벤트 설명입니다.
      *
      * @title 이벤트 설명.
      */
-    description?: string;
+    description?: string &
+      Placeholder<"2주마다 정기적으로 열리는 타운홀 미팅에 초대합니다.">;
 
     /**
      * 생성할 이벤트 장소입니다.
      *
      * @title 이벤트 장소.
      */
-    location?: string;
+    location?: string & Placeholder<"라운지">;
 
     /**
      * 생성할 이벤트 시작일입니다.
@@ -545,7 +547,7 @@ export namespace IGoogleCalendar {
      *
      * @title 참석자 이메일.
      */
-    attendeesEmail?: string[];
+    attendeesEmail?: Array<string & Placeholder<"abc@gmail.com">>;
 
     /**
      * 이벤트 반복 주기입니다.
@@ -559,7 +561,7 @@ export namespace IGoogleCalendar {
      *
      * @title 이벤트 반복 횟수.
      */
-    repeatNum?: number;
+    repeatNum?: number & Placeholder<"1">;
 
     /**
      * 이벤트 반복 마감 일자입니다.
@@ -594,7 +596,7 @@ export namespace IGoogleCalendar {
      *
      * @title 일정 시작전 알림 설정 시간.
      */
-    minutesBeforeReminders?: number;
+    minutesBeforeReminders?: number & Placeholder<"10">;
 
     /**
      * 구글밋 생성 여부입니다.
@@ -671,6 +673,7 @@ export namespace IGoogleCalendar {
      *
      * @title 추가할 참석자 이메일.
      */
-    attendeesEmail: string[];
+    attendeesEmail: Array<string & Placeholder<"abc@gmail.com">> &
+      tags.MinItems<1>;
   }
 }
