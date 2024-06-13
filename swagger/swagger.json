@@ -50,7 +50,8 @@
         },
         "summary": "아카이브 논문 검색",
         "description": "입력한 검색 조건을 기반으로 아카이브에서 논문을 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/arxiv.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/arxiv.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/daum/blog": {
@@ -84,7 +85,8 @@
         },
         "summary": "다음 블로그 검색",
         "description": "다음 블로그 컨텐츠를 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/daum/cafe": {
@@ -118,7 +120,8 @@
         },
         "summary": "다음 카페 검색",
         "description": "다음 카페 컨텐츠를 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/naver/cafe": {
@@ -152,7 +155,8 @@
         },
         "summary": "네이버 카페 검색",
         "description": "네이버 카페 컨텐츠를 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/naver/blog": {
@@ -186,7 +190,8 @@
         },
         "summary": "네이버 블로그 검색",
         "description": "네이버 블로그 컨텐츠를 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/youtube-search": {
@@ -220,7 +225,8 @@
         },
         "summary": "유튜브 영상 검색",
         "description": "유튜브 영상 검색 결과를 가져옵니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-scholar": {
@@ -257,7 +263,8 @@
         },
         "summary": "구글 스콜라 논문 목록 검색",
         "description": "구글 스콜라에 있는 논문 목록을 가져옵니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/google_scholar.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/google_scholar.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/csv/read": {
@@ -325,7 +332,8 @@
         },
         "summary": "CSV 파일 생성",
         "description": "CSV 파일을 생성합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/csv/csv-to-excel": {
@@ -787,7 +795,8 @@
           }
         },
         "summary": "구글 docs 생성.",
-        "description": "구글 docs를 생성합니다."
+        "description": "구글 docs를 생성합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-docs/permission": {
@@ -955,7 +964,8 @@
           }
         },
         "summary": "구글 docs 목록 가져오기.",
-        "description": "구글 docs 목록을 가져옵니다."
+        "description": "구글 docs 목록을 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-docs/append": {
@@ -1013,7 +1023,8 @@
           }
         },
         "summary": "구글 시트 헤더 정보 가져오기.",
-        "description": "구글 시트의 헤더 정보를 가져옵니다."
+        "description": "구글 시트의 헤더 정보를 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/permission": {
@@ -1039,7 +1050,8 @@
           }
         },
         "summary": "구글 시트 권한 부여.",
-        "description": "구글 시트에 권한을 부여합니다."
+        "description": "구글 시트에 권한을 부여합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/header": {
@@ -1065,7 +1077,8 @@
           }
         },
         "summary": "구글 시트 헤더 추가.",
-        "description": "구글 시트에 헤더를 추가합니다."
+        "description": "구글 시트에 헤더를 추가합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/worksheet": {
@@ -1098,7 +1111,8 @@
           }
         },
         "summary": "구글 시트 워크시트 목록 가져오기.",
-        "description": "구글 워크시트 목록을 가져옵니다."
+        "description": "구글 워크시트 목록을 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/get-rows": {
@@ -1130,7 +1144,8 @@
           }
         },
         "summary": "구글 시트 Row 정보 가져오기.",
-        "description": "구글 시트의 Row 정보를 가져옵니다."
+        "description": "구글 시트의 Row 정보를 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-calendar/get-list": {
@@ -1165,7 +1180,8 @@
           }
         },
         "summary": "구글 캘린더 목록 가져오기.",
-        "description": "구글 캘린더 목록을 가져옵니다."
+        "description": "구글 캘린더 목록을 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-calendar": {
@@ -1198,7 +1214,8 @@
           }
         },
         "summary": "구글 캘린더 생성.",
-        "description": "구글 캘린더를 생성합니다."
+        "description": "구글 캘린더를 생성합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-calendar/{calendarId}": {
@@ -1533,7 +1550,8 @@
           }
         },
         "summary": "구글 드라이브 폴더 목록 가져오기.",
-        "description": "구글 드라이브에 있는 폴더 목록을 가져옵니다."
+        "description": "구글 드라이브에 있는 폴더 목록을 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-drive/get/files": {
@@ -1598,7 +1616,8 @@
           }
         },
         "summary": "구글 드라이브 폴더 생성.",
-        "description": "구글 드라이브에 새로운 폴더를 생성합니다."
+        "description": "구글 드라이브에 새로운 폴더를 생성합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-drive/file": {
@@ -1871,7 +1890,8 @@
           }
         },
         "summary": "GMAIL 전송.",
-        "description": "메일을 전송합니다."
+        "description": "메일을 전송합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/draft": {
@@ -1897,7 +1917,8 @@
           }
         },
         "summary": "GMAIL 초안 생성.",
-        "description": "메일 초안을 생성 합니다."
+        "description": "메일 초안을 생성 합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/reply": {
@@ -1998,7 +2019,8 @@
           }
         },
         "summary": "GMAIL 리스트 가져오기.",
-        "description": "메일 리스트를 가져옵니다."
+        "description": "메일 리스트를 가져옵니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/{id}": {
@@ -2066,7 +2088,8 @@
           }
         },
         "summary": "GMAIL 라벨 생성.",
-        "description": "라벨을 생성합니다."
+        "description": "라벨을 생성합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/label/{mailId}": {
@@ -2371,7 +2394,8 @@
           }
         },
         "summary": "zoom 미팅 생성.",
-        "description": "zoom 미팅을 생성합니다."
+        "description": "zoom 미팅을 생성합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/sweet-tacker/get-companies/recommended": {
@@ -2404,7 +2428,8 @@
           }
         },
         "summary": "송장 번호에 매칭되는 택배사 목록.",
-        "description": "송장번호에 매칭되는 택배사 목록을 조회합니다."
+        "description": "송장번호에 매칭되는 택배사 목록을 조회합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/sweet-tacker/get-companies": {
@@ -2426,7 +2451,8 @@
           }
         },
         "summary": "택배사 목록 조회.",
-        "description": "택배사 목록을 조회합니다."
+        "description": "택배사 목록을 조회합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/sweet-tacker/tracking-info": {
@@ -2487,7 +2513,8 @@
           }
         },
         "summary": "카카오톡 내게 쓰기.",
-        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다."
+        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/calendars/events": {
@@ -2520,7 +2547,8 @@
           }
         },
         "summary": "카카오톡 캘린더 일정 추가.",
-        "description": "카카오톡 캘린더에 일정을 추가합니다."
+        "description": "카카오톡 캘린더에 일정을 추가합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/get-events": {
@@ -2560,7 +2588,8 @@
           }
         },
         "summary": "카카오톡 캘린더 일정 조회.",
-        "description": "카카오톡 캘린더 일정을 조회합니다."
+        "description": "카카오톡 캘린더 일정을 조회합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/get-calendars": {
@@ -2593,7 +2622,8 @@
           }
         },
         "summary": "카카오톡 캘린더 목록 조회.",
-        "description": "카카오톡 캘린더 목록들을 모두 조회합니다."
+        "description": "카카오톡 캘린더 목록들을 모두 조회합니다.",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/imweb/get-products": {
@@ -2624,7 +2654,8 @@
           }
         },
         "summary": "자신의 상품 조회.",
-        "description": "아임웹에서 판매자의 상품들을 불러온다."
+        "description": "아임웹에서 판매자의 상품들을 불러온다.",
+        "x-wrtn-standalone": true
       }
     }
   },
