@@ -13,6 +13,7 @@ import type { ISweetTracker } from "../../../../structures/connector/sweet_track
 
 /**
  *
+ * @todo 마저 작성할 것.
  * @param input
  * @returns
  *

@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";
@@ -20,6 +20,7 @@ export class YoutubeSearchController {
    *
    * @tag Youtube 유튜브
    */
+  @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg",
