@@ -2,7 +2,7 @@ const pages = require("gh-pages");
 
 const main = async () => {
   await import("./swagger.js");
-  await pages.publish(__dirname, {
+  await pages.publish(`${__dirname}/../out`, {
     branch: "gh-pages",
     dotfiles: true,
   });
