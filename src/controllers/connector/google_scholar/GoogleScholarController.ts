@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IGoogleScholar } from "@wrtn/connector-api/lib/structures/connector/google_scholar/IGoogleScholar";
 
@@ -19,6 +19,7 @@ export class GoogleScholarController {
    *
    * @tag Google Scholar 학술자료 사이트
    */
+  @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/google_scholar.svg",

@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 
@@ -17,6 +17,7 @@ export class NaverController {
    *
    * @tag Naver 네이버 포털 사이트
    */
+  @Standalone()
   @core.TypedRoute.Post("/cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
@@ -36,6 +37,7 @@ export class NaverController {
    *
    * @tag Naver 네이버 포털 사이트
    */
+  @Standalone()
   @core.TypedRoute.Post("/blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg",

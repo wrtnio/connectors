@@ -1,5 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
@@ -15,6 +16,7 @@ export class ImwebController {
    * @param input 상품을 조회하기 위한 조건 DTO.
    * @returns 액세스 토큰을 담은 응답 DTO.
    */
+  @Standalone()
   @core.TypedRoute.Post("get-products")
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
