@@ -7,6 +7,8 @@ import { GoogleSlidesProvider } from "../../../providers/connector/google_slides
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
+  constructor(private readonly googleSlideProvider: GoogleSlidesProvider) {}
+
   @core.TypedRoute.Post("get-presentations")
   async getPresentation() {}
 
@@ -14,7 +16,6 @@ export class GoogleSlidesController {
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.Presentation> {
-    return null!;
-    // return GoogleSlidesProvider.createPresentation(input);
+    return this.googleSlideProvider.createPresentation(input);
   }
 }
