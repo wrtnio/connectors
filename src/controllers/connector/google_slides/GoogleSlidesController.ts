@@ -14,6 +14,7 @@ export class GoogleSlidesController {
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.Presentation> {
-    return GoogleSlidesProvider.createPresentation(input);
+    return null!;
+    // return GoogleSlidesProvider.createPresentation(input);
   }
 }
