@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -30,6 +30,10 @@ const createPresentationName = () => {
   );
 };
 
+/**
+ * 어떤 파라미터를 넣든 간에 presentationId를 제외한 다른 body 데이터는 무시되고 빈 프레젠테이션이 생성된다.
+ * @param connection
+ */
 export const test_api_connector_google_slides_create_presentation = async (
   connection: CApi.IConnection,
 ) => {
@@ -62,6 +66,10 @@ export const test_api_connector_google_slides_create_presentation = async (
   typia.assertEquals(res);
 };
 
+/**
+ * 어떤 파라미터를 넣든 간에 presentationId를 제외한 다른 body 데이터는 무시되고 빈 프레젠테이션이 생성된다.
+ * @param connection
+ */
 export const test_api_connector_google_slides_create_presentation_with_one_slide =
   async (connection: CApi.IConnection) => {
     const PresentationName = `${createPresentationName()} - with one slide`;
@@ -126,6 +134,10 @@ export const test_api_connector_google_slides_create_presentation_with_one_slide
     typia.assertEquals(res);
   };
 
+/**
+ * 어떤 파라미터를 넣든 간에 presentationId를 제외한 다른 body 데이터는 무시되고 빈 프레젠테이션이 생성된다.
+ * @param connection
+ */
 export const test_api_connector_google_slides_create_random_presentation =
   async (connection: CApi.IConnection) => {
     /**
@@ -143,4 +155,30 @@ export const test_api_connector_google_slides_create_random_presentation =
       );
 
     typia.assertEquals(res);
+
+    return res;
   };
+
+export const test_api_connector_google_slides_get_one_presentation = async (
+  connection: CApi.IConnection,
+) => {
+  const createdPresentation =
+    await test_api_connector_google_slides_create_random_presentation(
+      connection,
+    );
+
+  if (!createdPresentation.presentationId) {
+    throw new Error("생성 단계에서 실패하여 조회 로직 실패");
+  }
+
+  const presentation =
+    await CApi.functional.connector.google_slides.get_presentations.getPresentation(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+        presentationId: createdPresentation.presentationId,
+      },
+    );
+
+  typia.assertEquals(presentation);
+};

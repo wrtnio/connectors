@@ -8,6 +8,20 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
 
 export namespace IGoogleSlides {
   /**
+   * @title 프레젠테이션 검색을 위한 조건 DTO.
+   */
+  export interface IGetPresentationInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    /**
+     * @title 검색의 대상이 되는 프레젠테이션 ID.
+     */
+    presentationId: string;
+  }
+
+  /**
    * @title Google Slides의 프레젠테이션을 생성하기 위한 요청 DTO.
    */
   export type ICreatePresentationInput = ICommon.ISecret<

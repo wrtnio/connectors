@@ -10,7 +10,11 @@ export class GoogleSlidesController {
   constructor(private readonly googleSlideProvider: GoogleSlidesProvider) {}
 
   @core.TypedRoute.Post("get-presentations")
-  async getPresentation() {}
+  async getPresentation(
+    @TypedBody() input: IGoogleSlides.IGetPresentationInput,
+  ): Promise<IGoogleSlides.Presentation> {
+    return this.googleSlideProvider.getPresentation(input);
+  }
 
   /**
    * Google Slides 프레젠테이션을 생성합니다.
