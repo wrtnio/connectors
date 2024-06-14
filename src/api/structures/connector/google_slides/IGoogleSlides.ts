@@ -63,11 +63,11 @@ export namespace IGoogleSlides {
     /**
      * @title 프레젠테이션의 언어
      *
-     * IETF BCP 7 언어 태크 형식.
+     * IETF BCP 47 언어 태크 형식.
      */
     locale?:
-      | tags.Constant<"eu-US", { title: "미국 영어" }>
-      | tags.Constant<"ko-KR", { title: "한국어" }>
+      | tags.Constant<"eu", { title: "미국 영어" }>
+      | tags.Constant<"ko", { title: "한국어" }>
       | null;
 
     /**

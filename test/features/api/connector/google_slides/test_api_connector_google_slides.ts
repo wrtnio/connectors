@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia, { tags } from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -55,7 +55,7 @@ export const test_api_connector_google_slides_create_presentation = async (
         title: `${createPresentationName()} - no slides`,
         masters: [],
         layouts: [],
-        locale: "ko-KR",
+        locale: "ko",
       },
     );
 
@@ -119,7 +119,7 @@ export const test_api_connector_google_slides_create_presentation_with_one_slide
           title: PresentationName,
           masters: [],
           layouts: [],
-          locale: "ko-KR",
+          locale: "ko",
         },
       );
 
