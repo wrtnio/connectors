@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
+import { GoogleApis } from "googleapis";
+import typia from "typia";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
@@ -31,7 +33,10 @@ export class GoogleSlidesProvider {
 
       return res.data;
     } catch (err) {
-      console.error(err);
+      if (typia.is<GoogleProvider.GoogleError>(err)) {
+        this.googleProvider.error(err);
+      }
+
       throw err;
     }
   }

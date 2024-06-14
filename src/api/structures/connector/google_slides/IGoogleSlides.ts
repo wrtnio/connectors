@@ -14,26 +14,21 @@ export namespace IGoogleSlides {
     "google",
     ["https://www.googleapis.com/auth/presentations"]
   > &
-    Partial<Presentation>;
+    Omit<Presentation, "presentationId">;
 
   /**
    * @title Google Slides의 Presentation resource.
    */
   export interface Presentation {
     /**
-     * @title 프레젠테이션의 ID.
-     */
-    objectId?: string;
-
-    /**
      * @title 프레젠네이션의 ID.
      */
-    presentationId: string;
+    presentationId?: string | null;
 
     /**
      * @title 프레젠테이션의 페이지 크기.
      */
-    pageSize: Size;
+    pageSize?: Size;
 
     /**
      * @@title 프레젠테이션의 슬라이드.
@@ -56,21 +51,24 @@ export namespace IGoogleSlides {
      * - 마스터 페이지 속성은 레이아웃에 상속되는 일반적인 페이지 속성을 정의합니다
      * - 마스터 슬라이드의 다른 모든 도형은 레이아웃에 관계없이 해당 마스터를 사용하는 모든 슬라이드에 표시됩니다.
      */
-    masters: Page[];
+    masters?: Page[];
 
     /**
      * @title 콘텐츠를 정렬하고 스타일을 지정하는 템플릿.
      *
      * 프레젠테이션의 레이아웃 레이아웃은 해당 레이아웃에서 상속된 슬라이드에서 콘텐츠를 정렬하고 스타일을 지정하는 방식을 결정하는 템플릿입니다.
      */
-    layouts: Page[];
+    layouts?: Page[];
 
     /**
      * @title 프레젠테이션의 언어
      *
      * IETF BCP 7 언어 태크 형식.
      */
-    locale: string;
+    locale?:
+      | tags.Constant<"eu-US", { title: "미국 영어" }>
+      | tags.Constant<"ko-KR", { title: "한국어" }>
+      | null;
 
     /**
      * @title 출력 전용 프레젠테이션 버전의 ID.
@@ -91,36 +89,36 @@ export namespace IGoogleSlides {
      *
      * 그러나 ID 형식 변경과 같은 내부 요인으로 인해 ID가 변경되었을 수도 있습니다.
      */
-    revisionId: string;
+    revisionId?: string | null;
 
     /**
      * @title 프레젠테이션의 메모 마스터.
      */
-    notesMaster: Page;
+    notesMaster?: Page;
   }
 
   export interface Size {
     /**
      * @title 객체의 너비.
      */
-    width: Dimension;
+    width?: Dimension;
 
     /**
      * @title 객체의 높이.
      */
-    height: Dimension;
+    height?: Dimension;
   }
 
   export interface Dimension {
     /**
      * @title 규모.
      */
-    magnitude?: number;
+    magnitude?: number | null;
 
     /**
      * @title 크기 단위.
      */
-    unit: Unit;
+    unit?: Unit | null;
   }
 
   /**
@@ -188,29 +186,29 @@ export namespace IGoogleSlides {
      *
      * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
      */
-    objectId: string;
+    objectId?: string | null;
 
     /**
      * @title 페이지 유형.
      */
-    pageType?: PageType;
+    pageType?: PageType | null;
 
     /**
      * @title 페이지에서 렌더링된 페이지 요소.
      */
-    pageElements: PageElement[];
+    pageElements?: PageElement[];
 
     /**
      * @title 페이지의 속성.
      */
-    pageProperties: PageProperties;
+    pageProperties?: PageProperties;
   };
 
   export interface MasterProperties {
     /**
      * @title 사람이 읽을 수 있는 마스터 이름입니다.
      */
-    displayName: string;
+    displayName?: string | null;
   }
 
   /**
@@ -220,36 +218,36 @@ export namespace IGoogleSlides {
     /**
      * @title 해당 슬라이드에 대한 발표자 노트를 포함하는 이 메모 페이지에 있는 도형의 개체 ID입니다.
      */
-    speakerNotesObjectId: string;
+    speakerNotesObjectId?: string | null;
   }
 
   export interface LayoutProperties {
     /**
      * @title 이 레이아웃의 기반이 되는 마스터의 객체 ID입니다.
      */
-    masterObjectId: string;
+    masterObjectId?: string | null;
 
     /**
      * @title 레이아웃의 이름입니다.
      */
-    name: string;
+    name?: string | null;
 
     /**
      * @title 사람이 읽을 수 있는 레이아웃의 이름.
      */
-    displayName: string;
+    displayName?: string | null;
   }
 
   export interface SlideProperties {
     /**
      * @title 이 슬라이드의 기반이 되는 레이아웃의 객체 ID입니다.
      */
-    readonly layoutObjectId: string;
+    readonly layoutObjectId?: string | null;
 
     /**
      * 이 슬라이드의 기반이 되는 마스터 객체 ID입니다.
      */
-    readonly masterObjectId: string;
+    readonly masterObjectId?: string | null;
 
     /**
      * @title 이 슬라이드와 연결된 메모 페이지입니다.
@@ -267,7 +265,7 @@ export namespace IGoogleSlides {
     /**
      * @title 프레젠테이션 모드에서 슬라이드를 건너뛸지 여부.
      */
-    isSkipped?: boolean & tags.Default<false>;
+    isSkipped?: (boolean & tags.Default<false>) | null;
   }
 
   export interface PageProperties {
@@ -293,19 +291,19 @@ export namespace IGoogleSlides {
     /**
      * @title ThemeColorType 및 해당하는 구체적인 색상 쌍.
      */
-    colors: ThemeColorPair[];
+    colors?: ThemeColorPair[];
   }
 
   export interface ThemeColorPair {
     /**
      * @title 테마 색상 유형입니다.
      */
-    type: ThemeColorType;
+    type?: ThemeColorType | null;
 
     /**
      * @title 위의 테마 색상 유형에 해당하는 구체적인 색상입니다.
      */
-    color: RgbColor;
+    color?: RgbColor;
   }
 
   /**
@@ -348,7 +346,7 @@ export namespace IGoogleSlides {
     /**
      * @title 배경 채우기 속성 상태입니다.
      */
-    propertyState?: PropertyState;
+    propertyState?: PropertyState | null;
   } & Partial<FillOption>;
 
   type FillOption = OneOf<{
@@ -388,12 +386,12 @@ export namespace IGoogleSlides {
      *
      * 제공된 URL의 최대 길이는 2KB입니다.
      */
-    contentUrl: string;
+    contentUrl?: (string & tags.Format<"url">) | null;
 
     /**
      * @title 사진 채우기의 원래 크기.
      */
-    readonly size: Size;
+    readonly size?: Size;
   }
 
   /**
@@ -415,14 +413,14 @@ export namespace IGoogleSlides {
      *
      * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
      */
-    objectId: string;
+    objectId?: string | null;
 
     /**
      * @ttitle 페이지 요소의 크기.
      */
-    size: Size;
+    size?: Size;
 
-    /**
+    /**?
      * @title 페이지 요소의 변환.
      *
      * 페이지 요소의 시각적 모양은 절대 변환에 따라 결정됩니다.
@@ -433,7 +431,7 @@ export namespace IGoogleSlides {
      *
      * 새로 생성된 Group의 초기 변환은 항상 ID 변환입니다.
      */
-    transform: Transform;
+    transform?: Transform;
 
     /**
      * @title 페이지 요소의 제목.
@@ -521,7 +519,7 @@ export namespace IGoogleSlides {
     /**
      * @title 도형의 속성.
      */
-    shapeProperties: ShapeProperties;
+    shapeProperties?: ShapeProperties;
 
     /**
      * @title 자리표시자는 레이아웃과 마스터의 해당 자리표시자에서 상속되는 페이지 요소.
@@ -628,7 +626,7 @@ export namespace IGoogleSlides {
      *
      * 도형에 상위 항목이 없는 경우 기본 정렬은 Slides 편집기에서 만든 새 도형의 정렬과 일치합니다.
      */
-    contentAlignment?: ContentAlignment;
+    contentAlignment?: ContentAlignment | null;
 
     /**
      * @title 도형의 자동 맞춤 속성입니다.
@@ -653,17 +651,17 @@ export namespace IGoogleSlides {
      *
      * 두 속성 모두 기본값으로 재설정됩니다.
      */
-    autofitType?: AutofitType;
+    autofitType?: AutofitType | null;
 
     /**
      * @title 도형에 적용된 글꼴 배율.
      */
-    readonly fontScale: number;
+    readonly fontScale?: number | null;
 
     /**
      * @title 도형에 적용되는 선 간격 감소.
      */
-    readonly lineSpacingReduction?: number;
+    readonly lineSpacingReduction?: number | null;
   }
 
   /**
@@ -731,26 +729,26 @@ export namespace IGoogleSlides {
     /**
      * 설정된 경우 이 URL이 외부 웹 페이지의 링크임을 나타낸다.
      */
-    url: string;
+    url?: (string & tags.Format<"url">) | null;
 
     /**
      * 이 값이 설정된 경우 이 프레젠테이션에서 슬라이드의 위치에 따라 링크로 연결됩니다.
      */
-    relativeLink: RelativeSlideLink;
+    relativeLink?: RelativeSlideLink | null;
 
     /**
      * 설정된 경우 이 ID를 가진 프레젠테이션의 특정 페이지에 대한 링크임을 나타냅니다.
      *
      * 이 ID를 가진 페이지가 존재하지 않을 수 있습니다.
      */
-    pageObject: string;
+    pageObjectId?: string | null;
 
     /**
      * 설정된 경우 프레젠테이션에서 이 0부터 시작하는 색인의 슬라이드 링크임을 나타냅니다.
      *
      * 이 인덱스에 슬라이드가 없을 수 있습니다.
      */
-    slideIndex: number & tags.Type<"int64">;
+    slideIndex?: (number & tags.Type<"int64">) | null;
   }>;
 
   /**
@@ -781,7 +779,8 @@ export namespace IGoogleSlides {
           "SHADOW_TYPE_UNSPECIFIED",
           { title: "지정되지 않은 그림자 유형" }
         >
-      | tags.Constant<"OUTER", { title: "외부 그림자" }>;
+      | tags.Constant<"OUTER", { title: "외부 그림자" }>
+      | null;
 
     /**
      * 정렬 위치를 기준으로 그림자의 변환, 배율 및 왜곡을 인코딩하는 변환입니다.
@@ -791,7 +790,7 @@ export namespace IGoogleSlides {
     /**
      * 그림자의 변환 지점, 배율 및 왜곡 방향을 설정하는 그림자의 정렬 지점입니다.
      */
-    readonly alignment?: RectanglePosition;
+    readonly alignment?: RectanglePosition | null;
 
     /**
      * @title 그림자 블러의 반경.
@@ -808,12 +807,12 @@ export namespace IGoogleSlides {
     /**
      * @title 그림자 색상의 알파.
      */
-    alpha?: number & tags.Minimum<0> & tags.Maximum<1>;
+    alpha?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
      * @title 도형이 도형과 함께 회전되어야 하는지 여부.
      */
-    readonly rotateWithShape?: boolean;
+    readonly rotateWithShape?: boolean | null;
 
     /**
      * @title 그림자 속성 상태
@@ -824,7 +823,7 @@ export namespace IGoogleSlides {
      *
      * 이 경우 동일한 요청에 설정된 다른 그림자 필드는 모두 무시됩니다.
      */
-    propertyState?: PropertyState;
+    propertyState?: PropertyState | null;
   }
 
   export type RectanglePosition =
@@ -848,7 +847,7 @@ export namespace IGoogleSlides {
     /**
      * @title 윤곽선 속성 상태입니다.
      */
-    propertyState?: PropertyState;
+    propertyState?: PropertyState | null;
 
     /**
      * @title 윤곽선 채우기.
@@ -863,7 +862,7 @@ export namespace IGoogleSlides {
     /**
      * @title 윤곽선의 대시 스타일.
      */
-    dashStyle?: DashStyle;
+    dashStyle?: DashStyle | null;
   }
 
   /**
@@ -887,7 +886,7 @@ export namespace IGoogleSlides {
     /**
      * @title 단색의 색상 값.
      */
-    color: OpaqueColor;
+    color?: OpaqueColor;
 
     /**
      * @title 픽셀에 적용해야 하는 color의 비율 값.
@@ -898,7 +897,7 @@ export namespace IGoogleSlides {
      *
      * 즉 1.0 값은 단색에 해당하는 반면 0.0 값은 완전히 투명한 색상에 해당한다.
      */
-    alpha: number & tags.Minimum<0> & tags.Maximum<1>;
+    alpha?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
   }
 
   /**
@@ -955,17 +954,17 @@ export namespace IGoogleSlides {
     /**
      * @title 색상의 빨간색 구성 요소.
      */
-    red?: number & tags.Minimum<0> & tags.Maximum<1>;
+    red?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
      * @title 색상의 초록색 구성 요소.
      */
-    green?: number & tags.Minimum<0> & tags.Maximum<1>;
+    green?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
      * @title 색상의 파란색 구성 요소.
      */
-    blue?: number & tags.Minimum<0> & tags.Maximum<1>;
+    blue?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
   }
 
   /**
@@ -975,7 +974,7 @@ export namespace IGoogleSlides {
     /**
      * @title 속성의 가능한 상태.
      */
-    propertyState?: PropertyState;
+    propertyState?: PropertyState | null;
 
     /**
      * @title 단색 채우기.
@@ -1008,31 +1007,6 @@ export namespace IGoogleSlides {
   ) &
     tags.Default<"RENDERED">;
 
-  /**
-   * @title 단색 채우기
-   *
-   * 단색 채우기 페이지 또는 페이지 요소가 지정된 색상 값으로 완전히 채워집니다.
-   *
-   * 설정되지 않은 필드의 값은 상위 자리표시자가 있는 경우 해당 값을 상속받을 수 있습니다.
-   */
-  export interface SolidFill {
-    /**
-     * @title 단색의 색상 값.
-     */
-    color: OpaqueColor;
-
-    /**
-     * @title 픽셀에 적용해야 하는 color의 비율 값.
-     *
-     * 최종 픽셀 색상은 등식으로 정의된다.
-     *
-     * `픽셀 색상 = (alpha * color) + (1.0 - alpha) * (배경 색상)`
-     *
-     * 즉 1.0 값은 단색에 해당하는 반면 0.0 값은 완전히 투명한 색상에 해당한다.
-     */
-    alpha: number & tags.Minimum<0> & tags.Maximum<1>;
-  }
-
   export interface TextContent {
     /**
      * @title 스타일 지정 정보를 포함하여 구성요소로 분류된 텍스트 콘텐츠입니다.
@@ -1046,7 +1020,7 @@ export namespace IGoogleSlides {
      */
     lists?: {
       [Key: string]: List;
-    };
+    } | null;
   }
 
   /**
@@ -1058,7 +1032,7 @@ export namespace IGoogleSlides {
     /**
      * @title 목록의 ID.
      */
-    listId: string;
+    listId?: string | null;
 
     /**
      * @title 관련 수준의 글머리 기호 속성에 대한 중첩 수준의 맵
@@ -1067,28 +1041,32 @@ export namespace IGoogleSlides {
      *
      * 지정된 중첩 수준에서 목록 글머리 기호의 디자인을 설명하는 속성이 포함되어 있습니다.
      */
-    nestingLevel: {
-      [Key in 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8]: { bulletStyle: TextStyle };
-    };
+    nestingLevel?:
+      | {
+          [Key in 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8]: {
+            bulletStyle: TextStyle;
+          };
+        }
+      | null;
   }
 
   export type TextElement = {
     /**
      * @title 이 텍스트 요소의 0부터 시작되는 시작 색인. (유니코드 코드 단위)
      */
-    startIndex?: number & tags.Type<"int64">;
+    startIndex?: (number & tags.Type<"int64">) | null;
 
     /**
      * @title 이 텍스트 요소의 0부터 시작되는 종료 색인. (유니코드 코드 단위 제외)
      */
-    endIndex?: number & tags.Type<"int64">;
+    endIndex?: (number & tags.Type<"int64">) | null;
   } & OneOf<{
     /**
      * @title 단락 마커.
      *
      * 새 단락의 시작을 나타내는 TextElement 종류입니다.
      */
-    paragraphMarker: ParagraphMarker;
+    paragraphMarker?: ParagraphMarker;
 
     /**
      * @title 런의 모든 문자가 동일한 TextStyle인 텍스트 런을 나타내는 TextElement입니다.
@@ -1097,14 +1075,39 @@ export namespace IGoogleSlides {
      *
      * 즉, TextRun은 여러 단락으로 확장되지 않습니다.
      */
-    textRun: TextRun;
+    textRun?: TextRun;
 
     /**
      * @title 시간이 지남에 따라 변할 수 있는 콘텐츠로 동적으로 대체되는 텍스트의 한 지점을 나타내는 TextElement입니다.
      */
-    autoText: AutoText;
+    autoText?: AutoText;
   }>;
 
+  export interface AutoText {
+    /**
+     * @title 이 자동 텍스트의 유형.
+     */
+    type:
+      | tags.Constant<
+          "TYPE_UNSPECIFIED",
+          { title: "지정되지 않은 자동 텍스트 유형" }
+        >
+      | tags.Constant<
+          "SLIDE_NUMBER",
+          { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }
+        >;
+
+    /**
+     * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
+     */
+    content: string;
+
+    /**
+     * @title 이 자동 텍스트에 적용되는 스타일.
+     */
+    style?: TextStyle;
+  }
+
   /**
    * @title 텍스트 실행.
    *
@@ -1114,12 +1117,12 @@ export namespace IGoogleSlides {
     /**
      * @title 이 실행의 텍스트.
      */
-    content: string;
+    content?: string | null;
 
     /**
      * @title 이 실행에 적용된 스타일 지정.
      */
-    style: TextStyle;
+    style?: TextStyle;
   }
 
   export interface AutoText {
@@ -1144,56 +1147,14 @@ export namespace IGoogleSlides {
     /**
      * @title 이 자동 텍스트에 적용되는 스타일.
      */
-    style: TextStyle;
-  }
-
-  /**
-   * @title 텍스트 실행.
-   *
-   * 모든 스타일이 동일한 RON을 나타내는 TextElement의 종류.
-   */
-  export interface TextRun {
-    /**
-     * @title 이 실행의 텍스트.
-     */
-    content: string;
-
-    /**
-     * @title 이 실행에 적용된 스타일 지정.
-     */
-    style: TextStyle;
-  }
-
-  export interface AutoText {
-    /**
-     * @title 이 자동 텍스트의 유형.
-     */
-    type:
-      | tags.Constant<
-          "TYPE_UNSPECIFIED",
-          { title: "지정되지 않은 자동 텍스트 유형" }
-        >
-      | tags.Constant<
-          "SLIDE_NUMBER",
-          { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }
-        >;
-
-    /**
-     * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
-     */
-    content: string;
-
-    /**
-     * @title 이 자동 텍스트에 적용되는 스타일.
-     */
-    style: TextStyle;
+    style?: TextStyle;
   }
 
   export interface ParagraphMarker {
     /**
      * @title 단락의 스타일.
      */
-    style: Partial<ParagraphStyle>;
+    style?: ParagraphStyle;
 
     /**
      * @title 이 단락의 글머리 기호.
@@ -1260,12 +1221,12 @@ export namespace IGoogleSlides {
     /**
      * @title 텍스트가 굵게 렌더링되는지 여부.
      */
-    bold?: boolean;
+    bold?: boolean | null;
 
     /**
      * @title 텍스트에 기울임꼴을 적용할지 여부.
      */
-    italic?: boolean;
+    italic?: boolean | null;
 
     /**
      * @title 텍스트의 글꼴.
@@ -1278,7 +1239,7 @@ export namespace IGoogleSlides {
      *
      * 업데이트 요청에서 fonrtFamily 및 bold 값을 모두 지정하면 명시적으로 설정된 bold 값이 사용된다.
      */
-    fontFamily?: string;
+    fontFamily?: string | null;
 
     /**
      * @title 텍스트 글꼴의 크기.
@@ -1318,22 +1279,22 @@ export namespace IGoogleSlides {
      *
      * fontSize 자체는 이 필드의 변경에 영향을 받지 않습니다.
      */
-    baselineOffset?: BaselineOffset;
+    baselineOffset?: BaselineOffset | null;
 
     /**
      * @title 텍스트가 작은 대문자인지 여부.
      */
-    smallCaps?: boolean;
+    smallCaps?: boolean | null;
 
     /**
      * @title 취소선 표시 여부.
      */
-    strikethrough?: boolean;
+    strikethrough?: boolean | null;
 
     /**
      * @title 텍스트에 밑줄이 표시되는지 여부.
      */
-    underline?: boolean;
+    underline?: boolean | null;
 
     /**
      * @title 글꼴 모음 및 텍스트의 렌더링된 두꼐.
@@ -1372,16 +1333,18 @@ export namespace IGoogleSlides {
      *
      * 글꼴 이름이 인식되지 않으면 텍스트가 Arial에서 렌더링됩니다.
      */
-    fontFamily: string;
+    fontFamily?: string | null;
 
     /**
      * @title 텍스트의 렌더링된 두께입니다.
      */
-    weight: number &
-      tags.Type<"int64"> &
-      tags.Minimum<100> &
-      tags.Maximum<900> &
-      tags.MultipleOf<100>;
+    weight:
+      | (number &
+          tags.Type<"int64"> &
+          tags.Minimum<100> &
+          tags.Maximum<900> &
+          tags.MultipleOf<100>)
+      | null;
   }
 
   /**
@@ -1412,53 +1375,53 @@ export namespace IGoogleSlides {
    *
    */
   export interface ParagraphStyle {
-    lineSpacing: number;
+    lineSpacing?: number | null;
 
     /**
      * @title 단락의 텍스트 정렬 유형
      */
-    alignment: Alignment;
+    alignment?: Alignment | null;
 
     /**
      * @title 현재 텍스트 방향을 기준으로 텍스트의 시작 부분에 해당하는 단락 단락의 들여쓰기 간격.
      */
-    indentStart: Dimension;
+    indentStart?: Dimension;
 
     /**
      * @title 현재 텍스트 방향을 기준으로 텍스트의 끝 부분에 해당하는 단락 단락의 들여쓰기 간격.
      */
-    indentEnd: Dimension;
+    indentEnd?: Dimension;
 
     /**
      * @title 단락 위의 추가 공백입니다.
      *
      * 설정하지 않으면 값이 상위 요소로부터 상속됩니다.
      */
-    spaceAbove: Dimension;
+    spaceAbove?: Dimension;
 
     /**
      * @title 단락 아래에 여분의 공간이 표시됩니다.
      *
      * 설정하지 않으면 값이 상위 요소로부터 상속됩니다.
      */
-    spaceBelow: Dimension;
+    spaceBelow?: Dimension;
 
     /**
      * @title 단락 첫 번째 줄의 시작 부분을 들여씁니다.
      *
      * 설정하지 않으면 값이 상위 요소로부터 상속됩니다.
      */
-    indentFirstLine: Dimension;
+    indentFirstLine?: Dimension;
 
     /**
      * @title 이 단락의 텍스트 방향입니다.
      */
-    direction: TextDirection & tags.Default<"LEFT_TO_RIGHT">;
+    direction?: (TextDirection & tags.Default<"LEFT_TO_RIGHT">) | null;
 
     /**
      * @title 단락의 간격 모드.
      */
-    spacingMode: SpacingMode;
+    spacingMode?: SpacingMode | null;
   }
 
   /**
@@ -2319,7 +2282,7 @@ export namespace IGoogleSlides {
      *
      * 프레젠테이션의 공유 설정이 변경되면 이미지에 액세스할 수 없게 됩니다.
      */
-    contentUrl: string;
+    contentUrl?: string | null;
 
     /**
      * @title 이미지의 속성.
@@ -2352,33 +2315,33 @@ export namespace IGoogleSlides {
      *
      * 설정하지 않으면 이미지가 잘리지 않습니다.
      */
-    readonly cropProperties: CropProperties;
+    readonly cropProperties?: CropProperties;
 
     /**
      * @title 이미지의 투명도 효과입니다.
      *
      * 여기서 0은 효과 없음, 1은 완전히 투명함을 의미합니다.
      */
-    readonly transparency: number & tags.Minimum<0> & tags.Maximum<1>;
+    readonly transparency?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
      * @title 이미지의 밝기 효과입니다.
      *
      * 0은 효과가 없음을 의미합니다.
      */
-    readonly brightness: number & tags.Minimum<-1> & tags.Maximum<1>;
+    readonly brightness?: (number & tags.Minimum<-1> & tags.Maximum<1>) | null;
 
     /**
      * @title 이미지의 대비 효과.
      */
-    readonly contrast: number & tags.Minimum<-1> & tags.Maximum<1>;
+    readonly contrast?: (number & tags.Minimum<-1> & tags.Maximum<1>) | null;
 
     /**
      * @title 이미지의 윤곽선.
      *
      * 설정하지 않으면 이미지에 윤곽선이 없다.
      */
-    readonly recolor: Recolor;
+    readonly recolor?: Recolor;
 
     /**
      * @title 이미지의 윤곽선.
@@ -2390,7 +2353,7 @@ export namespace IGoogleSlides {
     /**
      * @title 이미지의 그림자입니다.
      */
-    readonly shadow: Shadow;
+    readonly shadow?: Shadow;
 
     /**
      * @title 이미지의 하이퍼 링크 대상.
@@ -2404,27 +2367,27 @@ export namespace IGoogleSlides {
     /**
      * 오프셋은 객체의 원래 너비를 기준으로 원본 경계 직사각형의 왼쪽 가장자리에 있는 자르기 사각형의 왼쪽 가장자리를 지정합니다.
      */
-    leftOffset: number;
+    leftOffset?: number | null;
 
     /**
      * 오프셋은 객체의 원래 너비를 기준으로 원본 경계 직사각형의 오른쪽 가장자리 왼쪽에 있는 자르기 사각형의 오른쪽 가장자리를 지정합니다.
      */
-    rightOffset: number;
+    rightOffset?: number | null;
 
     /**
      * 오프셋은 객체의 원래 높이를 기준으로 원래 경계 직사각형의 상단 가장자리 아래에 있는 자르기 사각형의 상단 가장자리를 지정합니다.
      */
-    topOffset: number;
+    topOffset?: number | null;
 
     /**
      * 오프셋은 객체의 원래 높이를 기준으로 원래의 경계 직사각형 하단 가장자리 위에 위치한 자르기 사각형의 하단 가장자리를 지정합니다.
      */
-    bottomOffset: number;
+    bottomOffset?: number | null;
 
     /**
      * 중앙을 기준으로 자르기 창의 회전 각도(라디안)입니다. 회전 각도는 오프셋 후에 적용됩니다.
      */
-    angle: number;
+    angle?: number | null;
   }
 
   /**
@@ -2438,12 +2401,12 @@ export namespace IGoogleSlides {
      *
      * 색상 중지 목록인 그라데이션으로 표현된다.
      */
-    recolorStops: ColorStop[];
+    recolorStops?: ColorStop[];
 
     /**
      * @title 색상 변경 효과의 이름.
      */
-    readonly name: Name;
+    readonly name?: Name | null;
   }
 
   /**
@@ -2597,23 +2560,25 @@ export namespace IGoogleSlides {
     /**
      * @title 그라데이션 색상의 색상.
      */
-    color: OpaqueColor;
+    color?: OpaqueColor;
 
     /**
      * @title 그래디언트 밴드에서 이 색상의 알파 값입니다.
      *
      * 기본값은 1.0이며 완전 불투명입니다.
      */
-    alpha: number &
-      tags.Type<"int32"> &
-      tags.Maximum<1> &
-      tags.Minimum<0> &
-      tags.Default<0>;
+    alpha?:
+      | (number &
+          tags.Type<"int32"> &
+          tags.Maximum<1> &
+          tags.Minimum<0> &
+          tags.Default<0>)
+      | null;
 
     /**
      * 백분율로 측정된 그래디언트 밴드 내 색상 중지 지점의 상대 위치입니다. 이 값은 [0.0, 1.0] 간격으로 입력해야 합니다.
      */
-    position: number;
+    position?: number | null;
   }
 
   export interface Video {}
@@ -2625,17 +2590,17 @@ export namespace IGoogleSlides {
     /**
      * @title 선의 속성입니다.
      */
-    lineProperties: LineProperties;
+    lineProperties?: LineProperties;
 
     /**
      * @title 선의 유형.
      */
-    lineType: LineType;
+    lineType?: LineType | null;
 
     /**
      * @title 선의 카테고리.
      */
-    lineCategory: LineCategory;
+    lineCategory?: LineCategory | null;
   }
 
   export type LineCategory =
@@ -2723,27 +2688,27 @@ export namespace IGoogleSlides {
     /**
      * @title 선의 채우기
      */
-    lineFill: LineFill;
+    lineFill?: LineFill;
 
     /**
      * @title 선의 두께
      */
-    weight: Dimension;
+    weight?: Dimension;
 
     /**
      * @title 선의 파선 스타일
      */
-    dashStyle: DashStyle;
+    dashStyle?: DashStyle | null;
 
     /**
      * @title 선의 시작 부분에 있는 화살표 스타일
      */
-    startArrow: ArrowStyle;
+    startArrow?: ArrowStyle | null;
 
     /**
      * @title 선의 끝에 있는 화살표 스타일
      */
-    endArrow: ArrowStyle;
+    endArrow?: ArrowStyle | null;
 
     /**
      * @title 선의 하이퍼 링크 대상.
@@ -2755,26 +2720,26 @@ export namespace IGoogleSlides {
      *
      * 커넥터 타입에만 존재.
      */
-    startConnection: LineConnection;
+    startConnection?: LineConnection;
 
     /**
      * @title 줄의 끝 부분에 있는 연결.
      *
      * 커넥터 타입에만 존재.
      */
-    endConnection: LineConnection;
+    endConnection?: LineConnection;
   }
 
   export interface LineConnection {
     /**
      * @title 연결된 페이지 요소의 객체 ID입니다.
      */
-    connectedObjectId: string;
+    connectedObjectId?: string | null;
 
     /**
      * @title 연결된 페이지 요소에 있는 연결 사이트의 색인입니다.
      */
-    connectionSiteIndex: number & tags.Type<"int64">;
+    connectionSiteIndex?: (number & tags.Type<"int64">) | null;
   }
 
   export type ArrowStyle =
@@ -2871,36 +2836,36 @@ export namespace IGoogleSlides {
     /**
      * @title X 좌표 배율 요소.
      */
-    scaleX: number;
+    scaleX?: number | null;
 
     /**
      * @title Y 좌표 배율 요소.
      */
-    scaleY: number;
+    scaleY?: number | null;
 
     /**
      * @title X 좌표 기울기 요소.
      */
-    shearX?: number;
+    shearX?: number | null;
 
     /**
      * @title Y 좌표 기울기 요소.
      */
-    shearY?: number;
+    shearY?: number | null;
 
     /**
      * @title X 좌표 변환 요소.
      */
-    translateX?: number;
+    translateX?: number | null;
 
     /**
      * @title Y 좌표 변환 요소.
      */
-    translateY?: number;
+    translateY?: number | null;
 
     /**
      * @title 변환 요소의 단위.
      */
-    unit: Unit;
+    unit?: Unit | null;
   }
 }
