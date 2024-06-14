@@ -200,7 +200,14 @@ export const test_api_connector_google_slides_append_image_slide = async (
         requests: [
           {
             createSlide: {
-              objectId: "testCreateSlide",
+              objectId: "testPageId",
+            },
+            createImage: {
+              objectId: "testImageId",
+              elementProperties: {
+                pageObjectId: "testPageId",
+              },
+              url: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixlr.com%2Fkr%2Fimage-generator%2F&psig=AOvVaw1dCLFhq1RcyNyWc7OSAzD9&ust=1718449127472000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOD0u4D42oYDFQAAAAAdAAAAABAE",
             },
           },
         ],

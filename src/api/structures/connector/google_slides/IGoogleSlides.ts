@@ -23,8 +23,44 @@ export namespace IGoogleSlides {
       /**
        * @title 새로 생성할 슬라이드의 정보.
        */
-      createSlide: CreateSlideRequest;
+      createSlide?: CreateSlideRequest;
+
+      createImage?: CreateImageRequest;
     }[];
+  }
+
+  export interface CreateImageRequest
+    extends slides_v1.Schema$CreateImageRequest {
+    /**
+     * The element properties for the image. When the aspect ratio of the provided size does not match the image aspect ratio, the image is scaled and centered with respect to the size in order to maintain the aspect ratio. The provided transform is applied after this operation. The PageElementProperties.size property is optional. If you don't specify the size, the default size of the image is used. The PageElementProperties.transform property is optional. If you don't specify a transform, the image will be placed at the top-left corner of the page.
+     */
+    elementProperties?: PageElementProperties;
+    /**
+     * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If you don't specify an ID, a unique one is generated.
+     */
+    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
+    /**
+     * The image URL. The image is fetched once at insertion time and a copy is stored for display inside the presentation. Images must be less than 50 MB in size, can't exceed 25 megapixels, and must be in one of PNG, JPEG, or GIF formats. The provided URL must be publicly accessible and up to 2 KB in length. The URL is saved with the image, and exposed through the Image.source_url field.
+     */
+    url?: (string & tags.Format<"url">) | null;
+  }
+
+  /**
+   * Common properties for a page element. Note: When you initially create a PageElement, the API may modify the values of both `size` and `transform`, but the visual size will be unchanged.
+   */
+  export interface PageElementProperties {
+    /**
+     * The object ID of the page where the element is located.
+     */
+    pageObjectId?: string | null;
+    /**
+     * The size of the element.
+     */
+    size?: Size;
+    /**
+     * The transform for the element.
+     */
+    transform?: Transform;
   }
 
   export interface CreateSlideRequest
@@ -36,7 +72,7 @@ export namespace IGoogleSlides {
     /**
      * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
      */
-    objectId?: string | null;
+    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
     /**
      * An optional list of object ID mappings from the placeholder(s) on the layout to the placeholders that are created on the slide from the specified layout. Can only be used when `slide_layout_reference` is specified.
      */
@@ -73,7 +109,7 @@ export namespace IGoogleSlides {
     /**
      * A user-supplied object ID for the placeholder identified above that to be created onto a slide. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If you don't specify an ID, a unique one is generated.
      */
-    objectId?: string | null;
+    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
   }
 
   /**
@@ -269,7 +305,7 @@ export namespace IGoogleSlides {
      *
      * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
      */
-    objectId?: string | null;
+    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
 
     /**
      * @title 페이지 유형.
@@ -496,7 +532,7 @@ export namespace IGoogleSlides {
      *
      * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
      */
-    objectId?: string | null;
+    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
 
     /**
      * @ttitle 페이지 요소의 크기.
