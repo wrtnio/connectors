@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
@@ -58,6 +58,14 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
   ): Promise<IGoogleSlides.Presentation> {
     return this.googleSlideProvider.getPresentation(input);
+  }
+
+  @core.TypedRoute.Put("presentations/:id/image-slide")
+  async appendImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.IUpdatePresentationInput,
+  ): Promise<IGoogleSlides.Presentation> {
+    return this.googleSlideProvider.appendImageSlide(presentationId, input);
   }
 
   /**

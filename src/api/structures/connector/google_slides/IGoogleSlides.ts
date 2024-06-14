@@ -1,3 +1,4 @@
+import { slides_v1 } from "googleapis";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
@@ -7,6 +8,74 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
   : never;
 
 export namespace IGoogleSlides {
+  /**
+   * @title 수정할 프레젠테이션의 조건 DTO.
+   */
+  export interface IUpdatePresentationInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    /**
+     * @title 수정할 프레젠네이션의 ID.
+     */
+    requests: {
+      /**
+       * @title 새로 생성할 슬라이드의 정보.
+       */
+      createSlide: CreateSlideRequest;
+    }[];
+  }
+
+  export interface CreateSlideRequest
+    extends slides_v1.Schema$CreateSlideRequest {
+    /**
+     * The optional zero-based index indicating where to insert the slides. If you don't specify an index, the slide is created at the end.
+     */
+    insertionIndex?: number | null;
+    /**
+     * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
+     */
+    objectId?: string | null;
+    /**
+     * An optional list of object ID mappings from the placeholder(s) on the layout to the placeholders that are created on the slide from the specified layout. Can only be used when `slide_layout_reference` is specified.
+     */
+    placeholderIdMappings?: LayoutPlaceholderIdMapping[];
+    /**
+     * Layout reference of the slide to be inserted, based on the *current master*, which is one of the following: - The master of the previous slide index. - The master of the first slide, if the insertion_index is zero. - The first master in the presentation, if there are no slides. If the LayoutReference is not found in the current master, a 400 bad request error is returned. If you don't specify a layout reference, the slide uses the predefined `BLANK` layout.
+     */
+    slideLayoutReference?: LayoutReference;
+  }
+
+  export interface LayoutReference {
+    /**
+     * Layout ID: the object ID of one of the layouts in the presentation.
+     */
+    layoutId?: string | null;
+    /**
+     * Predefined layout.
+     */
+    predefinedLayout?: string | null;
+  }
+
+  /**
+   * The user-specified ID mapping for a placeholder that will be created on a slide from a specified layout.
+   */
+  export interface LayoutPlaceholderIdMapping {
+    /**
+     * The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a predefined `TITLE_AND_BODY` layout may usually have a TITLE placeholder with index 0 and a BODY placeholder with index 0.
+     */
+    layoutPlaceholder?: Placeholder;
+    /**
+     * The object ID of the placeholder on a layout that will be applied to a slide.
+     */
+    layoutPlaceholderObjectId?: string | null;
+    /**
+     * A user-supplied object ID for the placeholder identified above that to be created onto a slide. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If you don't specify an ID, a unique one is generated.
+     */
+    objectId?: string | null;
+  }
+
   /**
    * @title 프레젠테이션 검색을 위한 조건 DTO.
    */
@@ -49,12 +118,12 @@ export namespace IGoogleSlides {
      *
      * 슬라이드는 슬라이드 레이아웃에서 속성을 상속합니다.
      */
-    slides: Page[];
+    slides?: Page[];
 
     /**
      * @title 프레젠테이션의 제목.
      */
-    title: string;
+    title?: string | null;
 
     /**
      * @title 프레젠테이션의 슬라이드 마스터.
@@ -274,7 +343,7 @@ export namespace IGoogleSlides {
      *
      * 이 도형의 ID는 speakerNotesObjectId 필드로 식별됩니다.
      */
-    readonly notesPage: Page;
+    readonly notesPage?: Page;
 
     /**
      * @title 프레젠테이션 모드에서 슬라이드를 건너뛸지 여부.
@@ -421,7 +490,7 @@ export namespace IGoogleSlides {
   /**
    * @title 페이지에서 렌더링된 페이지 요소.
    */
-  export type PageElement = {
+  export type PageElementBase = {
     /**
      * @title 이 페이지 요소의 개체 ID.
      *
@@ -460,54 +529,60 @@ export namespace IGoogleSlides {
      * 제목과 결합하여 대체 텍스트를 표시한다.
      */
     description?: string;
-  } & PageElementKind;
+  };
 
-  export type PageElementKind = OneOf<{
-    /**
-     * @title 하나의 단위로 결합된 페이지 요소의 모음.
-     */
-    // elementGroup: Group;
+  export type PageElement =
+    | ShapePageElement
+    | ImagePageElement
+    | LinePageElement;
 
+  export interface ShapePageElement extends PageElementBase {
     /**
      * @title 일반 셰이프.
      */
     shape: Shape;
+  }
 
+  export interface ImagePageElement extends PageElementBase {
     /**
      * @title 이미지 페이지 요소.
      */
     image: Image;
+  }
 
-    //     /**
-    //      * @title 동영상 페이지 요소.
-    //      */
-    //     video: Video;
-
+  export interface LinePageElement extends PageElementBase {
     /**
      * @title 라인 페이지 요소.
      */
     line: Line;
+  }
 
-    //     /**
-    //      * @title 표 페이지 요소.
-    //      */
-    //     table: Table;
-
-    //     /**
-    //      * @title 워드아트 페이지 요소.
-    //      */
-    //     wordArt: WordArt;
-
-    //     /**
-    //      * @title Google Sheets에서 삽입된 연결된 차트 연결.
-    //      */
-    //     sheetsChart: SheetsChart;
-
-    //     /**
-    //      * @title 발표자 스포트라이트.
-    //      */
-    //     speakerSpotlight: SpeakerSpotlight;
-  }>;
+  // export type PageElementKind = OneOf<{
+  //   /**
+  //    * @title 하나의 단위로 결합된 페이지 요소의 모음.
+  //    */
+  // elementGroup: Group;
+  //     /**
+  //      * @title 동영상 페이지 요소.
+  //      */
+  //     video: Video;
+  //     /**
+  //      * @title 표 페이지 요소.
+  //      */
+  //     table: Table;
+  //     /**
+  //      * @title 워드아트 페이지 요소.
+  //      */
+  //     wordArt: WordArt;
+  //     /**
+  //      * @title Google Sheets에서 삽입된 연결된 차트 연결.
+  //      */
+  //     sheetsChart: SheetsChart;
+  //     /**
+  //      * @title 발표자 스포트라이트.
+  //      */
+  //     speakerSpotlight: SpeakerSpotlight;
+  // }>;
 
   /**
    * @title 항목 그룹.

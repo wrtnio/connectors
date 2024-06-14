@@ -182,3 +182,30 @@ export const test_api_connector_google_slides_get_one_presentation = async (
 
   typia.assertEquals(presentation);
 };
+
+export const test_api_connector_google_slides_append_image_slide = async (
+  connection: CApi.IConnection,
+) => {
+  const presentation =
+    await test_api_connector_google_slides_create_random_presentation(
+      connection,
+    );
+
+  const res =
+    await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
+      connection,
+      presentation.presentationId as string,
+      {
+        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+        requests: [
+          {
+            createSlide: {
+              objectId: "testCreateSlide",
+            },
+          },
+        ],
+      },
+    );
+
+  return res;
+};

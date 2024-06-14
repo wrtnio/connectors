@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
-import { GoogleApis } from "googleapis";
+import { slides_v1 } from "googleapis";
 import typia from "typia";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -22,6 +22,36 @@ export class GoogleSlidesProvider {
 
       const res = await axios.get(
         `https://slides.googleapis.com/v1/presentations/${presentationId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      if (typia.is<GoogleProvider.GoogleError>(err)) {
+        this.googleProvider.error(err);
+      }
+
+      throw err;
+    }
+  }
+
+  async appendImageSlide(
+    presentationId: string,
+    input: IGoogleSlides.IUpdatePresentationInput,
+  ): Promise<IGoogleSlides.Presentation> {
+    try {
+      const { secretKey, ...body } = input;
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
+
+      const res = await axios.post(
+        `https://slides.googleapis.com/v1/presentations/${presentationId}:batchUpdate`,
+        body,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

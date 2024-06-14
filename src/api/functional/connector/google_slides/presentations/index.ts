@@ -11,6 +11,8 @@ import typia from "typia";
 
 import type { IGoogleSlides } from "../../../../structures/connector/google_slides/IGoogleSlides";
 
+export * as image_slide from "./image_slide";
+
 /**
  * Google Slides 프레젠테이션을 생성합니다.
  *
