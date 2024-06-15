@@ -3,6 +3,7 @@ import { Controller } from "@nestjs/common";
 
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 
+import { GoogleAdsProvider } from "../../../providers/connector/google_ads/GoogleAdsProvider";
 import { GoogleProvider } from "../../../providers/internal/google/GoogleProvider";
 
 @Controller("connector/google-ads")
@@ -13,10 +14,6 @@ export class GoogleAdsController {
   async generateKeywordIdeas(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    const accessToken = await this.googleProvider.refreshAccessToken(
-      input.secretKey,
-    );
-
-    return null!;
+    return GoogleAdsProvider.generateKeywordIdeas(input);
   }
 }
