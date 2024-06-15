@@ -19,14 +19,17 @@ export namespace IGoogleSlides {
     /**
      * @title 수정할 프레젠네이션의 ID.
      */
-    requests: {
-      /**
-       * @title 새로 생성할 슬라이드의 정보.
-       */
-      createSlide?: CreateSlideRequest;
-
-      createImage?: CreateImageRequest;
-    }[];
+    requests: (
+      | {
+          /**
+           * @title 새로 생성할 슬라이드의 정보.
+           */
+          createSlide?: CreateSlideRequest;
+        }
+      | {
+          createImage?: CreateImageRequest;
+        }
+    )[];
   }
 
   export interface CreateImageRequest
@@ -38,7 +41,7 @@ export namespace IGoogleSlides {
     /**
      * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If you don't specify an ID, a unique one is generated.
      */
-    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
+    objectId?: string | null;
     /**
      * The image URL. The image is fetched once at insertion time and a copy is stored for display inside the presentation. Images must be less than 50 MB in size, can't exceed 25 megapixels, and must be in one of PNG, JPEG, or GIF formats. The provided URL must be publicly accessible and up to 2 KB in length. The URL is saved with the image, and exposed through the Image.source_url field.
      */
@@ -72,7 +75,7 @@ export namespace IGoogleSlides {
     /**
      * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
      */
-    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
+    objectId?: string | null;
     /**
      * An optional list of object ID mappings from the placeholder(s) on the layout to the placeholders that are created on the slide from the specified layout. Can only be used when `slide_layout_reference` is specified.
      */
@@ -109,7 +112,7 @@ export namespace IGoogleSlides {
     /**
      * A user-supplied object ID for the placeholder identified above that to be created onto a slide. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If you don't specify an ID, a unique one is generated.
      */
-    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
+    objectId?: string | null;
   }
 
   /**
@@ -305,7 +308,7 @@ export namespace IGoogleSlides {
      *
      * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
      */
-    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
+    objectId?: string | null;
 
     /**
      * @title 페이지 유형.
@@ -532,7 +535,7 @@ export namespace IGoogleSlides {
      *
      * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
      */
-    objectId?: (string & tags.MinLength<5> & tags.MaxLength<50>) | null;
+    objectId?: string | null;
 
     /**
      * @ttitle 페이지 요소의 크기.

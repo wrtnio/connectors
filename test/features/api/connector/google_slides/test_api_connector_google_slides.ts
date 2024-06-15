@@ -1,4 +1,5 @@
 import typia from "typia";
+import { v4 } from "uuid";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -191,6 +192,8 @@ export const test_api_connector_google_slides_append_image_slide = async (
       connection,
     );
 
+  const slideId = v4();
+  const imageId = v4();
   const res =
     await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
       connection,
@@ -200,14 +203,20 @@ export const test_api_connector_google_slides_append_image_slide = async (
         requests: [
           {
             createSlide: {
-              objectId: "testPageId",
+              objectId: slideId,
             },
+          },
+          {
             createImage: {
-              objectId: "testImageId",
+              objectId: imageId,
               elementProperties: {
-                pageObjectId: "testPageId",
+                pageObjectId: slideId,
+                size: {
+                  height: presentation.pageSize?.height,
+                  width: presentation.pageSize?.width,
+                },
               },
-              url: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixlr.com%2Fkr%2Fimage-generator%2F&psig=AOvVaw1dCLFhq1RcyNyWc7OSAzD9&ust=1718449127472000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOD0u4D42oYDFQAAAAAdAAAAABAE",
+              url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s",
             },
           },
         ],
