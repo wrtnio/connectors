@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 
@@ -17,6 +17,7 @@ export class DaumController {
    *
    * @tag Daum 다음 포털 사이트
    */
+  @Standalone()
   @core.TypedRoute.Post("blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
@@ -36,6 +37,7 @@ export class DaumController {
    *
    * @tag Daum 다음 포털 사이트
    */
+  @Standalone()
   @core.TypedRoute.Post("cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",

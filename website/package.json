@@ -1,0 +1,25 @@
+{
+  "name": "@wrtn/connectors-website",
+  "version": "0.1.0",
+  "description": "Wrtn Connector Server Website",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build/swagger.js",
+    "deploy": "node build/deploy.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wrtnio/connectors"
+  },
+  "author": "Wrtn Technologies",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/wrtnio/connectors/issues"
+  },
+  "homepage": "https://github.com/wrtnio/connectors#readme",
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "gh-pages": "^6.1.1"
+  }
+}

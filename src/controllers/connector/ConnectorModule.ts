@@ -17,7 +17,9 @@ import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
 import { HwpModule } from "./hwp/HwpModule";
+import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
+import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
@@ -57,6 +59,8 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     GoogleAdsModule,
+    KakaoTalkModule,
+    ImwebModule,
   ],
   controllers: [
     ArxivSearchController,

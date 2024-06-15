@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 
@@ -19,6 +19,7 @@ export class ArxivSearchController {
    *
    * @tag Arxiv 학술자료 사이트
    */
+  @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/arxiv.svg",

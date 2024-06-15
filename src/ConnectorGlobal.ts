@@ -60,6 +60,14 @@ export namespace ConnectorGlobal {
     TEST_SWEET_TRACKER_KEY: string;
     TEST_SWEET_TRACKER_T_INVOICE: string;
 
+    // KAKAO_TALK
+    KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
+
+    // IMWEB
+    IMWEB_TEST_API_KEY: string;
+    IMWEB_TEST_API_SECRET: string;
+
     //----
     // INHOUSE SERVERS
     //----

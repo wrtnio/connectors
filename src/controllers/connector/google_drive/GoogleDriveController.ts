@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
@@ -21,6 +22,7 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @Standalone()
   @core.TypedRoute.Post("get/folders")
   async folderList(
     @core.TypedBody()
@@ -59,6 +61,7 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @Standalone()
   @core.TypedRoute.Post("/folder")
   async createFolder(
     @core.TypedBody() input: IGoogleDrive.ICreateFolderGoogleDriveInput,

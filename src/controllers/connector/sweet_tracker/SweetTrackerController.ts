@@ -1,5 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
 
@@ -15,6 +16,7 @@ export class SweetTrackerController {
    * @param input 택배사 조회를 위한 조건 DTO.
    * @tag sweet-tracker
    */
+  @Standalone()
   @core.TypedRoute.Post("get-companies/recommended")
   async getRecommendedCompanyList(
     @TypedBody() input: ISweetTracker.IGetRecommendedCompanyListInput,
@@ -29,12 +31,14 @@ export class SweetTrackerController {
    * @returns 택배사 목록.
    * @tag sweet-tracker
    */
+  @Standalone()
   @core.TypedRoute.Post("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
     return SweetTrackerProvider.getCompanyList();
   }
 
   /**
+   * @todo 마저 작성할 것.
    *
    * @param input
    * @returns

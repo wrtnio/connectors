@@ -1,5 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
@@ -20,6 +21,7 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @Standalone()
   @core.TypedRoute.Post()
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
@@ -122,6 +124,7 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @Standalone()
   @core.TypedRoute.Post("get-list")
   async list(
     @core.TypedBody()

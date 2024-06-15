@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/samchon/nestia"
+    "url": "https://github.com/wrntio/connectors"
   },
-  "author": "Jeongho Nam",
-  "license": "MIT",
+  "author": "Wrtn Technologies",
+  "license": "AGPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/samchon/nestia/issues"
+    "url": "https://github.com/wrntio/connectors/issues"
   },
-  "homepage": "https://nestia.io",
+  "homepage": "https://github.com/wrntio/connectors#readme",
   "files": [
     "lib",
     "swagger.json",

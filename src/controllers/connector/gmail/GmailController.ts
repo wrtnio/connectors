@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
@@ -20,6 +21,7 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @Standalone()
   @core.TypedRoute.Post("send")
   async send(
     @core.TypedBody() input: IGmail.ICreateMailInput,
@@ -36,6 +38,7 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @Standalone()
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
     return this.gmailProvider.createDraft(input);
@@ -86,6 +89,7 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @Standalone()
   @core.TypedRoute.Post("read-list")
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
@@ -122,6 +126,7 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @Standalone()
   @core.TypedRoute.Post("label")
   async createLabel(
     @core.TypedBody() input: IGmail.ILabelInput,

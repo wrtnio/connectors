@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
@@ -38,6 +38,7 @@ export class CsvController {
    *
    * @tag CSV
    */
+  @Standalone()
   @core.TypedRoute.Post("write")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
