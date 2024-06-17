@@ -377,7 +377,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "parentPageId, pageTitle, pageContent",
+          "description": "페이지 생성에 필요한 정보",
           "content": {
             "application/json": {
               "schema": {
@@ -389,7 +389,7 @@
         },
         "responses": {
           "201": {
-            "description": "created page id",
+            "description": "생성된 페이지 고유 id",
             "content": {
               "application/json": {
                 "schema": {
@@ -399,8 +399,8 @@
             }
           }
         },
-        "summary": "Create Notion Page",
-        "description": "Create Notion Page."
+        "summary": "페이지 생성",
+        "description": "노션 페이지를 생성합니다."
       }
     },
     "/connector/notion/get/page": {
@@ -421,7 +421,7 @@
         },
         "responses": {
           "201": {
-            "description": "read page output list",
+            "description": "페이지 정보들",
             "content": {
               "application/json": {
                 "schema": {
@@ -434,8 +434,8 @@
             }
           }
         },
-        "summary": "Read Notion Page list",
-        "description": "Read Notion Page list."
+        "summary": "페이지 목록 조회",
+        "description": "노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다."
       }
     },
     "/connector/notion/get/users": {
@@ -456,7 +456,7 @@
         },
         "responses": {
           "201": {
-            "description": "user id and name",
+            "description": "유저 정보들",
             "content": {
               "application/json": {
                 "schema": {
@@ -469,8 +469,8 @@
             }
           }
         },
-        "summary": "Get user list in workspace",
-        "description": "Get user list in workspace."
+        "summary": "유저 목록 조회",
+        "description": "워크스페이스에 있는 유저 목록을 조회합니다."
       }
     },
     "/connector/notion/page/content/{pageId}": {
@@ -490,7 +490,7 @@
           }
         ],
         "requestBody": {
-          "description": "pageId, content",
+          "description": "페이지에 추가할 내용 및 추가할 페이지 정보",
           "content": {
             "application/json": {
               "schema": {
@@ -505,8 +505,8 @@
             "description": "void"
           }
         },
-        "summary": "Append Content end of Notion Page",
-        "description": "Append Content end of Notion Page."
+        "summary": "페이지에 내용 추가",
+        "description": "페이지 끝에 내용을 추가합니다."
       }
     },
     "/connector/notion/get/database-info": {
@@ -527,7 +527,7 @@
         },
         "responses": {
           "201": {
-            "description": "array of databaseId, database title, database properties info",
+            "description": "데이터베이스 정보 목록",
             "content": {
               "application/json": {
                 "schema": {
@@ -540,8 +540,8 @@
             }
           }
         },
-        "summary": "Get Database list Info for create Item in database",
-        "description": "Get Database list Info for create Item in database."
+        "summary": "데이터베이스 목록 조회",
+        "description": "데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다."
       }
     },
     "/connector/notion/get/database-info/{databaseId}": {
@@ -556,7 +556,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "",
+            "description": "데이터베이스 고유 id",
             "required": true
           }
         ],
@@ -572,7 +572,7 @@
         },
         "responses": {
           "201": {
-            "description": "databaseId, database title, database properties info",
+            "description": "데이터베이스 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -582,8 +582,8 @@
             }
           }
         },
-        "summary": "Get Database Info for create Item in database",
-        "description": "Get Database Info for create Item in database."
+        "summary": "데이터베이스 정보 조회",
+        "description": "데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다."
       }
     },
     "/connector/notion/database-item/{databaseId}": {
@@ -598,12 +598,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "",
+            "description": "아이템을 생성할 데이터베이스 고유 id",
             "required": true
           }
         ],
         "requestBody": {
-          "description": "database properties value for create item, database item page content, database item page content type",
+          "description": "데이터베이스 아이템 생성에 필요한 정보",
           "content": {
             "application/json": {
               "schema": {
@@ -615,7 +615,7 @@
         },
         "responses": {
           "201": {
-            "description": "DatabaseItemOutput",
+            "description": "생성된 데이터베이스 아이템 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -625,8 +625,8 @@
             }
           }
         },
-        "summary": "Create Database Item",
-        "description": "Create Database Item."
+        "summary": "데이터베이스 아이템 생성",
+        "description": "노션 테이블 데이터베이스에 아이템을 생성합니다."
       }
     },
     "/connector/notion/database-item/{pageId}": {
@@ -641,12 +641,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "",
+            "description": "수정할 데이터베이스 고유 id",
             "required": true
           }
         ],
         "requestBody": {
-          "description": "database properties value for update item, database item page content",
+          "description": "수정할 데이터베이스 아이템 정보",
           "content": {
             "application/json": {
               "schema": {
@@ -658,7 +658,7 @@
         },
         "responses": {
           "200": {
-            "description": "DatabaseItemOutput",
+            "description": "수정된 데이터베이스 아이템 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -668,8 +668,8 @@
             }
           }
         },
-        "summary": "Update Database Item",
-        "description": "Update Database Item."
+        "summary": "데이터베이스 아이템 수정",
+        "description": "데이터베이스에 있는 아이템 정보를 수정합니다."
       }
     },
     "/connector/notion/get-page-by-title": {
@@ -679,7 +679,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "page title",
+          "description": "페이지 제목",
           "content": {
             "application/json": {
               "schema": {
@@ -691,7 +691,7 @@
         },
         "responses": {
           "201": {
-            "description": "Page Output",
+            "description": "검색된 페이지 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -701,8 +701,8 @@
             }
           }
         },
-        "summary": "Get Page By Title",
-        "description": "Get Page By Title."
+        "summary": "제목으로 페이지 검색",
+        "description": "제목으로 페이지를 검색합니다."
       }
     },
     "/connector/notion/find-item-list/{databaseId}": {
@@ -717,7 +717,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "",
+            "description": "데이터베이스 고유 id",
             "required": true
           }
         ],
@@ -733,7 +733,7 @@
         },
         "responses": {
           "201": {
-            "description": "Database Item List",
+            "description": "조회된 데이터베이스 아이템 목록 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -746,8 +746,8 @@
             }
           }
         },
-        "summary": "Get Database Item List",
-        "description": "Get Database Item List."
+        "summary": "데이터베이스 아이템 목록 조회",
+        "description": "테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다."
       }
     },
     "/connector/notion/find-item/{databaseId}": {
@@ -762,12 +762,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "select database for find item",
+            "description": "데이터베이스 고유 id",
             "required": true
           }
         ],
         "requestBody": {
-          "description": "properties value for filtering database",
+          "description": "데이터베이스 아이템 조회에 필요한 정보",
           "content": {
             "application/json": {
               "schema": {
@@ -779,7 +779,7 @@
         },
         "responses": {
           "201": {
-            "description": "Database Item",
+            "description": "조회된 데이터베이스 아이템 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -789,8 +789,8 @@
             }
           }
         },
-        "summary": "Get Database Item",
-        "description": "Get Database Item."
+        "summary": "데이터베이스 아이템 조회",
+        "description": "테이블 데이터베이스에 존재하는 아이템을 조회합니다."
       }
     },
     "/connector/extract/keyword": {
