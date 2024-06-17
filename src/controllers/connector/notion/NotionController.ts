@@ -9,11 +9,13 @@ import { NotionProvider } from "../../../providers/connector/notion/NotionProvid
 @Controller("connector/notion")
 export class NotionController {
   /**
-   * Create Notion Page.
+   * 노션 페이지를 생성합니다.
    *
-   * @param input parentPageId, pageTitle, pageContent
+   * @summary 페이지 생성
    *
-   * @returns created page id
+   * @param input 페이지 생성에 필요한 정보
+   *
+   * @returns 생성된 페이지 고유 id
    *
    * @tag Notion
    */
@@ -25,9 +27,11 @@ export class NotionController {
   }
 
   /**
-   * Read Notion Page list.
+   * 노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.
    *
-   * @returns read page output list
+   * @summary 페이지 목록 조회
+   *
+   * @returns 페이지 정보들
    *
    * @tag Notion
    */
@@ -39,9 +43,11 @@ export class NotionController {
   }
 
   /**
-   * Get user list in workspace.
+   * 워크스페이스에 있는 유저 목록을 조회합니다.
    *
-   * @returns user id and name
+   * @summary 유저 목록 조회
+   *
+   * @returns 유저 정보들
    *
    * @tag Notion
    */
@@ -53,9 +59,11 @@ export class NotionController {
   }
 
   /**
-   * Append Content end of Notion Page.
+   * 페이지 끝에 내용을 추가합니다.
    *
-   * @param input pageId, content
+   * @summary 페이지에 내용 추가
+   *
+   * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
    *
    * @returns void
    *
@@ -70,9 +78,11 @@ export class NotionController {
   }
 
   /**
-   * Get Database list Info for create Item in database.
+   * 데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.
    *
-   * @returns array of databaseId, database title, database properties info
+   * @summary 데이터베이스 목록 조회
+   *
+   * @returns 데이터베이스 정보 목록
    *
    * @tag Notion
    */
@@ -84,11 +94,13 @@ export class NotionController {
   }
 
   /**
-   * Get Database Info for create Item in database.
+   * 데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.
    *
-   * @param databaseId
+   * @summary 데이터베이스 정보 조회
    *
-   * @returns  databaseId, database title, database properties info
+   * @param databaseId 데이터베이스 고유 id
+   *
+   * @returns 데이터베이스 정보
    *
    * @tag Notion
    */
@@ -101,13 +113,15 @@ export class NotionController {
   }
 
   /**
-   * Create Database Item.
+   * 노션 테이블 데이터베이스에 아이템을 생성합니다.
    *
-   * @param input database properties value for create item, database item page content, database item page content type
+   * @summary 데이터베이스 아이템 생성
    *
-   * @param databaseId
+   * @param input 데이터베이스 아이템 생성에 필요한 정보
    *
-   * @returns DatabaseItemOutput
+   * @param databaseId 아이템을 생성할 데이터베이스 고유 id
+   *
+   * @returns 생성된 데이터베이스 아이템 정보
    *
    * @tag Notion
    */
@@ -120,13 +134,15 @@ export class NotionController {
   }
 
   /**
-   * Update Database Item.
+   * 데이터베이스에 있는 아이템 정보를 수정합니다.
    *
-   * @param input database properties value for update item, database item page content
+   * @summary 데이터베이스 아이템 수정
    *
-   * @param databaseId
+   * @param input 수정할 데이터베이스 아이템 정보
    *
-   * @returns DatabaseItemOutput
+   * @param databaseId 수정할 데이터베이스 고유 id
+   *
+   * @returns 수정된 데이터베이스 아이템 정보
    *
    * @tag Notion
    */
@@ -139,11 +155,13 @@ export class NotionController {
   }
 
   /**
-   * Get Page By Title.
+   * 제목으로 페이지를 검색합니다.
    *
-   * @param input page title
+   * @summary 제목으로 페이지 검색
    *
-   * @returns Page Output
+   * @param input 페이지 제목
+   *
+   * @returns 검색된 페이지 정보
    *
    * @tag Notion
    */
@@ -155,11 +173,13 @@ export class NotionController {
   }
 
   /**
-   * Get Database Item List.
+   * 테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.
    *
-   * @param databaseId
+   * @summary 데이터베이스 아이템 목록 조회
    *
-   * @returns Database Item List
+   * @param databaseId 데이터베이스 고유 id
+   *
+   * @returns 조회된 데이터베이스 아이템 목록 정보
    *
    * @tag Notion
    */
@@ -172,13 +192,15 @@ export class NotionController {
   }
 
   /**
-   * Get Database Item.
+   * 테이블 데이터베이스에 존재하는 아이템을 조회합니다.
    *
-   * @param input properties value for filtering database
+   * @summary 데이터베이스 아이템 조회
    *
-   * @param databaseId select database for find item
+   * @param input 데이터베이스 아이템 조회에 필요한 정보
    *
-   * @returns Database Item
+   * @param databaseId 데이터베이스 고유 id
+   *
+   * @returns 조회된 데이터베이스 아이템 정보
    *
    * @tag Notion
    */
