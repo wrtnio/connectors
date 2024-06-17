@@ -6,13 +6,6 @@ export namespace IGmail {
   export interface ICreateMailInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 메일을 보내는 사람의 이메일 주소.
-     *
-     * @title 보내는 사람 이메일 주소.
-     */
-    from: string;
-
-    /**
      * 메일을 받는 사람의 이메일 주소.
      *
      * @title 받는 사람 이메일 주소.

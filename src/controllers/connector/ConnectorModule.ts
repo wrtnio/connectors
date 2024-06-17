@@ -23,6 +23,7 @@ import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
+import { NotionController } from "./notion/NotionController";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
@@ -70,6 +71,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     TypeformController,
     GoogleScholarController,
     CsvController,
+    NotionController,
   ],
 })
 export class ConnectorModule {}
