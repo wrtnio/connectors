@@ -4,7 +4,7 @@ import { Controller, Query } from "@nestjs/common";
 import { IMeta } from "@wrtn/connector-api/lib/structures/connector/meta/IMeta";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { MataProvider } from "../../../providers/connector/meta/MetaProvider";
+import { MetaProvider } from "../../../providers/connector/meta/MetaProvider";
 
 @Controller("connector/meta")
 export class MetaController {
@@ -22,7 +22,7 @@ export class MetaController {
   ): Promise<IMeta.AccessTokenDto> {
     const authorizationCode = query.code;
 
-    const res = await MataProvider.getAccessToken({
+    const res = await MetaProvider.getAccessToken({
       client_id: ConnectorGlobal.env.META_CLIENT_ID,
       client_secret: ConnectorGlobal.env.META_CLIENT_SECRET,
       code: authorizationCode,
