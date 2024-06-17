@@ -17,6 +17,7 @@ import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
 import { HwpModule } from "./hwp/HwpModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
+import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { MetaModule } from "./meta/metaModule";
@@ -57,6 +58,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     MetaModule,
+    KakaoTalkModule,
   ],
   controllers: [
     ArxivSearchController,
