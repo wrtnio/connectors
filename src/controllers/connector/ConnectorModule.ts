@@ -61,6 +61,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     MetaModule,
     KakaoTalkModule,
     ImwebModule,
+    MetaModule,
   ],
   controllers: [
     ArxivSearchController,
