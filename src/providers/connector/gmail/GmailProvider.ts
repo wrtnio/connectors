@@ -25,7 +25,7 @@ export class GmailProvider {
     try {
       const emailLines = [
         `To: ${input.to.join(",")}`,
-        `From: ${input.from}`,
+        `From: me`,
         "Content-Type: text/html; charset=utf-8",
         "MIME-Version: 1.0",
         this.encodeHeaderFieldForKorean("Subject", input.subject),
@@ -73,7 +73,7 @@ export class GmailProvider {
     try {
       const emailLines = [
         `To: ${input.to.join(",")}`,
-        `From: ${input.from}`,
+        `From: me`,
         "Content-Type: text/html; charset=utf-8",
         "MIME-Version: 1.0",
         this.encodeHeaderFieldForKorean("Subject", input.subject),
@@ -378,7 +378,6 @@ export class GmailProvider {
   /**
    * 한글 base64 인코딩
    */
-
   encodeHeaderFieldForKorean(name: string, value: string) {
     return `${name}: =?utf-8?B?${Buffer.from(value, "utf-8").toString(
       "base64",
