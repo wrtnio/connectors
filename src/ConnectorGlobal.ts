@@ -31,6 +31,18 @@ export namespace ConnectorGlobal {
     GOOGLE_CLIENT_SECRET: string;
     GOOGLE_TEST_SECRET: string;
 
+    // IMWEB
+    IMWEB_TEST_API_KEY: string;
+    IMWEB_TEST_API_SECRET: string;
+
+    // KAKAO_TALK
+    KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
+
+    // META(facebook, instagram)
+    META_CLIENT_ID: string;
+    META_CLIENT_SECRET: string;
+
     // NAVER
     NAVER_CLIENT_ID: string;
     NAVER_CLIENT_SECRET: string;
@@ -56,18 +68,6 @@ export namespace ConnectorGlobal {
     // SWEET_TRACKER
     TEST_SWEET_TRACKER_KEY: string;
     TEST_SWEET_TRACKER_T_INVOICE: string;
-
-    // META(facebook, instagram)
-    META_CLIENT_ID: string;
-    META_CLIENT_SECRET: string;
-
-    // KAKAO_TALK
-    KAKAO_TALK_CLIENT_ID: string;
-    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
-
-    // IMWEB
-    IMWEB_TEST_API_KEY: string;
-    IMWEB_TEST_API_SECRET: string;
 
     //----
     // INHOUSE SERVERS
