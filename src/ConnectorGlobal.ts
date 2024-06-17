@@ -43,7 +43,7 @@ export namespace ConnectorGlobal {
     META_CLIENT_ID: string;
     META_CLIENT_SECRET: string;
     META_PARENT_BUSINESS_ID: string;
-    META_PARENT_BUSINESS_SYSTEM_ACCESS_TOKEN: string;
+    META_PARENT_BUSINESS_SYSTEM_USER_ACCESS_TOKEN: string;
     META_APP_ID: string;
 
     // NAVER

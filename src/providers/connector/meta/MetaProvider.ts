@@ -1,4 +1,5 @@
 import axios from "axios";
+import { createHmac } from "crypto";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
@@ -36,7 +37,7 @@ export namespace MetaProvider {
     businessId: string; // client business id
     userAccessToken: string; // user access token
   }) {
-    const pbmAcessToken = `${ConnectorGlobal.env.META_PARENT_BUSINESS_SYSTEM_ACCESS_TOKEN}`;
+    const pbmAcessToken = `${ConnectorGlobal.env.META_PARENT_BUSINESS_SYSTEM_USER_ACCESS_TOKEN}`;
     const appId = `${ConnectorGlobal.env.META_APP_ID}`;
     const url = `${MetaProvider.baseUrl}/${input.businessId}/access_token?scope=ads_management,pages_read_engagement&app_id=${appId}&access_token=${pbmAcessToken}`;
     const res = await axios.post(url);
@@ -86,5 +87,11 @@ export namespace MetaProvider {
     const url = `${MetaProvider.baseUrl}/me/accounts?access_token=${input.systemUserAccessToken}`;
     const res = await axios.get(url);
     return res.data;
+  }
+
+  export function makeAppSecretProof(accessToken: string) {
+    return createHmac("sha256", ConnectorGlobal.env.META_CLIENT_SECRET)
+      .update(accessToken)
+      .digest("hex");
   }
 }
