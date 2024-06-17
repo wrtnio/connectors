@@ -18,6 +18,7 @@ export * as youtube_search from "./youtube_search";
 export * as typeform from "./typeform";
 export * as google_scholar from "./google_scholar";
 export * as csv from "./csv";
+export * as notion from "./notion";
 export * as extract from "./extract";
 export * as marketing_copy from "./marketing_copy";
 export * as aws from "./aws";
