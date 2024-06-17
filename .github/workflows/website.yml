@@ -9,7 +9,8 @@ on:
       - "nestia.config.js"
       - "website/**"
       - "website/package.json"
-
+      - ".github/workflows/website.yml"
+      
 permissions:
   contents: write
 
@@ -33,7 +34,7 @@ jobs:
         working-directory: website
         run: npm install && npm run build
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.6.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ./website/out
