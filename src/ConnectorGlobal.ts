@@ -61,6 +61,10 @@ export namespace ConnectorGlobal {
     META_CLIENT_ID: string;
     META_CLIENT_SECRET: string;
 
+    // KAKAO_TALK
+    KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
+
     //----
     // INHOUSE SERVERS
     //----
