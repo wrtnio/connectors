@@ -300,27 +300,38 @@ export class GoogleSlidesProvider {
                   },
                 },
               ];
+            } else if (template.type === "Entire") {
+              const slideId = v4();
+              const imageId = v4();
+              const shapeId = v4();
+
+              return [
+                {
+                  createSlide: {
+                    objectId: slideId,
+                  },
+                },
+                {
+                  createImage: {
+                    objectId: imageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: heightMagnitude,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: widthMagnitude,
+                          unit: widthUnit,
+                        },
+                      },
+                    },
+                    url: template.contents.url,
+                  },
+                },
+              ];
             }
-            // else if (template.type === "Entire") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents.url,
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
             // } else if (template.type === "QuarterDivision") {
             //   return [
             //     {
