@@ -413,7 +413,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ICommon.ISecretNotionnever"
+                "$ref": "#/components/schemas/ICommon.ISecretnotionnever"
               }
             }
           },
@@ -448,7 +448,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ICommon.ISecretNotionnever"
+                "$ref": "#/components/schemas/ICommon.ISecretnotionnever"
               }
             }
           },
@@ -519,7 +519,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ICommon.ISecretNotionnever"
+                "$ref": "#/components/schemas/ICommon.ISecretnotionnever"
               }
             }
           },
@@ -564,7 +564,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ICommon.ISecretNotionnever"
+                "$ref": "#/components/schemas/ICommon.ISecretnotionnever"
               }
             }
           },
@@ -725,7 +725,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ICommon.ISecretNotionnever"
+                "$ref": "#/components/schemas/ICommon.ISecretnotionnever"
               }
             }
           },
@@ -4067,7 +4067,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
@@ -4094,12 +4094,12 @@
         ],
         "title": "페이지 생성 결과"
       },
-      "ICommon.ISecretNotionnever": {
+      "ICommon.ISecretnotionnever": {
         "type": "object",
         "properties": {
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
@@ -4159,7 +4159,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
@@ -4180,7 +4180,7 @@
           },
           "title": {
             "type": "string",
-            "title": "제목",
+            "title": "제목P",
             "description": "데이터베이스 제목"
           },
           "properties": {
@@ -5181,7 +5181,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
@@ -5505,7 +5505,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
@@ -5527,7 +5527,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
@@ -5888,7 +5888,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "Notion",
+            "x-wrtn-secret-key": "notion",
             "title": "인증을 위한 시크릿 값",
             "description": "secret key."
           }
