@@ -1,6 +1,8 @@
 import { slides_v1 } from "googleapis";
 import { tags } from "typia";
 
+import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
+
 import { ICommon } from "../common/ISecretValue";
 
 type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
@@ -8,6 +10,280 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
   : never;
 
 export namespace IGoogleSlides {
+  /**
+   * @title 유저의 유즈케이스에 맞게 입력 폼을 제한하기 위한 목적의 템플릿.
+   *
+   * 이미지의 위치를 기준으로 타입의 이름을 결정했다.
+   */
+  export type Template =
+    | Template.Vertical
+    | Template.Square
+    | Template.Landscape
+    | Template.Entire
+    | Template.QuarterDivision
+    | Template.SixthDivision
+    | Template.Exhibition
+    | Template.Corner
+    | Template.CornerHalf;
+
+  export namespace Template {
+    /**
+     * @title 세로형
+     */
+    export type Vertical = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "Vertical";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: string & tags.Format<"url">;
+
+        /**
+         * @title 이미지에 대응되는 텍스트.
+         */
+        text: CreateText;
+      };
+    };
+
+    /**
+     * @title 정방형
+     */
+    export type Square = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "Square";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: string & tags.Format<"url">;
+
+        /**
+         * @title 이미지에 대응되는 텍스트.
+         */
+        text: CreateText;
+      };
+    };
+
+    /**
+     * @title 가로형
+     */
+    export type Landscape = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "Landscape";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: string & tags.Format<"url">;
+
+        /**
+         * @title 이미지에 대응되는 텍스트.
+         */
+        text: CreateText;
+      };
+    };
+
+    /**
+     * @title 전체보기 가로형(16:9)
+     */
+    export type Entire = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "Entire";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: string & tags.Format<"url">;
+
+        /**
+         * @title 이미지에 대응되는 텍스트.
+         */
+        text: CreateText;
+      };
+    };
+
+    /**
+     * @title 4분할 정방형 (컷 만화형)
+     */
+    export type QuarterDivision = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "QuarterDivision";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: NTpule<
+        4,
+        {
+          /**
+           * @title 이미지의 URL.
+           */
+          url: string & tags.Format<"url">;
+
+          /**
+           * @title 이미지에 대응되는 텍스트.
+           */
+          text: CreateText;
+        }
+      >;
+    };
+
+    /**
+     * @title 6분할 정방형 (컷 만화형)
+     */
+    export type SixthDivision = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "SixthDivision";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: NTpule<
+        6,
+        {
+          /**
+           * @title 이미지의 URL.
+           */
+          url: string & tags.Format<"url">;
+
+          /**
+           * @title 이미지에 대응되는 텍스트.
+           */
+          text: CreateText;
+        }
+      >;
+    };
+
+    /**
+     * @title 세로형 1분할(6:8)
+     */
+    export type Exhibition = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "Exhibition";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: string & tags.Format<"url">;
+
+        /**
+         * @title 이미지에 대응되는 텍스트 중 제목 부분.
+         */
+        header: CreateText;
+
+        /**
+         * @title 이미지에 대응되는 텍스트 중 본문 부분.
+         */
+        body: CreateText;
+      };
+    };
+
+    /**
+     * @title 가로형 1분할
+     * 
+     * 타이틀(너비 100% : 높이 20%)
+     * 본문 (너비 60% : 높이 80%)
+     * 이미지 (너비 40% : 높이 80%)
+
+     */
+    export type Corner = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "Corner";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: string & tags.Format<"url">;
+
+        /**
+         * @title 이미지에 대응되는 텍스트 중 제목 부분.
+         */
+        header: CreateText;
+
+        /**
+         * @title 이미지에 대응되는 텍스트 중 본문 부분.
+         */
+        body: CreateText;
+      };
+    };
+
+    /**
+     * @title 가로형 2분할
+     * 
+     * 타이틀(너비 100% : 높이 20%)
+     * 본문 (너비 70% : 높이 80%)
+     * 이미지 (너비 30% : 높이 40%)
+
+     */
+    export type CornerHalf = {
+      /**
+       * @title 템플릿의 타입.
+       */
+      type: "CornerHalf";
+
+      /**
+       * @title 슬라이드의 내용물
+       */
+      contents: {
+        /**
+         * @title 이미지의 URL.
+         */
+        url: NTpule<2, string & tags.Format<"url">>;
+
+        /**
+         * @title 이미지에 대응되는 텍스트 중 제목 부분.
+         */
+        header: CreateText;
+
+        /**
+         * @title 이미지에 대응되는 텍스트 중 본문 부분.
+         */
+        body: CreateText;
+      };
+    };
+  }
+
   /**
    * @title 수정할 프레젠테이션의 조건 DTO.
    */
@@ -29,7 +305,17 @@ export namespace IGoogleSlides {
       | {
           createImage?: CreateImageRequest;
         }
+      | {
+          createText?: CreateText;
+        }
     )[];
+  }
+
+  export interface CreateText extends slides_v1.Schema$InsertTextRequest {
+    /**
+     * @title 추가할 텍스트
+     */
+    text?: string | null;
   }
 
   export interface CreateImageRequest

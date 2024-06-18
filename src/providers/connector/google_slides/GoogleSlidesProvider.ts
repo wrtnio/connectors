@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
-import { slides_v1 } from "googleapis";
 import typia from "typia";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
