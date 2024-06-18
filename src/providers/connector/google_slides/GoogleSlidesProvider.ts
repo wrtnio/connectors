@@ -62,10 +62,11 @@ export class GoogleSlidesProvider {
       const body: Pick<IGoogleSlides.IUpdatePresentationInput, "requests"> = {
         requests: templates
           .flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
-            const slideId = v4();
-            const imageId = v4();
-            const shapeId = v4();
             if (template.type === "Vertical") {
+              const slideId = v4();
+              const imageId = v4();
+              const shapeId = v4();
+
               return [
                 {
                   createSlide: {
@@ -140,28 +141,88 @@ export class GoogleSlidesProvider {
                   },
                 },
               ];
+            } else if (template.type === "Square") {
+              const slideId = v4();
+              const imageId = v4();
+              const shapeId = v4();
+
+              return [
+                {
+                  createSlide: {
+                    objectId: slideId,
+                  },
+                },
+                {
+                  createImage: {
+                    objectId: imageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: heightMagnitude ?? 0,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: heightMagnitude ?? 0,
+                          unit: widthUnit,
+                        },
+                      },
+                    },
+                    url: template.contents.url,
+                  },
+                },
+                {
+                  createShape: {
+                    objectId: shapeId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: heightMagnitude ?? 0,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude:
+                            (widthMagnitude ?? 0) - (heightMagnitude ?? 0),
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX: heightMagnitude,
+                        translateY: 0,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    shapeType: "TEXT_BOX",
+                  },
+                },
+                {
+                  insertText: {
+                    text: template.contents.text.text,
+                    objectId: shapeId,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    fields: "*",
+                    style: {
+                      baselineOffset: "SUPERSCRIPT",
+                      fontFamily: "Arial",
+                      fontSize: {
+                        magnitude: 18,
+                        unit: "PT",
+                      },
+                    },
+                    objectId: shapeId,
+                  },
+                },
+              ];
             }
-            //  else if (template.type === "Square") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents.url,
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // } else if (template.type === "Landscape") {
+            //  else if (template.type === "Landscape") {
             //   return [
             //     {
             //       createSlide: {
