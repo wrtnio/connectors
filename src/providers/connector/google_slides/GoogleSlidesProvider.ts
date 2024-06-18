@@ -303,7 +303,6 @@ export class GoogleSlidesProvider {
             } else if (template.type === "Entire") {
               const slideId = v4();
               const imageId = v4();
-              const shapeId = v4();
 
               return [
                 {
@@ -331,28 +330,380 @@ export class GoogleSlidesProvider {
                   },
                 },
               ];
+            } else if (template.type === "QuarterDivision") {
+              const slideId = v4();
+              const firstImageId = v4();
+              const firstShapeId = v4();
+
+              const secondImageId = v4();
+              const secondShapeId = v4();
+
+              const thirdImageId = v4();
+              const thirdShapeId = v4();
+
+              const fourthImageId = v4();
+              const fourthShapeId = v4();
+
+              const imageWidthSize = widthMagnitude * 0.25;
+              const imageHeightSize = widthMagnitude * 0.25;
+              const textBoxWidthSize = imageWidthSize * 0.75;
+              const blank = {
+                width:
+                  (widthMagnitude - (imageWidthSize + textBoxWidthSize) * 2) /
+                  3,
+                height: (heightMagnitude - imageHeightSize * 2) / 3,
+              };
+
+              return [
+                /**
+                 * 1번 이미지와 텍스트 필드.
+                 */
+                {
+                  createSlide: {
+                    objectId: slideId,
+                  },
+                },
+                {
+                  createImage: {
+                    objectId: firstImageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageWidthSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: imageHeightSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX: blank.width,
+                        translateY: blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    url: template.contents[0].url,
+                  },
+                },
+                {
+                  createShape: {
+                    objectId: firstShapeId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageHeightSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: textBoxWidthSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX: blank.width + imageWidthSize,
+                        translateY: blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    shapeType: "TEXT_BOX",
+                  },
+                },
+                {
+                  insertText: {
+                    text: template.contents[0].text.text,
+                    objectId: firstShapeId,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    fields: "*",
+                    style: {
+                      baselineOffset: "SUPERSCRIPT",
+                      fontFamily: "Arial",
+                      fontSize: {
+                        magnitude: 18,
+                        unit: "PT",
+                      },
+                    },
+                    objectId: firstShapeId,
+                  },
+                },
+
+                /**
+                 * 2번 이미지와 텍스트 필드.
+                 */
+                {
+                  createImage: {
+                    objectId: secondImageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageWidthSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: imageHeightSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX:
+                          blank.width +
+                          imageWidthSize +
+                          textBoxWidthSize +
+                          blank.width,
+                        translateY: blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    url: template.contents[0].url,
+                  },
+                },
+                {
+                  createShape: {
+                    objectId: secondShapeId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageHeightSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: textBoxWidthSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX:
+                          blank.width +
+                          imageWidthSize +
+                          imageWidthSize +
+                          textBoxWidthSize +
+                          blank.width,
+                        translateY: blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    shapeType: "TEXT_BOX",
+                  },
+                },
+                {
+                  insertText: {
+                    text: template.contents[0].text.text,
+                    objectId: secondShapeId,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    fields: "*",
+                    style: {
+                      baselineOffset: "SUPERSCRIPT",
+                      fontFamily: "Arial",
+                      fontSize: {
+                        magnitude: 18,
+                        unit: "PT",
+                      },
+                    },
+                    objectId: secondShapeId,
+                  },
+                },
+
+                /**
+                 * 3번 이미지와 텍스트 필드.
+                 */
+                {
+                  createImage: {
+                    objectId: thirdImageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageWidthSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: imageHeightSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX: blank.width,
+                        translateY:
+                          blank.height + imageHeightSize + blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    url: template.contents[0].url,
+                  },
+                },
+                {
+                  createShape: {
+                    objectId: thirdShapeId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageHeightSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: textBoxWidthSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX: blank.width + imageWidthSize,
+                        translateY:
+                          blank.height + imageHeightSize + blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    shapeType: "TEXT_BOX",
+                  },
+                },
+                {
+                  insertText: {
+                    text: template.contents[0].text.text,
+                    objectId: thirdShapeId,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    fields: "*",
+                    style: {
+                      baselineOffset: "SUPERSCRIPT",
+                      fontFamily: "Arial",
+                      fontSize: {
+                        magnitude: 18,
+                        unit: "PT",
+                      },
+                    },
+                    objectId: thirdShapeId,
+                  },
+                },
+
+                /**
+                 * 4번째 이미지와 텍스트 필드.
+                 */
+                {
+                  createImage: {
+                    objectId: fourthImageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageWidthSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: imageHeightSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX:
+                          blank.width +
+                          imageWidthSize +
+                          textBoxWidthSize +
+                          blank.width,
+                        translateY:
+                          blank.height + imageHeightSize + blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    url: template.contents[0].url,
+                  },
+                },
+                {
+                  createShape: {
+                    objectId: fourthShapeId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: imageHeightSize,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: textBoxWidthSize,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX:
+                          blank.width +
+                          imageWidthSize +
+                          imageWidthSize +
+                          textBoxWidthSize +
+                          blank.width,
+                        translateY:
+                          blank.height + imageHeightSize + blank.height,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    shapeType: "TEXT_BOX",
+                  },
+                },
+                {
+                  insertText: {
+                    text: template.contents[0].text.text,
+                    objectId: fourthShapeId,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    fields: "*",
+                    style: {
+                      baselineOffset: "SUPERSCRIPT",
+                      fontFamily: "Arial",
+                      fontSize: {
+                        magnitude: 18,
+                        unit: "PT",
+                      },
+                    },
+                    objectId: fourthShapeId,
+                  },
+                },
+              ];
             }
-            // } else if (template.type === "QuarterDivision") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents[0].url,
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // } else if (template.type === "SixthDivision") {
+            // else if (template.type === "SixthDivision") {
             //   return [
             //     {
             //       createSlide: {
