@@ -12,9 +12,10 @@ import typia from "typia";
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
- * Append Content end of Notion Page.
+ * 페이지 끝에 내용을 추가합니다.
  *
- * @param input pageId, content
+ * @summary 페이지에 내용 추가
+ * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
  * @returns void
  * @tag Notion
  *

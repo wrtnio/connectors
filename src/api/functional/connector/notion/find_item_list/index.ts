@@ -13,10 +13,11 @@ import type { ICommon } from "../../../../structures/connector/common/ISecretVal
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
- * Get Database Item List.
+ * 테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.
  *
- * @param databaseId
- * @returns Database Item List
+ * @summary 데이터베이스 아이템 목록 조회
+ * @param databaseId 데이터베이스 고유 id
+ * @returns 조회된 데이터베이스 아이템 목록 정보
  * @tag Notion
  *
  * @controller NotionController.getDatabaseItemList
@@ -46,7 +47,7 @@ export async function getDatabaseItemList(
       );
 }
 export namespace getDatabaseItemList {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IDatabaseItemOutput>>;
 
   export const METADATA = {
