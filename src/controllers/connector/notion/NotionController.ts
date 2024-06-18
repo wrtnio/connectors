@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { RouteIcon } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -19,6 +20,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/page")
   async createPage(
     @core.TypedBody() input: INotion.ICreatePageInput,
@@ -35,6 +39,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/get/page")
   async readPageList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -51,6 +58,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("get/users")
   async getUsers(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -69,6 +79,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/page/content/:pageId")
   async appendPageToContent(
     @core.TypedParam("pageId") pageId: string,
@@ -86,6 +99,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -104,6 +120,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -125,6 +144,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
     @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
@@ -146,6 +168,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Patch("/database-item/:pageId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
@@ -165,6 +190,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/get-page-by-title")
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
@@ -183,6 +211,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -204,6 +235,9 @@ export class NotionController {
    *
    * @tag Notion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,

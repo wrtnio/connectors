@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
@@ -22,6 +22,9 @@ export class GoogleSheetController {
    * @tag Google Sheet
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+  )
   @core.TypedRoute.Post()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
@@ -39,6 +42,9 @@ export class GoogleSheetController {
    * @tag Google Sheet
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+  )
   @core.TypedRoute.Post("/permission")
   async permission(
     @core.TypedBody() input: IGoogleSheet.IPermissionInput,
@@ -56,6 +62,9 @@ export class GoogleSheetController {
    * @tag Google Sheet
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+  )
   @core.TypedRoute.Post("/header")
   async writeHeaders(
     @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
@@ -73,6 +82,9 @@ export class GoogleSheetController {
    * @tag Google Sheet
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+  )
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
@@ -92,6 +104,9 @@ export class GoogleSheetController {
    * @Todo determine api endpoint in later because not decided select options
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+  )
   @core.TypedRoute.Post("/get-rows")
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,
