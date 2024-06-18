@@ -63,7 +63,7 @@ export class GoogleSlidesController {
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
     @TypedParam("id") presentationId: string,
-    @TypedBody() input: IGoogleSlides.IUpdatePresentationInput,
+    @TypedBody() input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.Presentation> {
     return this.googleSlideProvider.appendImageSlide(presentationId, input);
   }

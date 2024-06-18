@@ -192,36 +192,189 @@ export const test_api_connector_google_slides_append_image_slide = async (
       connection,
     );
 
-  const slideId = v4();
-  const imageId = v4();
-  const res =
-    await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
-      connection,
-      presentation.presentationId as string,
-      {
-        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-        requests: [
-          {
-            createSlide: {
-              objectId: slideId,
-            },
-          },
-          {
-            createImage: {
-              objectId: imageId,
-              elementProperties: {
-                pageObjectId: slideId,
-                size: {
-                  height: presentation.pageSize?.height,
-                  width: presentation.pageSize?.width,
-                },
-              },
-              url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s",
-            },
-          },
-        ],
-      },
-    );
+  // const slideId = v4();
+  // const imageId = v4();
+  // const res =
+  //   await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
+  //     connection,
+  //     presentation.presentationId as string,
+  //     {
+  //       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+  //       requests: [
+  //         {
+  //           createSlide: {
+  //             objectId: slideId,
+  //           },
+  //         },
+  //         {
+  //           createImage: {
+  //             objectId: imageId,
+  //             elementProperties: {
+  //               pageObjectId: slideId,
+  //               size: {
+  //                 height: presentation.pageSize?.height,
+  //                 width: presentation.pageSize?.width,
+  //               },
+  //             },
+  //             url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s",
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   );
 
-  return res;
+  // return res;
+
+  const testImage = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s`;
+  await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
+    connection,
+    presentation.presentationId as string,
+    {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+      templates: [
+        {
+          type: "Vertical",
+          contents: {
+            text: {
+              text: "Vertical",
+            },
+            url: testImage,
+          },
+        } as IGoogleSlides.Template.Vertical,
+        {
+          type: "Square",
+          contents: {
+            text: {
+              text: "Square",
+            },
+            url: testImage,
+          },
+        } as IGoogleSlides.Template.Square,
+        {
+          type: "Landscape",
+          contents: {
+            text: {
+              text: "Landscape",
+            },
+            url: testImage,
+          },
+        } as IGoogleSlides.Template.Landscape,
+        {
+          type: "Entire",
+          contents: {
+            text: {
+              text: "Entire",
+            },
+            url: testImage,
+          },
+        } as IGoogleSlides.Template.Entire,
+        {
+          type: "QuarterDivision",
+          contents: [
+            {
+              text: {
+                text: "QuarterDivision1",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "QuarterDivision2",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "QuarterDivision3",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "QuarterDivision4",
+              },
+              url: testImage,
+            },
+          ],
+        } as IGoogleSlides.Template.QuarterDivision,
+        {
+          type: "SixthDivision",
+          contents: [
+            {
+              text: {
+                text: "SixthDivision1",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "SixthDivision2",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "SixthDivision3",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "SixthDivision4",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "SixthDivision5",
+              },
+              url: testImage,
+            },
+            {
+              text: {
+                text: "SixthDivision6",
+              },
+              url: testImage,
+            },
+          ],
+        } as IGoogleSlides.Template.SixthDivision,
+        {
+          type: "Exhibition",
+          contents: {
+            header: {
+              text: "Exhibition1",
+            },
+            body: {
+              text: "Exhibition2",
+            },
+            url: testImage,
+          },
+        } as IGoogleSlides.Template.Exhibition,
+        {
+          type: "Corner",
+          contents: {
+            header: {
+              text: "Corner1",
+            },
+            body: {
+              text: "Corner2",
+            },
+            url: testImage,
+          },
+        } as IGoogleSlides.Template.Corner,
+        {
+          type: "CornerHalf",
+          contents: {
+            header: {
+              text: "CornerHalf1",
+            },
+            body: {
+              text: "CornerHalf2",
+            },
+            url: [testImage, testImage],
+          },
+        } as IGoogleSlides.Template.CornerHalf,
+      ],
+    },
+  );
 };

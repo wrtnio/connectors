@@ -11,6 +11,20 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
 
 export namespace IGoogleSlides {
   /**
+   * @title 슬라이드를 붙이기 위한 요청 DTO.
+   */
+  export interface AppendSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    /**
+     * @title 한 번에 생성하고자 하는 템플릿의 목록.
+     */
+    templates: IGoogleSlides.Template[];
+  }
+
+  /**
    * @title 유저의 유즈케이스에 맞게 입력 폼을 제한하기 위한 목적의 템플릿.
    *
    * 이미지의 위치를 기준으로 타입의 이름을 결정했다.
@@ -48,7 +62,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트.
          */
-        text: CreateText;
+        text: InsertText;
       };
     };
 
@@ -73,7 +87,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트.
          */
-        text: CreateText;
+        text: InsertText;
       };
     };
 
@@ -98,7 +112,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트.
          */
-        text: CreateText;
+        text: InsertText;
       };
     };
 
@@ -123,7 +137,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트.
          */
-        text: CreateText;
+        text: InsertText;
       };
     };
 
@@ -150,7 +164,7 @@ export namespace IGoogleSlides {
           /**
            * @title 이미지에 대응되는 텍스트.
            */
-          text: CreateText;
+          text: InsertText;
         }
       >;
     };
@@ -178,7 +192,7 @@ export namespace IGoogleSlides {
           /**
            * @title 이미지에 대응되는 텍스트.
            */
-          text: CreateText;
+          text: InsertText;
         }
       >;
     };
@@ -204,12 +218,12 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트 중 제목 부분.
          */
-        header: CreateText;
+        header: InsertText;
 
         /**
          * @title 이미지에 대응되는 텍스트 중 본문 부분.
          */
-        body: CreateText;
+        body: InsertText;
       };
     };
 
@@ -239,12 +253,12 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트 중 제목 부분.
          */
-        header: CreateText;
+        header: InsertText;
 
         /**
          * @title 이미지에 대응되는 텍스트 중 본문 부분.
          */
-        body: CreateText;
+        body: InsertText;
       };
     };
 
@@ -274,12 +288,12 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지에 대응되는 텍스트 중 제목 부분.
          */
-        header: CreateText;
+        header: InsertText;
 
         /**
          * @title 이미지에 대응되는 텍스트 중 본문 부분.
          */
-        body: CreateText;
+        body: InsertText;
       };
     };
   }
@@ -295,23 +309,80 @@ export namespace IGoogleSlides {
     /**
      * @title 수정할 프레젠네이션의 ID.
      */
-    requests: (
-      | {
-          /**
-           * @title 새로 생성할 슬라이드의 정보.
-           */
-          createSlide?: CreateSlideRequest;
-        }
-      | {
-          createImage?: CreateImageRequest;
-        }
-      | {
-          createText?: CreateText;
-        }
-    )[];
+    requests: BatchUpdateInput[];
   }
 
-  export interface CreateText extends slides_v1.Schema$InsertTextRequest {
+  export type BatchUpdateInput =
+    | {
+        /**
+         * @title 새로 생성할 슬라이드의 정보.
+         */
+        createSlide: CreateSlideRequest;
+      }
+    | {
+        createImage: CreateImageRequest;
+      }
+    | {
+        insertText: InsertText;
+      }
+    | {
+        createShape: CreateShape;
+      }
+    | {
+        replaceAllText: ReplaceAllText;
+      }
+    | {
+        updateTextStyle: UpdateTextStyle;
+      };
+
+  export interface UpdateTextStyle
+    extends slides_v1.Schema$UpdateTextStyleRequest {
+    /**
+     * The fields that should be updated. At least one field must be specified. The root `style` is implied and should not be specified. A single `"*"` can be used as short-hand for listing every field. For example, to update the text style to bold, set `fields` to `"bold"`. To reset a property to its default value, include its field name in the field mask but leave the field itself unset.
+     */
+    fields?: (string | null) & tags.Default<"*">;
+
+    /**
+     * The object ID of the shape or table with the text to be styled.
+     */
+    objectId: string;
+
+    /**
+     * The style(s) to set on the text. If the value for a particular style matches that of the parent, that style will be set to inherit. Certain text style changes may cause other changes meant to mirror the behavior of the Slides editor. See the documentation of TextStyle for more information.
+     */
+    style: TextStyle;
+  }
+
+  export interface ReplaceAllText
+    extends slides_v1.Schema$ReplaceAllTextRequest {
+    /**
+     * If non-empty, limits the matches to page elements only on the given pages. Returns a 400 bad request error if given the page object ID of a notes master, or if a page with that object ID doesn't exist in the presentation.
+     */
+    pageObjectIds?: string[] | null;
+    /**
+     * The text that will replace the matched text.
+     */
+    replaceText?: string | null;
+  }
+
+  export interface CreateShape extends slides_v1.Schema$CreateShapeRequest {
+    /**
+     * The element properties for the shape.
+     */
+    elementProperties?: PageElementProperties;
+
+    /**
+     * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If empty, a unique identifier will be generated.
+     */
+    objectId?: string | null;
+
+    /**
+     * The shape type.
+     */
+    shapeType?: Shape.Type;
+  }
+
+  export interface InsertText extends slides_v1.Schema$InsertTextRequest {
     /**
      * @title 추가할 텍스트
      */
@@ -324,10 +395,12 @@ export namespace IGoogleSlides {
      * The element properties for the image. When the aspect ratio of the provided size does not match the image aspect ratio, the image is scaled and centered with respect to the size in order to maintain the aspect ratio. The provided transform is applied after this operation. The PageElementProperties.size property is optional. If you don't specify the size, the default size of the image is used. The PageElementProperties.transform property is optional. If you don't specify a transform, the image will be placed at the top-left corner of the page.
      */
     elementProperties?: PageElementProperties;
+
     /**
      * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The length of the ID must not be less than 5 or greater than 50. If you don't specify an ID, a unique one is generated.
      */
     objectId?: string | null;
+
     /**
      * The image URL. The image is fetched once at insertion time and a copy is stored for display inside the presentation. Images must be less than 50 MB in size, can't exceed 25 megapixels, and must be in one of PNG, JPEG, or GIF formats. The provided URL must be publicly accessible and up to 2 KB in length. The URL is saved with the image, and exposed through the Image.source_url field.
      */
@@ -342,10 +415,12 @@ export namespace IGoogleSlides {
      * The object ID of the page where the element is located.
      */
     pageObjectId?: string | null;
+
     /**
      * The size of the element.
      */
     size?: Size;
+
     /**
      * The transform for the element.
      */
@@ -358,14 +433,18 @@ export namespace IGoogleSlides {
      * The optional zero-based index indicating where to insert the slides. If you don't specify an index, the slide is created at the end.
      */
     insertionIndex?: number | null;
+
     /**
-     * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
+     * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`)
+     *  remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
      */
     objectId?: string | null;
+
     /**
      * An optional list of object ID mappings from the placeholder(s) on the layout to the placeholders that are created on the slide from the specified layout. Can only be used when `slide_layout_reference` is specified.
      */
     placeholderIdMappings?: LayoutPlaceholderIdMapping[];
+
     /**
      * Layout reference of the slide to be inserted, based on the *current master*, which is one of the following: - The master of the previous slide index. - The master of the first slide, if the insertion_index is zero. - The first master in the presentation, if there are no slides. If the LayoutReference is not found in the current master, a 400 bad request error is returned. If you don't specify a layout reference, the slide uses the predefined `BLANK` layout.
      */
@@ -377,6 +456,7 @@ export namespace IGoogleSlides {
      * Layout ID: the object ID of one of the layouts in the presentation.
      */
     layoutId?: string | null;
+
     /**
      * Predefined layout.
      */

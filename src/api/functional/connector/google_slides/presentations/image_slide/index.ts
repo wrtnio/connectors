@@ -39,7 +39,7 @@ export async function appendImageSlide(
       );
 }
 export namespace appendImageSlide {
-  export type Input = Primitive<IGoogleSlides.IUpdatePresentationInput>;
+  export type Input = Primitive<IGoogleSlides.AppendSlideInput>;
   export type Output = Primitive<IGoogleSlides.Presentation>;
 
   export const METADATA = {
