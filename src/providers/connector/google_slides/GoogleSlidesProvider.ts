@@ -54,9 +54,10 @@ export class GoogleSlidesProvider {
         secretKey: input.secretKey,
       });
 
-      const heightMagnitude = presentation.pageSize?.height?.magnitude;
+      const heightMagnitude = presentation.pageSize?.height
+        ?.magnitude as number;
       const heightUnit = presentation.pageSize?.height?.unit;
-      const widthMagnitude = presentation.pageSize?.width?.magnitude;
+      const widthMagnitude = presentation.pageSize?.width?.magnitude as number;
       const widthUnit = presentation.pageSize?.width?.unit;
 
       const body: Pick<IGoogleSlides.IUpdatePresentationInput, "requests"> = {
@@ -80,11 +81,11 @@ export class GoogleSlidesProvider {
                       pageObjectId: slideId,
                       size: {
                         height: {
-                          magnitude: heightMagnitude ?? 0,
+                          magnitude: heightMagnitude,
                           unit: heightUnit,
                         },
                         width: {
-                          magnitude: (widthMagnitude ?? 0) / 2,
+                          magnitude: widthMagnitude / 2,
                           unit: widthUnit,
                         },
                       },
@@ -99,16 +100,16 @@ export class GoogleSlidesProvider {
                       pageObjectId: slideId,
                       size: {
                         height: {
-                          magnitude: heightMagnitude ?? 0,
+                          magnitude: heightMagnitude,
                           unit: heightUnit,
                         },
                         width: {
-                          magnitude: (widthMagnitude ?? 0) / 2,
+                          magnitude: widthMagnitude / 2,
                           unit: widthUnit,
                         },
                       },
                       transform: {
-                        translateX: (widthMagnitude ?? 0) / 2,
+                        translateX: widthMagnitude / 2,
                         translateY: 0,
                         scaleX: 1,
                         scaleY: 1,
@@ -159,11 +160,11 @@ export class GoogleSlidesProvider {
                       pageObjectId: slideId,
                       size: {
                         height: {
-                          magnitude: heightMagnitude ?? 0,
+                          magnitude: heightMagnitude,
                           unit: heightUnit,
                         },
                         width: {
-                          magnitude: heightMagnitude ?? 0,
+                          magnitude: heightMagnitude,
                           unit: widthUnit,
                         },
                       },
@@ -178,12 +179,11 @@ export class GoogleSlidesProvider {
                       pageObjectId: slideId,
                       size: {
                         height: {
-                          magnitude: heightMagnitude ?? 0,
+                          magnitude: heightMagnitude,
                           unit: heightUnit,
                         },
                         width: {
-                          magnitude:
-                            (widthMagnitude ?? 0) - (heightMagnitude ?? 0),
+                          magnitude: widthMagnitude - heightMagnitude,
                           unit: widthUnit,
                         },
                       },
@@ -221,28 +221,87 @@ export class GoogleSlidesProvider {
                   },
                 },
               ];
+            } else if (template.type === "Landscape") {
+              const slideId = v4();
+              const imageId = v4();
+              const shapeId = v4();
+
+              return [
+                {
+                  createSlide: {
+                    objectId: slideId,
+                  },
+                },
+                {
+                  createImage: {
+                    objectId: imageId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: heightMagnitude * 0.75,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: widthMagnitude,
+                          unit: widthUnit,
+                        },
+                      },
+                    },
+                    url: template.contents.url,
+                  },
+                },
+                {
+                  createShape: {
+                    objectId: shapeId,
+                    elementProperties: {
+                      pageObjectId: slideId,
+                      size: {
+                        height: {
+                          magnitude: heightMagnitude * 0.25,
+                          unit: heightUnit,
+                        },
+                        width: {
+                          magnitude: widthMagnitude,
+                          unit: widthUnit,
+                        },
+                      },
+                      transform: {
+                        translateX: 0,
+                        translateY: heightMagnitude * 0.75,
+                        scaleX: 1,
+                        scaleY: 1,
+                        shearX: 0,
+                        shearY: 0,
+                        unit: widthUnit,
+                      },
+                    },
+                    shapeType: "TEXT_BOX",
+                  },
+                },
+                {
+                  insertText: {
+                    text: template.contents.text.text,
+                    objectId: shapeId,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    fields: "*",
+                    style: {
+                      baselineOffset: "SUPERSCRIPT",
+                      fontFamily: "Arial",
+                      fontSize: {
+                        magnitude: 18,
+                        unit: "PT",
+                      },
+                    },
+                    objectId: shapeId,
+                  },
+                },
+              ];
             }
-            //  else if (template.type === "Landscape") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents.url,
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // } else if (template.type === "Entire") {
+            // else if (template.type === "Entire") {
             //   return [
             //     {
             //       createSlide: {
