@@ -13,9 +13,10 @@ import type { ICommon } from "../../../../../structures/connector/common/ISecret
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
- * Read Notion Page list.
+ * 노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.
  *
- * @returns read page output list
+ * @summary 페이지 목록 조회
+ * @returns 페이지 정보들
  * @tag Notion
  *
  * @controller NotionController.readPageList
@@ -44,7 +45,7 @@ export async function readPageList(
       );
 }
 export namespace readPageList {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IReadPageOutput>>;
 
   export const METADATA = {

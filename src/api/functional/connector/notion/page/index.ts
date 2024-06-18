@@ -14,10 +14,11 @@ import type { INotion } from "../../../../structures/connector/notion/INotion";
 export * as content from "./content";
 
 /**
- * Create Notion Page.
+ * 노션 페이지를 생성합니다.
  *
- * @param input parentPageId, pageTitle, pageContent
- * @returns created page id
+ * @summary 페이지 생성
+ * @param input 페이지 생성에 필요한 정보
+ * @returns 생성된 페이지 고유 id
  * @tag Notion
  *
  * @controller NotionController.createPage

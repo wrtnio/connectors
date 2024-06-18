@@ -64,7 +64,7 @@ export namespace NotionProvider {
   }
 
   export async function readPageList(
-    input: ICommon.ISecret<"Notion">,
+    input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IReadPageOutput[]> {
     const headers = getHeaders(input.secretKey);
     const res = await axios.post(
@@ -123,7 +123,7 @@ export namespace NotionProvider {
   }
 
   export async function getDatabaseInfo(
-    input: ICommon.ISecret<"Notion">,
+    input: ICommon.ISecret<"notion">,
     databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
     /**
@@ -147,7 +147,7 @@ export namespace NotionProvider {
   }
 
   export async function getDatabaseListInfo(
-    input: ICommon.ISecret<"Notion">,
+    input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IDatabaseInfo[]> {
     const notion = createClient(input.secretKey);
     const searchResult = await notion.search({});
@@ -280,7 +280,7 @@ export namespace NotionProvider {
   }
 
   export async function getUsers(
-    input: ICommon.ISecret<"Notion">,
+    input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IUserOutput[]> {
     const headers = getHeaders(input.secretKey);
     const people = await axios.get(`https://api.notion.com/v1/users`, {
@@ -328,7 +328,7 @@ export namespace NotionProvider {
   }
 
   export async function findDatabaseItemList(
-    input: ICommon.ISecret<"Notion">,
+    input: ICommon.ISecret<"notion">,
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
     const headers = getHeaders(input.secretKey);

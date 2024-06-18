@@ -395,7 +395,7 @@ export namespace INotion {
   /**
    * @title 페이지 생성에 필요한 조건
    */
-  export interface ICreatePageInput extends ICommon.ISecret<"Notion"> {
+  export interface ICreatePageInput extends ICommon.ISecret<"notion"> {
     /**
      * 새로 생성할 페이지의 부모 페이지
      *
@@ -560,7 +560,7 @@ export namespace INotion {
   /**
    * @title 페이지에 내용을 추가할 때 필요한 정보
    */
-  export interface IAppendPageToContentInput extends ICommon.ISecret<"Notion"> {
+  export interface IAppendPageToContentInput extends ICommon.ISecret<"notion"> {
     /**
      * 페이지에 추가할 내용
      *
@@ -589,7 +589,7 @@ export namespace INotion {
    */
   export interface ICreateDatabaseItemInput
     extends IDatabasePropertyInput,
-      ICommon.ISecret<"Notion"> {
+      ICommon.ISecret<"notion"> {
     /**
      * 데이터베이스 속성에 추가할 값
      *
@@ -617,7 +617,7 @@ export namespace INotion {
    */
   export interface IUpdateDatabaseItemInput
     extends IDatabasePropertyInput,
-      ICommon.ISecret<"Notion"> {
+      ICommon.ISecret<"notion"> {
     /**
      * 업데이트 할 페이지
      *
@@ -654,7 +654,7 @@ export namespace INotion {
     /**
      * 데이터베이스 제목
      *
-     * @title 제목
+     * @title 제목P
      */
     title: string;
 
@@ -705,7 +705,7 @@ export namespace INotion {
    * @title 페이지 검색에 필요한 정보
    */
   export interface IFindPageOrDatabaseItemInput
-    extends ICommon.ISecret<"Notion"> {
+    extends ICommon.ISecret<"notion"> {
     /**
      * 페이지 제목
      *
@@ -717,7 +717,7 @@ export namespace INotion {
   /**
    * @title 데이터베이스에 있는 아이템을 찾을 때 필요한 정보
    */
-  export interface IFindDatabaseItemInput extends ICommon.ISecret<"Notion"> {
+  export interface IFindDatabaseItemInput extends ICommon.ISecret<"notion"> {
     /**
      * 데이터베이스 아이템에 있는 아이템의 제목
      *

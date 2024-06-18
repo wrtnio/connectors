@@ -37,7 +37,7 @@ export class NotionController {
    */
   @core.TypedRoute.Post("/get/page")
   async readPageList(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IReadPageOutput[]> {
     return NotionProvider.readPageList(input);
   }
@@ -53,7 +53,7 @@ export class NotionController {
    */
   @core.TypedRoute.Post("get/users")
   async getUsers(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IUserOutput[]> {
     return NotionProvider.getUsers(input);
   }
@@ -88,7 +88,7 @@ export class NotionController {
    */
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IDatabaseInfo[]> {
     return NotionProvider.getDatabaseListInfo(input);
   }
@@ -106,7 +106,7 @@ export class NotionController {
    */
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
     return NotionProvider.getDatabaseInfo(input, databaseId);
@@ -185,7 +185,7 @@ export class NotionController {
    */
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
     return NotionProvider.findDatabaseItemList(input, databaseId);

@@ -13,9 +13,10 @@ import type { ICommon } from "../../../../../structures/connector/common/ISecret
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
- * Get Database list Info for create Item in database.
+ * 데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.
  *
- * @returns array of databaseId, database title, database properties info
+ * @summary 데이터베이스 목록 조회
+ * @returns 데이터베이스 정보 목록
  * @tag Notion
  *
  * @controller NotionController.getDatabaseListInfo
@@ -44,7 +45,7 @@ export async function getDatabaseListInfo(
       );
 }
 export namespace getDatabaseListInfo {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IDatabaseInfo>>;
 
   export const METADATA = {
@@ -86,10 +87,11 @@ export namespace getDatabaseListInfo {
 }
 
 /**
- * Get Database Info for create Item in database.
+ * 데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.
  *
- * @param databaseId
- * @returns databaseId, database title, database properties info
+ * @summary 데이터베이스 정보 조회
+ * @param databaseId 데이터베이스 고유 id
+ * @returns 데이터베이스 정보
  * @tag Notion
  *
  * @controller NotionController.getDatabaseInfo
@@ -119,7 +121,7 @@ export async function getDatabaseInfo(
       );
 }
 export namespace getDatabaseInfo {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<INotion.IDatabaseInfo>;
 
   export const METADATA = {
