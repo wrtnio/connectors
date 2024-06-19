@@ -44,7 +44,6 @@ import { ZoomModule } from "./zoom/ZoomModule";
     AwsModule,
     RagModule,
     HwpModule,
-    HwpModule,
     ExcelModule,
     GoogleDocsModule,
     GoogleSheetModule,
