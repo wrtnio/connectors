@@ -32,7 +32,6 @@ export class PromptProvider {
         },
       },
     );
-    console.log("resres", res.data.content[0].text);
     return { result: res.data.content[0].text };
   }
 }
