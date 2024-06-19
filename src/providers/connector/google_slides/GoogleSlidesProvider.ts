@@ -703,94 +703,12 @@ export class GoogleSlidesProvider {
                 },
               ];
             }
-            // else if (template.type === "SixthDivision") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents[0].url,
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // } else if (template.type === "Exhibition") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents.url[0],
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // } else if (template.type === "Corner") {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents.url[0],
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // } else {
-            //   return [
-            //     {
-            //       createSlide: {
-            //         objectId: slideId,
-            //       },
-            //       createImage: {
-            //         objectId: v4(),
-            //         elementProperties: {
-            //           pageObjectId: slideId,
-            //           size: {
-            //             height: { magnitude: 1000 },
-            //             width: { magnitude: 1000 },
-            //           },
-            //         },
-            //         url: template.contents.url[0],
-            //       },
-            //       // createText: {},
-            //     },
-            //   ];
-            // }
 
             return null!;
           })
           .filter(Boolean),
       };
 
-      console.log(JSON.stringify(body, null, 2));
       const res = await axios.post(
         `https://slides.googleapis.com/v1/presentations/${presentationId}:batchUpdate`,
         body,

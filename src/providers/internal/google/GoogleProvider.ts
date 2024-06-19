@@ -32,7 +32,7 @@ export class GoogleProvider {
   }
 
   error(err: GoogleProvider.GoogleError) {
-    console.log(JSON.stringify(err));
+    console.error(JSON.stringify(err));
   }
 }
 

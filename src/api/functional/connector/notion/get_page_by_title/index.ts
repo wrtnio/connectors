@@ -12,10 +12,11 @@ import typia from "typia";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
- * Get Page By Title.
+ * 제목으로 페이지를 검색합니다.
  *
- * @param input page title
- * @returns Page Output
+ * @summary 제목으로 페이지 검색
+ * @param input 페이지 제목
+ * @returns 검색된 페이지 정보
  * @tag Notion
  *
  * @controller NotionController.getPageByTitle

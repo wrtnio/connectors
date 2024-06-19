@@ -12,11 +12,12 @@ import typia from "typia";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
- * Create Database Item.
+ * 노션 테이블 데이터베이스에 아이템을 생성합니다.
  *
- * @param input database properties value for create item, database item page content, database item page content type
- * @param databaseId
- * @returns DatabaseItemOutput
+ * @summary 데이터베이스 아이템 생성
+ * @param input 데이터베이스 아이템 생성에 필요한 정보
+ * @param databaseId 아이템을 생성할 데이터베이스 고유 id
+ * @returns 생성된 데이터베이스 아이템 정보
  * @tag Notion
  *
  * @controller NotionController.createDatabaseItem
@@ -91,11 +92,12 @@ export namespace createDatabaseItem {
 }
 
 /**
- * Update Database Item.
+ * 데이터베이스에 있는 아이템 정보를 수정합니다.
  *
- * @param input database properties value for update item, database item page content
- * @param databaseId
- * @returns DatabaseItemOutput
+ * @summary 데이터베이스 아이템 수정
+ * @param input 수정할 데이터베이스 아이템 정보
+ * @param databaseId 수정할 데이터베이스 고유 id
+ * @returns 수정된 데이터베이스 아이템 정보
  * @tag Notion
  *
  * @controller NotionController.updateDatabaseItem

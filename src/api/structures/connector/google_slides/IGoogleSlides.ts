@@ -34,11 +34,11 @@ export namespace IGoogleSlides {
     | Template.Square
     | Template.Landscape
     | Template.Entire
-    | Template.QuarterDivision
-    | Template.SixthDivision
-    | Template.Exhibition
-    | Template.Corner
-    | Template.CornerHalf;
+    | Template.QuarterDivision;
+  // | Template.SixthDivision
+  // | Template.Exhibition
+  // | Template.Corner
+  // | Template.CornerHalf;
 
   export namespace Template {
     /**
@@ -333,7 +333,26 @@ export namespace IGoogleSlides {
       }
     | {
         updateTextStyle: UpdateTextStyle;
+      }
+    | {
+        updateShapeProperties: UpdateShapeProperties;
       };
+
+  export interface UpdateShapeProperties
+    extends slides_v1.Schema$UpdateShapePropertiesRequest {
+    /**
+     * The fields that should be updated. At least one field must be specified. The root `shapeProperties` is implied and should not be specified. A single `"*"` can be used as short-hand for listing every field. For example to update the shape background solid fill color, set `fields` to `"shapeBackgroundFill.solidFill.color"`. To reset a property to its default value, include its field name in the field mask but leave the field itself unset.
+     */
+    fields: string;
+    /**
+     * The object ID of the shape the updates are applied to.
+     */
+    objectId: string;
+    /**
+     * The shape properties to update.
+     */
+    shapeProperties: ShapeProperties;
+  }
 
   export interface UpdateTextStyle
     extends slides_v1.Schema$UpdateTextStyleRequest {
@@ -382,7 +401,8 @@ export namespace IGoogleSlides {
     shapeType?: Shape.Type;
   }
 
-  export interface InsertText extends slides_v1.Schema$InsertTextRequest {
+  export interface InsertText
+    extends Pick<slides_v1.Schema$InsertTextRequest, "text" | "objectId"> {
     /**
      * @title 추가할 텍스트
      */

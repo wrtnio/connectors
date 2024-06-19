@@ -13,9 +13,10 @@ import type { ICommon } from "../../../../../structures/connector/common/ISecret
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
- * Get user list in workspace.
+ * 워크스페이스에 있는 유저 목록을 조회합니다.
  *
- * @returns user id and name
+ * @summary 유저 목록 조회
+ * @returns 유저 정보들
  * @tag Notion
  *
  * @controller NotionController.getUsers
