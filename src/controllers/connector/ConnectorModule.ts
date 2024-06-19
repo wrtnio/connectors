@@ -23,6 +23,7 @@ import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
 import { NotionController } from "./notion/NotionController";
+import { OpenDataModule } from "./open_data/OpenDataModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
@@ -60,6 +61,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     SweetTackerModule,
     KakaoTalkModule,
     ImwebModule,
+    OpenDataModule,
   ],
   controllers: [
     ArxivSearchController,
