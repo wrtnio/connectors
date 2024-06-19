@@ -45,7 +45,7 @@ export async function readPageList(
       );
 }
 export namespace readPageList {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IReadPageOutput>>;
 
   export const METADATA = {

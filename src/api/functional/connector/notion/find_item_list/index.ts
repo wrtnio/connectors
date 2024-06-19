@@ -47,7 +47,7 @@ export async function getDatabaseItemList(
       );
 }
 export namespace getDatabaseItemList {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IDatabaseItemOutput>>;
 
   export const METADATA = {

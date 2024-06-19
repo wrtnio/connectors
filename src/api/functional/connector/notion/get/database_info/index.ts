@@ -45,7 +45,7 @@ export async function getDatabaseListInfo(
       );
 }
 export namespace getDatabaseListInfo {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IDatabaseInfo>>;
 
   export const METADATA = {
@@ -121,7 +121,7 @@ export async function getDatabaseInfo(
       );
 }
 export namespace getDatabaseInfo {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<INotion.IDatabaseInfo>;
 
   export const METADATA = {

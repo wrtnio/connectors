@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
@@ -22,6 +22,9 @@ export class GoogleDocsController {
    * @tag Google Docs
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Post()
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
@@ -38,6 +41,9 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Post("/permission")
   async permission(
     @core.TypedBody() input: IGoogleDocs.IPermissionGoogleDocsInput,
@@ -58,6 +64,9 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Post("get/:id")
   async readDocs(
     @core.TypedParam("id") id: string,
@@ -84,6 +93,9 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Post("/template")
   async createDocByTemplate(
     @core.TypedBody() input: IGoogleDocs.ICreateDocByTemplateInput,
@@ -100,6 +112,9 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Delete(":id")
   async deleteById(
     @core.TypedParam("id") id: string,
@@ -125,6 +140,9 @@ export class GoogleDocsController {
    * @tag Google Docs
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Post("get-list")
   async list(
     @core.TypedBody()
@@ -146,6 +164,9 @@ export class GoogleDocsController {
    *
    * @tag Google Docs
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+  )
   @core.TypedRoute.Post("/append")
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,

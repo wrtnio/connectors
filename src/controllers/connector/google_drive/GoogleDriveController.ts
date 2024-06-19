@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
@@ -23,6 +23,9 @@ export class GoogleDriveController {
    * @tag Google Drive
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("get/folders")
   async folderList(
     @core.TypedBody()
@@ -42,6 +45,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("get/files")
   async fileList(
     @core.TypedBody() input: IGoogleDrive.IFileListGoogleDriveInput,
@@ -62,6 +68,9 @@ export class GoogleDriveController {
    * @tag Google Drive
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("/folder")
   async createFolder(
     @core.TypedBody() input: IGoogleDrive.ICreateFolderGoogleDriveInput,
@@ -80,6 +89,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("/file")
   async createFile(
     @core.TypedBody() input: IGoogleDrive.ICreateFileGoogleDriveInput,
@@ -96,6 +108,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
     @core.TypedParam("id") id: string,
@@ -114,6 +129,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
     @core.TypedParam("id") id: string,
@@ -132,6 +150,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("permission")
   async permission(
     @core.TypedBody() input: IGoogleDrive.IPermissionGoogleDriveInput,
@@ -150,6 +171,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
     @core.TypedParam("id") id: string,
@@ -169,6 +193,9 @@ export class GoogleDriveController {
    *
    * @tag Google Drive
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+  )
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
     @core.TypedParam("id") id: string,

@@ -59,6 +59,7 @@ export namespace ConnectorGlobal {
 
     // KAKAO_TALK
     KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_CLIENT_SECRET: string;
     KAKAO_TALK_TEST_REFRESH_TOKEN: string;
 
     // IMWEB

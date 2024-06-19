@@ -45,7 +45,7 @@ export async function getUsers(
       );
 }
 export namespace getUsers {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IUserOutput>>;
 
   export const METADATA = {
