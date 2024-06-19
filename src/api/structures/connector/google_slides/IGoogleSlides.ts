@@ -57,7 +57,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: string & tags.Format<"url">;
+        url: string & tags.Format<"uri">;
 
         /**
          * @title 이미지에 대응되는 텍스트.
@@ -82,7 +82,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: string & tags.Format<"url">;
+        url: string & tags.Format<"uri">;
 
         /**
          * @title 이미지에 대응되는 텍스트.
@@ -107,7 +107,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: string & tags.Format<"url">;
+        url: string & tags.Format<"uri">;
 
         /**
          * @title 이미지에 대응되는 텍스트.
@@ -132,7 +132,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: string & tags.Format<"url">;
+        url: string & tags.Format<"uri">;
 
         /**
          * @title 이미지에 대응되는 텍스트.
@@ -159,7 +159,7 @@ export namespace IGoogleSlides {
           /**
            * @title 이미지의 URL.
            */
-          url: string & tags.Format<"url">;
+          url: string & tags.Format<"uri">;
 
           /**
            * @title 이미지에 대응되는 텍스트.
@@ -187,7 +187,7 @@ export namespace IGoogleSlides {
           /**
            * @title 이미지의 URL.
            */
-          url: string & tags.Format<"url">;
+          url: string & tags.Format<"uri">;
 
           /**
            * @title 이미지에 대응되는 텍스트.
@@ -213,7 +213,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: string & tags.Format<"url">;
+        url: string & tags.Format<"uri">;
 
         /**
          * @title 이미지에 대응되는 텍스트 중 제목 부분.
@@ -248,7 +248,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: string & tags.Format<"url">;
+        url: string & tags.Format<"uri">;
 
         /**
          * @title 이미지에 대응되는 텍스트 중 제목 부분.
@@ -283,7 +283,7 @@ export namespace IGoogleSlides {
         /**
          * @title 이미지의 URL.
          */
-        url: NTpule<2, string & tags.Format<"url">>;
+        url: NTpule<2, string & tags.Format<"uri">>;
 
         /**
          * @title 이미지에 대응되는 텍스트 중 제목 부분.
@@ -424,7 +424,7 @@ export namespace IGoogleSlides {
     /**
      * The image URL. The image is fetched once at insertion time and a copy is stored for display inside the presentation. Images must be less than 50 MB in size, can't exceed 25 megapixels, and must be in one of PNG, JPEG, or GIF formats. The provided URL must be publicly accessible and up to 2 KB in length. The URL is saved with the image, and exposed through the Image.source_url field.
      */
-    url?: (string & tags.Format<"url">) | null;
+    url?: (string & tags.Format<"uri">) | null;
   }
 
   /**
@@ -894,7 +894,7 @@ export namespace IGoogleSlides {
      *
      * 제공된 URL의 최대 길이는 2KB입니다.
      */
-    contentUrl?: (string & tags.Format<"url">) | null;
+    contentUrl?: (string & tags.Format<"uri">) | null;
 
     /**
      * @title 사진 채우기의 원래 크기.
@@ -1243,7 +1243,7 @@ export namespace IGoogleSlides {
     /**
      * 설정된 경우 이 URL이 외부 웹 페이지의 링크임을 나타낸다.
      */
-    url?: (string & tags.Format<"url">) | null;
+    url?: (string & tags.Format<"uri">) | null;
 
     /**
      * 이 값이 설정된 경우 이 프레젠테이션에서 슬라이드의 위치에 따라 링크로 연결됩니다.
