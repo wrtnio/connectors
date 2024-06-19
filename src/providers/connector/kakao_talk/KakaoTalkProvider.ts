@@ -83,6 +83,7 @@ export namespace KakaoTalkProvider {
         grant_type: "refresh_token",
         client_id: ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID,
         refresh_token: input.refresh_token,
+        client_secret: ConnectorGlobal.env.KAKAO_TALK_CLIENT_SECRET,
       },
       {
         headers: {
