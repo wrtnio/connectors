@@ -22,7 +22,116 @@
     "/connector/arxiv-search": {
       "post": {
         "tags": [
-          "Arxiv"
+          "Arxiv",
+          "아카이브",
+          "학술",
+          "논문",
+          "연구",
+          "통계",
+          "출처",
+          "초록",
+          "학회지",
+          "학술지",
+          "피어",
+          "연구자",
+          "참고",
+          "인용",
+          "학위",
+          "과학",
+          "기술",
+          "h-인덱스",
+          "수학",
+          "물리학",
+          "생물학",
+          "컴퓨터과학",
+          "화학",
+          "머신러닝",
+          "인공지능",
+          "HCI",
+          "대학원",
+          "석사",
+          "박사",
+          "교수",
+          "IEEE",
+          "ACM",
+          "AAAI",
+          "NeurIPS",
+          "ICML",
+          "CVPR",
+          "SIGGRAPH",
+          "CHI",
+          "ICCV",
+          "ECCV",
+          "ACL",
+          "EMNLP",
+          "ICASSP",
+          "KDD",
+          "WWW",
+          "AAAS",
+          "ACS",
+          "APS",
+          "AAS",
+          "AGU",
+          "GSA",
+          "MRS",
+          "RSC",
+          "ESA",
+          "ASCB",
+          "ASM",
+          "ASHG",
+          "AACR",
+          "AHA",
+          "ADA",
+          "SfN",
+          "FASEB",
+          "ISCB",
+          "IUBMB",
+          "ASME",
+          "ASCE",
+          "AIAA",
+          "SAE",
+          "SPIE",
+          "AOM",
+          "AMA",
+          "AEA",
+          "INFORMS",
+          "APA",
+          "APSA",
+          "ASA",
+          "MLA",
+          "ISA",
+          "UNESCO",
+          "Academic",
+          "Paper",
+          "Find",
+          "Cite",
+          "Research",
+          "Statistics",
+          "Source",
+          "Abstract",
+          "Journal",
+          "Peer-Reviewed",
+          "Download",
+          "Write",
+          "Researcher",
+          "References",
+          "Citation",
+          "Recommend",
+          "Thesis",
+          "Scientific",
+          "Technical",
+          "h-Index",
+          "Mathematics",
+          "Physics",
+          "Biology",
+          "Computer",
+          "Chemistry",
+          "Machine",
+          "Artificial",
+          "Human-Computer",
+          "Graduate",
+          "Master's",
+          "PhD"
         ],
         "parameters": [],
         "requestBody": {
@@ -57,7 +166,10 @@
     "/connector/daum/blog": {
       "post": {
         "tags": [
-          "Daum"
+          "Daum",
+          "다음",
+          "블로그",
+          "Blog"
         ],
         "parameters": [],
         "requestBody": {
@@ -92,7 +204,14 @@
     "/connector/daum/cafe": {
       "post": {
         "tags": [
-          "Daum"
+          "Daum",
+          "다음",
+          "카페",
+          "블로그",
+          "포스트",
+          "Cafe",
+          "Blog",
+          "Post"
         ],
         "parameters": [],
         "requestBody": {
@@ -127,7 +246,14 @@
     "/connector/naver/cafe": {
       "post": {
         "tags": [
-          "Naver"
+          "Naver",
+          "네이버",
+          "카페",
+          "블로그",
+          "포스트",
+          "Cafe",
+          "Blog",
+          "Post"
         ],
         "parameters": [],
         "requestBody": {
@@ -162,7 +288,10 @@
     "/connector/naver/blog": {
       "post": {
         "tags": [
-          "Naver"
+          "Naver",
+          "네이버",
+          "블로그",
+          "Blog"
         ],
         "parameters": [],
         "requestBody": {
@@ -197,7 +326,53 @@
     "/connector/youtube-search": {
       "post": {
         "tags": [
-          "Youtube"
+          "Youtube",
+          "유튜브",
+          "동영상",
+          "숏폼",
+          "춋츠",
+          "밈",
+          "구독",
+          "좋아요",
+          "댓글",
+          "라이브",
+          "재생",
+          "시청자",
+          "구독자",
+          "알림",
+          "커뮤니티",
+          "콘텐츠",
+          "저작권",
+          "조회수",
+          "채널",
+          "썸네일",
+          "인급동",
+          "인기",
+          "YouTube",
+          "Video",
+          "Short-form",
+          "Shorts",
+          "Memes",
+          "Upload",
+          "Subscribe",
+          "Like",
+          "Comment",
+          "Live",
+          "Playlist",
+          "Viewer",
+          "Share",
+          "Subscriber",
+          "Notification",
+          "Community",
+          "Content",
+          "Copyright",
+          "Download",
+          "Views",
+          "Promote",
+          "View",
+          "Channel",
+          "Thumbnail",
+          "Trending"
         ],
         "parameters": [],
         "requestBody": {
@@ -232,7 +407,116 @@
     "/connector/google-scholar": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Scholar",
+          "구글",
+          "학술",
+          "논문",
+          "연구",
+          "통계",
+          "출처",
+          "초록",
+          "학회지",
+          "학술지",
+          "피어",
+          "연구자",
+          "참고",
+          "인용",
+          "학위",
+          "과학",
+          "기술",
+          "h-인덱스",
+          "수학",
+          "물리학",
+          "생물학",
+          "컴퓨터과학",
+          "화학",
+          "머신러닝",
+          "인공지능",
+          "HCI",
+          "대학원",
+          "석사",
+          "박사",
+          "교수",
+          "ACM",
+          "AAAI",
+          "NeurIPS",
+          "ICML",
+          "CVPR",
+          "SIGGRAPH",
+          "CHI",
+          "ICCV",
+          "ECCV",
+          "ACL",
+          "EMNLP",
+          "ICASSP",
+          "KDD",
+          "WWW",
+          "AAAS",
+          "ACS",
+          "APS",
+          "AAS",
+          "AGU",
+          "GSA",
+          "MRS",
+          "RSC",
+          "ESA",
+          "ASCB",
+          "ASM",
+          "ASHG",
+          "AACR",
+          "AHA",
+          "ADA",
+          "SfN",
+          "FASEB",
+          "ISCB",
+          "IUBMB",
+          "ASME",
+          "ASCE",
+          "AIAA",
+          "SAE",
+          "SPIE",
+          "AOM",
+          "AMA",
+          "AEA",
+          "INFORMS",
+          "APA",
+          "APSA",
+          "ASA",
+          "MLA",
+          "ISA",
+          "UNESCO",
+          "Google",
+          "Academic",
+          "Paper",
+          "Find",
+          "Cite",
+          "Research",
+          "Statistics",
+          "Source",
+          "Abstract",
+          "Journal",
+          "Peer-Reviewed",
+          "Download",
+          "Write",
+          "Researcher",
+          "References",
+          "Citation",
+          "Recommend",
+          "Thesis",
+          "Scientific",
+          "Technical",
+          "h-Index",
+          "Mathematics",
+          "Physics",
+          "Biology",
+          "Computer",
+          "Chemistry",
+          "Machine",
+          "Artificial",
+          "Human-Computer",
+          "Graduate",
+          "Master's",
+          "PhD"
         ],
         "parameters": [],
         "requestBody": {
@@ -270,7 +554,37 @@
     "/connector/csv/read": {
       "post": {
         "tags": [
-          "CSV"
+          "CSV",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "엑셀",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
         ],
         "parameters": [],
         "requestBody": {
@@ -304,7 +618,37 @@
     "/connector/csv/write": {
       "post": {
         "tags": [
-          "CSV"
+          "CSV",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "엑셀",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
         ],
         "parameters": [],
         "requestBody": {
@@ -339,7 +683,37 @@
     "/connector/csv/csv-to-excel": {
       "post": {
         "tags": [
-          "CSV"
+          "CSV",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "엑셀",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
         ],
         "parameters": [],
         "requestBody": {
@@ -373,7 +747,41 @@
     "/connector/notion/page": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [],
         "requestBody": {
@@ -407,7 +815,41 @@
     "/connector/notion/get/page": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [],
         "requestBody": {
@@ -443,7 +885,41 @@
     "/connector/notion/get/users": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [],
         "requestBody": {
@@ -479,7 +955,41 @@
     "/connector/notion/page/content/{pageId}": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [
           {
@@ -516,7 +1026,41 @@
     "/connector/notion/get/database-info": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [],
         "requestBody": {
@@ -552,7 +1096,41 @@
     "/connector/notion/get/database-info/{databaseId}": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [
           {
@@ -595,7 +1173,41 @@
     "/connector/notion/database-item/{databaseId}": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [
           {
@@ -639,7 +1251,41 @@
     "/connector/notion/database-item/{pageId}": {
       "patch": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [
           {
@@ -683,7 +1329,41 @@
     "/connector/notion/get-page-by-title": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [],
         "requestBody": {
@@ -717,7 +1397,41 @@
     "/connector/notion/find-item-list/{databaseId}": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [
           {
@@ -763,7 +1477,41 @@
     "/connector/notion/find-item/{databaseId}": {
       "post": {
         "tags": [
-          "Notion"
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
         ],
         "parameters": [
           {
@@ -1066,7 +1814,47 @@
     "/connector/hwp/parse": {
       "post": {
         "tags": [
-          "Hwp"
+          "Hwp",
+          "한글",
+          "한글과",
+          "한컴오피스",
+          "hwp",
+          "문서",
+          "파일",
+          "표",
+          "차트",
+          "이미지",
+          "페이지",
+          "글꼴",
+          "글자",
+          "PDF",
+          "서식",
+          "보고서",
+          "서류",
+          "텍스트",
+          "가정통신문",
+          "학교",
+          "공무원",
+          "Hancom",
+          "Hangul",
+          "HWP",
+          "Document",
+          "Open",
+          "Save",
+          "Insert",
+          "Create",
+          "Page",
+          "Change",
+          "Adjust",
+          "Convert",
+          "File",
+          "Share",
+          "Merge",
+          "Write",
+          "Enter",
+          "Parent",
+          "School",
+          "Government"
         ],
         "parameters": [],
         "requestBody": {
@@ -1100,7 +1888,37 @@
     "/connector/excel/read": {
       "post": {
         "tags": [
-          "Excel"
+          "Excel",
+          "엑셀",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
         ],
         "parameters": [],
         "requestBody": {
@@ -1134,7 +1952,37 @@
     "/connector/excel/worksheet": {
       "post": {
         "tags": [
-          "Excel"
+          "Excel",
+          "엑셀",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
         ],
         "parameters": [],
         "requestBody": {
@@ -1168,7 +2016,37 @@
     "/connector/excel/rows": {
       "post": {
         "tags": [
-          "Excel"
+          "Excel",
+          "엑셀",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
         ],
         "parameters": [],
         "requestBody": {
@@ -1202,7 +2080,36 @@
     "/connector/google-docs": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [],
         "requestBody": {
@@ -1237,7 +2144,36 @@
     "/connector/google-docs/permission": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [],
         "requestBody": {
@@ -1264,7 +2200,36 @@
     "/connector/google-docs/get/{id}": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [
           {
@@ -1307,7 +2272,36 @@
     "/connector/google-docs/template": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [],
         "requestBody": {
@@ -1341,7 +2335,36 @@
     "/connector/google-docs/{id}": {
       "delete": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [
           {
@@ -1377,7 +2400,36 @@
     "/connector/google-docs/get-list": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [],
         "requestBody": {
@@ -1411,7 +2463,36 @@
     "/connector/google-docs/append": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Docs",
+          "구글",
+          "문서",
+          "협업",
+          "실시간",
+          "클라우드",
+          "텍스트",
+          "파일",
+          "워드파일",
+          "PDF로",
+          "이미지",
+          "차트",
+          "표",
+          "Google",
+          "Collaboration",
+          "Real-time",
+          "Share",
+          "Cloud",
+          "Save",
+          "Document",
+          "Text",
+          "Download",
+          "Upload",
+          "Edit",
+          "File",
+          "Export",
+          "Print",
+          "Open",
+          "Search",
+          "Insert"
         ],
         "parameters": [],
         "requestBody": {
@@ -1437,7 +2518,51 @@
     "/connector/google-sheet": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
         ],
         "parameters": [],
         "requestBody": {
@@ -1472,7 +2597,51 @@
     "/connector/google-sheet/permission": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
         ],
         "parameters": [],
         "requestBody": {
@@ -1500,7 +2669,51 @@
     "/connector/google-sheet/header": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
         ],
         "parameters": [],
         "requestBody": {
@@ -1528,7 +2741,51 @@
     "/connector/google-sheet/worksheet": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
         ],
         "parameters": [],
         "requestBody": {
@@ -1563,7 +2820,51 @@
     "/connector/google-sheet/get-rows": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
         ],
         "parameters": [],
         "requestBody": {
@@ -1597,7 +2898,47 @@
     "/connector/google-calendar/get-list": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [],
         "requestBody": {
@@ -1634,7 +2975,47 @@
     "/connector/google-calendar": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [],
         "requestBody": {
@@ -1669,7 +3050,47 @@
     "/connector/google-calendar/{calendarId}": {
       "delete": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1705,7 +3126,47 @@
     "/connector/google-calendar/{calendarId}/get-events": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1749,7 +3210,47 @@
     "/connector/google-calendar/{calendarId}/quick-event": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1786,7 +3287,47 @@
     "/connector/google-calendar/{calendarId}/event": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1830,7 +3371,47 @@
     "/connector/google-calendar/{calendarId}/event/{eventId}": {
       "put": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1881,7 +3462,47 @@
       },
       "delete": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1926,7 +3547,47 @@
     "/connector/google-calendar/{calendarId}/event/{eventId}/attendees": {
       "put": {
         "tags": [
-          "Google"
+          "Google-Calendar",
+          "구글",
+          "캘린더",
+          "일정",
+          "회의",
+          "약속",
+          "시간",
+          "달력",
+          "스케줄",
+          "반복",
+          "시간표",
+          "스케줄러",
+          "이번",
+          "다음",
+          "월간",
+          "개인",
+          "팀",
+          "업무",
+          "휴가",
+          "Google",
+          "Calendar",
+          "Manage",
+          "Add",
+          "Create",
+          "Share",
+          "Event",
+          "Time",
+          "Schedule",
+          "Adjust",
+          "Recurring",
+          "Sync",
+          "Invite",
+          "Timetable",
+          "Scheduler",
+          "This",
+          "Next",
+          "Monthly",
+          "Personal",
+          "Team",
+          "Work",
+          "Vacation"
         ],
         "parameters": [
           {
@@ -1979,7 +3640,43 @@
     "/connector/google-drive/get/folders": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [],
         "requestBody": {
@@ -2013,7 +3710,43 @@
     "/connector/google-drive/get/files": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [],
         "requestBody": {
@@ -2046,7 +3779,43 @@
     "/connector/google-drive/folder": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [],
         "requestBody": {
@@ -2081,7 +3850,43 @@
     "/connector/google-drive/file": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [],
         "requestBody": {
@@ -2115,7 +3920,43 @@
     "/connector/google-drive/file/{id}": {
       "delete": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [
           {
@@ -2151,7 +3992,43 @@
     "/connector/google-drive/folder/{id}": {
       "delete": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [
           {
@@ -2187,7 +4064,43 @@
     "/connector/google-drive/permission": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [],
         "requestBody": {
@@ -2214,7 +4127,43 @@
     "/connector/google-drive/file/{id}/text": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [
           {
@@ -2251,7 +4200,43 @@
     "/connector/google-drive/get/file/{id}": {
       "post": {
         "tags": [
-          "Google"
+          "Google-Drive",
+          "구글",
+          "드라이브",
+          "저장",
+          "파일",
+          "클라우드",
+          "파일명",
+          "폴더",
+          "폴더명",
+          "문서",
+          "사진",
+          "동영상",
+          "협업",
+          "자료",
+          "설문",
+          "팀",
+          "Google",
+          "Drive",
+          "Save",
+          "Share",
+          "Sync",
+          "Update",
+          "Download",
+          "Create",
+          "Rename",
+          "Delete",
+          "Manage",
+          "Add",
+          "Search",
+          "Collaborate",
+          "Set",
+          "Encrypt",
+          "Edit",
+          "Move",
+          "Resources",
+          "Survey",
+          "Team"
         ],
         "parameters": [
           {
@@ -2327,7 +4312,37 @@
     "/connector/gmail/send": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [],
         "requestBody": {
@@ -2362,7 +4377,37 @@
     "/connector/gmail/draft": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [],
         "requestBody": {
@@ -2390,7 +4435,37 @@
     "/connector/gmail/reply": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [],
         "requestBody": {
@@ -2417,7 +4492,37 @@
     "/connector/gmail/get/{id}": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [
           {
@@ -2460,7 +4565,37 @@
     "/connector/gmail/read-list": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [],
         "requestBody": {
@@ -2495,7 +4630,37 @@
     "/connector/gmail/{id}": {
       "delete": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [
           {
@@ -2531,7 +4696,37 @@
     "/connector/gmail/label": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [],
         "requestBody": {
@@ -2566,7 +4761,37 @@
     "/connector/gmail/label/{mailId}": {
       "post": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [
           {
@@ -2601,7 +4826,37 @@
       },
       "delete": {
         "tags": [
-          "Gmail"
+          "Gmail",
+          "지메일",
+          "이메일",
+          "메일",
+          "스팸",
+          "첨부파일",
+          "필터",
+          "자동",
+          "답장",
+          "중요",
+          "구글",
+          "메일함",
+          "일정",
+          "비즈니스",
+          "Email",
+          "Mail",
+          "Send",
+          "Check",
+          "Manage",
+          "Search",
+          "Attachment",
+          "Set",
+          "Auto",
+          "Reply",
+          "Archive",
+          "Mark",
+          "Delete",
+          "Google",
+          "Mailbox",
+          "Schedule",
+          "Business"
         ],
         "parameters": [
           {
@@ -29626,31 +31881,819 @@
   },
   "tags": [
     {
-      "name": "Arxiv",
-      "description": "학술자료 사이트"
+      "name": "Arxiv"
+    },
+    {
+      "name": "아카이브"
+    },
+    {
+      "name": "학술",
+      "description": "검색"
+    },
+    {
+      "name": "논문",
+      "description": "찾기"
+    },
+    {
+      "name": "연구",
+      "description": "논문"
+    },
+    {
+      "name": "통계",
+      "description": "계산"
+    },
+    {
+      "name": "출처"
+    },
+    {
+      "name": "초록",
+      "description": "요약"
+    },
+    {
+      "name": "학회지"
+    },
+    {
+      "name": "학술지"
+    },
+    {
+      "name": "피어",
+      "description": "리뷰 논문"
+    },
+    {
+      "name": "연구자"
+    },
+    {
+      "name": "참고",
+      "description": "문헌"
+    },
+    {
+      "name": "인용",
+      "description": "지수"
+    },
+    {
+      "name": "학위",
+      "description": "논문"
+    },
+    {
+      "name": "과학",
+      "description": "논문"
+    },
+    {
+      "name": "기술",
+      "description": "논문"
+    },
+    {
+      "name": "h-인덱스"
+    },
+    {
+      "name": "수학"
+    },
+    {
+      "name": "물리학"
+    },
+    {
+      "name": "생물학"
+    },
+    {
+      "name": "컴퓨터과학"
+    },
+    {
+      "name": "화학"
+    },
+    {
+      "name": "머신러닝"
+    },
+    {
+      "name": "인공지능"
+    },
+    {
+      "name": "HCI"
+    },
+    {
+      "name": "대학원",
+      "description": "프로그램 추천"
+    },
+    {
+      "name": "석사"
+    },
+    {
+      "name": "박사"
+    },
+    {
+      "name": "교수",
+      "description": "추천"
+    },
+    {
+      "name": "IEEE"
+    },
+    {
+      "name": "ACM"
+    },
+    {
+      "name": "AAAI"
+    },
+    {
+      "name": "NeurIPS"
+    },
+    {
+      "name": "ICML"
+    },
+    {
+      "name": "CVPR"
+    },
+    {
+      "name": "SIGGRAPH"
+    },
+    {
+      "name": "CHI"
+    },
+    {
+      "name": "ICCV"
+    },
+    {
+      "name": "ECCV"
+    },
+    {
+      "name": "ACL"
+    },
+    {
+      "name": "EMNLP"
+    },
+    {
+      "name": "ICASSP"
+    },
+    {
+      "name": "KDD"
+    },
+    {
+      "name": "WWW"
+    },
+    {
+      "name": "AAAS"
+    },
+    {
+      "name": "ACS"
+    },
+    {
+      "name": "APS"
+    },
+    {
+      "name": "AAS"
+    },
+    {
+      "name": "AGU"
+    },
+    {
+      "name": "GSA"
+    },
+    {
+      "name": "MRS"
+    },
+    {
+      "name": "RSC"
+    },
+    {
+      "name": "ESA"
+    },
+    {
+      "name": "ASCB"
+    },
+    {
+      "name": "ASM"
+    },
+    {
+      "name": "ASHG"
+    },
+    {
+      "name": "AACR"
+    },
+    {
+      "name": "AHA"
+    },
+    {
+      "name": "ADA"
+    },
+    {
+      "name": "SfN"
+    },
+    {
+      "name": "FASEB"
+    },
+    {
+      "name": "ISCB"
+    },
+    {
+      "name": "IUBMB"
+    },
+    {
+      "name": "ASME"
+    },
+    {
+      "name": "ASCE"
+    },
+    {
+      "name": "AIAA"
+    },
+    {
+      "name": "SAE"
+    },
+    {
+      "name": "SPIE"
+    },
+    {
+      "name": "AOM"
+    },
+    {
+      "name": "AMA"
+    },
+    {
+      "name": "AEA"
+    },
+    {
+      "name": "INFORMS"
+    },
+    {
+      "name": "APA"
+    },
+    {
+      "name": "APSA"
+    },
+    {
+      "name": "ASA"
+    },
+    {
+      "name": "MLA"
+    },
+    {
+      "name": "ISA"
+    },
+    {
+      "name": "UNESCO"
+    },
+    {
+      "name": "Academic",
+      "description": "Search"
+    },
+    {
+      "name": "Paper"
+    },
+    {
+      "name": "Find",
+      "description": "Papers"
+    },
+    {
+      "name": "Cite",
+      "description": "Papers"
+    },
+    {
+      "name": "Research",
+      "description": "Paper"
+    },
+    {
+      "name": "Statistics"
+    },
+    {
+      "name": "Source"
+    },
+    {
+      "name": "Abstract",
+      "description": "Summary"
+    },
+    {
+      "name": "Journal"
+    },
+    {
+      "name": "Peer-Reviewed",
+      "description": "Paper"
+    },
+    {
+      "name": "Download",
+      "description": "Paper"
+    },
+    {
+      "name": "Write",
+      "description": "Paper"
+    },
+    {
+      "name": "Researcher"
+    },
+    {
+      "name": "References"
+    },
+    {
+      "name": "Citation",
+      "description": "Index"
+    },
+    {
+      "name": "Recommend",
+      "description": "Papers"
+    },
+    {
+      "name": "Thesis"
+    },
+    {
+      "name": "Scientific",
+      "description": "Paper"
+    },
+    {
+      "name": "Technical",
+      "description": "Paper"
+    },
+    {
+      "name": "h-Index"
+    },
+    {
+      "name": "Mathematics"
+    },
+    {
+      "name": "Physics"
+    },
+    {
+      "name": "Biology"
+    },
+    {
+      "name": "Computer",
+      "description": "Science"
+    },
+    {
+      "name": "Chemistry"
+    },
+    {
+      "name": "Machine",
+      "description": "Learning"
+    },
+    {
+      "name": "Artificial",
+      "description": "Intelligence"
+    },
+    {
+      "name": "Human-Computer",
+      "description": "Interaction"
+    },
+    {
+      "name": "Graduate",
+      "description": "School"
+    },
+    {
+      "name": "Master's"
+    },
+    {
+      "name": "PhD"
     },
     {
       "name": "Daum",
       "description": "다음 포털 사이트"
     },
     {
+      "name": "다음",
+      "description": "블로그"
+    },
+    {
+      "name": "블로그",
+      "description": "작성"
+    },
+    {
+      "name": "Blog",
+      "description": "Writing"
+    },
+    {
+      "name": "카페",
+      "description": "멤버"
+    },
+    {
+      "name": "포스트",
+      "description": "작성"
+    },
+    {
+      "name": "Cafe",
+      "description": "Members"
+    },
+    {
+      "name": "Post",
+      "description": "Writing"
+    },
+    {
       "name": "Naver",
       "description": "네이버 포털 사이트"
+    },
+    {
+      "name": "네이버",
+      "description": "카페"
     },
     {
       "name": "Youtube",
       "description": "유튜브"
     },
     {
+      "name": "유튜브",
+      "description": "채널"
+    },
+    {
+      "name": "동영상",
+      "description": "검색"
+    },
+    {
+      "name": "숏폼"
+    },
+    {
+      "name": "춋츠"
+    },
+    {
+      "name": "밈"
+    },
+    {
+      "name": "구독"
+    },
+    {
+      "name": "좋아요"
+    },
+    {
+      "name": "댓글"
+    },
+    {
+      "name": "라이브",
+      "description": "방송"
+    },
+    {
+      "name": "재생",
+      "description": "목록"
+    },
+    {
+      "name": "시청자",
+      "description": "통계"
+    },
+    {
+      "name": "구독자"
+    },
+    {
+      "name": "알림",
+      "description": "설정"
+    },
+    {
+      "name": "커뮤니티",
+      "description": "게시판"
+    },
+    {
+      "name": "콘텐츠",
+      "description": "제작"
+    },
+    {
+      "name": "저작권",
+      "description": "관리"
+    },
+    {
+      "name": "조회수",
+      "description": "분석"
+    },
+    {
+      "name": "채널",
+      "description": "홍보"
+    },
+    {
+      "name": "썸네일"
+    },
+    {
+      "name": "인급동"
+    },
+    {
+      "name": "인기",
+      "description": "급상승 동영상"
+    },
+    {
+      "name": "YouTube",
+      "description": "Channel"
+    },
+    {
+      "name": "Video",
+      "description": "Search"
+    },
+    {
+      "name": "Short-form",
+      "description": "Video"
+    },
+    {
+      "name": "Shorts"
+    },
+    {
+      "name": "Memes"
+    },
+    {
+      "name": "Upload",
+      "description": "Video"
+    },
+    {
+      "name": "Subscribe"
+    },
+    {
+      "name": "Like"
+    },
+    {
+      "name": "Comment"
+    },
+    {
+      "name": "Live",
+      "description": "Stream"
+    },
+    {
+      "name": "Playlist"
+    },
+    {
+      "name": "Viewer",
+      "description": "Statistics"
+    },
+    {
+      "name": "Share",
+      "description": "Video"
+    },
+    {
+      "name": "Subscriber"
+    },
+    {
+      "name": "Notification",
+      "description": "Settings"
+    },
+    {
+      "name": "Community",
+      "description": "Tab"
+    },
+    {
+      "name": "Content",
+      "description": "Creation"
+    },
+    {
+      "name": "Copyright",
+      "description": "Management"
+    },
+    {
+      "name": "Views"
+    },
+    {
+      "name": "Promote",
+      "description": "Channel"
+    },
+    {
+      "name": "View",
+      "description": "Analysis"
+    },
+    {
+      "name": "Channel",
+      "description": "Art"
+    },
+    {
+      "name": "Thumbnail"
+    },
+    {
+      "name": "Trending",
+      "description": "Videos"
+    },
+    {
+      "name": "Google-Scholar"
+    },
+    {
+      "name": "구글",
+      "description": "스칼라"
+    },
+    {
       "name": "Google",
-      "description": "Scholar 학술자료 사이트"
+      "description": "Scholar"
     },
     {
       "name": "CSV",
       "description": "텍스트 파일 형식"
     },
     {
+      "name": "파일",
+      "description": "분할"
+    },
+    {
+      "name": "내보내기"
+    },
+    {
+      "name": "다운로드"
+    },
+    {
+      "name": "추출"
+    },
+    {
+      "name": "추출하기"
+    },
+    {
+      "name": "스프레드시트"
+    },
+    {
+      "name": "데이터",
+      "description": "저장"
+    },
+    {
+      "name": "엑셀",
+      "description": "변환"
+    },
+    {
+      "name": "텍스트",
+      "description": "파일"
+    },
+    {
+      "name": "대량",
+      "description": "데이터"
+    },
+    {
+      "name": "File",
+      "description": "Conversion"
+    },
+    {
+      "name": "Export",
+      "description": "Data"
+    },
+    {
+      "name": "Extract",
+      "description": "Data"
+    },
+    {
+      "name": "Spreadsheet"
+    },
+    {
+      "name": "Save",
+      "description": "Data"
+    },
+    {
+      "name": "Load",
+      "description": "Data"
+    },
+    {
+      "name": "Data",
+      "description": "Analysis"
+    },
+    {
+      "name": "Database"
+    },
+    {
+      "name": "Import",
+      "description": "Data"
+    },
+    {
+      "name": "Convert",
+      "description": "to Excel"
+    },
+    {
+      "name": "Text",
+      "description": "File"
+    },
+    {
+      "name": "Large",
+      "description": "Data"
+    },
+    {
+      "name": "Edit",
+      "description": "Data"
+    },
+    {
+      "name": "Split",
+      "description": "File"
+    },
+    {
+      "name": "Integrate",
+      "description": "Data"
+    },
+    {
+      "name": "Create",
+      "description": "CSV"
+    },
+    {
+      "name": "Open",
+      "description": "CSV File"
+    },
+    {
+      "name": "Filter",
+      "description": "Data"
+    },
+    {
+      "name": "Merge",
+      "description": "Data"
+    },
+    {
       "name": "Notion"
+    },
+    {
+      "name": "노션"
+    },
+    {
+      "name": "노트"
+    },
+    {
+      "name": "메모"
+    },
+    {
+      "name": "작업",
+      "description": "관리"
+    },
+    {
+      "name": "프로젝트",
+      "description": "관리"
+    },
+    {
+      "name": "할",
+      "description": "일 목록"
+    },
+    {
+      "name": "일정",
+      "description": "관리"
+    },
+    {
+      "name": "문서",
+      "description": "작성"
+    },
+    {
+      "name": "회의록",
+      "description": "작성"
+    },
+    {
+      "name": "체크리스트"
+    },
+    {
+      "name": "아이디어",
+      "description": "정리"
+    },
+    {
+      "name": "업무",
+      "description": "기록"
+    },
+    {
+      "name": "학습",
+      "description": "노트"
+    },
+    {
+      "name": "스터디",
+      "description": "플래너"
+    },
+    {
+      "name": "제품기획"
+    },
+    {
+      "name": "이력서"
+    },
+    {
+      "name": "포트폴리오"
+    },
+    {
+      "name": "협업"
+    },
+    {
+      "name": "Note"
+    },
+    {
+      "name": "Memo"
+    },
+    {
+      "name": "Task",
+      "description": "Management"
+    },
+    {
+      "name": "Project",
+      "description": "Management"
+    },
+    {
+      "name": "To",
+      "description": "do list"
+    },
+    {
+      "name": "Schedule",
+      "description": "Management"
+    },
+    {
+      "name": "Document",
+      "description": "Creation"
+    },
+    {
+      "name": "Meeting",
+      "description": "Notes"
+    },
+    {
+      "name": "Checklist"
+    },
+    {
+      "name": "Idea",
+      "description": "Organization"
+    },
+    {
+      "name": "Work",
+      "description": "Logging"
+    },
+    {
+      "name": "Study",
+      "description": "Notes"
+    },
+    {
+      "name": "Product",
+      "description": "Management"
+    },
+    {
+      "name": "Resume"
+    },
+    {
+      "name": "Portfolio"
+    },
+    {
+      "name": "Collaboration"
     },
     {
       "name": "Llm",
@@ -29668,11 +32711,501 @@
       "description": "한글 워드 프로세서"
     },
     {
+      "name": "한글",
+      "description": "문서"
+    },
+    {
+      "name": "한글과",
+      "description": "컴퓨터"
+    },
+    {
+      "name": "한컴오피스"
+    },
+    {
+      "name": "hwp"
+    },
+    {
+      "name": "표",
+      "description": "삽입"
+    },
+    {
+      "name": "차트",
+      "description": "생성"
+    },
+    {
+      "name": "이미지",
+      "description": "삽입"
+    },
+    {
+      "name": "페이지",
+      "description": "설정"
+    },
+    {
+      "name": "글꼴",
+      "description": "변경"
+    },
+    {
+      "name": "글자",
+      "description": "크기 조정"
+    },
+    {
+      "name": "PDF",
+      "description": "변환"
+    },
+    {
+      "name": "서식",
+      "description": "생성"
+    },
+    {
+      "name": "보고서",
+      "description": "작성"
+    },
+    {
+      "name": "서류",
+      "description": "작성"
+    },
+    {
+      "name": "가정통신문"
+    },
+    {
+      "name": "학교",
+      "description": "문서"
+    },
+    {
+      "name": "공무원",
+      "description": "문서"
+    },
+    {
+      "name": "Hancom",
+      "description": "Office Hangul"
+    },
+    {
+      "name": "Hangul"
+    },
+    {
+      "name": "HWP",
+      "description": "Document"
+    },
+    {
+      "name": "Insert",
+      "description": "Table"
+    },
+    {
+      "name": "Page",
+      "description": "Setup"
+    },
+    {
+      "name": "Change",
+      "description": "Font"
+    },
+    {
+      "name": "Adjust",
+      "description": "Font Size"
+    },
+    {
+      "name": "Enter",
+      "description": "Text"
+    },
+    {
+      "name": "Parent",
+      "description": "Letter"
+    },
+    {
+      "name": "School",
+      "description": "Document"
+    },
+    {
+      "name": "Government",
+      "description": "Document"
+    },
+    {
       "name": "Excel",
       "description": "엑셀 파일"
     },
     {
+      "name": "Google-Docs"
+    },
+    {
+      "name": "실시간",
+      "description": "협업"
+    },
+    {
+      "name": "클라우드",
+      "description": "문서"
+    },
+    {
+      "name": "워드파일",
+      "description": "열기"
+    },
+    {
+      "name": "PDF로",
+      "description": "저장"
+    },
+    {
+      "name": "Real-time",
+      "description": "Collaboration"
+    },
+    {
+      "name": "Cloud",
+      "description": "Document"
+    },
+    {
+      "name": "Print",
+      "description": "Document"
+    },
+    {
+      "name": "Search",
+      "description": "in Document"
+    },
+    {
+      "name": "Google-Sheet"
+    },
+    {
+      "name": "스프레드",
+      "description": "시트"
+    },
+    {
+      "name": "함수",
+      "description": "생성"
+    },
+    {
+      "name": "셀",
+      "description": "서식"
+    },
+    {
+      "name": "피벗",
+      "description": "테이블"
+    },
+    {
+      "name": "조건부",
+      "description": "서식"
+    },
+    {
+      "name": "매크로"
+    },
+    {
+      "name": "자동화",
+      "description": "스크립트"
+    },
+    {
+      "name": "시트",
+      "description": "복제"
+    },
+    {
+      "name": "Analyze",
+      "description": "Data"
+    },
+    {
+      "name": "Cell",
+      "description": "Format"
+    },
+    {
+      "name": "Pivot",
+      "description": "Table"
+    },
+    {
+      "name": "Visualize",
+      "description": "Data"
+    },
+    {
+      "name": "Conditional",
+      "description": "Formatting"
+    },
+    {
+      "name": "Clean",
+      "description": "Data"
+    },
+    {
+      "name": "Calculate",
+      "description": "Statistics"
+    },
+    {
+      "name": "Macro"
+    },
+    {
+      "name": "Automation",
+      "description": "Script"
+    },
+    {
+      "name": "Duplicate",
+      "description": "Sheet"
+    },
+    {
+      "name": "Delete",
+      "description": "Sheet"
+    },
+    {
+      "name": "Rename",
+      "description": "Sheet"
+    },
+    {
+      "name": "Lock",
+      "description": "Sheet"
+    },
+    {
+      "name": "Add",
+      "description": "Data"
+    },
+    {
+      "name": "Manage",
+      "description": "Data"
+    },
+    {
+      "name": "Google-Calendar"
+    },
+    {
+      "name": "캘린더",
+      "description": "공유"
+    },
+    {
+      "name": "회의",
+      "description": "추가"
+    },
+    {
+      "name": "약속",
+      "description": "추가"
+    },
+    {
+      "name": "시간",
+      "description": "관리"
+    },
+    {
+      "name": "달력"
+    },
+    {
+      "name": "스케줄",
+      "description": "관리"
+    },
+    {
+      "name": "반복",
+      "description": "일정"
+    },
+    {
+      "name": "시간표"
+    },
+    {
+      "name": "스케줄러"
+    },
+    {
+      "name": "이번",
+      "description": "주 일정"
+    },
+    {
+      "name": "월간",
+      "description": "일정"
+    },
+    {
+      "name": "개인",
+      "description": "일정"
+    },
+    {
+      "name": "팀",
+      "description": "일정"
+    },
+    {
+      "name": "휴가",
+      "description": "일정"
+    },
+    {
+      "name": "Calendar"
+    },
+    {
+      "name": "Event",
+      "description": "Reminder"
+    },
+    {
+      "name": "Time",
+      "description": "Management"
+    },
+    {
+      "name": "Recurring",
+      "description": "Event"
+    },
+    {
+      "name": "Sync",
+      "description": "Calendar"
+    },
+    {
+      "name": "Invite",
+      "description": "to Event"
+    },
+    {
+      "name": "Timetable"
+    },
+    {
+      "name": "Scheduler"
+    },
+    {
+      "name": "This",
+      "description": "Week's Schedule"
+    },
+    {
+      "name": "Next",
+      "description": "Week's Schedule"
+    },
+    {
+      "name": "Monthly",
+      "description": "Schedule"
+    },
+    {
+      "name": "Personal",
+      "description": "Schedule"
+    },
+    {
+      "name": "Team",
+      "description": "Schedule"
+    },
+    {
+      "name": "Vacation",
+      "description": "Schedule"
+    },
+    {
+      "name": "Google-Drive"
+    },
+    {
+      "name": "드라이브"
+    },
+    {
+      "name": "저장"
+    },
+    {
+      "name": "파일명",
+      "description": "수정"
+    },
+    {
+      "name": "폴더",
+      "description": "추가"
+    },
+    {
+      "name": "폴더명",
+      "description": "수정"
+    },
+    {
+      "name": "사진",
+      "description": "저장"
+    },
+    {
+      "name": "자료",
+      "description": "공유"
+    },
+    {
+      "name": "설문",
+      "description": "응답"
+    },
+    {
+      "name": "Drive"
+    },
+    {
+      "name": "Update",
+      "description": "File"
+    },
+    {
+      "name": "Collaborate",
+      "description": "on Document"
+    },
+    {
+      "name": "Set",
+      "description": "File Permissions"
+    },
+    {
+      "name": "Encrypt",
+      "description": "File"
+    },
+    {
+      "name": "Move",
+      "description": "File"
+    },
+    {
+      "name": "Resources"
+    },
+    {
+      "name": "Survey",
+      "description": "Responses"
+    },
+    {
       "name": "Gmail"
+    },
+    {
+      "name": "지메일"
+    },
+    {
+      "name": "이메일",
+      "description": "보내기"
+    },
+    {
+      "name": "메일",
+      "description": "관리"
+    },
+    {
+      "name": "스팸",
+      "description": "메일 관리"
+    },
+    {
+      "name": "첨부파일"
+    },
+    {
+      "name": "필터",
+      "description": "설정"
+    },
+    {
+      "name": "자동",
+      "description": "회신"
+    },
+    {
+      "name": "답장"
+    },
+    {
+      "name": "중요",
+      "description": "표시"
+    },
+    {
+      "name": "메일함",
+      "description": "용량"
+    },
+    {
+      "name": "비즈니스",
+      "description": "이메일"
+    },
+    {
+      "name": "Email",
+      "description": "Notification"
+    },
+    {
+      "name": "Mail"
+    },
+    {
+      "name": "Send",
+      "description": "Email"
+    },
+    {
+      "name": "Check",
+      "description": "Email"
+    },
+    {
+      "name": "Attachment"
+    },
+    {
+      "name": "Auto",
+      "description": "Reply"
+    },
+    {
+      "name": "Reply"
+    },
+    {
+      "name": "Archive",
+      "description": "Email"
+    },
+    {
+      "name": "Mark",
+      "description": "as Important"
+    },
+    {
+      "name": "Mailbox",
+      "description": "Storage"
+    },
+    {
+      "name": "Business",
+      "description": "Email"
     },
     {
       "name": "Tool"
