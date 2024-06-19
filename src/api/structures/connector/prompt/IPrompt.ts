@@ -8,12 +8,13 @@ export namespace IPrompt {
     /**
      * @title 유저 요청 사항
      */
-    user_request: string & Placeholder<"">;
+    user_request: string &
+      Placeholder<"제품 이름과 제품 특징을 참고해서 광고 문구를 기발하고 유머러스하게 만들어주세요.">;
 
     /**
      * @title 시스템 프롬프트
      */
-    system_prompt?: string & Placeholder<"">;
+    system_prompt?: string & Placeholder<"친절한 어투로 말해주세요.">;
   }
 
   export interface IResponse {
