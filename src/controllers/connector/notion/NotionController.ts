@@ -19,6 +19,44 @@ export class NotionController {
    * @returns 생성된 페이지 고유 id
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -38,6 +76,44 @@ export class NotionController {
    * @returns 페이지 정보들
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -57,6 +133,44 @@ export class NotionController {
    * @returns 유저 정보들
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -78,6 +192,44 @@ export class NotionController {
    * @returns void
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -98,6 +250,44 @@ export class NotionController {
    * @returns 데이터베이스 정보 목록
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -119,6 +309,44 @@ export class NotionController {
    * @returns 데이터베이스 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -143,6 +371,44 @@ export class NotionController {
    * @returns 생성된 데이터베이스 아이템 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -167,6 +433,44 @@ export class NotionController {
    * @returns 수정된 데이터베이스 아이템 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -189,6 +493,44 @@ export class NotionController {
    * @returns 검색된 페이지 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -210,6 +552,44 @@ export class NotionController {
    * @returns 조회된 데이터베이스 아이템 목록 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
@@ -234,6 +614,44 @@ export class NotionController {
    * @returns 조회된 데이터베이스 아이템 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",

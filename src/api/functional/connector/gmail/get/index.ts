@@ -19,6 +19,57 @@ import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
  * @param id 해당 메일의 고유 ID.
  * @returns 해당 메일의 정보.
  * @tag Gmail
+ * @tag 지메일
+ * @tag 이메일
+ * @tag 메일
+ * @tag 이메일 보내기
+ * @tag 이메일 확인
+ * @tag 메일 관리
+ * @tag 스팸 메일 관리
+ * @tag 이메일 검색
+ * @tag 첨부파일
+ * @tag 필터 설정
+ * @tag 이메일 관리
+ * @tag 이메일 알림
+ * @tag 자동 회신
+ * @tag 답장
+ * @tag 이메일 아카이브
+ * @tag 이메일 스레드
+ * @tag 중요 표시
+ * @tag 이메일 삭제
+ * @tag 구글 메일
+ * @tag 이메일 주소
+ * @tag 메일함 용량
+ * @tag 메일 전송 예약
+ * @tag 메일 읽음 확인
+ * @tag 중요 메일 표시
+ * @tag 일정 예약
+ * @tag 비즈니스 이메일
+ * @tag Email
+ * @tag Mail
+ * @tag Send Email
+ * @tag Check Email
+ * @tag Manage Mail
+ * @tag Manage Spam Mail
+ * @tag Search Email
+ * @tag Attachment
+ * @tag Set Filter
+ * @tag Manage Email
+ * @tag Email Notification
+ * @tag Auto Reply
+ * @tag Reply
+ * @tag Archive Email
+ * @tag Email Thread
+ * @tag Mark as Important
+ * @tag Delete Email
+ * @tag Google Mail
+ * @tag Email Address
+ * @tag Mailbox Storage
+ * @tag Schedule Email Sending
+ * @tag Email Read Receipt
+ * @tag Mark Important Emails
+ * @tag Schedule Appointments
+ * @tag Business Email
  *
  * @controller GmailController.findEmail
  * @path POST /connector/gmail/get/:id
