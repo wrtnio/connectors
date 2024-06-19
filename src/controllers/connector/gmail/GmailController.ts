@@ -1,6 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Standalone } from "@wrtn/decorators";
+import { RouteIcon } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
@@ -22,6 +23,9 @@ export class GmailController {
    * @tag Gmail
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("send")
   async send(
     @core.TypedBody() input: IGmail.ICreateMailInput,
@@ -39,6 +43,9 @@ export class GmailController {
    * @tag Gmail
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
     return this.gmailProvider.createDraft(input);
@@ -53,6 +60,9 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("reply")
   async reply(@core.TypedBody() input: IGmail.IReplyInput): Promise<void> {
     return this.gmailProvider.reply(input);
@@ -69,6 +79,9 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("get/:id")
   async findEmail(
     @core.TypedParam("id") id: string,
@@ -90,6 +103,9 @@ export class GmailController {
    * @tag Gmail
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("read-list")
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
@@ -106,6 +122,9 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Delete(":id")
   async removeMail(
     @core.TypedParam("id") id: string,
@@ -127,6 +146,9 @@ export class GmailController {
    * @tag Gmail
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("label")
   async createLabel(
     @core.TypedBody() input: IGmail.ILabelInput,
@@ -145,6 +167,9 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
     @core.TypedParam("mailId") mailId: string,
@@ -164,6 +189,9 @@ export class GmailController {
    *
    * @tag Gmail
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+  )
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(
     @core.TypedParam("mailId") mailId: string,
