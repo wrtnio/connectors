@@ -98,6 +98,7 @@ export namespace KakaoTalkProvider {
   export async function memo(
     input: IKakaoTalk.ISendKakaoTalkInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
+    delete input.template_object.buttons;
     try {
       const res = await axios.post(
         "https://kapi.kakao.com/v2/api/talk/memo/default/send",
