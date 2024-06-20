@@ -27,8 +27,8 @@ export const test_api_kakao_talk_text_memo = async (
         object_type: "text",
         text: "텍스트 영역입니다. 최대 200자 표시 가능합니다.",
         link: {
-          web_url: "https://developers.kakao.com",
-          mobile_web_url: "https://developers.kakao.com",
+          web_url: "https://studio-pro.wrtn.ai",
+          mobile_web_url: "https://studio-pro.wrtn.ai",
         },
       },
     },
@@ -66,8 +66,8 @@ export const test_api_kakao_talk_feed_memo = async (
           image_width: 640,
           image_height: 640,
           link: {
-            web_url: "http://www.daum.net",
-            mobile_web_url: "http://m.daum.net",
+            web_url: "https://studio-pro.wrtn.ai",
+            mobile_web_url: "https://studio-pro.wrtn.ai",
             android_execution_params: "contentId=100",
             ios_execution_params: "contentId=100",
           },
@@ -116,8 +116,8 @@ export const test_api_kakao_talk_feed_memo = async (
           {
             title: "웹으로 이동",
             link: {
-              web_url: "http://www.daum.net",
-              mobile_web_url: "http://m.daum.net",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
             },
           },
           {
@@ -257,15 +257,15 @@ export const test_api_kakao_talk_create_event = async (
 //           image_url:
 //             "https://developers.kakao.com/static/images/pc/txt_visual1.png",
 //           link: {
-//             web_url: "https://kakao.com",
+//             web_url: "https://studio-pro.wrtn.ai",
 //           },
 //         },
 //         buttons: [
 //           {
 //             title: "일정 정보 보기",
 //             link: {
-//               web_url: "https://developers.kakao.com",
-//               mobile_web_url: "https://developers.kakao.com/mobile",
+//               web_url: "https://studio-pro.wrtn.ai",
+//               mobile_web_url: "https://studio-pro.wrtn.ai",
 //             },
 //           },
 //         ],
@@ -301,8 +301,8 @@ export const test_api_kakao_talk_list_memo = async (
         object_type: "list",
         header_title: "WEEKELY MAGAZINE",
         header_link: {
-          web_url: "http://www.daum.net",
-          mobile_web_url: "http://m.daum.net",
+          web_url: "https://studio-pro.wrtn.ai",
+          mobile_web_url: "https://studio-pro.wrtn.ai",
           android_execution_params: "main",
           ios_execution_params: "main",
         },
@@ -315,8 +315,8 @@ export const test_api_kakao_talk_list_memo = async (
             image_width: 640,
             image_height: 640,
             link: {
-              web_url: "http://www.daum.net/contents/1",
-              mobile_web_url: "http://m.daum.net/contents/1",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
               android_execution_params: "/contents/1",
               ios_execution_params: "/contents/1",
             },
@@ -329,8 +329,8 @@ export const test_api_kakao_talk_list_memo = async (
             image_width: 640,
             image_height: 640,
             link: {
-              web_url: "http://www.daum.net/contents/2",
-              mobile_web_url: "http://m.daum.net/contents/2",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
               android_execution_params: "/contents/2",
               ios_execution_params: "/contents/2",
             },
@@ -343,8 +343,8 @@ export const test_api_kakao_talk_list_memo = async (
             image_width: 640,
             image_height: 640,
             link: {
-              web_url: "http://www.daum.net/contents/3",
-              mobile_web_url: "http://m.daum.net/contents/3",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
               android_execution_params: "/contents/3",
               ios_execution_params: "/contents/3",
             },
@@ -354,8 +354,8 @@ export const test_api_kakao_talk_list_memo = async (
           {
             title: "웹으로 이동",
             link: {
-              web_url: "http://www.daum.net",
-              mobile_web_url: "http://m.daum.net",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
             },
           },
           {
@@ -402,8 +402,8 @@ export const test_api_kakao_talk_location_memo = async (
           image_width: 800,
           image_height: 800,
           link: {
-            web_url: "https://developers.kakao.com",
-            mobile_web_url: "https://developers.kakao.com/mobile",
+            web_url: "https://studio-pro.wrtn.ai",
+            mobile_web_url: "https://studio-pro.wrtn.ai",
             android_execution_params: "platform=android",
             ios_execution_params: "platform=ios",
           },
@@ -412,8 +412,8 @@ export const test_api_kakao_talk_location_memo = async (
           {
             title: "웹으로 보기",
             link: {
-              web_url: "https://developers.kakao.com",
-              mobile_web_url: "https://developers.kakao.com/mobile",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
             },
           },
         ],
@@ -454,8 +454,8 @@ export const test_api_kakao_talk_commerce_memo = async (
           image_width: 640,
           image_height: 640,
           link: {
-            web_url: "https://style.kakao.com/main/women/contentId=100",
-            mobile_web_url: "https://style.kakao.com/main/women/contentId=100",
+            web_url: "https://studio-pro.wrtn.ai",
+            mobile_web_url: "https://studio-pro.wrtn.ai",
             android_execution_params: "contentId=100",
             ios_execution_params: "contentId=100",
           },
@@ -469,9 +469,8 @@ export const test_api_kakao_talk_commerce_memo = async (
           {
             title: "구매하기",
             link: {
-              web_url: "https://style.kakao.com/main/women/contentId=100/buy",
-              mobile_web_url:
-                "https://style.kakao.com/main/women/contentId=100/buy",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
               android_execution_params: "contentId=100&buy=true",
               ios_execution_params: "contentId=100&buy=true",
             },
@@ -479,9 +478,8 @@ export const test_api_kakao_talk_commerce_memo = async (
           {
             title: "공유하기",
             link: {
-              web_url: "https://style.kakao.com/main/women/contentId=100/share",
-              mobile_web_url:
-                "https://style.kakao.com/main/women/contentId=100/share",
+              web_url: "https://studio-pro.wrtn.ai",
+              mobile_web_url: "https://studio-pro.wrtn.ai",
               android_execution_params: "contentId=100&share=true",
               ios_execution_params: "contentId=100&share=true",
             },
