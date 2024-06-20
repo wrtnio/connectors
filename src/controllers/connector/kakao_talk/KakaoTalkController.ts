@@ -9,6 +9,13 @@ import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/Kakao
 
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
+  @core.TypedRoute.Post("message")
+  async send(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return null!;
+  }
+
   /**
    * 카카오톡 내게 쓰기로 메시지를 보냅니다.
    *
