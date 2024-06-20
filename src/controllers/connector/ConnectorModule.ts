@@ -15,6 +15,7 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
+import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HwpModule } from "./hwp/HwpModule";
 import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
@@ -60,6 +61,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     KakaoTalkModule,
+    GoogleSlidesModule,
     ImwebModule,
     PromptModule,
   ],
