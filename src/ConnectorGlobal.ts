@@ -38,6 +38,9 @@ export namespace ConnectorGlobal {
     // OPENAI
     OPENAI_API_KEY: string;
 
+    // OPEN_DATA
+    OPEN_DATA_KOREA_METEOROLOGICAL_ADMINISTRATION: string;
+
     // SERP
     SERP_API_KEY: string;
 

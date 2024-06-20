@@ -40,6 +40,7 @@ export * as sweet_tacker from "./sweet_tacker";
 export * as kakao_talk from "./kakao_talk";
 export * as google_slides from "./google_slides";
 export * as imweb from "./imweb";
+export * as open_data from "./open_data";
 export * as prompt from "./prompt";
 
 /**

@@ -24,6 +24,7 @@ import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
 import { NotionController } from "./notion/NotionController";
+import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
@@ -45,7 +46,6 @@ import { ZoomModule } from "./zoom/ZoomModule";
     AwsModule,
     RagModule,
     HwpModule,
-    HwpModule,
     ExcelModule,
     GoogleDocsModule,
     GoogleSheetModule,
@@ -63,6 +63,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     KakaoTalkModule,
     GoogleSlidesModule,
     ImwebModule,
+    OpenDataModule,
     PromptModule,
   ],
   controllers: [
