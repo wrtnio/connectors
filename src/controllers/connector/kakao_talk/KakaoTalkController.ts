@@ -61,6 +61,16 @@ export class KakaoTalkController {
     return KakaoTalkProvider.createEvent(input);
   }
 
+  /**
+   * 카카오톡 친구 목록을 조회합니다.
+   *
+   * @summary 카카오톡 친구 목록 조회
+   *
+   * @param input 친구 목록 조회 조건
+   * @returns 조회한 친구 모록
+   *
+   * @tag 카카오톡
+   */
   @Standalone()
   @core.TypedRoute.Post("get-firends")
   async getFriends(
