@@ -50,6 +50,28 @@ export namespace IKakaoTalk {
     refresh_token_expires_in: number;
   }
 
+  export interface IGetFriendsInput
+    extends ICommon.ISecret<"kakao", ["friends"]> {
+    limit?: number;
+    offset?: number;
+    order?: "asc" | "desc";
+    friend_order?: "favorite" | "nickname";
+  }
+
+  export interface IGetFriendsOutput {
+    elements: {
+      profile_nickname: string;
+      profile_thumbnail_image: string;
+      allowed_msg: boolean;
+      uuid: string;
+      favorite: boolean;
+    }[];
+
+    total_count: number;
+    after_url: string | null;
+    favorite_count: number;
+  }
+
   /**
    * @title 일정 조회 결과
    */
@@ -449,6 +471,9 @@ export namespace IKakaoTalk {
     android_execution_params: string;
   }
 
+  /**
+   * @title iOS 앱 링크
+   */
   export interface IiOSAppLink {
     /**
      * @title 앱 링크
@@ -457,6 +482,9 @@ export namespace IKakaoTalk {
     ios_execution_params: string;
   }
 
+  /**
+   * @title 메시지 전송 조건
+   */
   export interface ISendKakaoTalkInput
     extends ICommon.ISecret<
       "kakao",

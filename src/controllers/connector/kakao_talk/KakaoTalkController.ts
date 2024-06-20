@@ -61,6 +61,14 @@ export class KakaoTalkController {
     return KakaoTalkProvider.createEvent(input);
   }
 
+  @Standalone()
+  @core.TypedRoute.Post("get-firends")
+  async getFriends(
+    @TypedBody() input: IKakaoTalk.IGetFriendsInput,
+  ): Promise<IKakaoTalk.IGetFriendsOutput> {
+    return KakaoTalkProvider.getFriends(input);
+  }
+
   /**
    * 카카오톡 캘린더 일정을 조회합니다.
    *
