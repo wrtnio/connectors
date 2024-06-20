@@ -72,7 +72,7 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @core.TypedRoute.Post("get-firends")
+  @core.TypedRoute.Post("get-friends")
   async getFriends(
     @TypedBody() input: IKakaoTalk.IGetFriendsInput,
   ): Promise<IKakaoTalk.IGetFriendsOutput> {
