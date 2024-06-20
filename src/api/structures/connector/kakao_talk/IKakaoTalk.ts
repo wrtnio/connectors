@@ -61,22 +61,79 @@ export namespace IKakaoTalk {
      * @title 한 페이지 당 친구 수
      */
     limit?: number;
-    order?: "asc" | "desc";
-    friend_order?: "favorite" | "nickname";
+
+    /**
+     * @title 친구 목록 정렬 순서
+     */
+    order?:
+      | (
+          | tags.Constant<"asc", { title: "오름차순" }>
+          | tags.Constant<"desc", { title: "내림차순" }>
+        ) &
+          tags.Default<"asc">;
+
+    /**
+     * @title 친구 목록 정렬 시 기준
+     */
+    friend_order?:
+      | (
+          | tags.Constant<"favorite", { title: "즐겨찾기 우선 정렬" }>
+          | tags.Constant<"nickname", { title: "닉네임 우선 정렬" }>
+        ) &
+          tags.Default<"favorite">;
   }
 
   export interface IGetFriendsOutput {
-    elements: {
-      profile_nickname: string;
-      profile_thumbnail_image: string;
-      allowed_msg: boolean;
-      uuid: string;
-      favorite: boolean;
+    /**
+     * @title 친구 목록
+     */
+    elements?: {
+      /**
+       * @title 회원 번호
+       */
+      id: number & tags.Type<"int32">;
+
+      /**
+       * @title 친구 코드
+       * @description 카카오톡 메시지 전송 시 사용하는 친구 코드
+       */
+      uuid: string & tags.Format<"uuid">;
+
+      /**
+       * @title 해당 친구의 즐겨 찾기 여부
+       */
+      favorite?: boolean;
+
+      /**
+       * @title 닉네임
+       */
+      profile_nickname?: string;
+
+      /**
+       * @title 썸네일
+       */
+      profile_thumbnail_image?: string & tags.Format<"uri">;
     }[];
 
-    total_count: number;
-    after_url: string | null;
-    favorite_count: number;
+    /**
+     * @title 전체 친구 수
+     */
+    total_count: number & tags.Type<"int32">;
+
+    /**
+     * @title 친구 목록 다음 페이지 URL
+     */
+    after_url?: (string & tags.Format<"uri">) | null;
+
+    /**
+     * @title 친구 목록 이전 페이지 URL
+     */
+    before_url?: (string & tags.Format<"uri">) | null;
+
+    /**
+     * @title 즐겨찾기한 친구 수
+     */
+    favorite_count?: number & tags.Type<"int32">;
   }
 
   /**
