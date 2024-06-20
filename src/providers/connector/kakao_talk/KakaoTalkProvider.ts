@@ -138,11 +138,20 @@ export namespace KakaoTalkProvider {
         refresh_token: input.secretKey,
       });
 
+      const template: IKakaoTalk.ITextMemoInput = {
+        object_type: "text",
+        text: input.message,
+        link: {
+          mobile_web_url: "https://studio-pro.wrtn.ai",
+          web_url: "https://studio-pro.wrtn.ai",
+        },
+      };
+
       const res = await axios.post(
         "https://kapi.kakao.com/v1/api/talk/friends/message/default/send",
         {
           receiver_uuids: JSON.stringify(input.receiver_uuids),
-          template_object: JSON.stringify(input.template_object),
+          template_object: JSON.stringify(template),
         },
         {
           headers: {

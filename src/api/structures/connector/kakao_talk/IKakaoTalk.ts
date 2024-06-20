@@ -566,9 +566,9 @@ export namespace IKakaoTalk {
       tags.MaxItems<5>;
 
     /**
-     * @title 텍스트 메시지
+     * @title 전송할 메시지
      */
-    template_object: ITextMemoInput;
+    message: ITextMemoInput["text"];
   }
 
   /**
