@@ -547,6 +547,47 @@ export namespace IKakaoTalk {
   }
 
   /**
+   * @title 메세지 전송 조건
+   */
+  export interface ISendKakaoTalkToFriendsInput extends ISendKakaoTalkInput {
+    /**
+     * @title 친구의 uuid 값 목록
+     */
+    receiver_uuids: (string & tags.Format<"uuid">)[] & tags.MaxItems<5>;
+  }
+
+  /**
+   * @title 메시지 전송 결과
+   */
+  export interface ISendKakaoTalkToFriendsOutput {
+    /**
+     * @title 전송에 성공한 친구 uuid 목록
+     */
+    successful_receiver_uuids: (string & tags.Format<"uuid">)[] &
+      tags.MaxItems<5>;
+
+    /**
+     * @title 실패 정보
+     */
+    failure_info: {
+      /**
+       * @title 에러 코드
+       */
+      code: number;
+
+      /**
+       * @title 에러 메시지
+       */
+      msg: string;
+
+      /**
+       * @title 해당 에러 코드로 실패한 친구 uuid 목록
+       */
+      receiver_uuids: (string & tags.Format<"uuid">)[] & tags.MaxItems<5>;
+    };
+  }
+
+  /**
    * @title 메시지 전송 조건
    */
   export interface ISendKakaoTalkInput

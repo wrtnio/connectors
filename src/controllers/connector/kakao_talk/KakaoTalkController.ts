@@ -11,8 +11,8 @@ import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/Kakao
 export class KakaoTalkController {
   @core.TypedRoute.Post("message")
   async send(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkInput,
-  ): Promise<IKakaoTalk.IMemoOutput> {
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
+  ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
     return null!;
   }
 
