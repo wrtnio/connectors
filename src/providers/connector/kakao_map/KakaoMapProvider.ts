@@ -12,7 +12,7 @@ export namespace KakaoMapProvider {
     const url = `https://dapi.kakao.com/v2/local/search/keyword.JSON?${queryString}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `KakaoAK ${ConnectorGlobal.env.KAKAO_API_KEY}`,
+        Authorization: `KakaoAK ${ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID}`,
       },
     });
     return res.data;
