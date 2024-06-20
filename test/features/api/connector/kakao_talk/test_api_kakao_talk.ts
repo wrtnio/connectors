@@ -4,7 +4,7 @@ import CApi from "@wrtn/connector-api/lib/index";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_kakao_talk_text_memo = async (
+export const test_api_kakao_talk_refresh = async (
   connection: CApi.IConnection,
 ) => {
   /**
@@ -15,14 +15,18 @@ export const test_api_kakao_talk_text_memo = async (
   });
 
   typia.assertEquals(res);
+};
 
+export const test_api_kakao_talk_text_memo = async (
+  connection: CApi.IConnection,
+) => {
   /**
    * 텍스트 메시지 발송.
    */
   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
     {
-      secretKey: res.access_token,
+      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "text",
         text: "텍스트 영역입니다. 최대 200자 표시 가능합니다.",
@@ -55,7 +59,7 @@ export const test_api_kakao_talk_feed_memo = async (
   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
     {
-      secretKey: res.access_token,
+      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "feed",
         content: {
@@ -151,7 +155,7 @@ export const test_api_kakao_talk_get_calendars = async (
     await CApi.functional.connector.kakao_talk.get_calendars.getCalendars(
       connection,
       {
-        secretKey: res.access_token,
+        secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       },
     );
 
@@ -177,7 +181,7 @@ export const test_api_kakao_talk_get_calendar_events = async (
     await CApi.functional.connector.kakao_talk.get_events.getEvents(
       connection,
       {
-        secretKey: res.access_token,
+        secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
         from: "2024-01-01T12:00:00Z",
         to: "2024-01-31T12:00:00Z",
       },
@@ -214,7 +218,7 @@ export const test_api_kakao_talk_create_event = async (
           },
           title: "created_by_wrtn",
         },
-        secretKey: res.access_token,
+        secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       },
     );
 
@@ -248,7 +252,7 @@ export const test_api_kakao_talk_create_event = async (
 //   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
 //     connection,
 //     {
-//       secretKey: res.access_token,
+//       secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
 //       template_object: {
 //         object_type: "calendar",
 //         content: {
@@ -296,7 +300,7 @@ export const test_api_kakao_talk_list_memo = async (
   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
     {
-      secretKey: res.access_token,
+      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "list",
         header_title: "WEEKELY MAGAZINE",
@@ -391,7 +395,7 @@ export const test_api_kakao_talk_location_memo = async (
   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
     {
-      secretKey: res.access_token,
+      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "location",
         content: {
@@ -444,7 +448,7 @@ export const test_api_kakao_talk_commerce_memo = async (
   const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
     connection,
     {
-      secretKey: res.access_token,
+      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "commerce",
         content: {
