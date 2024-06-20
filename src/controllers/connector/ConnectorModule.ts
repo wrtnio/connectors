@@ -15,6 +15,7 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
+import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HwpModule } from "./hwp/HwpModule";
 import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
@@ -24,6 +25,7 @@ import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
 import { NotionController } from "./notion/NotionController";
 import { OpenDataModule } from "./open_data/OpenDataModule";
+import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
@@ -59,8 +61,10 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     KakaoTalkModule,
+    GoogleSlidesModule,
     ImwebModule,
     OpenDataModule,
+    PromptModule,
   ],
   controllers: [
     ArxivSearchController,

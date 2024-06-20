@@ -30,4 +30,26 @@ export class GoogleProvider {
 
     return accessToken;
   }
+
+  error(err: GoogleProvider.GoogleError) {
+    console.error(JSON.stringify(err));
+  }
+}
+
+export namespace GoogleProvider {
+  export interface GoogleError {
+    error: {
+      code: 400;
+      message: string;
+      status: string;
+      details: [
+        {
+          "@type": "type.googleapis.com/google.rpc.BadRequest";
+          fieldViolations: {
+            description: string;
+          }[];
+        },
+      ];
+    };
+  }
 }
