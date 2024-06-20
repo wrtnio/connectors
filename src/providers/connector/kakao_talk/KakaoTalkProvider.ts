@@ -130,6 +130,35 @@ export namespace KakaoTalkProvider {
     return res.data;
   }
 
+  export async function send(
+    input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
+  ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
+    try {
+      const accessToken = await KakaoTalkProvider.refresh({
+        refresh_token: input.secretKey,
+      });
+
+      const res = await axios.post(
+        "https://kapi.kakao.com/v1/api/talk/friends/message/default/send",
+        {
+          receiver_uuids: JSON.stringify(input.receiver_uuids),
+          template_object: JSON.stringify(input.template_object),
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `bearer ${accessToken.access_token}`,
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
   export async function memo(
     input: IKakaoTalk.ISendKakaoTalkInput,
   ): Promise<IKakaoTalk.IMemoOutput> {

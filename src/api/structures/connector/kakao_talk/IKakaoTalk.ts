@@ -1,7 +1,7 @@
-import { Placeholder } from "@wrtn/decorators";
-import { TaskListItemGpusInteger } from "aws-sdk/clients/omics";
+import { Placeholder, Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
+import CApi from "../../..";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
@@ -549,11 +549,26 @@ export namespace IKakaoTalk {
   /**
    * @title 메세지 전송 조건
    */
-  export interface ISendKakaoTalkToFriendsInput extends ISendKakaoTalkInput {
+  export interface ISendKakaoTalkToFriendsInput
+    extends ICommon.ISecret<"kakao", ["talk_message"]> {
     /**
      * @title 친구의 uuid 값 목록
      */
-    receiver_uuids: (string & tags.Format<"uuid">)[] & tags.MaxItems<5>;
+    receiver_uuids: (string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-talk/get-friends";
+        array: "return response.elements";
+        value: "return elem.uuid";
+        label: "return elem.profile_nickname";
+      }>)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
+
+    /**
+     * @title 텍스트 메시지
+     */
+    template_object: ITextMemoInput;
   }
 
   /**
@@ -563,28 +578,32 @@ export namespace IKakaoTalk {
     /**
      * @title 전송에 성공한 친구 uuid 목록
      */
-    successful_receiver_uuids: (string & tags.Format<"uuid">)[] &
-      tags.MaxItems<5>;
+    successful_receiver_uuids?: string[] & tags.MaxItems<5>;
 
     /**
      * @title 실패 정보
      */
-    failure_info: {
-      /**
-       * @title 에러 코드
-       */
-      code: number;
+    failure_info?: failureInfo;
+  }
 
-      /**
-       * @title 에러 메시지
-       */
-      msg: string;
+  /**
+   * @title 실패 정보
+   */
+  export interface failureInfo {
+    /**
+     * @title 에러 코드
+     */
+    code: number;
 
-      /**
-       * @title 해당 에러 코드로 실패한 친구 uuid 목록
-       */
-      receiver_uuids: (string & tags.Format<"uuid">)[] & tags.MaxItems<5>;
-    };
+    /**
+     * @title 에러 메시지
+     */
+    msg: string;
+
+    /**
+     * @title 해당 에러 코드로 실패한 친구 uuid 목록
+     */
+    receiver_uuids: string[] & tags.MaxItems<5>;
   }
 
   /**

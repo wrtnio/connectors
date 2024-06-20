@@ -13,7 +13,7 @@ export class KakaoTalkController {
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
   ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
-    return null!;
+    return KakaoTalkProvider.send(input);
   }
 
   /**
