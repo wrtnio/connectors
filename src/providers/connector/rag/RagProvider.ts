@@ -10,16 +10,48 @@ import { Response } from "express";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class RagProvider {
   private readonly ragServer = ConnectorGlobal.env.RAG_SERVER_URL;
   private readonly logger = new Logger("RagProvider");
-  constructor() {}
+  constructor(private readonly awsProvider: AwsProvider) {}
+
+  async transformInput(input: IRag.IAnalyzeInput): Promise<IRag.IAnalyzeInput> {
+    return {
+      fileUrls: await Promise.all(
+        input.fileUrls.map(async (fileUrl) => {
+          const matches = fileUrl.match(
+            /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
+          );
+
+          // return original object if not S3 url
+          if (!matches) {
+            return fileUrl;
+          }
+
+          const transformed = await Promise.all(
+            matches.map(async (match) =>
+              this.awsProvider.getGetObjectUrl(match),
+            ),
+          );
+
+          matches.forEach((match, index) => {
+            fileUrl = fileUrl.replace(match, transformed[index]);
+          });
+
+          return fileUrl;
+        }),
+      ),
+      fileType: input.fileType,
+    };
+  }
 
   async analyze(input: IRag.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
     const requestUrl = `${this.ragServer}/files/convert`;
-    const res = await axios.post(requestUrl, input, {
+
+    const res = await axios.post(requestUrl, await this.transformInput(input), {
       headers: {
         "Content-Type": "application/json",
       },
