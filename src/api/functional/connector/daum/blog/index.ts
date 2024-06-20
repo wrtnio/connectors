@@ -75,6 +75,7 @@ export async function searchBlog(
         },
         {
           ...searchBlog.METADATA,
+          template: searchBlog.METADATA.path,
           path: searchBlog.path(),
         },
         input,

@@ -175,6 +175,7 @@ export async function search(
         },
         {
           ...search.METADATA,
+          template: search.METADATA.path,
           path: search.path(),
         },
         input,

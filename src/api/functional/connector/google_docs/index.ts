@@ -98,6 +98,7 @@ export async function createDocs(
         },
         {
           ...createDocs.METADATA,
+          template: createDocs.METADATA.path,
           path: createDocs.path(),
         },
         input,
@@ -226,6 +227,7 @@ export async function permission(
         },
         {
           ...permission.METADATA,
+          template: permission.METADATA.path,
           path: permission.path(),
         },
         input,
@@ -353,6 +355,7 @@ export async function deleteById(
         },
         {
           ...deleteById.METADATA,
+          template: deleteById.METADATA.path,
           path: deleteById.path(id),
         },
         input,
@@ -489,6 +492,7 @@ export async function append(
         },
         {
           ...append.METADATA,
+          template: append.METADATA.path,
           path: append.path(),
         },
         input,

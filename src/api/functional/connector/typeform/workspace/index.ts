@@ -86,6 +86,7 @@ export async function createWorkspace(
         },
         {
           ...createWorkspace.METADATA,
+          template: createWorkspace.METADATA.path,
           path: createWorkspace.path(),
         },
         input,
@@ -199,6 +200,7 @@ export async function deleteWorkspace(
     ? deleteWorkspace.simulate(connection, workspaceId)
     : PlainFetcher.fetch(connection, {
         ...deleteWorkspace.METADATA,
+        template: deleteWorkspace.METADATA.path,
         path: deleteWorkspace.path(workspaceId),
       });
 }

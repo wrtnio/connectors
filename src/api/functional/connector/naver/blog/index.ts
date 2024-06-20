@@ -77,6 +77,7 @@ export async function blogList(
         },
         {
           ...blogList.METADATA,
+          template: blogList.METADATA.path,
           path: blogList.path(),
         },
         input,

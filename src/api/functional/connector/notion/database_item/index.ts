@@ -78,6 +78,7 @@ export async function createDatabaseItem(
         },
         {
           ...createDatabaseItem.METADATA,
+          template: createDatabaseItem.METADATA.path,
           path: createDatabaseItem.path(databaseId),
         },
         input,
@@ -195,6 +196,7 @@ export async function updateDatabaseItem(
         },
         {
           ...updateDatabaseItem.METADATA,
+          template: updateDatabaseItem.METADATA.path,
           path: updateDatabaseItem.path(databaseId),
         },
         input,

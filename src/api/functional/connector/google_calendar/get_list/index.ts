@@ -95,6 +95,7 @@ export async function readCalenders(
         },
         {
           ...readCalenders.METADATA,
+          template: readCalenders.METADATA.path,
           path: readCalenders.path(),
         },
         input,

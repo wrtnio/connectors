@@ -39,6 +39,7 @@ export async function generate(
         },
         {
           ...generate.METADATA,
+          template: generate.METADATA.path,
           path: generate.path(),
         },
         input,

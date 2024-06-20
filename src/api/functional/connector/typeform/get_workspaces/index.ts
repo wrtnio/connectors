@@ -75,6 +75,7 @@ export async function getWorkspaces(
     ? getWorkspaces.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...getWorkspaces.METADATA,
+        template: getWorkspaces.METADATA.path,
         path: getWorkspaces.path(),
       });
 }

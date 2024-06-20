@@ -123,6 +123,7 @@ export async function createFile(
         },
         {
           ...createFile.METADATA,
+          template: createFile.METADATA.path,
           path: createFile.path(),
         },
         input,
@@ -279,6 +280,7 @@ export async function deleteFile(
         },
         {
           ...deleteFile.METADATA,
+          template: deleteFile.METADATA.path,
           path: deleteFile.path(id),
         },
         input,

@@ -109,6 +109,7 @@ export async function getHeaders(
         },
         {
           ...getHeaders.METADATA,
+          template: getHeaders.METADATA.path,
           path: getHeaders.path(),
         },
         input,
@@ -249,6 +250,7 @@ export async function permission(
         },
         {
           ...permission.METADATA,
+          template: permission.METADATA.path,
           path: permission.path(),
         },
         input,

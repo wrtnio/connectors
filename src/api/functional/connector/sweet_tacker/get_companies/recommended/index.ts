@@ -39,6 +39,7 @@ export async function getRecommendedCompanyList(
         },
         {
           ...getRecommendedCompanyList.METADATA,
+          template: getRecommendedCompanyList.METADATA.path,
           path: getRecommendedCompanyList.path(),
         },
         input,

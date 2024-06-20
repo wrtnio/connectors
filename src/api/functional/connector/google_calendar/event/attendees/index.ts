@@ -99,6 +99,7 @@ export async function addAttendeesToEvent(
         },
         {
           ...addAttendeesToEvent.METADATA,
+          template: addAttendeesToEvent.METADATA.path,
           path: addAttendeesToEvent.path(calendarId, eventId),
         },
         input,

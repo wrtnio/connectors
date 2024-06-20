@@ -41,6 +41,7 @@ export async function analyze(
         },
         {
           ...analyze.METADATA,
+          template: analyze.METADATA.path,
           path: analyze.path(),
         },
         input,

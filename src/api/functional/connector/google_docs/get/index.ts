@@ -96,6 +96,7 @@ export async function readDocs(
         },
         {
           ...readDocs.METADATA,
+          template: readDocs.METADATA.path,
           path: readDocs.path(id),
         },
         input,

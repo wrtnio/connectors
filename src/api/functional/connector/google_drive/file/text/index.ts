@@ -121,6 +121,7 @@ export async function createText(
         },
         {
           ...createText.METADATA,
+          template: createText.METADATA.path,
           path: createText.path(id),
         },
         input,

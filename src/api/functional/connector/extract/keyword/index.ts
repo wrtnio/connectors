@@ -39,6 +39,7 @@ export async function extractKeyword(
         },
         {
           ...extractKeyword.METADATA,
+          template: extractKeyword.METADATA.path,
           path: extractKeyword.path(),
         },
         input,

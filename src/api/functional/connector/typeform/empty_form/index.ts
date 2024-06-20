@@ -86,6 +86,7 @@ export async function createEmptyForm(
         },
         {
           ...createEmptyForm.METADATA,
+          template: createEmptyForm.METADATA.path,
           path: createEmptyForm.path(),
         },
         input,

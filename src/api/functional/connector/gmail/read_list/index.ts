@@ -90,6 +90,7 @@ export async function findEmails(
         },
         {
           ...findEmails.METADATA,
+          template: findEmails.METADATA.path,
           path: findEmails.path(),
         },
         input,

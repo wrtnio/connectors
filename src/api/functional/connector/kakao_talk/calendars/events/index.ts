@@ -39,6 +39,7 @@ export async function createEvent(
         },
         {
           ...createEvent.METADATA,
+          template: createEvent.METADATA.path,
           path: createEvent.path(),
         },
         input,

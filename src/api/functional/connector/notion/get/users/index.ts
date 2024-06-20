@@ -76,6 +76,7 @@ export async function getUsers(
         },
         {
           ...getUsers.METADATA,
+          template: getUsers.METADATA.path,
           path: getUsers.path(),
         },
         input,

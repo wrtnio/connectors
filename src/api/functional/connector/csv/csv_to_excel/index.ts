@@ -86,6 +86,7 @@ export async function csvToExcel(
         },
         {
           ...csvToExcel.METADATA,
+          template: csvToExcel.METADATA.path,
           path: csvToExcel.path(),
         },
         input,

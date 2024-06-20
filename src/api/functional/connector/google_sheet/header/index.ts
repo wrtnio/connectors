@@ -104,6 +104,7 @@ export async function writeHeaders(
         },
         {
           ...writeHeaders.METADATA,
+          template: writeHeaders.METADATA.path,
           path: writeHeaders.path(),
         },
         input,

@@ -32,6 +32,7 @@ export async function getWorkflowRuns(
     ? getWorkflowRuns.simulate(connection, input)
     : PlainFetcher.fetch(connection, {
         ...getWorkflowRuns.METADATA,
+        template: getWorkflowRuns.METADATA.path,
         path: getWorkflowRuns.path(input),
       });
 }

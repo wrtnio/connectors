@@ -121,6 +121,7 @@ export async function createFolder(
         },
         {
           ...createFolder.METADATA,
+          template: createFolder.METADATA.path,
           path: createFolder.path(),
         },
         input,
@@ -277,6 +278,7 @@ export async function deleteFolder(
         },
         {
           ...deleteFolder.METADATA,
+          template: deleteFolder.METADATA.path,
           path: deleteFolder.path(id),
         },
         input,

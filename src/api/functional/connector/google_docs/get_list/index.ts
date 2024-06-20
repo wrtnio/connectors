@@ -93,6 +93,7 @@ export async function list(
         },
         {
           ...list.METADATA,
+          template: list.METADATA.path,
           path: list.path(),
         },
         input,

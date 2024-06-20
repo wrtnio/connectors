@@ -87,6 +87,7 @@ export async function insertRows(
         },
         {
           ...insertRows.METADATA,
+          template: insertRows.METADATA.path,
           path: insertRows.path(),
         },
         input,

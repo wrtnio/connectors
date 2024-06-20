@@ -98,6 +98,7 @@ export async function parseHwp(
         },
         {
           ...parseHwp.METADATA,
+          template: parseHwp.METADATA.path,
           path: parseHwp.path(),
         },
         input,

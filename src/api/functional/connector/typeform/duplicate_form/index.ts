@@ -86,6 +86,7 @@ export async function duplicateExistingForm(
         },
         {
           ...duplicateExistingForm.METADATA,
+          template: duplicateExistingForm.METADATA.path,
           path: duplicateExistingForm.path(),
         },
         input,

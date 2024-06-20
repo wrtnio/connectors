@@ -93,6 +93,7 @@ export async function createDocByTemplate(
         },
         {
           ...createDocByTemplate.METADATA,
+          template: createDocByTemplate.METADATA.path,
           path: createDocByTemplate.path(),
         },
         input,

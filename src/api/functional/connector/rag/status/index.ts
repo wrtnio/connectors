@@ -31,6 +31,7 @@ export async function getStatus(
     ? getStatus.simulate(connection, docId)
     : PlainFetcher.fetch(connection, {
         ...getStatus.METADATA,
+        template: getStatus.METADATA.path,
         path: getStatus.path(docId),
       });
 }

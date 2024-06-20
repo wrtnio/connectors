@@ -100,6 +100,7 @@ export async function createEvent(
         },
         {
           ...createEvent.METADATA,
+          template: createEvent.METADATA.path,
           path: createEvent.path(calendarId),
         },
         input,
@@ -238,6 +239,7 @@ export async function updateEvent(
         },
         {
           ...updateEvent.METADATA,
+          template: updateEvent.METADATA.path,
           path: updateEvent.path(calendarId, eventId),
         },
         input,
@@ -376,6 +378,7 @@ export async function deleteEvent(
         },
         {
           ...deleteEvent.METADATA,
+          template: deleteEvent.METADATA.path,
           path: deleteEvent.path(calendarId, eventId),
         },
         input,

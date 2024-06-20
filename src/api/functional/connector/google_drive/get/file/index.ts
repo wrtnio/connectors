@@ -122,6 +122,7 @@ export async function readFile(
         },
         {
           ...readFile.METADATA,
+          template: readFile.METADATA.path,
           path: readFile.path(id),
         },
         input,

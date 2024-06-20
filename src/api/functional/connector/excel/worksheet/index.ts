@@ -88,6 +88,7 @@ export async function worksheetList(
         },
         {
           ...worksheetList.METADATA,
+          template: worksheetList.METADATA.path,
           path: worksheetList.path(),
         },
         input,

@@ -71,6 +71,7 @@ export async function rank(
         },
         {
           ...rank.METADATA,
+          template: rank.METADATA.path,
           path: rank.path(),
         },
         input,

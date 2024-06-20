@@ -76,6 +76,7 @@ export async function getPageByTitle(
         },
         {
           ...getPageByTitle.METADATA,
+          template: getPageByTitle.METADATA.path,
           path: getPageByTitle.path(),
         },
         input,

@@ -105,6 +105,7 @@ export async function readRows(
         },
         {
           ...readRows.METADATA,
+          template: readRows.METADATA.path,
           path: readRows.path(),
         },
         input,

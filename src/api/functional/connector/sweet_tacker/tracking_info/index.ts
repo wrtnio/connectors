@@ -37,6 +37,7 @@ export async function getTrackingInfo(
         },
         {
           ...getTrackingInfo.METADATA,
+          template: getTrackingInfo.METADATA.path,
           path: getTrackingInfo.path(),
         },
         input,

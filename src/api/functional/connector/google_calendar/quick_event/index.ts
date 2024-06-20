@@ -96,6 +96,7 @@ export async function createQuickEvent(
         },
         {
           ...createQuickEvent.METADATA,
+          template: createQuickEvent.METADATA.path,
           path: createQuickEvent.path(calendarId),
         },
         input,

@@ -75,6 +75,7 @@ export async function getForms(
     ? getForms.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...getForms.METADATA,
+        template: getForms.METADATA.path,
         path: getForms.path(),
       });
 }

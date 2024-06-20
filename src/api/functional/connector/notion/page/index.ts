@@ -78,6 +78,7 @@ export async function createPage(
         },
         {
           ...createPage.METADATA,
+          template: createPage.METADATA.path,
           path: createPage.path(),
         },
         input,

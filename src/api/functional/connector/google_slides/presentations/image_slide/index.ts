@@ -33,6 +33,7 @@ export async function appendImageSlide(
         },
         {
           ...appendImageSlide.METADATA,
+          template: appendImageSlide.METADATA.path,
           path: appendImageSlide.path(presentationId),
         },
         input,

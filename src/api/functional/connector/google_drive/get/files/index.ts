@@ -119,6 +119,7 @@ export async function fileList(
         },
         {
           ...fileList.METADATA,
+          template: fileList.METADATA.path,
           path: fileList.path(),
         },
         input,
