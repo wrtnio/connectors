@@ -12,6 +12,7 @@ import typia from "typia";
 import type { IKakaoTalk } from "../../../structures/connector/kakao_talk/IKakaoTalk";
 
 export * as calendars from "./calendars";
+export * as get_firends from "./get_firends";
 export * as get_events from "./get_events";
 export * as get_calendars from "./get_calendars";
 export * as auth from "./auth";

@@ -52,8 +52,15 @@ export namespace IKakaoTalk {
 
   export interface IGetFriendsInput
     extends ICommon.ISecret<"kakao", ["friends"]> {
+    /**
+     * @title 친구 목록 시작 지점
+     */
+    offset?: number & tags.Type<"int32"> & tags.Default<0>;
+
+    /**
+     * @title 한 페이지 당 친구 수
+     */
     limit?: number;
-    offset?: number;
     order?: "asc" | "desc";
     friend_order?: "favorite" | "nickname";
   }
