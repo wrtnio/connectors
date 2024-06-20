@@ -12,12 +12,11 @@ import typia from "typia";
 import type { IPrompt } from "../../../structures/connector/prompt/IPrompt";
 
 /**
- * 프롬프트 입력을 받아 답변을 생성합니다.
+ * LLM에게 지시할 요청사항을 입력합니다.
  *
  * @summary 프롬프트 노드
  * @param input 유저의 프롬프트 입력
  * @returns 프롬프트를 통한 답변
- * @tag Prompt
  *
  * @controller PromptController.generate
  * @path POST /connector/prompt/generate
