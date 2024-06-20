@@ -11,6 +11,11 @@ export namespace KakaoTalkProvider {
   ): Promise<IKakaoTalk.ICreateEventOutput> {
     try {
       const { secretKey, ...createEventDto } = input;
+
+      const accessToken = await KakaoTalkProvider.refresh({
+        refresh_token: secretKey,
+      });
+
       const res = await axios.post(
         "https://kapi.kakao.com/v2/api/calendar/create/event",
         {
@@ -20,7 +25,7 @@ export namespace KakaoTalkProvider {
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `bearer ${secretKey}`,
+            Authorization: `bearer ${accessToken.access_token}`,
           },
         },
       );
@@ -41,12 +46,16 @@ export namespace KakaoTalkProvider {
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
 
+      const accessToken = await KakaoTalkProvider.refresh({
+        refresh_token: secretKey,
+      });
+
       const res = await axios.get(
         `https://kapi.kakao.com/v2/api/calendar/events?${queryParams}`,
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `bearer ${secretKey}`,
+            Authorization: `bearer ${accessToken.access_token}`,
           },
         },
       );
@@ -61,12 +70,16 @@ export namespace KakaoTalkProvider {
   export async function getCalendars(
     input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
   ): Promise<IKakaoTalk.IGetCalendarOutput> {
+    const accessToken = await KakaoTalkProvider.refresh({
+      refresh_token: input.secretKey,
+    });
+
     const res = await axios.get(
       "https://kapi.kakao.com/v2/api/calendar/calendars",
       {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `bearer ${input.secretKey}`,
+          Authorization: `bearer ${accessToken.access_token}`,
         },
       },
     );
@@ -98,8 +111,11 @@ export namespace KakaoTalkProvider {
   export async function memo(
     input: IKakaoTalk.ISendKakaoTalkInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    delete input.template_object.buttons;
     try {
+      const accessToken = await KakaoTalkProvider.refresh({
+        refresh_token: input.secretKey,
+      });
+
       const res = await axios.post(
         "https://kapi.kakao.com/v2/api/talk/memo/default/send",
         {
@@ -108,7 +124,7 @@ export namespace KakaoTalkProvider {
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `bearer ${input.secretKey}`,
+            Authorization: `bearer ${accessToken.access_token}`,
           },
         },
       );
