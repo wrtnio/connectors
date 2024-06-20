@@ -5554,6 +5554,38 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/open-data/getShortTermForecast": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "날씨 조회를 위한 위치 정보 DTO.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "해당 지역의 기상 정보.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "기상청 오늘 날씨 조회.",
+        "description": "오늘 날씨를 조회합니다.",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/prompt/generate": {
       "post": {
         "tags": [
@@ -36906,6 +36938,247 @@
       "ConstantSUCCESS__type": {
         "const": "SUCCESS",
         "title": "성공"
+      },
+      "IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
+        "type": "object",
+        "properties": {
+          "nx": {
+            "type": "number",
+            "title": "격자 좌표 값의 x 좌표."
+          },
+          "ny": {
+            "type": "number",
+            "title": "격자 좌표 값의 y 좌표."
+          }
+        },
+        "required": [
+          "nx",
+          "ny"
+        ]
+      },
+      "IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "baseDate": {
+                              "type": "string",
+                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                              "title": "`20240619`와 같은 년,월,일자가 합성된 날짜 값."
+                            },
+                            "baseTime": {
+                              "type": "string",
+                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                              "title": "`1200`와 같이 정각 시간을 나타내는 시간 값."
+                            },
+                            "category": {
+                              "$ref": "#/components/schemas/IOpenData.IKoreaMeteorologicalAdministration.CategoryType",
+                              "title": "카테고리."
+                            },
+                            "nx": {
+                              "type": "number",
+                              "title": "격자 좌표 값의 x 좌표."
+                            },
+                            "ny": {
+                              "type": "number",
+                              "title": "격자 좌표 값의 y 좌표."
+                            },
+                            "obsrValue": {
+                              "type": "string",
+                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                              "title": "카테고리에 해당하는 값."
+                            }
+                          },
+                          "required": [
+                            "baseDate",
+                            "baseTime",
+                            "category",
+                            "nx",
+                            "ny",
+                            "obsrValue"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "item"
+                    ]
+                  }
+                },
+                "required": [
+                  "items"
+                ]
+              }
+            },
+            "required": [
+              "body"
+            ]
+          }
+        },
+        "required": [
+          "response"
+        ]
+      },
+      "IOpenData.IKoreaMeteorologicalAdministration.CategoryType": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ConstantPOP__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPTY__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPCP__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantREH__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantSNO__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantSKY__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantTMP__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantTMN__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantTMX__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantUUU__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantVVV__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantWAV__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantVEC__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantWSD__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantT1H__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantRN1__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantVEC__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantT1H__type.o1"
+          }
+        ],
+        "title": "단기 예보에서 표현되는 코드 값."
+      },
+      "ConstantPOP__type": {
+        "const": "POP",
+        "title": "강수확률",
+        "description": "단위는 %"
+      },
+      "ConstantPTY__type": {
+        "const": "PTY",
+        "title": "강수형태",
+        "description": "코드 값"
+      },
+      "ConstantPCP__type": {
+        "const": "PCP",
+        "title": "1시간 강수량",
+        "description": "범주(1mm)"
+      },
+      "ConstantREH__type": {
+        "const": "REH",
+        "title": "습도",
+        "description": "단위는 %"
+      },
+      "ConstantSNO__type": {
+        "const": "SNO",
+        "title": "1시간 신적설",
+        "description": "범주(1cm)"
+      },
+      "ConstantSKY__type": {
+        "const": "SKY",
+        "title": "하늘 상태",
+        "description": "코드 값"
+      },
+      "ConstantTMP__type": {
+        "const": "TMP",
+        "title": "1시간 기온",
+        "description": "섭씨 온도"
+      },
+      "ConstantTMN__type": {
+        "const": "TMN",
+        "title": "일 최저기온",
+        "description": "섭씨 온도"
+      },
+      "ConstantTMX__type": {
+        "const": "TMX",
+        "title": "일 최고기온",
+        "description": "섭씨 온도"
+      },
+      "ConstantUUU__type": {
+        "const": "UUU",
+        "title": "풍속 (동서성분)",
+        "description": "m/s"
+      },
+      "ConstantVVV__type": {
+        "const": "VVV",
+        "title": "풍속 (남북성분)",
+        "description": "m/s"
+      },
+      "ConstantWAV__type": {
+        "const": "WAV",
+        "title": "파고 (파도높이)",
+        "description": "M"
+      },
+      "ConstantVEC__type": {
+        "const": "VEC",
+        "title": "풍향",
+        "description": "각도 (deg)"
+      },
+      "ConstantWSD__type": {
+        "const": "WSD",
+        "title": "풍속",
+        "description": "m/s"
+      },
+      "ConstantT1H__type": {
+        "const": "T1H",
+        "title": "기온",
+        "description": "섭씨 온도"
+      },
+      "ConstantRN1__type": {
+        "const": "RN1",
+        "title": "1시간 강수량",
+        "description": "mm"
+      },
+      "ConstantVEC__type.o1": {
+        "const": "VEC",
+        "title": "풍향",
+        "description": "deg"
+      },
+      "ConstantT1H__type.o1": {
+        "const": "T1H",
+        "title": "기온",
+        "description": "섭씨 온도"
       },
       "IPrompt.IRequest": {
         "type": "object",
