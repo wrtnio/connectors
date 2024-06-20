@@ -61,6 +61,7 @@ export namespace ConnectorGlobal {
     TEST_SWEET_TRACKER_T_INVOICE: string;
 
     // KAKAO_TALK
+    KAKAO_API_KEY: string;
     KAKAO_TALK_CLIENT_ID: string;
     KAKAO_TALK_CLIENT_SECRET: string;
     KAKAO_TALK_TEST_REFRESH_TOKEN: string;
