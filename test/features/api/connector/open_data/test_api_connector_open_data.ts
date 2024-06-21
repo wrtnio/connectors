@@ -15,3 +15,14 @@ export const test_api_connector_open_data_get_short_term_forecast = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_get_stock_price_innfo = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getStockPriceInfo(
+    connection,
+    {},
+  );
+
+  typia.assertEquals(res);
+};

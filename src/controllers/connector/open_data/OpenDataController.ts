@@ -14,7 +14,7 @@ export class OpenDataController {
     @TypedBody()
     input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
   ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
-    return null!;
+    return OpenDataProvider.getStockPriceInfo(input);
   }
 
   /**
