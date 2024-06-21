@@ -19,6 +19,7 @@ import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HwpModule } from "./hwp/HwpModule";
 import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
+import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
 import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
@@ -61,6 +62,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     KakaoTalkModule,
+    KakaoMapModule,
     GoogleSlidesModule,
     ImwebModule,
     OpenDataModule,
