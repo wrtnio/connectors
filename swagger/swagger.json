@@ -5279,6 +5279,40 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/kakao-talk/get-friends": {
+      "post": {
+        "tags": [
+          "카카오톡"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "친구 목록 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoTalk.IGetFriendsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "조회한 친구 모록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoTalk.IGetFriendsOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "카카오톡 친구 목록 조회",
+        "description": "카카오톡 친구 목록을 조회합니다.",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/kakao-talk/get-events": {
       "post": {
         "tags": [
@@ -29860,7 +29894,8 @@
         "required": [
           "template_object",
           "secretKey"
-        ]
+        ],
+        "title": "메시지 전송 조건"
       },
       "IKakaoTalk.IFeedMemoInput": {
         "type": "object",
@@ -30089,7 +30124,8 @@
         },
         "required": [
           "ios_execution_params"
-        ]
+        ],
+        "title": "iOS 앱 링크"
       },
       "titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink": {
         "type": "object",
@@ -30822,6 +30858,137 @@
           "event_id"
         ],
         "title": "생성된 일정"
+      },
+      "IKakaoTalk.IGetFriendsInput": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "default": 0,
+            "title": "친구 목록 시작 지점"
+          },
+          "limit": {
+            "type": "number",
+            "title": "한 페이지 당 친구 수"
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "title": "오름차순",
+                "default": "asc"
+              },
+              {
+                "const": "desc",
+                "title": "내림차순",
+                "default": "asc"
+              }
+            ],
+            "title": "친구 목록 정렬 순서"
+          },
+          "friend_order": {
+            "oneOf": [
+              {
+                "const": "favorite",
+                "title": "즐겨찾기 우선 정렬",
+                "default": "favorite"
+              },
+              {
+                "const": "nickname",
+                "title": "닉네임 우선 정렬",
+                "default": "favorite"
+              }
+            ],
+            "title": "친구 목록 정렬 시 기준"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "kakao",
+            "x-wrtn-secret-scopes": [
+              "friends"
+            ],
+            "title": "인증을 위한 시크릿 값",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IKakaoTalk.IGetFriendsOutput": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "title": "회원 번호"
+                },
+                "uuid": {
+                  "type": "string",
+                  "format": "uuid",
+                  "title": "친구 코드"
+                },
+                "favorite": {
+                  "type": "boolean",
+                  "title": "해당 친구의 즐겨 찾기 여부"
+                },
+                "profile_nickname": {
+                  "type": "string",
+                  "title": "닉네임"
+                },
+                "profile_thumbnail_image": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "썸네일"
+                }
+              },
+              "required": [
+                "id",
+                "uuid"
+              ]
+            },
+            "title": "친구 목록"
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "전체 친구 수"
+          },
+          "after_url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "친구 목록 다음 페이지 URL"
+          },
+          "before_url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "친구 목록 이전 페이지 URL"
+          },
+          "favorite_count": {
+            "type": "integer",
+            "title": "즐겨찾기한 친구 수"
+          }
+        },
+        "required": [
+          "total_count"
+        ]
       },
       "ISecretkakaotalk_calendarcalender_idstringundefinedpresetConstantTODAYtitle조회당일ConstantTHIS_WEEKtitle일요일로시작하는조회일이포함된한주Constant...undefinedtime_zonestringundefinedlimit(number...2more...Maximum...)undefined...": {
         "type": "object",
