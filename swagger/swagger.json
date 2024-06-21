@@ -5453,6 +5453,36 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/kakao-navi/get-future-directions": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "요청 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoNavi.IGetFutureDirectionsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "길 찾기 결과",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "summary": "카카오 네비 길찾기",
+        "description": "카카오 네비로 길을 찾습니다.",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/google-slides/get-presentations": {
       "post": {
         "tags": [
@@ -32095,6 +32125,41 @@
           "is_end"
         ],
         "title": "메타 정보"
+      },
+      "IKakaoNavi.IGetFutureDirectionsInput": {
+        "type": "object",
+        "properties": {
+          "departure_time": {
+            "type": "string",
+            "x-wrtn-placeholder": "202406202000",
+            "title": "출발 시간",
+            "description": "YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정"
+          },
+          "origin": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-placeholder": "127.111202,37.394912"
+            },
+            "title": "출발지",
+            "description": "X좌표,Y좌표 형식의 경도, 위도 값"
+          },
+          "destination": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-placeholder": "127.111202,37.394912"
+            },
+            "title": "목적지",
+            "description": "X좌표,Y좌표 형식의 경도, 위도 값"
+          }
+        },
+        "required": [
+          "departure_time",
+          "origin",
+          "destination"
+        ],
+        "title": "요청 조건"
       },
       "IGoogleSlides.IGetPresentationInput": {
         "type": "object",
