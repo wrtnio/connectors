@@ -5211,6 +5211,39 @@
         }
       }
     },
+    "/connector/kakao-talk/message": {
+      "post": {
+        "tags": [
+          "카카오톡"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "메시지를 보내기 위한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkToFriendsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "응답 및 실패 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkToFriendsOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "카카오톡 친구에게 메시지 쓰기",
+        "description": "친구에게 메시지를 카카오톡 메시지를 보냅니다"
+      }
+    },
     "/connector/kakao-talk/memo": {
       "post": {
         "tags": [
@@ -5218,7 +5251,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "메시지를 보내기 위한 요청 DTO.",
+          "description": "메시지를 보내기 위한 조건",
           "content": {
             "application/json": {
               "schema": {
@@ -5230,7 +5263,7 @@
         },
         "responses": {
           "201": {
-            "description": "응답 코드.",
+            "description": "응답 코드",
             "content": {
               "application/json": {
                 "schema": {
@@ -5240,7 +5273,7 @@
             }
           }
         },
-        "summary": "카카오톡 내게 쓰기.",
+        "summary": "카카오톡 내게 쓰기",
         "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
         "x-wrtn-standalone": true
       }
@@ -29853,16 +29886,102 @@
         "title": "배송 중.",
         "description": "배송이 완료되지 않은 경우에는 N으로 표기된다."
       },
+      "IKakaoTalk.ISendKakaoTalkToFriendsInput": {
+        "type": "object",
+        "properties": {
+          "receiver_uuids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/kakao-talk/get-friends",
+                "array": "return response.elements",
+                "value": "return elem.uuid",
+                "label": "return elem.profile_nickname"
+              }
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "친구의 uuid 값 목록"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "전송할 메시지"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "kakao",
+            "x-wrtn-secret-scopes": [
+              "talk_message"
+            ],
+            "title": "인증을 위한 시크릿 값",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "receiver_uuids",
+          "message",
+          "secretKey"
+        ],
+        "title": "메세지 전송 조건"
+      },
+      "IKakaoTalk.ISendKakaoTalkToFriendsOutput": {
+        "type": "object",
+        "properties": {
+          "successful_receiver_uuids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "title": "전송에 성공한 친구 uuid 목록"
+          },
+          "failure_info": {
+            "$ref": "#/components/schemas/IKakaoTalk.failureInfo",
+            "title": "실패 정보"
+          }
+        },
+        "title": "메시지 전송 결과"
+      },
+      "IKakaoTalk.failureInfo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "title": "에러 코드"
+          },
+          "msg": {
+            "type": "string",
+            "title": "에러 메시지"
+          },
+          "receiver_uuids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "title": "해당 에러 코드로 실패한 친구 uuid 목록"
+          }
+        },
+        "required": [
+          "code",
+          "msg",
+          "receiver_uuids"
+        ],
+        "title": "실패 정보"
+      },
       "IKakaoTalk.ISendKakaoTalkInput": {
         "type": "object",
         "properties": {
           "template_object": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/IKakaoTalk.IFeedMemoInput"
+                "$ref": "#/components/schemas/IKakaoTalk.ITextMemoInput"
               },
               {
-                "$ref": "#/components/schemas/IKakaoTalk.ITextMemoInput"
+                "$ref": "#/components/schemas/IKakaoTalk.IFeedMemoInput"
               },
               {
                 "$ref": "#/components/schemas/IKakaoTalk.ICalendarMemoInput"
@@ -29896,6 +30015,147 @@
           "secretKey"
         ],
         "title": "메시지 전송 조건"
+      },
+      "IKakaoTalk.ITextMemoInput": {
+        "type": "object",
+        "properties": {
+          "object_type": {
+            "const": "text",
+            "title": "텍스트 타입"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "본문"
+          },
+          "link": {
+            "$ref": "#/components/schemas/IWebLinkIMobileWebLink",
+            "title": "링크"
+          },
+          "buttons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoTalk.Button"
+            },
+            "maxItems": 2,
+            "title": "버튼 목록"
+          },
+          "button_title": {
+            "type": "string",
+            "title": "버튼 이름"
+          }
+        },
+        "required": [
+          "object_type",
+          "text",
+          "link"
+        ],
+        "title": "텍스트형 템플릿"
+      },
+      "IWebLinkIMobileWebLink": {
+        "type": "object",
+        "properties": {
+          "web_url": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
+            "title": "웹 링크"
+          },
+          "mobile_web_url": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
+            "title": "모바일 링크"
+          }
+        },
+        "required": [
+          "web_url",
+          "mobile_web_url"
+        ]
+      },
+      "IKakaoTalk.Button": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "x-wrtn-placeholder": "버튼 이름",
+            "title": "버튼 이름"
+          },
+          "link": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/IKakaoTalk.IWebLink"
+              },
+              {
+                "$ref": "#/components/schemas/IKakaoTalk.IMobileWebLink"
+              },
+              {
+                "$ref": "#/components/schemas/IKakaoTalk.IAndroidAppLink"
+              },
+              {
+                "$ref": "#/components/schemas/IKakaoTalk.IiOSAppLink"
+              }
+            ],
+            "title": "버튼의 링크"
+          }
+        },
+        "required": [
+          "title",
+          "link"
+        ],
+        "title": "버튼 정보"
+      },
+      "IKakaoTalk.IWebLink": {
+        "type": "object",
+        "properties": {
+          "web_url": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
+            "title": "웹 링크"
+          }
+        },
+        "required": [
+          "web_url"
+        ],
+        "title": "웹 링크"
+      },
+      "IKakaoTalk.IMobileWebLink": {
+        "type": "object",
+        "properties": {
+          "mobile_web_url": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
+            "title": "모바일 링크"
+          }
+        },
+        "required": [
+          "mobile_web_url"
+        ],
+        "title": "모바일 링크"
+      },
+      "IKakaoTalk.IAndroidAppLink": {
+        "type": "object",
+        "properties": {
+          "android_execution_params": {
+            "type": "string",
+            "title": "앱 링크"
+          }
+        },
+        "required": [
+          "android_execution_params"
+        ],
+        "title": "안드로이드 앱 링크"
+      },
+      "IKakaoTalk.IiOSAppLink": {
+        "type": "object",
+        "properties": {
+          "ios_execution_params": {
+            "type": "string",
+            "title": "앱 링크"
+          }
+        },
+        "required": [
+          "ios_execution_params"
+        ],
+        "title": "iOS 앱 링크"
       },
       "IKakaoTalk.IFeedMemoInput": {
         "type": "object",
@@ -30041,92 +30301,6 @@
         },
         "title": "소셜 정보"
       },
-      "IKakaoTalk.Button": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "x-wrtn-placeholder": "버튼 이름",
-            "title": "버튼 이름"
-          },
-          "link": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/IKakaoTalk.IWebLink"
-              },
-              {
-                "$ref": "#/components/schemas/IKakaoTalk.IMobileWebLink"
-              },
-              {
-                "$ref": "#/components/schemas/IKakaoTalk.IAndroidAppLink"
-              },
-              {
-                "$ref": "#/components/schemas/IKakaoTalk.IiOSAppLink"
-              }
-            ],
-            "title": "버튼의 링크"
-          }
-        },
-        "required": [
-          "title",
-          "link"
-        ],
-        "title": "버튼 정보"
-      },
-      "IKakaoTalk.IWebLink": {
-        "type": "object",
-        "properties": {
-          "web_url": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
-            "title": "웹 링크"
-          }
-        },
-        "required": [
-          "web_url"
-        ],
-        "title": "웹 링크"
-      },
-      "IKakaoTalk.IMobileWebLink": {
-        "type": "object",
-        "properties": {
-          "mobile_web_url": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
-            "title": "모바일 링크"
-          }
-        },
-        "required": [
-          "mobile_web_url"
-        ],
-        "title": "모바일 링크"
-      },
-      "IKakaoTalk.IAndroidAppLink": {
-        "type": "object",
-        "properties": {
-          "android_execution_params": {
-            "type": "string",
-            "title": "앱 링크"
-          }
-        },
-        "required": [
-          "android_execution_params"
-        ],
-        "title": "안드로이드 앱 링크"
-      },
-      "IKakaoTalk.IiOSAppLink": {
-        "type": "object",
-        "properties": {
-          "ios_execution_params": {
-            "type": "string",
-            "title": "앱 링크"
-          }
-        },
-        "required": [
-          "ios_execution_params"
-        ],
-        "title": "iOS 앱 링크"
-      },
       "titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink": {
         "type": "object",
         "properties": {
@@ -30246,61 +30420,6 @@
         "required": [
           "description",
           "link"
-        ]
-      },
-      "IKakaoTalk.ITextMemoInput": {
-        "type": "object",
-        "properties": {
-          "object_type": {
-            "const": "text",
-            "title": "텍스트 타입"
-          },
-          "text": {
-            "type": "string",
-            "maxLength": 200,
-            "title": "본문"
-          },
-          "link": {
-            "$ref": "#/components/schemas/IWebLinkIMobileWebLink",
-            "title": "링크"
-          },
-          "buttons": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IKakaoTalk.Button"
-            },
-            "maxItems": 2,
-            "title": "버튼 목록"
-          },
-          "button_title": {
-            "type": "string",
-            "title": "버튼 이름"
-          }
-        },
-        "required": [
-          "object_type",
-          "text",
-          "link"
-        ],
-        "title": "텍스트형 템플릿"
-      },
-      "IWebLinkIMobileWebLink": {
-        "type": "object",
-        "properties": {
-          "web_url": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
-            "title": "웹 링크"
-          },
-          "mobile_web_url": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/studio\\x2dpro\\.wrtn\\.ai(.*))",
-            "title": "모바일 링크"
-          }
-        },
-        "required": [
-          "web_url",
-          "mobile_web_url"
         ]
       },
       "IKakaoTalk.ICalendarMemoInput": {
