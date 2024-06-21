@@ -5683,12 +5683,51 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/open-data/getStockPriceInfo": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "시가총액 조회를 위한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined..."
+                  },
+                  {
+                    "$ref": "#/components/schemas/numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined....o1"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "시가 총액 및 주식 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "시가총액 및 주식 정보 조회",
+        "description": "시가총액과 주식 정보를 조회합니다.",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/open-data/getShortTermForecast": {
       "post": {
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "날씨 조회를 위한 위치 정보 DTO.",
+          "description": "날씨 조회를 위한 위치 정보 DTO",
           "content": {
             "application/json": {
               "schema": {
@@ -5700,7 +5739,7 @@
         },
         "responses": {
           "201": {
-            "description": "해당 지역의 기상 정보.",
+            "description": "해당 지역의 기상 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -5710,7 +5749,7 @@
             }
           }
         },
-        "summary": "기상청 오늘 날씨 조회.",
+        "summary": "기상청 오늘 날씨 조회",
         "description": "오늘 날씨를 조회합니다.",
         "x-wrtn-standalone": true
       }
@@ -37811,6 +37850,236 @@
         "const": "SUCCESS",
         "title": "성공"
       },
+      "numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined...": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "likeItmsNm": {
+            "type": "string",
+            "maxLength": 120,
+            "x-wrtn-placeholder": "삼성전자",
+            "title": "종목명 검색 키워드"
+          },
+          "basDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "기준일자",
+            "description": "검색값과 기준일자가 일치하는 데이터 검색"
+          }
+        }
+      },
+      "numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined....o1": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "likeItmsNm": {
+            "type": "string",
+            "maxLength": 120,
+            "x-wrtn-placeholder": "삼성전자",
+            "title": "종목명 검색 키워드"
+          },
+          "beginBasDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "기준일자(이상)",
+            "description": "기준일자가 검색값보다 크거나 같은 데이터를 검색"
+          },
+          "endBasDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "기준일자(미만)",
+            "description": "기준일자가 검색값보다 작은 데이터를 검색"
+          }
+        }
+      },
+      "IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object",
+                "properties": {
+                  "numOfRows": {
+                    "type": "integer",
+                    "default": 10,
+                    "title": "한 페이지 당 결과 수"
+                  },
+                  "pageNo": {
+                    "type": "integer",
+                    "default": 1,
+                    "title": "페이지 번호"
+                  },
+                  "totalCount": {
+                    "type": "number",
+                    "title": "전체 데이터 수"
+                  },
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "basDt": {
+                              "type": "string",
+                              "x-wrtn-placeholder": "20220919",
+                              "title": "기준 일자"
+                            },
+                            "srtnCd": {
+                              "type": "string",
+                              "title": "단축 코드",
+                              "description": "종목 코드보다 짧으면서 유일성이 보장되는 6자리 코드"
+                            },
+                            "isinCd": {
+                              "type": "string",
+                              "title": "ISIN 코드",
+                              "description": "국제 채권 식별 번호"
+                            },
+                            "itmsNm": {
+                              "type": "string",
+                              "title": "종목 명칭"
+                            },
+                            "mrktCtg": {
+                              "oneOf": [
+                                {
+                                  "$ref": "#/components/schemas/ConstantKOSPI__type"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ConstantKOSDAQ__type"
+                                },
+                                {
+                                  "$ref": "#/components/schemas/ConstantKONEX__type"
+                                }
+                              ],
+                              "title": "주식의 시장 구분"
+                            },
+                            "clpr": {
+                              "type": "string",
+                              "title": "종가",
+                              "description": "정규시장의 매매시간 종료 시 형성되는 최종 가격"
+                            },
+                            "vs": {
+                              "type": "string",
+                              "title": "대비",
+                              "description": "전일 대비 등락"
+                            },
+                            "fltRt": {
+                              "type": "string",
+                              "title": "등락률",
+                              "description": "전일 대비 등락에 따른 비율"
+                            },
+                            "mkp": {
+                              "type": "string",
+                              "title": "정규 시간의 매매 시간",
+                              "description": "개시 후 형성되는 최초 가격"
+                            },
+                            "hipr": {
+                              "type": "string",
+                              "title": "고가",
+                              "description": "하루 중 가격의 최고치"
+                            },
+                            "lopr": {
+                              "type": "string",
+                              "title": "저가",
+                              "description": "하루 중 가격의 최저치"
+                            },
+                            "trqu": {
+                              "type": "string",
+                              "title": "거래량",
+                              "description": "체결수량의 누적합계"
+                            },
+                            "trPrc": {
+                              "type": "string",
+                              "title": "거래 대금",
+                              "description": "거래건 별 체결가격 * 체결수량의 누적 합계"
+                            },
+                            "lstgStCnt": {
+                              "type": "string",
+                              "title": "상장주식수"
+                            },
+                            "mrktTotAmt": {
+                              "type": "string",
+                              "title": "시가총액",
+                              "description": "종가 * 상장주식수"
+                            }
+                          },
+                          "required": [
+                            "basDt",
+                            "srtnCd",
+                            "isinCd",
+                            "itmsNm",
+                            "mrktCtg",
+                            "clpr",
+                            "vs",
+                            "fltRt",
+                            "mkp",
+                            "hipr",
+                            "lopr",
+                            "trqu",
+                            "trPrc",
+                            "lstgStCnt",
+                            "mrktTotAmt"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "item"
+                    ],
+                    "title": "조회된 기업 정보"
+                  }
+                },
+                "required": [
+                  "numOfRows",
+                  "pageNo",
+                  "totalCount",
+                  "items"
+                ]
+              }
+            },
+            "required": [
+              "body"
+            ]
+          }
+        },
+        "required": [
+          "response"
+        ],
+        "title": "시가총액 및 주식 정보 조회 결과"
+      },
+      "ConstantKOSPI__type": {
+        "const": "KOSPI",
+        "title": "KOSPI"
+      },
+      "ConstantKOSDAQ__type": {
+        "const": "KOSDAQ",
+        "title": "KOSDAQ"
+      },
+      "ConstantKONEX__type": {
+        "const": "KONEX",
+        "title": "KONEX"
+      },
       "IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
         "type": "object",
         "properties": {
@@ -37826,7 +38095,8 @@
         "required": [
           "nx",
           "ny"
-        ]
+        ],
+        "title": "날씨 조회를 위한 요청 조건"
       },
       "IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput": {
         "type": "object",
@@ -37901,7 +38171,8 @@
         },
         "required": [
           "response"
-        ]
+        ],
+        "title": "날씨 조회 결과"
       },
       "IOpenData.IKoreaMeteorologicalAdministration.CategoryType": {
         "oneOf": [

@@ -7503,6 +7503,78 @@
     },
     {
       "method": "post",
+      "path": "/connector/open-data/getStockPriceInfo",
+      "name": "connector.open_data.getStockPriceInfo.post",
+      "parameters": [
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "numOfRows": {
+                  "type": "integer",
+                  "default": 10,
+                  "title": "한 페이지 당 결과 수"
+                },
+                "pageNo": {
+                  "type": "integer",
+                  "default": 1,
+                  "title": "페이지 번호"
+                },
+                "likeItmsNm": {
+                  "type": "string",
+                  "maxLength": 120,
+                  "x-wrtn-placeholder": "삼성전자",
+                  "title": "종목명 검색 키워드"
+                },
+                "basDt": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "20220919",
+                  "title": "기준일자",
+                  "description": "검색값과 기준일자가 일치하는 데이터 검색"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "numOfRows": {
+                  "type": "integer",
+                  "default": 10,
+                  "title": "한 페이지 당 결과 수"
+                },
+                "pageNo": {
+                  "type": "integer",
+                  "default": 1,
+                  "title": "페이지 번호"
+                },
+                "likeItmsNm": {
+                  "type": "string",
+                  "maxLength": 120,
+                  "x-wrtn-placeholder": "삼성전자",
+                  "title": "종목명 검색 키워드"
+                },
+                "beginBasDt": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "20220919",
+                  "title": "기준일자(이상)",
+                  "description": "기준일자가 검색값보다 크거나 같은 데이터를 검색"
+                },
+                "endBasDt": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "20220919",
+                  "title": "기준일자(미만)",
+                  "description": "기준일자가 검색값보다 작은 데이터를 검색"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "description": "시가총액 및 주식 정보 조회.\n시가총액과 주식 정보를 조회합니다.\n\n@param body 시가총액 조회를 위한 조건"
+    },
+    {
+      "method": "post",
       "path": "/connector/open-data/getShortTermForecast",
       "name": "connector.open_data.getShortTermForecast.post",
       "parameters": [
@@ -7521,10 +7593,11 @@
           "required": [
             "nx",
             "ny"
-          ]
+          ],
+          "title": "날씨 조회를 위한 요청 조건"
         }
       ],
-      "description": "기상청 오늘 날씨 조회.\n오늘 날씨를 조회합니다.\n\n@param body 날씨 조회를 위한 위치 정보 DTO."
+      "description": "기상청 오늘 날씨 조회.\n오늘 날씨를 조회합니다.\n\n@param body 날씨 조회를 위한 위치 정보 DTO"
     },
     {
       "method": "post",
