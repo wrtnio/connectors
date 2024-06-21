@@ -21,9 +21,9 @@ export * as auth from "./auth";
 /**
  * 카카오톡 내게 쓰기로 메시지를 보냅니다.
  *
- * @summary 카카오톡 내게 쓰기.
- * @param input 메시지를 보내기 위한 요청 DTO.
- * @returns 응답 코드.
+ * @summary 카카오톡 내게 쓰기
+ * @param input 메시지를 보내기 위한 조건
+ * @returns 응답 코드
  * @tag 카카오톡
  *
  * @controller KakaoTalkController.memo

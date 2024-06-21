@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Standalone } from "@wrtn/decorators";
 
@@ -18,7 +18,9 @@ export class KakaoNaviController {
    */
   @Standalone()
   @core.TypedRoute.Post("get-future-directions")
-  async getFutureDirections(input: IKakaoNavi.IGetFutureDirectionsInput) {
+  async getFutureDirections(
+    @TypedBody() input: IKakaoNavi.IGetFutureDirectionsInput,
+  ) {
     return KakaoNaviProvider.getFutureDirections(input);
   }
 }
