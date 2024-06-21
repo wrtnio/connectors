@@ -5,6 +5,24 @@ import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_dat
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
+  export async function getStockPriceInfo(
+    input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
+  ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
+    const baseUrl = `https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_KOREA_METEOROLOGICAL_ADMINISTRATION}`;
+
+    const queryString = Object.entries({
+      ...input,
+      serviceKey,
+      resultType: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    return res.data;
+  }
+
   export async function getShortTermForecast(
     input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
