@@ -13,17 +13,17 @@ export namespace IOpenData {
       /**
        * @title 한 페이지 당 결과 수
        */
-      numOfRows: number & tags.Type<"int32"> & tags.Default<10>;
+      numOfRows?: number & tags.Type<"int32"> & tags.Default<10>;
 
       /**
        * @title 페이지 번호
        */
-      pageNo: number & tags.Type<"int32"> & tags.Default<1>;
+      pageNo?: number & tags.Type<"int32"> & tags.Default<1>;
 
       /**
        * @title 종목명
        */
-      likeItmsNm: string & tags.MaxLength<120> & Placeholder<"삼성전자">;
+      likeItmsNm?: string & tags.MaxLength<120> & Placeholder<"삼성전자">;
     }
 
     /**
