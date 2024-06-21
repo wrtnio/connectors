@@ -19,14 +19,21 @@ export namespace OpenAiConverter {
       e2e: false,
     });
     MigrateApiProgrammer.write(program);
-    const operations: IOpenAiDocument.IOperation[] = program.controllers
+    const operations: Array<IOpenAiDocument.IOperation> = program.controllers
       .map((c) => c.routes)
       .flat()
       .map(convertOperation(program.document.components))
-      .filter((v): v is IOpenAiDocument.IOperation => !!v);
+      .filter((v) => v !== null) as IOpenAiDocument.IOperation[];
+    for (const [path, collection] of Object.entries(document.paths ?? {}))
+      for (const method of Object.keys(collection))
+        if (
+          operations.find((v) => v.path === path && v.method === method) ===
+          undefined
+        )
+          console.log(method, path, "has failed to escape $ref");
     return {
       openapi: "3.0.3",
-      operations,
+      operations: operations,
     };
   };
 
