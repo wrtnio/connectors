@@ -120,6 +120,7 @@ export async function folderList(
         },
         {
           ...folderList.METADATA,
+          template: folderList.METADATA.path,
           path: folderList.path(),
         },
         input,

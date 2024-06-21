@@ -42,6 +42,7 @@ export async function generateCopy(
         },
         {
           ...generateCopy.METADATA,
+          template: generateCopy.METADATA.path,
           path: generateCopy.path(),
         },
         input,

@@ -12,6 +12,7 @@ import typia from "typia";
 import type { IKakaoTalk } from "../../../structures/connector/kakao_talk/IKakaoTalk";
 
 export * as calendars from "./calendars";
+export * as get_friends from "./get_friends";
 export * as get_events from "./get_events";
 export * as get_calendars from "./get_calendars";
 export * as auth from "./auth";
@@ -44,6 +45,7 @@ export async function memo(
         },
         {
           ...memo.METADATA,
+          template: memo.METADATA.path,
           path: memo.path(),
         },
         input,
@@ -117,6 +119,7 @@ export async function refresh(
         },
         {
           ...refresh.METADATA,
+          template: refresh.METADATA.path,
           path: refresh.path(),
         },
         input,

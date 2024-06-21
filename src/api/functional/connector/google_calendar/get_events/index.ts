@@ -97,6 +97,7 @@ export async function readEvents(
         },
         {
           ...readEvents.METADATA,
+          template: readEvents.METADATA.path,
           path: readEvents.path(calendarId),
         },
         input,

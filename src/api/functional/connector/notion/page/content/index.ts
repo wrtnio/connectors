@@ -77,6 +77,7 @@ export async function appendPageToContent(
         },
         {
           ...appendPageToContent.METADATA,
+          template: appendPageToContent.METADATA.path,
           path: appendPageToContent.path(pageId),
         },
         input,

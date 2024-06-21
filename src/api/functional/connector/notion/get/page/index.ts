@@ -76,6 +76,7 @@ export async function readPageList(
         },
         {
           ...readPageList.METADATA,
+          template: readPageList.METADATA.path,
           path: readPageList.path(),
         },
         input,

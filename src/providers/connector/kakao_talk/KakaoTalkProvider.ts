@@ -6,6 +6,28 @@ import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_t
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KakaoTalkProvider {
+  export async function getFriends(
+    input: IKakaoTalk.IGetFriendsInput,
+  ): Promise<IKakaoTalk.IGetFriendsOutput> {
+    const { secretKey, ...getEventQueryParam } = input;
+    const queryParams = Object.entries(getEventQueryParam)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const accessToken = await KakaoTalkProvider.refresh({
+      refresh_token: secretKey,
+    });
+
+    const url = `https://kapi.kakao.com/v1/api/talk/friends?${queryParams}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `bearer ${accessToken.access_token}`,
+      },
+    });
+
+    return res.data;
+  }
+
   export async function createEvent(
     input: IKakaoTalk.ICreateEventInput,
   ): Promise<IKakaoTalk.ICreateEventOutput> {

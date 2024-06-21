@@ -78,6 +78,7 @@ export async function getDatabaseItemList(
         },
         {
           ...getDatabaseItemList.METADATA,
+          template: getDatabaseItemList.METADATA.path,
           path: getDatabaseItemList.path(databaseId),
         },
         input,

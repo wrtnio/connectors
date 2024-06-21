@@ -40,6 +40,7 @@ export async function createPresentation(
         },
         {
           ...createPresentation.METADATA,
+          template: createPresentation.METADATA.path,
           path: createPresentation.path(),
         },
         input,

@@ -78,6 +78,7 @@ export async function getFieldsForUpdateFieldValue(
     ? getFieldsForUpdateFieldValue.simulate(connection, formId)
     : PlainFetcher.fetch(connection, {
         ...getFieldsForUpdateFieldValue.METADATA,
+        template: getFieldsForUpdateFieldValue.METADATA.path,
         path: getFieldsForUpdateFieldValue.path(formId),
       });
 }

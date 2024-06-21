@@ -104,6 +104,7 @@ export async function getWorkSheet(
         },
         {
           ...getWorkSheet.METADATA,
+          template: getWorkSheet.METADATA.path,
           path: getWorkSheet.path(),
         },
         input,

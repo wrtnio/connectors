@@ -41,6 +41,7 @@ export async function generateRow(
         },
         {
           ...generateRow.METADATA,
+          template: generateRow.METADATA.path,
           path: generateRow.path(),
         },
         input,

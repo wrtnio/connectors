@@ -90,6 +90,7 @@ export async function createLabel(
         },
         {
           ...createLabel.METADATA,
+          template: createLabel.METADATA.path,
           path: createLabel.path(),
         },
         input,
@@ -217,6 +218,7 @@ export async function addLabelToMail(
         },
         {
           ...addLabelToMail.METADATA,
+          template: addLabelToMail.METADATA.path,
           path: addLabelToMail.path(mailId),
         },
         input,
@@ -345,6 +347,7 @@ export async function removeLabelFromMail(
         },
         {
           ...removeLabelFromMail.METADATA,
+          template: removeLabelFromMail.METADATA.path,
           path: removeLabelFromMail.path(mailId),
         },
         input,

@@ -22,6 +22,7 @@ export async function updateSwagger(connection: IConnection): Promise<void> {
     ? updateSwagger.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...updateSwagger.METADATA,
+        template: updateSwagger.METADATA.path,
         path: updateSwagger.path(),
       });
 }

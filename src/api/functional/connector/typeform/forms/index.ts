@@ -88,6 +88,7 @@ export async function updateFormFieldValue(
         },
         {
           ...updateFormFieldValue.METADATA,
+          template: updateFormFieldValue.METADATA.path,
           path: updateFormFieldValue.path(formId),
         },
         input,
@@ -204,6 +205,7 @@ export async function deleteForm(
     ? deleteForm.simulate(connection, formId)
     : PlainFetcher.fetch(connection, {
         ...deleteForm.METADATA,
+        template: deleteForm.METADATA.path,
         path: deleteForm.path(formId),
       });
 }

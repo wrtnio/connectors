@@ -33,6 +33,7 @@ export async function readComments(
         },
         {
           ...readComments.METADATA,
+          template: readComments.METADATA.path,
           path: readComments.path(),
         },
         input,

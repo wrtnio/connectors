@@ -39,6 +39,7 @@ export async function generateHardChatbot(
         },
         {
           ...generateHardChatbot.METADATA,
+          template: generateHardChatbot.METADATA.path,
           path: generateHardChatbot.path(),
         },
         input,

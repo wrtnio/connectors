@@ -90,6 +90,7 @@ export async function read(
         },
         {
           ...read.METADATA,
+          template: read.METADATA.path,
           path: read.path(),
         },
         input,

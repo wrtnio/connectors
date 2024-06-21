@@ -39,6 +39,7 @@ export async function createMeeting(
         },
         {
           ...createMeeting.METADATA,
+          template: createMeeting.METADATA.path,
           path: createMeeting.path(),
         },
         input,

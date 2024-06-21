@@ -101,6 +101,7 @@ export async function createCalendar(
         },
         {
           ...createCalendar.METADATA,
+          template: createCalendar.METADATA.path,
           path: createCalendar.path(),
         },
         input,
@@ -232,6 +233,7 @@ export async function deleteCalendar(
         },
         {
           ...deleteCalendar.METADATA,
+          template: deleteCalendar.METADATA.path,
           path: deleteCalendar.path(calendarId),
         },
         input,

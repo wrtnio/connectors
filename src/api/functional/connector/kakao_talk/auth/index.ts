@@ -29,6 +29,7 @@ export async function authorization(
     ? authorization.simulate(connection, query)
     : PlainFetcher.fetch(connection, {
         ...authorization.METADATA,
+        template: authorization.METADATA.path,
         path: authorization.path(query),
       });
 }

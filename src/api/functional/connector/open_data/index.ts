@@ -38,6 +38,7 @@ export async function getShortTermForecast(
         },
         {
           ...getShortTermForecast.METADATA,
+          template: getShortTermForecast.METADATA.path,
           path: getShortTermForecast.path(),
         },
         input,

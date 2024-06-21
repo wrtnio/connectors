@@ -68,6 +68,7 @@ export async function searchCafe(
         },
         {
           ...searchCafe.METADATA,
+          template: searchCafe.METADATA.path,
           path: searchCafe.path(),
         },
         input,

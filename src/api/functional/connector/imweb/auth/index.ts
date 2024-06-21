@@ -38,6 +38,7 @@ export async function authorization(
         },
         {
           ...authorization.METADATA,
+          template: authorization.METADATA.path,
           path: authorization.path(),
         },
         input,

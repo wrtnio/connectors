@@ -92,6 +92,7 @@ export async function findEmail(
         },
         {
           ...findEmail.METADATA,
+          template: findEmail.METADATA.path,
           path: findEmail.path(id),
         },
         input,

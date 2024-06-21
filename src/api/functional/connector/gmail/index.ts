@@ -95,6 +95,7 @@ export async function send(
         },
         {
           ...send.METADATA,
+          template: send.METADATA.path,
           path: send.path(),
         },
         input,
@@ -220,6 +221,7 @@ export async function draft(
         },
         {
           ...draft.METADATA,
+          template: draft.METADATA.path,
           path: draft.path(),
         },
         input,
@@ -343,6 +345,7 @@ export async function reply(
         },
         {
           ...reply.METADATA,
+          template: reply.METADATA.path,
           path: reply.path(),
         },
         input,
@@ -467,6 +470,7 @@ export async function removeMail(
         },
         {
           ...removeMail.METADATA,
+          template: removeMail.METADATA.path,
           path: removeMail.path(id),
         },
         input,

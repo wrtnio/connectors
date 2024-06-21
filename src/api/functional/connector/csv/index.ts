@@ -89,6 +89,7 @@ export async function read(
         },
         {
           ...read.METADATA,
+          template: read.METADATA.path,
           path: read.path(),
         },
         input,
@@ -210,6 +211,7 @@ export async function write(
         },
         {
           ...write.METADATA,
+          template: write.METADATA.path,
           path: write.path(),
         },
         input,

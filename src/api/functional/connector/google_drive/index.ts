@@ -123,6 +123,7 @@ export async function permission(
         },
         {
           ...permission.METADATA,
+          template: permission.METADATA.path,
           path: permission.path(),
         },
         input,

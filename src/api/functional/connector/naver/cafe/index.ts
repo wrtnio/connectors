@@ -68,6 +68,7 @@ export async function cafeList(
         },
         {
           ...cafeList.METADATA,
+          template: cafeList.METADATA.path,
           path: cafeList.path(),
         },
         input,

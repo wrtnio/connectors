@@ -39,6 +39,7 @@ export async function getEvents(
         },
         {
           ...getEvents.METADATA,
+          template: getEvents.METADATA.path,
           path: getEvents.path(),
         },
         input,

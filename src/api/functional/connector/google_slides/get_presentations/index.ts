@@ -38,6 +38,7 @@ export async function getPresentation(
         },
         {
           ...getPresentation.METADATA,
+          template: getPresentation.METADATA.path,
           path: getPresentation.path(),
         },
         input,

@@ -76,6 +76,7 @@ export async function getDatabaseListInfo(
         },
         {
           ...getDatabaseListInfo.METADATA,
+          template: getDatabaseListInfo.METADATA.path,
           path: getDatabaseListInfo.path(),
         },
         input,
@@ -189,6 +190,7 @@ export async function getDatabaseInfo(
         },
         {
           ...getDatabaseInfo.METADATA,
+          template: getDatabaseInfo.METADATA.path,
           path: getDatabaseInfo.path(databaseId),
         },
         input,

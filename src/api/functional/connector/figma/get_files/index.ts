@@ -39,6 +39,7 @@ export async function readFiles(
         },
         {
           ...readFiles.METADATA,
+          template: readFiles.METADATA.path,
           path: readFiles.path(),
         },
         input,
