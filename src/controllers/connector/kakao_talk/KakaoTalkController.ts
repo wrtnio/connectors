@@ -10,13 +10,31 @@ import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/Kakao
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
   /**
+   * 친구에게 메시지를 카카오톡 메시지를 보냅니다
+   *
+   * @summary 카카오톡 친구에게 메시지 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 및 실패 정보
+   *
+   * @tag 카카오톡
+   */
+  @core.TypedRoute.Post("message")
+  async send(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
+  ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
+    return KakaoTalkProvider.send(input);
+  }
+
+  /**
    * 카카오톡 내게 쓰기로 메시지를 보냅니다.
    *
-   * @summary 카카오톡 내게 쓰기.
+   * @summary 카카오톡 내게 쓰기
    *
-   * @param input 메시지를 보내기 위한 요청 DTO.
+   * @param input 메시지를 보내기 위한 조건
    *
-   * @returns 응답 코드.
+   * @returns 응답 코드
    *
    * @tag 카카오톡
    */
