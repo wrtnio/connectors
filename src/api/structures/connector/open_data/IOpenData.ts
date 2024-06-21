@@ -1,8 +1,154 @@
+import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 export namespace IOpenData {
   /**
-   * @title 기상청 타입.
+   * @title 금융위원회 타입
+   */
+  export namespace FinancialServicesCommission {
+    /**
+     * @title 시가총액 및 주식 정보 조회 조건
+     */
+    export interface IGetStockPriceInfoInput {
+      /**
+       * @title 한 페이지 당 결과 수
+       */
+      numOfRows: number & tags.Type<"int32"> & tags.Default<10>;
+
+      /**
+       * @title 페이지 번호
+       */
+      pageNo: number & tags.Type<"int32"> & tags.Default<1>;
+
+      /**
+       * @title 종목명
+       */
+      likeItmsNm: string & tags.MaxLength<120> & Placeholder<"삼성전자">;
+    }
+
+    /**
+     * @title 시가총액 및 주식 정보 조회 결과
+     */
+    export interface IGetStockPriceInfoOutput {
+      response: {
+        body: {
+          /**
+           * @title 한 페이지 당 결과 수
+           */
+          numOfRows: number & tags.Type<"int32"> & tags.Default<10>;
+
+          /**
+           * @title 페이지 번호
+           */
+          pageNo: number & tags.Type<"int32"> & tags.Default<1>;
+
+          /**
+           * @title 전체 데이터 수
+           */
+          totalCount: number;
+
+          /**
+           * @title 조회된 기업 정보
+           */
+          items: {
+            /**
+             * @title 기준 일자
+             */
+            basDt: string & Placeholder<"20220919">;
+
+            /**
+             * @title 단축 코드
+             * @description 종목 코드보다 짧으면서 유일성이 보장되는 6자리 코드
+             */
+            srtnCd: string;
+
+            /**
+             * @title ISIN 코드
+             * @description 국제 채권 식별 번호
+             */
+            isinCd: string;
+
+            /**
+             * @title 종목 명칭
+             */
+            itmsNm: string;
+
+            /**
+             * @title 주식의 시장 구분
+             */
+            mrktCtg:
+              | tags.Constant<"KOSPI", { title: "KOSPI" }>
+              | tags.Constant<"KOSDAQ", { title: "KOSDAQ" }>
+              | tags.Constant<"KONEX", { title: "KONEX" }>;
+
+            /**
+             * @title 종가
+             * @description 정규시장의 매매시간 종료 시 형성되는 최종 가격
+             *
+             */
+            clpr: string;
+
+            /**
+             * @title 대비
+             * @description 전일 대비 등락
+             */
+            vs: string;
+
+            /**
+             * @title 등락률
+             * @description 전일 대비 등락에 따른 비율
+             */
+            fltRt: string;
+
+            /**
+             * @title 정규 시간의 매매 시간
+             * @description 개시 후 형성되는 최초 가격
+             */
+            mkp: string;
+
+            /**
+             * @title 고가
+             * @description 하루 중 가격의 최고치
+             */
+
+            hipr: string;
+
+            /**
+             * @title 저가
+             * @description 하루 중 가격의 최저치
+             */
+            lopr: string;
+
+            /**
+             * @title 거래량
+             * @description 체결수량의 누적합계
+             */
+            trqu: string;
+
+            /**
+             * @title 거래 대금
+             * @description 거래건 별 체결가격 * 체결수량의 누적 합계
+             */
+            trPrc: string;
+
+            /**
+             * @title 상장주식수
+             */
+            lstgStCnt: string;
+
+            /**
+             * @title 시가총액
+             * @description 종가 * 상장주식수
+             */
+            mrktTotAmt: string;
+          }[];
+        };
+      };
+    }
+  }
+
+  /**
+   * @title 기상청 타입
    */
   export namespace IKoreaMeteorologicalAdministration {
     /**
@@ -34,6 +180,9 @@ export namespace IOpenData {
       | tags.Constant<"VEC", { title: "풍향"; description: "deg" }>
       | tags.Constant<"T1H", { title: "기온"; description: "섭씨 온도" }>;
 
+    /**
+     * @title 날씨 조회를 위한 요청 조건
+     */
     export interface IGetVillageForecastInformationInput {
       /**
        * @title 격자 좌표 값의 x 좌표.
@@ -46,6 +195,9 @@ export namespace IOpenData {
       ny: number;
     }
 
+    /**
+     * @title 날씨 조회 결과
+     */
     export interface IGetVillageForecastInformationOutput {
       response: {
         body: {

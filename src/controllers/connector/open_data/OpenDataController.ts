@@ -8,6 +8,15 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  @Standalone()
+  @TypedRoute.Post("getStockPriceInfo")
+  async getStockPriceInfo(
+    @TypedBody()
+    input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
+  ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
+    return null!;
+  }
+
   /**
    * 오늘 날씨를 조회합니다.
    *
