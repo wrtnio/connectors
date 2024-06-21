@@ -12,7 +12,7 @@ import typia from "typia";
 import type { IOpenData } from "../../../structures/connector/open_data/IOpenData";
 
 /**
- * 어제 자 기준 시가총액과 주식 정보를 조회합니다.
+ * 시가총액과 주식 정보를 조회합니다.
  *
  * @summary 시가총액 및 주식 정보 조회
  * @param input 시가총액 조회를 위한 조건

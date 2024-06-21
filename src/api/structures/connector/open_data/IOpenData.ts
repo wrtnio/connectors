@@ -9,7 +9,7 @@ export namespace IOpenData {
     /**
      * @title 시가총액 및 주식 정보 조회 조건
      */
-    export interface IGetStockPriceInfoInput {
+    export type IGetStockPriceInfoInput = {
       /**
        * @title 한 페이지 당 결과 수
        */
@@ -21,10 +21,31 @@ export namespace IOpenData {
       pageNo?: number & tags.Type<"int32"> & tags.Default<1>;
 
       /**
-       * @title 종목명
+       * @title 종목명 검색 키워드
        */
       likeItmsNm?: string & tags.MaxLength<120> & Placeholder<"삼성전자">;
-    }
+    } & (
+      | {
+          /**
+           * @title 기준일자
+           * @description 검색값과 기준일자가 일치하는 데이터 검색
+           */
+          basDt?: string & Placeholder<"20220919">;
+        }
+      | {
+          /**
+           * @title 기준일자(이상)
+           * @description 기준일자가 검색값보다 크거나 같은 데이터를 검색
+           */
+          beginBasDt?: string & Placeholder<"20220919">;
+
+          /**
+           * @title 기준일자(미만)
+           * @description 기준일자가 검색값보다 작은 데이터를 검색
+           */
+          endBasDt?: string & Placeholder<"20220919">;
+        }
+    );
 
     /**
      * @title 시가총액 및 주식 정보 조회 결과

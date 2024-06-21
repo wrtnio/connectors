@@ -21,7 +21,9 @@ export const test_api_connector_open_data_get_get_stock_price_innfo = async (
 ) => {
   const res = await CApi.functional.connector.open_data.getStockPriceInfo(
     connection,
-    {},
+    {
+      basDt: "20240620",
+    },
   );
 
   typia.assertEquals(res);
