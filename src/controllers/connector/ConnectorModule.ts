@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { LoggerModule } from "nestjs-pino";
 
+import { KoreaEximbankModule } from "./KoreaEximbank/KoreaEximbankModule";
 import { ArxivSearchController } from "./arxiv_search/ArxivSearchController";
 import { AwsModule } from "./aws/AwsModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
@@ -69,6 +70,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ImwebModule,
     OpenDataModule,
     PromptModule,
+    KoreaEximbankModule,
   ],
   controllers: [
     ArxivSearchController,
