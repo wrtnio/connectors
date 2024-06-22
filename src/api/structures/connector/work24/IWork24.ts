@@ -17,7 +17,170 @@ export namespace IWork24 {
   //     | tags.Constant<"D", { title: "상세" }>;
   // }
 
-  export type IGetJobOpeningInput = {
+  /**
+   * @title 채용 공고 조회 결과
+   */
+  export interface IGetJobOpeningOutput {
+    /**
+     * @title 조회 결과
+     */
+    wantedRoot: {
+      /**
+       * @title 총건수
+       */
+      total: number;
+
+      /**
+       * @title 조회할 페이지
+       */
+      startPage: number & tags.Type<"int32"> & tags.Maximum<1000>;
+
+      /**
+       * @title 페이지 당 출력건수
+       */
+      display: number & tags.Type<"int32">;
+
+      /**
+       * @title 공고 목록
+       */
+      wanted: {
+        /**
+         * @title 구인인증번호
+         */
+        wantedAuthNo: string;
+
+        /**
+         * @title 회사명
+         */
+        company: string;
+
+        /**
+         * @title 사업자등록번호
+         */
+        busino: string;
+
+        /**
+         * @title 채용제목
+         */
+        title: string;
+
+        /**
+         * @title 임금형태
+         */
+        salTpNm: string;
+
+        /**
+         * @title 급여
+         */
+        sal: string;
+
+        /**
+         * @title 최소임금금액
+         */
+        minSal: string;
+
+        /**
+         * @title 최대임금금액
+         */
+        maxSal: string;
+
+        /**
+         * @title 근무지역
+         */
+        region: string;
+
+        /**
+         * @title 근무형태
+         */
+        holidayTpNm: string;
+
+        /**
+         * @title 최소학력
+         */
+        minEdubg: string;
+
+        /**
+         * @title 최대학력
+         */
+        maxEdubg: string;
+
+        /**
+         * @title 경력
+         */
+        career: string;
+
+        /**
+         * @title 등록일자
+         */
+        regDt: string & tags.Format<"date-time">;
+
+        /**
+         * @title 마감일자
+         */
+        closeDt: string & tags.Format<"date-time">;
+
+        /**
+         * @title 정보제공처 - VALIDATION 워크넷 인증
+         */
+        infoSvc: string;
+
+        /**
+         * @title 워크넷 채용정보 URL
+         */
+        wantedInfoUrl: string & tags.Format<'uri'>;
+
+        /**
+         * @title 워크넷 모바일 채용정보 URL
+         */
+        wantedMobileInfoUrl: string & tags.Format<'uri'>;
+
+        /**
+         * @title 근무지 우편주소
+         */
+        zipCd: string;
+
+        /**
+         * @title 근무지 도로명주소
+         */
+        strtnmCd: string;
+
+        /**
+         * @title 근무지 기본주소
+         */
+        basicAddr: string;
+
+        /**
+         * @title 근무지 상세주소
+         */
+        detailAddr: string;
+
+        /**
+         * @title 고용형태코드
+         */
+        empTpCd: number;
+
+        /**
+         * @title 직종코드
+         */
+        jobsCd: number;
+
+        /**
+         * @title 최종수정일
+         */
+        smodifyDtm: string;
+
+        /**
+         * @title 우대조건
+         */
+        prefCd: string;
+      }[];
+    };
+  }
+
+  /**
+   * @title 채용 공고 조회 조건
+   */
+  export interface IGetJobOpeningInput {
     /**
      * @title 반환 타입
      * @description 반환 데이터 형식 (xml)
@@ -358,7 +521,7 @@ export namespace IWork24 {
       | tags.Constant<"9", { title: "기타" }>
       | tags.Constant<"99", { title: "기타" }>
     )[];
-  };
+  }
 
   /**
    * @title 직무지역코드
