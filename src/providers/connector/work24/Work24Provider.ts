@@ -7,7 +7,9 @@ import { ObjectToQueryString } from "../../../utils/ObjectToQueryString";
 import { convertXmlToJson } from "../../../utils/convertXmlToJson";
 
 export namespace Work24Provider {
-  export async function getJobOpenings(input: IWork24.IGetJobOpeningInput) {
+  export async function getJobOpenings(
+    input: IWork24.IGetJobOpeningInput,
+  ): Promise<IWork24.IGetJobOpeningOutput> {
     const { careerOptions, salaryOptions, ...rest } = input;
 
     const baseUrl = `https://www.work24.go.kr/cm/openApi/call/wk/callOpenApiSvcInfo210L01.do`;
