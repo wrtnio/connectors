@@ -34,6 +34,7 @@ import { StudentReportGeneratorModule } from "./student_report_generator/Student
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
+import { Work24Module } from "./work24/Work24Module";
 import { YoutubeSearchController } from "./youtube_search/YoutubeSearchController";
 import { ZoomModule } from "./zoom/ZoomModule";
 
@@ -69,6 +70,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ImwebModule,
     OpenDataModule,
     PromptModule,
+    Work24Module,
   ],
   controllers: [
     ArxivSearchController,
