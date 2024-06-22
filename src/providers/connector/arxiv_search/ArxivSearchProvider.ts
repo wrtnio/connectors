@@ -1,12 +1,9 @@
-import {
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
 import axios from "axios";
-import { parseString } from "xml2js";
 
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 import { IArxivSearchParams } from "@wrtn/connector-api/lib/structures/connector/arxiv_search/IArxivSearch";
+
+import { convertXmlToJson } from "../../../utils/convertXmlToJson";
 
 export namespace ArxivSearchProvider {
   export async function search(
@@ -108,25 +105,4 @@ export namespace ArxivSearchProvider {
 
     return query;
   };
-
-  /**
-   *
-   * @param xmlData xml 형식의 데이터
-   * @returns xml 형식의 데이터를 json 형식으로 변환
-   */
-  async function convertXmlToJson(xmlData: string): Promise<any> {
-    try {
-      return new Promise((resolve, reject) => {
-        parseString(xmlData, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        });
-      });
-    } catch (err) {
-      throw new InternalServerErrorException("Failed to convert xml to json");
-    }
-  }
 }
