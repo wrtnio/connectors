@@ -44,6 +44,7 @@ export * as google_slides from "./google_slides";
 export * as imweb from "./imweb";
 export * as open_data from "./open_data";
 export * as prompt from "./prompt";
+export * as korea_eximbank from "./korea_eximbank";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
