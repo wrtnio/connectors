@@ -3097,7 +3097,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "삭제할 캘린더 고유 ID.",
             "required": true
@@ -3173,7 +3180,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "이벤트 목록을 가져올 캘린더 고유 ID.",
             "required": true
@@ -3257,7 +3271,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "이벤트를 추가할 캘린더 고유 ID.",
             "required": true
@@ -3334,7 +3355,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "이벤트를 추가할 캘린더 고유 ID.",
             "required": true
@@ -3418,7 +3446,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "이벤트가 있는 캘린더 고유 ID.",
             "required": true
@@ -3427,7 +3462,14 @@
             "name": "eventId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/{calendarId}/get-events",
+                "array": "return ((response) => response.events)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "수정할 이벤트 고유 ID.",
             "required": true
@@ -3509,7 +3551,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "이벤트가 있는 캘린더 고유 ID.",
             "required": true
@@ -3518,7 +3567,14 @@
             "name": "eventId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/{calendarId}/get-events",
+                "array": "return ((response) => response.events)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "삭제할 이벤트 고유 ID.",
             "required": true
@@ -3594,7 +3650,14 @@
             "name": "calendarId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/get-list",
+                "array": "return ((response) => response)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "이벤트가 있는 캘린더 고유 ID.",
             "required": true
@@ -3603,7 +3666,14 @@
             "name": "eventId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-calendar/{calendarId}/get-events",
+                "array": "return ((response) => response.events)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "참석자를 추가할 이벤트 고유 ID.",
             "required": true
