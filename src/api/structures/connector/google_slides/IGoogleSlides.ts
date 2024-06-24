@@ -1,4 +1,3 @@
-import { slides_v1 } from "googleapis";
 import { tags } from "typia";
 
 import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
@@ -307,7 +306,7 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title 수정할 프레젠네이션의 ID.
+     * @title 수정할 프레젠테이션의 ID.
      */
     requests: BatchUpdateInput[];
   }
@@ -338,8 +337,7 @@ export namespace IGoogleSlides {
         updateShapeProperties: UpdateShapeProperties;
       };
 
-  export interface UpdateShapeProperties
-    extends slides_v1.Schema$UpdateShapePropertiesRequest {
+  export interface UpdateShapeProperties {
     /**
      * The fields that should be updated. At least one field must be specified. The root `shapeProperties` is implied and should not be specified. A single `"*"` can be used as short-hand for listing every field. For example to update the shape background solid fill color, set `fields` to `"shapeBackgroundFill.solidFill.color"`. To reset a property to its default value, include its field name in the field mask but leave the field itself unset.
      */
@@ -354,8 +352,7 @@ export namespace IGoogleSlides {
     shapeProperties: ShapeProperties;
   }
 
-  export interface UpdateTextStyle
-    extends slides_v1.Schema$UpdateTextStyleRequest {
+  export interface UpdateTextStyle {
     /**
      * The fields that should be updated. At least one field must be specified. The root `style` is implied and should not be specified. A single `"*"` can be used as short-hand for listing every field. For example, to update the text style to bold, set `fields` to `"bold"`. To reset a property to its default value, include its field name in the field mask but leave the field itself unset.
      */
@@ -372,8 +369,7 @@ export namespace IGoogleSlides {
     style: TextStyle;
   }
 
-  export interface ReplaceAllText
-    extends slides_v1.Schema$ReplaceAllTextRequest {
+  export interface ReplaceAllText {
     /**
      * If non-empty, limits the matches to page elements only on the given pages. Returns a 400 bad request error if given the page object ID of a notes master, or if a page with that object ID doesn't exist in the presentation.
      */
@@ -384,7 +380,7 @@ export namespace IGoogleSlides {
     replaceText?: string | null;
   }
 
-  export interface CreateShape extends slides_v1.Schema$CreateShapeRequest {
+  export interface CreateShape {
     /**
      * The element properties for the shape.
      */
@@ -401,16 +397,19 @@ export namespace IGoogleSlides {
     shapeType?: Shape.Type;
   }
 
-  export interface InsertText
-    extends Pick<slides_v1.Schema$InsertTextRequest, "text" | "objectId"> {
+  export interface InsertText {
     /**
      * @title 추가할 텍스트
      */
     text?: string | null;
+
+    /**
+     * @title 아이디
+     */
+    objectId?: string | null;
   }
 
-  export interface CreateImageRequest
-    extends slides_v1.Schema$CreateImageRequest {
+  export interface CreateImageRequest {
     /**
      * The element properties for the image. When the aspect ratio of the provided size does not match the image aspect ratio, the image is scaled and centered with respect to the size in order to maintain the aspect ratio. The provided transform is applied after this operation. The PageElementProperties.size property is optional. If you don't specify the size, the default size of the image is used. The PageElementProperties.transform property is optional. If you don't specify a transform, the image will be placed at the top-left corner of the page.
      */
@@ -447,8 +446,7 @@ export namespace IGoogleSlides {
     transform?: Transform;
   }
 
-  export interface CreateSlideRequest
-    extends slides_v1.Schema$CreateSlideRequest {
+  export interface CreateSlideRequest {
     /**
      * The optional zero-based index indicating where to insert the slides. If you don't specify an index, the slide is created at the end.
      */
@@ -767,8 +765,10 @@ export namespace IGoogleSlides {
      * 노트 페이지에 있는 BODY 유형의 자리표시자 도형에는 이 슬라이드의 발표자 노트가 포함되어 있습니다.
      *
      * 이 도형의 ID는 speakerNotesObjectId 필드로 식별됩니다.
+     *
+     * @todo 재귀 문제로 인해 일단 제거
      */
-    readonly notesPage?: Page;
+    // readonly notesPage?: Page;
 
     /**
      * @title 프레젠테이션 모드에서 슬라이드를 건너뛸지 여부.
@@ -980,43 +980,6 @@ export namespace IGoogleSlides {
      * @title 라인 페이지 요소.
      */
     line: Line;
-  }
-
-  // export type PageElementKind = OneOf<{
-  //   /**
-  //    * @title 하나의 단위로 결합된 페이지 요소의 모음.
-  //    */
-  // elementGroup: Group;
-  //     /**
-  //      * @title 동영상 페이지 요소.
-  //      */
-  //     video: Video;
-  //     /**
-  //      * @title 표 페이지 요소.
-  //      */
-  //     table: Table;
-  //     /**
-  //      * @title 워드아트 페이지 요소.
-  //      */
-  //     wordArt: WordArt;
-  //     /**
-  //      * @title Google Sheets에서 삽입된 연결된 차트 연결.
-  //      */
-  //     sheetsChart: SheetsChart;
-  //     /**
-  //      * @title 발표자 스포트라이트.
-  //      */
-  //     speakerSpotlight: SpeakerSpotlight;
-  // }>;
-
-  /**
-   * @title 항목 그룹.
-   */
-  export interface Group {
-    /**
-     * @title 그룹의 요소 모음.
-     */
-    children: PageElement[] & tags.MaxItems<2>;
   }
 
   export interface Shape {
