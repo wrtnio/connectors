@@ -122,7 +122,10 @@ export namespace IFigma {
      */
     version: string;
 
-    document: DocumentNode;
+    /**
+     * @todo 재귀 문제로 인해 일단 제거
+     */
+    // document: DocumentNode;
 
     /**
      * 컴포넌트 ID와 컴포넌트 메타데이터 간의 매핑입니다.
