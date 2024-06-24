@@ -1,8 +1,9 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import { GoogleDriveProvider } from "../../../providers/connector/google_drive/GoogleDriveProvider";
@@ -523,7 +524,15 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GoogleDriveController.prototype.fileList,
+      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
+        response.data,
+      value: (elem): string => elem?.id ?? "",
+      label: (elem): string => elem?.name ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<void> {
@@ -626,7 +635,15 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GoogleDriveController.prototype.folderList,
+      array: (response): IGoogleDrive.IFolderListGoogleDriveOutput["data"] =>
+        response.data,
+      value: (elem): string => elem?.id ?? "",
+      label: (elem): string => elem?.name ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<void> {
@@ -832,7 +849,15 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GoogleDriveController.prototype.fileList,
+      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
+        response.data,
+      value: (elem): string => elem?.id ?? "",
+      label: (elem): string => elem?.name ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody() input: IGoogleDrive.IAppendTextGoogleDriveInput,
   ): Promise<void> {
     return await this.googleDriveProvider.appendText(id, input);
@@ -936,7 +961,15 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GoogleDriveController.prototype.fileList,
+      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
+        response.data,
+      value: (elem): string => elem?.id ?? "",
+      label: (elem): string => elem?.name ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
