@@ -1,6 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { RouteIcon } from "@wrtn/decorators";
 
 import { IPrompt } from "@wrtn/connector-api/lib/structures/connector/prompt/IPrompt";
 
@@ -17,6 +18,9 @@ export class PromptController {
    * @returns 프롬프트를 통한 답변
    */
   @ApiTags("프롬프트 노드")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/prompt_node.svg",
+  )
   @core.TypedRoute.Post("/generate")
   async generate(
     @core.TypedBody() input: IPrompt.IRequest,
