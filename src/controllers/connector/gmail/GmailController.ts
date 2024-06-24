@@ -1,10 +1,11 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { Prerequisite, Standalone } from "@wrtn/decorators";
 import { RouteIcon } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
+import { ISwaggerSchema } from "@wrtn/connector-api/lib/structures/openapi/ISwaggerSchema";
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
 
@@ -219,9 +220,20 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
   )
-  @core.TypedRoute.Post("reply")
-  async reply(@core.TypedBody() input: IGmail.IReplyInput): Promise<void> {
-    return this.gmailProvider.reply(input);
+  @core.TypedRoute.Post("reply/:id")
+  async reply(
+    @Prerequisite({
+      neighbor: () => GmailController.prototype.findEmails,
+      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      value: (elem) => elem.id,
+      label: (elem) => elem.subject ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
+    @core.TypedBody()
+    input: IGmail.IReplyInput,
+  ): Promise<void> {
+    return this.gmailProvider.reply(id, input);
   }
 
   /**
@@ -292,7 +304,14 @@ export class GmailController {
   )
   @core.TypedRoute.Post("get/:id")
   async findEmail(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GmailController.prototype.findEmails,
+      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      value: (elem) => elem.id,
+      label: (elem) => elem.subject ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
   ): Promise<IGmail.IFindGmailOutput> {
@@ -439,7 +458,14 @@ export class GmailController {
   )
   @core.TypedRoute.Delete(":id")
   async removeMail(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GmailController.prototype.findEmails,
+      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      value: (elem) => elem.id,
+      label: (elem) => elem.subject ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
   ): Promise<void> {
@@ -588,7 +614,14 @@ export class GmailController {
   )
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
-    @core.TypedParam("mailId") mailId: string,
+    @Prerequisite({
+      neighbor: () => GmailController.prototype.findEmails,
+      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      value: (elem) => elem.id,
+      label: (elem) => elem.subject ?? "",
+    })
+    @core.TypedParam("mailId")
+    mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     return this.gmailProvider.addLabelToMail(mailId, input);
@@ -662,7 +695,14 @@ export class GmailController {
   )
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(
-    @core.TypedParam("mailId") mailId: string,
+    @Prerequisite({
+      neighbor: () => GmailController.prototype.findEmails,
+      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      value: (elem) => elem.id,
+      label: (elem) => elem.subject ?? "",
+    })
+    @core.TypedParam("mailId")
+    mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     return this.gmailProvider.removeLabelFromMail(mailId, input);
