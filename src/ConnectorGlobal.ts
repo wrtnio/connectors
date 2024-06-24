@@ -38,6 +38,9 @@ export namespace ConnectorGlobal {
     // OPENAI
     OPENAI_API_KEY: string;
 
+    // OPEN_DATA
+    OPEN_DATA_KOREA_METEOROLOGICAL_ADMINISTRATION: string;
+
     // SERP
     SERP_API_KEY: string;
 
@@ -56,6 +59,18 @@ export namespace ConnectorGlobal {
     // SWEET_TRACKER
     TEST_SWEET_TRACKER_KEY: string;
     TEST_SWEET_TRACKER_T_INVOICE: string;
+
+    // KAKAO_TALK
+    KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_CLIENT_SECRET: string;
+    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
+
+    // KOREA_EXIM_BANK (한국수출입은행)
+    KOREA_EXIM_BANK_API_KEY: string;
+
+    // IMWEB
+    IMWEB_TEST_API_KEY: string;
+    IMWEB_TEST_API_SECRET: string;
 
     //----
     // INHOUSE SERVERS

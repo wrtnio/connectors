@@ -39,6 +39,7 @@ export async function generateEasyChatbot(
         },
         {
           ...generateEasyChatbot.METADATA,
+          template: generateEasyChatbot.METADATA.path,
           path: generateEasyChatbot.path(),
         },
         input,

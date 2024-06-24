@@ -6,13 +6,6 @@ export namespace IGmail {
   export interface ICreateMailInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 메일을 보내는 사람의 이메일 주소.
-     *
-     * @title 보내는 사람 이메일 주소.
-     */
-    from: string;
-
-    /**
      * 메일을 받는 사람의 이메일 주소.
      *
      * @title 받는 사람 이메일 주소.
@@ -59,12 +52,19 @@ export namespace IGmail {
 
   export interface IReplyInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
-    /**
-     * 답장할 메일.
-     *
-     * @title 답장할 메일.
-     */
-    originalMailId: string;
+    // /**
+    //  * 답장할 메일.
+    //  *
+    //  * @title 답장할 메일.
+    //  */
+    // originalMailId: string &
+    //   Prerequisite<{
+    //     method: "post";
+    //     path: "/connector/gmail/findEmailList";
+    //     array: "return response.data";
+    //     value: "return elem.id";
+    //     label: "return elem.subject";
+    //   }>;
 
     /**
      * 답장할 문구.

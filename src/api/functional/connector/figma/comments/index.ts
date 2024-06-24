@@ -40,6 +40,7 @@ export async function addComment(
         },
         {
           ...addComment.METADATA,
+          template: addComment.METADATA.path,
           path: addComment.path(),
         },
         input,

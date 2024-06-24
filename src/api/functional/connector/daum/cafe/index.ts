@@ -17,6 +17,36 @@ import type { IDaum } from "../../../../structures/connector/daum/IDaum";
  * @summary 다음 카페 검색
  * @param input 다음 카페 검색을 위한 조건
  * @tag Daum 다음 포털 사이트
+ * @tag 다음 카페
+ * @tag 카페
+ * @tag 카페 멤버
+ * @tag 카페 글쓰기
+ * @tag 카페 이벤트
+ * @tag 카페 게시판
+ * @tag 카페 이미지
+ * @tag 카페 동영상
+ * @tag 카페 공지
+ * @tag 카페 검색
+ * @tag 카페 댓글
+ * @tag 카페 게시물
+ * @tag 카페 인기글
+ * @tag 블로그 포스트
+ * @tag 포스트 작성
+ * @tag Daum Cafe
+ * @tag Cafe
+ * @tag Cafe Members
+ * @tag Cafe Writing
+ * @tag Cafe Events
+ * @tag Cafe Bulletin Board
+ * @tag Cafe Images
+ * @tag Cafe Videos
+ * @tag Cafe Announcements
+ * @tag Cafe Search
+ * @tag Cafe Comments
+ * @tag Cafe Posts
+ * @tag Cafe Popular Posts
+ * @tag Blog Post
+ * @tag Post Writing
  *
  * @controller DaumController.searchCafe
  * @path POST /connector/daum/cafe
@@ -38,6 +68,7 @@ export async function searchCafe(
         },
         {
           ...searchCafe.METADATA,
+          template: searchCafe.METADATA.path,
           path: searchCafe.path(),
         },
         input,

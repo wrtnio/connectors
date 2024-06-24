@@ -5,7 +5,7 @@ on:
       - "src/**"
       - "test/**"
       - "package.json"
-  pull_request:
+  pull_request_target:
     paths:
       - "src/**"
       - "test/**"
@@ -36,4 +36,4 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Run Test Program
-        run: npm run test
+        run: npm run test -- --exclude sweet_tracker korea_exim

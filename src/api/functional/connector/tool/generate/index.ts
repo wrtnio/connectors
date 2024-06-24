@@ -40,6 +40,7 @@ export async function generateTool(
         },
         {
           ...generateTool.METADATA,
+          template: generateTool.METADATA.path,
           path: generateTool.path(id),
         },
         input,

@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
@@ -18,8 +19,70 @@ export class GoogleCalendarController {
    *
    * @returns 구글 캘린더 목록.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Post("get-list")
   async readCalenders(
     @core.TypedBody()
@@ -40,8 +103,70 @@ export class GoogleCalendarController {
    *
    * @returns 캘린더 고유 ID와 캘린더 제목.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Post("")
   async createCalendar(
     @core.TypedBody() input: IGoogleCalendar.ICreateCalendarInput,
@@ -56,8 +181,69 @@ export class GoogleCalendarController {
    *
    * @param calendarId 삭제할 캘린더 고유 ID.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
     @core.TypedParam("calendarId") calendarId: string,
@@ -81,8 +267,69 @@ export class GoogleCalendarController {
    *
    * @returns 구글 캘린더 이벤트 목록.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
     @core.TypedParam("calendarId") calendarId: string,
@@ -100,8 +347,69 @@ export class GoogleCalendarController {
    *
    * @param input 이벤트를 추가할 캘린더 고유 ID, 이벤트 명.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
     @core.TypedParam("calendarId") calendarId: string,
@@ -121,8 +429,69 @@ export class GoogleCalendarController {
    *
    * @returns 추가한 이벤트 정보.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
     @core.TypedParam("calendarId") calendarId: string,
@@ -144,8 +513,69 @@ export class GoogleCalendarController {
    *
    * @returns 업데이트 된 이벤트 정보.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
     @core.TypedParam("calendarId") calendarId: string,
@@ -168,8 +598,69 @@ export class GoogleCalendarController {
    *
    * @returns 참석자가 추가된 이벤트 정보.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
     @core.TypedParam("calendarId") calendarId: string,
@@ -192,8 +683,69 @@ export class GoogleCalendarController {
    *
    * @param eventId 삭제할 이벤트 고유 ID.
    *
+   * @tag Google-Calendar
+   * @tag 구글 캘린더
+   * @tag 캘린더
+   * @tag 일정 관리
+   * @tag 일정 추가
+   * @tag 일정 생성
+   * @tag 일정 공유
+   * @tag 일정 알림
+   * @tag 회의 추가
+   * @tag 약속 추가
+   * @tag 시간 관리
+   * @tag 달력
+   * @tag 스케줄 관리
+   * @tag 일정 조정
+   * @tag 반복 일정
+   * @tag 일정 동기화
+   * @tag 일정 초대
+   * @tag 일정 리마인더
+   * @tag 캘린더 공유
+   * @tag 시간표
+   * @tag 구글 일정
+   * @tag 스케줄러
+   * @tag 이번 주 일정
+   * @tag 다음 주 일정
+   * @tag 월간 일정
+   * @tag 개인 일정
+   * @tag 팀 일정
+   * @tag 회의 예약
+   * @tag 업무 캘린더
+   * @tag 휴가 일정
    * @tag Google Calendar
+   * @tag Calendar
+   * @tag Manage Schedule
+   * @tag Add Event
+   * @tag Create Event
+   * @tag Share Event
+   * @tag Event Reminder
+   * @tag Add Meeting
+   * @tag Add Appointment
+   * @tag Time Management
+   * @tag Calendar
+   * @tag Schedule Management
+   * @tag Adjust Schedule
+   * @tag Recurring Event
+   * @tag Sync Calendar
+   * @tag Invite to Event
+   * @tag Event Reminder
+   * @tag Share Calendar
+   * @tag Timetable
+   * @tag Google Schedule
+   * @tag Scheduler
+   * @tag This Week's Schedule
+   * @tag Next Week's Schedule
+   * @tag Monthly Schedule
+   * @tag Personal Schedule
+   * @tag Team Schedule
+   * @tag Schedule Meeting
+   * @tag Work Calendar
+   * @tag Vacation Schedule
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+  )
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
     @core.TypedParam("calendarId") calendarId: string,

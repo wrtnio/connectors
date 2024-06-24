@@ -12,7 +12,6 @@ export const test_api_connector_gmail = async (
   const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
   const createMailInput: IGmail.ICreateMailInput = {
     to: ["store@wrtn.io"],
-    from: "me",
     subject: "안녕하세요",
     body: "Gmail Connector 테스트 입니다.",
     cc: ["store@wrtn.io"],
@@ -100,8 +99,7 @@ export const test_api_connector_gmail = async (
   /**
    * Reply To Email
    */
-  await CApi.functional.connector.gmail.reply(connection, {
-    originalMailId: emailId,
+  await CApi.functional.connector.gmail.reply(connection, emailId, {
     replyText: "답장입니다.",
     secretKey,
   });

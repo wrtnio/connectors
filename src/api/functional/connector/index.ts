@@ -18,6 +18,7 @@ export * as youtube_search from "./youtube_search";
 export * as typeform from "./typeform";
 export * as google_scholar from "./google_scholar";
 export * as csv from "./csv";
+export * as notion from "./notion";
 export * as extract from "./extract";
 export * as marketing_copy from "./marketing_copy";
 export * as aws from "./aws";
@@ -36,6 +37,14 @@ export * as chatbot from "./chatbot";
 export * as figma from "./figma";
 export * as zoom from "./zoom";
 export * as sweet_tacker from "./sweet_tacker";
+export * as kakao_talk from "./kakao_talk";
+export * as kakao_map from "./kakao_map";
+export * as kakao_navi from "./kakao_navi";
+export * as google_slides from "./google_slides";
+export * as imweb from "./imweb";
+export * as open_data from "./open_data";
+export * as prompt from "./prompt";
+export * as korea_eximbank from "./korea_eximbank";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
@@ -65,6 +74,7 @@ export async function rank(
         },
         {
           ...rank.METADATA,
+          template: rank.METADATA.path,
           path: rank.path(),
         },
         input,

@@ -13,6 +13,7 @@ import type { ISweetTracker } from "../../../../structures/connector/sweet_track
 
 /**
  *
+ * @todo 마저 작성할 것.
  * @param input
  * @returns
  *
@@ -36,6 +37,7 @@ export async function getTrackingInfo(
         },
         {
           ...getTrackingInfo.METADATA,
+          template: getTrackingInfo.METADATA.path,
           path: getTrackingInfo.path(),
         },
         input,

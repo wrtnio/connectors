@@ -25,7 +25,7 @@ export class GmailProvider {
     try {
       const emailLines = [
         `To: ${input.to.join(",")}`,
-        `From: ${input.from}`,
+        `From: me`,
         "Content-Type: text/html; charset=utf-8",
         "MIME-Version: 1.0",
         this.encodeHeaderFieldForKorean("Subject", input.subject),
@@ -73,7 +73,7 @@ export class GmailProvider {
     try {
       const emailLines = [
         `To: ${input.to.join(",")}`,
-        `From: ${input.from}`,
+        `From: me`,
         "Content-Type: text/html; charset=utf-8",
         "MIME-Version: 1.0",
         this.encodeHeaderFieldForKorean("Subject", input.subject),
@@ -106,7 +106,7 @@ export class GmailProvider {
     }
   }
 
-  async reply(input: IGmail.IReplyInput): Promise<void> {
+  async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -121,7 +121,7 @@ export class GmailProvider {
        */
       const originalMessage = await gmail.users.messages.get({
         userId: "me",
-        id: input.originalMailId,
+        id: id,
       });
 
       /**
@@ -135,7 +135,7 @@ export class GmailProvider {
       const references =
         (headers?.find((header) => header.name === "References")?.value || "") +
         " " +
-        input.originalMailId;
+        id;
       const inReplyTo = headers?.find(
         (header) => header.name === "Message-ID",
       )?.value;
@@ -378,7 +378,6 @@ export class GmailProvider {
   /**
    * 한글 base64 인코딩
    */
-
   encodeHeaderFieldForKorean(name: string, value: string) {
     return `${name}: =?utf-8?B?${Buffer.from(value, "utf-8").toString(
       "base64",

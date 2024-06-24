@@ -22,6 +22,7 @@ export async function ping(connection: IConnection): Promise<ping.Output> {
     ? ping.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...ping.METADATA,
+        template: ping.METADATA.path,
         path: ping.path(),
       });
 }

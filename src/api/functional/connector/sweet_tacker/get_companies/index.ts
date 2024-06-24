@@ -30,6 +30,7 @@ export async function getCompanyList(
     ? getCompanyList.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...getCompanyList.METADATA,
+        template: getCompanyList.METADATA.path,
         path: getCompanyList.path(),
       });
 }

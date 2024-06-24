@@ -15,12 +15,21 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
+import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
+import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
+import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
+import { KakaoNaviModule } from "./kakao_navi/KakaoNaviModule";
+import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
+import { KoreaEximbankModule } from "./korea_eximbank/KoreaEximbankModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
+import { NotionController } from "./notion/NotionController";
+import { OpenDataModule } from "./open_data/OpenDataModule";
+import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
@@ -41,7 +50,6 @@ import { ZoomModule } from "./zoom/ZoomModule";
     AwsModule,
     RagModule,
     HwpModule,
-    HwpModule,
     ExcelModule,
     GoogleDocsModule,
     GoogleSheetModule,
@@ -57,6 +65,14 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ZoomModule,
     SweetTackerModule,
     HancellModule,
+    KakaoTalkModule,
+    KakaoMapModule,
+    KakaoNaviModule,
+    GoogleSlidesModule,
+    ImwebModule,
+    OpenDataModule,
+    PromptModule,
+    KoreaEximbankModule,
   ],
   controllers: [
     ArxivSearchController,
@@ -66,6 +82,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     TypeformController,
     GoogleScholarController,
     CsvController,
+    NotionController,
   ],
 })
 export class ConnectorModule {}

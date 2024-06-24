@@ -40,6 +40,7 @@ export async function generateChat(
         },
         {
           ...generateChat.METADATA,
+          template: generateChat.METADATA.path,
           path: generateChat.path(),
         },
         input,

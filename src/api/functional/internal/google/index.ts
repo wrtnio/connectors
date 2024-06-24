@@ -24,6 +24,7 @@ export async function refreshAccessToken(
     ? refreshAccessToken.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...refreshAccessToken.METADATA,
+        template: refreshAccessToken.METADATA.path,
         path: refreshAccessToken.path(),
       });
 }

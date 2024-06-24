@@ -1,4 +1,8 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Injectable } from "@nestjs/common";
 import { randomUUID } from "crypto";
@@ -14,6 +18,7 @@ export class AwsProvider {
   private readonly accessKeyId = ConnectorGlobal.env.AWS_ACCESS_KEY_ID;
   private readonly secretAccessKey = ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY;
   private readonly fileBucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+  private readonly EXPIRATION_IN_MINUTES = 3;
 
   constructor() {
     this.s3 = new S3Client({
@@ -62,5 +67,31 @@ export class AwsProvider {
       uploadUrl,
       urlExpTsMillis: urlExpDate.getTime(), // * date to milliseconds timestamp
     };
+  }
+
+  /**
+   * Transforms S3 URLs in output to presigned URLs
+   */
+
+  async getGetObjectUrl(fileUrl: string): Promise<string> {
+    const match = fileUrl.match(
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+    );
+
+    if (!match) {
+      throw new Error("Invalid format");
+    }
+
+    const bucket = match[1];
+    const key = match[3];
+
+    return await getSignedUrl(
+      this.s3,
+      new GetObjectCommand({ Bucket: bucket, Key: key }),
+      {
+        expiresIn: 60 * this.EXPIRATION_IN_MINUTES,
+        signingRegion: this.region,
+      },
+    );
   }
 }
