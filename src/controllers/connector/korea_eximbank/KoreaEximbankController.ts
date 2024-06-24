@@ -1,9 +1,9 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
-import { IKoreaEximbank } from "@wrtn/connector-api/lib/structures/connector/KoreaEximbank/IKoreaEximbank";
+import { IKoreaEximbank } from "@wrtn/connector-api/lib/structures/connector/korea_eximbank/IKoreaEximbank";
 
-import { KoreaEximbankProvider } from "../../../providers/connector/KoreaEximbank/KoreaEximbankProvider";
+import { KoreaEximbankProvider } from "../../../providers/connector/korea_eximbank/KoreaEximbankProvider";
 
 @Controller("connector/korea-eximbank")
 export class KoreaEximbankController {

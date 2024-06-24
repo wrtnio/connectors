@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { LoggerModule } from "nestjs-pino";
 
-import { KoreaEximbankModule } from "./KoreaEximbank/KoreaEximbankModule";
 import { ArxivSearchController } from "./arxiv_search/ArxivSearchController";
 import { AwsModule } from "./aws/AwsModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
@@ -23,6 +22,7 @@ import { GoogleModule } from "./internal/google/GoogleModule";
 import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
 import { KakaoNaviModule } from "./kakao_navi/KakaoNaviModule";
 import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
+import { KoreaEximbankModule } from "./korea_eximbank/KoreaEximbankModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
