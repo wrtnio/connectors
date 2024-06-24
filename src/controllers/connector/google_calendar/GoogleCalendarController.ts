@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
@@ -246,7 +246,14 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
-    @core.TypedParam("calendarId") calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
@@ -332,7 +339,14 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
-    @core.TypedParam("calendarId") calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IReadGoogleCalendarEventInput,
   ): Promise<IGoogleCalendar.IReadGoogleCalendarEventOutput> {
     return this.googleCalendarProvider.eventList(calendarId, input);
@@ -412,7 +426,14 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
-    @core.TypedParam("calendarId") calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.ICreateQuickEventInput,
   ): Promise<void> {
     return this.googleCalendarProvider.createQuickEvent(calendarId, input);
@@ -494,7 +515,14 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
-    @core.TypedParam("calendarId") calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
     return this.googleCalendarProvider.createEvent(calendarId, input);
@@ -578,8 +606,23 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
-    @core.TypedParam("calendarId") calendarId: string,
-    @core.TypedParam("eventId") eventId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readEvents,
+      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
+        response.events,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("eventId")
+    eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
     return this.googleCalendarProvider.updateEvent(calendarId, eventId, input);
@@ -663,8 +706,23 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
-    @core.TypedParam("calendarId") calendarId: string,
-    @core.TypedParam("eventId") eventId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readEvents,
+      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
+        response.events,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("eventId")
+    eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IAddAttendeesToEventInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
     return this.googleCalendarProvider.addAttendeesToEvent(
@@ -748,8 +806,23 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
-    @core.TypedParam("calendarId") calendarId: string,
-    @core.TypedParam("eventId") eventId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readCalenders,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.summary ?? "",
+    })
+    @core.TypedParam("calendarId")
+    calendarId: string,
+    @Prerequisite({
+      neighbor: () => GoogleCalendarController.prototype.readEvents,
+      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
+        response.events,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("eventId")
+    eventId: string,
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
