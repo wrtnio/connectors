@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -108,7 +109,14 @@ export namespace IGoogleDocs {
      *
      * @title 구글 docs id.
      */
-    documentId: string;
+    documentId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-docs/get-list";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.title";
+      }>;
 
     /**
      * 접근 가능하게 할 이메일과 부여할 권한 리스트입니다.
@@ -140,7 +148,14 @@ export namespace IGoogleDocs {
      *
      * @title 복제할 구글 docs.
      */
-    templateId: string;
+    templateId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-docs/get-list";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.title";
+      }>;
 
     /**
      * 복제하여 새로 생성할 docs의 제목입니다.
@@ -195,7 +210,14 @@ export namespace IGoogleDocs {
      *
      * @title 구글 docs.
      */
-    documentId: string;
+    documentId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-docs/get-list";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.title";
+      }>;
 
     /**
      * 추가할 텍스트입니다.
