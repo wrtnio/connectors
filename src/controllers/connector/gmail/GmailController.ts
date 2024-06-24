@@ -5,7 +5,6 @@ import { RouteIcon } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
-import { ISwaggerSchema } from "@wrtn/connector-api/lib/structures/openapi/ISwaggerSchema";
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
 
