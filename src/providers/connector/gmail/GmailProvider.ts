@@ -106,7 +106,7 @@ export class GmailProvider {
     }
   }
 
-  async reply(input: IGmail.IReplyInput): Promise<void> {
+  async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -121,7 +121,7 @@ export class GmailProvider {
        */
       const originalMessage = await gmail.users.messages.get({
         userId: "me",
-        id: input.originalMailId,
+        id: id,
       });
 
       /**
@@ -135,7 +135,7 @@ export class GmailProvider {
       const references =
         (headers?.find((header) => header.name === "References")?.value || "") +
         " " +
-        input.originalMailId;
+        id;
       const inReplyTo = headers?.find(
         (header) => header.name === "Message-ID",
       )?.value;
