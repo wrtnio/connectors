@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
@@ -234,7 +234,14 @@ export class GoogleDocsController {
   )
   @core.TypedRoute.Post("get/:id")
   async readDocs(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GoogleDocsController.prototype.list,
+      array: (response) => response.data,
+      value: (elem) => elem?.id,
+      label: (elem) => elem?.title ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
@@ -392,7 +399,14 @@ export class GoogleDocsController {
   )
   @core.TypedRoute.Delete(":id")
   async deleteById(
-    @core.TypedParam("id") id: string,
+    @Prerequisite({
+      neighbor: () => GoogleDocsController.prototype.list,
+      array: (response) => response.data,
+      value: (elem) => elem?.id,
+      label: (elem) => elem?.title ?? "",
+    })
+    @core.TypedParam("id")
+    id: string,
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
