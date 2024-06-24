@@ -2236,7 +2236,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-docs/get-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "구글 docs 고유 ID.",
             "required": true
@@ -2371,7 +2378,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-docs/get-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "삭제할 구글 docs 고유 ID.",
             "required": true
@@ -5927,7 +5941,8 @@
           }
         },
         "summary": "프롬프트 노드",
-        "description": "LLM에게 지시할 요청사항을 입력합니다."
+        "description": "LLM에게 지시할 요청사항을 입력합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/prompt_node.svg"
       }
     },
     "/connector/korea-eximbank/exchange": {
@@ -9485,6 +9500,13 @@
         "properties": {
           "documentId": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-docs/get-list",
+              "array": "return response.elements",
+              "value": "return elem.id",
+              "label": "return elem.title"
+            },
             "title": "구글 docs id.",
             "description": "접근 권한을 부여할 구글 docs의 id입니다."
           },
@@ -9631,6 +9653,13 @@
         "properties": {
           "templateId": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-docs/get-list",
+              "array": "return response.elements",
+              "value": "return elem.id",
+              "label": "return elem.title"
+            },
             "title": "복제할 구글 docs.",
             "description": "복제할 구글 docs."
           },
@@ -9716,6 +9745,13 @@
         "properties": {
           "documentId": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-docs/get-list",
+              "array": "return response.elements",
+              "value": "return elem.id",
+              "label": "return elem.title"
+            },
             "title": "구글 docs.",
             "description": "텍스트를 추가할 구글 docs를 선택합니다."
           },
