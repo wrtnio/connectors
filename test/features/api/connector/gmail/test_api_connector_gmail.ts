@@ -99,8 +99,7 @@ export const test_api_connector_gmail = async (
   /**
    * Reply To Email
    */
-  await CApi.functional.connector.gmail.reply(connection, {
-    originalMailId: emailId,
+  await CApi.functional.connector.gmail.reply(connection, emailId, {
     replyText: "답장입니다.",
     secretKey,
   });
