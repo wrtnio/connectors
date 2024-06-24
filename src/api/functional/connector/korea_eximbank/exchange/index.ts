@@ -8,7 +8,7 @@ import type { IConnection, Primitive, Resolved } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { IKoreaEximbank } from "../../../../structures/connector/KoreaEximbank/IKoreaEximbank";
+import type { IKoreaEximbank } from "../../../../structures/connector/korea_eximbank/IKoreaEximbank";
 
 /**
  *
