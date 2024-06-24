@@ -10,7 +10,7 @@ export namespace KoreaEximbankProvider {
 
       const url = `${baseUrl}?authkey=${authKey}&data=AP01`;
 
-      const res = await axios.get(url, {
+      const res = await fetch(url, {
         headers: {
           "User-Agent": `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36`,
           Referer: "https://wrtn.ai",
@@ -18,7 +18,9 @@ export namespace KoreaEximbankProvider {
         },
       });
 
-      return res.data;
+      const data = await res.json();
+
+      return data;
     } catch (err) {
       console.error(err);
       throw err;
