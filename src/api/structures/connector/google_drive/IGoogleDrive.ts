@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -63,7 +64,14 @@ export namespace IGoogleDrive {
      *
      * @title 구글 drive 폴더.
      */
-    folderId?: string;
+    folderId?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/folders";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.name";
+      }>;
   }
 
   export interface IFileListGoogleDriveOutput {
@@ -129,7 +137,15 @@ export namespace IGoogleDrive {
      *
      * @title 구글 drive folder ids.
      */
-    folderIds: string[];
+    folderIds: (string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/folders";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.name";
+      }>)[] &
+      tags.MinItems<1>;
 
     /**
      * drive에 생성할 파일의 내용.
@@ -181,14 +197,28 @@ export namespace IGoogleDrive {
      *
      * @title 구글 drive file id.
      */
-    fileId?: string;
+    fileId?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/files";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.name";
+      }>;
 
     /**
      * 접근 권한을 부여할 drive 폴더 id.
      *
      * @title 구글 drive folder id.
      */
-    folderId?: string;
+    folderId?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/folders";
+        array: "return response.elements";
+        value: "return elem.id";
+        label: "return elem.name";
+      }>;
 
     /**
      * 접근 가능하게 할 이메일과 부여할 권한 리스트 입니다.
