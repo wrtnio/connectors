@@ -65,6 +65,9 @@ export namespace ConnectorGlobal {
     KAKAO_TALK_CLIENT_SECRET: string;
     KAKAO_TALK_TEST_REFRESH_TOKEN: string;
 
+    // KOREA_EXIM_BANK (한국수출입은행)
+    KOREA_EXIM_BANK_API_KEY: string;
+
     // IMWEB
     IMWEB_TEST_API_KEY: string;
     IMWEB_TEST_API_SECRET: string;

@@ -22,6 +22,7 @@ import { GoogleModule } from "./internal/google/GoogleModule";
 import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
 import { KakaoNaviModule } from "./kakao_navi/KakaoNaviModule";
 import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
+import { KoreaEximbankModule } from "./korea_eximbank/KoreaEximbankModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { NaverController } from "./naver/NaverController";
@@ -69,6 +70,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     ImwebModule,
     OpenDataModule,
     PromptModule,
+    KoreaEximbankModule,
   ],
   controllers: [
     ArxivSearchController,
