@@ -4033,7 +4033,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-drive/get/files",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "삭제할 파일 고유 ID.",
             "required": true
@@ -4105,7 +4112,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-drive/get/folders",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "삭제할 폴더 고유 ID.",
             "required": true
@@ -4240,7 +4254,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-drive/get/files",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "파일 고유 ID.",
             "required": true
@@ -4313,7 +4334,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-drive/get/files",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "파일 고유 ID.",
             "required": true
@@ -10996,6 +11024,13 @@
         "properties": {
           "folderId": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/folders",
+              "array": "return response.elements",
+              "value": "return elem.id",
+              "label": "return elem.name"
+            },
             "title": "구글 drive 폴더.",
             "description": "파일을 불러 올 폴더."
           },
@@ -11102,8 +11137,16 @@
           "folderIds": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-drive/get/folders",
+                "array": "return response.elements",
+                "value": "return elem.id",
+                "label": "return elem.name"
+              }
             },
+            "minItems": 1,
             "title": "구글 drive folder ids.",
             "description": "drive에 생성할 파일이 속할 폴더 id 리스트."
           },
@@ -11147,11 +11190,25 @@
         "properties": {
           "fileId": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/files",
+              "array": "return response.elements",
+              "value": "return elem.id",
+              "label": "return elem.name"
+            },
             "title": "구글 drive file id.",
             "description": "접근 권한을 부여할 drive 파일 id."
           },
           "folderId": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/folders",
+              "array": "return response.elements",
+              "value": "return elem.id",
+              "label": "return elem.name"
+            },
             "title": "구글 drive folder id.",
             "description": "접근 권한을 부여할 drive 폴더 id."
           },
