@@ -9,7 +9,11 @@ export namespace KoreaEximbankProvider {
 
     const url = `${baseUrl}?authkey=${authKey}&data=AP01`;
 
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: {
+        "User-Agent": "PostmanRuntime/7.39.0",
+      },
+    });
     return res.data;
   }
 }
