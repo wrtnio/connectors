@@ -3397,17 +3397,13 @@
     },
     {
       "method": "post",
-      "path": "/connector/gmail/reply",
+      "path": "/connector/gmail/reply/{id}",
       "name": "connector.gmail.reply.post",
       "parameters": [
+        {},
         {
           "type": "object",
           "properties": {
-            "originalMailId": {
-              "type": "string",
-              "title": "답장할 메일.",
-              "description": "답장할 메일."
-            },
             "replyText": {
               "type": "string",
               "title": "답장할 문구.",
@@ -3424,7 +3420,6 @@
             }
           },
           "required": [
-            "originalMailId",
             "replyText",
             "secretKey"
           ]

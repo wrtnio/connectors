@@ -4432,7 +4432,7 @@
         "x-wrtn-standalone": true
       }
     },
-    "/connector/gmail/reply": {
+    "/connector/gmail/reply/{id}": {
       "post": {
         "tags": [
           "Gmail",
@@ -4467,7 +4467,24 @@
           "Schedule",
           "Business"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/gmail/read-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
+            },
+            "description": "",
+            "required": true
+          }
+        ],
         "requestBody": {
           "description": "메일 답장에 필요한 정보.",
           "content": {
@@ -4529,7 +4546,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/gmail/read-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "해당 메일의 고유 ID.",
             "required": true
@@ -4667,7 +4691,14 @@
             "name": "id",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/gmail/read-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "삭제할 메일의 고유 ID.",
             "required": true
@@ -4798,7 +4829,14 @@
             "name": "mailId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/gmail/read-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "라벨을 부여할 메일의 고유 ID.",
             "required": true
@@ -4863,7 +4901,14 @@
             "name": "mailId",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/gmail/read-list",
+                "array": "return ((response) => response.data)(response)",
+                "value": "return ((elem) => elem.id)(elem, index, array)",
+                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+              }
             },
             "description": "라벨을 제거할 메일의 고유 ID.",
             "required": true
@@ -11268,11 +11313,6 @@
       "IGmail.IReplyInput": {
         "type": "object",
         "properties": {
-          "originalMailId": {
-            "type": "string",
-            "title": "답장할 메일.",
-            "description": "답장할 메일."
-          },
           "replyText": {
             "type": "string",
             "title": "답장할 문구.",
@@ -11289,7 +11329,6 @@
           }
         },
         "required": [
-          "originalMailId",
           "replyText",
           "secretKey"
         ]
