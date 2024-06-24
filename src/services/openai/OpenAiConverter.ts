@@ -41,7 +41,9 @@ export namespace OpenAiConverter {
     (components: OpenApi.IComponents) =>
     (route: IMigrateRoute): IOpenAiDocument.IOperation | null => {
       const parameters: Array<OpenApi.IJsonSchema | null> =
-        route.parameters.map(escapeReference(components)(new Set()));
+        route.parameters.map((p) =>
+          escapeReference(components)(new Set())(p.schema),
+        );
       if (route.query)
         parameters.push(
           escapeReference(components)(new Set())(route.query.schema),
@@ -54,12 +56,12 @@ export namespace OpenAiConverter {
       return {
         method: typia.assert<OpenApiV3.Method>(route.method),
         path: route.originalPath,
-        name: route.accessor.join("."),
-        parameters: (parameters as OpenApi.IJsonSchema[]).map(
+        name: route.accessor.join("_"),
+        parameters: (parameters as OpenApi.IJsonSchema[]).map((schema) =>
           OpenApiV3Downgrader.downgradeSchema({
             original: {},
             downgraded: {},
-          }),
+          })(schema),
         ),
         description: route.comment(),
       };
