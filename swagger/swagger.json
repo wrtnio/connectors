@@ -5786,6 +5786,25 @@
         "summary": "프롬프트 노드",
         "description": "LLM에게 지시할 요청사항을 입력합니다."
       }
+    },
+    "/connector/korea-eximbank/exchange": {
+      "get": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "환율 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKoreaEximbank.IGetExchangeOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-standalone": true
+      }
     }
   },
   "components": {
@@ -36624,19 +36643,19 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
-                },
-                {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
-                },
-                {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
                 },
                 {
                   "$ref": "#/components/schemas/IGoogleSlides.Template.Entire"
                 },
                 {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
                 }
               ]
             },
@@ -36657,166 +36676,6 @@
           "secretKey"
         ],
         "title": "슬라이드를 붙이기 위한 요청 DTO."
-      },
-      "IGoogleSlides.Template.Vertical": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Vertical",
-            "title": "템플릿의 타입."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "uri",
-                "title": "이미지의 URL."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "슬라이드의 내용물"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "세로형"
-      },
-      "IGoogleSlides.InsertText": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "추가할 텍스트"
-          },
-          "objectId": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "The object ID of the shape or table where the text will be inserted",
-            "description": "The object ID of the shape or table where the text will be inserted."
-          }
-        }
-      },
-      "IGoogleSlides.Template.Square": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Square",
-            "title": "템플릿의 타입."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "uri",
-                "title": "이미지의 URL."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "슬라이드의 내용물"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "정방형"
-      },
-      "IGoogleSlides.Template.Landscape": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Landscape",
-            "title": "템플릿의 타입."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "uri",
-                "title": "이미지의 URL."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "슬라이드의 내용물"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "가로형"
-      },
-      "IGoogleSlides.Template.Entire": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Entire",
-            "title": "템플릿의 타입."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "uri",
-                "title": "이미지의 URL."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "슬라이드의 내용물"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "전체보기 가로형(16:9)"
       },
       "IGoogleSlides.Template.QuarterDivision": {
         "type": "object",
@@ -36927,6 +36786,166 @@
           "contents"
         ],
         "title": "4분할 정방형 (컷 만화형)"
+      },
+      "IGoogleSlides.InsertText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "추가할 텍스트"
+          },
+          "objectId": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The object ID of the shape or table where the text will be inserted",
+            "description": "The object ID of the shape or table where the text will be inserted."
+          }
+        }
+      },
+      "IGoogleSlides.Template.Entire": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Entire",
+            "title": "템플릿의 타입."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "이미지의 URL."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "이미지에 대응되는 텍스트."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "슬라이드의 내용물"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "전체보기 가로형(16:9)"
+      },
+      "IGoogleSlides.Template.Landscape": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Landscape",
+            "title": "템플릿의 타입."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "이미지의 URL."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "이미지에 대응되는 텍스트."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "슬라이드의 내용물"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "가로형"
+      },
+      "IGoogleSlides.Template.Square": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Square",
+            "title": "템플릿의 타입."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "이미지의 URL."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "이미지에 대응되는 텍스트."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "슬라이드의 내용물"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "정방형"
+      },
+      "IGoogleSlides.Template.Vertical": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Vertical",
+            "title": "템플릿의 타입."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "이미지의 URL."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "이미지에 대응되는 텍스트."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "슬라이드의 내용물"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "세로형"
       },
       "IGoogleSlides.ICreatePresentationInput": {
         "type": "object",
@@ -38353,6 +38372,174 @@
         "required": [
           "result"
         ]
+      },
+      "IKoreaEximbank.IGetExchangeOutput": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Constant1__type.o1"
+                },
+                {
+                  "$ref": "#/components/schemas/Constant2__type.o1"
+                },
+                {
+                  "$ref": "#/components/schemas/Constant3__type.o1"
+                },
+                {
+                  "$ref": "#/components/schemas/Constant4__type.o1"
+                }
+              ],
+              "title": "조회 결과에 대한 요약"
+            },
+            "cur_unit": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "x-wrtn-placeholder": "KRW"
+                }
+              ],
+              "title": "통화코드"
+            },
+            "ttb": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "전신환(송금) 받을 떄"
+            },
+            "tts": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "전신환(송금) 보낼 때"
+            },
+            "deal_bas_r": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "매매 기준율"
+            },
+            "bkpr": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "장부 가격"
+            },
+            "yy_efee_r": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "년환가료율"
+            },
+            "ten_dd_efee_r": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "10일환가료율"
+            },
+            "kftc_bkpr": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "서울외국환중개장부가격"
+            },
+            "kftc_deal_bas_r": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "서울외국환중개매매기준율"
+            },
+            "cur_nm": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "x-wrtn-placeholder": "한국 원"
+                }
+              ],
+              "title": "국가/통화명"
+            }
+          },
+          "required": [
+            "result",
+            "cur_unit",
+            "ttb",
+            "tts",
+            "deal_bas_r",
+            "bkpr",
+            "yy_efee_r",
+            "ten_dd_efee_r",
+            "kftc_bkpr",
+            "kftc_deal_bas_r",
+            "cur_nm"
+          ]
+        },
+        "title": "환율 정보",
+        "description": "한국 수출입 은행에서 오늘 날짜에 해당하는 환율 정보를 제공"
+      },
+      "Constant1__type.o1": {
+        "const": 1,
+        "title": "성공"
+      },
+      "Constant2__type.o1": {
+        "const": 2,
+        "title": "데이터 코드 오류"
+      },
+      "Constant3__type.o1": {
+        "const": 3,
+        "title": "인증코드 오류"
+      },
+      "Constant4__type.o1": {
+        "const": 4,
+        "title": "일일 제한 횟수 마감"
       }
     }
   },

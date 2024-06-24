@@ -7079,198 +7079,6 @@
                       "type": {
                         "type": "string",
                         "enum": [
-                          "Vertical"
-                        ],
-                        "title": "템플릿의 타입."
-                      },
-                      "contents": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri",
-                            "title": "이미지의 URL."
-                          },
-                          "text": {
-                            "type": "object",
-                            "properties": {
-                              "text": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "추가할 텍스트"
-                              },
-                              "objectId": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "The object ID of the shape or table where the text will be inserted",
-                                "description": "The object ID of the shape or table where the text will be inserted."
-                              }
-                            }
-                          }
-                        },
-                        "required": [
-                          "url",
-                          "text"
-                        ],
-                        "title": "슬라이드의 내용물"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "contents"
-                    ],
-                    "title": "세로형"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "Square"
-                        ],
-                        "title": "템플릿의 타입."
-                      },
-                      "contents": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri",
-                            "title": "이미지의 URL."
-                          },
-                          "text": {
-                            "type": "object",
-                            "properties": {
-                              "text": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "추가할 텍스트"
-                              },
-                              "objectId": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "The object ID of the shape or table where the text will be inserted",
-                                "description": "The object ID of the shape or table where the text will be inserted."
-                              }
-                            }
-                          }
-                        },
-                        "required": [
-                          "url",
-                          "text"
-                        ],
-                        "title": "슬라이드의 내용물"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "contents"
-                    ],
-                    "title": "정방형"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "Landscape"
-                        ],
-                        "title": "템플릿의 타입."
-                      },
-                      "contents": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri",
-                            "title": "이미지의 URL."
-                          },
-                          "text": {
-                            "type": "object",
-                            "properties": {
-                              "text": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "추가할 텍스트"
-                              },
-                              "objectId": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "The object ID of the shape or table where the text will be inserted",
-                                "description": "The object ID of the shape or table where the text will be inserted."
-                              }
-                            }
-                          }
-                        },
-                        "required": [
-                          "url",
-                          "text"
-                        ],
-                        "title": "슬라이드의 내용물"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "contents"
-                    ],
-                    "title": "가로형"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "Entire"
-                        ],
-                        "title": "템플릿의 타입."
-                      },
-                      "contents": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri",
-                            "title": "이미지의 URL."
-                          },
-                          "text": {
-                            "type": "object",
-                            "properties": {
-                              "text": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "추가할 텍스트"
-                              },
-                              "objectId": {
-                                "type": "string",
-                                "nullable": true,
-                                "title": "The object ID of the shape or table where the text will be inserted",
-                                "description": "The object ID of the shape or table where the text will be inserted."
-                              }
-                            }
-                          }
-                        },
-                        "required": [
-                          "url",
-                          "text"
-                        ],
-                        "title": "슬라이드의 내용물"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "contents"
-                    ],
-                    "title": "전체보기 가로형(16:9)"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
                           "QuarterDivision"
                         ],
                         "title": "템플릿의 타입."
@@ -7440,6 +7248,198 @@
                       "contents"
                     ],
                     "title": "4분할 정방형 (컷 만화형)"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Entire"
+                        ],
+                        "title": "템플릿의 타입."
+                      },
+                      "contents": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "title": "이미지의 URL."
+                          },
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "추가할 텍스트"
+                              },
+                              "objectId": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "The object ID of the shape or table where the text will be inserted",
+                                "description": "The object ID of the shape or table where the text will be inserted."
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "text"
+                        ],
+                        "title": "슬라이드의 내용물"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "contents"
+                    ],
+                    "title": "전체보기 가로형(16:9)"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Landscape"
+                        ],
+                        "title": "템플릿의 타입."
+                      },
+                      "contents": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "title": "이미지의 URL."
+                          },
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "추가할 텍스트"
+                              },
+                              "objectId": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "The object ID of the shape or table where the text will be inserted",
+                                "description": "The object ID of the shape or table where the text will be inserted."
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "text"
+                        ],
+                        "title": "슬라이드의 내용물"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "contents"
+                    ],
+                    "title": "가로형"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Square"
+                        ],
+                        "title": "템플릿의 타입."
+                      },
+                      "contents": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "title": "이미지의 URL."
+                          },
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "추가할 텍스트"
+                              },
+                              "objectId": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "The object ID of the shape or table where the text will be inserted",
+                                "description": "The object ID of the shape or table where the text will be inserted."
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "text"
+                        ],
+                        "title": "슬라이드의 내용물"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "contents"
+                    ],
+                    "title": "정방형"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Vertical"
+                        ],
+                        "title": "템플릿의 타입."
+                      },
+                      "contents": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "title": "이미지의 URL."
+                          },
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "추가할 텍스트"
+                              },
+                              "objectId": {
+                                "type": "string",
+                                "nullable": true,
+                                "title": "The object ID of the shape or table where the text will be inserted",
+                                "description": "The object ID of the shape or table where the text will be inserted."
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "text"
+                        ],
+                        "title": "슬라이드의 내용물"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "contents"
+                    ],
+                    "title": "세로형"
                   }
                 ]
               },
@@ -7625,6 +7625,13 @@
         }
       ],
       "description": "프롬프트 노드.\nLLM에게 지시할 요청사항을 입력합니다.\n\n@param body 유저의 프롬프트 입력\n@tag 프롬프트 노드"
+    },
+    {
+      "method": "get",
+      "path": "/connector/korea-eximbank/exchange",
+      "name": "connector.korea_eximbank.exchange.get",
+      "parameters": [],
+      "description": ""
     }
   ]
 }
