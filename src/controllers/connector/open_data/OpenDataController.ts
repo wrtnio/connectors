@@ -9,6 +9,13 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  /**
+   * 국토교통부 건축물대장정보를 조회합니다.
+   *
+   * @summary 건축물대장정보 조회
+   * @param input 빌딩 정보를 조회하는 조건
+   * @returns 빌딩 정보
+   */
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,

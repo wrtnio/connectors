@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { IOpenData } from "./IOpenData";
@@ -14,12 +15,26 @@ export namespace IMOLIT {
     /**
      * @title 시군구 코드
      */
-    sigunguCd: number | `${number}` | string;
+    sigunguCd: Prerequisite<{
+      method: "post";
+      path: "/connector/open-data/getStandardRegionCodeList";
+      array: "return response.rows";
+      value: "return elem.sigunguCd";
+      label: "return ''";
+    }> &
+      (number | `${number}` | string);
 
     /**
      * @title 법정동 코드
      */
-    bjdongCd: number | `${number}` | string;
+    bjdongCd: Prerequisite<{
+      method: "post";
+      path: "/connector/open-data/getStandardRegionCodeList";
+      array: "return response.rows";
+      value: "return elem.sigunguCd";
+      label: "return elem.locatadd_nm";
+    }> &
+      (number | `${number}` | string);
   }
 
   /**
