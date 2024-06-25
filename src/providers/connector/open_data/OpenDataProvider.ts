@@ -57,6 +57,7 @@ export namespace OpenDataProvider {
           el: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput["rows"][0],
         ) => {
           el.sigunguCd = `${el.sido_cd}${el.sgg_cd}`;
+          el.sigunguNm = el.locatadd_nm?.split(" ").slice(0, 2).join(" ") ?? "";
           el.bjdongCd = `${el.umd_cd}${el.ri_cd}`;
 
           return el;

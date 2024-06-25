@@ -3,12 +3,20 @@ import { Controller } from "@nestjs/common";
 import { Standalone } from "@wrtn/decorators";
 
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
+import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  @TypedRoute.Post("getParkingLot")
+  async getParkingLot(
+    input: INIA.IGetParkingLotInput,
+  ): Promise<INIA.IGetParkingLotOutput> {
+    return null!;
+  }
+
   /**
    * 국토교통부 건축물대장정보를 조회합니다.
    *

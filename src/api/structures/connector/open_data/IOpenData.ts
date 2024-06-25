@@ -75,6 +75,11 @@ export namespace IOpenData {
         sigunguCd?: string;
 
         /**
+         * @title 시군구 이름
+         */
+        sigunguNm: string;
+
+        /**
          * @title 읍면동코드
          */
         umd_cd?: string;

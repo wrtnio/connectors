@@ -20,7 +20,7 @@ export namespace IMOLIT {
       path: "/connector/open-data/getStandardRegionCodeList";
       array: "return response.rows";
       value: "return elem.sigunguCd";
-      label: "return ''";
+      label: "return elem.sigunguNm";
     }> &
       (number | `${number}` | string);
 
