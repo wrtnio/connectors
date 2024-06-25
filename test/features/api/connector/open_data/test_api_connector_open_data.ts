@@ -73,6 +73,22 @@ export const test_api_connector_open_data_get_get_parking_lot = async (
   typia.assertEquals(res);
 };
 
+export const test_api_connector_open_data_get_get_lh_lease_info_has_next_page =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+      connection,
+      {
+        pageNo: 1,
+        numOfRows: 10,
+        CNP_CD: 11,
+      },
+    );
+
+    typia.assertEquals<true>(res.data.length === 10);
+    typia.assertEquals<true>(res.nextPage);
+    typia.assertEquals(res);
+  };
+
 export const test_api_connector_open_data_get_get_lh_lease_info = async (
   connection: CApi.IConnection,
 ) => {
@@ -85,7 +101,38 @@ export const test_api_connector_open_data_get_get_lh_lease_info = async (
     },
   );
 
-  console.log(res.nextPage);
-
+  typia.assertEquals<false>(res.data.length === 1000);
+  typia.assertEquals<false>(res.nextPage);
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_get_lh_lease_info_second_page =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+      connection,
+      {
+        pageNo: 2,
+        numOfRows: 1000,
+        CNP_CD: 11,
+      },
+    );
+
+    typia.assertEquals<false>(res.data.length === 1000);
+    typia.assertEquals(res);
+  };
+
+export const test_api_connector_open_data_get_get_lh_lease_info_third_page =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+      connection,
+      {
+        pageNo: 3,
+        numOfRows: 1000,
+        CNP_CD: 11,
+      },
+    );
+
+    typia.assertEquals<false>(res.data.length === 1000);
+    typia.assertEquals<false>(res.nextPage);
+    typia.assertEquals(res);
+  };

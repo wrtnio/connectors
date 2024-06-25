@@ -1,5 +1,6 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { Standalone } from "@wrtn/decorators";
 
 import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
@@ -11,6 +12,14 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  /**
+   * [한국토지주택공사] LH 임대주택 단지를 조회합니다.
+   *
+   * @summary LH 임대주택 조회
+   * @param input 조회할 임대주택 조건
+   * @returns LH 임대주택 정보
+   */
+  @ApiTags("LH", "주거", "임대주택", "행복주택")
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
@@ -25,6 +34,7 @@ export class OpenDataController {
    * @param input 주차장 조회 조건
    * @returns 주차장 정보
    */
+  @ApiTags("주차장", "주차")
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
@@ -39,6 +49,7 @@ export class OpenDataController {
    * @param input 빌딩 정보를 조회하는 조건
    * @returns 빌딩 정보
    */
+  @ApiTags("건축물", "빌딩", "내진설계", "건축물대장정보")
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
@@ -54,6 +65,7 @@ export class OpenDataController {
    * @returns 지역 코드
    */
   @Standalone()
+  @ApiTags("행정구역", "지역구", "읍면동", "시도", "시군구")
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
     @TypedBody()
@@ -71,6 +83,7 @@ export class OpenDataController {
    * @returns 시가 총액 및 주식 정보
    */
   @Standalone()
+  @ApiTags("주식", "시가총액", "기업", "자본")
   @TypedRoute.Post("getStockPriceInfo")
   async getStockPriceInfo(
     @TypedBody()
@@ -88,6 +101,7 @@ export class OpenDataController {
    * @returns 해당 지역의 기상 정보
    */
   @Standalone()
+  @ApiTags("날씨", "기상청", "오늘 날씨", "기후")
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()

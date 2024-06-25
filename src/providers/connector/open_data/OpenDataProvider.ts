@@ -17,6 +17,8 @@ export namespace OpenDataProvider {
     const queryString = Object.entries({
       PG_SZ: (input.numOfRows ? Number(input.numOfRows) : 10) + 1,
       PAGE: input.pageNo ?? 1,
+      CNP_CD: input.CNP_CD,
+      ...(input.SPL_TP_CD && { SPL_TP_CD: input.SPL_TP_CD }),
       serviceKey,
       type: "json",
     })
@@ -28,7 +30,6 @@ export namespace OpenDataProvider {
 
     let nextPage: boolean = false;
     const take = (input.numOfRows ? Number(input.numOfRows) : 10) + 1;
-    console.log(take, dsList.length);
     if (dsList.length === take) {
       nextPage = true;
       dsList.pop();
