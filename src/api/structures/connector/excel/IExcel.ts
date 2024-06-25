@@ -8,16 +8,16 @@ export namespace IExcel {
    */
   export interface IReadExcelInput {
     /**
-     * 읽어올 파일
+     * 읽어올 엑셀 파일
      *
-     * @title 파일
+     * @title 엑셀 파일
      */
     fileUrl: string &
       tags.Format<"uri"> &
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
-     * 읽어올 sheet 이름.
+     * 읽어올 sheet 이름
      *
      * @title sheet 이름
      */
@@ -26,18 +26,16 @@ export namespace IExcel {
 
   interface IReadExcelRowData {
     /**
-     * key가 헤더 이름이고 value가 해당 행의 값인 객체.
+     * key가 헤더 이름이고 value가 해당 행의 값인 객체
      *
-     * @title 읽어온 row 데이터
+     * @title 읽어온 엑셀 행 데이터
      */
     [key: string]: any;
   }
 
   export interface IReadExcelOutput {
     /**
-     * 읽어온 sheet 데이터.
-     *
-     * @title sheet 데이터
+     * @title 엑셀 시트 데이터
      */
     data: IReadExcelRowData[];
   }
@@ -47,9 +45,9 @@ export namespace IExcel {
    */
   export interface IGetWorksheetListInput {
     /**
-     * worksheet 리스트를 가져올 파일
+     * 엑셀 워크 시트 리스트를 가져올 파일
      *
-     * @title 파일
+     * @title 엑셀 파일
      */
     fileUrl: string &
       tags.Format<"uri"> &
@@ -62,14 +60,14 @@ export namespace IExcel {
      */
     data: {
       /**
-       * 가져온 worksheet의 이름.
+       * 가져온 워크 시트의 이름
        *
        * @title sheet 이름
        */
       sheetName: string;
 
       /**
-       * 가져온 worksheet의 id.
+       * 가져온 워크 시트의 id.
        *
        * @title sheet id
        */
@@ -83,35 +81,33 @@ export namespace IExcel {
   export interface IInsertExcelRowInput {
     // TODO: 당장은 flow 상 새로운 파일을 제공하여 유저가 다운로드 받는 flow만 서포트.
     /**
-     * 행을 추가할 파일.
+     * 엑셀 행을 추가할 파일.
      *
-     * @title 파일
+     * @title 엑셀 파일
      */
     //fileUrl: string &
     //tags.Format<"uri"> &
     //ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
-     * 행을 추가할 sheet 이름.
+     * 엑셀 행을 추가할 시트 이름
      * 입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다.
      *
-     * @title sheet 이름
+     * @title 엑셀 시트 이름
      */
     sheetName?: (string & Placeholder<"sheet1">) | null;
 
     /**
      * key가 header 이름이고 value가 해당 행의 값인 객체의 배열
      *
-     * @title 추가할 행 데이터
+     * @title 추가할 엑셀 행 데이터
      */
     data: Record<string, any>[];
   }
 
   export interface IInsertExcelRowOutput {
     /**
-     * 새로 추가된 파일의 url.
-     *
-     * @title 생성된 파일 url.
+     * @title 생성된 엑셀 파일 url
      */
     fileUrl: string &
       tags.Format<"uri"> &
