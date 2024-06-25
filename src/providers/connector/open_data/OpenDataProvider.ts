@@ -52,7 +52,16 @@ export namespace OpenDataProvider {
       totalCount: head[0].totalCount,
       pageNo: Number(head[1].pageNo),
       numOfRows: Number(head[1].numOfRows),
-      rows: body.row,
+      rows: body.row.map(
+        (
+          el: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput["rows"][0],
+        ) => {
+          el.sigunguCd = `${el.sido_cd}${el.sgg_cd}`;
+          el.bjdongCd = `${el.umd_cd}${el.ri_cd}`;
+
+          return el;
+        },
+      ),
     };
   }
 

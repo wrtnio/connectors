@@ -69,6 +69,12 @@ export namespace IOpenData {
         sgg_cd?: string;
 
         /**
+         * @title 시도, 시군구 코드
+         * @description 시도코드와 시군구코드의 합
+         */
+        sigunguCd?: string;
+
+        /**
          * @title 읍면동코드
          */
         umd_cd?: string;
@@ -77,6 +83,12 @@ export namespace IOpenData {
          * @title 리코드
          */
         ri_cd?: string;
+
+        /**
+         * @title 법정동 코드
+         * @title 읍면동 코드와 리 코드의 합
+         */
+        bjdongCd?: string;
 
         /**
          * @title 지역코드_주민
