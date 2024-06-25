@@ -52,74 +52,72 @@ export namespace IOpenData {
      */
     export interface IGetStandardRegionCodeListOutput
       extends ICommon.IPaginationOutput {
-      resultCode: string;
-      resultMsg: string;
-      type: "JSON";
+      rows: {
+        /**
+         * @title 지역코드
+         */
+        region_cd: string;
 
-      /**
-       * @title 지역코드
-       */
-      region_cd: string;
+        /**
+         * @title 시도코드
+         */
+        sido_cd?: string;
 
-      /**
-       * @title 시도코드
-       */
-      sido_cd?: string;
+        /**
+         * @title 시군구코드
+         */
+        sgg_cd?: string;
 
-      /**
-       * @title 시군구코드
-       */
-      sgg_cd?: string;
+        /**
+         * @title 읍면동코드
+         */
+        umd_cd?: string;
 
-      /**
-       * @title 읍면동코드
-       */
-      umd_cd?: string;
+        /**
+         * @title 리코드
+         */
+        ri_cd?: string;
 
-      /**
-       * @title 리코드
-       */
-      ri_cd?: string;
+        /**
+         * @title 지역코드_주민
+         */
+        locatjumin_cd?: string;
 
-      /**
-       * @title 지역코드_주민
-       */
-      locatjumin_cd?: string;
+        /**
+         * @title 지역코드_지적
+         */
+        locatjijuk_cd?: string;
 
-      /**
-       * @title 지역코드_지적
-       */
-      locatjijuk_cd?: string;
+        /**
+         * @title 지역주소명
+         */
+        locatadd_nm?: string;
 
-      /**
-       * @title 지역주소명
-       */
-      locatadd_nm?: string;
+        /**
+         * @title 서열
+         */
+        locat_order?: number & tags.Type<"int32">;
 
-      /**
-       * @title 서열
-       */
-      locat_order?: string;
+        /**
+         * @title 비고
+         */
+        locat_rm?: string;
 
-      /**
-       * @title 비고
-       */
-      locat_rm?: string;
+        /**
+         * @title 상위지역코드
+         */
+        locathigh_cd?: string;
 
-      /**
-       * @title 상위지역코드
-       */
-      locathigh_cd?: string;
+        /**
+         * @title 최하위지역명
+         */
+        locallow_nm?: string;
 
-      /**
-       * @title 최하위지역명
-       */
-      locallow_nm?: string;
-
-      /**
-       * @title 생성일
-       */
-      adpt_de?: string;
+        /**
+         * @title 생성일
+         */
+        adpt_de?: string;
+      }[];
     }
   }
 

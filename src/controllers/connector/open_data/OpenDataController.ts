@@ -9,7 +9,9 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 @Controller("connector/open-data")
 export class OpenDataController {
   @Standalone()
+  @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
+    @TypedBody()
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
   ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {
     return OpenDataProvider.getStandardRegionCodeList(input);

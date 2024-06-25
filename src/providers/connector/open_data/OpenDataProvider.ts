@@ -9,25 +9,32 @@ export namespace OpenDataProvider {
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
   ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {
     const baseUrl = `http://apis.data.go.kr/1741000/StanReginCd/getStanReginCdList`;
-    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_KOREA_METEOROLOGICAL_ADMINISTRATION}`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
 
     const queryString = Object.entries({
       ...input,
       serviceKey,
-      resultType: "json",
+      type: "json",
     })
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
     const res = await axios.get(`${baseUrl}?${queryString}`);
-    return res.data;
+    const [{ head }, body] = res.data.StanReginCd;
+
+    return {
+      totalCount: head[0].totalCount,
+      pageNo: Number(head[1].pageNo),
+      numOfRows: Number(head[1].numOfRows),
+      rows: body.row,
+    };
   }
 
   export async function getStockPriceInfo(
     input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
   ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
     const baseUrl = `https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo`;
-    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_KOREA_METEOROLOGICAL_ADMINISTRATION}`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
 
     const queryString = Object.entries({
       ...input,
@@ -45,7 +52,7 @@ export namespace OpenDataProvider {
     input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
     const baseUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst`;
-    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_KOREA_METEOROLOGICAL_ADMINISTRATION}`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based

@@ -16,7 +16,7 @@ export const test_api_connector_open_data_get_short_term_forecast = async (
   typia.assertEquals(res);
 };
 
-export const test_api_connector_open_data_get_get_stock_price_innfo = async (
+export const test_api_connector_open_data_get_get_stock_price_info = async (
   connection: CApi.IConnection,
 ) => {
   const res = await CApi.functional.connector.open_data.getStockPriceInfo(
@@ -28,3 +28,16 @@ export const test_api_connector_open_data_get_get_stock_price_innfo = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_get_standard_region_code_list =
+  async (connection: CApi.IConnection) => {
+    const res =
+      await CApi.functional.connector.open_data.getStandardRegionCodeList(
+        connection,
+        {
+          locatadd_nm: "서울특별시",
+        },
+      );
+
+    typia.assertEquals(res);
+  };
