@@ -1,11 +1,37 @@
 import axios from "axios";
 
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
+import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
+  export async function getParkingLot(
+    input: INIA.IGetParkingLotInput,
+  ): Promise<INIA.IGetParkingLotOutput> {
+    const baseUrl = `http://api.data.go.kr/openapi/tn_pubr_prkplce_info_api`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+
+    const queryString = Object.entries({
+      ...input,
+      serviceKey,
+      type: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    const data = res.data.response.body;
+    const parkingLots = data.items;
+    return {
+      numOfRows: Number(data.numOfRows),
+      pageNo: Number(data.pageNo),
+      totalCount: Number(data.totalCount),
+      parkingLots,
+    };
+  }
+
   export async function getBuildingInfo(
     input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
@@ -24,9 +50,9 @@ export namespace OpenDataProvider {
     const bulidings = data.items.item;
 
     return {
-      numOfRows: data.numOfRows,
-      pageNo: data.pageNo,
-      totalCount: data.totalCount,
+      numOfRows: Number(data.numOfRows),
+      pageNo: Number(data.pageNo),
+      totalCount: Number(data.totalCount),
       bulidings,
     };
   }

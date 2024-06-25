@@ -57,3 +57,18 @@ export const test_api_connector_open_data_get_get_building_info = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_get_parking_lot = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getParkingLot(
+    connection,
+    {
+      pageNo: 1,
+      numOfRows: 100,
+      lnmadr: "강원도 평창군 대관령면 횡계리 321-10",
+    },
+  );
+
+  typia.assertEquals(res);
+};

@@ -12,9 +12,9 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 export class OpenDataController {
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
-    input: INIA.IGetParkingLotInput,
+    @TypedBody() input: INIA.IGetParkingLotInput,
   ): Promise<INIA.IGetParkingLotOutput> {
-    return null!;
+    return OpenDataProvider.getParkingLot(input);
   }
 
   /**
