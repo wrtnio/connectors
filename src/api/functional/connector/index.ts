@@ -37,6 +37,7 @@ export * as chatbot from "./chatbot";
 export * as figma from "./figma";
 export * as zoom from "./zoom";
 export * as sweet_tacker from "./sweet_tacker";
+export * as hancell from "./hancell";
 export * as kakao_talk from "./kakao_talk";
 export * as kakao_map from "./kakao_map";
 export * as kakao_navi from "./kakao_navi";
