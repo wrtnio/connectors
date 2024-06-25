@@ -1,10 +1,36 @@
 import axios from "axios";
 
+import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
+  export async function getBuildingInfo(
+    input: IMOLIT.GetBuildingInfoInput,
+  ): Promise<IMOLIT.GetBuildingInfoOutput> {
+    const baseUrl = `http://apis.data.go.kr/1613000/BldRgstService_v2/getBrTitleInfo`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+    const queryString = Object.entries({
+      ...input,
+      serviceKey,
+      _type: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    const data = res.data.response.body;
+    const bulidings = data.items.item;
+
+    return {
+      numOfRows: data.numOfRows,
+      pageNo: data.pageNo,
+      totalCount: data.totalCount,
+      bulidings,
+    };
+  }
+
   export async function getStandardRegionCodeList(
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
   ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {

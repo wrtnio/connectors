@@ -41,3 +41,19 @@ export const test_api_connector_open_data_get_get_standard_region_code_list =
 
     typia.assertEquals(res);
   };
+
+export const test_api_connector_open_data_get_get_building_info = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getBuildingInfo(
+    connection,
+    {
+      sigunguCd: "11680",
+      bjdongCd: "10300",
+      pageNo: 1,
+      numOfRows: 100,
+    },
+  );
+
+  typia.assertEquals(res);
+};

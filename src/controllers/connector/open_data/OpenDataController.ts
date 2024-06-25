@@ -2,12 +2,20 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Standalone } from "@wrtn/decorators";
 
+import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  @TypedRoute.Post("getBuildingInfo")
+  async getBuildingInfo(
+    @TypedBody() input: IMOLIT.GetBuildingInfoInput,
+  ): Promise<IMOLIT.GetBuildingInfoOutput> {
+    return OpenDataProvider.getBuildingInfo(input);
+  }
+
   /**
    * 국내 지역의 행정 표준 상 코드를 조회합니다.
    *
