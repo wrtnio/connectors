@@ -8,6 +8,13 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  /**
+   * 국내 지역의 행정 표준 상 코드를 조회합니다.
+   *
+   * @summary 행정표준 코드 조회
+   * @param input 조회할 지역 조건
+   * @returns 지역 코드
+   */
   @Standalone()
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
