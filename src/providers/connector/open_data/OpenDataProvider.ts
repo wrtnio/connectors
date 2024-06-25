@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
@@ -7,6 +8,38 @@ import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_dat
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
+  export async function getLHLeaseInfo(
+    input: ILH.IGetLHLeaseInfoInput,
+  ): Promise<ILH.IGetLHLeaseInfoOutput> {
+    const baseUrl = `http://apis.data.go.kr/B552555/lhLeaseInfo1/lhLeaseInfo1`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+
+    const queryString = Object.entries({
+      PG_SZ: (input.numOfRows ? Number(input.numOfRows) : 10) + 1,
+      PAGE: input.pageNo ?? 1,
+      serviceKey,
+      type: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    const [_, { dsList }] = res.data;
+
+    let nextPage: boolean = false;
+    const take = (input.numOfRows ? Number(input.numOfRows) : 10) + 1;
+    console.log(take, dsList.length);
+    if (dsList.length === take) {
+      nextPage = true;
+      dsList.pop();
+    }
+
+    return {
+      nextPage,
+      data: dsList,
+    };
+  }
+
   export async function getParkingLot(
     input: INIA.IGetParkingLotInput,
   ): Promise<INIA.IGetParkingLotOutput> {

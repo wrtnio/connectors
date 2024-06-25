@@ -34,7 +34,7 @@ export namespace ILH {
     /**
      * @title 공급유형코드
      */
-    SPL_TP_CD:
+    SPL_TP_CD?:
       | tags.Constant<"07", { title: "국민임대" }>
       | tags.Constant<"08", { title: "공공임대" }>
       | tags.Constant<"09", { title: "영구임대" }>

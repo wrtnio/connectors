@@ -72,3 +72,20 @@ export const test_api_connector_open_data_get_get_parking_lot = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_get_lh_lease_info = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+    connection,
+    {
+      pageNo: 1,
+      numOfRows: 1000,
+      CNP_CD: 11,
+    },
+  );
+
+  console.log(res.nextPage);
+
+  typia.assertEquals(res);
+};

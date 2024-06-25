@@ -2,6 +2,7 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Standalone } from "@wrtn/decorators";
 
+import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
@@ -11,7 +12,11 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 @Controller("connector/open-data")
 export class OpenDataController {
   @TypedRoute.Post("getLHLeaseInfo")
-  async getLHLeaseInfo() {}
+  async getLHLeaseInfo(
+    @TypedBody() input: ILH.IGetLHLeaseInfoInput,
+  ): Promise<ILH.IGetLHLeaseInfoOutput> {
+    return OpenDataProvider.getLHLeaseInfo(input);
+  }
 
   /**
    * [한국지능정보사회진흥원] 주차장 정보를 조회합니다.
