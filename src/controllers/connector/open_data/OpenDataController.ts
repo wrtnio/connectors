@@ -10,6 +10,9 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  @TypedRoute.Post("getLHLeaseInfo")
+  async getLHLeaseInfo() {}
+
   /**
    * [한국지능정보사회진흥원] 주차장 정보를 조회합니다.
    *
