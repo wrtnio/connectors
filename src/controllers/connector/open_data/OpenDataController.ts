@@ -8,6 +8,13 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  @Standalone()
+  async getStandardRegionCodeList(
+    input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
+  ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {
+    return OpenDataProvider.getStandardRegionCodeList(input);
+  }
+
   /**
    * 시가총액과 주식 정보를 조회합니다.
    *

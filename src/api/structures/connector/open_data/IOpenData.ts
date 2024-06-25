@@ -2,14 +2,20 @@ import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 export namespace IOpenData {
-  /**
-   * @title 금융위원회 타입
-   */
-  export namespace FinancialServicesCommission {
-    /**
-     * @title 시가총액 및 주식 정보 조회 조건
-     */
-    export type IGetStockPriceInfoInput = {
+  export namespace ICommon {
+    export interface IPaginationInput {
+      /**
+       * @title 한 페이지 당 결과 수
+       */
+      numOfRows?: number & tags.Type<"int32"> & tags.Default<10>;
+
+      /**
+       * @title 페이지 번호
+       */
+      pageNo?: number & tags.Type<"int32"> & tags.Default<1>;
+    }
+
+    export interface IPaginationOutput extends IPaginationInput {
       /**
        * @title 한 페이지 당 결과 수
        */
@@ -21,31 +27,136 @@ export namespace IOpenData {
       pageNo?: number & tags.Type<"int32"> & tags.Default<1>;
 
       /**
+       * @title 전체 데이터 수
+       */
+      totalCount: number;
+    }
+  }
+  /**
+   * @title 행정안전부 타입
+   */
+  export namespace MinistryOfTheInteriorAndSafety {
+    /**
+     * @title 행정표준코드 조회 요청
+     */
+    export interface IGetStandardRegionCodeListInput
+      extends ICommon.IPaginationInput {
+      /**
+       * @title 지역주소명
+       */
+      locatadd_nm: string & Placeholder<"서울특별시">;
+    }
+
+    /**
+     * @title 행정표준코드 조회 결과
+     */
+    export interface IGetStandardRegionCodeListOutput
+      extends ICommon.IPaginationOutput {
+      resultCode: string;
+      resultMsg: string;
+      type: "JSON";
+
+      /**
+       * @title 지역코드
+       */
+      region_cd: string;
+
+      /**
+       * @title 시도코드
+       */
+      sido_cd?: string;
+
+      /**
+       * @title 시군구코드
+       */
+      sgg_cd?: string;
+
+      /**
+       * @title 읍면동코드
+       */
+      umd_cd?: string;
+
+      /**
+       * @title 리코드
+       */
+      ri_cd?: string;
+
+      /**
+       * @title 지역코드_주민
+       */
+      locatjumin_cd?: string;
+
+      /**
+       * @title 지역코드_지적
+       */
+      locatjijuk_cd?: string;
+
+      /**
+       * @title 지역주소명
+       */
+      locatadd_nm?: string;
+
+      /**
+       * @title 서열
+       */
+      locat_order?: string;
+
+      /**
+       * @title 비고
+       */
+      locat_rm?: string;
+
+      /**
+       * @title 상위지역코드
+       */
+      locathigh_cd?: string;
+
+      /**
+       * @title 최하위지역명
+       */
+      locallow_nm?: string;
+
+      /**
+       * @title 생성일
+       */
+      adpt_de?: string;
+    }
+  }
+
+  /**
+   * @title 금융위원회 타입
+   */
+  export namespace FinancialServicesCommission {
+    /**
+     * @title 시가총액 및 주식 정보 조회 조건
+     */
+    export type IGetStockPriceInfoInput = ICommon.IPaginationInput & {
+      /**
        * @title 종목명 검색 키워드
        */
       likeItmsNm?: string & tags.MaxLength<120> & Placeholder<"삼성전자">;
     } & (
-      | {
-          /**
-           * @title 기준일자
-           * @description 검색값과 기준일자가 일치하는 데이터 검색
-           */
-          basDt?: string & Placeholder<"20220919">;
-        }
-      | {
-          /**
-           * @title 기준일자(이상)
-           * @description 기준일자가 검색값보다 크거나 같은 데이터를 검색
-           */
-          beginBasDt?: string & Placeholder<"20220919">;
+        | {
+            /**
+             * @title 기준일자
+             * @description 검색값과 기준일자가 일치하는 데이터 검색
+             */
+            basDt?: string & Placeholder<"20220919">;
+          }
+        | {
+            /**
+             * @title 기준일자(이상)
+             * @description 기준일자가 검색값보다 크거나 같은 데이터를 검색
+             */
+            beginBasDt?: string & Placeholder<"20220919">;
 
-          /**
-           * @title 기준일자(미만)
-           * @description 기준일자가 검색값보다 작은 데이터를 검색
-           */
-          endBasDt?: string & Placeholder<"20220919">;
-        }
-    );
+            /**
+             * @title 기준일자(미만)
+             * @description 기준일자가 검색값보다 작은 데이터를 검색
+             */
+            endBasDt?: string & Placeholder<"20220919">;
+          }
+      );
 
     /**
      * @title 시가총액 및 주식 정보 조회 결과
