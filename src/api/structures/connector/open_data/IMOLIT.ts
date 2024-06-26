@@ -36,7 +36,7 @@ export namespace IMOLIT {
       /**
        * @title 건축년도
        */
-      건축년도: string;
+      건축년도: string | `${number}` | number;
 
       /**
        * @title 계약구분
@@ -51,7 +51,7 @@ export namespace IMOLIT {
       /**
        * @title 년
        */
-      년: string;
+      년: string | `${number}` | number;
 
       /**
        * @title 법정동
@@ -61,7 +61,7 @@ export namespace IMOLIT {
       /**
        * @title 보증금액
        */
-      보증금액: string;
+      보증금액: string | number;
 
       /**
        * @title 아파트
@@ -71,47 +71,51 @@ export namespace IMOLIT {
       /**
        * @title 월
        */
-      월: string;
+      월:
+        | string
+        | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
 
       /**
        * @title 월세금액
        */
-      월세금액: string;
+      월세금액: string | (number & tags.Type<"int32">);
 
       /**
        * @title 일
        */
-      일: string;
+      일:
+        | string
+        | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
 
       /**
        * @title 전용면적
        */
-      전용면적: string;
+      전용면적: string | number;
 
       /**
        * @title 종전계약보증금
        */
-      종전계약보증금: string;
+      종전계약보증금: string | number;
 
       /**
        * @title 종전계약월세
        */
-      종전계약월세: string;
+      종전계약월세: string | number;
 
       /**
        * @title 지번
        */
-      지번: string;
+      지번: string | (number & tags.Type<"int32">);
 
       /**
        * @title 지역코드
        */
-      지역코드: string;
+      지역코드: string | number;
 
       /**
        * @title 층
        */
-      층: string;
+      층: string | (number & tags.Type<"int32">);
     }[];
   }
 

@@ -13,6 +13,19 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
+   *
+   * @param input 조회 조건
+   * @returns 조회한 전세, 월세 정보
+   */
+  @ApiTags("주거", "아파트", "월세", "전세")
+  @TypedRoute.Post("getRTMSDataSvcAptRent")
+  async getRTMSDataSvcAptRent(
+    @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
+  ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
+    return OpenDataProvider.getRTMSDataSvcAptRent(input);
+  }
+
+  /**
    * [한국토지주택공사] LH 임대주택 단지를 조회합니다.
    *
    * @summary LH 임대주택 조회
