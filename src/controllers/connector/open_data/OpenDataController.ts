@@ -1,7 +1,7 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
@@ -13,10 +13,15 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
+   * [국토교통부] 아파트 전세, 월세 정보를 조회합니다.
    *
+   * @summary 아파트 전세, 월세 정보 조회
    * @param input 조회 조건
    * @returns 조회한 전세, 월세 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
   @ApiTags("주거", "아파트", "월세", "전세")
   @TypedRoute.Post("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
@@ -32,6 +37,9 @@ export class OpenDataController {
    * @param input 조회할 임대주택 조건
    * @returns LH 임대주택 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
   @ApiTags("LH", "주거", "임대주택", "행복주택")
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
@@ -62,6 +70,9 @@ export class OpenDataController {
    * @param input 빌딩 정보를 조회하는 조건
    * @returns 빌딩 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
   @ApiTags("건축물", "빌딩", "내진설계", "건축물대장정보")
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
@@ -77,6 +88,9 @@ export class OpenDataController {
    * @param input 조회할 지역 조건
    * @returns 지역 코드
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
   @Standalone()
   @ApiTags("행정구역", "지역구", "읍면동", "시도", "시군구")
   @TypedRoute.Post("getStandardRegionCodeList")
@@ -95,6 +109,9 @@ export class OpenDataController {
    * @param input 시가총액 조회를 위한 조건
    * @returns 시가 총액 및 주식 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
   @Standalone()
   @ApiTags("주식", "시가총액", "기업", "자본")
   @TypedRoute.Post("getStockPriceInfo")
@@ -113,6 +130,9 @@ export class OpenDataController {
    * @param input 날씨 조회를 위한 위치 정보 DTO
    * @returns 해당 지역의 기상 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
   @Standalone()
   @ApiTags("날씨", "기상청", "오늘 날씨", "기후")
   @TypedRoute.Post("getShortTermForecast")
