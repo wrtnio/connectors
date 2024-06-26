@@ -5840,9 +5840,165 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/open-data/getLHLeaseInfo": {
+      "post": {
+        "tags": [
+          "LH",
+          "주거",
+          "임대주택",
+          "행복주택"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "조회할 임대주택 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ILH.IGetLHLeaseInfoInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "LH 임대주택 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ILH.IGetLHLeaseInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "LH 임대주택 조회",
+        "description": "[한국토지주택공사] LH 임대주택 단지를 조회합니다."
+      }
+    },
+    "/connector/open-data/getParkingLot": {
+      "post": {
+        "tags": [
+          "주차장",
+          "주차"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "주차장 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IPaginationInputPickParkingLotrdnmadr"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IPaginationInputPickParkingLotlnmadr"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "주차장 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INIA.IGetParkingLotOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "주차장 조회",
+        "description": "[한국지능정보사회진흥원] 주차장 정보를 조회합니다."
+      }
+    },
+    "/connector/open-data/getBuildingInfo": {
+      "post": {
+        "tags": [
+          "건축물",
+          "빌딩",
+          "내진설계",
+          "건축물대장정보"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "빌딩 정보를 조회하는 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMOLIT.GetBuildingInfoInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "빌딩 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMOLIT.GetBuildingInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "건축물대장정보 조회",
+        "description": "[국토교통부] 건축물대장정보를 조회합니다."
+      }
+    },
+    "/connector/open-data/getStandardRegionCodeList": {
+      "post": {
+        "tags": [
+          "행정구역",
+          "지역구",
+          "읍면동",
+          "시도",
+          "시군구"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "조회할 지역 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "지역 코드",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "행정표준 코드 조회",
+        "description": "[행정안전부] 국내 지역의 행정 표준 상 코드를 조회합니다.",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/open-data/getStockPriceInfo": {
       "post": {
-        "tags": [],
+        "tags": [
+          "주식",
+          "시가총액",
+          "기업",
+          "자본"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "시가총액 조회를 위한 조건",
@@ -5851,10 +6007,10 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined..."
+                    "$ref": "#/components/schemas/IPaginationInputlikeItmsNm(stringMaxLength120Placeholder삼성전자)undefinedbasDt(stringPlaceholder20220919)undefined"
                   },
                   {
-                    "$ref": "#/components/schemas/numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined....o1"
+                    "$ref": "#/components/schemas/IPaginationInputlikeItmsNm(stringMaxLength120Placeholder삼성전자)undefinedbeginBasDt(stringPlaceholder20220919)undefinedendBasDt(stringPlaceholder...)undefined"
                   }
                 ]
               }
@@ -5875,13 +6031,18 @@
           }
         },
         "summary": "시가총액 및 주식 정보 조회",
-        "description": "시가총액과 주식 정보를 조회합니다.",
+        "description": "[금융위원회] 시가총액과 주식 정보를 조회합니다.",
         "x-wrtn-standalone": true
       }
     },
     "/connector/open-data/getShortTermForecast": {
       "post": {
-        "tags": [],
+        "tags": [
+          "날씨",
+          "기상청",
+          "오늘 날씨",
+          "기후"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "날씨 조회를 위한 위치 정보 DTO",
@@ -5907,7 +6068,7 @@
           }
         },
         "summary": "기상청 오늘 날씨 조회",
-        "description": "오늘 날씨를 조회합니다.",
+        "description": "[기상청] 오늘 날씨를 조회합니다.",
         "x-wrtn-standalone": true
       }
     },
@@ -22063,7 +22224,1146 @@
         "const": "SUCCESS",
         "title": "성공"
       },
-      "numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined...": {
+      "ILH.IGetLHLeaseInfoInput": {
+        "type": "object",
+        "properties": {
+          "CNP_CD": {
+            "oneOf": [
+              {
+                "const": 11,
+                "title": "서울특별시"
+              },
+              {
+                "const": 26,
+                "title": "부산광역시"
+              },
+              {
+                "const": 27,
+                "title": "대구광역시"
+              },
+              {
+                "const": 28,
+                "title": "인천광역시"
+              },
+              {
+                "const": 29,
+                "title": "광주광역시"
+              },
+              {
+                "const": 30,
+                "title": "대전광역시"
+              },
+              {
+                "const": 31,
+                "title": "울산광역시"
+              },
+              {
+                "const": 41,
+                "title": "경기도"
+              },
+              {
+                "const": 42,
+                "title": "강원도"
+              },
+              {
+                "const": 43,
+                "title": "충청북도"
+              },
+              {
+                "const": 44,
+                "title": "충청남도"
+              },
+              {
+                "const": 45,
+                "title": "전라북도"
+              },
+              {
+                "const": 46,
+                "title": "전라남도"
+              },
+              {
+                "const": 47,
+                "title": "경상북도"
+              },
+              {
+                "const": 48,
+                "title": "경상남도"
+              },
+              {
+                "const": 50,
+                "title": "제주특별자치도"
+              },
+              {
+                "const": 36110,
+                "title": "세종특별자치시"
+              }
+            ],
+            "title": "지역 코드"
+          },
+          "SPL_TP_CD": {
+            "oneOf": [
+              {
+                "const": "07",
+                "title": "국민임대"
+              },
+              {
+                "const": "08",
+                "title": "공공임대"
+              },
+              {
+                "const": "09",
+                "title": "영구임대"
+              },
+              {
+                "const": "10",
+                "title": "행복주택"
+              },
+              {
+                "const": "11",
+                "title": "장기전세"
+              },
+              {
+                "const": "13",
+                "title": "매입임대"
+              },
+              {
+                "const": "17",
+                "title": "전세임대"
+              }
+            ],
+            "title": "공급유형코드"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          }
+        },
+        "required": [
+          "CNP_CD"
+        ],
+        "title": "LH 임대주택 조회 조건"
+      },
+      "ILH.IGetLHLeaseInfoOutput": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "type": "boolean",
+            "title": "다음 페이지 유무"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SUM_HSH_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "873",
+                  "title": "총세대수"
+                },
+                "RFE": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "373500",
+                  "title": "월임대료(원)"
+                },
+                "RNUM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "순번"
+                },
+                "HSH_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "72",
+                  "title": "세대수"
+                },
+                "ARA_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "서울특별시 강남구",
+                  "title": "지역명"
+                },
+                "LS_GMY": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "45003000",
+                  "title": "임대보증금"
+                },
+                "AIS_TP_CD_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "국민임대",
+                  "title": "공급유형명"
+                },
+                "SBD_LGO_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "서울강남 3블록",
+                  "title": "단지명"
+                },
+                "ALL_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "157",
+                  "title": "전체건수"
+                },
+                "DDO_AR": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "46.71",
+                  "title": "전용면적"
+                },
+                "MVIN_XPC_YM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "201311",
+                  "title": "최초입주년월"
+                }
+              },
+              "required": [
+                "SUM_HSH_CNT",
+                "RFE",
+                "RNUM",
+                "HSH_CNT",
+                "ARA_NM",
+                "LS_GMY",
+                "AIS_TP_CD_NM",
+                "SBD_LGO_NM",
+                "ALL_CNT",
+                "DDO_AR",
+                "MVIN_XPC_YM"
+              ]
+            }
+          }
+        },
+        "required": [
+          "nextPage",
+          "data"
+        ],
+        "title": "LH 임대주택 조회 응답"
+      },
+      "IPaginationInputPickParkingLotrdnmadr": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "rdnmadr": {
+            "type": "string",
+            "title": "소재지도로명주소"
+          }
+        }
+      },
+      "IPaginationInputPickParkingLotlnmadr": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "lnmadr": {
+            "type": "string",
+            "title": "소재지지번주소"
+          }
+        }
+      },
+      "INIA.IGetParkingLotOutput": {
+        "type": "object",
+        "properties": {
+          "parkingLots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INIA.ParkingLot"
+            },
+            "title": "주차장 정보"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "전체 데이터 수"
+          }
+        },
+        "required": [
+          "parkingLots",
+          "totalCount"
+        ],
+        "title": "주차장 조회 응답"
+      },
+      "INIA.ParkingLot": {
+        "type": "object",
+        "properties": {
+          "prkplceNo": {
+            "type": "string",
+            "title": "주차장관리번호"
+          },
+          "prkplceNm": {
+            "type": "string",
+            "title": "주차장명"
+          },
+          "prkplceSe": {
+            "type": "string",
+            "title": "주차장구분"
+          },
+          "prkplceType": {
+            "type": "string",
+            "title": "주차장유형"
+          },
+          "rdnmadr": {
+            "type": "string",
+            "title": "소재지도로명주소"
+          },
+          "lnmadr": {
+            "type": "string",
+            "title": "소재지지번주소"
+          },
+          "prkcmprt": {
+            "type": "string",
+            "title": "주차구획수"
+          },
+          "feedingSe": {
+            "type": "string",
+            "title": "급지구분"
+          },
+          "enforceSe": {
+            "type": "string",
+            "title": "부제시행구분"
+          },
+          "operDay": {
+            "type": "string",
+            "title": "운영요일"
+          },
+          "weekdayOperOpenHhmm": {
+            "type": "string",
+            "title": "평일운영시작시각"
+          },
+          "weekdayOperColseHhmm": {
+            "type": "string",
+            "title": "평일운영종료시각"
+          },
+          "satOperOperOpenHhmm": {
+            "type": "string",
+            "title": "토요일운영시작시각"
+          },
+          "satOperCloseHhmm": {
+            "type": "string",
+            "title": "토요일운영종료시각"
+          },
+          "holidayOperOpenHhmm": {
+            "type": "string",
+            "title": "공휴일운영시작시각"
+          },
+          "holidayCloseOpenHhmm": {
+            "type": "string",
+            "title": "공휴일운영종료시각"
+          },
+          "parkingchrgeInfo": {
+            "type": "string",
+            "title": "요금정보"
+          },
+          "basicTime": {
+            "type": "string",
+            "title": "주차기본시간"
+          },
+          "basicCharge": {
+            "type": "string",
+            "title": "주차기본요금"
+          },
+          "addUnitTime": {
+            "type": "string",
+            "title": "추가단위시간"
+          },
+          "addUnitCharge": {
+            "type": "string",
+            "title": "추가단위요금"
+          },
+          "dayCmmtktAdjTime": {
+            "type": "string",
+            "title": "1일주차권요금적용시간"
+          },
+          "dayCmmtkt": {
+            "type": "string",
+            "title": "1일주차권요금"
+          },
+          "monthCmmtkt": {
+            "type": "string",
+            "title": "월정기권요금"
+          },
+          "metpay": {
+            "type": "string",
+            "title": "결제방법"
+          },
+          "spcmnt": {
+            "type": "string",
+            "title": "특기사항"
+          },
+          "institutionNm": {
+            "type": "string",
+            "title": "관리기관명"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "title": "전화번호"
+          },
+          "latitude": {
+            "type": "string",
+            "title": "위도"
+          },
+          "longitude": {
+            "type": "string",
+            "title": "경도"
+          },
+          "pwdbsPpkZoneYn": {
+            "type": "string",
+            "title": "장애인전용주차구역보유여부"
+          },
+          "referenceDate": {
+            "type": "string",
+            "title": "데이터기준일자"
+          },
+          "instt_code": {
+            "type": "string",
+            "title": "제공기관코드"
+          },
+          "instt_nm": {
+            "type": "string",
+            "title": "제공기관기관명"
+          }
+        }
+      },
+      "IMOLIT.GetBuildingInfoInput": {
+        "type": "object",
+        "properties": {
+          "sigunguCd": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/open-data/getStandardRegionCodeList",
+                  "array": "return response.rows",
+                  "value": "return elem.sigunguCd",
+                  "label": "return elem.sigunguNm"
+                }
+              },
+              {
+                "type": "number",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/open-data/getStandardRegionCodeList",
+                  "array": "return response.rows",
+                  "value": "return elem.sigunguCd",
+                  "label": "return elem.sigunguNm"
+                }
+              }
+            ],
+            "title": "시군구 코드"
+          },
+          "bjdongCd": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/open-data/getStandardRegionCodeList",
+                  "array": "return response.rows",
+                  "value": "return elem.sigunguCd",
+                  "label": "return elem.locatadd_nm"
+                }
+              },
+              {
+                "type": "number",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/open-data/getStandardRegionCodeList",
+                  "array": "return response.rows",
+                  "value": "return elem.sigunguCd",
+                  "label": "return elem.locatadd_nm"
+                }
+              }
+            ],
+            "title": "법정동 코드"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          }
+        },
+        "required": [
+          "sigunguCd",
+          "bjdongCd"
+        ],
+        "title": "빌딩 조회 조건"
+      },
+      "IMOLIT.GetBuildingInfoOutput": {
+        "type": "object",
+        "properties": {
+          "bulidings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMOLIT.Building"
+            },
+            "title": "빌딩 정보 목록"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "전체 데이터 수"
+          }
+        },
+        "required": [
+          "bulidings",
+          "totalCount"
+        ],
+        "title": "빌딩 조회 응답"
+      },
+      "IMOLIT.Building": {
+        "type": "object",
+        "properties": {
+          "mainPurpsCdNm": {
+            "type": "string",
+            "title": "주용도코드명"
+          },
+          "etcPurps": {
+            "type": "string",
+            "title": "기타용도"
+          },
+          "roofCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "지붕코드"
+          },
+          "roofCdNm": {
+            "type": "string",
+            "title": "지붕코드명"
+          },
+          "etcRoof": {
+            "type": "string",
+            "title": "기타지붕"
+          },
+          "hhldCnt": {
+            "type": "number",
+            "title": "세대수(세대)"
+          },
+          "fmlyCnt": {
+            "type": "number",
+            "title": "가구수(가구)"
+          },
+          "heit": {
+            "type": "number",
+            "title": "높이(m)"
+          },
+          "grndFlrCnt": {
+            "type": "number",
+            "title": "지상층수"
+          },
+          "ugrndFlrCnt": {
+            "type": "number",
+            "title": "지하층수"
+          },
+          "rideUseElvtCnt": {
+            "type": "number",
+            "title": "승용승강기수"
+          },
+          "emgenUseElvtCnt": {
+            "type": "number",
+            "title": "비상용승강기수"
+          },
+          "atchBldCnt": {
+            "type": "number",
+            "title": "부속건축물수"
+          },
+          "atchBldArea": {
+            "type": "number",
+            "title": "부속건축물면적(㎡)"
+          },
+          "totDongTotArea": {
+            "type": "number",
+            "title": "총동연면적(㎡)"
+          },
+          "indrMechUtcnt": {
+            "type": "number",
+            "title": "옥내기계식대수(대)"
+          },
+          "indrMechArea": {
+            "type": "number",
+            "title": "옥내기계식면적(㎡)"
+          },
+          "oudrMechUtcnt": {
+            "type": "number",
+            "title": "옥외기계식대수(대)"
+          },
+          "oudrMechArea": {
+            "type": "number",
+            "title": "옥외기계식면적(㎡)"
+          },
+          "indrAutoUtcnt": {
+            "type": "number",
+            "title": "옥내자주식대수(대)"
+          },
+          "indrAutoArea": {
+            "type": "number",
+            "title": "옥내자주식면적(㎡)"
+          },
+          "oudrAutoUtcnt": {
+            "type": "number",
+            "title": "옥외자주식대수(대)"
+          },
+          "oudrAutoArea": {
+            "type": "number",
+            "title": "옥외자주식면적(㎡)"
+          },
+          "pmsDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "허가일"
+          },
+          "stcnsDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "착공일"
+          },
+          "useAprDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "사용승인일"
+          },
+          "pmsnoYear": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "허가번호년"
+          },
+          "pmsnoKikCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "허가번호기관코드"
+          },
+          "pmsnoKikCdNm": {
+            "type": "string",
+            "title": "허가번호기관코드명"
+          },
+          "pmsnoGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "허가번호구분코드"
+          },
+          "pmsnoGbCdNm": {
+            "type": "string",
+            "title": "허가번호구분코드명"
+          },
+          "hoCnt": {
+            "type": "number",
+            "title": "호수(호)"
+          },
+          "engrGrade": {
+            "type": "string",
+            "title": "에너지효율등급"
+          },
+          "engrRat": {
+            "type": "number",
+            "title": "에너지절감율"
+          },
+          "engrEpi": {
+            "type": "number",
+            "title": "EPI점수"
+          },
+          "gnBldGrade": {
+            "type": "string",
+            "title": "친환경건축물등급"
+          },
+          "gnBldCert": {
+            "type": "number",
+            "title": "친환경건축물인증점수"
+          },
+          "itgBldGrade": {
+            "type": "string",
+            "title": "지능형건축물등급"
+          },
+          "itgBldCert": {
+            "type": "number",
+            "title": "지능형건축물인증점수"
+          },
+          "crtnDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "생성일자"
+          },
+          "rnum": {
+            "type": "number",
+            "title": "순번"
+          },
+          "platPlc": {
+            "type": "string",
+            "title": "대지위치"
+          },
+          "sigunguCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "시군구코드"
+          },
+          "bjdongCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "법정동코드"
+          },
+          "platGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "대지구분코드"
+          },
+          "bun": {
+            "type": "string",
+            "title": "번",
+            "description": "한국 주소 명칭 중 하나"
+          },
+          "ji": {
+            "type": "string",
+            "title": "지",
+            "description": "한국 주소 명칭 중 하나"
+          },
+          "mgmBldrgstPk": {
+            "type": "string",
+            "title": "관리건축물대장PK"
+          },
+          "regstrGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "대장구분코드"
+          },
+          "regstrGbCdNm": {
+            "type": "string",
+            "title": "대장구분코드명"
+          },
+          "regstrKindCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "대장종류코드"
+          },
+          "regstrKindCdNm": {
+            "type": "string",
+            "title": "대장종류코드명"
+          },
+          "newPlatPlc": {
+            "type": "string",
+            "title": "도로명대지위치"
+          },
+          "bldNm": {
+            "type": "string",
+            "title": "건물명"
+          },
+          "splotNm": {
+            "type": "string",
+            "title": "특수지명"
+          },
+          "block": {
+            "type": "string",
+            "title": "블록"
+          },
+          "lot": {
+            "type": "string",
+            "title": "로트"
+          },
+          "bylotCnt": {
+            "type": "number",
+            "title": "외필지수"
+          },
+          "naRoadCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "새주소도로코드"
+          },
+          "naBjdongCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "새주소법정동코드"
+          },
+          "naUgrndCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "새주소지상지하코드"
+          },
+          "naMainBun": {
+            "type": "number",
+            "title": "새주소본번"
+          },
+          "naSubBun": {
+            "type": "number",
+            "title": "새주소부번"
+          },
+          "dongNm": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "동명칭"
+          },
+          "mainAtchGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "주부속구분코드"
+          },
+          "mainAtchGbCdNm": {
+            "type": "string",
+            "title": "주부속구분코드명"
+          },
+          "platArea": {
+            "type": "number",
+            "title": "대지면적(㎡)"
+          },
+          "archArea": {
+            "type": "number",
+            "title": "건축면적(㎡)"
+          },
+          "bcRat": {
+            "type": "number",
+            "title": "건폐율(%)"
+          },
+          "totArea": {
+            "type": "number",
+            "title": "연면적(㎡)"
+          },
+          "vlRatEstmTotArea": {
+            "type": "number",
+            "title": "용적률산정연면적(㎡)"
+          },
+          "vlRat": {
+            "type": "number",
+            "title": "용적률(%)"
+          },
+          "strctCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "구조코드"
+          },
+          "strctCdNm": {
+            "type": "string",
+            "title": "구조코드명"
+          },
+          "etcStrct": {
+            "type": "string",
+            "title": "기타구조"
+          },
+          "mainPurpsCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "주용도코드"
+          },
+          "rserthqkDsgnApplyYn": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Constant1__type.o1"
+              },
+              {
+                "$ref": "#/components/schemas/Constant0__type.o1"
+              },
+              {
+                "$ref": "#/components/schemas/Constant__type"
+              }
+            ],
+            "title": "내진설계적용여부"
+          },
+          "rserthqkAblty": {
+            "type": "string",
+            "title": "내진능력"
+          }
+        },
+        "required": [
+          "crtnDay",
+          "platPlc",
+          "sigunguCd",
+          "bjdongCd",
+          "mgmBldrgstPk"
+        ]
+      },
+      "Constant1__type.o1": {
+        "const": 1,
+        "title": "적용"
+      },
+      "Constant0__type.o1": {
+        "const": 0,
+        "title": "미적용"
+      },
+      "Constant__type": {
+        "const": " ",
+        "title": "알 수 없음"
+      },
+      "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput": {
+        "type": "object",
+        "properties": {
+          "locatadd_nm": {
+            "type": "string",
+            "x-wrtn-placeholder": "서울특별시",
+            "title": "지역주소명"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          }
+        },
+        "required": [
+          "locatadd_nm"
+        ],
+        "title": "행정표준코드 조회 요청"
+      },
+      "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "region_cd": {
+                  "type": "string",
+                  "title": "지역코드"
+                },
+                "sido_cd": {
+                  "type": "string",
+                  "title": "시도코드"
+                },
+                "sgg_cd": {
+                  "type": "string",
+                  "title": "시군구코드"
+                },
+                "sigunguCd": {
+                  "type": "string",
+                  "title": "시도, 시군구 코드",
+                  "description": "시도코드와 시군구코드의 합"
+                },
+                "sigunguNm": {
+                  "type": "string",
+                  "title": "시군구 이름"
+                },
+                "umd_cd": {
+                  "type": "string",
+                  "title": "읍면동코드"
+                },
+                "ri_cd": {
+                  "type": "string",
+                  "title": "리코드"
+                },
+                "bjdongCd": {
+                  "type": "string",
+                  "title": "법정동 코드"
+                },
+                "locatjumin_cd": {
+                  "type": "string",
+                  "title": "지역코드_주민"
+                },
+                "locatjijuk_cd": {
+                  "type": "string",
+                  "title": "지역코드_지적"
+                },
+                "locatadd_nm": {
+                  "type": "string",
+                  "title": "지역주소명"
+                },
+                "locat_order": {
+                  "type": "integer",
+                  "title": "서열"
+                },
+                "locat_rm": {
+                  "type": "string",
+                  "title": "비고"
+                },
+                "locathigh_cd": {
+                  "type": "string",
+                  "title": "상위지역코드"
+                },
+                "locallow_nm": {
+                  "type": "string",
+                  "title": "최하위지역명"
+                },
+                "adpt_de": {
+                  "type": "string",
+                  "title": "생성일"
+                }
+              },
+              "required": [
+                "region_cd",
+                "sigunguNm"
+              ]
+            }
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "전체 데이터 수"
+          }
+        },
+        "required": [
+          "rows",
+          "totalCount"
+        ],
+        "title": "행정표준코드 조회 결과"
+      },
+      "IPaginationInputlikeItmsNm(stringMaxLength120Placeholder삼성전자)undefinedbasDt(stringPlaceholder20220919)undefined": {
         "type": "object",
         "properties": {
           "numOfRows": {
@@ -22090,7 +23390,7 @@
           }
         }
       },
-      "numOfRows(numberTypeint32Default10)undefinedpageNo(numberTypeint32Default1)undefinedlikeItmsNm(stringMaxLength...Placeholder...)undefined....o1": {
+      "IPaginationInputlikeItmsNm(stringMaxLength120Placeholder삼성전자)undefinedbeginBasDt(stringPlaceholder20220919)undefinedendBasDt(stringPlaceholder...)undefined": {
         "type": "object",
         "properties": {
           "numOfRows": {
@@ -22575,7 +23875,7 @@
             "result": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/Constant1__type.o1"
+                  "$ref": "#/components/schemas/Constant1__type.o2"
                 },
                 {
                   "$ref": "#/components/schemas/Constant2__type.o1"
@@ -22719,7 +24019,7 @@
         "title": "환율 정보",
         "description": "한국 수출입 은행에서 오늘 날짜에 해당하는 환율 정보를 제공"
       },
-      "Constant1__type.o1": {
+      "Constant1__type.o2": {
         "const": 1,
         "title": "성공"
       },
@@ -24181,6 +25481,75 @@
     },
     {
       "name": "슬라이드 제목"
+    },
+    {
+      "name": "LH"
+    },
+    {
+      "name": "주거"
+    },
+    {
+      "name": "임대주택"
+    },
+    {
+      "name": "행복주택"
+    },
+    {
+      "name": "주차장"
+    },
+    {
+      "name": "주차"
+    },
+    {
+      "name": "건축물"
+    },
+    {
+      "name": "빌딩"
+    },
+    {
+      "name": "내진설계"
+    },
+    {
+      "name": "건축물대장정보"
+    },
+    {
+      "name": "행정구역"
+    },
+    {
+      "name": "지역구"
+    },
+    {
+      "name": "읍면동"
+    },
+    {
+      "name": "시도"
+    },
+    {
+      "name": "시군구"
+    },
+    {
+      "name": "주식"
+    },
+    {
+      "name": "시가총액"
+    },
+    {
+      "name": "기업"
+    },
+    {
+      "name": "자본"
+    },
+    {
+      "name": "날씨"
+    },
+    {
+      "name": "기상청"
+    },
+    {
+      "name": "오늘 날씨"
+    },
+    {
+      "name": "기후"
     },
     {
       "name": "프롬프트 노드"
