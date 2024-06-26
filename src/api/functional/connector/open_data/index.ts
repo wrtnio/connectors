@@ -15,7 +15,9 @@ import type { INIA } from "../../../structures/connector/open_data/INIA";
 import type { IOpenData } from "../../../structures/connector/open_data/IOpenData";
 
 /**
+ * [국토교통부] 아파트 전세, 월세 정보를 조회합니다.
  *
+ * @summary 아파트 전세, 월세 정보 조회
  * @param input 조회 조건
  * @returns 조회한 전세, 월세 정보
  *
