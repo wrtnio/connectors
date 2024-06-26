@@ -8,7 +8,7 @@ export async function test_api_story_generator(
   const generated = await CApi.functional.connector.story_generator.generate(
     connection,
     {
-      query: "Once upon a time, there was a princess who lived in a castle.",
+      query: "공주와 공룡이 나오는 이야기 만들어줘.",
       chatHistory: [],
       previousStories: [],
     },
