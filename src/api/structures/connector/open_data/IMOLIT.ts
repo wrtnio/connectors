@@ -1,4 +1,4 @@
-import { Prerequisite } from "@wrtn/decorators";
+import { Placeholder, Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { IOpenData } from "./IOpenData";
@@ -7,6 +7,25 @@ import { IOpenData } from "./IOpenData";
  * @title 국토교통부 타입
  */
 export namespace IMOLIT {
+  export interface IGetRTMSDataSvcAptRent {
+    /**
+     * @title 시군구 코드
+     */
+    LAWD_CD: Prerequisite<{
+      method: "post";
+      path: "/connector/open-data/getStandardRegionCodeList";
+      array: "return response.rows";
+      value: "return elem.sigunguCd";
+      label: "return elem.sigunguNm";
+    }> &
+      (number | `${number}` | string);
+
+    /**
+     * @title 실거래 자료의 계약년월(6자리)
+     */
+    DEAL_YMD: string & Placeholder<"202201">;
+  }
+
   /**
    * @title 빌딩 조회 조건
    */
