@@ -7,7 +7,7 @@ import { IOpenData } from "./IOpenData";
  * @title 국토교통부 타입
  */
 export namespace IMOLIT {
-  export interface IGetRTMSDataSvcAptRent {
+  export interface IGetRTMSDataSvcAptRentInput {
     /**
      * @title 시군구 코드
      */
@@ -24,6 +24,95 @@ export namespace IMOLIT {
      * @title 실거래 자료의 계약년월(6자리)
      */
     DEAL_YMD: string & Placeholder<"202201">;
+  }
+
+  export interface IGetRTMSDataSvcAptRentOutput {
+    data: {
+      /**
+       * @title 갱신요구권사용
+       */
+      갱신요구권사용: string;
+
+      /**
+       * @title 건축년도
+       */
+      건축년도: string;
+
+      /**
+       * @title 계약구분
+       */
+      계약구분: string;
+
+      /**
+       * @title 계약기간
+       */
+      계약기간: string;
+
+      /**
+       * @title 년
+       */
+      년: string;
+
+      /**
+       * @title 법정동
+       */
+      법정동: string;
+
+      /**
+       * @title 보증금액
+       */
+      보증금액: string;
+
+      /**
+       * @title 아파트
+       */
+      아파트: string;
+
+      /**
+       * @title 월
+       */
+      월: string;
+
+      /**
+       * @title 월세금액
+       */
+      월세금액: string;
+
+      /**
+       * @title 일
+       */
+      일: string;
+
+      /**
+       * @title 전용면적
+       */
+      전용면적: string;
+
+      /**
+       * @title 종전계약보증금
+       */
+      종전계약보증금: string;
+
+      /**
+       * @title 종전계약월세
+       */
+      종전계약월세: string;
+
+      /**
+       * @title 지번
+       */
+      지번: string;
+
+      /**
+       * @title 지역코드
+       */
+      지역코드: string;
+
+      /**
+       * @title 층
+       */
+      층: string;
+    }[];
   }
 
   /**
