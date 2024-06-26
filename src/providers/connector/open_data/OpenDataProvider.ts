@@ -8,6 +8,25 @@ import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_dat
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
+  export async function getRTMSDataSvcOffiRent(
+    input: IMOLIT.IGetRTMSDataSvcAptRentInput,
+  ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
+    const baseUrl = `http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+    const queryString = Object.entries({
+      ...input,
+      serviceKey,
+      _type: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    const data = res.data.response.body.items.item;
+
+    return { data };
+  }
+
   export async function getRTMSDataSvcAptRent(
     input: IMOLIT.IGetRTMSDataSvcAptRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
