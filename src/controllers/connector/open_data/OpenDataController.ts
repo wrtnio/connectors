@@ -1,4 +1,4 @@
-import { TypedBody, TypedRoute } from "@nestia/core";
+import core, { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon, Standalone } from "@wrtn/decorators";
@@ -7,6 +7,7 @@ import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH"
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
+import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 
@@ -141,5 +142,12 @@ export class OpenDataController {
     input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
     return OpenDataProvider.getShortTermForecast(input);
+  }
+
+  @core.TypedRoute.Post("getCopyRight")
+  async getCopyRight(
+    @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
+  ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
+    return null!;
   }
 }
