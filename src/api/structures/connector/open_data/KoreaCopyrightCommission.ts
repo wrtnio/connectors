@@ -58,7 +58,7 @@ export namespace KoreaCopyrightCommission {
       /**
        * @title 저작권 등록일
        */
-      REG_DATE: string & tags.Format<"date-time">;
+      REG_DATE: string & tags.Format<"date">;
     })[];
   }
 }

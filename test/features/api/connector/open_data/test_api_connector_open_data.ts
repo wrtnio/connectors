@@ -163,3 +163,14 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_apt_rent = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_copy_right = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getCopyRight(
+    connection,
+    {},
+  );
+
+  typia.assertEquals(res);
+};

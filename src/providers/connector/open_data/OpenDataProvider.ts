@@ -4,6 +4,7 @@ import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH"
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
+import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
@@ -191,6 +192,28 @@ export namespace OpenDataProvider {
       .join("&");
 
     const res = await axios.get(`${baseUrl}?${queryString}`);
+    return res.data;
+  }
+
+  export async function getCopyRight(
+    input: KoreaCopyrightCommission.IGetCopyRightInput,
+  ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
+    const baseUrl = `https://api.odcloud.kr/api/CpyrRegInforService/v1/getCpyrRegInforUniList`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+
+    const decoded = decodeURIComponent(serviceKey);
+    const queryString = Object.entries({
+      ...input,
+      serviceKey: decoded,
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`, {
+      headers: {
+        Authorization: decoded,
+      },
+    });
     return res.data;
   }
 }

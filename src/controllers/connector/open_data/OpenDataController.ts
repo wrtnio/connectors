@@ -144,10 +144,22 @@ export class OpenDataController {
     return OpenDataProvider.getShortTermForecast(input);
   }
 
+  /**
+   * [한국저작권위원회] 저작권을 검색합니다.
+   *
+   * @summary [저작권등록정보서비스(신규)
+   * @param input 저작권 조회를 위한 조건
+   * @returns 저작권 정보
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @Standalone()
+  @ApiTags("저작권")
   @core.TypedRoute.Post("getCopyRight")
   async getCopyRight(
     @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
   ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
-    return null!;
+    return OpenDataProvider.getCopyRight(input);
   }
 }
