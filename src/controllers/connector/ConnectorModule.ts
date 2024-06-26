@@ -18,6 +18,8 @@ import { GoogleScholarController } from "./google_scholar/GoogleScholarControlle
 import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
+import { IconAndLogoModule } from "./icon_and_logo/IconAndLogoModule";
+import { ImageModule } from "./image/ImageModule";
 import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
 import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
@@ -73,6 +75,8 @@ import { ZoomModule } from "./zoom/ZoomModule";
     OpenDataModule,
     PromptModule,
     KoreaEximbankModule,
+    ImageModule,
+    IconAndLogoModule,
   ],
   controllers: [
     ArxivSearchController,

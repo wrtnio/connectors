@@ -46,6 +46,8 @@ export * as imweb from "./imweb";
 export * as open_data from "./open_data";
 export * as prompt from "./prompt";
 export * as korea_eximbank from "./korea_eximbank";
+export * as image from "./image";
+export * as icon_and_logo from "./icon_and_logo";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
