@@ -26,8 +26,8 @@ export class OpenDataController {
   @ApiTags("주거", "오피스텔", "월세", "전세")
   @TypedRoute.Post("getRTMSDataSvcOffiRent")
   async getRTMSDataSvcOffiRent(
-    @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
-  ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
+    @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
+  ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
     return OpenDataProvider.getRTMSDataSvcOffiRent(input);
   }
 

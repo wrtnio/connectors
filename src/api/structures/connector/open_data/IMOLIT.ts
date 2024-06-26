@@ -27,96 +27,31 @@ export namespace IMOLIT {
   }
 
   export interface IGetRTMSDataSvcAptRentOutput {
-    data: {
+    data: BuildingLentInfo[];
+  }
+
+  export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;
+
+  export interface IGetRTMSDataSvcOffiRentOutput {
+    data: (Omit<
+      BuildingLentInfo,
+      "보증금액" | "월세금액" | "아파트" | "건축년도"
+    > & {
       /**
-       * @title 갱신요구권사용
+       * @title 보증금
        */
-      갱신요구권사용: string;
+      보증금?: string | number;
+
+      /**
+       * @title 월세(만원)
+       */
+      월세: string | number;
 
       /**
        * @title 건축년도
        */
-      건축년도: string | `${number}` | number;
-
-      /**
-       * @title 계약구분
-       */
-      계약구분: string;
-
-      /**
-       * @title 계약기간
-       */
-      계약기간: string;
-
-      /**
-       * @title 년
-       */
-      년: string | `${number}` | number;
-
-      /**
-       * @title 법정동
-       */
-      법정동: string;
-
-      /**
-       * @title 보증금액
-       */
-      보증금액: string | number;
-
-      /**
-       * @title 아파트
-       */
-      아파트: string;
-
-      /**
-       * @title 월
-       */
-      월:
-        | string
-        | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
-
-      /**
-       * @title 월세금액
-       */
-      월세금액: string | (number & tags.Type<"int32">);
-
-      /**
-       * @title 일
-       */
-      일:
-        | string
-        | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
-
-      /**
-       * @title 전용면적
-       */
-      전용면적: string | number;
-
-      /**
-       * @title 종전계약보증금
-       */
-      종전계약보증금: string | number;
-
-      /**
-       * @title 종전계약월세
-       */
-      종전계약월세: string | number;
-
-      /**
-       * @title 지번
-       */
-      지번: string | (number & tags.Type<"int32">);
-
-      /**
-       * @title 지역코드
-       */
-      지역코드: string | number;
-
-      /**
-       * @title 층
-       */
-      층: string | (number & tags.Type<"int32">);
-    }[];
+      건축년도?: string | number;
+    })[];
   }
 
   /**
@@ -555,5 +490,96 @@ export namespace IMOLIT {
      * @title 내진능력
      */
     rserthqkAblty?: string;
+  }
+
+  export interface BuildingLentInfo {
+    /**
+     * @title 갱신요구권사용
+     */
+    갱신요구권사용: string;
+
+    /**
+     * @title 건축년도
+     */
+    건축년도: string | `${number}` | number;
+
+    /**
+     * @title 계약구분
+     */
+    계약구분: string;
+
+    /**
+     * @title 계약기간
+     */
+    계약기간: string;
+
+    /**
+     * @title 년
+     */
+    년: string | `${number}` | number;
+
+    /**
+     * @title 법정동
+     */
+    법정동: string;
+
+    /**
+     * @title 보증금액
+     */
+    보증금액: string | number;
+
+    /**
+     * @title 아파트
+     */
+    아파트: string;
+
+    /**
+     * @title 월
+     */
+    월:
+      | string
+      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
+
+    /**
+     * @title 월세금액
+     */
+    월세금액: string | (number & tags.Type<"int32">);
+
+    /**
+     * @title 일
+     */
+    일:
+      | string
+      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
+
+    /**
+     * @title 전용면적
+     */
+    전용면적: string | number;
+
+    /**
+     * @title 종전계약보증금
+     */
+    종전계약보증금: string | number;
+
+    /**
+     * @title 종전계약월세
+     */
+    종전계약월세: string | number;
+
+    /**
+     * @title 지번
+     */
+    지번: string | (number & tags.Type<"int32">);
+
+    /**
+     * @title 지역코드
+     */
+    지역코드: string | number;
+
+    /**
+     * @title 층
+     */
+    층: string | (number & tags.Type<"int32">);
   }
 }

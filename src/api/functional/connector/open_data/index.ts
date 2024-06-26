@@ -50,7 +50,7 @@ export async function getRTMSDataSvcOffiRent(
 }
 export namespace getRTMSDataSvcOffiRent {
   export type Input = Primitive<IMOLIT.IGetRTMSDataSvcAptRentInput>;
-  export type Output = Primitive<IMOLIT.IGetRTMSDataSvcAptRentOutput>;
+  export type Output = Primitive<IMOLIT.IGetRTMSDataSvcOffiRentOutput>;
 
   export const METADATA = {
     method: "POST",
@@ -69,8 +69,8 @@ export namespace getRTMSDataSvcOffiRent {
   export const path = () => "/connector/open-data/getRTMSDataSvcOffiRent";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMOLIT.IGetRTMSDataSvcAptRentOutput>> =>
-    typia.random<Primitive<IMOLIT.IGetRTMSDataSvcAptRentOutput>>(g);
+  ): Resolved<Primitive<IMOLIT.IGetRTMSDataSvcOffiRentOutput>> =>
+    typia.random<Primitive<IMOLIT.IGetRTMSDataSvcOffiRentOutput>>(g);
   export const simulate = (
     connection: IConnection,
     input: getRTMSDataSvcOffiRent.Input,
