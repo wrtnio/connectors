@@ -41,8 +41,9 @@ export class ImageProvider {
         contentType: "image/png",
       });
 
+      const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl);
       return {
-        imgUrl,
+        imgUrl: presignedUrl,
       };
     } catch (err) {
       console.log("err", err);

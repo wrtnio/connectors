@@ -8,6 +8,7 @@ export const test_api_connector_icon_and_logo = async (
 ) => {
   const requestBody: IIconAndLogo.IRequest = {
     prompt: "하늘을 날고 있는 고양이",
+    image_ratio: "landscape",
     style_preset: "anime",
   };
   const output =
