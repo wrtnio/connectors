@@ -5368,6 +5368,89 @@
         }
       }
     },
+    "/connector/hancell/read": {
+      "post": {
+        "tags": [
+          "Hancell 엑셀 파일",
+          "엑셀",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터 저장",
+          "데이터 불러오기",
+          "데이터 분석",
+          "데이터 베이스",
+          "데이터 내보내기",
+          "데이터 가져오기",
+          "엑셀 변환",
+          "텍스트 파일",
+          "데이터 처리",
+          "대량 데이터",
+          "데이터 편집",
+          "파일 분할",
+          "데이터 통합",
+          "엑셀 만들기",
+          "엑셀 파일 열기",
+          "데이터 추출",
+          "데이터 필터링",
+          "데이터 병합",
+          "Hancell",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save Data",
+          "Load Data",
+          "Data Analysis",
+          "Database",
+          "Export Data",
+          "Import Data",
+          "Convert to Hancell",
+          "Text File",
+          "Data Processing",
+          "Large Data",
+          "Edit Data",
+          "Split File",
+          "Integrate Data",
+          "Create Hancell",
+          "Open Hancell File",
+          "Extract Data",
+          "Filter Data",
+          "Merge Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "읽을 한셀 파일 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHancell.IReadHancellInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "한셀 파일 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHancell.IReadHancellOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "한셀 파일 읽기",
+        "description": "한셀 파일을 읽습니다.",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/kakao-talk/message": {
       "post": {
         "tags": [
@@ -9478,8 +9561,8 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "title": "excel 파일",
-            "description": "읽어올 엑셀 파일."
+            "title": "엑셀 파일",
+            "description": "읽어올 엑셀 파일"
           },
           "sheetName": {
             "oneOf": [
@@ -9491,8 +9574,8 @@
                 "x-wrtn-placeholder": "sheet1"
               }
             ],
-            "title": "excel sheet 이름",
-            "description": "읽어올 excel sheet 이름."
+            "title": "sheet 이름",
+            "description": "읽어올 sheet 이름"
           }
         },
         "required": [
@@ -9508,8 +9591,7 @@
             "items": {
               "$ref": "#/components/schemas/IExcel.IReadExcelRowData"
             },
-            "title": "excel sheet 데이터",
-            "description": "읽어온 excel sheet 데이터."
+            "title": "엑셀 시트 데이터"
           }
         },
         "required": [
@@ -9528,8 +9610,8 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "title": "excel 파일",
-            "description": "excel worksheet 리스트를 가져올 파일"
+            "title": "엑셀 파일",
+            "description": "엑셀 워크 시트 리스트를 가져올 파일"
           }
         },
         "required": [
@@ -9548,12 +9630,12 @@
                 "sheetName": {
                   "type": "string",
                   "title": "sheet 이름",
-                  "description": "가져온 worksheet의 이름."
+                  "description": "가져온 워크 시트의 이름"
                 },
                 "id": {
                   "type": "number",
                   "title": "sheet id",
-                  "description": "가져온 worksheet의 id."
+                  "description": "가져온 워크 시트의 id."
                 }
               },
               "required": [
@@ -9581,15 +9663,15 @@
                 "x-wrtn-placeholder": "sheet1"
               }
             ],
-            "title": "sheet 이름",
-            "description": "excel 행을 추가할 sheet 이름.\n입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다."
+            "title": "엑셀 시트 이름",
+            "description": "엑셀 행을 추가할 시트 이름\n입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다."
           },
           "data": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Recordstringany"
             },
-            "title": "추가할 excel 행 데이터",
+            "title": "추가할 엑셀 행 데이터",
             "description": "key가 header 이름이고 value가 해당 행의 값인 객체의 배열"
           }
         },
@@ -9611,8 +9693,7 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "title": "생성된 파일 url.",
-            "description": "새로 추가된 excel 파일의 url."
+            "title": "생성된 엑셀 파일 url"
           }
         },
         "required": [
@@ -14349,6 +14430,30 @@
         "const": "N",
         "title": "배송 중.",
         "description": "배송이 완료되지 않은 경우에는 N으로 표기된다."
+      },
+      "IHancell.IReadHancellInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "엑셀 파일",
+            "description": "읽어올 엑셀 파일"
+          }
+        },
+        "required": [
+          "fileUrl"
+        ],
+        "title": "한셀 읽기 조건"
+      },
+      "IHancell.IReadHancellOutput": {
+        "type": "object",
+        "properties": {},
+        "title": "한셀 읽기 응답",
+        "additionalProperties": {
+          "type": "string"
+        }
       },
       "IKakaoTalk.ISendKakaoTalkToFriendsInput": {
         "type": "object",
@@ -25379,6 +25484,117 @@
     },
     {
       "name": "sweet-tracker"
+    },
+    {
+      "name": "Hancell 엑셀 파일"
+    },
+    {
+      "name": "데이터 저장"
+    },
+    {
+      "name": "데이터 불러오기"
+    },
+    {
+      "name": "데이터 분석"
+    },
+    {
+      "name": "데이터 베이스"
+    },
+    {
+      "name": "데이터 내보내기"
+    },
+    {
+      "name": "데이터 가져오기"
+    },
+    {
+      "name": "엑셀 변환"
+    },
+    {
+      "name": "텍스트 파일"
+    },
+    {
+      "name": "데이터 처리"
+    },
+    {
+      "name": "대량 데이터"
+    },
+    {
+      "name": "데이터 편집"
+    },
+    {
+      "name": "파일 분할"
+    },
+    {
+      "name": "데이터 통합"
+    },
+    {
+      "name": "엑셀 만들기"
+    },
+    {
+      "name": "엑셀 파일 열기"
+    },
+    {
+      "name": "데이터 추출"
+    },
+    {
+      "name": "데이터 필터링"
+    },
+    {
+      "name": "데이터 병합"
+    },
+    {
+      "name": "Hancell"
+    },
+    {
+      "name": "Save Data"
+    },
+    {
+      "name": "Load Data"
+    },
+    {
+      "name": "Data Analysis"
+    },
+    {
+      "name": "Export Data"
+    },
+    {
+      "name": "Import Data"
+    },
+    {
+      "name": "Convert to Hancell"
+    },
+    {
+      "name": "Text File"
+    },
+    {
+      "name": "Data Processing"
+    },
+    {
+      "name": "Large Data"
+    },
+    {
+      "name": "Edit Data"
+    },
+    {
+      "name": "Split File"
+    },
+    {
+      "name": "Integrate Data"
+    },
+    {
+      "name": "Create Hancell"
+    },
+    {
+      "name": "Open Hancell File"
+    },
+    {
+      "name": "Extract Data"
+    },
+    {
+      "name": "Filter Data"
+    },
+    {
+      "name": "Merge Data"
     },
     {
       "name": "카카오톡"
