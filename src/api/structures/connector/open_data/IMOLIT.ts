@@ -1,4 +1,4 @@
-import { Prerequisite } from "@wrtn/decorators";
+import { Placeholder, Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { IOpenData } from "./IOpenData";
@@ -7,6 +7,118 @@ import { IOpenData } from "./IOpenData";
  * @title 국토교통부 타입
  */
 export namespace IMOLIT {
+  export interface IGetRTMSDataSvcAptRentInput {
+    /**
+     * @title 시군구 코드
+     */
+    LAWD_CD: Prerequisite<{
+      method: "post";
+      path: "/connector/open-data/getStandardRegionCodeList";
+      array: "return response.rows";
+      value: "return elem.sigunguCd";
+      label: "return elem.sigunguNm";
+    }> &
+      (number | `${number}` | string);
+
+    /**
+     * @title 실거래 자료의 계약년월(6자리)
+     */
+    DEAL_YMD: string & Placeholder<"202201">;
+  }
+
+  export interface IGetRTMSDataSvcAptRentOutput {
+    data: {
+      /**
+       * @title 갱신요구권사용
+       */
+      갱신요구권사용: string;
+
+      /**
+       * @title 건축년도
+       */
+      건축년도: string | `${number}` | number;
+
+      /**
+       * @title 계약구분
+       */
+      계약구분: string;
+
+      /**
+       * @title 계약기간
+       */
+      계약기간: string;
+
+      /**
+       * @title 년
+       */
+      년: string | `${number}` | number;
+
+      /**
+       * @title 법정동
+       */
+      법정동: string;
+
+      /**
+       * @title 보증금액
+       */
+      보증금액: string | number;
+
+      /**
+       * @title 아파트
+       */
+      아파트: string;
+
+      /**
+       * @title 월
+       */
+      월:
+        | string
+        | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
+
+      /**
+       * @title 월세금액
+       */
+      월세금액: string | (number & tags.Type<"int32">);
+
+      /**
+       * @title 일
+       */
+      일:
+        | string
+        | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
+
+      /**
+       * @title 전용면적
+       */
+      전용면적: string | number;
+
+      /**
+       * @title 종전계약보증금
+       */
+      종전계약보증금: string | number;
+
+      /**
+       * @title 종전계약월세
+       */
+      종전계약월세: string | number;
+
+      /**
+       * @title 지번
+       */
+      지번: string | (number & tags.Type<"int32">);
+
+      /**
+       * @title 지역코드
+       */
+      지역코드: string | number;
+
+      /**
+       * @title 층
+       */
+      층: string | (number & tags.Type<"int32">);
+    }[];
+  }
+
   /**
    * @title 빌딩 조회 조건
    */
