@@ -30,15 +30,4 @@ export class ImageController {
   ): Promise<IImage.IResponse> {
     return await this.imageProvider.generateImage(input);
   }
-
-  // @ApiTags("이미지 생성 전처리 노드")
-  // @core.TypedRoute.Post("/pre-prompt-p")
-  // // @RouteIcon(
-  // //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/hwp.svg",
-  // // )
-  // async generateImage(
-  //   @core.TypedBody() input: IImage.IRequest,
-  // ): Promise<IImage.IResponse> {
-  //   return await this.imageProvider.generateImage(input);
-  // }
 }
