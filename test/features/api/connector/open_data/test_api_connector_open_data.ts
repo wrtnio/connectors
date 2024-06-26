@@ -16,7 +16,7 @@ export const test_api_connector_open_data_get_short_term_forecast = async (
   typia.assertEquals(res);
 };
 
-export const test_api_connector_open_data_get_get_stock_price_innfo = async (
+export const test_api_connector_open_data_get_get_stock_price_info = async (
   connection: CApi.IConnection,
 ) => {
   const res = await CApi.functional.connector.open_data.getStockPriceInfo(
@@ -28,3 +28,111 @@ export const test_api_connector_open_data_get_get_stock_price_innfo = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_get_standard_region_code_list =
+  async (connection: CApi.IConnection) => {
+    const res =
+      await CApi.functional.connector.open_data.getStandardRegionCodeList(
+        connection,
+        {
+          locatadd_nm: "서울특별시",
+        },
+      );
+
+    typia.assertEquals(res);
+  };
+
+export const test_api_connector_open_data_get_get_building_info = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getBuildingInfo(
+    connection,
+    {
+      sigunguCd: "11680",
+      bjdongCd: "10300",
+      pageNo: 1,
+      numOfRows: 100,
+    },
+  );
+
+  typia.assertEquals(res);
+};
+
+export const test_api_connector_open_data_get_get_parking_lot = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getParkingLot(
+    connection,
+    {
+      pageNo: 1,
+      numOfRows: 100,
+      lnmadr: "강원도 평창군 대관령면 횡계리 321-10",
+    },
+  );
+
+  typia.assertEquals(res);
+};
+
+export const test_api_connector_open_data_get_get_lh_lease_info_has_next_page =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+      connection,
+      {
+        pageNo: 1,
+        numOfRows: 10,
+        CNP_CD: 11,
+      },
+    );
+
+    typia.assertEquals<true>(res.data.length === 10);
+    typia.assertEquals<true>(res.nextPage);
+    typia.assertEquals(res);
+  };
+
+export const test_api_connector_open_data_get_get_lh_lease_info = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+    connection,
+    {
+      pageNo: 1,
+      numOfRows: 1000,
+      CNP_CD: 11,
+    },
+  );
+
+  typia.assertEquals<false>(res.data.length === 1000);
+  typia.assertEquals<false>(res.nextPage);
+  typia.assertEquals(res);
+};
+
+export const test_api_connector_open_data_get_get_lh_lease_info_second_page =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+      connection,
+      {
+        pageNo: 2,
+        numOfRows: 1000,
+        CNP_CD: 11,
+      },
+    );
+
+    typia.assertEquals<false>(res.data.length === 1000);
+    typia.assertEquals(res);
+  };
+
+export const test_api_connector_open_data_get_get_lh_lease_info_third_page =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getLHLeaseInfo(
+      connection,
+      {
+        pageNo: 3,
+        numOfRows: 1000,
+        CNP_CD: 11,
+      },
+    );
+
+    typia.assertEquals<false>(res.data.length === 1000);
+    typia.assertEquals<false>(res.nextPage);
+    typia.assertEquals(res);
+  };
