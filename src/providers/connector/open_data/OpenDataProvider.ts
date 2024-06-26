@@ -9,9 +9,9 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
   export async function getRTMSDataSvcOffiRent(
-    input: IMOLIT.IGetRTMSDataSvcAptRentInput,
-  ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
-    const baseUrl = `http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptRent`;
+    input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
+  ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
+    const baseUrl = `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcOffiRent`;
     const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
     const queryString = Object.entries({
       ...input,
