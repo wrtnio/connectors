@@ -20,7 +20,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
         description: "Local Server",
       },
     ],
-    beautify: true,
   },
   distribute: "packages/api",
   simulate: true,
