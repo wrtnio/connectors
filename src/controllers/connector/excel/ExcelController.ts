@@ -8,7 +8,6 @@ import { ExcelProvider } from "../../../providers/connector/excel/ExcelProvider"
 
 @Controller("connector/excel")
 export class ExcelController {
-  constructor(private readonly excelProvider: ExcelProvider) {}
   // /**
   //  * create new excel file.
   //  *
@@ -88,7 +87,7 @@ export class ExcelController {
   async read(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
-    return this.excelProvider.getExcelData(input);
+    return ExcelProvider.getExcelData(input);
   }
 
   /**
@@ -160,7 +159,7 @@ export class ExcelController {
   async worksheetList(
     @core.TypedBody() input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
-    return this.excelProvider.readSheets(input);
+    return ExcelProvider.readSheets(input);
   }
 
   /**
@@ -230,6 +229,6 @@ export class ExcelController {
   async insertRows(
     @core.TypedBody() input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IInsertExcelRowOutput> {
-    return await this.excelProvider.insertRows(input);
+    return await ExcelProvider.insertRows(input);
   }
 }

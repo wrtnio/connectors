@@ -4,7 +4,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { randomUUID } from "crypto";
 
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
@@ -72,7 +72,6 @@ export class AwsProvider {
   /**
    * Transforms S3 URLs in output to presigned URLs
    */
-
   async getGetObjectUrl(fileUrl: string): Promise<string> {
     const match = fileUrl.match(
       /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
@@ -93,5 +92,29 @@ export class AwsProvider {
         signingRegion: this.region,
       },
     );
+  }
+}
+
+export namespace AwsProvider {
+  export function extractS3InfoFromUrl(url: string): {
+    bucket: string;
+    key: string;
+  } {
+    try {
+      const match = url.match(
+        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+      );
+      if (!match) {
+        throw new BadRequestException("Invalid S3 URL");
+      }
+
+      const bucket = match[1];
+      const key = match[3];
+
+      return { bucket, key };
+    } catch (error) {
+      console.error("Invalid URL:", error);
+      throw new BadRequestException("Invalid S3 URL");
+    }
   }
 }

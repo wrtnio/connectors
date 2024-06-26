@@ -3,51 +3,43 @@ import {
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { NotFoundException } from "@nestjs/common";
 import * as Excel from "exceljs";
 import { v4 } from "uuid";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { AwsProvider } from "../aws/AwsProvider";
 
-@Injectable()
-export class ExcelProvider {
-  private readonly s3: S3Client;
-  private readonly region = "ap-northeast-2";
-  private readonly accessKeyId = ConnectorGlobal.env.AWS_ACCESS_KEY_ID;
-  private readonly secretAccessKey = ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY;
-  private readonly bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
-  private readonly uploadPrefix = "excel-connector";
+export namespace ExcelProvider {
+  export const region = "ap-northeast-2";
+  export const accessKeyId = ConnectorGlobal.env.AWS_ACCESS_KEY_ID;
+  export const secretAccessKey = ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY;
+  export const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+  export const uploadPrefix = "excel-connector";
 
-  constructor() {
-    this.s3 = new S3Client({
-      region: this.region,
-      maxAttempts: 3,
-      credentials: {
-        accessKeyId: this.accessKeyId,
-        secretAccessKey: this.secretAccessKey,
-      },
-    });
-  }
+  export const s3: S3Client = new S3Client({
+    region: ExcelProvider.region,
+    maxAttempts: 3,
+    credentials: {
+      accessKeyId: ExcelProvider.accessKeyId,
+      secretAccessKey: ExcelProvider.secretAccessKey,
+    },
+  });
 
-  async readSheets(
+  export async function readSheets(
     input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
     const { fileUrl } = input;
 
-    const { bucket, key } = this.extractS3InfoFromUrl(fileUrl);
-
+    const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
     const command = new GetObjectCommand({
       Bucket: bucket,
       Key: key,
     });
 
-    const { Body } = await this.s3.send(command);
+    const { Body } = await ExcelProvider.s3.send(command);
 
     if (!Body) {
       throw new NotFoundException("Not existing excel file");
@@ -74,17 +66,17 @@ export class ExcelProvider {
     return { data: result };
   }
 
-  async getExcelData(
+  export async function getExcelData(
     input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
     const { fileUrl, sheetName } = input;
-    const { bucket, key } = this.extractS3InfoFromUrl(fileUrl);
+    const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
     const command = new GetObjectCommand({
       Bucket: bucket,
       Key: key,
     });
 
-    const { Body } = await this.s3.send(command);
+    const { Body } = await ExcelProvider.s3.send(command);
 
     if (!Body) {
       throw new NotFoundException("Not existing excel file");
@@ -135,7 +127,7 @@ export class ExcelProvider {
     return { data: result };
   }
 
-  async insertRows(
+  export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IInsertExcelRowOutput> {
     const { sheetName, data } = input;
@@ -163,10 +155,10 @@ export class ExcelProvider {
 
     const modifiedBuffer = await workbook.xlsx.writeBuffer();
 
-    const key = `${this.uploadPrefix}/${v4()}`;
+    const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
 
     const uploadCommand = new PutObjectCommand({
-      Bucket: this.bucket,
+      Bucket: ExcelProvider.bucket,
       Key: key,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -175,27 +167,10 @@ export class ExcelProvider {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
     });
 
-    await this.s3.send(uploadCommand);
+    await ExcelProvider.s3.send(uploadCommand);
 
-    return { fileUrl: `https://${this.bucket}.s3.amazonaws.com/${key}` };
-  }
-
-  private extractS3InfoFromUrl(url: string): { bucket: string; key: string } {
-    try {
-      const match = url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
-      );
-      if (!match) {
-        throw new BadRequestException("Invalid S3 URL");
-      }
-
-      const bucket = match[1];
-      const key = match[3];
-
-      return { bucket, key };
-    } catch (error) {
-      console.error("Invalid URL:", error);
-      throw new BadRequestException("Invalid S3 URL");
-    }
+    return {
+      fileUrl: `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`,
+    };
   }
 }
