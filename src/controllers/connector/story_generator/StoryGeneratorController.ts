@@ -1,7 +1,10 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
-import { IStoryGeneratorRequest } from "../../../api/structures/connector/story_generator/IStoryGenerator";
+import {
+  IStoryGeneratorRequest,
+  IStoryGeneratorResponse,
+} from "../../../api/structures/connector/story_generator/IStoryGenerator";
 import { StoryGeneratorProvider } from "../../../providers/connector/story_generator/StoryGeneratorProvider";
 
 /**
@@ -14,7 +17,7 @@ export class StoryGeneratorController {
   @core.TypedRoute.Post()
   public generate(
     @core.TypedBody() input: IStoryGeneratorRequest,
-  ): Promise<any> {
+  ): Promise<IStoryGeneratorResponse> {
     return this.storyGeneratorProvider.generate(input);
   }
 }

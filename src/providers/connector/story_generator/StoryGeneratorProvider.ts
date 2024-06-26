@@ -1,81 +1,23 @@
 import { Injectable } from "@nestjs/common";
 import typia from "typia";
 
-import { IStoryGeneratorRequest } from "../../../api/structures/connector/story_generator/IStoryGenerator";
+import {
+  IStoryGeneratorRequest,
+  IStoryGeneratorResponse,
+} from "../../../api/structures/connector/story_generator/IStoryGenerator";
 import {
   IChainOfThought,
   OpenAIProvider,
   dump,
 } from "../../open_ai/OpenAIProvider";
 
-/**
- * Story has reached end and ready to be outputted.
- * Come up with a title that fits the story you've written.
- */
-//interface CompletedFullStoryOutput {
-//done: true;
-/**
- * Must be in Korean.
- */
-//title: string;
-//}
-
-/**
- * The next story line has been generated.
- * Each story line should be a sentence.
- */
-//interface CompletedStoryLineOutput {
-//done: false;
-/**
- * Must be in Korean.
- */
-//storyLine: string;
-//}
-
-/**
- * When there is not enough information to create the next story line, prompt the user for more information.
- */
-//interface PromptUserOutput {
-//done: false;
-//messageToUser: string;
-//}
-
-// function call doesn't seem to accept `oneOf`
-// Invalid schema for function 'GenerateOutput': schema must be a JSON Schema of 'type: "object"', got 'type: "None"'.
-//type IStoryGeneratorOutput =
-//| CompletedFullStoryOutput
-//| CompletedStoryLineOutput
-//| PromptUserOutput;
-
-interface IStoryGeneratorOutput {
-  /**
-   * Whether the story has reached a natural conclusion and is ready to be outputted.
-   */
-  done: boolean;
-
-  /**
-   * When there is not enough information to create the next story line, prompt the user for more information.
-   */
-  messageToUser?: string;
-
-  /**
-   * If the next story line can be generated, provide it here.
-   */
-  storyLine?: string;
-
-  /**
-   * If the entire story has been generated, provide the title here.
-   */
-  title?: string;
-}
-
 async function generateStory(
   openAIProvider: OpenAIProvider,
   query: string,
   chatHistory: { role: string; content: string }[],
   previousStories: string[],
-): Promise<IStoryGeneratorOutput> {
-  type GenerateOutput = IChainOfThought & IStoryGeneratorOutput;
+): Promise<IStoryGeneratorResponse> {
+  type GenerateOutput = IChainOfThought & IStoryGeneratorResponse;
   const response = await openAIProvider.extractInterface(
     `
 <instruction>
