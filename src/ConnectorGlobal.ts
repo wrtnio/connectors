@@ -48,7 +48,11 @@ export namespace ConnectorGlobal {
     TYPEFORM_PERSONAL_ACCESS_KEY: string;
 
     // WORK24
-    WORK24_AUTH_KEY: string;
+    WORK24_SUBJECT_KEY: string;
+    WORK24_PSYCHOLOGICAL_TEST_KEY: string;
+    WORK24_OCCUPATION_KEY: string;
+    WORK24_COMMON_CODE_KEY: string;
+    WORK24_JOB_INFO_KEY: string;
 
     // FIGMA
     FIGMA_TEST_SECRET: string;

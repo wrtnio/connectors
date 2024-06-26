@@ -17,7 +17,7 @@ export namespace Work24Provider {
     const q1 = ObjectToQueryString(careerOptions ?? {});
     const q2 = ObjectToQueryString(salaryOptions ?? {});
     const q3 = ObjectToQueryString(rest);
-    const authKey = ConnectorGlobal.env.WORK24_AUTH_KEY;
+    const authKey = ConnectorGlobal.env.WORK24_JOB_INFO_KEY;
     const url = `${baseUrl}?${q1}&${q2}&${q3}&authKey=${authKey}&callTp=L`;
     const res = await axios.get(url);
 
