@@ -1,4 +1,4 @@
-import { TypedBody, TypedRoute } from "@nestia/core";
+import core, { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon, Standalone } from "@wrtn/decorators";
@@ -7,6 +7,7 @@ import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH"
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
 import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
+import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 
@@ -141,5 +142,24 @@ export class OpenDataController {
     input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
     return OpenDataProvider.getShortTermForecast(input);
+  }
+
+  /**
+   * [한국저작권위원회] 저작권을 검색합니다.
+   *
+   * @summary [저작권등록정보서비스(신규)
+   * @param input 저작권 조회를 위한 조건
+   * @returns 저작권 정보
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @Standalone()
+  @ApiTags("저작권")
+  @core.TypedRoute.Post("getCopyRight")
+  async getCopyRight(
+    @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
+  ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
+    return OpenDataProvider.getCopyRight(input);
   }
 }
