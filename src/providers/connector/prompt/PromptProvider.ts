@@ -20,15 +20,16 @@ export class PromptProvider {
       ],
       ...(input.system_prompt && { system: input.system_prompt }),
       temperature: 0.5,
-      model: "claude-3-haiku-20240307",
+      model: ConnectorGlobal.env.HAMLET_PROMPT_NODE_MODEL_NAME,
     };
 
     const res = await axios.post(
-      `${this.HAMLET_URL}/v2/claude/v1/messages`,
+      `${this.HAMLET_URL}${ConnectorGlobal.env.HAMLET_PROMPT_NODE_REQUEST_ENDPOINT}`,
       requestBody,
       {
         headers: {
-          "x-feature-id": "scp",
+          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
+            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
         },
       },
     );

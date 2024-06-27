@@ -23,7 +23,10 @@ export class ImageProvider {
       "dall-e-3",
       input.prompt,
     );
-    const res = await this.openAIProvider.generateImage(translateResult);
+    const res = await this.openAIProvider.generateImage(
+      translateResult,
+      input.image_ratio,
+    );
     const data = await firstValueFrom(
       this.httpService.get(res.url, { responseType: "arraybuffer" }),
     );
@@ -63,13 +66,14 @@ export class ImageProvider {
      * 햄릿 통해서 한글 입력 영어로 변환
      */
     const hamletResponse = await axios.post(
-      `${ConnectorGlobal.env.HAMLET_URL}/v2/openai/deployments/wrtn-gpt-35-turbo/chat/completions`,
+      `${ConnectorGlobal.env.HAMLET_URL}${ConnectorGlobal.env.HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT}`,
       {
         messages: gptPrompt.messages,
       },
       {
         headers: {
-          "x-feature-id": "scp",
+          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
+            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
         },
       },
     );

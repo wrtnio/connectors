@@ -12,12 +12,6 @@ import {
 } from "../../../utils/StableDiffusionUtil";
 import { AwsProvider } from "../aws/AwsProvider";
 
-const DEFAULT_STEP = 45;
-const DEFAULT_CFG_SCALE = 6;
-const engineId = "stable-diffusion-xl-beta-v2-2-2";
-const apiKey = "sk-gi9Clgw6apZKM8s5ZyeOvGTKPyDVoXmH6R5FNzJyxdicMbvG";
-const apiHost = "https://api.stability.ai";
-
 @Injectable()
 export class IconAndLogoProvider {
   constructor(private awsProvider: AwsProvider) {}
@@ -25,7 +19,7 @@ export class IconAndLogoProvider {
     input: IIconAndLogo.IRequest,
   ): Promise<IIconAndLogo.IResponse> {
     const { category, englishText } = await this.imageCompletion(
-      "stable-diffusion-xl-beta-v2-2-2",
+      `${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}`,
       input.prompt,
     );
     const img = await this.generateTextToImage(
@@ -92,13 +86,13 @@ export class IconAndLogoProvider {
     const { width, height } = imageDimensions[image_ratio];
 
     const response = await axios.post(
-      `${apiHost}/v1/generation/${engineId}/text-to-image`,
+      `${ConnectorGlobal.env.STABILITY_AI_HOST}/v1/generation/${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}/text-to-image`,
       {
         text_prompts: prompts,
-        cfg_scale: DEFAULT_CFG_SCALE,
+        cfg_scale: Number(ConnectorGlobal.env.STABILITY_AI_CFG_SCALE),
         height: height,
         width: width,
-        steps: DEFAULT_STEP,
+        steps: Number(ConnectorGlobal.env.STABILITY_AI_DEFAULT_STEP),
         samples: 1,
         ...(style_preset && { style_preset: style_preset }),
       },
@@ -106,7 +100,7 @@ export class IconAndLogoProvider {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${ConnectorGlobal.env.STABILITY_AI_API_KEY}`,
         },
       },
     );
@@ -133,20 +127,26 @@ export class IconAndLogoProvider {
     /**
      * 햄릿 통해서 한글 입력 영어로 변환
      */
-    const hamletResponse = await axios.post(
-      `${ConnectorGlobal.env.HAMLET_URL}/v2/openai/deployments/wrtn-gpt-35-turbo/chat/completions`,
-      { messages: gptPrompt.messages },
-      {
-        headers: {
-          "x-feature-id": "scp",
+    try {
+      const hamletResponse = await axios.post(
+        `${ConnectorGlobal.env.HAMLET_URL}${ConnectorGlobal.env.HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT}`,
+        { messages: gptPrompt.messages },
+        {
+          headers: {
+            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
+              ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+          },
         },
-      },
-    );
+      );
 
-    const content = hamletResponse?.data.choices?.[0].message?.content;
+      const content = hamletResponse?.data.choices?.[0].message?.content;
 
-    return {
-      ...handleImagePrompt(content),
-    };
+      return {
+        ...handleImagePrompt(content),
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }

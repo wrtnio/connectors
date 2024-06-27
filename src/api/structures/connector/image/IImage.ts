@@ -1,4 +1,3 @@
-import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 export namespace IImage {
@@ -11,8 +10,17 @@ export namespace IImage {
      *
      * @title 프롬프트
      */
-    prompt: string &
-      Placeholder<"아름다운 해변에서 노을이 지는 모습을 그려줘. 하늘에는 붉은 빛이 퍼지고 모래사장에는 발자국이 남겨져 있어.">;
+    prompt: string;
+
+    /**
+     * 생성할 이미지 사이즈 프리셋 입니다.
+     *
+     * @title 이미지 사이즈
+     */
+    image_ratio:
+      | tags.Constant<"square", { title: "정사각형"; description: "1024x1024" }>
+      | tags.Constant<"landscape", { title: "풍경"; description: "1792x1024" }>
+      | tags.Constant<"portrait", { title: "인물"; description: "1024x1792" }>;
   }
 
   export interface IResponse {

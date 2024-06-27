@@ -41,10 +41,12 @@ The reference content (content from which the keyword was extracted) is the foll
 Unless specified by the user, always create the marketing copy in Korean.
 I REPEAT: unless the user said otherwise, always use Korean.
 Generate the marketing copy.`,
+    image_ratio: "square",
   };
   const output = await CApi.functional.connector.image.generate.generateImage(
     connection,
     requestBody,
   );
+  console.log("output", output);
   typia.assertEquals<IImage.IResponse>(output);
 };

@@ -4,6 +4,7 @@ import assert from "node:assert";
 import OpenAI from "openai";
 import { inspect } from "util";
 
+import { ConnectorGlobal } from "../../ConnectorGlobal";
 import {
   IMAGE_OPEN_AI_INJECT_IDENTIFIER,
   OPEN_AI_INJECT_IDENTIFIER,
@@ -84,12 +85,11 @@ export class OpenAIProvider {
             }
           : {}),
       },
-      // call is made to hamlet, not openai directly
       {
         path: `/v2/openai/deployments/${deploymentName[model]}/chat/completions`,
         headers: {
-          // TODO: add userId, __w_id when user policy between general wrtn and ecosystem is figured out
-          "x-feature-id": "scp",
+          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
+            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
         },
       },
     );
@@ -149,25 +149,33 @@ export class OpenAIProvider {
     return parsedArgs;
   }
 
-  public async generateImage(userPrompt: string): Promise<any> {
-    const response = await this._imageClient.images.generate(
-      {
-        prompt: userPrompt,
-        // TODO: different models have different options
-        //       so make option selection more refined later
-        size: "1024x1024",
-        quality: "hd",
-        model: "dall-e-3",
-        n: 1,
-      },
-      //{
-      //path: `/v2/openai/deployments/${deploymentName[model]}/chat/completions`,
-      //headers: {
-      //// TODO: add userId, __w_id when user policy between general wrtn and ecosystem is figured out
-      //"x-feature-id": "scp",
-      //},
-      //},
-    );
+  public async generateImage(
+    userPrompt: string,
+    image_ratio?: string,
+  ): Promise<any> {
+    let size: "1024x1024" | "1792x1024" | "1024x1792" = "1024x1024";
+
+    if (image_ratio) {
+      const imageDimensions: {
+        [key: string]: "1024x1024" | "1792x1024" | "1024x1792";
+      } = {
+        square: "1024x1024",
+        landscape: "1792x1024",
+        portrait: "1024x1792",
+      };
+
+      size = imageDimensions[image_ratio];
+    }
+
+    const response = await this._imageClient.images.generate({
+      prompt: userPrompt,
+      // TODO: different models have different options
+      //       so make option selection more refined later
+      size: size,
+      quality: "hd",
+      model: "dall-e-3",
+      n: 1,
+    });
     return response.data[0];
   }
 }

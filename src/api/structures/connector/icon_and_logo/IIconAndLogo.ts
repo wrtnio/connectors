@@ -11,8 +11,7 @@ export namespace IIconAndLogo {
      *
      * @title 프롬프트
      */
-    prompt: string &
-      Placeholder<"아름다운 해변에서 노을이 지는 모습을 그려줘. 하늘에는 붉은 빛이 퍼지고 모래사장에는 발자국이 남겨져 있어.">;
+    prompt: string;
 
     /**
      * 생성할 이미지 사이즈 프리셋 입니다.
