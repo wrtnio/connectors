@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 
-import { KakaoMapController } from "./KakaoController";
+import { KakaoMapController } from "./KakaoMapController";
 
 @Module({
   controllers: [KakaoMapController],
