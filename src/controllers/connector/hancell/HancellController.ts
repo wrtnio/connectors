@@ -9,6 +9,15 @@ import { HancellProvider } from "../../../providers/connector/hancell/HancellPro
 
 @Controller("connector/hancell")
 export class HancellController {
+  constructor(private readonly hancellProvider: HancellProvider) {}
+
+  @core.TypedRoute.Post("rows")
+  async insertRows(
+    @TypedBody() input: IHancell.IInsertRowsInput,
+  ): Promise<IHancell.IInsertRowsOutput> {
+    return this.hancellProvider.insertRows(input);
+  }
+
   /**
    * 한셀 파일을 읽습니다.
    *
@@ -75,6 +84,6 @@ export class HancellController {
   async read(
     @TypedBody() input: IHancell.IReadHancellInput,
   ): Promise<IHancell.IReadHancellOutput> {
-    return HancellProvider.getHancellData(input);
+    return this.hancellProvider.getHancellData(input);
   }
 }

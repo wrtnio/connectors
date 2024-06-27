@@ -1,6 +1,16 @@
 import { IExcel } from "../excel/IExcel";
 
 export namespace IHancell {
+  export interface IInsertRowsInput extends IReadHancellInput {
+    sheetName: string;
+
+    cells: Cells;
+  }
+
+  export interface IInsertRowsOutput {
+    fileUrl: string;
+  }
+
   /**
    * @title 한셀 읽기 조건
    */
@@ -10,8 +20,10 @@ export namespace IHancell {
    * @title 한셀 읽기 응답
    */
   export type IReadHancellOutput = {
-    [sheetName: string]: CSV;
+    [sheetName: string]: Cells;
   };
 
-  export type CSV = string;
+  export type Cells = {
+    [K: string]: any;
+  };
 }
