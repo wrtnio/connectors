@@ -32,6 +32,7 @@ import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
+import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
@@ -73,6 +74,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     OpenDataModule,
     PromptModule,
     KoreaEximbankModule,
+    StoryGeneratorModule,
   ],
   controllers: [
     ArxivSearchController,
