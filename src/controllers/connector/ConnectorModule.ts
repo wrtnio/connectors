@@ -33,6 +33,7 @@ import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
+import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
@@ -75,6 +76,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     PromptModule,
     KoreaEximbankModule,
     StoryGeneratorModule,
+    StoryImageGeneratorModule,
   ],
   controllers: [
     ArxivSearchController,

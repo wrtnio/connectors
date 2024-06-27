@@ -47,6 +47,7 @@ export * as open_data from "./open_data";
 export * as prompt from "./prompt";
 export * as korea_eximbank from "./korea_eximbank";
 export * as story_generator from "./story_generator";
+export * as story_image_generator from "./story_image_generator";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
