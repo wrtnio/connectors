@@ -615,8 +615,7 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 메시지 템플릿
-     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     * @title 커머스 템플릿
      */
     template_object: ICommerceMemoInput;
   }
@@ -630,8 +629,7 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 메시지 템플릿
-     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     * @title 위치 템플릿
      */
     template_object: ILocationMemoInput;
   }
@@ -645,8 +643,7 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 메시지 템플릿
-     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     * @title 리스트 템플릿
      */
     template_object: IListMemoInput;
   }
@@ -660,8 +657,7 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 메시지 템플릿
-     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     * @title 피드 템플릿
      */
     template_object: IFeedMemoInput;
   }
@@ -675,8 +671,7 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 메시지 템플릿
-     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     * @title 텍스트 템플릿
      */
     template_object: ITextMemoInput;
   }
