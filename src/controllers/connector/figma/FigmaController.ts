@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { RouteIcon } from "@wrtn/decorators";
 
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
@@ -20,6 +21,9 @@ export class FigmaController {
    *
    * @tag figma
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+  )
   @core.TypedRoute.Post("get-files")
   async readFiles(
     @core.TypedBody() input: IFigma.IReadFileInput,
@@ -38,6 +42,9 @@ export class FigmaController {
    *
    * @tag figma
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+  )
   @core.TypedRoute.Post("comments")
   async addComment(
     @core.TypedBody() input: IFigma.IAddCommentInput,
@@ -45,7 +52,7 @@ export class FigmaController {
     return this.figmaProvider.addComment(input);
   }
 
-  /*
+  /**
    * 피그마 댓글들을 가져옵니다.
    *
    * @summary 피그마 댓글 가져오기.
@@ -56,6 +63,9 @@ export class FigmaController {
    *
    * @tag figma
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+  )
   @core.TypedRoute.Post("get-comments")
   async readComments(
     @core.TypedBody() input: IFigma.IReadCommentInput,
