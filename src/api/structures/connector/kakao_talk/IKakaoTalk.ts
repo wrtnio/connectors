@@ -609,7 +609,7 @@ export namespace IKakaoTalk {
   /**
    * @title 메시지 전송 조건
    */
-  export interface ISendKakaoTalkInput
+  export interface ISendKakaoTalkCommerceInput
     extends ICommon.ISecret<
       "kakao",
       ["talk_message", "profile_image", "profile_nickname"]
@@ -618,13 +618,67 @@ export namespace IKakaoTalk {
      * @title 메시지 템플릿
      * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
      */
-    template_object:
-      | IFeedMemoInput
-      | ITextMemoInput
-      | ICalendarMemoInput
-      | IListMemoInput
-      | ILocationMemoInput
-      | ICommerceMemoInput;
+    template_object: ICommerceMemoInput;
+  }
+
+  /**
+   * @title 메시지 전송 조건
+   */
+  export interface ISendKakaoTalkLocationInput
+    extends ICommon.ISecret<
+      "kakao",
+      ["talk_message", "profile_image", "profile_nickname"]
+    > {
+    /**
+     * @title 메시지 템플릿
+     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     */
+    template_object: ILocationMemoInput;
+  }
+
+  /**
+   * @title 메시지 전송 조건
+   */
+  export interface ISendKakaoTalkListInput
+    extends ICommon.ISecret<
+      "kakao",
+      ["talk_message", "profile_image", "profile_nickname"]
+    > {
+    /**
+     * @title 메시지 템플릿
+     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     */
+    template_object: IListMemoInput;
+  }
+
+  /**
+   * @title 메시지 전송 조건
+   */
+  export interface ISendKakaoTalkFeedInput
+    extends ICommon.ISecret<
+      "kakao",
+      ["talk_message", "profile_image", "profile_nickname"]
+    > {
+    /**
+     * @title 메시지 템플릿
+     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     */
+    template_object: IFeedMemoInput;
+  }
+
+  /**
+   * @title 메시지 전송 조건
+   */
+  export interface ISendKakaoTalkTextInput
+    extends ICommon.ISecret<
+      "kakao",
+      ["talk_message", "profile_image", "profile_nickname"]
+    > {
+    /**
+     * @title 메시지 템플릿
+     * @description 피드, 리스트, 위치, 커머스, 텍스트, 캘린더 중 하나
+     */
+    template_object: ITextMemoInput;
   }
 
   /**

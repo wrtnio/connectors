@@ -20,7 +20,7 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
-  @core.TypedRoute.Post("message")
+  @core.TypedRoute.Post("message/text")
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
   ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
@@ -39,9 +39,85 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @core.TypedRoute.Post("memo")
-  async memo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkInput,
+  @core.TypedRoute.Post("memo/commerce")
+  async commerceMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @core.TypedRoute.Post("memo/location")
+  async locationMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @core.TypedRoute.Post("memo/list")
+  async listMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @core.TypedRoute.Post("memo/feed")
+  async feedMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @core.TypedRoute.Post("memo/text")
+  async textMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
     return KakaoTalkProvider.memo(input);
   }
