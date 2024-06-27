@@ -18,6 +18,5 @@ export async function test_api_story_image(
       },
     );
   typia.assert(result);
-  console.log(result);
   return result;
 }
