@@ -201,3 +201,30 @@ export const test_api_connector_open_data_get_copy_right = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_RTMS_Data_svc_sh_rent = async (
+  connection: CApi.IConnection,
+) => {
+  const standardRegionCodeList =
+    await CApi.functional.connector.open_data.getStandardRegionCodeList(
+      connection,
+      {
+        locatadd_nm: "서울특별시",
+      },
+    );
+
+  const sigunguCd = standardRegionCodeList.rows.at(0)?.sigunguCd;
+  if (!sigunguCd) {
+    throw new Error("시군도 코드 조회 단계에서 에러 발생");
+  }
+
+  const res = await CApi.functional.connector.open_data.getRTMSDataSvcSHRent(
+    connection,
+    {
+      LAWD_CD: sigunguCd,
+      DEAL_YMD: "202406",
+    },
+  );
+
+  typia.assertEquals(res);
+};

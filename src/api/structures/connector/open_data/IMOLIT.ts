@@ -30,6 +30,11 @@ export namespace IMOLIT {
     data: BuildingLentInfo[];
   }
 
+  export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
+  export interface IgetRTMSDataSvcSHRentOutput {
+    data: Omit<BuildingLentInfo, "아파트" | "전용면적" | "지번" | "층">[];
+  }
+
   export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;
 
   export interface IGetRTMSDataSvcOffiRentOutput {
@@ -46,11 +51,6 @@ export namespace IMOLIT {
        * @title 월세(만원)
        */
       월세: string | number;
-
-      /**
-       * @title 건축년도
-       */
-      건축년도?: string | number;
     })[];
   }
 
@@ -501,7 +501,7 @@ export namespace IMOLIT {
     /**
      * @title 건축년도
      */
-    건축년도: string | `${number}` | number;
+    건축년도?: string | `${number}` | number;
 
     /**
      * @title 계약구분

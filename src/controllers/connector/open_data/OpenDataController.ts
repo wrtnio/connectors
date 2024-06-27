@@ -14,6 +14,24 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
+   * [국토교통부] 단독 주택, 다가구 주택 전세, 월세 정보를 조회합니다.
+   *
+   * @summary 다가구 전세, 월세 정보 조회
+   * @param input 조회 조건
+   * @returns 조회한 전세, 월세 정보
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @ApiTags("주거", "단독주택", "다가구", "월세", "전세")
+  @TypedRoute.Post("getRTMSDataSvcSHRent")
+  async getRTMSDataSvcSHRent(
+    @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
+  ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
+    return OpenDataProvider.getRTMSDataSvcSHRent(input);
+  }
+
+  /**
    * [국토교통부] 오피스텔 전세, 월세 정보를 조회합니다.
    *
    * @summary 오피스텔 전세, 월세 정보 조회
