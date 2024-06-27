@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import { IMigrateDocument, OpenApi } from "@samchon/openapi";
 import cp from "child_process";
 import fs from "fs";
 import typia from "typia";
@@ -15,10 +15,15 @@ const main = async (): Promise<void> => {
   const document: OpenApi.IDocument = typia.assert<OpenApi.IDocument>(
     JSON.parse(await fs.promises.readFile(`${location}/swagger.json`, "utf-8")),
   );
-  const converted: IOpenAiDocument = OpenAiConverter.convert(document);
+  const migrated: IMigrateDocument = OpenApi.migrate(document);
+  const openai: IOpenAiDocument = OpenAiConverter.convert(document, migrated);
   await fs.promises.writeFile(
     `${location}/openai.json`,
-    JSON.stringify(converted, null, 2),
+    JSON.stringify(openai, null, 2),
+  );
+  await fs.promises.writeFile(
+    `${location}/migrate.json`,
+    JSON.stringify(migrated, null, 2),
   );
 };
 main().catch((error) => {
