@@ -1,8 +1,9 @@
-import { IMigrateProgram } from "@nestia/migrate";
-import { MigrateAnalyzer } from "@nestia/migrate/lib/analyzers/MigrateAnalyzer";
-import { MigrateApiProgrammer } from "@nestia/migrate/lib/programmers/MigrateApiProgrammer";
-import { IMigrateRoute } from "@nestia/migrate/lib/structures/IMigrateRoute";
-import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import {
+  IMigrateDocument,
+  IMigrateRoute,
+  OpenApi,
+  OpenApiV3,
+} from "@samchon/openapi";
 import { OpenApiTypeChecker } from "@samchon/openapi/lib/internal/OpenApiTypeChecker";
 import { OpenApiV3Downgrader } from "@samchon/openapi/lib/internal/OpenApiV3Downgrader";
 import typia from "typia";
@@ -10,20 +11,14 @@ import typia from "typia";
 import { IOpenAiDocument } from "./IOpenAiDocument";
 
 export namespace OpenAiConverter {
-  export const convert = (document: OpenApi.IDocument): IOpenAiDocument => {
-    const program: IMigrateProgram = MigrateAnalyzer.analyze({
-      mode: "sdk",
-      document,
-      dictionary: new Map(),
-      simulate: false,
-      e2e: false,
-    });
-    MigrateApiProgrammer.write(program);
-    const operations: Array<IOpenAiDocument.IOperation> = program.controllers
-      .map((c) => c.routes)
-      .flat()
-      .map(convertOperation(program.document.components))
-      .filter((v) => v !== null) as IOpenAiDocument.IOperation[];
+  export const convert = (
+    document: OpenApi.IDocument,
+    migrated?: IMigrateDocument,
+  ): IOpenAiDocument => {
+    migrated ??= OpenApi.migrate(document);
+    const operations: IOpenAiDocument.IOperation[] = migrated.routes
+      .map(convertOperation(document.components))
+      .filter((v): v is IOpenAiDocument.IOperation => v !== null);
     for (const [path, collection] of Object.entries(document.paths ?? {}))
       for (const method of Object.keys(collection))
         if (
@@ -55,7 +50,7 @@ export namespace OpenAiConverter {
       if (parameters.some((v) => v === null)) return null;
       return {
         method: typia.assert<OpenApiV3.Method>(route.method),
-        path: route.originalPath,
+        path: route.path,
         name: route.accessor.join("_"),
         parameters: (parameters as OpenApi.IJsonSchema[]).map((schema) =>
           OpenApiV3Downgrader.downgradeSchema({

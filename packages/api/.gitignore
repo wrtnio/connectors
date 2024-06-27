@@ -1,6 +1,7 @@
 lib/
 node_modules/
 
+migrate.json
 openai.json
 swagger.json
 swagger.*.json
