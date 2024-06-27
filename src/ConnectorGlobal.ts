@@ -72,6 +72,13 @@ export namespace ConnectorGlobal {
     IMWEB_TEST_API_KEY: string;
     IMWEB_TEST_API_SECRET: string;
 
+    // STABILITY AI
+    STABILITY_AI_API_KEY: string;
+    STABILITY_AI_HOST: string & tags.Format<"uri">;
+    STABILITY_AI_ENGINE_ID: string;
+    STABILITY_AI_DEFAULT_STEP: `${number}`;
+    STABILITY_AI_CFG_SCALE: `${number}`;
+
     //----
     // INHOUSE SERVERS
     //----
@@ -84,6 +91,11 @@ export namespace ConnectorGlobal {
     // LLM PROXY
     HAMLET_URL: string & tags.Format<"uri">;
     SHAKESPEARE_URL: string & tags.Format<"uri">;
+    HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT: string;
+    HAMLET_HEADER_KEY_NAME: string;
+    HAMLET_HEADER_KEY_VALUE: string;
+    HAMLET_PROMPT_NODE_MODEL_NAME: string;
+    HAMLET_PROMPT_NODE_REQUEST_ENDPOINT: string;
   }
 }
 

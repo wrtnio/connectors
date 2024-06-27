@@ -46,7 +46,7 @@ export class ChatbotProvider {
       : [systemMessage, userMessage];
 
     return await axios.post(
-      `${this.HAMLET_URL}/v2/openai/deployments/wrtn-gpt-35-turbo/chat/completions`,
+      `${this.HAMLET_URL}${ConnectorGlobal.env.HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT}`,
       {
         messages: messageBody,
         max_tokens: 512,
@@ -57,9 +57,9 @@ export class ChatbotProvider {
         model: "gpt-3.5-turbo",
       },
       {
-        // TODO: add userId, __w_id when user policy between general wrtn and ecosystem is figured out
         headers: {
-          "x-feature-id": "scp",
+          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
+            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
         },
       },
     );
