@@ -14,6 +14,24 @@ import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDat
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
+   * [국토교통부] 오피스텔 전세, 월세 정보를 조회합니다.
+   *
+   * @summary 오피스텔 전세, 월세 정보 조회
+   * @param input 조회 조건
+   * @returns 조회한 전세, 월세 정보
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @ApiTags("주거", "오피스텔", "월세", "전세")
+  @TypedRoute.Post("getRTMSDataSvcOffiRent")
+  async getRTMSDataSvcOffiRent(
+    @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
+  ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
+    return OpenDataProvider.getRTMSDataSvcOffiRent(input);
+  }
+
+  /**
    * [국토교통부] 아파트 전세, 월세 정보를 조회합니다.
    *
    * @summary 아파트 전세, 월세 정보 조회
