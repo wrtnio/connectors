@@ -169,7 +169,12 @@ export namespace KakaoTalkProvider {
   }
 
   export async function memo(
-    input: IKakaoTalk.ISendKakaoTalkInput,
+    input:
+      | IKakaoTalk.ISendKakaoTalkCommerceInput
+      | IKakaoTalk.ISendKakaoTalkLocationInput
+      | IKakaoTalk.ISendKakaoTalkListInput
+      | IKakaoTalk.ISendKakaoTalkFeedInput
+      | IKakaoTalk.ISendKakaoTalkTextInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
     try {
       const accessToken = await KakaoTalkProvider.refresh({
