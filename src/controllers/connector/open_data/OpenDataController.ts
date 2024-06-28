@@ -59,7 +59,8 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("주거", "아파트", "월세", "전세")
+  @Standalone()
+  @ApiTags("공공 데이터", "주거", "아파트", "월세", "전세")
   @TypedRoute.Post("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
@@ -77,7 +78,8 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("LH", "주거", "임대주택", "행복주택")
+  @Standalone()
+  @ApiTags("공공 데이터", "LH", "주거", "임대주택", "행복주택")
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
@@ -92,7 +94,11 @@ export class OpenDataController {
    * @param input 주차장 조회 조건
    * @returns 주차장 정보
    */
-  @ApiTags("주차장", "주차")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @Standalone()
+  @ApiTags("공공 데이터", "주차장", "주차")
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
@@ -110,7 +116,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("건축물", "빌딩", "내진설계", "건축물대장정보")
+  @ApiTags("공공 데이터", "건축물", "빌딩", "내진설계", "건축물대장정보")
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
@@ -129,7 +135,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("행정구역", "지역구", "읍면동", "시도", "시군구")
+  @ApiTags("공공 데이터", "행정구역", "지역구", "읍면동", "시도", "시군구")
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
     @TypedBody()
@@ -150,7 +156,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("주식", "시가총액", "기업", "자본")
+  @ApiTags("공공 데이터", "주식", "시가총액", "기업", "자본")
   @TypedRoute.Post("getStockPriceInfo")
   async getStockPriceInfo(
     @TypedBody()
@@ -171,7 +177,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("날씨", "기상청", "오늘 날씨", "기후")
+  @ApiTags("공공 데이터", "날씨", "기상청", "오늘 날씨", "기후")
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()
