@@ -12,8 +12,12 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     output: "packages/api/swagger.json",
     servers: [
       {
+        url: "https://studio-connector-api.wrtn.ai",
+        description: "Production Server",
+      },
+      {
         url: "http://studio-connector-poc",
-        description: "k8s",
+        description: "Develop Server",
       },
       {
         url: "http://localhost:3003",

@@ -19,11 +19,13 @@ const main = async (): Promise<void> => {
   const openai: IOpenAiDocument = OpenAiConverter.convert(document, migrated);
   await fs.promises.writeFile(
     `${location}/openai.json`,
-    JSON.stringify(openai, null, 2),
+    JSON.stringify(openai),
+    "utf8",
   );
   await fs.promises.writeFile(
     `${location}/migrate.json`,
-    JSON.stringify(migrated, null, 2),
+    JSON.stringify(migrated),
+    "utf8",
   );
 };
 main().catch((error) => {
