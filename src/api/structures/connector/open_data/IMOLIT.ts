@@ -1,6 +1,7 @@
 import { Placeholder, Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
+import { StrictOmit } from "../../../../utils/strictOmit";
 import { IOpenData } from "./IOpenData";
 
 /**
@@ -32,26 +33,19 @@ export namespace IMOLIT {
 
   export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
   export interface IgetRTMSDataSvcSHRentOutput {
-    data: Omit<BuildingLentInfo, "아파트" | "전용면적" | "지번" | "층">[];
+    data: StrictOmit<
+      BuildingLentInfo,
+      "apartment" | "exclusiveArea" | "lotNumber" | "floor"
+    >[];
   }
 
   export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;
 
   export interface IGetRTMSDataSvcOffiRentOutput {
-    data: (Omit<
+    data: StrictOmit<
       BuildingLentInfo,
-      "보증금액" | "월세금액" | "아파트" | "건축년도"
-    > & {
-      /**
-       * @title 보증금
-       */
-      보증금?: string | number;
-
-      /**
-       * @title 월세(만원)
-       */
-      월세: string | number;
-    })[];
+      "depositAmount" | "monthlyRentAmount" | "apartment" | "yearOfConstruction"
+    >[];
   }
 
   /**
@@ -492,7 +486,7 @@ export namespace IMOLIT {
     rserthqkAblty?: string;
   }
 
-  export interface BuildingLentInfo {
+  export interface OriginalBuildingLentInfo {
     /**
      * @title 갱신요구권사용
      */
@@ -581,5 +575,96 @@ export namespace IMOLIT {
      * @title 층
      */
     층: string | (number & tags.Type<"int32">);
+  }
+
+  export interface BuildingLentInfo {
+    /**
+     * @title 갱신요구권사용
+     */
+    useOfRenewalRight: string;
+
+    /**
+     * @title 건축년도
+     */
+    yearOfConstruction?: string | `${number}` | number;
+
+    /**
+     * @title 계약구분
+     */
+    typeOfContract: string;
+
+    /**
+     * @title 계약기간
+     */
+    contractPeriod: string;
+
+    /**
+     * @title 년
+     */
+    year: string | `${number}` | number;
+
+    /**
+     * @title 법정동
+     */
+    legalDistrict: string;
+
+    /**
+     * @title 보증금액
+     */
+    depositAmount: string | number;
+
+    /**
+     * @title 아파트
+     */
+    apartment: string;
+
+    /**
+     * @title 월
+     */
+    month:
+      | string
+      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
+
+    /**
+     * @title 월세금액
+     */
+    monthlyRentAmount: string | (number & tags.Type<"int32">);
+
+    /**
+     * @title 일
+     */
+    day:
+      | string
+      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
+
+    /**
+     * @title 전용면적
+     */
+    exclusiveArea: string | number;
+
+    /**
+     * @title 종전계약보증금
+     */
+    previousContractDeposit: string | number;
+
+    /**
+     * @title 종전계약월세
+     */
+    previousContractMonthlyRent: string | number;
+
+    /**
+     * @title 지번
+     */
+    lotNumber: string | (number & tags.Type<"int32">);
+
+    /**
+     * @title 지역코드
+     */
+    areaCode: string | number;
+
+    /**
+     * @title 층
+     */
+    floor: string | (number & tags.Type<"int32">);
   }
 }
