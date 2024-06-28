@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller, Get, Query } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
@@ -20,7 +20,10 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
-  @core.TypedRoute.Post("message")
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("message/text")
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
   ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
@@ -39,9 +42,100 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @core.TypedRoute.Post("memo")
-  async memo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkInput,
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("memo/commerce")
+  async commerceMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("memo/location")
+  async locationMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("memo/list")
+  async listMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("memo/feed")
+  async feedMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput,
+  ): Promise<IKakaoTalk.IMemoOutput> {
+    return KakaoTalkProvider.memo(input);
+  }
+
+  /**
+   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   *
+   * @summary 카카오톡 내게 쓰기
+   *
+   * @param input 메시지를 보내기 위한 조건
+   *
+   * @returns 응답 코드
+   *
+   * @tag 카카오톡
+   */
+  @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("memo/text")
+  async textMemo(
+    @TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
     return KakaoTalkProvider.memo(input);
   }
@@ -53,6 +147,9 @@ export class KakaoTalkController {
    *
    * @param input Refresh를 위한 요청 DTO.
    */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
   @core.TypedRoute.Post("refresh")
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
@@ -72,6 +169,9 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
   @core.TypedRoute.Post("calendars/events")
   async createEvent(
     @TypedBody() input: IKakaoTalk.ICreateEventInput,
@@ -90,6 +190,9 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
   @core.TypedRoute.Post("get-friends")
   async getFriends(
     @TypedBody() input: IKakaoTalk.IGetFriendsInput,
@@ -109,6 +212,9 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
   @core.TypedRoute.Post("get-events")
   async getEvents(
     @TypedBody() input: IKakaoTalk.IGetEventInput,
@@ -128,6 +234,9 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,

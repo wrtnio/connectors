@@ -23,9 +23,8 @@ export const test_api_kakao_talk_text_memo = async (
   /**
    * 텍스트 메시지 발송.
    */
-  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
-    connection,
-    {
+  const sendTextForm =
+    await CApi.functional.connector.kakao_talk.memo.text.textMemo(connection, {
       secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "text",
@@ -35,8 +34,7 @@ export const test_api_kakao_talk_text_memo = async (
           mobile_web_url: "https://studio-pro.wrtn.ai",
         },
       },
-    },
-  );
+    });
 
   typia.assertEquals(sendTextForm);
 };
@@ -56,9 +54,8 @@ export const test_api_kakao_talk_feed_memo = async (
   /**
    * 피드 메시지 발송.
    */
-  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
-    connection,
-    {
+  const sendTextForm =
+    await CApi.functional.connector.kakao_talk.memo.feed.feedMemo(connection, {
       secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "feed",
@@ -133,8 +130,7 @@ export const test_api_kakao_talk_feed_memo = async (
           },
         ],
       },
-    },
-  );
+    });
 
   typia.assertEquals(sendTextForm);
 };
@@ -297,9 +293,8 @@ export const test_api_kakao_talk_list_memo = async (
   /**
    * 리스트 메시지 발송.
    */
-  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
-    connection,
-    {
+  const sendTextForm =
+    await CApi.functional.connector.kakao_talk.memo.list.listMemo(connection, {
       secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
       template_object: {
         object_type: "list",
@@ -371,8 +366,7 @@ export const test_api_kakao_talk_list_memo = async (
           },
         ],
       },
-    },
-  );
+    });
 
   typia.assertEquals(sendTextForm);
 };
@@ -392,40 +386,41 @@ export const test_api_kakao_talk_location_memo = async (
   /**
    * 위치 메시지 발송.
    */
-  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
-    connection,
-    {
-      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-      template_object: {
-        object_type: "location",
-        content: {
-          title: "카카오 판교오피스",
-          description: "카카오 판교오피스 위치입니다.",
-          image_url:
-            "https://mud-kage.kakao.com/dn/drTdbB/bWYf06POFPf/owUHIt7K7NoGD0hrzFLeW0/kakaolink40_original.png",
-          image_width: 800,
-          image_height: 800,
-          link: {
-            web_url: "https://studio-pro.wrtn.ai",
-            mobile_web_url: "https://studio-pro.wrtn.ai",
-            android_execution_params: "platform=android",
-            ios_execution_params: "platform=ios",
-          },
-        },
-        buttons: [
-          {
-            title: "웹으로 보기",
+  const sendTextForm =
+    await CApi.functional.connector.kakao_talk.memo.location.locationMemo(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+        template_object: {
+          object_type: "location",
+          content: {
+            title: "카카오 판교오피스",
+            description: "카카오 판교오피스 위치입니다.",
+            image_url:
+              "https://mud-kage.kakao.com/dn/drTdbB/bWYf06POFPf/owUHIt7K7NoGD0hrzFLeW0/kakaolink40_original.png",
+            image_width: 800,
+            image_height: 800,
             link: {
               web_url: "https://studio-pro.wrtn.ai",
               mobile_web_url: "https://studio-pro.wrtn.ai",
+              android_execution_params: "platform=android",
+              ios_execution_params: "platform=ios",
             },
           },
-        ],
-        address: "경기 성남시 분당구 판교역로 235 에이치스퀘어 N동 7층",
-        address_title: "카카오 판교오피스",
+          buttons: [
+            {
+              title: "웹으로 보기",
+              link: {
+                web_url: "https://studio-pro.wrtn.ai",
+                mobile_web_url: "https://studio-pro.wrtn.ai",
+              },
+            },
+          ],
+          address: "경기 성남시 분당구 판교역로 235 에이치스퀘어 N동 7층",
+          address_title: "카카오 판교오피스",
+        },
       },
-    },
-  );
+    );
 
   typia.assertEquals(sendTextForm);
 };
@@ -445,53 +440,54 @@ export const test_api_kakao_talk_commerce_memo = async (
   /**
    * 커머스 메시지 발송.
    */
-  const sendTextForm = await CApi.functional.connector.kakao_talk.memo(
-    connection,
-    {
-      secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-      template_object: {
-        object_type: "commerce",
-        content: {
-          title: "Ivory long dress (4 Color)",
-          image_url:
-            "https://mud-kage.kakao.com/dn/RY8ZN/btqgOGzITp3/uCM1x2xu7GNfr7NS9QvEs0/kakaolink40_original.png",
-          image_width: 640,
-          image_height: 640,
-          link: {
-            web_url: "https://studio-pro.wrtn.ai",
-            mobile_web_url: "https://studio-pro.wrtn.ai",
-            android_execution_params: "contentId=100",
-            ios_execution_params: "contentId=100",
-          },
-        },
-        commerce: {
-          regular_price: 208800,
-          discount_price: 146160,
-          discount_rate: 30,
-        },
-        buttons: [
-          {
-            title: "구매하기",
+  const sendTextForm =
+    await CApi.functional.connector.kakao_talk.memo.commerce.commerceMemo(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+        template_object: {
+          object_type: "commerce",
+          content: {
+            title: "Ivory long dress (4 Color)",
+            image_url:
+              "https://mud-kage.kakao.com/dn/RY8ZN/btqgOGzITp3/uCM1x2xu7GNfr7NS9QvEs0/kakaolink40_original.png",
+            image_width: 640,
+            image_height: 640,
             link: {
               web_url: "https://studio-pro.wrtn.ai",
               mobile_web_url: "https://studio-pro.wrtn.ai",
-              android_execution_params: "contentId=100&buy=true",
-              ios_execution_params: "contentId=100&buy=true",
+              android_execution_params: "contentId=100",
+              ios_execution_params: "contentId=100",
             },
           },
-          {
-            title: "공유하기",
-            link: {
-              web_url: "https://studio-pro.wrtn.ai",
-              mobile_web_url: "https://studio-pro.wrtn.ai",
-              android_execution_params: "contentId=100&share=true",
-              ios_execution_params: "contentId=100&share=true",
-            },
+          commerce: {
+            regular_price: 208800,
+            discount_price: 146160,
+            discount_rate: 30,
           },
-        ],
+          buttons: [
+            {
+              title: "구매하기",
+              link: {
+                web_url: "https://studio-pro.wrtn.ai",
+                mobile_web_url: "https://studio-pro.wrtn.ai",
+                android_execution_params: "contentId=100&buy=true",
+                ios_execution_params: "contentId=100&buy=true",
+              },
+            },
+            {
+              title: "공유하기",
+              link: {
+                web_url: "https://studio-pro.wrtn.ai",
+                mobile_web_url: "https://studio-pro.wrtn.ai",
+                android_execution_params: "contentId=100&share=true",
+                ios_execution_params: "contentId=100&share=true",
+              },
+            },
+          ],
+        },
       },
-    },
-  );
+    );
 
   typia.assertEquals(sendTextForm);
 };
