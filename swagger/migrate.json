@@ -3278,6 +3278,68 @@
     },
     {
       "method": "post",
+      "path": "/connector/open-data/getRTMSDataSvcSHRent",
+      "emendedPath": "connector/open-data/getRTMSDataSvcSHRent",
+      "accessor": [
+        "connector",
+        "open_data",
+        "getRTMSDataSvcSHRent",
+        "post"
+      ],
+      "headers": null,
+      "parameters": [],
+      "query": null,
+      "body": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcAptRentInput"
+        }
+      },
+      "success": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IMOLIT.IgetRTMSDataSvcSHRentOutput"
+        }
+      },
+      "exceptions": {}
+    },
+    {
+      "method": "post",
+      "path": "/connector/open-data/getRTMSDataSvcOffiRent",
+      "emendedPath": "connector/open-data/getRTMSDataSvcOffiRent",
+      "accessor": [
+        "connector",
+        "open_data",
+        "getRTMSDataSvcOffiRent",
+        "post"
+      ],
+      "headers": null,
+      "parameters": [],
+      "query": null,
+      "body": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcAptRentInput"
+        }
+      },
+      "success": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcOffiRentOutput"
+        }
+      },
+      "exceptions": {}
+    },
+    {
+      "method": "post",
       "path": "/connector/open-data/getRTMSDataSvcAptRent",
       "emendedPath": "connector/open-data/getRTMSDataSvcAptRent",
       "accessor": [
