@@ -9,6 +9,44 @@ import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/con
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace OpenDataProvider {
+  export async function getRTMSDataSvcSHRent(
+    input: IMOLIT.IgetRTMSDataSvcSHRentInput,
+  ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
+    const baseUrl = `http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcSHRent`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+    const queryString = Object.entries({
+      ...input,
+      serviceKey,
+      _type: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    const data = res.data.response.body.items.item;
+
+    return { data };
+  }
+
+  export async function getRTMSDataSvcOffiRent(
+    input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
+  ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
+    const baseUrl = `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcOffiRent`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+    const queryString = Object.entries({
+      ...input,
+      serviceKey,
+      _type: "json",
+    })
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    const data = res.data.response.body.items.item;
+
+    return { data };
+  }
+
   export async function getRTMSDataSvcAptRent(
     input: IMOLIT.IGetRTMSDataSvcAptRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
