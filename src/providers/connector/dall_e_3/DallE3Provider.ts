@@ -4,7 +4,7 @@ import axios from "axios";
 import { firstValueFrom } from "rxjs";
 import { v4 } from "uuid";
 
-import { IImage } from "@wrtn/connector-api/lib/structures/connector/image/IImage";
+import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { generateGptPromptTranslateForImageGenerate } from "../../../utils/ImagePromptTranslateUtil";
@@ -12,14 +12,14 @@ import { OpenAIProvider } from "../../open_ai/OpenAIProvider";
 import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
-export class ImageProvider {
+export class DallE3Provider {
   constructor(
     private awsProvider: AwsProvider,
     private openAIProvider: OpenAIProvider,
     private httpService: HttpService,
   ) {}
-  async generateImage(input: IImage.IRequest): Promise<IImage.IResponse> {
-    const translateResult = await this.imageCompletion(
+  async generateImage(input: IDallE3.IRequest): Promise<IDallE3.IResponse> {
+    const translateResult = await this.DallE3Completion(
       "dall-e-3",
       input.prompt,
     );
@@ -30,18 +30,18 @@ export class ImageProvider {
     const data = await firstValueFrom(
       this.httpService.get(res.url, { responseType: "arraybuffer" }),
     );
-    const { imgUrl } = await this.uploadImageToS3(data.data);
+    const { imgUrl } = await this.uploadDallE3ToS3(data.data);
     return {
       imgUrl: imgUrl,
     };
   }
 
-  async uploadImageToS3(img: Buffer) {
+  async uploadDallE3ToS3(img: Buffer) {
     try {
       const imgUrl = await this.awsProvider.uploadObject({
-        key: `connector/generate-image-node/dall-e-3/${v4()}`,
+        key: `connector/generate-DallE3-node/dall-e-3/${v4()}`,
         data: img,
-        contentType: "image/png",
+        contentType: "DallE3/png",
       });
 
       const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl);
@@ -54,7 +54,7 @@ export class ImageProvider {
     }
   }
 
-  async imageCompletion(model: string, message: string) {
+  async DallE3Completion(model: string, message: string) {
     /**
      * 프롬프트 변환
      */
