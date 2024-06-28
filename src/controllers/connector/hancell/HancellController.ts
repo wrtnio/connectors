@@ -1,7 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 
@@ -71,6 +71,9 @@ export class HancellController {
     "Merge Data",
   )
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
+  )
   @core.TypedRoute.Post("read")
   async read(
     @TypedBody() input: IHancell.IReadHancellInput,

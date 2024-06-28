@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
@@ -17,6 +17,9 @@ export class ZoomController {
    * @tag zoom
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/zoom.svg",
+  )
   @core.TypedRoute.Post("meetings")
   async createMeeting(
     @core.TypedBody() input: IZoom.ICreateMeetingInput,

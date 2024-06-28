@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IKoreaEximbank } from "@wrtn/connector-api/lib/structures/connector/korea_eximbank/IKoreaEximbank";
 
@@ -13,6 +13,9 @@ export class KoreaEximbankController {
    * @returns 환율 정보
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/korea-government.svg",
+  )
   @core.TypedRoute.Get("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {
     return KoreaEximbankProvider.getExchange();
