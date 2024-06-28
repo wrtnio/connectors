@@ -35,29 +35,42 @@ export namespace OpenAiConverter {
   const convertOperation =
     (components: OpenApi.IComponents) =>
     (route: IMigrateRoute): IOpenAiDocument.IOperation | null => {
-      const parameters: Array<OpenApi.IJsonSchema | null> =
-        route.parameters.map((p) =>
-          escapeReference(components)(new Set())(p.schema),
-        );
-      if (route.query)
-        parameters.push(
-          escapeReference(components)(new Set())(route.query.schema),
-        );
-      if (route.body)
-        parameters.push(
-          escapeReference(components)(new Set())(route.body.schema),
-        );
-      if (parameters.some((v) => v === null)) return null;
+      const escape = escapeReference(components)(new Set());
+      const parameter = {
+        type: "object",
+        properties: Object.fromEntries([
+          ...route.parameters.map((p) => [
+            p.key,
+            {
+              ...escape(p.schema),
+              description: p.description ?? p.schema.description,
+            },
+          ]),
+          ...(route.query
+            ? [[route.query.key, escape(route.query.schema)]]
+            : []),
+          ...(route.body ? [[route.body.key, escape(route.body.schema)]] : []),
+        ]),
+      } satisfies OpenApiV3.IJsonSchema.IObject;
+      if (Object.values(parameter.properties).some((v) => v === null))
+        return null;
+
+      const output: OpenApi.IJsonSchema | null | undefined = 
+        route.success ? escape(route.success.schema) : undefined;
+      if (output === null) return null;
+
       return {
         method: typia.assert<OpenApiV3.Method>(route.method),
         path: route.path,
         name: route.accessor.join("_"),
-        parameters: (parameters as OpenApi.IJsonSchema[]).map((schema) =>
-          OpenApiV3Downgrader.downgradeSchema({
-            original: {},
-            downgraded: {},
-          })(schema),
-        ),
+        parameter: OpenApiV3Downgrader.downgradeSchema({
+          original: {},
+          downgraded: {},
+        })(parameter) as OpenApiV3.IJsonSchema.IObject,
+        output: output ? OpenApiV3Downgrader.downgradeSchema({
+          original: {},
+          downgraded: {},
+        })(output) : undefined,
         description: route.comment(),
       };
     };
