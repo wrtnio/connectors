@@ -2890,12 +2890,13 @@
     },
     {
       "method": "post",
-      "path": "/connector/kakao-talk/message",
-      "emendedPath": "connector/kakao-talk/message",
+      "path": "/connector/kakao-talk/message/text",
+      "emendedPath": "connector/kakao-talk/message/text",
       "accessor": [
         "connector",
         "kakao_talk",
         "message",
+        "text",
         "post"
       ],
       "headers": null,
@@ -2921,12 +2922,13 @@
     },
     {
       "method": "post",
-      "path": "/connector/kakao-talk/memo",
-      "emendedPath": "connector/kakao-talk/memo",
+      "path": "/connector/kakao-talk/memo/commerce",
+      "emendedPath": "connector/kakao-talk/memo/commerce",
       "accessor": [
         "connector",
         "kakao_talk",
         "memo",
+        "commerce",
         "post"
       ],
       "headers": null,
@@ -2937,7 +2939,135 @@
         "name": "body",
         "key": "body",
         "schema": {
-          "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkInput"
+          "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkCommerceInput"
+        }
+      },
+      "success": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.IMemoOutput"
+        }
+      },
+      "exceptions": {}
+    },
+    {
+      "method": "post",
+      "path": "/connector/kakao-talk/memo/location",
+      "emendedPath": "connector/kakao-talk/memo/location",
+      "accessor": [
+        "connector",
+        "kakao_talk",
+        "memo",
+        "location",
+        "post"
+      ],
+      "headers": null,
+      "parameters": [],
+      "query": null,
+      "body": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkLocationInput"
+        }
+      },
+      "success": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.IMemoOutput"
+        }
+      },
+      "exceptions": {}
+    },
+    {
+      "method": "post",
+      "path": "/connector/kakao-talk/memo/list",
+      "emendedPath": "connector/kakao-talk/memo/list",
+      "accessor": [
+        "connector",
+        "kakao_talk",
+        "memo",
+        "list",
+        "post"
+      ],
+      "headers": null,
+      "parameters": [],
+      "query": null,
+      "body": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkListInput"
+        }
+      },
+      "success": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.IMemoOutput"
+        }
+      },
+      "exceptions": {}
+    },
+    {
+      "method": "post",
+      "path": "/connector/kakao-talk/memo/feed",
+      "emendedPath": "connector/kakao-talk/memo/feed",
+      "accessor": [
+        "connector",
+        "kakao_talk",
+        "memo",
+        "feed",
+        "post"
+      ],
+      "headers": null,
+      "parameters": [],
+      "query": null,
+      "body": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkFeedInput"
+        }
+      },
+      "success": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.IMemoOutput"
+        }
+      },
+      "exceptions": {}
+    },
+    {
+      "method": "post",
+      "path": "/connector/kakao-talk/memo/text",
+      "emendedPath": "connector/kakao-talk/memo/text",
+      "accessor": [
+        "connector",
+        "kakao_talk",
+        "memo",
+        "text",
+        "post"
+      ],
+      "headers": null,
+      "parameters": [],
+      "query": null,
+      "body": {
+        "type": "application/json",
+        "name": "body",
+        "key": "body",
+        "schema": {
+          "$ref": "#/components/schemas/IKakaoTalk.ISendKakaoTalkTextInput"
         }
       },
       "success": {
