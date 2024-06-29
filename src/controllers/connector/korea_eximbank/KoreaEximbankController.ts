@@ -11,6 +11,8 @@ export class KoreaEximbankController {
   /**
    * @summary 한국 수출입 은행 현재 환율 조회
    * @returns 환율 정보
+   *
+   * @internal
    */
   @Standalone()
   @RouteIcon(
