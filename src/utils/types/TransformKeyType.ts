@@ -13,7 +13,7 @@ type __FirstElementsOfTuples<T extends [string, string][]> = T extends [
   ? [First[0], ...__FirstElementsOfTuples<Rest>]
   : [];
 
-export type TransformKeyType<
+export type Rename<
   T extends object,
   Commands extends [DeepStrictObjectKeys<T>, string][],
   AllKeys extends DeepStrictObjectKeys<T> = __FirstElementsOfTuples<Commands>[number],
@@ -28,6 +28,6 @@ export type TransformKeyType<
           StringToDeepObject<RemoveArraySymbol<After>, GetType<T, Before>>
         >
       >,
-      TransformKeyType<T, RestCommands, AllKeys>
+      Rename<T, RestCommands, AllKeys>
     >
   : {};

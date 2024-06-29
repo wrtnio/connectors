@@ -7,6 +7,7 @@ import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_dat
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import type { Rename } from "../../../utils/types/TransformKeyType";
 
 export namespace OpenDataProvider {
   export async function getRTMSDataSvcSHRent(
@@ -35,10 +36,10 @@ export namespace OpenDataProvider {
           contractPeriod: el.계약기간,
           year: el.년,
           legalDistrict: el.법정동,
-          depositAmount: el.보증금액 ?? (el as any)?.보증금,
+          depositAmount: el.보증금액,
           apartment: el.아파트,
           month: el.월,
-          monthlyRentAmount: el.월세금액 ?? (el as any)?.월세,
+          monthlyRentAmount: el.월세금액,
           day: el.일,
           exclusiveArea: el.전용면적,
           previousContractDeposit: el.종전계약보증금,
@@ -66,8 +67,10 @@ export namespace OpenDataProvider {
       .join("&");
 
     const res = await axios.get(`${baseUrl}?${queryString}`);
-    const data: IMOLIT.OriginalBuildingLentInfo[] =
-      res.data.response.body.items.item;
+    const data: Rename<
+      IMOLIT.OriginalBuildingLentInfo,
+      [["보증금액", "보증금"], ["월세금액", "월세"]]
+    >[] = res.data.response.body.items.item;
 
     return {
       data: data.map((el) => {
@@ -78,10 +81,10 @@ export namespace OpenDataProvider {
           contractPeriod: el.계약기간,
           year: el.년,
           legalDistrict: el.법정동,
-          depositAmount: el.보증금액 ?? (el as any)?.보증금,
+          depositAmount: el.보증금,
           apartment: el.아파트,
           month: el.월,
-          monthlyRentAmount: el.월세금액 ?? (el as any)?.월세,
+          monthlyRentAmount: el.월세,
           day: el.일,
           exclusiveArea: el.전용면적,
           previousContractDeposit: el.종전계약보증금,
@@ -121,10 +124,10 @@ export namespace OpenDataProvider {
           contractPeriod: el.계약기간,
           year: el.년,
           legalDistrict: el.법정동,
-          depositAmount: el.보증금액 ?? (el as any)?.보증금,
+          depositAmount: el.보증금액,
           apartment: el.아파트,
           month: el.월,
-          monthlyRentAmount: el.월세금액 ?? (el as any)?.월세,
+          monthlyRentAmount: el.월세금액,
           day: el.일,
           exclusiveArea: el.전용면적,
           previousContractDeposit: el.종전계약보증금,
