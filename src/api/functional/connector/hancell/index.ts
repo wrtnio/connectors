@@ -11,7 +11,7 @@ import typia from "typia";
 
 import type { IHancell } from "../../../structures/connector/hancell/IHancell";
 
-export * as rows from "./rows";
+export * as sheet from "./sheet";
 
 /**
  * 한셀 파일을 읽습니다.

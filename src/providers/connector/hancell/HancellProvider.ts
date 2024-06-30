@@ -25,7 +25,7 @@ export class HancellProvider {
     },
   });
 
-  async insertRows(
+  async upsertSheet(
     input: IHancell.IInsertRowsInput,
   ): Promise<IHancell.IInsertRowsOutput> {
     const workbook = await this.getWorkboot(input);
@@ -45,15 +45,23 @@ export class HancellProvider {
       };
     });
 
+    if (sheet["!ref"]) {
+      const original = xlsx.utils.decode_range(sheet["!ref"]);
+      Object.entries(input.cells)
+        .map(([key]) => xlsx.utils.decode_cell(key))
+        .forEach((newRange) => {
+          original.s.r = Math.min(original.s.r, newRange.r);
+          original.s.c = Math.min(original.s.c, newRange.c);
+
+          original.e.r = Math.max(original.e.r, newRange.r);
+          original.e.c = Math.max(original.e.c, newRange.c);
+        });
+
+      sheet["!ref"] = xlsx.utils.encode_range(original);
+    }
+
     xlsx.utils.book_append_sheet(workbook, sheet, input.sheetName);
     const buffer = xlsx.write(workbook, { bookType: "xlsx", type: "buffer" });
-
-    if (sheet["!ref"]) {
-      /**
-       * @todo 범위를 넘어선 수정이 있을 수 있기 때문에 시트 범위 조정 필요
-       */
-      const [from, to] = sheet["!ref"]?.split(":");
-    }
 
     const key = `${this.uploadPrefix}/${v4()}`;
     const uploadCommand = new PutObjectCommand({

@@ -11,11 +11,11 @@ import { HancellProvider } from "../../../providers/connector/hancell/HancellPro
 export class HancellController {
   constructor(private readonly hancellProvider: HancellProvider) {}
 
-  @core.TypedRoute.Post("rows")
-  async insertRows(
+  @core.TypedRoute.Post("sheet")
+  async upsertSheet(
     @TypedBody() input: IHancell.IInsertRowsInput,
   ): Promise<IHancell.IInsertRowsOutput> {
-    return this.hancellProvider.insertRows(input);
+    return this.hancellProvider.upsertSheet(input);
   }
 
   /**
