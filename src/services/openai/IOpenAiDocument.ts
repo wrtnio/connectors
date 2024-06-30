@@ -10,7 +10,7 @@ export namespace IOpenAiDocument {
     method: OpenApiV3.Method;
     path: string;
     name: string;
-    parameter: IJsonSchema.IObject;
+    parameters: IJsonSchema[];
     output?: IJsonSchema | undefined;
     description?: string;
   }

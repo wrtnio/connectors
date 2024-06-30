@@ -63,10 +63,10 @@ export namespace OpenAiConverter {
         method: typia.assert<OpenApiV3.Method>(route.method),
         path: route.path,
         name: route.accessor.join("_"),
-        parameter: OpenApiV3Downgrader.downgradeSchema({
+        parameters: [OpenApiV3Downgrader.downgradeSchema({
           original: {},
           downgraded: {},
-        })(parameter) as OpenApiV3.IJsonSchema.IObject,
+        })(parameter) as OpenApiV3.IJsonSchema.IObject],
         output: output ? OpenApiV3Downgrader.downgradeSchema({
           original: {},
           downgraded: {},
