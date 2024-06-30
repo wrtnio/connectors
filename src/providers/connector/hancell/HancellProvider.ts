@@ -26,8 +26,8 @@ export class HancellProvider {
   });
 
   async upsertSheet(
-    input: IHancell.IInsertRowsInput,
-  ): Promise<IHancell.IInsertRowsOutput> {
+    input: IHancell.IUpsertSheetInput,
+  ): Promise<IHancell.IUpsertSheetOutput> {
     const workbook = await this.getWorkboot(input);
     const sheet = workbook.Sheets[input.sheetName];
 
