@@ -1,7 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 
@@ -75,6 +75,9 @@ export class HancellController {
     "Merge Data",
   )
   @core.TypedRoute.Post("sheet")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
+  )
   async upsertSheet(
     @TypedBody() input: IHancell.IUpsertSheetInput,
   ): Promise<IHancell.IUpsertSheetOutput> {
@@ -141,6 +144,9 @@ export class HancellController {
     "Extract Data",
     "Filter Data",
     "Merge Data",
+  )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("read")
