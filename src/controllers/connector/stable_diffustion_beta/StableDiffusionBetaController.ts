@@ -1,6 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { Standalone } from "@wrtn/decorators";
 
 import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
 
@@ -22,6 +23,7 @@ export class StableDiffusionBetaController {
    * @returns 생성된 이미지 URL
    */
   @ApiTags("스테이블 디퓨전 이미지 생성기 노드")
+  @Standalone()
   @core.TypedRoute.Post("/generate")
   async generateImage(
     @core.TypedBody() input: IStableDiffusionBeta.IRequest,
