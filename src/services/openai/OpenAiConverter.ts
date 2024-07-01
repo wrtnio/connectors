@@ -11,15 +11,21 @@ import typia from "typia";
 import { IOpenAiDocument } from "./IOpenAiDocument";
 
 export namespace OpenAiConverter {
-  export const convert = (
-    document: OpenApi.IDocument,
-    migrated?: IMigrateDocument,
-  ): IOpenAiDocument => {
-    migrated ??= OpenApi.migrate(document);
+  export interface IOptions {
+    isKeywordParameter: boolean;
+  }
+  export const convert = (props: {
+    document: OpenApi.IDocument;
+    options: IOptions;
+    migrated?: IMigrateDocument;
+  }): IOpenAiDocument => {
+    const migrated: IMigrateDocument = props.migrated 
+      ? props.migrated 
+      : OpenApi.migrate(props.document);
     const functions: IOpenAiDocument.IFunction[] = migrated.routes
-      .map(convertFunction(document.components))
+      .map(convertFunction(props.options)(props.document.components))
       .filter((v): v is IOpenAiDocument.IFunction => v !== null);
-    for (const [path, collection] of Object.entries(document.paths ?? {}))
+    for (const [path, collection] of Object.entries(props.document.paths ?? {}))
       for (const method of Object.keys(collection))
         if (
           functions.find((v) => v.path === path && v.method === method) ===
@@ -29,11 +35,12 @@ export namespace OpenAiConverter {
     return {
       openapi: "3.0.3",
       functions: functions,
-      propertised: true,
+      isKeywordParameter: props.options.isKeywordParameter,
     };
   };
 
   const convertFunction =
+    (options: IOptions) =>
     (components: OpenApi.IComponents) =>
     (route: IMigrateRoute): IOpenAiDocument.IFunction | null => {
       const escape = escapeReference(components)(new Set());
@@ -64,12 +71,20 @@ export namespace OpenAiConverter {
         method: typia.assert<OpenApiV3.Method>(route.method),
         path: route.path,
         name: route.accessor.join("_"),
-        parameters: [
-          OpenApiV3Downgrader.downgradeSchema({
-          original: {},
-          downgraded: {},
-          })(parameter) as OpenApiV3.IJsonSchema.IObject,
-        ],
+        parameters: options.isKeywordParameter 
+          ? [
+            OpenApiV3Downgrader.downgradeSchema({
+            original: {},
+            downgraded: {},
+            })(parameter) as OpenApiV3.IJsonSchema.IObject,
+          ] 
+          : Object.values(parameter.properties).map(
+            v => OpenApiV3Downgrader.downgradeSchema(
+              {
+                original: {},
+                downgraded: {},
+              })(v as any),
+            ),
         output: output ? OpenApiV3Downgrader.downgradeSchema({
           original: {},
           downgraded: {},
