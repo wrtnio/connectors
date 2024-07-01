@@ -1,15 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import typia from "typia";
+import { string } from "typia/lib/utils/RandomGenerator/RandomGenerator";
 import { v4 } from "uuid";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class GoogleSlidesProvider {
-  constructor(private readonly googleProvider: GoogleProvider) {}
+  constructor(
+    private readonly googleProvider: GoogleProvider,
+    private readonly awsProvider: AwsProvider,
+  ) {}
 
   async getPresentation(
     input: IGoogleSlides.IGetPresentationInput,
@@ -39,11 +44,40 @@ export class GoogleSlidesProvider {
     }
   }
 
+  // NOTE: quick fix for s3 urls - need a more centralized solution
+  async transformUrl(
+    input: IGoogleSlides.AppendSlideInput,
+  ): Promise<IGoogleSlides.AppendSlideInput> {
+    let stringified = JSON.stringify(input);
+
+    // if there are s3 buckets urls, get presigned url
+    const matches = JSON.stringify(input).match(
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
+    );
+
+    if (!matches) {
+      return input;
+    }
+
+    const transformed = await Promise.all(
+      matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
+    );
+
+    matches.forEach((match, index) => {
+      stringified = stringified.replace(match, transformed[index]);
+    });
+
+    return typia.assert<IGoogleSlides.AppendSlideInput>(
+      JSON.parse(stringified),
+    );
+  }
+
   async appendImageSlide(
     presentationId: string,
     input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.Presentation> {
     try {
+      input = await this.transformUrl(input);
       const { secretKey, templates } = input;
       const accessToken = await this.googleProvider.refreshAccessToken(
         secretKey,
