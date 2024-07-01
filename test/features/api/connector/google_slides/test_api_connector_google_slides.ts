@@ -225,7 +225,8 @@ export const test_api_connector_google_slides_append_image_slide = async (
 
   // return res;
 
-  const testImage = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s`;
+  //const testImage = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s`;
+  const testImage = `https://dev-studio-pro.s3.amazonaws.com/connector/generate-story-copy/f42e4450-3064-43d1-b973-2c913f08581a`;
   await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
     connection,
     presentation.presentationId as string,
