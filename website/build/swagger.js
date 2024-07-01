@@ -6,7 +6,7 @@ const main = () => {
     stdio: "inherit",
     cwd: `${__dirname}/../..`,
   });
-  for (const name of ["swagger", "openapi-keyword", "openai-positional", "migrate", "version"])
+  for (const name of ["swagger", "openai-keyword", "openai-positional", "migrate", "version"])
     fs.copyFileSync(
       `${__dirname}/../../packages/api/${name}.json`,
       `${__dirname}/../out/swagger/${name}.json`,
