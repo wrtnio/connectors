@@ -16,25 +16,26 @@ export namespace OpenAiConverter {
     migrated?: IMigrateDocument,
   ): IOpenAiDocument => {
     migrated ??= OpenApi.migrate(document);
-    const operations: IOpenAiDocument.IOperation[] = migrated.routes
-      .map(convertOperation(document.components))
-      .filter((v): v is IOpenAiDocument.IOperation => v !== null);
+    const functions: IOpenAiDocument.IFunction[] = migrated.routes
+      .map(convertFunction(document.components))
+      .filter((v): v is IOpenAiDocument.IFunction => v !== null);
     for (const [path, collection] of Object.entries(document.paths ?? {}))
       for (const method of Object.keys(collection))
         if (
-          operations.find((v) => v.path === path && v.method === method) ===
+          functions.find((v) => v.path === path && v.method === method) ===
           undefined
         )
           console.log(method, path, "has failed to escape $ref");
     return {
       openapi: "3.0.3",
-      operations: operations,
+      functions: functions,
+      propertised: true,
     };
   };
 
-  const convertOperation =
+  const convertFunction =
     (components: OpenApi.IComponents) =>
-    (route: IMigrateRoute): IOpenAiDocument.IOperation | null => {
+    (route: IMigrateRoute): IOpenAiDocument.IFunction | null => {
       const escape = escapeReference(components)(new Set());
       const parameter = {
         type: "object",
@@ -63,15 +64,19 @@ export namespace OpenAiConverter {
         method: typia.assert<OpenApiV3.Method>(route.method),
         path: route.path,
         name: route.accessor.join("_"),
-        parameters: [OpenApiV3Downgrader.downgradeSchema({
+        parameters: [
+          OpenApiV3Downgrader.downgradeSchema({
           original: {},
           downgraded: {},
-        })(parameter) as OpenApiV3.IJsonSchema.IObject],
+          })(parameter) as OpenApiV3.IJsonSchema.IObject,
+        ],
         output: output ? OpenApiV3Downgrader.downgradeSchema({
           original: {},
           downgraded: {},
         })(output) : undefined,
         description: route.comment(),
+        route: () => route,
+        operation:() => route.operation(),
       };
     };
 
