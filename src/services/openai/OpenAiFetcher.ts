@@ -14,23 +14,27 @@ export namespace OpenAiFetcher {
   export const request = async (props: IProps) => {
     if (props.document.propertised === false)
       throw new Error("Not implemeneted yet for non-propertised API.");
-    return PlainFetcher.fetch(props.connection, {
-      method: props.function.method.toUpperCase() as "POST",
-      path: getPath(props),
-      template: props.function.path,
-      status: null,
-      request:
-        props.function.method === "get"
-          ? null
-          : {
-              type: "application/json",
-              encrypted: false,
-            },
-      response: {
-        type: "application/json",
-        encrypted: false,
+    return PlainFetcher.fetch(
+      props.connection,
+      {
+        method: props.function.method.toUpperCase() as "POST",
+        path: getPath(props),
+        template: props.function.path,
+        status: null,
+        request:
+          props.function.method === "get"
+            ? null
+            : {
+                type: "application/json",
+                encrypted: false,
+              },
+        response: {
+          type: "application/json",
+          encrypted: false,
+        },
       },
-    });
+      props.function.route().body ? props.input.body : undefined,
+    );
   };
 
   const getPath = (props: Pick<IProps, "function" | "input">): string => {
