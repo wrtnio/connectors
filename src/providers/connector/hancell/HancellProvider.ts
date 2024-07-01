@@ -6,27 +6,13 @@ import xlsx from "xlsx";
 
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class HancellProvider {
   constructor(private readonly awsProvider: AwsProvider) {}
 
-  private readonly region = "ap-northeast-2";
-  private readonly accessKeyId = ConnectorGlobal.env.AWS_ACCESS_KEY_ID;
-  private readonly secretAccessKey = ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY;
-  private readonly bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
   private readonly uploadPrefix = "hancell-connector";
-
-  private readonly s3: S3Client = new S3Client({
-    region: this.region,
-    maxAttempts: 3,
-    credentials: {
-      accessKeyId: this.accessKeyId,
-      secretAccessKey: this.secretAccessKey,
-    },
-  });
 
   async upsertSheet(
     input: IHancell.IUpsertSheetInput,
@@ -52,7 +38,8 @@ export class HancellProvider {
     const contentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     await this.awsProvider.uploadObject({ key, data: buffer, contentType });
 
-    return { fileUrl: `https://${this.bucket}.s3.amazonaws.com/${key}` };
+    const fileUrl = this.awsProvider.getFileUrl(key);
+    return { fileUrl };
   }
 
   async getHancellData(

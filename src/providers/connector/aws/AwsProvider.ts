@@ -93,6 +93,14 @@ export class AwsProvider {
       },
     );
   }
+
+  /**
+   * @param key 키 이름
+   * @returns 버킷 이름을 붙여 만든 전체 파일 경로
+   */
+  getFileUrl(key: string) {
+    return `https://${this.fileBucket}.s3.amazonaws.com/${key}`;
+  }
 }
 
 export namespace AwsProvider {
