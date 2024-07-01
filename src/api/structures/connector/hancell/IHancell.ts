@@ -1,6 +1,3 @@
-import type { tags } from "typia";
-import typia from "typia";
-
 import { IExcel } from "../excel/IExcel";
 
 export namespace IHancell {
@@ -45,5 +42,5 @@ export namespace IHancell {
   /**
    * @title 셀에 담긴 정보
    */
-  export type Cells = Record<string, any>;
+  export type Cells = Record<string, string | number>;
 }

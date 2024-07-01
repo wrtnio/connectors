@@ -14,7 +14,7 @@ import type { IHancell } from "../../../../structures/connector/hancell/IHancell
 /**
  * 한셀 시트를 수정합니다.
  *
- * 만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.ㄴ
+ * 만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.
  *
  * @summary 한셀 수정
  * @param input 수정할 한셀 정보
