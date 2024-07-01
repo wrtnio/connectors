@@ -1,18 +1,21 @@
-import { OpenApiV3 } from "@samchon/openapi";
+import { IMigrateRoute, OpenApi, OpenApiV3 } from "@samchon/openapi";
 
 export interface IOpenAiDocument {
   openapi: "3.0" | `3.0.${number}`;
-  operations: IOpenAiDocument.IOperation[];
+  functions: IOpenAiDocument.IFunction[];
+  propertised: boolean;
 }
 export namespace IOpenAiDocument {
-  export type IPath = Record<OpenApiV3.Method, IOperation>;
-  export interface IOperation {
+  export type IPath = Record<OpenApiV3.Method, IFunction>;
+  export interface IFunction {
     method: OpenApiV3.Method;
     path: string;
     name: string;
     parameters: IJsonSchema[];
     output?: IJsonSchema | undefined;
     description?: string;
+    operation: () => OpenApi.IOperation;
+    route: () => IMigrateRoute;
   }
   export type IJsonSchema =
     | IJsonSchema.IBoolean
