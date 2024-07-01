@@ -19,6 +19,9 @@ export namespace ExcelProvider {
   export const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
   export const uploadPrefix = "excel-connector";
 
+  /**
+   * @todo excel 쪽 S3 부분 AWS Provider를 주입하여 분리할 것
+   */
   export const s3: S3Client = new S3Client({
     region: ExcelProvider.region,
     maxAttempts: 3,
