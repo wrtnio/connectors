@@ -10,6 +10,16 @@ import { GoogleSlidesProvider } from "../../../providers/connector/google_slides
 export class GoogleSlidesController {
   constructor(private readonly googleSlideProvider: GoogleSlidesProvider) {}
 
+  @core.TypedRoute.Post("presentations/:id/export/power-point")
+  async export(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.IExportPresentationInput,
+  ): Promise<IGoogleSlides.IExportPresentationOutput> {
+    return this.googleSlideProvider.createPowerPoint(presentationId, {
+      secretKey: input.secretKey,
+    });
+  }
+
   /**
    * Google Slides 프레젠테이션을 조회합니다.
    *

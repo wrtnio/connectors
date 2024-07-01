@@ -1,10 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
-import { google } from "googleapis";
 import typia from "typia";
 import { v4 } from "uuid";
 
-import type { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
@@ -12,48 +10,36 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class GoogleSlidesProvider {
+  private readonly uploadPrefix: string = "google-slides-connector";
   constructor(
     private readonly googleProvider: GoogleProvider,
     private readonly awsProvider: AwsProvider,
   ) {}
 
-  /**
-   * 현재는 구글 슬라이드를 저장하여 파일을 power point 형식으로 내보내기 위해 작성된 함수.
-   *
-   * @param input
-   * @returns
-   */
-  async saveSlide(
-    input: ICommon.ISecret<"google", any> & {
-      filename: string;
-      media: {
-        mimeType:
-          | "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-          | "application/vnd.ms-powerpoint";
-        body: Buffer;
-      };
-    },
-  ) {
+  async createPowerPoint(
+    presentationId: string,
+    input: IGoogleSlides.IExportPresentationInput,
+  ): Promise<IGoogleSlides.IExportPresentationOutput> {
     try {
       const accessToken = await this.googleProvider.refreshAccessToken(
         input.secretKey,
       );
-      const authClient = new google.auth.OAuth2();
 
-      authClient.setCredentials({ access_token: accessToken });
+      const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
+      const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        responseType: "arraybuffer",
+      });
 
-      const parents = ["1XtZ2G5VW4AqeipvAmX2YJJgRxYVFKFfn"];
-      const res = await google
-        .drive({ version: "v3", auth: authClient })
-        .files.create({
-          requestBody: {
-            name: input.filename,
-            parents,
-          },
-          media: input.media,
-        });
-
-      return res;
+      const powerPoint = await this.awsProvider.uploadObject({
+        contentType: mimeType,
+        data: res.data,
+        key: `${this.uploadPrefix}/${v4()}.pptx`,
+      });
+      return { powerPoint };
     } catch (err) {
       console.error(err);
       throw err;

@@ -10,6 +10,18 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
 
 export namespace IGoogleSlides {
   /**
+   * @title 슬라이드를 pptx로 내보내는 조건
+   */
+  export type IExportPresentationInput = ICommon.ISecret<
+    "google",
+    ["https://www.googleapis.com/auth/drive"]
+  >;
+
+  export interface IExportPresentationOutput {
+    powerPoint: string & tags.Format<"uri">;
+  }
+
+  /**
    * @title 슬라이드를 붙이기 위한 요청 DTO.
    */
   export interface AppendSlideInput
