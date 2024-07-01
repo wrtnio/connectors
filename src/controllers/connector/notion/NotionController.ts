@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/notion")
 export class NotionController {
@@ -122,7 +123,7 @@ export class NotionController {
   async readPageList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IReadPageOutput[]> {
-    return NotionProvider.readPageList(input);
+    return retry(NotionProvider.readPageList)(input);
   }
 
   /**
@@ -179,7 +180,7 @@ export class NotionController {
   async getUsers(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IUserOutput[]> {
-    return NotionProvider.getUsers(input);
+    return retry(NotionProvider.getUsers)(input);
   }
 
   /**
@@ -296,7 +297,7 @@ export class NotionController {
   async getDatabaseListInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IDatabaseInfo[]> {
-    return NotionProvider.getDatabaseListInfo(input);
+    return retry(NotionProvider.getDatabaseListInfo)(input);
   }
 
   /**
@@ -356,7 +357,7 @@ export class NotionController {
     @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
-    return NotionProvider.getDatabaseInfo(input, databaseId);
+    return retry(NotionProvider.getDatabaseInfo)(input, databaseId);
   }
 
   /**
@@ -480,7 +481,7 @@ export class NotionController {
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     @core.TypedParam("pageId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return NotionProvider.updateDatabaseItem(input, databaseId);
+    return retry(NotionProvider.updateDatabaseItem)(input, databaseId);
   }
 
   /**
@@ -539,7 +540,7 @@ export class NotionController {
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
   ): Promise<INotion.IFindPageByTitleOutput> {
-    return NotionProvider.findPageByTitle(input);
+    return retry(NotionProvider.findPageByTitle)(input);
   }
 
   /**
@@ -599,7 +600,7 @@ export class NotionController {
     @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
-    return NotionProvider.findDatabaseItemList(input, databaseId);
+    return retry(NotionProvider.findDatabaseItemList)(input, databaseId);
   }
 
   /**
@@ -661,6 +662,6 @@ export class NotionController {
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return NotionProvider.findDatabaseItem(input, databaseId);
+    return retry(NotionProvider.findDatabaseItem)(input, databaseId);
   }
 }

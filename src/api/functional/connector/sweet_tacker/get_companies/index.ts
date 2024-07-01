@@ -15,8 +15,8 @@ export * as recommended from "./recommended";
 /**
  * 택배사 목록을 조회합니다.
  *
- * @summary 택배사 목록 조회.
- * @returns 택배사 목록.
+ * @summary 택배사 목록 조회
+ * @returns 택배사 목록
  * @tag sweet-tracker
  *
  * @controller SweetTrackerController.getCompanyList
