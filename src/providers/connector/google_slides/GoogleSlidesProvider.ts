@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import typia from "typia";
-import { string } from "typia/lib/utils/RandomGenerator/RandomGenerator";
 import { v4 } from "uuid";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -11,10 +10,41 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class GoogleSlidesProvider {
+  private readonly uploadPrefix: string = "google-slides-connector";
   constructor(
     private readonly googleProvider: GoogleProvider,
     private readonly awsProvider: AwsProvider,
   ) {}
+
+  async createPowerPoint(
+    presentationId: string,
+    input: IGoogleSlides.IExportPresentationInput,
+  ): Promise<IGoogleSlides.IExportPresentationOutput> {
+    try {
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        input.secretKey,
+      );
+
+      const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
+      const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        responseType: "arraybuffer",
+      });
+
+      const powerPoint = await this.awsProvider.uploadObject({
+        contentType: mimeType,
+        data: res.data,
+        key: `${this.uploadPrefix}/${v4()}.pptx`,
+      });
+      return { powerPoint };
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
 
   async getPresentation(
     input: IGoogleSlides.IGetPresentationInput,
