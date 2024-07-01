@@ -7,7 +7,7 @@ import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_dat
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import type { Rename } from "../../../utils/types/TransformKeyType";
+import type { Rename } from "../../../utils/types/Rename";
 
 export namespace OpenDataProvider {
   export async function getRTMSDataSvcSHRent(

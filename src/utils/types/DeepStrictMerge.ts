@@ -27,6 +27,8 @@ export type __DeepStrictMerge<T extends object, P extends object> = {
 };
 
 /**
+ * @title 두 인터페이스를 합성하되, 배열인 경우 두 요소 타입이 합성된 배열로 추론되게 하는 타입.
+ *
  * 두 타입 T와 P를 합성한 타입을 추론하되, 배열인 경우 배열의 요소들이 합성된 배열로 추론된다.
  */
 export type DeepStrictMerge<

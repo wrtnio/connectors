@@ -1,5 +1,5 @@
 /**
- * 어떤 키로부터 멤버만을 조회하는 타입
+ * @title 어떤 키로부터 멤버만을 조회하는 타입.
  *
  * ```ts
  * type b = GetMember<"a.b", "a">;
@@ -12,7 +12,7 @@ export type GetMember<
 > = T extends `${O}.${infer Rest}` ? Rest : never;
 
 /**
- * 어떤 키로부터 요소 멤버의 키를 조회하는 타입
+ * @title 어떤 키로부터 요소 멤버의 키를 조회하는 타입.
  */
 export type GetElementMember<
   T extends string,
