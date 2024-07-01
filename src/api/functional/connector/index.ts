@@ -48,8 +48,8 @@ export * as prompt from "./prompt";
 export * as korea_eximbank from "./korea_eximbank";
 export * as story_generator from "./story_generator";
 export * as story_image_generator from "./story_image_generator";
-export * as image from "./image";
-export * as icon_and_logo from "./icon_and_logo";
+export * as stable_diffusion_beta from "./stable_diffusion_beta";
+export * as dall_e_3 from "./dall_e_3";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.

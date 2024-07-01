@@ -167,6 +167,7 @@ export class OpenAIProvider {
       size = imageDimensions[image_ratio];
     }
 
+    //TODO: 현재 분당 200회 생성 제한. 처리 로직 필요.
     const response = await this._imageClient.images.generate({
       prompt: userPrompt,
       // TODO: different models have different options

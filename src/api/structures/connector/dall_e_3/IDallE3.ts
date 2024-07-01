@@ -1,6 +1,6 @@
 import { tags } from "typia";
 
-export namespace IImage {
+export namespace IDallE3 {
   /**
    * @title 이미지 생성을 위한 정보
    */
