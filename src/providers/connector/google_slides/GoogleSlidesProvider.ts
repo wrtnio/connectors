@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
+import { google } from "googleapis";
 import typia from "typia";
-import { string } from "typia/lib/utils/RandomGenerator/RandomGenerator";
 import { v4 } from "uuid";
 
+import type { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
@@ -15,6 +16,49 @@ export class GoogleSlidesProvider {
     private readonly googleProvider: GoogleProvider,
     private readonly awsProvider: AwsProvider,
   ) {}
+
+  /**
+   * 현재는 구글 슬라이드를 저장하여 파일을 power point 형식으로 내보내기 위해 작성된 함수.
+   *
+   * @param input
+   * @returns
+   */
+  async saveSlide(
+    input: ICommon.ISecret<"google", any> & {
+      filename: string;
+      media: {
+        mimeType:
+          | "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+          | "application/vnd.ms-powerpoint";
+        body: Buffer;
+      };
+    },
+  ) {
+    try {
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        input.secretKey,
+      );
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const parents = ["1XtZ2G5VW4AqeipvAmX2YJJgRxYVFKFfn"];
+      const res = await google
+        .drive({ version: "v3", auth: authClient })
+        .files.create({
+          requestBody: {
+            name: input.filename,
+            parents,
+          },
+          media: input.media,
+        });
+
+      return res;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
 
   async getPresentation(
     input: IGoogleSlides.IGetPresentationInput,
