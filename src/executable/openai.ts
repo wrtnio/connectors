@@ -16,12 +16,18 @@ const main = async (): Promise<void> => {
     JSON.parse(await fs.promises.readFile(`${location}/swagger.json`, "utf-8")),
   );
   const migrated: IMigrateDocument = OpenApi.migrate(document);
-  const openai: IOpenAiDocument = OpenAiConverter.convert(document, migrated);
-  await fs.promises.writeFile(
-    `${location}/openai.json`,
-    JSON.stringify(openai),
-    "utf8",
-  );
+  for (const isKeywordParameter of [false, true]) {
+    const openai: IOpenAiDocument = OpenAiConverter.convert({ 
+      document, 
+      migrated, 
+      options: { isKeywordParameter }, 
+    });
+    await fs.promises.writeFile(
+      `${location}/openai-${isKeywordParameter ? "keyword" : "positional"}.json`,
+      JSON.stringify(openai),
+      "utf8",
+    );
+  }
   await fs.promises.writeFile(
     `${location}/migrate.json`,
     JSON.stringify(migrated),

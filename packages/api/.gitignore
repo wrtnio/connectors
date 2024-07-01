@@ -2,6 +2,7 @@ lib/
 node_modules/
 
 migrate.json
-openai.json
+openai-positional.json
+openai-keyword.json
 swagger.json
 version.json
