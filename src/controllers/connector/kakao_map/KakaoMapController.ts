@@ -1,6 +1,6 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { IKakaoMap } from "@wrtn/connector-api/lib/structures/connector/kakao_map/IKakaoMap";
 
@@ -17,6 +17,9 @@ export class KakaoMapController {
    * @returns 검색 결과
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakao-map.svg",
+  )
   @TypedRoute.Post("search")
   async search(
     @TypedBody()
