@@ -27,6 +27,11 @@ const main = async (): Promise<void> => {
     JSON.stringify(migrated),
     "utf8",
   );
+  await fs.promises.writeFile(
+    `${location}/version.json`,
+    JSON.stringify({ version: document.info?.version }),
+    "utf8",
+  );
 };
 main().catch((error) => {
   console.error(error);
