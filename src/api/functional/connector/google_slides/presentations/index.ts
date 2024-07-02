@@ -11,6 +11,7 @@ import typia from "typia";
 
 import type { IGoogleSlides } from "../../../../structures/connector/google_slides/IGoogleSlides";
 
+export * as $export from "./$export";
 export * as image_slide from "./image_slide";
 
 /**
