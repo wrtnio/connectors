@@ -20,13 +20,6 @@ jobs:
         with:
           node-version: 20.x
 
-      - name: Bump version
-        run: |
-          git config --local user.email "actions@example.com"
-          git config --local user.name "GitHub Actions"
-          npm version patch -m "Bump version to %s [skip ci]"
-          git push --follow-tags
-
       - name: Secrets to Env
         run: |
           rm .env
@@ -43,3 +36,10 @@ jobs:
         with:
           branch: gh-pages
           folder: ./website/out
+
+      - name: Bump version
+        run: |
+          git config --local user.email "actions@example.com"
+          git config --local user.name "GitHub Actions"
+          npm version patch -m "Bump version to %s [skip ci]"
+          git push --follow-tags
