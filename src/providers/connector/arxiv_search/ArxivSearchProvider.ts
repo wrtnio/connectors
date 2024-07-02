@@ -1,7 +1,4 @@
-import {
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
+import { InternalServerErrorException } from "@nestjs/common";
 import axios from "axios";
 import { parseString } from "xml2js";
 
@@ -12,59 +9,60 @@ export namespace ArxivSearchProvider {
   export async function search(
     input: IConnector.ISearchInput,
   ): Promise<IConnector.ISearchOutput> {
-    const searchQuery = generateSearchQuery(
-      input.and_keywords,
-      input.or_keywords ?? [],
-      input.not_keywords ?? [],
-    );
-    const params: IArxivSearchParams = {
-      search_query: searchQuery,
-      max_results: input.num_results,
-    };
-
-    /**
-     * arxiv api를 통해 검색 결과 가져옴
-     * xml 형식
-     */
-    const arxivSearchXmlResults = await axios.get(
-      "https://export.arxiv.org/api/query",
-      {
-        params,
-      },
-    );
-
-    /**
-     * xml 형식을 json 형식으로 변환
-     */
-    const arxivSearchJsonResults = await convertXmlToJson(
-      arxivSearchXmlResults.data,
-    );
-
-    if (
-      arxivSearchJsonResults === undefined ||
-      arxivSearchJsonResults.feed.entry === null ||
-      arxivSearchJsonResults.feed.entry === undefined
-    ) {
-      return {
-        references: [],
+    try {
+      const searchQuery = generateSearchQuery(
+        input.and_keywords,
+        input.or_keywords ?? [],
+        input.not_keywords ?? [],
+      );
+      const params: IArxivSearchParams = {
+        search_query: searchQuery,
+        max_results: input.num_results,
       };
-    }
 
-    const output: IConnector.IReferenceContent[] = [];
+      /**
+       * arxiv api를 통해 검색 결과 가져옴
+       * xml 형식
+       */
+      const arxivSearchXmlResults = await axios.get(
+        "https://export.arxiv.org/api/query",
+        {
+          params,
+        },
+      );
 
-    for (const result of arxivSearchJsonResults.feed.entry) {
-      const arxivSearch: IConnector.IReferenceContent = {
-        title: result.title[0],
-        type: "research_paper",
-        source: "arxiv",
-        url: result.id[0],
-        contents: result.summary[0],
-      };
-      output.push(arxivSearch);
+      /**
+       * xml 형식을 json 형식으로 변환
+       */
+      const arxivSearchJsonResults = await convertXmlToJson(
+        arxivSearchXmlResults.data,
+      );
+
+      if (
+        arxivSearchJsonResults === undefined ||
+        arxivSearchJsonResults.feed.entry === null ||
+        arxivSearchJsonResults.feed.entry === undefined
+      ) {
+        return { references: [] };
+      }
+
+      const output: IConnector.IReferenceContent[] = [];
+
+      for (const result of arxivSearchJsonResults.feed.entry) {
+        const arxivSearch: IConnector.IReferenceContent = {
+          title: result.title[0],
+          type: "research_paper",
+          source: "arxiv",
+          url: result.id[0],
+          contents: result.summary[0],
+        };
+        output.push(arxivSearch);
+      }
+      return { references: output };
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-    return {
-      references: output,
-    };
   }
 
   /**

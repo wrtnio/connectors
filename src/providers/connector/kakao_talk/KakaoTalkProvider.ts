@@ -57,9 +57,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
@@ -176,9 +176,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
@@ -209,9 +209,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 }

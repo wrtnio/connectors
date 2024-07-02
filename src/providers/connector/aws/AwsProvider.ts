@@ -46,27 +46,32 @@ export class AwsProvider {
   async getPutObjectUrl(
     input: IAws.IGetPutObjectUrlInput,
   ): Promise<IAws.IGetPutObjectUrlOutput> {
-    const { extension } = input;
-    const fileUUID = randomUUID();
-    const fileSuffixUrl = `${fileUUID}.${extension}`;
-    const putObjectConfig = new PutObjectCommand({
-      Bucket: this.fileBucket,
-      Key: `${fileSuffixUrl}`,
-    });
-    const urlValidityThresholdInMinutes = 3 * 1000 * 60;
-    const now = new Date();
-    now.setMinutes(now.getMinutes() + urlValidityThresholdInMinutes);
-    const urlExpDate = now;
-    const uploadUrl = await getSignedUrl(this.s3, putObjectConfig, {
-      expiresIn: 60 * 3,
-      signingRegion: this.region,
-    });
+    try {
+      const { extension } = input;
+      const fileUUID = randomUUID();
+      const fileSuffixUrl = `${fileUUID}.${extension}`;
+      const putObjectConfig = new PutObjectCommand({
+        Bucket: this.fileBucket,
+        Key: `${fileSuffixUrl}`,
+      });
+      const urlValidityThresholdInMinutes = 3 * 1000 * 60;
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + urlValidityThresholdInMinutes);
+      const urlExpDate = now;
+      const uploadUrl = await getSignedUrl(this.s3, putObjectConfig, {
+        expiresIn: 60 * 3,
+        signingRegion: this.region,
+      });
 
-    return {
-      uuid: fileUUID,
-      uploadUrl,
-      urlExpTsMillis: urlExpDate.getTime(), // * date to milliseconds timestamp
-    };
+      return {
+        uuid: fileUUID,
+        uploadUrl,
+        urlExpTsMillis: urlExpDate.getTime(), // * date to milliseconds timestamp
+      };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   /**

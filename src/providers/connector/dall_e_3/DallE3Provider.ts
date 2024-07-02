@@ -19,21 +19,24 @@ export class DallE3Provider {
     private httpService: HttpService,
   ) {}
   async generateImage(input: IDallE3.IRequest): Promise<IDallE3.IResponse> {
-    const translateResult = await this.DallE3Completion(
-      "dall-e-3",
-      input.prompt,
-    );
-    const res = await this.openAIProvider.generateImage(
-      translateResult,
-      input.image_ratio,
-    );
-    const data = await firstValueFrom(
-      this.httpService.get(res.url, { responseType: "arraybuffer" }),
-    );
-    const { imgUrl } = await this.uploadDallE3ToS3(data.data);
-    return {
-      imgUrl: imgUrl,
-    };
+    try {
+      const translateResult = await this.DallE3Completion(
+        "dall-e-3",
+        input.prompt,
+      );
+      const res = await this.openAIProvider.generateImage(
+        translateResult,
+        input.image_ratio,
+      );
+      const data = await firstValueFrom(
+        this.httpService.get(res.url, { responseType: "arraybuffer" }),
+      );
+      const { imgUrl } = await this.uploadDallE3ToS3(data.data);
+      return { imgUrl: imgUrl };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async uploadDallE3ToS3(img: Buffer) {

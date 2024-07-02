@@ -8,12 +8,12 @@ export class FigmaProvider {
   async getFiles(
     input: IFigma.IReadFileInput,
   ): Promise<IFigma.IReadFileOutput> {
-    const { secretKey, fileKey, ...getFileQueryParams } = input;
-    const queryParams = Object.entries(getFileQueryParams)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
-
     try {
+      const { secretKey, fileKey, ...getFileQueryParams } = input;
+      const queryParams = Object.entries(getFileQueryParams)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+
       const res = await axios.get(
         `https://api.figma.com/v1/files/${fileKey}?${queryParams}`,
         {
@@ -23,16 +23,16 @@ export class FigmaProvider {
         },
       );
       return res.data;
-    } catch (err) {
-      console.log("err", err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
   async addComment(input: IFigma.IAddCommentInput) {
-    const { secretKey, fileKey, ...requestBody } = input;
-
     try {
+      const { secretKey, fileKey, ...requestBody } = input;
+
       const res = await axios.post(
         `https://api.figma.com/v1/files/${fileKey}/comments`,
         requestBody,
@@ -52,12 +52,12 @@ export class FigmaProvider {
   async getComments(
     input: IFigma.IReadCommentInput,
   ): Promise<IFigma.IReadCommentOutput> {
-    const { fileKey, secretKey, ...getCommentQueryParam } = input;
-    const queryParams = Object.entries(getCommentQueryParam)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
-
     try {
+      const { fileKey, secretKey, ...getCommentQueryParam } = input;
+      const queryParams = Object.entries(getCommentQueryParam)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+
       const res = await axios.get(
         `https://api.figma.com/v1/files/${fileKey}/comments?${queryParams}`,
         {

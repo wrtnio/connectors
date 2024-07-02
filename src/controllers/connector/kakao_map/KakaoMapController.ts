@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IKakaoMap } from "@wrtn/connector-api/lib/structures/connector/kakao_map/IKakaoMap";
 
 import { KakaoMapProvider } from "../../../providers/connector/kakao_map/KakaoMapProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/kakao-map")
 export class KakaoMapController {
@@ -25,6 +26,6 @@ export class KakaoMapController {
     @TypedBody()
     input: IKakaoMap.SearchByKeywordInput,
   ): Promise<IKakaoMap.SearchByKeywordOutput> {
-    return KakaoMapProvider.searchByKeyword(input);
+    return retry(() => KakaoMapProvider.searchByKeyword(input))();
   }
 }

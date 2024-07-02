@@ -10,8 +10,6 @@ import { GenerateToolHardVO } from "./internal/vo/GenerateToolHardVO";
 
 @Injectable()
 export class ToolProvider {
-  constructor() {}
-
   private readonly SHAKESPEARE_URL = ConnectorGlobal.env.SHAKESPEARE_URL;
   async generateTool(
     id: string,

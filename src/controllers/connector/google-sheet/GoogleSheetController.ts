@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
 import { GoogleSheetProvider } from "../../../providers/connector/google_sheet/GoogleSheetProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-sheet")
 export class GoogleSheetController {
@@ -95,7 +96,7 @@ export class GoogleSheetController {
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
-    return this.googleSheetProvider.readHeaders(input);
+    return retry(() => this.googleSheetProvider.readHeaders(input))();
   }
 
   /**
@@ -181,7 +182,7 @@ export class GoogleSheetController {
   async permission(
     @core.TypedBody() input: IGoogleSheet.IPermissionInput,
   ): Promise<void> {
-    return this.googleSheetProvider.permission(input);
+    return retry(() => this.googleSheetProvider.permission(input))();
   }
 
   /**
@@ -267,7 +268,7 @@ export class GoogleSheetController {
   async writeHeaders(
     @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
   ): Promise<void> {
-    return this.googleSheetProvider.writeHeaders(input);
+    return retry(() => this.googleSheetProvider.writeHeaders(input))();
   }
 
   /**
@@ -353,7 +354,7 @@ export class GoogleSheetController {
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
   ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
-    return this.googleSheetProvider.getWorkSheet(input);
+    return retry(() => this.googleSheetProvider.getWorkSheet(input))();
   }
 
   /**
@@ -441,6 +442,6 @@ export class GoogleSheetController {
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
-    return this.googleSheetProvider.readRows(input);
+    return retry(() => this.googleSheetProvider.readRows(input))();
   }
 }

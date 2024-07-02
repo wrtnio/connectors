@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtn/decorators";
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
 import { ExcelProvider } from "../../../providers/connector/excel/ExcelProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/excel")
 export class ExcelController {
@@ -17,7 +18,7 @@ export class ExcelController {
   //  */
   // @core.TypedRoute.Post()
   // async create(@core.TypedBody() input: IExcel.ICreateExcelInput) {
-  //   return ExcelProvider.create(input);
+  //   return retry(() =>  ExcelProvider.create)(input);
   // }
 
   /**
@@ -87,7 +88,7 @@ export class ExcelController {
   async read(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
-    return ExcelProvider.getExcelData(input);
+    return retry(() => ExcelProvider.getExcelData(input))();
   }
 
   /**
@@ -159,7 +160,7 @@ export class ExcelController {
   async worksheetList(
     @core.TypedBody() input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
-    return ExcelProvider.readSheets(input);
+    return retry(() => ExcelProvider.readSheets(input))();
   }
 
   /**
@@ -229,6 +230,6 @@ export class ExcelController {
   async insertRows(
     @core.TypedBody() input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IInsertExcelRowOutput> {
-    return await ExcelProvider.insertRows(input);
+    return retry(() => ExcelProvider.insertRows(input))();
   }
 }

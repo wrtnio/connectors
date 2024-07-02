@@ -7,21 +7,25 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class ChatbotProvider {
-  constructor() {}
   private readonly HAMLET_URL = ConnectorGlobal.env.HAMLET_URL;
   async generateChat(
     input:
       | IChatbot.IChatbotEasyGenerateInput
       | IChatbot.IChatBotHardGenerateInput,
   ): Promise<IChatbot.IChatbotGenerateOutput> {
-    const prompt = this.makePrompt(input);
-    const res = await this.requestChat(
-      prompt.systemPrompt,
-      prompt.message,
-      prompt.histories,
-    );
+    try {
+      const prompt = this.makePrompt(input);
+      const res = await this.requestChat(
+        prompt.systemPrompt,
+        prompt.message,
+        prompt.histories,
+      );
 
-    return { content: res?.data.choices?.[0].message?.content };
+      return { content: res?.data.choices?.[0].message?.content };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   /**

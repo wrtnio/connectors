@@ -16,57 +16,67 @@ export class HancellProvider {
   async upsertSheet(
     input: IHancell.IUpsertSheetInput,
   ): Promise<IHancell.IUpsertSheetOutput> {
-    const workbook = await this.getWorkboot(input);
-    const sheet = workbook.Sheets[input.sheetName];
+    try {
+      const workbook = await this.getWorkboot(input);
+      const sheet = workbook.Sheets[input.sheetName];
 
-    /**
-     * 이미 시트가 존재할 경우 해당 시트를 지우고 셀 정보를 대치한다.
-     */
-    if (workbook.SheetNames.includes(input.sheetName)) {
-      workbook.SheetNames = workbook.SheetNames.filter(
-        (name) => name !== input.sheetName,
-      );
+      /**
+       * 이미 시트가 존재할 경우 해당 시트를 지우고 셀 정보를 대치한다.
+       */
+      if (workbook.SheetNames.includes(input.sheetName)) {
+        workbook.SheetNames = workbook.SheetNames.filter(
+          (name) => name !== input.sheetName,
+        );
+      }
+
+      const updatedSheet = this.insertCells(sheet, input.cells);
+
+      xlsx.utils.book_append_sheet(workbook, updatedSheet, input.sheetName);
+      const buffer = xlsx.write(workbook, { bookType: "xlsx", type: "buffer" });
+
+      const key = `${this.uploadPrefix}/${v4()}`;
+      const contentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+      await this.awsProvider.uploadObject({ key, data: buffer, contentType });
+
+      const fileUrl = this.awsProvider.getFileUrl(key);
+      return { fileUrl };
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-
-    const updatedSheet = this.insertCells(sheet, input.cells);
-
-    xlsx.utils.book_append_sheet(workbook, updatedSheet, input.sheetName);
-    const buffer = xlsx.write(workbook, { bookType: "xlsx", type: "buffer" });
-
-    const key = `${this.uploadPrefix}/${v4()}`;
-    const contentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-    await this.awsProvider.uploadObject({ key, data: buffer, contentType });
-
-    const fileUrl = this.awsProvider.getFileUrl(key);
-    return { fileUrl };
   }
 
   async getHancellData(
     input: IHancell.IReadHancellInput,
   ): Promise<IHancell.IReadHancellOutput> {
-    const workbook = await this.getWorkboot(input);
+    try {
+      const workbook = await this.getWorkboot(input);
 
-    const data = Object.entries(workbook.Sheets)
-      .map(([sheetName, sheet]) => {
-        const cells = Object.entries(sheet)
-          .filter(([key]) => {
-            const cellReferenceRegex = /^[A-Z]+[1-9][0-9]*$/;
-            return cellReferenceRegex.test(key);
-          })
-          .map(([key, value]: [string, { v: any }]) => {
-            return { [key]: value.v };
-          })
-          .reduce<Record<string, any>>((acc, cur) => {
-            return Object.assign(acc, cur);
-          }, {});
+      const data = Object.entries(workbook.Sheets)
+        .map(([sheetName, sheet]) => {
+          const cells = Object.entries(sheet)
+            .filter(([key]) => {
+              const cellReferenceRegex = /^[A-Z]+[1-9][0-9]*$/;
+              return cellReferenceRegex.test(key);
+            })
+            .map(([key, value]: [string, { v: any }]) => {
+              return { [key]: value.v };
+            })
+            .reduce<Record<string, any>>((acc, cur) => {
+              return Object.assign(acc, cur);
+            }, {});
 
-        return { [sheetName]: cells };
-      })
-      .reduce((acc, cur) => {
-        return Object.assign(acc, cur);
-      }, {});
+          return { [sheetName]: cells };
+        })
+        .reduce((acc, cur) => {
+          return Object.assign(acc, cur);
+        }, {});
 
-    return data;
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   private async getWorkboot(input: IHancell.IReadHancellInput) {

@@ -1,12 +1,12 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, Standalone } from "@wrtn/decorators";
-import { RouteIcon } from "@wrtn/decorators";
+import { Prerequisite, Standalone, RouteIcon } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/gmail")
 export class GmailController {
@@ -82,7 +82,7 @@ export class GmailController {
   async send(
     @core.TypedBody() input: IGmail.ICreateMailInput,
   ): Promise<IGmail.ISendMailOutput> {
-    return this.gmailProvider.sendEmail(input);
+    return retry(() => this.gmailProvider.sendEmail(input))();
   }
 
   /**
@@ -152,7 +152,7 @@ export class GmailController {
   )
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
-    return this.gmailProvider.createDraft(input);
+    return retry(() => this.gmailProvider.createDraft(input))();
   }
 
   /**
@@ -232,7 +232,7 @@ export class GmailController {
     @core.TypedBody()
     input: IGmail.IReplyInput,
   ): Promise<void> {
-    return this.gmailProvider.reply(id, input);
+    return retry(() => this.gmailProvider.reply(id, input))();
   }
 
   /**
@@ -314,7 +314,7 @@ export class GmailController {
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
   ): Promise<IGmail.IFindGmailOutput> {
-    return this.gmailProvider.findEmail(id, input);
+    return retry(() => this.gmailProvider.findEmail(id, input))();
   }
 
   /**
@@ -388,7 +388,7 @@ export class GmailController {
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
   ): Promise<IGmail.IFindGmailListOutput> {
-    return this.gmailProvider.findEmails(input);
+    return retry(() => this.gmailProvider.findEmails(input))();
   }
 
   /**
@@ -468,7 +468,7 @@ export class GmailController {
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
   ): Promise<void> {
-    return this.gmailProvider.removeEmail(id, input);
+    return retry(() => this.gmailProvider.removeEmail(id, input))();
   }
 
   /**
@@ -542,7 +542,7 @@ export class GmailController {
   async createLabel(
     @core.TypedBody() input: IGmail.ILabelInput,
   ): Promise<IGmail.ILabelOutput> {
-    return this.gmailProvider.createLabel(input);
+    return retry(() => this.gmailProvider.createLabel(input))();
   }
 
   /**
@@ -623,7 +623,7 @@ export class GmailController {
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
-    return this.gmailProvider.addLabelToMail(mailId, input);
+    return retry(() => this.gmailProvider.addLabelToMail(mailId, input))();
   }
 
   /**
@@ -704,6 +704,6 @@ export class GmailController {
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
-    return this.gmailProvider.removeLabelFromMail(mailId, input);
+    return retry(() => this.gmailProvider.removeLabelFromMail(mailId, input))();
   }
 }

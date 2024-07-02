@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 
 import { NaverProvider } from "../../../providers/connector/naver/NaverProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/naver")
 export class NaverController {
@@ -55,7 +56,7 @@ export class NaverController {
   async cafeList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.ICafeNaverOutput> {
-    return await NaverProvider.getCafe(input);
+    return retry(() => NaverProvider.getCafe(input))();
   }
 
   /**
@@ -115,6 +116,6 @@ export class NaverController {
   async blogList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.IBlogNaverOutput> {
-    return await NaverProvider.getBlog(input);
+    return retry(() => NaverProvider.getBlog(input))();
   }
 }

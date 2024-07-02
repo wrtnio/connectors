@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/KakaoTalkProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
@@ -27,7 +28,7 @@ export class KakaoTalkController {
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
   ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
-    return KakaoTalkProvider.send(input);
+    return retry(() => KakaoTalkProvider.send(input))();
   }
 
   /**
@@ -49,7 +50,7 @@ export class KakaoTalkController {
   async commerceMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    return KakaoTalkProvider.memo(input);
+    return retry(() => KakaoTalkProvider.memo(input))();
   }
 
   /**
@@ -71,7 +72,7 @@ export class KakaoTalkController {
   async locationMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    return KakaoTalkProvider.memo(input);
+    return retry(() => KakaoTalkProvider.memo(input))();
   }
 
   /**
@@ -93,7 +94,7 @@ export class KakaoTalkController {
   async listMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    return KakaoTalkProvider.memo(input);
+    return retry(() => KakaoTalkProvider.memo(input))();
   }
 
   /**
@@ -115,7 +116,7 @@ export class KakaoTalkController {
   async feedMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    return KakaoTalkProvider.memo(input);
+    return retry(() => KakaoTalkProvider.memo(input))();
   }
 
   /**
@@ -137,7 +138,7 @@ export class KakaoTalkController {
   async textMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
-    return KakaoTalkProvider.memo(input);
+    return retry(() => KakaoTalkProvider.memo(input))();
   }
 
   /**
@@ -154,7 +155,7 @@ export class KakaoTalkController {
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
-    return KakaoTalkProvider.refresh(input);
+    return retry(() => KakaoTalkProvider.refresh(input))();
   }
 
   /**
@@ -176,7 +177,7 @@ export class KakaoTalkController {
   async createEvent(
     @TypedBody() input: IKakaoTalk.ICreateEventInput,
   ): Promise<IKakaoTalk.ICreateEventOutput> {
-    return KakaoTalkProvider.createEvent(input);
+    return retry(() => KakaoTalkProvider.createEvent(input))();
   }
 
   /**
@@ -197,7 +198,7 @@ export class KakaoTalkController {
   async getFriends(
     @TypedBody() input: IKakaoTalk.IGetFriendsInput,
   ): Promise<IKakaoTalk.IGetFriendsOutput> {
-    return KakaoTalkProvider.getFriends(input);
+    return retry(() => KakaoTalkProvider.getFriends(input))();
   }
 
   /**
@@ -219,7 +220,7 @@ export class KakaoTalkController {
   async getEvents(
     @TypedBody() input: IKakaoTalk.IGetEventInput,
   ): Promise<IKakaoTalk.IGetEventOutput> {
-    return KakaoTalkProvider.getEvents(input);
+    return retry(() => KakaoTalkProvider.getEvents(input))();
   }
 
   /**
@@ -241,7 +242,7 @@ export class KakaoTalkController {
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
   ): Promise<IKakaoTalk.IGetCalendarOutput> {
-    return KakaoTalkProvider.getCalendars(input);
+    return retry(() => KakaoTalkProvider.getCalendars(input))();
   }
 
   /**

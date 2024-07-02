@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/typeform")
 export class TypeformController {
@@ -72,7 +73,7 @@ export class TypeformController {
   async createWorkspace(
     @core.TypedBody() input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
-    return TypeformProvider.createWorkspace(input);
+    return retry(() => TypeformProvider.createWorkspace(input))();
   }
 
   /**
@@ -138,7 +139,7 @@ export class TypeformController {
   async deleteWorkspace(
     @core.TypedParam("workspaceId") workspaceId: string,
   ): Promise<void> {
-    return TypeformProvider.deleteWorkspace(workspaceId);
+    return retry(() => TypeformProvider.deleteWorkspace(workspaceId))();
   }
 
   /**
@@ -202,7 +203,7 @@ export class TypeformController {
    */
   @core.TypedRoute.Post("/get-workspaces")
   async getWorkspaces(): Promise<ITypeform.IFindWorkspaceOutput[]> {
-    return TypeformProvider.getWorkspaces();
+    return retry(() => TypeformProvider.getWorkspaces())();
   }
 
   /**
@@ -270,7 +271,7 @@ export class TypeformController {
   async createEmptyForm(
     @core.TypedBody() input: ITypeform.ICreateEmptyFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    return TypeformProvider.createEmptyForm(input);
+    return retry(() => TypeformProvider.createEmptyForm(input))();
   }
 
   /**
@@ -334,7 +335,7 @@ export class TypeformController {
    */
   @core.TypedRoute.Post("/get-forms")
   async getForms(): Promise<ITypeform.IFindFormOutput[]> {
-    return TypeformProvider.getForms();
+    return retry(() => TypeformProvider.getForms())();
   }
 
   /**
@@ -402,7 +403,7 @@ export class TypeformController {
   async duplicateExistingForm(
     @core.TypedBody() input: ITypeform.IDuplicateExistingFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    return TypeformProvider.duplicateExistingForm(input);
+    return retry(() => TypeformProvider.duplicateExistingForm(input))();
   }
 
   /**
@@ -470,7 +471,7 @@ export class TypeformController {
   async getFieldsForUpdateFieldValue(
     @core.TypedParam("formId") formId: string,
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
-    return TypeformProvider.getFieldsForUpdateFieldValue(formId);
+    return retry(() => TypeformProvider.getFieldsForUpdateFieldValue(formId))();
   }
 
   /**
@@ -537,7 +538,7 @@ export class TypeformController {
     @core.TypedParam("formId") formId: string,
     @core.TypedBody() input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
-    return TypeformProvider.updateFormFieldValue(formId, input);
+    return retry(() => TypeformProvider.updateFormFieldValue(formId, input))();
   }
 
   /**
@@ -601,6 +602,6 @@ export class TypeformController {
    */
   @core.TypedRoute.Delete("/forms/:formId")
   async deleteForm(@core.TypedParam("formId") formId: string): Promise<void> {
-    return TypeformProvider.deleteForm(formId);
+    return retry(() => TypeformProvider.deleteForm(formId))();
   }
 }

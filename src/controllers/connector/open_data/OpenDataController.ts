@@ -29,7 +29,7 @@ export class OpenDataController {
   async getRTMSDataSvcSHRent(
     @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
   ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
-    return retry(OpenDataProvider.getRTMSDataSvcSHRent)(input);
+    return retry(() => OpenDataProvider.getRTMSDataSvcSHRent(input))();
   }
 
   /**
@@ -47,7 +47,7 @@ export class OpenDataController {
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
-    return retry(OpenDataProvider.getRTMSDataSvcOffiRent)(input);
+    return retry(() => OpenDataProvider.getRTMSDataSvcOffiRent(input))();
   }
 
   /**
@@ -66,7 +66,7 @@ export class OpenDataController {
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
-    return retry(OpenDataProvider.getRTMSDataSvcAptRent)(input);
+    return retry(() => OpenDataProvider.getRTMSDataSvcAptRent(input))();
   }
 
   /**
@@ -85,7 +85,7 @@ export class OpenDataController {
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
   ): Promise<ILH.IGetLHLeaseInfoOutput> {
-    return retry(OpenDataProvider.getLHLeaseInfo)(input);
+    return retry(() => OpenDataProvider.getLHLeaseInfo(input))();
   }
 
   /**
@@ -104,7 +104,7 @@ export class OpenDataController {
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
   ): Promise<INIA.IGetParkingLotOutput> {
-    return retry(OpenDataProvider.getParkingLot)(input);
+    return retry(() => OpenDataProvider.getParkingLot(input))();
   }
 
   /**
@@ -122,7 +122,7 @@ export class OpenDataController {
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
-    return retry(OpenDataProvider.getBuildingInfo)(input);
+    return retry(() => OpenDataProvider.getBuildingInfo(input))();
   }
 
   /**
@@ -142,7 +142,7 @@ export class OpenDataController {
     @TypedBody()
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
   ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {
-    return retry(OpenDataProvider.getStandardRegionCodeList)(input);
+    return retry(() => OpenDataProvider.getStandardRegionCodeList(input))();
   }
 
   /**
@@ -163,7 +163,7 @@ export class OpenDataController {
     @TypedBody()
     input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
   ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
-    return retry(OpenDataProvider.getStockPriceInfo)(input);
+    return retry(() => OpenDataProvider.getStockPriceInfo(input))();
   }
 
   /**
@@ -184,7 +184,7 @@ export class OpenDataController {
     @TypedBody()
     input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
-    return retry(OpenDataProvider.getShortTermForecast)(input);
+    return retry(() => OpenDataProvider.getShortTermForecast(input))();
   }
 
   /**
@@ -203,6 +203,6 @@ export class OpenDataController {
   async getCopyRight(
     @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
   ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
-    return retry(OpenDataProvider.getCopyRight)(input);
+    return retry(() => OpenDataProvider.getCopyRight(input))();
   }
 }

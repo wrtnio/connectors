@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
 
 import { AwsProvider } from "../../../providers/connector/aws/AwsProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/aws")
 export class AwsController {
@@ -24,6 +25,6 @@ export class AwsController {
   async getUploadUrl(
     @core.TypedQuery() extension: IAws.IGetPutObjectUrlInput,
   ): Promise<IAws.IGetPutObjectUrlOutput> {
-    return await this.awsProvider.getPutObjectUrl(extension);
+    return retry(() => this.awsProvider.getPutObjectUrl(extension))();
   }
 }

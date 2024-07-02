@@ -5,6 +5,7 @@ import { Standalone } from "@wrtn/decorators";
 import { IKakaoNavi } from "@wrtn/connector-api/lib/structures/connector/kakao_navi/IKakaoNavi";
 
 import { KakaoNaviProvider } from "../../../providers/connector/kakao_navi/KakaoNaviProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/kakao-navi")
 export class KakaoNaviController {
@@ -21,6 +22,6 @@ export class KakaoNaviController {
   async getFutureDirections(
     @TypedBody() input: IKakaoNavi.IGetFutureDirectionsInput,
   ) {
-    return KakaoNaviProvider.getFutureDirections(input);
+    return retry(() => KakaoNaviProvider.getFutureDirections(input))();
   }
 }

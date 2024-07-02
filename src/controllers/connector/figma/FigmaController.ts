@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtn/decorators";
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
 import { FigmaProvider } from "../../../providers/figma/FigmaProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/figma")
 export class FigmaController {
@@ -28,7 +29,7 @@ export class FigmaController {
   async readFiles(
     @core.TypedBody() input: IFigma.IReadFileInput,
   ): Promise<IFigma.IReadFileOutput> {
-    return this.figmaProvider.getFiles(input);
+    return retry(() => this.figmaProvider.getFiles(input))();
   }
 
   /**
@@ -49,7 +50,7 @@ export class FigmaController {
   async addComment(
     @core.TypedBody() input: IFigma.IAddCommentInput,
   ): Promise<IFigma.IAddCommentOutput> {
-    return this.figmaProvider.addComment(input);
+    return retry(() => this.figmaProvider.addComment(input))();
   }
 
   /**
@@ -70,6 +71,6 @@ export class FigmaController {
   async readComments(
     @core.TypedBody() input: IFigma.IReadCommentInput,
   ): Promise<IFigma.IReadCommentOutput> {
-    return this.figmaProvider.getComments(input);
+    return retry(() => this.figmaProvider.getComments(input))();
   }
 }

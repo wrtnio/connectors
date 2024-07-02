@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
 import { ZoomProvider } from "../../../providers/zoom/ZoomProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/zoom")
 export class ZoomController {
@@ -24,6 +25,6 @@ export class ZoomController {
   async createMeeting(
     @core.TypedBody() input: IZoom.ICreateMeetingInput,
   ): Promise<IZoom.ICreateMeetingOutput> {
-    return ZoomProvider.createMeeting(input);
+    return retry(ZoomProvider.createMeeting)(input);
   }
 }

@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IKoreaEximbank } from "@wrtn/connector-api/lib/structures/connector/korea_eximbank/IKoreaEximbank";
 
 import { KoreaEximbankProvider } from "../../../providers/connector/korea_eximbank/KoreaEximbankProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/korea-eximbank")
 export class KoreaEximbankController {
@@ -20,6 +21,6 @@ export class KoreaEximbankController {
   )
   @core.TypedRoute.Get("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {
-    return KoreaEximbankProvider.getExchange();
+    return retry(() => KoreaEximbankProvider.getExchange())();
   }
 }

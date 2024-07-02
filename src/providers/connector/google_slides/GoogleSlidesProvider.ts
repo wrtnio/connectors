@@ -51,9 +51,8 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.Presentation> {
     try {
       const { secretKey, presentationId } = input;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
 
       const res = await axios.get(
         `https://slides.googleapis.com/v1/presentations/${presentationId}`,
@@ -109,9 +108,8 @@ export class GoogleSlidesProvider {
     try {
       input = await this.transformUrl(input);
       const { secretKey, templates } = input;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
 
       const presentation = await this.getPresentation({
         presentationId,
@@ -798,9 +796,8 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.Presentation> {
     try {
       const { secretKey, ...body } = input;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
 
       const res = await axios.post(
         "https://slides.googleapis.com/v1/presentations",
@@ -813,12 +810,9 @@ export class GoogleSlidesProvider {
       );
 
       return res.data;
-    } catch (err) {
-      if (typia.is<GoogleProvider.GoogleError>(err)) {
-        this.googleProvider.error(err);
-      }
-
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 }

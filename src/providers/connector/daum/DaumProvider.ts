@@ -51,9 +51,9 @@ export namespace DaumProvider {
         meta,
         documents,
       };
-    } catch (err) {
-      console.log(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
@@ -103,9 +103,9 @@ export namespace DaumProvider {
         meta,
         documents,
       };
-    } catch (err) {
-      console.log(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 

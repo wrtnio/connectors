@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
 import { CsvProvider } from "../../../providers/connector/csv/CsvProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/csv")
 export class CsvController {
@@ -77,7 +78,7 @@ export class CsvController {
   async read(
     @core.TypedBody() input: ICsv.IReadInput,
   ): Promise<ICsv.IReadOutput> {
-    return await CsvProvider.read(input);
+    return retry(() => CsvProvider.read(input))();
   }
 
   /**
@@ -147,7 +148,7 @@ export class CsvController {
   async write(
     @core.TypedBody() input: ICsv.IWriteInput,
   ): Promise<ICsv.IWriteOutput> {
-    return CsvProvider.write(input);
+    return retry(() => CsvProvider.write(input))();
   }
 
   /**
@@ -218,6 +219,6 @@ export class CsvController {
   async csvToExcel(
     @core.TypedBody() input: ICsv.ICsvToExcelInput,
   ): Promise<ICsv.ICsvToExcelOutput> {
-    return await CsvProvider.convertCsvToExcel(input);
+    return retry(() => CsvProvider.convertCsvToExcel(input))();
   }
 }

@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IChatbot } from "@wrtn/connector-api/lib/structures/connector/chatbot/IChatbot";
 
 import { ChatbotProvider } from "../../../providers/connector/chatbot/ChatbotProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/chatbot")
 export class ChatBotController {
@@ -24,7 +25,7 @@ export class ChatBotController {
   async generateEasyChatbot(
     @core.TypedBody() input: IChatbot.IChatbotEasyGenerateInput,
   ): Promise<IChatbot.IChatbotGenerateOutput> {
-    return this.chatbotProvider.generateChat(input);
+    return retry(() => this.chatbotProvider.generateChat(input))();
   }
 
   /**
@@ -42,6 +43,6 @@ export class ChatBotController {
   async generateHardChatbot(
     @core.TypedBody() input: IChatbot.IChatBotHardGenerateInput,
   ): Promise<IChatbot.IChatbotGenerateOutput> {
-    return this.chatbotProvider.generateChat(input);
+    return retry(() => this.chatbotProvider.generateChat(input))();
   }
 }

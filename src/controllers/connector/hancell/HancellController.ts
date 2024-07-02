@@ -6,6 +6,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 
 import { HancellProvider } from "../../../providers/connector/hancell/HancellProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/hancell")
 export class HancellController {
@@ -81,7 +82,7 @@ export class HancellController {
   async upsertSheet(
     @TypedBody() input: IHancell.IUpsertSheetInput,
   ): Promise<IHancell.IUpsertSheetOutput> {
-    return this.hancellProvider.upsertSheet(input);
+    return retry(() => this.hancellProvider.upsertSheet(input))();
   }
 
   /**
@@ -156,6 +157,6 @@ export class HancellController {
   async read(
     @TypedBody() input: IHancell.IReadHancellInput,
   ): Promise<IHancell.IReadHancellOutput> {
-    return this.hancellProvider.getHancellData(input);
+    return retry(() => this.hancellProvider.getHancellData(input))();
   }
 }

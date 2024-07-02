@@ -18,18 +18,23 @@ export class StableDiffusionBetaProvider {
   async generateImage(
     input: IStableDiffusionBeta.IRequest,
   ): Promise<IStableDiffusionBeta.IResponse> {
-    const { category, englishText } = await this.imageCompletion(
-      `${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}`,
-      input.prompt,
-    );
-    const img = await this.generateTextToImage(
-      category,
-      englishText,
-      input.image_ratio,
-      input.style_preset,
-    );
-    const { imgUrl } = await this.uploadImageToS3(img);
-    return { imgUrl: imgUrl };
+    try {
+      const { category, englishText } = await this.imageCompletion(
+        `${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}`,
+        input.prompt,
+      );
+      const img = await this.generateTextToImage(
+        category,
+        englishText,
+        input.image_ratio,
+        input.style_preset,
+      );
+      const { imgUrl } = await this.uploadImageToS3(img);
+      return { imgUrl: imgUrl };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async uploadImageToS3(img: Buffer[]) {

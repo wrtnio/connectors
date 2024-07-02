@@ -5,7 +5,6 @@ import {
 } from "google-spreadsheet";
 import { google } from "googleapis";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
@@ -20,25 +19,31 @@ export class GoogleSheetProvider {
   async readHeaders(
     input: IGoogleSheet.IReadGoogleSheetHeadersInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
-    const { url, index = 0, secretKey } = input;
-    const id = this.getSpreadSheetId(url);
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
+    try {
+      const { url, index = 0, secretKey } = input;
+      const id = this.getSpreadSheetId(url);
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
 
-    authClient.setCredentials({ access_token: accessToken });
+      authClient.setCredentials({ access_token: accessToken });
 
-    const doc = new GoogleSpreadsheet(id, authClient);
-    await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[index];
-    await sheet.getRows();
-    const headerValues = sheet.headerValues;
+      const doc = new GoogleSpreadsheet(id, authClient);
+      await doc.loadInfo();
+      const sheet = doc.sheetsByIndex[index];
+      await sheet.getRows();
+      const headerValues = sheet.headerValues;
 
-    // 아무런 헤더 정보가 존재하지 않을 때
-    if (!headerValues) {
-      return { data: [] };
+      // 아무런 헤더 정보가 존재하지 않을 때
+      if (!headerValues) {
+        return { data: [] };
+      }
+
+      return { data: headerValues };
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-
-    return { data: headerValues };
   }
 
   /**
@@ -61,6 +66,9 @@ export class GoogleSheetProvider {
           emailMessage: false,
         });
       } catch (err) {
+        /**
+         * @todo 권한 할당에 실패한 경우를 찾아서 재실행하거나 유저에게 알려줄 수 있어야 한다.
+         */
         console.log(err);
       }
     }
@@ -73,76 +81,94 @@ export class GoogleSheetProvider {
   async writeHeaders(
     input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
   ): Promise<void> {
-    const { url, headerNames, index = 0, secretKey } = input;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
+    try {
+      const { url, headerNames, index = 0, secretKey } = input;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
 
-    authClient.setCredentials({ access_token: accessToken });
+      authClient.setCredentials({ access_token: accessToken });
 
-    const doc = new GoogleSpreadsheet(this.getSpreadSheetId(url), authClient);
-    await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[index];
+      const doc = new GoogleSpreadsheet(this.getSpreadSheetId(url), authClient);
+      await doc.loadInfo();
+      const sheet = doc.sheetsByIndex[index];
 
-    // 현재 헤더를 가져옵니다.
-    await sheet.loadHeaderRow();
-    const _headers = sheet.headerValues;
+      // 현재 헤더를 가져옵니다.
+      await sheet.loadHeaderRow();
+      const _headers = sheet.headerValues;
 
-    // 새로운 헤더를 추가합니다.
-    for (let i = 0; i < headerNames.length; i++) {
-      if (!_headers.includes(headerNames[i])) {
-        _headers.push(headerNames[i]);
+      // 새로운 헤더를 추가합니다.
+      for (let i = 0; i < headerNames.length; i++) {
+        if (!_headers.includes(headerNames[i])) {
+          _headers.push(headerNames[i]);
+        }
       }
-    }
 
-    // 수정된 헤더를 다시 설정합니다.
-    await sheet.setHeaderRow(_headers);
+      // 수정된 헤더를 다시 설정합니다.
+      await sheet.setHeaderRow(_headers);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async getWorkSheet(
     input: IGoogleSheet.IGetWorkSheetInput,
   ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
-    const { url, secretKey } = input;
-    const id = this.getSpreadSheetId(url);
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
+    try {
+      const { url, secretKey } = input;
+      const id = this.getSpreadSheetId(url);
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
 
-    authClient.setCredentials({ access_token: accessToken });
+      authClient.setCredentials({ access_token: accessToken });
 
-    const doc = new GoogleSpreadsheet(id, authClient);
-    await doc.loadInfo();
-    const workSheets = doc.sheetsByIndex;
-    const res = workSheets.map((worksheet: GoogleSpreadsheetWorksheet) => {
-      return worksheet.title;
-    });
-    return { data: res };
+      const doc = new GoogleSpreadsheet(id, authClient);
+      await doc.loadInfo();
+      const workSheets = doc.sheetsByIndex;
+      const res = workSheets.map((worksheet: GoogleSpreadsheetWorksheet) => {
+        return worksheet.title;
+      });
+      return { data: res };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async readRows(
     input: IGoogleSheet.IReadGoogleSheetRowsInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
-    const { url, workSheetTitle, secretKey } = input;
-    const id = this.getSpreadSheetId(url);
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
+    try {
+      const { url, workSheetTitle, secretKey } = input;
+      const id = this.getSpreadSheetId(url);
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
 
-    authClient.setCredentials({ access_token: accessToken });
+      authClient.setCredentials({ access_token: accessToken });
 
-    const doc = new GoogleSpreadsheet(id, authClient);
-    await doc.loadInfo();
-    const sheet = doc.sheetsByTitle[workSheetTitle];
-    const rows = await sheet.getRows();
-    const _headers = sheet.headerValues;
+      const doc = new GoogleSpreadsheet(id, authClient);
+      await doc.loadInfo();
+      const sheet = doc.sheetsByTitle[workSheetTitle];
+      const rows = await sheet.getRows();
+      const _headers = sheet.headerValues;
 
-    const res = [];
-    for (let i = 0; i < rows.length; i++) {
-      const obj: Record<string, string> = {};
-      for (let j = 0; j < _headers.length; j++) {
-        obj[_headers[j]] = rows[i].get(_headers[j]);
+      const res = [];
+      for (let i = 0; i < rows.length; i++) {
+        const obj: Record<string, string> = {};
+        for (let j = 0; j < _headers.length; j++) {
+          obj[_headers[j]] = rows[i].get(_headers[j]);
+        }
+        res.push(obj);
       }
-      res.push(obj);
-    }
 
-    return { data: res };
+      return { data: res };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
   /**
    * Parsing Google Sheet Id from Google Sheet Url

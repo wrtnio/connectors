@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 
 import { ArxivSearchProvider } from "../../../providers/connector/arxiv_search/ArxivSearchProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/arxiv-search")
 export class ArxivSearchController {
@@ -216,6 +217,6 @@ export class ArxivSearchController {
   async search(
     @core.TypedBody() input: IConnector.ISearchInput,
   ): Promise<IConnector.ISearchOutput> {
-    return ArxivSearchProvider.search(input);
+    return retry(() => ArxivSearchProvider.search(input))();
   }
 }
