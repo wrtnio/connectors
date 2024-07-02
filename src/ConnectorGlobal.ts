@@ -26,10 +26,30 @@ export namespace ConnectorGlobal {
     // DAUM
     DAUM_API_KEY: string;
 
+    // FIGMA
+    FIGMA_TEST_SECRET: string;
+    FIGMA_TEST_FILE_KEY: string;
+
     // GOOGLE
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
     GOOGLE_TEST_SECRET: string;
+
+    // IMWEB
+    IMWEB_TEST_API_KEY: string;
+    IMWEB_TEST_API_SECRET: string;
+
+    // KAKAO_TALK
+    KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_CLIENT_SECRET: string;
+    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
+
+    // META(facebook, instagram)
+    META_CLIENT_ID: string;
+    META_CLIENT_SECRET: string;
+    META_PARENT_BUSINESS_ID: string;
+    META_PARENT_BUSINESS_SYSTEM_USER_ACCESS_TOKEN: string;
+    META_APP_ID: string;
 
     // NAVER
     NAVER_CLIENT_ID: string;
@@ -47,10 +67,6 @@ export namespace ConnectorGlobal {
     // TYPEFORM
     TYPEFORM_PERSONAL_ACCESS_KEY: string;
 
-    // FIGMA
-    FIGMA_TEST_SECRET: string;
-    FIGMA_TEST_FILE_KEY: string;
-
     // ZOOM
     ZOOM_TEST_REFRESH_TOKEN: string;
     ZOOM_TEST_AUTHORIZATION_CODE: string;
@@ -60,17 +76,8 @@ export namespace ConnectorGlobal {
     TEST_SWEET_TRACKER_KEY: string;
     TEST_SWEET_TRACKER_T_INVOICE: string;
 
-    // KAKAO_TALK
-    KAKAO_TALK_CLIENT_ID: string;
-    KAKAO_TALK_CLIENT_SECRET: string;
-    KAKAO_TALK_TEST_REFRESH_TOKEN: string;
-
     // KOREA_EXIM_BANK (한국수출입은행)
     KOREA_EXIM_BANK_API_KEY: string;
-
-    // IMWEB
-    IMWEB_TEST_API_KEY: string;
-    IMWEB_TEST_API_SECRET: string;
 
     // STABILITY AI
     STABILITY_AI_API_KEY: string;
