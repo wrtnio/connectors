@@ -1,7 +1,6 @@
-import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
-export namespace IIconAndLogo {
+export namespace IStableDiffusionBeta {
   /**
    * @title 이미지 생성기 설정
    */

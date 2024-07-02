@@ -3,7 +3,28 @@ import { IMigrateRoute, OpenApi, OpenApiV3 } from "@samchon/openapi";
 export interface IOpenAiDocument {
   openapi: "3.0" | `3.0.${number}`;
   functions: IOpenAiDocument.IFunction[];
-  propertised: boolean;
+
+  /**
+   * Whether the parameters are keyworded or not.
+   *
+   * If this property value is `true`, length of the
+   * {@link IOpenAiDocument.IFunction.parameters} is always 1, and type of the
+   * pararameter is always `object` type. Also, its properties are following below
+   * rules:
+   *
+   * - `parameters`: Path parameters of {@link IMigrateRoute.parameters}
+   * - `query: Query parameter of {@link IMigrateRoute.query}
+   * - `body`: Body parameter of {@link IMigrateRoute.body}
+   *
+   * Otherwise (this property value is `false`), length of the
+   * {@link IOpenAiDocument.IFunction.parameters} is variable, and sequence of the
+   * parameters are following below rules.
+   *
+   * - `...parameters`: Path parameters of {@link IMigrateRoute.parameters}
+   * - `query`: Only when query parameter of {@link IMigrateRoute.query} is not `null`
+   * - `body`: Only when body parameter of {@link IMigrateRoute.body} is not `null`
+   */
+  isKeywordParameter: boolean;
 }
 export namespace IOpenAiDocument {
   export type IPath = Record<OpenApiV3.Method, IFunction>;

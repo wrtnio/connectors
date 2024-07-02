@@ -14,9 +14,9 @@ import type { ISweetTracker } from "../../../../../structures/connector/sweet_tr
 /**
  * 송장번호에 매칭되는 택배사 목록을 조회합니다.
  *
- * @summary 송장 번호에 매칭되는 택배사 목록.
- * @returns 택배사 목록.
- * @param input 택배사 조회를 위한 조건 DTO.
+ * @summary 송장 번호에 매칭되는 택배사 목록
+ * @returns 택배사 목록
+ * @param input 택배사 조회를 위한 조건
  * @tag sweet-tracker
  *
  * @controller SweetTrackerController.getRecommendedCompanyList

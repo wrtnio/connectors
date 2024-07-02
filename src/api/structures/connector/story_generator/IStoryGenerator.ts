@@ -56,6 +56,8 @@ export interface IStoryGeneratorResponse {
 
   /**
    * If the next story line can be generated, provide it here.
+   * Only generate the story when you have a good idea of what the user wants.
+   * When the user is not sure, you can suggest stories but ask the user first before generating the story line.
    */
   storyLine?: string;
 

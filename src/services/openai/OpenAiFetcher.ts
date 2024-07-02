@@ -9,16 +9,20 @@ export namespace OpenAiFetcher {
     document: IOpenAiDocument;
     function: IOpenAiDocument.IFunction;
     connection: IConnection;
-    input: any;
+    arguments: any[];
   }
   export const request = async (props: IProps) => {
-    if (props.document.propertised === false)
-      throw new Error("Not implemeneted yet for non-propertised API.");
+    const route = props.function.route();
     return PlainFetcher.fetch(
       props.connection,
       {
         method: props.function.method.toUpperCase() as "POST",
-        path: getPath(props),
+        path: props.document.isKeywordParameter === true
+          ? getKeywordPath({
+              function: props.function,
+              input: props.arguments[0],
+            })
+          : getPositionalPath(props),
         template: props.function.path,
         status: null,
         request:
@@ -33,17 +37,38 @@ export namespace OpenAiFetcher {
           encrypted: false,
         },
       },
-      props.function.route().body ? props.input.body : undefined,
+      route.body 
+        ? props.document.isKeywordParameter 
+          ? props.arguments[0].body 
+          : props.arguments[route.parameters.length + (route.query ? 1: 0)]
+        : undefined,
     );
   };
 
-  const getPath = (props: Pick<IProps, "function" | "input">): string => {
+  const getKeywordPath = (props: {
+    function: IOpenAiDocument.IFunction,
+    input: Record<string, any>;
+  }): string => {
     const route: IMigrateRoute = props.function.route();
     let path: string = route.emendedPath;
-    for (const pp of route.parameters)
-      path = path.replace(`:${pp.key}`, props.input[pp.name]);
-    if (route.query && props.input.query)
-      path += getvariable(props.input.query);
+    for (const p of route.parameters)
+      path = path.replace(`:${p.key}`, props.input[p.key] ?? "null");
+    if (route.query)
+      path += getvariable(props.input.query ?? {});
+    return path;
+  }
+
+  const getPositionalPath = (props: {
+    function: IOpenAiDocument.IFunction,
+    arguments: any[];
+  }): string => {
+    const route: IMigrateRoute = props.function.route();
+    let path: string = route.emendedPath;
+    route.parameters.forEach((pp, i) => {
+      path = path.replace(`:${pp.key}`, props.arguments[i]);
+    });
+    if (route.query)
+      path += getvariable(props.arguments[route.parameters.length]);
     return path;
   };
 

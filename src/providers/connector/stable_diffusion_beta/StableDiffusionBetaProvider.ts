@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { v4 } from "uuid";
 
-import { IIconAndLogo } from "@wrtn/connector-api/lib/structures/connector/icon_and_logo/IIconAndLogo";
+import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { generateGptPromptTranslateForImageGenerate } from "../../../utils/ImagePromptTranslateUtil";
@@ -13,11 +13,11 @@ import {
 import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
-export class IconAndLogoProvider {
+export class StableDiffusionBetaProvider {
   constructor(private awsProvider: AwsProvider) {}
   async generateImage(
-    input: IIconAndLogo.IRequest,
-  ): Promise<IIconAndLogo.IResponse> {
+    input: IStableDiffusionBeta.IRequest,
+  ): Promise<IStableDiffusionBeta.IResponse> {
     const { category, englishText } = await this.imageCompletion(
       `${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}`,
       input.prompt,
@@ -71,7 +71,7 @@ export class IconAndLogoProvider {
   }
 
   async generateImg(
-    prompts: IIconAndLogo.ISDXLBetaPromptRequest[],
+    prompts: IStableDiffusionBeta.ISDXLBetaPromptRequest[],
     image_ratio: string,
     style_preset?: string,
   ) {
@@ -84,35 +84,38 @@ export class IconAndLogoProvider {
     };
 
     const { width, height } = imageDimensions[image_ratio];
-
-    const response = await axios.post(
-      `${ConnectorGlobal.env.STABILITY_AI_HOST}/v1/generation/${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}/text-to-image`,
-      {
-        text_prompts: prompts,
-        cfg_scale: Number(ConnectorGlobal.env.STABILITY_AI_CFG_SCALE),
-        height: height,
-        width: width,
-        steps: Number(ConnectorGlobal.env.STABILITY_AI_DEFAULT_STEP),
-        samples: 1,
-        ...(style_preset && { style_preset: style_preset }),
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${ConnectorGlobal.env.STABILITY_AI_API_KEY}`,
+    try {
+      const response = await axios.post(
+        `${ConnectorGlobal.env.STABILITY_AI_HOST}/v1/generation/${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}/text-to-image`,
+        {
+          text_prompts: prompts,
+          cfg_scale: Number(ConnectorGlobal.env.STABILITY_AI_CFG_SCALE),
+          height: height,
+          width: width,
+          steps: Number(ConnectorGlobal.env.STABILITY_AI_DEFAULT_STEP),
+          samples: 1,
+          ...(style_preset && { style_preset: style_preset }),
         },
-      },
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${ConnectorGlobal.env.STABILITY_AI_API_KEY}`,
+          },
+        },
+      );
+      if (!response.data || !Array.isArray(response.data.artifacts)) {
+        throw new Error("image result not found");
+      }
 
-    if (!response.data || !Array.isArray(response.data.artifacts)) {
-      throw new Error("image result not found");
+      const output = response.data
+        .artifacts as IStableDiffusionBeta.ISDXLBetaPromptResponse[];
+      const img = output.map((image) => Buffer.from(image.base64, "base64"));
+      return img;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
     }
-
-    const output = response.data
-      .artifacts as IIconAndLogo.ISDXLBetaPromptResponse[];
-    const img = output.map((image) => Buffer.from(image.base64, "base64"));
-    return img;
   }
 
   async imageCompletion(model: string, message: string) {

@@ -5,6 +5,7 @@ import { ArxivSearchController } from "./arxiv_search/ArxivSearchController";
 import { AwsModule } from "./aws/AwsModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
 import { CsvController } from "./csv/CsvController";
+import { DallE3Module } from "./dall_e_3/DallE3Module";
 import { DaumController } from "./daum/DaumController";
 import { ExcelModule } from "./excel/ExcelModule";
 import { KeywordExtractModule } from "./extract/KeywordExtractModule";
@@ -18,8 +19,6 @@ import { GoogleScholarController } from "./google_scholar/GoogleScholarControlle
 import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
-import { IconAndLogoModule } from "./icon_and_logo/IconAndLogoModule";
-import { ImageModule } from "./image/ImageModule";
 import { ImwebModule } from "./imweb/ImwebModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
 import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
@@ -34,6 +33,7 @@ import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { RankModule } from "./sort/RankModule";
+import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffusionBetaModule";
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
@@ -79,8 +79,8 @@ import { ZoomModule } from "./zoom/ZoomModule";
     KoreaEximbankModule,
     StoryGeneratorModule,
     StoryImageGeneratorModule,
-    ImageModule,
-    IconAndLogoModule,
+    StableDiffusionBetaModule,
+    DallE3Module,
   ],
   controllers: [
     ArxivSearchController,
