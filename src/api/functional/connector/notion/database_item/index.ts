@@ -12,12 +12,50 @@ import typia from "typia";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
- * Create Database Item.
+ * 노션 테이블 데이터베이스에 아이템을 생성합니다.
  *
- * @param input database properties value for create item, database item page content, database item page content type
- * @param databaseId
- * @returns DatabaseItemOutput
+ * @summary 데이터베이스 아이템 생성
+ * @param input 데이터베이스 아이템 생성에 필요한 정보
+ * @param databaseId 아이템을 생성할 데이터베이스 고유 id
+ * @returns 생성된 데이터베이스 아이템 정보
  * @tag Notion
+ * @tag 노션
+ * @tag 노트
+ * @tag 메모
+ * @tag 작업 관리
+ * @tag 프로젝트 관리
+ * @tag 할 일 목록
+ * @tag 일정 관리
+ * @tag 문서 작성
+ * @tag 회의록 작성
+ * @tag 체크리스트
+ * @tag 아이디어 정리
+ * @tag 업무 기록
+ * @tag 학습 노트
+ * @tag 스터디 플래너
+ * @tag 제품기획
+ * @tag 이력서
+ * @tag 포트폴리오
+ * @tag 협업
+ * @tag 문서
+ * @tag Note
+ * @tag Memo
+ * @tag Task Management
+ * @tag Project Management
+ * @tag To do list
+ * @tag Schedule Management
+ * @tag Document Creation
+ * @tag Meeting Notes
+ * @tag Checklist
+ * @tag Idea Organization
+ * @tag Work Logging
+ * @tag Study Notes
+ * @tag Study Planner
+ * @tag Product Management
+ * @tag Resume
+ * @tag Portfolio
+ * @tag Collaboration
+ * @tag Document
  *
  * @controller NotionController.createDatabaseItem
  * @path POST /connector/notion/database-item/:databaseId
@@ -40,6 +78,7 @@ export async function createDatabaseItem(
         },
         {
           ...createDatabaseItem.METADATA,
+          template: createDatabaseItem.METADATA.path,
           path: createDatabaseItem.path(databaseId),
         },
         input,
@@ -91,12 +130,50 @@ export namespace createDatabaseItem {
 }
 
 /**
- * Update Database Item.
+ * 데이터베이스에 있는 아이템 정보를 수정합니다.
  *
- * @param input database properties value for update item, database item page content
- * @param databaseId
- * @returns DatabaseItemOutput
+ * @summary 데이터베이스 아이템 수정
+ * @param input 수정할 데이터베이스 아이템 정보
+ * @param databaseId 수정할 데이터베이스 고유 id
+ * @returns 수정된 데이터베이스 아이템 정보
  * @tag Notion
+ * @tag 노션
+ * @tag 노트
+ * @tag 메모
+ * @tag 작업 관리
+ * @tag 프로젝트 관리
+ * @tag 할 일 목록
+ * @tag 일정 관리
+ * @tag 문서 작성
+ * @tag 회의록 작성
+ * @tag 체크리스트
+ * @tag 아이디어 정리
+ * @tag 업무 기록
+ * @tag 학습 노트
+ * @tag 스터디 플래너
+ * @tag 제품기획
+ * @tag 이력서
+ * @tag 포트폴리오
+ * @tag 협업
+ * @tag 문서
+ * @tag Note
+ * @tag Memo
+ * @tag Task Management
+ * @tag Project Management
+ * @tag To do list
+ * @tag Schedule Management
+ * @tag Document Creation
+ * @tag Meeting Notes
+ * @tag Checklist
+ * @tag Idea Organization
+ * @tag Work Logging
+ * @tag Study Notes
+ * @tag Study Planner
+ * @tag Product Management
+ * @tag Resume
+ * @tag Portfolio
+ * @tag Collaboration
+ * @tag Document
  *
  * @controller NotionController.updateDatabaseItem
  * @path PATCH /connector/notion/database-item/:pageId
@@ -119,6 +196,7 @@ export async function updateDatabaseItem(
         },
         {
           ...updateDatabaseItem.METADATA,
+          template: updateDatabaseItem.METADATA.path,
           path: updateDatabaseItem.path(databaseId),
         },
         input,

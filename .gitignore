@@ -11,3 +11,5 @@ Session.vim
 *.log
 
 **/*.DS_Store
+
+hancell_test_file.cell

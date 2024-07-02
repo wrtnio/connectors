@@ -41,6 +41,7 @@ export namespace ConnectorGlobal {
 
     // KAKAO_TALK
     KAKAO_TALK_CLIENT_ID: string;
+    KAKAO_TALK_CLIENT_SECRET: string;
     KAKAO_TALK_TEST_REFRESH_TOKEN: string;
 
     // META(facebook, instagram)
@@ -57,12 +58,11 @@ export namespace ConnectorGlobal {
     // OPENAI
     OPENAI_API_KEY: string;
 
+    // OPEN_DATA
+    OPEN_DATA_API_KEY: string;
+
     // SERP
     SERP_API_KEY: string;
-
-    // SWEET_TRACKER
-    TEST_SWEET_TRACKER_KEY: string;
-    TEST_SWEET_TRACKER_T_INVOICE: string;
 
     // TYPEFORM
     TYPEFORM_PERSONAL_ACCESS_KEY: string;
@@ -71,6 +71,20 @@ export namespace ConnectorGlobal {
     ZOOM_TEST_REFRESH_TOKEN: string;
     ZOOM_TEST_AUTHORIZATION_CODE: string;
     ZOOM_TEST_AUTHORIZATION_HEADER: string;
+
+    // SWEET_TRACKER
+    TEST_SWEET_TRACKER_KEY: string;
+    TEST_SWEET_TRACKER_T_INVOICE: string;
+
+    // KOREA_EXIM_BANK (한국수출입은행)
+    KOREA_EXIM_BANK_API_KEY: string;
+
+    // STABILITY AI
+    STABILITY_AI_API_KEY: string;
+    STABILITY_AI_HOST: string & tags.Format<"uri">;
+    STABILITY_AI_ENGINE_ID: string;
+    STABILITY_AI_DEFAULT_STEP: `${number}`;
+    STABILITY_AI_CFG_SCALE: `${number}`;
 
     //----
     // INHOUSE SERVERS
@@ -84,6 +98,11 @@ export namespace ConnectorGlobal {
     // LLM PROXY
     HAMLET_URL: string & tags.Format<"uri">;
     SHAKESPEARE_URL: string & tags.Format<"uri">;
+    HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT: string;
+    HAMLET_HEADER_KEY_NAME: string;
+    HAMLET_HEADER_KEY_VALUE: string;
+    HAMLET_PROMPT_NODE_MODEL_NAME: string;
+    HAMLET_PROMPT_NODE_REQUEST_ENDPOINT: string;
   }
 }
 

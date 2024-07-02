@@ -12,11 +12,49 @@ import typia from "typia";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
- * Get Page By Title.
+ * 제목으로 페이지를 검색합니다.
  *
- * @param input page title
- * @returns Page Output
+ * @summary 제목으로 페이지 검색
+ * @param input 페이지 제목
+ * @returns 검색된 페이지 정보
  * @tag Notion
+ * @tag 노션
+ * @tag 노트
+ * @tag 메모
+ * @tag 작업 관리
+ * @tag 프로젝트 관리
+ * @tag 할 일 목록
+ * @tag 일정 관리
+ * @tag 문서 작성
+ * @tag 회의록 작성
+ * @tag 체크리스트
+ * @tag 아이디어 정리
+ * @tag 업무 기록
+ * @tag 학습 노트
+ * @tag 스터디 플래너
+ * @tag 제품기획
+ * @tag 이력서
+ * @tag 포트폴리오
+ * @tag 협업
+ * @tag 문서
+ * @tag Note
+ * @tag Memo
+ * @tag Task Management
+ * @tag Project Management
+ * @tag To do list
+ * @tag Schedule Management
+ * @tag Document Creation
+ * @tag Meeting Notes
+ * @tag Checklist
+ * @tag Idea Organization
+ * @tag Work Logging
+ * @tag Study Notes
+ * @tag Study Planner
+ * @tag Product Management
+ * @tag Resume
+ * @tag Portfolio
+ * @tag Collaboration
+ * @tag Document
  *
  * @controller NotionController.getPageByTitle
  * @path POST /connector/notion/get-page-by-title
@@ -38,6 +76,7 @@ export async function getPageByTitle(
         },
         {
           ...getPageByTitle.METADATA,
+          template: getPageByTitle.METADATA.path,
           path: getPageByTitle.path(),
         },
         input,

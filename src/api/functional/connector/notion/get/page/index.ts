@@ -13,10 +13,48 @@ import type { ICommon } from "../../../../../structures/connector/common/ISecret
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
- * Read Notion Page list.
+ * 노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.
  *
- * @returns read page output list
+ * @summary 페이지 목록 조회
+ * @returns 페이지 정보들
  * @tag Notion
+ * @tag 노션
+ * @tag 노트
+ * @tag 메모
+ * @tag 작업 관리
+ * @tag 프로젝트 관리
+ * @tag 할 일 목록
+ * @tag 일정 관리
+ * @tag 문서 작성
+ * @tag 회의록 작성
+ * @tag 체크리스트
+ * @tag 아이디어 정리
+ * @tag 업무 기록
+ * @tag 학습 노트
+ * @tag 스터디 플래너
+ * @tag 제품기획
+ * @tag 이력서
+ * @tag 포트폴리오
+ * @tag 협업
+ * @tag 문서
+ * @tag Note
+ * @tag Memo
+ * @tag Task Management
+ * @tag Project Management
+ * @tag To do list
+ * @tag Schedule Management
+ * @tag Document Creation
+ * @tag Meeting Notes
+ * @tag Checklist
+ * @tag Idea Organization
+ * @tag Work Logging
+ * @tag Study Notes
+ * @tag Study Planner
+ * @tag Product Management
+ * @tag Resume
+ * @tag Portfolio
+ * @tag Collaboration
+ * @tag Document
  *
  * @controller NotionController.readPageList
  * @path POST /connector/notion/get/page
@@ -38,13 +76,14 @@ export async function readPageList(
         },
         {
           ...readPageList.METADATA,
+          template: readPageList.METADATA.path,
           path: readPageList.path(),
         },
         input,
       );
 }
 export namespace readPageList {
-  export type Input = Primitive<ICommon.ISecret<"Notion", never>>;
+  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
   export type Output = Primitive<Array<INotion.IReadPageOutput>>;
 
   export const METADATA = {

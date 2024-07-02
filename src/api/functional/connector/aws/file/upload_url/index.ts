@@ -31,6 +31,7 @@ export async function getUploadUrl(
     ? getUploadUrl.simulate(connection, extension)
     : PlainFetcher.fetch(connection, {
         ...getUploadUrl.METADATA,
+        template: getUploadUrl.METADATA.path,
         path: getUploadUrl.path(extension),
       });
 }

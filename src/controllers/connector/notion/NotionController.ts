@@ -1,10 +1,12 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { RouteIcon } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/notion")
 export class NotionController {
@@ -18,7 +20,48 @@ export class NotionController {
    * @returns 생성된 페이지 고유 id
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/page")
   async createPage(
     @core.TypedBody() input: INotion.ICreatePageInput,
@@ -34,12 +77,53 @@ export class NotionController {
    * @returns 페이지 정보들
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/get/page")
   async readPageList(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IReadPageOutput[]> {
-    return NotionProvider.readPageList(input);
+    return retry(NotionProvider.readPageList)(input);
   }
 
   /**
@@ -50,12 +134,53 @@ export class NotionController {
    * @returns 유저 정보들
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("get/users")
   async getUsers(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IUserOutput[]> {
-    return NotionProvider.getUsers(input);
+    return retry(NotionProvider.getUsers)(input);
   }
 
   /**
@@ -68,7 +193,48 @@ export class NotionController {
    * @returns void
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/page/content/:pageId")
   async appendPageToContent(
     @core.TypedParam("pageId") pageId: string,
@@ -85,12 +251,53 @@ export class NotionController {
    * @returns 데이터베이스 정보 목록
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IDatabaseInfo[]> {
-    return NotionProvider.getDatabaseListInfo(input);
+    return retry(NotionProvider.getDatabaseListInfo)(input);
   }
 
   /**
@@ -103,13 +310,54 @@ export class NotionController {
    * @returns 데이터베이스 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
-    return NotionProvider.getDatabaseInfo(input, databaseId);
+    return retry(NotionProvider.getDatabaseInfo)(input, databaseId);
   }
 
   /**
@@ -124,7 +372,48 @@ export class NotionController {
    * @returns 생성된 데이터베이스 아이템 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
     @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
@@ -145,13 +434,54 @@ export class NotionController {
    * @returns 수정된 데이터베이스 아이템 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Patch("/database-item/:pageId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     @core.TypedParam("pageId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return NotionProvider.updateDatabaseItem(input, databaseId);
+    return retry(NotionProvider.updateDatabaseItem)(input, databaseId);
   }
 
   /**
@@ -164,12 +494,53 @@ export class NotionController {
    * @returns 검색된 페이지 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/get-page-by-title")
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
   ): Promise<INotion.IFindPageByTitleOutput> {
-    return NotionProvider.findPageByTitle(input);
+    return retry(NotionProvider.findPageByTitle)(input);
   }
 
   /**
@@ -182,13 +553,54 @@ export class NotionController {
    * @returns 조회된 데이터베이스 아이템 목록 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
-    @core.TypedBody() input: ICommon.ISecret<"Notion">,
+    @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
-    return NotionProvider.findDatabaseItemList(input, databaseId);
+    return retry(NotionProvider.findDatabaseItemList)(input, databaseId);
   }
 
   /**
@@ -203,12 +615,53 @@ export class NotionController {
    * @returns 조회된 데이터베이스 아이템 정보
    *
    * @tag Notion
+   * @tag 노션
+   * @tag 노트
+   * @tag 메모
+   * @tag 작업 관리
+   * @tag 프로젝트 관리
+   * @tag 할 일 목록
+   * @tag 일정 관리
+   * @tag 문서 작성
+   * @tag 회의록 작성
+   * @tag 체크리스트
+   * @tag 아이디어 정리
+   * @tag 업무 기록
+   * @tag 학습 노트
+   * @tag 스터디 플래너
+   * @tag 제품기획
+   * @tag 이력서
+   * @tag 포트폴리오
+   * @tag 협업
+   * @tag 문서
+   * @tag Notion
+   * @tag Note
+   * @tag Memo
+   * @tag Task Management
+   * @tag Project Management
+   * @tag To do list
+   * @tag Schedule Management
+   * @tag Document Creation
+   * @tag Meeting Notes
+   * @tag Checklist
+   * @tag Idea Organization
+   * @tag Work Logging
+   * @tag Study Notes
+   * @tag Study Planner
+   * @tag Product Management
+   * @tag Resume
+   * @tag Portfolio
+   * @tag Collaboration
+   * @tag Document
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+  )
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return NotionProvider.findDatabaseItem(input, databaseId);
+    return retry(NotionProvider.findDatabaseItem)(input, databaseId);
   }
 }

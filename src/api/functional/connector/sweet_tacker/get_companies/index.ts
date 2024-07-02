@@ -15,8 +15,8 @@ export * as recommended from "./recommended";
 /**
  * 택배사 목록을 조회합니다.
  *
- * @summary 택배사 목록 조회.
- * @returns 택배사 목록.
+ * @summary 택배사 목록 조회
+ * @returns 택배사 목록
  * @tag sweet-tracker
  *
  * @controller SweetTrackerController.getCompanyList
@@ -30,6 +30,7 @@ export async function getCompanyList(
     ? getCompanyList.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...getCompanyList.METADATA,
+        template: getCompanyList.METADATA.path,
         path: getCompanyList.path(),
       });
 }

@@ -40,6 +40,7 @@ export async function getCalendars(
         },
         {
           ...getCalendars.METADATA,
+          template: getCalendars.METADATA.path,
           path: getCalendars.path(),
         },
         input,

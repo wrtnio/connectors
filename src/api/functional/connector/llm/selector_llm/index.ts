@@ -42,6 +42,7 @@ export async function selectorLlm(
         },
         {
           ...selectorLlm.METADATA,
+          template: selectorLlm.METADATA.path,
           path: selectorLlm.path(),
         },
         body,

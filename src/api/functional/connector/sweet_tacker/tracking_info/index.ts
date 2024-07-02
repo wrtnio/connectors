@@ -12,10 +12,12 @@ import typia from "typia";
 import type { ISweetTracker } from "../../../../structures/connector/sweet_tracker/ISweetTacker";
 
 /**
+ * 송장 번호를 조회합니다.
  *
- * @todo 마저 작성할 것.
- * @param input
- * @returns
+ * @summary 송장 조회
+ * @param input 송장 번호를 조회하기 위한 조건
+ * @returns 택배의 이동 경로
+ * @tag sweet-tracker
  *
  * @controller SweetTrackerController.getTrackingInfo
  * @path POST /connector/sweet-tacker/tracking-info
@@ -37,6 +39,7 @@ export async function getTrackingInfo(
         },
         {
           ...getTrackingInfo.METADATA,
+          template: getTrackingInfo.METADATA.path,
           path: getTrackingInfo.path(),
         },
         input,

@@ -41,6 +41,7 @@ export async function runWorkflow(
         },
         {
           ...runWorkflow.METADATA,
+          template: runWorkflow.METADATA.path,
           path: runWorkflow.path(),
         },
         input,
@@ -106,6 +107,7 @@ export async function getWorkflowRunStatus(
     ? getWorkflowRunStatus.simulate(connection, workflowRunId)
     : PlainFetcher.fetch(connection, {
         ...getWorkflowRunStatus.METADATA,
+        template: getWorkflowRunStatus.METADATA.path,
         path: getWorkflowRunStatus.path(workflowRunId),
       });
 }

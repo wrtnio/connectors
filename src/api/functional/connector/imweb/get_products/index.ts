@@ -38,6 +38,7 @@ export async function getProducts(
         },
         {
           ...getProducts.METADATA,
+          template: getProducts.METADATA.path,
           path: getProducts.path(),
         },
         input,
