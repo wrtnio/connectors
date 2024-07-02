@@ -11,19 +11,28 @@ export namespace SweetTrackerProvider {
         .map(([key, value]) => `${key}=${value}`)
         .join("&") ?? "";
 
-    const res = await axios.get(
-      `https://info.sweettracker.co.kr/api/v1/recommend?${queryParams}`,
-    );
+    try {
+      const res = await axios.get(
+        `https://info.sweettracker.co.kr/api/v1/recommend?${queryParams}`,
+      );
 
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
-    const res = await axios.get(
-      "https://info.sweettracker.co.kr/api/v1/companylist/refresh",
-    );
-
-    return res.data;
+    try {
+      const res = await axios.get(
+        "https://info.sweettracker.co.kr/api/v1/companylist/refresh",
+      );
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getTrackingInfo(
@@ -34,10 +43,14 @@ export namespace SweetTrackerProvider {
         .map(([key, value]) => `${key}=${value}`)
         .join("&") ?? "";
 
-    const res = await axios.get(
-      `https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`,
-    );
-
-    return res.data;
+    try {
+      const res = await axios.get(
+        `https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`,
+      );
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }

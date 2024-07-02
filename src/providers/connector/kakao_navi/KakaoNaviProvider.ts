@@ -13,13 +13,18 @@ export namespace KakaoNaviProvider {
       .join("&");
 
     const url = `https://apis-navi.kakaomobility.com/v1/future/directions?${queryParams}`;
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `KakaoAK ${ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID}`,
-        "Content-Type": "application/json",
-      },
-    });
 
-    return res.data;
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `KakaoAK ${ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID}`,
+          "Content-Type": "application/json",
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }

@@ -13,32 +13,40 @@ export class FigmaProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(
-      `https://api.figma.com/v1/files/${fileKey}?${queryParams}`,
-      {
-        headers: {
-          "X-Figma-Token": secretKey,
+    try {
+      const res = await axios.get(
+        `https://api.figma.com/v1/files/${fileKey}?${queryParams}`,
+        {
+          headers: {
+            "X-Figma-Token": secretKey,
+          },
         },
-      },
-    );
-
-    return res.data;
+      );
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   async addComment(input: IFigma.IAddCommentInput) {
     const { secretKey, fileKey, ...requestBody } = input;
 
-    const res = await axios.post(
-      `https://api.figma.com/v1/files/${fileKey}/comments`,
-      requestBody,
-      {
-        headers: {
-          "X-Figma-Token": secretKey,
+    try {
+      const res = await axios.post(
+        `https://api.figma.com/v1/files/${fileKey}/comments`,
+        requestBody,
+        {
+          headers: {
+            "X-Figma-Token": secretKey,
+          },
         },
-      },
-    );
-
-    return res.data;
+      );
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   async getComments(
@@ -49,15 +57,19 @@ export class FigmaProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(
-      `https://api.figma.com/v1/files/${fileKey}/comments?${queryParams}`,
-      {
-        headers: {
-          "X-Figma-Token": secretKey,
+    try {
+      const res = await axios.get(
+        `https://api.figma.com/v1/files/${fileKey}/comments?${queryParams}`,
+        {
+          headers: {
+            "X-Figma-Token": secretKey,
+          },
         },
-      },
-    );
-
-    return res.data;
+      );
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }

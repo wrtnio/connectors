@@ -23,34 +23,39 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const data: IMOLIT.OriginalBuildingLentInfo[] =
-      res.data.response.body.items.item;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const data: IMOLIT.OriginalBuildingLentInfo[] =
+        res.data.response.body.items.item;
 
-    return {
-      data: data.map((el) => {
-        const sh: IMOLIT.BuildingLentInfo = {
-          useOfRenewalRight: el.갱신요구권사용,
-          yearOfConstruction: el.건축년도,
-          typeOfContract: el.계약구분,
-          contractPeriod: el.계약기간,
-          year: el.년,
-          legalDistrict: el.법정동,
-          depositAmount: el.보증금액,
-          apartment: el.아파트,
-          month: el.월,
-          monthlyRentAmount: el.월세금액,
-          day: el.일,
-          exclusiveArea: el.전용면적,
-          previousContractDeposit: el.종전계약보증금,
-          previousContractMonthlyRent: el.종전계약월세,
-          lotNumber: el.지번,
-          areaCode: el.지역코드,
-          floor: el.층,
-        };
-        return sh;
-      }),
-    };
+      return {
+        data: data.map((el) => {
+          const sh: IMOLIT.BuildingLentInfo = {
+            useOfRenewalRight: el.갱신요구권사용,
+            yearOfConstruction: el.건축년도,
+            typeOfContract: el.계약구분,
+            contractPeriod: el.계약기간,
+            year: el.년,
+            legalDistrict: el.법정동,
+            depositAmount: el.보증금액,
+            apartment: el.아파트,
+            month: el.월,
+            monthlyRentAmount: el.월세금액,
+            day: el.일,
+            exclusiveArea: el.전용면적,
+            previousContractDeposit: el.종전계약보증금,
+            previousContractMonthlyRent: el.종전계약월세,
+            lotNumber: el.지번,
+            areaCode: el.지역코드,
+            floor: el.층,
+          };
+          return sh;
+        }),
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getRTMSDataSvcOffiRent(
@@ -66,36 +71,41 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const data: Rename<
-      IMOLIT.OriginalBuildingLentInfo,
-      [["보증금액", "보증금"], ["월세금액", "월세"]]
-    >[] = res.data.response.body.items.item;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const data: Rename<
+        IMOLIT.OriginalBuildingLentInfo,
+        [["보증금액", "보증금"], ["월세금액", "월세"]]
+      >[] = res.data.response.body.items.item;
 
-    return {
-      data: data.map((el) => {
-        const sh: IMOLIT.BuildingLentInfo = {
-          useOfRenewalRight: el.갱신요구권사용,
-          yearOfConstruction: el.건축년도,
-          typeOfContract: el.계약구분,
-          contractPeriod: el.계약기간,
-          year: el.년,
-          legalDistrict: el.법정동,
-          depositAmount: el.보증금,
-          apartment: el.아파트,
-          month: el.월,
-          monthlyRentAmount: el.월세,
-          day: el.일,
-          exclusiveArea: el.전용면적,
-          previousContractDeposit: el.종전계약보증금,
-          previousContractMonthlyRent: el.종전계약월세,
-          lotNumber: el.지번,
-          areaCode: el.지역코드,
-          floor: el.층,
-        };
-        return sh;
-      }),
-    };
+      return {
+        data: data.map((el) => {
+          const sh: IMOLIT.BuildingLentInfo = {
+            useOfRenewalRight: el.갱신요구권사용,
+            yearOfConstruction: el.건축년도,
+            typeOfContract: el.계약구분,
+            contractPeriod: el.계약기간,
+            year: el.년,
+            legalDistrict: el.법정동,
+            depositAmount: el.보증금,
+            apartment: el.아파트,
+            month: el.월,
+            monthlyRentAmount: el.월세,
+            day: el.일,
+            exclusiveArea: el.전용면적,
+            previousContractDeposit: el.종전계약보증금,
+            previousContractMonthlyRent: el.종전계약월세,
+            lotNumber: el.지번,
+            areaCode: el.지역코드,
+            floor: el.층,
+          };
+          return sh;
+        }),
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getRTMSDataSvcAptRent(
@@ -111,34 +121,39 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const data: IMOLIT.OriginalBuildingLentInfo[] =
-      res.data.response.body.items.item;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const data: IMOLIT.OriginalBuildingLentInfo[] =
+        res.data.response.body.items.item;
 
-    return {
-      data: data.map((el) => {
-        const sh: IMOLIT.BuildingLentInfo = {
-          useOfRenewalRight: el.갱신요구권사용,
-          yearOfConstruction: el.건축년도,
-          typeOfContract: el.계약구분,
-          contractPeriod: el.계약기간,
-          year: el.년,
-          legalDistrict: el.법정동,
-          depositAmount: el.보증금액,
-          apartment: el.아파트,
-          month: el.월,
-          monthlyRentAmount: el.월세금액,
-          day: el.일,
-          exclusiveArea: el.전용면적,
-          previousContractDeposit: el.종전계약보증금,
-          previousContractMonthlyRent: el.종전계약월세,
-          lotNumber: el.지번,
-          areaCode: el.지역코드,
-          floor: el.층,
-        };
-        return sh;
-      }),
-    };
+      return {
+        data: data.map((el) => {
+          const sh: IMOLIT.BuildingLentInfo = {
+            useOfRenewalRight: el.갱신요구권사용,
+            yearOfConstruction: el.건축년도,
+            typeOfContract: el.계약구분,
+            contractPeriod: el.계약기간,
+            year: el.년,
+            legalDistrict: el.법정동,
+            depositAmount: el.보증금액,
+            apartment: el.아파트,
+            month: el.월,
+            monthlyRentAmount: el.월세금액,
+            day: el.일,
+            exclusiveArea: el.전용면적,
+            previousContractDeposit: el.종전계약보증금,
+            previousContractMonthlyRent: el.종전계약월세,
+            lotNumber: el.지번,
+            areaCode: el.지역코드,
+            floor: el.층,
+          };
+          return sh;
+        }),
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getLHLeaseInfo(
@@ -158,20 +173,25 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const [_, { dsList }] = res.data;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const [_, { dsList }] = res.data;
 
-    let nextPage: boolean = false;
-    const take = (input.numOfRows ? Number(input.numOfRows) : 10) + 1;
-    if (dsList.length === take) {
-      nextPage = true;
-      dsList.pop();
+      let nextPage: boolean = false;
+      const take = (input.numOfRows ? Number(input.numOfRows) : 10) + 1;
+      if (dsList.length === take) {
+        nextPage = true;
+        dsList.pop();
+      }
+
+      return {
+        nextPage,
+        data: dsList,
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
     }
-
-    return {
-      nextPage,
-      data: dsList,
-    };
   }
 
   export async function getParkingLot(
@@ -188,15 +208,20 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const data = res.data.response.body;
-    const parkingLots = data.items;
-    return {
-      numOfRows: Number(data.numOfRows),
-      pageNo: Number(data.pageNo),
-      totalCount: Number(data.totalCount),
-      parkingLots,
-    };
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const data = res.data.response.body;
+      const parkingLots = data.items;
+      return {
+        numOfRows: Number(data.numOfRows),
+        pageNo: Number(data.pageNo),
+        totalCount: Number(data.totalCount),
+        parkingLots,
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getBuildingInfo(
@@ -212,16 +237,21 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const data = res.data.response.body;
-    const bulidings = data.items.item;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const data = res.data.response.body;
+      const bulidings = data.items.item;
 
-    return {
-      numOfRows: Number(data.numOfRows),
-      pageNo: Number(data.pageNo),
-      totalCount: Number(data.totalCount),
-      bulidings: bulidings,
-    };
+      return {
+        numOfRows: Number(data.numOfRows),
+        pageNo: Number(data.pageNo),
+        totalCount: Number(data.totalCount),
+        bulidings: bulidings,
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getStandardRegionCodeList(
@@ -238,25 +268,31 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    const [{ head }, body] = res.data.StanReginCd;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const [{ head }, body] = res.data.StanReginCd;
 
-    return {
-      totalCount: head[0].totalCount,
-      pageNo: Number(head[1].pageNo),
-      numOfRows: Number(head[1].numOfRows),
-      rows: body.row.map(
-        (
-          el: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput["rows"][0],
-        ) => {
-          el.sigunguCd = `${el.sido_cd}${el.sgg_cd}`;
-          el.sigunguNm = el.locatadd_nm?.split(" ").slice(0, 2).join(" ") ?? "";
-          el.bjdongCd = `${el.umd_cd}${el.ri_cd}`;
+      return {
+        totalCount: head[0].totalCount,
+        pageNo: Number(head[1].pageNo),
+        numOfRows: Number(head[1].numOfRows),
+        rows: body.row.map(
+          (
+            el: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput["rows"][0],
+          ) => {
+            el.sigunguCd = `${el.sido_cd}${el.sgg_cd}`;
+            el.sigunguNm =
+              el.locatadd_nm?.split(" ").slice(0, 2).join(" ") ?? "";
+            el.bjdongCd = `${el.umd_cd}${el.ri_cd}`;
 
-          return el;
-        },
-      ),
-    };
+            return el;
+          },
+        ),
+      };
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getStockPriceInfo(
@@ -273,8 +309,13 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    return res.data;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getShortTermForecast(
@@ -304,8 +345,13 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`);
-    return res.data;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`);
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function getCopyRight(
@@ -322,11 +368,16 @@ export namespace OpenDataProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
-    const res = await axios.get(`${baseUrl}?${queryString}`, {
-      headers: {
-        Authorization: decoded,
-      },
-    });
-    return res.data;
+    try {
+      const res = await axios.get(`${baseUrl}?${queryString}`, {
+        headers: {
+          Authorization: decoded,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }

@@ -10,11 +10,17 @@ export namespace KakaoMapProvider {
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
     const url = `https://dapi.kakao.com/v2/local/search/keyword.JSON?${queryString}`;
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `KakaoAK ${ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID}`,
-      },
-    });
-    return res.data;
+
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `KakaoAK ${ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }
