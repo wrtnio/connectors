@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'src/api/structures/**'
-      - 'src/controllers/**'
+      - "src/api/structures/**"
+      - "src/controllers/**"
 
 jobs:
   version_bump:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: 20.x
 
       - name: Bump version
         run: |
@@ -26,3 +26,20 @@ jobs:
           git config --local user.name "GitHub Actions"
           npm version patch -m "Bump version to %s [skip ci]"
           git push --follow-tags
+
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+
+      - name: Build
+        working-directory: website
+        run: npm install && npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./website/out
