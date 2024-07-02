@@ -19,8 +19,8 @@ export namespace OpenAiConverter {
     options: IOptions;
     migrated?: IMigrateDocument;
   }): IOpenAiDocument => {
-    const migrated: IMigrateDocument = props.migrated 
-      ? props.migrated 
+    const migrated: IMigrateDocument = props.migrated
+      ? props.migrated
       : OpenApi.migrate(props.document);
     const functions: IOpenAiDocument.IFunction[] = migrated.routes
       .map(convertFunction(props.options)(props.document.components))
@@ -63,35 +63,50 @@ export namespace OpenAiConverter {
       if (Object.values(parameter.properties).some((v) => v === null))
         return null;
 
-      const output: OpenApi.IJsonSchema | null | undefined = 
-        route.success ? escape(route.success.schema) : undefined;
+      const output: OpenApi.IJsonSchema | null | undefined = route.success
+        ? escape(route.success.schema)
+        : undefined;
       if (output === null) return null;
 
+      const operation: OpenApi.IOperation = route.operation();
       return {
         method: typia.assert<OpenApiV3.Method>(route.method),
         path: route.path,
         name: route.accessor.join("_"),
-        parameters: options.isKeywordParameter 
+        parameters: options.isKeywordParameter
           ? [
-            OpenApiV3Downgrader.downgradeSchema({
-            original: {},
-            downgraded: {},
-            })(parameter) as OpenApiV3.IJsonSchema.IObject,
-          ] 
-          : Object.values(parameter.properties).map(
-            v => OpenApiV3Downgrader.downgradeSchema(
-              {
+              OpenApiV3Downgrader.downgradeSchema({
+                original: {},
+                downgraded: {},
+              })(parameter) as OpenApiV3.IJsonSchema.IObject,
+            ]
+          : Object.values(parameter.properties).map((v) =>
+              OpenApiV3Downgrader.downgradeSchema({
                 original: {},
                 downgraded: {},
               })(v as any),
             ),
-        output: output ? OpenApiV3Downgrader.downgradeSchema({
-          original: {},
-          downgraded: {},
-        })(output) : undefined,
-        description: route.comment(),
+        output: output
+          ? OpenApiV3Downgrader.downgradeSchema({
+              original: {},
+              downgraded: {},
+            })(output)
+          : undefined,
+        description: (() => {
+          if (operation.summary && operation.description) {
+            return operation.description.startsWith(operation.summary)
+              ? operation.description
+              : [
+                  operation.summary,
+                  operation.summary.endsWith(".") ? "" : ".",
+                  "\n\n",
+                  operation.description,
+                ].join("");
+          }
+          return operation.description ?? operation.summary;
+        })(),
         route: () => route,
-        operation:() => route.operation(),
+        operation: () => route.operation(),
       };
     };
 
