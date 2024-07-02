@@ -27,6 +27,9 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
+      - name: Root Install
+        run: npm install
+
       - name: Build
         working-directory: website
         run: npm install && npm run build
