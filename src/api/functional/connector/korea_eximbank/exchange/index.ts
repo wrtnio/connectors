@@ -14,6 +14,7 @@ import type { IKoreaEximbank } from "../../../../structures/connector/korea_exim
  *
  * @summary 한국 수출입 은행 현재 환율 조회
  * @returns 환율 정보
+ * @internal
  *
  * @controller KoreaEximbankController.getExchange
  * @path GET /connector/korea-eximbank/exchange
