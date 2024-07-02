@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/api/structures/**'
+      - 'src/controllers/**'
 
 jobs:
   version_bump:
