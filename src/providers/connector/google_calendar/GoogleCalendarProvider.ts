@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { google } from "googleapis";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -12,14 +12,15 @@ export class GoogleCalendarProvider {
   async calendarList(
     input: ICommon.ISecret<"google", any>,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const calendar = google.calendar({ version: "v3", auth: authClient });
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const calendar = google.calendar({ version: "v3", auth: authClient });
       const res = await calendar.calendarList.list();
       const calendarList = res.data.items;
       if (!calendarList) {
@@ -35,25 +36,24 @@ export class GoogleCalendarProvider {
       }
       return output;
     } catch (error) {
-      throw new HttpException(
-        "Failed to read calendar list",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
   async createCalendar(
     input: IGoogleCalendar.ICreateCalendarInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const calendar = google.calendar({ version: "v3", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const calendar = google.calendar({ version: "v3", auth: authClient });
+
       const res = await calendar.calendars.insert({
         requestBody: {
           summary: input.title,
@@ -67,10 +67,8 @@ export class GoogleCalendarProvider {
       };
       return output;
     } catch (error) {
-      throw new HttpException(
-        "Failed to create calendar",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -78,20 +76,19 @@ export class GoogleCalendarProvider {
     calendarId: string,
     input: ICommon.ISecret<"google", any>,
   ): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const calendar = google.calendar({ version: "v3", auth: authClient });
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const calendar = google.calendar({ version: "v3", auth: authClient });
       await calendar.calendars.delete({ calendarId: calendarId });
-    } catch (err) {
-      throw new HttpException(
-        "Failed to delete calendar",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (error) {
+      console.error(JSON.stringify(error, null, 2));
+      throw error;
     }
   }
 
@@ -99,14 +96,15 @@ export class GoogleCalendarProvider {
     calendarId: string,
     input: IGoogleCalendar.IReadGoogleCalendarEventInput,
   ): Promise<IGoogleCalendar.IReadGoogleCalendarEventOutput> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const calendar = google.calendar({ version: "v3", auth: authClient });
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const calendar = google.calendar({ version: "v3", auth: authClient });
       const extract_fields = input.extract_fields?.join(",");
       const response = await calendar.events.list({
         calendarId: calendarId,
@@ -139,10 +137,8 @@ export class GoogleCalendarProvider {
         events: output,
       };
     } catch (error) {
-      throw new HttpException(
-        "Failed to read event list",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -150,24 +146,20 @@ export class GoogleCalendarProvider {
     calendarId: string,
     input: IGoogleCalendar.ICreateQuickEventInput,
   ): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const calendar = google.calendar({ version: "v3", auth: authClient });
     try {
-      const params = {
-        calendarId: calendarId,
-        text: input.text,
-      };
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const calendar = google.calendar({ version: "v3", auth: authClient });
+      const params = { calendarId: calendarId, text: input.text };
       await calendar.events.quickAdd(params);
     } catch (error) {
-      throw new HttpException(
-        "Failed to create quick event",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -175,15 +167,16 @@ export class GoogleCalendarProvider {
     calendarId: string,
     input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const calendar = google.calendar({ version: "v3", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const calendar = google.calendar({ version: "v3", auth: authClient });
+
       const event = await calendar.events.insert({
         calendarId: calendarId,
         conferenceDataVersion: input.isConferencing === true ? 1 : 0,
@@ -192,10 +185,8 @@ export class GoogleCalendarProvider {
 
       return this.parseEventInfo(event);
     } catch (error) {
-      throw new HttpException(
-        "Failed to create  event",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -222,10 +213,8 @@ export class GoogleCalendarProvider {
 
       return this.parseEventInfo(event);
     } catch (error) {
-      throw new HttpException(
-        "Failed to update event",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -264,10 +253,8 @@ export class GoogleCalendarProvider {
 
       return this.parseEventInfo(event);
     } catch (error) {
-      throw new HttpException(
-        "Failed to add attendees in event",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -289,10 +276,8 @@ export class GoogleCalendarProvider {
         eventId: eventId,
       });
     } catch (error) {
-      throw new HttpException(
-        "Failed to delete event",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      console.error(error);
+      throw error;
     }
   }
 
@@ -370,16 +355,16 @@ export class GoogleCalendarProvider {
             useDefault: isUseDefaultReminder,
           }
         : remindersType && minutesBeforeReminders
-        ? {
-            useDefault: false,
-            overrides: [
-              {
-                method: remindersType,
-                minutes: minutesBeforeReminders,
-              },
-            ],
-          }
-        : undefined,
+          ? {
+              useDefault: false,
+              overrides: [
+                {
+                  method: remindersType,
+                  minutes: minutesBeforeReminders,
+                },
+              ],
+            }
+          : undefined,
     };
 
     /**

@@ -34,28 +34,28 @@ export namespace NaverProvider {
       );
 
       return { data: res.data };
-    } catch (e) {
-      console.log(e);
-      throw e;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
   export async function getBlog(
     input: INaver.INaverKeywordInput,
   ): Promise<INaver.IBlogNaverOutput> {
-    const {
-      andKeywords,
-      orKeywords,
-      notKeywords,
-      display = 10,
-      sort = "sim",
-    } = input;
-    const query = makeQuery(
-      andKeywords.split(","),
-      orKeywords?.split(",") ?? [],
-      notKeywords?.split(",") ?? [],
-    );
     try {
+      const {
+        andKeywords,
+        orKeywords,
+        notKeywords,
+        display = 10,
+        sort = "sim",
+      } = input;
+      const query = makeQuery(
+        andKeywords.split(","),
+        orKeywords?.split(",") ?? [],
+        notKeywords?.split(",") ?? [],
+      );
       const res = await axios.get(
         `https://openapi.naver.com/v1/search/blog.json?query=${query}&sort=${sort}&display=${display}`,
         {
@@ -64,9 +64,9 @@ export namespace NaverProvider {
       );
 
       return res.data;
-    } catch (e) {
-      console.log(e);
-      throw e;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 

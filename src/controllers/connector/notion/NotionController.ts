@@ -123,7 +123,7 @@ export class NotionController {
   async readPageList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IReadPageOutput[]> {
-    return retry(NotionProvider.readPageList)(input);
+    return retry(() => NotionProvider.readPageList(input))();
   }
 
   /**
@@ -180,7 +180,7 @@ export class NotionController {
   async getUsers(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IUserOutput[]> {
-    return retry(NotionProvider.getUsers)(input);
+    return retry(() => NotionProvider.getUsers(input))();
   }
 
   /**
@@ -240,7 +240,7 @@ export class NotionController {
     @core.TypedParam("pageId") pageId: string,
     @core.TypedBody() input: INotion.IAppendPageToContentInput,
   ): Promise<void> {
-    return NotionProvider.appendPageToContent(pageId, input);
+    return retry(() => NotionProvider.appendPageToContent(pageId, input))();
   }
 
   /**
@@ -297,7 +297,7 @@ export class NotionController {
   async getDatabaseListInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
   ): Promise<INotion.IDatabaseInfo[]> {
-    return retry(NotionProvider.getDatabaseListInfo)(input);
+    return retry(() => NotionProvider.getDatabaseListInfo(input))();
   }
 
   /**
@@ -357,7 +357,7 @@ export class NotionController {
     @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
-    return retry(NotionProvider.getDatabaseInfo)(input, databaseId);
+    return retry(() => NotionProvider.getDatabaseInfo(input, databaseId))();
   }
 
   /**
@@ -481,7 +481,7 @@ export class NotionController {
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     @core.TypedParam("pageId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(NotionProvider.updateDatabaseItem)(input, databaseId);
+    return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
   }
 
   /**
@@ -540,7 +540,7 @@ export class NotionController {
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
   ): Promise<INotion.IFindPageByTitleOutput> {
-    return retry(NotionProvider.findPageByTitle)(input);
+    return retry(() => NotionProvider.findPageByTitle(input))();
   }
 
   /**
@@ -600,7 +600,9 @@ export class NotionController {
     @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
-    return retry(NotionProvider.findDatabaseItemList)(input, databaseId);
+    return retry(() =>
+      NotionProvider.findDatabaseItemList(input, databaseId),
+    )();
   }
 
   /**
@@ -662,6 +664,6 @@ export class NotionController {
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     @core.TypedParam("databaseId") databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(NotionProvider.findDatabaseItem)(input, databaseId);
+    return retry(() => NotionProvider.findDatabaseItem(input, databaseId))();
   }
 }

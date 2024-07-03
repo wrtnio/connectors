@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
 
 import { GoogleCalendarProvider } from "../../../providers/connector/google_calendar/GoogleCalendarProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-calendar")
 export class GoogleCalendarController {
@@ -91,7 +92,7 @@ export class GoogleCalendarController {
       ["https://www.googleapis.com/auth/calendar"]
     >,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
-    return this.googleCalendarProvider.calendarList(input);
+    return retry(() => this.googleCalendarProvider.calendarList(input))();
   }
 
   /**
@@ -171,7 +172,7 @@ export class GoogleCalendarController {
   async createCalendar(
     @core.TypedBody() input: IGoogleCalendar.ICreateCalendarInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput> {
-    return this.googleCalendarProvider.createCalendar(input);
+    return retry(() => this.googleCalendarProvider.createCalendar(input))();
   }
 
   /**
@@ -260,7 +261,9 @@ export class GoogleCalendarController {
       ["https://www.googleapis.com/auth/calendar"]
     >,
   ): Promise<void> {
-    return this.googleCalendarProvider.deleteCalendar(calendarId, input);
+    return retry(() =>
+      this.googleCalendarProvider.deleteCalendar(calendarId, input),
+    )();
   }
 
   /**
@@ -349,7 +352,9 @@ export class GoogleCalendarController {
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IReadGoogleCalendarEventInput,
   ): Promise<IGoogleCalendar.IReadGoogleCalendarEventOutput> {
-    return this.googleCalendarProvider.eventList(calendarId, input);
+    return retry(() =>
+      this.googleCalendarProvider.eventList(calendarId, input),
+    )();
   }
 
   /**
@@ -436,7 +441,9 @@ export class GoogleCalendarController {
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.ICreateQuickEventInput,
   ): Promise<void> {
-    return this.googleCalendarProvider.createQuickEvent(calendarId, input);
+    return retry(() =>
+      this.googleCalendarProvider.createQuickEvent(calendarId, input),
+    )();
   }
 
   /**
@@ -525,7 +532,9 @@ export class GoogleCalendarController {
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    return this.googleCalendarProvider.createEvent(calendarId, input);
+    return retry(() =>
+      this.googleCalendarProvider.createEvent(calendarId, input),
+    )();
   }
 
   /**
@@ -625,7 +634,9 @@ export class GoogleCalendarController {
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    return this.googleCalendarProvider.updateEvent(calendarId, eventId, input);
+    return retry(() =>
+      this.googleCalendarProvider.updateEvent(calendarId, eventId, input),
+    )();
   }
 
   /**
@@ -725,11 +736,13 @@ export class GoogleCalendarController {
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IAddAttendeesToEventInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    return this.googleCalendarProvider.addAttendeesToEvent(
-      calendarId,
-      eventId,
-      input,
-    );
+    return retry(() =>
+      this.googleCalendarProvider.addAttendeesToEvent(
+        calendarId,
+        eventId,
+        input,
+      ),
+    )();
   }
 
   /**
@@ -829,6 +842,8 @@ export class GoogleCalendarController {
       ["https://www.googleapis.com/auth/calendar"]
     >,
   ): Promise<void> {
-    return this.googleCalendarProvider.deleteEvent(calendarId, eventId, input);
+    return retry(() =>
+      this.googleCalendarProvider.deleteEvent(calendarId, eventId, input),
+    )();
   }
 }

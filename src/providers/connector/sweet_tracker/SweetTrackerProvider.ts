@@ -6,38 +6,51 @@ export namespace SweetTrackerProvider {
   export async function getRecommendedCompanyList(
     input: ISweetTracker.IGetRecommendedCompanyListInput,
   ): Promise<ISweetTracker.IGetRecommendedCompanyListOutput> {
-    const queryParams =
-      Object.entries(input)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&") ?? "";
+    try {
+      const queryParams =
+        Object.entries(input)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&") ?? "";
 
-    const res = await axios.get(
-      `https://info.sweettracker.co.kr/api/v1/recommend?${queryParams}`,
-    );
+      const res = await axios.get(
+        `https://info.sweettracker.co.kr/api/v1/recommend?${queryParams}`,
+      );
 
-    return res.data;
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   export async function getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
-    const res = await axios.get(
-      "https://info.sweettracker.co.kr/api/v1/companylist/refresh",
-    );
-
-    return res.data;
+    try {
+      const res = await axios.get(
+        "https://info.sweettracker.co.kr/api/v1/companylist/refresh",
+      );
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   export async function getTrackingInfo(
     input: ISweetTracker.IGetTrackingInfoInput,
   ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
-    const queryParams =
-      Object.entries(input)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&") ?? "";
+    try {
+      const queryParams =
+        Object.entries(input)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&") ?? "";
 
-    const res = await axios.get(
-      `https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`,
-    );
-
-    return res.data;
+      const res = await axios.get(
+        `https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`,
+      );
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }

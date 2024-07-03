@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtn/decorators";
 import { IHwp } from "@wrtn/connector-api/lib/structures/connector/hwp/IHwp";
 
 import { HwpProvider } from "../../../providers/connector/hwp/HwpProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/hwp")
 export class HwpController {
@@ -87,6 +88,6 @@ export class HwpController {
   async parseHwp(
     @core.TypedBody() input: IHwp.IParseInput,
   ): Promise<IHwp.IParseOutput> {
-    return await this.hwpProvider.parseHwp(input);
+    return retry(() => this.hwpProvider.parseHwp(input))();
   }
 }

@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 
 import { DaumProvider } from "../../../providers/connector/daum/DaumProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/daum")
 export class DaumController {
@@ -63,7 +64,7 @@ export class DaumController {
   async searchBlog(
     @core.TypedBody() input: IDaum.ISearchDaumInput,
   ): Promise<IDaum.IBlogDaumOutput> {
-    return await DaumProvider.searchBlog(input);
+    return retry(() => DaumProvider.searchBlog(input))();
   }
 
   /**
@@ -113,6 +114,6 @@ export class DaumController {
   async searchCafe(
     @core.TypedBody() input: IDaum.ISearchDaumInput,
   ): Promise<IDaum.ICafeDaumOutput> {
-    return await DaumProvider.searchCafe(input);
+    return retry(() => DaumProvider.searchCafe(input))();
   }
 }

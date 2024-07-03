@@ -6,6 +6,7 @@ import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector
 import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";
 
 import { YoutubeSearchProvider } from "../../../providers/connector/youtube_search/YoutubeSearchProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/youtube-search")
 export class YoutubeSearchController {
@@ -103,6 +104,6 @@ export class YoutubeSearchController {
   async search(
     @core.TypedBody() input: IYoutubeSearch.ISearchInput,
   ): Promise<IConnector.ISearchOutput> {
-    return YoutubeSearchProvider.search(input);
+    return retry(YoutubeSearchProvider.search)(input);
   }
 }

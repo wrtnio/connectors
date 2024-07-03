@@ -9,23 +9,27 @@ export namespace KakaoTalkProvider {
   export async function getFriends(
     input: IKakaoTalk.IGetFriendsInput,
   ): Promise<IKakaoTalk.IGetFriendsOutput> {
-    const { secretKey, ...getEventQueryParam } = input;
-    const queryParams = Object.entries(getEventQueryParam)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+    try {
+      const { secretKey, ...getEventQueryParam } = input;
+      const queryParams = Object.entries(getEventQueryParam)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
 
-    const accessToken = await KakaoTalkProvider.refresh({
-      refresh_token: secretKey,
-    });
+      const accessToken = await KakaoTalkProvider.refresh({
+        refresh_token: secretKey,
+      });
 
-    const url = `https://kapi.kakao.com/v1/api/talk/friends?${queryParams}`;
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `bearer ${accessToken.access_token}`,
-      },
-    });
-
-    return res.data;
+      const url = `https://kapi.kakao.com/v1/api/talk/friends?${queryParams}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `bearer ${accessToken.access_token}`,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function createEvent(
@@ -53,9 +57,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
@@ -84,7 +88,7 @@ export namespace KakaoTalkProvider {
 
       return res.data;
     } catch (err) {
-      console.error(err);
+      console.log("err", err);
       throw err;
     }
   }
@@ -92,42 +96,52 @@ export namespace KakaoTalkProvider {
   export async function getCalendars(
     input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
   ): Promise<IKakaoTalk.IGetCalendarOutput> {
-    const accessToken = await KakaoTalkProvider.refresh({
-      refresh_token: input.secretKey,
-    });
+    try {
+      const accessToken = await KakaoTalkProvider.refresh({
+        refresh_token: input.secretKey,
+      });
 
-    const res = await axios.get(
-      "https://kapi.kakao.com/v2/api/calendar/calendars",
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `bearer ${accessToken.access_token}`,
+      const res = await axios.get(
+        "https://kapi.kakao.com/v2/api/calendar/calendars",
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `bearer ${accessToken.access_token}`,
+          },
         },
-      },
-    );
+      );
 
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function refresh(
     input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
-    const res = await axios.post(
-      "https://kauth.kakao.com/oauth/token",
-      {
-        grant_type: "refresh_token",
-        client_id: ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID,
-        refresh_token: input.refresh_token,
-        client_secret: ConnectorGlobal.env.KAKAO_TALK_CLIENT_SECRET,
-      },
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+    try {
+      const res = await axios.post(
+        "https://kauth.kakao.com/oauth/token",
+        {
+          grant_type: "refresh_token",
+          client_id: ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID,
+          refresh_token: input.refresh_token,
+          client_secret: ConnectorGlobal.env.KAKAO_TALK_CLIENT_SECRET,
         },
-      },
-    );
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        },
+      );
 
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 
   export async function send(
@@ -162,9 +176,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
@@ -195,9 +209,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 }

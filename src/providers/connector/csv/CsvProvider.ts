@@ -13,34 +13,39 @@ export namespace CsvProvider {
   export async function read(
     input: ICsv.IReadInput,
   ): Promise<ICsv.IReadOutput> {
-    const { s3Url, delimiter } = input;
-    const s3 = new AWS.S3();
-    const match = s3Url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
-    );
+    try {
+      const { s3Url, delimiter } = input;
+      const s3 = new AWS.S3();
+      const match = s3Url.match(
+        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+      );
 
-    const body: string = await (async (): Promise<string> => {
-      if (match) {
-        const bucket = match[1];
-        const fileName = match[3];
-        const params = {
-          Bucket: bucket,
-          Key: fileName,
-        };
-        const response = await s3.getObject(params).promise();
-        return response.Body?.toString() ?? "";
-      } else {
-        const response: Response = await fetch(s3Url);
-        return response.text();
-      }
-    })();
-    const res = parse(body, {
-      columns: true,
-      delimiter: delimiter,
-      relaxColumnCount: true,
-    });
+      const body: string = await (async (): Promise<string> => {
+        if (match) {
+          const bucket = match[1];
+          const fileName = match[3];
+          const params = {
+            Bucket: bucket,
+            Key: fileName,
+          };
+          const response = await s3.getObject(params).promise();
+          return response.Body?.toString() ?? "";
+        } else {
+          const response: Response = await fetch(s3Url);
+          return response.text();
+        }
+      })();
+      const res = parse(body, {
+        columns: true,
+        delimiter: delimiter,
+        relaxColumnCount: true,
+      });
 
-    return { data: res };
+      return { data: res };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   export async function write(

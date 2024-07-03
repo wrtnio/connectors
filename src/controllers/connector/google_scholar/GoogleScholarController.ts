@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IGoogleScholar } from "@wrtn/connector-api/lib/structures/connector/google_scholar/IGoogleScholar";
 
 import { GoogleScholarProvider } from "../../../providers/connector/google_scholar/GoogleScholarProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-scholar")
 export class GoogleScholarController {
@@ -214,6 +215,6 @@ export class GoogleScholarController {
   async search(
     @core.TypedBody() input: IGoogleScholar.ISearchInput,
   ): Promise<IGoogleScholar.ISearchOutput[]> {
-    return GoogleScholarProvider.search(input);
+    return retry(() => GoogleScholarProvider.search(input))();
   }
 }

@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IKeywordExtraction } from "@wrtn/connector-api/lib/structures/connector/extract/IKeywordExtractor";
 
 import { KeywordExtractorProvider } from "../../../providers/connector/extract/KeywordExtractorProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/extract/keyword")
 export class KeywordExtractController {
@@ -24,6 +25,6 @@ export class KeywordExtractController {
   async extractKeyword(
     @core.TypedBody() input: IKeywordExtraction.IExtractKeywordInput,
   ): Promise<IKeywordExtraction.IExtractKeywordOutput> {
-    return await this.keywordExtractProvider.extractKeyword(input);
+    return retry(() => this.keywordExtractProvider.extractKeyword(input))();
   }
 }

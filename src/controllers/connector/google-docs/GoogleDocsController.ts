@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
 import { GoogleDocsProvider } from "../../../providers/connector/google_docs/GoogleDocsProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-docs")
 export class GoogleDocsController {
@@ -84,7 +85,7 @@ export class GoogleDocsController {
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
   ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
-    return await this.googleDocsProvider.createDocs(input);
+    return retry(() => this.googleDocsProvider.createDocs(input))();
   }
 
   /**
@@ -158,7 +159,7 @@ export class GoogleDocsController {
   async permission(
     @core.TypedBody() input: IGoogleDocs.IPermissionGoogleDocsInput,
   ): Promise<void> {
-    return await this.googleDocsProvider.permission(input);
+    return retry(() => this.googleDocsProvider.permission(input))();
   }
 
   /**
@@ -251,7 +252,7 @@ export class GoogleDocsController {
       ]
     >,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
-    return await this.googleDocsProvider.readDocs(id, input);
+    return retry(() => this.googleDocsProvider.readDocs(id, input))();
   }
 
   /**
@@ -327,7 +328,7 @@ export class GoogleDocsController {
   async createDocByTemplate(
     @core.TypedBody() input: IGoogleDocs.ICreateDocByTemplateInput,
   ): Promise<IGoogleDocs.ICreateDocByTemplateOutput> {
-    return await this.googleDocsProvider.createDocByTemplate(input);
+    return retry(() => this.googleDocsProvider.createDocByTemplate(input))();
   }
 
   /**
@@ -416,7 +417,7 @@ export class GoogleDocsController {
       ]
     >,
   ): Promise<void> {
-    return await this.googleDocsProvider.deleteById(id, input);
+    return retry(() => this.googleDocsProvider.deleteById(id, input))();
   }
 
   /**
@@ -498,7 +499,7 @@ export class GoogleDocsController {
       ]
     >,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
-    return await this.googleDocsProvider.list(input);
+    return retry(() => this.googleDocsProvider.list(input))();
   }
 
   /**
@@ -570,6 +571,6 @@ export class GoogleDocsController {
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
   ): Promise<void> {
-    return await this.googleDocsProvider.append(input);
+    return retry(() => this.googleDocsProvider.append(input))();
   }
 }

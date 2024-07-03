@@ -24,26 +24,33 @@ export namespace YoutubeSearchProvider {
       ...defaultParams,
       search_query: searchQuery,
     };
-    const res = await getJson(params);
-    const results: IYoutubeSearch.ISerpApiVideoResult[] = res["video_results"];
-    const output: IConnector.IReferenceContent[] = [];
 
-    for (const result of results) {
-      const youtubeSearch: IConnector.IReferenceContent = {
-        title: result.title,
-        type: "video",
-        source: "youtube",
-        url: result.link,
-        contents: result.description,
-        image: result.thumbnail.static,
-        statistics: {
-          view_count: Number(result.views ?? 0), // 조회 수 데이터 undefined로 결과가 나오는 경우가 있어서 0으로 처리
-        },
+    try {
+      const res = await getJson(params);
+      const results: IYoutubeSearch.ISerpApiVideoResult[] =
+        res["video_results"];
+      const output: IConnector.IReferenceContent[] = [];
+
+      for (const result of results) {
+        const youtubeSearch: IConnector.IReferenceContent = {
+          title: result.title,
+          type: "video",
+          source: "youtube",
+          url: result.link,
+          contents: result.description,
+          image: result.thumbnail.static,
+          statistics: {
+            view_count: Number(result.views ?? 0), // 조회 수 데이터 undefined로 결과가 나오는 경우가 있어서 0으로 처리
+          },
+        };
+        output.push(youtubeSearch);
+      }
+      return {
+        references: output,
       };
-      output.push(youtubeSearch);
+    } catch (err) {
+      console.log("err", err);
+      throw err;
     }
-    return {
-      references: output,
-    };
   }
 }

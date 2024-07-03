@@ -1,7 +1,6 @@
-import { authenticate } from "@google-cloud/local-auth";
 import { Injectable } from "@nestjs/common";
-import * as fs from "fs/promises";
-import { Auth, gmail_v1, google } from "googleapis";
+
+import { gmail_v1, google } from "googleapis";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
@@ -14,15 +13,16 @@ export class GmailProvider {
   async sendEmail(
     input: IGmail.ICreateMailInput,
   ): Promise<IGmail.ISendMailOutput> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       const emailLines = [
         `To: ${input.to.join(",")}`,
         `From: me`,
@@ -56,21 +56,22 @@ export class GmailProvider {
       }
       return { id };
     } catch (error) {
-      console.error("Error sending mail:", error);
+      console.error(error);
       throw error;
     }
   }
 
   async createDraft(input: IGmail.ICreateMailInput): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       const emailLines = [
         `To: ${input.to.join(",")}`,
         `From: me`,
@@ -101,21 +102,22 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error("Error Draft mail:", error);
+      console.error(error);
       throw error;
     }
   }
 
   async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       /**
        * 원본 이메일 정보 가져오기
        */
@@ -157,21 +159,22 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error("Error replying to email:", error);
+      console.error(error);
       throw error;
     }
   }
 
   async createLabel(input: IGmail.ILabelInput): Promise<IGmail.ILabelOutput> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       const res = await gmail.users.labels.create({
         userId: "me",
         requestBody: {
@@ -187,7 +190,7 @@ export class GmailProvider {
       }
       return { id };
     } catch (error) {
-      console.error("Error creating label:", error);
+      console.error(error);
       throw error;
     }
   }
@@ -196,15 +199,16 @@ export class GmailProvider {
     mailId: string,
     input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       await gmail.users.messages.modify({
         userId: "me",
         id: mailId,
@@ -213,7 +217,7 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error("Error adding labels to message:", error);
+      console.error(error);
       throw error;
     }
   }
@@ -222,15 +226,16 @@ export class GmailProvider {
     mailId: string,
     input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       await gmail.users.messages.modify({
         userId: "me",
         id: mailId,
@@ -239,7 +244,7 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error("Error removing labels to message:", error);
+      console.error(error);
       throw error;
     }
   }
@@ -248,22 +253,23 @@ export class GmailProvider {
     id: string,
     input: ICommon.ISecret<"google", any>,
   ): Promise<IGmail.IFindGmailOutput> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       if (!id) {
         throw new Error("Email ID is required");
       }
       const emailData = await this.getEmailData(gmail, id);
       return emailData;
     } catch (error) {
-      console.log("Get Email error: ", error);
+      console.error(error);
       throw error;
     }
   }
@@ -271,14 +277,15 @@ export class GmailProvider {
   async findEmails(
     input: IGmail.IFindEmailListInput,
   ): Promise<IGmail.IFindGmailListOutput> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
       const query = this.makeQueryForGetGmail(input);
       const response = await gmail.users.messages.list({
         userId: "me",
@@ -309,7 +316,7 @@ export class GmailProvider {
         };
       }
     } catch (error) {
-      console.error("Error finding emails:", error);
+      console.error(error);
       throw error;
     }
   }
@@ -320,15 +327,16 @@ export class GmailProvider {
     id: string,
     input: ICommon.ISecret<"google", any>,
   ): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const gmail = google.gmail({ version: "v1", auth: authClient });
-
     try {
+      const secretKey = input.secretKey;
+      const accessToken =
+        await this.googleProvider.refreshAccessToken(secretKey);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
       if (!id) {
         throw new Error("Email ID is required");
       }
@@ -338,7 +346,7 @@ export class GmailProvider {
         id: id,
       });
     } catch (error) {
-      console.error("Error deleting email:", error);
+      console.error(error);
       throw error;
     }
   }

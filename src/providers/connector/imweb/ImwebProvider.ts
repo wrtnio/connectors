@@ -17,18 +17,23 @@ export namespace ImwebProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
   }
 
   export async function getAccessToken(
     input: IImweb.Credential,
   ): Promise<IImweb.IGetAccessTokenOutput> {
-    const res = await axios.get(
-      `https://api.imweb.me/v2/auth?key=${input.key}&secret=${input.secret}`,
-    );
-    return res.data;
+    try {
+      const res = await axios.get(
+        `https://api.imweb.me/v2/auth?key=${input.key}&secret=${input.secret}`,
+      );
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }

@@ -19,21 +19,24 @@ export class DallE3Provider {
     private httpService: HttpService,
   ) {}
   async generateImage(input: IDallE3.IRequest): Promise<IDallE3.IResponse> {
-    const translateResult = await this.DallE3Completion(
-      "dall-e-3",
-      input.prompt,
-    );
-    const res = await this.openAIProvider.generateImage(
-      translateResult,
-      input.image_ratio,
-    );
-    const data = await firstValueFrom(
-      this.httpService.get(res.url, { responseType: "arraybuffer" }),
-    );
-    const { imgUrl } = await this.uploadDallE3ToS3(data.data);
-    return {
-      imgUrl: imgUrl,
-    };
+    try {
+      const translateResult = await this.DallE3Completion(
+        "dall-e-3",
+        input.prompt,
+      );
+      const res = await this.openAIProvider.generateImage(
+        translateResult,
+        input.image_ratio,
+      );
+      const data = await firstValueFrom(
+        this.httpService.get(res.url, { responseType: "arraybuffer" }),
+      );
+      const { imgUrl } = await this.uploadDallE3ToS3(data.data);
+      return { imgUrl: imgUrl };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async uploadDallE3ToS3(img: Buffer) {
@@ -62,22 +65,28 @@ export class DallE3Provider {
       model,
       message,
     );
-    /**
-     * 햄릿 통해서 한글 입력 영어로 변환
-     */
-    const hamletResponse = await axios.post(
-      `${ConnectorGlobal.env.HAMLET_URL}${ConnectorGlobal.env.HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT}`,
-      {
-        messages: gptPrompt.messages,
-      },
-      {
-        headers: {
-          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
-            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+
+    try {
+      /**
+       * 햄릿 통해서 한글 입력 영어로 변환
+       */
+      const hamletResponse = await axios.post(
+        `${ConnectorGlobal.env.HAMLET_URL}${ConnectorGlobal.env.HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT}`,
+        {
+          messages: gptPrompt.messages,
         },
-      },
-    );
-    const content = hamletResponse?.data.choices?.[0].message?.content;
-    return content;
+        {
+          headers: {
+            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
+              ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+          },
+        },
+      );
+      const content = hamletResponse?.data.choices?.[0].message?.content;
+      return content;
+    } catch (err) {
+      console.log("err", err);
+      throw err;
+    }
   }
 }

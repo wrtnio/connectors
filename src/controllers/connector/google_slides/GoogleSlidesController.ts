@@ -5,6 +5,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
@@ -58,9 +59,11 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
-    return this.googleSlideProvider.createPowerPoint(presentationId, {
-      secretKey: input.secretKey,
-    });
+    return retry(() =>
+      this.googleSlideProvider.createPowerPoint(presentationId, {
+        secretKey: input.secretKey,
+      }),
+    )();
   }
 
   /**
@@ -110,7 +113,7 @@ export class GoogleSlidesController {
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
   ): Promise<IGoogleSlides.Presentation> {
-    return this.googleSlideProvider.getPresentation(input);
+    return retry(() => this.googleSlideProvider.getPresentation(input))();
   }
 
   @core.TypedRoute.Put("presentations/:id/image-slide")
@@ -118,7 +121,9 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.Presentation> {
-    return this.googleSlideProvider.appendImageSlide(presentationId, input);
+    return retry(() =>
+      this.googleSlideProvider.appendImageSlide(presentationId, input),
+    )();
   }
 
   /**
@@ -168,6 +173,6 @@ export class GoogleSlidesController {
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.Presentation> {
-    return this.googleSlideProvider.createPresentation(input);
+    return retry(() => this.googleSlideProvider.createPresentation(input))();
   }
 }

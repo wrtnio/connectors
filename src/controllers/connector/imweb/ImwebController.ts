@@ -5,6 +5,7 @@ import { Standalone } from "@wrtn/decorators";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/imweb")
 export class ImwebController {
@@ -21,7 +22,7 @@ export class ImwebController {
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
   ): Promise<IImweb.IGetProductOutput> {
-    return ImwebProvider.getProducts(input);
+    return retry(() => ImwebProvider.getProducts(input))();
   }
 
   /**
@@ -36,6 +37,6 @@ export class ImwebController {
   async authorization(
     @TypedBody() input: IImweb.Credential,
   ): Promise<IImweb.IGetAccessTokenOutput> {
-    return ImwebProvider.getAccessToken(input);
+    return retry(() => ImwebProvider.getAccessToken(input))();
   }
 }

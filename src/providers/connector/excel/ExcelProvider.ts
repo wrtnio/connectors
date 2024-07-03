@@ -34,146 +34,161 @@ export namespace ExcelProvider {
   export async function readSheets(
     input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
-    const { fileUrl } = input;
+    try {
+      const { fileUrl } = input;
 
-    const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-    const command = new GetObjectCommand({
-      Bucket: bucket,
-      Key: key,
-    });
-
-    const { Body } = await ExcelProvider.s3.send(command);
-
-    if (!Body) {
-      throw new NotFoundException("Not existing excel file");
-    }
-    const chunks = [];
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    for await (const chunk of Body) {
-      chunks.push(chunk);
-    }
-    const buffer = Buffer.concat(chunks);
-
-    const workbook = new Excel.Workbook();
-    await workbook.xlsx.load(buffer);
-
-    const result: { id: number; sheetName: string }[] = [];
-    workbook.eachSheet((sheet, id) => {
-      result.push({
-        id,
-        sheetName: sheet.name,
+      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
+      const command = new GetObjectCommand({
+        Bucket: bucket,
+        Key: key,
       });
-    });
 
-    return { data: result };
+      const { Body } = await ExcelProvider.s3.send(command);
+
+      if (!Body) {
+        throw new NotFoundException("Not existing excel file");
+      }
+      const chunks = [];
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      for await (const chunk of Body) {
+        chunks.push(chunk);
+      }
+      const buffer = Buffer.concat(chunks);
+
+      const workbook = new Excel.Workbook();
+      await workbook.xlsx.load(buffer);
+
+      const result: { id: number; sheetName: string }[] = [];
+      workbook.eachSheet((sheet, id) => {
+        result.push({
+          id,
+          sheetName: sheet.name,
+        });
+      });
+
+      return { data: result };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   export async function getExcelData(
     input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
-    const { fileUrl, sheetName } = input;
-    const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-    const command = new GetObjectCommand({
-      Bucket: bucket,
-      Key: key,
-    });
+    try {
+      const { fileUrl, sheetName } = input;
+      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
+      const command = new GetObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      });
 
-    const { Body } = await ExcelProvider.s3.send(command);
+      const { Body } = await ExcelProvider.s3.send(command);
 
-    if (!Body) {
-      throw new NotFoundException("Not existing excel file");
+      if (!Body) {
+        throw new NotFoundException("Not existing excel file");
+      }
+
+      const chunks = [];
+
+      for await (const chunk of Body) {
+        chunks.push(chunk);
+      }
+
+      const buffer = Buffer.concat(chunks);
+
+      const workbook = new Excel.Workbook();
+      await workbook.xlsx.load(buffer);
+
+      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      if (!sheet) {
+        throw new NotFoundException("Not existing sheet");
+      }
+
+      const result: Record<string, string>[] = [];
+      let headers: string[] = [];
+
+      sheet.eachRow(
+        { includeEmpty: false },
+        (row: Excel.Row, rowNumber: number) => {
+          if (rowNumber === 1) {
+            headers = row.values as string[];
+            headers.shift(); // 첫 번째 요소(undefined)를 제거합니다.
+          } else {
+            const rowData: Record<string, string> = {};
+            // headers 배열을 기반으로 각 열에 대해 순회합니다.
+            headers.forEach((header: string, index: number) => {
+              // +1을 하는 이유는 headers에서 첫 번째 undefined 값을 제거했기 때문
+              // @TODO type definition
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const value = row.values[index + 1];
+
+              rowData[header] = value ?? "";
+            });
+            result.push(rowData);
+          }
+        },
+      );
+
+      return { data: result };
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-
-    const chunks = [];
-
-    for await (const chunk of Body) {
-      chunks.push(chunk);
-    }
-
-    const buffer = Buffer.concat(chunks);
-
-    const workbook = new Excel.Workbook();
-    await workbook.xlsx.load(buffer);
-
-    const sheet = workbook.getWorksheet(sheetName ?? 1);
-    if (!sheet) {
-      throw new NotFoundException("Not existing sheet");
-    }
-
-    const result: Record<string, string>[] = [];
-    let headers: string[] = [];
-
-    sheet.eachRow(
-      { includeEmpty: false },
-      (row: Excel.Row, rowNumber: number) => {
-        if (rowNumber === 1) {
-          headers = row.values as string[];
-          headers.shift(); // 첫 번째 요소(undefined)를 제거합니다.
-        } else {
-          const rowData: Record<string, string> = {};
-          // headers 배열을 기반으로 각 열에 대해 순회합니다.
-          headers.forEach((header: string, index: number) => {
-            // +1을 하는 이유는 headers에서 첫 번째 undefined 값을 제거했기 때문
-            // @TODO type definition
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const value = row.values[index + 1];
-
-            rowData[header] = value ?? "";
-          });
-          result.push(rowData);
-        }
-      },
-    );
-
-    return { data: result };
   }
 
   export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IInsertExcelRowOutput> {
-    const { sheetName, data } = input;
-    const workbook = new Excel.Workbook();
-    workbook.addWorksheet(sheetName ?? "Sheet1");
+    try {
+      const { sheetName, data } = input;
+      const workbook = new Excel.Workbook();
+      workbook.addWorksheet(sheetName ?? "Sheet1");
 
-    const sheet = workbook.getWorksheet(sheetName ?? 1);
-    if (!sheet) {
-      throw new NotFoundException("Not existing sheet");
-    }
+      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      if (!sheet) {
+        throw new NotFoundException("Not existing sheet");
+      }
 
-    // 모든 데이터의 key를 추출하여 header로 사용합니다.
-    const headers = Object.keys(
-      data.reduce((curr, acc) => ({ ...acc, ...curr })),
-    );
-    sheet.addRow(headers);
+      // 모든 데이터의 key를 추출하여 header로 사용합니다.
+      const headers = Object.keys(
+        data.reduce((curr, acc) => ({ ...acc, ...curr })),
+      );
+      sheet.addRow(headers);
 
-    data.forEach((rowData: any) => {
-      const data: string[] = [];
-      headers.forEach((header: string) => {
-        data.push(rowData[header] ?? "");
+      data.forEach((rowData: any) => {
+        const data: string[] = [];
+        headers.forEach((header: string) => {
+          data.push(rowData[header] ?? "");
+        });
+        sheet.addRow(data);
       });
-      sheet.addRow(data);
-    });
 
-    const modifiedBuffer = await workbook.xlsx.writeBuffer();
+      const modifiedBuffer = await workbook.xlsx.writeBuffer();
 
-    const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
+      const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
 
-    const uploadCommand = new PutObjectCommand({
-      Bucket: ExcelProvider.bucket,
-      Key: key,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      Body: modifiedBuffer,
-      ContentType:
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
-    });
+      const uploadCommand = new PutObjectCommand({
+        Bucket: ExcelProvider.bucket,
+        Key: key,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        Body: modifiedBuffer,
+        ContentType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
+      });
 
-    await ExcelProvider.s3.send(uploadCommand);
+      await ExcelProvider.s3.send(uploadCommand);
 
-    return {
-      fileUrl: `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`,
-    };
+      return {
+        fileUrl: `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`,
+      };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }

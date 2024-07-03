@@ -5,6 +5,7 @@ import { Standalone } from "@wrtn/decorators";
 import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
 
 import { SweetTrackerProvider } from "../../../providers/connector/sweet_tracker/SweetTrackerProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/sweet-tacker")
 export class SweetTrackerController {
@@ -21,7 +22,7 @@ export class SweetTrackerController {
   async getRecommendedCompanyList(
     @TypedBody() input: ISweetTracker.IGetRecommendedCompanyListInput,
   ): Promise<ISweetTracker.IGetRecommendedCompanyListOutput> {
-    return SweetTrackerProvider.getRecommendedCompanyList(input);
+    return retry(() => SweetTrackerProvider.getRecommendedCompanyList(input))();
   }
 
   /**
@@ -34,7 +35,7 @@ export class SweetTrackerController {
   @Standalone()
   @core.TypedRoute.Post("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
-    return SweetTrackerProvider.getCompanyList();
+    return retry(() => SweetTrackerProvider.getCompanyList())();
   }
 
   /**
@@ -49,6 +50,6 @@ export class SweetTrackerController {
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,
   ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
-    return SweetTrackerProvider.getTrackingInfo(input);
+    return retry(() => SweetTrackerProvider.getTrackingInfo(input))();
   }
 }
