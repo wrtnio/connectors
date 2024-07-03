@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -119,6 +119,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
   )
+  @Standalone()
   @core.TypedRoute.Post("/get/page")
   async readPageList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -176,6 +177,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
   )
+  @Standalone()
   @core.TypedRoute.Post("get/users")
   async getUsers(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -237,7 +239,14 @@ export class NotionController {
   )
   @core.TypedRoute.Post("/page/content/:pageId")
   async appendPageToContent(
-    @core.TypedParam("pageId") pageId: string,
+    @Prerequisite({
+      neighbor: () => NotionController.prototype.readPageList,
+      array: (response): INotion.IReadPageOutput[] => response,
+      value: (elem) => elem.pageId,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("pageId")
+    pageId: string,
     @core.TypedBody() input: INotion.IAppendPageToContentInput,
   ): Promise<void> {
     return retry(() => NotionProvider.appendPageToContent(pageId, input))();
@@ -293,6 +302,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
   )
+  @Standalone()
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
@@ -355,7 +365,14 @@ export class NotionController {
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
-    @core.TypedParam("databaseId") databaseId: string,
+    @Prerequisite({
+      neighbor: () => NotionController.prototype.getDatabaseListInfo,
+      array: (response): INotion.IDatabaseInfo[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("databaseId")
+    databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
     return retry(() => NotionProvider.getDatabaseInfo(input, databaseId))();
   }
@@ -417,7 +434,14 @@ export class NotionController {
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
     @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
-    @core.TypedParam("databaseId") databaseId: string,
+    @Prerequisite({
+      neighbor: () => NotionController.prototype.getDatabaseListInfo,
+      array: (response): INotion.IDatabaseInfo[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("databaseId")
+    databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     return NotionProvider.createDatabaseItem(input, databaseId);
   }
@@ -479,7 +503,14 @@ export class NotionController {
   @core.TypedRoute.Patch("/database-item/:pageId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
-    @core.TypedParam("pageId") databaseId: string,
+    @Prerequisite({
+      neighbor: () => NotionController.prototype.getDatabaseListInfo,
+      array: (response): INotion.IDatabaseInfo[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("pageId")
+    databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
   }
@@ -536,6 +567,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
   )
+  @Standalone()
   @core.TypedRoute.Post("/get-page-by-title")
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
@@ -598,7 +630,14 @@ export class NotionController {
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
-    @core.TypedParam("databaseId") databaseId: string,
+    @Prerequisite({
+      neighbor: () => NotionController.prototype.getDatabaseListInfo,
+      array: (response): INotion.IDatabaseInfo[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("databaseId")
+    databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
     return retry(() =>
       NotionProvider.findDatabaseItemList(input, databaseId),
@@ -662,7 +701,14 @@ export class NotionController {
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
-    @core.TypedParam("databaseId") databaseId: string,
+    @Prerequisite({
+      neighbor: () => NotionController.prototype.getDatabaseListInfo,
+      array: (response): INotion.IDatabaseInfo[] => response,
+      value: (elem) => elem.id,
+      label: (elem) => elem.title ?? "",
+    })
+    @core.TypedParam("databaseId")
+    databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     return retry(() => NotionProvider.findDatabaseItem(input, databaseId))();
   }
