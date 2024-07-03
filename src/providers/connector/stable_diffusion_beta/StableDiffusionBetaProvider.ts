@@ -55,7 +55,7 @@ export class StableDiffusionBetaProvider {
         imgUrl: presignedUrl,
       };
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -118,7 +118,7 @@ export class StableDiffusionBetaProvider {
       const img = output.map((image) => Buffer.from(image.base64, "base64"));
       return img;
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -153,7 +153,7 @@ export class StableDiffusionBetaProvider {
         ...handleImagePrompt(content),
       };
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }

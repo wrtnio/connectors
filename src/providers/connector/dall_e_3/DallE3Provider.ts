@@ -52,7 +52,7 @@ export class DallE3Provider {
         imgUrl: presignedUrl,
       };
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -85,7 +85,7 @@ export class DallE3Provider {
       const content = hamletResponse?.data.choices?.[0].message?.content;
       return content;
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }

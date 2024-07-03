@@ -124,7 +124,8 @@ export namespace ArxivSearchProvider {
         });
       });
     } catch (err) {
-      throw new InternalServerErrorException("Failed to convert xml to json");
+      console.error(JSON.stringify(err));
+      throw err;
     }
   }
 }

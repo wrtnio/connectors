@@ -44,7 +44,7 @@ export class FigmaProvider {
       );
       return res.data;
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -68,7 +68,7 @@ export class FigmaProvider {
       );
       return res.data;
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }

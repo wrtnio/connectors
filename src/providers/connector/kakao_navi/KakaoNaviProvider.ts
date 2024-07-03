@@ -23,7 +23,7 @@ export namespace KakaoNaviProvider {
       });
       return res.data;
     } catch (err) {
-      console.log("err", err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
