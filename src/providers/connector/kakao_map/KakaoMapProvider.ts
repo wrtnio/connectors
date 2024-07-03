@@ -19,7 +19,7 @@ export namespace KakaoMapProvider {
       });
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

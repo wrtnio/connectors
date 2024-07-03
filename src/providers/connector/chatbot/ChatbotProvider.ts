@@ -23,7 +23,7 @@ export class ChatbotProvider {
 
       return { content: res?.data.choices?.[0].message?.content };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

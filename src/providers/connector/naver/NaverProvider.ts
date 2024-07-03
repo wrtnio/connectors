@@ -35,7 +35,7 @@ export namespace NaverProvider {
 
       return { data: res.data };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -65,7 +65,7 @@ export namespace NaverProvider {
 
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

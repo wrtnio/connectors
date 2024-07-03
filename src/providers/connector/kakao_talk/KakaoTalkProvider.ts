@@ -58,7 +58,7 @@ export namespace KakaoTalkProvider {
 
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -177,7 +177,7 @@ export namespace KakaoTalkProvider {
 
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -210,7 +210,7 @@ export namespace KakaoTalkProvider {
 
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

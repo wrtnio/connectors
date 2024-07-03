@@ -56,7 +56,7 @@ export class GmailProvider {
       }
       return { id };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -102,7 +102,7 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -159,7 +159,7 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -190,7 +190,7 @@ export class GmailProvider {
       }
       return { id };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -217,7 +217,7 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -244,7 +244,7 @@ export class GmailProvider {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -269,7 +269,7 @@ export class GmailProvider {
       const emailData = await this.getEmailData(gmail, id);
       return emailData;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -316,7 +316,7 @@ export class GmailProvider {
         };
       }
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -346,7 +346,7 @@ export class GmailProvider {
         id: id,
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

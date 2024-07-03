@@ -69,7 +69,7 @@ export class AwsProvider {
         urlExpTsMillis: urlExpDate.getTime(), // * date to milliseconds timestamp
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

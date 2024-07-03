@@ -60,7 +60,7 @@ export namespace ArxivSearchProvider {
       }
       return { references: output };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

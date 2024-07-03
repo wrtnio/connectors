@@ -18,7 +18,7 @@ export namespace SweetTrackerProvider {
 
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -30,7 +30,7 @@ export namespace SweetTrackerProvider {
       );
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -49,7 +49,7 @@ export namespace SweetTrackerProvider {
       );
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

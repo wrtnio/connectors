@@ -32,7 +32,7 @@ export class StableDiffusionBetaProvider {
       const { imgUrl } = await this.uploadImageToS3(img);
       return { imgUrl: imgUrl };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

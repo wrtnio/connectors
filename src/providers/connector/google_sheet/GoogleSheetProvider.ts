@@ -41,7 +41,7 @@ export class GoogleSheetProvider {
 
       return { data: headerValues };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -107,7 +107,7 @@ export class GoogleSheetProvider {
       // 수정된 헤더를 다시 설정합니다.
       await sheet.setHeaderRow(_headers);
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -132,7 +132,7 @@ export class GoogleSheetProvider {
       });
       return { data: res };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -166,7 +166,7 @@ export class GoogleSheetProvider {
 
       return { data: res };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

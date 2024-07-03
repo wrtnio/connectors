@@ -1,7 +1,6 @@
 import {
   Component,
   ComponentSet,
-  DocumentNode,
   GetCommentsQueryParams,
   GetCommentsResponse,
   PostCommentRequestBody,
@@ -19,7 +18,7 @@ export namespace IFigma {
    * 한 번에 하나의 프레임으로부터 파일을 읽을 수 있다.
    */
   export interface IReadFileInput
-    extends ICommon.ISecret<"figma", ["https://api.figma.com"]> {
+    extends ICommon.ISecret<"figma", ["files:read"]> {
     /**
      * 파일의 키를 의미합니다.
      *
@@ -194,7 +193,7 @@ export namespace IFigma {
    * 한 번의 하나의 댓글을 작성할 수 있으며, 좌표 값이나 노드, 또는 부모 댓글(root comment) 이용해 댓글을 작성할 수 있다.
    */
   export interface IAddCommentInput
-    extends ICommon.ISecret<"figma", ["https://api.figma.com"]>,
+    extends ICommon.ISecret<"figma", ["file_comments:write"]>,
       PostCommentRequestBody {
     /**
      * 파일의 키를 의미합니다.
@@ -209,7 +208,7 @@ export namespace IFigma {
    * 한 번에 하나의 프레임으로부터 댓글을 읽을 수 있다.
    */
   export interface IReadCommentInput
-    extends ICommon.ISecret<"figma", ["https://api.figma.com"]>,
+    extends ICommon.ISecret<"figma", ["files:read"]>,
       GetCommentsQueryParams {
     /**
      * 파일의 키를 의미합니다.

@@ -1,11 +1,10 @@
 import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
-import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-const requestBody: IFigma.IReadFileInput = {
+const requestBody = {
   secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
   fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
 };
@@ -61,9 +60,8 @@ export const test_api_connector_figma_add_comment = async (
   /**
    * 방금 추가한 댓글이 조회되어야 한다.
    */
-  const readCommentEvent = await test_api_connector_figma_read_comment(
-    connection,
-  );
+  const readCommentEvent =
+    await test_api_connector_figma_read_comment(connection);
   typia.assert(
     readCommentEvent.comments.find((el) => el.id === addCommentEvent.id)!,
   );
