@@ -16,6 +16,36 @@ export class GoogleSlidesProvider {
     private readonly awsProvider: AwsProvider,
   ) {}
 
+  async createHanshow(
+    presentationId: string,
+    input: IGoogleSlides.IExportPresentationInput,
+  ): Promise<IGoogleSlides.IExportHanshowOutput> {
+    try {
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        input.secretKey,
+      );
+
+      const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
+      const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        responseType: "arraybuffer",
+      });
+
+      const hanshow = await this.awsProvider.uploadObject({
+        contentType: mimeType,
+        data: res.data,
+        key: `${this.uploadPrefix}/${v4()}.show`,
+      });
+      return { hanshow };
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
   async createPowerPoint(
     presentationId: string,
     input: IGoogleSlides.IExportPresentationInput,
