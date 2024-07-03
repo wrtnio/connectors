@@ -12,6 +12,7 @@ export function retry<T extends any[], ReturnType>(
         if (attempts >= count) {
           throw error;
         }
+        console.warn(error);
       }
     }
 
