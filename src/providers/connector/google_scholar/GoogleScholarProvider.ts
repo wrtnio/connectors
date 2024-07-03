@@ -83,7 +83,7 @@ export namespace GoogleScholarProvider {
       output.sort((a, b) => b.citation_count - a.citation_count);
       return output;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

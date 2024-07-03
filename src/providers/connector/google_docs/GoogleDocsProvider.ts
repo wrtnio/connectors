@@ -35,7 +35,7 @@ export class GoogleDocsProvider {
       }
       return { id };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -65,7 +65,7 @@ export class GoogleDocsProvider {
         });
       }
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -147,7 +147,7 @@ export class GoogleDocsProvider {
         },
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -184,7 +184,7 @@ export class GoogleDocsProvider {
         id: newDocId,
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -209,7 +209,7 @@ export class GoogleDocsProvider {
         fileId: id,
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -252,7 +252,7 @@ export class GoogleDocsProvider {
 
       return { data: list };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -287,7 +287,7 @@ export class GoogleDocsProvider {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

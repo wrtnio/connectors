@@ -35,7 +35,7 @@ export class PromptProvider {
       );
       return { result: res.data.content[0].text };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

@@ -63,7 +63,7 @@ export namespace NotionProvider {
       }
       return { id: pageId };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -101,7 +101,7 @@ export namespace NotionProvider {
 
       return pageOutput;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -132,7 +132,7 @@ export namespace NotionProvider {
         ],
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -161,7 +161,7 @@ export namespace NotionProvider {
         properties: database.properties,
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -186,7 +186,7 @@ export namespace NotionProvider {
       }
       return databaseListInfo;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -241,7 +241,7 @@ export namespace NotionProvider {
       const createdDatabaseItem: INotion.IDatabaseItemOutput = res.data;
       return createdDatabaseItem;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -309,7 +309,7 @@ export namespace NotionProvider {
       const updatedDatabaseItem: INotion.IDatabaseItemOutput = res.data;
       return updatedDatabaseItem;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -335,7 +335,7 @@ export namespace NotionProvider {
       }
       return users;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -384,7 +384,7 @@ export namespace NotionProvider {
       const databaseItemList = res.data.results;
       return databaseItemList;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -452,7 +452,7 @@ export namespace NotionProvider {
 
       return databaseItem;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

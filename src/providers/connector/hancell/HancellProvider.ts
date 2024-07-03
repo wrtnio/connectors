@@ -41,7 +41,7 @@ export class HancellProvider {
       const fileUrl = this.awsProvider.getFileUrl(key);
       return { fileUrl };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -74,7 +74,7 @@ export class HancellProvider {
 
       return data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

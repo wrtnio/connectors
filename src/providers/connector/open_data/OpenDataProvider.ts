@@ -53,7 +53,7 @@ export namespace OpenDataProvider {
         }),
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -103,7 +103,7 @@ export namespace OpenDataProvider {
         }),
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -151,7 +151,7 @@ export namespace OpenDataProvider {
         }),
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -186,7 +186,7 @@ export namespace OpenDataProvider {
 
       return { nextPage, data: dsList };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -216,7 +216,7 @@ export namespace OpenDataProvider {
         parkingLots,
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -246,7 +246,7 @@ export namespace OpenDataProvider {
         bulidings: bulidings,
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -287,7 +287,7 @@ export namespace OpenDataProvider {
         ),
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -310,7 +310,7 @@ export namespace OpenDataProvider {
       const res = await axios.get(`${baseUrl}?${queryString}`);
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -346,7 +346,7 @@ export namespace OpenDataProvider {
       const res = await axios.get(`${baseUrl}?${queryString}`);
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -373,7 +373,7 @@ export namespace OpenDataProvider {
       });
       return res.data;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

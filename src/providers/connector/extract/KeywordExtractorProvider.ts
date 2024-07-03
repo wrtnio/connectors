@@ -43,7 +43,7 @@ export class KeywordExtractorProvider {
 
       return { keyword: response.keyword };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

@@ -36,7 +36,7 @@ export class GoogleCalendarProvider {
       }
       return output;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -67,7 +67,7 @@ export class GoogleCalendarProvider {
       };
       return output;
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -137,7 +137,7 @@ export class GoogleCalendarProvider {
         events: output,
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -158,7 +158,7 @@ export class GoogleCalendarProvider {
       const params = { calendarId: calendarId, text: input.text };
       await calendar.events.quickAdd(params);
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -185,7 +185,7 @@ export class GoogleCalendarProvider {
 
       return this.parseEventInfo(event);
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -213,7 +213,7 @@ export class GoogleCalendarProvider {
 
       return this.parseEventInfo(event);
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -253,7 +253,7 @@ export class GoogleCalendarProvider {
 
       return this.parseEventInfo(event);
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -276,7 +276,7 @@ export class GoogleCalendarProvider {
         eventId: eventId,
       });
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

@@ -34,7 +34,7 @@ export class DallE3Provider {
       const { imgUrl } = await this.uploadDallE3ToS3(data.data);
       return { imgUrl: imgUrl };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

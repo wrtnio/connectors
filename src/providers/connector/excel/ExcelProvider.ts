@@ -69,7 +69,7 @@ export namespace ExcelProvider {
 
       return { data: result };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -135,7 +135,7 @@ export namespace ExcelProvider {
 
       return { data: result };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
@@ -187,7 +187,7 @@ export namespace ExcelProvider {
         fileUrl: `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`,
       };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }

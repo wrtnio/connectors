@@ -43,7 +43,7 @@ export namespace CsvProvider {
 
       return { data: res };
     } catch (error) {
-      console.error(error);
+      console.error(JSON.stringify(error));
       throw error;
     }
   }
