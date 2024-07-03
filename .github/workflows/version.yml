@@ -45,4 +45,4 @@ jobs:
           git config --local user.email "actions@example.com"
           git config --local user.name "GitHub Actions"
           npm version patch -m "Bump version to %s [skip ci]"
-          git push --follow-tags
+          git push --set-upstream origin main --follow-tags
