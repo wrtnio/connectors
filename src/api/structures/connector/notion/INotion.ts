@@ -405,8 +405,8 @@ export namespace INotion {
       Prerequisite<{
         method: "post";
         path: "/connector/notion/get/page";
-        array: "return response.elements";
-        value: "return elem.id";
+        array: "return response";
+        value: "return elem.pageId";
         label: "return elem.title";
       }> &
       Placeholder<"부모 페이지를 선택하세요.">;
@@ -635,8 +635,8 @@ export namespace INotion {
       Prerequisite<{
         method: "post";
         path: "/connector/notion/get/page";
-        array: "return response.elements";
-        value: "return elem.id";
+        array: "return response";
+        value: "return elem.pageId";
         label: "return elem.title";
       }>;
 
