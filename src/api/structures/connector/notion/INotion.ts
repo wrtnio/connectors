@@ -1,4 +1,4 @@
-import { Placeholder } from "@wrtn/decorators";
+import { Placeholder, Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
@@ -401,7 +401,15 @@ export namespace INotion {
      *
      * @title 부모 페이지
      */
-    parentPageId: string & Placeholder<"부모 페이지를 선택하세요.">;
+    parentPageId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/page";
+        array: "return response";
+        value: "return elem.pageId";
+        label: "return elem.title";
+      }> &
+      Placeholder<"부모 페이지를 선택하세요.">;
 
     /**
      * 새로 생성할 페이지 제목
@@ -623,7 +631,14 @@ export namespace INotion {
      *
      * @title 페이지
      */
-    pageId: string;
+    pageId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/page";
+        array: "return response";
+        value: "return elem.pageId";
+        label: "return elem.title";
+      }>;
 
     /**
      * 업데이트 할 데이터베이스 페이지 내용
