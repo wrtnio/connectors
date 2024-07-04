@@ -35,7 +35,7 @@ const main = async (): Promise<void> => {
     });
     await fs.promises.writeFile(
       `${location}/openai-${keyword ? "keyword" : "positional"}.json`,
-      JSON.stringify(openai, null, 2),
+      JSON.stringify(openai),
       "utf8",
     );
   }
