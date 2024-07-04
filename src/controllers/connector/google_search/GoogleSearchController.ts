@@ -11,6 +11,15 @@ import { retry } from "../../../utils/retry";
 export class GoogleSearchController {
   constructor(private readonly googleSearchProvider: GoogleSearchProvider) {}
 
+  /**
+   * 입력한 검색어를 구글에서 검색합니다.
+   *
+   * @summary 구글 검색
+   *
+   * @param input 구글 검색 조건
+   *
+   * @returns 구글 검색 결과
+   */
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
