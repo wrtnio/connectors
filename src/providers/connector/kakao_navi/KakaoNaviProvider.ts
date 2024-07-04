@@ -7,7 +7,7 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 export namespace KakaoNaviProvider {
   export async function getFutureDirections(
     input: IKakaoNavi.IGetFutureDirectionsInput,
-  ) {
+  ): Promise<IKakaoNavi.IGetFutureDirectionsOutput> {
     try {
       const queryParams = Object.entries(input)
         .map(([key, value]) => `${key}=${value}`)
