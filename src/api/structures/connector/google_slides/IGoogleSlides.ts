@@ -17,7 +17,17 @@ export namespace IGoogleSlides {
     ["https://www.googleapis.com/auth/drive"]
   >;
 
+  export interface IExportHanshowOutput {
+    /**
+     * @title 파일 다운로드 링크
+     */
+    hanshow: string & tags.Format<"uri">;
+  }
+
   export interface IExportPresentationOutput {
+    /**
+     * @title 파일 다운로드 링크
+     */
     powerPoint: string & tags.Format<"uri">;
   }
 
@@ -3070,7 +3080,7 @@ export namespace IGoogleSlides {
     position?: number | null;
   }
 
-  export interface Video {}
+  // export interface Video {}
 
   /**
    * @title 커넥터가 아닌 선, 직선 커넥터, 구부러진 커넥터, 구부러진 커넥터 등을 나타내는 PageElement 종류입니다.
@@ -3314,9 +3324,9 @@ export namespace IGoogleSlides {
     solidFill?: SolidFill;
   }
 
-  export interface Table {}
+  // export interface Table {}
 
-  export interface WordArt {}
+  // export interface WordArt {}
 
   /**
    * @title 페이지 요소의 변환.
