@@ -113,7 +113,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<Try<IGoogleDrive.IFolderListGoogleDriveOutput>> {
-    const data = await retry(this.googleDriveProvider.folderList)(input);
+    const data = await retry(() => this.googleDriveProvider.folderList(input))();
     return createResponseForm(data);
   }
 
@@ -215,7 +215,7 @@ export class GoogleDriveController {
   async fileList(
     @core.TypedBody() input: IGoogleDrive.IFileListGoogleDriveInput,
   ): Promise<Try<IGoogleDrive.IFileListGoogleDriveOutput>> {
-    const data = await retry(this.googleDriveProvider.fileList)(input);
+    const data = await retry(() => this.googleDriveProvider.fileList(input))();
     return createResponseForm(data);
   }
 
@@ -319,7 +319,7 @@ export class GoogleDriveController {
   async createFolder(
     @core.TypedBody() input: IGoogleDrive.ICreateFolderGoogleDriveInput,
   ): Promise<Try<IGoogleDrive.ICreateFolderGoogleDriveOutput>> {
-    const data = await retry(this.googleDriveProvider.createFolder)(input);
+    const data = await retry(() => this.googleDriveProvider.createFolder(input))();
     return createResponseForm(data);
   }
 
@@ -421,7 +421,7 @@ export class GoogleDriveController {
   async createFile(
     @core.TypedBody() input: IGoogleDrive.ICreateFileGoogleDriveInput,
   ): Promise<Try<IGoogleDrive.ICreateFileGoogleDriveOutput>> {
-    const data = await retry(this.googleDriveProvider.createFile)(input);
+    const data = await retry(() => this.googleDriveProvider.createFile(input))();
     return createResponseForm(data);
   }
 
@@ -530,7 +530,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<Try<void>> {
-    const data = await retry(this.googleDriveProvider.deleteFile)(id, input);
+    const data = await retry(() => this.googleDriveProvider.deleteFile(id, input))();
     return createResponseForm(data);
   }
 
@@ -639,7 +639,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<Try<void>> {
-    const data = await retry(this.googleDriveProvider.deleteFolder)(id, input);
+    const data = await retry(() => this.googleDriveProvider.deleteFolder(id, input))();
     return createResponseForm(data);
   }
 
@@ -737,7 +737,7 @@ export class GoogleDriveController {
   @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("permission")
   async permission(@core.TypedBody() input: IGoogleDrive.IPermissionGoogleDriveInput): Promise<Try<void>> {
-    const data = await retry(this.googleDriveProvider.permission)(input);
+    const data = await retry(() => this.googleDriveProvider.permission(input))();
     return createResponseForm(data);
   }
 
@@ -847,7 +847,7 @@ export class GoogleDriveController {
     id: string,
     @core.TypedBody() input: IGoogleDrive.IAppendTextGoogleDriveInput,
   ): Promise<Try<void>> {
-    const data = await retry(this.googleDriveProvider.appendText)(id, input);
+    const data = await retry(() => this.googleDriveProvider.appendText(id, input))();
     return createResponseForm(data);
   }
 
@@ -958,7 +958,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
   ): Promise<Try<IGoogleDrive.IReadFileGoogleDriveOutput>> {
-    const data = await retry(this.googleDriveProvider.readFile)(id, input);
+    const data = await retry(() => this.googleDriveProvider.readFile(id, input))();
     return createResponseForm(data);
   }
 }

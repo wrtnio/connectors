@@ -65,7 +65,8 @@ export const test_api_connector_google_drive = async (connection: CApi.IConnecti
       secretKey,
     },
   );
-  typia.assertEquals<{ data: "hello world" }>(getTextFromFileOutput);
+
+  typia.assertEquals(getTextFromFileOutput);
 
   /**
    * permission to file or folder
@@ -95,7 +96,7 @@ export const test_api_connector_google_drive = async (connection: CApi.IConnecti
     connection,
     findFileListInput,
   );
-  typia.assertEquals<IGoogleDrive.IFileListGoogleDriveOutput>(findFileListOutput);
+  typia.assertEquals(findFileListOutput);
 
   /**
    * delete file
