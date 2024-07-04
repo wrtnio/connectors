@@ -31,6 +31,5 @@ export const test_api_connector_google_slides_export_presentation_hanshow =
         },
       );
 
-    console.log(res);
     typia.assertEquals(res);
   };
