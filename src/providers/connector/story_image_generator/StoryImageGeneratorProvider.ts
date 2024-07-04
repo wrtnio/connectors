@@ -31,12 +31,14 @@ export class StoryImageGeneratorProvider {
     </story_line>
     </task>
         `;
-
-    const response = await this.stableDiffusionBetaProvider.generateImage({
-      prompt: prompt,
-      image_ratio: "square",
-      style_preset: "digital-art",
-    });
+    const response = await this.stableDiffusionBetaProvider.generateImage(
+      {
+        prompt: prompt,
+        image_ratio: "square",
+        style_preset: "digital-art",
+      },
+      false,
+    );
     return { imageUrl: response.imgUrl };
   }
 }

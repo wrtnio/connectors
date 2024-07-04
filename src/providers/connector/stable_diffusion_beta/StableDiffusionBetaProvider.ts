@@ -17,6 +17,7 @@ export class StableDiffusionBetaProvider {
   constructor(private awsProvider: AwsProvider) {}
   async generateImage(
     input: IStableDiffusionBeta.IRequest,
+    usePresignedUrl: boolean = true,
   ): Promise<IStableDiffusionBeta.IResponse> {
     try {
       const { category, englishText } = await this.imageCompletion(
@@ -29,7 +30,7 @@ export class StableDiffusionBetaProvider {
         input.image_ratio,
         input.style_preset,
       );
-      const { imgUrl } = await this.uploadImageToS3(img);
+      const { imgUrl } = await this.uploadImageToS3(img, usePresignedUrl);
       return { imgUrl: imgUrl };
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -37,7 +38,7 @@ export class StableDiffusionBetaProvider {
     }
   }
 
-  async uploadImageToS3(img: Buffer[]) {
+  async uploadImageToS3(img: Buffer[], usePresignedUrl: boolean = true) {
     try {
       const imgUrl = await Promise.all(
         img.map(async (img) => {
@@ -48,6 +49,10 @@ export class StableDiffusionBetaProvider {
           });
         }),
       );
+
+      if (!usePresignedUrl) {
+        return { imgUrl: imgUrl[0] };
+      }
 
       const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl[0]);
 
