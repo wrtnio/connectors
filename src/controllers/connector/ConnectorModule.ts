@@ -16,6 +16,7 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
+import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
 import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
@@ -81,6 +82,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     StoryImageGeneratorModule,
     StableDiffusionBetaModule,
     DallE3Module,
+    GoogleSearchModule,
   ],
   controllers: [
     ArxivSearchController,
