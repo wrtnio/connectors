@@ -7,6 +7,8 @@ on:
     paths:
       - "src/api/structures/**"
       - "src/controllers/**"
+      - "src/executable/**"
+      - "package.json"
 
 jobs:
   version_bump:
