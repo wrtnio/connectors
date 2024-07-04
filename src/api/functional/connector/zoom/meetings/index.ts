@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { ResponseForm } from "../../../../../utils/createResponseForm";
 import type { IZoom } from "../../../../structures/zoom/IZoom";
 
 /**
@@ -47,7 +48,7 @@ export async function createMeeting(
 }
 export namespace createMeeting {
   export type Input = Primitive<IZoom.ICreateMeetingInput>;
-  export type Output = Primitive<Partial<IZoom.Meeting>>;
+  export type Output = Primitive<ResponseForm<Partial<IZoom.Meeting>>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace createMeeting {
   export const path = () => "/connector/zoom/meetings";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Partial<IZoom.Meeting>>> =>
-    typia.random<Primitive<Partial<IZoom.Meeting>>>(g);
+  ): Resolved<Primitive<ResponseForm<Partial<IZoom.Meeting>>>> =>
+    typia.random<Primitive<ResponseForm<Partial<IZoom.Meeting>>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createMeeting.Input,
