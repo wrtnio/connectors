@@ -14,20 +14,14 @@ export class WorkflowProvider {
   constructor(private _workflowStateManager: WorkflowStateManager) {}
 
   public async run(input: IRunWorkflowInput): Promise<IRunWorkflowOutput> {
-    const workflowRunId = await this._workflowStateManager.runWorkflow(
-      input.workflowId,
-    );
+    const workflowRunId = await this._workflowStateManager.runWorkflow(input.workflowId);
     return {
       workflowRunId,
     };
   }
 
-  public async getWorkflowRunStatus(
-    workflowRunId: string,
-  ): Promise<IGetWorkflowRunStatusOutput> {
-    const runStatus = await this._workflowStateManager.getWorkflowRunStatus(
-      workflowRunId,
-    );
+  public async getWorkflowRunStatus(workflowRunId: string): Promise<IGetWorkflowRunStatusOutput> {
+    const runStatus = await this._workflowStateManager.getWorkflowRunStatus(workflowRunId);
     // workflow run info doesn't exist
     if (!runStatus) {
       throw new HttpException("Workflow run not found", HttpStatus.NOT_FOUND);
@@ -35,12 +29,8 @@ export class WorkflowProvider {
     return runStatus;
   }
 
-  public async getWorkflowRuns(
-    input: IGetWorkflowRunsInput,
-  ): Promise<IGetWorkflowRunsOutput> {
-    const workflowRuns = await this._workflowStateManager.getWorkflowRuns(
-      input.workflowId,
-    );
+  public async getWorkflowRuns(input: IGetWorkflowRunsInput): Promise<IGetWorkflowRunsOutput> {
+    const workflowRuns = await this._workflowStateManager.getWorkflowRuns(input.workflowId);
     return {
       workflowRuns,
     };

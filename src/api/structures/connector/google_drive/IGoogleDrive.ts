@@ -13,13 +13,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
  *
  * @title 권한의 종류.
  */
-export type PermissionRoles =
-  | "owner"
-  | "writer"
-  | "commenter"
-  | "reader"
-  | "organizer"
-  | "fileOrganizer";
+export type PermissionRoles = "owner" | "writer" | "commenter" | "reader" | "organizer" | "fileOrganizer";
 
 /**
  * user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.
@@ -33,10 +27,7 @@ type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
 export namespace IGoogleDrive {
   export interface ICreateFolderGoogleDriveInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/drive"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]> {
     /**
      * 생성할 drive 폴더명.
      *
@@ -55,10 +46,7 @@ export namespace IGoogleDrive {
   }
 
   export interface IFileListGoogleDriveInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/drive"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]> {
     /**
      * 파일을 불러 올 폴더.
      *
@@ -68,7 +56,7 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/folders";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.name";
       }>;
@@ -121,10 +109,7 @@ export namespace IGoogleDrive {
   }
 
   export interface ICreateFileGoogleDriveInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/drive"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]> {
     /**
      * drive에 생성할 파일명.
      *
@@ -141,7 +126,7 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/folders";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.name";
       }>)[] &
@@ -188,10 +173,7 @@ export namespace IGoogleDrive {
   }
 
   export interface IPermissionGoogleDriveInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/drive"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]> {
     /**
      * 접근 권한을 부여할 drive 파일 id.
      *
@@ -201,7 +183,7 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/files";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.name";
       }>;
@@ -215,7 +197,7 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/folders";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.name";
       }>;
@@ -229,10 +211,7 @@ export namespace IGoogleDrive {
   }
 
   export interface IAppendTextGoogleDriveInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/drive"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]> {
     /**
      * drive 파일에 추가할 text.
      *

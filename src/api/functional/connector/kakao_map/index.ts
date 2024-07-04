@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IKakaoMap } from "../../../structures/connector/kakao_map/IKakaoMap";
 
 /**
@@ -46,7 +47,7 @@ export async function search(
 }
 export namespace search {
   export type Input = Primitive<IKakaoMap.SearchByKeywordInput>;
-  export type Output = Primitive<IKakaoMap.SearchByKeywordOutput>;
+  export type Output = Primitive<Try<IKakaoMap.SearchByKeywordOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +66,8 @@ export namespace search {
   export const path = () => "/connector/kakao-map/search";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKakaoMap.SearchByKeywordOutput>> =>
-    typia.random<Primitive<IKakaoMap.SearchByKeywordOutput>>(g);
+  ): Resolved<Primitive<Try<IKakaoMap.SearchByKeywordOutput>>> =>
+    typia.random<Primitive<Try<IKakaoMap.SearchByKeywordOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: search.Input,

@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 
 import { NaverProvider } from "../../../providers/connector/naver/NaverProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/naver")
@@ -50,13 +51,10 @@ export class NaverController {
    */
   @Standalone()
   @core.TypedRoute.Post("/cafe")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
-  )
-  async cafeList(
-    @core.TypedBody() input: INaver.INaverKeywordInput,
-  ): Promise<INaver.ICafeNaverOutput> {
-    return retry(() => NaverProvider.getCafe(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg")
+  async cafeList(@core.TypedBody() input: INaver.INaverKeywordInput): Promise<Try<INaver.ICafeNaverOutput>> {
+    const data = await retry(() => NaverProvider.getCafe(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -110,12 +108,9 @@ export class NaverController {
    */
   @Standalone()
   @core.TypedRoute.Post("/blog")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg",
-  )
-  async blogList(
-    @core.TypedBody() input: INaver.INaverKeywordInput,
-  ): Promise<INaver.IBlogNaverOutput> {
-    return retry(() => NaverProvider.getBlog(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg")
+  async blogList(@core.TypedBody() input: INaver.INaverKeywordInput): Promise<Try<INaver.IBlogNaverOutput>> {
+    const data = await retry(() => NaverProvider.getBlog(input))();
+    return createResponseForm(data);
   }
 }

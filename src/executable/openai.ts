@@ -9,18 +9,17 @@ import { OpenAiConverter } from "../services/openai/OpenAiConverter";
 
 const main = async (): Promise<void> => {
   const location: string = `${ConnectorConfiguration.ROOT}/packages/api`;
-  if (false === fs.existsSync(`${location}/swagger.json`))
-    cp.execSync("npx nestia swagger", { stdio: "inherit" });
+  if (false === fs.existsSync(`${location}/swagger.json`)) cp.execSync("npx nestia swagger", { stdio: "inherit" });
 
   const document: OpenApi.IDocument = typia.assert<OpenApi.IDocument>(
     JSON.parse(await fs.promises.readFile(`${location}/swagger.json`, "utf-8")),
   );
   const migrated: IMigrateDocument = OpenApi.migrate(document);
   for (const isKeywordParameter of [false, true]) {
-    const openai: IOpenAiDocument = OpenAiConverter.convert({ 
-      document, 
-      migrated, 
-      options: { isKeywordParameter }, 
+    const openai: IOpenAiDocument = OpenAiConverter.convert({
+      document,
+      migrated,
+      options: { isKeywordParameter },
     });
     await fs.promises.writeFile(
       `${location}/openai-${isKeywordParameter ? "keyword" : "positional"}.json`,
@@ -28,16 +27,8 @@ const main = async (): Promise<void> => {
       "utf8",
     );
   }
-  await fs.promises.writeFile(
-    `${location}/migrate.json`,
-    JSON.stringify(migrated),
-    "utf8",
-  );
-  await fs.promises.writeFile(
-    `${location}/version.json`,
-    JSON.stringify({ version: document.info?.version }),
-    "utf8",
-  );
+  await fs.promises.writeFile(`${location}/migrate.json`, JSON.stringify(migrated), "utf8");
+  await fs.promises.writeFile(`${location}/version.json`, JSON.stringify({ version: document.info?.version }), "utf8");
 };
 main().catch((error) => {
   console.error(error);

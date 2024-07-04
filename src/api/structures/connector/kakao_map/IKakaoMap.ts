@@ -14,20 +14,12 @@ export namespace IKakaoMap {
     /**
      * @title 결과 페이지 번호
      */
-    page?: number &
-      tags.Type<"int32"> &
-      tags.Minimum<1> &
-      tags.Maximum<45> &
-      tags.Default<1>;
+    page?: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<45> & tags.Default<1>;
 
     /**
      * @title 페이지 당 문서 수
      */
-    size?: number &
-      tags.Type<"int32"> &
-      tags.Minimum<1> &
-      tags.Maximum<15> &
-      tags.Default<15>;
+    size?: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<15> & tags.Default<15>;
   }
 
   /**

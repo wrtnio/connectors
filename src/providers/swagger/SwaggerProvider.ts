@@ -32,10 +32,7 @@ export class SwaggerProvider {
         //   console.error(`stderr: ${stderr}`);
         // }
 
-        const swaggerFilePath = path.join(
-          __dirname,
-          "../../../packages/api/swagger.json",
-        );
+        const swaggerFilePath = path.join(__dirname, "../../../packages/api/swagger.json");
         await this.uploadToS3(swaggerFilePath);
       } catch (error) {
         console.error(`exec error: ${error}`);

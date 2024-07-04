@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGoogleCalendar } from "../../../../structures/connector/google_calendar/IGoogleCalendar";
 
 /**
@@ -83,7 +84,7 @@ export async function createQuickEvent(
   connection: IConnection,
   calendarId: string,
   input: createQuickEvent.Input,
-): Promise<void> {
+): Promise<createQuickEvent.Output> {
   return !!connection.simulate
     ? createQuickEvent.simulate(connection, calendarId, input)
     : PlainFetcher.fetch(
@@ -104,6 +105,7 @@ export async function createQuickEvent(
 }
 export namespace createQuickEvent {
   export type Input = Primitive<IGoogleCalendar.ICreateQuickEventInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -123,12 +125,12 @@ export namespace createQuickEvent {
     `/connector/google-calendar/${encodeURIComponent(calendarId ?? "null")}/quick-event`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     calendarId: string,
     input: createQuickEvent.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

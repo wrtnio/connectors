@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../utils/createResponseForm";
 import type { IRanker } from "../../structures/connector/sort/IRanker";
 
 export * as arxiv_search from "./arxiv_search";
@@ -87,7 +88,7 @@ export async function rank(
 }
 export namespace rank {
   export type Input = Primitive<IRanker.IRankInput>;
-  export type Output = Primitive<IRanker.IRankOutput>;
+  export type Output = Primitive<Try<IRanker.IRankOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -106,8 +107,8 @@ export namespace rank {
   export const path = () => "/connector/rank/rank";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IRanker.IRankOutput>> =>
-    typia.random<Primitive<IRanker.IRankOutput>>(g);
+  ): Resolved<Primitive<Try<IRanker.IRankOutput>>> =>
+    typia.random<Primitive<Try<IRanker.IRankOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: rank.Input,

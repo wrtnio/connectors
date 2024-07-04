@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IExcel } from "../../../structures/connector/excel/IExcel";
 
 export * as worksheet from "./worksheet";
@@ -98,7 +99,7 @@ export async function read(
 }
 export namespace read {
   export type Input = Primitive<IExcel.IReadExcelInput>;
-  export type Output = Primitive<IExcel.IReadExcelOutput>;
+  export type Output = Primitive<Try<IExcel.IReadExcelOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -117,8 +118,8 @@ export namespace read {
   export const path = () => "/connector/excel/read";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IExcel.IReadExcelOutput>> =>
-    typia.random<Primitive<IExcel.IReadExcelOutput>>(g);
+  ): Resolved<Primitive<Try<IExcel.IReadExcelOutput>>> =>
+    typia.random<Primitive<Try<IExcel.IReadExcelOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: read.Input,

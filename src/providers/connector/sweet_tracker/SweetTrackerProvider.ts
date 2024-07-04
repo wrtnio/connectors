@@ -12,9 +12,7 @@ export namespace SweetTrackerProvider {
           .map(([key, value]) => `${key}=${value}`)
           .join("&") ?? "";
 
-      const res = await axios.get(
-        `https://info.sweettracker.co.kr/api/v1/recommend?${queryParams}`,
-      );
+      const res = await axios.get(`https://info.sweettracker.co.kr/api/v1/recommend?${queryParams}`);
 
       return res.data;
     } catch (error) {
@@ -25,9 +23,7 @@ export namespace SweetTrackerProvider {
 
   export async function getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
     try {
-      const res = await axios.get(
-        "https://info.sweettracker.co.kr/api/v1/companylist/refresh",
-      );
+      const res = await axios.get("https://info.sweettracker.co.kr/api/v1/companylist/refresh");
       return res.data;
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -44,9 +40,7 @@ export namespace SweetTrackerProvider {
           .map(([key, value]) => `${key}=${value}`)
           .join("&") ?? "";
 
-      const res = await axios.get(
-        `https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`,
-      );
+      const res = await axios.get(`https://info.sweettracker.co.kr/api/v1/trackingInfo?${queryParams}`);
       return res.data;
     } catch (error) {
       console.error(JSON.stringify(error));

@@ -5,10 +5,7 @@ import OpenAI from "openai";
 import { inspect } from "util";
 
 import { ConnectorGlobal } from "../../ConnectorGlobal";
-import {
-  IMAGE_OPEN_AI_INJECT_IDENTIFIER,
-  OPEN_AI_INJECT_IDENTIFIER,
-} from "./constants";
+import { IMAGE_OPEN_AI_INJECT_IDENTIFIER, OPEN_AI_INJECT_IDENTIFIER } from "./constants";
 
 export interface IChainOfThought {
   /**
@@ -53,15 +50,7 @@ export class OpenAIProvider {
     @InjectPinoLogger(OpenAIProvider.name) private readonly logger: PinoLogger,
   ) {}
 
-  private async generate({
-    messages,
-    model,
-    schema,
-  }: {
-    messages: any[];
-    model: Model;
-    schema?: any;
-  }): Promise<any> {
+  private async generate({ messages, model, schema }: { messages: any[]; model: Model; schema?: any }): Promise<any> {
     const response = await this._client.chat.completions.create(
       {
         messages,
@@ -88,8 +77,7 @@ export class OpenAIProvider {
       {
         path: `/v2/openai/deployments/${deploymentName[model]}/chat/completions`,
         headers: {
-          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
-            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
         },
       },
     );
@@ -106,8 +94,7 @@ export class OpenAIProvider {
 
   private convertJsonSchemaToFunctionSchema(schema: any): any {
     const schemaName = (schema?.schemas[0] as any)["$ref"].split("/").pop();
-    const { [schemaName]: properties, ...defs } = schema?.components
-      ?.schemas as any;
+    const { [schemaName]: properties, ...defs } = schema?.components?.schemas as any;
 
     const parameters = {
       ...properties,
@@ -141,18 +128,14 @@ export class OpenAIProvider {
       schema: functionSchema,
       model,
     });
-    const args =
-      response?.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
+    const args = response?.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
     const parsedArgs = JSON.parse(args || "{}");
     this.logger.info(JSON.stringify(parsedArgs));
     assert(validationFunction(parsedArgs));
     return parsedArgs;
   }
 
-  public async generateImage(
-    userPrompt: string,
-    image_ratio?: string,
-  ): Promise<any> {
+  public async generateImage(userPrompt: string, image_ratio?: string): Promise<any> {
     let size: "1024x1024" | "1792x1024" | "1024x1792" = "1024x1024";
 
     if (image_ratio) {

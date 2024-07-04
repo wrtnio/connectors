@@ -13,11 +13,8 @@ export const test_api_connector_read_worksheet_google_sheet = async (
     workSheetTitle: "Sheet1",
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
   };
-  const result = await CApi.functional.connector.google_sheet.get_rows.readRows(
-    connection,
-    input,
-  );
+  const result = await CApi.functional.connector.google_sheet.get_rows.readRows(connection, input);
 
   typia.assertEquals(result);
-  return result;
+  return result.data;
 };

@@ -28,8 +28,7 @@ export class PromptProvider {
         requestBody,
         {
           headers: {
-            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
-              ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
           },
         },
       );

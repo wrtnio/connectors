@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGoogleSheet } from "../../../../structures/connector/google_sheet/IGoogleSheet";
 
 /**
@@ -91,7 +92,7 @@ import type { IGoogleSheet } from "../../../../structures/connector/google_sheet
 export async function writeHeaders(
   connection: IConnection,
   input: writeHeaders.Input,
-): Promise<void> {
+): Promise<writeHeaders.Output> {
   return !!connection.simulate
     ? writeHeaders.simulate(connection, input)
     : PlainFetcher.fetch(
@@ -112,6 +113,7 @@ export async function writeHeaders(
 }
 export namespace writeHeaders {
   export type Input = Primitive<IGoogleSheet.IWriteGoogleSheetHeadersInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -130,11 +132,11 @@ export namespace writeHeaders {
   export const path = () => "/connector/google-sheet/header";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     input: writeHeaders.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

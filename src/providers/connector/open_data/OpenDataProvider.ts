@@ -25,8 +25,7 @@ export namespace OpenDataProvider {
         .join("&");
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
-      const data: IMOLIT.OriginalBuildingLentInfo[] =
-        res.data.response.body.items.item;
+      const data: IMOLIT.OriginalBuildingLentInfo[] = res.data.response.body.items.item;
 
       return {
         data: data.map((el) => {
@@ -73,10 +72,8 @@ export namespace OpenDataProvider {
         .join("&");
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
-      const data: Rename<
-        IMOLIT.OriginalBuildingLentInfo,
-        [["보증금액", "보증금"], ["월세금액", "월세"]]
-      >[] = res.data.response.body.items.item;
+      const data: Rename<IMOLIT.OriginalBuildingLentInfo, [["보증금액", "보증금"], ["월세금액", "월세"]]>[] =
+        res.data.response.body.items.item;
 
       return {
         data: data.map((el) => {
@@ -123,8 +120,7 @@ export namespace OpenDataProvider {
         .join("&");
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
-      const data: IMOLIT.OriginalBuildingLentInfo[] =
-        res.data.response.body.items.item;
+      const data: IMOLIT.OriginalBuildingLentInfo[] = res.data.response.body.items.item;
 
       return {
         data: data.map((el) => {
@@ -156,9 +152,7 @@ export namespace OpenDataProvider {
     }
   }
 
-  export async function getLHLeaseInfo(
-    input: ILH.IGetLHLeaseInfoInput,
-  ): Promise<ILH.IGetLHLeaseInfoOutput> {
+  export async function getLHLeaseInfo(input: ILH.IGetLHLeaseInfoInput): Promise<ILH.IGetLHLeaseInfoOutput> {
     try {
       const baseUrl = `http://apis.data.go.kr/B552555/lhLeaseInfo1/lhLeaseInfo1`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
@@ -191,9 +185,7 @@ export namespace OpenDataProvider {
     }
   }
 
-  export async function getParkingLot(
-    input: INIA.IGetParkingLotInput,
-  ): Promise<INIA.IGetParkingLotOutput> {
+  export async function getParkingLot(input: INIA.IGetParkingLotInput): Promise<INIA.IGetParkingLotOutput> {
     try {
       const baseUrl = `http://api.data.go.kr/openapi/tn_pubr_prkplce_info_api`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
@@ -221,9 +213,7 @@ export namespace OpenDataProvider {
     }
   }
 
-  export async function getBuildingInfo(
-    input: IMOLIT.GetBuildingInfoInput,
-  ): Promise<IMOLIT.GetBuildingInfoOutput> {
+  export async function getBuildingInfo(input: IMOLIT.GetBuildingInfoInput): Promise<IMOLIT.GetBuildingInfoOutput> {
     const baseUrl = `http://apis.data.go.kr/1613000/BldRgstService_v2/getBrTitleInfo`;
     const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
     const queryString = Object.entries({
@@ -274,12 +264,9 @@ export namespace OpenDataProvider {
         pageNo: Number(head[1].pageNo),
         numOfRows: Number(head[1].numOfRows),
         rows: body.row.map(
-          (
-            el: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput["rows"][0],
-          ) => {
+          (el: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput["rows"][0]) => {
             el.sigunguCd = `${el.sido_cd}${el.sgg_cd}`;
-            el.sigunguNm =
-              el.locatadd_nm?.split(" ").slice(0, 2).join(" ") ?? "";
+            el.sigunguNm = el.locatadd_nm?.split(" ").slice(0, 2).join(" ") ?? "";
             el.bjdongCd = `${el.umd_cd}${el.ri_cd}`;
 
             return el;

@@ -9,11 +9,7 @@ export namespace ArgumentParser {
   ) => Promise<T>;
 
   export interface Prompt {
-    select: (
-      name: string,
-    ) => (
-      message: string,
-    ) => <Choice extends string>(choices: Choice[]) => Promise<Choice>;
+    select: (name: string) => (message: string) => <Choice extends string>(choices: Choice[]) => Promise<Choice>;
     boolean: (name: string) => (message: string) => Promise<boolean>;
   }
 

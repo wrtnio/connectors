@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { INaver } from "../../../../structures/connector/naver/INaver";
 
 /**
@@ -76,7 +77,7 @@ export async function cafeList(
 }
 export namespace cafeList {
   export type Input = Primitive<INaver.INaverKeywordInput>;
-  export type Output = Primitive<INaver.ICafeNaverOutput>;
+  export type Output = Primitive<Try<INaver.ICafeNaverOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -95,8 +96,8 @@ export namespace cafeList {
   export const path = () => "/connector/naver/cafe";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INaver.ICafeNaverOutput>> =>
-    typia.random<Primitive<INaver.ICafeNaverOutput>>(g);
+  ): Resolved<Primitive<Try<INaver.ICafeNaverOutput>>> =>
+    typia.random<Primitive<Try<INaver.ICafeNaverOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: cafeList.Input,

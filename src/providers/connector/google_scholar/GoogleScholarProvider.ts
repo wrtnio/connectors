@@ -6,9 +6,7 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { makeQuery } from "../../../utils/generate-search-query.util";
 
 export namespace GoogleScholarProvider {
-  export async function search(
-    input: IGoogleScholar.ISearchInput,
-  ): Promise<IGoogleScholar.ISearchOutput[]> {
+  export async function search(input: IGoogleScholar.ISearchInput): Promise<IGoogleScholar.ISearchOutput[]> {
     try {
       const defaultParams = {
         engine: "google_scholar",
@@ -24,11 +22,7 @@ export namespace GoogleScholarProvider {
 
       const output: IGoogleScholar.ISearchOutput[] = [];
 
-      const searchQuery = makeQuery(
-        input.andKeyword,
-        input.orKeyword ?? [],
-        input.notKeyword ?? [],
-      );
+      const searchQuery = makeQuery(input.andKeyword, input.orKeyword ?? [], input.notKeyword ?? []);
 
       while (output.length < input.max_results) {
         const params = {

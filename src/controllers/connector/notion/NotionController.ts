@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/notion")
@@ -59,14 +60,11 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/page")
-  async createPage(
-    @core.TypedBody() input: INotion.ICreatePageInput,
-  ): Promise<INotion.ICreatePageOutput> {
-    return NotionProvider.createPage(input);
+  async createPage(@core.TypedBody() input: INotion.ICreatePageInput): Promise<Try<INotion.ICreatePageOutput>> {
+    const data = await NotionProvider.createPage(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -116,14 +114,11 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/get/page")
-  async readPageList(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
-  ): Promise<INotion.IReadPageOutput[]> {
-    return retry(() => NotionProvider.readPageList(input))();
+  async readPageList(@core.TypedBody() input: ICommon.ISecret<"notion">): Promise<Try<INotion.IReadPageOutput[]>> {
+    const data = await retry(() => NotionProvider.readPageList(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -173,14 +168,11 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("get/users")
-  async getUsers(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
-  ): Promise<INotion.IUserOutput[]> {
-    return retry(() => NotionProvider.getUsers(input))();
+  async getUsers(@core.TypedBody() input: ICommon.ISecret<"notion">): Promise<Try<INotion.IUserOutput[]>> {
+    const data = await retry(() => NotionProvider.getUsers(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -232,15 +224,14 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/page/content/:pageId")
   async appendPageToContent(
     @core.TypedParam("pageId") pageId: string,
     @core.TypedBody() input: INotion.IAppendPageToContentInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.appendPageToContent(pageId, input))();
+  ): Promise<Try<void>> {
+    const data = await retry(() => NotionProvider.appendPageToContent(pageId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -290,14 +281,11 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("get/database-info")
-  async getDatabaseListInfo(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
-  ): Promise<INotion.IDatabaseInfo[]> {
-    return retry(() => NotionProvider.getDatabaseListInfo(input))();
+  async getDatabaseListInfo(@core.TypedBody() input: ICommon.ISecret<"notion">): Promise<Try<INotion.IDatabaseInfo[]>> {
+    const data = await retry(() => NotionProvider.getDatabaseListInfo(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -349,15 +337,14 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
-  ): Promise<INotion.IDatabaseInfo> {
-    return retry(() => NotionProvider.getDatabaseInfo(input, databaseId))();
+  ): Promise<Try<INotion.IDatabaseInfo>> {
+    const data = await retry(() => NotionProvider.getDatabaseInfo(input, databaseId))();
+    return createResponseForm(data);
   }
 
   /**
@@ -411,15 +398,14 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
     @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
     @core.TypedParam("databaseId") databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return NotionProvider.createDatabaseItem(input, databaseId);
+  ): Promise<Try<INotion.IDatabaseItemOutput>> {
+    const data = await NotionProvider.createDatabaseItem(input, databaseId);
+    return createResponseForm(data);
   }
 
   /**
@@ -473,15 +459,14 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Patch("/database-item/:pageId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     @core.TypedParam("pageId") databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
+  ): Promise<Try<INotion.IDatabaseItemOutput>> {
+    const data = await retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
+    return createResponseForm(data);
   }
 
   /**
@@ -533,14 +518,13 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/get-page-by-title")
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
-  ): Promise<INotion.IFindPageByTitleOutput> {
-    return retry(() => NotionProvider.findPageByTitle(input))();
+  ): Promise<Try<INotion.IFindPageByTitleOutput>> {
+    const data = await retry(() => NotionProvider.findPageByTitle(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -592,17 +576,14 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
     @core.TypedBody() input: ICommon.ISecret<"notion">,
     @core.TypedParam("databaseId") databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput[]> {
-    return retry(() =>
-      NotionProvider.findDatabaseItemList(input, databaseId),
-    )();
+  ): Promise<Try<INotion.IDatabaseItemOutput[]>> {
+    const data = await retry(() => NotionProvider.findDatabaseItemList(input, databaseId))();
+    return createResponseForm(data);
   }
 
   /**
@@ -656,14 +637,13 @@ export class NotionController {
    * @tag Collaboration
    * @tag Document
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg")
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     @core.TypedParam("databaseId") databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(() => NotionProvider.findDatabaseItem(input, databaseId))();
+  ): Promise<Try<INotion.IDatabaseItemOutput>> {
+    const data = await retry(() => NotionProvider.findDatabaseItem(input, databaseId))();
+    return createResponseForm(data);
   }
 }

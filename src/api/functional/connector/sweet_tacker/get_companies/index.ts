@@ -8,6 +8,7 @@ import type { IConnection, Primitive, Resolved } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ISweetTracker } from "../../../../structures/connector/sweet_tracker/ISweetTacker";
 
 export * as recommended from "./recommended";
@@ -35,7 +36,7 @@ export async function getCompanyList(
       });
 }
 export namespace getCompanyList {
-  export type Output = Primitive<ISweetTracker.IGetCompanyListOutput>;
+  export type Output = Primitive<Try<ISweetTracker.IGetCompanyListOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -51,8 +52,8 @@ export namespace getCompanyList {
   export const path = () => "/connector/sweet-tacker/get-companies";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ISweetTracker.IGetCompanyListOutput>> =>
-    typia.random<Primitive<ISweetTracker.IGetCompanyListOutput>>(g);
+  ): Resolved<Primitive<Try<ISweetTracker.IGetCompanyListOutput>>> =>
+    typia.random<Primitive<Try<ISweetTracker.IGetCompanyListOutput>>>(g);
   export const simulate = (connection: IConnection): Output => {
     return random(
       "object" === typeof connection.simulate && null !== connection.simulate

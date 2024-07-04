@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDrive } from "../../../../../structures/connector/google_drive/IGoogleDrive";
 
@@ -130,7 +131,9 @@ export namespace folderList {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
-  export type Output = Primitive<IGoogleDrive.IFolderListGoogleDriveOutput>;
+  export type Output = Primitive<
+    Try<IGoogleDrive.IFolderListGoogleDriveOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -149,8 +152,8 @@ export namespace folderList {
   export const path = () => "/connector/google-drive/get/folders";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDrive.IFolderListGoogleDriveOutput>> =>
-    typia.random<Primitive<IGoogleDrive.IFolderListGoogleDriveOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDrive.IFolderListGoogleDriveOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDrive.IFolderListGoogleDriveOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: folderList.Input,

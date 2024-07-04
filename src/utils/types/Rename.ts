@@ -31,9 +31,7 @@ export type Rename<
   ? DeepStrictMerge<
       DeepStrictMerge<
         DeepStrictOmit<T, AllKeys>,
-        ToObject<
-          StringToDeepObject<RemoveArraySymbol<After>, GetType<T, Before>>
-        >
+        ToObject<StringToDeepObject<RemoveArraySymbol<After>, GetType<T, Before>>>
       >,
       Rename<T, RestCommands, AllKeys>
     >

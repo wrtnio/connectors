@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IRanker } from "@wrtn/connector-api/lib/structures/connector/sort/IRanker";
 
 import { RankerProvider } from "../../../providers/connector/sort/RankerProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 @Controller("connector/rank")
 export class RankController {
@@ -24,7 +25,8 @@ export class RankController {
   async rank(
     @core.TypedBody()
     input: IRanker.IRankInput,
-  ): Promise<IRanker.IRankOutput> {
-    return this.ranker.sortByRank(input);
+  ): Promise<Try<IRanker.IRankOutput>> {
+    const data = this.ranker.sortByRank(input);
+    return createResponseForm(data);
   }
 }

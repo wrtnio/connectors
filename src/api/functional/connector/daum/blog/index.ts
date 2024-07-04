@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IDaum } from "../../../../structures/connector/daum/IDaum";
 
 /**
@@ -83,7 +84,7 @@ export async function searchBlog(
 }
 export namespace searchBlog {
   export type Input = Primitive<IDaum.ISearchDaumInput>;
-  export type Output = Primitive<IDaum.IBlogDaumOutput>;
+  export type Output = Primitive<Try<IDaum.IBlogDaumOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -102,8 +103,8 @@ export namespace searchBlog {
   export const path = () => "/connector/daum/blog";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IDaum.IBlogDaumOutput>> =>
-    typia.random<Primitive<IDaum.IBlogDaumOutput>>(g);
+  ): Resolved<Primitive<Try<IDaum.IBlogDaumOutput>>> =>
+    typia.random<Primitive<Try<IDaum.IBlogDaumOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: searchBlog.Input,

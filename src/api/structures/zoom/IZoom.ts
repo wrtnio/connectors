@@ -3,8 +3,7 @@ import { tags } from "typia";
 import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {
-  export interface ICreateMeetingInput
-    extends ICommon.ISecret<"zoom", ["meeting:write:admin", "meeting:write"]> {
+  export interface ICreateMeetingInput extends ICommon.ISecret<"zoom", ["meeting:write:admin", "meeting:write"]> {
     userId: string;
   }
 
@@ -182,10 +181,7 @@ export namespace IZoom {
      *
      * @title 회의 최종 종료 전 반복 횟수.
      */
-    end_times?: number &
-      tags.Type<"int64"> &
-      tags.Maximum<60> &
-      tags.Default<1>;
+    end_times?: number & tags.Type<"int64"> & tags.Maximum<60> & tags.Default<1>;
 
     /**
      * 1은 daily, 2는 weekly, 3은 monthly로, 반복 유형을 의미한다.
@@ -199,10 +195,7 @@ export namespace IZoom {
      *
      * @title 해당 월의 1부터 31까지의 일.
      */
-    monthly_day: number &
-      tags.Type<"int32"> &
-      tags.Minimum<1> &
-      tags.Maximum<31>;
+    monthly_day: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>;
 
     /**
      * 매월 몇 번째 주인지를 의미한다.
@@ -234,9 +227,7 @@ export namespace IZoom {
      *
      * @title 매 달 무슨 요일인지를 의미.
      */
-    monthly_week_day:
-      | (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">)
-      | string;
+    monthly_week_day: (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">) | string;
 
     /**
      * `type`이 1일 때, 즉 daily로 설정된 미팅의 경우 최대 90(일)까지 가능.
@@ -264,9 +255,7 @@ export namespace IZoom {
      *
      * @title 매 주 무슨 요일인지를 의미.
      */
-    weekly_days:
-      | (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">)
-      | string;
+    weekly_days: (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">) | string;
   }
 
   /**
@@ -359,8 +348,7 @@ export namespace IZoom {
      *
      * @title How participants join the audio portion of the meeting.
      */
-    audio: ("both" | "telephony" | "voip" | "thirdParty") &
-      tags.Default<"both">;
+    audio: ("both" | "telephony" | "voip" | "thirdParty") & tags.Default<"both">;
 
     /**
      * @title Third party audio conference info.
@@ -801,8 +789,7 @@ export namespace IZoom {
        * - `commenter` - Users with link access can comment on the board.
        * - `viewer` - Users with link access can view the board.
        */
-      permission_level: ("editor" | "commenter" | "viewer") &
-        tags.Default<"editor">;
+      permission_level: ("editor" | "commenter" | "viewer") & tags.Default<"editor">;
     }[];
 
     /**

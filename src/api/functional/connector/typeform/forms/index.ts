@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ITypeform } from "../../../../structures/connector/typeform/ITypeform";
 
 export * as fields from "./fields";
@@ -96,7 +97,7 @@ export async function updateFormFieldValue(
 }
 export namespace updateFormFieldValue {
   export type Input = Primitive<ITypeform.IUpdateFormFieldValueInput>;
-  export type Output = Primitive<ITypeform.IUpdateFormFieldValueOutput>;
+  export type Output = Primitive<Try<ITypeform.IUpdateFormFieldValueOutput>>;
 
   export const METADATA = {
     method: "PUT",
@@ -116,8 +117,8 @@ export namespace updateFormFieldValue {
     `/connector/typeform/forms/${encodeURIComponent(formId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ITypeform.IUpdateFormFieldValueOutput>> =>
-    typia.random<Primitive<ITypeform.IUpdateFormFieldValueOutput>>(g);
+  ): Resolved<Primitive<Try<ITypeform.IUpdateFormFieldValueOutput>>> =>
+    typia.random<Primitive<Try<ITypeform.IUpdateFormFieldValueOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     formId: string,
@@ -200,7 +201,7 @@ export namespace updateFormFieldValue {
 export async function deleteForm(
   connection: IConnection,
   formId: string,
-): Promise<void> {
+): Promise<deleteForm.Output> {
   return !!connection.simulate
     ? deleteForm.simulate(connection, formId)
     : PlainFetcher.fetch(connection, {
@@ -210,6 +211,8 @@ export async function deleteForm(
       });
 }
 export namespace deleteForm {
+  export type Output = Primitive<Try<void>>;
+
   export const METADATA = {
     method: "DELETE",
     path: "/connector/typeform/forms/:formId",
@@ -225,8 +228,8 @@ export namespace deleteForm {
     `/connector/typeform/forms/${encodeURIComponent(formId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
-  export const simulate = (connection: IConnection, formId: string): void => {
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
+  export const simulate = (connection: IConnection, formId: string): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

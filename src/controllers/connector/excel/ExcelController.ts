@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtn/decorators";
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
 import { ExcelProvider } from "../../../providers/connector/excel/ExcelProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/excel")
@@ -18,7 +19,7 @@ export class ExcelController {
   //  */
   // @core.TypedRoute.Post()
   // async create(@core.TypedBody() input: IExcel.ICreateExcelInput) {
-  //   return retry(() =>  ExcelProvider.create)(input);
+  //   const data = await retry(() =>  ExcelProvider.create)(input);
   // }
 
   /**
@@ -82,13 +83,10 @@ export class ExcelController {
    * @tag Merge Data
    */
   @core.TypedRoute.Post("/read")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
-  )
-  async read(
-    @core.TypedBody() input: IExcel.IReadExcelInput,
-  ): Promise<IExcel.IReadExcelOutput> {
-    return retry(() => ExcelProvider.getExcelData(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg")
+  async read(@core.TypedBody() input: IExcel.IReadExcelInput): Promise<Try<IExcel.IReadExcelOutput>> {
+    const data = await retry(() => ExcelProvider.getExcelData(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -154,13 +152,12 @@ export class ExcelController {
    * @tag Merge Data
    */
   @core.TypedRoute.Post("/worksheet")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg")
   async worksheetList(
     @core.TypedBody() input: IExcel.IGetWorksheetListInput,
-  ): Promise<IExcel.IWorksheetListOutput> {
-    return retry(() => ExcelProvider.readSheets(input))();
+  ): Promise<Try<IExcel.IWorksheetListOutput>> {
+    const data = await retry(() => ExcelProvider.readSheets(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -224,12 +221,9 @@ export class ExcelController {
    * @tag Merge Data
    */
   @core.TypedRoute.Post("/rows")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
-  )
-  async insertRows(
-    @core.TypedBody() input: IExcel.IInsertExcelRowInput,
-  ): Promise<IExcel.IInsertExcelRowOutput> {
-    return retry(() => ExcelProvider.insertRows(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg")
+  async insertRows(@core.TypedBody() input: IExcel.IInsertExcelRowInput): Promise<Try<IExcel.IInsertExcelRowOutput>> {
+    const data = await retry(() => ExcelProvider.insertRows(input))();
+    return createResponseForm(data);
   }
 }

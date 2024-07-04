@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type {
   IMarketingCopyGenerator,
   IMarketingCopyComponents,
@@ -51,7 +52,7 @@ export async function generateCopy(
 export namespace generateCopy {
   export type Input =
     Primitive<IMarketingCopyGenerator.IGenerateMarketingCopyInput>;
-  export type Output = Primitive<Partial<IMarketingCopyComponents>>;
+  export type Output = Primitive<Try<Partial<IMarketingCopyComponents>>>;
 
   export const METADATA = {
     method: "POST",
@@ -70,8 +71,8 @@ export namespace generateCopy {
   export const path = () => "/connector/marketing-copy/generate-copy";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Partial<IMarketingCopyComponents>>> =>
-    typia.random<Primitive<Partial<IMarketingCopyComponents>>>(g);
+  ): Resolved<Primitive<Try<Partial<IMarketingCopyComponents>>>> =>
+    typia.random<Primitive<Try<Partial<IMarketingCopyComponents>>>>(g);
   export const simulate = (
     connection: IConnection,
     input: generateCopy.Input,

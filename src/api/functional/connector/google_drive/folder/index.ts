@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDrive } from "../../../../structures/connector/google_drive/IGoogleDrive";
 
@@ -129,7 +130,9 @@ export async function createFolder(
 }
 export namespace createFolder {
   export type Input = Primitive<IGoogleDrive.ICreateFolderGoogleDriveInput>;
-  export type Output = Primitive<IGoogleDrive.ICreateFolderGoogleDriveOutput>;
+  export type Output = Primitive<
+    Try<IGoogleDrive.ICreateFolderGoogleDriveOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -148,8 +151,10 @@ export namespace createFolder {
   export const path = () => "/connector/google-drive/folder";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDrive.ICreateFolderGoogleDriveOutput>> =>
-    typia.random<Primitive<IGoogleDrive.ICreateFolderGoogleDriveOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDrive.ICreateFolderGoogleDriveOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDrive.ICreateFolderGoogleDriveOutput>>>(
+      g,
+    );
   export const simulate = (
     connection: IConnection,
     input: createFolder.Input,
@@ -265,7 +270,7 @@ export async function deleteFolder(
   connection: IConnection,
   id: string,
   input: deleteFolder.Input,
-): Promise<void> {
+): Promise<deleteFolder.Output> {
   return !!connection.simulate
     ? deleteFolder.simulate(connection, id, input)
     : PlainFetcher.fetch(
@@ -288,6 +293,7 @@ export namespace deleteFolder {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "DELETE",
@@ -307,12 +313,12 @@ export namespace deleteFolder {
     `/connector/google-drive/folder/${encodeURIComponent(id ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,
     input: deleteFolder.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

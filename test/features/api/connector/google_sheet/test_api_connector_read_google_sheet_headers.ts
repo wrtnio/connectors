@@ -13,10 +13,7 @@ export const test_api_connector_read_google_sheet_headers = async (
     index: 0,
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
   };
-  const result = await CApi.functional.connector.google_sheet.getHeaders(
-    connection,
-    input,
-  );
+  const result = await CApi.functional.connector.google_sheet.getHeaders(connection, input);
   typia.assertEquals(result);
   return result;
 };

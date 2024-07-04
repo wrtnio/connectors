@@ -11,14 +11,8 @@ import { GenerateToolHardVO } from "./internal/vo/GenerateToolHardVO";
 @Injectable()
 export class ToolProvider {
   private readonly SHAKESPEARE_URL = ConnectorGlobal.env.SHAKESPEARE_URL;
-  async generateTool(
-    id: string,
-    input: ITool.IGenerateInput,
-  ): Promise<ITool.IGenerateOutput> {
-    const docStr = fs.readFileSync(
-      "assets/raw/studio1-tool-store-map.json",
-      "utf8",
-    );
+  async generateTool(id: string, input: ITool.IGenerateInput): Promise<ITool.IGenerateOutput> {
+    const docStr = fs.readFileSync("assets/raw/studio1-tool-store-map.json", "utf8");
     const jsonArr = JSON.parse(docStr);
     const dataMap = new Map<string, object>(jsonArr);
 
@@ -61,18 +55,12 @@ export class ToolProvider {
     }));
   }
 
-  private async requestToolGenerate(
-    tool: GenerateToolEasyVO | GenerateToolHardVO,
-  ) {
-    const res = await axios.post(
-      `${this.SHAKESPEARE_URL}/studio/tool/${tool.id}`,
-      tool,
-      {
-        headers: {
-          "x-request-id": tool.requestId,
-        },
+  private async requestToolGenerate(tool: GenerateToolEasyVO | GenerateToolHardVO) {
+    const res = await axios.post(`${this.SHAKESPEARE_URL}/studio/tool/${tool.id}`, tool, {
+      headers: {
+        "x-request-id": tool.requestId,
       },
-    );
+    });
 
     return res.data.content;
   }

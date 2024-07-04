@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IGoogleScholar } from "@wrtn/connector-api/lib/structures/connector/google_scholar/IGoogleScholar";
 
 import { GoogleScholarProvider } from "../../../providers/connector/google_scholar/GoogleScholarProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-scholar")
@@ -209,12 +210,9 @@ export class GoogleScholarController {
    */
   @Standalone()
   @core.TypedRoute.Post()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/google_scholar.svg",
-  )
-  async search(
-    @core.TypedBody() input: IGoogleScholar.ISearchInput,
-  ): Promise<IGoogleScholar.ISearchOutput[]> {
-    return retry(() => GoogleScholarProvider.search(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/google_scholar.svg")
+  async search(@core.TypedBody() input: IGoogleScholar.ISearchInput): Promise<Try<IGoogleScholar.ISearchOutput[]>> {
+    const data = await retry(() => GoogleScholarProvider.search(input))();
+    return createResponseForm(data);
   }
 }

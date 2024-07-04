@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IHancell } from "../../../../structures/connector/hancell/IHancell";
 
 /**
@@ -48,7 +49,7 @@ export async function upsertSheet(
 }
 export namespace upsertSheet {
   export type Input = Primitive<IHancell.IUpsertSheetInput>;
-  export type Output = Primitive<IHancell.IUpsertSheetOutput>;
+  export type Output = Primitive<Try<IHancell.IUpsertSheetOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -67,8 +68,8 @@ export namespace upsertSheet {
   export const path = () => "/connector/hancell/sheet";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IHancell.IUpsertSheetOutput>> =>
-    typia.random<Primitive<IHancell.IUpsertSheetOutput>>(g);
+  ): Resolved<Primitive<Try<IHancell.IUpsertSheetOutput>>> =>
+    typia.random<Primitive<Try<IHancell.IUpsertSheetOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: upsertSheet.Input,

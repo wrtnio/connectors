@@ -11,9 +11,7 @@ export namespace IHwp {
      *
      * @title hwp 파일
      */
-    fileUrl: string &
-      tags.Format<"uri"> &
-      ContentMediaType<"application/vnd.hancom.hwp">;
+    fileUrl: string & tags.Format<"uri"> & ContentMediaType<"application/vnd.hancom.hwp">;
   }
 
   export interface IParseOutput {

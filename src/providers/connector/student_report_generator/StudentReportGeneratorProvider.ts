@@ -9,12 +9,7 @@ import {
   IStudentReportRowGeneratorResponse,
   ITableRowData,
 } from "../../../api/structures/connector/student_report_generator/IStudentReportGenerator";
-import {
-  IChainOfThought,
-  OpenAIProvider,
-  dump,
-  merge,
-} from "../../open_ai/OpenAIProvider";
+import { IChainOfThought, OpenAIProvider, dump, merge } from "../../open_ai/OpenAIProvider";
 
 interface GeneratedOutput {
   [field: string]: string;
@@ -61,19 +56,11 @@ Here are the rules to follow:
 export class StudentReportGeneratorProvider {
   constructor(private openAIProvider: OpenAIProvider) {}
 
-  public async generate(
-    input: IStudentReportGeneratorRequest,
-  ): Promise<IStudentReportGeneratorResponse> {
+  public async generate(input: IStudentReportGeneratorRequest): Promise<IStudentReportGeneratorResponse> {
     for (const referenceData of input.reference_data) {
       for (const outputStructure of input.outputs) {
         const response = await merge<ITableRowData, GeneratedOutput>(
-          () =>
-            generateStudentReport(
-              this.openAIProvider,
-              referenceData,
-              outputStructure,
-              input.consideration,
-            ),
+          () => generateStudentReport(this.openAIProvider, referenceData, outputStructure, input.consideration),
           referenceData,
         );
         Object.assign(referenceData, response);
@@ -82,9 +69,7 @@ export class StudentReportGeneratorProvider {
     return { data: input.reference_data };
   }
 
-  public async generateRow(
-    input: IStudentReportRowGeneratorRequest,
-  ): Promise<IStudentReportRowGeneratorResponse> {
+  public async generateRow(input: IStudentReportRowGeneratorRequest): Promise<IStudentReportRowGeneratorResponse> {
     return {
       data: await generateStudentReport(
         this.openAIProvider,

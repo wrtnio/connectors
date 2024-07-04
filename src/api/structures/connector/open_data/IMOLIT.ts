@@ -15,7 +15,7 @@ export namespace IMOLIT {
     LAWD_CD: Prerequisite<{
       method: "post";
       path: "/connector/open-data/getStandardRegionCodeList";
-      array: "return response.rows";
+      array: "return response.data.rows";
       value: "return elem.sigunguCd";
       label: "return elem.sigunguNm";
     }> &
@@ -33,33 +33,26 @@ export namespace IMOLIT {
 
   export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
   export interface IgetRTMSDataSvcSHRentOutput {
-    data: StrictOmit<
-      BuildingLentInfo,
-      "apartment" | "exclusiveArea" | "lotNumber" | "floor"
-    >[];
+    data: StrictOmit<BuildingLentInfo, "apartment" | "exclusiveArea" | "lotNumber" | "floor">[];
   }
 
   export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;
 
   export interface IGetRTMSDataSvcOffiRentOutput {
-    data: StrictOmit<
-      BuildingLentInfo,
-      "depositAmount" | "monthlyRentAmount" | "apartment" | "yearOfConstruction"
-    >[];
+    data: StrictOmit<BuildingLentInfo, "depositAmount" | "monthlyRentAmount" | "apartment" | "yearOfConstruction">[];
   }
 
   /**
    * @title 빌딩 조회 조건
    */
-  export interface GetBuildingInfoInput
-    extends IOpenData.ICommon.IPaginationInput {
+  export interface GetBuildingInfoInput extends IOpenData.ICommon.IPaginationInput {
     /**
      * @title 시군구 코드
      */
     sigunguCd: Prerequisite<{
       method: "post";
       path: "/connector/open-data/getStandardRegionCodeList";
-      array: "return response.rows";
+      array: "return response.data.rows";
       value: "return elem.sigunguCd";
       label: "return elem.sigunguNm";
     }> &
@@ -71,7 +64,7 @@ export namespace IMOLIT {
     bjdongCd: Prerequisite<{
       method: "post";
       path: "/connector/open-data/getStandardRegionCodeList";
-      array: "return response.rows";
+      array: "return response.data.rows";
       value: "return elem.sigunguCd";
       label: "return elem.locatadd_nm";
     }> &
@@ -81,8 +74,7 @@ export namespace IMOLIT {
   /**
    * @title 빌딩 조회 응답
    */
-  export interface GetBuildingInfoOutput
-    extends IOpenData.ICommon.IPaginationOutput {
+  export interface GetBuildingInfoOutput extends IOpenData.ICommon.IPaginationOutput {
     /**
      * @title 빌딩 정보 목록
      */
@@ -530,9 +522,7 @@ export namespace IMOLIT {
     /**
      * @title 월
      */
-    월:
-      | string
-      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
+    월: string | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
 
     /**
      * @title 월세금액
@@ -542,9 +532,7 @@ export namespace IMOLIT {
     /**
      * @title 일
      */
-    일:
-      | string
-      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
+    일: string | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
 
     /**
      * @title 전용면적
@@ -621,9 +609,7 @@ export namespace IMOLIT {
     /**
      * @title 월
      */
-    month:
-      | string
-      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
+    month: string | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
 
     /**
      * @title 월세금액
@@ -633,9 +619,7 @@ export namespace IMOLIT {
     /**
      * @title 일
      */
-    day:
-      | string
-      | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
+    day: string | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
 
     /**
      * @title 전용면적

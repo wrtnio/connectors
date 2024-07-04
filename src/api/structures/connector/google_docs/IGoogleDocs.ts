@@ -13,13 +13,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
  *
  * @title 권한의 종류.
  */
-type PermissionRoles =
-  | "owner"
-  | "writer"
-  | "commenter"
-  | "reader"
-  | "organizer"
-  | "fileOrganizer";
+type PermissionRoles = "owner" | "writer" | "commenter" | "reader" | "organizer" | "fileOrganizer";
 
 /**
  * user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.
@@ -83,10 +77,7 @@ export namespace IGoogleDocs {
   export interface ICreateGoogleDocsInput
     extends ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     > {
     /**
      * 생성할 docs의 제목입니다.
@@ -99,10 +90,7 @@ export namespace IGoogleDocs {
   export interface IPermissionGoogleDocsInput
     extends ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     > {
     /**
      * 접근 권한을 부여할 구글 docs의 id입니다.
@@ -113,7 +101,7 @@ export namespace IGoogleDocs {
       Prerequisite<{
         method: "post";
         path: "/connector/google-docs/get-list";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.title";
       }>;
@@ -138,10 +126,7 @@ export namespace IGoogleDocs {
   export interface ICreateDocByTemplateInput
     extends ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     > {
     /**
      * 복제할 구글 docs.
@@ -152,7 +137,7 @@ export namespace IGoogleDocs {
       Prerequisite<{
         method: "post";
         path: "/connector/google-docs/get-list";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.title";
       }>;
@@ -200,10 +185,7 @@ export namespace IGoogleDocs {
   export interface IAppendTextGoogleDocsInput
     extends ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     > {
     /**
      * 텍스트를 추가할 구글 docs를 선택합니다.
@@ -214,7 +196,7 @@ export namespace IGoogleDocs {
       Prerequisite<{
         method: "post";
         path: "/connector/google-docs/get-list";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.id";
         label: "return elem.title";
       }>;

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
 
 /**
@@ -98,7 +99,7 @@ export async function createLabel(
 }
 export namespace createLabel {
   export type Input = Primitive<IGmail.ILabelInput>;
-  export type Output = Primitive<IGmail.ILabelOutput>;
+  export type Output = Primitive<Try<IGmail.ILabelOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -117,8 +118,8 @@ export namespace createLabel {
   export const path = () => "/connector/gmail/label";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGmail.ILabelOutput>> =>
-    typia.random<Primitive<IGmail.ILabelOutput>>(g);
+  ): Resolved<Primitive<Try<IGmail.ILabelOutput>>> =>
+    typia.random<Primitive<Try<IGmail.ILabelOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createLabel.Input,
@@ -205,7 +206,7 @@ export async function addLabelToMail(
   connection: IConnection,
   mailId: string,
   input: addLabelToMail.Input,
-): Promise<void> {
+): Promise<addLabelToMail.Output> {
   return !!connection.simulate
     ? addLabelToMail.simulate(connection, mailId, input)
     : PlainFetcher.fetch(
@@ -226,6 +227,7 @@ export async function addLabelToMail(
 }
 export namespace addLabelToMail {
   export type Input = Primitive<IGmail.IMailLabelOperationInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -245,12 +247,12 @@ export namespace addLabelToMail {
     `/connector/gmail/label/${encodeURIComponent(mailId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     mailId: string,
     input: addLabelToMail.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,
@@ -334,7 +336,7 @@ export async function removeLabelFromMail(
   connection: IConnection,
   mailId: string,
   input: removeLabelFromMail.Input,
-): Promise<void> {
+): Promise<removeLabelFromMail.Output> {
   return !!connection.simulate
     ? removeLabelFromMail.simulate(connection, mailId, input)
     : PlainFetcher.fetch(
@@ -355,6 +357,7 @@ export async function removeLabelFromMail(
 }
 export namespace removeLabelFromMail {
   export type Input = Primitive<IGmail.IMailLabelOperationInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "DELETE",
@@ -374,12 +377,12 @@ export namespace removeLabelFromMail {
     `/connector/gmail/label/${encodeURIComponent(mailId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     mailId: string,
     input: removeLabelFromMail.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

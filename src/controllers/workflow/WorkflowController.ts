@@ -25,9 +25,7 @@ export class WorkflowController {
    * @internal
    */
   @core.TypedRoute.Post("run")
-  public runWorkflow(
-    @core.TypedBody() input: IRunWorkflowInput,
-  ): Promise<IRunWorkflowOutput> {
+  public runWorkflow(@core.TypedBody() input: IRunWorkflowInput): Promise<IRunWorkflowOutput> {
     return this._workflowProvider.run(input);
   }
 
@@ -53,9 +51,7 @@ export class WorkflowController {
    * @internal
    */
   @core.TypedRoute.Get("runs")
-  public getWorkflowRuns(
-    @core.TypedQuery() input: IGetWorkflowRunsInput,
-  ): Promise<IGetWorkflowRunsOutput> {
+  public getWorkflowRuns(@core.TypedQuery() input: IGetWorkflowRunsInput): Promise<IGetWorkflowRunsOutput> {
     return this._workflowProvider.getWorkflowRuns(input);
   }
 }

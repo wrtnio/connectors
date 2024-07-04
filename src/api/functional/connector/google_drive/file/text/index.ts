@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IGoogleDrive } from "../../../../../structures/connector/google_drive/IGoogleDrive";
 
 /**
@@ -108,7 +109,7 @@ export async function createText(
   connection: IConnection,
   id: string,
   input: createText.Input,
-): Promise<void> {
+): Promise<createText.Output> {
   return !!connection.simulate
     ? createText.simulate(connection, id, input)
     : PlainFetcher.fetch(
@@ -129,6 +130,7 @@ export async function createText(
 }
 export namespace createText {
   export type Input = Primitive<IGoogleDrive.IAppendTextGoogleDriveInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -148,12 +150,12 @@ export namespace createText {
     `/connector/google-drive/file/${encodeURIComponent(id ?? "null")}/text`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,
     input: createText.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

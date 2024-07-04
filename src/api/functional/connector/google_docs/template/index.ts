@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGoogleDocs } from "../../../../structures/connector/google_docs/IGoogleDocs";
 
 /**
@@ -101,7 +102,7 @@ export async function createDocByTemplate(
 }
 export namespace createDocByTemplate {
   export type Input = Primitive<IGoogleDocs.ICreateDocByTemplateInput>;
-  export type Output = Primitive<IGoogleDocs.ICreateDocByTemplateOutput>;
+  export type Output = Primitive<Try<IGoogleDocs.ICreateDocByTemplateOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -120,8 +121,8 @@ export namespace createDocByTemplate {
   export const path = () => "/connector/google-docs/template";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDocs.ICreateDocByTemplateOutput>> =>
-    typia.random<Primitive<IGoogleDocs.ICreateDocByTemplateOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDocs.ICreateDocByTemplateOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDocs.ICreateDocByTemplateOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createDocByTemplate.Input,

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IDallE3 } from "../../../../structures/connector/dall_e_3/IDallE3";
 
 /**
@@ -46,7 +47,7 @@ export async function generateImage(
 }
 export namespace generateImage {
   export type Input = Primitive<IDallE3.IRequest>;
-  export type Output = Primitive<IDallE3.IResponse>;
+  export type Output = Primitive<Try<IDallE3.IResponse>>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +66,8 @@ export namespace generateImage {
   export const path = () => "/connector/dall-e-3/generate";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IDallE3.IResponse>> =>
-    typia.random<Primitive<IDallE3.IResponse>>(g);
+  ): Resolved<Primitive<Try<IDallE3.IResponse>>> =>
+    typia.random<Primitive<Try<IDallE3.IResponse>>>(g);
   export const simulate = (
     connection: IConnection,
     input: generateImage.Input,

@@ -55,10 +55,7 @@ export class WorkflowStateManager {
         marketing_purpose: {
           purpose: "sign_up",
           product_name: "뤼튼 스튜디오",
-          unique_selling_point: [
-            "반복업무를 1분만에",
-            "노코드로 업부 자동화 툴 제작",
-          ],
+          unique_selling_point: ["반복업무를 1분만에", "노코드로 업부 자동화 툴 제작"],
           user_benefit: ["첫 3개 워크플로우 제작 무료"],
         },
         distribution_channels: [
@@ -100,8 +97,7 @@ export class WorkflowStateManager {
           {
             field_name: "Overall Evaluation",
             field_description: "Overall Evaluation",
-            example:
-              "Kim is a diligent student who excels in every subject and is a pleasure to teach.",
+            example: "Kim is a diligent student who excels in every subject and is a pleasure to teach.",
           },
         ],
         reference_data: sheetData.data,
@@ -111,19 +107,13 @@ export class WorkflowStateManager {
     this.workflowRuns[workflowRunId].status = "finished";
   }
 
-  public async getWorkflowRunStatus(
-    workflowRunId: string,
-  ): Promise<IWorkflowRunStatus> {
+  public async getWorkflowRunStatus(workflowRunId: string): Promise<IWorkflowRunStatus> {
     return this.workflowRuns[workflowRunId];
   }
 
-  public async getWorkflowRuns(
-    workflowId?: string,
-  ): Promise<IWorkflowRunStatus[]> {
+  public async getWorkflowRuns(workflowId?: string): Promise<IWorkflowRunStatus[]> {
     const allRuns = Object.values(this.workflowRuns);
-    return workflowId
-      ? allRuns.filter((run) => run.workflowId === workflowId)
-      : allRuns;
+    return workflowId ? allRuns.filter((run) => run.workflowId === workflowId) : allRuns;
   }
 
   public async runWorkflow(workflowId: string): Promise<string> {
@@ -142,10 +132,7 @@ export class WorkflowStateManager {
 
     if (!runWorkflow) {
       // http status exception shouldn't be of concern in this scope but this is just for poc
-      throw new HttpException(
-        `Workflow ${workflowId} not found`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException(`Workflow ${workflowId} not found`, HttpStatus.NOT_FOUND);
     }
 
     // do not `await` workflows since workflows will be running for a while

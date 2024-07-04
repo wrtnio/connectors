@@ -3,13 +3,10 @@ import typia from "typia";
 import CApi from "@wrtn/connector-api";
 import { IChatbot } from "@wrtn/connector-api/lib/structures/connector/chatbot/IChatbot";
 
-export const test_studio1_chatbot_hard_generate = async (
-  connection: CApi.IConnection,
-) => {
+export const test_studio1_chatbot_hard_generate = async (connection: CApi.IConnection) => {
   const hardInput: IChatbot.IChatBotHardGenerateInput = {
     name: "고객 감정 분석 리뷰봇",
-    description:
-      "고객이 남긴 리뷰의 글을 분석해서 적절한 답장을 생성하는 봇입니다.",
+    description: "고객이 남긴 리뷰의 글을 분석해서 적절한 답장을 생성하는 봇입니다.",
     difficulty: "hard",
     message: "배달이 왔을 때 너무 식어서 배달이 왔고, 음식이 너무 짜요.",
     prompt:
@@ -18,15 +15,10 @@ export const test_studio1_chatbot_hard_generate = async (
       { role: "user", content: "음식이 너무 맛있어요." },
       {
         role: "assistant",
-        content:
-          "고객님 음식을 맛있게 드셔주셔서 너무 감사합니다. 항상 최선을 다하겠습니다.",
+        content: "고객님 음식을 맛있게 드셔주셔서 너무 감사합니다. 항상 최선을 다하겠습니다.",
       },
     ],
   };
-  const output =
-    await CApi.functional.connector.chatbot.generate.hard.generateHardChatbot(
-      connection,
-      hardInput,
-    );
+  const output = await CApi.functional.connector.chatbot.generate.hard.generateHardChatbot(connection, hardInput);
   typia.assertEquals<IChatbot.IChatbotGenerateOutput>(output);
 };

@@ -4,18 +4,13 @@ import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
 
 import { ICommon } from "../common/ISecretValue";
 
-type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
-  ? Record<K, T[K]>
-  : never;
+type OneOf<T extends object, K extends keyof T = keyof T> = K extends any ? Record<K, T[K]> : never;
 
 export namespace IGoogleSlides {
   /**
    * @title 슬라이드를 pptx로 내보내는 조건
    */
-  export type IExportPresentationInput = ICommon.ISecret<
-    "google",
-    ["https://www.googleapis.com/auth/drive"]
-  >;
+  export type IExportPresentationInput = ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>;
 
   export interface IExportPresentationOutput {
     powerPoint: string & tags.Format<"uri">;
@@ -25,10 +20,7 @@ export namespace IGoogleSlides {
    * @title 슬라이드를 붙이기 위한 요청 DTO.
    */
   export interface AppendSlideInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/presentations"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/presentations"]> {
     /**
      * @title 한 번에 생성하고자 하는 템플릿의 목록.
      */
@@ -313,10 +305,7 @@ export namespace IGoogleSlides {
    * @title 수정할 프레젠테이션의 조건 DTO.
    */
   export interface IUpdatePresentationInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/presentations"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/presentations"]> {
     /**
      * @title 수정할 프레젠테이션의 ID.
      */
@@ -515,10 +504,7 @@ export namespace IGoogleSlides {
    * @title 프레젠테이션 검색을 위한 조건 DTO.
    */
   export interface IGetPresentationInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/presentations"]
-    > {
+    extends ICommon.ISecret<"google", ["https://www.googleapis.com/auth/presentations"]> {
     /**
      * @title 검색의 대상이 되는 프레젠테이션 ID.
      */
@@ -528,10 +514,7 @@ export namespace IGoogleSlides {
   /**
    * @title Google Slides의 프레젠테이션을 생성하기 위한 요청 DTO.
    */
-  export type ICreatePresentationInput = ICommon.ISecret<
-    "google",
-    ["https://www.googleapis.com/auth/presentations"]
-  > &
+  export type ICreatePresentationInput = ICommon.ISecret<"google", ["https://www.googleapis.com/auth/presentations"]> &
     Omit<Presentation, "presentationId">;
 
   /**
@@ -583,10 +566,7 @@ export namespace IGoogleSlides {
      *
      * IETF BCP 47 언어 태크 형식.
      */
-    locale?:
-      | tags.Constant<"eu", { title: "미국 영어" }>
-      | tags.Constant<"ko", { title: "한국어" }>
-      | null;
+    locale?: tags.Constant<"eu", { title: "미국 영어" }> | tags.Constant<"ko", { title: "한국어" }> | null;
 
     /**
      * @title 출력 전용 프레젠테이션 버전의 ID.
@@ -653,12 +633,7 @@ export namespace IGoogleSlides {
       >
     | tags.Constant<"PT", { title: "포인트"; description: "1/72인치입니다." }>;
 
-  export type Page =
-    | SlidePage
-    | LayoutPage
-    | NotesPage
-    | MasterPage
-    | NoteMasterPage;
+  export type Page = SlidePage | LayoutPage | NotesPage | MasterPage | NoteMasterPage;
 
   export interface SlidePage extends PageBase {
     pageType?: "SLIDE";
@@ -832,10 +807,7 @@ export namespace IGoogleSlides {
    * PageProperties에는 이러한 테마 색상 유형을 구체적인 색상으로 매핑하는 ColorScheme를 포함합니다.
    */
   export type ThemeColorType =
-    | tags.Constant<
-        "THEME_COLOR_TYPE_UNSPECIFIED",
-        { title: "지정되지 않은 테마 색상 이 값은 사용해서는 안 됩니다." }
-      >
+    | tags.Constant<"THEME_COLOR_TYPE_UNSPECIFIED", { title: "지정되지 않은 테마 색상 이 값은 사용해서는 안 됩니다." }>
     | tags.Constant<"DARK1", { title: "첫 번째 어두운 색상을 나타냅니다." }>
     | tags.Constant<"LIGHT1", { title: "첫 번째 밝은 색상을 나타냅니다." }>
     | tags.Constant<"DARK2", { title: "두 번째 어두운 색상을 나타냅니다." }>
@@ -846,21 +818,12 @@ export namespace IGoogleSlides {
     | tags.Constant<"ACCENT4", { title: "네 번째 강조 색상을 나타냅니다." }>
     | tags.Constant<"ACCENT5", { title: "다섯 번째 강조 색상을 나타냅니다." }>
     | tags.Constant<"ACCENT6", { title: "6번째 강조 색상을 나타냅니다." }>
-    | tags.Constant<
-        "HYPERLINK",
-        { title: "하이퍼링크에 사용할 색상을 나타냅니다." }
-      >
-    | tags.Constant<
-        "FOLLOWED_HYPERLINK",
-        { title: "방문한 하이퍼링크에 사용할 색상을 나타냅니다." }
-      >
+    | tags.Constant<"HYPERLINK", { title: "하이퍼링크에 사용할 색상을 나타냅니다." }>
+    | tags.Constant<"FOLLOWED_HYPERLINK", { title: "방문한 하이퍼링크에 사용할 색상을 나타냅니다." }>
     | tags.Constant<"TEXT1", { title: "첫 번째 텍스트 색상을 나타냅니다." }>
     | tags.Constant<"BACKGROUND1", { title: "첫 번째 배경 색상을 나타냅니다." }>
     | tags.Constant<"TEXT2", { title: "두 번째 텍스트 색상을 나타냅니다." }>
-    | tags.Constant<
-        "BACKGROUND2",
-        { title: "두 번째 배경 색상을 나타냅니다." }
-      >;
+    | tags.Constant<"BACKGROUND2", { title: "두 번째 배경 색상을 나타냅니다." }>;
 
   export type PageBackgroundFill = {
     /**
@@ -968,10 +931,7 @@ export namespace IGoogleSlides {
     description?: string;
   };
 
-  export type PageElement =
-    | ShapePageElement
-    | ImagePageElement
-    | LinePageElement;
+  export type PageElement = ShapePageElement | ImagePageElement | LinePageElement;
 
   export interface ShapePageElement extends PageElementBase {
     /**
@@ -1023,17 +983,11 @@ export namespace IGoogleSlides {
      * @title 자리표시자의 유형.
      */
     type:
-      | tags.Constant<
-          "NONE",
-          { title: "기본값은 자리표시자가 아니라는 의미입니다." }
-        >
+      | tags.Constant<"NONE", { title: "기본값은 자리표시자가 아니라는 의미입니다." }>
       | tags.Constant<"BODY", { title: "본문 텍스트." }>
       | tags.Constant<"CHART", { title: "차트 또는 그래프" }>
       | tags.Constant<"CLIP_ART", { title: "클립 아트 이미지" }>
-      | tags.Constant<
-          "CENTERED_TITLE",
-          { title: "제목이 가운데에 표시됩니다." }
-        >
+      | tags.Constant<"CENTERED_TITLE", { title: "제목이 가운데에 표시됩니다." }>
       | tags.Constant<"DIAGRAM", { title: "다이어그램" }>
       | tags.Constant<"DATE_AND_TIME", { title: "날짜 및 시간" }>
       | tags.Constant<"FOOTER", { title: "바닥글 텍스트" }>
@@ -1157,19 +1111,10 @@ export namespace IGoogleSlides {
    * @title 자동 맞춤 유형.
    */
   export type AutofitType =
-    | tags.Constant<
-        "AUTOFIT_TYPE_UNSPECIFIED",
-        { title: "자동 맞춤 유형이 지정되지 않았습니다." }
-      >
+    | tags.Constant<"AUTOFIT_TYPE_UNSPECIFIED", { title: "자동 맞춤 유형이 지정되지 않았습니다." }>
     | tags.Constant<"NONE", { title: "자동 맞춤 안함" }>
-    | tags.Constant<
-        "TEXT_AUTOFIT",
-        { title: "오버플로우 시 텍스트를 도형에 맞게 축소합니다." }
-      >
-    | tags.Constant<
-        "SHAPE_AUTOFIT",
-        { title: "텍스트에 맞게 도형의 크기를 조정합니다." }
-      >;
+    | tags.Constant<"TEXT_AUTOFIT", { title: "오버플로우 시 텍스트를 도형에 맞게 축소합니다." }>
+    | tags.Constant<"SHAPE_AUTOFIT", { title: "텍스트에 맞게 도형의 크기를 조정합니다." }>;
 
   /**
    * @title 콘텐츠 정렬 유형.
@@ -1185,10 +1130,7 @@ export namespace IGoogleSlides {
           title: `지정되지 않은 콘텐츠 정렬 콘텐츠 정렬이 상위 요소(있는 경우)에서 상속됩니다.`;
         }
       >
-    | tags.Constant<
-        "CONTENT_ALIGNMENT_UNSUPPORTED",
-        { title: `지원되지 않는 콘텐츠 정렬입니다.` }
-      >
+    | tags.Constant<"CONTENT_ALIGNMENT_UNSUPPORTED", { title: `지원되지 않는 콘텐츠 정렬입니다.` }>
     | tags.Constant<
         "TOP",
         {
@@ -1244,30 +1186,18 @@ export namespace IGoogleSlides {
    * @title 상대 링크의 종류.
    */
   export type RelativeSlideLink =
-    | tags.Constant<
-        "RELATIVE_SLIDE_LINK_UNSPECIFIED",
-        { title: "지정되지 않은 상대 슬라이드 링크" }
-      >
+    | tags.Constant<"RELATIVE_SLIDE_LINK_UNSPECIFIED", { title: "지정되지 않은 상대 슬라이드 링크" }>
     | tags.Constant<"NEXT_SLIDE", { title: "다음 슬라이드 링크" }>
     | tags.Constant<"PREVIOUS_SLIDE", { title: "이전 슬라이드 링크" }>
-    | tags.Constant<
-        "FIRST_SLIDE",
-        { title: "프레젠테이션의 첫 번째 슬라이드 링크입니다." }
-      >
-    | tags.Constant<
-        "LAST_SLIDE",
-        { title: "프레젠테이션의 마지막 슬라이드 링크입니다." }
-      >;
+    | tags.Constant<"FIRST_SLIDE", { title: "프레젠테이션의 첫 번째 슬라이드 링크입니다." }>
+    | tags.Constant<"LAST_SLIDE", { title: "프레젠테이션의 마지막 슬라이드 링크입니다." }>;
 
   /**
    * @title 그림자.
    */
   export interface Shadow {
     readonly type?:
-      | tags.Constant<
-          "SHADOW_TYPE_UNSPECIFIED",
-          { title: "지정되지 않은 그림자 유형" }
-        >
+      | tags.Constant<"SHADOW_TYPE_UNSPECIFIED", { title: "지정되지 않은 그림자 유형" }>
       | tags.Constant<"OUTER", { title: "외부 그림자" }>
       | null;
 
@@ -1316,10 +1246,7 @@ export namespace IGoogleSlides {
   }
 
   export type RectanglePosition =
-    | tags.Constant<
-        "RECTANGLE_POSITION_UNSPECIFIED",
-        { title: "지정되지 않았습니다." }
-      >
+    | tags.Constant<"RECTANGLE_POSITION_UNSPECIFIED", { title: "지정되지 않았습니다." }>
     | tags.Constant<"TOP_LEFT", { title: "왼쪽 상단" }>
     | tags.Constant<"TOP_CENTER", { title: "상단 중앙" }>
     | tags.Constant<"TOP_RIGHT", { title: "오른쪽 상단" }>
@@ -1409,10 +1336,7 @@ export namespace IGoogleSlides {
   }
 
   type ThemeColor =
-    | tags.Constant<
-        "THEME_COLOR_TYPE_UNSPECIFIED",
-        { title: "지정되지 않은 테마 색상 이 값은 사용해서는 안 됩니다." }
-      >
+    | tags.Constant<"THEME_COLOR_TYPE_UNSPECIFIED", { title: "지정되지 않은 테마 색상 이 값은 사용해서는 안 됩니다." }>
     | tags.Constant<"DARK1", { title: "첫 번째 어두운 색상을 나타냅니다." }>
     | tags.Constant<"LIGHT1", { title: "첫 번째 밝은 색상을 나타냅니다." }>
     | tags.Constant<"DARK2", { title: "두 번째 어두운 색상을 나타냅니다." }>
@@ -1423,21 +1347,12 @@ export namespace IGoogleSlides {
     | tags.Constant<"ACCENT4", { title: "네 번째 강조 색상을 나타냅니다." }>
     | tags.Constant<"ACCENT5", { title: "다섯 번째 강조 색상을 나타냅니다." }>
     | tags.Constant<"ACCENT6", { title: "6번째 강조 색상을 나타냅니다." }>
-    | tags.Constant<
-        "HYPERLINK",
-        { title: "하이퍼링크에 사용할 색상을 나타냅니다." }
-      >
-    | tags.Constant<
-        "FOLLOWED_HYPERLINK",
-        { title: "방문한 하이퍼링크에 사용할 색상을 나타냅니다." }
-      >
+    | tags.Constant<"HYPERLINK", { title: "하이퍼링크에 사용할 색상을 나타냅니다." }>
+    | tags.Constant<"FOLLOWED_HYPERLINK", { title: "방문한 하이퍼링크에 사용할 색상을 나타냅니다." }>
     | tags.Constant<"TEXT1", { title: "첫 번째 텍스트 색상을 나타냅니다." }>
     | tags.Constant<"BACKGROUND1", { title: "첫 번째 배경 색상을 나타냅니다." }>
     | tags.Constant<"TEXT2", { title: "두 번째 텍스트 색상을 나타냅니다." }>
-    | tags.Constant<
-        "BACKGROUND2",
-        { title: "두 번째 배경 색상을 나타냅니다." }
-      >;
+    | tags.Constant<"BACKGROUND2", { title: "두 번째 배경 색상을 나타냅니다." }>;
 
   export interface RgbColor {
     /**
@@ -1577,14 +1492,8 @@ export namespace IGoogleSlides {
      * @title 이 자동 텍스트의 유형.
      */
     type:
-      | tags.Constant<
-          "TYPE_UNSPECIFIED",
-          { title: "지정되지 않은 자동 텍스트 유형" }
-        >
-      | tags.Constant<
-          "SLIDE_NUMBER",
-          { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }
-        >;
+      | tags.Constant<"TYPE_UNSPECIFIED", { title: "지정되지 않은 자동 텍스트 유형" }>
+      | tags.Constant<"SLIDE_NUMBER", { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }>;
 
     /**
      * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
@@ -1619,14 +1528,8 @@ export namespace IGoogleSlides {
      * @title 이 자동 텍스트의 유형.
      */
     type:
-      | tags.Constant<
-          "TYPE_UNSPECIFIED",
-          { title: "지정되지 않은 자동 텍스트 유형" }
-        >
-      | tags.Constant<
-          "SLIDE_NUMBER",
-          { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }
-        >;
+      | tags.Constant<"TYPE_UNSPECIFIED", { title: "지정되지 않은 자동 텍스트 유형" }>
+      | tags.Constant<"SLIDE_NUMBER", { title: "현재 슬라이드 번호를 나타내는 자동 텍스트." }>;
 
     /**
      * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
@@ -1797,19 +1700,10 @@ export namespace IGoogleSlides {
    * 텍스트가 정상적인 위치에서 세로로 오프셋되는 방식.
    */
   export type BaselineOffset =
-    | tags.Constant<
-        "BASELINE_OFFSET_UNSPECIFIED",
-        { title: "텍스트의 기준선 오프셋은 상위 요소로부터 상속됩니다." }
-      >
+    | tags.Constant<"BASELINE_OFFSET_UNSPECIFIED", { title: "텍스트의 기준선 오프셋은 상위 요소로부터 상속됩니다." }>
     | tags.Constant<"NONE", { title: "텍스트가 세로로 오프셋되지 않습니다." }>
-    | tags.Constant<
-        "SUPERSCRIPT",
-        { title: "텍스트가 수직 위쪽의 오프셋 (위 첨자)입니다." }
-      >
-    | tags.Constant<
-        "SUBSCRIPT",
-        { title: "텍스트가 수직 아래쪽 (아래 첨자)으로 오프셋됩니다." }
-      >;
+    | tags.Constant<"SUPERSCRIPT", { title: "텍스트가 수직 위쪽의 오프셋 (위 첨자)입니다." }>
+    | tags.Constant<"SUBSCRIPT", { title: "텍스트가 수직 아래쪽 (아래 첨자)으로 오프셋됩니다." }>;
 
   /**
    * @title 가중치가 적용된 글꼴 모음.
@@ -1827,13 +1721,7 @@ export namespace IGoogleSlides {
     /**
      * @title 텍스트의 렌더링된 두께입니다.
      */
-    weight:
-      | (number &
-          tags.Type<"int64"> &
-          tags.Minimum<100> &
-          tags.Maximum<900> &
-          tags.MultipleOf<100>)
-      | null;
+    weight: (number & tags.Type<"int64"> & tags.Minimum<100> & tags.Maximum<900> & tags.MultipleOf<100>) | null;
   }
 
   /**
@@ -1917,10 +1805,7 @@ export namespace IGoogleSlides {
    * @title 단락의 텍스트 정렬 유형
    */
   export type Alignment =
-    | tags.Constant<
-        "ALIGNMENT_UNSPECIFIED",
-        { title: "단락 정렬은 상위 요소로부터 상속됩니다." }
-      >
+    | tags.Constant<"ALIGNMENT_UNSPECIFIED", { title: "단락 정렬은 상위 요소로부터 상속됩니다." }>
     | tags.Constant<
         "START",
         {
@@ -1942,18 +1827,9 @@ export namespace IGoogleSlides {
    * 텍스트 경로가 표시될 수 있다.
    */
   export type TextDirection =
-    | tags.Constant<
-        "TEXT_DIRECTION_UNSPECIFIED",
-        { title: "텍스트 방향은 상위 요소로부터 상속됩니다." }
-      >
-    | tags.Constant<
-        "LEFT_TO_RIGHT",
-        { title: "텍스트가 왼쪽에서 오른쪽으로 이동합니다." }
-      >
-    | tags.Constant<
-        "RIGHT_TO_LEFT",
-        { title: "텍스트가 오른쪽에서 왼쪽으로 이동합니다." }
-      >;
+    | tags.Constant<"TEXT_DIRECTION_UNSPECIFIED", { title: "텍스트 방향은 상위 요소로부터 상속됩니다." }>
+    | tags.Constant<"LEFT_TO_RIGHT", { title: "텍스트가 왼쪽에서 오른쪽으로 이동합니다." }>
+    | tags.Constant<"RIGHT_TO_LEFT", { title: "텍스트가 오른쪽에서 왼쪽으로 이동합니다." }>;
 
   /**
    * @title 간격 모드.
@@ -1961,18 +1837,9 @@ export namespace IGoogleSlides {
    * 단락 간격의 여러 가지 모드.
    */
   export type SpacingMode =
-    | tags.Constant<
-        "SPACING_MODE_UNSPECIFIED",
-        { title: "간격 모드는 상위 요소로부터 상속됩니다." }
-      >
-    | tags.Constant<
-        "NEVER_COLLAPSE",
-        { title: "단락 간격은 항상 렌더링됩니다." }
-      >
-    | tags.Constant<
-        "COLLAPSE_LISTS",
-        { title: "목록 요소 간에 단락 간격을 건너뜁니다." }
-      >;
+    | tags.Constant<"SPACING_MODE_UNSPECIFIED", { title: "간격 모드는 상위 요소로부터 상속됩니다." }>
+    | tags.Constant<"NEVER_COLLAPSE", { title: "단락 간격은 항상 렌더링됩니다." }>
+    | tags.Constant<"COLLAPSE_LISTS", { title: "목록 요소 간에 단락 간격을 건너뜁니다." }>;
 
   /**
    * @title 도형의 유형.
@@ -1988,20 +1855,14 @@ export namespace IGoogleSlides {
     export type Type =
       | tags.Constant<"TYPE_UNSPECIFIED", { title: `사전 정의된 도형 유형.` }>
       | tags.Constant<"TEXT_BOX", { title: `텍스트 상자 도형` }>
-      | tags.Constant<
-          "RECTANGLE",
-          { title: `직사각형 도형 ECMA-376 ST_ShapeType 'rect'에 해당합니다.` }
-        >
+      | tags.Constant<"RECTANGLE", { title: `직사각형 도형 ECMA-376 ST_ShapeType 'rect'에 해당합니다.` }>
       | tags.Constant<
           "ROUND_RECTANGLE",
           {
             title: `모서리가 둥근 직사각형 ECMA-376 ST_ShapeType 'roundRect'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "ELLIPSE",
-          { title: `타원형. ECMA-376 ST_ShapeType 'ellipse'에 해당합니다.` }
-        >
+      | tags.Constant<"ELLIPSE", { title: `타원형. ECMA-376 ST_ShapeType 'ellipse'에 해당합니다.` }>
       | tags.Constant<
           "ARC",
           {
@@ -2020,10 +1881,7 @@ export namespace IGoogleSlides {
             title: `위로 휘어진 화살표 모양 ECMA-376 ST_ShapeType 'bentUpArrow'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "BEVEL",
-          { title: `입체 테두리. ECMA-376 ST_ShapeType 'bevel'에 해당합니다.` }
-        >
+      | tags.Constant<"BEVEL", { title: `입체 테두리. ECMA-376 ST_ShapeType 'bevel'에 해당합니다.` }>
       | tags.Constant<
           "BLOCK_ARC",
           {
@@ -2054,22 +1912,10 @@ export namespace IGoogleSlides {
             title: `갈매기형 도형 ECMA-376 ST_ShapeType 'chevron'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "CHORD",
-          { title: `코드 모양 ECMA-376 ST_ShapeType 'chord'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "CLOUD",
-          { title: `구름 모양 ECMA-376 ST_ShapeType 'cloud'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "CORNER",
-          { title: `모서리 모양 ECMA-376 ST_ShapeType 'corner'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "CUBE",
-          { title: `정육면체 ECMA-376 ST_ShapeType 'cube'에 해당합니다.` }
-        >
+      | tags.Constant<"CHORD", { title: `코드 모양 ECMA-376 ST_ShapeType 'chord'에 해당합니다.` }>
+      | tags.Constant<"CLOUD", { title: `구름 모양 ECMA-376 ST_ShapeType 'cloud'에 해당합니다.` }>
+      | tags.Constant<"CORNER", { title: `모서리 모양 ECMA-376 ST_ShapeType 'corner'에 해당합니다.` }>
+      | tags.Constant<"CUBE", { title: `정육면체 ECMA-376 ST_ShapeType 'cube'에 해당합니다.` }>
       | tags.Constant<
           "CURVED_DOWN_ARROW",
           {
@@ -2094,10 +1940,7 @@ export namespace IGoogleSlides {
             title: `위로 구부러진 화살표 모양 ECMA-376 ST_ShapeType 'curvedUpArrow'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "DECAGON",
-          { title: `십각형 도형 ECMA-376 ST_ShapeType 'decagon'에 해당합니다.` }
-        >
+      | tags.Constant<"DECAGON", { title: `십각형 도형 ECMA-376 ST_ShapeType 'decagon'에 해당합니다.` }>
       | tags.Constant<
           "DIAGONAL_STRIPE",
           {
@@ -2116,10 +1959,7 @@ export namespace IGoogleSlides {
             title: `십이형 도형 ECMA-376 ST_ShapeType 'dodecagon'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "DONUT",
-          { title: `도넛 모양 ECMA-376 ST_ShapeType 'donut'에 해당합니다.` }
-        >
+      | tags.Constant<"DONUT", { title: `도넛 모양 ECMA-376 ST_ShapeType 'donut'에 해당합니다.` }>
       | tags.Constant<
           "DOUBLE_WAVE",
           {
@@ -2144,28 +1984,16 @@ export namespace IGoogleSlides {
             title: `모서리가 접힌 도형 ECMA-376 ST_ShapeType 'foldedCorner'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "FRAME",
-          { title: `프레임 모양 ECMA-376 ST_ShapeType 'frame'에 해당합니다.` }
-        >
+      | tags.Constant<"FRAME", { title: `프레임 모양 ECMA-376 ST_ShapeType 'frame'에 해당합니다.` }>
       | tags.Constant<
           "HALF_FRAME",
           {
             title: `절반 프레임 ECMA-376 ST_ShapeType 'halfFrame'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "HEART",
-          { title: `하트 모양 ECMA-376 ST_ShapeType 'heart'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "HEPTAGON",
-          { title: `7각형 ECMA-376 ST_ShapeType 'heptagon'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "HEXAGON",
-          { title: `육각형 모양. ECMA-376 ST_ShapeType '육각형'에 해당합니다.` }
-        >
+      | tags.Constant<"HEART", { title: `하트 모양 ECMA-376 ST_ShapeType 'heart'에 해당합니다.` }>
+      | tags.Constant<"HEPTAGON", { title: `7각형 ECMA-376 ST_ShapeType 'heptagon'에 해당합니다.` }>
+      | tags.Constant<"HEXAGON", { title: `육각형 모양. ECMA-376 ST_ShapeType '육각형'에 해당합니다.` }>
       | tags.Constant<
           "HOME_PLATE",
           {
@@ -2250,10 +2078,7 @@ export namespace IGoogleSlides {
             title: `수학 도형을 나눕니다. ECMA-376 ST_ShapeType 'mathDivide'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "MATH_EQUAL",
-          { title: `등호 모양 ECMA-376 ST_ShapeType 'mathEqual'에 해당합니다.` }
-        >
+      | tags.Constant<"MATH_EQUAL", { title: `등호 모양 ECMA-376 ST_ShapeType 'mathEqual'에 해당합니다.` }>
       | tags.Constant<
           "MATH_MINUS",
           {
@@ -2272,14 +2097,8 @@ export namespace IGoogleSlides {
             title: `수학 모양이 같지 않습니다. ECMA-376 ST_ShapeType 'mathNotEqual'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "MATH_PLUS",
-          { title: `+ ECMA-376 ST_ShapeType 'mathPlus'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "MOON",
-          { title: `달 모양 ECMA-376 ST_ShapeType 'moon'에 해당합니다.` }
-        >
+      | tags.Constant<"MATH_PLUS", { title: `+ ECMA-376 ST_ShapeType 'mathPlus'에 해당합니다.` }>
+      | tags.Constant<"MOON", { title: `달 모양 ECMA-376 ST_ShapeType 'moon'에 해당합니다.` }>
       | tags.Constant<
           "NO_SMOKING",
           {
@@ -2304,24 +2123,15 @@ export namespace IGoogleSlides {
             title: `평행사각형. ECMA-376 ST_ShapeType 'parallelogram'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "PENTAGON",
-          { title: `오각형 ECMA-376 ST_ShapeType 'pentagon'에 해당합니다.` }
-        >
+      | tags.Constant<"PENTAGON", { title: `오각형 ECMA-376 ST_ShapeType 'pentagon'에 해당합니다.` }>
       | tags.Constant<
           "PIE",
           {
             title: `원형 모양입니다. ECMA-376 ST_ShapeType 'pie'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "PLAQUE",
-          { title: `명판 ECMA-376 ST_ShapeType 'plaque'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "PLUS",
-          { title: `+ 도형 ECMA-376 ST_ShapeType 'plus'에 해당합니다.` }
-        >
+      | tags.Constant<"PLAQUE", { title: `명판 ECMA-376 ST_ShapeType 'plaque'에 해당합니다.` }>
+      | tags.Constant<"PLUS", { title: `+ 도형 ECMA-376 ST_ShapeType 'plus'에 해당합니다.` }>
       | tags.Constant<
           "QUAD_ARROW",
           {
@@ -2334,14 +2144,8 @@ export namespace IGoogleSlides {
             title: `콜아웃의 네 방향 화살표 모양 ECMA-376 ST_ShapeType 'quad화살표콜아웃'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "RIBBON",
-          { title: `리본 모양 ECMA-376 ST_ShapeType 'ribbon'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "RIBBON_2",
-          { title: `리본 2 도형 ECMA-376 ST_ShapeType 'ribbon2'에 해당합니다.` }
-        >
+      | tags.Constant<"RIBBON", { title: `리본 모양 ECMA-376 ST_ShapeType 'ribbon'에 해당합니다.` }>
+      | tags.Constant<"RIBBON_2", { title: `리본 2 도형 ECMA-376 ST_ShapeType 'ribbon2'에 해당합니다.` }>
       | tags.Constant<
           "RIGHT_ARROW",
           {
@@ -2462,14 +2266,8 @@ export namespace IGoogleSlides {
             title: `5각형 별 모양. ECMA-376 ST_ShapeType 'star5'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "STAR_6",
-          { title: `6각형 별 모양 ECMA-376 ST_ShapeType 'star6'에 해당합니다.` }
-        >
-      | tags.Constant<
-          "STAR_7",
-          { title: `7각형 도형 ECMA-376 ST_ShapeType 'star7'에 해당합니다.` }
-        >
+      | tags.Constant<"STAR_6", { title: `6각형 별 모양 ECMA-376 ST_ShapeType 'star6'에 해당합니다.` }>
+      | tags.Constant<"STAR_7", { title: `7각형 도형 ECMA-376 ST_ShapeType 'star7'에 해당합니다.` }>
       | tags.Constant<
           "STAR_8",
           {
@@ -2482,10 +2280,7 @@ export namespace IGoogleSlides {
             title: `줄무늬가 있는 오른쪽 화살표 도형 ECMA-376 ST_ShapeType 'stripedRight화살표'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "SUN",
-          { title: `태양 모양 ECMA-376 ST_ShapeType 'sun'에 해당합니다.` }
-        >
+      | tags.Constant<"SUN", { title: `태양 모양 ECMA-376 ST_ShapeType 'sun'에 해당합니다.` }>
       | tags.Constant<
           "TRAPEZOID",
           {
@@ -2528,10 +2323,7 @@ export namespace IGoogleSlides {
             title: `세로 스크롤 도형 ECMA-376 ST_ShapeType 'verticalScroll'에 해당합니다.`;
           }
         >
-      | tags.Constant<
-          "WAVE",
-          { title: `물결 모양. ECMA-376 ST_ShapeType 'wave'에 해당합니다.` }
-        >
+      | tags.Constant<"WAVE", { title: `물결 모양. ECMA-376 ST_ShapeType 'wave'에 해당합니다.` }>
       | tags.Constant<
           "WEDGE_ELLIPSE_CALLOUT",
           {
@@ -2902,10 +2694,7 @@ export namespace IGoogleSlides {
    * @title 색상 효과 이름.
    */
   export type Name =
-    | tags.Constant<
-        "NONE",
-        { title: "색상 재지정 효과가 없습니다. 기본값입니다." }
-      >
+    | tags.Constant<"NONE", { title: "색상 재지정 효과가 없습니다. 기본값입니다." }>
     | tags.Constant<
         "LIGHT1",
         {
@@ -3026,24 +2815,15 @@ export namespace IGoogleSlides {
           title: "색 구성표에서 사용 가능한 10의 색상을 사용하여 이미지를 어둡게 하는 재색상 효과입니다.";
         }
       >
-    | tags.Constant<
-        "GRAYSCALE",
-        { title: "이미지 색상을 그레이 스케일로 변경하는 재색상 색상 효과." }
-      >
-    | tags.Constant<
-        "NEGATIVE",
-        { title: "이미지를 음영 그레이 스케일로 다시 칠하는 색상 재지정 효과." }
-      >
+    | tags.Constant<"GRAYSCALE", { title: "이미지 색상을 그레이 스케일로 변경하는 재색상 색상 효과." }>
+    | tags.Constant<"NEGATIVE", { title: "이미지를 음영 그레이 스케일로 다시 칠하는 색상 재지정 효과." }>
     | tags.Constant<
         "SEPIA",
         {
           title: "세피아 색상을 사용하여 이미지 색상을 변경하는 재색상 효과입니다.";
         }
       >
-    | tags.Constant<
-        "CUSTOM",
-        { title: "맞춤 색상 효과. 구체적인 경사는 recolorStops를 참고하세요." }
-      >;
+    | tags.Constant<"CUSTOM", { title: "맞춤 색상 효과. 구체적인 경사는 recolorStops를 참고하세요." }>;
 
   export interface ColorStop {
     /**
@@ -3056,13 +2836,7 @@ export namespace IGoogleSlides {
      *
      * 기본값은 1.0이며 완전 불투명입니다.
      */
-    alpha?:
-      | (number &
-          tags.Type<"int32"> &
-          tags.Maximum<1> &
-          tags.Minimum<0> &
-          tags.Default<0>)
-      | null;
+    alpha?: (number & tags.Type<"int32"> & tags.Maximum<1> & tags.Minimum<0> & tags.Default<0>) | null;
 
     /**
      * 백분율로 측정된 그래디언트 밴드 내 색상 중지 지점의 상대 위치입니다. 이 값은 [0.0, 1.0] 간격으로 입력해야 합니다.
@@ -3093,25 +2867,13 @@ export namespace IGoogleSlides {
   }
 
   export type LineCategory =
-    | tags.Constant<
-        `LINE_CATEGORY_UNSPECIFIED`,
-        { title: `지정되지 않은 선 카테고리입니다.` }
-      >
+    | tags.Constant<`LINE_CATEGORY_UNSPECIFIED`, { title: `지정되지 않은 선 카테고리입니다.` }>
     | tags.Constant<`STRAIGHT`, { title: `직선 커넥터(직선 커넥터 1 포함)` }>
-    | tags.Constant<
-        `BENT`,
-        { title: `구부러진 커넥터(2-5 구부러진 커넥터 포함)` }
-      >
-    | tags.Constant<
-        `CURVED`,
-        { title: `곡선 커넥터 2~5를 포함한 곡선 커넥터` }
-      >;
+    | tags.Constant<`BENT`, { title: `구부러진 커넥터(2-5 구부러진 커넥터 포함)` }>
+    | tags.Constant<`CURVED`, { title: `곡선 커넥터 2~5를 포함한 곡선 커넥터` }>;
 
   export type LineType =
-    | tags.Constant<
-        `TYPE_UNSPECIFIED`,
-        { title: `지정되지 않은 선 유형입니다.` }
-      >
+    | tags.Constant<`TYPE_UNSPECIFIED`, { title: `지정되지 않은 선 유형입니다.` }>
     | tags.Constant<
         `STRAIGHT_CONNECTOR_1`,
         {
@@ -3232,10 +2994,7 @@ export namespace IGoogleSlides {
   }
 
   export type ArrowStyle =
-    | tags.Constant<
-        `ARROW_STYLE_UNSPECIFIED`,
-        { title: `지정되지 않은 화살표 스타일` }
-      >
+    | tags.Constant<`ARROW_STYLE_UNSPECIFIED`, { title: `지정되지 않은 화살표 스타일` }>
     | tags.Constant<`NONE`, { title: `화살표가 없습니다.` }>
     | tags.Constant<
         `STEALTH_ARROW`,
@@ -3249,10 +3008,7 @@ export namespace IGoogleSlides {
           title: `채워진 화살표 ECMA-376 ST_LineEndType 값 'triangle'에 해당합니다.`;
         }
       >
-    | tags.Constant<
-        `FILL_CIRCLE`,
-        { title: `채워진 원 ECMA-376 ST_LineEndType 값 'oval'에 해당합니다.` }
-      >
+    | tags.Constant<`FILL_CIRCLE`, { title: `채워진 원 ECMA-376 ST_LineEndType 값 'oval'에 해당합니다.` }>
     | tags.Constant<`FILL_SQUARE`, { title: `채워진 정사각형입니다.` }>
     | tags.Constant<
         `FILL_DIAMOND`,
@@ -3266,20 +3022,14 @@ export namespace IGoogleSlides {
     | tags.Constant<`OPEN_DIAMOND`, { title: `흰색 다이아몬드입니다.` }>;
 
   export type DashStyle =
-    | tags.Constant<
-        "DASH_STYLE_UNSPECIFIED",
-        { title: `지정되지 않은 대시 스타일` }
-      >
+    | tags.Constant<"DASH_STYLE_UNSPECIFIED", { title: `지정되지 않은 대시 스타일` }>
     | tags.Constant<
         "SOLID",
         {
           title: `실선 ECMA-376 ST_PresetLineDashVal 값 'solid'에 해당합니다. 기본 대시 스타일입니다.`;
         }
       >
-    | tags.Constant<
-        "DOT",
-        { title: `점선 ECMA-376 ST_PresetLineDashVal 값 'dot'에 해당합니다.` }
-      >
+    | tags.Constant<"DOT", { title: `점선 ECMA-376 ST_PresetLineDashVal 값 'dot'에 해당합니다.` }>
     | tags.Constant<
         "DASH",
         {

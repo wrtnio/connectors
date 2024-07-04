@@ -42,119 +42,93 @@ const requestBody = {
   minutesBeforeReminders: 2,
 };
 
-export const test_api_connector_google_calendar = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_connector_google_calendar = async (connection: CApi.IConnection) => {
   const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
   /**
    * Create Calendar
    */
-  const calendar =
-    await CApi.functional.connector.google_calendar.createCalendar(connection, {
-      title: "calendar-create-test",
-      secretKey,
-    });
+  const calendar = await CApi.functional.connector.google_calendar.createCalendar(connection, {
+    title: "calendar-create-test",
+    secretKey,
+  });
   typia.assert(calendar);
 
-  const calendarId = calendar.id;
+  const calendarId = calendar.data.id;
 
   /**
    * Delete Calendar
    */
-  await CApi.functional.connector.google_calendar.deleteCalendar(
-    connection,
-    calendarId!,
-    {
-      secretKey,
-    },
-  );
+  await CApi.functional.connector.google_calendar.deleteCalendar(connection, calendarId!, {
+    secretKey,
+  });
 
   /**
    * Read Calendar List
    */
-  const calendarList =
-    await CApi.functional.connector.google_calendar.get_list.readCalenders(
-      connection,
-      {
-        secretKey,
-      },
-    );
+  const calendarList = await CApi.functional.connector.google_calendar.get_list.readCalenders(connection, {
+    secretKey,
+  });
   typia.assert(calendarList);
 
   /**
    * Read Event List
    */
-  const eventList =
-    await CApi.functional.connector.google_calendar.get_events.readEvents(
-      connection,
-      "primary",
-      {
-        secretKey,
-        extract_fields: [
-          "summary",
-          "description",
-          "htmlLink",
-          "attachments",
-          "creator",
-        ],
-        time_min: {
-          year: 2024,
-          month: 1,
-          date: 25,
-          hour: 9,
-        },
-        time_max: {
-          year: 2024,
-          month: 1,
-          date: 25,
-          hour: 9,
-        },
-      },
-    );
+  const eventList = await CApi.functional.connector.google_calendar.get_events.readEvents(connection, "primary", {
+    secretKey,
+    extract_fields: ["summary", "description", "htmlLink", "attachments", "creator"],
+    time_min: {
+      year: 2024,
+      month: 1,
+      date: 25,
+      hour: 9,
+    },
+    time_max: {
+      year: 2024,
+      month: 1,
+      date: 25,
+      hour: 9,
+    },
+  });
   typia.assert(eventList);
 
   /**
    * Create Quick Event
    */
-  const quickEvent =
-    await CApi.functional.connector.google_calendar.quick_event.createQuickEvent(
-      connection,
-      "primary",
-      {
-        secretKey,
-        text: "test",
-      },
-    );
+  const quickEvent = await CApi.functional.connector.google_calendar.quick_event.createQuickEvent(
+    connection,
+    "primary",
+    {
+      secretKey,
+      text: "test",
+    },
+  );
   typia.assert(quickEvent);
 
   /**
    * Create Event
    */
-  const createdEvent =
-    await CApi.functional.connector.google_calendar.event.createEvent(
-      connection,
-      "primary",
-      { ...requestBody, secretKey },
-    );
+  const createdEvent = await CApi.functional.connector.google_calendar.event.createEvent(connection, "primary", {
+    ...requestBody,
+    secretKey,
+  });
   typia.assert(createdEvent);
 
-  const eventId = createdEvent.id;
+  const eventId = createdEvent.data.id;
 
   /**
    * Update Event
    */
-  const updatedEvent =
-    await CApi.functional.connector.google_calendar.event.updateEvent(
-      connection,
-      "primary",
-      eventId!,
-      {
-        secretKey,
-        title: "이벤트 업데이트",
-        start: requestBody.start,
-        end: requestBody.end,
-      },
-    );
+  const updatedEvent = await CApi.functional.connector.google_calendar.event.updateEvent(
+    connection,
+    "primary",
+    eventId!,
+    {
+      secretKey,
+      title: "이벤트 업데이트",
+      start: requestBody.start,
+      end: requestBody.end,
+    },
+  );
   typia.assert(updatedEvent);
 
   /**
@@ -173,12 +147,7 @@ export const test_api_connector_google_calendar = async (
   /**
    * Delete Event
    */
-  await CApi.functional.connector.google_calendar.event.deleteEvent(
-    connection,
-    "primary",
-    eventId!,
-    {
-      secretKey,
-    },
-  );
+  await CApi.functional.connector.google_calendar.event.deleteEvent(connection, "primary", eventId!, {
+    secretKey,
+  });
 };

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleCalendar } from "../../../../structures/connector/google_calendar/IGoogleCalendar";
 
@@ -108,7 +109,7 @@ export async function createEvent(
 }
 export namespace createEvent {
   export type Input = Primitive<IGoogleCalendar.IEventRequestBodyInput>;
-  export type Output = Primitive<IGoogleCalendar.IGoogleCalendarEvent>;
+  export type Output = Primitive<Try<IGoogleCalendar.IGoogleCalendarEvent>>;
 
   export const METADATA = {
     method: "POST",
@@ -128,8 +129,8 @@ export namespace createEvent {
     `/connector/google-calendar/${encodeURIComponent(calendarId ?? "null")}/event`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleCalendar.IGoogleCalendarEvent>> =>
-    typia.random<Primitive<IGoogleCalendar.IGoogleCalendarEvent>>(g);
+  ): Resolved<Primitive<Try<IGoogleCalendar.IGoogleCalendarEvent>>> =>
+    typia.random<Primitive<Try<IGoogleCalendar.IGoogleCalendarEvent>>>(g);
   export const simulate = (
     connection: IConnection,
     calendarId: string,
@@ -247,7 +248,7 @@ export async function updateEvent(
 }
 export namespace updateEvent {
   export type Input = Primitive<IGoogleCalendar.IEventRequestBodyInput>;
-  export type Output = Primitive<IGoogleCalendar.IGoogleCalendarEvent>;
+  export type Output = Primitive<Try<IGoogleCalendar.IGoogleCalendarEvent>>;
 
   export const METADATA = {
     method: "PUT",
@@ -267,8 +268,8 @@ export namespace updateEvent {
     `/connector/google-calendar/${encodeURIComponent(calendarId ?? "null")}/event/${encodeURIComponent(eventId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleCalendar.IGoogleCalendarEvent>> =>
-    typia.random<Primitive<IGoogleCalendar.IGoogleCalendarEvent>>(g);
+  ): Resolved<Primitive<Try<IGoogleCalendar.IGoogleCalendarEvent>>> =>
+    typia.random<Primitive<Try<IGoogleCalendar.IGoogleCalendarEvent>>>(g);
   export const simulate = (
     connection: IConnection,
     calendarId: string,
@@ -365,7 +366,7 @@ export async function deleteEvent(
   calendarId: string,
   eventId: string,
   input: deleteEvent.Input,
-): Promise<void> {
+): Promise<deleteEvent.Output> {
   return !!connection.simulate
     ? deleteEvent.simulate(connection, calendarId, eventId, input)
     : PlainFetcher.fetch(
@@ -388,6 +389,7 @@ export namespace deleteEvent {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
   >;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "DELETE",
@@ -407,13 +409,13 @@ export namespace deleteEvent {
     `/connector/google-calendar/${encodeURIComponent(calendarId ?? "null")}/event/${encodeURIComponent(eventId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     calendarId: string,
     eventId: string,
     input: deleteEvent.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

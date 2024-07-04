@@ -9,17 +9,11 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 export class ChatbotProvider {
   private readonly HAMLET_URL = ConnectorGlobal.env.HAMLET_URL;
   async generateChat(
-    input:
-      | IChatbot.IChatbotEasyGenerateInput
-      | IChatbot.IChatBotHardGenerateInput,
+    input: IChatbot.IChatbotEasyGenerateInput | IChatbot.IChatBotHardGenerateInput,
   ): Promise<IChatbot.IChatbotGenerateOutput> {
     try {
       const prompt = this.makePrompt(input);
-      const res = await this.requestChat(
-        prompt.systemPrompt,
-        prompt.message,
-        prompt.histories,
-      );
+      const res = await this.requestChat(prompt.systemPrompt, prompt.message, prompt.histories);
 
       return { content: res?.data.choices?.[0].message?.content };
     } catch (error) {
@@ -31,11 +25,7 @@ export class ChatbotProvider {
   /**
    * HAMLET에 챗 요청
    */
-  private async requestChat(
-    systemPrompt: string,
-    message: string,
-    histories?: { role: string; content: string }[],
-  ) {
+  private async requestChat(systemPrompt: string, message: string, histories?: { role: string; content: string }[]) {
     const systemMessage = {
       role: "system",
       content: systemPrompt,
@@ -45,9 +35,7 @@ export class ChatbotProvider {
       content: message,
     };
 
-    const messageBody = histories
-      ? [systemMessage, ...histories, userMessage]
-      : [systemMessage, userMessage];
+    const messageBody = histories ? [systemMessage, ...histories, userMessage] : [systemMessage, userMessage];
 
     return await axios.post(
       `${this.HAMLET_URL}${ConnectorGlobal.env.HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT}`,
@@ -62,8 +50,7 @@ export class ChatbotProvider {
       },
       {
         headers: {
-          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
-            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
         },
       },
     );
@@ -72,11 +59,7 @@ export class ChatbotProvider {
   /**
    * 챗봇 결과물 요청하기 위한 프롬프트 제작
    */
-  private makePrompt(
-    input:
-      | IChatbot.IChatBotHardGenerateInput
-      | IChatbot.IChatbotEasyGenerateInput,
-  ) {
+  private makePrompt(input: IChatbot.IChatBotHardGenerateInput | IChatbot.IChatbotEasyGenerateInput) {
     const baseInfo = `Your name: ${input.name}\nInstructions: ${input.description}`;
     const prompt =
       input.difficulty === "easy"

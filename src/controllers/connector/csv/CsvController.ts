@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
 import { CsvProvider } from "../../../providers/connector/csv/CsvProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/csv")
@@ -72,13 +73,10 @@ export class CsvController {
    * @tag Merge Data
    */
   @core.TypedRoute.Post("read")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
-  )
-  async read(
-    @core.TypedBody() input: ICsv.IReadInput,
-  ): Promise<ICsv.IReadOutput> {
-    return retry(() => CsvProvider.read(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg")
+  async read(@core.TypedBody() input: ICsv.IReadInput): Promise<Try<ICsv.IReadOutput>> {
+    const data = await retry(() => CsvProvider.read(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -142,13 +140,10 @@ export class CsvController {
    */
   @Standalone()
   @core.TypedRoute.Post("write")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
-  )
-  async write(
-    @core.TypedBody() input: ICsv.IWriteInput,
-  ): Promise<ICsv.IWriteOutput> {
-    return retry(() => CsvProvider.write(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg")
+  async write(@core.TypedBody() input: ICsv.IWriteInput): Promise<Try<ICsv.IWriteOutput>> {
+    const data = await retry(() => CsvProvider.write(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -213,12 +208,9 @@ export class CsvController {
    * @tag Merge Data
    */
   @core.TypedRoute.Post("csv-to-excel")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
-  )
-  async csvToExcel(
-    @core.TypedBody() input: ICsv.ICsvToExcelInput,
-  ): Promise<ICsv.ICsvToExcelOutput> {
-    return retry(() => CsvProvider.convertCsvToExcel(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg")
+  async csvToExcel(@core.TypedBody() input: ICsv.ICsvToExcelInput): Promise<Try<ICsv.ICsvToExcelOutput>> {
+    const data = await retry(() => CsvProvider.convertCsvToExcel(input))();
+    return createResponseForm(data);
   }
 }

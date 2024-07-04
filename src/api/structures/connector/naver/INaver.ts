@@ -41,11 +41,7 @@ export namespace INaver {
      *
      * @title 검색할 개수
      */
-    display?: number &
-      tags.Minimum<1> &
-      tags.Maximum<100> &
-      tags.Default<10> &
-      Placeholder<"10">;
+    display?: number & tags.Minimum<1> & tags.Maximum<100> & tags.Default<10> & Placeholder<"10">;
 
     /**
      * 검색 결과를 어떤 기준으로 정렬할 것인지 설정합니다.

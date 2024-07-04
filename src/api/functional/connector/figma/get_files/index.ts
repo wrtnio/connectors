@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IFigma } from "../../../../structures/connector/figma/IFigma";
 
 /**
@@ -47,7 +48,7 @@ export async function readFiles(
 }
 export namespace readFiles {
   export type Input = Primitive<IFigma.IReadFileInput>;
-  export type Output = Primitive<IFigma.IReadFileOutput>;
+  export type Output = Primitive<Try<IFigma.IReadFileOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace readFiles {
   export const path = () => "/connector/figma/get-files";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IFigma.IReadFileOutput>> =>
-    typia.random<Primitive<IFigma.IReadFileOutput>>(g);
+  ): Resolved<Primitive<Try<IFigma.IReadFileOutput>>> =>
+    typia.random<Primitive<Try<IFigma.IReadFileOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: readFiles.Input,

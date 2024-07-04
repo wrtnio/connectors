@@ -8,6 +8,7 @@ import type { IConnection, Primitive, Resolved } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IKoreaEximbank } from "../../../../structures/connector/korea_eximbank/IKoreaEximbank";
 
 /**
@@ -32,7 +33,7 @@ export async function getExchange(
       });
 }
 export namespace getExchange {
-  export type Output = Primitive<IKoreaEximbank.IGetExchangeOutput>;
+  export type Output = Primitive<Try<IKoreaEximbank.IGetExchangeOutput>>;
 
   export const METADATA = {
     method: "GET",
@@ -48,8 +49,8 @@ export namespace getExchange {
   export const path = () => "/connector/korea-eximbank/exchange";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKoreaEximbank.IGetExchangeOutput>> =>
-    typia.random<Primitive<IKoreaEximbank.IGetExchangeOutput>>(g);
+  ): Resolved<Primitive<Try<IKoreaEximbank.IGetExchangeOutput>>> =>
+    typia.random<Primitive<Try<IKoreaEximbank.IGetExchangeOutput>>>(g);
   export const simulate = (connection: IConnection): Output => {
     return random(
       "object" === typeof connection.simulate && null !== connection.simulate

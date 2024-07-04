@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGoogleCalendar } from "../../../../structures/connector/google_calendar/IGoogleCalendar";
 
 /**
@@ -105,8 +106,9 @@ export async function readEvents(
 }
 export namespace readEvents {
   export type Input = Primitive<IGoogleCalendar.IReadGoogleCalendarEventInput>;
-  export type Output =
-    Primitive<IGoogleCalendar.IReadGoogleCalendarEventOutput>;
+  export type Output = Primitive<
+    Try<IGoogleCalendar.IReadGoogleCalendarEventOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -126,8 +128,10 @@ export namespace readEvents {
     `/connector/google-calendar/${encodeURIComponent(calendarId ?? "null")}/get-events`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleCalendar.IReadGoogleCalendarEventOutput>> =>
-    typia.random<Primitive<IGoogleCalendar.IReadGoogleCalendarEventOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleCalendar.IReadGoogleCalendarEventOutput>>> =>
+    typia.random<
+      Primitive<Try<IGoogleCalendar.IReadGoogleCalendarEventOutput>>
+    >(g);
   export const simulate = (
     connection: IConnection,
     calendarId: string,

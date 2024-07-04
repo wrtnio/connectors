@@ -28,8 +28,7 @@ const main = async (): Promise<void> => {
 
   backend.kill();
 
-  const failures: DynamicExecutor.IReport.IExecution[] =
-    report.executions.filter((exec) => exec.error !== null);
+  const failures: DynamicExecutor.IReport.IExecution[] = report.executions.filter((exec) => exec.error !== null);
   if (failures.length === 0) {
     console.log("Success");
     console.log("Elapsed time", report.time.toLocaleString(), `ms`);

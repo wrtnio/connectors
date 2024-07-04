@@ -66,7 +66,5 @@ export namespace IPage {
    *
    * The plus means ascending order and the minus means descending order.
    */
-  export type Sort<Literal extends string> = Array<
-    `-${Literal}` | `+${Literal}`
-  >;
+  export type Sort<Literal extends string> = Array<`-${Literal}` | `+${Literal}`>;
 }

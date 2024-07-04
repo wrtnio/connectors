@@ -4,11 +4,7 @@
  * @param orKeywords  포함되면 좋은 키워드
  * @param notKeywords 포함되면 안되는 키워드
  */
-export function makeQuery(
-  andKeywords: string[],
-  orKeywords: string[],
-  notKeywords: string[],
-) {
+export function makeQuery(andKeywords: string[], orKeywords: string[], notKeywords: string[]) {
   let query: string = "";
 
   // 반드시 들어가야 하는 키워드 처리

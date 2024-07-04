@@ -21,9 +21,7 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
     try {
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        input.secretKey,
-      );
+      const accessToken = await this.googleProvider.refreshAccessToken(input.secretKey);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
       const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
@@ -46,22 +44,16 @@ export class GoogleSlidesProvider {
     }
   }
 
-  async getPresentation(
-    input: IGoogleSlides.IGetPresentationInput,
-  ): Promise<IGoogleSlides.Presentation> {
+  async getPresentation(input: IGoogleSlides.IGetPresentationInput): Promise<IGoogleSlides.Presentation> {
     try {
       const { secretKey, presentationId } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
 
-      const res = await axios.get(
-        `https://slides.googleapis.com/v1/presentations/${presentationId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+      const res = await axios.get(`https://slides.googleapis.com/v1/presentations/${presentationId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      );
+      });
 
       return res.data;
     } catch (err) {
@@ -74,9 +66,7 @@ export class GoogleSlidesProvider {
   }
 
   // NOTE: quick fix for s3 urls - need a more centralized solution
-  async transformUrl(
-    input: IGoogleSlides.AppendSlideInput,
-  ): Promise<IGoogleSlides.AppendSlideInput> {
+  async transformUrl(input: IGoogleSlides.AppendSlideInput): Promise<IGoogleSlides.AppendSlideInput> {
     let stringified = JSON.stringify(input);
 
     // if there are s3 buckets urls, get presigned url
@@ -88,17 +78,13 @@ export class GoogleSlidesProvider {
       return input;
     }
 
-    const transformed = await Promise.all(
-      matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
-    );
+    const transformed = await Promise.all(matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)));
 
     matches.forEach((match, index) => {
       stringified = stringified.replace(match, transformed[index]);
     });
 
-    return typia.assert<IGoogleSlides.AppendSlideInput>(
-      JSON.parse(stringified),
-    );
+    return typia.assert<IGoogleSlides.AppendSlideInput>(JSON.parse(stringified));
   }
 
   async appendImageSlide(
@@ -108,16 +94,14 @@ export class GoogleSlidesProvider {
     try {
       input = await this.transformUrl(input);
       const { secretKey, templates } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
 
       const presentation = await this.getPresentation({
         presentationId,
         secretKey: input.secretKey,
       });
 
-      const heightMagnitude = presentation.pageSize?.height
-        ?.magnitude as number;
+      const heightMagnitude = presentation.pageSize?.height?.magnitude as number;
       const heightUnit = presentation.pageSize?.height?.unit;
       const widthMagnitude = presentation.pageSize?.width?.magnitude as number;
       const widthUnit = presentation.pageSize?.width?.unit;
@@ -410,9 +394,7 @@ export class GoogleSlidesProvider {
               const imageHeightSize = widthMagnitude * 0.25;
               const textBoxWidthSize = imageWidthSize * 0.75;
               const blank = {
-                width:
-                  (widthMagnitude - (imageWidthSize + textBoxWidthSize) * 2) /
-                  3,
+                width: (widthMagnitude - (imageWidthSize + textBoxWidthSize) * 2) / 3,
                 height: (heightMagnitude - imageHeightSize * 2) / 3,
               };
 
@@ -521,11 +503,7 @@ export class GoogleSlidesProvider {
                         },
                       },
                       transform: {
-                        translateX:
-                          blank.width +
-                          imageWidthSize +
-                          textBoxWidthSize +
-                          blank.width,
+                        translateX: blank.width + imageWidthSize + textBoxWidthSize + blank.width,
                         translateY: blank.height,
                         scaleX: 1,
                         scaleY: 1,
@@ -553,12 +531,7 @@ export class GoogleSlidesProvider {
                         },
                       },
                       transform: {
-                        translateX:
-                          blank.width +
-                          imageWidthSize +
-                          imageWidthSize +
-                          textBoxWidthSize +
-                          blank.width,
+                        translateX: blank.width + imageWidthSize + imageWidthSize + textBoxWidthSize + blank.width,
                         translateY: blank.height,
                         scaleX: 1,
                         scaleY: 1,
@@ -611,8 +584,7 @@ export class GoogleSlidesProvider {
                       },
                       transform: {
                         translateX: blank.width,
-                        translateY:
-                          blank.height + imageHeightSize + blank.height,
+                        translateY: blank.height + imageHeightSize + blank.height,
                         scaleX: 1,
                         scaleY: 1,
                         shearX: 0,
@@ -640,8 +612,7 @@ export class GoogleSlidesProvider {
                       },
                       transform: {
                         translateX: blank.width + imageWidthSize,
-                        translateY:
-                          blank.height + imageHeightSize + blank.height,
+                        translateY: blank.height + imageHeightSize + blank.height,
                         scaleX: 1,
                         scaleY: 1,
                         shearX: 0,
@@ -692,13 +663,8 @@ export class GoogleSlidesProvider {
                         },
                       },
                       transform: {
-                        translateX:
-                          blank.width +
-                          imageWidthSize +
-                          textBoxWidthSize +
-                          blank.width,
-                        translateY:
-                          blank.height + imageHeightSize + blank.height,
+                        translateX: blank.width + imageWidthSize + textBoxWidthSize + blank.width,
+                        translateY: blank.height + imageHeightSize + blank.height,
                         scaleX: 1,
                         scaleY: 1,
                         shearX: 0,
@@ -725,14 +691,8 @@ export class GoogleSlidesProvider {
                         },
                       },
                       transform: {
-                        translateX:
-                          blank.width +
-                          imageWidthSize +
-                          imageWidthSize +
-                          textBoxWidthSize +
-                          blank.width,
-                        translateY:
-                          blank.height + imageHeightSize + blank.height,
+                        translateX: blank.width + imageWidthSize + imageWidthSize + textBoxWidthSize + blank.width,
+                        translateY: blank.height + imageHeightSize + blank.height,
                         scaleX: 1,
                         scaleY: 1,
                         shearX: 0,
@@ -791,23 +751,16 @@ export class GoogleSlidesProvider {
     }
   }
 
-  async createPresentation(
-    input: IGoogleSlides.ICreatePresentationInput,
-  ): Promise<IGoogleSlides.Presentation> {
+  async createPresentation(input: IGoogleSlides.ICreatePresentationInput): Promise<IGoogleSlides.Presentation> {
     try {
       const { secretKey, ...body } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
 
-      const res = await axios.post(
-        "https://slides.googleapis.com/v1/presentations",
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+      const res = await axios.post("https://slides.googleapis.com/v1/presentations", body, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      );
+      });
 
       return res.data;
     } catch (error) {

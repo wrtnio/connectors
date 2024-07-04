@@ -5,22 +5,9 @@ import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace DaumProvider {
-  export async function searchBlog(
-    input: IDaum.ISearchDaumInput,
-  ): Promise<IDaum.IBlogDaumOutput> {
-    const {
-      andKeywords,
-      orKeywords,
-      notKeywords,
-      size = 10,
-      page = 1,
-      sort = "accuracy",
-    } = input;
-    const query = makeQuery(
-      andKeywords.split(","),
-      orKeywords?.split(",") ?? [],
-      notKeywords?.split(",") ?? [],
-    );
+  export async function searchBlog(input: IDaum.ISearchDaumInput): Promise<IDaum.IBlogDaumOutput> {
+    const { andKeywords, orKeywords, notKeywords, size = 10, page = 1, sort = "accuracy" } = input;
+    const query = makeQuery(andKeywords.split(","), orKeywords?.split(",") ?? [], notKeywords?.split(",") ?? []);
     try {
       const res = await axios.get(
         `https://dapi.kakao.com/v2/search/blog?query=${query}&sort=${sort}&size=${size}&page=${page}`,
@@ -57,22 +44,9 @@ export namespace DaumProvider {
     }
   }
 
-  export async function searchCafe(
-    input: IDaum.ISearchDaumInput,
-  ): Promise<IDaum.ICafeDaumOutput> {
-    const {
-      andKeywords,
-      orKeywords,
-      notKeywords,
-      size = 10,
-      page = 1,
-      sort = "accuracy",
-    } = input;
-    const query = makeQuery(
-      andKeywords.split(","),
-      orKeywords?.split(",") ?? [],
-      notKeywords?.split(",") ?? [],
-    );
+  export async function searchCafe(input: IDaum.ISearchDaumInput): Promise<IDaum.ICafeDaumOutput> {
+    const { andKeywords, orKeywords, notKeywords, size = 10, page = 1, sort = "accuracy" } = input;
+    const query = makeQuery(andKeywords.split(","), orKeywords?.split(",") ?? [], notKeywords?.split(",") ?? []);
     try {
       const res = await axios.get(
         `https://dapi.kakao.com/v2/search/cafe?query=${query}&sort=${sort}&size=${size}&page=${page}`,
@@ -109,11 +83,7 @@ export namespace DaumProvider {
     }
   }
 
-  function makeQuery(
-    andKeywords: string[],
-    orKeywords: string[],
-    notKeywords: string[],
-  ) {
+  function makeQuery(andKeywords: string[], orKeywords: string[], notKeywords: string[]) {
     let s = "";
 
     for (const ok of orKeywords) {

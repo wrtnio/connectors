@@ -5,6 +5,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-slides")
@@ -58,12 +59,9 @@ export class GoogleSlidesController {
   async powerPoint(
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.IExportPresentationInput,
-  ): Promise<IGoogleSlides.IExportPresentationOutput> {
-    return retry(() =>
-      this.googleSlideProvider.createPowerPoint(presentationId, {
-        secretKey: input.secretKey,
-      }),
-    )();
+  ): Promise<Try<IGoogleSlides.IExportPresentationOutput>> {
+    const data = await retry(() => this.googleSlideProvider.createPowerPoint(presentationId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -112,18 +110,18 @@ export class GoogleSlidesController {
   @core.TypedRoute.Post("get-presentations")
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
-  ): Promise<IGoogleSlides.Presentation> {
-    return retry(() => this.googleSlideProvider.getPresentation(input))();
+  ): Promise<Try<IGoogleSlides.Presentation>> {
+    const data = await retry(() => this.googleSlideProvider.getPresentation(input))();
+    return createResponseForm(data);
   }
 
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendSlideInput,
-  ): Promise<IGoogleSlides.Presentation> {
-    return retry(() =>
-      this.googleSlideProvider.appendImageSlide(presentationId, input),
-    )();
+  ): Promise<Try<IGoogleSlides.Presentation>> {
+    const data = await retry(() => this.googleSlideProvider.appendImageSlide(presentationId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -172,7 +170,8 @@ export class GoogleSlidesController {
   @core.TypedRoute.Post("presentations")
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
-  ): Promise<IGoogleSlides.Presentation> {
-    return retry(() => this.googleSlideProvider.createPresentation(input))();
+  ): Promise<Try<IGoogleSlides.Presentation>> {
+    const data = await retry(() => this.googleSlideProvider.createPresentation(input))();
+    return createResponseForm(data);
   }
 }

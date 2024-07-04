@@ -164,8 +164,7 @@ export namespace ITypeform {
     fields: IFieldInformation[];
   }
 
-  export interface IFieldInformation
-    extends IFieldInfoForUpdateFieldValueOutput {
+  export interface IFieldInformation extends IFieldInfoForUpdateFieldValueOutput {
     /**
      * 업데이트 된 필드의 값입니다.
      *

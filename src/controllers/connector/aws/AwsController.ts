@@ -5,6 +5,7 @@ import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
 
 import { AwsProvider } from "../../../providers/connector/aws/AwsProvider";
 
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/aws")
@@ -25,7 +26,8 @@ export class AwsController {
   //@TODO 식별자를 입력받아서 bucket folder를 구분지어야 함.
   async getUploadUrl(
     @core.TypedQuery() extension: IAws.IGetPutObjectUrlInput,
-  ): Promise<IAws.IGetPutObjectUrlOutput> {
-    return retry(() => this.awsProvider.getPutObjectUrl(extension))();
+  ): Promise<Try<IAws.IGetPutObjectUrlOutput>> {
+    const data = await retry(() => this.awsProvider.getPutObjectUrl(extension))();
+    return createResponseForm(data);
   }
 }

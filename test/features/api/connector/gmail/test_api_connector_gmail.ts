@@ -5,10 +5,9 @@ import CApi from "@wrtn/connector-api/lib/index";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
+import { Try } from "../../../../../src/utils/createResponseForm";
 
-export const test_api_connector_gmail = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_connector_gmail = async (connection: CApi.IConnection) => {
   const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
   const createMailInput: IGmail.ICreateMailInput = {
     to: ["store@wrtn.io"],
@@ -26,30 +25,33 @@ export const test_api_connector_gmail = async (
   /**
    * Send Email
    */
-  const sendEmailOutput: IGmail.ISendMailOutput =
-    await CApi.functional.connector.gmail.send(connection, createMailInput);
-  typia.assertEquals<IGmail.ISendMailOutput>(sendEmailOutput);
+  const sendEmailOutput: Try<IGmail.ISendMailOutput> = await CApi.functional.connector.gmail.send(
+    connection,
+    createMailInput,
+  );
+  typia.assertEquals(sendEmailOutput);
 
-  const emailId = sendEmailOutput.id;
+  const emailId = sendEmailOutput.data.id;
 
   /**
    * Find Email
    */
-  const email: IGmail.IFindGmailOutput =
-    await CApi.functional.connector.gmail.get.findEmail(connection, emailId, {
-      secretKey,
-    });
-  typia.assertEquals<IGmail.IFindGmailOutput>(email);
+  const email: Try<IGmail.IFindGmailOutput> = await CApi.functional.connector.gmail.get.findEmail(connection, emailId, {
+    secretKey,
+  });
+  typia.assertEquals(email);
 
   /**
    * Find Emails
    */
-  const emailList: IGmail.IFindGmailListOutput =
-    await CApi.functional.connector.gmail.read_list.findEmails(connection, {
+  const emailList: Try<IGmail.IFindGmailListOutput> = await CApi.functional.connector.gmail.read_list.findEmails(
+    connection,
+    {
       from: "store@wrtn.io",
       secretKey,
-    });
-  typia.assertEquals<IGmail.IFindGmailListOutput>(emailList);
+    },
+  );
+  typia.assertEquals(emailList);
 
   /**
    * remove Email
@@ -61,40 +63,29 @@ export const test_api_connector_gmail = async (
   /**
    * Create Label
    */
-  const label = await CApi.functional.connector.gmail.label.createLabel(
-    connection,
-    {
-      labelName: RandomGenerator.name(),
-      secretKey,
-    },
-  );
-  typia.assertEquals<IGmail.ILabelOutput>(label);
+  const label = await CApi.functional.connector.gmail.label.createLabel(connection, {
+    labelName: RandomGenerator.name(),
+    secretKey,
+  });
+  typia.assertEquals(label);
 
-  const labelId = label.id;
+  const labelId = label.data.id;
 
   /**
    * Add Label To Email
    */
-  await CApi.functional.connector.gmail.label.addLabelToMail(
-    connection,
-    emailId,
-    {
-      labelIds: [labelId],
-      secretKey,
-    },
-  );
+  await CApi.functional.connector.gmail.label.addLabelToMail(connection, emailId, {
+    labelIds: [labelId],
+    secretKey,
+  });
 
   /**
    * Remove Label From Email
    */
-  await CApi.functional.connector.gmail.label.removeLabelFromMail(
-    connection,
-    emailId,
-    {
-      labelIds: [labelId],
-      secretKey,
-    },
-  );
+  await CApi.functional.connector.gmail.label.removeLabelFromMail(connection, emailId, {
+    labelIds: [labelId],
+    secretKey,
+  });
 
   /**
    * Reply To Email

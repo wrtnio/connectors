@@ -6,9 +6,7 @@ import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_t
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KakaoTalkProvider {
-  export async function getFriends(
-    input: IKakaoTalk.IGetFriendsInput,
-  ): Promise<IKakaoTalk.IGetFriendsOutput> {
+  export async function getFriends(input: IKakaoTalk.IGetFriendsInput): Promise<IKakaoTalk.IGetFriendsOutput> {
     try {
       const { secretKey, ...getEventQueryParam } = input;
       const queryParams = Object.entries(getEventQueryParam)
@@ -32,9 +30,7 @@ export namespace KakaoTalkProvider {
     }
   }
 
-  export async function createEvent(
-    input: IKakaoTalk.ICreateEventInput,
-  ): Promise<IKakaoTalk.ICreateEventOutput> {
+  export async function createEvent(input: IKakaoTalk.ICreateEventInput): Promise<IKakaoTalk.ICreateEventOutput> {
     try {
       const { secretKey, ...createEventDto } = input;
 
@@ -63,9 +59,7 @@ export namespace KakaoTalkProvider {
     }
   }
 
-  export async function getEvents(
-    input: IKakaoTalk.IGetEventInput,
-  ): Promise<IKakaoTalk.IGetEventOutput> {
+  export async function getEvents(input: IKakaoTalk.IGetEventInput): Promise<IKakaoTalk.IGetEventOutput> {
     try {
       const { secretKey, ...getEventQueryParam } = input;
       const queryParams = Object.entries(getEventQueryParam)
@@ -76,15 +70,12 @@ export namespace KakaoTalkProvider {
         refresh_token: secretKey,
       });
 
-      const res = await axios.get(
-        `https://kapi.kakao.com/v2/api/calendar/events?${queryParams}`,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `bearer ${accessToken.access_token}`,
-          },
+      const res = await axios.get(`https://kapi.kakao.com/v2/api/calendar/events?${queryParams}`, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `bearer ${accessToken.access_token}`,
         },
-      );
+      });
 
       return res.data;
     } catch (err) {
@@ -101,15 +92,12 @@ export namespace KakaoTalkProvider {
         refresh_token: input.secretKey,
       });
 
-      const res = await axios.get(
-        "https://kapi.kakao.com/v2/api/calendar/calendars",
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `bearer ${accessToken.access_token}`,
-          },
+      const res = await axios.get("https://kapi.kakao.com/v2/api/calendar/calendars", {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `bearer ${accessToken.access_token}`,
         },
-      );
+      });
 
       return res.data;
     } catch (err) {

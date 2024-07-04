@@ -36,11 +36,7 @@ async function handle_error(exp: any): Promise<void> {
     const content: string = JSON.stringify(ErrorUtil.toJSON(exp), null, 4);
 
     await directory.get();
-    await fs.promises.writeFile(
-      `${ConnectorConfiguration.ROOT}/assets/logs/errors/${fileName}.log`,
-      content,
-      "utf8",
-    );
+    await fs.promises.writeFile(`${ConnectorConfiguration.ROOT}/assets/logs/errors/${fileName}.log`, content, "utf8");
   } catch {}
 }
 

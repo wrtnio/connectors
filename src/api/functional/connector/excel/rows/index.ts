@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IExcel } from "../../../../structures/connector/excel/IExcel";
 
 /**
@@ -95,7 +96,7 @@ export async function insertRows(
 }
 export namespace insertRows {
   export type Input = Primitive<IExcel.IInsertExcelRowInput>;
-  export type Output = Primitive<IExcel.IInsertExcelRowOutput>;
+  export type Output = Primitive<Try<IExcel.IInsertExcelRowOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -114,8 +115,8 @@ export namespace insertRows {
   export const path = () => "/connector/excel/rows";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IExcel.IInsertExcelRowOutput>> =>
-    typia.random<Primitive<IExcel.IInsertExcelRowOutput>>(g);
+  ): Resolved<Primitive<Try<IExcel.IInsertExcelRowOutput>>> =>
+    typia.random<Primitive<Try<IExcel.IInsertExcelRowOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: insertRows.Input,

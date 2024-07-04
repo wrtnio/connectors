@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IKeywordExtraction } from "../../../../structures/connector/extract/IKeywordExtractor";
 
 /**
@@ -47,7 +48,7 @@ export async function extractKeyword(
 }
 export namespace extractKeyword {
   export type Input = Primitive<IKeywordExtraction.IExtractKeywordInput>;
-  export type Output = Primitive<IKeywordExtraction.IExtractKeywordOutput>;
+  export type Output = Primitive<Try<IKeywordExtraction.IExtractKeywordOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace extractKeyword {
   export const path = () => "/connector/extract/keyword";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKeywordExtraction.IExtractKeywordOutput>> =>
-    typia.random<Primitive<IKeywordExtraction.IExtractKeywordOutput>>(g);
+  ): Resolved<Primitive<Try<IKeywordExtraction.IExtractKeywordOutput>>> =>
+    typia.random<Primitive<Try<IKeywordExtraction.IExtractKeywordOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: extractKeyword.Input,

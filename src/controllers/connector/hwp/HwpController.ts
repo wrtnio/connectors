@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtn/decorators";
 import { IHwp } from "@wrtn/connector-api/lib/structures/connector/hwp/IHwp";
 
 import { HwpProvider } from "../../../providers/connector/hwp/HwpProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/hwp")
@@ -82,12 +83,9 @@ export class HwpController {
    * @tag Government Document
    */
   @core.TypedRoute.Post("/parse")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/hwp.svg",
-  )
-  async parseHwp(
-    @core.TypedBody() input: IHwp.IParseInput,
-  ): Promise<IHwp.IParseOutput> {
-    return retry(() => this.hwpProvider.parseHwp(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/hwp.svg")
+  async parseHwp(@core.TypedBody() input: IHwp.IParseInput): Promise<Try<IHwp.IParseOutput>> {
+    const data = await retry(() => this.hwpProvider.parseHwp(input))();
+    return createResponseForm(data);
   }
 }

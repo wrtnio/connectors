@@ -7,10 +7,7 @@ import { ConnectorConfiguration } from "./ConnectorConfiguration";
 import { StudioModule } from "./StudioModule";
 import { HttpExceptionFilter } from "./common/filters/all-exceptions.filter";
 import { LoggingInterceptor } from "./common/interceptors/logging.interceptor";
-import {
-  IMAGE_OPEN_AI_INJECT_IDENTIFIER,
-  OPEN_AI_INJECT_IDENTIFIER,
-} from "./providers/open_ai/constants";
+import { IMAGE_OPEN_AI_INJECT_IDENTIFIER, OPEN_AI_INJECT_IDENTIFIER } from "./providers/open_ai/constants";
 
 export class ConnectorBackend {
   private application_?: INestApplication;
@@ -49,16 +46,11 @@ export class ConnectorBackend {
       // https://docs.nestjs.com/exception-filters#inheritance
       this.application_.useGlobalFilters(new HttpExceptionFilter());
       this.application_.useLogger(this.application_.get(Logger));
-      this.application_.useGlobalInterceptors(
-        new LoggingInterceptor(this.application_.get(Logger)),
-      );
+      this.application_.useGlobalInterceptors(new LoggingInterceptor(this.application_.get(Logger)));
     }
 
     // DO OPEN
-    await this.application_.listen(
-      ConnectorConfiguration.API_PORT(),
-      "0.0.0.0",
-    );
+    await this.application_.listen(ConnectorConfiguration.API_PORT(), "0.0.0.0");
 
     //----
     // POST-PROCESSES

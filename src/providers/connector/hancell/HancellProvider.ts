@@ -13,9 +13,7 @@ export class HancellProvider {
 
   private readonly uploadPrefix = "hancell-connector";
 
-  async upsertSheet(
-    input: IHancell.IUpsertSheetInput,
-  ): Promise<IHancell.IUpsertSheetOutput> {
+  async upsertSheet(input: IHancell.IUpsertSheetInput): Promise<IHancell.IUpsertSheetOutput> {
     try {
       const workbook = await this.getWorkboot(input);
       const sheet = workbook.Sheets[input.sheetName];
@@ -24,9 +22,7 @@ export class HancellProvider {
        * 이미 시트가 존재할 경우 해당 시트를 지우고 셀 정보를 대치한다.
        */
       if (workbook.SheetNames.includes(input.sheetName)) {
-        workbook.SheetNames = workbook.SheetNames.filter(
-          (name) => name !== input.sheetName,
-        );
+        workbook.SheetNames = workbook.SheetNames.filter((name) => name !== input.sheetName);
       }
 
       const updatedSheet = this.insertCells(sheet, input.cells);
@@ -46,9 +42,7 @@ export class HancellProvider {
     }
   }
 
-  async getHancellData(
-    input: IHancell.IReadHancellInput,
-  ): Promise<IHancell.IReadHancellOutput> {
+  async getHancellData(input: IHancell.IReadHancellInput): Promise<IHancell.IReadHancellOutput> {
     try {
       const workbook = await this.getWorkboot(input);
 

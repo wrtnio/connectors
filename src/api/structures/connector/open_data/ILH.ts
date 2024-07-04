@@ -7,8 +7,7 @@ export namespace ILH {
   /**
    * @title LH 임대주택 조회 조건
    */
-  export interface IGetLHLeaseInfoInput
-    extends IOpenData.ICommon.IPaginationInput {
+  export interface IGetLHLeaseInfoInput extends IOpenData.ICommon.IPaginationInput {
     /**
      * @title 지역 코드
      */

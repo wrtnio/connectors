@@ -10,6 +10,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IFigma } from "../../../../structures/connector/figma/IFigma";
 
 /**
@@ -48,7 +49,7 @@ export async function readComments(
 }
 export namespace readComments {
   export type Input = Primitive<IFigma.IReadCommentInput>;
-  export type Output = Primitive<GetCommentsResponse>;
+  export type Output = Primitive<Try<GetCommentsResponse>>;
 
   export const METADATA = {
     method: "POST",
@@ -67,8 +68,8 @@ export namespace readComments {
   export const path = () => "/connector/figma/get-comments";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<GetCommentsResponse>> =>
-    typia.random<Primitive<GetCommentsResponse>>(g);
+  ): Resolved<Primitive<Try<GetCommentsResponse>>> =>
+    typia.random<Primitive<Try<GetCommentsResponse>>>(g);
   export const simulate = (
     connection: IConnection,
     input: readComments.Input,

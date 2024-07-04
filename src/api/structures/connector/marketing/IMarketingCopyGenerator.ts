@@ -6,13 +6,7 @@ import { IKeywordExtraction } from "../extract/IKeywordExtractor";
  *
  * @title 마케팅 카피를 사용할 채널.
  */
-type ContentChannel =
-  | "facebook"
-  | "instagram_feed"
-  | "instagram_story"
-  | "youtube"
-  | "naver"
-  | "kakao";
+type ContentChannel = "facebook" | "instagram_feed" | "instagram_story" | "youtube" | "naver" | "kakao";
 
 /**
  * 마케팅 카피를 사용할 채널에서 가져올 정보.

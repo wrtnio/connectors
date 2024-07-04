@@ -6,24 +6,19 @@ import { IStudentReportRowGeneratorResponse } from "@wrtn/connector-api/lib/stru
 export async function test_api_student_report_row_generator(
   connection: CApi.IConnection,
 ): Promise<IStudentReportRowGeneratorResponse> {
-  const generated =
-    await CApi.functional.connector.student_report_generator.row.generateRow(
-      connection,
-      {
-        consideration: "Be nice",
-        output_structure: {
-          field_name: "Overall Evaluation",
-          field_description: "Overall Evaluation",
-          example:
-            "Kim is a diligent student who excels in every subject and is a pleasure to teach.",
-        },
-        reference_data: {
-          name: "Noah",
-          activity: "Math, Soccer, Basketball",
-          attitude: "Energetic, Outgoing, Sloppy",
-        },
-      },
-    );
+  const generated = await CApi.functional.connector.student_report_generator.row.generateRow(connection, {
+    consideration: "Be nice",
+    output_structure: {
+      field_name: "Overall Evaluation",
+      field_description: "Overall Evaluation",
+      example: "Kim is a diligent student who excels in every subject and is a pleasure to teach.",
+    },
+    reference_data: {
+      name: "Noah",
+      activity: "Math, Soccer, Basketball",
+      attitude: "Energetic, Outgoing, Sloppy",
+    },
+  });
   typia.assertEquals<IStudentReportRowGeneratorResponse>(generated);
-  return generated;
+  return generated.data;
 }

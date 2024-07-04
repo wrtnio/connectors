@@ -1,8 +1,4 @@
-import {
-  GetObjectCommand,
-  PutObjectCommand,
-  S3Client,
-} from "@aws-sdk/client-s3";
+import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { NotFoundException } from "@nestjs/common";
 import * as Excel from "exceljs";
 import { v4 } from "uuid";
@@ -31,9 +27,7 @@ export namespace ExcelProvider {
     },
   });
 
-  export async function readSheets(
-    input: IExcel.IGetWorksheetListInput,
-  ): Promise<IExcel.IWorksheetListOutput> {
+  export async function readSheets(input: IExcel.IGetWorksheetListInput): Promise<IExcel.IWorksheetListOutput> {
     try {
       const { fileUrl } = input;
 
@@ -74,9 +68,7 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function getExcelData(
-    input: IExcel.IReadExcelInput,
-  ): Promise<IExcel.IReadExcelOutput> {
+  export async function getExcelData(input: IExcel.IReadExcelInput): Promise<IExcel.IReadExcelOutput> {
     try {
       const { fileUrl, sheetName } = input;
       const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
@@ -110,28 +102,25 @@ export namespace ExcelProvider {
       const result: Record<string, string>[] = [];
       let headers: string[] = [];
 
-      sheet.eachRow(
-        { includeEmpty: false },
-        (row: Excel.Row, rowNumber: number) => {
-          if (rowNumber === 1) {
-            headers = row.values as string[];
-            headers.shift(); // 첫 번째 요소(undefined)를 제거합니다.
-          } else {
-            const rowData: Record<string, string> = {};
-            // headers 배열을 기반으로 각 열에 대해 순회합니다.
-            headers.forEach((header: string, index: number) => {
-              // +1을 하는 이유는 headers에서 첫 번째 undefined 값을 제거했기 때문
-              // @TODO type definition
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              const value = row.values[index + 1];
+      sheet.eachRow({ includeEmpty: false }, (row: Excel.Row, rowNumber: number) => {
+        if (rowNumber === 1) {
+          headers = row.values as string[];
+          headers.shift(); // 첫 번째 요소(undefined)를 제거합니다.
+        } else {
+          const rowData: Record<string, string> = {};
+          // headers 배열을 기반으로 각 열에 대해 순회합니다.
+          headers.forEach((header: string, index: number) => {
+            // +1을 하는 이유는 headers에서 첫 번째 undefined 값을 제거했기 때문
+            // @TODO type definition
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const value = row.values[index + 1];
 
-              rowData[header] = value ?? "";
-            });
-            result.push(rowData);
-          }
-        },
-      );
+            rowData[header] = value ?? "";
+          });
+          result.push(rowData);
+        }
+      });
 
       return { data: result };
     } catch (error) {
@@ -140,9 +129,7 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function insertRows(
-    input: IExcel.IInsertExcelRowInput,
-  ): Promise<IExcel.IInsertExcelRowOutput> {
+  export async function insertRows(input: IExcel.IInsertExcelRowInput): Promise<IExcel.IInsertExcelRowOutput> {
     try {
       const { sheetName, data } = input;
       const workbook = new Excel.Workbook();
@@ -154,9 +141,7 @@ export namespace ExcelProvider {
       }
 
       // 모든 데이터의 key를 추출하여 header로 사용합니다.
-      const headers = Object.keys(
-        data.reduce((curr, acc) => ({ ...acc, ...curr })),
-      );
+      const headers = Object.keys(data.reduce((curr, acc) => ({ ...acc, ...curr })));
       sheet.addRow(headers);
 
       data.forEach((rowData: any) => {
@@ -177,8 +162,7 @@ export namespace ExcelProvider {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         Body: modifiedBuffer,
-        ContentType:
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
+        ContentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
       });
 
       await ExcelProvider.s3.send(uploadCommand);

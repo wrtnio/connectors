@@ -7,9 +7,7 @@ import serializeError = require("serialize-error");
 
 export namespace ErrorUtil {
   export const toJSON = (err: any): object =>
-    err instanceof Object && err.toJSON instanceof Function
-      ? err.toJSON()
-      : serializeError(err);
+    err instanceof Object && err.toJSON instanceof Function ? err.toJSON() : serializeError(err);
 
   export const log =
     (prefix: string) =>

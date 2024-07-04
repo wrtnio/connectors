@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { INaver } from "../../../../structures/connector/naver/INaver";
 
 /**
@@ -85,7 +86,7 @@ export async function blogList(
 }
 export namespace blogList {
   export type Input = Primitive<INaver.INaverKeywordInput>;
-  export type Output = Primitive<INaver.IBlogNaverOutput>;
+  export type Output = Primitive<Try<INaver.IBlogNaverOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -104,8 +105,8 @@ export namespace blogList {
   export const path = () => "/connector/naver/blog";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INaver.IBlogNaverOutput>> =>
-    typia.random<Primitive<INaver.IBlogNaverOutput>>(g);
+  ): Resolved<Primitive<Try<INaver.IBlogNaverOutput>>> =>
+    typia.random<Primitive<Try<INaver.IBlogNaverOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: blogList.Input,

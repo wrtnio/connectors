@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { ILH } from "../../../structures/connector/open_data/ILH";
 import type { IMOLIT } from "../../../structures/connector/open_data/IMOLIT";
 import type { INIA } from "../../../structures/connector/open_data/INIA";
@@ -50,7 +51,7 @@ export async function getRTMSDataSvcSHRent(
 }
 export namespace getRTMSDataSvcSHRent {
   export type Input = Primitive<IMOLIT.IGetRTMSDataSvcAptRentInput>;
-  export type Output = Primitive<IMOLIT.IgetRTMSDataSvcSHRentOutput>;
+  export type Output = Primitive<Try<IMOLIT.IgetRTMSDataSvcSHRentOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -69,8 +70,8 @@ export namespace getRTMSDataSvcSHRent {
   export const path = () => "/connector/open-data/getRTMSDataSvcSHRent";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMOLIT.IgetRTMSDataSvcSHRentOutput>> =>
-    typia.random<Primitive<IMOLIT.IgetRTMSDataSvcSHRentOutput>>(g);
+  ): Resolved<Primitive<Try<IMOLIT.IgetRTMSDataSvcSHRentOutput>>> =>
+    typia.random<Primitive<Try<IMOLIT.IgetRTMSDataSvcSHRentOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getRTMSDataSvcSHRent.Input,
@@ -125,7 +126,7 @@ export async function getRTMSDataSvcOffiRent(
 }
 export namespace getRTMSDataSvcOffiRent {
   export type Input = Primitive<IMOLIT.IGetRTMSDataSvcAptRentInput>;
-  export type Output = Primitive<IMOLIT.IGetRTMSDataSvcOffiRentOutput>;
+  export type Output = Primitive<Try<IMOLIT.IGetRTMSDataSvcOffiRentOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -144,8 +145,8 @@ export namespace getRTMSDataSvcOffiRent {
   export const path = () => "/connector/open-data/getRTMSDataSvcOffiRent";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMOLIT.IGetRTMSDataSvcOffiRentOutput>> =>
-    typia.random<Primitive<IMOLIT.IGetRTMSDataSvcOffiRentOutput>>(g);
+  ): Resolved<Primitive<Try<IMOLIT.IGetRTMSDataSvcOffiRentOutput>>> =>
+    typia.random<Primitive<Try<IMOLIT.IGetRTMSDataSvcOffiRentOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getRTMSDataSvcOffiRent.Input,
@@ -200,7 +201,7 @@ export async function getRTMSDataSvcAptRent(
 }
 export namespace getRTMSDataSvcAptRent {
   export type Input = Primitive<IMOLIT.IGetRTMSDataSvcAptRentInput>;
-  export type Output = Primitive<IMOLIT.IGetRTMSDataSvcAptRentOutput>;
+  export type Output = Primitive<Try<IMOLIT.IGetRTMSDataSvcAptRentOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -219,8 +220,8 @@ export namespace getRTMSDataSvcAptRent {
   export const path = () => "/connector/open-data/getRTMSDataSvcAptRent";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMOLIT.IGetRTMSDataSvcAptRentOutput>> =>
-    typia.random<Primitive<IMOLIT.IGetRTMSDataSvcAptRentOutput>>(g);
+  ): Resolved<Primitive<Try<IMOLIT.IGetRTMSDataSvcAptRentOutput>>> =>
+    typia.random<Primitive<Try<IMOLIT.IGetRTMSDataSvcAptRentOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getRTMSDataSvcAptRent.Input,
@@ -275,7 +276,7 @@ export async function getLHLeaseInfo(
 }
 export namespace getLHLeaseInfo {
   export type Input = Primitive<ILH.IGetLHLeaseInfoInput>;
-  export type Output = Primitive<ILH.IGetLHLeaseInfoOutput>;
+  export type Output = Primitive<Try<ILH.IGetLHLeaseInfoOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -294,8 +295,8 @@ export namespace getLHLeaseInfo {
   export const path = () => "/connector/open-data/getLHLeaseInfo";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ILH.IGetLHLeaseInfoOutput>> =>
-    typia.random<Primitive<ILH.IGetLHLeaseInfoOutput>>(g);
+  ): Resolved<Primitive<Try<ILH.IGetLHLeaseInfoOutput>>> =>
+    typia.random<Primitive<Try<ILH.IGetLHLeaseInfoOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getLHLeaseInfo.Input,
@@ -350,7 +351,7 @@ export async function getParkingLot(
 }
 export namespace getParkingLot {
   export type Input = Primitive<INIA.IGetParkingLotInput>;
-  export type Output = Primitive<INIA.IGetParkingLotOutput>;
+  export type Output = Primitive<Try<INIA.IGetParkingLotOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -369,8 +370,8 @@ export namespace getParkingLot {
   export const path = () => "/connector/open-data/getParkingLot";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INIA.IGetParkingLotOutput>> =>
-    typia.random<Primitive<INIA.IGetParkingLotOutput>>(g);
+  ): Resolved<Primitive<Try<INIA.IGetParkingLotOutput>>> =>
+    typia.random<Primitive<Try<INIA.IGetParkingLotOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getParkingLot.Input,
@@ -425,7 +426,7 @@ export async function getBuildingInfo(
 }
 export namespace getBuildingInfo {
   export type Input = Primitive<IMOLIT.GetBuildingInfoInput>;
-  export type Output = Primitive<IMOLIT.GetBuildingInfoOutput>;
+  export type Output = Primitive<Try<IMOLIT.GetBuildingInfoOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -444,8 +445,8 @@ export namespace getBuildingInfo {
   export const path = () => "/connector/open-data/getBuildingInfo";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IMOLIT.GetBuildingInfoOutput>> =>
-    typia.random<Primitive<IMOLIT.GetBuildingInfoOutput>>(g);
+  ): Resolved<Primitive<Try<IMOLIT.GetBuildingInfoOutput>>> =>
+    typia.random<Primitive<Try<IMOLIT.GetBuildingInfoOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getBuildingInfo.Input,
@@ -501,8 +502,9 @@ export async function getStandardRegionCodeList(
 export namespace getStandardRegionCodeList {
   export type Input =
     Primitive<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput>;
-  export type Output =
-    Primitive<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput>;
+  export type Output = Primitive<
+    Try<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -522,10 +524,14 @@ export namespace getStandardRegionCodeList {
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): Resolved<
-    Primitive<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput>
+    Primitive<
+      Try<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput>
+    >
   > =>
     typia.random<
-      Primitive<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput>
+      Primitive<
+        Try<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput>
+      >
     >(g);
   export const simulate = (
     connection: IConnection,
@@ -582,8 +588,9 @@ export async function getStockPriceInfo(
 export namespace getStockPriceInfo {
   export type Input =
     Primitive<IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput>;
-  export type Output =
-    Primitive<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput>;
+  export type Output = Primitive<
+    Try<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -603,10 +610,14 @@ export namespace getStockPriceInfo {
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): Resolved<
-    Primitive<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput>
+    Primitive<
+      Try<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput>
+    >
   > =>
     typia.random<
-      Primitive<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput>
+      Primitive<
+        Try<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput>
+      >
     >(g);
   export const simulate = (
     connection: IConnection,
@@ -663,8 +674,9 @@ export async function getShortTermForecast(
 export namespace getShortTermForecast {
   export type Input =
     Primitive<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput>;
-  export type Output =
-    Primitive<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput>;
+  export type Output = Primitive<
+    Try<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -684,10 +696,14 @@ export namespace getShortTermForecast {
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): Resolved<
-    Primitive<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput>
+    Primitive<
+      Try<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput>
+    >
   > =>
     typia.random<
-      Primitive<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput>
+      Primitive<
+        Try<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput>
+      >
     >(g);
   export const simulate = (
     connection: IConnection,
@@ -743,7 +759,9 @@ export async function getCopyRight(
 }
 export namespace getCopyRight {
   export type Input = Primitive<KoreaCopyrightCommission.IGetCopyRightInput>;
-  export type Output = Primitive<KoreaCopyrightCommission.IGetCopyRightOutput>;
+  export type Output = Primitive<
+    Try<KoreaCopyrightCommission.IGetCopyRightOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -762,8 +780,10 @@ export namespace getCopyRight {
   export const path = () => "/connector/open-data/getCopyRight";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<KoreaCopyrightCommission.IGetCopyRightOutput>> =>
-    typia.random<Primitive<KoreaCopyrightCommission.IGetCopyRightOutput>>(g);
+  ): Resolved<Primitive<Try<KoreaCopyrightCommission.IGetCopyRightOutput>>> =>
+    typia.random<Primitive<Try<KoreaCopyrightCommission.IGetCopyRightOutput>>>(
+      g,
+    );
   export const simulate = (
     connection: IConnection,
     input: getCopyRight.Input,

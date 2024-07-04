@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { ITypeform } from "../../../../../structures/connector/typeform/ITypeform";
 
 /**
@@ -84,7 +85,7 @@ export async function getFieldsForUpdateFieldValue(
 }
 export namespace getFieldsForUpdateFieldValue {
   export type Output = Primitive<
-    Array<ITypeform.IFieldInfoForUpdateFieldValueOutput>
+    Try<Array<ITypeform.IFieldInfoForUpdateFieldValueOutput>>
   >;
 
   export const METADATA = {
@@ -103,10 +104,10 @@ export namespace getFieldsForUpdateFieldValue {
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): Resolved<
-    Primitive<Array<ITypeform.IFieldInfoForUpdateFieldValueOutput>>
+    Primitive<Try<Array<ITypeform.IFieldInfoForUpdateFieldValueOutput>>>
   > =>
     typia.random<
-      Primitive<Array<ITypeform.IFieldInfoForUpdateFieldValueOutput>>
+      Primitive<Try<Array<ITypeform.IFieldInfoForUpdateFieldValueOutput>>>
     >(g);
   export const simulate = (connection: IConnection, formId: string): Output => {
     const assert = NestiaSimulator.assert({

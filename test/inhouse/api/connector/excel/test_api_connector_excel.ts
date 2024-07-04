@@ -5,9 +5,7 @@ import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExce
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_connector_excel = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_connector_excel = async (connection: CApi.IConnection) => {
   // /**
   //  * create new file
   //  */
@@ -23,11 +21,10 @@ export const test_api_connector_excel = async (
   const worksheetListInput: IExcel.IGetWorksheetListInput = {
     fileUrl: `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/connector-test.xlsx`,
   };
-  const worksheetListOutput =
-    await CApi.functional.connector.excel.worksheet.worksheetList(
-      connection,
-      worksheetListInput,
-    );
+  const worksheetListOutput = await CApi.functional.connector.excel.worksheet.worksheetList(
+    connection,
+    worksheetListInput,
+  );
   typia.assertEquals<IExcel.IWorksheetListOutput>(worksheetListOutput);
 
   /**
@@ -41,11 +38,7 @@ export const test_api_connector_excel = async (
   const insertRowsInput: IExcel.IInsertExcelRowInput = {
     data: [data],
   };
-  const insertRowsOutput =
-    await CApi.functional.connector.excel.rows.insertRows(
-      connection,
-      insertRowsInput,
-    );
+  const insertRowsOutput = await CApi.functional.connector.excel.rows.insertRows(connection, insertRowsInput);
   typia.assert(insertRowsOutput);
 
   /**
@@ -53,11 +46,8 @@ export const test_api_connector_excel = async (
    */
   const readExcelInput = {
     fileUrl: `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/connector-test.xlsx`,
-    sheetName: worksheetListOutput.data[0].sheetName,
+    sheetName: worksheetListOutput.data.data[0].sheetName,
   };
-  const readExcelOutput = await CApi.functional.connector.excel.read(
-    connection,
-    readExcelInput,
-  );
-  typia.assertEquals<IExcel.IReadExcelOutput>(readExcelOutput);
+  const readExcelOutput = await CApi.functional.connector.excel.read(connection, readExcelInput);
+  typia.assertEquals(readExcelOutput);
 };

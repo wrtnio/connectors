@@ -1,5 +1,4 @@
 import typia from "typia";
-import { v4 } from "uuid";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -26,43 +25,35 @@ const createPresentationName = () => {
   const minutes = koreanTime.getMinutes();
   const seconds = koreanTime.getSeconds();
 
-  return (
-    year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds
-  );
+  return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 };
 
 /**
  * 어떤 파라미터를 넣든 간에 presentationId를 제외한 다른 body 데이터는 무시되고 빈 프레젠테이션이 생성된다.
  * @param connection
  */
-export const test_api_connector_google_slides_create_presentation = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_connector_google_slides_create_presentation = async (connection: CApi.IConnection) => {
   /**
    * create a new Google Slides Presentation.
    */
-  const res =
-    await CApi.functional.connector.google_slides.presentations.createPresentation(
-      connection,
-      {
-        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-        pageSize: {
-          width: {
-            magnitude: 9_144_000,
-            unit: "EMU",
-          },
-          height: {
-            magnitude: 6_858_000,
-            unit: "EMU",
-          },
-        },
-        slides: [],
-        title: `${createPresentationName()} - no slides`,
-        masters: [],
-        layouts: [],
-        locale: "ko",
+  const res = await CApi.functional.connector.google_slides.presentations.createPresentation(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    pageSize: {
+      width: {
+        magnitude: 9_144_000,
+        unit: "EMU",
       },
-    );
+      height: {
+        magnitude: 6_858_000,
+        unit: "EMU",
+      },
+    },
+    slides: [],
+    title: `${createPresentationName()} - no slides`,
+    masters: [],
+    layouts: [],
+    locale: "ko",
+  });
 
   typia.assertEquals(res);
 };
@@ -71,126 +62,104 @@ export const test_api_connector_google_slides_create_presentation = async (
  * 어떤 파라미터를 넣든 간에 presentationId를 제외한 다른 body 데이터는 무시되고 빈 프레젠테이션이 생성된다.
  * @param connection
  */
-export const test_api_connector_google_slides_create_presentation_with_one_slide =
-  async (connection: CApi.IConnection) => {
-    const PresentationName = `${createPresentationName()} - with one slide`;
-    /**
-     * create a new Google Slides Presentation.
-     */
-    const res =
-      await CApi.functional.connector.google_slides.presentations.createPresentation(
-        connection,
-        {
-          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-          pageSize: {
-            width: {
-              magnitude: 9_144_000,
-              unit: "EMU",
+export const test_api_connector_google_slides_create_presentation_with_one_slide = async (
+  connection: CApi.IConnection,
+) => {
+  const PresentationName = `${createPresentationName()} - with one slide`;
+  /**
+   * create a new Google Slides Presentation.
+   */
+  const res = await CApi.functional.connector.google_slides.presentations.createPresentation(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    pageSize: {
+      width: {
+        magnitude: 9_144_000,
+        unit: "EMU",
+      },
+      height: {
+        magnitude: 6_858_000,
+        unit: "EMU",
+      },
+    },
+    slides: [
+      {
+        pageType: "MASTER",
+        objectId: `${PresentationName} - objectId`,
+        masterProperties: {
+          displayName: `${PresentationName} - displayName`,
+        },
+        pageElements: [
+          {
+            description: `${PresentationName} - page0 - description`,
+            image: {
+              contentUrl: "",
+              imageProperties: {},
             },
-            height: {
-              magnitude: 6_858_000,
+            objectId: "",
+            size: {
+              height: {
+                unit: "EMU",
+              },
+              width: {
+                unit: "EMU",
+              },
+            },
+            transform: {
+              scaleX: 1,
+              scaleY: 1,
               unit: "EMU",
             },
           },
-          slides: [
-            {
-              pageType: "MASTER",
-              objectId: `${PresentationName} - objectId`,
-              masterProperties: {
-                displayName: `${PresentationName} - displayName`,
-              },
-              pageElements: [
-                {
-                  description: `${PresentationName} - page0 - description`,
-                  image: {
-                    contentUrl: "",
-                    imageProperties: {},
-                  },
-                  objectId: "",
-                  size: {
-                    height: {
-                      unit: "EMU",
-                    },
-                    width: {
-                      unit: "EMU",
-                    },
-                  },
-                  transform: {
-                    scaleX: 1,
-                    scaleY: 1,
-                    unit: "EMU",
-                  },
-                },
-              ],
-              pageProperties: {},
-            },
-          ],
-          title: PresentationName,
-          masters: [],
-          layouts: [],
-          locale: "ko",
-        },
-      );
+        ],
+        pageProperties: {},
+      },
+    ],
+    title: PresentationName,
+    masters: [],
+    layouts: [],
+    locale: "ko",
+  });
 
-    typia.assertEquals(res);
-  };
+  typia.assertEquals(res);
+};
 
 /**
  * 어떤 파라미터를 넣든 간에 presentationId를 제외한 다른 body 데이터는 무시되고 빈 프레젠테이션이 생성된다.
  * @param connection
  */
-export const test_api_connector_google_slides_create_random_presentation =
-  async (connection: CApi.IConnection) => {
-    /**
-     * create a new Google Slides Presentation.
-     */
-    const random = typia.random<IGoogleSlides.ICreatePresentationInput>();
-    const res =
-      await CApi.functional.connector.google_slides.presentations.createPresentation(
-        connection,
-        {
-          ...random,
-          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-          title: `${createPresentationName()} - random presentation`,
-        },
-      );
+export const test_api_connector_google_slides_create_random_presentation = async (connection: CApi.IConnection) => {
+  /**
+   * create a new Google Slides Presentation.
+   */
+  const random = typia.random<IGoogleSlides.ICreatePresentationInput>();
+  const res = await CApi.functional.connector.google_slides.presentations.createPresentation(connection, {
+    ...random,
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    title: `${createPresentationName()} - random presentation`,
+  });
 
-    typia.assertEquals(res);
+  typia.assertEquals(res);
 
-    return res;
-  };
+  return res;
+};
 
-export const test_api_connector_google_slides_get_one_presentation = async (
-  connection: CApi.IConnection,
-) => {
-  const createdPresentation =
-    await test_api_connector_google_slides_create_random_presentation(
-      connection,
-    );
+export const test_api_connector_google_slides_get_one_presentation = async (connection: CApi.IConnection) => {
+  const createdPresentation = await test_api_connector_google_slides_create_random_presentation(connection);
 
-  if (!createdPresentation.presentationId) {
+  if (!createdPresentation.data.presentationId) {
     throw new Error("생성 단계에서 실패하여 조회 로직 실패");
   }
 
-  const presentation =
-    await CApi.functional.connector.google_slides.get_presentations.getPresentation(
-      connection,
-      {
-        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-        presentationId: createdPresentation.presentationId,
-      },
-    );
+  const presentation = await CApi.functional.connector.google_slides.get_presentations.getPresentation(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    presentationId: createdPresentation.data.presentationId,
+  });
 
   typia.assertEquals(presentation);
 };
 
-export const test_api_connector_google_slides_append_image_slide = async (
-  connection: CApi.IConnection,
-) => {
-  const presentation =
-    await test_api_connector_google_slides_create_random_presentation(
-      connection,
-    );
+export const test_api_connector_google_slides_append_image_slide = async (connection: CApi.IConnection) => {
+  const presentation = await test_api_connector_google_slides_create_random_presentation(connection);
 
   // const slideId = v4();
   // const imageId = v4();
@@ -229,7 +198,7 @@ export const test_api_connector_google_slides_append_image_slide = async (
   const testImage = `https://dev-studio-pro.s3.amazonaws.com/connector/generate-story-copy/f42e4450-3064-43d1-b973-2c913f08581a`;
   await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
     connection,
-    presentation.presentationId as string,
+    presentation.data.presentationId as string,
     {
       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       templates: [

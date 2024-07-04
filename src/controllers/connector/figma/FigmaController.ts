@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtn/decorators";
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
 import { FigmaProvider } from "../../../providers/figma/FigmaProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/figma")
@@ -22,14 +23,11 @@ export class FigmaController {
    *
    * @tag figma
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg")
   @core.TypedRoute.Post("get-files")
-  async readFiles(
-    @core.TypedBody() input: IFigma.IReadFileInput,
-  ): Promise<IFigma.IReadFileOutput> {
-    return retry(() => this.figmaProvider.getFiles(input))();
+  async readFiles(@core.TypedBody() input: IFigma.IReadFileInput): Promise<Try<IFigma.IReadFileOutput>> {
+    const data = await retry(() => this.figmaProvider.getFiles(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -43,14 +41,11 @@ export class FigmaController {
    *
    * @tag figma
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg")
   @core.TypedRoute.Post("comments")
-  async addComment(
-    @core.TypedBody() input: IFigma.IAddCommentInput,
-  ): Promise<IFigma.IAddCommentOutput> {
-    return retry(() => this.figmaProvider.addComment(input))();
+  async addComment(@core.TypedBody() input: IFigma.IAddCommentInput): Promise<Try<IFigma.IAddCommentOutput>> {
+    const data = await retry(() => this.figmaProvider.addComment(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -64,13 +59,10 @@ export class FigmaController {
    *
    * @tag figma
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg")
   @core.TypedRoute.Post("get-comments")
-  async readComments(
-    @core.TypedBody() input: IFigma.IReadCommentInput,
-  ): Promise<IFigma.IReadCommentOutput> {
-    return retry(() => this.figmaProvider.getComments(input))();
+  async readComments(@core.TypedBody() input: IFigma.IReadCommentInput): Promise<Try<IFigma.IReadCommentOutput>> {
+    const data = await retry(() => this.figmaProvider.getComments(input))();
+    return createResponseForm(data);
   }
 }

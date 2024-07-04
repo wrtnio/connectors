@@ -6,6 +6,7 @@ import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector
 import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";
 
 import { YoutubeSearchProvider } from "../../../providers/connector/youtube_search/YoutubeSearchProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/youtube-search")
@@ -98,12 +99,9 @@ export class YoutubeSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg",
-  )
-  async search(
-    @core.TypedBody() input: IYoutubeSearch.ISearchInput,
-  ): Promise<IConnector.ISearchOutput> {
-    return retry(YoutubeSearchProvider.search)(input);
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg")
+  async search(@core.TypedBody() input: IYoutubeSearch.ISearchInput): Promise<Try<IConnector.ISearchOutput>> {
+    const data = await retry(YoutubeSearchProvider.search)(input);
+    return createResponseForm(data);
   }
 }

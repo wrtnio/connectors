@@ -65,11 +65,7 @@ export namespace IBbsArticle {
     /**
      * List of sortable columns.
      */
-    export type SortableColumns =
-      | "writer"
-      | "title"
-      | "created_at"
-      | "updated_at";
+    export type SortableColumns = "writer" | "title" | "created_at" | "updated_at";
   }
 
   /**

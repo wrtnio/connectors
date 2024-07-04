@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ITool } from "../../../../structures/connector/tool/ITool";
 
 /**
@@ -48,7 +49,7 @@ export async function generateTool(
 }
 export namespace generateTool {
   export type Input = Primitive<ITool.IGenerateInput>;
-  export type Output = Primitive<ITool.IGenerateOutput>;
+  export type Output = Primitive<Try<ITool.IGenerateOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -68,8 +69,8 @@ export namespace generateTool {
     `/connector/tool/${encodeURIComponent(id ?? "null")}/generate`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ITool.IGenerateOutput>> =>
-    typia.random<Primitive<ITool.IGenerateOutput>>(g);
+  ): Resolved<Primitive<Try<ITool.IGenerateOutput>>> =>
+    typia.random<Primitive<Try<ITool.IGenerateOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,

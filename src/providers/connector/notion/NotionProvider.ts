@@ -12,9 +12,7 @@ import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INo
  * ex) response field에는 id, object만 주는데 우리는 properties에 접근할 수 있어야 함.
  */
 export namespace NotionProvider {
-  export async function createPage(
-    input: INotion.ICreatePageInput,
-  ): Promise<INotion.ICreatePageOutput> {
+  export async function createPage(input: INotion.ICreatePageInput): Promise<INotion.ICreatePageOutput> {
     try {
       const notion = createClient(input.secretKey);
       const res = await notion.pages.create({
@@ -56,10 +54,7 @@ export namespace NotionProvider {
       const pageId = res.id;
 
       if (!pageId) {
-        throw new HttpException(
-          "Failed Create Page",
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
+        throw new HttpException("Failed Create Page", HttpStatus.INTERNAL_SERVER_ERROR);
       }
       return { id: pageId };
     } catch (error) {
@@ -68,9 +63,7 @@ export namespace NotionProvider {
     }
   }
 
-  export async function readPageList(
-    input: ICommon.ISecret<"notion">,
-  ): Promise<INotion.IReadPageOutput[]> {
+  export async function readPageList(input: ICommon.ISecret<"notion">): Promise<INotion.IReadPageOutput[]> {
     try {
       const headers = getHeaders(input.secretKey);
       const res = await axios.post(
@@ -86,9 +79,7 @@ export namespace NotionProvider {
         },
       );
 
-      const pageList = res.data.results.filter(
-        (page: any) => page.parent.type !== "database_id",
-      );
+      const pageList = res.data.results.filter((page: any) => page.parent.type !== "database_id");
       const pageOutput: INotion.IReadPageOutput[] = [];
 
       for (const page of pageList) {
@@ -106,10 +97,7 @@ export namespace NotionProvider {
     }
   }
 
-  export async function appendPageToContent(
-    pageId: string,
-    input: INotion.IAppendPageToContentInput,
-  ): Promise<void> {
+  export async function appendPageToContent(pageId: string, input: INotion.IAppendPageToContentInput): Promise<void> {
     try {
       const notion = createClient(input.secretKey);
       await notion.blocks.children.append({
@@ -147,12 +135,9 @@ export namespace NotionProvider {
        * database의 title을 가져올 수 없음.
        */
       const headers = getHeaders(input.secretKey);
-      const res = await axios.get(
-        `https://api.notion.com/v1/databases/${databaseId}`,
-        {
-          headers: headers,
-        },
-      );
+      const res = await axios.get(`https://api.notion.com/v1/databases/${databaseId}`, {
+        headers: headers,
+      });
 
       const database = res.data;
       return {
@@ -166,9 +151,7 @@ export namespace NotionProvider {
     }
   }
 
-  export async function getDatabaseListInfo(
-    input: ICommon.ISecret<"notion">,
-  ): Promise<INotion.IDatabaseInfo[]> {
+  export async function getDatabaseListInfo(input: ICommon.ISecret<"notion">): Promise<INotion.IDatabaseInfo[]> {
     try {
       const notion = createClient(input.secretKey);
       const searchResult = await notion.search({});
@@ -178,10 +161,7 @@ export namespace NotionProvider {
 
       const databaseListInfo: INotion.IDatabaseInfo[] = [];
       for (const databaseId of databaseIds) {
-        const databaseInfo = await getDatabaseInfo(
-          { secretKey: input.secretKey },
-          databaseId,
-        );
+        const databaseInfo = await getDatabaseInfo({ secretKey: input.secretKey }, databaseId);
         databaseListInfo.push(databaseInfo);
       }
       return databaseListInfo;
@@ -196,17 +176,11 @@ export namespace NotionProvider {
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     try {
-      const databaseInfo = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
+      const databaseInfo = await getDatabaseInfo({ secretKey: input.secretKey }, databaseId);
       /**
        * 데이터베이스에 아이템을 추가할 때 필요한 데이터베이스별 프로퍼티 정보
        */
-      const properties = formattingDatabaseProperties(
-        input,
-        databaseInfo.properties,
-      );
+      const properties = formattingDatabaseProperties(input, databaseInfo.properties);
 
       const headers = getHeaders(input.secretKey);
 
@@ -251,17 +225,11 @@ export namespace NotionProvider {
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     try {
-      const databaseInfo = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
+      const databaseInfo = await getDatabaseInfo({ secretKey: input.secretKey }, databaseId);
       /**
        * 업데이트 할 데이터베이스 아이템 프로퍼티 값
        */
-      const properties = formattingDatabaseProperties(
-        input,
-        databaseInfo.properties,
-      );
+      const properties = formattingDatabaseProperties(input, databaseInfo.properties);
 
       const headers = getHeaders(input.secretKey);
       /**
@@ -279,16 +247,12 @@ export namespace NotionProvider {
       /**
        * 데이터베이스 안의 페이지 내용 업데이트
        */
-      const response = await axios.get(
-        `https://api.notion.com/v1/blocks/${input.pageId}/children`,
-        {
-          headers: headers,
-        },
-      );
+      const response = await axios.get(`https://api.notion.com/v1/blocks/${input.pageId}/children`, {
+        headers: headers,
+      });
 
       const firstBlockId = response.data.results[0].id;
-      const originalContent =
-        response.data.results[0].paragraph.rich_text[0].plain_text;
+      const originalContent = response.data.results[0].paragraph.rich_text[0].plain_text;
       await axios.patch(
         `https://api.notion.com/v1/blocks/${firstBlockId}`,
         {
@@ -314,9 +278,7 @@ export namespace NotionProvider {
     }
   }
 
-  export async function getUsers(
-    input: ICommon.ISecret<"notion">,
-  ): Promise<INotion.IUserOutput[]> {
+  export async function getUsers(input: ICommon.ISecret<"notion">): Promise<INotion.IUserOutput[]> {
     try {
       const headers = getHeaders(input.secretKey);
       const people = await axios.get(`https://api.notion.com/v1/users`, {
@@ -359,10 +321,7 @@ export namespace NotionProvider {
     );
     const pageOutput: INotion.IFindPageByTitleOutput = res.data.results[0];
     if (!pageOutput) {
-      throw new HttpException(
-        "Cannot Find Page by title",
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException("Cannot Find Page by title", HttpStatus.NOT_FOUND);
     }
     return pageOutput;
   }
@@ -394,13 +353,9 @@ export namespace NotionProvider {
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     try {
-      const database = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
+      const database = await getDatabaseInfo({ secretKey: input.secretKey }, databaseId);
 
-      const propertiesInfo: Record<string, INotion.DatabaseProperty> =
-        database.properties;
+      const propertiesInfo: Record<string, INotion.DatabaseProperty> = database.properties;
 
       const filters = [];
 
@@ -444,10 +399,7 @@ export namespace NotionProvider {
 
       const databaseItem = res.data.results[0];
       if (!databaseItem) {
-        throw new HttpException(
-          "Cannot Find Database Item for condition",
-          HttpStatus.NOT_FOUND,
-        );
+        throw new HttpException("Cannot Find Database Item for condition", HttpStatus.NOT_FOUND);
       }
 
       return databaseItem;

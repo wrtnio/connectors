@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
 
 /**
@@ -98,7 +99,7 @@ export async function findEmails(
 }
 export namespace findEmails {
   export type Input = Primitive<IGmail.IFindEmailListInput>;
-  export type Output = Primitive<IGmail.IFindGmailListOutput>;
+  export type Output = Primitive<Try<IGmail.IFindGmailListOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -117,8 +118,8 @@ export namespace findEmails {
   export const path = () => "/connector/gmail/read-list";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGmail.IFindGmailListOutput>> =>
-    typia.random<Primitive<IGmail.IFindGmailListOutput>>(g);
+  ): Resolved<Primitive<Try<IGmail.IFindGmailListOutput>>> =>
+    typia.random<Primitive<Try<IGmail.IFindGmailListOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: findEmails.Input,

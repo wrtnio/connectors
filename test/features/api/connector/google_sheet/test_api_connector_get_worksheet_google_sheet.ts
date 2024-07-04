@@ -12,11 +12,7 @@ export const test_api_connector_get_worksheet_google_sheet = async (
     url: "https://docs.google.com/spreadsheets/d/1t5N42ZfMFICZlPPT-sLxRgMNNiR-2j0Fb49SMQyVXRo/edit#gid=0",
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
   };
-  const result =
-    await CApi.functional.connector.google_sheet.worksheet.getWorkSheet(
-      connection,
-      input,
-    );
+  const result = await CApi.functional.connector.google_sheet.worksheet.getWorkSheet(connection, input);
   typia.assertEquals(result);
-  return result;
+  return result.data;
 };

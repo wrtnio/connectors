@@ -1,8 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetWorksheet,
-} from "google-spreadsheet";
+import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from "google-spreadsheet";
 import { google } from "googleapis";
 
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
@@ -16,14 +13,11 @@ export class GoogleSheetProvider {
    * Read Google Sheet Headers
    * @param input Google Sheet Url and index number(default 0)
    */
-  async readHeaders(
-    input: IGoogleSheet.IReadGoogleSheetHeadersInput,
-  ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
+  async readHeaders(input: IGoogleSheet.IReadGoogleSheetHeadersInput): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
     try {
       const { url, index = 0, secretKey } = input;
       const id = this.getSpreadSheetId(url);
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -78,13 +72,10 @@ export class GoogleSheetProvider {
    * Add new Headers to Google Sheet
    * @param input Google Sheet Url and new Header Names
    */
-  async writeHeaders(
-    input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
-  ): Promise<void> {
+  async writeHeaders(input: IGoogleSheet.IWriteGoogleSheetHeadersInput): Promise<void> {
     try {
       const { url, headerNames, index = 0, secretKey } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -112,14 +103,11 @@ export class GoogleSheetProvider {
     }
   }
 
-  async getWorkSheet(
-    input: IGoogleSheet.IGetWorkSheetInput,
-  ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
+  async getWorkSheet(input: IGoogleSheet.IGetWorkSheetInput): Promise<IGoogleSheet.IGetWorkSheetOutput> {
     try {
       const { url, secretKey } = input;
       const id = this.getSpreadSheetId(url);
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -137,14 +125,11 @@ export class GoogleSheetProvider {
     }
   }
 
-  async readRows(
-    input: IGoogleSheet.IReadGoogleSheetRowsInput,
-  ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
+  async readRows(input: IGoogleSheet.IReadGoogleSheetRowsInput): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
     try {
       const { url, workSheetTitle, secretKey } = input;
       const id = this.getSpreadSheetId(url);
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });

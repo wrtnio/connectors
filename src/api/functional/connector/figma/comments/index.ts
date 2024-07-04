@@ -10,6 +10,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IFigma } from "../../../../structures/connector/figma/IFigma";
 
 /**
@@ -48,7 +49,7 @@ export async function addComment(
 }
 export namespace addComment {
   export type Input = Primitive<IFigma.IAddCommentInput>;
-  export type Output = Primitive<Comment>;
+  export type Output = Primitive<Try<Comment>>;
 
   export const METADATA = {
     method: "POST",
@@ -67,7 +68,8 @@ export namespace addComment {
   export const path = () => "/connector/figma/comments";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Comment>> => typia.random<Primitive<Comment>>(g);
+  ): Resolved<Primitive<Try<Comment>>> =>
+    typia.random<Primitive<Try<Comment>>>(g);
   export const simulate = (
     connection: IConnection,
     input: addComment.Input,

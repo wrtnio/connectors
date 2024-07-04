@@ -186,8 +186,7 @@ export namespace INIA {
   /**
    * @title 주차장 조회 응답
    */
-  export interface IGetParkingLotOutput
-    extends IOpenData.ICommon.IPaginationOutput {
+  export interface IGetParkingLotOutput extends IOpenData.ICommon.IPaginationOutput {
     /**
      * @title 주차장 정보
      */

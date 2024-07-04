@@ -1,7 +1,6 @@
 import { Placeholder, Prerequisite } from "@wrtn/decorators";
 import { tags } from "typia";
 
-import CApi from "../../..";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
@@ -50,8 +49,7 @@ export namespace IKakaoTalk {
     refresh_token_expires_in: number;
   }
 
-  export interface IGetFriendsInput
-    extends ICommon.ISecret<"kakao", ["friends"]> {
+  export interface IGetFriendsInput extends ICommon.ISecret<"kakao", ["friends"]> {
     /**
      * @title 친구 목록 시작 지점
      */
@@ -65,22 +63,17 @@ export namespace IKakaoTalk {
     /**
      * @title 친구 목록 정렬 순서
      */
-    order?:
-      | (
-          | tags.Constant<"asc", { title: "오름차순" }>
-          | tags.Constant<"desc", { title: "내림차순" }>
-        ) &
-          tags.Default<"asc">;
+    order?: (tags.Constant<"asc", { title: "오름차순" }> | tags.Constant<"desc", { title: "내림차순" }>) &
+      tags.Default<"asc">;
 
     /**
      * @title 친구 목록 정렬 시 기준
      */
-    friend_order?:
-      | (
-          | tags.Constant<"favorite", { title: "즐겨찾기 우선 정렬" }>
-          | tags.Constant<"nickname", { title: "닉네임 우선 정렬" }>
-        ) &
-          tags.Default<"favorite">;
+    friend_order?: (
+      | tags.Constant<"favorite", { title: "즐겨찾기 우선 정렬" }>
+      | tags.Constant<"nickname", { title: "닉네임 우선 정렬" }>
+    ) &
+      tags.Default<"favorite">;
   }
 
   export interface IGetFriendsOutput {
@@ -252,8 +245,7 @@ export namespace IKakaoTalk {
   /**
    * @title 일정을 생성하기 위한 조건
    */
-  export interface ICreateEventInput
-    extends ICommon.ISecret<"kakao", ["talk_calendar"]> {
+  export interface ICreateEventInput extends ICommon.ISecret<"kakao", ["talk_calendar"]> {
     /**
      * @title 일정을 생성할 캘린더 ID
      */
@@ -293,11 +285,7 @@ export namespace IKakaoTalk {
        * @title 미리 알림 설정
        * @description 분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능. 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
        */
-      reminders?: (number &
-        tags.MultipleOf<5> &
-        tags.Minimum<-1440> &
-        tags.Maximum<43200>)[] &
-        tags.MaxItems<2>;
+      reminders?: (number & tags.MultipleOf<5> & tags.Minimum<-1440> & tags.Maximum<43200>)[] & tags.MaxItems<2>;
 
       /**
        * @title 일정 색상
@@ -353,14 +341,8 @@ export namespace IKakaoTalk {
      */
     preset?:
       | tags.Constant<"TODAY", { title: "조회 당일" }>
-      | tags.Constant<
-          "THIS_WEEK",
-          { title: "일요일로 시작하는 조회일이 포함된 한 주" }
-        >
-      | tags.Constant<
-          "THIS_MONTH",
-          { title: "1일로 시작하는 조회일이 포함된 한 달" }
-        >;
+      | tags.Constant<"THIS_WEEK", { title: "일요일로 시작하는 조회일이 포함된 한 주" }>
+      | tags.Constant<"THIS_MONTH", { title: "1일로 시작하는 조회일이 포함된 한 달" }>;
 
     /**
      * @title 기한 일자의 타임존
@@ -372,10 +354,7 @@ export namespace IKakaoTalk {
     /**
      * @title 응답으로 받을 최대 일정 수
      */
-    limit?: number &
-      tags.Type<"int64"> &
-      tags.Minimum<100> &
-      tags.Maximum<1000>;
+    limit?: number & tags.Type<"int64"> & tags.Minimum<100> & tags.Maximum<1000>;
   } & (
       | {
           /**
@@ -474,10 +453,7 @@ export namespace IKakaoTalk {
   /**
    * @title 액세스 토큰 갱신
    */
-  export type IRefreshAccessTokenOutput = Pick<
-    IGetAccessTokenOutput,
-    "access_token" | "expires_in" | "token_type"
-  >;
+  export type IRefreshAccessTokenOutput = Pick<IGetAccessTokenOutput, "access_token" | "expires_in" | "token_type">;
 
   /**
    * @title 버튼 정보
@@ -497,11 +473,7 @@ export namespace IKakaoTalk {
   /**
    * @title 링크 정보
    */
-  export type ButtonLink =
-    | IWebLink
-    | IMobileWebLink
-    | IAndroidAppLink
-    | IiOSAppLink;
+  export type ButtonLink = IWebLink | IMobileWebLink | IAndroidAppLink | IiOSAppLink;
 
   /**
    * @title 웹 링크
@@ -549,8 +521,7 @@ export namespace IKakaoTalk {
   /**
    * @title 메세지 전송 조건
    */
-  export interface ISendKakaoTalkToFriendsInput
-    extends ICommon.ISecret<"kakao", ["talk_message"]> {
+  export interface ISendKakaoTalkToFriendsInput extends ICommon.ISecret<"kakao", ["talk_message"]> {
     /**
      * @title 친구의 uuid 값 목록
      */
@@ -558,7 +529,7 @@ export namespace IKakaoTalk {
       Prerequisite<{
         method: "post";
         path: "/connector/kakao-talk/get-friends";
-        array: "return response.elements";
+        array: "return response.data.elements";
         value: "return elem.uuid";
         label: "return elem.profile_nickname";
       }>)[] &
@@ -610,10 +581,7 @@ export namespace IKakaoTalk {
    * @title 메시지 전송 조건
    */
   export interface ISendKakaoTalkCommerceInput
-    extends ICommon.ISecret<
-      "kakao",
-      ["talk_message", "profile_image", "profile_nickname"]
-    > {
+    extends ICommon.ISecret<"kakao", ["talk_message", "profile_image", "profile_nickname"]> {
     /**
      * @title 커머스 템플릿
      */
@@ -624,10 +592,7 @@ export namespace IKakaoTalk {
    * @title 메시지 전송 조건
    */
   export interface ISendKakaoTalkLocationInput
-    extends ICommon.ISecret<
-      "kakao",
-      ["talk_message", "profile_image", "profile_nickname"]
-    > {
+    extends ICommon.ISecret<"kakao", ["talk_message", "profile_image", "profile_nickname"]> {
     /**
      * @title 위치 템플릿
      */
@@ -638,10 +603,7 @@ export namespace IKakaoTalk {
    * @title 메시지 전송 조건
    */
   export interface ISendKakaoTalkListInput
-    extends ICommon.ISecret<
-      "kakao",
-      ["talk_message", "profile_image", "profile_nickname"]
-    > {
+    extends ICommon.ISecret<"kakao", ["talk_message", "profile_image", "profile_nickname"]> {
     /**
      * @title 리스트 템플릿
      */
@@ -652,10 +614,7 @@ export namespace IKakaoTalk {
    * @title 메시지 전송 조건
    */
   export interface ISendKakaoTalkFeedInput
-    extends ICommon.ISecret<
-      "kakao",
-      ["talk_message", "profile_image", "profile_nickname"]
-    > {
+    extends ICommon.ISecret<"kakao", ["talk_message", "profile_image", "profile_nickname"]> {
     /**
      * @title 피드 템플릿
      */
@@ -666,10 +625,7 @@ export namespace IKakaoTalk {
    * @title 메시지 전송 조건
    */
   export interface ISendKakaoTalkTextInput
-    extends ICommon.ISecret<
-      "kakao",
-      ["talk_message", "profile_image", "profile_nickname"]
-    > {
+    extends ICommon.ISecret<"kakao", ["talk_message", "profile_image", "profile_nickname"]> {
     /**
      * @title 텍스트 템플릿
      */
@@ -745,10 +701,7 @@ export namespace IKakaoTalk {
          * @title 할인률
          * @description 0부터 100까지의 숫자
          */
-        discount_rate?: number &
-          tags.Type<"int64"> &
-          tags.Minimum<0> &
-          tags.Maximum<100>;
+        discount_rate?: number & tags.Type<"int64"> & tags.Minimum<0> & tags.Maximum<100>;
       }
     | {
         /**
@@ -833,9 +786,7 @@ export namespace IKakaoTalk {
     /**
      * @title `id`의 타입
      */
-    id_type:
-      | tags.Constant<"event", { title: "공개 일정" }>
-      | tags.Constant<"calendar", { title: "구독 캘린더" }>;
+    id_type: tags.Constant<"event", { title: "공개 일정" }> | tags.Constant<"calendar", { title: "구독 캘린더" }>;
 
     /**
      * @title 공개 일정 혹은 구독 캘린더의 ID
@@ -1066,10 +1017,7 @@ export namespace IKakaoTalk {
    */
   export type Color =
     | tags.Constant<"BLUE", { title: "BLUE"; description: "2C88DE" }>
-    | tags.Constant<
-        "ROYAL_BLUE",
-        { title: "ROYAL_BLUE"; description: "2D69E0" }
-      >
+    | tags.Constant<"ROYAL_BLUE", { title: "ROYAL_BLUE"; description: "2D69E0" }>
     | tags.Constant<"NAVY_BLUE", { title: "NAVY_BLUE"; description: "223788" }>
     | tags.Constant<"RED", { title: "RED"; description: "D42726" }>
     | tags.Constant<"PINK", { title: "PINK"; description: "ED5683" }>

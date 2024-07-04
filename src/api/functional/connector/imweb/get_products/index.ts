@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IImweb } from "../../../../structures/connector/imweb/IImweb";
 
 /**
@@ -46,7 +47,7 @@ export async function getProducts(
 }
 export namespace getProducts {
   export type Input = Primitive<IImweb.IGetProductInput>;
-  export type Output = Primitive<IImweb.IGetProductOutput>;
+  export type Output = Primitive<Try<IImweb.IGetProductOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +66,8 @@ export namespace getProducts {
   export const path = () => "/connector/imweb/get-products";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IImweb.IGetProductOutput>> =>
-    typia.random<Primitive<IImweb.IGetProductOutput>>(g);
+  ): Resolved<Primitive<Try<IImweb.IGetProductOutput>>> =>
+    typia.random<Primitive<Try<IImweb.IGetProductOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getProducts.Input,

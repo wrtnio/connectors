@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
 import { GoogleDocsProvider } from "../../../providers/connector/google_docs/GoogleDocsProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-docs")
@@ -78,14 +79,13 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Post()
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
-  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
-    return retry(() => this.googleDocsProvider.createDocs(input))();
+  ): Promise<Try<IGoogleDocs.ICreateGoogleDocsOutput>> {
+    const data = await retry(() => this.googleDocsProvider.createDocs(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -152,14 +152,11 @@ export class GoogleDocsController {
    * @tag Insert Chart
    * @tag Insert Table
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Post("/permission")
-  async permission(
-    @core.TypedBody() input: IGoogleDocs.IPermissionGoogleDocsInput,
-  ): Promise<void> {
-    return retry(() => this.googleDocsProvider.permission(input))();
+  async permission(@core.TypedBody() input: IGoogleDocs.IPermissionGoogleDocsInput): Promise<Try<void>> {
+    const data = await retry(() => this.googleDocsProvider.permission(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -230,14 +227,12 @@ export class GoogleDocsController {
    * @tag Insert Chart
    * @tag Insert Table
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Post("get/:id")
   async readDocs(
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
-      array: (response) => response.data,
+      array: (response) => response.data.data,
       value: (elem) => elem?.id,
       label: (elem) => elem?.title ?? "",
     })
@@ -246,13 +241,11 @@ export class GoogleDocsController {
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     >,
-  ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
-    return retry(() => this.googleDocsProvider.readDocs(id, input))();
+  ): Promise<Try<IGoogleDocs.IReadGoogleDocsOutput>> {
+    const data = await retry(() => this.googleDocsProvider.readDocs(id, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -321,14 +314,13 @@ export class GoogleDocsController {
    * @tag Insert Chart
    * @tag Insert Table
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Post("/template")
   async createDocByTemplate(
     @core.TypedBody() input: IGoogleDocs.ICreateDocByTemplateInput,
-  ): Promise<IGoogleDocs.ICreateDocByTemplateOutput> {
-    return retry(() => this.googleDocsProvider.createDocByTemplate(input))();
+  ): Promise<Try<IGoogleDocs.ICreateDocByTemplateOutput>> {
+    const data = await retry(() => this.googleDocsProvider.createDocByTemplate(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -395,14 +387,12 @@ export class GoogleDocsController {
    * @tag Insert Chart
    * @tag Insert Table
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Delete(":id")
   async deleteById(
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
-      array: (response) => response.data,
+      array: (response) => response.data.data,
       value: (elem) => elem?.id,
       label: (elem) => elem?.title ?? "",
     })
@@ -411,13 +401,11 @@ export class GoogleDocsController {
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     >,
-  ): Promise<void> {
-    return retry(() => this.googleDocsProvider.deleteById(id, input))();
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.googleDocsProvider.deleteById(id, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -485,21 +473,17 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Post("get-list")
   async list(
     @core.TypedBody()
     input: ICommon.ISecret<
       "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
+      ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/documents"]
     >,
-  ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
-    return retry(() => this.googleDocsProvider.list(input))();
+  ): Promise<Try<IGoogleDocs.IListGoogleDocsOutput>> {
+    const data = await retry(() => this.googleDocsProvider.list(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -564,13 +548,10 @@ export class GoogleDocsController {
    * @tag Insert Chart
    * @tag Insert Table
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg")
   @core.TypedRoute.Post("/append")
-  async append(
-    @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
-  ): Promise<void> {
-    return retry(() => this.googleDocsProvider.append(input))();
+  async append(@TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput): Promise<Try<void>> {
+    const data = await retry(() => this.googleDocsProvider.append(input))();
+    return createResponseForm(data);
   }
 }

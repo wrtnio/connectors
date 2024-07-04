@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
@@ -86,7 +87,7 @@ export async function createDatabaseItem(
 }
 export namespace createDatabaseItem {
   export type Input = Primitive<INotion.ICreateDatabaseItemInput>;
-  export type Output = Primitive<INotion.IDatabaseItemOutput>;
+  export type Output = Primitive<Try<INotion.IDatabaseItemOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -106,8 +107,8 @@ export namespace createDatabaseItem {
     `/connector/notion/database-item/${encodeURIComponent(databaseId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INotion.IDatabaseItemOutput>> =>
-    typia.random<Primitive<INotion.IDatabaseItemOutput>>(g);
+  ): Resolved<Primitive<Try<INotion.IDatabaseItemOutput>>> =>
+    typia.random<Primitive<Try<INotion.IDatabaseItemOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createDatabaseItem.Input,
@@ -204,7 +205,7 @@ export async function updateDatabaseItem(
 }
 export namespace updateDatabaseItem {
   export type Input = Primitive<INotion.IUpdateDatabaseItemInput>;
-  export type Output = Primitive<INotion.IDatabaseItemOutput>;
+  export type Output = Primitive<Try<INotion.IDatabaseItemOutput>>;
 
   export const METADATA = {
     method: "PATCH",
@@ -224,8 +225,8 @@ export namespace updateDatabaseItem {
     `/connector/notion/database-item/${encodeURIComponent(databaseId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INotion.IDatabaseItemOutput>> =>
-    typia.random<Primitive<INotion.IDatabaseItemOutput>>(g);
+  ): Resolved<Primitive<Try<INotion.IDatabaseItemOutput>>> =>
+    typia.random<Primitive<Try<INotion.IDatabaseItemOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: updateDatabaseItem.Input,

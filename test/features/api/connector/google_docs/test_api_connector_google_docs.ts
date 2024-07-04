@@ -4,10 +4,9 @@ import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
+import { Try } from "../../../../../src/utils/createResponseForm";
 
-export const test_api_connector_google_docs = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_connector_google_docs = async (connection: CApi.IConnection) => {
   /**
    * create a new Google Docs
    */
@@ -15,16 +14,11 @@ export const test_api_connector_google_docs = async (
     title: "connector_test",
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
   };
-  const createGoogleDocsOutput: IGoogleDocs.ICreateGoogleDocsOutput =
-    await CApi.functional.connector.google_docs.createDocs(
-      connection,
-      createGoogleDocsInput,
-    );
-  typia.assertEquals<IGoogleDocs.ICreateGoogleDocsOutput>(
-    createGoogleDocsOutput,
-  );
+  const createGoogleDocsOutput: Try<IGoogleDocs.ICreateGoogleDocsOutput> =
+    await CApi.functional.connector.google_docs.createDocs(connection, createGoogleDocsInput);
+  typia.assertEquals(createGoogleDocsOutput);
 
-  const docId = createGoogleDocsOutput.id;
+  const docId = createGoogleDocsOutput.data.id;
   /**
    * Permission Google Docs
    */
@@ -39,11 +33,10 @@ export const test_api_connector_google_docs = async (
       },
     ],
   };
-  const permissionGoogleDocsOutput =
-    await CApi.functional.connector.google_docs.permission(
-      connection,
-      permissionGoogleDocsInput,
-    );
+  const permissionGoogleDocsOutput = await CApi.functional.connector.google_docs.permission(
+    connection,
+    permissionGoogleDocsInput,
+  );
   typia.assertEquals(permissionGoogleDocsOutput);
 
   /**
@@ -54,26 +47,17 @@ export const test_api_connector_google_docs = async (
     documentId: docId,
     text: "Hello World",
   };
-  const appendTextToDocsOutput =
-    await CApi.functional.connector.google_docs.append(
-      connection,
-      appendTextToDocsInput,
-    );
+  const appendTextToDocsOutput = await CApi.functional.connector.google_docs.append(connection, appendTextToDocsInput);
   typia.assertEquals(appendTextToDocsOutput);
 
   /**
    * Read docs contents
    */
-  const readDocsOutput =
-    await CApi.functional.connector.google_docs.get.readDocs(
-      connection,
-      docId,
-      {
-        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-      },
-    );
-  typia.assertEquals<"Hello World\n">(readDocsOutput.data.text);
-  typia.assertEquals<IGoogleDocs.IReadGoogleDocsOutput>(readDocsOutput);
+  const readDocsOutput = await CApi.functional.connector.google_docs.get.readDocs(connection, docId, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+  });
+  typia.assertEquals(readDocsOutput);
+  typia.assertEquals<"Hello World\n">(readDocsOutput.data.data.text);
 
   /**
    * Create docs by template
@@ -83,36 +67,28 @@ export const test_api_connector_google_docs = async (
     templateId: docId,
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
   };
-  const createDocByTemplateOutput =
-    await CApi.functional.connector.google_docs.template.createDocByTemplate(
-      connection,
-      createDocByTemplateInput,
-    );
-  typia.assertEquals<IGoogleDocs.ICreateDocByTemplateOutput>(
-    createDocByTemplateOutput,
+  const createDocByTemplateOutput = await CApi.functional.connector.google_docs.template.createDocByTemplate(
+    connection,
+    createDocByTemplateInput,
   );
+  typia.assertEquals(createDocByTemplateOutput);
 
   /**
    * Read docs list
    */
-  const readDocsListOutput =
-    await CApi.functional.connector.google_docs.get_list.list(connection, {
-      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    });
-  typia.assertEquals<IGoogleDocs.IListGoogleDocsOutput>(readDocsListOutput);
+  const readDocsListOutput = await CApi.functional.connector.google_docs.get_list.list(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+  });
+  typia.assertEquals(readDocsListOutput);
 
   /**
    * Delete docs
    */
-  const ids = [docId, createDocByTemplateOutput.id];
+  const ids = [docId, createDocByTemplateOutput.data.id];
   for (const id of ids) {
-    const res = await CApi.functional.connector.google_docs.deleteById(
-      connection,
-      id,
-      {
-        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-      },
-    );
+    const res = await CApi.functional.connector.google_docs.deleteById(connection, id, {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    });
     typia.assertEquals(res);
   }
 };

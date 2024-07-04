@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IKakaoNavi } from "../../../../structures/connector/kakao_navi/IKakaoNavi";
 
 /**
@@ -46,7 +47,7 @@ export async function getFutureDirections(
 }
 export namespace getFutureDirections {
   export type Input = Primitive<IKakaoNavi.IGetFutureDirectionsInput>;
-  export type Output = Primitive<any>;
+  export type Output = Primitive<Try<IKakaoNavi.IGetFutureDirectionsOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -65,7 +66,8 @@ export namespace getFutureDirections {
   export const path = () => "/connector/kakao-navi/get-future-directions";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<any>> => typia.random<Primitive<any>>(g);
+  ): Resolved<Primitive<Try<IKakaoNavi.IGetFutureDirectionsOutput>>> =>
+    typia.random<Primitive<Try<IKakaoNavi.IGetFutureDirectionsOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getFutureDirections.Input,

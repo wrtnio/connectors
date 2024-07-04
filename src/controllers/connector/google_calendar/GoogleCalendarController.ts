@@ -6,13 +6,12 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
 
 import { GoogleCalendarProvider } from "../../../providers/connector/google_calendar/GoogleCalendarProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-calendar")
 export class GoogleCalendarController {
-  constructor(
-    private readonly googleCalendarProvider: GoogleCalendarProvider,
-  ) {}
+  constructor(private readonly googleCalendarProvider: GoogleCalendarProvider) {}
   /**
    * 구글 캘린더 목록을 가져옵니다.
    *
@@ -81,18 +80,14 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Post("get-list")
   async readCalenders(
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/calendar"]
-    >,
-  ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
-    return retry(() => this.googleCalendarProvider.calendarList(input))();
+    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>,
+  ): Promise<Try<IGoogleCalendar.IGoogleCalendarOutput[]>> {
+    const data = await retry(() => this.googleCalendarProvider.calendarList(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -165,14 +160,13 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Post("")
   async createCalendar(
     @core.TypedBody() input: IGoogleCalendar.ICreateCalendarInput,
-  ): Promise<IGoogleCalendar.IGoogleCalendarOutput> {
-    return retry(() => this.googleCalendarProvider.createCalendar(input))();
+  ): Promise<Try<IGoogleCalendar.IGoogleCalendarOutput>> {
+    const data = await retry(() => this.googleCalendarProvider.createCalendar(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -242,28 +236,22 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/calendar"]
-    >,
-  ): Promise<void> {
-    return retry(() =>
-      this.googleCalendarProvider.deleteCalendar(calendarId, input),
-    )();
+    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>,
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.googleCalendarProvider.deleteCalendar(calendarId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -337,24 +325,21 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IReadGoogleCalendarEventInput,
-  ): Promise<IGoogleCalendar.IReadGoogleCalendarEventOutput> {
-    return retry(() =>
-      this.googleCalendarProvider.eventList(calendarId, input),
-    )();
+  ): Promise<Try<IGoogleCalendar.IReadGoogleCalendarEventOutput>> {
+    const data = await retry(() => this.googleCalendarProvider.eventList(calendarId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -426,24 +411,21 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.ICreateQuickEventInput,
-  ): Promise<void> {
-    return retry(() =>
-      this.googleCalendarProvider.createQuickEvent(calendarId, input),
-    )();
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.googleCalendarProvider.createQuickEvent(calendarId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -517,24 +499,21 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
-  ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    return retry(() =>
-      this.googleCalendarProvider.createEvent(calendarId, input),
-    )();
+  ): Promise<Try<IGoogleCalendar.IGoogleCalendarEvent>> {
+    const data = await retry(() => this.googleCalendarProvider.createEvent(calendarId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -610,14 +589,12 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
@@ -625,18 +602,16 @@ export class GoogleCalendarController {
     calendarId: string,
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
-      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
-        response.events,
+      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] => response.data.events,
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
-  ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    return retry(() =>
-      this.googleCalendarProvider.updateEvent(calendarId, eventId, input),
-    )();
+  ): Promise<Try<IGoogleCalendar.IGoogleCalendarEvent>> {
+    const data = await retry(() => this.googleCalendarProvider.updateEvent(calendarId, eventId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -712,14 +687,12 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
@@ -727,22 +700,16 @@ export class GoogleCalendarController {
     calendarId: string,
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
-      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
-        response.events,
+      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] => response.data.events,
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IAddAttendeesToEventInput,
-  ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    return retry(() =>
-      this.googleCalendarProvider.addAttendeesToEvent(
-        calendarId,
-        eventId,
-        input,
-      ),
-    )();
+  ): Promise<Try<IGoogleCalendar.IGoogleCalendarEvent>> {
+    const data = await retry(() => this.googleCalendarProvider.addAttendeesToEvent(calendarId, eventId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -814,14 +781,12 @@ export class GoogleCalendarController {
    * @tag Work Calendar
    * @tag Vacation Schedule
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg")
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
+      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
@@ -829,21 +794,16 @@ export class GoogleCalendarController {
     calendarId: string,
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
-      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
-        response.events,
+      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] => response.data.events,
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/calendar"]
-    >,
-  ): Promise<void> {
-    return retry(() =>
-      this.googleCalendarProvider.deleteEvent(calendarId, eventId, input),
-    )();
+    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>,
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.googleCalendarProvider.deleteEvent(calendarId, eventId, input))();
+    return createResponseForm(data);
   }
 }

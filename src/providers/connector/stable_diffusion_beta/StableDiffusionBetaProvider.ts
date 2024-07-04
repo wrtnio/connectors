@@ -6,29 +6,19 @@ import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connect
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { generateGptPromptTranslateForImageGenerate } from "../../../utils/ImagePromptTranslateUtil";
-import {
-  getAdditionalImagePrompt,
-  handleImagePrompt,
-} from "../../../utils/StableDiffusionUtil";
+import { getAdditionalImagePrompt, handleImagePrompt } from "../../../utils/StableDiffusionUtil";
 import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class StableDiffusionBetaProvider {
   constructor(private awsProvider: AwsProvider) {}
-  async generateImage(
-    input: IStableDiffusionBeta.IRequest,
-  ): Promise<IStableDiffusionBeta.IResponse> {
+  async generateImage(input: IStableDiffusionBeta.IRequest): Promise<IStableDiffusionBeta.IResponse> {
     try {
       const { category, englishText } = await this.imageCompletion(
         `${ConnectorGlobal.env.STABILITY_AI_ENGINE_ID}`,
         input.prompt,
       );
-      const img = await this.generateTextToImage(
-        category,
-        englishText,
-        input.image_ratio,
-        input.style_preset,
-      );
+      const img = await this.generateTextToImage(category, englishText, input.image_ratio, input.style_preset);
       const { imgUrl } = await this.uploadImageToS3(img);
       return { imgUrl: imgUrl };
     } catch (error) {
@@ -60,12 +50,7 @@ export class StableDiffusionBetaProvider {
     }
   }
 
-  async generateTextToImage(
-    category: string,
-    text: string,
-    image_ratio: string,
-    style_preset?: string,
-  ) {
+  async generateTextToImage(category: string, text: string, image_ratio: string, style_preset?: string) {
     const inputs: { prompts: { text: string; weight: number }[] }[] = [];
     const prompts = [{ text, weight: 1 }];
     const additionalPrompt = getAdditionalImagePrompt(category);
@@ -113,8 +98,7 @@ export class StableDiffusionBetaProvider {
         throw new Error("image result not found");
       }
 
-      const output = response.data
-        .artifacts as IStableDiffusionBeta.ISDXLBetaPromptResponse[];
+      const output = response.data.artifacts as IStableDiffusionBeta.ISDXLBetaPromptResponse[];
       const img = output.map((image) => Buffer.from(image.base64, "base64"));
       return img;
     } catch (err) {
@@ -127,10 +111,7 @@ export class StableDiffusionBetaProvider {
     /**
      * 프롬프트 변환
      */
-    const gptPrompt = generateGptPromptTranslateForImageGenerate(
-      model,
-      message,
-    );
+    const gptPrompt = generateGptPromptTranslateForImageGenerate(model, message);
 
     /**
      * 햄릿 통해서 한글 입력 영어로 변환
@@ -141,8 +122,7 @@ export class StableDiffusionBetaProvider {
         { messages: gptPrompt.messages },
         {
           headers: {
-            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
-              ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
           },
         },
       );

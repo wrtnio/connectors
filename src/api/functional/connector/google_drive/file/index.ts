@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDrive } from "../../../../structures/connector/google_drive/IGoogleDrive";
 
@@ -131,7 +132,9 @@ export async function createFile(
 }
 export namespace createFile {
   export type Input = Primitive<IGoogleDrive.ICreateFileGoogleDriveInput>;
-  export type Output = Primitive<IGoogleDrive.ICreateFileGoogleDriveOutput>;
+  export type Output = Primitive<
+    Try<IGoogleDrive.ICreateFileGoogleDriveOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -150,8 +153,8 @@ export namespace createFile {
   export const path = () => "/connector/google-drive/file";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDrive.ICreateFileGoogleDriveOutput>> =>
-    typia.random<Primitive<IGoogleDrive.ICreateFileGoogleDriveOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDrive.ICreateFileGoogleDriveOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDrive.ICreateFileGoogleDriveOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createFile.Input,
@@ -267,7 +270,7 @@ export async function deleteFile(
   connection: IConnection,
   id: string,
   input: deleteFile.Input,
-): Promise<void> {
+): Promise<deleteFile.Output> {
   return !!connection.simulate
     ? deleteFile.simulate(connection, id, input)
     : PlainFetcher.fetch(
@@ -290,6 +293,7 @@ export namespace deleteFile {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
   >;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "DELETE",
@@ -309,12 +313,12 @@ export namespace deleteFile {
     `/connector/google-drive/file/${encodeURIComponent(id ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,
     input: deleteFile.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

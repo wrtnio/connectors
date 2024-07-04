@@ -6,6 +6,7 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/KakaoTalkProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/kakao-talk")
@@ -21,14 +22,13 @@ export class KakaoTalkController {
    *
    * @tag 카카오톡
    */
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("message/text")
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
-  ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
-    return retry(() => KakaoTalkProvider.send(input))();
+  ): Promise<Try<IKakaoTalk.ISendKakaoTalkToFriendsOutput>> {
+    const data = await retry(() => KakaoTalkProvider.send(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -43,14 +43,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("memo/commerce")
-  async commerceMemo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput,
-  ): Promise<IKakaoTalk.IMemoOutput> {
-    return retry(() => KakaoTalkProvider.memo(input))();
+  async commerceMemo(@TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput): Promise<Try<IKakaoTalk.IMemoOutput>> {
+    const data = await retry(() => KakaoTalkProvider.memo(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -65,14 +62,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("memo/location")
-  async locationMemo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput,
-  ): Promise<IKakaoTalk.IMemoOutput> {
-    return retry(() => KakaoTalkProvider.memo(input))();
+  async locationMemo(@TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput): Promise<Try<IKakaoTalk.IMemoOutput>> {
+    const data = await retry(() => KakaoTalkProvider.memo(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -87,14 +81,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("memo/list")
-  async listMemo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput,
-  ): Promise<IKakaoTalk.IMemoOutput> {
-    return retry(() => KakaoTalkProvider.memo(input))();
+  async listMemo(@TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput): Promise<Try<IKakaoTalk.IMemoOutput>> {
+    const data = await retry(() => KakaoTalkProvider.memo(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -109,14 +100,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("memo/feed")
-  async feedMemo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput,
-  ): Promise<IKakaoTalk.IMemoOutput> {
-    return retry(() => KakaoTalkProvider.memo(input))();
+  async feedMemo(@TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput): Promise<Try<IKakaoTalk.IMemoOutput>> {
+    const data = await retry(() => KakaoTalkProvider.memo(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -131,14 +119,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("memo/text")
-  async textMemo(
-    @TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput,
-  ): Promise<IKakaoTalk.IMemoOutput> {
-    return retry(() => KakaoTalkProvider.memo(input))();
+  async textMemo(@TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput): Promise<Try<IKakaoTalk.IMemoOutput>> {
+    const data = await retry(() => KakaoTalkProvider.memo(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -148,14 +133,13 @@ export class KakaoTalkController {
    *
    * @param input Refresh를 위한 요청 DTO.
    */
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("refresh")
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
-  ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
-    return retry(() => KakaoTalkProvider.refresh(input))();
+  ): Promise<Try<IKakaoTalk.IRefreshAccessTokenOutput>> {
+    const data = await retry(() => KakaoTalkProvider.refresh(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -170,14 +154,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("calendars/events")
-  async createEvent(
-    @TypedBody() input: IKakaoTalk.ICreateEventInput,
-  ): Promise<IKakaoTalk.ICreateEventOutput> {
-    return retry(() => KakaoTalkProvider.createEvent(input))();
+  async createEvent(@TypedBody() input: IKakaoTalk.ICreateEventInput): Promise<Try<IKakaoTalk.ICreateEventOutput>> {
+    const data = await retry(() => KakaoTalkProvider.createEvent(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -191,14 +172,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("get-friends")
-  async getFriends(
-    @TypedBody() input: IKakaoTalk.IGetFriendsInput,
-  ): Promise<IKakaoTalk.IGetFriendsOutput> {
-    return retry(() => KakaoTalkProvider.getFriends(input))();
+  async getFriends(@TypedBody() input: IKakaoTalk.IGetFriendsInput): Promise<Try<IKakaoTalk.IGetFriendsOutput>> {
+    const data = await retry(() => KakaoTalkProvider.getFriends(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -213,14 +191,11 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("get-events")
-  async getEvents(
-    @TypedBody() input: IKakaoTalk.IGetEventInput,
-  ): Promise<IKakaoTalk.IGetEventOutput> {
-    return retry(() => KakaoTalkProvider.getEvents(input))();
+  async getEvents(@TypedBody() input: IKakaoTalk.IGetEventInput): Promise<Try<IKakaoTalk.IGetEventOutput>> {
+    const data = await retry(() => KakaoTalkProvider.getEvents(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -235,14 +210,13 @@ export class KakaoTalkController {
    * @tag 카카오톡
    */
   @Standalone()
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
+  @RouteIcon(`https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`)
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
-  ): Promise<IKakaoTalk.IGetCalendarOutput> {
-    return retry(() => KakaoTalkProvider.getCalendars(input))();
+  ): Promise<Try<IKakaoTalk.IGetCalendarOutput>> {
+    const data = await retry(() => KakaoTalkProvider.getCalendars(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -253,9 +227,7 @@ export class KakaoTalkController {
    * @param query Authorization Code Dto.
    */
   @Get("auth")
-  authorization(
-    @Query() query: IKakaoTalk.IAuthorizationCode,
-  ): Promise<IKakaoTalk.IGetAccessTokenOutput> {
+  authorization(@Query() query: IKakaoTalk.IAuthorizationCode): Promise<Try<IKakaoTalk.IGetAccessTokenOutput>> {
     return null!;
   }
 }

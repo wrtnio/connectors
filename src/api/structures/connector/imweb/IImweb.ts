@@ -124,10 +124,7 @@ export namespace IImweb {
     /**
      * @title 판매 방식 데이터.
      */
-    prod_type_data: (
-      | IImweb.ProdTypeData.DigitalData
-      | IImweb.ProdTypeData.SubscribeData
-    )[];
+    prod_type_data: (IImweb.ProdTypeData.DigitalData | IImweb.ProdTypeData.SubscribeData)[];
 
     /**
      * @title 판매기간 설정 여부.
@@ -240,9 +237,7 @@ export namespace IImweb {
     /**
      * @title 상품의 조합형 옵션 여부.
      */
-    is_mix:
-      | tags.Constant<"Y", { title: "조합형 옵션" }>
-      | tags.Constant<"N", { title: "단일 옵션" }>;
+    is_mix: tags.Constant<"Y", { title: "조합형 옵션" }> | tags.Constant<"N", { title: "단일 옵션" }>;
 
     /**
      * @title 상품 추가시간 Timestamp.
@@ -305,9 +300,7 @@ export namespace IImweb {
     /**
      * @title 적립금 적립 단위.
      */
-    value_type:
-      | tags.Constant<"percent", { title: "퍼센트" }>
-      | tags.Constant<"price", { title: "통화 단위" }>;
+    value_type: tags.Constant<"percent", { title: "퍼센트" }> | tags.Constant<"price", { title: "통화 단위" }>;
 
     /**
      * @title 적립금 값

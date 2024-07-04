@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
 import { GoogleSheetProvider } from "../../../providers/connector/google_sheet/GoogleSheetProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-sheet")
@@ -89,14 +90,13 @@ export class GoogleSheetController {
    * @tag Manage Data
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg")
   @core.TypedRoute.Post()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
-  ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
-    return retry(() => this.googleSheetProvider.readHeaders(input))();
+  ): Promise<Try<IGoogleSheet.IReadGoogleSheetOutput>> {
+    const data = await retry(() => this.googleSheetProvider.readHeaders(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -175,14 +175,11 @@ export class GoogleSheetController {
    * @tag Manage Data
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg")
   @core.TypedRoute.Post("/permission")
-  async permission(
-    @core.TypedBody() input: IGoogleSheet.IPermissionInput,
-  ): Promise<void> {
-    return retry(() => this.googleSheetProvider.permission(input))();
+  async permission(@core.TypedBody() input: IGoogleSheet.IPermissionInput): Promise<Try<void>> {
+    const data = await retry(() => this.googleSheetProvider.permission(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -261,14 +258,11 @@ export class GoogleSheetController {
    * @tag Manage Data
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg")
   @core.TypedRoute.Post("/header")
-  async writeHeaders(
-    @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
-  ): Promise<void> {
-    return retry(() => this.googleSheetProvider.writeHeaders(input))();
+  async writeHeaders(@core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput): Promise<Try<void>> {
+    const data = await retry(() => this.googleSheetProvider.writeHeaders(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -347,14 +341,13 @@ export class GoogleSheetController {
    * @tag Manage Data
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg")
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
-  ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
-    return retry(() => this.googleSheetProvider.getWorkSheet(input))();
+  ): Promise<Try<IGoogleSheet.IGetWorkSheetOutput>> {
+    const data = await retry(() => this.googleSheetProvider.getWorkSheet(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -435,13 +428,12 @@ export class GoogleSheetController {
    * @Todo determine api endpoint in later because not decided select options
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg")
   @core.TypedRoute.Post("/get-rows")
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,
-  ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
-    return retry(() => this.googleSheetProvider.readRows(input))();
+  ): Promise<Try<IGoogleSheet.IReadGoogleSheetRowsOutput>> {
+    const data = await retry(() => this.googleSheetProvider.readRows(input))();
+    return createResponseForm(data);
   }
 }

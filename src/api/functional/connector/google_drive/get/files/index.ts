@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IGoogleDrive } from "../../../../../structures/connector/google_drive/IGoogleDrive";
 
 /**
@@ -127,7 +128,7 @@ export async function fileList(
 }
 export namespace fileList {
   export type Input = Primitive<IGoogleDrive.IFileListGoogleDriveInput>;
-  export type Output = Primitive<IGoogleDrive.IFileListGoogleDriveOutput>;
+  export type Output = Primitive<Try<IGoogleDrive.IFileListGoogleDriveOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -146,8 +147,8 @@ export namespace fileList {
   export const path = () => "/connector/google-drive/get/files";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDrive.IFileListGoogleDriveOutput>> =>
-    typia.random<Primitive<IGoogleDrive.IFileListGoogleDriveOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDrive.IFileListGoogleDriveOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDrive.IFileListGoogleDriveOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: fileList.Input,

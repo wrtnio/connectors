@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IAws } from "../../../../../structures/connector/aws/IAws";
 
 /**
@@ -37,7 +38,7 @@ export async function getUploadUrl(
 }
 export namespace getUploadUrl {
   export type Query = Resolved<IAws.IGetPutObjectUrlInput>;
-  export type Output = Primitive<IAws.IGetPutObjectUrlOutput>;
+  export type Output = Primitive<Try<IAws.IGetPutObjectUrlOutput>>;
 
   export const METADATA = {
     method: "GET",
@@ -64,8 +65,8 @@ export namespace getUploadUrl {
   };
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IAws.IGetPutObjectUrlOutput>> =>
-    typia.random<Primitive<IAws.IGetPutObjectUrlOutput>>(g);
+  ): Resolved<Primitive<Try<IAws.IGetPutObjectUrlOutput>>> =>
+    typia.random<Primitive<Try<IAws.IGetPutObjectUrlOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     extension: getUploadUrl.Query,

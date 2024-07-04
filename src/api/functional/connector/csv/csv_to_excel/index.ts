@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICsv } from "../../../../structures/connector/csv/ICsv";
 
 /**
@@ -94,7 +95,7 @@ export async function csvToExcel(
 }
 export namespace csvToExcel {
   export type Input = Primitive<ICsv.ICsvToExcelInput>;
-  export type Output = Primitive<ICsv.ICsvToExcelOutput>;
+  export type Output = Primitive<Try<ICsv.ICsvToExcelOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -113,8 +114,8 @@ export namespace csvToExcel {
   export const path = () => "/connector/csv/csv-to-excel";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ICsv.ICsvToExcelOutput>> =>
-    typia.random<Primitive<ICsv.ICsvToExcelOutput>>(g);
+  ): Resolved<Primitive<Try<ICsv.ICsvToExcelOutput>>> =>
+    typia.random<Primitive<Try<ICsv.ICsvToExcelOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: csvToExcel.Input,

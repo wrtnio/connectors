@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../../structures/connector/common/ISecretValue";
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
@@ -84,7 +85,7 @@ export async function getUsers(
 }
 export namespace getUsers {
   export type Input = Primitive<ICommon.ISecret<"notion", never>>;
-  export type Output = Primitive<Array<INotion.IUserOutput>>;
+  export type Output = Primitive<Try<Array<INotion.IUserOutput>>>;
 
   export const METADATA = {
     method: "POST",
@@ -103,8 +104,8 @@ export namespace getUsers {
   export const path = () => "/connector/notion/get/users";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Array<INotion.IUserOutput>>> =>
-    typia.random<Primitive<Array<INotion.IUserOutput>>>(g);
+  ): Resolved<Primitive<Try<Array<INotion.IUserOutput>>>> =>
+    typia.random<Primitive<Try<Array<INotion.IUserOutput>>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getUsers.Input,

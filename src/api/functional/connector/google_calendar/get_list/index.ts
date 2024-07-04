@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleCalendar } from "../../../../structures/connector/google_calendar/IGoogleCalendar";
 
@@ -105,7 +106,9 @@ export namespace readCalenders {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
   >;
-  export type Output = Primitive<Array<IGoogleCalendar.IGoogleCalendarOutput>>;
+  export type Output = Primitive<
+    Try<Array<IGoogleCalendar.IGoogleCalendarOutput>>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -124,8 +127,10 @@ export namespace readCalenders {
   export const path = () => "/connector/google-calendar/get-list";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Array<IGoogleCalendar.IGoogleCalendarOutput>>> =>
-    typia.random<Primitive<Array<IGoogleCalendar.IGoogleCalendarOutput>>>(g);
+  ): Resolved<Primitive<Try<Array<IGoogleCalendar.IGoogleCalendarOutput>>>> =>
+    typia.random<Primitive<Try<Array<IGoogleCalendar.IGoogleCalendarOutput>>>>(
+      g,
+    );
   export const simulate = (
     connection: IConnection,
     input: readCalenders.Input,

@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { ITool } from "@wrtn/connector-api/lib/structures/connector/tool/ITool";
 
 import { ToolProvider } from "../../../providers/connector/tool/ToolProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 @Controller("connector/tool")
 export class ToolController {
@@ -23,7 +24,8 @@ export class ToolController {
   async generateTool(
     @core.TypedParam("id") id: string,
     @core.TypedBody() input: ITool.IGenerateInput,
-  ): Promise<ITool.IGenerateOutput> {
-    return this.toolProvider.generateTool(id, input);
+  ): Promise<Try<ITool.IGenerateOutput>> {
+    const data = await this.toolProvider.generateTool(id, input);
+    return createResponseForm(data);
   }
 }

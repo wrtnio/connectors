@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/typeform")
@@ -72,8 +73,9 @@ export class TypeformController {
   @core.TypedRoute.Post("/workspace")
   async createWorkspace(
     @core.TypedBody() input: ITypeform.ICreateWorkspaceInput,
-  ): Promise<ITypeform.ICreateWorkspaceOutput> {
-    return retry(() => TypeformProvider.createWorkspace(input))();
+  ): Promise<Try<ITypeform.ICreateWorkspaceOutput>> {
+    const data = await retry(() => TypeformProvider.createWorkspace(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -136,10 +138,9 @@ export class TypeformController {
    * @internal
    */
   @core.TypedRoute.Delete("/workspace/:workspaceId")
-  async deleteWorkspace(
-    @core.TypedParam("workspaceId") workspaceId: string,
-  ): Promise<void> {
-    return retry(() => TypeformProvider.deleteWorkspace(workspaceId))();
+  async deleteWorkspace(@core.TypedParam("workspaceId") workspaceId: string): Promise<Try<void>> {
+    const data = await retry(() => TypeformProvider.deleteWorkspace(workspaceId))();
+    return createResponseForm(data);
   }
 
   /**
@@ -202,8 +203,9 @@ export class TypeformController {
    * @internal
    */
   @core.TypedRoute.Post("/get-workspaces")
-  async getWorkspaces(): Promise<ITypeform.IFindWorkspaceOutput[]> {
-    return retry(() => TypeformProvider.getWorkspaces())();
+  async getWorkspaces(): Promise<Try<ITypeform.IFindWorkspaceOutput[]>> {
+    const data = await retry(() => TypeformProvider.getWorkspaces())();
+    return createResponseForm(data);
   }
 
   /**
@@ -270,8 +272,9 @@ export class TypeformController {
   @core.TypedRoute.Post("/empty-form")
   async createEmptyForm(
     @core.TypedBody() input: ITypeform.ICreateEmptyFormInput,
-  ): Promise<ITypeform.ICreateFormOutput> {
-    return retry(() => TypeformProvider.createEmptyForm(input))();
+  ): Promise<Try<ITypeform.ICreateFormOutput>> {
+    const data = await retry(() => TypeformProvider.createEmptyForm(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -334,8 +337,9 @@ export class TypeformController {
    * @internal
    */
   @core.TypedRoute.Post("/get-forms")
-  async getForms(): Promise<ITypeform.IFindFormOutput[]> {
-    return retry(() => TypeformProvider.getForms())();
+  async getForms(): Promise<Try<ITypeform.IFindFormOutput[]>> {
+    const data = await retry(() => TypeformProvider.getForms())();
+    return createResponseForm(data);
   }
 
   /**
@@ -402,8 +406,9 @@ export class TypeformController {
   @core.TypedRoute.Post("/duplicate-form")
   async duplicateExistingForm(
     @core.TypedBody() input: ITypeform.IDuplicateExistingFormInput,
-  ): Promise<ITypeform.ICreateFormOutput> {
-    return retry(() => TypeformProvider.duplicateExistingForm(input))();
+  ): Promise<Try<ITypeform.ICreateFormOutput>> {
+    const data = await retry(() => TypeformProvider.duplicateExistingForm(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -470,8 +475,9 @@ export class TypeformController {
   @core.TypedRoute.Get("/forms/:formId/fields")
   async getFieldsForUpdateFieldValue(
     @core.TypedParam("formId") formId: string,
-  ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
-    return retry(() => TypeformProvider.getFieldsForUpdateFieldValue(formId))();
+  ): Promise<Try<ITypeform.IFieldInfoForUpdateFieldValueOutput[]>> {
+    const data = await retry(() => TypeformProvider.getFieldsForUpdateFieldValue(formId))();
+    return createResponseForm(data);
   }
 
   /**
@@ -537,8 +543,9 @@ export class TypeformController {
   async updateFormFieldValue(
     @core.TypedParam("formId") formId: string,
     @core.TypedBody() input: ITypeform.IUpdateFormFieldValueInput,
-  ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
-    return retry(() => TypeformProvider.updateFormFieldValue(formId, input))();
+  ): Promise<Try<ITypeform.IUpdateFormFieldValueOutput>> {
+    const data = await retry(() => TypeformProvider.updateFormFieldValue(formId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -601,7 +608,8 @@ export class TypeformController {
    * @internal
    */
   @core.TypedRoute.Delete("/forms/:formId")
-  async deleteForm(@core.TypedParam("formId") formId: string): Promise<void> {
-    return retry(() => TypeformProvider.deleteForm(formId))();
+  async deleteForm(@core.TypedParam("formId") formId: string): Promise<Try<void>> {
+    const data = await retry(() => TypeformProvider.deleteForm(formId))();
+    return createResponseForm(data);
   }
 }

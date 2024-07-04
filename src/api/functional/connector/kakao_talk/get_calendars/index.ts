@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IKakaoTalk } from "../../../../structures/connector/kakao_talk/IKakaoTalk";
 
@@ -48,7 +49,7 @@ export async function getCalendars(
 }
 export namespace getCalendars {
   export type Input = Primitive<ICommon.ISecret<"kakao", ["talk_calendar"]>>;
-  export type Output = Primitive<IKakaoTalk.IGetCalendarOutput>;
+  export type Output = Primitive<Try<IKakaoTalk.IGetCalendarOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -67,8 +68,8 @@ export namespace getCalendars {
   export const path = () => "/connector/kakao-talk/get-calendars";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKakaoTalk.IGetCalendarOutput>> =>
-    typia.random<Primitive<IKakaoTalk.IGetCalendarOutput>>(g);
+  ): Resolved<Primitive<Try<IKakaoTalk.IGetCalendarOutput>>> =>
+    typia.random<Primitive<Try<IKakaoTalk.IGetCalendarOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getCalendars.Input,

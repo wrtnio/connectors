@@ -3,11 +3,7 @@ import typia from "typia";
 
 import { ISelectorLlmResponse } from "@wrtn/connector-api/lib/structures/connector/llm/ILlm";
 
-import {
-  IChainOfThought,
-  OpenAIProvider,
-  dump,
-} from "../../open_ai/OpenAIProvider";
+import { IChainOfThought, OpenAIProvider, dump } from "../../open_ai/OpenAIProvider";
 
 async function selector(
   openAIProvider: OpenAIProvider,
@@ -39,18 +35,9 @@ Make sure you select ${numSelection} options.
 export class LlmProvider {
   constructor(private openAIProvider: OpenAIProvider) {}
 
-  async selectorLlm(
-    candidates: any[],
-    numSelection: number,
-    context: any,
-  ): Promise<ISelectorLlmResponse> {
+  async selectorLlm(candidates: any[], numSelection: number, context: any): Promise<ISelectorLlmResponse> {
     return {
-      selection: await selector(
-        this.openAIProvider,
-        candidates,
-        numSelection,
-        context,
-      ),
+      selection: await selector(this.openAIProvider, candidates, numSelection, context),
     };
   }
 }

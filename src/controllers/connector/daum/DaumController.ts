@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 
 import { DaumProvider } from "../../../providers/connector/daum/DaumProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/daum")
@@ -58,13 +59,10 @@ export class DaumController {
    */
   @Standalone()
   @core.TypedRoute.Post("blog")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
-  )
-  async searchBlog(
-    @core.TypedBody() input: IDaum.ISearchDaumInput,
-  ): Promise<IDaum.IBlogDaumOutput> {
-    return retry(() => DaumProvider.searchBlog(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg")
+  async searchBlog(@core.TypedBody() input: IDaum.ISearchDaumInput): Promise<Try<IDaum.IBlogDaumOutput>> {
+    const data = await retry(() => DaumProvider.searchBlog(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -108,12 +106,9 @@ export class DaumController {
    */
   @Standalone()
   @core.TypedRoute.Post("cafe")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
-  )
-  async searchCafe(
-    @core.TypedBody() input: IDaum.ISearchDaumInput,
-  ): Promise<IDaum.ICafeDaumOutput> {
-    return retry(() => DaumProvider.searchCafe(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg")
+  async searchCafe(@core.TypedBody() input: IDaum.ISearchDaumInput): Promise<Try<IDaum.ICafeDaumOutput>> {
+    const data = await retry(() => DaumProvider.searchCafe(input))();
+    return createResponseForm(data);
   }
 }

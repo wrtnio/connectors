@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IHwp } from "../../../../structures/connector/hwp/IHwp";
 
 /**
@@ -106,7 +107,7 @@ export async function parseHwp(
 }
 export namespace parseHwp {
   export type Input = Primitive<IHwp.IParseInput>;
-  export type Output = Primitive<IHwp.IParseOutput>;
+  export type Output = Primitive<Try<IHwp.IParseOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -125,8 +126,8 @@ export namespace parseHwp {
   export const path = () => "/connector/hwp/parse";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IHwp.IParseOutput>> =>
-    typia.random<Primitive<IHwp.IParseOutput>>(g);
+  ): Resolved<Primitive<Try<IHwp.IParseOutput>>> =>
+    typia.random<Primitive<Try<IHwp.IParseOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: parseHwp.Input,

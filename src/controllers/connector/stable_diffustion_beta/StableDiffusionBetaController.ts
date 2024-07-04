@@ -6,12 +6,11 @@ import { Standalone } from "@wrtn/decorators";
 import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
 
 import { StableDiffusionBetaProvider } from "../../../providers/connector/stable_diffusion_beta/StableDiffusionBetaProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 @Controller("connector/stable-diffusion-beta")
 export class StableDiffusionBetaController {
-  constructor(
-    private readonly stableDiffusionBetaProvider: StableDiffusionBetaProvider,
-  ) {}
+  constructor(private readonly stableDiffusionBetaProvider: StableDiffusionBetaProvider) {}
 
   /**
    * 스테이블 디퓨전 모델을 이용하여 이미지를 생성합니다.
@@ -27,7 +26,8 @@ export class StableDiffusionBetaController {
   @core.TypedRoute.Post("/generate")
   async generateImage(
     @core.TypedBody() input: IStableDiffusionBeta.IRequest,
-  ): Promise<IStableDiffusionBeta.IResponse> {
-    return await this.stableDiffusionBetaProvider.generateImage(input);
+  ): Promise<Try<IStableDiffusionBeta.IResponse>> {
+    const data = await this.stableDiffusionBetaProvider.generateImage(input);
+    return createResponseForm(data);
   }
 }

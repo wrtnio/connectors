@@ -6,6 +6,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 
 import { HancellProvider } from "../../../providers/connector/hancell/HancellProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/hancell")
@@ -76,13 +77,10 @@ export class HancellController {
     "Merge Data",
   )
   @core.TypedRoute.Post("sheet")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
-  )
-  async upsertSheet(
-    @TypedBody() input: IHancell.IUpsertSheetInput,
-  ): Promise<IHancell.IUpsertSheetOutput> {
-    return retry(() => this.hancellProvider.upsertSheet(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg")
+  async upsertSheet(@TypedBody() input: IHancell.IUpsertSheetInput): Promise<Try<IHancell.IUpsertSheetOutput>> {
+    const data = await retry(() => this.hancellProvider.upsertSheet(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -146,17 +144,12 @@ export class HancellController {
     "Filter Data",
     "Merge Data",
   )
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg")
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg")
   @core.TypedRoute.Post("read")
-  async read(
-    @TypedBody() input: IHancell.IReadHancellInput,
-  ): Promise<IHancell.IReadHancellOutput> {
-    return retry(() => this.hancellProvider.getHancellData(input))();
+  async read(@TypedBody() input: IHancell.IReadHancellInput): Promise<Try<IHancell.IReadHancellOutput>> {
+    const data = await retry(() => this.hancellProvider.getHancellData(input))();
+    return createResponseForm(data);
   }
 }

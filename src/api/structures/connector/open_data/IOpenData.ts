@@ -39,8 +39,7 @@ export namespace IOpenData {
     /**
      * @title 행정표준코드 조회 요청
      */
-    export interface IGetStandardRegionCodeListInput
-      extends ICommon.IPaginationInput {
+    export interface IGetStandardRegionCodeListInput extends ICommon.IPaginationInput {
       /**
        * @title 지역주소명
        */
@@ -50,8 +49,7 @@ export namespace IOpenData {
     /**
      * @title 행정표준코드 조회 결과
      */
-    export interface IGetStandardRegionCodeListOutput
-      extends ICommon.IPaginationOutput {
+    export interface IGetStandardRegionCodeListOutput extends ICommon.IPaginationOutput {
       rows: {
         /**
          * @title 지역코드
@@ -306,15 +304,9 @@ export namespace IOpenData {
     export type CategoryType =
       | tags.Constant<"POP", { title: "강수확률"; description: "단위는 %" }>
       | tags.Constant<"PTY", { title: "강수형태"; description: "코드 값" }>
-      | tags.Constant<
-          "PCP",
-          { title: "1시간 강수량"; description: "범주(1mm)" }
-        >
+      | tags.Constant<"PCP", { title: "1시간 강수량"; description: "범주(1mm)" }>
       | tags.Constant<"REH", { title: "습도"; description: "단위는 %" }>
-      | tags.Constant<
-          "SNO",
-          { title: "1시간 신적설"; description: "범주(1cm)" }
-        >
+      | tags.Constant<"SNO", { title: "1시간 신적설"; description: "범주(1cm)" }>
       | tags.Constant<"SKY", { title: "하늘 상태"; description: "코드 값" }>
       | tags.Constant<"TMP", { title: "1시간 기온"; description: "섭씨 온도" }>
       | tags.Constant<"TMN", { title: "일 최저기온"; description: "섭씨 온도" }>

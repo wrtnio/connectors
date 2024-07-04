@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type {
   ISelectorLlmRequest,
   ISelectorLlmResponse,
@@ -50,7 +51,7 @@ export async function selectorLlm(
 }
 export namespace selectorLlm {
   export type Input = Primitive<ISelectorLlmRequest>;
-  export type Output = Primitive<ISelectorLlmResponse>;
+  export type Output = Primitive<Try<ISelectorLlmResponse>>;
 
   export const METADATA = {
     method: "POST",
@@ -69,8 +70,8 @@ export namespace selectorLlm {
   export const path = () => "/connector/llm/selector-llm";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ISelectorLlmResponse>> =>
-    typia.random<Primitive<ISelectorLlmResponse>>(g);
+  ): Resolved<Primitive<Try<ISelectorLlmResponse>>> =>
+    typia.random<Primitive<Try<ISelectorLlmResponse>>>(g);
   export const simulate = (
     connection: IConnection,
     body: selectorLlm.Input,

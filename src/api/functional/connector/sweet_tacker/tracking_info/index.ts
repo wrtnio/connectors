@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ISweetTracker } from "../../../../structures/connector/sweet_tracker/ISweetTacker";
 
 /**
@@ -47,7 +48,7 @@ export async function getTrackingInfo(
 }
 export namespace getTrackingInfo {
   export type Input = Primitive<ISweetTracker.IGetTrackingInfoInput>;
-  export type Output = Primitive<ISweetTracker.IGetTrackingInfoOutput>;
+  export type Output = Primitive<Try<ISweetTracker.IGetTrackingInfoOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace getTrackingInfo {
   export const path = () => "/connector/sweet-tacker/tracking-info";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ISweetTracker.IGetTrackingInfoOutput>> =>
-    typia.random<Primitive<ISweetTracker.IGetTrackingInfoOutput>>(g);
+  ): Resolved<Primitive<Try<ISweetTracker.IGetTrackingInfoOutput>>> =>
+    typia.random<Primitive<Try<ISweetTracker.IGetTrackingInfoOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getTrackingInfo.Input,

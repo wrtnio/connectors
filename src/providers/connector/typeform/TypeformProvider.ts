@@ -25,10 +25,7 @@ export namespace TypeformProvider {
     );
 
     if (!res) {
-      throw new HttpException(
-        "Failed to create Workspaces",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException("Failed to create Workspaces", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     const workspace = res.data;
     const createdResult: ITypeform.ICreateWorkspaceOutput = {
@@ -39,17 +36,12 @@ export namespace TypeformProvider {
     return createdResult;
   }
 
-  export async function getWorkspaces(): Promise<
-    ITypeform.IFindWorkspaceOutput[]
-  > {
+  export async function getWorkspaces(): Promise<ITypeform.IFindWorkspaceOutput[]> {
     const res = await axios.get("https://api.typeform.com/workspaces", {
       headers: headers(),
     });
     if (!res) {
-      throw new HttpException(
-        "Failed to get Workspaces",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException("Failed to get Workspaces", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     const workspaceList = res.data.items;
     const workspaceListInfo: ITypeform.IFindWorkspaceOutput[] = [];
@@ -66,9 +58,7 @@ export namespace TypeformProvider {
     return workspaceListInfo;
   }
 
-  export async function createEmptyForm(
-    input: ITypeform.ICreateEmptyFormInput,
-  ): Promise<ITypeform.ICreateFormOutput> {
+  export async function createEmptyForm(input: ITypeform.ICreateEmptyFormInput): Promise<ITypeform.ICreateFormOutput> {
     const res = await axios.post(
       "https://api.typeform.com/forms",
       {
@@ -78,10 +68,7 @@ export namespace TypeformProvider {
     );
 
     if (!res) {
-      throw new HttpException(
-        "Failed to create an empty form",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException("Failed to create an empty form", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     const result = res.data;
@@ -100,10 +87,7 @@ export namespace TypeformProvider {
     });
 
     if (!res) {
-      throw new HttpException(
-        "Failed to get forms",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException("Failed to get forms", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     const formList = res.data.items;
@@ -134,20 +118,16 @@ export namespace TypeformProvider {
      * https://www.typeform.com/developers/create/walkthroughs/
      * Duplicates an existing form 참고
      */
-    const fieldsWithoutId = fields.map(
-      ({ id, ...field }: ITypeform.IFormFieldOutput) => {
-        const choices = field.properties.choices.map(
-          ({ id, ...choice }: ITypeform.IChoice) => choice,
-        );
-        return {
-          ...field,
-          properties: {
-            ...field.properties,
-            choices,
-          },
-        };
-      },
-    );
+    const fieldsWithoutId = fields.map(({ id, ...field }: ITypeform.IFormFieldOutput) => {
+      const choices = field.properties.choices.map(({ id, ...choice }: ITypeform.IChoice) => choice);
+      return {
+        ...field,
+        properties: {
+          ...field.properties,
+          choices,
+        },
+      };
+    });
 
     const res = await axios.post(
       "https://api.typeform.com/forms",
@@ -163,10 +143,7 @@ export namespace TypeformProvider {
     );
 
     if (!res) {
-      throw new HttpException(
-        "Failed to duplicate form",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException("Failed to duplicate form", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     const result = res.data;
@@ -193,9 +170,7 @@ export namespace TypeformProvider {
      */
     const fields: ITypeform.IFormFieldOutput[] = formInfo.fields.filter(
       (field: ITypeform.IFormFieldOutput) =>
-        field.type === "ranking" ||
-        field.type === "dropdown" ||
-        field.type === "multiple_choice",
+        field.type === "ranking" || field.type === "dropdown" || field.type === "multiple_choice",
     );
     const fieldInfoList: ITypeform.IFieldInfoForUpdateFieldValueOutput[] = [];
 
@@ -215,8 +190,7 @@ export namespace TypeformProvider {
     input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
     const formInfo = await getFormInfo(formId);
-    if (!formInfo)
-      throw new HttpException("Cannot get form info", HttpStatus.NOT_FOUND);
+    if (!formInfo) throw new HttpException("Cannot get form info", HttpStatus.NOT_FOUND);
 
     const updatedFormInfo = updateFormInfo(formInfo, input);
     const updatedForm = await updateForm(formId, updatedFormInfo);
@@ -231,21 +205,11 @@ export namespace TypeformProvider {
     return updatedFieldResult;
   }
 
-  async function updateForm(
-    formId: string,
-    updatedFormInfo: any,
-  ): Promise<ITypeform.IFormOutput> {
-    const res = await axios.put(
-      `https://api.typeform.com/forms/${formId}`,
-      updatedFormInfo,
-      { headers: headers() },
-    );
+  async function updateForm(formId: string, updatedFormInfo: any): Promise<ITypeform.IFormOutput> {
+    const res = await axios.put(`https://api.typeform.com/forms/${formId}`, updatedFormInfo, { headers: headers() });
 
     if (!res) {
-      throw new HttpException(
-        "Failed to Update field",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException("Failed to Update field", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     return res.data;
   }
@@ -263,17 +227,11 @@ export namespace TypeformProvider {
   }
 
   async function getFormInfo(formId: string): Promise<ITypeform.IFormOutput> {
-    const formInfo = await axios.get(
-      `https://api.typeform.com/forms/${formId}`,
-      { headers: headers() },
-    );
+    const formInfo = await axios.get(`https://api.typeform.com/forms/${formId}`, { headers: headers() });
     return formInfo.data;
   }
 
-  function updateFormInfo(
-    formInfo: ITypeform.IFormOutput,
-    input: ITypeform.IUpdateFormFieldValueInput,
-  ) {
+  function updateFormInfo(formInfo: ITypeform.IFormOutput, input: ITypeform.IUpdateFormFieldValueInput) {
     return {
       ...formInfo,
       fields: formInfo.fields.map((field: ITypeform.IFormFieldOutput) => {
@@ -295,9 +253,7 @@ export namespace TypeformProvider {
   function getFieldInfoList(updatedFields: ITypeform.IFormFieldOutput[]) {
     const fieldInfoList: ITypeform.IFieldInformation[] = [];
     for (const field of updatedFields) {
-      const labels: string[] = field.properties.choices.map(
-        (choice: ITypeform.IChoice) => choice.label,
-      );
+      const labels: string[] = field.properties.choices.map((choice: ITypeform.IChoice) => choice.label);
       for (const label of labels) {
         const fieldInfo = {
           id: field.id,

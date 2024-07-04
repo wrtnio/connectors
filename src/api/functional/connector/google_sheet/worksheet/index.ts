@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGoogleSheet } from "../../../../structures/connector/google_sheet/IGoogleSheet";
 
 /**
@@ -112,7 +113,7 @@ export async function getWorkSheet(
 }
 export namespace getWorkSheet {
   export type Input = Primitive<IGoogleSheet.IGetWorkSheetInput>;
-  export type Output = Primitive<IGoogleSheet.IGetWorkSheetOutput>;
+  export type Output = Primitive<Try<IGoogleSheet.IGetWorkSheetOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -131,8 +132,8 @@ export namespace getWorkSheet {
   export const path = () => "/connector/google-sheet/worksheet";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleSheet.IGetWorkSheetOutput>> =>
-    typia.random<Primitive<IGoogleSheet.IGetWorkSheetOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleSheet.IGetWorkSheetOutput>>> =>
+    typia.random<Primitive<Try<IGoogleSheet.IGetWorkSheetOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getWorkSheet.Input,

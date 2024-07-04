@@ -6,15 +6,9 @@ import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector
 import { IArxivSearchParams } from "@wrtn/connector-api/lib/structures/connector/arxiv_search/IArxivSearch";
 
 export namespace ArxivSearchProvider {
-  export async function search(
-    input: IConnector.ISearchInput,
-  ): Promise<IConnector.ISearchOutput> {
+  export async function search(input: IConnector.ISearchInput): Promise<IConnector.ISearchOutput> {
     try {
-      const searchQuery = generateSearchQuery(
-        input.and_keywords,
-        input.or_keywords ?? [],
-        input.not_keywords ?? [],
-      );
+      const searchQuery = generateSearchQuery(input.and_keywords, input.or_keywords ?? [], input.not_keywords ?? []);
       const params: IArxivSearchParams = {
         search_query: searchQuery,
         max_results: input.num_results,
@@ -24,19 +18,14 @@ export namespace ArxivSearchProvider {
        * arxiv api를 통해 검색 결과 가져옴
        * xml 형식
        */
-      const arxivSearchXmlResults = await axios.get(
-        "https://export.arxiv.org/api/query",
-        {
-          params,
-        },
-      );
+      const arxivSearchXmlResults = await axios.get("https://export.arxiv.org/api/query", {
+        params,
+      });
 
       /**
        * xml 형식을 json 형식으로 변환
        */
-      const arxivSearchJsonResults = await convertXmlToJson(
-        arxivSearchXmlResults.data,
-      );
+      const arxivSearchJsonResults = await convertXmlToJson(arxivSearchXmlResults.data);
 
       if (
         arxivSearchJsonResults === undefined ||
@@ -69,17 +58,10 @@ export namespace ArxivSearchProvider {
    * arxiv api를 통해 검색하기 위한 쿼리 생성
    * https://info.arxiv.org/help/api/user-manual.html#query_details
    */
-  const generateSearchQuery = (
-    andKeyWords: string[],
-    orKeywords: string[],
-    notKeywords: string[],
-  ) => {
+  const generateSearchQuery = (andKeyWords: string[], orKeywords: string[], notKeywords: string[]) => {
     let query = "";
     // 키워드가 2개 이상일 때만 괄호로 감싸줌
-    const wrapWithParenthesesIfPluralKeyword = (
-      keywords: string[],
-      joinBy: string,
-    ) => {
+    const wrapWithParenthesesIfPluralKeyword = (keywords: string[], joinBy: string) => {
       if (keywords.length > 1) {
         return "(" + keywords.join(joinBy) + ")";
       } else {

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { ISweetTracker } from "../../../../../structures/connector/sweet_tracker/ISweetTacker";
 
 /**
@@ -47,8 +48,9 @@ export async function getRecommendedCompanyList(
 }
 export namespace getRecommendedCompanyList {
   export type Input = Primitive<ISweetTracker.IGetRecommendedCompanyListInput>;
-  export type Output =
-    Primitive<ISweetTracker.IGetRecommendedCompanyListOutput>;
+  export type Output = Primitive<
+    Try<ISweetTracker.IGetRecommendedCompanyListOutput>
+  >;
 
   export const METADATA = {
     method: "POST",
@@ -67,8 +69,10 @@ export namespace getRecommendedCompanyList {
   export const path = () => "/connector/sweet-tacker/get-companies/recommended";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ISweetTracker.IGetRecommendedCompanyListOutput>> =>
-    typia.random<Primitive<ISweetTracker.IGetRecommendedCompanyListOutput>>(g);
+  ): Resolved<Primitive<Try<ISweetTracker.IGetRecommendedCompanyListOutput>>> =>
+    typia.random<
+      Primitive<Try<ISweetTracker.IGetRecommendedCompanyListOutput>>
+    >(g);
   export const simulate = (
     connection: IConnection,
     input: getRecommendedCompanyList.Input,

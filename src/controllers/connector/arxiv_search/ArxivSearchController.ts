@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 
 import { ArxivSearchProvider } from "../../../providers/connector/arxiv_search/ArxivSearchProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/arxiv-search")
@@ -211,12 +212,9 @@ export class ArxivSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/arxiv.svg",
-  )
-  async search(
-    @core.TypedBody() input: IConnector.ISearchInput,
-  ): Promise<IConnector.ISearchOutput> {
-    return retry(() => ArxivSearchProvider.search(input))();
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/arxiv.svg")
+  async search(@core.TypedBody() input: IConnector.ISearchInput): Promise<Try<IConnector.ISearchOutput>> {
+    const data = await retry(() => ArxivSearchProvider.search(input))();
+    return createResponseForm(data);
   }
 }

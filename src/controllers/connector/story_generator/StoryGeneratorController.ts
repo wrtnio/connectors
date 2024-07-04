@@ -6,6 +6,7 @@ import {
   IStoryGeneratorResponse,
 } from "../../../api/structures/connector/story_generator/IStoryGenerator";
 import { StoryGeneratorProvider } from "../../../providers/connector/story_generator/StoryGeneratorProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 /**
  * StoryGeneratorNode controller.
@@ -26,9 +27,8 @@ export class StoryGeneratorController {
    * @tag Llm 스토리 생성
    */
   @core.TypedRoute.Post()
-  public generate(
-    @core.TypedBody() input: IStoryGeneratorRequest,
-  ): Promise<IStoryGeneratorResponse> {
-    return this.storyGeneratorProvider.generate(input);
+  async generate(@core.TypedBody() input: IStoryGeneratorRequest): Promise<Try<IStoryGeneratorResponse>> {
+    const data = await this.storyGeneratorProvider.generate(input);
+    return createResponseForm(data);
   }
 }

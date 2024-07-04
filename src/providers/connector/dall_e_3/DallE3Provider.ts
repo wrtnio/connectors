@@ -20,17 +20,9 @@ export class DallE3Provider {
   ) {}
   async generateImage(input: IDallE3.IRequest): Promise<IDallE3.IResponse> {
     try {
-      const translateResult = await this.DallE3Completion(
-        "dall-e-3",
-        input.prompt,
-      );
-      const res = await this.openAIProvider.generateImage(
-        translateResult,
-        input.image_ratio,
-      );
-      const data = await firstValueFrom(
-        this.httpService.get(res.url, { responseType: "arraybuffer" }),
-      );
+      const translateResult = await this.DallE3Completion("dall-e-3", input.prompt);
+      const res = await this.openAIProvider.generateImage(translateResult, input.image_ratio);
+      const data = await firstValueFrom(this.httpService.get(res.url, { responseType: "arraybuffer" }));
       const { imgUrl } = await this.uploadDallE3ToS3(data.data);
       return { imgUrl: imgUrl };
     } catch (error) {
@@ -61,10 +53,7 @@ export class DallE3Provider {
     /**
      * 프롬프트 변환
      */
-    const gptPrompt = generateGptPromptTranslateForImageGenerate(
-      model,
-      message,
-    );
+    const gptPrompt = generateGptPromptTranslateForImageGenerate(model, message);
 
     try {
       /**
@@ -77,8 +66,7 @@ export class DallE3Provider {
         },
         {
           headers: {
-            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]:
-              ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
+            [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
           },
         },
       );

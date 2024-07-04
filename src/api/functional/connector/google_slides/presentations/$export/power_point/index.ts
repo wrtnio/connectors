@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../../utils/createResponseForm";
 import type { IGoogleSlides } from "../../../../../../structures/connector/google_slides/IGoogleSlides";
 
 /**
@@ -48,7 +49,7 @@ export async function powerPoint(
 }
 export namespace powerPoint {
   export type Input = Primitive<IGoogleSlides.IExportPresentationInput>;
-  export type Output = Primitive<IGoogleSlides.IExportPresentationOutput>;
+  export type Output = Primitive<Try<IGoogleSlides.IExportPresentationOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -68,8 +69,8 @@ export namespace powerPoint {
     `/connector/google-slides/presentations/${encodeURIComponent(presentationId ?? "null")}/export/power-point`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleSlides.IExportPresentationOutput>> =>
-    typia.random<Primitive<IGoogleSlides.IExportPresentationOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleSlides.IExportPresentationOutput>>> =>
+    typia.random<Primitive<Try<IGoogleSlides.IExportPresentationOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     presentationId: string,

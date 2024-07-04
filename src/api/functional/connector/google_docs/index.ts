@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { ICommon } from "../../../structures/connector/common/ISecretValue";
 import type { IGoogleDocs } from "../../../structures/connector/google_docs/IGoogleDocs";
 
@@ -106,7 +107,7 @@ export async function createDocs(
 }
 export namespace createDocs {
   export type Input = Primitive<IGoogleDocs.ICreateGoogleDocsInput>;
-  export type Output = Primitive<IGoogleDocs.ICreateGoogleDocsOutput>;
+  export type Output = Primitive<Try<IGoogleDocs.ICreateGoogleDocsOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -125,8 +126,8 @@ export namespace createDocs {
   export const path = () => "/connector/google-docs";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDocs.ICreateGoogleDocsOutput>> =>
-    typia.random<Primitive<IGoogleDocs.ICreateGoogleDocsOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDocs.ICreateGoogleDocsOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDocs.ICreateGoogleDocsOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createDocs.Input,
@@ -214,7 +215,7 @@ export namespace createDocs {
 export async function permission(
   connection: IConnection,
   input: permission.Input,
-): Promise<void> {
+): Promise<permission.Output> {
   return !!connection.simulate
     ? permission.simulate(connection, input)
     : PlainFetcher.fetch(
@@ -235,6 +236,7 @@ export async function permission(
 }
 export namespace permission {
   export type Input = Primitive<IGoogleDocs.IPermissionGoogleDocsInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -253,11 +255,11 @@ export namespace permission {
   export const path = () => "/connector/google-docs/permission";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     input: permission.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,
@@ -342,7 +344,7 @@ export async function deleteById(
   connection: IConnection,
   id: string,
   input: deleteById.Input,
-): Promise<void> {
+): Promise<deleteById.Output> {
   return !!connection.simulate
     ? deleteById.simulate(connection, id, input)
     : PlainFetcher.fetch(
@@ -371,6 +373,7 @@ export namespace deleteById {
       ]
     >
   >;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "DELETE",
@@ -390,12 +393,12 @@ export namespace deleteById {
     `/connector/google-docs/${encodeURIComponent(id ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,
     input: deleteById.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,
@@ -479,7 +482,7 @@ export namespace deleteById {
 export async function append(
   connection: IConnection,
   input: append.Input,
-): Promise<void> {
+): Promise<append.Output> {
   return !!connection.simulate
     ? append.simulate(connection, input)
     : PlainFetcher.fetch(
@@ -500,6 +503,7 @@ export async function append(
 }
 export namespace append {
   export type Input = Primitive<IGoogleDocs.IAppendTextGoogleDocsInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -518,11 +522,11 @@ export namespace append {
   export const path = () => "/connector/google-docs/append";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     input: append.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

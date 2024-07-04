@@ -67,24 +67,14 @@ export namespace IConnector {
    *
    * @title Connector 산출물 타입
    */
-  export type ReferenceType =
-    | "video"
-    | "image"
-    | "news_article"
-    | "research_paper";
+  export type ReferenceType = "video" | "image" | "news_article" | "research_paper";
 
   /**
    * 산출물의 출처입니다.
    *
    * @title Connector 산출물 출처
    */
-  export type ContentProvider =
-    | "youtube"
-    | "facebook"
-    | "instagram"
-    | "google_search"
-    | "arxiv"
-    | "google_news";
+  export type ContentProvider = "youtube" | "facebook" | "instagram" | "google_search" | "arxiv" | "google_news";
 
   /**
    * 조회수, 좋아요 수, 랭킹

@@ -5,6 +5,7 @@ import { Standalone } from "@wrtn/decorators";
 import { IKakaoNavi } from "@wrtn/connector-api/lib/structures/connector/kakao_navi/IKakaoNavi";
 
 import { KakaoNaviProvider } from "../../../providers/connector/kakao_navi/KakaoNaviProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/kakao-navi")
@@ -21,7 +22,8 @@ export class KakaoNaviController {
   @core.TypedRoute.Post("get-future-directions")
   async getFutureDirections(
     @TypedBody() input: IKakaoNavi.IGetFutureDirectionsInput,
-  ) {
-    return retry(() => KakaoNaviProvider.getFutureDirections(input))();
+  ): Promise<Try<IKakaoNavi.IGetFutureDirectionsOutput>> {
+    const data = await retry(() => KakaoNaviProvider.getFutureDirections(input))();
+    return createResponseForm(data);
   }
 }

@@ -1,8 +1,4 @@
-import {
-  GetObjectCommand,
-  PutObjectCommand,
-  S3Client,
-} from "@aws-sdk/client-s3";
+import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { randomUUID } from "crypto";
@@ -43,9 +39,7 @@ export class AwsProvider {
     return `https://${this.fileBucket}.s3.amazonaws.com/${key}`;
   }
 
-  async getPutObjectUrl(
-    input: IAws.IGetPutObjectUrlInput,
-  ): Promise<IAws.IGetPutObjectUrlOutput> {
+  async getPutObjectUrl(input: IAws.IGetPutObjectUrlInput): Promise<IAws.IGetPutObjectUrlOutput> {
     try {
       const { extension } = input;
       const fileUUID = randomUUID();
@@ -78,9 +72,7 @@ export class AwsProvider {
    * Transforms S3 URLs in output to presigned URLs
    */
   async getGetObjectUrl(fileUrl: string): Promise<string> {
-    const match = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
-    );
+    const match = fileUrl.match(/https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/);
 
     if (!match) {
       throw new Error("Invalid format");
@@ -89,14 +81,10 @@ export class AwsProvider {
     const bucket = match[1];
     const key = match[3];
 
-    return await getSignedUrl(
-      this.s3,
-      new GetObjectCommand({ Bucket: bucket, Key: key }),
-      {
-        expiresIn: 60 * this.EXPIRATION_IN_MINUTES,
-        signingRegion: this.region,
-      },
-    );
+    return await getSignedUrl(this.s3, new GetObjectCommand({ Bucket: bucket, Key: key }), {
+      expiresIn: 60 * this.EXPIRATION_IN_MINUTES,
+      signingRegion: this.region,
+    });
   }
 
   /**
@@ -114,9 +102,7 @@ export namespace AwsProvider {
     key: string;
   } {
     try {
-      const match = url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
-      );
+      const match = url.match(/https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/);
       if (!match) {
         throw new BadRequestException("Invalid S3 URL");
       }

@@ -6,6 +6,7 @@ import { Standalone } from "@wrtn/decorators";
 import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
 
 import { DallE3Provider } from "../../../providers/connector/dall_e_3/DallE3Provider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 @Controller("connector/dall-e-3")
 export class DallE3Controller {
@@ -26,9 +27,8 @@ export class DallE3Controller {
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/hwp.svg",
   // )
-  async generateImage(
-    @core.TypedBody() input: IDallE3.IRequest,
-  ): Promise<IDallE3.IResponse> {
-    return this.dallE3Provider.generateImage(input);
+  async generateImage(@core.TypedBody() input: IDallE3.IRequest): Promise<Try<IDallE3.IResponse>> {
+    const data = await this.dallE3Provider.generateImage(input);
+    return createResponseForm(data);
   }
 }

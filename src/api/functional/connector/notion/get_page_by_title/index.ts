@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 /**
@@ -84,7 +85,7 @@ export async function getPageByTitle(
 }
 export namespace getPageByTitle {
   export type Input = Primitive<INotion.IFindPageOrDatabaseItemInput>;
-  export type Output = Primitive<INotion.IFindPageByTitleOutput>;
+  export type Output = Primitive<Try<INotion.IFindPageByTitleOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -103,8 +104,8 @@ export namespace getPageByTitle {
   export const path = () => "/connector/notion/get-page-by-title";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INotion.IFindPageByTitleOutput>> =>
-    typia.random<Primitive<INotion.IFindPageByTitleOutput>>(g);
+  ): Resolved<Primitive<Try<INotion.IFindPageByTitleOutput>>> =>
+    typia.random<Primitive<Try<INotion.IFindPageByTitleOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getPageByTitle.Input,

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { INotion } from "../../../../structures/connector/notion/INotion";
 
 export * as content from "./content";
@@ -86,7 +87,7 @@ export async function createPage(
 }
 export namespace createPage {
   export type Input = Primitive<INotion.ICreatePageInput>;
-  export type Output = Primitive<INotion.ICreatePageOutput>;
+  export type Output = Primitive<Try<INotion.ICreatePageOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -105,8 +106,8 @@ export namespace createPage {
   export const path = () => "/connector/notion/page";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INotion.ICreatePageOutput>> =>
-    typia.random<Primitive<INotion.ICreatePageOutput>>(g);
+  ): Resolved<Primitive<Try<INotion.ICreatePageOutput>>> =>
+    typia.random<Primitive<Try<INotion.ICreatePageOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createPage.Input,

@@ -3,11 +3,7 @@ import typia from "typia";
 
 import { IKeywordExtraction } from "@wrtn/connector-api/lib/structures/connector/extract/IKeywordExtractor";
 
-import {
-  IChainOfThought,
-  OpenAIProvider,
-  dump,
-} from "../../open_ai/OpenAIProvider";
+import { IChainOfThought, OpenAIProvider, dump } from "../../open_ai/OpenAIProvider";
 
 @Injectable()
 export class KeywordExtractorProvider {
@@ -24,8 +20,7 @@ export class KeywordExtractorProvider {
     input: IKeywordExtraction.IExtractKeywordInput,
   ): Promise<IKeywordExtraction.IExtractKeywordOutput> {
     try {
-      type ExtractKeyword = IChainOfThought &
-        IKeywordExtraction.IExtractKeywordOutput;
+      type ExtractKeyword = IChainOfThought & IKeywordExtraction.IExtractKeywordOutput;
 
       const { title } = input.referenceContent;
       const response = await this.openAIProvider.extractInterface(

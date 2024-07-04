@@ -19,13 +19,9 @@ export class ZoomController {
    * @tag zoom
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/zoom.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/zoom.svg")
   @core.TypedRoute.Post("meetings")
-  async createMeeting(
-    @core.TypedBody() input: IZoom.ICreateMeetingInput,
-  ): Promise<Try<IZoom.ICreateMeetingOutput>> {
+  async createMeeting(@core.TypedBody() input: IZoom.ICreateMeetingInput): Promise<Try<IZoom.ICreateMeetingOutput>> {
     const data = await retry(ZoomProvider.createMeeting)(input);
     return createResponseForm(data);
   }

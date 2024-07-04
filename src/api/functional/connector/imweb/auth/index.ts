@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IImweb } from "../../../../structures/connector/imweb/IImweb";
 
 /**
@@ -46,7 +47,7 @@ export async function authorization(
 }
 export namespace authorization {
   export type Input = Primitive<IImweb.Credential>;
-  export type Output = Primitive<IImweb.IGetAccessTokenOutput>;
+  export type Output = Primitive<Try<IImweb.IGetAccessTokenOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +66,8 @@ export namespace authorization {
   export const path = () => "/connector/imweb/auth";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IImweb.IGetAccessTokenOutput>> =>
-    typia.random<Primitive<IImweb.IGetAccessTokenOutput>>(g);
+  ): Resolved<Primitive<Try<IImweb.IGetAccessTokenOutput>>> =>
+    typia.random<Primitive<Try<IImweb.IGetAccessTokenOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: authorization.Input,

@@ -39,8 +39,7 @@ export namespace KoreaCopyrightCommission {
   /**
    * @title 저작권 조회 결과
    */
-  export interface IGetCopyRightOutput
-    extends Pick<IGetCopyRightInput, "page" | "perPage"> {
+  export interface IGetCopyRightOutput extends Pick<IGetCopyRightInput, "page" | "perPage"> {
     /**
      * @title 현재 페이지 개수
      */

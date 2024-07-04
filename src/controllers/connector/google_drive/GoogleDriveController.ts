@@ -3,10 +3,11 @@ import { Controller } from "@nestjs/common";
 import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
-import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import { GoogleDriveProvider } from "../../../providers/connector/google_drive/GoogleDriveProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-drive")
 export class GoogleDriveController {
@@ -106,15 +107,14 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("get/folders")
   async folderList(
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
-  ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
-    return await this.googleDriveProvider.folderList(input);
+  ): Promise<Try<IGoogleDrive.IFolderListGoogleDriveOutput>> {
+    const data = await retry(this.googleDriveProvider.folderList)(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -210,14 +210,13 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("get/files")
   async fileList(
     @core.TypedBody() input: IGoogleDrive.IFileListGoogleDriveInput,
-  ): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
-    return await this.googleDriveProvider.fileList(input);
+  ): Promise<Try<IGoogleDrive.IFileListGoogleDriveOutput>> {
+    const data = await retry(this.googleDriveProvider.fileList)(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -315,14 +314,13 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("/folder")
   async createFolder(
     @core.TypedBody() input: IGoogleDrive.ICreateFolderGoogleDriveInput,
-  ): Promise<IGoogleDrive.ICreateFolderGoogleDriveOutput> {
-    return await this.googleDriveProvider.createFolder(input);
+  ): Promise<Try<IGoogleDrive.ICreateFolderGoogleDriveOutput>> {
+    const data = await retry(this.googleDriveProvider.createFolder)(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -418,14 +416,13 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("/file")
   async createFile(
     @core.TypedBody() input: IGoogleDrive.ICreateFileGoogleDriveInput,
-  ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
-    return await this.googleDriveProvider.createFile(input);
+  ): Promise<Try<IGoogleDrive.ICreateFileGoogleDriveOutput>> {
+    const data = await retry(this.googleDriveProvider.createFile)(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -519,15 +516,12 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
-      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
-        response.data,
+      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] => response.data.data,
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
@@ -535,8 +529,9 @@ export class GoogleDriveController {
     id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
-  ): Promise<void> {
-    return await this.googleDriveProvider.deleteFile(id, input);
+  ): Promise<Try<void>> {
+    const data = await retry(this.googleDriveProvider.deleteFile)(id, input);
+    return createResponseForm(data);
   }
 
   /**
@@ -630,15 +625,12 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.folderList,
-      array: (response): IGoogleDrive.IFolderListGoogleDriveOutput["data"] =>
-        response.data,
+      array: (response): IGoogleDrive.IFolderListGoogleDriveOutput["data"] => response.data.data,
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
@@ -646,8 +638,9 @@ export class GoogleDriveController {
     id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
-  ): Promise<void> {
-    return await this.googleDriveProvider.deleteFolder(id, input);
+  ): Promise<Try<void>> {
+    const data = await retry(this.googleDriveProvider.deleteFolder)(id, input);
+    return createResponseForm(data);
   }
 
   /**
@@ -741,14 +734,11 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("permission")
-  async permission(
-    @core.TypedBody() input: IGoogleDrive.IPermissionGoogleDriveInput,
-  ): Promise<void> {
-    return await this.googleDriveProvider.permission(input);
+  async permission(@core.TypedBody() input: IGoogleDrive.IPermissionGoogleDriveInput): Promise<Try<void>> {
+    const data = await retry(this.googleDriveProvider.permission)(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -844,23 +834,21 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
-      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
-        response.data,
+      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] => response.data.data,
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
     @core.TypedParam("id")
     id: string,
     @core.TypedBody() input: IGoogleDrive.IAppendTextGoogleDriveInput,
-  ): Promise<void> {
-    return await this.googleDriveProvider.appendText(id, input);
+  ): Promise<Try<void>> {
+    const data = await retry(this.googleDriveProvider.appendText)(id, input);
+    return createResponseForm(data);
   }
 
   /**
@@ -956,15 +944,12 @@ export class GoogleDriveController {
    * @tag Create File Link
    * @tag Team Drive
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg")
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
-      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
-        response.data,
+      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] => response.data.data,
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
@@ -972,7 +957,8 @@ export class GoogleDriveController {
     id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
-  ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
-    return await this.googleDriveProvider.readFile(id, input);
+  ): Promise<Try<IGoogleDrive.IReadFileGoogleDriveOutput>> {
+    const data = await retry(this.googleDriveProvider.readFile)(id, input);
+    return createResponseForm(data);
   }
 }

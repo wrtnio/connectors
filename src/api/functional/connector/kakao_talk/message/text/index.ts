@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IKakaoTalk } from "../../../../../structures/connector/kakao_talk/IKakaoTalk";
 
 /**
@@ -47,7 +48,7 @@ export async function send(
 }
 export namespace send {
   export type Input = Primitive<IKakaoTalk.ISendKakaoTalkToFriendsInput>;
-  export type Output = Primitive<IKakaoTalk.ISendKakaoTalkToFriendsOutput>;
+  export type Output = Primitive<Try<IKakaoTalk.ISendKakaoTalkToFriendsOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace send {
   export const path = () => "/connector/kakao-talk/message/text";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKakaoTalk.ISendKakaoTalkToFriendsOutput>> =>
-    typia.random<Primitive<IKakaoTalk.ISendKakaoTalkToFriendsOutput>>(g);
+  ): Resolved<Primitive<Try<IKakaoTalk.ISendKakaoTalkToFriendsOutput>>> =>
+    typia.random<Primitive<Try<IKakaoTalk.ISendKakaoTalkToFriendsOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: send.Input,

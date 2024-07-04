@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IExcel } from "../../../../structures/connector/excel/IExcel";
 
 /**
@@ -96,7 +97,7 @@ export async function worksheetList(
 }
 export namespace worksheetList {
   export type Input = Primitive<IExcel.IGetWorksheetListInput>;
-  export type Output = Primitive<IExcel.IWorksheetListOutput>;
+  export type Output = Primitive<Try<IExcel.IWorksheetListOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -115,8 +116,8 @@ export namespace worksheetList {
   export const path = () => "/connector/excel/worksheet";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IExcel.IWorksheetListOutput>> =>
-    typia.random<Primitive<IExcel.IWorksheetListOutput>>(g);
+  ): Resolved<Primitive<Try<IExcel.IWorksheetListOutput>>> =>
+    typia.random<Primitive<Try<IExcel.IWorksheetListOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: worksheetList.Input,

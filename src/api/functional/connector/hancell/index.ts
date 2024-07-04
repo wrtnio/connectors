@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IHancell } from "../../../structures/connector/hancell/IHancell";
 
 export * as sheet from "./sheet";
@@ -48,7 +49,7 @@ export async function read(
 }
 export namespace read {
   export type Input = Primitive<IHancell.IReadHancellInput>;
-  export type Output = Primitive<IHancell.IReadHancellOutput>;
+  export type Output = Primitive<Try<IHancell.IReadHancellOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -67,8 +68,8 @@ export namespace read {
   export const path = () => "/connector/hancell/read";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IHancell.IReadHancellOutput>> =>
-    typia.random<Primitive<IHancell.IReadHancellOutput>>(g);
+  ): Resolved<Primitive<Try<IHancell.IReadHancellOutput>>> =>
+    typia.random<Primitive<Try<IHancell.IReadHancellOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: read.Input,

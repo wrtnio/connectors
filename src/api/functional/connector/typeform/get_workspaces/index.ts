@@ -8,6 +8,7 @@ import type { IConnection, Primitive, Resolved } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ITypeform } from "../../../../structures/connector/typeform/ITypeform";
 
 /**
@@ -80,7 +81,7 @@ export async function getWorkspaces(
       });
 }
 export namespace getWorkspaces {
-  export type Output = Primitive<Array<ITypeform.IFindWorkspaceOutput>>;
+  export type Output = Primitive<Try<Array<ITypeform.IFindWorkspaceOutput>>>;
 
   export const METADATA = {
     method: "POST",
@@ -96,8 +97,8 @@ export namespace getWorkspaces {
   export const path = () => "/connector/typeform/get-workspaces";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Array<ITypeform.IFindWorkspaceOutput>>> =>
-    typia.random<Primitive<Array<ITypeform.IFindWorkspaceOutput>>>(g);
+  ): Resolved<Primitive<Try<Array<ITypeform.IFindWorkspaceOutput>>>> =>
+    typia.random<Primitive<Try<Array<ITypeform.IFindWorkspaceOutput>>>>(g);
   export const simulate = (connection: IConnection): Output => {
     return random(
       "object" === typeof connection.simulate && null !== connection.simulate

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IChatbot } from "../../../../../structures/connector/chatbot/IChatbot";
 
 /**
@@ -47,7 +48,7 @@ export async function generateEasyChatbot(
 }
 export namespace generateEasyChatbot {
   export type Input = Primitive<IChatbot.IChatbotEasyGenerateInput>;
-  export type Output = Primitive<IChatbot.IChatbotGenerateOutput>;
+  export type Output = Primitive<Try<IChatbot.IChatbotGenerateOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace generateEasyChatbot {
   export const path = () => "/connector/chatbot/generate/easy";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IChatbot.IChatbotGenerateOutput>> =>
-    typia.random<Primitive<IChatbot.IChatbotGenerateOutput>>(g);
+  ): Resolved<Primitive<Try<IChatbot.IChatbotGenerateOutput>>> =>
+    typia.random<Primitive<Try<IChatbot.IChatbotGenerateOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: generateEasyChatbot.Input,

@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  NotFoundException,
-} from "@nestjs/common";
+import { Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
 import axios, { AxiosError } from "axios";
 import { Response } from "express";
 
@@ -22,20 +17,14 @@ export class RagProvider {
     return {
       fileUrls: await Promise.all(
         input.fileUrls.map(async (fileUrl) => {
-          const matches = fileUrl.match(
-            /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
-          );
+          const matches = fileUrl.match(/https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu);
 
           // return original object if not S3 url
           if (!matches) {
             return fileUrl;
           }
 
-          const transformed = await Promise.all(
-            matches.map(async (match) =>
-              this.awsProvider.getGetObjectUrl(match),
-            ),
-          );
+          const transformed = await Promise.all(matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)));
 
           matches.forEach((match, index) => {
             fileUrl = fileUrl.replace(match, transformed[index]);
@@ -71,9 +60,7 @@ export class RagProvider {
           } else if (status === "FAILED") {
             this.logger.error(`Document analysis failed - docId: ${docId}`);
             clearInterval(intervalId);
-            reject(
-              new InternalServerErrorException(`Document analysis failed`),
-            );
+            reject(new InternalServerErrorException(`Document analysis failed`));
           }
         } catch (err) {
           clearInterval(intervalId);

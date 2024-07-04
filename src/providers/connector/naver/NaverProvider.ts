@@ -10,21 +10,9 @@ export namespace NaverProvider {
     "X-Naver-Client-Secret": ConnectorGlobal.env.NAVER_CLIENT_SECRET,
   });
 
-  export async function getCafe(
-    input: INaver.INaverKeywordInput,
-  ): Promise<INaver.ICafeNaverOutput> {
-    const {
-      andKeywords,
-      orKeywords,
-      notKeywords,
-      display = 10,
-      sort = "sim",
-    } = input;
-    const query = makeQuery(
-      andKeywords.split(","),
-      orKeywords?.split(",") ?? [],
-      notKeywords?.split(",") ?? [],
-    );
+  export async function getCafe(input: INaver.INaverKeywordInput): Promise<INaver.ICafeNaverOutput> {
+    const { andKeywords, orKeywords, notKeywords, display = 10, sort = "sim" } = input;
+    const query = makeQuery(andKeywords.split(","), orKeywords?.split(",") ?? [], notKeywords?.split(",") ?? []);
     try {
       const res = await axios.get(
         `https://openapi.naver.com/v1/search/cafearticle.json?query=${query}&sort=${sort}&display=${display}`,
@@ -40,22 +28,10 @@ export namespace NaverProvider {
     }
   }
 
-  export async function getBlog(
-    input: INaver.INaverKeywordInput,
-  ): Promise<INaver.IBlogNaverOutput> {
+  export async function getBlog(input: INaver.INaverKeywordInput): Promise<INaver.IBlogNaverOutput> {
     try {
-      const {
-        andKeywords,
-        orKeywords,
-        notKeywords,
-        display = 10,
-        sort = "sim",
-      } = input;
-      const query = makeQuery(
-        andKeywords.split(","),
-        orKeywords?.split(",") ?? [],
-        notKeywords?.split(",") ?? [],
-      );
+      const { andKeywords, orKeywords, notKeywords, display = 10, sort = "sim" } = input;
+      const query = makeQuery(andKeywords.split(","), orKeywords?.split(",") ?? [], notKeywords?.split(",") ?? []);
       const res = await axios.get(
         `https://openapi.naver.com/v1/search/blog.json?query=${query}&sort=${sort}&display=${display}`,
         {
@@ -70,11 +46,7 @@ export namespace NaverProvider {
     }
   }
 
-  function makeQuery(
-    andKeywords: string[],
-    orKeywords: string[],
-    notKeywords: string[],
-  ) {
+  function makeQuery(andKeywords: string[], orKeywords: string[], notKeywords: string[]) {
     let s = "";
 
     for (const ok of orKeywords) {

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type {
   IStudentReportGeneratorRequest,
   IStudentReportGeneratorResponse,
@@ -51,7 +52,7 @@ export async function generate(
 }
 export namespace generate {
   export type Input = Primitive<IStudentReportGeneratorRequest>;
-  export type Output = Primitive<IStudentReportGeneratorResponse>;
+  export type Output = Primitive<Try<IStudentReportGeneratorResponse>>;
 
   export const METADATA = {
     method: "POST",
@@ -70,8 +71,8 @@ export namespace generate {
   export const path = () => "/connector/student-report-generator";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IStudentReportGeneratorResponse>> =>
-    typia.random<Primitive<IStudentReportGeneratorResponse>>(g);
+  ): Resolved<Primitive<Try<IStudentReportGeneratorResponse>>> =>
+    typia.random<Primitive<Try<IStudentReportGeneratorResponse>>>(g);
   export const simulate = (
     connection: IConnection,
     input: generate.Input,

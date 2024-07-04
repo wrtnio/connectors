@@ -5,6 +5,7 @@ import { Standalone } from "@wrtn/decorators";
 import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
 
 import { SweetTrackerProvider } from "../../../providers/connector/sweet_tracker/SweetTrackerProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/sweet-tacker")
@@ -21,8 +22,9 @@ export class SweetTrackerController {
   @core.TypedRoute.Post("get-companies/recommended")
   async getRecommendedCompanyList(
     @TypedBody() input: ISweetTracker.IGetRecommendedCompanyListInput,
-  ): Promise<ISweetTracker.IGetRecommendedCompanyListOutput> {
-    return retry(() => SweetTrackerProvider.getRecommendedCompanyList(input))();
+  ): Promise<Try<ISweetTracker.IGetRecommendedCompanyListOutput>> {
+    const data = await retry(() => SweetTrackerProvider.getRecommendedCompanyList(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -34,8 +36,9 @@ export class SweetTrackerController {
    */
   @Standalone()
   @core.TypedRoute.Post("get-companies")
-  async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
-    return retry(() => SweetTrackerProvider.getCompanyList())();
+  async getCompanyList(): Promise<Try<ISweetTracker.IGetCompanyListOutput>> {
+    const data = await retry(() => SweetTrackerProvider.getCompanyList())();
+    return createResponseForm(data);
   }
 
   /**
@@ -49,7 +52,8 @@ export class SweetTrackerController {
   @core.TypedRoute.Post("tracking-info")
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,
-  ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
-    return retry(() => SweetTrackerProvider.getTrackingInfo(input))();
+  ): Promise<Try<ISweetTracker.IGetTrackingInfoOutput>> {
+    const data = await retry(() => SweetTrackerProvider.getTrackingInfo(input))();
+    return createResponseForm(data);
   }
 }

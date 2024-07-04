@@ -39,9 +39,7 @@ const getOptions = () =>
         console.log("-- beware OpenAI apis incur costs and may be slow");
       } else {
         console.log("Using mocked OpenAI API for testing");
-        console.log(
-          "-- run with real API at least once when before finalizing changes to LLM logic",
-        );
+        console.log("-- run with real API at least once when before finalizing changes to LLM logic");
       }
       return options as IOptions;
     });
@@ -71,17 +69,14 @@ async function main(): Promise<void> {
       },
     ],
     filter: (func) =>
-      (!options.include?.length ||
-        (options.include ?? []).some((str) => func.includes(str))) &&
-      (!options.exclude?.length ||
-        (options.exclude ?? []).every((str) => !func.includes(str))),
+      (!options.include?.length || (options.include ?? []).some((str) => func.includes(str))) &&
+      (!options.exclude?.length || (options.exclude ?? []).every((str) => !func.includes(str))),
   })(__dirname + "/inhouse");
 
   await storage.close();
   await backend.close();
 
-  const failures: DynamicExecutor.IReport.IExecution[] =
-    report.executions.filter((exec) => exec.error !== null);
+  const failures: DynamicExecutor.IReport.IExecution[] = report.executions.filter((exec) => exec.error !== null);
   if (failures.length === 0) {
     console.log("Success");
     console.log("Elapsed time", report.time.toLocaleString(), `ms`);

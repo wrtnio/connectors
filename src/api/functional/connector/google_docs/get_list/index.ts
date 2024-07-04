@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDocs } from "../../../../structures/connector/google_docs/IGoogleDocs";
 
@@ -109,7 +110,7 @@ export namespace list {
       ]
     >
   >;
-  export type Output = Primitive<IGoogleDocs.IListGoogleDocsOutput>;
+  export type Output = Primitive<Try<IGoogleDocs.IListGoogleDocsOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -128,8 +129,8 @@ export namespace list {
   export const path = () => "/connector/google-docs/get-list";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleDocs.IListGoogleDocsOutput>> =>
-    typia.random<Primitive<IGoogleDocs.IListGoogleDocsOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleDocs.IListGoogleDocsOutput>>> =>
+    typia.random<Primitive<Try<IGoogleDocs.IListGoogleDocsOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: list.Input,

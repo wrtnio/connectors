@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IRag } from "../../../structures/connector/rag/IRag";
 
 export * as status from "./status";
@@ -49,7 +50,7 @@ export async function analyze(
 }
 export namespace analyze {
   export type Input = Primitive<IRag.IAnalyzeInput>;
-  export type Output = Primitive<IRag.IAnalysisOutput>;
+  export type Output = Primitive<Try<IRag.IAnalysisOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -68,8 +69,8 @@ export namespace analyze {
   export const path = () => "/connector/rag/analyze";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IRag.IAnalysisOutput>> =>
-    typia.random<Primitive<IRag.IAnalysisOutput>>(g);
+  ): Resolved<Primitive<Try<IRag.IAnalysisOutput>>> =>
+    typia.random<Primitive<Try<IRag.IAnalysisOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: analyze.Input,

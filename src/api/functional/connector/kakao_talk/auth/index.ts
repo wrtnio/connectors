@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IKakaoTalk } from "../../../../structures/connector/kakao_talk/IKakaoTalk";
 
 /**
@@ -35,7 +36,7 @@ export async function authorization(
 }
 export namespace authorization {
   export type Query = Resolved<IKakaoTalk.IAuthorizationCode>;
-  export type Output = Primitive<IKakaoTalk.IGetAccessTokenOutput>;
+  export type Output = Primitive<Try<IKakaoTalk.IGetAccessTokenOutput>>;
 
   export const METADATA = {
     method: "GET",
@@ -62,8 +63,8 @@ export namespace authorization {
   };
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKakaoTalk.IGetAccessTokenOutput>> =>
-    typia.random<Primitive<IKakaoTalk.IGetAccessTokenOutput>>(g);
+  ): Resolved<Primitive<Try<IKakaoTalk.IGetAccessTokenOutput>>> =>
+    typia.random<Primitive<Try<IKakaoTalk.IGetAccessTokenOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     query: authorization.Query,

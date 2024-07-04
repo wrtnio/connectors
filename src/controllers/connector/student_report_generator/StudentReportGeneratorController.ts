@@ -8,15 +8,14 @@ import {
   IStudentReportRowGeneratorResponse,
 } from "../../../api/structures/connector/student_report_generator/IStudentReportGenerator";
 import { StudentReportGeneratorProvider } from "../../../providers/connector/student_report_generator/StudentReportGeneratorProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 /**
  * StudentReportGeneratorNode controller.
  */
 @Controller("connector/student-report-generator")
 export class StudentReportGeneratorController {
-  constructor(
-    private studentReportGeneratorProvider: StudentReportGeneratorProvider,
-  ) {}
+  constructor(private studentReportGeneratorProvider: StudentReportGeneratorProvider) {}
 
   /**
    * 입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.
@@ -28,10 +27,11 @@ export class StudentReportGeneratorController {
    * @returns 생성된 학생 생활 기록부.
    */
   @core.TypedRoute.Post()
-  public generate(
+  async generate(
     @core.TypedBody() input: IStudentReportGeneratorRequest,
-  ): Promise<IStudentReportGeneratorResponse> {
-    return this.studentReportGeneratorProvider.generate(input);
+  ): Promise<Try<IStudentReportGeneratorResponse>> {
+    const data = await this.studentReportGeneratorProvider.generate(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -44,9 +44,10 @@ export class StudentReportGeneratorController {
    * @returns 생성된 학생 생활 기록부.
    */
   @core.TypedRoute.Post("row")
-  public generateRow(
+  async generateRow(
     @core.TypedBody() input: IStudentReportRowGeneratorRequest,
-  ): Promise<IStudentReportRowGeneratorResponse> {
-    return this.studentReportGeneratorProvider.generateRow(input);
+  ): Promise<Try<IStudentReportRowGeneratorResponse>> {
+    const data = await this.studentReportGeneratorProvider.generateRow(input);
+    return createResponseForm(data);
   }
 }

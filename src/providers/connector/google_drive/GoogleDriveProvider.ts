@@ -11,9 +11,7 @@ import { GoogleProvider } from "../../internal/google/GoogleProvider";
 export class GoogleDriveProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
-  async folderList(
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
+  async folderList(input: ICommon.ISecret<"google", any>): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -37,9 +35,7 @@ export class GoogleDriveProvider {
     return { data: output };
   }
 
-  async fileList(
-    input: IGoogleDrive.IFileListGoogleDriveInput,
-  ): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
+  async fileList(input: IGoogleDrive.IFileListGoogleDriveInput): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const { folderId } = input;
     const authClient = new google.auth.OAuth2();
@@ -92,10 +88,7 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async deleteFolder(
-    id: string,
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<void> {
+  async deleteFolder(id: string, input: ICommon.ISecret<"google", any>): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -135,10 +128,7 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async deleteFile(
-    id: string,
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<void> {
+  async deleteFile(id: string, input: ICommon.ISecret<"google", any>): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -151,14 +141,10 @@ export class GoogleDriveProvider {
     });
   }
 
-  async permission(
-    input: IGoogleDrive.IPermissionGoogleDriveInput,
-  ): Promise<void> {
+  async permission(input: IGoogleDrive.IPermissionGoogleDriveInput): Promise<void> {
     const { fileId, folderId, permissions } = input;
     if (!!fileId == !!folderId) {
-      throw new BadRequestException(
-        "Either a file ID or a folder ID is required.",
-      );
+      throw new BadRequestException("Either a file ID or a folder ID is required.");
     }
 
     const secretKey = input.secretKey;
@@ -182,10 +168,7 @@ export class GoogleDriveProvider {
     }
   }
 
-  async appendText(
-    id: string,
-    input: IGoogleDrive.IAppendTextGoogleDriveInput,
-  ): Promise<void> {
+  async appendText(id: string, input: IGoogleDrive.IAppendTextGoogleDriveInput): Promise<void> {
     const { text } = input;
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -207,10 +190,7 @@ export class GoogleDriveProvider {
     }
   }
 
-  async readFile(
-    id: string,
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
+  async readFile(id: string, input: ICommon.ISecret<"google", any>): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();

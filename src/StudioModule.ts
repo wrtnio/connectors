@@ -8,12 +8,7 @@ import { SwaggerModule } from "./controllers/swagger/SwaggerModule";
 import { WorkflowModule } from "./controllers/workflow/WorkflowModule";
 
 @Module({
-  imports: [
-    WorkflowModule,
-    ConnectorModule,
-    LoggerModule.forRoot({ ...pinoLoggerParams }),
-    SwaggerModule,
-  ],
+  imports: [WorkflowModule, ConnectorModule, LoggerModule.forRoot({ ...pinoLoggerParams }), SwaggerModule],
   controllers: [HealthCheckController],
 })
 export class StudioModule {}

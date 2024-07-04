@@ -5,11 +5,7 @@ import {
   IStoryGeneratorRequest,
   IStoryGeneratorResponse,
 } from "../../../api/structures/connector/story_generator/IStoryGenerator";
-import {
-  IChainOfThought,
-  OpenAIProvider,
-  dump,
-} from "../../open_ai/OpenAIProvider";
+import { IChainOfThought, OpenAIProvider, dump } from "../../open_ai/OpenAIProvider";
 
 async function generateStory(
   openAIProvider: OpenAIProvider,
@@ -101,11 +97,6 @@ export class StoryGeneratorProvider {
   constructor(private openAIProvider: OpenAIProvider) {}
 
   public async generate(input: IStoryGeneratorRequest): Promise<any> {
-    return generateStory(
-      this.openAIProvider,
-      input.query,
-      input.chatHistory,
-      input.previousStories,
-    );
+    return generateStory(this.openAIProvider, input.query, input.chatHistory, input.previousStories);
   }
 }

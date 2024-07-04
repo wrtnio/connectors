@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IConnector } from "../../../structures/common/IConnector";
 import type { IYoutubeSearch } from "../../../structures/connector/youtube_search/IYoutubeSearch";
 
@@ -123,7 +124,7 @@ export async function search(
 }
 export namespace search {
   export type Input = Primitive<IYoutubeSearch.ISearchInput>;
-  export type Output = Primitive<IConnector.ISearchOutput>;
+  export type Output = Primitive<Try<IConnector.ISearchOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -142,8 +143,8 @@ export namespace search {
   export const path = () => "/connector/youtube-search";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IConnector.ISearchOutput>> =>
-    typia.random<Primitive<IConnector.ISearchOutput>>(g);
+  ): Resolved<Primitive<Try<IConnector.ISearchOutput>>> =>
+    typia.random<Primitive<Try<IConnector.ISearchOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: search.Input,

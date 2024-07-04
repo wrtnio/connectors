@@ -1,12 +1,10 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
-import {
-  ISelectorLlmRequest,
-  ISelectorLlmResponse,
-} from "@wrtn/connector-api/lib/structures/connector/llm/ILlm";
+import { ISelectorLlmRequest, ISelectorLlmResponse } from "@wrtn/connector-api/lib/structures/connector/llm/ILlm";
 
 import { LlmProvider } from "../../../providers/connector/llm/LlmProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 @Controller("connector/llm")
 export class LlmController {
@@ -24,13 +22,8 @@ export class LlmController {
    * @tag Llm selection 선택 추출
    */
   @core.TypedRoute.Post("/selector-llm")
-  async selectorLlm(
-    @core.TypedBody() body: ISelectorLlmRequest,
-  ): Promise<ISelectorLlmResponse> {
-    return this.llmProvider.selectorLlm(
-      body.candidates,
-      body.num_select,
-      body.context,
-    );
+  async selectorLlm(@core.TypedBody() body: ISelectorLlmRequest): Promise<Try<ISelectorLlmResponse>> {
+    const data = await this.llmProvider.selectorLlm(body.candidates, body.num_select, body.context);
+    return createResponseForm(data);
   }
 }

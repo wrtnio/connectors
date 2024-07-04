@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IGoogleDrive } from "../../../structures/connector/google_drive/IGoogleDrive";
 
 export * as get from "./get";
@@ -110,7 +111,7 @@ export * as file from "./file";
 export async function permission(
   connection: IConnection,
   input: permission.Input,
-): Promise<void> {
+): Promise<permission.Output> {
   return !!connection.simulate
     ? permission.simulate(connection, input)
     : PlainFetcher.fetch(
@@ -131,6 +132,7 @@ export async function permission(
 }
 export namespace permission {
   export type Input = Primitive<IGoogleDrive.IPermissionGoogleDriveInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -149,11 +151,11 @@ export namespace permission {
   export const path = () => "/connector/google-drive/permission";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     input: permission.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

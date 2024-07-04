@@ -86,44 +86,20 @@ export namespace IKakaoNavi {
     export type Code =
       | tags.Constant<"0", { title: "길찾기 성공" }>
       | tags.Constant<"1", { title: "길찾기 결과를 찾을 수 없음" }>
-      | tags.Constant<
-          "101",
-          { title: "경유지 지점 주변의 도로를 탐색할 수 없음" }
-        >
-      | tags.Constant<
-          "102",
-          { title: "시작 지점 주변의 도로를 탐색할 수 없음" }
-        >
-      | tags.Constant<
-          "103",
-          { title: "도착 지점 주변의 도로를 탐색할 수 없음" }
-        >
+      | tags.Constant<"101", { title: "경유지 지점 주변의 도로를 탐색할 수 없음" }>
+      | tags.Constant<"102", { title: "시작 지점 주변의 도로를 탐색할 수 없음" }>
+      | tags.Constant<"103", { title: "도착 지점 주변의 도로를 탐색할 수 없음" }>
       | tags.Constant<
           "104",
           {
             title: "출발지와 도착지가 5 m 이내로 설정된 경우 경로를 탐색할 수 없음";
           }
         >
-      | tags.Constant<
-          "105",
-          { title: "시작 지점 주변의 도로에 유고 정보(교통 장애)가 있음" }
-        >
-      | tags.Constant<
-          "106",
-          { title: "도착 지점 주변의 도로에 유고 정보(교통 장애)가 있음" }
-        >
-      | tags.Constant<
-          "107",
-          { title: "경유지 주변의 도로에 유고 정보(교통 장애)가 있음." }
-        >
-      | tags.Constant<
-          "201",
-          { title: "다중 출발지: 출발지가 탐색 영역에 포함되지 않음" }
-        >
-      | tags.Constant<
-          "202",
-          { title: "다중 출발지: 출발지 최대 개수 초과 도로 선택 실패" }
-        >
+      | tags.Constant<"105", { title: "시작 지점 주변의 도로에 유고 정보(교통 장애)가 있음" }>
+      | tags.Constant<"106", { title: "도착 지점 주변의 도로에 유고 정보(교통 장애)가 있음" }>
+      | tags.Constant<"107", { title: "경유지 주변의 도로에 유고 정보(교통 장애)가 있음." }>
+      | tags.Constant<"201", { title: "다중 출발지: 출발지가 탐색 영역에 포함되지 않음" }>
+      | tags.Constant<"202", { title: "다중 출발지: 출발지 최대 개수 초과 도로 선택 실패" }>
       | tags.Constant<"203", { title: "다중 출발지: 목적지 도로 선택 실패" }>
       | tags.Constant<"204", { title: "다중 출발지: 경로 탐색 처리 시간 제한" }>
       | tags.Constant<
@@ -138,24 +114,14 @@ export namespace IKakaoNavi {
             title: "다중 출발지: 목적지 주변의 유고 정보(교통 장애)로 인한 통행 불가";
           }
         >
-      | tags.Constant<
-          "207",
-          { title: "다중 출발지: 출발지가 설정한 길찾기 반경 범위를 벗어남" }
-        >
+      | tags.Constant<"207", { title: "다중 출발지: 출발지가 설정한 길찾기 반경 범위를 벗어남" }>
       | tags.Constant<"301", { title: "다중 목적지: 출발지 도로 선택 실패" }>
       | tags.Constant<"302", { title: "다중 목적지: 목적지 도로 선택 실패" }>
-      | tags.Constant<
-          "303",
-          { title: "다중 목적지: 목적지 최대 개수 초과로 인해 경로 탐색 실패" }
-        >
-      | tags.Constant<
-          "304",
-          { title: "다중 목적지: 목적지가 설정한 길찾기 반경 범위를 벗어남" }
-        >;
+      | tags.Constant<"303", { title: "다중 목적지: 목적지 최대 개수 초과로 인해 경로 탐색 실패" }>
+      | tags.Constant<"304", { title: "다중 목적지: 목적지가 설정한 길찾기 반경 범위를 벗어남" }>;
   }
 
-  export interface Summary
-    extends Pick<Section, "bound" | "distance" | "duration"> {
+  export interface Summary extends Pick<Section, "bound" | "distance" | "duration"> {
     /**
      * @title 출발지 정보
      */

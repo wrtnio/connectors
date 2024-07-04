@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IRag } from "../../../../structures/connector/rag/IRag";
 
 /**
@@ -36,7 +37,7 @@ export async function getStatus(
       });
 }
 export namespace getStatus {
-  export type Output = Primitive<IRag.IStatusOutput>;
+  export type Output = Primitive<Try<IRag.IStatusOutput>>;
 
   export const METADATA = {
     method: "GET",
@@ -53,8 +54,8 @@ export namespace getStatus {
     `/connector/rag/${encodeURIComponent(docId ?? "null")}/status`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IRag.IStatusOutput>> =>
-    typia.random<Primitive<IRag.IStatusOutput>>(g);
+  ): Resolved<Primitive<Try<IRag.IStatusOutput>>> =>
+    typia.random<Primitive<Try<IRag.IStatusOutput>>>(g);
   export const simulate = (connection: IConnection, docId: string): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,

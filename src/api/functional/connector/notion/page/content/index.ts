@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
@@ -64,7 +65,7 @@ export async function appendPageToContent(
   connection: IConnection,
   pageId: string,
   input: appendPageToContent.Input,
-): Promise<void> {
+): Promise<appendPageToContent.Output> {
   return !!connection.simulate
     ? appendPageToContent.simulate(connection, pageId, input)
     : PlainFetcher.fetch(
@@ -85,6 +86,7 @@ export async function appendPageToContent(
 }
 export namespace appendPageToContent {
   export type Input = Primitive<INotion.IAppendPageToContentInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -104,12 +106,12 @@ export namespace appendPageToContent {
     `/connector/notion/page/content/${encodeURIComponent(pageId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     pageId: string,
     input: appendPageToContent.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IKakaoTalk } from "../../../../../structures/connector/kakao_talk/IKakaoTalk";
 
 /**
@@ -47,7 +48,7 @@ export async function createEvent(
 }
 export namespace createEvent {
   export type Input = Primitive<IKakaoTalk.ICreateEventInput>;
-  export type Output = Primitive<IKakaoTalk.ICreateEventOutput>;
+  export type Output = Primitive<Try<IKakaoTalk.ICreateEventOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,8 +67,8 @@ export namespace createEvent {
   export const path = () => "/connector/kakao-talk/calendars/events";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IKakaoTalk.ICreateEventOutput>> =>
-    typia.random<Primitive<IKakaoTalk.ICreateEventOutput>>(g);
+  ): Resolved<Primitive<Try<IKakaoTalk.ICreateEventOutput>>> =>
+    typia.random<Primitive<Try<IKakaoTalk.ICreateEventOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createEvent.Input,

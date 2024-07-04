@@ -5,6 +5,7 @@ import { Standalone } from "@wrtn/decorators";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/imweb")
@@ -19,10 +20,9 @@ export class ImwebController {
    */
   @Standalone()
   @core.TypedRoute.Post("get-products")
-  async getProducts(
-    @TypedBody() input: IImweb.IGetProductInput,
-  ): Promise<IImweb.IGetProductOutput> {
-    return retry(() => ImwebProvider.getProducts(input))();
+  async getProducts(@TypedBody() input: IImweb.IGetProductInput): Promise<Try<IImweb.IGetProductOutput>> {
+    const data = await retry(() => ImwebProvider.getProducts(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -34,9 +34,8 @@ export class ImwebController {
    * @returns 액세스 토큰을 담은 응답 DTO.
    */
   @core.TypedRoute.Post("auth")
-  async authorization(
-    @TypedBody() input: IImweb.Credential,
-  ): Promise<IImweb.IGetAccessTokenOutput> {
-    return retry(() => ImwebProvider.getAccessToken(input))();
+  async authorization(@TypedBody() input: IImweb.Credential): Promise<Try<IImweb.IGetAccessTokenOutput>> {
+    const data = await retry(() => ImwebProvider.getAccessToken(input))();
+    return createResponseForm(data);
   }
 }

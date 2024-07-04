@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
 
@@ -102,7 +103,7 @@ export namespace findEmail {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://mail.google.com/"]>
   >;
-  export type Output = Primitive<IGmail.IFindGmailOutput>;
+  export type Output = Primitive<Try<IGmail.IFindGmailOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -122,8 +123,8 @@ export namespace findEmail {
     `/connector/gmail/get/${encodeURIComponent(id ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGmail.IFindGmailOutput>> =>
-    typia.random<Primitive<IGmail.IFindGmailOutput>>(g);
+  ): Resolved<Primitive<Try<IGmail.IFindGmailOutput>>> =>
+    typia.random<Primitive<Try<IGmail.IFindGmailOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,

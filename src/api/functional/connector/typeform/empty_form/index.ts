@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { ITypeform } from "../../../../structures/connector/typeform/ITypeform";
 
 /**
@@ -94,7 +95,7 @@ export async function createEmptyForm(
 }
 export namespace createEmptyForm {
   export type Input = Primitive<ITypeform.ICreateEmptyFormInput>;
-  export type Output = Primitive<ITypeform.ICreateFormOutput>;
+  export type Output = Primitive<Try<ITypeform.ICreateFormOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -113,8 +114,8 @@ export namespace createEmptyForm {
   export const path = () => "/connector/typeform/empty-form";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<ITypeform.ICreateFormOutput>> =>
-    typia.random<Primitive<ITypeform.ICreateFormOutput>>(g);
+  ): Resolved<Primitive<Try<ITypeform.ICreateFormOutput>>> =>
+    typia.random<Primitive<Try<ITypeform.ICreateFormOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: createEmptyForm.Input,

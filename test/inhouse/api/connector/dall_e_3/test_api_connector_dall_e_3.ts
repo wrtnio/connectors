@@ -3,9 +3,7 @@ import typia from "typia";
 import CApi from "@wrtn/connector-api";
 import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
 
-export const test_api_connector_dall_e_3 = async (
-  connection: CApi.IConnection,
-) => {
+export const test_api_connector_dall_e_3 = async (connection: CApi.IConnection) => {
   const requestBody: IDallE3.IRequest = {
     prompt: `You are a marketing copywriter, given the task of writing a marketing copy.
 You are given the marketing purpose, the distribution channel and the reference content, from which you should use the keyword to generate the marketing copy.
@@ -43,10 +41,6 @@ I REPEAT: unless the user said otherwise, always use Korean.
 Generate the marketing copy.`,
     image_ratio: "square",
   };
-  const output =
-    await CApi.functional.connector.dall_e_3.generate.generateImage(
-      connection,
-      requestBody,
-    );
+  const output = await CApi.functional.connector.dall_e_3.generate.generateImage(connection, requestBody);
   typia.assertEquals<IDallE3.IResponse>(output);
 };

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { ICommon } from "../../../structures/connector/common/ISecretValue";
 import type { IGmail } from "../../../structures/connector/gmail/IGmail";
 
@@ -103,7 +104,7 @@ export async function send(
 }
 export namespace send {
   export type Input = Primitive<IGmail.ICreateMailInput>;
-  export type Output = Primitive<IGmail.ISendMailOutput>;
+  export type Output = Primitive<Try<IGmail.ISendMailOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -122,8 +123,8 @@ export namespace send {
   export const path = () => "/connector/gmail/send";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGmail.ISendMailOutput>> =>
-    typia.random<Primitive<IGmail.ISendMailOutput>>(g);
+  ): Resolved<Primitive<Try<IGmail.ISendMailOutput>>> =>
+    typia.random<Primitive<Try<IGmail.ISendMailOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: send.Input,
@@ -208,7 +209,7 @@ export namespace send {
 export async function draft(
   connection: IConnection,
   input: draft.Input,
-): Promise<void> {
+): Promise<draft.Output> {
   return !!connection.simulate
     ? draft.simulate(connection, input)
     : PlainFetcher.fetch(
@@ -229,6 +230,7 @@ export async function draft(
 }
 export namespace draft {
   export type Input = Primitive<IGmail.ICreateMailInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -247,11 +249,11 @@ export namespace draft {
   export const path = () => "/connector/gmail/draft";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     input: draft.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,
@@ -333,7 +335,7 @@ export async function reply(
   connection: IConnection,
   id: string,
   input: reply.Input,
-): Promise<void> {
+): Promise<reply.Output> {
   return !!connection.simulate
     ? reply.simulate(connection, id, input)
     : PlainFetcher.fetch(
@@ -354,6 +356,7 @@ export async function reply(
 }
 export namespace reply {
   export type Input = Primitive<IGmail.IReplyInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -373,12 +376,12 @@ export namespace reply {
     `/connector/gmail/reply/${encodeURIComponent(id ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,
     input: reply.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,
@@ -461,7 +464,7 @@ export async function removeMail(
   connection: IConnection,
   id: string,
   input: removeMail.Input,
-): Promise<void> {
+): Promise<removeMail.Output> {
   return !!connection.simulate
     ? removeMail.simulate(connection, id, input)
     : PlainFetcher.fetch(
@@ -484,6 +487,7 @@ export namespace removeMail {
   export type Input = Primitive<
     ICommon.ISecret<"google", ["https://mail.google.com/"]>
   >;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "DELETE",
@@ -503,12 +507,12 @@ export namespace removeMail {
     `/connector/gmail/${encodeURIComponent(id ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     id: string,
     input: removeMail.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

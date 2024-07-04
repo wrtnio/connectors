@@ -2,13 +2,9 @@ import type { StringType } from "./StringType";
 import type { UnionToIntersection } from "./UnionToIntersection";
 import type { ValueOf } from "./ValueOf";
 
-type _BeforeDot<T extends string> = T extends `${infer Before}.${infer _}`
-  ? Before
-  : never;
+type _BeforeDot<T extends string> = T extends `${infer Before}.${infer _}` ? Before : never;
 
-type _AfterDot<T extends string> = T extends `${infer _}.${infer After}`
-  ? After
-  : never;
+type _AfterDot<T extends string> = T extends `${infer _}.${infer After}` ? After : never;
 
 /**
  * @title 문자열을 기준으로 객체를 만드는 타입.
@@ -34,10 +30,7 @@ export type StringToDeepObject<
               PropertyName, // PropertyName이 존재하는 경우에는 내부 타입이 배열에 해당한다.
               StringToDeepObject<StringType.ToString<_AfterDot<key>>, Type>[]
             >
-        : Record<
-            _BeforeDot<key>,
-            StringToDeepObject<StringType.ToString<_AfterDot<key>>, Type>
-          >
+        : Record<_BeforeDot<key>, StringToDeepObject<StringType.ToString<_AfterDot<key>>, Type>>
       : Record<key, Type>;
   }>
 >;

@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IDaum } from "../../../../structures/connector/daum/IDaum";
 
 /**
@@ -76,7 +77,7 @@ export async function searchCafe(
 }
 export namespace searchCafe {
   export type Input = Primitive<IDaum.ISearchDaumInput>;
-  export type Output = Primitive<IDaum.ICafeDaumOutput>;
+  export type Output = Primitive<Try<IDaum.ICafeDaumOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -95,8 +96,8 @@ export namespace searchCafe {
   export const path = () => "/connector/daum/cafe";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IDaum.ICafeDaumOutput>> =>
-    typia.random<Primitive<IDaum.ICafeDaumOutput>>(g);
+  ): Resolved<Primitive<Try<IDaum.ICafeDaumOutput>>> =>
+    typia.random<Primitive<Try<IDaum.ICafeDaumOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: searchCafe.Input,

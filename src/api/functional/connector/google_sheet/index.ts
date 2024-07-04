@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IGoogleSheet } from "../../../structures/connector/google_sheet/IGoogleSheet";
 
 export * as header from "./header";
@@ -117,7 +118,7 @@ export async function getHeaders(
 }
 export namespace getHeaders {
   export type Input = Primitive<IGoogleSheet.IReadGoogleSheetHeadersInput>;
-  export type Output = Primitive<IGoogleSheet.IReadGoogleSheetOutput>;
+  export type Output = Primitive<Try<IGoogleSheet.IReadGoogleSheetOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -136,8 +137,8 @@ export namespace getHeaders {
   export const path = () => "/connector/google-sheet";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleSheet.IReadGoogleSheetOutput>> =>
-    typia.random<Primitive<IGoogleSheet.IReadGoogleSheetOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleSheet.IReadGoogleSheetOutput>>> =>
+    typia.random<Primitive<Try<IGoogleSheet.IReadGoogleSheetOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getHeaders.Input,
@@ -237,7 +238,7 @@ export namespace getHeaders {
 export async function permission(
   connection: IConnection,
   input: permission.Input,
-): Promise<void> {
+): Promise<permission.Output> {
   return !!connection.simulate
     ? permission.simulate(connection, input)
     : PlainFetcher.fetch(
@@ -258,6 +259,7 @@ export async function permission(
 }
 export namespace permission {
   export type Input = Primitive<IGoogleSheet.IPermissionInput>;
+  export type Output = Primitive<Try<void>>;
 
   export const METADATA = {
     method: "POST",
@@ -276,11 +278,11 @@ export namespace permission {
   export const path = () => "/connector/google-sheet/permission";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<void>> => typia.random<Primitive<void>>(g);
+  ): Resolved<Primitive<Try<void>>> => typia.random<Primitive<Try<void>>>(g);
   export const simulate = (
     connection: IConnection,
     input: permission.Input,
-  ): void => {
+  ): Output => {
     const assert = NestiaSimulator.assert({
       method: METADATA.method,
       host: connection.host,

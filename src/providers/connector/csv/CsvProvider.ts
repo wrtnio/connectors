@@ -10,15 +10,11 @@ import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace CsvProvider {
-  export async function read(
-    input: ICsv.IReadInput,
-  ): Promise<ICsv.IReadOutput> {
+  export async function read(input: ICsv.IReadInput): Promise<ICsv.IReadOutput> {
     try {
       const { s3Url, delimiter } = input;
       const s3 = new AWS.S3();
-      const match = s3Url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
-      );
+      const match = s3Url.match(/https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/);
 
       const body: string = await (async (): Promise<string> => {
         if (match) {
@@ -48,9 +44,7 @@ export namespace CsvProvider {
     }
   }
 
-  export async function write(
-    input: ICsv.IWriteInput,
-  ): Promise<ICsv.IWriteOutput> {
+  export async function write(input: ICsv.IWriteInput): Promise<ICsv.IWriteOutput> {
     const { values, fileName, delimiter } = input;
     const s3 = new AWS.S3();
     const params = {
@@ -102,15 +96,11 @@ export namespace CsvProvider {
     };
   }
 
-  export async function convertCsvToExcel(
-    input: ICsv.ICsvToExcelInput,
-  ): Promise<ICsv.ICsvToExcelOutput> {
+  export async function convertCsvToExcel(input: ICsv.ICsvToExcelInput): Promise<ICsv.ICsvToExcelOutput> {
     const { s3Url, delimiter } = input;
     const s3 = new AWS.S3();
 
-    const match = s3Url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
-    );
+    const match = s3Url.match(/https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/);
     if (!match) throw new Error("Invalid S3 URL");
 
     const bucket = match[1];

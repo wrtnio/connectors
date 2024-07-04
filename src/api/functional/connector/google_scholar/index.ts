@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../utils/createResponseForm";
 import type { IGoogleScholar } from "../../../structures/connector/google_scholar/IGoogleScholar";
 
 /**
@@ -183,7 +184,7 @@ export async function search(
 }
 export namespace search {
   export type Input = Primitive<IGoogleScholar.ISearchInput>;
-  export type Output = Primitive<Array<IGoogleScholar.ISearchOutput>>;
+  export type Output = Primitive<Try<Array<IGoogleScholar.ISearchOutput>>>;
 
   export const METADATA = {
     method: "POST",
@@ -202,8 +203,8 @@ export namespace search {
   export const path = () => "/connector/google-scholar";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Array<IGoogleScholar.ISearchOutput>>> =>
-    typia.random<Primitive<Array<IGoogleScholar.ISearchOutput>>>(g);
+  ): Resolved<Primitive<Try<Array<IGoogleScholar.ISearchOutput>>>> =>
+    typia.random<Primitive<Try<Array<IGoogleScholar.ISearchOutput>>>>(g);
   export const simulate = (
     connection: IConnection,
     input: search.Input,

@@ -16,13 +16,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response>();
     const req = ctx.getRequest<Request>();
-    let statusCode =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    let statusCode = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     const customCode = statusCode;
-    statusCode =
-      statusCode > 599 ? +statusCode.toString().slice(0, 3) : statusCode;
+    statusCode = statusCode > 599 ? +statusCode.toString().slice(0, 3) : statusCode;
 
     if (statusCode >= 500 && statusCode < 600) {
       this.logger.error(exception, exception.stack);

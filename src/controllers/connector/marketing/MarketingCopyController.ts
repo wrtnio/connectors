@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IMarketingCopyGenerator } from "@wrtn/connector-api/lib/structures/connector/marketing/IMarketingCopyGenerator";
 
 import { MarketingCopyGeneratorProvider } from "../../../providers/connector/marketing/MarketingCopyGeneratorProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 
 @Controller("connector/marketing-copy")
 export class MarketingCopyController {
@@ -24,8 +25,9 @@ export class MarketingCopyController {
   async generateCopy(
     @core.TypedBody()
     input: IMarketingCopyGenerator.IGenerateMarketingCopyInput,
-  ): Promise<IMarketingCopyGenerator.IGenerateMarketingCopyOutput> {
-    return await this.marketingCopyGenerator.generateCopy(input);
+  ): Promise<Try<IMarketingCopyGenerator.IGenerateMarketingCopyOutput>> {
+    const data = await this.marketingCopyGenerator.generateCopy(input);
+    return createResponseForm(data);
   }
 
   /**
@@ -43,7 +45,8 @@ export class MarketingCopyController {
   async generateCopyImage(
     @core.TypedBody()
     input: IMarketingCopyGenerator.IGenerateMarketingCopyImageInput,
-  ): Promise<IMarketingCopyGenerator.IGenerateMarketingCopyImageOutput> {
-    return await this.marketingCopyGenerator.generateCopyImage(input);
+  ): Promise<Try<IMarketingCopyGenerator.IGenerateMarketingCopyImageOutput>> {
+    const data = await this.marketingCopyGenerator.generateCopyImage(input);
+    return createResponseForm(data);
   }
 }

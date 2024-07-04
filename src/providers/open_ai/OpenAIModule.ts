@@ -3,10 +3,7 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 
 import { OpenAIProvider } from "./OpenAIProvider";
-import {
-  IMAGE_OPEN_AI_INJECT_IDENTIFIER,
-  OPEN_AI_INJECT_IDENTIFIER,
-} from "./constants";
+import { IMAGE_OPEN_AI_INJECT_IDENTIFIER, OPEN_AI_INJECT_IDENTIFIER } from "./constants";
 
 @Module({
   providers: [

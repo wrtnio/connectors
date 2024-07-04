@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { IRag } from "../../../../../structures/connector/rag/IRag";
 
 /**
@@ -47,7 +48,7 @@ export async function generate(
 }
 export namespace generate {
   export type Input = Primitive<IRag.IGenerateInput>;
-  export type Output = Primitive<any>;
+  export type Output = Primitive<Try<any>>;
 
   export const METADATA = {
     method: "POST",
@@ -66,7 +67,7 @@ export namespace generate {
   export const path = () => "/connector/rag/generate/sse";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<any>> => typia.random<Primitive<any>>(g);
+  ): Resolved<Primitive<Try<any>>> => typia.random<Primitive<Try<any>>>(g);
   export const simulate = (
     connection: IConnection,
     input: generate.Input,

@@ -15,17 +15,7 @@ export namespace INotion {
   /**
    * @title 색상
    */
-  type Color =
-    | "default"
-    | "gray"
-    | "brown"
-    | "orange"
-    | "yellow"
-    | "green"
-    | "blue"
-    | "purple"
-    | "pink"
-    | "red";
+  type Color = "default" | "gray" | "brown" | "orange" | "yellow" | "green" | "blue" | "purple" | "pink" | "red";
 
   /**
    * @title 데이터베이스 날짜 속성
@@ -374,14 +364,7 @@ export namespace INotion {
    *
    * @title 노션 개체 유형
    */
-  export type NotionObject =
-    | "database"
-    | "page"
-    | "user"
-    | "block"
-    | "property_item"
-    | "list"
-    | "comment";
+  export type NotionObject = "database" | "page" | "user" | "block" | "property_item" | "list" | "comment";
 
   /**
    * - emoji: 이모지
@@ -587,9 +570,7 @@ export namespace INotion {
   /**
    * @title 데이터베이스에 아이템을 추가할 때 필요한 정보
    */
-  export interface ICreateDatabaseItemInput
-    extends IDatabasePropertyInput,
-      ICommon.ISecret<"notion"> {
+  export interface ICreateDatabaseItemInput extends IDatabasePropertyInput, ICommon.ISecret<"notion"> {
     /**
      * 데이터베이스 속성에 추가할 값
      *
@@ -615,9 +596,7 @@ export namespace INotion {
   /**
    * @title 데이터베이스에 존재하는 아이템을 수정할 때 필요한 정보
    */
-  export interface IUpdateDatabaseItemInput
-    extends IDatabasePropertyInput,
-      ICommon.ISecret<"notion"> {
+  export interface IUpdateDatabaseItemInput extends IDatabasePropertyInput, ICommon.ISecret<"notion"> {
     /**
      * 업데이트 할 페이지
      *
@@ -704,8 +683,7 @@ export namespace INotion {
   /**
    * @title 페이지 검색에 필요한 정보
    */
-  export interface IFindPageOrDatabaseItemInput
-    extends ICommon.ISecret<"notion"> {
+  export interface IFindPageOrDatabaseItemInput extends ICommon.ISecret<"notion"> {
     /**
      * 페이지 제목
      *

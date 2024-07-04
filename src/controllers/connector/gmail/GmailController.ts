@@ -1,11 +1,12 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, Standalone, RouteIcon } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
+import { Try, createResponseForm } from "../../../utils/createResponseForm";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/gmail")
@@ -75,14 +76,11 @@ export class GmailController {
    * @tag Business Email
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("send")
-  async send(
-    @core.TypedBody() input: IGmail.ICreateMailInput,
-  ): Promise<IGmail.ISendMailOutput> {
-    return retry(() => this.gmailProvider.sendEmail(input))();
+  async send(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<Try<IGmail.ISendMailOutput>> {
+    const data = await retry(() => this.gmailProvider.sendEmail(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -147,12 +145,11 @@ export class GmailController {
    * @tag Business Email
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("draft")
-  async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
-    return retry(() => this.gmailProvider.createDraft(input))();
+  async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<Try<void>> {
+    const data = await retry(() => this.gmailProvider.createDraft(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -216,14 +213,12 @@ export class GmailController {
    * @tag Schedule Appointments
    * @tag Business Email
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("reply/:id")
   async reply(
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      array: (response): IGmail.IFindGmailOutput[] => response.data.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
@@ -231,8 +226,9 @@ export class GmailController {
     id: string,
     @core.TypedBody()
     input: IGmail.IReplyInput,
-  ): Promise<void> {
-    return retry(() => this.gmailProvider.reply(id, input))();
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.gmailProvider.reply(id, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -298,14 +294,12 @@ export class GmailController {
    * @tag Schedule Appointments
    * @tag Business Email
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("get/:id")
   async findEmail(
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      array: (response): IGmail.IFindGmailOutput[] => response.data.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
@@ -313,8 +307,9 @@ export class GmailController {
     id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
-  ): Promise<IGmail.IFindGmailOutput> {
-    return retry(() => this.gmailProvider.findEmail(id, input))();
+  ): Promise<Try<IGmail.IFindGmailOutput>> {
+    const data = await retry(() => this.gmailProvider.findEmail(id, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -381,14 +376,11 @@ export class GmailController {
    * @tag Business Email
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("read-list")
-  async findEmails(
-    @core.TypedBody() input: IGmail.IFindEmailListInput,
-  ): Promise<IGmail.IFindGmailListOutput> {
-    return retry(() => this.gmailProvider.findEmails(input))();
+  async findEmails(@core.TypedBody() input: IGmail.IFindEmailListInput): Promise<Try<IGmail.IFindGmailListOutput>> {
+    const data = await retry(() => this.gmailProvider.findEmails(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -452,14 +444,12 @@ export class GmailController {
    * @tag Schedule Appointments
    * @tag Business Email
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Delete(":id")
   async removeMail(
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      array: (response): IGmail.IFindGmailOutput[] => response.data.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
@@ -467,8 +457,9 @@ export class GmailController {
     id: string,
     @core.TypedBody()
     input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
-  ): Promise<void> {
-    return retry(() => this.gmailProvider.removeEmail(id, input))();
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.gmailProvider.removeEmail(id, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -535,14 +526,11 @@ export class GmailController {
    * @tag Business Email
    */
   @Standalone()
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("label")
-  async createLabel(
-    @core.TypedBody() input: IGmail.ILabelInput,
-  ): Promise<IGmail.ILabelOutput> {
-    return retry(() => this.gmailProvider.createLabel(input))();
+  async createLabel(@core.TypedBody() input: IGmail.ILabelInput): Promise<Try<IGmail.ILabelOutput>> {
+    const data = await retry(() => this.gmailProvider.createLabel(input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -608,22 +596,21 @@ export class GmailController {
    * @tag Schedule Appointments
    * @tag Business Email
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      array: (response): IGmail.IFindGmailOutput[] => response.data.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
     @core.TypedParam("mailId")
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
-  ): Promise<void> {
-    return retry(() => this.gmailProvider.addLabelToMail(mailId, input))();
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.gmailProvider.addLabelToMail(mailId, input))();
+    return createResponseForm(data);
   }
 
   /**
@@ -689,21 +676,20 @@ export class GmailController {
    * @tag Schedule Appointments
    * @tag Business Email
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
-  )
+  @RouteIcon("https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg")
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
+      array: (response): IGmail.IFindGmailOutput[] => response.data.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
     @core.TypedParam("mailId")
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
-  ): Promise<void> {
-    return retry(() => this.gmailProvider.removeLabelFromMail(mailId, input))();
+  ): Promise<Try<void>> {
+    const data = await retry(() => this.gmailProvider.removeLabelFromMail(mailId, input))();
+    return createResponseForm(data);
   }
 }

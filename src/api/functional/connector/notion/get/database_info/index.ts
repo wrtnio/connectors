@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../../utils/createResponseForm";
 import type { ICommon } from "../../../../../structures/connector/common/ISecretValue";
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
@@ -84,7 +85,7 @@ export async function getDatabaseListInfo(
 }
 export namespace getDatabaseListInfo {
   export type Input = Primitive<ICommon.ISecret<"notion", never>>;
-  export type Output = Primitive<Array<INotion.IDatabaseInfo>>;
+  export type Output = Primitive<Try<Array<INotion.IDatabaseInfo>>>;
 
   export const METADATA = {
     method: "POST",
@@ -103,8 +104,8 @@ export namespace getDatabaseListInfo {
   export const path = () => "/connector/notion/get/database-info";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<Array<INotion.IDatabaseInfo>>> =>
-    typia.random<Primitive<Array<INotion.IDatabaseInfo>>>(g);
+  ): Resolved<Primitive<Try<Array<INotion.IDatabaseInfo>>>> =>
+    typia.random<Primitive<Try<Array<INotion.IDatabaseInfo>>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getDatabaseListInfo.Input,
@@ -198,7 +199,7 @@ export async function getDatabaseInfo(
 }
 export namespace getDatabaseInfo {
   export type Input = Primitive<ICommon.ISecret<"notion", never>>;
-  export type Output = Primitive<INotion.IDatabaseInfo>;
+  export type Output = Primitive<Try<INotion.IDatabaseInfo>>;
 
   export const METADATA = {
     method: "POST",
@@ -218,8 +219,8 @@ export namespace getDatabaseInfo {
     `/connector/notion/get/database-info/${encodeURIComponent(databaseId ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<INotion.IDatabaseInfo>> =>
-    typia.random<Primitive<INotion.IDatabaseInfo>>(g);
+  ): Resolved<Primitive<Try<INotion.IDatabaseInfo>>> =>
+    typia.random<Primitive<Try<INotion.IDatabaseInfo>>>(g);
   export const simulate = (
     connection: IConnection,
     input: getDatabaseInfo.Input,

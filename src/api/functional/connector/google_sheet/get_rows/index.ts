@@ -9,6 +9,7 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { Try } from "../../../../../utils/createResponseForm";
 import type { IGoogleSheet } from "../../../../structures/connector/google_sheet/IGoogleSheet";
 
 /**
@@ -113,7 +114,7 @@ export async function readRows(
 }
 export namespace readRows {
   export type Input = Primitive<IGoogleSheet.IReadGoogleSheetRowsInput>;
-  export type Output = Primitive<IGoogleSheet.IReadGoogleSheetRowsOutput>;
+  export type Output = Primitive<Try<IGoogleSheet.IReadGoogleSheetRowsOutput>>;
 
   export const METADATA = {
     method: "POST",
@@ -132,8 +133,8 @@ export namespace readRows {
   export const path = () => "/connector/google-sheet/get-rows";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleSheet.IReadGoogleSheetRowsOutput>> =>
-    typia.random<Primitive<IGoogleSheet.IReadGoogleSheetRowsOutput>>(g);
+  ): Resolved<Primitive<Try<IGoogleSheet.IReadGoogleSheetRowsOutput>>> =>
+    typia.random<Primitive<Try<IGoogleSheet.IReadGoogleSheetRowsOutput>>>(g);
   export const simulate = (
     connection: IConnection,
     input: readRows.Input,

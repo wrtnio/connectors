@@ -10,9 +10,7 @@ import { StableDiffusionBetaProvider } from "../stable_diffusion_beta/StableDiff
 
 @Injectable()
 export class StoryImageGeneratorProvider {
-  constructor(
-    private stableDiffusionBetaProvider: StableDiffusionBetaProvider,
-  ) {}
+  constructor(private stableDiffusionBetaProvider: StableDiffusionBetaProvider) {}
 
   async generateImage(input: IGenerateStoryImageInput): Promise<IStoryImage> {
     const prompt = `
