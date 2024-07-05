@@ -2,7 +2,6 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
 
 import { GoogleCalendarProvider } from "../../../providers/connector/google_calendar/GoogleCalendarProvider";
@@ -87,10 +86,7 @@ export class GoogleCalendarController {
   @core.TypedRoute.Post("get-list")
   async readCalenders(
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/calendar"]
-    >,
+    input: IGoogleCalendar.ISecret,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
     return retry(() => this.googleCalendarProvider.calendarList(input))();
   }
@@ -256,10 +252,7 @@ export class GoogleCalendarController {
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/calendar"]
-    >,
+    input: IGoogleCalendar.ISecret,
   ): Promise<void> {
     return retry(() =>
       this.googleCalendarProvider.deleteCalendar(calendarId, input),
@@ -837,10 +830,7 @@ export class GoogleCalendarController {
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/calendar"]
-    >,
+    input: IGoogleCalendar.ISecret,
   ): Promise<void> {
     return retry(() =>
       this.googleCalendarProvider.deleteEvent(calendarId, eventId, input),

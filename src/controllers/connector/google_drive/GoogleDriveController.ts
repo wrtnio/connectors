@@ -2,8 +2,6 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
-import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import { GoogleDriveProvider } from "../../../providers/connector/google_drive/GoogleDriveProvider";
@@ -112,7 +110,7 @@ export class GoogleDriveController {
   @core.TypedRoute.Post("get/folders")
   async folderList(
     @core.TypedBody()
-    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
+    input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     return await this.googleDriveProvider.folderList(input);
   }
@@ -534,7 +532,7 @@ export class GoogleDriveController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
+    input: IGoogleDrive.ISecret,
   ): Promise<void> {
     return await this.googleDriveProvider.deleteFile(id, input);
   }
@@ -645,7 +643,7 @@ export class GoogleDriveController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
+    input: IGoogleDrive.ISecret,
   ): Promise<void> {
     return await this.googleDriveProvider.deleteFolder(id, input);
   }
@@ -971,7 +969,7 @@ export class GoogleDriveController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>,
+    input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
     return await this.googleDriveProvider.readFile(id, input);
   }

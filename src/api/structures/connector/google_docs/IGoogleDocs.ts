@@ -226,4 +226,12 @@ export namespace IGoogleDocs {
      */
     text: string;
   }
+
+  export type ISecret = ICommon.ISecret<
+    "google",
+    [
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/documents",
+    ]
+  >;
 }

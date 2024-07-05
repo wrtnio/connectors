@@ -1,8 +1,6 @@
 import { Injectable } from "@nestjs/common";
-
 import { gmail_v1, google } from "googleapis";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
@@ -15,8 +13,9 @@ export class GmailProvider {
   ): Promise<IGmail.ISendMailOutput> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -64,8 +63,9 @@ export class GmailProvider {
   async createDraft(input: IGmail.ICreateMailInput): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -110,8 +110,9 @@ export class GmailProvider {
   async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -167,8 +168,9 @@ export class GmailProvider {
   async createLabel(input: IGmail.ILabelInput): Promise<IGmail.ILabelOutput> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -201,8 +203,9 @@ export class GmailProvider {
   ): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -228,8 +231,9 @@ export class GmailProvider {
   ): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -251,12 +255,13 @@ export class GmailProvider {
 
   async findEmail(
     id: string,
-    input: ICommon.ISecret<"google", any>,
+    input: IGmail.ISecret,
   ): Promise<IGmail.IFindGmailOutput> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -279,8 +284,9 @@ export class GmailProvider {
   ): Promise<IGmail.IFindGmailListOutput> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -323,14 +329,12 @@ export class GmailProvider {
 
   // TODO: 이미 휴지통에 들어있을 때 처리하는 로직 추가되어야 함
 
-  async removeEmail(
-    id: string,
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<void> {
+  async removeEmail(id: string, input: IGmail.ISecret): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });

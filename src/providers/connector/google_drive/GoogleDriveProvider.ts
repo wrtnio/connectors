@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { google } from "googleapis";
 import * as stream from "stream";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
@@ -12,7 +11,7 @@ export class GoogleDriveProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
   async folderList(
-    input: ICommon.ISecret<"google", any>,
+    input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -92,10 +91,7 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async deleteFolder(
-    id: string,
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<void> {
+  async deleteFolder(id: string, input: IGoogleDrive.ISecret): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -135,10 +131,7 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async deleteFile(
-    id: string,
-    input: ICommon.ISecret<"google", any>,
-  ): Promise<void> {
+  async deleteFile(id: string, input: IGoogleDrive.ISecret): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
     const authClient = new google.auth.OAuth2();
@@ -209,7 +202,7 @@ export class GoogleDriveProvider {
 
   async readFile(
     id: string,
-    input: ICommon.ISecret<"google", any>,
+    input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);

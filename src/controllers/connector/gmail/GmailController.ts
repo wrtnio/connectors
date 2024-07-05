@@ -1,8 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, Standalone, RouteIcon } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
@@ -312,7 +311,7 @@ export class GmailController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
+    input: IGmail.ISecret,
   ): Promise<IGmail.IFindGmailOutput> {
     return retry(() => this.gmailProvider.findEmail(id, input))();
   }
@@ -466,7 +465,7 @@ export class GmailController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<"google", ["https://mail.google.com/"]>,
+    input: IGmail.ISecret,
   ): Promise<void> {
     return retry(() => this.gmailProvider.removeEmail(id, input))();
   }
