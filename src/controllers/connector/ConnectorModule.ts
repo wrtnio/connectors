@@ -17,6 +17,7 @@ import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
+import { GoogleShoppingModule } from "./google_shopping/GoogleShoppingModule";
 import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
@@ -83,6 +84,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     StableDiffusionBetaModule,
     DallE3Module,
     GoogleSearchModule,
+    GoogleShoppingModule,
   ],
   controllers: [
     ArxivSearchController,

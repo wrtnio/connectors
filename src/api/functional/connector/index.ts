@@ -51,6 +51,7 @@ export * as story_image_generator from "./story_image_generator";
 export * as stable_diffusion_beta from "./stable_diffusion_beta";
 export * as dall_e_3 from "./dall_e_3";
 export * as google_search from "./google_search";
+export * as google_shopping from "./google_shopping";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
