@@ -31,7 +31,7 @@ export namespace IGoogleShopping {
     /**
      * @title 상품 링크
      */
-    link: string;
+    link: string & tags.Format<"uri">;
 
     /**
      * ₩57,600 형식
