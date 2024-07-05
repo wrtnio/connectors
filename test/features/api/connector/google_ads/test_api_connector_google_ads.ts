@@ -12,7 +12,6 @@ export const test_api_connector_google_ads_generate_keyword = async (
   const res = await CApi.functional.connector.google_ads.generateKeywordIdeas(
     connection,
     {
-      customerId: "",
       secretKey: secretKey,
       url: "https://wrtn.io",
     },

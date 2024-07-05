@@ -13,7 +13,7 @@ export class GoogleAdsProvider {
 
   async searchStream<T extends string>(
     query: T,
-  ): Promise<Camelize<StringToDeepObject<SelectedColumns<T>>>> {
+  ): Promise<{ result: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const headers = await this.getHeaders();
@@ -29,9 +29,15 @@ export class GoogleAdsProvider {
 
       return res.data;
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  async getCustomerClient() {
+    return this.searchStream(
+      `SELECT customer_client.resource_name FROM customer_client`,
+    );
   }
 
   async generateKeywordIdeas(
