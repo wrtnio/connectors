@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleCalendar } from "../../../../structures/connector/google_calendar/IGoogleCalendar";
 
 /**
@@ -102,9 +101,7 @@ export async function readCalenders(
       );
 }
 export namespace readCalenders {
-  export type Input = Primitive<
-    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
-  >;
+  export type Input = Primitive<IGoogleCalendar.ISecret>;
   export type Output = Primitive<Array<IGoogleCalendar.IGoogleCalendarOutput>>;
 
   export const METADATA = {

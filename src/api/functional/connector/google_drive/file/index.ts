@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDrive } from "../../../../structures/connector/google_drive/IGoogleDrive";
 
 export * as text from "./text";
@@ -287,9 +286,7 @@ export async function deleteFile(
       );
 }
 export namespace deleteFile {
-  export type Input = Primitive<
-    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
-  >;
+  export type Input = Primitive<IGoogleDrive.ISecret>;
 
   export const METADATA = {
     method: "DELETE",

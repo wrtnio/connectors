@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDocs } from "../../../../structures/connector/google_docs/IGoogleDocs";
 
 /**
@@ -100,15 +99,7 @@ export async function list(
       );
 }
 export namespace list {
-  export type Input = Primitive<
-    ICommon.ISecret<
-      "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
-    >
-  >;
+  export type Input = Primitive<IGoogleDocs.ISecret>;
   export type Output = Primitive<IGoogleDocs.IListGoogleDocsOutput>;
 
   export const METADATA = {
