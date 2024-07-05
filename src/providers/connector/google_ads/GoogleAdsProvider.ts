@@ -1,14 +1,38 @@
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 
 export class GoogleAdsProvider {
-  private readonly baseUrl = "https://googleads.googleapis.com/v16";
+  private readonly baseUrl = "https://googleads.googleapis.com/v17";
 
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  async searchStream<T extends string>(
+    query: T,
+  ): Promise<Camelize<StringToDeepObject<SelectedColumns<T>>>> {
+    try {
+      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
+      const headers = await this.getHeaders();
+      const res = await axios.post(
+        `${this.baseUrl}/customers/${parentId}/googleAds:search`,
+        {
+          query,
+        },
+        {
+          headers,
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
 
   async generateKeywordIdeas(
     input: IGoogleAds.IGenerateKeywordIdeaInput,
@@ -28,17 +52,6 @@ export class GoogleAdsProvider {
         },
       );
       return res.data;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  }
-
-  async searchStream<T extends string>(
-    query: T,
-  ): Promise<Camelize<StringToDeepObject<T>>> {
-    try {
-      return 1 as any;
     } catch (err) {
       console.error(err);
       throw err;
