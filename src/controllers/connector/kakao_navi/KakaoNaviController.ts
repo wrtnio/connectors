@@ -21,7 +21,7 @@ export class KakaoNaviController {
   @core.TypedRoute.Post("get-future-directions")
   async getFutureDirections(
     @TypedBody() input: IKakaoNavi.IGetFutureDirectionsInput,
-  ) {
+  ): Promise<IKakaoNavi.IGetFutureDirectionsOutput> {
     return retry(() => KakaoNaviProvider.getFutureDirections(input))();
   }
 }
