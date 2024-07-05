@@ -2,7 +2,6 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
@@ -122,7 +121,7 @@ export class NotionController {
   @Standalone()
   @core.TypedRoute.Post("/get/page")
   async readPageList(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
+    @core.TypedBody() input: INotion.ISecret,
   ): Promise<INotion.IReadPageOutput[]> {
     return retry(() => NotionProvider.readPageList(input))();
   }
@@ -180,7 +179,7 @@ export class NotionController {
   @Standalone()
   @core.TypedRoute.Post("get/users")
   async getUsers(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
+    @core.TypedBody() input: INotion.ISecret,
   ): Promise<INotion.IUserOutput[]> {
     return retry(() => NotionProvider.getUsers(input))();
   }
@@ -305,7 +304,7 @@ export class NotionController {
   @Standalone()
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
+    @core.TypedBody() input: INotion.ISecret,
   ): Promise<INotion.IDatabaseInfo[]> {
     return retry(() => NotionProvider.getDatabaseListInfo(input))();
   }
@@ -364,7 +363,7 @@ export class NotionController {
   )
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
+    @core.TypedBody() input: INotion.ISecret,
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
       array: (response): INotion.IDatabaseInfo[] => response,
@@ -629,7 +628,7 @@ export class NotionController {
   )
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
-    @core.TypedBody() input: ICommon.ISecret<"notion">,
+    @core.TypedBody() input: INotion.ISecret,
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
       array: (response): INotion.IDatabaseInfo[] => response,

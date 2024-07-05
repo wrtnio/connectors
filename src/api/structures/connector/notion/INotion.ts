@@ -1167,4 +1167,6 @@ export namespace INotion {
      */
     properties: any;
   }
+
+  export type ISecret = ICommon.ISecret<"notion">;
 }

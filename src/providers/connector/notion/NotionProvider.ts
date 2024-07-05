@@ -2,7 +2,6 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 /**
@@ -69,7 +68,7 @@ export namespace NotionProvider {
   }
 
   export async function readPageList(
-    input: ICommon.ISecret<"notion">,
+    input: INotion.ISecret,
   ): Promise<INotion.IReadPageOutput[]> {
     try {
       const headers = getHeaders(input.secretKey);
@@ -138,7 +137,7 @@ export namespace NotionProvider {
   }
 
   export async function getDatabaseInfo(
-    input: ICommon.ISecret<"notion">,
+    input: INotion.ISecret,
     databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
     try {
@@ -167,7 +166,7 @@ export namespace NotionProvider {
   }
 
   export async function getDatabaseListInfo(
-    input: ICommon.ISecret<"notion">,
+    input: INotion.ISecret,
   ): Promise<INotion.IDatabaseInfo[]> {
     try {
       const notion = createClient(input.secretKey);
@@ -315,7 +314,7 @@ export namespace NotionProvider {
   }
 
   export async function getUsers(
-    input: ICommon.ISecret<"notion">,
+    input: INotion.ISecret,
   ): Promise<INotion.IUserOutput[]> {
     try {
       const headers = getHeaders(input.secretKey);
@@ -368,7 +367,7 @@ export namespace NotionProvider {
   }
 
   export async function findDatabaseItemList(
-    input: ICommon.ISecret<"notion">,
+    input: INotion.ISecret,
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
     try {

@@ -244,13 +244,7 @@ export class GoogleDocsController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
-    >,
+    input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
     return retry(() => this.googleDocsProvider.readDocs(id, input))();
   }
@@ -409,13 +403,7 @@ export class GoogleDocsController {
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
-    >,
+    input: IGoogleDocs.ISecret,
   ): Promise<void> {
     return retry(() => this.googleDocsProvider.deleteById(id, input))();
   }
@@ -491,13 +479,7 @@ export class GoogleDocsController {
   @core.TypedRoute.Post("get-list")
   async list(
     @core.TypedBody()
-    input: ICommon.ISecret<
-      "google",
-      [
-        "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/documents",
-      ]
-    >,
+    input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
     return retry(() => this.googleDocsProvider.list(input))();
   }

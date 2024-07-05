@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { google } from "googleapis";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
@@ -10,12 +9,13 @@ import { GoogleProvider } from "../../internal/google/GoogleProvider";
 export class GoogleCalendarProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
   async calendarList(
-    input: ICommon.ISecret<"google", any>,
+    input: IGoogleCalendar.ISecret,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -46,8 +46,9 @@ export class GoogleCalendarProvider {
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -74,12 +75,13 @@ export class GoogleCalendarProvider {
 
   async deleteCalendar(
     calendarId: string,
-    input: ICommon.ISecret<"google", any>,
+    input: IGoogleCalendar.ISecret,
   ): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -98,8 +100,9 @@ export class GoogleCalendarProvider {
   ): Promise<IGoogleCalendar.IReadGoogleCalendarEventOutput> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -148,8 +151,9 @@ export class GoogleCalendarProvider {
   ): Promise<void> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -169,8 +173,9 @@ export class GoogleCalendarProvider {
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
     try {
       const secretKey = input.secretKey;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        secretKey,
+      );
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -261,7 +266,7 @@ export class GoogleCalendarProvider {
   async deleteEvent(
     calendarId: string,
     eventId: string,
-    input: ICommon.ISecret<"google", any>,
+    input: IGoogleCalendar.ISecret,
   ): Promise<void> {
     const secretKey = input.secretKey;
     const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
@@ -355,16 +360,16 @@ export class GoogleCalendarProvider {
             useDefault: isUseDefaultReminder,
           }
         : remindersType && minutesBeforeReminders
-          ? {
-              useDefault: false,
-              overrides: [
-                {
-                  method: remindersType,
-                  minutes: minutesBeforeReminders,
-                },
-              ],
-            }
-          : undefined,
+        ? {
+            useDefault: false,
+            overrides: [
+              {
+                method: remindersType,
+                minutes: minutesBeforeReminders,
+              },
+            ],
+          }
+        : undefined,
     };
 
     /**

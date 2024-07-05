@@ -249,4 +249,9 @@ export namespace IGoogleDrive {
      */
     data: string;
   }
+
+  export type ISecret = ICommon.ISecret<
+    "google",
+    ["https://www.googleapis.com/auth/drive"]
+  >;
 }

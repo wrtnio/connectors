@@ -339,4 +339,6 @@ export namespace IGmail {
      */
     size?: (number & tags.Type<"int32">) | null;
   }
+
+  export type ISecret = ICommon.ISecret<"google", ["https://mail.google.com/"]>;
 }

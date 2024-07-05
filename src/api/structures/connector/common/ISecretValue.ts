@@ -8,7 +8,7 @@ export namespace ICommon {
     /**
      * secret key.
      *
-     * @title 인증을 위한 시크릿 값
+     * @title 인증 정보 선택
      */
     secretKey: string & SecretKey<T, S>;
   }

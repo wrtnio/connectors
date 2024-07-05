@@ -673,4 +673,9 @@ export namespace IGoogleCalendar {
      */
     attendeesEmail: string[];
   }
+
+  export type ISecret = ICommon.ISecret<
+    "google",
+    ["https://www.googleapis.com/auth/calendar"]
+  >;
 }
