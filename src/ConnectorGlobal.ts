@@ -32,8 +32,7 @@ export namespace ConnectorGlobal {
     GOOGLE_TEST_SECRET: string;
 
     // GOOGLE ADS
-    DEVELOPER_TOKEN: string;
-    GOOGLE_ADS_TEST_SECRET: string;
+    GOOGLE_ADS_DEVELOPER_TOKEN: string;
     GOOGLE_ADS_ACCOUNT_ID: string;
 
     // NAVER

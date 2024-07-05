@@ -32,6 +32,7 @@ export async function generateKeywordIdeas(
         },
         {
           ...generateKeywordIdeas.METADATA,
+          template: generateKeywordIdeas.METADATA.path,
           path: generateKeywordIdeas.path(),
         },
         input,
