@@ -28,22 +28,7 @@ export namespace IKakaoNavi {
   /**
    * @title 응답 결과
    */
-  export type IGetFutureDirectionsOutput = ErrorCase | SuccessCase;
-
-  /**
-   * @title 실패 응답
-   */
-  export type ErrorCase = {
-    /**
-     * @title 경로 요청 ID
-     */
-    trans_id: string;
-
-    /**
-     * @title 경로 정보
-     */
-    routes: Pick<Route, "result_code" | "result_msg">[];
-  };
+  export type IGetFutureDirectionsOutput = SuccessCase;
 
   /**
    * @title 성공 응답
@@ -74,12 +59,12 @@ export namespace IKakaoNavi {
     /**
      * @title 경로 요약 정보
      */
-    summary: Summary;
+    summary?: Summary;
 
     /**
      * @title 구간 별 경로 정보
      */
-    sections: Section[];
+    sections?: Section[];
   }
 
   export namespace Route {
@@ -318,12 +303,12 @@ export namespace IKakaoNavi {
     /**
      * @title 안내 타입
      */
-    type: number;
+    type: GuideType;
 
     /**
      * @title 안내 문구
      */
-    guidance: GuideType;
+    guidance: string;
 
     /**
      * @title 현재 가이드에 대한 링크 인덱스
