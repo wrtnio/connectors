@@ -1,6 +1,8 @@
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
+import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 
 export class GoogleAdsProvider {
@@ -12,10 +14,10 @@ export class GoogleAdsProvider {
     input: IGoogleAds.IGenerateKeywordIdeaInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     try {
+      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const headers = await this.getHeaders();
-      const customerId = input.customerId;
 
-      const endPoint = `${this.baseUrl}/customers/${customerId}:generateKeywordIdeas`;
+      const endPoint = `${this.baseUrl}/customers/${parentId}:generateKeywordIdeas`;
       const res = await axios.post(
         endPoint,
         {
@@ -26,6 +28,17 @@ export class GoogleAdsProvider {
         },
       );
       return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  async searchStream<T extends string>(
+    query: T,
+  ): Promise<Camelize<StringToDeepObject<T>>> {
+    try {
+      return 1 as any;
     } catch (err) {
       console.error(err);
       throw err;
