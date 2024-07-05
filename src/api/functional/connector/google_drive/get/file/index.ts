@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../../../structures/connector/common/ISecretValue";
 import type { IGoogleDrive } from "../../../../../structures/connector/google_drive/IGoogleDrive";
 
 /**
@@ -129,9 +128,7 @@ export async function readFile(
       );
 }
 export namespace readFile {
-  export type Input = Primitive<
-    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/drive"]>
-  >;
+  export type Input = Primitive<IGoogleDrive.ISecret>;
   export type Output = Primitive<IGoogleDrive.IReadFileGoogleDriveOutput>;
 
   export const METADATA = {

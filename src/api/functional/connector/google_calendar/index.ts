@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../structures/connector/common/ISecretValue";
 import type { IGoogleCalendar } from "../../../structures/connector/google_calendar/IGoogleCalendar";
 
 export * as get_list from "./get_list";
@@ -240,9 +239,7 @@ export async function deleteCalendar(
       );
 }
 export namespace deleteCalendar {
-  export type Input = Primitive<
-    ICommon.ISecret<"google", ["https://www.googleapis.com/auth/calendar"]>
-  >;
+  export type Input = Primitive<IGoogleCalendar.ISecret>;
 
   export const METADATA = {
     method: "DELETE",

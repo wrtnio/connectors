@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../../structures/connector/common/ISecretValue";
 import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
 
 /**
@@ -99,9 +98,7 @@ export async function findEmail(
       );
 }
 export namespace findEmail {
-  export type Input = Primitive<
-    ICommon.ISecret<"google", ["https://mail.google.com/"]>
-  >;
+  export type Input = Primitive<IGmail.ISecret>;
   export type Output = Primitive<IGmail.IFindGmailOutput>;
 
   export const METADATA = {

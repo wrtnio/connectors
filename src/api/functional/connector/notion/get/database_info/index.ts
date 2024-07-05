@@ -9,7 +9,6 @@ import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
-import type { ICommon } from "../../../../../structures/connector/common/ISecretValue";
 import type { INotion } from "../../../../../structures/connector/notion/INotion";
 
 /**
@@ -83,7 +82,7 @@ export async function getDatabaseListInfo(
       );
 }
 export namespace getDatabaseListInfo {
-  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
+  export type Input = Primitive<INotion.ISecret>;
   export type Output = Primitive<Array<INotion.IDatabaseInfo>>;
 
   export const METADATA = {
@@ -197,7 +196,7 @@ export async function getDatabaseInfo(
       );
 }
 export namespace getDatabaseInfo {
-  export type Input = Primitive<ICommon.ISecret<"notion", never>>;
+  export type Input = Primitive<INotion.ISecret>;
   export type Output = Primitive<INotion.IDatabaseInfo>;
 
   export const METADATA = {
