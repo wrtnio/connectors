@@ -14,6 +14,21 @@ export class GoogleAdsController {
   /**
    * 구글 광고를 위한 키워드를 추천받아요!
    *
+   * @summary 키워드와 URL을 통한 키워드 생성
+   * @param input URL을 담은 객체
+   * @returns 생성된 키워드
+   */
+  @Standalone()
+  @core.TypedRoute.Post("generateKeywordIdeas/keywordsAndUrl")
+  async keywordsAndUrl(
+    @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
+  ) {
+    return retry(() => this.googleAdsProvider.generateKeywordIdeas(input))();
+  }
+
+  /**
+   * 구글 광고를 위한 키워드를 추천받아요!
+   *
    * @summary 키워드를 통한 키워드 생성
    * @param input URL을 담은 객체
    * @returns 생성된 키워드

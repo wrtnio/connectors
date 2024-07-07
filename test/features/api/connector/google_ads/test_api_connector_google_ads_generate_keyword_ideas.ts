@@ -53,3 +53,31 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_keywords =
 
     typia.assertEquals(secondPage);
   };
+
+export const test_api_connector_google_ads_generate_keyword_ideas_by_keywordsAndUrl =
+  async (connection: CApi.IConnection) => {
+    const firstPage =
+      await CApi.functional.connector.google_ads.generateKeywordIdeas.keywordsAndUrl(
+        connection,
+        {
+          pageSize: 10,
+          url: "https://wrtn.io",
+          keywords: ["ai"],
+        },
+      );
+
+    typia.assertEquals(firstPage);
+
+    const secondPage =
+      await CApi.functional.connector.google_ads.generateKeywordIdeas.keywordsAndUrl(
+        connection,
+        {
+          pageSize: 10,
+          url: "https://wrtn.io",
+          keywords: ["ai"],
+          pageToken: firstPage.nextPageToken!,
+        },
+      );
+
+    typia.assertEquals(secondPage);
+  };

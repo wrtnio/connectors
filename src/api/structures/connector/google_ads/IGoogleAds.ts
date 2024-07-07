@@ -26,6 +26,9 @@ export namespace IGoogleAds {
       }>;
   }
 
+  export type IGenerateKeywordIdeaByKeywordsAndUrlInput =
+    IGenerateKeywordIdeaByKeywordsInput & IGenerateKeywordIdeaByURLInput;
+
   export interface IGenerateKeywordIdeaByKeywordsInput extends ICommonInput {
     /**
      * @title 키워드 생성을 위한 검색 키워드
@@ -74,7 +77,7 @@ export namespace IGoogleAds {
     /**
      * @title 검색어에 대한 경쟁 수준
      */
-    competition:
+    competition?:
       | tags.Constant<
           "LOW",
           { title: "낮은 경쟁률 경쟁 지수 범위는 [0, 33]입니다." }

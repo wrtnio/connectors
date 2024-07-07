@@ -6,6 +6,7 @@ import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { Injectable } from "@nestjs/common";
+import typia from "typia";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -51,28 +52,25 @@ export class GoogleAdsProvider {
   async generateKeywordIdeas(
     input:
       | IGoogleAds.IGenerateKeywordIdeaByURLInput
-      | IGoogleAds.IGenerateKeywordIdeaByKeywordsInput,
+      | IGoogleAds.IGenerateKeywordIdeaByKeywordsInput
+      | IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const headers = await this.getHeaders();
 
       const endPoint = `${this.baseUrl}/customers/${parentId}:generateKeywordIdeas`;
+
       const res = await axios.post(
         endPoint,
         {
-          includeAdultKeywords: false,
-          ...("url" in input && {
-            urlSeed: {
-              url: input.url,
-            },
-          }),
-          ...("keywords" in input && {
-            keywordSeed: {
-              keywords: input.keywords,
-            },
-          }),
+          ...this.getGenerateKeywordSeed(input),
+          includeAdultKeywords: false, // 성인 키워드 제외
           language: "languageConstants/1012" as const, // 한국어를 의미
+          geoTargetConstants: ["geoTargetConstants/2410"], // 대한민국이라는 지리적 제한을 의미
+
+          ...(input.pageSize && { pageSize: input.pageSize }),
+          ...(input.pageToken && { pageToken: input.pageToken }),
         },
         {
           headers,
@@ -117,6 +115,37 @@ export class GoogleAdsProvider {
     );
 
     return res.data;
+  }
+
+  private getGenerateKeywordSeed(
+    input:
+      | IGoogleAds.IGenerateKeywordIdeaByURLInput
+      | IGoogleAds.IGenerateKeywordIdeaByKeywordsInput
+      | IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
+  ):
+    | { keywordAndUrlSeed: { url: string; keywords: string[] } }
+    | { urlSeed: { url: string } }
+    | { keywordSeed: { keywords: string[] } } {
+    if (typia.is<IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput>(input)) {
+      return {
+        keywordAndUrlSeed: {
+          url: input.url,
+          keywords: input.keywords,
+        },
+      };
+    } else if (typia.is<IGoogleAds.IGenerateKeywordIdeaByURLInput>(input)) {
+      return {
+        urlSeed: {
+          url: input.url,
+        },
+      };
+    } else {
+      return {
+        keywordSeed: {
+          keywords: input.keywords,
+        },
+      };
+    }
   }
 
   private async getHeaders() {
