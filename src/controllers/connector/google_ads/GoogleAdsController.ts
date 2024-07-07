@@ -10,7 +10,14 @@ import { retry } from "../../../utils/retry";
 export class GoogleAdsController {
   constructor(private readonly googleAdsProvider: GoogleAdsProvider) {}
 
-  @core.TypedRoute.Post("generateKeywordIdeas")
+  /**
+   * 구글 광고를 위한 키워드를 추천받아요!
+   *
+   * @summary URL을 통한 키워드 생성
+   * @param input URL을 담은 객체
+   * @returns 생성된 키워드
+   */
+  @core.TypedRoute.Post("generateKeywordIdeas/url")
   async generateKeywordIdeas(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
