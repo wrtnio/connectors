@@ -40,6 +40,12 @@ export class GoogleAdsProvider {
     );
   }
 
+  /**
+   * 원래대로라면 `parentId`가 아닌 자신의 id를 전달하는 것이 맞지만, 계정에 따른 의존성이 없는 것으로 보여 google ads secret 없이도 사용할 수 있도록 한다.
+   *
+   * @param input 조회하고 싶은 URL을 받는다.
+   * @returns
+   */
   async generateKeywordIdeas(
     input: IGoogleAds.IGenerateKeywordIdeaInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
@@ -51,7 +57,9 @@ export class GoogleAdsProvider {
       const res = await axios.post(
         endPoint,
         {
-          url: input.url,
+          urlSeed: {
+            url: input.url,
+          },
         },
         {
           headers,
