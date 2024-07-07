@@ -57,9 +57,11 @@ export class GoogleAdsProvider {
       const res = await axios.post(
         endPoint,
         {
+          includeAdultKeywords: false,
           urlSeed: {
             url: input.url,
           },
+          language: "languageConstants/1012" as const, // 한국어를 의미
         },
         {
           headers,
