@@ -17,16 +17,18 @@ const defaultParams = {
 
 @Injectable()
 export class GoogleShoppingProvider {
-  async musinsa(
+  async getGoogleShoppingResults(
     input: IGoogleShopping.IRequestStandAlone,
+    tbs: string,
   ): Promise<IGoogleShopping.IResponse[]> {
     try {
       const res = await getJson({
         ...defaultParams,
-        tbs: "mr:1,merchagg:g316277865|m138871704",
+        tbs: tbs,
         q: input.keyword,
       });
       const output = res["shopping_results"];
+
 
       /**
        * output의 구조가 검색어 별로 다 다르기 때문에 any로 선언
@@ -48,4 +50,107 @@ export class GoogleShoppingProvider {
       throw error;
     }
   }
+  
+  /**
+   *  패션 카테고리
+   */
+  async musinsa(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+   return this.getGoogleShoppingResults(input, "mr:1,merchagg:g316277865|m138871704")
+  }
+
+  async twentyNineCentimeter(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m114992958")
+  }
+
+  async hansumEQL(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m764640149")
+  }
+
+  async oco(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m134397367")
+  }
+
+  async uniqlo(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:g10415709|m228577309")
+  }
+
+  /**
+   * 상품이 안나오는 것들이 있어서 보류.
+   */
+  // async wconcept(
+  //   input: IGoogleShopping.IRequestStandAlone,
+  // ): Promise<IGoogleShopping.IResponse[]> {
+  //   return this.getGoogleShoppingResults(input, "mr:1,merchagg:m118597626")
+  // }
+
+  /**
+   * 생필품 카테고리
+   */
+  async coupang(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:g139180266|m139321488")
+  }
+
+  async marketKurly(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m128922144")
+  }
+
+  async iherb(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m169620201")
+  }
+
+  async aliExpress(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:g6802718|m5356299783|m5348983679|m5345522195|m5349919702")
+  }
+
+  /**
+   * 화장품 카테고리
+   */
+  async oliveYoung(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:g651998268|m117387471")
+  }
+
+  /**
+   * 인테리어 카테고리
+   */
+  async todayHouse(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m133751878")
+  }
+
+  /**
+   * 도서 카테고리
+   */
+  async yes24(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m534059966")
+  }
+
+  async aladine(
+    input: IGoogleShopping.IRequestStandAlone,
+  ): Promise<IGoogleShopping.IResponse[]> {
+    return this.getGoogleShoppingResults(input, "mr:1,merchagg:m139753761")
+  }
+  
 }
