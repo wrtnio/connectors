@@ -49,7 +49,9 @@ export class GoogleAdsProvider {
    * @returns
    */
   async generateKeywordIdeas(
-    input: IGoogleAds.IGenerateKeywordIdeaInput,
+    input:
+      | IGoogleAds.IGenerateKeywordIdeaByURLInput
+      | IGoogleAds.IGenerateKeywordIdeaByKeywordsInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
@@ -60,9 +62,16 @@ export class GoogleAdsProvider {
         endPoint,
         {
           includeAdultKeywords: false,
-          urlSeed: {
-            url: input.url,
-          },
+          ...("url" in input && {
+            urlSeed: {
+              url: input.url,
+            },
+          }),
+          ...("keywords" in input && {
+            keywordSeed: {
+              keywords: input.keywords,
+            },
+          }),
           language: "languageConstants/1012" as const, // 한국어를 의미
         },
         {

@@ -3,12 +3,7 @@ import { ICommon } from "../common/ISecretValue";
 import type { Prerequisite } from "@wrtn/decorators";
 
 export namespace IGoogleAds {
-  export interface IGenerateKeywordIdeaInput {
-    /**
-     * @title 광고 키워드 아이디어 생성에 참조할 URL.
-     */
-    url: string;
-
+  export interface ICommonInput {
     /**
      * @title 한 페이지 당 결과의 수
      */
@@ -29,6 +24,20 @@ export namespace IGoogleAds {
         label: "elem.text";
         value: "elem.text";
       }>;
+  }
+
+  export interface IGenerateKeywordIdeaByKeywordsInput extends ICommonInput {
+    /**
+     * @title 키워드 생성을 위한 검색 키워드
+     */
+    keywords: string[] & tags.MinItems<1>;
+  }
+
+  export interface IGenerateKeywordIdeaByURLInput extends ICommonInput {
+    /**
+     * @title 광고 키워드 아이디어 생성에 참조할 URL.
+     */
+    url: string;
   }
 
   export interface IGenerateKeywordIdeaOutput {
