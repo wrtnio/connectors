@@ -18,9 +18,7 @@ export class GoogleAdsController {
    * @returns 생성된 키워드
    */
   @core.TypedRoute.Post("generateKeywordIdeas/url")
-  async generateKeywordIdeas(
-    @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaInput,
-  ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
+  async url(@TypedBody() input: IGoogleAds.IGenerateKeywordIdeaInput) {
     return retry(() => this.googleAdsProvider.generateKeywordIdeas(input))();
   }
 }

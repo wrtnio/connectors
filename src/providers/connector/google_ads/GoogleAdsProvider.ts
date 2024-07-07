@@ -5,7 +5,9 @@ import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class GoogleAdsProvider {
   private readonly baseUrl = "https://googleads.googleapis.com/v17";
 
@@ -109,7 +111,7 @@ export class GoogleAdsProvider {
   }
 
   private async getHeaders() {
-    const secret = ConnectorGlobal.env.GOOGLE_TEST_SECRET; // refresh token of parent account.
+    const secret = ConnectorGlobal.env.GOOGLE_ADS_PARENT_SECRET; // refresh token of parent account.
     const accessToken = await this.googleProvider.refreshAccessToken(secret);
 
     return {

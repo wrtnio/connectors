@@ -65,22 +65,20 @@ export namespace IKakaoTalk {
     /**
      * @title 친구 목록 정렬 순서
      */
-    order?:
-      | (
-          | tags.Constant<"asc", { title: "오름차순" }>
-          | tags.Constant<"desc", { title: "내림차순" }>
-        ) &
-          tags.Default<"asc">;
+    order?: (
+      | tags.Constant<"asc", { title: "오름차순" }>
+      | tags.Constant<"desc", { title: "내림차순" }>
+    ) &
+      tags.Default<"asc">;
 
     /**
      * @title 친구 목록 정렬 시 기준
      */
-    friend_order?:
-      | (
-          | tags.Constant<"favorite", { title: "즐겨찾기 우선 정렬" }>
-          | tags.Constant<"nickname", { title: "닉네임 우선 정렬" }>
-        ) &
-          tags.Default<"favorite">;
+    friend_order?: (
+      | tags.Constant<"favorite", { title: "즐겨찾기 우선 정렬" }>
+      | tags.Constant<"nickname", { title: "닉네임 우선 정렬" }>
+    ) &
+      tags.Default<"favorite">;
   }
 
   export interface IGetFriendsOutput {

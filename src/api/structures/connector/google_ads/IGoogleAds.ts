@@ -32,6 +32,9 @@ export namespace IGoogleAds {
   }
 
   export interface IGenerateKeywordIdeaOutput {
+    /**
+     * @title 결과 목록
+     */
     results: GeneratedKeyword[];
 
     /**
@@ -86,25 +89,25 @@ export namespace IGoogleAds {
     /**
      * @title 지난 12개월 간의 이 검색어에 대한 대략적인 월별 검색 수
      */
-    avgMonthlySearches: string & tags.Type<"int64"> & tags.Minimum<0>;
+    avgMonthlySearches: `${number & tags.Type<"int64"> & tags.Minimum<0>}`;
 
     /**
      * @title 경쟁 지수
      */
-    competitionIndex: string &
+    competitionIndex: `${number &
       tags.Type<"int64"> &
       tags.Minimum<0> &
-      tags.Maximum<100>;
+      tags.Maximum<100>}`;
 
     /**
      * @title 키워드의 마이크로 단위 페이지 상단 입찰가 하위 범위 (20번째 백분위수)
      */
-    lowTopOfPageBidMicros?: string & tags.Type<"int64"> & tags.Minimum<0>;
+    lowTopOfPageBidMicros?: `${number & tags.Type<"int64"> & tags.Minimum<0>}`;
 
     /**
      * @title 키워드의 상세 페이지 상단 입찰가 (80번째 백분위수)
      */
-    highTopOfPageBidMicros?: string & tags.Type<"int64"> & tags.Minimum<0>;
+    highTopOfPageBidMicros?: `${number & tags.Type<"int64"> & tags.Minimum<0>}`;
   }
 
   export interface MonthlySearchVolumes {
@@ -122,7 +125,7 @@ export namespace IGoogleAds {
      * @title 해당 달의 대략적인 검색 수
      * @description null 값은 해당 월에 대한 검색량을 확인할 수 없음을 나타냅니다.
      */
-    monthlySearches: string | null;
+    monthlySearches: `${number & tags.Type<"int64"> & tags.Minimum<0>}` | null;
   }
 
   export type Month =
