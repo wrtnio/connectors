@@ -235,7 +235,13 @@ export namespace OpenDataProvider {
       .join("&");
 
     try {
-      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const res = await axios.get(`${baseUrl}?${queryString}`, {
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
       const data = res.data.response.body;
       const bulidings = data.items.item;
 
