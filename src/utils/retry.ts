@@ -1,3 +1,5 @@
+import { Logger } from "@nestjs/common";
+
 const TIMEOUT = "TIMEOUT" as const;
 
 export function retry<T extends any[], ReturnType>(
@@ -5,6 +7,7 @@ export function retry<T extends any[], ReturnType>(
   count: number = 5, // default로 5번까지는 재실행되게 한다.
   timeLimit?: number,
 ) {
+  const logger = new Logger("utils/logger");
   return async function (...args: T): Promise<Awaited<ReturnType>> {
     let attempts = 0;
     while (attempts < count) {
@@ -36,6 +39,7 @@ export function retry<T extends any[], ReturnType>(
           throw error;
         }
 
+        logger.debug(attempts, JSON.stringify(error));
         console.log(attempts, JSON.stringify(error));
       }
     }
