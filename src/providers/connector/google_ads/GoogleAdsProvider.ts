@@ -6,6 +6,7 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
+import { Typing } from "../../../utils/types/Typing";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 
 @Injectable()
@@ -37,10 +38,25 @@ export class GoogleAdsProvider {
     }
   }
 
-  async getCustomerClient() {
-    return this.searchStream(
+  /**
+   * Wrtn 내에 등록된 고객의 수를 파악하거나 고객의 리소스 네임을 조회하는 함수
+   */
+  private async getCustomerClient() {
+    const res = await this.searchStream(
       `SELECT customer_client.resource_name FROM customer_client`,
     );
+
+    type TypeMapper = Typing<
+      typeof res,
+      [
+        [
+          "result[*].customerClient.resourceName", // 이 위치에 있는 타입을
+          `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
+        ],
+      ]
+    >;
+
+    return typia.assertEquals<TypeMapper>(res);
   }
 
   /**
