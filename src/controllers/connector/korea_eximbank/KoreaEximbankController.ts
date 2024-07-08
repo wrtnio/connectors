@@ -21,6 +21,6 @@ export class KoreaEximbankController {
   )
   @core.TypedRoute.Get("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {
-    return retry(() => KoreaEximbankProvider.getExchange())();
+    return retry(() => KoreaEximbankProvider.getExchange(), 1)();
   }
 }
