@@ -53,4 +53,19 @@ export class GoogleAdsController {
   async url(@TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput) {
     return retry(() => this.googleAdsProvider.generateKeywordIdeas(input))();
   }
+
+  /**
+   * 뤼튼에 연동된 고객의 광고 계정을 가져와요
+   *
+   * @summary 광고 계정을 조회합니다
+   * @param input 고객 정보
+   * @returns 광고 계정
+   */
+  @Standalone()
+  @core.TypedRoute.Post("get-customers")
+  async getCustomers(
+    @TypedBody() input: IGoogleAds.ISecret,
+  ): Promise<IGoogleAds.IGetCustomerOutput> {
+    return retry(() => this.googleAdsProvider.getCustomers(input))();
+  }
 }

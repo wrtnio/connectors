@@ -3,6 +3,7 @@ import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_
 import axios from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { TypedSplit } from "../../../utils/TypedSplit";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
@@ -15,9 +16,9 @@ export class GoogleAdsProvider {
 
   constructor(private readonly googleProvider: GoogleProvider) {}
 
-  async searchStream<T extends string>(
+  private async searchStream<T extends string>(
     query: T,
-  ): Promise<{ result: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
+  ): Promise<{ results: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const headers = await this.getHeaders();
@@ -43,20 +44,24 @@ export class GoogleAdsProvider {
    */
   private async getCustomerClient() {
     const res = await this.searchStream(
-      `SELECT customer_client.resource_name FROM customer_client`,
+      `SELECT customer_client.resource_name, customer_client.id FROM customer_client`,
     );
 
     type TypeMapper = Typing<
       typeof res,
       [
         [
-          "result[*].customerClient.resourceName", // 이 위치에 있는 타입을
+          "results[*].customerClient.resourceName", // 이 위치에 있는 타입을
           `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
+        ],
+        [
+          "results[*].customerClient.id",
+          `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
         ],
       ]
     >;
 
-    return typia.assertEquals<TypeMapper>(res);
+    return typia.assert<TypeMapper>(res);
   }
 
   /**
@@ -99,6 +104,60 @@ export class GoogleAdsProvider {
     }
   }
 
+  async createCampaignBudget(input: {
+    customerId: string;
+    campaignBudget: number; // 한국돈
+  }) {
+    try {
+      const url = `${this.baseUrl}/${input.customerId}/campaignBudgets:mutate`;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createCampaign(input: { customerId: string }) {
+    const headers = await this.getHeaders();
+    try {
+      await axios.post(
+        `${this.baseUrl}/${input.customerId}/campaigns:mutate`,
+        {},
+        {
+          headers,
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  /**
+   * 해당 토큰의 주인이 우리에게 등록된 customer clients를 가지고 있는지 체크한다.
+   */
+  async getCustomers(input: IGoogleAds.ISecret) {
+    try {
+      const customers = await this.listAccessibleCustomers(input);
+
+      /**
+       * Wrtn에 등록된 클라이언트 중 customers에 포함된 것만 남겨야 한다.
+       */
+      const customerClients = await this.getCustomerClient();
+      const registedClients = customerClients.results.filter((el) =>
+        customers.resourceNames
+          .map((name) => TypedSplit(name, "customers/")[1])
+          .some((id) => id === el.customerClient.id),
+      );
+
+      return registedClients.map(
+        (el) => `customers/${el.customerClient.id}` as const,
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   /**
    * 구글 계정에 속한 광고 계정을 조회한다.
    *
@@ -106,7 +165,7 @@ export class GoogleAdsProvider {
    * @returns
    */
   private async listAccessibleCustomers(
-    input: IGoogleAds.IGetlistAccessibleCustomersInput,
+    input: IGoogleAds.ISecret,
   ): Promise<IGoogleAds.IGetlistAccessibleCustomersOutput> {
     const url = `${this.baseUrl}/customers:listAccessibleCustomers`;
     const developerToken = (await this.getHeaders())["developer-token"];

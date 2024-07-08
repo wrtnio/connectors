@@ -3,16 +3,26 @@ import type { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
-  export type IGetlistAccessibleCustomersInput = ICommon.ISecret<
+  export type ISecret = ICommon.ISecret<
     "google-ads",
     ["https://www.googleapis.com/auth/adwords"]
   >;
+
+  /**
+   * @title 고객의 리소스 이름
+   */
+  type CustomerResourceName = `customers/${number}`;
+
+  /**
+   * @title 고객 조회 결과
+   */
+  export type IGetCustomerOutput = CustomerResourceName[];
 
   export interface IGetlistAccessibleCustomersOutput {
     /**
      * @title 접근 가능한 계정의 리소스 이름
      */
-    resourceName: `customers/${number}`[];
+    resourceNames: `customers/${number}`[];
   }
 
   export interface ICommonInput {
