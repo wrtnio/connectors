@@ -31,7 +31,7 @@ export type Rename<
     infer After extends string,
     infer Type extends any,
   ],
-  ...infer RestCommands extends [DeepStrictObjectKeys<T>, string, any][],
+  ...infer RestCommands extends [DeepStrictObjectKeys<T>, string, any?][],
 ]
   ? DeepStrictMerge<
       DeepStrictMerge<
@@ -45,7 +45,7 @@ export type Rename<
           infer Before extends DeepStrictObjectKeys<T>,
           infer After extends string,
         ],
-        ...infer RestCommands extends [DeepStrictObjectKeys<T>, string, any][],
+        ...infer RestCommands extends [DeepStrictObjectKeys<T>, string, any?][],
       ]
     ? DeepStrictMerge<
         DeepStrictMerge<
