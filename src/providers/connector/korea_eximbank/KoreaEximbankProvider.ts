@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KoreaEximbankProvider {
@@ -10,19 +9,15 @@ export namespace KoreaEximbankProvider {
 
       const url = `${baseUrl}?authkey=${authKey}&data=AP01`;
 
-      const res = await fetch(url, {
+      const res = await axios.get(url, {
         headers: {
-          "User-Agent": `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36`,
-          Referer: "https://wrtn.ai",
-          Origin: "https://wrtn.ai",
+          "User-Agent": `PostmanRuntime/7.28.4`,
         },
       });
 
-      const data = await res.json();
-
-      return data;
+      return res.data;
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err, null, 2));
       throw err;
     }
   }
