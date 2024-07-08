@@ -22,9 +22,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("musinsa")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
+  )
   async musinsa(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -43,9 +43,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("twenty-nine-centimeter")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/twentynine_centimeter.svg",
+  )
   async twentyNineCentimeter(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -64,9 +64,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("eql")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/eql.svg",
+  )
   async hansumEQL(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -85,9 +85,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("oco")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/oco.svg",
+  )
   async oco(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -106,9 +106,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("uniqlo")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/uniqlo.svg",
+  )
   async uniqlo(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -148,9 +148,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("coupang")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/coupang.svg",
+  )
   async coupang(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -169,9 +169,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("market-kurly")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kurly.svg",
+  )
   async marketKurly(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -190,9 +190,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("iherb")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/iherb.svg",
+  )
   async iherb(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -211,9 +211,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("ali-express")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/ali_express.svg",
+  )
   async aliExpress(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -232,9 +232,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("olive-young")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/olive_young.svg",
+  )
   async oliveYoung(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -253,9 +253,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("yes-twenty-four")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/yes_twentyfour.svg",
+  )
   async yes24(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
@@ -274,9 +274,9 @@ export class GoogleShoppingController {
    */
   @Standalone()
   @core.TypedRoute.Post("aladine")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/aladin.svg",
+  )
   async aladine(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
