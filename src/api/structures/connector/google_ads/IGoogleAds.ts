@@ -1,8 +1,20 @@
+import type { Prerequisite } from "@wrtn/decorators";
 import type { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
-import type { Prerequisite } from "@wrtn/decorators";
 
 export namespace IGoogleAds {
+  export type IGetlistAccessibleCustomersInput = ICommon.ISecret<
+    "google-ads",
+    ["https://www.googleapis.com/auth/adwords"]
+  >;
+
+  export interface IGetlistAccessibleCustomersOutput {
+    /**
+     * @title 접근 가능한 계정의 리소스 이름
+     */
+    resourceName: `customers/${number}`[];
+  }
+
   export interface ICommonInput {
     /**
      * @title 한 페이지 당 결과의 수

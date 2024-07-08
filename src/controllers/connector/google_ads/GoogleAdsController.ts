@@ -3,9 +3,9 @@ import { Controller } from "@nestjs/common";
 
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 
+import { Standalone } from "@wrtn/decorators";
 import { GoogleAdsProvider } from "../../../providers/connector/google_ads/GoogleAdsProvider";
 import { retry } from "../../../utils/retry";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
 
 @Controller("connector/google-ads")
 export class GoogleAdsController {

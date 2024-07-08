@@ -1,12 +1,12 @@
+import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios from "axios";
+import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
-import { Injectable } from "@nestjs/common";
-import typia from "typia";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -78,9 +78,34 @@ export class GoogleAdsProvider {
       );
       return res.data;
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  /**
+   * 구글 계정에 속한 광고 계정을 조회한다.
+   *
+   * @param input 고객의 시크릿 값
+   * @returns
+   */
+  private async listAccessibleCustomers(
+    input: IGoogleAds.IGetlistAccessibleCustomersInput,
+  ): Promise<IGoogleAds.IGetlistAccessibleCustomersOutput> {
+    const url = `${this.baseUrl}/customers:listAccessibleCustomers`;
+    const developerToken = (await this.getHeaders())["developer-token"];
+    const accessToken = await this.googleProvider.refreshAccessToken(
+      input.secretKey,
+    );
+
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "developer-token": developerToken,
+      },
+    });
+
+    return res.data;
   }
 
   /**
