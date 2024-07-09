@@ -3,6 +3,26 @@ import type { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  export interface ICreateCampaign extends ICreateCampaignBudget {
+    /**
+     * @title 캠페인 이름
+     */
+    campaignName: string;
+  }
+
+  export interface ICreateCampaignBudget {
+    /**
+     * @title 고객 아이디
+     */
+    customerId: CustomerClient["id"];
+
+    /**
+     * @title 광고 예산
+     * @description 한국 통화 단위로써, 원화 단위
+     */
+    campaignBudget: number;
+  }
+
   /**
    * @title 구글 광고 캠페인
    */
@@ -75,6 +95,16 @@ export namespace IGoogleAds {
   }
 
   /**
+   * @title 캠페인 생성 결과
+   */
+  export interface ICreateCampaignsOutput {
+    /**
+     * @title 방금 생성된 캠페인 정보
+     */
+    results: IGetCampaignsOutputResult[] & tags.MaxItems<1>;
+  }
+
+  /**
    * @title 캠페인 조회 결과
    */
   export interface IGetCampaignsOutput {
@@ -102,7 +132,7 @@ export namespace IGoogleAds {
   /**
    * @title 캠페인 조회 조건
    */
-  export interface IGetCampaignsInput extends ISecret {
+  export interface IGetCampaignsInput {
     /**
      * @title 조회할 고객 아이디
      */
@@ -153,6 +183,7 @@ export namespace IGoogleAds {
   export interface CustomerClient {
     /**
      * @title 고객 아이디
+     * @description 고객마다 고유한 값을 가지고 있다.
      */
     id: `${number}`;
 

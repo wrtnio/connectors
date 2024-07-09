@@ -56,28 +56,60 @@ export class GoogleAdsProvider {
     }
   }
 
-  async createCampaignBudget(input: {
-    customerId: string;
-    campaignBudget: number; // 한국돈
-  }) {
+  async createCampaignBudget(
+    input: IGoogleAds.ICreateCampaignBudget,
+  ): Promise<IGoogleAds.CampaignBudget["resourceName"]> {
     try {
       const url = `${this.baseUrl}/${input.customerId}/campaignBudgets:mutate`;
+      const res = await axios.post(url, {
+        operations: [
+          {
+            create: {
+              amountMicros: 1000000 * input.campaignBudget,
+              explicitlyShared: false, // 이 예산을 공유하는 캠페인이 존재해서는 안 된다. 캠페인과 캠페인 예산은 반드시 1:1이어야 한다.
+            },
+          },
+        ],
+      });
+
+      return res.data[0].resourceName;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
   }
 
-  async createCampaign(input: { customerId: string }) {
-    const headers = await this.getHeaders();
+  async createCampaign(
+    input: IGoogleAds.ICreateCampaign,
+  ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
-      await axios.post(
+      const headers = await this.getHeaders();
+      const campaignBudgetResourceName = await this.createCampaignBudget(input);
+      const res = await axios.post(
         `${this.baseUrl}/${input.customerId}/campaigns:mutate`,
-        {},
+        {
+          operations: [
+            {
+              create: {
+                name: input.campaignName,
+                status: "PAUSED",
+                campaignBudget: campaignBudgetResourceName,
+
+                /**
+                 * @todo 유저의 요구사항에 맞는 광고 효율 최적화를 진행해야 한다.
+                 */
+                target_spend: {},
+              },
+            },
+          ],
+        },
         {
           headers,
         },
       );
+
+      const createdResourceName = res.data.results[0].resourceName;
+      return await this.getCampaigns(input, createdResourceName);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -86,11 +118,10 @@ export class GoogleAdsProvider {
 
   async getCampaigns(
     input: IGoogleAds.IGetCampaignsInput,
+    resourceName?: IGoogleAds.Campaign["resourceName"],
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
     try {
-      const res = await this.searchStream(
-        input.customerId,
-        `SELECT 
+      const query = `SELECT 
           campaign.resource_name,
           campaign.id,
           campaign.name,
@@ -102,8 +133,9 @@ export class GoogleAdsProvider {
           campaign_budget.resource_name,
           campaign_budget.amount_micros
         FROM campaign
-          WHERE campaign.status != 'REMOVED'`,
-      );
+          WHERE campaign.status != 'REMOVED' ${resourceName ? ` AND campaign.resource_name = ${resourceName}` : ""}` as const;
+
+      const res = await this.searchStream(input.customerId, query);
 
       return {
         ...res,

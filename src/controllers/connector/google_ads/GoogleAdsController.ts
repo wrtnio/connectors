@@ -69,6 +69,19 @@ export class GoogleAdsController {
   }
 
   /**
+   * 광고 캠페인을 생성해요
+   *
+   * @param input 캠페인 생성 조건
+   * @returns 생성된 캠페인 정보
+   */
+  @core.TypedRoute.Post("campaign")
+  async createCampaign(
+    @TypedBody() input: IGoogleAds.ICreateCampaign,
+  ): Promise<IGoogleAds.ICreateCampaignsOutput> {
+    return this.googleAdsProvider.createCampaign(input);
+  }
+
+  /**
    * 뤼튼에 연동된 고객의 광고 계정을 가져와요
    *
    * @summary 광고 계정을 조회합니다
