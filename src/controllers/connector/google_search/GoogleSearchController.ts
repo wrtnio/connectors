@@ -27,7 +27,7 @@ export class GoogleSearchController {
   )
   async search(
     @core.TypedBody() input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return retry(() => this.googleSearchProvider.search(input))();
   }
 
@@ -47,7 +47,7 @@ export class GoogleSearchController {
   // )
   async searchForWanted(
     @core.TypedBody() input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return retry(() => this.googleSearchProvider.searchForWanted(input))();
   }
 
@@ -67,7 +67,7 @@ export class GoogleSearchController {
   // )
   async searchForIncruit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return retry(() => this.googleSearchProvider.searchForIncruit(input))();
   }
 
@@ -87,7 +87,7 @@ export class GoogleSearchController {
   // )
   async searchForSaramin(
     @core.TypedBody() input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return retry(() => this.googleSearchProvider.searchForSaramin(input))();
   }
 
@@ -107,7 +107,7 @@ export class GoogleSearchController {
   // )
   async searchForJumpit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return retry(() => this.googleSearchProvider.searchForJumpit(input))();
   }
 
@@ -127,7 +127,7 @@ export class GoogleSearchController {
   // )
   async searchForCareerly(
     @core.TypedBody() input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return retry(() => this.googleSearchProvider.searchForCareerly(input))();
   }
 }

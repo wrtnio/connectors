@@ -19,7 +19,7 @@ export class GoogleSearchProvider {
   async searchResult(
     input: IGoogleSearch.IRequest,
     targetSite?: string,
-  ): Promise<IGoogleSearch.IResponse[] | string | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     try {
       const maxResultPerPage: number = 10;
       let start: number = 0;
@@ -30,7 +30,7 @@ export class GoogleSearchProvider {
         input.notKeywords ?? [],
       );
 
-      const output: IGoogleSearch.IResponse[] | string = [];
+      const output: IGoogleSearch.IResponse[] = [];
 
       /**
        * 한 페이지에 최대 10개의 결과물이 response되기 때문에
@@ -44,13 +44,11 @@ export class GoogleSearchProvider {
           num: maxResultPerPage,
           ...(targetSite && { as_sitesearch: targetSite }),
         };
-        console.log(params);
         const res = await getJson(params);
         const results = res["organic_results"];
-        console.log(results);
 
-        if (results === undefined) {
-          return "검색 결과가 없습니다.";
+        if (!results || results.length === 0) {
+          return [];
         }
 
         for (const result of results) {
@@ -86,37 +84,37 @@ export class GoogleSearchProvider {
 
   async search(
     input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input);
   }
 
   async searchForWanted(
     input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input, "https://www.wanted.co.kr");
   }
 
   async searchForIncruit(
     input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input, "https://www.incruit.com");
   }
 
   async searchForSaramin(
     input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input, "https://www.saramin.co.kr/zf_user");
   }
 
   async searchForJumpit(
     input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input, "https://www.jumpit.co.kr");
   }
 
   async searchForCareerly(
     input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[] | string> {
+  ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input, "https://careerly.co.kr");
   }
 }

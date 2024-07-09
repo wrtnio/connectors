@@ -46,7 +46,7 @@ export async function searchForCareerly(
 }
 export namespace searchForCareerly {
   export type Input = Primitive<IGoogleSearch.IRequest>;
-  export type Output = Primitive<string | Array<IGoogleSearch.IResponse>>;
+  export type Output = Primitive<Array<IGoogleSearch.IResponse>>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +65,8 @@ export namespace searchForCareerly {
   export const path = () => "/connector/google-search/careerly";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<string | Array<IGoogleSearch.IResponse>>> =>
-    typia.random<Primitive<string | Array<IGoogleSearch.IResponse>>>(g);
+  ): Resolved<Primitive<Array<IGoogleSearch.IResponse>>> =>
+    typia.random<Primitive<Array<IGoogleSearch.IResponse>>>(g);
   export const simulate = (
     connection: IConnection,
     input: searchForCareerly.Input,
