@@ -88,8 +88,8 @@ export class GoogleAdsProvider {
     input: IGoogleAds.IGetCampaignsInput,
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
     try {
-      const customerIds = await this.getCustomers(input);
-      if (!customerIds.includes(`customers/${input.customerId}`)) {
+      const customerIds = (await this.getCustomers(input)).map((el) => el.id);
+      if (!customerIds.includes(input.customerId)) {
         throw new Error("아직 뤼튼 서비스에 등록되지 않은 고객 계정입니다.");
       }
 
@@ -152,7 +152,9 @@ export class GoogleAdsProvider {
   /**
    * 해당 토큰의 주인이 우리에게 등록된 customer clients를 가지고 있는지 체크한다.
    */
-  async getCustomers(input: IGoogleAds.ISecret) {
+  async getCustomers(
+    input: IGoogleAds.ISecret,
+  ): Promise<IGoogleAds.CustomerClient[]> {
     try {
       const customers = await this.listAccessibleCustomers(input);
 
@@ -160,15 +162,13 @@ export class GoogleAdsProvider {
        * Wrtn에 등록된 클라이언트 중 customers에 포함된 것만 남겨야 한다.
        */
       const customerClients = await this.getCustomerClient();
-      const registedClients = customerClients.results.filter((el) =>
+      const res = customerClients.results.filter((el) =>
         customers.resourceNames
           .map((name) => TypedSplit(name, "customers/")[1])
           .some((id) => id === el.customerClient.id),
       );
 
-      return registedClients.map(
-        (el) => `customers/${el.customerClient.id}` as const,
-      );
+      return res.map((el) => el.customerClient);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -295,7 +295,7 @@ export class GoogleAdsProvider {
     const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
     const res = await this.searchStream(
       parentId,
-      `SELECT customer_client.resource_name, customer_client.id FROM customer_client`,
+      `SELECT customer_client.resource_name, customer_client.id, customer_client.descriptive_name FROM customer_client`,
     );
 
     type TypeMapper = Typing<
@@ -309,6 +309,7 @@ export class GoogleAdsProvider {
           "results[*].customerClient.id",
           `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
         ],
+        ["results[*].customerClient.descriptiveName", string],
       ]
     >;
 

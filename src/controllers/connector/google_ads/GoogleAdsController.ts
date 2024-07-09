@@ -61,7 +61,6 @@ export class GoogleAdsController {
    * @param input 고객 정보
    * @returns 캠페인 목록
    */
-  @Standalone()
   @core.TypedRoute.Post("get-campaigns")
   async getCampaigns(
     @TypedBody() input: IGoogleAds.IGetCampaignsInput,

@@ -94,11 +94,21 @@ export namespace IGoogleAds {
     }[];
   }
 
+  /**
+   * @title 캠페인 조회 조건
+   */
   export interface IGetCampaignsInput extends ISecret {
     /**
      * @title 조회할 고객 아이디
      */
-    customerId: `${number}`;
+    customerId: Prerequisite<{
+      method: "post";
+      path: "connector/google-ads/get-customers";
+      array: "return response";
+      label: "return el.descriptiveName ?? ''";
+      value: "return el.id";
+    }> &
+      `${number}`;
   }
 
   /**
@@ -135,15 +145,27 @@ export namespace IGoogleAds {
     ["https://www.googleapis.com/auth/adwords"]
   >;
 
-  /**
-   * @title 고객의 리소스 이름
-   */
-  type CustomerResourceName = `customers/${number}`;
+  export interface CustomerClient {
+    /**
+     * @title 고객 아이디
+     */
+    id: `${number}`;
+
+    /**
+     * @title 고객 리소스 명
+     */
+    resourceName: `customers/${number}/customerClients/${number}`;
+
+    /**
+     * @title 지정된 이름
+     */
+    descriptiveName?: string;
+  }
 
   /**
    * @title 고객 조회 결과
    */
-  export type IGetCustomerOutput = CustomerResourceName[];
+  export type IGetCustomerOutput = CustomerClient[];
 
   export interface IGetlistAccessibleCustomersOutput {
     /**
