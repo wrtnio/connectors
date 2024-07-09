@@ -6,10 +6,18 @@ export namespace IGoogleShopping {
    */
   export interface IRequestStandAlone {
     /**
+     * 검색할 키워드를 입력하세요.
+     * 
      * @title 검색어
      */
     keyword: string;
 
+    /**
+     * 검색 결과의 개수를 설정합니다. 
+     *
+     * @title 검색 결과 개수
+     */
+    max_results: number & tags.Type<"int32">
   }
 
   export interface IRequest extends IRequestStandAlone {

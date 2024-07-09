@@ -22,29 +22,47 @@ export class GoogleShoppingProvider {
     tbs: string,
   ): Promise<IGoogleShopping.IResponse[]> {
     try {
-      const res = await getJson({
-        ...defaultParams,
-        tbs: tbs,
-        q: input.keyword,
-      });
-      const output = res["shopping_results"];
+      const maxResultPerPage = 60;
+      let start = 0;
+      const output: IGoogleShopping.IResponse[] = [];
 
+      while (output.length < input.max_results) {
+        const num = Math.min(input.max_results - output.length, maxResultPerPage)
+        const res = await getJson({
+          ...defaultParams,
+          tbs: tbs,
+          q: input.keyword,
+          start: start,
+          num: num
+        });
+        const results = res["shopping_results"];
 
-      /**
-       * output의 구조가 검색어 별로 다 다르기 때문에 any로 선언
-       */
-      const results: IGoogleShopping.IResponse[] = output.map((o: any) => {
-        return {
-          title: o.title,
-          link: o.link,
-          price: o.price,
-          source: o.source,
-          deliveryCost: o.delivery,
-          thumbnail: o.thumbnail,
-        };
-      });
+        if (!results || results.length === 0) {
+          return []
+        }
 
-      return results;
+        for (const result of results) {
+          if (output.length === input.max_results) {
+            break;
+          }
+          const data = {
+            title: result.title,
+            link: result.link,
+            price: result.price,
+            source: result.source,
+            deliveryCost: result.delivery,
+            thumbnail: result.thumbnail,
+          };
+          output.push(data)
+        }
+
+        if (results.length < maxResultPerPage) {
+          break;
+        }
+        start += maxResultPerPage
+      }
+
+      return output
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
