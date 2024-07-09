@@ -60,19 +60,26 @@ export class GoogleAdsProvider {
     input: IGoogleAds.ICreateCampaignBudget,
   ): Promise<IGoogleAds.CampaignBudget["resourceName"]> {
     try {
-      const url = `${this.baseUrl}/${input.customerId}/campaignBudgets:mutate`;
-      const res = await axios.post(url, {
-        operations: [
-          {
-            create: {
-              amountMicros: 1000000 * input.campaignBudget,
-              explicitlyShared: false, // 이 예산을 공유하는 캠페인이 존재해서는 안 된다. 캠페인과 캠페인 예산은 반드시 1:1이어야 한다.
+      const headers = await this.getHeaders();
+      const url = `${this.baseUrl}/customers/${input.customerId}/campaignBudgets:mutate`;
+      const res = await axios.post(
+        url,
+        {
+          operations: [
+            {
+              create: {
+                amountMicros: 1000000 * input.campaignBudget,
+                explicitlyShared: false, // 이 예산을 공유하는 캠페인이 존재해서는 안 된다. 캠페인과 캠페인 예산은 반드시 1:1이어야 한다.
+              },
             },
-          },
-        ],
-      });
+          ],
+        },
+        {
+          headers,
+        },
+      );
 
-      return res.data[0].resourceName;
+      return res.data.results[0].resourceName;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -86,7 +93,7 @@ export class GoogleAdsProvider {
       const headers = await this.getHeaders();
       const campaignBudgetResourceName = await this.createCampaignBudget(input);
       const res = await axios.post(
-        `${this.baseUrl}/${input.customerId}/campaigns:mutate`,
+        `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`,
         {
           operations: [
             {
@@ -134,7 +141,7 @@ export class GoogleAdsProvider {
           campaign_budget.resource_name,
           campaign_budget.amount_micros
         FROM campaign
-          WHERE campaign.status != 'REMOVED' ${resourceName ? ` AND campaign.resource_name = ${resourceName}` : ""}` as const;
+          WHERE campaign.status != 'REMOVED' ${resourceName ? ` AND campaign.resource_name = "${resourceName}"` : ""}` as const;
 
       const res = await this.searchStream(input.customerId, query);
 
