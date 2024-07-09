@@ -5,6 +5,26 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IGoogleAds {
   export interface ICreateCampaign extends ICreateCampaignBudget {
     /**
+     * @title 캠페인 타입
+     */
+    advertisingChannelType:
+      | tags.Constant<
+          "SEARCH",
+          {
+            title: "검색 광고";
+            description: "Google 검색에서 구매 의도가 높은 고객에게 적시에 노출";
+          }
+        >
+      | (tags.Constant<
+          "DISPLAY",
+          {
+            title: "디스플레이 광고";
+            description: "눈에 잘 띄는 광고 소재로 3백만 사이트와 앱에서 고객에게 도달";
+          }
+        > &
+          tags.Default<"SEARCH">);
+
+    /**
      * @title 캠페인 이름
      */
     campaignName: string;

@@ -92,7 +92,8 @@ export class GoogleAdsProvider {
             {
               create: {
                 name: input.campaignName,
-                status: "PAUSED",
+                advertising_channel_type: input.advertisingChannelType,
+                status: "ENABLED",
                 campaignBudget: campaignBudgetResourceName,
 
                 /**
