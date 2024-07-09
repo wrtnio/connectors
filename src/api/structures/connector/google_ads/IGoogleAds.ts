@@ -216,6 +216,12 @@ export namespace IGoogleAds {
      * @title 지정된 이름
      */
     descriptiveName?: string;
+
+    /**
+     * @title 통화 단위, 통화 코드
+     * @description 'USD', 'EUR', 'KRW' 등을 의미
+     */
+    currencyCode: string;
   }
 
   /**

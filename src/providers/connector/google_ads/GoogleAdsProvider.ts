@@ -333,7 +333,7 @@ export class GoogleAdsProvider {
     const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
     const res = await this.searchStream(
       parentId,
-      `SELECT customer_client.resource_name, customer_client.id, customer_client.descriptive_name FROM customer_client`,
+      `SELECT customer_client.resource_name, customer_client.id, customer_client.descriptive_name, customer_client.currency_code FROM customer_client`,
     );
 
     type TypeMapper = Typing<
@@ -347,7 +347,14 @@ export class GoogleAdsProvider {
           "results[*].customerClient.id",
           `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
         ],
-        ["results[*].customerClient.descriptiveName", string | undefined],
+        [
+          "results[*].customerClient.descriptiveName",
+          string | undefined, // 이름이 없는 경우에는 키 자체가 존재하지 않을 수도 있다.
+        ],
+        [
+          "results[*].customerClient.currencyCode",
+          string, // 통화 단위
+        ],
       ]
     >;
 
