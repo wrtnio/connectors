@@ -81,17 +81,22 @@ export namespace IGoogleAds {
     /**
      * @title 조회 결과
      */
-    results: {
-      /**
-       * @title 캠페인 정보
-       */
-      campaign: Campaign;
+    results: IGetCampaignsOutputResult[];
+  }
 
-      /**
-       * @title 캠페인 예산 정보
-       */
-      campaignBudget: CampaignBudget;
-    }[];
+  /**
+   * @title 캠페인 정보
+   */
+  export interface IGetCampaignsOutputResult {
+    /**
+     * @title 캠페인 정보
+     */
+    campaign: Campaign;
+
+    /**
+     * @title 캠페인 예산 정보
+     */
+    campaignBudget: CampaignBudget;
   }
 
   /**

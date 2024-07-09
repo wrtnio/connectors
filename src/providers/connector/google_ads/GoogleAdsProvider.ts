@@ -88,11 +88,6 @@ export class GoogleAdsProvider {
     input: IGoogleAds.IGetCampaignsInput,
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
     try {
-      const customerIds = (await this.getCustomers(input)).map((el) => el.id);
-      if (!customerIds.includes(input.customerId)) {
-        throw new Error("아직 뤼튼 서비스에 등록되지 않은 고객 계정입니다.");
-      }
-
       const res = await this.searchStream(
         input.customerId,
         `SELECT 
@@ -110,7 +105,10 @@ export class GoogleAdsProvider {
           WHERE campaign.status != 'REMOVED'`,
       );
 
-      return res;
+      return {
+        ...res,
+        results: res.results ?? [], // 구글에서는 검색 결과가 없을 경우 undefined이기 때문에 빈배열로 바꿔준다.
+      };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -309,7 +307,7 @@ export class GoogleAdsProvider {
           "results[*].customerClient.id",
           `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
         ],
-        ["results[*].customerClient.descriptiveName", string],
+        ["results[*].customerClient.descriptiveName", string | undefined],
       ]
     >;
 

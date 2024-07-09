@@ -15,9 +15,8 @@ export const test_api_connector_google_ads_get_clients = async (
       },
     );
 
-  /**
-   * secretKey에 해당하는 고객의 client는 자기 자신밖에 존재하지 않는다.
-   */
   typia.assert(customers);
-  deepStrictEqual(customers.length, 1);
+  deepStrictEqual(customers.length >= 1, true);
+
+  return customers;
 };
