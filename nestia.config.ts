@@ -16,7 +16,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
         description: "Production Server",
       },
       {
-        url: "http://studio-connector-poc",
+        url: "https://studio-connector-poc.dev.wrtn.club",
         description: "Develop Server",
       },
       {
