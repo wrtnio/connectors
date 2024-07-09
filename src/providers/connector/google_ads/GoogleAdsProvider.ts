@@ -16,54 +16,6 @@ export class GoogleAdsProvider {
 
   constructor(private readonly googleProvider: GoogleProvider) {}
 
-  private async searchStream<T extends string>(
-    query: T,
-  ): Promise<{ results: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
-    try {
-      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
-      const headers = await this.getHeaders();
-      const res = await axios.post(
-        `${this.baseUrl}/customers/${parentId}/googleAds:search`,
-        {
-          query,
-        },
-        {
-          headers,
-        },
-      );
-
-      return res.data;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  /**
-   * Wrtn 내에 등록된 고객의 수를 파악하거나 고객의 리소스 네임을 조회하는 함수
-   */
-  private async getCustomerClient() {
-    const res = await this.searchStream(
-      `SELECT customer_client.resource_name, customer_client.id FROM customer_client`,
-    );
-
-    type TypeMapper = Typing<
-      typeof res,
-      [
-        [
-          "results[*].customerClient.resourceName", // 이 위치에 있는 타입을
-          `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
-        ],
-        [
-          "results[*].customerClient.id",
-          `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
-        ],
-      ]
-    >;
-
-    return typia.assert<TypeMapper>(res);
-  }
-
   /**
    * 원래대로라면 `parentId`가 아닌 자신의 id를 전달하는 것이 맞지만, 계정에 따른 의존성이 없는 것으로 보여 google ads secret 없이도 사용할 수 있도록 한다.
    *
@@ -126,6 +78,38 @@ export class GoogleAdsProvider {
           headers,
         },
       );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  /**
+   * Google Ads는 유저의 토큰이 scope를 가지고 있다고 하더라도 우리에게 위임된 계정이어야만 호출 가능하다.
+   * 이 API는 유저에게, 뤼튼에게 관리자 권한을 줄 것인지에 대한 초대장을 발급한다.
+   *
+   * @param input
+   * @param validateOnly
+   * @returns
+   */
+  async createClientLink(
+    input: { customerId: string },
+    validateOnly: boolean = false,
+  ): Promise<IGoogleAds.ICreateClientLinkOutput | IGoogleAds.GoogleAdsError> {
+    try {
+      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
+      const url = `${this.baseUrl}/customers/${parentId}/customerClientLinks:mutate`;
+      const res = await axios.post(url, {
+        operation: {
+          create: {
+            clientCustomer: `customer/${input.customerId}`,
+            status: "PENDING",
+          },
+        },
+        validateOnly, // true인 경우에는 동작하지 않고 API 동작만 검증하는, 일종의 테스트 용 필드.
+      });
+
+      return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -246,6 +230,54 @@ export class GoogleAdsProvider {
         },
       };
     }
+  }
+
+  private async searchStream<T extends string>(
+    query: T,
+  ): Promise<{ results: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
+    try {
+      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
+      const headers = await this.getHeaders();
+      const res = await axios.post(
+        `${this.baseUrl}/customers/${parentId}/googleAds:search`,
+        {
+          query,
+        },
+        {
+          headers,
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  /**
+   * Wrtn 내에 등록된 고객의 수를 파악하거나 고객의 리소스 네임을 조회하는 함수
+   */
+  private async getCustomerClient() {
+    const res = await this.searchStream(
+      `SELECT customer_client.resource_name, customer_client.id FROM customer_client`,
+    );
+
+    type TypeMapper = Typing<
+      typeof res,
+      [
+        [
+          "results[*].customerClient.resourceName", // 이 위치에 있는 타입을
+          `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
+        ],
+        [
+          "results[*].customerClient.id",
+          `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
+        ],
+      ]
+    >;
+
+    return typia.assert<TypeMapper>(res);
   }
 
   private async getHeaders() {

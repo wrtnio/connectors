@@ -3,6 +3,35 @@ import type { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  /**
+   * @title 클라이언트 초대
+   */
+  export interface ICreateClientLinkOutput {
+    result: {
+      resourceName: `cusotmers/${number}/customerClientLinks/${number}~${number}`;
+    };
+  }
+
+  /**
+   * @title Google Ads Error Object
+   * @description 에러를 판별하기 위한 최소한의 객체 구조
+   */
+  export interface GoogleAdsError {
+    error: {
+      details: {
+        errors: {
+          /**
+           * 아래와 같이 에러 이름과 에러의 메시지가 담긴 객체
+           *
+           * @example
+           * { managerLinkError: "ALREADY_INVITED_BY_THIS_MANAGER" }
+           */
+          errorCode: Record<string, string>;
+        }[];
+      }[];
+    };
+  }
+
   export type ISecret = ICommon.ISecret<
     "google-ads",
     ["https://www.googleapis.com/auth/adwords"]
