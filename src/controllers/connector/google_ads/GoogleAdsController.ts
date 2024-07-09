@@ -55,6 +55,21 @@ export class GoogleAdsController {
   }
 
   /**
+   * 고객 계정의 캠페인 목록을 가져와요
+   *
+   * @summary 캠페인 목록을 조회합니다
+   * @param input 고객 정보
+   * @returns 캠페인 목록
+   */
+  @Standalone()
+  @core.TypedRoute.Post("get-campaigns")
+  async getCampaigns(
+    @TypedBody() input: IGoogleAds.IGetCampaignsInput,
+  ): Promise<IGoogleAds.IGetCampaignsOutput> {
+    return retry(() => this.googleAdsProvider.getCampaigns(input))();
+  }
+
+  /**
    * 뤼튼에 연동된 고객의 광고 계정을 가져와요
    *
    * @summary 광고 계정을 조회합니다

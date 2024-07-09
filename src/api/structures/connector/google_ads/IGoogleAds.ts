@@ -4,6 +4,104 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
   /**
+   * @title 구글 광고 캠페인
+   */
+  export interface Campaign {
+    /**
+     * @title 캠페인 리소스 명
+     */
+    resourceName: `customers/${number}/campaigns/${number}`;
+
+    /**
+     * @title 캠페인 상태
+     */
+    status:
+      | tags.Constant<"ENABLED", { title: "ENABLED" }>
+      | tags.Constant<"PAUSED", { title: "PAUSED" }>
+      | tags.Constant<"REMOVED", { title: "REMOVED" }>
+      | tags.Constant<"UNKNOWN", { title: "UNKNOWN" }>
+      | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>;
+
+    /**
+     * @title 캠페인 광고 채널
+     */
+    advertisingChannelType:
+      | tags.Constant<"DEMAND_GEN", { title: "DEMAND_GEN" }>
+      | tags.Constant<"DISPLAY", { title: "DISPLAY" }>
+      | tags.Constant<"HOTEL", { title: "HOTEL" }>
+      | tags.Constant<"LOCAL", { title: "LOCAL" }>
+      | tags.Constant<"LOCAL_SERVICES", { title: "LOCAL_SERVICES" }>
+      | tags.Constant<"MULTI_CHANNEL", { title: "MULTI_CHANNEL" }>
+      | tags.Constant<"PERFORMANCE_MAX", { title: "PERFORMANCE_MAX" }>
+      | tags.Constant<"SEARCH", { title: "SEARCH" }>
+      | tags.Constant<"SHOPPING", { title: "SHOPPING" }>
+      | tags.Constant<"SMART", { title: "SMART" }>
+      | tags.Constant<"TRAVEL", { title: "TRAVEL" }>
+      | tags.Constant<"UNKNOWN", { title: "UNKNOWN" }>
+      | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>
+      | tags.Constant<"VIDEO", { title: "VIDEO" }>;
+
+    /**
+     * @title 캠페인 이름
+     */
+    name: string;
+
+    /**
+     * @title 캠페인 아이디
+     */
+    id: `${number}`;
+
+    /**
+     * @title 캠페인 시작 일자
+     */
+    startDate: string & tags.Format<"date">;
+
+    /**
+     * @title 캠페인 종료 일자
+     */
+    endDate: string & tags.Format<"date">;
+  }
+
+  export interface CampaignBudget {
+    /**
+     * @title 캠페인 예산 리소스 명
+     */
+    resourceName: `customers/${number}/campaignBudgets/${number}`;
+
+    /**
+     * @title 예산 (마이크로 단위)
+     */
+    amountMicros: `${number}`;
+  }
+
+  /**
+   * @title 캠페인 조회 결과
+   */
+  export interface IGetCampaignsOutput {
+    /**
+     * @title 조회 결과
+     */
+    results: {
+      /**
+       * @title 캠페인 정보
+       */
+      campaign: Campaign;
+
+      /**
+       * @title 캠페인 예산 정보
+       */
+      campaignBudget: CampaignBudget;
+    }[];
+  }
+
+  export interface IGetCampaignsInput extends ISecret {
+    /**
+     * @title 조회할 고객 아이디
+     */
+    customerId: `${number}`;
+  }
+
+  /**
    * @title 클라이언트 초대
    */
   export interface ICreateClientLinkOutput {

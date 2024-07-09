@@ -84,6 +84,39 @@ export class GoogleAdsProvider {
     }
   }
 
+  async getCampaigns(
+    input: IGoogleAds.IGetCampaignsInput,
+  ): Promise<IGoogleAds.IGetCampaignsOutput> {
+    try {
+      const customerIds = await this.getCustomers(input);
+      if (!customerIds.includes(`customers/${input.customerId}`)) {
+        throw new Error("아직 뤼튼 서비스에 등록되지 않은 고객 계정입니다.");
+      }
+
+      const res = await this.searchStream(
+        input.customerId,
+        `SELECT 
+          campaign.resource_name,
+          campaign.id,
+          campaign.name,
+          campaign.status,
+          campaign.optimization_score,
+          campaign.advertising_channel_type,
+          campaign.start_date,
+          campaign.end_date,
+          campaign_budget.resource_name,
+          campaign_budget.amount_micros
+        FROM campaign
+          WHERE campaign.status != 'REMOVED'`,
+      );
+
+      return res;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   /**
    * Google Ads는 유저의 토큰이 scope를 가지고 있다고 하더라도 우리에게 위임된 계정이어야만 호출 가능하다.
    * 이 API는 유저에게, 뤼튼에게 관리자 권한을 줄 것인지에 대한 초대장을 발급한다.
@@ -233,13 +266,13 @@ export class GoogleAdsProvider {
   }
 
   private async searchStream<T extends string>(
+    customerId: `${number}`,
     query: T,
   ): Promise<{ results: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
     try {
-      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const headers = await this.getHeaders();
       const res = await axios.post(
-        `${this.baseUrl}/customers/${parentId}/googleAds:search`,
+        `${this.baseUrl}/customers/${customerId}/googleAds:search`,
         {
           query,
         },
@@ -259,7 +292,9 @@ export class GoogleAdsProvider {
    * Wrtn 내에 등록된 고객의 수를 파악하거나 고객의 리소스 네임을 조회하는 함수
    */
   private async getCustomerClient() {
+    const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
     const res = await this.searchStream(
+      parentId,
       `SELECT customer_client.resource_name, customer_client.id FROM customer_client`,
     );
 

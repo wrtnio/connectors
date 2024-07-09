@@ -32,7 +32,7 @@ export namespace ConnectorGlobal {
     GOOGLE_TEST_SECRET: string;
 
     // GOOGLE ADS
-    GOOGLE_ADS_ACCOUNT_ID: string;
+    GOOGLE_ADS_ACCOUNT_ID: `${number}`;
     GOOGLE_ADS_DEVELOPER_TOKEN: string;
     GOOGLE_ADS_PARENT_SECRET: string;
 
