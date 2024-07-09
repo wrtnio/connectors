@@ -41,6 +41,11 @@ jobs:
         with:
           branch: gh-pages
           folder: ./website/out
+          
+      - name: Checkout repository for versioning
+        uses: actions/checkout@v2
+        with:
+          branch: main
 
       - name: Bump version
         run: |
