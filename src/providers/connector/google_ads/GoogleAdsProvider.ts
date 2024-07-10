@@ -4,6 +4,9 @@ import axios from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
+import { SelectedColumns } from "../../../utils/types/SelectedColumns";
+import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
+import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { Typing } from "../../../utils/types/Typing";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 
@@ -120,20 +123,24 @@ export class GoogleAdsProvider {
     input: IGoogleAds.ICreateAdGroupAdInput,
   ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
     try {
-      const adGroupResourceName = await this.createAdGroup(input);
-      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
-      const res = await axios.post(url, {
-        status: "PAUSED",
-        ad: {
-          final_urls: [input.finalUrl],
-          responsive_search_ad: {
-            headlines: input.headlines.map((text) => ({ text })),
-            descriptions: input.descriptions.map((text) => ({ text })),
+      let res: { data: any } | null = null;
+      if (input.type === "SEARCH_STANDARD") {
+        const adGroupResourceName = await this.createAdGroup(input);
+        const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+        res = await axios.post(url, {
+          status: "PAUSED",
+          ad: {
+            final_urls: [input.finalUrl],
+            responsive_search_ad: {
+              headlines: input.headlines.map((text) => ({ text })),
+              descriptions: input.descriptions.map((text) => ({ text })),
+            },
           },
-        },
-        ad_group: adGroupResourceName,
-      });
-      return res.data.results[0].resourceName;
+          ad_group: adGroupResourceName,
+        });
+      }
+
+      return res?.data.results[0].resourceName;
     } catch (err) {
       /**
        * @todo 광고 삭제 기능 추가
