@@ -19,7 +19,7 @@ export namespace IMOLIT {
       value: "return elem.sigunguCd";
       label: "return elem.sigunguNm";
     }> &
-      (number | `${number}` | string);
+      string;
 
     /**
      * @title 실거래 자료의 계약년월(6자리)
@@ -63,7 +63,7 @@ export namespace IMOLIT {
       value: "return elem.sigunguCd";
       label: "return elem.sigunguNm";
     }> &
-      (number | `${number}` | string);
+      string;
 
     /**
      * @title 법정동 코드
@@ -75,7 +75,7 @@ export namespace IMOLIT {
       value: "return elem.sigunguCd";
       label: "return elem.locatadd_nm";
     }> &
-      (number | `${number}` | string);
+      string;
   }
 
   /**
