@@ -127,11 +127,11 @@ export class GoogleAdsProvider {
 
   async createAd(
     input: IGoogleAds.ICreateAdGroupAdInput,
-  ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
+  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
     try {
       let res: { data: any } | null = null;
+      const adGroupResourceName = await this.createAdGroup(input);
       if (input.type === "SEARCH_STANDARD") {
-        const adGroupResourceName = await this.createAdGroup(input);
         if (input.keywords.length) {
           await this.createAdGroupCriteria(adGroupResourceName, input);
         }
@@ -161,7 +161,8 @@ export class GoogleAdsProvider {
         );
       }
 
-      return res?.data.results[0].resourceName;
+      const [result] = await this.getAds({ ...input, adGroupResourceName });
+      return result;
     } catch (err) {
       /**
        * @todo 광고 삭제 기능 추가
@@ -228,7 +229,10 @@ export class GoogleAdsProvider {
         ad_group.type
       FROM ad_group
       WHERE
-        campaign.status != 'REMOVED' AND ad_group.status != 'REMOVED' ${input.campaignId ? `AND campaign.id = '${input.campaignId}'` : ""}` as const;
+        campaign.status != 'REMOVED'
+          AND ad_group.status != 'REMOVED'
+            ${input.campaignId ? `AND campaign.id = '${input.campaignId}'` : ""}
+            ${input.adGroupResourceName ? `AND ad_group.resource_name = '${input.adGroupResourceName}'` : ""}` as const;
 
       const adGroup = await this.searchStream(input.customerId, query);
       return adGroup;
@@ -242,6 +246,8 @@ export class GoogleAdsProvider {
 
   /**
    * 각 캠페인에 속한 광고 그룹과 광고 그룹 광고를 찾는다.
+   *
+   * @todo 광고 그룹마다 키워드가 보여지게 수정해야 한다.
    *
    * @param input
    * @returns
@@ -314,7 +320,6 @@ export class GoogleAdsProvider {
         },
       );
 
-      console.log("keyword : ", JSON.stringify(res.data));
       return res.data;
     } catch (err) {
       console.error(

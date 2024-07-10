@@ -1,5 +1,7 @@
 import type { Prerequisite } from "@wrtn/decorators";
 import type { tags } from "typia";
+import { StrictOmit } from "../../../../utils/strictOmit";
+import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
@@ -45,7 +47,7 @@ export namespace IGoogleAds {
 
     /**
      * @title 부모 캠페인의 아이디
-     * @description 해당 캠페인의 아이디만 검색하고 싶을 경우에 인자 전달
+     * @description 해당 캠페인의 아이디만 검색하고 싶을 경우
      */
     campaignId?: Campaign["id"] &
       Prerequisite<{
@@ -55,6 +57,12 @@ export namespace IGoogleAds {
         label: "return el.campaign.name";
         value: "return el.campaign.id";
       }>;
+
+    /**
+     * @title 광고 그룹의 리소스 명
+     * @description 해당 광고 그룹 리소스 명으로만 검색하고 싶을 경우
+     */
+    adGroupResourceName?: AdGroup["resourceName"];
   }
 
   export interface IGetAdGroupOutput {
@@ -125,6 +133,40 @@ export namespace IGoogleAds {
      */
     type: AdGroup["type"];
   }
+
+  /**
+   * @title 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   */
+  export type ICreateAdGroupAdAtOnceInput = {
+    /**
+     * @title 고객 아이디
+     */
+    customerId: CustomerClient["id"];
+
+    /**
+     * @title 캠페인 생성 조건
+     */
+    campaign: StrictOmit<ICreateCampaignInput, "customerId">;
+
+    /**
+     * @title 광고 생성 조건
+     */
+    ad: StrictOmit<
+      ICreateAdGroupAdInput,
+      "campaignResourceName" | "type" | "customerId"
+    >;
+  };
+
+  export interface Ad {
+    ad: IGoogleAds.IGetAdGroupAdsOutputResult;
+  }
+  /**
+   * @title 캠페인부터 광고까지 한 번에 만드는 요청에 대한 결과
+   */
+  export type ICreateAdGroupAdAtOnceOutput = DeepStrictMerge<
+    IGoogleAds.ICreateCampaignsOutput,
+    Ad
+  >;
 
   /**
    * @title 광고 생성 조건

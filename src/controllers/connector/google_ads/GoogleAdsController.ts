@@ -109,6 +109,30 @@ export class GoogleAdsController {
     return this.googleAdsProvider.createCampaign(input);
   }
 
+  @core.TypedRoute.Post("ads/at-once")
+  async createAdAtOnce(
+    @TypedBody()
+    input: IGoogleAds.ICreateAdGroupAdAtOnceInput,
+  ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
+    const { campaign, campaignBudget } =
+      await this.googleAdsProvider.createCampaign({
+        ...input.campaign,
+        customerId: input.customerId,
+      });
+
+    const ad = await this.googleAdsProvider.createAd({
+      ...input.ad,
+      customerId: input.customerId,
+      campaignResourceName: campaign.resourceName,
+      type:
+        input.campaign.advertisingChannelType === "DISPLAY"
+          ? "DISPLAY_STANDARD"
+          : "SEARCH_STANDARD",
+    });
+
+    return { campaign, campaignBudget, ad };
+  }
+
   /**
    * 구글 고객 계정의 광고를 생성해요
    *
@@ -118,7 +142,7 @@ export class GoogleAdsController {
   @core.TypedRoute.Post("ads")
   async createAd(
     @TypedBody() input: IGoogleAds.ICreateAdGroupAdInput,
-  ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
+  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
     return this.googleAdsProvider.createAd(input);
   }
 }
