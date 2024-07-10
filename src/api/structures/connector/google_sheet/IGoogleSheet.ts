@@ -12,6 +12,9 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
  */
 type PermissionRoles = "owner" | "writer" | "commenter" | "reader";
 
+/**
+ * @title 권한 정보
+ */
 interface IPermission {
   /**
    * 권한을 부여할 사용자의 이메일입니다.
@@ -29,6 +32,9 @@ interface IPermission {
 }
 
 export namespace IGoogleSheet {
+  /**
+   * @title 구글 시트 읽기에 필요한 정보
+   */
   export interface IReadGoogleSheetInput
     extends ICommon.ISecret<
       "google",
@@ -52,6 +58,9 @@ export namespace IGoogleSheet {
     range: string;
   }
 
+  /**
+   * @title 구글 시트 헤더 읽기에 필요한 정보
+   */
   export interface IReadGoogleSheetHeadersInput
     extends ICommon.ISecret<
       "google",
@@ -75,6 +84,9 @@ export namespace IGoogleSheet {
     index?: number;
   }
 
+  /**
+   * @title 구글 시트 읽기 결과
+   */
   export interface IReadGoogleSheetOutput {
     /**
      * 읽어온 시트의 데이터입니다.
@@ -84,6 +96,9 @@ export namespace IGoogleSheet {
     data: any;
   }
 
+  /**
+   * @title 구글 시트 권한 부여에 필요한 정보
+   */
   export interface IPermissionInput
     extends ICommon.ISecret<
       "google",
@@ -107,6 +122,9 @@ export namespace IGoogleSheet {
     permissions: IPermission[];
   }
 
+  /**
+   * @title 구글 시트 헤더 추가에 필요한 정보
+   */
   export interface IWriteGoogleSheetHeadersInput
     extends ICommon.ISecret<
       "google",
@@ -137,6 +155,9 @@ export namespace IGoogleSheet {
     headerNames: string[];
   }
 
+  /**
+   * @title 구글 시트 행 추가에 필요한 정보
+   */
   export interface IWriteGoogleSheetRowsInput {
     /**
      * 행을 추가할 시트의 url 입니다.
@@ -167,6 +188,9 @@ export namespace IGoogleSheet {
     to: string[];
   }
 
+  /**
+   * @title 워크시트 조회에 필요한 정보
+   */
   export interface IGetWorkSheetInput
     extends ICommon.ISecret<
       "google",
@@ -183,6 +207,9 @@ export namespace IGoogleSheet {
     url: string;
   }
 
+  /**
+   * @title 워크시트 조회 결과
+   */
   export interface IGetWorkSheetOutput {
     /**
      * 읽어온 시트의 제목 리스트 입니다.
@@ -192,6 +219,9 @@ export namespace IGoogleSheet {
     data: string[];
   }
 
+  /**
+   * @title 구글 시트 행 읽기에 필요한 정보
+   */
   export interface IReadGoogleSheetRowsInput
     extends ICommon.ISecret<
       "google",
@@ -215,6 +245,9 @@ export namespace IGoogleSheet {
     workSheetTitle: string;
   }
 
+  /**
+   * @title 구글 시트 행 데이터 정보
+   */
   interface IReadGoogleSheetRowData {
     /**
      * key가 헤더 이름이고 value가 해당 행의 값인 객체.
@@ -223,6 +256,10 @@ export namespace IGoogleSheet {
      */
     [key: string]: any;
   }
+
+  /**
+   * @title 구글 시트 행 읽기 결과
+   */
   export interface IReadGoogleSheetRowsOutput {
     /**
      * 읽어온 구글 시트 행 데이터입니다.

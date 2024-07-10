@@ -226,6 +226,11 @@ export class GmailController {
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
+    /**
+     * 답장할 메일을 선택해주세요.
+     *
+     * @title 답장할 메일
+     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -308,6 +313,11 @@ export class GmailController {
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
+    /**
+     * 가져올 메일을 선택해주세요.
+     *
+     * @title 가져올 메일
+     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -462,6 +472,11 @@ export class GmailController {
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
+    /**
+     * 삭제할 메일을 선택해주세요.
+     *
+     * @title 삭제할 메일
+     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -618,6 +633,11 @@ export class GmailController {
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
+    /**
+     * 라벨을 부여할 메일을 선택해주세요.
+     *
+     * @title 라벨을 부여할 메일
+     */
     @core.TypedParam("mailId")
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
@@ -699,6 +719,11 @@ export class GmailController {
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
+    /**
+     * 라벨을 제거할 메일을 선택해주세요.
+     *
+     * @title 라벨을 제거할 메일
+     */
     @core.TypedParam("mailId")
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,

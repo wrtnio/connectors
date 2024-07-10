@@ -2,6 +2,9 @@ import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 export namespace IConnector {
+  /**
+   * @title 검색 결과
+   */
   export interface ISearchOutput {
     /**
      * 검색 결과에 대한 산출물 정보를 담고 있습니다.

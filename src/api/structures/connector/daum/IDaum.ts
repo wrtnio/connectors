@@ -11,6 +11,9 @@ import { tags } from "typia";
 type Sort = "accuracy" | "recency";
 
 export namespace IDaum {
+  /**
+   * @title 다음 검색에 필요한 정보
+   */
   export interface ISearchDaumInput {
     /**
      * 다음 검색 결과에 들어가야하는 키워드를 설정합니다.
@@ -56,6 +59,9 @@ export namespace IDaum {
     size?: number & tags.Minimum<1> & tags.Maximum<50> & tags.Default<10>;
   }
 
+  /**
+   * @title 다음 블로그 검색 결과
+   */
   export interface IBlogDaumOutput {
     meta: {
       /**
@@ -125,6 +131,9 @@ export namespace IDaum {
     }[];
   }
 
+  /**
+   * @title 다음 카페 검색 결과
+   */
   export interface ICafeDaumOutput {
     meta: {
       /**

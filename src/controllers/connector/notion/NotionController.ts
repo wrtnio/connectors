@@ -244,6 +244,11 @@ export class NotionController {
       value: (elem) => elem.pageId,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 내용을 추가할 페이지를 선택해 주세요.
+     *
+     * @title 내용을 추가할 페이지
+     */
     @core.TypedParam("pageId")
     pageId: string,
     @core.TypedBody() input: INotion.IAppendPageToContentInput,
@@ -370,6 +375,11 @@ export class NotionController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     *정보를 받아올 데이터베이스를 선택해 주세요.
+     *
+     * @title 정보를 받아올 데이터베이스
+     */
     @core.TypedParam("databaseId")
     databaseId: string,
   ): Promise<INotion.IDatabaseInfo> {
@@ -439,6 +449,11 @@ export class NotionController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 아이템을 추가할 데이터베이스를 선택해 주세요.
+     *
+     * @title 아이템을 추가할 데이터베이스
+     */
     @core.TypedParam("databaseId")
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
@@ -499,7 +514,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
   )
-  @core.TypedRoute.Patch("/database-item/:pageId")
+  @core.TypedRoute.Patch("/database-item/:databaseId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     @Prerequisite({
@@ -508,7 +523,12 @@ export class NotionController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
-    @core.TypedParam("pageId")
+    /**
+     * 아이템을 수정할 데이터베이스를 선택해 주세요.
+     *
+     * @title 아이템을 수정할 데이터베이스
+     */
+    @core.TypedParam("databaseId")
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
@@ -635,6 +655,11 @@ export class NotionController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 아이템 목록을 가져올 데이터베이스를 선택해 주세요.
+     *
+     * @title 아이템 목록을 가져올 데이터베이스
+     */
     @core.TypedParam("databaseId")
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
@@ -706,6 +731,11 @@ export class NotionController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 아이템 정보를 가져올 데이터베이스를 선택해 주세요.
+     *
+     * @title 아이템 정보를 가져올 데이터베이스
+     */
     @core.TypedParam("databaseId")
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {

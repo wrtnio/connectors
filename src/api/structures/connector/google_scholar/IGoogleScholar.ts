@@ -35,6 +35,10 @@ export namespace IGoogleScholar {
     max_results: number & tags.Type<"int32"> & Placeholder<"10">;
   }
 
+  /**
+   * @title 검색 결과
+   */
+
   export interface ISearchOutput {
     /**
      * 검색 결과 데이터의 고유 id 입니다.
@@ -100,6 +104,9 @@ export namespace IGoogleScholar {
     version_info: IVersion;
   }
 
+  /**
+   * @title 참고 자료
+   */
   export interface IResource {
     /**
      * 참고 자료의 제목입니다.
@@ -123,6 +130,9 @@ export namespace IGoogleScholar {
     link: string & tags.Format<"uri">;
   }
 
+  /**
+   * @title 버전
+   */
   interface IVersion {
     /**
      * 버전 정보입니다.

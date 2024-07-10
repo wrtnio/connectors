@@ -249,6 +249,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 삭제할 캘린더를 선택해주세요.
+     *
+     * @title 삭제할 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody()
@@ -341,6 +346,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 이벤트 목록을 가져올 캘린더를 선택해주세요.
+     *
+     * @title 이벤트 목록을 가져올 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IReadGoogleCalendarEventInput,
@@ -430,6 +440,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 빠른 이벤트를 추가할 캘린더를 선택해주세요.
+     *
+     * @title 이벤트를 추가할 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.ICreateQuickEventInput,
@@ -521,6 +536,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 이벤트를 추가할 캘린더를 선택해주세요.
+     *
+     * @title 이벤트를 추가할 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
@@ -614,6 +634,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 이벤트를 수정할 캘린더를 선택해주세요.
+     *
+     * @title 이벤트를 수정할 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @Prerequisite({
@@ -623,6 +648,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 수정할 이벤트를 선택해주세요.
+     *
+     * @title 수정할 이벤트
+     */
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
@@ -716,6 +746,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 참석자를 추가할 캘린더를 선택해주세요.
+     *
+     * @title 참석자를 추가할 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @Prerequisite({
@@ -725,6 +760,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 참석자를 추가할 이벤트를 선택해주세요.
+     *
+     * @title 참석자를 추가할 이벤트
+     */
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IAddAttendeesToEventInput,
@@ -818,6 +858,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
+    /**
+     * 이벤트를 삭제할 캘린더를 선택해주세요.
+     *
+     * @title 이벤트를 삭제할 캘린더
+     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @Prerequisite({
@@ -827,6 +872,11 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
+    /**
+     * 삭제할 이벤트를 선택해주세요.
+     *
+     * @title 삭제할 이벤트
+     */
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody()

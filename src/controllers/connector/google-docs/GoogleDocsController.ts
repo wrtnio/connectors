@@ -241,6 +241,11 @@ export class GoogleDocsController {
       value: (elem) => elem?.id,
       label: (elem) => elem?.title ?? "",
     })
+    /**
+     * 가져올 docs 파일을 선택해 주세요.
+     *
+     * @title 가져올 docs 파일
+     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -400,6 +405,11 @@ export class GoogleDocsController {
       value: (elem) => elem?.id,
       label: (elem) => elem?.title ?? "",
     })
+    /**
+     * 삭제할 docs 파일을 선택해 주세요.
+     *
+     * @title 삭제할 docs 파일
+     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
