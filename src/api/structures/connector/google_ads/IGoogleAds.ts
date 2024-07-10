@@ -14,7 +14,7 @@ export namespace IGoogleAds {
     /**
      * @title 광고 그룹 리소스 명
      */
-    resourceName: `customers/${number}/adGroupAds/${number}`;
+    resourceName: `customers/${number}/adGroupAds/${number}~${number}`;
   }
 
   /**
@@ -29,7 +29,7 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 리소스 이름
      */
-    campaignResourceName: Campaign["id"];
+    campaignResourceName: Campaign["resourceName"];
 
     /**
      * @title 광고 그룹 타입

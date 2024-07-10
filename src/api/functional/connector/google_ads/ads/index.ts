@@ -5,8 +5,11 @@
  */
 //================================================================
 import type { IConnection, Primitive, Resolved } from "@nestia/fetcher";
+import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
+
+import type { IGoogleAds } from "../../../../structures/connector/google_ads/IGoogleAds";
 
 /**
  * @controller GoogleAdsController.createAd
@@ -15,22 +18,38 @@ import typia from "typia";
  */
 export async function createAd(
   connection: IConnection,
+  input: createAd.Input,
 ): Promise<createAd.Output> {
   return !!connection.simulate
-    ? createAd.simulate(connection)
-    : PlainFetcher.fetch(connection, {
-        ...createAd.METADATA,
-        template: createAd.METADATA.path,
-        path: createAd.path(),
-      });
+    ? createAd.simulate(connection, input)
+    : PlainFetcher.fetch(
+        {
+          ...connection,
+          headers: {
+            ...connection.headers,
+            "Content-Type": "application/json",
+          },
+        },
+        {
+          ...createAd.METADATA,
+          template: createAd.METADATA.path,
+          path: createAd.path(),
+        },
+        input,
+      );
 }
 export namespace createAd {
-  export type Output = Primitive<`customers/${number}/adGroupAds/${number}`>;
+  export type Input = Primitive<IGoogleAds.ICreateAdGroupAdInput>;
+  export type Output =
+    Primitive<`customers/${number}/adGroupAds/${number}~${number}`>;
 
   export const METADATA = {
     method: "POST",
     path: "/connector/google-ads/ads",
-    request: null,
+    request: {
+      type: "application/json",
+      encrypted: false,
+    },
     response: {
       type: "application/json",
       encrypted: false,
@@ -41,9 +60,23 @@ export namespace createAd {
   export const path = () => "/connector/google-ads/ads";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<`customers/${number}/adGroupAds/${number}`>> =>
-    typia.random<Primitive<`customers/${number}/adGroupAds/${number}`>>(g);
-  export const simulate = (connection: IConnection): Output => {
+  ): Resolved<
+    Primitive<`customers/${number}/adGroupAds/${number}~${number}`>
+  > =>
+    typia.random<
+      Primitive<`customers/${number}/adGroupAds/${number}~${number}`>
+    >(g);
+  export const simulate = (
+    connection: IConnection,
+    input: createAd.Input,
+  ): Output => {
+    const assert = NestiaSimulator.assert({
+      method: METADATA.method,
+      host: connection.host,
+      path: path(),
+      contentType: "application/json",
+    });
+    assert.body(() => typia.assert(input));
     return random(
       "object" === typeof connection.simulate && null !== connection.simulate
         ? connection.simulate

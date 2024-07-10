@@ -70,7 +70,7 @@ export class GoogleAdsController {
 
   @core.TypedRoute.Post("ads")
   async createAd(
-    input: IGoogleAds.ICreateAdGroupAdInput,
+    @TypedBody() input: IGoogleAds.ICreateAdGroupAdInput,
   ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
     return this.googleAdsProvider.createAd(input);
   }

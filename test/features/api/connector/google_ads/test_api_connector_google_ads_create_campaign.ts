@@ -13,7 +13,7 @@ export const test_api_connector_google_ads_create_campaign_search_type = async (
     throw new Error("클라이언트 목록에서 테스트 용 계정을 찾지 못하였습니다.");
   }
 
-  const testCampaignName = `SEARCH_TEST-${new Date()}`;
+  const testCampaignName = `SEARCH-${new Date().getTime()}`;
   const res =
     await CApi.functional.connector.google_ads.campaign.createCampaign(
       connection,
@@ -27,6 +27,8 @@ export const test_api_connector_google_ads_create_campaign_search_type = async (
 
   typia.assert(res);
   deepStrictEqual(res.results[0].campaign.name === testCampaignName, true);
+
+  return res;
 };
 
 export const test_api_connector_google_ads_create_campaign_display_type =

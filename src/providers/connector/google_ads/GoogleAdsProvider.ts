@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
@@ -51,7 +51,9 @@ export class GoogleAdsProvider {
       );
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -81,7 +83,9 @@ export class GoogleAdsProvider {
 
       return res.data.results[0].resourceName;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -97,7 +101,7 @@ export class GoogleAdsProvider {
         {
           operations: {
             create: {
-              name: new Date().getTime(),
+              name: `SEARCH_${new Date().getTime()}`,
               status: "ENABLED",
               campaign: input.campaignResourceName,
               type: input.type,
@@ -114,7 +118,9 @@ export class GoogleAdsProvider {
       /**
        * @todo 광고 그룹 삭제 기능 추가
        */
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -126,18 +132,29 @@ export class GoogleAdsProvider {
       let res: { data: any } | null = null;
       if (input.type === "SEARCH_STANDARD") {
         const adGroupResourceName = await this.createAdGroup(input);
+        const headers = await this.getHeaders();
         const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
-        res = await axios.post(url, {
-          status: "PAUSED",
-          ad: {
-            final_urls: [input.finalUrl],
-            responsive_search_ad: {
-              headlines: input.headlines.map((text) => ({ text })),
-              descriptions: input.descriptions.map((text) => ({ text })),
+        res = await axios.post(
+          url,
+          {
+            operations: {
+              create: {
+                status: "PAUSED",
+                ad: {
+                  final_urls: [input.finalUrl],
+                  responsive_search_ad: {
+                    headlines: input.headlines.map((text) => ({ text })),
+                    descriptions: input.descriptions.map((text) => ({ text })),
+                  },
+                },
+                ad_group: adGroupResourceName,
+              },
             },
           },
-          ad_group: adGroupResourceName,
-        });
+          {
+            headers,
+          },
+        );
       }
 
       return res?.data.results[0].resourceName;
@@ -145,7 +162,9 @@ export class GoogleAdsProvider {
       /**
        * @todo 광고 삭제 기능 추가
        */
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -183,7 +202,9 @@ export class GoogleAdsProvider {
       const createdResourceName = res.data.results[0].resourceName;
       return await this.getCampaigns(input, createdResourceName);
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -214,7 +235,9 @@ export class GoogleAdsProvider {
         results: res.results ?? [], // 구글에서는 검색 결과가 없을 경우 undefined이기 때문에 빈배열로 바꿔준다.
       };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -246,7 +269,9 @@ export class GoogleAdsProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -274,7 +299,9 @@ export class GoogleAdsProvider {
 
       return res.map((el) => el.customerClient);
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
@@ -387,7 +414,9 @@ export class GoogleAdsProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
       throw err;
     }
   }
