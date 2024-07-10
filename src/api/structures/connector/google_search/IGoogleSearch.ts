@@ -26,6 +26,13 @@ export namespace IGoogleSearch {
      * @title 들어가면 안되는 키워드
      */
     notKeywords?: Array<string & Placeholder<"폭력">>;
+
+    /**
+     * 검색 결과의 개수를 설정합니다.
+     *
+     * @title 검색 결과 개수
+     */
+    max_results: number & tags.Type<"int32">;
   }
 
   /**
