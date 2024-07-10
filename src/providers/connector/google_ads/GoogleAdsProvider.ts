@@ -132,6 +132,10 @@ export class GoogleAdsProvider {
       let res: { data: any } | null = null;
       if (input.type === "SEARCH_STANDARD") {
         const adGroupResourceName = await this.createAdGroup(input);
+        if (input.keywords.length) {
+          await this.createAdGroupCriteria(adGroupResourceName, input);
+        }
+
         const headers = await this.getHeaders();
         const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
         res = await axios.post(
@@ -269,6 +273,49 @@ export class GoogleAdsProvider {
       );
 
       return results;
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  /**
+   * `adGroupCriteria`를 생성한다.
+   * 여기에는 구글 광고 키워드가 포함된다.
+   */
+  private async createAdGroupCriteria(
+    adGroupResourceName: IGoogleAds.AdGroup["resourceName"],
+    input: IGoogleAds.ICreateKeywordInput,
+  ) {
+    try {
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
+      const headers = await this.getHeaders();
+      const res = await axios.post(
+        url,
+        {
+          operations: input.keywords.map((keyword) => {
+            return {
+              create: {
+                type: "KEYWORD",
+                status: "ENABLED",
+                ad_group: adGroupResourceName,
+                keyword: {
+                  text: keyword,
+                  match_type: "BROAD",
+                },
+              },
+            };
+          }),
+        },
+        {
+          headers,
+        },
+      );
+
+      console.log("keyword : ", JSON.stringify(res.data));
+      return res.data;
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

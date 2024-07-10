@@ -92,7 +92,7 @@ export class GoogleAdsController {
    */
   @core.TypedRoute.Post("get-ads")
   async getAds(@TypedBody() input: IGoogleAds.IGetAdGroupAdsInput) {
-    return this.googleAdsProvider.getAds(input);
+    return retry(() => this.googleAdsProvider.getAds(input))();
   }
 
   /**

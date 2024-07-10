@@ -3,6 +3,21 @@ import type { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  /**
+   * @title 키워드 생성 조건
+   */
+  export interface ICreateKeywordInput {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"];
+
+    /**
+     * @title 생성할 키워드
+     */
+    keywords: string[];
+  }
+
   export interface AdGroup {
     /**
      * @title 광고 그룹의 아이디
@@ -114,7 +129,9 @@ export namespace IGoogleAds {
   /**
    * @title 광고 생성 조건
    */
-  export interface ICreateAdGroupAdInput extends ICreateAdGroupInput {
+  export interface ICreateAdGroupAdInput
+    extends ICreateAdGroupInput,
+      ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
      */
