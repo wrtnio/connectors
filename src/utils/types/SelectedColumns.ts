@@ -1,7 +1,9 @@
 import { StringType } from "./StringType";
 
 type GetColumns<T extends string> =
-  Trim<T> extends `SELECT ${infer P extends string} FROM ${string}` ? P : never;
+  Trim<T> extends `SELECT${" " | "\n"}${infer P extends string} FROM ${string}`
+    ? P
+    : never;
 
 type ArrayValueOf<T extends any[]> = T[number];
 

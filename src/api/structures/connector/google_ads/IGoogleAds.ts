@@ -5,16 +5,90 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IGoogleAds {
   export interface AdGroup {
     /**
+     * @title 광고 그룹의 아이디
+     */
+    id: `${number}`;
+
+    /**
      * @title 광고 그룹 리소스 명
      */
     resourceName: `customers/${number}/adGroups/${number}`;
+
+    /**
+     * @title 광고 그룹의 타입
+     */
+    type:
+      | tags.Constant<"SEARCH_STANDARD", { title: "검색 광고" }>
+      | tags.Constant<"DISPLAY_STANDARD", { title: "디스플레이 광고" }>; // campaign으로부터 가져오게 한다.
+  }
+
+  export interface IGetAdGroupInput {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"];
+
+    /**
+     * @title 부모 캠페인의 아이디
+     * @description 해당 캠페인의 아이디만 검색하고 싶을 경우에 인자 전달
+     */
+    campaignId?: Campaign["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-campaigns";
+        array: "return results";
+        label: "return el.campaign.name";
+        value: "return el.campaign.id";
+      }>;
+  }
+
+  export interface IGetAdGroupOutput {
+    results: IGetAdGroupOutputResult[];
+  }
+
+  export interface IGetAdGroupOutputResult {
+    campaign: Pick<Campaign, "id" | "resourceName" | "status">;
+
+    adGroup: Pick<AdGroup, "id" | "type" | "resourceName">;
   }
 
   export interface AdGroupAd {
     /**
-     * @title 광고 그룹 리소스 명
+     * @title 광고 그룹 광고의 아이디
+     */
+    id: `${number}`;
+
+    /**
+     * @title 광고 그룹 광고의 리소스 명
      */
     resourceName: `customers/${number}/adGroupAds/${number}~${number}`;
+
+    /**
+     * @title 광고의 승인 여부
+     * @description 구글에서 해당 광고가 송출되어도 무방한지 판단한 내용입니다.
+     */
+    approvalStatus:
+      | tags.Constant<"APPROVED", { title: "승인됨" }>
+      | tags.Constant<"APPROVED_LIMITED", { title: "제한된 승인" }>
+      | tags.Constant<
+          "AREA_OF_INTEREST_ONLY",
+          { title: "특정 영역에 대한 허용" }
+        >
+      | tags.Constant<"DISAPPROVED", { title: "비승인" }>
+      | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
+      | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
+
+    /**
+     * @title 광고의 검토 상태
+     * @description 검토가 완료된 광고만이 승인, 비승인 여부를 알 수 있습니다.
+     */
+    reviewStatus:
+      | tags.Constant<"ELIGIBLE_MAY_SERVE", { title: "자격을 갖춤" }>
+      | tags.Constant<"REVIEWED", { title: "검토되었음" }>
+      | tags.Constant<"REVIEW_IN_PROGRESS", { title: "검토 중임" }>
+      | tags.Constant<"UNDER_APPEAL", { title: "심사 중임" }>
+      | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
+      | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
   }
 
   /**
@@ -34,9 +108,7 @@ export namespace IGoogleAds {
     /**
      * @title 광고 그룹 타입
      */
-    type:
-      | tags.Constant<"SEARCH_STANDARD", { title: "검색 광고" }>
-      | tags.Constant<"DISPLAY_STANDARD", { title: "디스플레이 광고" }>; // campaign으로부터 가져오게 한다.
+    type: AdGroup["type"];
   }
 
   /**
@@ -207,6 +279,43 @@ export namespace IGoogleAds {
      * @title 캠페인 예산 정보
      */
     campaignBudget: CampaignBudget;
+  }
+
+  /**
+   * @title 광고 조회 조건
+   */
+  export interface IGetAdGroupAdsInput extends IGetAdGroupInput {
+    /**
+     * @title 조회할 고객 아이디
+     */
+    customerId: Prerequisite<{
+      method: "post";
+      path: "connector/google-ads/get-customers";
+      array: "return response";
+      label: "return el.descriptiveName ?? ''";
+      value: "return el.id";
+    }> &
+      `${number}`;
+  }
+
+  /**
+   * @title 광고 그룹 광고의 조회 결과
+   */
+  export type IGetAdGroupAdsOutput = IGetAdGroupAdsOutputResult[];
+
+  export interface IGetAdGroupAdsOutputResult {
+    /**
+     * @title 광고 그룹
+     */
+    adGroup: Pick<AdGroup, "id" | "resourceName" | "type">;
+
+    /**
+     * @title 광고 그룹 광고의 목록
+     */
+    adGroupAds: Pick<
+      AdGroupAd,
+      "id" | "resourceName" | "approvalStatus" | "reviewStatus"
+    >[];
   }
 
   /**

@@ -55,40 +55,6 @@ export class GoogleAdsController {
   }
 
   /**
-   * 고객 계정의 캠페인 목록을 가져와요
-   *
-   * @summary 캠페인 목록을 조회합니다
-   * @param input 고객 정보
-   * @returns 캠페인 목록
-   */
-  @core.TypedRoute.Post("get-campaigns")
-  async getCampaigns(
-    @TypedBody() input: IGoogleAds.IGetCampaignsInput,
-  ): Promise<IGoogleAds.IGetCampaignsOutput> {
-    return retry(() => this.googleAdsProvider.getCampaigns(input))();
-  }
-
-  @core.TypedRoute.Post("ads")
-  async createAd(
-    @TypedBody() input: IGoogleAds.ICreateAdGroupAdInput,
-  ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
-    return this.googleAdsProvider.createAd(input);
-  }
-
-  /**
-   * 광고 캠페인을 생성해요
-   *
-   * @param input 캠페인 생성 조건
-   * @returns 생성된 캠페인 정보
-   */
-  @core.TypedRoute.Post("campaign")
-  async createCampaign(
-    @TypedBody() input: IGoogleAds.ICreateCampaignInput,
-  ): Promise<IGoogleAds.ICreateCampaignsOutput> {
-    return this.googleAdsProvider.createCampaign(input);
-  }
-
-  /**
    * 뤼튼에 연동된 고객의 광고 계정을 가져와요
    *
    * @summary 광고 계정을 조회합니다
@@ -101,5 +67,58 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.ISecret,
   ): Promise<IGoogleAds.IGetCustomerOutput> {
     return retry(() => this.googleAdsProvider.getCustomers(input))();
+  }
+
+  /**
+   * 구글 고객 계정의 캠페인 목록을 가져와요
+   *
+   * @summary 캠페인 목록을 조회합니다
+   * @param input 고객 정보
+   * @returns 캠페인 목록
+   */
+  @core.TypedRoute.Post("get-campaigns")
+  async getCampaigns(
+    @TypedBody() input: IGoogleAds.IGetCampaignsInput,
+  ): Promise<IGoogleAds.IGetCampaignsOutput> {
+    return retry(() => this.googleAdsProvider.getCampaigns(input))();
+  }
+
+  /**
+   * 구글 고객 계정의 캠페인 광고 목록을 가져와요
+   *
+   * @summary 캠페인 광고 목록을 조회합니다.
+   * @param input 광고 목록 조회 조건
+   * @returns 광고 목록
+   */
+  @core.TypedRoute.Post("get-ads")
+  async getAds(@TypedBody() input: IGoogleAds.IGetAdGroupAdsInput) {
+    return this.googleAdsProvider.getAds(input);
+  }
+
+  /**
+   * 구글 고객 계정의 광고 캠페인을 생성해요
+   *
+   * @summary 캠페인을 생성합니다
+   * @param input 캠페인 생성 조건
+   * @returns 생성된 캠페인 정보
+   */
+  @core.TypedRoute.Post("campaign")
+  async createCampaign(
+    @TypedBody() input: IGoogleAds.ICreateCampaignInput,
+  ): Promise<IGoogleAds.ICreateCampaignsOutput> {
+    return this.googleAdsProvider.createCampaign(input);
+  }
+
+  /**
+   * 구글 고객 계정의 광고를 생성해요
+   *
+   * @param input 광고 생성 조건
+   * @returns 생성된 광고 정보
+   */
+  @core.TypedRoute.Post("ads")
+  async createAd(
+    @TypedBody() input: IGoogleAds.ICreateAdGroupAdInput,
+  ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
+    return this.googleAdsProvider.createAd(input);
   }
 }

@@ -209,6 +209,75 @@ export class GoogleAdsProvider {
     }
   }
 
+  private async getAdGroups(
+    input: IGoogleAds.IGetAdGroupInput,
+  ): Promise<IGoogleAds.IGetAdGroupOutput> {
+    try {
+      const query = `
+      SELECT 
+        campaign.id,
+        campaign.resource_name,
+        campaign.status,
+        ad_group.id,
+        ad_group.resource_name,
+        ad_group.type
+      FROM ad_group
+      WHERE
+        campaign.status != 'REMOVED' ${input.campaignId ? `AND campaign.id = '${input.campaignId}'` : ""}` as const;
+
+      const adGroup = await this.searchStream(input.customerId, query);
+      return adGroup;
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  /**
+   * 각 캠페인에 속한 광고 그룹과 광고 그룹 광고를 찾는다.
+   *
+   * @param input
+   * @returns
+   */
+  async getAds(
+    input: IGoogleAds.IGetAdGroupAdsInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
+    try {
+      const adGroupsResult = await this.getAdGroups(input);
+      const adGroups = adGroupsResult.results.map((el) => el.adGroup);
+
+      const results = await Promise.all(
+        adGroups.map(async (adGroup) => {
+          const query = `
+          SELECT
+            ad_group_ad.id,
+            ad_group_ad.resource_name,
+            ad_group_ad.approval_status,
+            ad_group_ad.review_status
+          FROM ad_group_ad 
+          WHERE 
+            ad_group_ad.ad_group = '${adGroup.resourceName}'
+          ` as const;
+
+          const customerId = input.customerId;
+          const adGroupAdResult = await this.searchStream(customerId, query);
+          const adGroupAds = adGroupAdResult.results.map((el) => el.adGroupAd);
+
+          return { adGroup, adGroupAds };
+        }),
+      );
+
+      return results;
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
   async getCampaigns(
     input: IGoogleAds.IGetCampaignsInput,
     resourceName?: IGoogleAds.Campaign["resourceName"],

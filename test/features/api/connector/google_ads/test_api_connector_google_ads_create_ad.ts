@@ -17,8 +17,8 @@ export const test_api_connector_google_ads_create_ad_search_type = async (
       campaignResourceName,
       type: "SEARCH_STANDARD",
       finalUrl: "https://wrtn.ai",
-      headlines: ["제목1", "제목2", "제목3"],
-      descriptions: ["설명1", "설명2"],
+      headlines: ["가나다", "라마바", "사아자"],
+      descriptions: ["차카", "타파"],
     },
   );
 
