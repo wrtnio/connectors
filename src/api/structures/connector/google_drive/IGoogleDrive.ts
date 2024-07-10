@@ -32,6 +32,9 @@ export type PermissionRoles =
 type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
 export namespace IGoogleDrive {
+  /**
+   * @title 구글 drive 폴더 생성에 필요한 정보
+   */
   export interface ICreateFolderGoogleDriveInput
     extends ICommon.ISecret<
       "google",
@@ -45,6 +48,9 @@ export namespace IGoogleDrive {
     name: string;
   }
 
+  /**
+   * @title 구글 drive 폴더 생성 결과
+   */
   export interface ICreateFolderGoogleDriveOutput {
     /**
      * 생성된 drive 폴더 id.
@@ -54,6 +60,9 @@ export namespace IGoogleDrive {
     id: string;
   }
 
+  /**
+   * @title 구글 drive에 있는 파일 리스트를 불러오기 위한 정보
+   */
   export interface IFileListGoogleDriveInput
     extends ICommon.ISecret<
       "google",
@@ -74,6 +83,9 @@ export namespace IGoogleDrive {
       }>;
   }
 
+  /**
+   * @title 구글 drive에 있는 파일 리스트 정보
+   */
   export interface IFileListGoogleDriveOutput {
     /**
      * 구글 drive에 있는 file 데이터 리스트.
@@ -97,6 +109,9 @@ export namespace IGoogleDrive {
     }[];
   }
 
+  /**
+   * @title 구글 drive에 있는 폴더 리스트 정보
+   */
   export interface IFolderListGoogleDriveOutput {
     /**
      * 구글 drive에 있는 folder 데이터 리스트.
@@ -120,6 +135,9 @@ export namespace IGoogleDrive {
     }[];
   }
 
+  /**
+   * @title 구글 drive에 파일 생성에 필요한 정보
+   */
   export interface ICreateFileGoogleDriveInput
     extends ICommon.ISecret<
       "google",
@@ -155,6 +173,9 @@ export namespace IGoogleDrive {
     content: string;
   }
 
+  /**
+   * @title 구글 drive에 파일 생성 결과
+   */
   export interface ICreateFileGoogleDriveOutput {
     /**
      * 생성된 drive 파일 id.
@@ -164,6 +185,9 @@ export namespace IGoogleDrive {
     id: string;
   }
 
+  /**
+   * @title 접근 권한 정보
+   */
   export interface IPermission {
     /**
      * 구글 drive 접근 권한을 부여할 사용자의 이메일 주소입니다.
@@ -187,6 +211,9 @@ export namespace IGoogleDrive {
     type: PermissionTypes;
   }
 
+  /**
+   * @title 구글 drive 접근 권한에 필요한 정보
+   */
   export interface IPermissionGoogleDriveInput
     extends ICommon.ISecret<
       "google",
@@ -228,6 +255,9 @@ export namespace IGoogleDrive {
     permissions: IPermission[];
   }
 
+  /**
+   * @title 구글 drive 파일 text 추가에 필요한 정보
+   */
   export interface IAppendTextGoogleDriveInput
     extends ICommon.ISecret<
       "google",
@@ -241,6 +271,9 @@ export namespace IGoogleDrive {
     text: string;
   }
 
+  /**
+   * @title 구글 drive 파일 조회 결과
+   */
   export interface IReadFileGoogleDriveOutput {
     /**
      * drive 파일에서 추출한 text 데이터.
@@ -250,6 +283,9 @@ export namespace IGoogleDrive {
     data: string;
   }
 
+  /**
+   * @title 인증 정보
+   */
   export type ISecret = ICommon.ISecret<
     "google",
     ["https://www.googleapis.com/auth/drive"]

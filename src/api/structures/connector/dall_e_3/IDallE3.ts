@@ -23,6 +23,9 @@ export namespace IDallE3 {
       | tags.Constant<"portrait", { title: "인물"; description: "1024x1792" }>;
   }
 
+  /**
+   * @title 이미지 생성 결과
+   */
   export interface IResponse {
     /**
      * 생성된 이미지 url

@@ -31,6 +31,9 @@ type PermissionRoles =
  */
 type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
+/**
+ * @title 권한 부여 정보
+ */
 interface IPermission {
   /**
    * 권한을 부여할 사용자의 이메일입니다.
@@ -71,6 +74,9 @@ interface IGoogleDocs {
 }
 
 export namespace IGoogleDocs {
+  /**
+   * @title 구글 docs 생성 결과
+   */
   export interface ICreateGoogleDocsOutput {
     /**
      * 생성된 docs의 id입니다.
@@ -80,6 +86,9 @@ export namespace IGoogleDocs {
     id: string;
   }
 
+  /**
+   * @title 구글 docs 생성에 필요한 정보
+   */
   export interface ICreateGoogleDocsInput
     extends ICommon.ISecret<
       "google",
@@ -96,6 +105,9 @@ export namespace IGoogleDocs {
     title: string;
   }
 
+  /**
+   * @title 구글 docs 권한 부여에 필요한 정보
+   */
   export interface IPermissionGoogleDocsInput
     extends ICommon.ISecret<
       "google",
@@ -126,6 +138,9 @@ export namespace IGoogleDocs {
     permissions: IPermission[];
   }
 
+  /**
+   * @title 구글 docs 조회 결과
+   */
   export interface IReadGoogleDocsOutput {
     /**
      * 읽어온 구글 docs의 데이터입니다.
@@ -135,6 +150,9 @@ export namespace IGoogleDocs {
     data: IGoogleDocs;
   }
 
+  /**
+   * @title 구글 docs 복제에 필요한 정보
+   */
   export interface ICreateDocByTemplateInput
     extends ICommon.ISecret<
       "google",
@@ -165,6 +183,9 @@ export namespace IGoogleDocs {
     title: string;
   }
 
+  /**
+   * @title 구글 docs 복제 결과
+   */
   export interface ICreateDocByTemplateOutput {
     /**
      * 복사된 docs의 id입니다.
@@ -174,6 +195,9 @@ export namespace IGoogleDocs {
     id: string;
   }
 
+  /**
+   * @title 구글 docs 리스트 조회 결과
+   */
   export interface IListGoogleDocsOutput {
     /**
      * 검색된 구글 docs 리스트입니다.
@@ -197,6 +221,9 @@ export namespace IGoogleDocs {
     }[];
   }
 
+  /**
+   * @title 구글 docs 텍스트 추가에 필요한 정보
+   */
   export interface IAppendTextGoogleDocsInput
     extends ICommon.ISecret<
       "google",
@@ -227,6 +254,9 @@ export namespace IGoogleDocs {
     text: string;
   }
 
+  /**
+   * @title 인증 정보
+   */
   export type ISecret = ICommon.ISecret<
     "google",
     [

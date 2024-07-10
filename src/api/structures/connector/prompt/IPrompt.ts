@@ -17,6 +17,9 @@ export namespace IPrompt {
     system_prompt?: string & Placeholder<"친절한 어투로 말해주세요.">;
   }
 
+  /**
+   * @title 프롬프트를 통해 받은 결과
+   */
   export interface IResponse {
     /**
      * @title 입력된 프롬프트를 통해 받은 결과

@@ -24,6 +24,9 @@ export namespace IExcel {
     sheetName?: (string & Placeholder<"sheet1">) | null;
   }
 
+  /**
+   * @title 읽어온 엑셀 행 데이터
+   */
   interface IReadExcelRowData {
     /**
      * key가 헤더 이름이고 value가 해당 행의 값인 객체
@@ -33,6 +36,9 @@ export namespace IExcel {
     [key: string]: any;
   }
 
+  /**
+   * @title 엑셀 파일 읽기 결과
+   */
   export interface IReadExcelOutput {
     /**
      * @title 엑셀 시트 데이터
@@ -54,6 +60,9 @@ export namespace IExcel {
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
   }
 
+  /**
+   * @title 가져온 워크 시트 리스트
+   */
   export interface IWorksheetListOutput {
     /**
      * @title sheet 리스트 데이터
@@ -105,6 +114,9 @@ export namespace IExcel {
     data: Record<string, any>[];
   }
 
+  /**
+   * @title 엑셀 행 추가 결과
+   */
   export interface IInsertExcelRowOutput {
     /**
      * @title 생성된 엑셀 파일 url
