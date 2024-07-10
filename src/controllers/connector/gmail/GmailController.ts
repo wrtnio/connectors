@@ -229,7 +229,7 @@ export class GmailController {
     /**
      * 답장할 메일을 선택해주세요.
      *
-     * @title 답장할 메일
+     * @summary 답장할 메일
      */
     @core.TypedParam("id")
     id: string,
@@ -316,7 +316,7 @@ export class GmailController {
     /**
      * 가져올 메일을 선택해주세요.
      *
-     * @title 가져올 메일
+     * @summary 가져올 메일
      */
     @core.TypedParam("id")
     id: string,
@@ -475,7 +475,7 @@ export class GmailController {
     /**
      * 삭제할 메일을 선택해주세요.
      *
-     * @title 삭제할 메일
+     * @summary 삭제할 메일
      */
     @core.TypedParam("id")
     id: string,
@@ -636,7 +636,7 @@ export class GmailController {
     /**
      * 라벨을 부여할 메일을 선택해주세요.
      *
-     * @title 라벨을 부여할 메일
+     * @summary 라벨을 부여할 메일
      */
     @core.TypedParam("mailId")
     mailId: string,
@@ -722,7 +722,7 @@ export class GmailController {
     /**
      * 라벨을 제거할 메일을 선택해주세요.
      *
-     * @title 라벨을 제거할 메일
+     * @summary 라벨을 제거할 메일
      */
     @core.TypedParam("mailId")
     mailId: string,

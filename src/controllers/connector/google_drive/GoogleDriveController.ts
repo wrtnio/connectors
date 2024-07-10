@@ -532,7 +532,7 @@ export class GoogleDriveController {
     /**
      * 삭제할 파일을 선택해 주세요.
      *
-     * @title 삭제할 파일
+     * @summary 삭제할 파일
      */
     @core.TypedParam("id")
     id: string,
@@ -648,7 +648,7 @@ export class GoogleDriveController {
     /**
      * 삭제할 폴더를 선택해 주세요.
      *
-     * @title 삭제할 폴더
+     * @summary 삭제할 폴더
      */
     @core.TypedParam("id")
     id: string,
@@ -867,7 +867,7 @@ export class GoogleDriveController {
     /**
      * 텍스트를 추가할 파일을 선택해 주세요.
      *
-     * @title 텍스트를 추가할 파일
+     * @summary 텍스트를 추가할 파일
      */
     @core.TypedParam("id")
     id: string,
