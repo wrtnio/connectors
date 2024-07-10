@@ -93,7 +93,10 @@ export namespace NotionProvider {
       for (const page of pageList) {
         const pageInfo: INotion.IReadPageOutput = {
           pageId: page.id,
-          title: page.properties.title.title[0].plain_text,
+          title:
+            page.properties.title.title.length === 0
+              ? "제목없음"
+              : page.properties.title.title[0].plain_text,
         };
         pageOutput.push(pageInfo);
       }
