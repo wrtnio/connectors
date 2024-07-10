@@ -68,6 +68,13 @@ export class GoogleAdsController {
     return retry(() => this.googleAdsProvider.getCampaigns(input))();
   }
 
+  @core.TypedRoute.Post("ads")
+  async createAd(
+    input: IGoogleAds.ICreateAdGroupAdInput,
+  ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
+    return this.googleAdsProvider.createAd(input);
+  }
+
   /**
    * 광고 캠페인을 생성해요
    *
@@ -76,7 +83,7 @@ export class GoogleAdsController {
    */
   @core.TypedRoute.Post("campaign")
   async createCampaign(
-    @TypedBody() input: IGoogleAds.ICreateCampaign,
+    @TypedBody() input: IGoogleAds.ICreateCampaignInput,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     return this.googleAdsProvider.createCampaign(input);
   }

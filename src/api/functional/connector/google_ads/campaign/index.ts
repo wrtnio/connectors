@@ -44,7 +44,7 @@ export async function createCampaign(
       );
 }
 export namespace createCampaign {
-  export type Input = Primitive<IGoogleAds.ICreateCampaign>;
+  export type Input = Primitive<IGoogleAds.ICreateCampaignInput>;
   export type Output = Primitive<IGoogleAds.ICreateCampaignsOutput>;
 
   export const METADATA = {

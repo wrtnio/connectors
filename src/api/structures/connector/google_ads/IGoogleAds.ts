@@ -3,7 +3,67 @@ import type { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
-  export interface ICreateCampaign extends ICreateCampaignBudget {
+  export interface AdGroup {
+    /**
+     * @title 광고 그룹 리소스 명
+     */
+    resourceName: `customers/${number}/adGroups/${number}`;
+  }
+
+  export interface AdGroupAd {
+    /**
+     * @title 광고 그룹 리소스 명
+     */
+    resourceName: `customers/${number}/adGroupAds/${number}`;
+  }
+
+  /**
+   * @title 광고 그룹 생성 조건
+   */
+  export interface ICreateAdGroupInput {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"];
+
+    /**
+     * @title 캠페인 리소스 이름
+     */
+    campaignResourceName: Campaign["id"];
+
+    /**
+     * @title 광고 그룹 타입
+     */
+    type:
+      | tags.Constant<"SEARCH_STANDARD", { title: "검색 광고" }>
+      | tags.Constant<"DISPLAY_STANDARD", { title: "디스플레이 광고" }>; // campaign으로부터 가져오게 한다.
+  }
+
+  /**
+   * @title 광고 생성 조건
+   */
+  export interface ICreateAdGroupAdInput extends ICreateAdGroupInput {
+    /**
+     * @title 광고의 대상이 되는 홈페이지
+     */
+    finalUrl: string & tags.Format<"uri">;
+
+    /**
+     * @title 제목 리스트
+     */
+    headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
+      tags.MinItems<3> &
+      tags.MaxItems<3>;
+
+    /**
+     * @title 설명 리스트
+     */
+    descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
+      tags.MinItems<2> &
+      tags.MaxItems<2>;
+  }
+
+  export interface ICreateCampaignInput extends ICreateCampaignBudgetInput {
     /**
      * @title 캠페인 타입
      */
@@ -30,7 +90,7 @@ export namespace IGoogleAds {
     campaignName: string;
   }
 
-  export interface ICreateCampaignBudget {
+  export interface ICreateCampaignBudgetInput {
     /**
      * @title 고객 아이디
      */

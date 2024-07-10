@@ -4,9 +4,6 @@ import axios from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
-import { SelectedColumns } from "../../../utils/types/SelectedColumns";
-import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
-import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { Typing } from "../../../utils/types/Typing";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 
@@ -57,7 +54,7 @@ export class GoogleAdsProvider {
   }
 
   async createCampaignBudget(
-    input: IGoogleAds.ICreateCampaignBudget,
+    input: IGoogleAds.ICreateCampaignBudgetInput,
   ): Promise<IGoogleAds.CampaignBudget["resourceName"]> {
     try {
       const headers = await this.getHeaders();
@@ -86,8 +83,68 @@ export class GoogleAdsProvider {
     }
   }
 
+  async createAdGroup(
+    input: IGoogleAds.ICreateAdGroupInput,
+  ): Promise<IGoogleAds.AdGroup["resourceName"]> {
+    try {
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroups:mutate`;
+      const headers = await this.getHeaders();
+      const res = await axios.post(
+        url,
+        {
+          operations: {
+            create: {
+              name: new Date().getTime(),
+              status: "ENABLED",
+              campaign: input.campaignResourceName,
+              type: input.type,
+            },
+          },
+        },
+        {
+          headers,
+        },
+      );
+
+      return res.data.results[0].resourceName;
+    } catch (err) {
+      /**
+       * @todo 광고 그룹 삭제 기능 추가
+       */
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createAd(
+    input: IGoogleAds.ICreateAdGroupAdInput,
+  ): Promise<IGoogleAds.AdGroupAd["resourceName"]> {
+    try {
+      const adGroupResourceName = await this.createAdGroup(input);
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+      const res = await axios.post(url, {
+        status: "PAUSED",
+        ad: {
+          final_urls: [input.finalUrl],
+          responsive_search_ad: {
+            headlines: input.headlines.map((text) => ({ text })),
+            descriptions: input.descriptions.map((text) => ({ text })),
+          },
+        },
+        ad_group: adGroupResourceName,
+      });
+      return res.data.results[0].resourceName;
+    } catch (err) {
+      /**
+       * @todo 광고 삭제 기능 추가
+       */
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async createCampaign(
-    input: IGoogleAds.ICreateCampaign,
+    input: IGoogleAds.ICreateCampaignInput,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
       const headers = await this.getHeaders();
@@ -200,11 +257,13 @@ export class GoogleAdsProvider {
        * Wrtn에 등록된 클라이언트 중 customers에 포함된 것만 남겨야 한다.
        */
       const customerClients = await this.getCustomerClient();
-      const res = customerClients.results.filter((el) =>
-        customers.resourceNames
-          .map((name) => TypedSplit(name, "customers/")[1])
-          .some((id) => id === el.customerClient.id),
-      );
+      const res = customerClients.results
+        .filter((el) => el.customerClient.currencyCode === "KRW") // 한국 돈으로 광고하는 경우만 허용한다.
+        .filter((el) =>
+          customers.resourceNames
+            .map((name) => TypedSplit(name, "customers/")[1])
+            .some((id) => id === el.customerClient.id),
+        );
 
       return res.map((el) => el.customerClient);
     } catch (err) {
