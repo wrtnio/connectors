@@ -5,10 +5,9 @@ import { test_api_connector_google_ads_create_campaign_search_type } from "./tes
 export const test_api_connector_google_ads_create_ad_search_type = async (
   connection: CApi.IConnection,
 ) => {
-  const campaign =
+  const { campaign } =
     await test_api_connector_google_ads_create_campaign_search_type(connection);
-
-  const campaignResourceName = campaign.results[0].campaign.resourceName;
+  const campaignResourceName = campaign.resourceName;
 
   const res = await CApi.functional.connector.google_ads.ads.createAd(
     connection,

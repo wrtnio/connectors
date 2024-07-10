@@ -54,41 +54,41 @@ export namespace IGoogleAds {
 
   export interface AdGroupAd {
     /**
-     * @title 광고 그룹 광고의 아이디
-     */
-    id: `${number}`;
-
-    /**
      * @title 광고 그룹 광고의 리소스 명
      */
     resourceName: `customers/${number}/adGroupAds/${number}~${number}`;
 
     /**
-     * @title 광고의 승인 여부
-     * @description 구글에서 해당 광고가 송출되어도 무방한지 판단한 내용입니다.
+     * @title 광고 심사 및 정책에 대한 평가 내역
      */
-    approvalStatus:
-      | tags.Constant<"APPROVED", { title: "승인됨" }>
-      | tags.Constant<"APPROVED_LIMITED", { title: "제한된 승인" }>
-      | tags.Constant<
-          "AREA_OF_INTEREST_ONLY",
-          { title: "특정 영역에 대한 허용" }
-        >
-      | tags.Constant<"DISAPPROVED", { title: "비승인" }>
-      | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
-      | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
+    policySummary: {
+      /**
+       * @title 광고의 승인 여부
+       * @description 구글에서 해당 광고가 송출되어도 무방한지 판단한 내용입니다.
+       */
+      approvalStatus:
+        | tags.Constant<"APPROVED", { title: "승인됨" }>
+        | tags.Constant<"APPROVED_LIMITED", { title: "제한된 승인" }>
+        | tags.Constant<
+            "AREA_OF_INTEREST_ONLY",
+            { title: "특정 영역에 대한 허용" }
+          >
+        | tags.Constant<"DISAPPROVED", { title: "비승인" }>
+        | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
+        | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
 
-    /**
-     * @title 광고의 검토 상태
-     * @description 검토가 완료된 광고만이 승인, 비승인 여부를 알 수 있습니다.
-     */
-    reviewStatus:
-      | tags.Constant<"ELIGIBLE_MAY_SERVE", { title: "자격을 갖춤" }>
-      | tags.Constant<"REVIEWED", { title: "검토되었음" }>
-      | tags.Constant<"REVIEW_IN_PROGRESS", { title: "검토 중임" }>
-      | tags.Constant<"UNDER_APPEAL", { title: "심사 중임" }>
-      | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
-      | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
+      /**
+       * @title 광고의 검토 상태
+       * @description 검토가 완료된 광고만이 승인, 비승인 여부를 알 수 있습니다.
+       */
+      reviewStatus:
+        | tags.Constant<"ELIGIBLE_MAY_SERVE", { title: "자격을 갖춤" }>
+        | tags.Constant<"REVIEWED", { title: "검토되었음" }>
+        | tags.Constant<"REVIEW_IN_PROGRESS", { title: "검토 중임" }>
+        | tags.Constant<"UNDER_APPEAL", { title: "심사 중임" }>
+        | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
+        | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
+    };
   }
 
   /**
@@ -249,22 +249,12 @@ export namespace IGoogleAds {
   /**
    * @title 캠페인 생성 결과
    */
-  export interface ICreateCampaignsOutput {
-    /**
-     * @title 방금 생성된 캠페인 정보
-     */
-    results: IGetCampaignsOutputResult[] & tags.MaxItems<1>;
-  }
+  export type ICreateCampaignsOutput = IGetCampaignsOutputResult;
 
   /**
    * @title 캠페인 조회 결과
    */
-  export interface IGetCampaignsOutput {
-    /**
-     * @title 조회 결과
-     */
-    results: IGetCampaignsOutputResult[];
-  }
+  export type IGetCampaignsOutput = IGetCampaignsOutputResult[];
 
   /**
    * @title 캠페인 정보
@@ -305,6 +295,11 @@ export namespace IGoogleAds {
 
   export interface IGetAdGroupAdsOutputResult {
     /**
+     * @title 캠페인
+     */
+    campaign: Pick<IGoogleAds.Campaign, "resourceName" | "id" | "status">;
+
+    /**
      * @title 광고 그룹
      */
     adGroup: Pick<AdGroup, "id" | "resourceName" | "type">;
@@ -312,10 +307,7 @@ export namespace IGoogleAds {
     /**
      * @title 광고 그룹 광고의 목록
      */
-    adGroupAds: Pick<
-      AdGroupAd,
-      "id" | "resourceName" | "approvalStatus" | "reviewStatus"
-    >[];
+    adGroupAds: Pick<AdGroupAd, "resourceName" | "policySummary">[];
   }
 
   /**

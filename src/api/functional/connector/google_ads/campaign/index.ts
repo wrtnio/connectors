@@ -12,8 +12,9 @@ import typia from "typia";
 import type { IGoogleAds } from "../../../../structures/connector/google_ads/IGoogleAds";
 
 /**
- * 광고 캠페인을 생성해요
+ * 구글 고객 계정의 광고 캠페인을 생성해요
  *
+ * @summary 캠페인을 생성합니다
  * @param input 캠페인 생성 조건
  * @returns 생성된 캠페인 정보
  *
@@ -45,7 +46,7 @@ export async function createCampaign(
 }
 export namespace createCampaign {
   export type Input = Primitive<IGoogleAds.ICreateCampaignInput>;
-  export type Output = Primitive<IGoogleAds.ICreateCampaignsOutput>;
+  export type Output = Primitive<IGoogleAds.IGetCampaignsOutputResult>;
 
   export const METADATA = {
     method: "POST",
@@ -64,8 +65,8 @@ export namespace createCampaign {
   export const path = () => "/connector/google-ads/campaign";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleAds.ICreateCampaignsOutput>> =>
-    typia.random<Primitive<IGoogleAds.ICreateCampaignsOutput>>(g);
+  ): Resolved<Primitive<IGoogleAds.IGetCampaignsOutputResult>> =>
+    typia.random<Primitive<IGoogleAds.IGetCampaignsOutputResult>>(g);
   export const simulate = (
     connection: IConnection,
     input: createCampaign.Input,

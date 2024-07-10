@@ -200,7 +200,8 @@ export class GoogleAdsProvider {
       );
 
       const createdResourceName = res.data.results[0].resourceName;
-      return await this.getCampaigns(input, createdResourceName);
+      const [campaign] = await this.getCampaigns(input, createdResourceName);
+      return campaign;
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
@@ -223,7 +224,7 @@ export class GoogleAdsProvider {
         ad_group.type
       FROM ad_group
       WHERE
-        campaign.status != 'REMOVED' ${input.campaignId ? `AND campaign.id = '${input.campaignId}'` : ""}` as const;
+        campaign.status != 'REMOVED' AND ad_group.status != 'REMOVED' ${input.campaignId ? `AND campaign.id = '${input.campaignId}'` : ""}` as const;
 
       const adGroup = await this.searchStream(input.customerId, query);
       return adGroup;
@@ -246,16 +247,14 @@ export class GoogleAdsProvider {
   ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
-      const adGroups = adGroupsResult.results.map((el) => el.adGroup);
 
       const results = await Promise.all(
-        adGroups.map(async (adGroup) => {
+        adGroupsResult.results.map(async ({ campaign, adGroup }) => {
           const query = `
           SELECT
-            ad_group_ad.id,
             ad_group_ad.resource_name,
-            ad_group_ad.approval_status,
-            ad_group_ad.review_status
+            ad_group_ad.policy_summary.approval_status,
+            ad_group_ad.policy_summary.review_status
           FROM ad_group_ad 
           WHERE 
             ad_group_ad.ad_group = '${adGroup.resourceName}'
@@ -265,7 +264,7 @@ export class GoogleAdsProvider {
           const adGroupAdResult = await this.searchStream(customerId, query);
           const adGroupAds = adGroupAdResult.results.map((el) => el.adGroupAd);
 
-          return { adGroup, adGroupAds };
+          return { campaign, adGroup, adGroupAds };
         }),
       );
 
@@ -298,11 +297,7 @@ export class GoogleAdsProvider {
           WHERE campaign.status != 'REMOVED' ${resourceName ? ` AND campaign.resource_name = "${resourceName}"` : ""}` as const;
 
       const res = await this.searchStream(input.customerId, query);
-
-      return {
-        ...res,
-        results: res.results ?? [], // 구글에서는 검색 결과가 없을 경우 undefined이기 때문에 빈배열로 바꿔준다.
-      };
+      return res.results ?? [];
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
@@ -481,7 +476,7 @@ export class GoogleAdsProvider {
         },
       );
 
-      return res.data;
+      return res.data.results ? res.data : { results: [] };
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

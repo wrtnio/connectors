@@ -5,7 +5,8 @@
  */
 //================================================================
 export * as generateKeywordIdeas from "./generateKeywordIdeas";
-export * as get_campaigns from "./get_campaigns";
-export * as ads from "./ads";
-export * as campaign from "./campaign";
 export * as get_customers from "./get_customers";
+export * as get_campaigns from "./get_campaigns";
+export * as get_ads from "./get_ads";
+export * as campaign from "./campaign";
+export * as ads from "./ads";
