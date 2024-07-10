@@ -244,7 +244,7 @@ export class GoogleDocsController {
     /**
      * 가져올 docs 파일을 선택해 주세요.
      *
-     * @title 가져올 docs 파일
+     * @summary 가져올 docs 파일
      */
     @core.TypedParam("id")
     id: string,
@@ -408,7 +408,7 @@ export class GoogleDocsController {
     /**
      * 삭제할 docs 파일을 선택해 주세요.
      *
-     * @title 삭제할 docs 파일
+     * @summary 삭제할 docs 파일
      */
     @core.TypedParam("id")
     id: string,

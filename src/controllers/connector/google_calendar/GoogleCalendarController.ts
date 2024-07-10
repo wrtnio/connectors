@@ -252,7 +252,7 @@ export class GoogleCalendarController {
     /**
      * 삭제할 캘린더를 선택해주세요.
      *
-     * @title 삭제할 캘린더
+     * @summary 삭제할 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -349,7 +349,7 @@ export class GoogleCalendarController {
     /**
      * 이벤트 목록을 가져올 캘린더를 선택해주세요.
      *
-     * @title 이벤트 목록을 가져올 캘린더
+     * @summary 이벤트 목록을 가져올 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -443,7 +443,7 @@ export class GoogleCalendarController {
     /**
      * 빠른 이벤트를 추가할 캘린더를 선택해주세요.
      *
-     * @title 이벤트를 추가할 캘린더
+     * @summary 이벤트를 추가할 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -539,7 +539,7 @@ export class GoogleCalendarController {
     /**
      * 이벤트를 추가할 캘린더를 선택해주세요.
      *
-     * @title 이벤트를 추가할 캘린더
+     * @summary 이벤트를 추가할 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -637,7 +637,7 @@ export class GoogleCalendarController {
     /**
      * 이벤트를 수정할 캘린더를 선택해주세요.
      *
-     * @title 이벤트를 수정할 캘린더
+     * @summary 이벤트를 수정할 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -651,7 +651,7 @@ export class GoogleCalendarController {
     /**
      * 수정할 이벤트를 선택해주세요.
      *
-     * @title 수정할 이벤트
+     * @summary 수정할 이벤트
      */
     @core.TypedParam("eventId")
     eventId: string,
@@ -749,7 +749,7 @@ export class GoogleCalendarController {
     /**
      * 참석자를 추가할 캘린더를 선택해주세요.
      *
-     * @title 참석자를 추가할 캘린더
+     * @summary 참석자를 추가할 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -763,7 +763,7 @@ export class GoogleCalendarController {
     /**
      * 참석자를 추가할 이벤트를 선택해주세요.
      *
-     * @title 참석자를 추가할 이벤트
+     * @summary 참석자를 추가할 이벤트
      */
     @core.TypedParam("eventId")
     eventId: string,
@@ -861,7 +861,7 @@ export class GoogleCalendarController {
     /**
      * 이벤트를 삭제할 캘린더를 선택해주세요.
      *
-     * @title 이벤트를 삭제할 캘린더
+     * @summary 이벤트를 삭제할 캘린더
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -875,7 +875,7 @@ export class GoogleCalendarController {
     /**
      * 삭제할 이벤트를 선택해주세요.
      *
-     * @title 삭제할 이벤트
+     * @summary 삭제할 이벤트
      */
     @core.TypedParam("eventId")
     eventId: string,
