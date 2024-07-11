@@ -7,7 +7,6 @@ import { TypedSplit } from "../../../utils/TypedSplit";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
-import { Typing } from "../../../utils/types/Typing";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 
 @Injectable()
@@ -547,29 +546,30 @@ export class GoogleAdsProvider {
       `SELECT customer_client.resource_name, customer_client.id, customer_client.descriptive_name, customer_client.currency_code FROM customer_client`,
     );
 
-    type TypeMapper = Typing<
-      typeof res,
-      [
-        [
-          "results[*].customerClient.resourceName", // 이 위치에 있는 타입을
-          `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
-        ],
-        [
-          "results[*].customerClient.id",
-          `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
-        ],
-        [
-          "results[*].customerClient.descriptiveName",
-          string | undefined, // 이름이 없는 경우에는 키 자체가 존재하지 않을 수도 있다.
-        ],
-        [
-          "results[*].customerClient.currencyCode",
-          string, // 통화 단위
-        ],
-      ]
-    >;
+    // type TypeMapper = Typing<
+    //   typeof res,
+    //   [
+    //     [
+    //       "results[*].customerClient.resourceName", // 이 위치에 있는 타입을
+    //       `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
+    //     ],
+    //     [
+    //       "results[*].customerClient.id",
+    //       `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
+    //     ],
+    //     [
+    //       "results[*].customerClient.descriptiveName",
+    //       string | undefined, // 이름이 없는 경우에는 키 자체가 존재하지 않을 수도 있다.
+    //     ],
+    //     [
+    //       "results[*].customerClient.currencyCode",
+    //       string, // 통화 단위
+    //     ],
+    //   ]
+    // >;
 
-    return typia.assert<TypeMapper>(res);
+    // const response = typia.assert<TypeMapper>(res);
+    return res;
   }
 
   private async getHeaders() {

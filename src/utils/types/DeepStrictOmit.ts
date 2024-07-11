@@ -18,19 +18,19 @@ type __DeepStrictOmit<T extends object, K extends DeepStrictObjectKeys<T>> = {
           >
       : never
     : T[key] extends Array<infer Element>
-    ? Array<Element>
-    : T[key] extends object
-    ? key extends string
-      ? T[key] extends Date
-        ? T[key]
-        : __DeepStrictOmit<
-            T[key],
-            GetElementMember<K, key> extends DeepStrictObjectKeys<T[key]>
-              ? GetElementMember<K, key>
-              : never
-          >
-      : never
-    : T[key];
+      ? Array<Element>
+      : T[key] extends object
+        ? key extends string
+          ? T[key] extends Date
+            ? T[key]
+            : __DeepStrictOmit<
+                T[key],
+                GetElementMember<K, key> extends DeepStrictObjectKeys<T[key]>
+                  ? GetElementMember<K, key>
+                  : never
+              >
+          : never
+        : T[key];
 };
 
 /**
@@ -46,13 +46,14 @@ type __DeepStrictOmit<T extends object, K extends DeepStrictObjectKeys<T>> = {
 export type DeepStrictOmit<
   T extends object,
   K extends DeepStrictObjectKeys<T>,
-> = T extends Array<infer Element extends object>
-  ? Array<
-      DeepStrictOmit<
-        Element,
-        GetElementMember<K, ""> extends DeepStrictObjectKeys<Element>
-          ? GetElementMember<K, "">
-          : never
+> =
+  T extends Array<infer Element extends object>
+    ? Array<
+        DeepStrictOmit<
+          Element,
+          GetElementMember<K, ""> extends DeepStrictObjectKeys<Element>
+            ? GetElementMember<K, "">
+            : never
+        >
       >
-    >
-  : __DeepStrictOmit<T, K>;
+    : __DeepStrictOmit<T, K>;
