@@ -1,4 +1,5 @@
 import { DynamicExecutor } from "@nestia/e2e";
+import chalk from "chalk";
 
 import CApi from "@wrtn/connector-api";
 
@@ -7,7 +8,6 @@ import { ConnectorConfiguration } from "../src/ConnectorConfiguration";
 import { ArgumentParser } from "./helpers/ArgumentParser";
 import { OpenAIMock } from "./helpers/OpenAIMock";
 import { FakeS3Server } from "./servers/FakeS3Server";
-
 interface IOptions {
   include?: string[];
   exclude?: string[];
@@ -64,6 +64,7 @@ async function main(): Promise<void> {
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",
+    location: __dirname + "/features",
     parameters: () => [
       {
         host: connection.host,
@@ -75,13 +76,24 @@ async function main(): Promise<void> {
         (options.include ?? []).some((str) => func.includes(str))) &&
       (!options.exclude?.length ||
         (options.exclude ?? []).every((str) => !func.includes(str))),
-  })(__dirname + "/features");
+    onComplete: (exec) => {
+      const trace = (str: string) =>
+        console.log(`  - ${chalk.green(exec.name)}: ${str}`);
+      if (exec.error === null) {
+        const elapsed: number =
+          new Date(exec.completed_at).getTime() -
+          new Date(exec.started_at).getTime();
+        trace(`${chalk.yellow(elapsed.toLocaleString())} ms`);
+      } else trace(chalk.red(exec.error.name));
+    },
+  });
 
   await storage.close();
   await backend.close();
 
-  const failures: DynamicExecutor.IReport.IExecution[] =
-    report.executions.filter((exec) => exec.error !== null);
+  const failures: DynamicExecutor.IExecution[] = report.executions.filter(
+    (exec) => exec.error !== null,
+  );
   if (failures.length === 0) {
     console.log("Success");
     console.log("Elapsed time", report.time.toLocaleString(), `ms`);
