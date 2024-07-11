@@ -245,9 +245,8 @@ export class NotionController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 내용을 추가할 페이지를 선택해 주세요.
-     *
-     * @summary 내용을 추가할 페이지
+     * @title 내용을 추가할 페이지
+     * @description 내용을 추가할 페이지를 선택해 주세요.
      */
     @core.TypedParam("pageId")
     pageId: string,
@@ -376,9 +375,8 @@ export class NotionController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     *정보를 받아올 데이터베이스를 선택해 주세요.
-     *
-     * @summary 정보를 받아올 데이터베이스
+     * @title 정보를 받아올 데이터베이스
+     * @description 정보를 받아올 데이터베이스를 선택해 주세요.
      */
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -450,9 +448,8 @@ export class NotionController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 아이템을 추가할 데이터베이스를 선택해 주세요.
-     *
-     * @summary 아이템을 추가할 데이터베이스
+     * @title 아이템을 추가할 데이터베이스
+     * @description 아이템을 추가할 데이터베이스를 선택해 주세요.
      */
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -524,9 +521,8 @@ export class NotionController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 아이템을 수정할 데이터베이스를 선택해 주세요.
-     *
-     * @summary 아이템을 수정할 데이터베이스
+     * @title 아이템을 수정할 데이터베이스
+     * @description 아이템을 수정할 데이터베이스를 선택해 주세요.
      */
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -656,9 +652,8 @@ export class NotionController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 아이템 목록을 가져올 데이터베이스를 선택해 주세요.
-     *
-     * @summary 아이템 목록을 가져올 데이터베이스
+     * @title 아이템 목록을 가져올 데이터베이스
+     * @description 아이템 목록을 가져올 데이터베이스를 선택해 주세요.
      */
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -732,9 +727,8 @@ export class NotionController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 아이템 정보를 가져올 데이터베이스를 선택해 주세요.
-     *
-     * @summary 아이템 정보를 가져올 데이터베이스
+     * @title 아이템 정보를 가져올 데이터베이스
+     * @description 아이템 정보를 가져올 데이터베이스를 선택해 주세요.
      */
     @core.TypedParam("databaseId")
     databaseId: string,

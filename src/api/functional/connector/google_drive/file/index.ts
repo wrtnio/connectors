@@ -16,8 +16,8 @@ export * as text from "./text";
 /**
  * 구글 드라이브에 새로운 파일을 생성합니다.
  *
- * @summary 구글 드라이브 파일 생성.
  * @param input 생성할 파일명과 파일을 생성할 폴더 고유 ID.
+ * @summary 구글 드라이브 파일 생성.
  * @returns 생성된 파일 고유 ID.
  * @tag Google-Drive
  * @tag 구글 드라이브
@@ -173,8 +173,8 @@ export namespace createFile {
 /**
  * 구글 드라이브에 있는 파일을 삭제합니다.
  *
- * @summary 구글 드라이브 파일 삭제.
  * @param id 삭제할 파일 고유 ID.
+ * @summary 구글 드라이브 파일 삭제.
  * @tag Google-Drive
  * @tag 구글 드라이브
  * @tag 드라이브

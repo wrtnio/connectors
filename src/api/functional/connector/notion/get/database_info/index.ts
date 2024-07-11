@@ -126,8 +126,8 @@ export namespace getDatabaseListInfo {
 /**
  * 데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.
  *
- * @summary 데이터베이스 정보 조회
  * @param databaseId 데이터베이스 고유 id
+ * @summary 데이터베이스 정보 조회
  * @returns 데이터베이스 정보
  * @tag Notion
  * @tag 노션

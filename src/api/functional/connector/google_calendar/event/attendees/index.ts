@@ -14,10 +14,10 @@ import type { IGoogleCalendar } from "../../../../../structures/connector/google
 /**
  * 이벤트에 참석자를 추가합니다.
  *
- * @summary 구글 캘린더 이벤트 참석자 추가.
  * @param calendarId 이벤트가 있는 캘린더 고유 ID.
  * @param eventId 참석자를 추가할 이벤트 고유 ID.
  * @param input 추가할 참석자 이메일 목록.
+ * @summary 구글 캘린더 이벤트 참석자 추가.
  * @returns 참석자가 추가된 이벤트 정보.
  * @tag Google-Calendar
  * @tag 구글 캘린더

@@ -18,8 +18,8 @@ export * as get_list from "./get_list";
 /**
  * 구글 docs를 생성합니다.
  *
- * @summary 구글 docs 생성.
  * @param input 생성할 구글 docs 제목.
+ * @summary 구글 docs 생성.
  * @returns 생성된 구글 docs 고유 ID.
  * @tag Google-Docs
  * @tag 구글 닥스
@@ -148,8 +148,8 @@ export namespace createDocs {
 /**
  * 구글 docs에 권한을 부여합니다.
  *
- * @summary 구글 docs 권한 부여.
  * @param input 구글 docs 권한 부여를 위한 정보.
+ * @summary 구글 docs 권한 부여.
  * @tag Google-Docs
  * @tag 구글 닥스
  * @tag 구글 닥
@@ -275,8 +275,8 @@ export namespace permission {
 /**
  * 구글 docs를 삭제합니다.
  *
- * @summary 구글 docs 삭제.
  * @param id 삭제할 구글 docs 고유 ID.
+ * @summary 구글 docs 삭제.
  * @tag Google-Docs
  * @tag 구글 닥스
  * @tag 구글 닥

@@ -14,9 +14,9 @@ import type { INotion } from "../../../../structures/connector/notion/INotion";
 /**
  * 테이블 데이터베이스에 존재하는 아이템을 조회합니다.
  *
- * @summary 데이터베이스 아이템 조회
  * @param input 데이터베이스 아이템 조회에 필요한 정보
  * @param databaseId 데이터베이스 고유 id
+ * @summary 데이터베이스 아이템 조회
  * @returns 조회된 데이터베이스 아이템 정보
  * @tag Notion
  * @tag 노션

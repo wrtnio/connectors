@@ -14,8 +14,8 @@ import type { IGoogleSearch } from "../../../../structures/connector/google_sear
 /**
  * 점핏에서 채용 공고를 검색합니다.
  *
- * @summary 점핏 채용 공고 검색
  * @param input 검색 조건
+ * @summary 점핏 채용 공고 검색
  * @returns 점핏 채용 공고 검색 결과
  *
  * @controller GoogleSearchController.searchForJumpit

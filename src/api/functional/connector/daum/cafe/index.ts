@@ -14,8 +14,8 @@ import type { IDaum } from "../../../../structures/connector/daum/IDaum";
 /**
  * 다음 카페 컨텐츠를 검색합니다.
  *
- * @summary 다음 카페 검색
  * @param input 다음 카페 검색을 위한 조건
+ * @summary 다음 카페 검색
  * @tag Daum 다음 포털 사이트
  * @tag 다음 카페
  * @tag 카페

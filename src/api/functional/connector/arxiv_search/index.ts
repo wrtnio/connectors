@@ -14,8 +14,8 @@ import type { IConnector } from "../../../structures/common/IConnector";
 /**
  * 입력한 검색 조건을 기반으로 아카이브에서 논문을 검색합니다.
  *
- * @summary 아카이브 논문 검색
  * @param input 아카이브 논문 검색 조건
+ * @summary 아카이브 논문 검색
  * @returns 검색 조건을 기반으로 아카이브에서 검색된 논문 목록.
  * @tag Arxiv
  * @tag 아카이브

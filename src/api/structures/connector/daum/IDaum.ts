@@ -120,7 +120,7 @@ export namespace IDaum {
        *
        * @title 썸네일 이미지 URL
        */
-      thumbnail: string;
+      thumbnail: string & tags.ContentMediaType<"image/*">;
 
       /**
        * 검색된 문서가 작성된 시간입니다.
@@ -192,7 +192,7 @@ export namespace IDaum {
        *
        * @title 썸네일 이미지 URL
        */
-      thumbnail: string;
+      thumbnail: string & tags.ContentMediaType<"image/*">;
 
       /**
        * 검색된 문서가 작성된 시간입니다.

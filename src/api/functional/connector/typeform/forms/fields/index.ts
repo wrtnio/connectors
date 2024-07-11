@@ -14,8 +14,8 @@ import type { ITypeform } from "../../../../../structures/connector/typeform/ITy
 /**
  * 랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트 할 폼의 필드 정보 가져오기.
  *
- * @summary 타입폼 업데이트 할 폼의 필드 정보 가져오기.
  * @param formId 업데이트 할 폼의 ID.
+ * @summary 타입폼 업데이트 할 폼의 필드 정보 가져오기.
  * @returns 폼의 필드 ID와 필드명.
  * @tag Typeform
  * @tag 타입폼

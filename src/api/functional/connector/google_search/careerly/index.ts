@@ -14,8 +14,8 @@ import type { IGoogleSearch } from "../../../../structures/connector/google_sear
 /**
  * 커리어리에서 게시물을 검색합니다.
  *
- * @summary 커리어리 검색
  * @param input 검색 조건
+ * @summary 커리어리 검색
  * @returns 커리어리 게시물 검색 결과
  *
  * @controller GoogleSearchController.searchForCareerly

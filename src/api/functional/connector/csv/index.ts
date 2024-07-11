@@ -16,8 +16,8 @@ export * as csv_to_excel from "./csv_to_excel";
 /**
  * CSV 파일 내용을 읽어옵니다.
  *
- * @summary CSV 파일 읽기
  * @param input CSV 파일을 읽어 오기 위한 정보
+ * @summary CSV 파일 읽기
  * @returns CSV 파일 내용.
  * @tag CSV 텍스트 파일 형식
  * @tag CSV
@@ -140,8 +140,8 @@ export namespace read {
 /**
  * CSV 파일을 생성합니다.
  *
- * @summary CSV 파일 생성
  * @param input CSV 파일을 생성하기 위한 정보
+ * @summary CSV 파일 생성
  * @tag CSV
  * @tag 파일
  * @tag 내보내기

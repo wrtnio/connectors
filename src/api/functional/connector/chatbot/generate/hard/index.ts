@@ -14,8 +14,8 @@ import type { IChatbot } from "../../../../../structures/connector/chatbot/IChat
 /**
  * 어려움 난이도로 제작된 챗봇을 사용합니다.
  *
- * @summary 난이도 어려움 챗봇 사용
  * @param input 어려움 난이도로 제작된 챗봇을 사용하기 위한 정보
+ * @summary 난이도 어려움 챗봇 사용
  * @returns 챗봇의 답변
  * @tag Chatbot
  *

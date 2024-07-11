@@ -14,8 +14,8 @@ import type { IKakaoNavi } from "../../../../structures/connector/kakao_navi/IKa
 /**
  * 카카오 네비로 길을 찾습니다.
  *
- * @summary 카카오 네비 길찾기
  * @param input 요청 조건
+ * @summary 카카오 네비 길찾기
  * @returns 길 찾기 결과
  *
  * @controller KakaoNaviController.getFutureDirections

@@ -15,9 +15,9 @@ import type { IFigma } from "../../../../structures/connector/figma/IFigma";
 /**
  * 피그마 댓글들을 가져옵니다.
  *
+ * @param input 댓글을 가져오기 위한 조건 값.
  * @summary 피그마 댓글 가져오기.
  * @returns 피그마 댓글 목록.
- * @param input 댓글을 가져오기 위한 조건 값.
  * @tag figma
  *
  * @controller FigmaController.readComments

@@ -14,8 +14,8 @@ import type { IGmail } from "../../../../structures/connector/gmail/IGmail";
 /**
  * 메일 리스트를 가져옵니다.
  *
- * @summary GMAIL 리스트 가져오기.
  * @param input 메일 리스트를 가져오기 위한 정보.
+ * @summary GMAIL 리스트 가져오기.
  * @returns 메일 리스트.
  * @tag Gmail
  * @tag 지메일

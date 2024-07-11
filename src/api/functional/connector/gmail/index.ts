@@ -18,8 +18,8 @@ export * as label from "./label";
 /**
  * 메일을 전송합니다.
  *
- * @summary GMAIL 전송.
  * @param input 메일을 보내기 위해 필요한 정보.
+ * @summary GMAIL 전송.
  * @returns 전송된 메일의 ID.
  * @tag Gmail
  * @tag 지메일
@@ -145,8 +145,8 @@ export namespace send {
 /**
  * 메일 초안을 생성 합니다.
  *
- * @summary GMAIL 초안 생성.
  * @param input 메일 초안을 생성하기 위한 정보.
+ * @summary GMAIL 초안 생성.
  * @tag Gmail
  * @tag 지메일
  * @tag 이메일
@@ -269,8 +269,8 @@ export namespace draft {
 /**
  * 수신된 메일에 답장을 보냅니다.
  *
- * @summary GMAIL 답장.
  * @param input 메일 답장에 필요한 정보.
+ * @summary GMAIL 답장.
  * @tag Gmail
  * @tag 지메일
  * @tag 이메일
@@ -397,8 +397,8 @@ export namespace reply {
 /**
  * 메일을 삭제합니다.
  *
- * @summary GMAIL 삭제.
  * @param id 삭제할 메일의 고유 ID.
+ * @summary GMAIL 삭제.
  * @tag Gmail
  * @tag 지메일
  * @tag 이메일

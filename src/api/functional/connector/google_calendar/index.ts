@@ -19,8 +19,8 @@ export * as event from "./event";
 /**
  * 구글 캘린더를 생성합니다.
  *
- * @summary 구글 캘린더 생성.
  * @param input 생성할 캘린더 제목.
+ * @summary 구글 캘린더 생성.
  * @returns 캘린더 고유 ID와 캘린더 제목.
  * @tag Google-Calendar
  * @tag 구글 캘린더
@@ -151,8 +151,8 @@ export namespace createCalendar {
 /**
  * 캘린더를 삭제합니다.
  *
- * @summary 구글 캘린더 삭제.
  * @param calendarId 삭제할 캘린더 고유 ID.
+ * @summary 구글 캘린더 삭제.
  * @tag Google-Calendar
  * @tag 구글 캘린더
  * @tag 캘린더

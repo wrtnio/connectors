@@ -14,8 +14,8 @@ import type { IGoogleDrive } from "../../../../structures/connector/google_drive
 /**
  * 구글 드라이브에 새로운 폴더를 생성합니다.
  *
- * @summary 구글 드라이브 폴더 생성.
  * @param input 생성할 폴더 이름.
+ * @summary 구글 드라이브 폴더 생성.
  * @returns 생성된 폴더 고유 ID.
  * @tag Google-Drive
  * @tag 구글 드라이브
@@ -171,8 +171,8 @@ export namespace createFolder {
 /**
  * 구글 드라이브에 있는 폴더를 삭제합니다.
  *
- * @summary 구글 드라이브 폴더 삭제.
  * @param id 삭제할 폴더 고유 ID.
+ * @summary 구글 드라이브 폴더 삭제.
  * @tag Google-Drive
  * @tag 구글 드라이브
  * @tag 드라이브

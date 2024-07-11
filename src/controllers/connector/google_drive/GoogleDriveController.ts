@@ -530,9 +530,8 @@ export class GoogleDriveController {
       label: (elem): string => elem?.name ?? "",
     })
     /**
-     * 삭제할 파일을 선택해 주세요.
-     *
-     * @summary 삭제할 파일
+     * @title 삭제할 파일
+     * @description 삭제할 파일을 선택해 주세요.
      */
     @core.TypedParam("id")
     id: string,
@@ -646,9 +645,8 @@ export class GoogleDriveController {
       label: (elem): string => elem?.name ?? "",
     })
     /**
-     * 삭제할 폴더를 선택해 주세요.
-     *
-     * @summary 삭제할 폴더
+     * @title 삭제할 폴더
+     * @description 삭제할 폴더를 선택해 주세요.
      */
     @core.TypedParam("id")
     id: string,
@@ -865,9 +863,8 @@ export class GoogleDriveController {
       label: (elem): string => elem?.name ?? "",
     })
     /**
-     * 텍스트를 추가할 파일을 선택해 주세요.
-     *
-     * @summary 텍스트를 추가할 파일
+     * @title 텍스트를 추가할 파일
+     * @description 텍스트를 추가할 파일을 선택해 주세요.
      */
     @core.TypedParam("id")
     id: string,
@@ -981,6 +978,10 @@ export class GoogleDriveController {
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
+    /**
+     * @title 읽어올 파일
+     * @description 읽어올 파일을 선택해 주세요.
+     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()

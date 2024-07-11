@@ -21,8 +21,8 @@ export * as yes_twenty_four from "./yes_twenty_four";
 /**
  * 상품을 무신사에서 검색합니다.
  *
- * @summary 무신사 검색
  * @param input 검색 조건
+ * @summary 무신사 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.musinsa
@@ -96,8 +96,8 @@ export namespace musinsa {
 /**
  * 상품을 OCO에서 검색합니다.
  *
- * @summary OCO 검색
  * @param input 검색 조건
+ * @summary OCO 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.oco
@@ -171,8 +171,8 @@ export namespace oco {
 /**
  * 상품을 유니클로에서 검색합니다.
  *
- * @summary 유니클로 검색
  * @param input 검색 조건
+ * @summary 유니클로 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.uniqlo
@@ -246,8 +246,8 @@ export namespace uniqlo {
 /**
  * 상품을 쿠팡에서 검색합니다.
  *
- * @summary 쿠팡 검색
  * @param input 검색 조건
+ * @summary 쿠팡 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.coupang
@@ -321,8 +321,8 @@ export namespace coupang {
 /**
  * 상품을 아이허브에서 검색합니다.
  *
- * @summary 아이허브 검색
  * @param input 검색 조건
+ * @summary 아이허브 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.iherb
@@ -396,8 +396,8 @@ export namespace iherb {
 /**
  * 상품을 알라딘에서 검색합니다.
  *
- * @summary 알라딘 검색
  * @param input 검색 조건
+ * @summary 알라딘 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.aladine

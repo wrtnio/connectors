@@ -32,6 +32,6 @@ export namespace IDallE3 {
      *
      * @title 생성된 이미지 Url
      */
-    imgUrl: string & tags.Format<"uri">;
+    imgUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }
 }

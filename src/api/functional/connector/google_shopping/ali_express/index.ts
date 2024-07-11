@@ -14,8 +14,8 @@ import type { IGoogleShopping } from "../../../../structures/connector/google_sh
 /**
  * 상품을 알리 익스프레스에서 검색합니다.
  *
- * @summary 알리 익스프레스 검색
  * @param input 검색 조건
+ * @summary 알리 익스프레스 검색
  * @returns 검색 결과
  *
  * @controller GoogleShoppingController.aliExpress

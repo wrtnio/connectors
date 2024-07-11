@@ -16,9 +16,9 @@ export * as attendees from "./attendees";
 /**
  * 구글 캘린더에 이벤트를 추가합니다.
  *
- * @summary 구글 캘린더 이벤트 추가.
  * @param calendarId 이벤트를 추가할 캘린더 고유 ID.
  * @param input 이벤트 추가를 위한 정보.
+ * @summary 구글 캘린더 이벤트 추가.
  * @returns 추가한 이벤트 정보.
  * @tag Google-Calendar
  * @tag 구글 캘린더
@@ -153,10 +153,10 @@ export namespace createEvent {
 /**
  * 이벤트를 수정합니다.
  *
- * @summary 구글 캘린더 이벤트 수정.
  * @param calendarId 이벤트가 있는 캘린더 고유 ID.
  * @param eventId 수정할 이벤트 고유 ID.
  * @param input 업데이트 할 이벤트 정보.
+ * @summary 구글 캘린더 이벤트 수정.
  * @returns 업데이트 된 이벤트 정보.
  * @tag Google-Calendar
  * @tag 구글 캘린더
@@ -294,9 +294,9 @@ export namespace updateEvent {
 /**
  * 이벤트를 삭제합니다.
  *
- * @summary 구글 캘린더 이벤트 삭제.
  * @param calendarId 이벤트가 있는 캘린더 고유 ID.
  * @param eventId 삭제할 이벤트 고유 ID.
+ * @summary 구글 캘린더 이벤트 삭제.
  * @tag Google-Calendar
  * @tag 구글 캘린더
  * @tag 캘린더

@@ -15,8 +15,6 @@ import type { ITool } from "../../../../structures/connector/tool/ITool";
  * 툴을 사용합니다.
  *
  * @summary 툴 사용
- * @param id
- * @param input
  * @tag Tool
  *
  * @controller ToolController.generateTool

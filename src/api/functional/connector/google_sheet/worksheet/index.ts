@@ -14,8 +14,8 @@ import type { IGoogleSheet } from "../../../../structures/connector/google_sheet
 /**
  * 구글 워크시트 목록을 가져옵니다.
  *
- * @summary 구글 시트 워크시트 목록 가져오기.
  * @param input 워크시트 목록을 가져올 구글 시트 url.
+ * @summary 구글 시트 워크시트 목록 가져오기.
  * @tag Google-Sheet
  * @tag 구글 시트
  * @tag 스프레드 시트

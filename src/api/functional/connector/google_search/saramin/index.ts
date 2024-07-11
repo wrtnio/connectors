@@ -14,8 +14,8 @@ import type { IGoogleSearch } from "../../../../structures/connector/google_sear
 /**
  * 사람인에서 채용 공고를 검색합니다.
  *
- * @summary 사람인 채용 공고 검색
  * @param input 검색 조건
+ * @summary 사람인 채용 공고 검색
  * @returns 사람인 채용 공고 검색 결과
  *
  * @controller GoogleSearchController.searchForSaramin

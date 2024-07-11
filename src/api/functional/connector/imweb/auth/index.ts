@@ -14,8 +14,8 @@ import type { IImweb } from "../../../../structures/connector/imweb/IImweb";
 /**
  * 아임웹 액세스 토큰 발급.
  *
- * @internal
  * @param input 액세스 토큰 발급을 위한 요청 DTO.
+ * @internal
  * @returns 액세스 토큰을 담은 응답 DTO.
  *
  * @controller ImwebController.authorization

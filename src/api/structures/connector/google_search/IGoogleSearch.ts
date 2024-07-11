@@ -57,6 +57,6 @@ export namespace IGoogleSearch {
     /**
      * @title 검색 결과 thumbnail
      */
-    thumbnail?: string & tags.Format<"uri">;
+    thumbnail?: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }
 }

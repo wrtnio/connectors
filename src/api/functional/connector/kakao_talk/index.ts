@@ -22,8 +22,8 @@ export * as auth from "./auth";
 /**
  * 카카오톡 액세스 토큰 갱신.
  *
- * @internal
  * @param input Refresh를 위한 요청 DTO.
+ * @internal
  *
  * @controller KakaoTalkController.refresh
  * @path POST /connector/kakao-talk/refresh

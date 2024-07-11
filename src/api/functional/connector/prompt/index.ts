@@ -14,8 +14,8 @@ import type { IPrompt } from "../../../structures/connector/prompt/IPrompt";
 /**
  * LLM에게 지시할 요청사항을 입력합니다.
  *
- * @summary 프롬프트 노드
  * @param input 유저의 프롬프트 입력
+ * @summary 프롬프트 노드
  * @returns 프롬프트를 통한 답변
  *
  * @controller PromptController.generate

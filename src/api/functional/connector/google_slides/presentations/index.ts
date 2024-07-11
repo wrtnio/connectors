@@ -17,8 +17,8 @@ export * as image_slide from "./image_slide";
 /**
  * Google Slides 프레젠테이션을 생성합니다.
  *
- * @summary Google Slides 프레젠테이션 생성.
  * @param input 프레젠테이션을 만들기 위한 조건 DTO.
+ * @summary Google Slides 프레젠테이션 생성.
  * @returns 생성된 프레젠테이션 정보 DTO.
  *
  * @controller GoogleSlidesController.createPresentation

@@ -20,8 +20,8 @@ export * as careerly from "./careerly";
 /**
  * 입력한 검색어를 구글에서 검색합니다.
  *
- * @summary 구글 검색
  * @param input 구글 검색 조건
+ * @summary 구글 검색
  * @returns 구글 검색 결과
  *
  * @controller GoogleSearchController.search

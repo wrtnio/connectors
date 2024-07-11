@@ -14,8 +14,8 @@ import type { IKakaoTalk } from "../../../../structures/connector/kakao_talk/IKa
 /**
  * 카카오톡 캘린더 일정을 조회합니다.
  *
- * @summary 카카오톡 캘린더 일정 조회.
  * @param input 일정 조회를 위한 DTO.
+ * @summary 카카오톡 캘린더 일정 조회.
  * @returns 일정 정보 DTO.
  * @tag 카카오톡
  *

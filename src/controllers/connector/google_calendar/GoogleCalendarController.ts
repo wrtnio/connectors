@@ -250,9 +250,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 삭제할 캘린더를 선택해주세요.
-     *
-     * @summary 삭제할 캘린더
+     * @title 삭제할 캘린더
+     * @description 삭제할 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -347,9 +346,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 이벤트 목록을 가져올 캘린더를 선택해주세요.
-     *
-     * @summary 이벤트 목록을 가져올 캘린더
+     * @title 이벤트 목록을 가져올 캘린더
+     * @description 이벤트 목록을 가져올 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -441,9 +439,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 빠른 이벤트를 추가할 캘린더를 선택해주세요.
-     *
-     * @summary 이벤트를 추가할 캘린더
+     * @title 이벤트를 추가할 캘린더
+     * @description 빠른 이벤트를 추가할 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -537,9 +534,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 이벤트를 추가할 캘린더를 선택해주세요.
-     *
-     * @summary 이벤트를 추가할 캘린더
+     * @title 이벤트를 추가할 캘린더
+     * @description 이벤트를 추가할 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -635,9 +631,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 이벤트를 수정할 캘린더를 선택해주세요.
-     *
-     * @summary 이벤트를 수정할 캘린더
+     * @title 이벤트를 수정할 캘린더
+     * @description 이벤트를 수정할 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -649,9 +644,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 수정할 이벤트를 선택해주세요.
-     *
-     * @summary 수정할 이벤트
+     * @title 수정할 이벤트
+     * @description 수정할 이벤트를 선택해주세요.
      */
     @core.TypedParam("eventId")
     eventId: string,
@@ -747,9 +741,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 참석자를 추가할 캘린더를 선택해주세요.
-     *
-     * @summary 참석자를 추가할 캘린더
+     * @title 참석자를 추가할 캘린더
+     * @description 참석자를 추가할 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -859,9 +852,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.summary ?? "",
     })
     /**
-     * 이벤트를 삭제할 캘린더를 선택해주세요.
-     *
-     * @summary 이벤트를 삭제할 캘린더
+     * @title 이벤트를 삭제할 캘린더
+     * @description 이벤트를 삭제할 캘린더를 선택해주세요.
      */
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -873,9 +865,8 @@ export class GoogleCalendarController {
       label: (elem) => elem.title ?? "",
     })
     /**
-     * 삭제할 이벤트를 선택해주세요.
-     *
-     * @summary 삭제할 이벤트
+     * @title 삭제할 이벤트
+     * @description 삭제할 이벤트를 선택해주세요.
      */
     @core.TypedParam("eventId")
     eventId: string,

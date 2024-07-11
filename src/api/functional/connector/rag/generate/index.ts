@@ -17,7 +17,6 @@ export * as sse from "./sse";
  * RAG 분석을 기반으로 채팅을 합니다.
  *
  * @summary RAG 기반 채팅.
- * @param input
  * @tag RAG
  *
  * @controller RagController.generateChat

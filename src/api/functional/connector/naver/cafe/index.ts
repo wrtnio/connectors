@@ -14,8 +14,8 @@ import type { INaver } from "../../../../structures/connector/naver/INaver";
 /**
  * 네이버 카페 컨텐츠를 검색합니다.
  *
- * @summary 네이버 카페 검색
  * @param input 네이버 카페 검색을 위한 조건
+ * @summary 네이버 카페 검색
  * @tag Naver 네이버 포털 사이트
  * @tag 네이버 카페
  * @tag 카페
