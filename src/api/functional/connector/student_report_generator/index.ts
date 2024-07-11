@@ -19,8 +19,8 @@ export * as row from "./row";
 /**
  * 입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.
  *
- * @summary 학생 생활 기록부 생성
  * @param input 학생 생활 기록부 생성을 위한 정보.
+ * @summary 학생 생활 기록부 생성
  * @returns 생성된 학생 생활 기록부.
  *
  * @controller StudentReportGeneratorController.generate

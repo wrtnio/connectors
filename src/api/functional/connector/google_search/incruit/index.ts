@@ -14,8 +14,8 @@ import type { IGoogleSearch } from "../../../../structures/connector/google_sear
 /**
  * 인크루트에서 채용 공고를 검색합니다.
  *
- * @summary 인크루트 채용 공고 검색
  * @param input 검색 조건
+ * @summary 인크루트 채용 공고 검색
  * @returns 인크루트 채용 공고 검색 결과
  *
  * @controller GoogleSearchController.searchForIncruit

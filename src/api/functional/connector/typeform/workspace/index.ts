@@ -14,8 +14,8 @@ import type { ITypeform } from "../../../../structures/connector/typeform/ITypef
 /**
  * 워크스페이스를 생성합니다.
  *
- * @summary 타입폼 워크스페이스 생성.
  * @param input 생성할 워크스페이스 제목.
+ * @summary 타입폼 워크스페이스 생성.
  * @returns 생성된 워크스페이스 ID, 제목, URL.
  * @tag Typeform
  * @tag 타입폼
@@ -137,8 +137,8 @@ export namespace createWorkspace {
 /**
  * 워크스페이스를 삭제합니다.
  *
- * @summary 타입폼 워크스페이스 삭제.
  * @param workspaceId 삭제할 워크스페이스 ID.
+ * @summary 타입폼 워크스페이스 삭제.
  * @tag Typeform
  * @tag 타입폼
  * @tag 설문조사

@@ -14,8 +14,8 @@ import type { ITypeform } from "../../../../structures/connector/typeform/ITypef
 /**
  * 워크스페이스에 빈 폼을 생성합니다.
  *
- * @summary 타입폼 빈 폼 생성.
  * @param input 생성할 폼 제목.
+ * @summary 타입폼 빈 폼 생성.
  * @returns 생성된 폼 ID, 제목, 타입.
  * @tag Typeform
  * @tag 타입폼

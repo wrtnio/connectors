@@ -14,8 +14,8 @@ import type { IHwp } from "../../../../structures/connector/hwp/IHwp";
 /**
  * hwp 파일을 파싱합니다.
  *
- * @summary Hwp 파일 파싱
  * @param input 파싱할 hwp 파일
+ * @summary Hwp 파일 파싱
  * @returns 파싱된 hwp 파일 텍스트 데이터.
  * @tag Hwp 한글 워드 프로세서
  * @tag 한글

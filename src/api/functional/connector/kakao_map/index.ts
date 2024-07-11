@@ -14,8 +14,8 @@ import type { IKakaoMap } from "../../../structures/connector/kakao_map/IKakaoMa
 /**
  * 카카오맵으로 검색합니다
  *
- * @summary 카카오 맵 검색
  * @param input 검색 조건
+ * @summary 카카오 맵 검색
  * @returns 검색 결과
  *
  * @controller KakaoMapController.search

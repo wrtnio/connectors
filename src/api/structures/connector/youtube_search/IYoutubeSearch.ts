@@ -166,7 +166,7 @@ export namespace IYoutubeSearch {
      *
      * @title 유튜브 영상 썸네일 이미지 (정적)
      */
-    static: string & tags.Format<"uri">;
+    static: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
 
     /**
      * 비디오 재생 시간에 따라 변화하는 애니메이션 형태의 이미지.

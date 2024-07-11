@@ -14,8 +14,8 @@ import type { IExcel } from "../../../../structures/connector/excel/IExcel";
 /**
  * 입력된 파일 url에 존재하는 엑셀 워크 시트 목록을 가져옵니다.
  *
- * @summary 액셀 워크 시트 목록 가져오기
  * @param input 워크 시트 목록을 가져올 엑셀 파일 url
+ * @summary 액셀 워크 시트 목록 가져오기
  * @returns 엑셀 워크 시트 목록.
  * @tag Excel 엑셀 파일
  * @tag 엑셀

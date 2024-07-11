@@ -16,8 +16,8 @@ export * as content from "./content";
 /**
  * 노션 페이지를 생성합니다.
  *
- * @summary 페이지 생성
  * @param input 페이지 생성에 필요한 정보
+ * @summary 페이지 생성
  * @returns 생성된 페이지 고유 id
  * @tag Notion
  * @tag 노션

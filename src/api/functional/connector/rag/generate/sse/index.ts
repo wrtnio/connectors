@@ -15,7 +15,6 @@ import type { IRag } from "../../../../../structures/connector/rag/IRag";
  * RAG 분석을 기반으로 스트리밍 채팅을 합니다.
  *
  * @summary RAG 기반 채팅(스트리밍).
- * @param input
  * @tag RAG
  * @internal
  *

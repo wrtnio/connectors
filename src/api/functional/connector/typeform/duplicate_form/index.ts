@@ -14,8 +14,8 @@ import type { ITypeform } from "../../../../structures/connector/typeform/ITypef
 /**
  * 워크스페이스에 존재하는 폼을 복사합니다.
  *
- * @summary 타입폼 폼 복사.
  * @param input 복사하여 새로 만들 폼 이름.
+ * @summary 타입폼 폼 복사.
  * @returns 생성된 폼 ID, 제목, 타입.
  * @tag Typeform
  * @tag 타입폼

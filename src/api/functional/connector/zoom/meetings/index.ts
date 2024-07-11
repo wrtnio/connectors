@@ -14,9 +14,9 @@ import type { IZoom } from "../../../../structures/zoom/IZoom";
 /**
  * zoom 미팅을 생성합니다.
  *
+ * @param input 미팅을 생성하고자 하는 유저 정보 및 조건에 대한 DTO.
  * @summary zoom 미팅 생성.
  * @returns 생성된 zoom 미팅 정보 DTO.
- * @param input 미팅을 생성하고자 하는 유저 정보 및 조건에 대한 DTO.
  * @tag zoom
  *
  * @controller ZoomController.createMeeting

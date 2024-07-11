@@ -17,8 +17,8 @@ import type {
 /**
  * 주어진 입력으로부터 마케팅 카피를 생성합니다.
  *
- * @summary 마케팅 카피 생성
  * @param input 마케팅 카피 생성을 위한 입력
+ * @summary 마케팅 카피 생성
  * @returns 생성된 마케팅 카피
  * @tag Llm 마케팅 카피 텍스트 생성
  *

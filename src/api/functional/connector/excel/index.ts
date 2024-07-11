@@ -17,8 +17,8 @@ export * as rows from "./rows";
 /**
  * 입력된 파일 정보를 바탕으로 해당 엑셀 파일의 내용을 가져옵니다.
  *
- * @summary 엑셀 파일 안의 내용 가져오기
  * @param input 내용을 가져올 엑셀 파일 정보
+ * @summary 엑셀 파일 안의 내용 가져오기
  * @tag Excel 엑셀 파일
  * @tag 엑셀
  * @tag 파일

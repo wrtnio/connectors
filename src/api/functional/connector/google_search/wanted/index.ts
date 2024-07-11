@@ -14,8 +14,8 @@ import type { IGoogleSearch } from "../../../../structures/connector/google_sear
 /**
  * 원티드에서 채용 공고를 검색합니다.
  *
- * @summary 원티드 채용 공고 검색
  * @param input 검색 조건
+ * @summary 원티드 채용 공고 검색
  * @returns 원티드 채용 공고 검색 결과
  *
  * @controller GoogleSearchController.searchForWanted

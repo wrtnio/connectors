@@ -14,8 +14,8 @@ import type { IKakaoTalk } from "../../../../structures/connector/kakao_talk/IKa
 /**
  * 카카오톡 액세스 토큰 발급.
  *
- * @internal
  * @param query Authorization Code Dto.
+ * @internal
  *
  * @controller KakaoTalkController.authorization
  * @path GET /connector/kakao-talk/auth

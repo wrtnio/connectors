@@ -18,8 +18,8 @@ import type { KoreaCopyrightCommission } from "../../../structures/connector/ope
 /**
  * [국토교통부] 단독 주택, 다가구 주택 전세, 월세 정보를 조회합니다.
  *
- * @summary 다가구 전세, 월세 정보 조회
  * @param input 조회 조건
+ * @summary 다가구 전세, 월세 정보 조회
  * @returns 조회한 전세, 월세 정보
  *
  * @controller OpenDataController.getRTMSDataSvcSHRent
@@ -93,8 +93,8 @@ export namespace getRTMSDataSvcSHRent {
 /**
  * [국토교통부] 오피스텔 전세, 월세 정보를 조회합니다.
  *
- * @summary 오피스텔 전세, 월세 정보 조회
  * @param input 조회 조건
+ * @summary 오피스텔 전세, 월세 정보 조회
  * @returns 조회한 전세, 월세 정보
  *
  * @controller OpenDataController.getRTMSDataSvcOffiRent
@@ -168,8 +168,8 @@ export namespace getRTMSDataSvcOffiRent {
 /**
  * [국토교통부] 아파트 전세, 월세 정보를 조회합니다.
  *
- * @summary 아파트 전세, 월세 정보 조회
  * @param input 조회 조건
+ * @summary 아파트 전세, 월세 정보 조회
  * @returns 조회한 전세, 월세 정보
  *
  * @controller OpenDataController.getRTMSDataSvcAptRent
@@ -243,8 +243,8 @@ export namespace getRTMSDataSvcAptRent {
 /**
  * [한국토지주택공사] LH 임대주택 단지를 조회합니다.
  *
- * @summary LH 임대주택 조회
  * @param input 조회할 임대주택 조건
+ * @summary LH 임대주택 조회
  * @returns LH 임대주택 정보
  *
  * @controller OpenDataController.getLHLeaseInfo
@@ -318,8 +318,8 @@ export namespace getLHLeaseInfo {
 /**
  * [한국지능정보사회진흥원] 주차장 정보를 조회합니다.
  *
- * @summary 주차장 조회
  * @param input 주차장 조회 조건
+ * @summary 주차장 조회
  * @returns 주차장 정보
  *
  * @controller OpenDataController.getParkingLot
@@ -393,8 +393,8 @@ export namespace getParkingLot {
 /**
  * [국토교통부] 건축물대장정보를 조회합니다.
  *
- * @summary 건축물대장정보 조회
  * @param input 빌딩 정보를 조회하는 조건
+ * @summary 건축물대장정보 조회
  * @returns 빌딩 정보
  *
  * @controller OpenDataController.getBuildingInfo
@@ -468,8 +468,8 @@ export namespace getBuildingInfo {
 /**
  * [행정안전부] 국내 지역의 행정 표준 상 코드를 조회합니다.
  *
- * @summary 행정표준 코드 조회
  * @param input 조회할 지역 조건
+ * @summary 행정표준 코드 조회
  * @returns 지역 코드
  *
  * @controller OpenDataController.getStandardRegionCodeList
@@ -549,8 +549,8 @@ export namespace getStandardRegionCodeList {
 /**
  * [금융위원회] 시가총액과 주식 정보를 조회합니다.
  *
- * @summary 시가총액 및 주식 정보 조회
  * @param input 시가총액 조회를 위한 조건
+ * @summary 시가총액 및 주식 정보 조회
  * @returns 시가 총액 및 주식 정보
  *
  * @controller OpenDataController.getStockPriceInfo
@@ -630,8 +630,8 @@ export namespace getStockPriceInfo {
 /**
  * [기상청] 오늘 날씨를 조회합니다.
  *
- * @summary 기상청 오늘 날씨 조회
  * @param input 날씨 조회를 위한 위치 정보 DTO
+ * @summary 기상청 오늘 날씨 조회
  * @returns 해당 지역의 기상 정보
  *
  * @controller OpenDataController.getShortTermForecast
@@ -711,8 +711,8 @@ export namespace getShortTermForecast {
 /**
  * [한국저작권위원회] 저작권을 검색합니다.
  *
- * @summary [저작권등록정보서비스(신규)
  * @param input 저작권 조회를 위한 조건
+ * @summary [저작권등록정보서비스(신규)
  * @returns 저작권 정보
  *
  * @controller OpenDataController.getCopyRight

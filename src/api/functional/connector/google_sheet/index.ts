@@ -18,8 +18,8 @@ export * as get_rows from "./get_rows";
 /**
  * 구글 시트의 헤더 정보를 가져옵니다.
  *
- * @summary 구글 시트 헤더 정보 가져오기.
  * @param input 구글 시트 URL과 가져올 헤더 index.
+ * @summary 구글 시트 헤더 정보 가져오기.
  * @returns 구글 시트 헤더 정보.
  * @tag Google-Sheet
  * @tag 구글 시트
@@ -160,8 +160,8 @@ export namespace getHeaders {
 /**
  * 구글 시트에 권한을 부여합니다.
  *
- * @summary 구글 시트 권한 부여.
  * @param input 권한 부여를 위한 정보.
+ * @summary 구글 시트 권한 부여.
  * @tag Google-Sheet
  * @tag 구글 시트
  * @tag 스프레드 시트

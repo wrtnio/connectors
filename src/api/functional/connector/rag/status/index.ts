@@ -14,8 +14,8 @@ import type { IRag } from "../../../../structures/connector/rag/IRag";
 /**
  * 분석 진행 상태를 조회합니다.
  *
- * @summary RAG 분석 상태 조회.
  * @param docId 분석 진행 상태를 조회할 문서 ID.
+ * @summary RAG 분석 상태 조회.
  * @tag RAG
  * @internal
  *

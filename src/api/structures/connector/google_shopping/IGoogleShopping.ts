@@ -7,17 +7,17 @@ export namespace IGoogleShopping {
   export interface IRequestStandAlone {
     /**
      * 검색할 키워드를 입력하세요.
-     * 
+     *
      * @title 검색어
      */
     keyword: string;
 
     /**
-     * 검색 결과의 개수를 설정합니다. 
+     * 검색 결과의 개수를 설정합니다.
      *
      * @title 검색 결과 개수
      */
-    max_results: number & tags.Type<"int32">
+    max_results: number & tags.Type<"int32">;
   }
 
   export interface IRequest extends IRequestStandAlone {
@@ -43,7 +43,7 @@ export namespace IGoogleShopping {
 
     /**
      * ₩57,600 형식
-     * 
+     *
      * @title 상품 가격
      */
     price: string;
@@ -61,6 +61,6 @@ export namespace IGoogleShopping {
     /**
      * @title 상품 이미지
      */
-    thumbnail: string & tags.Format<"uri">;
+    thumbnail: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }
 }

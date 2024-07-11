@@ -56,8 +56,8 @@ export * as google_shopping from "./google_shopping";
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
  *
- * @summary 조건 정렬
  * @param input 정렬할 후보 정보
+ * @summary 조건 정렬
  * @returns 정렬된 후보의 인덱스 배열
  * @tag Sort Rank Ranking 정렬 순위 순서 랭킹 랭크
  *
