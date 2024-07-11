@@ -12,7 +12,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 리소스 이름
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 생성할 키워드
@@ -43,7 +50,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 리소스 이름
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 부모 캠페인의 아이디
@@ -121,7 +135,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 리소스 이름
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 캠페인 리소스 이름
@@ -141,7 +162,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 아이디
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 캠페인 생성 조건
@@ -225,7 +253,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 아이디
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 광고 예산
@@ -333,19 +368,7 @@ export namespace IGoogleAds {
   /**
    * @title 광고 조회 조건
    */
-  export interface IGetAdGroupAdsInput extends IGetAdGroupInput {
-    /**
-     * @title 조회할 고객 아이디
-     */
-    customerId: Prerequisite<{
-      method: "post";
-      path: "connector/google-ads/get-customers";
-      array: "return response";
-      label: "return el.descriptiveName ?? ''";
-      value: "return el.id";
-    }> &
-      `${number}`;
-  }
+  export type IGetAdGroupAdsInput = IGetAdGroupInput;
 
   /**
    * @title 광고 그룹 광고의 조회 결과
@@ -374,16 +397,16 @@ export namespace IGoogleAds {
    */
   export interface IGetCampaignsInput {
     /**
-     * @title 조회할 고객 아이디
+     * @title 고객 아이디
      */
-    customerId: Prerequisite<{
-      method: "post";
-      path: "connector/google-ads/get-customers";
-      array: "return response";
-      label: "return el.descriptiveName ?? ''";
-      value: "return el.id";
-    }> &
-      `${number}`;
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
   }
 
   /**
