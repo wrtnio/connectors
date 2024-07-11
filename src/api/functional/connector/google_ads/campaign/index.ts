@@ -14,8 +14,8 @@ import type { IGoogleAds } from "../../../../structures/connector/google_ads/IGo
 /**
  * 구글 고객 계정의 광고 캠페인을 생성해요
  *
- * @summary 캠페인을 생성합니다
  * @param input 캠페인 생성 조건
+ * @summary 캠페인을 생성합니다
  * @returns 생성된 캠페인 정보
  *
  * @controller GoogleAdsController.createCampaign
