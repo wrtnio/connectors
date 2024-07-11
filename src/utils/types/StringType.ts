@@ -10,8 +10,8 @@ export namespace StringType {
   > = T extends `${infer F}${P}${infer Rest}`
     ? [F, ...Split<Rest, P>]
     : T extends ""
-    ? []
-    : [T];
+      ? []
+      : [T];
 
   /**
    * @title 문자열에 특정 문자열이 포함관계인지를 구별하는 타입.
@@ -35,12 +35,12 @@ export namespace StringType {
    */
   export type Join<
     T extends readonly string[],
-    U extends string,
+    U extends string = ",",
   > = T extends readonly []
     ? ""
     : T extends readonly [infer F]
-    ? F
-    : `${T[0]}${U}${Join<Tail<T>, U>}`;
+      ? F
+      : `${T[0]}${U}${Join<Tail<T>, U>}`;
 
   /**
    * @title 배열의 마지막 요소를 추론하는 타입.

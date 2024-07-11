@@ -95,10 +95,7 @@ export class GoogleSlidesProvider {
 
       return res.data;
     } catch (err) {
-      if (typia.is<GoogleProvider.GoogleError>(err)) {
-        this.googleProvider.error(err);
-      }
-
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -813,10 +810,7 @@ export class GoogleSlidesProvider {
 
       return res.data;
     } catch (err) {
-      if (typia.is<GoogleProvider.GoogleError>(err)) {
-        this.googleProvider.error(err);
-      }
-
+      console.error(JSON.stringify(err));
       throw err;
     }
   }

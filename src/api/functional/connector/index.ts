@@ -52,6 +52,7 @@ export * as stable_diffusion_beta from "./stable_diffusion_beta";
 export * as dall_e_3 from "./dall_e_3";
 export * as google_search from "./google_search";
 export * as google_shopping from "./google_shopping";
+export * as google_ads from "./google_ads";
 
 /**
  * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
