@@ -3,6 +3,9 @@ import { tags } from "typia";
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 
 export namespace IGoogleCalendar {
+  /**
+   * @title 캘린더 생성을 위한 정보
+   */
   export interface ICreateCalendarInput
     extends ICommon.ISecret<
       "google",
@@ -15,6 +18,10 @@ export namespace IGoogleCalendar {
      */
     title: string;
   }
+
+  /**
+   * @title 캘린더 생성 결과
+   */
   export interface IGoogleCalendarOutput {
     /**
      * 생성된 캘린더의 id 입니다.
@@ -30,25 +37,26 @@ export namespace IGoogleCalendar {
      */
     summary?: string | null;
   }
+
   /**
    * 제목, 설명, 링크, 이벤트 생성 날짜, 이벤트 업데이트 날짜, 위치, 주최자, 생성한 사람, 이벤트 시작일, 이벤트 종료일, 참석자 정보, 알림 정보, 첨부파일 정보
    *
    * @title 가져올 데이터 목록.
    */
   export type ExtractFields =
-    | "summary"
-    | "description"
-    | "htmlLink"
-    | "created"
-    | "updated"
-    | "location"
-    | "organizer"
-    | "creator"
-    | "start"
-    | "end"
-    | "attendees"
-    | "reminders"
-    | "attachments";
+    | tags.Constant<"summary", { title: "제목" }>
+    | tags.Constant<"description", { title: "설명" }>
+    | tags.Constant<"htmlLink", { title: "링크" }>
+    | tags.Constant<"created", { title: "이벤트 생성 날짜" }>
+    | tags.Constant<"updated", { title: "이벤트 업데이트 날짜" }>
+    | tags.Constant<"location", { title: "위치" }>
+    | tags.Constant<"organizer", { title: "주최자" }>
+    | tags.Constant<"creator", { title: "생성한 사람" }>
+    | tags.Constant<"start", { title: "이벤트 시작일" }>
+    | tags.Constant<"end", { title: "이벤트 종료일" }>
+    | tags.Constant<"attendees", { title: "참석자 정보" }>
+    | tags.Constant<"reminders", { title: "알림 정보" }>
+    | tags.Constant<"attachments", { title: "첨부파일 정보" }>;
 
   /**
    * - startTime: 이벤트 시작 시간.
@@ -56,7 +64,13 @@ export namespace IGoogleCalendar {
    *
    * @title 이벤트 정렬 순서.
    */
-  type OrderBy = "startTime" | "updated";
+  type OrderBy =
+    | tags.Constant<"startTime", { title: "시작 시간" }>
+    | tags.Constant<"updated", { title: "업데이트 날짜" }>;
+
+  /**
+   * @title 이벤트 검색에 필요한 정보
+   */
   export interface IReadGoogleCalendarEventInput
     extends ICommon.ISecret<
       "google",
@@ -67,21 +81,21 @@ export namespace IGoogleCalendar {
      *
      * @title 가져올 데이터 (필드) 정보.
      */
-    extract_fields?: ExtractFields[];
+    extract_fields: ExtractFields[];
 
     /**
      * 해당 날짜 이후의 이벤트는 가져오지 않습니다.
      *
      * @title 이벤트를 가져올 마지막 날짜 정보.
      */
-    time_max?: IGoogleCalendarEvent.IDate;
+    time_max: IGoogleCalendarEvent.IDate;
 
     /**
      * 해당 날짜 이전의 이벤트는 가져오지 않습니다.
      *
      * @title 이벤트를 가져올 시작 날짜 정보.
      */
-    time_min?: IGoogleCalendarEvent.IDate;
+    time_min: IGoogleCalendarEvent.IDate;
 
     /**
      * 가져올 이벤트의 최대 개수를 설정합니다.
@@ -107,6 +121,9 @@ export namespace IGoogleCalendar {
     query?: string;
   }
 
+  /**
+   * @title 캘린더 이벤트 검색 결과
+   */
   export interface IReadGoogleCalendarEventOutput {
     /**
      * 검색된 캘린더 이벤트 리스트입니다.
@@ -116,6 +133,9 @@ export namespace IGoogleCalendar {
     events: IGoogleCalendarEvent[];
   }
 
+  /**
+   * @title 구글 캘린더 이벤트 정보
+   */
   export interface IGoogleCalendarEvent {
     /**
      * 이벤트의 고유 id 입니다.
@@ -323,7 +343,7 @@ export namespace IGoogleCalendar {
     }
 
     /**
-     * 주최자 정보
+     * @title 주최자 정보
      */
     export interface IOrganizer {
       /**
@@ -356,7 +376,7 @@ export namespace IGoogleCalendar {
     }
 
     /**
-     * 참석자 정보
+     * @title 참석자 정보
      */
     export interface IAttendees {
       /**
@@ -388,6 +408,9 @@ export namespace IGoogleCalendar {
       responseStatus?: string | null;
     }
 
+    /**
+     * @title 알림 정보
+     */
     export interface IReminders {
       /**
        * 디폴트 알림 여부입니다.
@@ -403,6 +426,10 @@ export namespace IGoogleCalendar {
        */
       overrides?: IRemindersOverrides[];
     }
+
+    /**
+     * @title 알림 설정 정보
+     */
     export interface IRemindersOverrides {
       /**
        * 알림 방식입니다.
@@ -419,6 +446,9 @@ export namespace IGoogleCalendar {
       minutes?: number | null;
     }
 
+    /**
+     * @title 첨부파일 정보
+     */
     export interface IAttachments {
       /**
        * 이벤트 첨부파일 url입니다.
@@ -456,6 +486,10 @@ export namespace IGoogleCalendar {
       fileId?: string | null;
     }
 
+    /**
+     * @title 날짜 정보
+     */
+
     export interface IDate {
       /**
        * 연도입니다.
@@ -487,6 +521,9 @@ export namespace IGoogleCalendar {
     }
   }
 
+  /**
+   * @title 빠른 이벤트 생성을 위해 필요한 정보
+   */
   export interface ICreateQuickEventInput
     extends ICommon.ISecret<
       "google",
@@ -500,6 +537,9 @@ export namespace IGoogleCalendar {
     text: string;
   }
 
+  /**
+   * @title 이벤트 생성을 위해 필요한 정보
+   */
   export interface IEventRequestBodyInput
     extends ICommon.ISecret<
       "google",
@@ -652,6 +692,9 @@ export namespace IGoogleCalendar {
    */
   export type EventVisibility = "default" | "public" | "private";
 
+  /**
+   * @title 이벤트 생성 결과
+   */
   export interface ICreateEventOutput {
     /**
      * 생성된 이벤트의 id입니다.
@@ -661,6 +704,9 @@ export namespace IGoogleCalendar {
     id?: string | null;
   }
 
+  /**
+   * @title 참석자 추가를 위해 필요한 정보
+   */
   export interface IAddAttendeesToEventInput
     extends ICommon.ISecret<
       "google",
@@ -673,6 +719,10 @@ export namespace IGoogleCalendar {
      */
     attendeesEmail: string[];
   }
+
+  /**
+   * @title 인증 정보
+   */
 
   export type ISecret = ICommon.ISecret<
     "google",

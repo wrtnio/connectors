@@ -14,8 +14,8 @@ import type { ISweetTracker } from "../../../../structures/connector/sweet_track
 /**
  * 송장 번호를 조회합니다.
  *
- * @summary 송장 조회
  * @param input 송장 번호를 조회하기 위한 조건
+ * @summary 송장 조회
  * @returns 택배의 이동 경로
  * @tag sweet-tracker
  *

@@ -14,9 +14,9 @@ import type { IGoogleSlides } from "../../../../../../structures/connector/googl
 /**
  * 구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!
  *
- * @summary 프레젠테이션을 PPT 파일로 내보내기
  * @param presentationId 변환할 프레젠테이션 아이디
  * @param input 인증 정보
+ * @summary 프레젠테이션을 PPT 파일로 내보내기
  * @returns 파워포인트 파일을 다운로드 가능한 링크
  *
  * @controller GoogleSlidesController.powerPoint

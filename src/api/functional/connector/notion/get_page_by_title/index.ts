@@ -14,8 +14,8 @@ import type { INotion } from "../../../../structures/connector/notion/INotion";
 /**
  * 제목으로 페이지를 검색합니다.
  *
- * @summary 제목으로 페이지 검색
  * @param input 페이지 제목
+ * @summary 제목으로 페이지 검색
  * @returns 검색된 페이지 정보
  * @tag Notion
  * @tag 노션

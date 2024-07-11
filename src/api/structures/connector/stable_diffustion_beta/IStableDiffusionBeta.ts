@@ -47,13 +47,16 @@ export namespace IStableDiffusionBeta {
       | tags.Constant<"tile-texture", { title: "타일 텍스쳐" }>;
   }
 
+  /**
+   * @title 이미지 생성 결과
+   */
   export interface IResponse {
     /**
      * 생성된 이미지 url
      *
      * @title 생성된 이미지 Url
      */
-    imgUrl: string & tags.Format<"uri">;
+    imgUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }
 
   /**

@@ -14,8 +14,8 @@ import type { IStableDiffusionBeta } from "../../../../structures/connector/stab
 /**
  * 스테이블 디퓨전 모델을 이용하여 이미지를 생성합니다.
  *
- * @summary 스테이블 디퓨전 이미지 생성기 노드
  * @param input 이미지 생성을 위한 정보
+ * @summary 스테이블 디퓨전 이미지 생성기 노드
  * @returns 생성된 이미지 URL
  *
  * @controller StableDiffusionBetaController.generateImage

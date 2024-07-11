@@ -14,8 +14,8 @@ import type { IImweb } from "../../../../structures/connector/imweb/IImweb";
 /**
  * 아임웹에서 판매자의 상품들을 불러온다.
  *
- * @summary 자신의 상품 조회.
  * @param input 상품을 조회하기 위한 조건 DTO.
+ * @summary 자신의 상품 조회.
  * @returns 액세스 토큰을 담은 응답 DTO.
  *
  * @controller ImwebController.getProducts

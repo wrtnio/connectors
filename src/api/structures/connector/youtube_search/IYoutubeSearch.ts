@@ -2,6 +2,9 @@ import { Placeholder } from "@wrtn/decorators";
 import { tags } from "typia";
 
 export namespace IYoutubeSearch {
+  /**
+   * @title 유튜브 검색 조건
+   */
   export interface ISearchInput {
     /**
      * 검색 결과에 포함되어야 하는 키워드입니다.
@@ -163,7 +166,7 @@ export namespace IYoutubeSearch {
      *
      * @title 유튜브 영상 썸네일 이미지 (정적)
      */
-    static: string & tags.Format<"uri">;
+    static: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
 
     /**
      * 비디오 재생 시간에 따라 변화하는 애니메이션 형태의 이미지.

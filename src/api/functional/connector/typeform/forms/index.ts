@@ -16,8 +16,8 @@ export * as fields from "./fields";
 /**
  * 랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트합니다.
  *
- * @summary 타입폼 폼 필드 옵션 업데이트.
  * @param input 업데이트할 폼 필드명과 업데이트 할 값.
+ * @summary 타입폼 폼 필드 옵션 업데이트.
  * @tag Typeform
  * @tag 타입폼
  * @tag 설문조사
@@ -142,8 +142,8 @@ export namespace updateFormFieldValue {
 /**
  * 폼을 삭제합니다.
  *
- * @summary 타입폼 폼 삭제.
  * @param formId 삭제할 폼 ID.
+ * @summary 타입폼 폼 삭제.
  * @tag Typeform
  * @tag 타입폼
  * @tag 설문조사

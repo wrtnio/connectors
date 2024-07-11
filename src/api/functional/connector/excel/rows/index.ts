@@ -14,8 +14,8 @@ import type { IExcel } from "../../../../structures/connector/excel/IExcel";
 /**
  * 데이터를 엑셀시트에 추가합니다.
  *
- * @summary 액셀 데이터 추가
  * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
+ * @summary 액셀 데이터 추가
  * @tag Excel 엑셀 파일
  * @tag 엑셀
  * @tag 파일

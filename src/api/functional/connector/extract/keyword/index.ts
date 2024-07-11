@@ -14,8 +14,8 @@ import type { IKeywordExtraction } from "../../../../structures/connector/extrac
 /**
  * 주어진 입력과 관련 높은 키워드를 추출합니다.
  *
- * @summary 키워드 추출
  * @param input 키워드 추출을 위한 입력
+ * @summary 키워드 추출
  * @returns 추출된 키워드
  * @tag Llm 키워드 추출 생성
  *

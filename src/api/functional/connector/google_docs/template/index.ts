@@ -14,8 +14,8 @@ import type { IGoogleDocs } from "../../../../structures/connector/google_docs/I
 /**
  * 이미 존재하는 구글 docs를 복사하여 새로운 구글 docs를 생성합니다.
  *
- * @summary 구글 docs 복사.
  * @param input 복사할 구글 docs 링크와 생성할 구글 docs 제목.
+ * @summary 구글 docs 복사.
  * @returns 생성된 구글 docs 고유 ID.
  * @tag Google-Docs
  * @tag 구글 닥스

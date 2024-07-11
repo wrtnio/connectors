@@ -14,8 +14,8 @@ import type { IKakaoTalk } from "../../../../../structures/connector/kakao_talk/
 /**
  * 친구에게 메시지를 카카오톡 메시지를 보냅니다
  *
- * @summary 카카오톡 친구에게 메시지 쓰기
  * @param input 메시지를 보내기 위한 조건
+ * @summary 카카오톡 친구에게 메시지 쓰기
  * @returns 응답 및 실패 정보
  * @tag 카카오톡
  *

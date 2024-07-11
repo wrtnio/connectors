@@ -18,8 +18,8 @@ export * as file from "./file";
 /**
  * 파일 또는 폴더에 접근하기 위한 권한을 부여합니다.
  *
- * @summary 구글 드라이브 권한 부여.
  * @param input 권한 부여를 위한 정보.
+ * @summary 구글 드라이브 권한 부여.
  * @tag Google-Drive
  * @tag 구글 드라이브
  * @tag 드라이브

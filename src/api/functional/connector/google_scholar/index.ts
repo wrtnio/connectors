@@ -14,8 +14,8 @@ import type { IGoogleScholar } from "../../../structures/connector/google_schola
 /**
  * 구글 스콜라에 있는 논문 목록을 가져옵니다.
  *
- * @summary 구글 스콜라 논문 목록 검색
  * @param input 구글 스콜라 논문 검색 조건
+ * @summary 구글 스콜라 논문 목록 검색
  * @returns 구글 스콜라 논문 목록
  * @tag Google-Scholar
  * @tag 구글 스칼라

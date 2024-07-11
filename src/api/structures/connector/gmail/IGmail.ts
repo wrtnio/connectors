@@ -3,6 +3,9 @@ import { tags } from "typia";
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 
 export namespace IGmail {
+  /**
+   * @title 메일을 보내기 위해 필요한 정보
+   */
   export interface ICreateMailInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
@@ -41,6 +44,9 @@ export namespace IGmail {
     Bcc?: string[];
   }
 
+  /**
+   * @title 메일 전송 결과
+   */
   export interface ISendMailOutput {
     /**
      * 보낸 메일의 id.
@@ -50,6 +56,9 @@ export namespace IGmail {
     id: string;
   }
 
+  /**
+   * @title 메일 답장에 필요한 정보
+   */
   export interface IReplyInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     // /**
@@ -74,6 +83,9 @@ export namespace IGmail {
     replyText: string;
   }
 
+  /**
+   * @title 라벨 색상
+   */
   export interface ILabelColor {
     /**
      * 라벨 글씨 색상.
@@ -90,6 +102,9 @@ export namespace IGmail {
     backgroundColor: string;
   }
 
+  /**
+   * @title 라벨 생성에 필요한 정보
+   */
   export interface ILabelInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
@@ -140,6 +155,9 @@ export namespace IGmail {
    */
   type messageListVisibility = "hide" | "show";
 
+  /**
+   * @title 라벨 생성 결과
+   */
   export interface ILabelOutput {
     /**
      * 생성된 라벨의 id.
@@ -149,6 +167,9 @@ export namespace IGmail {
     id: string;
   }
 
+  /**
+   * @title 라벨 부여에 필요한 정보
+   */
   export interface IMailLabelOperationInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
@@ -159,6 +180,9 @@ export namespace IGmail {
     labelIds: string[];
   }
 
+  /**
+   * @title 이메일 리스트 검색에 필요한 정보
+   */
   export interface IFindEmailListInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
@@ -218,6 +242,9 @@ export namespace IGmail {
     labelIds?: string[];
   }
 
+  /**
+   * @title 이메일 리스트 검색 결과
+   */
   export interface IFindGmailListOutput {
     /**
      * 검색된 gmail 데이터 정보.
@@ -227,6 +254,9 @@ export namespace IGmail {
     data: IFindGmailOutput[];
   }
 
+  /**
+   * @title 이메일 검색 결과
+   */
   export interface IFindGmailOutput {
     /**
      * 이메일의 고유 id.
@@ -271,6 +301,10 @@ export namespace IGmail {
     attachments?: IAttachmentOutput[] | null;
   }
 
+  /**
+   * @title 첨부파일 정보
+   */
+
   export interface IAttachmentOutput {
     /**
      * 메시지 부분의 변경할 수 없는 ID.
@@ -308,6 +342,9 @@ export namespace IGmail {
     body?: IAttachmentBody | null;
   }
 
+  /**
+   * @title 첨부파일 헤더 정보
+   */
   export interface IAttachmentHeader {
     /**
      * 첨부파일 헤더 타입.
@@ -324,6 +361,9 @@ export namespace IGmail {
     value?: string | null;
   }
 
+  /**
+   * @title 첨부파일 body 정보
+   */
   export interface IAttachmentBody {
     /**
      * 첨부파일 고유 id입니다.
@@ -340,5 +380,8 @@ export namespace IGmail {
     size?: (number & tags.Type<"int32">) | null;
   }
 
+  /**
+   * @title 인증 정보
+   */
   export type ISecret = ICommon.ISecret<"google", ["https://mail.google.com/"]>;
 }

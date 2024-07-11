@@ -55,6 +55,9 @@ export namespace INaver {
     sort?: Sort & Placeholder<"sim">;
   }
 
+  /**
+   * @title 네이버 카페 검색 데이터
+   */
   export interface ICafeNaverItemOutput {
     /**
      * 네이버 카페 게시글의 제목.
@@ -92,6 +95,9 @@ export namespace INaver {
     cafeurl: string;
   }
 
+  /**
+   * @title 네이버 블로그 검색 데이터
+   */
   export interface IBlogNaverItemOutput {
     /**
      * 네이버 블로그 게시물의 제목.
@@ -136,6 +142,9 @@ export namespace INaver {
     postdate: string;
   }
 
+  /**
+   * @title 네이버 카페 검색 결과
+   */
   export interface ICafeNaverOutput {
     /**
      *  네이버 카페 검색 결과물 데이터.
@@ -180,6 +189,9 @@ export namespace INaver {
     };
   }
 
+  /**
+   * @title 네이버 블로그 검색 결과
+   */
   export interface IBlogNaverOutput {
     /**
      * 검색 결과를 생성한 시간입니다.

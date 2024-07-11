@@ -11,11 +11,17 @@ import typia from "typia";
 
 import type { IGoogleSearch } from "../../../structures/connector/google_search/IGoogleSearch";
 
+export * as wanted from "./wanted";
+export * as incruit from "./incruit";
+export * as saramin from "./saramin";
+export * as jumpit from "./jumpit";
+export * as careerly from "./careerly";
+
 /**
  * 입력한 검색어를 구글에서 검색합니다.
  *
- * @summary 구글 검색
  * @param input 구글 검색 조건
+ * @summary 구글 검색
  * @returns 구글 검색 결과
  *
  * @controller GoogleSearchController.search

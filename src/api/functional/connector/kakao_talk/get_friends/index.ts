@@ -14,8 +14,8 @@ import type { IKakaoTalk } from "../../../../structures/connector/kakao_talk/IKa
 /**
  * 카카오톡 친구 목록을 조회합니다.
  *
- * @summary 카카오톡 친구 목록 조회
  * @param input 친구 목록 조회 조건
+ * @summary 카카오톡 친구 목록 조회
  * @returns 조회한 친구 모록
  * @tag 카카오톡
  *

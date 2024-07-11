@@ -17,8 +17,8 @@ import type {
 /**
  * 주어진 입력으로부터 이미지를 생성합니다.
  *
- * @summary 스토리 이미지 생성
  * @param input 이미지 생성을 위한 입력
+ * @summary 스토리 이미지 생성
  * @returns 생성된 이미지
  * @tag 스토리 이미지 생성
  *

@@ -16,6 +16,10 @@ export namespace IHwp {
       ContentMediaType<"application/vnd.hancom.hwp">;
   }
 
+  /**
+   * @title hwp 파일 파싱 결과
+   */
+
   export interface IParseOutput {
     /**
      * 파싱된 hwp 파일의 텍스트

@@ -14,8 +14,8 @@ import type { IGoogleSlides } from "../../../../structures/connector/google_slid
 /**
  * Google Slides 프레젠테이션을 조회합니다.
  *
- * @summary Google Slides 프레젠테이션 조회.
  * @param input 프레젠테이션을 조회하기 위한 조건 DTO.
+ * @summary Google Slides 프레젠테이션 조회.
  * @returns 조회된 프레젠테이션 정보 DTO.
  *
  * @controller GoogleSlidesController.getPresentation

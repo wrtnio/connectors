@@ -14,8 +14,8 @@ import type { IGoogleSheet } from "../../../../structures/connector/google_sheet
 /**
  * 구글 시트에 헤더를 추가합니다.
  *
- * @summary 구글 시트 헤더 추가.
  * @param input 구글 시트 url과 추가할 헤더 이름.
+ * @summary 구글 시트 헤더 추가.
  * @tag Google-Sheet
  * @tag 구글 시트
  * @tag 스프레드 시트

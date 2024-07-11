@@ -17,8 +17,8 @@ export * as generate from "./generate";
 /**
  * 입력된 파일에 대해 RAG 분석을 요청합니다.
  *
- * @summary RAG 분석 요청.
  * @param input 분석할 파일 정보.
+ * @summary RAG 분석 요청.
  * @tag RAG
  *
  * @controller RagController.analyze

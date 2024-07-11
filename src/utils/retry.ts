@@ -1,5 +1,7 @@
 const TIMEOUT = "TIMEOUT" as const;
 
+const TIMEOUT = "TIMEOUT" as const;
+
 export function retry<T extends any[], ReturnType>(
   fn: (...args: T) => ReturnType,
   count: number = 5, // default로 5번까지는 재실행되게 한다.

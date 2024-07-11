@@ -15,8 +15,8 @@ import type { IYoutubeSearch } from "../../../structures/connector/youtube_searc
 /**
  * 유튜브 영상 검색 결과를 가져옵니다.
  *
- * @summary 유튜브 영상 검색
  * @param input 유튜브 영상 검색을 위한 조건
+ * @summary 유튜브 영상 검색
  * @returns 유튜브 영상 검색 결과 목록.
  * @tag Youtube 유튜브
  * @tag 유튜브

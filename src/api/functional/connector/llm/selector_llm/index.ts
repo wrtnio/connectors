@@ -17,8 +17,8 @@ import type {
 /**
  * 주어진 후보 중에서 조건에 맞는 것을 선택합니다.
  *
- * @summary 조건 선택
  * @param body 후보 선택을 위한 입력
+ * @summary 조건 선택
  * @returns 선택된 후보 인덱스 배열
  * @tag Llm selection 선택 추출
  *
