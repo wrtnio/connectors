@@ -14,8 +14,8 @@ import type { IGoogleAds } from "../../../../structures/connector/google_ads/IGo
 /**
  * 구글 고객 계정의 캠페인 목록을 가져와요
  *
- * @summary 캠페인 목록을 조회합니다
  * @param input 고객 정보
+ * @summary 캠페인 목록을 조회합니다
  * @returns 캠페인 목록
  *
  * @controller GoogleAdsController.getCampaigns
