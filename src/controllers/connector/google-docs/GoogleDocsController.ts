@@ -234,16 +234,16 @@ export class GoogleDocsController {
   )
   @core.TypedRoute.Post("get/:id")
   async readDocs(
+    /**
+     * @title 가져올 docs 파일
+     * @description 가져올 docs 파일을 선택해 주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
       array: (response) => response.data,
       value: (elem) => elem?.id,
       label: (elem) => elem?.title ?? "",
     })
-    /**
-     * @title 가져올 docs 파일
-     * @description 가져올 docs 파일을 선택해 주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -397,16 +397,16 @@ export class GoogleDocsController {
   )
   @core.TypedRoute.Delete(":id")
   async deleteById(
+    /**
+     * @title 삭제할 docs 파일
+     * @description 삭제할 docs 파일을 선택해 주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
       array: (response) => response.data,
       value: (elem) => elem?.id,
       label: (elem) => elem?.title ?? "",
     })
-    /**
-     * @title 삭제할 docs 파일
-     * @description 삭제할 docs 파일을 선택해 주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()

@@ -522,6 +522,10 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
+    /**
+     * @title 삭제할 파일
+     * @description 삭제할 파일을 선택해 주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
       array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
@@ -529,10 +533,6 @@ export class GoogleDriveController {
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
-    /**
-     * @title 삭제할 파일
-     * @description 삭제할 파일을 선택해 주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -637,6 +637,10 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
+    /**
+     * @title 삭제할 폴더
+     * @description 삭제할 폴더를 선택해 주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.folderList,
       array: (response): IGoogleDrive.IFolderListGoogleDriveOutput["data"] =>
@@ -644,10 +648,6 @@ export class GoogleDriveController {
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
-    /**
-     * @title 삭제할 폴더
-     * @description 삭제할 폴더를 선택해 주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -855,6 +855,10 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
+    /**
+     * @title 텍스트를 추가할 파일
+     * @description 텍스트를 추가할 파일을 선택해 주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
       array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
@@ -862,10 +866,6 @@ export class GoogleDriveController {
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
-    /**
-     * @title 텍스트를 추가할 파일
-     * @description 텍스트를 추가할 파일을 선택해 주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody() input: IGoogleDrive.IAppendTextGoogleDriveInput,
@@ -971,6 +971,10 @@ export class GoogleDriveController {
   )
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
+    /**
+     * @title 읽어올 파일
+     * @description 읽어올 파일을 선택해 주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
       array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
@@ -978,10 +982,6 @@ export class GoogleDriveController {
       value: (elem): string => elem?.id ?? "",
       label: (elem): string => elem?.name ?? "",
     })
-    /**
-     * @title 읽어올 파일
-     * @description 읽어올 파일을 선택해 주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()

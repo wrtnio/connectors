@@ -14,7 +14,7 @@ import type { IGoogleDrive } from "../../../../../structures/connector/google_dr
 /**
  * 파일에 텍스트를 추가합니다.
  *
- * @param id 파일 고유 ID.
+ * @param id 텍스트를 추가할 파일을 선택해 주세요.
  * @param input 추가할 텍스트.
  * @summary 구글 드라이브 파일 텍스트 추가.
  * @tag Google-Drive

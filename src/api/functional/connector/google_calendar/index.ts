@@ -151,7 +151,7 @@ export namespace createCalendar {
 /**
  * 캘린더를 삭제합니다.
  *
- * @param calendarId 삭제할 캘린더 고유 ID.
+ * @param calendarId 삭제할 캘린더를 선택해주세요.
  * @summary 구글 캘린더 삭제.
  * @tag Google-Calendar
  * @tag 구글 캘린더

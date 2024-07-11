@@ -243,16 +243,16 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
+    /**
+     * @title 삭제할 캘린더
+     * @description 삭제할 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 삭제할 캘린더
-     * @description 삭제할 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody()
@@ -339,16 +339,16 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
+    /**
+     * @title 이벤트 목록을 가져올 캘린더
+     * @description 이벤트 목록을 가져올 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 이벤트 목록을 가져올 캘린더
-     * @description 이벤트 목록을 가져올 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IReadGoogleCalendarEventInput,
@@ -432,16 +432,16 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
+    /**
+     * @title 이벤트를 추가할 캘린더
+     * @description 빠른 이벤트를 추가할 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 이벤트를 추가할 캘린더
-     * @description 빠른 이벤트를 추가할 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.ICreateQuickEventInput,
@@ -527,16 +527,16 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
+    /**
+     * @title 이벤트를 추가할 캘린더
+     * @description 이벤트를 추가할 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 이벤트를 추가할 캘린더
-     * @description 이벤트를 추가할 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
@@ -624,18 +624,22 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
+    /**
+     * @title 이벤트를 수정할 캘린더
+     * @description 이벤트를 수정할 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 이벤트를 수정할 캘린더
-     * @description 이벤트를 수정할 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
+    /**
+     * @title 수정할 이벤트
+     * @description 수정할 이벤트를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
       array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
@@ -643,10 +647,6 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
-    /**
-     * @title 수정할 이벤트
-     * @description 수정할 이벤트를 선택해주세요.
-     */
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IEventRequestBodyInput,
@@ -734,18 +734,23 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
+    /**
+     * @title 참석자를 추가할 캘린더
+     * @description 참석자를 추가할 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 참석자를 추가할 캘린더
-     * @description 참석자를 추가할 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
+    /**
+     * 참석자를 추가할 이벤트를 선택해주세요.
+     *
+     * @summary 참석자를 추가할 이벤트
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
       array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
@@ -753,11 +758,6 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
-    /**
-     * 참석자를 추가할 이벤트를 선택해주세요.
-     *
-     * @summary 참석자를 추가할 이벤트
-     */
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody() input: IGoogleCalendar.IAddAttendeesToEventInput,
@@ -845,18 +845,22 @@ export class GoogleCalendarController {
   )
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
+    /**
+     * @title 이벤트를 삭제할 캘린더
+     * @description 이벤트를 삭제할 캘린더를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
       array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
       value: (elem) => elem.id,
       label: (elem) => elem.summary ?? "",
     })
-    /**
-     * @title 이벤트를 삭제할 캘린더
-     * @description 이벤트를 삭제할 캘린더를 선택해주세요.
-     */
     @core.TypedParam("calendarId")
     calendarId: string,
+    /**
+     * @title 삭제할 이벤트
+     * @description 삭제할 이벤트를 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
       array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
@@ -864,10 +868,6 @@ export class GoogleCalendarController {
       value: (elem) => elem.id,
       label: (elem) => elem.title ?? "",
     })
-    /**
-     * @title 삭제할 이벤트
-     * @description 삭제할 이벤트를 선택해주세요.
-     */
     @core.TypedParam("eventId")
     eventId: string,
     @core.TypedBody()

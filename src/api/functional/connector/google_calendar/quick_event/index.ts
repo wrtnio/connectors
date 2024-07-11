@@ -14,7 +14,7 @@ import type { IGoogleCalendar } from "../../../../structures/connector/google_ca
 /**
  * 구글 캘린더에 빠른 이벤트를 추가합니다.
  *
- * @param calendarId 이벤트를 추가할 캘린더 고유 ID.
+ * @param calendarId 빠른 이벤트를 추가할 캘린더를 선택해주세요.
  * @param input 이벤트를 추가할 캘린더 고유 ID, 이벤트 명.
  * @summary 구글 캘린더 빠른 이벤트 추가.
  * @tag Google-Calendar

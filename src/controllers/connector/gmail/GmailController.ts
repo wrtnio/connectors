@@ -220,16 +220,16 @@ export class GmailController {
   )
   @core.TypedRoute.Post("reply/:id")
   async reply(
+    /**
+     * @title 답장할 메일
+     * @description 답장할 메일을 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
       array: (response): IGmail.IFindGmailOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
-    /**
-     * @title 답장할 메일
-     * @description 답장할 메일을 선택해주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -306,16 +306,16 @@ export class GmailController {
   )
   @core.TypedRoute.Post("get/:id")
   async findEmail(
+    /**
+     * @title 가져올 메일
+     * @description 가져올 메일을 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
       array: (response): IGmail.IFindGmailOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
-    /**
-     * @title 가져올 메일
-     * @description 가져올 메일을 선택해주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -464,16 +464,16 @@ export class GmailController {
   )
   @core.TypedRoute.Delete(":id")
   async removeMail(
+    /**
+     * @title 삭제할 메일
+     * @description 삭제할 메일을 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
       array: (response): IGmail.IFindGmailOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
-    /**
-     * @title 삭제할 메일
-     * @description 삭제할 메일을 선택해주세요.
-     */
     @core.TypedParam("id")
     id: string,
     @core.TypedBody()
@@ -624,16 +624,16 @@ export class GmailController {
   )
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
+    /**
+     * @title 라벨을 부여할 메일
+     * @description 라벨을 부여할 메일을 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
       array: (response): IGmail.IFindGmailOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
-    /**
-     * @title 라벨을 부여할 메일
-     * @description 라벨을 부여할 메일을 선택해주세요.
-     */
     @core.TypedParam("mailId")
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
@@ -709,16 +709,16 @@ export class GmailController {
   )
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(
+    /**
+     * @title 라벨을 제거할 메일
+     * @description 라벨을 제거할 메일을 선택해주세요.
+     */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
       array: (response): IGmail.IFindGmailOutput[] => response.data,
       value: (elem) => elem.id,
       label: (elem) => elem.subject ?? "",
     })
-    /**
-     * @title 라벨을 제거할 메일
-     * @description 라벨을 제거할 메일을 선택해주세요.
-     */
     @core.TypedParam("mailId")
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,

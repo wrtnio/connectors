@@ -275,7 +275,7 @@ export namespace permission {
 /**
  * 구글 docs를 삭제합니다.
  *
- * @param id 삭제할 구글 docs 고유 ID.
+ * @param id 삭제할 docs 파일을 선택해 주세요.
  * @summary 구글 docs 삭제.
  * @tag Google-Docs
  * @tag 구글 닥스

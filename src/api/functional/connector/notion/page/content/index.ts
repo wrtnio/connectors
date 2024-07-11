@@ -14,6 +14,7 @@ import type { INotion } from "../../../../../structures/connector/notion/INotion
 /**
  * 페이지 끝에 내용을 추가합니다.
  *
+ * @param pageId 내용을 추가할 페이지를 선택해 주세요.
  * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
  * @summary 페이지에 내용 추가
  * @returns void

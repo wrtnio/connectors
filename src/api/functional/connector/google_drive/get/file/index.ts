@@ -14,7 +14,7 @@ import type { IGoogleDrive } from "../../../../../structures/connector/google_dr
 /**
  * 파일에서 텍스트를 읽어옵니다.
  *
- * @param id 파일 고유 ID.
+ * @param id 읽어올 파일을 선택해 주세요.
  * @summary 구글 드라이브 파일 텍스트 읽기.
  * @returns 파일 텍스트 내용.
  * @tag Google-Drive

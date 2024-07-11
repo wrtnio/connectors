@@ -269,6 +269,7 @@ export namespace draft {
 /**
  * 수신된 메일에 답장을 보냅니다.
  *
+ * @param id 답장할 메일을 선택해주세요.
  * @param input 메일 답장에 필요한 정보.
  * @summary GMAIL 답장.
  * @tag Gmail
@@ -397,7 +398,7 @@ export namespace reply {
 /**
  * 메일을 삭제합니다.
  *
- * @param id 삭제할 메일의 고유 ID.
+ * @param id 삭제할 메일을 선택해주세요.
  * @summary GMAIL 삭제.
  * @tag Gmail
  * @tag 지메일

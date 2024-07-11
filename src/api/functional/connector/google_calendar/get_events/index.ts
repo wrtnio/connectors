@@ -14,7 +14,7 @@ import type { IGoogleCalendar } from "../../../../structures/connector/google_ca
 /**
  * 구글 캘린더에 있는 이벤트 목록을 가져옵니다.
  *
- * @param calendarId 이벤트 목록을 가져올 캘린더 고유 ID.
+ * @param calendarId 이벤트 목록을 가져올 캘린더를 선택해주세요.
  * @param input 이벤트 목록을 가져오기 위한 조건.
  * @summary 구글 캘린더 이벤트 목록 가져오기.
  * @returns 구글 캘린더 이벤트 목록.

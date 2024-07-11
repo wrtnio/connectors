@@ -171,7 +171,7 @@ export namespace createFolder {
 /**
  * 구글 드라이브에 있는 폴더를 삭제합니다.
  *
- * @param id 삭제할 폴더 고유 ID.
+ * @param id 삭제할 폴더를 선택해 주세요.
  * @summary 구글 드라이브 폴더 삭제.
  * @tag Google-Drive
  * @tag 구글 드라이브

@@ -173,7 +173,7 @@ export namespace createFile {
 /**
  * 구글 드라이브에 있는 파일을 삭제합니다.
  *
- * @param id 삭제할 파일 고유 ID.
+ * @param id 삭제할 파일을 선택해 주세요.
  * @summary 구글 드라이브 파일 삭제.
  * @tag Google-Drive
  * @tag 구글 드라이브

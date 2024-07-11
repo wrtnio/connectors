@@ -14,7 +14,7 @@ import type { IGoogleDocs } from "../../../../structures/connector/google_docs/I
 /**
  * 구글 docs의 내용을 읽어옵니다.
  *
- * @param id 구글 docs 고유 ID.
+ * @param id 가져올 docs 파일을 선택해 주세요.
  * @summary 구글 docs 읽기.
  * @TODO read other elements if necessary
  * @returns 구글 docs 내용.

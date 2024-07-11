@@ -141,7 +141,7 @@ export namespace createLabel {
 /**
  * 메일에 라벨을 부여합니다.
  *
- * @param mailId 라벨을 부여할 메일의 고유 ID.
+ * @param mailId 라벨을 부여할 메일을 선택해주세요.
  * @param input 부여할 라벨의 고유 ID 목록.
  * @summary GMAIL 라벨 부여.
  * @tag Gmail
@@ -270,7 +270,7 @@ export namespace addLabelToMail {
 /**
  * 메일에 부여된 라벨을 제거합니다.
  *
- * @param mailId 라벨을 제거할 메일의 고유 ID.
+ * @param mailId 라벨을 제거할 메일을 선택해주세요.
  * @param input 제거할 라벨의 고유 ID 목록.
  * @summary GMAIL 라벨 제거.
  * @tag Gmail
