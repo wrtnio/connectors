@@ -67,7 +67,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-campaigns";
-        array: "return results";
+        array: "return response";
         label: "return el.campaign.name";
         value: "return el.campaign.id";
       }>;
@@ -185,7 +185,13 @@ export namespace IGoogleAds {
     >;
   };
 
+  /**
+   * @title 광고 정보
+   */
   export interface Ad {
+    /**
+     * @title 광고 정보
+     */
     ad: IGoogleAds.IGetAdGroupAdsOutputResult;
   }
   /**
