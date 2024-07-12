@@ -6,3 +6,5 @@ openai-positional.json
 openai-keyword.json
 swagger.json
 version.json
+
+categories/*.swagger.json

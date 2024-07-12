@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { LoggerModule } from "nestjs-pino";
 
-import { ArxivSearchController } from "./arxiv_search/ArxivSearchController";
+import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
 import { AwsModule } from "./aws/AwsModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
-import { CsvController } from "./csv/CsvController";
+import { CsvModule } from "./csv/CsvModule";
 import { DallE3Module } from "./dall_e_3/DallE3Module";
-import { DaumController } from "./daum/DaumController";
+import { DaumModule } from "./daum/DaumModule";
 import { ExcelModule } from "./excel/ExcelModule";
 import { KeywordExtractModule } from "./extract/KeywordExtractModule";
 import { FigmaModule } from "./figma/FigmaModule";
@@ -16,7 +16,7 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleAdsModule } from "./google_ads/GoogleAdsModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
-import { GoogleScholarController } from "./google_scholar/GoogleScholarController";
+import { GoogleScholarModule } from "./google_scholar/GoolgeScholarModule";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
 import { GoogleShoppingModule } from "./google_shopping/GoogleShoppingModule";
 import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
@@ -30,8 +30,8 @@ import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { KoreaEximbankModule } from "./korea_eximbank/KoreaEximbankModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
-import { NaverController } from "./naver/NaverController";
-import { NotionController } from "./notion/NotionController";
+import { NaverModule } from "./naver/NaverModule";
+import { NotionModule } from "./notion/NotionModule";
 import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
@@ -43,7 +43,7 @@ import { StudentReportGeneratorModule } from "./student_report_generator/Student
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
-import { YoutubeSearchController } from "./youtube_search/YoutubeSearchController";
+import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 
 @Module({
@@ -87,16 +87,14 @@ import { ZoomModule } from "./zoom/ZoomModule";
     GoogleSearchModule,
     GoogleShoppingModule,
     GoogleAdsModule,
+    ArxivSearchModule,
+    DaumModule,
+    NaverModule,
+    YoutubeSearchModule,
+    GoogleScholarModule,
+    CsvModule,
+    NotionModule,
   ],
-  controllers: [
-    ArxivSearchController,
-    DaumController,
-    NaverController,
-    YoutubeSearchController,
-    TypeformController,
-    GoogleScholarController,
-    CsvController,
-    NotionController,
-  ],
+  controllers: [TypeformController],
 })
 export class ConnectorModule {}
