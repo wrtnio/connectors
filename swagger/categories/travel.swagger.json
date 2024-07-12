@@ -1,0 +1,1563 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "version": "0.1.14",
+    "title": "@wrtn/connector",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/kakao-map/search": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "검색 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoMap.SearchByKeywordInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoMap.SearchByKeywordOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "카카오 맵 검색",
+        "description": "카카오맵으로 검색합니다",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakao-map.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/kakao-navi/get-future-directions": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "요청 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoNavi.IGetFutureDirectionsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "길 찾기 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoNavi.SuccessCase"
+                }
+              }
+            }
+          }
+        },
+        "summary": "카카오 네비 길찾기",
+        "description": "카카오 네비로 길을 찾습니다.",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IKakaoMap.SearchByKeywordInput": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "x-wrtn-placeholder": "종로구 맛집",
+            "title": "검색 키워드"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 45,
+            "default": 1,
+            "title": "결과 페이지 번호"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 15,
+            "default": 15,
+            "title": "페이지 당 문서 수"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "검색 조건"
+      },
+      "IKakaoMap.SearchByKeywordOutput": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoMap.Document"
+            },
+            "title": "검색 결과 목록"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/IKakaoMap.Meta",
+            "title": "메타 정보"
+          }
+        },
+        "required": [
+          "documents",
+          "meta"
+        ],
+        "title": "검색 결과"
+      },
+      "IKakaoMap.Document": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "장소 ID"
+          },
+          "place_name": {
+            "type": "string",
+            "title": "장소명, 업체명"
+          },
+          "category_name": {
+            "type": "string",
+            "title": "카테고리 이름"
+          },
+          "category_group_code": {
+            "$ref": "#/components/schemas/IKakaoMap.CategoryGroupCode",
+            "title": "중요 카테고리만 그룹핑한 카테고리 그룹 코드"
+          },
+          "category_group_name": {
+            "$ref": "#/components/schemas/IKakaoMap.CategoryGroupName",
+            "title": "중요 카테고리만 그룹핑한 카테고리 그룹명"
+          },
+          "phone": {
+            "type": "string",
+            "title": "전화번호"
+          },
+          "address_name": {
+            "type": "string",
+            "title": "전체 지번 주소"
+          },
+          "road_address_name": {
+            "type": "string",
+            "title": "전체 도로명 주소"
+          },
+          "x": {
+            "type": "string",
+            "title": "X 좌표값",
+            "description": "경위도인 경우 longitude (경도)"
+          },
+          "y": {
+            "type": "string",
+            "title": "Y 좌표값",
+            "description": "경위도인 경우 latitude(위도)"
+          },
+          "place_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "장소 상세페이지 URL"
+          },
+          "distance": {
+            "type": "string",
+            "title": "중심좌표까지의 거리",
+            "description": "(단, x,y 파라미터를 준 경우에만 존재) 단위 meter"
+          }
+        },
+        "required": [
+          "id",
+          "place_name",
+          "category_name",
+          "category_group_code",
+          "category_group_name",
+          "phone",
+          "address_name",
+          "road_address_name",
+          "x",
+          "y",
+          "place_url",
+          "distance"
+        ],
+        "title": "검색 결과"
+      },
+      "IKakaoMap.CategoryGroupCode": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ConstantMT1__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantCS2__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPS3__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantSC4__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAC5__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPK6__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantOL7__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantSW8__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantBK9__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantCT1__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAG2__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPO3__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAT4__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAD5__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantFD6__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantCE7__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantHP8__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPM9__type"
+          }
+        ],
+        "title": "카테고리 그룹 코드"
+      },
+      "ConstantMT1__type": {
+        "const": "MT1",
+        "title": "대형마트"
+      },
+      "ConstantCS2__type": {
+        "const": "CS2",
+        "title": "편의점"
+      },
+      "ConstantPS3__type": {
+        "const": "PS3",
+        "title": "어린이집, 유치원"
+      },
+      "ConstantSC4__type": {
+        "const": "SC4",
+        "title": "학교"
+      },
+      "ConstantAC5__type": {
+        "const": "AC5",
+        "title": "학원"
+      },
+      "ConstantPK6__type": {
+        "const": "PK6",
+        "title": "주차장"
+      },
+      "ConstantOL7__type": {
+        "const": "OL7",
+        "title": "주유소, 충전소"
+      },
+      "ConstantSW8__type": {
+        "const": "SW8",
+        "title": "지하철역"
+      },
+      "ConstantBK9__type": {
+        "const": "BK9",
+        "title": "은행"
+      },
+      "ConstantCT1__type": {
+        "const": "CT1",
+        "title": "문화시설"
+      },
+      "ConstantAG2__type": {
+        "const": "AG2",
+        "title": "중개업소"
+      },
+      "ConstantPO3__type": {
+        "const": "PO3",
+        "title": "공공기관"
+      },
+      "ConstantAT4__type": {
+        "const": "AT4",
+        "title": "관광명소"
+      },
+      "ConstantAD5__type": {
+        "const": "AD5",
+        "title": "숙박"
+      },
+      "ConstantFD6__type": {
+        "const": "FD6",
+        "title": "음식점"
+      },
+      "ConstantCE7__type": {
+        "const": "CE7",
+        "title": "카페"
+      },
+      "ConstantHP8__type": {
+        "const": "HP8",
+        "title": "병원"
+      },
+      "ConstantPM9__type": {
+        "const": "PM9",
+        "title": "약국"
+      },
+      "IKakaoMap.CategoryGroupName": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Constant대형마트__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant편의점__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant어린이집유치원__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant학교__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant학원__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant주차장__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant주유소충전소__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant지하철역__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant은행__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant문화시설__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant중개업소__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant공공기관__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant관광명소__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant숙박__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant음식점__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant카페__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant병원__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant약국__type"
+          }
+        ],
+        "title": "카테고리 그룹 이름"
+      },
+      "Constant대형마트__type": {
+        "const": "대형마트",
+        "title": "대형마트"
+      },
+      "Constant편의점__type": {
+        "const": "편의점",
+        "title": "편의점"
+      },
+      "Constant어린이집유치원__type": {
+        "const": "어린이집, 유치원",
+        "title": "어린이집, 유치원"
+      },
+      "Constant학교__type": {
+        "const": "학교",
+        "title": "학교"
+      },
+      "Constant학원__type": {
+        "const": "학원",
+        "title": "학원"
+      },
+      "Constant주차장__type": {
+        "const": "주차장",
+        "title": "주차장"
+      },
+      "Constant주유소충전소__type": {
+        "const": "주유소, 충전소",
+        "title": "주유소, 충전소"
+      },
+      "Constant지하철역__type": {
+        "const": "지하철역",
+        "title": "지하철역"
+      },
+      "Constant은행__type": {
+        "const": "은행",
+        "title": "은행"
+      },
+      "Constant문화시설__type": {
+        "const": "문화시설",
+        "title": "문화시설"
+      },
+      "Constant중개업소__type": {
+        "const": "중개업소",
+        "title": "중개업소"
+      },
+      "Constant공공기관__type": {
+        "const": "공공기관",
+        "title": "공공기관"
+      },
+      "Constant관광명소__type": {
+        "const": "관광명소",
+        "title": "관광명소"
+      },
+      "Constant숙박__type": {
+        "const": "숙박",
+        "title": "숙박"
+      },
+      "Constant음식점__type": {
+        "const": "음식점",
+        "title": "음식점"
+      },
+      "Constant카페__type": {
+        "const": "카페",
+        "title": "카페"
+      },
+      "Constant병원__type": {
+        "const": "병원",
+        "title": "병원"
+      },
+      "Constant약국__type": {
+        "const": "약국",
+        "title": "약국"
+      },
+      "IKakaoMap.Meta": {
+        "type": "object",
+        "properties": {
+          "total_count": {
+            "type": "integer",
+            "title": "검색어에 검색된 문서 수"
+          },
+          "pageable_count": {
+            "type": "integer",
+            "maximum": 45,
+            "title": "한 번에 표시되는 문서 수"
+          },
+          "is_end": {
+            "type": "boolean",
+            "title": "현재 페이지가 마지막 페이지인지 여부",
+            "description": "값이 false면 다음 요청 시 page 값을 증가시켜 다음 페이지 요청 가능"
+          },
+          "same_name": {
+            "type": "object",
+            "properties": {
+              "keyword": {
+                "type": "string",
+                "title": "질의어에서 지역 정보를 제외한 키워드",
+                "description": "'중앙로 맛집'을 검색한 경우 '맛집'에 해당하는 부분을 추출한 값"
+              },
+              "region": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "질의어에서 인식된 지역의 리스트",
+                "description": "'중앙로 맛집'을 검색한 경우 '중앙로'에 해당하는 부분을 추출한 값"
+              },
+              "selected_region": {
+                "type": "string",
+                "title": "검색에 활용된 지역 정보"
+              }
+            },
+            "required": [
+              "keyword",
+              "region",
+              "selected_region"
+            ]
+          }
+        },
+        "required": [
+          "total_count",
+          "pageable_count",
+          "is_end"
+        ],
+        "title": "메타 정보"
+      },
+      "IKakaoNavi.IGetFutureDirectionsInput": {
+        "type": "object",
+        "properties": {
+          "departure_time": {
+            "type": "string",
+            "x-wrtn-placeholder": "202406202000",
+            "title": "출발 시간",
+            "description": "YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정"
+          },
+          "origin": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-placeholder": "127.111202,37.394912"
+            },
+            "title": "출발지",
+            "description": "X좌표,Y좌표 형식의 경도, 위도 값"
+          },
+          "destination": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-placeholder": "127.111202,37.394912"
+            },
+            "title": "목적지",
+            "description": "X좌표,Y좌표 형식의 경도, 위도 값"
+          }
+        },
+        "required": [
+          "departure_time",
+          "origin",
+          "destination"
+        ],
+        "title": "요청 조건"
+      },
+      "IKakaoNavi.SuccessCase": {
+        "type": "object",
+        "properties": {
+          "trans_id": {
+            "type": "string",
+            "title": "경로 요청 ID"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Route"
+            },
+            "title": "경로 정보"
+          }
+        },
+        "required": [
+          "trans_id",
+          "routes"
+        ],
+        "title": "성공 응답"
+      },
+      "IKakaoNavi.Route": {
+        "type": "object",
+        "properties": {
+          "result_code": {
+            "$ref": "#/components/schemas/IKakaoNavi.Route.Code",
+            "title": "경로 탐색 결과 코드"
+          },
+          "result_msg": {
+            "type": "string",
+            "title": "경로 탐색 결과 메시지"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/IKakaoNavi.Summary",
+            "title": "경로 요약 정보"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Section"
+            },
+            "title": "구간 별 경로 정보"
+          }
+        },
+        "required": [
+          "result_code",
+          "result_msg"
+        ]
+      },
+      "IKakaoNavi.Route.Code": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Constant0__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant1__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant101__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant102__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant103__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant104__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant105__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant106__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant107__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant201__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant202__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant203__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant204__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant205__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant206__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant207__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant301__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant302__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant303__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant304__type"
+          }
+        ]
+      },
+      "Constant0__type": {
+        "const": 0,
+        "title": "길찾기 성공"
+      },
+      "Constant1__type": {
+        "const": 1,
+        "title": "길찾기 결과를 찾을 수 없음"
+      },
+      "Constant101__type": {
+        "const": 101,
+        "title": "경유지 지점 주변의 도로를 탐색할 수 없음"
+      },
+      "Constant102__type": {
+        "const": 102,
+        "title": "시작 지점 주변의 도로를 탐색할 수 없음"
+      },
+      "Constant103__type": {
+        "const": 103,
+        "title": "도착 지점 주변의 도로를 탐색할 수 없음"
+      },
+      "Constant104__type": {
+        "const": 104,
+        "title": "출발지와 도착지가 5 m 이내로 설정된 경우 경로를 탐색할 수 없음"
+      },
+      "Constant105__type": {
+        "const": 105,
+        "title": "시작 지점 주변의 도로에 유고 정보(교통 장애)가 있음"
+      },
+      "Constant106__type": {
+        "const": 106,
+        "title": "도착 지점 주변의 도로에 유고 정보(교통 장애)가 있음"
+      },
+      "Constant107__type": {
+        "const": 107,
+        "title": "경유지 주변의 도로에 유고 정보(교통 장애)가 있음."
+      },
+      "Constant201__type": {
+        "const": 201,
+        "title": "다중 출발지: 출발지가 탐색 영역에 포함되지 않음"
+      },
+      "Constant202__type": {
+        "const": 202,
+        "title": "다중 출발지: 출발지 최대 개수 초과 도로 선택 실패"
+      },
+      "Constant203__type": {
+        "const": 203,
+        "title": "다중 출발지: 목적지 도로 선택 실패"
+      },
+      "Constant204__type": {
+        "const": 204,
+        "title": "다중 출발지: 경로 탐색 처리 시간 제한"
+      },
+      "Constant205__type": {
+        "const": 205,
+        "title": "다중 출발지: 출발지 주변의 유고 정보(교통 장애)로 인한 통행 불가"
+      },
+      "Constant206__type": {
+        "const": 206,
+        "title": "다중 출발지: 목적지 주변의 유고 정보(교통 장애)로 인한 통행 불가"
+      },
+      "Constant207__type": {
+        "const": 207,
+        "title": "다중 출발지: 출발지가 설정한 길찾기 반경 범위를 벗어남"
+      },
+      "Constant301__type": {
+        "const": 301,
+        "title": "다중 목적지: 출발지 도로 선택 실패"
+      },
+      "Constant302__type": {
+        "const": 302,
+        "title": "다중 목적지: 목적지 도로 선택 실패"
+      },
+      "Constant303__type": {
+        "const": 303,
+        "title": "다중 목적지: 목적지 최대 개수 초과로 인해 경로 탐색 실패"
+      },
+      "Constant304__type": {
+        "const": 304,
+        "title": "다중 목적지: 목적지가 설정한 길찾기 반경 범위를 벗어남"
+      },
+      "IKakaoNavi.Summary": {
+        "type": "object",
+        "properties": {
+          "origin": {
+            "$ref": "#/components/schemas/IKakaoNavi.Place",
+            "title": "출발지 정보"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/IKakaoNavi.Place",
+            "title": "목적지 정보"
+          },
+          "waypoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Place"
+            },
+            "title": "경유지 정보"
+          },
+          "priority": {
+            "type": "string",
+            "title": "경로 탐색 우선순위 옵션"
+          },
+          "fare": {
+            "$ref": "#/components/schemas/IKakaoNavi.Fare",
+            "title": "요금 정보"
+          },
+          "bound": {
+            "$ref": "#/components/schemas/IKakaoNavi.Bound",
+            "title": "모든 경로를 포함하는 사각형의 바운딩 박스"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "섹션 거리(미터)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "전체 검색 결과 이동 시간(초)"
+          }
+        },
+        "required": [
+          "origin",
+          "destination",
+          "waypoints",
+          "priority",
+          "fare",
+          "bound",
+          "distance",
+          "duration"
+        ]
+      },
+      "IKakaoNavi.Place": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "장소 이름"
+          },
+          "x": {
+            "type": "number",
+            "title": "X 좌표 (경도)"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y 좌표 (위도)"
+          }
+        },
+        "required": [
+          "name",
+          "x",
+          "y"
+        ]
+      },
+      "IKakaoNavi.Fare": {
+        "type": "object",
+        "properties": {
+          "taxi": {
+            "type": "number",
+            "title": "택시 요금(원)"
+          },
+          "toll": {
+            "type": "number",
+            "title": "통행 요금(원)"
+          }
+        },
+        "required": [
+          "taxi",
+          "toll"
+        ],
+        "title": "요금 정보"
+      },
+      "IKakaoNavi.Bound": {
+        "type": "object",
+        "properties": {
+          "min_x": {
+            "type": "number",
+            "title": "바운딩 박스 왼쪽 하단의 X 좌표"
+          },
+          "min_y": {
+            "type": "number",
+            "title": "바운딩 박스 왼쪽 하단의 Y 좌표"
+          },
+          "max_x": {
+            "type": "number",
+            "title": "바운딩 박스 오른쪽 상단의 X 좌표"
+          },
+          "max_y": {
+            "type": "number",
+            "title": "바운딩 박스 오른쪽 상단의 Y 좌표"
+          }
+        },
+        "required": [
+          "min_x",
+          "min_y",
+          "max_x",
+          "max_y"
+        ],
+        "title": "모든 경로를 포함하는 사각형의 바운딩 박스(Bounding box)"
+      },
+      "IKakaoNavi.Section": {
+        "type": "object",
+        "properties": {
+          "distance": {
+            "type": "integer",
+            "title": "섹션 거리(미터)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "전체 검색 결과 이동 시간(초)"
+          },
+          "bound": {
+            "$ref": "#/components/schemas/IKakaoNavi.Bound",
+            "title": "모든 경로를 포함하는 사각형의 바운딩 박스"
+          },
+          "roads": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Road"
+            },
+            "title": "도로 정보"
+          },
+          "guides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Guide"
+            },
+            "title": "안내 정보"
+          }
+        },
+        "required": [
+          "distance",
+          "duration",
+          "bound"
+        ],
+        "title": "구간 별 경로 정보",
+        "description": "경유지가 존재할 경우 경유지 수에 1을 더한 값만큼의 섹션이 생성된다."
+      },
+      "IKakaoNavi.Road": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "도로 명"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "도로 길이(미터)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "예상 이동 시간(초)",
+            "description": "현재 예상 이동 시간 및 실제 이동 시간은 동일한 값으로 설정"
+          },
+          "traffic_speed": {
+            "type": "number",
+            "title": "현재 교통 정보 속도(km/h)"
+          },
+          "traffic_state": {
+            "$ref": "#/components/schemas/IKakaoNavi.TrafficState",
+            "title": "현재 교통 정보 상태"
+          },
+          "vertexes": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "title": "X, Y 좌표로 구성된 1차원 배열"
+          }
+        },
+        "required": [
+          "name",
+          "distance",
+          "duration",
+          "traffic_speed",
+          "traffic_state",
+          "vertexes"
+        ],
+        "title": "도로 정보"
+      },
+      "IKakaoNavi.TrafficState": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Constant0__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/Constant1__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/Constant2__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant3__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant4__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant6__type"
+          }
+        ],
+        "title": "현재 교통 정보 상태"
+      },
+      "Constant0__type.o1": {
+        "const": 0,
+        "title": "교통 상태 정보 없음"
+      },
+      "Constant1__type.o1": {
+        "const": 1,
+        "title": "교통 정체"
+      },
+      "Constant2__type": {
+        "const": 2,
+        "title": "교통 지체"
+      },
+      "Constant3__type": {
+        "const": 3,
+        "title": "교통 서행"
+      },
+      "Constant4__type": {
+        "const": 4,
+        "title": "교통 원활"
+      },
+      "Constant6__type": {
+        "const": 6,
+        "title": "교통사고(통행 불가)"
+      },
+      "IKakaoNavi.Guide": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/IKakaoNavi.GuideType",
+            "title": "안내 타입"
+          },
+          "guidance": {
+            "type": "string",
+            "title": "안내 문구"
+          },
+          "road_index": {
+            "type": "integer",
+            "title": "현재 가이드에 대한 링크 인덱스"
+          },
+          "name": {
+            "type": "string",
+            "title": "장소 이름"
+          },
+          "x": {
+            "type": "number",
+            "title": "X 좌표 (경도)"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y 좌표 (위도)"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "섹션 거리(미터)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "전체 검색 결과 이동 시간(초)"
+          }
+        },
+        "required": [
+          "type",
+          "guidance",
+          "road_index",
+          "name",
+          "x",
+          "y",
+          "distance",
+          "duration"
+        ],
+        "title": "안내 정보"
+      },
+      "IKakaoNavi.GuideType": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Constant0__type.o2"
+          },
+          {
+            "$ref": "#/components/schemas/Constant1__type.o2"
+          },
+          {
+            "$ref": "#/components/schemas/Constant2__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/Constant3__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/Constant5__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant6__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/Constant7__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant8__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant9__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant10__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant11__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant12__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant14__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant15__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant16__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant17__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant18__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant19__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant20__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant21__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant22__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant23__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant24__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant25__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant26__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant27__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant28__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant29__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant30__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant31__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant32__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant33__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant34__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant35__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant36__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant37__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant38__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant39__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant40__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant41__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant42__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant43__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant44__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant45__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant46__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant47__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant48__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant49__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant61__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant62__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant70__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant71__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant72__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant73__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant74__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant75__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant76__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant77__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant78__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant79__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant80__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant81__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant82__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant83__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant84__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant85__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant86__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant100__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant101__type.o1"
+          },
+          {
+            "$ref": "#/components/schemas/Constant1000__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant300__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant301__type.o1"
+          }
+        ],
+        "title": "안내 문구"
+      },
+      "Constant0__type.o2": {
+        "const": 0,
+        "title": "직진"
+      },
+      "Constant1__type.o2": {
+        "const": 1,
+        "title": "좌회전"
+      },
+      "Constant2__type.o1": {
+        "const": 2,
+        "title": "우회전"
+      },
+      "Constant3__type.o1": {
+        "const": 3,
+        "title": "유턴"
+      },
+      "Constant5__type": {
+        "const": 5,
+        "title": "왼쪽 방향"
+      },
+      "Constant6__type.o1": {
+        "const": 6,
+        "title": "오른쪽 방향"
+      },
+      "Constant7__type": {
+        "const": 7,
+        "title": "고속 도로 출구"
+      },
+      "Constant8__type": {
+        "const": 8,
+        "title": "왼쪽에 고속 도로 출구"
+      },
+      "Constant9__type": {
+        "const": 9,
+        "title": "오른쪽에 고속 도로 출구"
+      },
+      "Constant10__type": {
+        "const": 10,
+        "title": "고속 도로 입구"
+      },
+      "Constant11__type": {
+        "const": 11,
+        "title": "왼쪽에 고속 도로 입구"
+      },
+      "Constant12__type": {
+        "const": 12,
+        "title": "오른쪽에 고속 도로 입구"
+      },
+      "Constant14__type": {
+        "const": 14,
+        "title": "고가 도로 진입"
+      },
+      "Constant15__type": {
+        "const": 15,
+        "title": "지하 차도 진입"
+      },
+      "Constant16__type": {
+        "const": 16,
+        "title": "고가 도로 옆길"
+      },
+      "Constant17__type": {
+        "const": 17,
+        "title": "지하 차도 옆길"
+      },
+      "Constant18__type": {
+        "const": 18,
+        "title": "오른쪽 1시 방향"
+      },
+      "Constant19__type": {
+        "const": 19,
+        "title": "오른쪽 2시 방향"
+      },
+      "Constant20__type": {
+        "const": 20,
+        "title": "오른쪽 3시 방향"
+      },
+      "Constant21__type": {
+        "const": 21,
+        "title": "오른쪽 4시 방향"
+      },
+      "Constant22__type": {
+        "const": 22,
+        "title": "오른쪽 5시 방향"
+      },
+      "Constant23__type": {
+        "const": 23,
+        "title": "6시 방향"
+      },
+      "Constant24__type": {
+        "const": 24,
+        "title": "왼쪽 7시 방향"
+      },
+      "Constant25__type": {
+        "const": 25,
+        "title": "왼쪽 8시 방향"
+      },
+      "Constant26__type": {
+        "const": 26,
+        "title": "왼쪽 9시 방향"
+      },
+      "Constant27__type": {
+        "const": 27,
+        "title": "왼쪽 10시 방향"
+      },
+      "Constant28__type": {
+        "const": 28,
+        "title": "왼쪽 11시 방향"
+      },
+      "Constant29__type": {
+        "const": 29,
+        "title": "12시 방향"
+      },
+      "Constant30__type": {
+        "const": 30,
+        "title": "로터리에서 오른쪽 1시 방향"
+      },
+      "Constant31__type": {
+        "const": 31,
+        "title": "로터리에서 오른쪽 2시 방향"
+      },
+      "Constant32__type": {
+        "const": 32,
+        "title": "로터리에서 오른쪽 3시 방향"
+      },
+      "Constant33__type": {
+        "const": 33,
+        "title": "로터리에서 오른쪽 4시 방향"
+      },
+      "Constant34__type": {
+        "const": 34,
+        "title": "로터리에서 오른쪽 5시 방향"
+      },
+      "Constant35__type": {
+        "const": 35,
+        "title": "로터리에서 6시 방향"
+      },
+      "Constant36__type": {
+        "const": 36,
+        "title": "로터리에서 왼쪽 7시 방향"
+      },
+      "Constant37__type": {
+        "const": 37,
+        "title": "로터리에서 왼쪽 8시 방향"
+      },
+      "Constant38__type": {
+        "const": 38,
+        "title": "로터리에서 왼쪽 9시 방향"
+      },
+      "Constant39__type": {
+        "const": 39,
+        "title": "로터리에서 왼쪽 10시 방향"
+      },
+      "Constant40__type": {
+        "const": 40,
+        "title": "로터리에서 왼쪽 11시 방향"
+      },
+      "Constant41__type": {
+        "const": 41,
+        "title": "로터리에서 12시 방향"
+      },
+      "Constant42__type": {
+        "const": 42,
+        "title": "도시 고속 도로 출구"
+      },
+      "Constant43__type": {
+        "const": 43,
+        "title": "왼쪽에 도시 고속 도로 출구"
+      },
+      "Constant44__type": {
+        "const": 44,
+        "title": "오른쪽에 도시 고속 도로 출구"
+      },
+      "Constant45__type": {
+        "const": 45,
+        "title": "도시 고속 도로 입구"
+      },
+      "Constant46__type": {
+        "const": 46,
+        "title": "왼쪽에 도시 고속 도로 입구"
+      },
+      "Constant47__type": {
+        "const": 47,
+        "title": "오른쪽에 도시 고속 도로 입구"
+      },
+      "Constant48__type": {
+        "const": 48,
+        "title": "왼쪽 고속 도로 진입"
+      },
+      "Constant49__type": {
+        "const": 49,
+        "title": "오른쪽 고속 도로 진입"
+      },
+      "Constant61__type": {
+        "const": 61,
+        "title": "페리 항로 진입"
+      },
+      "Constant62__type": {
+        "const": 62,
+        "title": "페리 항로 진출"
+      },
+      "Constant70__type": {
+        "const": 70,
+        "title": "회전 교차로에서 오른쪽 1시 방향"
+      },
+      "Constant71__type": {
+        "const": 71,
+        "title": "회전 교차로에서 오른쪽 2시 방향"
+      },
+      "Constant72__type": {
+        "const": 72,
+        "title": "회전 교차로에서 오른쪽 3시 방향"
+      },
+      "Constant73__type": {
+        "const": 73,
+        "title": "회전 교차로에서 오른쪽 4시 방향"
+      },
+      "Constant74__type": {
+        "const": 74,
+        "title": "회전 교차로에서 오른쪽 5시 방향"
+      },
+      "Constant75__type": {
+        "const": 75,
+        "title": "회전 교차로에서 6시 방향"
+      },
+      "Constant76__type": {
+        "const": 76,
+        "title": "회전 교차로에서 왼쪽 7시 방향"
+      },
+      "Constant77__type": {
+        "const": 77,
+        "title": "회전 교차로에서 왼쪽 8시 방향"
+      },
+      "Constant78__type": {
+        "const": 78,
+        "title": "회전 교차로에서 왼쪽 9시 방향"
+      },
+      "Constant79__type": {
+        "const": 79,
+        "title": "회전 교차로에서 왼쪽 10시 방향"
+      },
+      "Constant80__type": {
+        "const": 80,
+        "title": "회전 교차로에서 왼쪽 11시 방향"
+      },
+      "Constant81__type": {
+        "const": 81,
+        "title": "회전 교차로에서 12시 방향"
+      },
+      "Constant82__type": {
+        "const": 82,
+        "title": "왼쪽 직진"
+      },
+      "Constant83__type": {
+        "const": 83,
+        "title": "오른쪽 직진"
+      },
+      "Constant84__type": {
+        "const": 84,
+        "title": "톨게이트 진입"
+      },
+      "Constant85__type": {
+        "const": 85,
+        "title": "원톨링 진입"
+      },
+      "Constant86__type": {
+        "const": 86,
+        "title": "분기 후 합류 구간 진입"
+      },
+      "Constant100__type": {
+        "const": 100,
+        "title": "출발지"
+      },
+      "Constant101__type.o1": {
+        "const": 101,
+        "title": "목적지"
+      },
+      "Constant1000__type": {
+        "const": 1000,
+        "title": "경유지"
+      },
+      "Constant300__type": {
+        "const": 300,
+        "title": "톨게이트"
+      },
+      "Constant301__type.o1": {
+        "const": 301,
+        "title": "휴게소"
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}

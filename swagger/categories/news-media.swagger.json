@@ -1,0 +1,112 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "version": "0.1.14",
+    "title": "@wrtn/connector",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/llm/selector-llm": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "후보 선택을 위한 입력",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISelectorLlmRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "선택된 후보 인덱스 배열",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISelectorLlmResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "조건 선택",
+        "description": "주어진 후보 중에서 조건에 맞는 것을 선택합니다."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ISelectorLlmRequest": {
+        "type": "object",
+        "properties": {
+          "candidates": {
+            "type": "array",
+            "items": {},
+            "title": "선택지.",
+            "description": "선택 후보군 리스트입니다."
+          },
+          "num_select": {
+            "type": "number",
+            "title": "선택 개수.",
+            "description": "선택할 후보군의 개수입니다."
+          },
+          "context": {
+            "title": "고려사항.",
+            "description": "후보군을 선택할 때 고려해야할 내용들을 넣습니다."
+          }
+        },
+        "required": [
+          "candidates",
+          "num_select",
+          "context"
+        ]
+      },
+      "ISelectorLlmResponse": {
+        "type": "object",
+        "properties": {
+          "selection": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "title": "선택된 후보 인덱스 정보.",
+            "description": "선택된 후보들의 인덱스 리스트입니다."
+          }
+        },
+        "required": [
+          "selection"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Llm",
+      "description": "selection 선택 추출"
+    }
+  ],
+  "x-samchon-emended": true
+}
