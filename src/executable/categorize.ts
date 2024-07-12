@@ -10,7 +10,7 @@ const main = async (): Promise<void> => {
   for await (const config of configs) {
     const script = `node --max-old-space-size=8000 node_modules/nestia/bin swagger --config ./nestia-configs/${config}`;
     console.log(script);
-    cp.execSync(script);
+    cp.execSync(script, { stdio: "inherit" });
   }
 };
 
