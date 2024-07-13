@@ -165,7 +165,6 @@ export class GoogleAdsProvider {
         /**
          * DISPLAY_STANDARD
          */
-
         await axios.post(url, {
           operations: {
             create: {
@@ -176,9 +175,23 @@ export class GoogleAdsProvider {
                   headlines: input.headlines.map((text) => ({ text })),
                   long_headline: { text: input.longHeadline },
                   descriptions: input.descriptions.map((text) => ({ text })),
-                  marketingImages: [],
-                  square_marketing_images: [],
-                  business_name: "",
+                  marketing_images: await this.createAssets({
+                    cusotmerId: input.customerId,
+                    images: await Promise.all(
+                      input.landscapeImages.map(
+                        async (image) => await this.iamgeEncoding(image),
+                      ),
+                    ),
+                  }),
+                  square_marketing_images: await this.createAssets({
+                    cusotmerId: input.customerId,
+                    images: await Promise.all(
+                      input.squareImages.map(
+                        async (image) => await this.iamgeEncoding(image),
+                      ),
+                    ),
+                  }),
+                  business_name: input.businessName,
                   youtube_videos: [],
                 },
               },
