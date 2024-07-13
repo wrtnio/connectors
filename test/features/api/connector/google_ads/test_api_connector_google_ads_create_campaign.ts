@@ -15,7 +15,7 @@ export const test_api_connector_google_ads_create_campaign_search_type = async (
 
   const testCampaignName = `SEARCH-${new Date().getTime()}`;
   const res =
-    await CApi.functional.connector.google_ads.campaign.createCampaign(
+    await CApi.functional.connector.google_ads.campaigns.createCampaign(
       connection,
       {
         customerId: id,
@@ -45,7 +45,7 @@ export const test_api_connector_google_ads_create_campaign_display_type =
 
     const testCampaignName = `DISPLAY-${new Date().getTime()}`;
     const res =
-      await CApi.functional.connector.google_ads.campaign.createCampaign(
+      await CApi.functional.connector.google_ads.campaigns.createCampaign(
         connection,
         {
           customerId: id,

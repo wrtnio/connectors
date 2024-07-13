@@ -12,7 +12,7 @@ export const test_api_connector_google_ads_create_ad_display_type = async (
 
   const campaignResourceName = campaign.resourceName;
 
-  const res = await CApi.functional.connector.google_ads.ads.createAd(
+  const res = await CApi.functional.connector.google_ads.campaigns.ads.appendAd(
     connection,
     {
       customerId: "8655555186",

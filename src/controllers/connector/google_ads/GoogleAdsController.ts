@@ -96,21 +96,35 @@ export class GoogleAdsController {
   }
 
   /**
+   * 구글 고객 계정의 광고를 생성해요
+   *
+   * @param input 광고 생성 조건
+   * @returns 생성된 광고 정보
+   */
+  @core.TypedRoute.Post("campaigns/ads")
+  async appendAd(
+    @TypedBody()
+    input: IGoogleAds.ICreateAdGroupAdInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
+    return this.googleAdsProvider.createAd(input);
+  }
+
+  /**
    * 구글 고객 계정의 광고 캠페인을 생성해요
    *
    * @summary 캠페인을 생성합니다
    * @param input 캠페인 생성 조건
    * @returns 생성된 캠페인 정보
    */
-  @core.TypedRoute.Post("campaign")
+  @core.TypedRoute.Post("campaigns")
   async createCampaign(
     @TypedBody() input: IGoogleAds.ICreateCampaignInput,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     return this.googleAdsProvider.createCampaign(input);
   }
 
-  @core.TypedRoute.Post("ads/at-once")
-  async createAdAtOnce(
+  @core.TypedRoute.Post("ads")
+  async createAd(
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupAdAtOnceInput,
   ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
@@ -124,25 +138,9 @@ export class GoogleAdsController {
       ...input.ad,
       customerId: input.customerId,
       campaignResourceName: campaign.resourceName,
-      type:
-        input.campaign.advertisingChannelType === "DISPLAY"
-          ? "DISPLAY_STANDARD"
-          : "SEARCH_STANDARD",
+      type: "SEARCH_STANDARD",
     });
 
     return { campaign, campaignBudget, ad };
-  }
-
-  /**
-   * 구글 고객 계정의 광고를 생성해요
-   *
-   * @param input 광고 생성 조건
-   * @returns 생성된 광고 정보
-   */
-  @core.TypedRoute.Post("ads")
-  async createAd(
-    @TypedBody() input: IGoogleAds.ICreateAdGroupAdInput,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
-    return this.googleAdsProvider.createAd(input);
   }
 }

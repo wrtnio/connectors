@@ -90,7 +90,9 @@ export class GoogleAdsProvider {
   }
 
   async createAdGroup(
-    input: IGoogleAds.ICreateAdGroupInput,
+    input: IGoogleAds.ICreateAdGroupInput<
+      "SEARCH_STANDARD" | "DISPLAY_STANDARD"
+    >,
   ): Promise<IGoogleAds.AdGroup["resourceName"]> {
     try {
       const url = `${this.baseUrl}/customers/${input.customerId}/adGroups:mutate`;
@@ -130,13 +132,13 @@ export class GoogleAdsProvider {
     try {
       let res: { data: any } | null = null;
       const adGroupResourceName = await this.createAdGroup(input);
-      if (input.type === "SEARCH_STANDARD") {
-        if (input.keywords.length) {
-          await this.createAdGroupCriteria(adGroupResourceName, input);
-        }
+      const headers = await this.getHeaders();
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+      if (input.keywords.length) {
+        await this.createAdGroupCriteria(adGroupResourceName, input); // Google Ads Keywords 생성
+      }
 
-        const headers = await this.getHeaders();
-        const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+      if (typia.is<IGoogleAds.ICreateAdGroupSearchAdInput>(input)) {
         res = await axios.post(
           url,
           {
@@ -158,6 +160,30 @@ export class GoogleAdsProvider {
             headers,
           },
         );
+      } else {
+        /**
+         * DISPLAY_STANDARD
+         */
+        res = await axios.post(url, {
+          operations: {
+            create: {
+              status: "PAUSED",
+              ad: {
+                final_urls: [input.finalUrl],
+                responsive_display_ad: {
+                  headlines: input.headlines.map((text) => ({ text })),
+                  long_headline: { text: input.longHeadline },
+                  descriptions: input.descriptions.map((text) => ({ text })),
+                  marketingImages: [],
+                  square_marketing_images: [],
+                  business_name: "",
+                  youtube_videos: [],
+                },
+              },
+              ad_group: adGroupResourceName,
+            },
+          },
+        });
       }
 
       const [result] = await this.getAds({ ...input, adGroupResourceName });

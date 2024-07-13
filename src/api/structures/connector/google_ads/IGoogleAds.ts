@@ -117,7 +117,9 @@ export namespace IGoogleAds {
   /**
    * @title 광고 그룹 생성 조건
    */
-  export interface ICreateAdGroupInput {
+  export interface ICreateAdGroupInput<
+    T extends "SEARCH_STANDARD" | "DISPLAY_STANDARD",
+  > {
     /**
      * @title 고객 리소스 이름
      */
@@ -131,7 +133,7 @@ export namespace IGoogleAds {
     /**
      * @title 광고 그룹 타입
      */
-    type: AdGroup["type"];
+    type: Extract<AdGroup["type"], T>;
   }
 
   /**
@@ -152,7 +154,7 @@ export namespace IGoogleAds {
      * @title 광고 생성 조건
      */
     ad: StrictOmit<
-      ICreateAdGroupAdInput,
+      ICreateAdGroupSearchAdInput,
       "campaignResourceName" | "type" | "customerId"
     >;
   };
@@ -171,8 +173,15 @@ export namespace IGoogleAds {
   /**
    * @title 광고 생성 조건
    */
-  export interface ICreateAdGroupAdInput
-    extends ICreateAdGroupInput,
+  export type ICreateAdGroupAdInput =
+    | ICreateAdGroupSearchAdInput
+    | ICreateAdGroupDisplayAdInput;
+
+  /**
+   * @title 검색 광고 생성 조건
+   */
+  export interface ICreateAdGroupSearchAdInput
+    extends ICreateAdGroupInput<"SEARCH_STANDARD">,
       ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
@@ -192,6 +201,68 @@ export namespace IGoogleAds {
     descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
       tags.MinItems<2> &
       tags.MaxItems<2>;
+  }
+
+  /**
+   * @title 디스플레이 광고 생성 조건
+   */
+  export interface ICreateAdGroupDisplayAdInput
+    extends ICreateAdGroupInput<"DISPLAY_STANDARD">,
+      ICreateKeywordInput {
+    /**
+     * @title 광고의 대상이 되는 홈페이지
+     */
+    finalUrl: string & tags.Format<"uri">;
+
+    /**
+     * @title 짧은 제목 리스트
+     */
+    headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
+
+    /**
+     * @title 긴 제목
+     */
+    longHeadline: string & tags.MinLength<1> & tags.MaxLength<90>;
+
+    /**
+     * @title 설명 리스트
+     */
+    descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
+      tags.MinItems<2> &
+      tags.MaxItems<2>;
+
+    /**
+     * @title 비즈니스 및 브랜드 이름
+     */
+    businessName: string & tags.MinLength<1> & tags.MaxLength<25>;
+
+    /**
+     * @title 가로형 이미지
+     * @description 1.91:1의 가로형 이미지이며 권장은 5장
+     */
+    landscapeImages: (string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<15>;
+
+    /**
+     * @title 로고 이미지
+     * @description 정방형 이미지로 최소 크기는 128x128px, 권장은 1200x1200px
+     */
+    logo: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+
+    /**
+     * @title 정방형 이미지
+     * @description 1.91:1의 가로형 이미지이며 최소 크기는 300x300px, 권장은 600x600px
+     */
+    squareImages: (string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<15>;
   }
 
   export interface ICreateCampaignInput extends ICreateCampaignBudgetInput {
