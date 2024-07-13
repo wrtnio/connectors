@@ -58,4 +58,6 @@ export const test_api_connector_google_ads_create_campaign_display_type =
     typia.assert(res);
     deepStrictEqual(res.campaign.name === testCampaignName, true);
     deepStrictEqual(res.campaignBudget.amountMicros === "1000000", true);
+
+    return res;
   };
