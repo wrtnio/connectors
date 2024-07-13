@@ -1,13 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios, { AxiosError } from "axios";
-import typia from "typia";
+import typia, { type tags } from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import type { ContentMediaType } from "typia/lib/tags";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -130,7 +131,6 @@ export class GoogleAdsProvider {
     input: IGoogleAds.ICreateAdGroupAdInput,
   ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
     try {
-      let res: { data: any } | null = null;
       const adGroupResourceName = await this.createAdGroup(input);
       const headers = await this.getHeaders();
       const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
@@ -139,7 +139,7 @@ export class GoogleAdsProvider {
       }
 
       if (typia.is<IGoogleAds.ICreateAdGroupSearchAdInput>(input)) {
-        res = await axios.post(
+        await axios.post(
           url,
           {
             operations: {
@@ -164,7 +164,7 @@ export class GoogleAdsProvider {
         /**
          * DISPLAY_STANDARD
          */
-        res = await axios.post(url, {
+        await axios.post(url, {
           operations: {
             create: {
               status: "PAUSED",
@@ -197,6 +197,22 @@ export class GoogleAdsProvider {
       );
       throw err;
     }
+  }
+
+  /**
+   * 이미지를 base64로 인코딩한다.
+   *
+   * @param url 인코딩할 이미지
+   * @returns
+   */
+  private async iamgeEncoding(
+    url: string & tags.Format<"uri"> & ContentMediaType<"image/*">,
+  ) {
+    const response = await axios.get(url, { responseType: "arraybuffer" });
+    const image = Buffer.from(response.data, "binary");
+    const encodedImage = image.toString("base64");
+
+    return encodedImage;
   }
 
   async createCampaign(
