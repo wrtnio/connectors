@@ -9,6 +9,7 @@ import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import type { ContentMediaType } from "typia/lib/tags";
+import { v4 } from "uuid";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -164,6 +165,7 @@ export class GoogleAdsProvider {
         /**
          * DISPLAY_STANDARD
          */
+
         await axios.post(url, {
           operations: {
             create: {
@@ -192,6 +194,33 @@ export class GoogleAdsProvider {
       /**
        * @todo 광고 삭제 기능 추가
        */
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  async createAssets(input: {
+    cusotmerId: string;
+    images: string[];
+  }): Promise<string[]> {
+    try {
+      const url = `${this.baseUrl}/customers/${input.cusotmerId}/assets:mutate`;
+      const res = await axios.post(url, {
+        operations: input.images.map((image) => {
+          return {
+            create: {
+              name: v4(),
+              type: "IMAGE",
+              image_assets: image,
+            },
+          };
+        }),
+      });
+
+      return res.data.results ?? [];
+    } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
       );
