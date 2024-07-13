@@ -138,7 +138,7 @@ export class GoogleAdsController {
       ...input.ad,
       customerId: input.customerId,
       campaignResourceName: campaign.resourceName,
-      type: "SEARCH_STANDARD",
+      type: `${input.campaign.advertisingChannelType}_STANDARD` as any,
     });
 
     return { campaign, campaignBudget, ad };

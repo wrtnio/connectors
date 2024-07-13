@@ -117,9 +117,14 @@ export namespace IGoogleAds {
   /**
    * @title 광고 그룹 생성 조건
    */
-  export interface ICreateAdGroupInput<
-    T extends "SEARCH_STANDARD" | "DISPLAY_STANDARD",
-  > {
+  export type ICreateAdGroupInput =
+    | ICreateSearchAdGroupInput
+    | ICreateDisplayAdGroupInput;
+
+  /**
+   * @title 광고 그룹 생성 공통
+   */
+  export interface ICreateAdGroupCommon {
     /**
      * @title 고객 리소스 이름
      */
@@ -129,17 +134,33 @@ export namespace IGoogleAds {
      * @title 캠페인 리소스 이름
      */
     campaignResourceName: Campaign["resourceName"];
-
-    /**
-     * @title 광고 그룹 타입
-     */
-    type: Extract<AdGroup["type"], T>;
   }
 
   /**
-   * @title 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   * @title 검색 광고 그룹 생성 조건
    */
-  export type ICreateAdGroupAdAtOnceInput = {
+  export interface ICreateSearchAdGroupInput extends ICreateAdGroupCommon {
+    /**
+     * @title 광고 그룹 타입
+     */
+    type: Extract<AdGroup["type"], "SEARCH_STANDARD">;
+  }
+
+  /**
+   * @title 디스플레이 광고 그룹 생성 조건
+   */
+  export interface ICreateDisplayAdGroupInput extends ICreateAdGroupCommon {
+    /**
+     * @title 광고 그룹 타입
+     */
+    type: Extract<AdGroup["type"], "DISPLAY_STANDARD">;
+  }
+
+  export type ICreateAdGroupAdAtOnceInput =
+    | ICreateAdGroupSearchAdAtOnceInput
+    | ICreateAdGroupDisplayAdAtOnceInput;
+
+  export interface ICreateAdGroupSearchAdAtOnceInputCommon {
     /**
      * @title 고객 아이디
      */
@@ -148,16 +169,36 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 생성 조건
      */
-    campaign: StrictOmit<ICreateCampaignInput, "customerId">;
+    campaign: Omit<ICreateCampaignInput, "customerId">;
+  }
 
+  /**
+   * @title 구글 검색 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   */
+  export interface ICreateAdGroupSearchAdAtOnceInput
+    extends ICreateAdGroupSearchAdAtOnceInputCommon {
     /**
      * @title 광고 생성 조건
      */
-    ad: StrictOmit<
+    ad: Omit<
       ICreateAdGroupSearchAdInput,
       "campaignResourceName" | "type" | "customerId"
     >;
-  };
+  }
+
+  /**
+   * @title 구글 디스플레이 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   */
+  export interface ICreateAdGroupDisplayAdAtOnceInput
+    extends ICreateAdGroupSearchAdAtOnceInputCommon {
+    /**
+     * @title 광고 생성 조건
+     */
+    ad: Omit<
+      ICreateAdGroupDisplayAdInput,
+      "campaignResourceName" | "type" | "customerId"
+    >;
+  }
 
   export interface Ad {
     ad: IGoogleAds.IGetAdGroupAdsOutputResult;
@@ -181,7 +222,7 @@ export namespace IGoogleAds {
    * @title 검색 광고 생성 조건
    */
   export interface ICreateAdGroupSearchAdInput
-    extends ICreateAdGroupInput<"SEARCH_STANDARD">,
+    extends ICreateSearchAdGroupInput,
       ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
@@ -192,22 +233,22 @@ export namespace IGoogleAds {
      * @title 제목 리스트
      */
     headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
-      tags.MinItems<3> &
-      tags.MaxItems<3>;
+      tags.MinItems<1> &
+      tags.MaxItems<15>;
 
     /**
      * @title 설명 리스트
      */
     descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
-      tags.MinItems<2> &
-      tags.MaxItems<2>;
+      tags.MinItems<1> &
+      tags.MaxItems<4>;
   }
 
   /**
    * @title 디스플레이 광고 생성 조건
    */
   export interface ICreateAdGroupDisplayAdInput
-    extends ICreateAdGroupInput<"DISPLAY_STANDARD">,
+    extends ICreateDisplayAdGroupInput,
       ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
@@ -230,8 +271,8 @@ export namespace IGoogleAds {
      * @title 설명 리스트
      */
     descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
-      tags.MinItems<2> &
-      tags.MaxItems<2>;
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
 
     /**
      * @title 비즈니스 및 브랜드 이름

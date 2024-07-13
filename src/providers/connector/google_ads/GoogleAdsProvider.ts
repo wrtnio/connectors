@@ -92,9 +92,7 @@ export class GoogleAdsProvider {
   }
 
   async createAdGroup(
-    input: IGoogleAds.ICreateAdGroupInput<
-      "SEARCH_STANDARD" | "DISPLAY_STANDARD"
-    >,
+    input: IGoogleAds.ICreateAdGroupInput,
   ): Promise<IGoogleAds.AdGroup["resourceName"]> {
     try {
       const url = `${this.baseUrl}/customers/${input.customerId}/adGroups:mutate`;
