@@ -218,7 +218,7 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 이름
      */
-    campaignName: string;
+    campaignName?: string & tags.Default<"이름 없음">;
   }
 
   export interface ICreateCampaignBudgetInput {
