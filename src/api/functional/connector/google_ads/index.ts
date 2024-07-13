@@ -9,4 +9,5 @@ export * as get_customers from "./get_customers";
 export * as get_campaigns from "./get_campaigns";
 export * as get_ads from "./get_ads";
 export * as campaigns from "./campaigns";
-export * as ads from "./ads";
+export * as search_ads from "./search_ads";
+export * as display_ads from "./display_ads";

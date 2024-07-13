@@ -169,7 +169,7 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 생성 조건
      */
-    campaign: Omit<ICreateCampaignInput, "customerId">;
+    campaign: Omit<ICreateCampaignInput, "customerId" | "type">;
   }
 
   /**

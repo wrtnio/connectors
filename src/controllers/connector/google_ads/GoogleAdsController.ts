@@ -123,14 +123,15 @@ export class GoogleAdsController {
     return this.googleAdsProvider.createCampaign(input);
   }
 
-  @core.TypedRoute.Post("ads")
-  async createAd(
+  @core.TypedRoute.Post("search-ads")
+  async createSearchAd(
     @TypedBody()
-    input: IGoogleAds.ICreateAdGroupAdAtOnceInput,
+    input: IGoogleAds.ICreateAdGroupSearchAdAtOnceInput,
   ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
     const { campaign, campaignBudget } =
       await this.googleAdsProvider.createCampaign({
         ...input.campaign,
+        advertisingChannelType: "SEARCH",
         customerId: input.customerId,
       });
 
@@ -138,7 +139,29 @@ export class GoogleAdsController {
       ...input.ad,
       customerId: input.customerId,
       campaignResourceName: campaign.resourceName,
-      type: `${input.campaign.advertisingChannelType}_STANDARD` as any,
+      type: `SEARCH_STANDARD`,
+    });
+
+    return { campaign, campaignBudget, ad };
+  }
+
+  @core.TypedRoute.Post("display-ads")
+  async createDisplayAd(
+    @TypedBody()
+    input: IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput,
+  ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
+    const { campaign, campaignBudget } =
+      await this.googleAdsProvider.createCampaign({
+        ...input.campaign,
+        advertisingChannelType: "DISPLAY",
+        customerId: input.customerId,
+      });
+
+    const ad = await this.googleAdsProvider.createAd({
+      ...input.ad,
+      customerId: input.customerId,
+      campaignResourceName: campaign.resourceName,
+      type: `DISPLAY_STANDARD`,
     });
 
     return { campaign, campaignBudget, ad };
