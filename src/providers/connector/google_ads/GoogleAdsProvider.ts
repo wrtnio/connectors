@@ -104,7 +104,7 @@ export class GoogleAdsProvider {
         {
           operations: {
             create: {
-              name: `SEARCH_${new Date().getTime()}`,
+              name: `${input.type}_${new Date().getTime()}`,
               status: "ENABLED",
               campaign: input.campaignResourceName,
               type: input.type,
@@ -165,7 +165,7 @@ export class GoogleAdsProvider {
         /**
          * DISPLAY_STANDARD
          */
-        await axios.post(url, {
+        const requestBody = {
           operations: {
             create: {
               status: "PAUSED",
@@ -193,12 +193,22 @@ export class GoogleAdsProvider {
                   }),
                   business_name: input.businessName,
                   youtube_videos: [],
+                  square_logo_images: await this.createAssets({
+                    cusotmerId: input.customerId,
+                    images: await Promise.all(
+                      input.logoImages.map(
+                        async (image) => await this.iamgeEncoding(image),
+                      ),
+                    ),
+                  }),
                 },
               },
               ad_group: adGroupResourceName,
             },
           },
-        });
+        } as const;
+
+        await axios.post(url, requestBody, { headers });
       }
 
       const [result] = await this.getAds({ ...input, adGroupResourceName });
@@ -217,22 +227,35 @@ export class GoogleAdsProvider {
   async createAssets(input: {
     cusotmerId: string;
     images: string[];
-  }): Promise<string[]> {
+  }): Promise<{ asset: string }[]> {
     try {
       const url = `${this.baseUrl}/customers/${input.cusotmerId}/assets:mutate`;
-      const res = await axios.post(url, {
-        operations: input.images.map((image) => {
-          return {
-            create: {
-              name: v4(),
-              type: "IMAGE",
-              image_assets: image,
-            },
-          };
-        }),
-      });
+      const headers = await this.getHeaders();
+      const res = await axios.post(
+        url,
+        {
+          operations: input.images.map((image) => {
+            return {
+              create: {
+                name: v4(),
+                type: "IMAGE",
+                image_asset: {
+                  data: image,
+                },
+              },
+            };
+          }),
+        },
+        {
+          headers,
+        },
+      );
 
-      return res.data.results ?? [];
+      return (
+        res.data.results.map((el: { resourceName: string }) => ({
+          asset: el.resourceName,
+        })) ?? []
+      );
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

@@ -252,7 +252,11 @@ export namespace IGoogleAds {
      * @title 로고 이미지
      * @description 정방형 이미지로 최소 크기는 128x128px, 권장은 1200x1200px
      */
-    logo: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    logoImages: (string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
 
     /**
      * @title 정방형 이미지
