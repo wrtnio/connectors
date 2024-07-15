@@ -360,8 +360,8 @@ export class GoogleAdsProvider {
     }
   }
 
-  async getKeywordAdGroupCriterion(
-    input: IGoogleAds.IGetKeywordsInput,
+  async getKeywords(
+    input: Omit<IGoogleAds.IGetKeywordsInput, "secretKey">,
   ): Promise<IGoogleAds.IGetKeywordsOutput> {
     const query = `
     SELECT
@@ -407,7 +407,7 @@ export class GoogleAdsProvider {
           const customerId = input.customerId;
           const adGroupAdResult = await this.searchStream(customerId, query);
           const adGroupAds = adGroupAdResult.results.map((el) => el.adGroupAd);
-          const adGroupCriterions = await this.getKeywordAdGroupCriterion({
+          const adGroupCriterions = await this.getKeywords({
             customerId: input.customerId,
             adGroupResourceName: adGroup.resourceName,
           });

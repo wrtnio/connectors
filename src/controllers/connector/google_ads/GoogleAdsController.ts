@@ -118,6 +118,20 @@ export class GoogleAdsController {
    * @param input 키워드 추가 조건
    * @returns
    */
+  @core.TypedRoute.Post("campaigns/ads/get-keywords")
+  async getKeywords(
+    @TypedBody() input: IGoogleAds.IGetKeywordsInput,
+  ): Promise<IGoogleAds.IGetKeywordsOutput> {
+    return retry(() => this.googleAdsProvider.getKeywords(input))();
+  }
+
+  /**
+   * 구글 고객 계정의 광고에 검색 키워드를 추가해요
+   *
+   * @summary 광고에 키워드를 추가해요
+   * @param input 키워드 추가 조건
+   * @returns
+   */
   @core.TypedRoute.Post("campaigns/ads/keywords")
   async addKeyword(
     @TypedBody() input: IGoogleAds.ICreateAdGroupCriteriaInput,

@@ -4,11 +4,33 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  /**
+   * @title 키워드 삭제 조건
+   */
+  export interface IDeleteAdGroupCriteriaInput {
+    /**
+     * @title 삭제할 키워드의 아이디
+     */
+    criterionId: (AdGroupCriterion["criterionId"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response.flatMap((el) => el.keywords)";
+        value: "return elem.criterionId";
+        label: "return elem.text ?? '이름 없음'";
+      }>)[];
+  }
+
+  /**
+   * @title 키워드 생성 결과
+   */
   export type ICreateAdGroupCriteriaOutput = Array<
     IGoogleAds.AdGroupCriterion["resourceName"]
   >;
 
-  export interface ICreateAdGroupCriteriaInput extends ICreateKeywordInput {
+  export interface ICreateAdGroupCriteriaInput
+    extends ICreateKeywordInput,
+      IGoogleAds.ISecret {
     /**
      * @title 키워드를 추가할 광고 그룹의 리소스 네임
      */
@@ -78,11 +100,20 @@ export namespace IGoogleAds {
     >;
   }
 
+  /**
+   * @title 키워드 조회 결과
+   */
   export interface IGetKeywordsOutput {
+    /**
+     * @title 키워드 조회 결과
+     */
     results: IGetKeywordsOutputResult[];
   }
 
-  export interface IGetKeywordsInput {
+  /**
+   * @title 키워드 조회 조건
+   */
+  export interface IGetKeywordsInput extends IGoogleAds.ISecret {
     /**
      * @title 고객 리소스 이름
      */
@@ -98,7 +129,14 @@ export namespace IGoogleAds {
     /**
      * @title 광고 그룹 리소스 명
      */
-    adGroupResourceName: AdGroup["resourceName"];
+    adGroupResourceName: AdGroup["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.adGroup.resourceName";
+        label: "return elem.name ?? '이름 없음'";
+      }>;
   }
 
   /**
