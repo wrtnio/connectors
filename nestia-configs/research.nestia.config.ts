@@ -6,6 +6,9 @@ import { ResearchModule } from "../src/swaggers/ResearchModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(ResearchModule),
   swagger: {
+    info: {
+      title: "연구/학술",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/research.swagger.json",

@@ -6,6 +6,9 @@ import { EducationModule } from "../src/swaggers/EducationModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(EducationModule),
   swagger: {
+    info: {
+      title: "교육",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/education.swagger.json",

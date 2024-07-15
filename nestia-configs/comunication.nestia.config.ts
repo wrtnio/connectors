@@ -6,6 +6,9 @@ import { ComunicationModule } from "../src/swaggers/ComunicationModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(ComunicationModule),
   swagger: {
+    info: {
+      title: "커뮤니케이션",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/comunication.swagger.json",

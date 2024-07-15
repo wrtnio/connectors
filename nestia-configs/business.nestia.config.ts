@@ -6,6 +6,9 @@ import { BusinessModule } from "../src/swaggers/BusinessModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(BusinessModule),
   swagger: {
+    info: {
+      title: "비즈니스",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/business.swagger.json",

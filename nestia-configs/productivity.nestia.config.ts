@@ -6,6 +6,9 @@ import { ProductivityModule } from "../src/swaggers/ProductivityModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(ProductivityModule),
   swagger: {
+    info: {
+      title: "생산성",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/productivity.swagger.json",

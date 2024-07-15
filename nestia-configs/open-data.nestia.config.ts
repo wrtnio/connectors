@@ -6,6 +6,9 @@ import { OpenDataModule } from "../src/controllers/connector/open_data/OpenDataM
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(OpenDataModule),
   swagger: {
+    info: {
+      title: "공공데이터",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/open-data.swagger.json",
