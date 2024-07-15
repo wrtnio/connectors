@@ -360,6 +360,31 @@ export class GoogleAdsProvider {
     }
   }
 
+  async deleteKeywords(
+    input: IGoogleAds.IDeleteAdGroupCriteriaInput,
+  ): Promise<void> {
+    try {
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
+      const headers = await this.getHeaders();
+      await axios.post(
+        url,
+        {
+          operations: input.resourceNames.map((resourceName) => ({
+            remove: resourceName,
+          })),
+        },
+        {
+          headers,
+        },
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
   async getKeywords(
     input: Omit<IGoogleAds.IGetKeywordsInput, "secretKey">,
   ): Promise<IGoogleAds.IGetKeywordsOutput> {

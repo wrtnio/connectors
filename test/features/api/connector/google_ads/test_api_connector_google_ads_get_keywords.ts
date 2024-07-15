@@ -26,4 +26,6 @@ export const test_api_connector_google_ads_get_keywords = async (
     );
 
   typia.assert(res);
+
+  return res;
 };

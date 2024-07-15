@@ -9,15 +9,27 @@ export namespace IGoogleAds {
    */
   export interface IDeleteAdGroupCriteriaInput {
     /**
-     * @title 삭제할 키워드의 아이디
+     * @title 고객 리소스 이름
      */
-    criterionId: (AdGroupCriterion["criterionId"] &
+    customerId: CustomerClient["id"] &
       Prerequisite<{
         method: "post";
-        path: "connector/google-ads/get-ads";
-        array: "return response.flatMap((el) => el.keywords)";
-        value: "return elem.criterionId";
-        label: "return elem.text ?? '이름 없음'";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 삭제할 키워드의 아이디
+     */
+    resourceNames: (AdGroupCriterion["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-keywords";
+        array: "return response.results";
+        value: "return elem.resourceName";
+        label: "return elem.text";
       }>)[];
   }
 

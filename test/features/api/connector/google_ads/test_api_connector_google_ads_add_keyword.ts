@@ -22,7 +22,7 @@ export const test_api_connector_google_ads_add_keyword = async (
    */
   const newKeyword = v4();
   const res =
-    await CApi.functional.connector.google_ads.campaigns.ads.keywords.addKeyword(
+    await CApi.functional.connector.google_ads.campaigns.ads.keywords.addKeywords(
       connection,
       {
         secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
@@ -42,4 +42,6 @@ export const test_api_connector_google_ads_add_keyword = async (
 
   assert(testTarget.keywords.every((el) => el.text !== newKeyword)); // 기존에는 해당 텍스트가 없었음
   assert(after.keywords.some((el) => el.text === newKeyword)); // 이후에는 생겨 있음
+
+  return res;
 };

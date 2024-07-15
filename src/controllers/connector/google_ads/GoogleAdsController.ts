@@ -126,6 +126,20 @@ export class GoogleAdsController {
   }
 
   /**
+   * 구글 고객 계정의 특정 광고에서 키워드를 삭제해요
+   *
+   * @summary 광고에 키워드를 삭제해요
+   * @param input 키워드 삭제 조건
+   * @returns
+   */
+  @core.TypedRoute.Delete("campaigns/ads/keywords")
+  async deleteKeywords(
+    @TypedBody() input: IGoogleAds.IDeleteAdGroupCriteriaInput,
+  ): Promise<void> {
+    return retry(() => this.googleAdsProvider.deleteKeywords(input))();
+  }
+
+  /**
    * 구글 고객 계정의 광고에 검색 키워드를 추가해요
    *
    * @summary 광고에 키워드를 추가해요
@@ -133,7 +147,7 @@ export class GoogleAdsController {
    * @returns
    */
   @core.TypedRoute.Post("campaigns/ads/keywords")
-  async addKeyword(
+  async addKeywords(
     @TypedBody() input: IGoogleAds.ICreateAdGroupCriteriaInput,
   ): Promise<IGoogleAds.ICreateAdGroupCriteriaOutput> {
     const { adGroupResourceName, ...rest } = input;
