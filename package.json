@@ -117,6 +117,7 @@
     "querystring": "^0.2.1",
     "serialize-error": "^4.1.0",
     "serpapi": "^2.0.0",
+    "sharp": "^0.33.4",
     "stream-buffers": "^3.0.2",
     "tstl": "^3.0.0",
     "typia": "^6.5.0",
