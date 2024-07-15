@@ -310,6 +310,8 @@ export class GoogleAdsProvider {
                  * @todo 유저의 요구사항에 맞는 광고 효율 최적화를 진행해야 한다.
                  */
                 target_spend: {},
+                ...(input.startDate && { start_date: input.startDate }),
+                ...(input.endDate && { end_date: input.endDate }),
               },
             },
           ],

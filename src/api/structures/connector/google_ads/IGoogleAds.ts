@@ -510,6 +510,13 @@ export namespace IGoogleAds {
       tags.MaxItems<15>;
   }
 
+  /**
+   * @title 캠페인 수정 조건
+   */
+  export type IUpdateCampaignInput = Partial<
+    Pick<ICreateCampaignInput, "campaignName" | "campaignBudget">
+  >;
+
   export interface ICreateCampaignInput
     extends ICreateCampaignBudgetInput,
       IGoogleAds.ISecret {
@@ -537,6 +544,16 @@ export namespace IGoogleAds {
      * @title 캠페인 이름
      */
     campaignName?: string & tags.Default<"이름 없음">;
+
+    /**
+     * @title 캠페인 시작 시간
+     */
+    startDate?: string & tags.Format<"date">;
+
+    /**
+     * @title 캠페인 종료 시간
+     */
+    endDate?: string & tags.Format<"date">;
   }
 
   export interface ICreateCampaignBudgetInput {
