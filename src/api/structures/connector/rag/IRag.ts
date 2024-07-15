@@ -1,20 +1,28 @@
+import { tags } from "typia";
+
 /**
  * - PDF: PDF 파일.
+ * - DOCS: DOCS 파일.
+ * - HWP: HWP 파일.
+ * - TXT: TXT 파일.
  *
  * @title 파일 형식.
  */
 export enum FileType {
   PDF = "pdf",
+  DOCS = "docx",
+  HWP = "hwp",
+  TXT = "txt",
 }
 
 export namespace IRag {
   export interface IAnalyzeInput {
     /**
-     * 분석할 파일 경로 리스트입니다.
+     * 분석할 파일 경로
      *
-     * @title 파일 경로 리스트.
+     * @title 파일 경로
      */
-    fileUrls: string[];
+    fileUrl: string & tags.Format<"uri">;
 
     /**
      * 분석할 파일의 확장자입니다.
@@ -26,24 +34,31 @@ export namespace IRag {
 
   export interface IAnalysisOutput {
     /**
-     * 분석된 document의 id입니다.
+     * 분석 작업의 고유 id 입니다.
      *
-     * @title document id.
+     * @title job id.
      */
-    docId: string;
+    jobId: string;
+
+    /**
+     * rag 생성 결과물에 필요한 chat id.
+     *
+     * @title chat id.
+     */
+    chatId: string;
   }
 
   export interface IStatusOutput {
     /**
      * 분석 상태입니다.
      *
-     * - INDEXING: 색인 중
-     * - INDEXED: 색인 완료
+     * - RUNNING: 색인 중
+     * - COMPLETED: 색인 완료
      * - FAILED: 색인 실패
      *
      * @title 분석 상태.
      */
-    status: "INDEXING" | "INDEXED" | "FAILED";
+    status: "RUNNING" | "COMPLETED" | "FAILED";
   }
 
   interface IHistory {

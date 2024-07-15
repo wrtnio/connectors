@@ -37,17 +37,17 @@ export class RagController {
    *
    * @internal
    */
-  @core.TypedRoute.Get("/:docId/status")
+  @core.TypedRoute.Get("/:jobId/status")
   async getStatus(
-    @core.TypedParam("docId") docId: string,
+    @core.TypedParam("jobId") jobId: string,
   ): Promise<IRag.IStatusOutput> {
-    return await this.ragService.getStatus(docId);
+    return await this.ragService.getStatus(jobId);
   }
 
   /**
-   * RAG 분석을 기반으로 스트리밍 채팅을 합니다.
+   * RAG 분석을 기반으로 채팅을 합니다.
    *
-   * @summary RAG 기반 채팅(스트리밍).
+   * @summary RAG 기반 채팅
    *
    * @param input
    *
@@ -55,31 +55,32 @@ export class RagController {
    *
    * @internal
    */
-  @Post("generate/sse")
+  @Post("generate/:chatId")
   async generate(
     @Body() input: IRag.IGenerateInput,
     @Res() res: Response,
-  ): Promise<any> {
+    @core.TypedParam("chatId") chatId: string,
+  ) {
     res.header("Content-Type", "text/event-stream");
     res.header("Cache-Control", "no-cache");
     res.header("Connection", "keep-alive");
     res.header("Access-Control-Allow-Origin", "*");
-    return await this.ragService.generateSse(input, res);
+    return await this.ragService.generateSse(input, res, chatId);
   }
 
-  /**
-   * RAG 분석을 기반으로 채팅을 합니다.
-   *
-   * @summary RAG 기반 채팅.
-   *
-   * @param input
-   *
-   * @tag RAG
-   */
-  @Post("generate")
-  async generateChat(
-    @Body() input: IRag.IGenerateInput,
-  ): Promise<IRag.IGenerateOutput> {
-    return await this.ragService.generate(input);
-  }
+  // /**
+  //  * RAG 분석을 기반으로 채팅을 합니다.
+  //  *
+  //  * @summary RAG 기반 채팅.
+  //  *
+  //  * @param input
+  //  *
+  //  * @tag RAG
+  //  */
+  // @Post("generate")
+  // async generateChat(
+  //   @Body() input: IRag.IGenerateInput,
+  // ): Promise<IRag.IGenerateOutput> {
+  //   return await this.ragService.generate(input);
+  // }
 }

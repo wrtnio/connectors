@@ -11,6 +11,7 @@ import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
+import { v4 } from "uuid";
 
 @Injectable()
 export class RagProvider {
@@ -18,58 +19,52 @@ export class RagProvider {
   private readonly logger = new Logger("RagProvider");
   constructor(private readonly awsProvider: AwsProvider) {}
 
-  async transformInput(input: IRag.IAnalyzeInput): Promise<IRag.IAnalyzeInput> {
-    return {
-      fileUrls: await Promise.all(
-        input.fileUrls.map(async (fileUrl) => {
-          const matches = fileUrl.match(
-            /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
-          );
+  // async transformInput(
+  //   fileUrl: string & tags.Format<"uri">,
+  // ): Promise<string & tags.Format<"uri">> {
+  //   const matches = fileUrl.match(
+  //     /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
+  //   );
 
-          // return original object if not S3 url
-          if (!matches) {
-            return fileUrl;
-          }
+  //   if (!matches) {
+  //     return fileUrl;
+  //   }
 
-          const transformed = await Promise.all(
-            matches.map(async (match) =>
-              this.awsProvider.getGetObjectUrl(match),
-            ),
-          );
-
-          matches.forEach((match, index) => {
-            fileUrl = fileUrl.replace(match, transformed[index]);
-          });
-
-          return fileUrl;
-        }),
-      ),
-      fileType: input.fileType,
-    };
-  }
+  //   const transFormedUrl = await this.awsProvider.getGetObjectUrl(matches[0]);
+  //   return transFormedUrl;
+  // }
 
   async analyze(input: IRag.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
-    const requestUrl = `${this.ragServer}/files/convert`;
-
-    const res = await axios.post(requestUrl, await this.transformInput(input), {
+    const requestUrl = `${this.ragServer}/file-chat/v1/file`;
+    const fileId = v4();
+    const chatId = v4();
+    // TODO: Henry presigned url 지원 여부 확인
+    // const url = await this.transformInput(input.fileUrl);
+    const requestBody = {
+      url: input.fileUrl,
+      file_type: input.fileType,
+      file_id: fileId,
+      chat_id: chatId,
+    };
+    const res = await axios.post(requestUrl, requestBody, {
       headers: {
-        "Content-Type": "application/json",
+        "x-service-id": "eco-connector-rag",
       },
     });
-    const docId = res.data.data.docId;
 
+    const jobId = res.data.job_id;
     return new Promise((resolve, reject) => {
       const intervalId = setInterval(async () => {
         try {
-          const status = (await this.getStatus(docId)).status;
-          if (status === "INDEXING") {
-            this.logger.log(`Document analysis in progress - docId: ${docId}`);
-          } else if (status === "INDEXED") {
-            this.logger.log(`Document analysis completed docId: ${docId}`);
+          const status = (await this.getStatus(jobId)).status;
+          if (status === "RUNNING") {
+            this.logger.log(`Document analysis in progress - jobId: ${jobId}`);
+          } else if (status === "COMPLETED") {
+            this.logger.log(`Document analysis completed jobId: ${jobId}`);
             clearInterval(intervalId);
-            resolve({ docId });
+            resolve({ jobId, chatId });
           } else if (status === "FAILED") {
-            this.logger.error(`Document analysis failed - docId: ${docId}`);
+            this.logger.error(`Document analysis failed - docId: ${jobId}`);
             clearInterval(intervalId);
             reject(
               new InternalServerErrorException(`Document analysis failed`),
@@ -81,9 +76,9 @@ export class RagProvider {
             err instanceof AxiosError &&
             err.response &&
             err.response.status === 404 &&
-            err.response.data.message.includes("존재하지 않습니다.")
+            err.response.statusText.includes("Not Found")
           ) {
-            this.logger.error(`Status not found for docId: ${docId}`);
+            this.logger.error(`Status not found for jobId: ${jobId}`);
             reject(new NotFoundException(`Document analysis failed`));
           } else {
             reject(err);
@@ -93,55 +88,83 @@ export class RagProvider {
     });
   }
 
-  async getStatus(docId: string): Promise<IRag.IStatusOutput> {
-    const requestUrl = `${this.ragServer}/files/analysis/status/${docId}`;
+  async getStatus(jobId: string): Promise<IRag.IStatusOutput> {
+    const requestUrl = `${this.ragServer}/file-chat/v1/status`;
     const res = await axios.get(requestUrl, {
+      params: {
+        job_id: jobId,
+      },
       headers: {
-        "Content-Type": "application/json",
+        "x-service-id": "eco-connector-rag",
       },
     });
-
-    return res.data.data;
+    return res.data;
   }
 
-  async generate(input: IRag.IGenerateInput) {
-    const requestUrl = `${this.ragServer}/files/generate`;
-    // const requestUrl = `http://localhost:3001/files/generate`;
-    const res = await axios.post(
-      requestUrl,
-      {
-        ...input,
-        model: "gpt-35-turbo",
-        systemPrompt: "You are a research chatbot.",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+  // async generate(input: IRag.IGenerateInput) {
+  //   const requestUrl = `${this.ragServer}/files/generate`;
+  //   // const requestUrl = `http://localhost:3001/files/generate`;
+  //   const res = await axios.post(
+  //     requestUrl,
+  //     {
+  //       ...input,
+  //       model: "gpt-35-turbo",
+  //       systemPrompt: "You are a research chatbot.",
+  //     },
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     },
+  //   );
 
-    return res.data.data;
-  }
+  //   return res.data.data;
+  // }
 
-  async generateSse(input: IRag.IGenerateInput, res: Response) {
+  async generateSse(input: IRag.IGenerateInput, res: Response, chatId: string) {
     try {
-      const requestUrl = `${this.ragServer}/files/generate/sse`;
-      // const requestUrl = `http://localhost:3001/files/generate/sse`;
+      const requestUrl = `${this.ragServer}/file-chat/v1/chat/stream/${chatId}`;
       const response = await axios.post(requestUrl, input, {
         responseType: "stream",
         headers: {
           "Content-Type": "application/json",
+          "x-service-id": "eco-connector-rag",
         },
       });
       const stream = response.data;
-      stream.pipe(res);
+      let dataBuffer = "";
+
+      return new Promise<IRag.IGenerateOutput>((resolve, reject) => {
+        // 스트림 데이터 저장
+        stream.on("data", (chunk: Buffer) => {
+          dataBuffer += chunk.toString();
+        });
+
+        // 스트림 끝난 뒤 문자열 반환
+        stream.on("end", () => {
+          try {
+            resolve({ answer: dataBuffer });
+          } catch (err) {
+            reject(err);
+          }
+        });
+
+        stream.on("error", async (err: any) => {
+          try {
+            const err2 = await this.handleErrorStream(err);
+            reject(err2);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
     } catch (err) {
       const err2 = await this.handleErrorStream(err);
       res.write("event: error\n");
       res.write(`data: ${JSON.stringify(err2)}\n`);
       res.write(`id: ${Date.now()}\n\n`);
       res.end();
+      throw err2;
     }
   }
 
