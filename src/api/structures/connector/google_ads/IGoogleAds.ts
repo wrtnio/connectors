@@ -515,10 +515,7 @@ export namespace IGoogleAds {
    */
   export interface IUpdateCampaignInput
     extends Partial<
-      Pick<
-        ICreateCampaignInput,
-        "campaignName" | "campaignBudget" | "startDate" | "endDate"
-      >
+      Pick<ICreateCampaignInput, "campaignName" | "campaignBudget" | "endDate">
     > {
     /**
      * @title 고객 리소스 이름

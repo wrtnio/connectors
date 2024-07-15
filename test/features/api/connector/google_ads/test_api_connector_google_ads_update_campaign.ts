@@ -21,6 +21,7 @@ export const test_api_connector_google_ads_update_campaign = async (
       customerId: "8655555186",
       campaignResourceName: "customers/8655555186/campaigns/21445347960",
       campaignBudget: 2,
+      endDate: "2030-01-02",
     },
   );
 
@@ -31,6 +32,7 @@ export const test_api_connector_google_ads_update_campaign = async (
     await test_api_connector_google_ads_get_campaigns(connection)
   ).find((el) => el.campaign.id === "21445347960");
   deepStrictEqual(after?.campaignBudget.amountMicros, `${2 * 1000000}`);
+  deepStrictEqual(after?.campaign.endDate, `2030-01-02`);
 
   /**
    * 다시 원상 복귀시킨다.
@@ -41,6 +43,7 @@ export const test_api_connector_google_ads_update_campaign = async (
       customerId: "8655555186",
       campaignResourceName: "customers/8655555186/campaigns/21445347960",
       campaignBudget: Number(before?.campaignBudget.amountMicros) / 1000000,
+      endDate: before?.campaign.endDate,
     },
   );
 };

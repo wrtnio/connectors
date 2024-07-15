@@ -319,10 +319,9 @@ export class GoogleAdsProvider {
               update: {
                 resource_name: campaignResourceName,
                 ...(input.campaignName && { name: input.campaignName }),
-                ...(input.startDate && { start_date: input.startDate }),
                 ...(input.endDate && { end_date: input.endDate }),
               },
-              update_masks: Object.keys(rest).join(","),
+              update_mask: Object.keys(rest).join(","),
             },
           },
           {
