@@ -513,9 +513,37 @@ export namespace IGoogleAds {
   /**
    * @title 캠페인 수정 조건
    */
-  export type IUpdateCampaignInput = Partial<
-    Pick<ICreateCampaignInput, "campaignName" | "campaignBudget">
-  >;
+  export interface IUpdateCampaignInput
+    extends Partial<
+      Pick<
+        ICreateCampaignInput,
+        "campaignName" | "campaignBudget" | "startDate" | "endDate"
+      >
+    > {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 수정할 캠페인의 리소스 아이디
+     */
+    campaignResourceName: Campaign["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-campaigns";
+        array: "return response";
+        label: "return el.campaign.name";
+        value: "return el.campaign.resourceName";
+      }>;
+  }
 
   export interface ICreateCampaignInput
     extends ICreateCampaignBudgetInput,

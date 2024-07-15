@@ -289,14 +289,94 @@ export class GoogleAdsProvider {
     }
   }
 
+  async updateCampaign(
+    input: Omit<IGoogleAds.IUpdateCampaignInput, "secretKey">,
+  ): Promise<void> {
+    try {
+      const { customerId, campaignResourceName, campaignBudget, ...rest } =
+        input;
+      const url = `${this.baseUrl}/customers/${customerId}/campaigns:mutate`;
+      const headers = await this.getHeaders();
+
+      const [campaign] = await this.getCampaigns(
+        input,
+        input.campaignResourceName,
+      );
+
+      if (campaignBudget) {
+        await this.updateCampaignBudget(
+          input.customerId,
+          campaign.campaignBudget.resourceName,
+          campaignBudget,
+        );
+      }
+
+      if (JSON.stringify(rest) != "{}") {
+        await axios.post(
+          url,
+          {
+            operations: {
+              update: {
+                resource_name: campaignResourceName,
+                ...(input.campaignName && { name: input.campaignName }),
+                ...(input.startDate && { start_date: input.startDate }),
+                ...(input.endDate && { end_date: input.endDate }),
+              },
+              update_masks: Object.keys(rest).join(","),
+            },
+          },
+          {
+            headers,
+          },
+        );
+      }
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  private async updateCampaignBudget(
+    customerId: IGoogleAds.CustomerClient["id"],
+    campaignBudgetResourceName: IGoogleAds.CampaignBudget["resourceName"],
+    campaignBudget: number, // 한국 돈 단위
+  ) {
+    try {
+      const url = `${this.baseUrl}/customers/${customerId}/campaignBudgets:mutate`;
+      const headers = await this.getHeaders();
+
+      await axios.post(
+        url,
+        {
+          operations: {
+            update_mask: "amount_micros",
+            update: {
+              resource_name: campaignBudgetResourceName,
+              amount_micros: campaignBudget * 1000000,
+            },
+          },
+        },
+        { headers },
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
   async createCampaign(
     input: Omit<IGoogleAds.ICreateCampaignInput, "secretKey">,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
+      const url = `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`;
       const headers = await this.getHeaders();
       const campaignBudgetResourceName = await this.createCampaignBudget(input);
       const res = await axios.post(
-        `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`,
+        url,
         {
           operations: [
             {

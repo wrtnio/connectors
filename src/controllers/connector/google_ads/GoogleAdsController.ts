@@ -180,6 +180,19 @@ export class GoogleAdsController {
   }
 
   /**
+   * 구글 고객 계정의 광고 캠페인을 수정해요
+   *
+   * @summary 캠페인을 수정해요
+   * @param input 캠페인 수정 조건
+   */
+  @core.TypedRoute.Patch("campaigns")
+  async updateCampaign(
+    @TypedBody() input: IGoogleAds.IUpdateCampaignInput,
+  ): Promise<void> {
+    return retry(() => this.googleAdsProvider.updateCampaign(input))();
+  }
+
+  /**
    * 구글 고객 계정의 광고 캠페인을 생성해요
    *
    * @summary 캠페인을 생성합니다

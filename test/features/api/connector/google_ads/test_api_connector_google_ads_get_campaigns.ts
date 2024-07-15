@@ -19,4 +19,5 @@ export const test_api_connector_google_ads_get_campaigns = async (
     );
 
   typia.assert(campaigns);
+  return campaigns;
 };
