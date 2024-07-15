@@ -12,8 +12,8 @@ export namespace ImageProvider {
     const size: IImage.Size = {
       left: 0,
       top: 0,
-      x: metadata.width ?? 0,
-      y: metadata.height ?? 0,
+      width: metadata.width ?? 0,
+      height: metadata.height ?? 0,
     };
 
     return { image, size };
@@ -26,21 +26,21 @@ export namespace ImageProvider {
     let maxWidth: number;
     let maxHeight: number;
 
-    if (orignal.x / orignal.y > ratio) {
+    if (orignal.width / orignal.height > ratio) {
       // 원본 사각형이 비율보다 더 넓을 때, 높이를 기준으로 최대 너비 계산
-      maxHeight = orignal.y;
-      maxWidth = Math.round(orignal.y * ratio);
+      maxHeight = orignal.height;
+      maxWidth = Math.round(orignal.height * ratio);
     } else {
       // 원본 사각형이 비율보다 더 좁을 때, 너비를 기준으로 최대 높이 계산
-      maxWidth = orignal.x;
-      maxHeight = Math.round(orignal.x / ratio);
+      maxWidth = orignal.width;
+      maxHeight = Math.round(orignal.width / ratio);
     }
 
     return {
-      top: Math.round((orignal.y - maxHeight) / 2),
-      left: Math.round((orignal.x - maxWidth) / 2),
-      x: maxWidth,
-      y: maxHeight,
+      top: Math.round((orignal.height - maxHeight) / 2),
+      left: Math.round((orignal.width - maxWidth) / 2),
+      width: maxWidth,
+      height: maxHeight,
     };
   }
 }

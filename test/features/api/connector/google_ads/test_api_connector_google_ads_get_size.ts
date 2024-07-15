@@ -9,13 +9,13 @@ export const test_api_connector_google_ads_get_size_1_1 = async () => {
     {
       left: 0,
       top: 0,
-      x: 600,
-      y: 600,
+      width: 600,
+      height: 600,
     },
     1.91,
   );
 
-  deepStrictEqual(response, { left: 0, top: 143, x: 600, y: 314 });
+  deepStrictEqual(response, { left: 0, top: 143, width: 600, height: 314 });
 };
 
 /**
@@ -26,13 +26,13 @@ export const test_api_connector_google_ads_get_size_1_2 = async () => {
     {
       left: 0,
       top: 0,
-      x: 600,
-      y: 600,
+      width: 600,
+      height: 600,
     },
     1,
   );
 
-  deepStrictEqual(response, { left: 0, top: 0, x: 600, y: 600 });
+  deepStrictEqual(response, { left: 0, top: 0, width: 600, height: 600 });
 };
 
 /**
@@ -43,13 +43,13 @@ export const test_api_connector_google_ads_get_size_1_3 = async () => {
     {
       left: 0,
       top: 0,
-      x: 600,
-      y: 600,
+      width: 600,
+      height: 600,
     },
     0.8,
   );
 
-  deepStrictEqual(response, { left: 60, top: 0, x: 480, y: 600 });
+  deepStrictEqual(response, { left: 60, top: 0, width: 480, height: 600 });
 };
 
 /**
@@ -60,13 +60,13 @@ export const test_api_connector_google_ads_get_size_2_1 = async () => {
     {
       left: 0,
       top: 0,
-      x: 600,
-      y: 800,
+      width: 600,
+      height: 800,
     },
     1.91,
   );
 
-  deepStrictEqual(response, { left: 0, top: 243, x: 600, y: 314 });
+  deepStrictEqual(response, { left: 0, top: 243, width: 600, height: 314 });
 };
 
 /**
@@ -77,13 +77,13 @@ export const test_api_connector_google_ads_get_size_2_2 = async () => {
     {
       left: 0,
       top: 0,
-      x: 600,
-      y: 800,
+      width: 600,
+      height: 800,
     },
     1,
   );
 
-  deepStrictEqual(response, { left: 0, top: 100, x: 600, y: 600 });
+  deepStrictEqual(response, { left: 0, top: 100, width: 600, height: 600 });
 };
 
 /**
@@ -94,13 +94,13 @@ export const test_api_connector_google_ads_get_size_2_3 = async () => {
     {
       left: 0,
       top: 0,
-      x: 600,
-      y: 800,
+      width: 600,
+      height: 800,
     },
     0.8,
   );
 
-  deepStrictEqual(response, { left: 0, top: 25, x: 600, y: 750 });
+  deepStrictEqual(response, { left: 0, top: 25, width: 600, height: 750 });
 };
 
 /**
@@ -111,13 +111,13 @@ export const test_api_connector_google_ads_get_size_3_1 = async () => {
     {
       left: 0,
       top: 0,
-      x: 800,
-      y: 600,
+      width: 800,
+      height: 600,
     },
     1.91,
   );
 
-  deepStrictEqual(response, { left: 0, top: 91, x: 800, y: 419 });
+  deepStrictEqual(response, { left: 0, top: 91, width: 800, height: 419 });
 };
 
 /**
@@ -128,13 +128,13 @@ export const test_api_connector_google_ads_get_size_3_2 = async () => {
     {
       left: 0,
       top: 0,
-      x: 800,
-      y: 600,
+      width: 800,
+      height: 600,
     },
     1,
   );
 
-  deepStrictEqual(response, { left: 100, top: 0, x: 600, y: 600 });
+  deepStrictEqual(response, { left: 100, top: 0, width: 600, height: 600 });
 };
 
 /**
@@ -145,11 +145,11 @@ export const test_api_connector_google_ads_get_size_3_3 = async () => {
     {
       left: 0,
       top: 0,
-      x: 800,
-      y: 600,
+      width: 800,
+      height: 600,
     },
     0.8,
   );
 
-  deepStrictEqual(response, { left: 160, top: 0, x: 480, y: 600 });
+  deepStrictEqual(response, { left: 160, top: 0, width: 480, height: 600 });
 };

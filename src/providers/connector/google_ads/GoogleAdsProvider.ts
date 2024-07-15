@@ -1,8 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios, { AxiosError } from "axios";
-import typia, { type tags } from "typia";
-import type { ContentMediaType } from "typia/lib/tags";
+import typia from "typia";
 import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
@@ -10,6 +9,7 @@ import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { ImageProvider } from "../../internal/ImageProvider";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -176,17 +176,36 @@ export class GoogleAdsProvider {
                   marketing_images: await this.createAssets({
                     cusotmerId: input.customerId,
                     images: await Promise.all(
-                      input.landscapeImages.map(
-                        async (image) => await this.iamgeEncoding(image),
-                      ),
+                      input.landscapeImages.map(async (image) => {
+                        const imageFile =
+                          await ImageProvider.getImageFile(image);
+                        const size = ImageProvider.getSize(
+                          imageFile.size,
+                          1.91,
+                        );
+
+                        const cropped = await imageFile.image
+                          .extract(size)
+                          .toBuffer();
+
+                        return cropped.toString("base64");
+                      }),
                     ),
                   }),
                   square_marketing_images: await this.createAssets({
                     cusotmerId: input.customerId,
                     images: await Promise.all(
-                      input.squareImages.map(
-                        async (image) => await this.iamgeEncoding(image),
-                      ),
+                      input.squareImages.map(async (image) => {
+                        const imageFile =
+                          await ImageProvider.getImageFile(image);
+                        const size = ImageProvider.getSize(imageFile.size, 1);
+
+                        const cropped = await imageFile.image
+                          .extract(size)
+                          .toBuffer();
+
+                        return cropped.toString("base64");
+                      }),
                     ),
                   }),
                   business_name: input.businessName,
@@ -194,9 +213,17 @@ export class GoogleAdsProvider {
                   square_logo_images: await this.createAssets({
                     cusotmerId: input.customerId,
                     images: await Promise.all(
-                      input.logoImages.map(
-                        async (image) => await this.iamgeEncoding(image),
-                      ),
+                      input.logoImages.map(async (image) => {
+                        const imageFile =
+                          await ImageProvider.getImageFile(image);
+                        const size = ImageProvider.getSize(imageFile.size, 1);
+
+                        const cropped = await imageFile.image
+                          .extract(size)
+                          .toBuffer();
+
+                        return cropped.toString("base64");
+                      }),
                     ),
                   }),
                 },
@@ -260,22 +287,6 @@ export class GoogleAdsProvider {
       );
       throw err;
     }
-  }
-
-  /**
-   * 이미지를 base64로 인코딩한다.
-   *
-   * @param url 인코딩할 이미지
-   * @returns
-   */
-  private async iamgeEncoding(
-    url: string & tags.Format<"uri"> & ContentMediaType<"image/*">,
-  ) {
-    const response = await axios.get(url, { responseType: "arraybuffer" });
-    const image = Buffer.from(response.data, "binary");
-    const encodedImage = image.toString("base64");
-
-    return encodedImage;
   }
 
   async createCampaign(

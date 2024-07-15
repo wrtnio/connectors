@@ -13,11 +13,11 @@ export namespace IImage {
     /**
      * @title 원본으로부터 잘라낸 후의 너비
      */
-    x: number;
+    width: number;
 
     /**
      * @title 원본으로부터 잘라낸 후의 높이
      */
-    y: number;
+    height: number;
   }
 }

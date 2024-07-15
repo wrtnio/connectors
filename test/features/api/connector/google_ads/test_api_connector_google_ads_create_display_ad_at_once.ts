@@ -6,7 +6,7 @@ export const test_api_connector_google_ads_create_ad_at_once_display_type =
   async (connection: CApi.IConnection) => {
     const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
     const landscapeImage = `https://${bucket}.s3.amazonaws.com/landscapeImage.jpg`;
-    const squareImage = `https://${bucket}.s3.amazonaws.com/squareImage.jpeg`;
+    // const squareImage = `https://${bucket}.s3.amazonaws.com/squareImage.jpeg`;
 
     const res =
       await CApi.functional.connector.google_ads.display_ads.createDisplayAd(
@@ -27,8 +27,8 @@ export const test_api_connector_google_ads_create_ad_at_once_display_type =
             keywords: ["키워드1", "키워드2"],
             businessName: "카카수 컴퍼니",
             landscapeImages: [landscapeImage],
-            logoImages: [squareImage], // 로고도 1:1 이미지이기 때문에 그냥 정방형 이미지를 함께 사용해서 테스트한다.
-            squareImages: [squareImage],
+            logoImages: [landscapeImage], // 이미지 사이즈가 다를 경우 crop해서 넣는다.
+            squareImages: [landscapeImage],
           },
         },
       );
