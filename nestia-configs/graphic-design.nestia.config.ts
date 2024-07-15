@@ -6,6 +6,9 @@ import { GraphicDesignModule } from "../src/swaggers/GraphicDesignModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(GraphicDesignModule),
   swagger: {
+    info: {
+      title: "그래픽/디자인",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/graphic-design.swagger.json",

@@ -6,6 +6,9 @@ import { TravelModule } from "../src/swaggers/TravelModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(TravelModule),
   swagger: {
+    info: {
+      title: "여행",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/travel.swagger.json",

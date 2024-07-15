@@ -6,6 +6,9 @@ import { LifeStyleModule } from "../src/swaggers/LifeStyleModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(LifeStyleModule),
   swagger: {
+    info: {
+      title: "라이프스타일",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/life-style.swagger.json",

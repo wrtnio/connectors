@@ -6,6 +6,9 @@ import { DataAnalyticsModule } from "../src/swaggers/DataAnalyticsModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(DataAnalyticsModule),
   swagger: {
+    info: {
+      title: "데이터/분석",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/data-analytics.swagger.json",

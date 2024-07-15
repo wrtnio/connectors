@@ -6,6 +6,9 @@ import { ITDevelopmentModule } from "../src/swaggers/ITDevelopmentModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(ITDevelopmentModule),
   swagger: {
+    info: {
+      title: "IT/개발",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/it-development.swagger.json",

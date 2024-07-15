@@ -6,6 +6,9 @@ import { NewsMediaModule } from "../src/swaggers/NewsMediaModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(NewsMediaModule),
   swagger: {
+    info: {
+      title: "뉴스/미디어",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/news-media.swagger.json",

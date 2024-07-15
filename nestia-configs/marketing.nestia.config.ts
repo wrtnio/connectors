@@ -6,6 +6,9 @@ import { MarketingModule } from "../src/swaggers/MarketingModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(MarketingModule),
   swagger: {
+    info: {
+      title: "마케팅",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/marketing.swagger.json",

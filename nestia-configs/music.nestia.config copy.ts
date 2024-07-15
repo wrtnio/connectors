@@ -6,6 +6,9 @@ import { MusicModule } from "../src/swaggers/MusicModule";
 const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(MusicModule),
   swagger: {
+    info: {
+      title: "음악",
+    },
     beautify: true,
     decompose: true,
     output: "packages/api/categories/music.swagger.json",
