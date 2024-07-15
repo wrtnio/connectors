@@ -359,6 +359,24 @@ export class GoogleAdsProvider {
     }
   }
 
+  async getKeywordAdGroupCriterion(
+    input: IGoogleAds.IGetKeywordsInput,
+  ): Promise<IGoogleAds.IGetKeywordsOutput> {
+    const query = `
+    SELECT
+      ad_group_criterion.criterion_id,
+      ad_group_criterion.resource_name,
+      ad_group_criterion.type,
+      ad_group_criterion.keyword.text,
+      ad_group_criterion.keyword.match_type,
+      ad_group_criterion.status
+    FROM ad_group_criterion
+      WHERE ad_group_criterion.type = "KEYWORD" AND ad_group.resource_name = '${input.adGroupResourceName}' AND ad_group_criterion.status != "REMOVED"` as const;
+
+    const keywords = await this.searchStream(input.customerId, query);
+    return keywords;
+  }
+
   /**
    * 각 캠페인에 속한 광고 그룹과 광고 그룹 광고를 찾는다.
    *
@@ -393,7 +411,23 @@ export class GoogleAdsProvider {
         }),
       );
 
-      return results;
+      return await Promise.all(
+        results.map(async (ad) => {
+          const adGroupCriterions = await this.getKeywordAdGroupCriterion({
+            customerId: input.customerId,
+            adGroupResourceName: ad.adGroup.resourceName,
+          });
+
+          return {
+            ...ad,
+            keywords: (adGroupCriterions.results ?? []).map((result) => ({
+              criterionId: result.adGroupCriterion.criterionId,
+              resourceName: result.adGroupCriterion.resourceName,
+              ...result.adGroupCriterion.keyword,
+            })),
+          };
+        }),
+      );
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

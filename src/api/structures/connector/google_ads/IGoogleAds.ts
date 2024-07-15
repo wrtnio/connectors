@@ -4,6 +4,85 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  export interface Keyword {
+    /**
+     * @title 키워드 텍스트
+     */
+    text: string;
+
+    /**
+     * @title 키워드 일치 타입
+     */
+    matchType:
+      | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>
+      | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
+      | tags.Constant<"EXACT", { title: "완전일치" }>
+      | tags.Constant<"PHRASE", { title: "구문일치" }>
+      | tags.Constant<"BROAD", { title: "확장검색" }>;
+  }
+
+  export type AdGroupCriterion = {
+    /**
+     * @title 광고 그룹 표준 리소스 이름
+     */
+    resourceName: `customers/${CustomerClient["id"]}/adGroupCriteria/${AdGroup["id"]}~${AdGroupCriterion["criterionId"]}`;
+
+    /**
+     * @title 타입
+     */
+    type: "KEYWORD";
+
+    /**
+     * @title 광고 그룹 표준 아이디
+     */
+    criterionId: `${number}`;
+
+    /**
+     * @title 키워드
+     */
+    keyword: Keyword;
+
+    /**
+     * @title 광고 그룹 표준 상태
+     */
+    status: IGoogleAds.Status;
+  };
+
+  export interface IGetKeywordsOutputResult {
+    adGroupCriterion: Pick<
+      AdGroupCriterion,
+      | "criterionId"
+      | "resourceName"
+      | "type"
+      | "criterionId"
+      | "keyword"
+      | "status"
+    >;
+  }
+
+  export interface IGetKeywordsOutput {
+    results: IGetKeywordsOutputResult[];
+  }
+
+  export interface IGetKeywordsInput {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return respnose";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 광고 그룹 리소스 명
+     */
+    adGroupResourceName: AdGroup["resourceName"];
+  }
+
   /**
    * @title 키워드 생성 조건
    */
@@ -401,6 +480,16 @@ export namespace IGoogleAds {
   }
 
   /**
+   * @title 구글 리소스 상태
+   */
+  export type Status =
+    | tags.Constant<"ENABLED", { title: "ENABLED" }>
+    | tags.Constant<"PAUSED", { title: "PAUSED" }>
+    | tags.Constant<"REMOVED", { title: "REMOVED" }>
+    | tags.Constant<"UNKNOWN", { title: "UNKNOWN" }>
+    | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>;
+
+  /**
    * @title 구글 광고 캠페인
    */
   export interface Campaign {
@@ -412,12 +501,7 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 상태
      */
-    status:
-      | tags.Constant<"ENABLED", { title: "ENABLED" }>
-      | tags.Constant<"PAUSED", { title: "PAUSED" }>
-      | tags.Constant<"REMOVED", { title: "REMOVED" }>
-      | tags.Constant<"UNKNOWN", { title: "UNKNOWN" }>
-      | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>;
+    status: Status;
 
     /**
      * @title 캠페인 광고 채널
@@ -521,6 +605,14 @@ export namespace IGoogleAds {
      * @title 광고 그룹 광고의 목록
      */
     adGroupAds: Pick<AdGroupAd, "resourceName" | "policySummary">[];
+
+    /**
+     * @title 키워드 목록
+     */
+    keywords: DeepStrictMerge<
+      Keyword,
+      Pick<AdGroupCriterion, "criterionId" | "resourceName">
+    >[];
   }
 
   /**
