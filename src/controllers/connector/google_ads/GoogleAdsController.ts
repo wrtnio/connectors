@@ -123,6 +123,13 @@ export class GoogleAdsController {
     return this.googleAdsProvider.createCampaign(input);
   }
 
+  /**
+   * 구글 고객 계정에 광고를 한 번에 만들어요
+   *
+   * @summaryh 구글 고객 계정에 광고를 한 번에 만들어요
+   * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
+   * @returns 생성된 캠페인부터 광고까지의 정보
+   */
   @core.TypedRoute.Post("search-ads")
   async createSearchAd(
     @TypedBody()

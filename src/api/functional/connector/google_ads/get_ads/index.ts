@@ -45,7 +45,7 @@ export async function getAds(
       );
 }
 export namespace getAds {
-  export type Input = Primitive<IGoogleAds.IGetAdGroupAdsInput>;
+  export type Input = Primitive<IGoogleAds.IGetAdGroupInput>;
   export type Output = Primitive<IGoogleAds.IGetAdGroupAdsOutput>;
 
   export const METADATA = {
