@@ -341,6 +341,7 @@ export class GoogleAdsProvider {
         campaign.status,
         ad_group.id,
         ad_group.resource_name,
+        ad_group.name,
         ad_group.type
       FROM ad_group
       WHERE
@@ -391,7 +392,7 @@ export class GoogleAdsProvider {
     try {
       const adGroupsResult = await this.getAdGroups(input);
 
-      const results = await Promise.all(
+      return await Promise.all(
         adGroupsResult.results.map(async ({ campaign, adGroup }) => {
           const query = `
           SELECT
@@ -406,20 +407,15 @@ export class GoogleAdsProvider {
           const customerId = input.customerId;
           const adGroupAdResult = await this.searchStream(customerId, query);
           const adGroupAds = adGroupAdResult.results.map((el) => el.adGroupAd);
-
-          return { campaign, adGroup, adGroupAds };
-        }),
-      );
-
-      return await Promise.all(
-        results.map(async (ad) => {
           const adGroupCriterions = await this.getKeywordAdGroupCriterion({
             customerId: input.customerId,
-            adGroupResourceName: ad.adGroup.resourceName,
+            adGroupResourceName: adGroup.resourceName,
           });
 
           return {
-            ...ad,
+            campaign,
+            adGroup,
+            adGroupAds,
             keywords: (adGroupCriterions.results ?? []).map((result) => ({
               criterionId: result.adGroupCriterion.criterionId,
               resourceName: result.adGroupCriterion.resourceName,
@@ -440,10 +436,10 @@ export class GoogleAdsProvider {
    * `adGroupCriteria`를 생성한다.
    * 여기에는 구글 광고 키워드가 포함된다.
    */
-  private async createAdGroupCriteria(
+  async createAdGroupCriteria(
     adGroupResourceName: IGoogleAds.AdGroup["resourceName"],
     input: IGoogleAds.ICreateKeywordInput,
-  ) {
+  ): Promise<IGoogleAds.ICreateAdGroupCriteriaOutput> {
     try {
       const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
       const headers = await this.getHeaders();
@@ -469,7 +465,12 @@ export class GoogleAdsProvider {
         },
       );
 
-      return res.data;
+      return (
+        res.data.results.map(
+          (el: Pick<IGoogleAds.AdGroupCriterion, "resourceName">) =>
+            el.resourceName,
+        ) ?? []
+      );
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

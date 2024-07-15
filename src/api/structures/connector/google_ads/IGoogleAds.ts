@@ -4,6 +4,24 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  export type ICreateAdGroupCriteriaOutput = Array<
+    IGoogleAds.AdGroupCriterion["resourceName"]
+  >;
+
+  export interface ICreateAdGroupCriteriaInput extends ICreateKeywordInput {
+    /**
+     * @title 키워드를 추가할 광고 그룹의 리소스 네임
+     */
+    adGroupResourceName: AdGroup["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.adGroup.resourceName";
+        label: "return elem.name ?? '이름 없음'";
+      }>;
+  }
+
   export interface Keyword {
     /**
      * @title 키워드 텍스트
@@ -72,7 +90,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;
@@ -94,7 +112,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;
@@ -117,6 +135,11 @@ export namespace IGoogleAds {
     resourceName: `customers/${number}/adGroups/${number}`;
 
     /**
+     * @title 광고 그룹 이름
+     */
+    name: string;
+
+    /**
      * @title 광고 그룹의 타입
      */
     type:
@@ -132,7 +155,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;
@@ -164,7 +187,7 @@ export namespace IGoogleAds {
   export interface IGetAdGroupOutputResult {
     campaign: Pick<Campaign, "id" | "resourceName" | "status">;
 
-    adGroup: Pick<AdGroup, "id" | "type" | "resourceName">;
+    adGroup: Pick<AdGroup, "id" | "type" | "name" | "resourceName">;
   }
 
   export interface AdGroupAd {
@@ -224,7 +247,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;
@@ -232,7 +255,14 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 리소스 이름
      */
-    campaignResourceName: Campaign["resourceName"];
+    campaignResourceName: Campaign["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-campaigns";
+        array: "return response";
+        value: "return elem.campaign.resourceName";
+        label: "return elem.name ?? '이름 없음'";
+      }>;
   }
 
   /**
@@ -267,7 +297,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;
@@ -467,7 +497,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;
@@ -626,7 +656,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return respnose";
+        array: "return response";
         value: "return elem.id";
         label: "return elem.descriptiveName ?? '이름 없음'";
       }>;

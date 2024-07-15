@@ -98,7 +98,9 @@ export class GoogleAdsController {
    * @returns 광고 목록
    */
   @core.TypedRoute.Post("get-ads")
-  async getAds(@TypedBody() input: IGoogleAds.IGetAdGroupAdsInput) {
+  async getAds(
+    @TypedBody() input: IGoogleAds.IGetAdGroupAdsInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
     // const customers = await this.googleAdsProvider.getCustomers(input);
     // if (!customers.map((el) => el.id).includes(input.customerId)) {
     //   throw new Error(
@@ -110,8 +112,27 @@ export class GoogleAdsController {
   }
 
   /**
+   * 구글 고객 계정의 광고에 검색 키워드를 추가해요
+   *
+   * @summary 광고에 키워드를 추가해요
+   * @param input 키워드 추가 조건
+   * @returns
+   */
+  @core.TypedRoute.Post("campaigns/ads/keywords")
+  async addKeyword(
+    @TypedBody() input: IGoogleAds.ICreateAdGroupCriteriaInput,
+  ): Promise<IGoogleAds.ICreateAdGroupCriteriaOutput> {
+    const { adGroupResourceName, ...rest } = input;
+    return this.googleAdsProvider.createAdGroupCriteria(
+      adGroupResourceName,
+      rest,
+    );
+  }
+
+  /**
    * 구글 고객 계정의 광고를 생성해요
    *
+   * @summary 광고를 생성해요
    * @param input 광고 생성 조건
    * @returns 생성된 광고 정보
    */

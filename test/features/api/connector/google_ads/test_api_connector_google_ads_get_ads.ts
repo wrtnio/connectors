@@ -23,6 +23,8 @@ export const test_api_connector_google_ads_get_ads = async (
 
   const count = Array.from(new Set(ads.map((el) => el.campaign.id))).length;
   deepStrictEqual(count > 1, true); // 유니크한 캠페인 아이디가 1개 이상 조회되어야 한다. ( 테스트 용으로 2개 생성해둔 상태이므로 )
+
+  return ads;
 };
 
 export const test_api_connector_google_ads_get_ads_by_campaign_id = async (
@@ -45,4 +47,6 @@ export const test_api_connector_google_ads_get_ads_by_campaign_id = async (
 
   const count = Array.from(new Set(ads.map((el) => el.campaign.id))).length;
   deepStrictEqual(count === 1, true); // 유니크한 캠페인 아이디가 1개 조회되어야 한다. ( 특정 캠페인 아이디로 검색했으므로 )
+
+  return ads;
 };
