@@ -1,6 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { deepStrictEqual } from "assert";
 import typia from "typia";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { test_api_connector_google_ads_get_clients } from "./test_api_connector_google_ads_get_clients";
 
 export const test_api_connector_google_ads_get_ads = async (
@@ -12,6 +13,7 @@ export const test_api_connector_google_ads_get_ads = async (
   const ads = await CApi.functional.connector.google_ads.get_ads.getAds(
     connection,
     {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       customerId: id,
     },
   );
@@ -32,6 +34,7 @@ export const test_api_connector_google_ads_get_ads_by_campaign_id = async (
   const ads = await CApi.functional.connector.google_ads.get_ads.getAds(
     connection,
     {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       customerId: id,
       campaignId: "21445347960",
     },

@@ -1,7 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
-import { test_api_connector_google_ads_create_campaign_display_type } from "./test_api_connector_google_ads_create_campaign";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
+import { test_api_connector_google_ads_create_campaign_display_type } from "./test_api_connector_google_ads_create_campaign";
 
 export const test_api_connector_google_ads_create_ad_display_type = async (
   connection: CApi.IConnection,
@@ -19,6 +19,7 @@ export const test_api_connector_google_ads_create_ad_display_type = async (
   const res = await CApi.functional.connector.google_ads.campaigns.ads.appendAd(
     connection,
     {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       customerId: "8655555186",
       campaignResourceName,
       type: "DISPLAY_STANDARD",

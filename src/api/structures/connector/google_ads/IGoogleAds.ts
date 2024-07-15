@@ -1,6 +1,5 @@
 import type { Prerequisite } from "@wrtn/decorators";
 import type { tags } from "typia";
-import { StrictOmit } from "../../../../utils/strictOmit";
 import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
@@ -197,14 +196,15 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 생성 조건
      */
-    campaign: Omit<ICreateCampaignInput, "customerId" | "type">;
+    campaign: Omit<ICreateCampaignInput, "customerId" | "type" | "secretKey">;
   }
 
   /**
    * @title 구글 검색 캠페인부터 광고까지 한 번에 만드는 요청 조건
    */
   export interface ICreateAdGroupSearchAdAtOnceInput
-    extends ICreateAdGroupSearchAdAtOnceInputCommon {
+    extends ICreateAdGroupSearchAdAtOnceInputCommon,
+      IGoogleAds.ISecret {
     /**
      * @title 광고 생성 조건
      */
@@ -218,7 +218,8 @@ export namespace IGoogleAds {
    * @title 구글 디스플레이 캠페인부터 광고까지 한 번에 만드는 요청 조건
    */
   export interface ICreateAdGroupDisplayAdAtOnceInput
-    extends ICreateAdGroupSearchAdAtOnceInputCommon {
+    extends ICreateAdGroupSearchAdAtOnceInputCommon,
+      IGoogleAds.ISecret {
     /**
      * @title 광고 생성 조건
      */
@@ -248,7 +249,13 @@ export namespace IGoogleAds {
   /**
    * @title 광고 생성 조건
    */
-  export type ICreateAdGroupAdInput =
+  export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
+    ICreateAdGroupAdInputCommon;
+
+  /**
+   * @title 광고 생성 조건
+   */
+  export type ICreateAdGroupAdInputCommon =
     | ICreateAdGroupSearchAdInput
     | ICreateAdGroupDisplayAdInput;
 
@@ -344,7 +351,9 @@ export namespace IGoogleAds {
       tags.MaxItems<15>;
   }
 
-  export interface ICreateCampaignInput extends ICreateCampaignBudgetInput {
+  export interface ICreateCampaignInput
+    extends ICreateCampaignBudgetInput,
+      IGoogleAds.ISecret {
     /**
      * @title 캠페인 타입
      */
@@ -490,7 +499,7 @@ export namespace IGoogleAds {
   /**
    * @title 광고 조회 조건
    */
-  export type IGetAdGroupAdsInput = IGetAdGroupInput;
+  export type IGetAdGroupAdsInput = IGetAdGroupInput & IGoogleAds.ISecret;
 
   /**
    * @title 광고 그룹 광고의 조회 결과
@@ -517,7 +526,7 @@ export namespace IGoogleAds {
   /**
    * @title 캠페인 조회 조건
    */
-  export interface IGetCampaignsInput {
+  export interface IGetCampaignsInput extends IGoogleAds.ISecret {
     /**
      * @title 고객 아이디
      */

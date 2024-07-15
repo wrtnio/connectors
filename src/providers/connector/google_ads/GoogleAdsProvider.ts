@@ -2,14 +2,14 @@ import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios, { AxiosError } from "axios";
 import typia, { type tags } from "typia";
+import type { ContentMediaType } from "typia/lib/tags";
+import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
-import type { ContentMediaType } from "typia/lib/tags";
-import { v4 } from "uuid";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -127,7 +127,7 @@ export class GoogleAdsProvider {
   }
 
   async createAd(
-    input: IGoogleAds.ICreateAdGroupAdInput,
+    input: IGoogleAds.ICreateAdGroupAdInputCommon,
   ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
     try {
       const adGroupResourceName = await this.createAdGroup(input);
@@ -279,7 +279,7 @@ export class GoogleAdsProvider {
   }
 
   async createCampaign(
-    input: IGoogleAds.ICreateCampaignInput,
+    input: Omit<IGoogleAds.ICreateCampaignInput, "secretKey">,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
       const headers = await this.getHeaders();
@@ -357,7 +357,7 @@ export class GoogleAdsProvider {
    * @returns
    */
   async getAds(
-    input: IGoogleAds.IGetAdGroupAdsInput,
+    input: Omit<IGoogleAds.IGetAdGroupAdsInput, "secretKey">,
   ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
@@ -434,7 +434,7 @@ export class GoogleAdsProvider {
   }
 
   async getCampaigns(
-    input: IGoogleAds.IGetCampaignsInput,
+    input: Omit<IGoogleAds.IGetCampaignsInput, "secretKey">,
     resourceName?: IGoogleAds.Campaign["resourceName"],
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
     try {

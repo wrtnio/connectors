@@ -80,6 +80,13 @@ export class GoogleAdsController {
   async getCampaigns(
     @TypedBody() input: IGoogleAds.IGetCampaignsInput,
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
+    // const customers = await this.googleAdsProvider.getCustomers(input);
+    // if (!customers.map((el) => el.id).includes(input.customerId)) {
+    //   throw new Error(
+    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+    //   );
+    // }
+
     return retry(() => this.googleAdsProvider.getCampaigns(input))();
   }
 
@@ -92,6 +99,13 @@ export class GoogleAdsController {
    */
   @core.TypedRoute.Post("get-ads")
   async getAds(@TypedBody() input: IGoogleAds.IGetAdGroupAdsInput) {
+    // const customers = await this.googleAdsProvider.getCustomers(input);
+    // if (!customers.map((el) => el.id).includes(input.customerId)) {
+    //   throw new Error(
+    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+    //   );
+    // }
+
     return retry(() => this.googleAdsProvider.getAds(input))();
   }
 
@@ -106,6 +120,13 @@ export class GoogleAdsController {
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupAdInput,
   ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
+    // const customers = await this.googleAdsProvider.getCustomers(input);
+    // if (!customers.map((el) => el.id).includes(input.customerId)) {
+    //   throw new Error(
+    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+    //   );
+    // }
+
     return this.googleAdsProvider.createAd(input);
   }
 
@@ -120,6 +141,13 @@ export class GoogleAdsController {
   async createCampaign(
     @TypedBody() input: IGoogleAds.ICreateCampaignInput,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
+    // const customers = await this.googleAdsProvider.getCustomers(input);
+    // if (!customers.map((el) => el.id).includes(input.customerId)) {
+    //   throw new Error(
+    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+    //   );
+    // }
+
     return this.googleAdsProvider.createCampaign(input);
   }
 
@@ -135,6 +163,13 @@ export class GoogleAdsController {
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupSearchAdAtOnceInput,
   ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
+    // const customers = await this.googleAdsProvider.getCustomers(input);
+    // if (!customers.map((el) => el.id).includes(input.customerId)) {
+    //   throw new Error(
+    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+    //   );
+    // }
+
     const { campaign, campaignBudget } =
       await this.googleAdsProvider.createCampaign({
         ...input.campaign,
@@ -157,6 +192,13 @@ export class GoogleAdsController {
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput,
   ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
+    // const customers = await this.googleAdsProvider.getCustomers(input);
+    // if (!customers.map((el) => el.id).includes(input.customerId)) {
+    //   throw new Error(
+    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+    //   );
+    // }
+
     const { campaign, campaignBudget } =
       await this.googleAdsProvider.createCampaign({
         ...input.campaign,

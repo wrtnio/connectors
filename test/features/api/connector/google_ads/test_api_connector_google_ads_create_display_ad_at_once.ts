@@ -12,6 +12,7 @@ export const test_api_connector_google_ads_create_ad_at_once_display_type =
       await CApi.functional.connector.google_ads.display_ads.createDisplayAd(
         connection,
         {
+          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
           customerId: "8655555186", // Prerequsite ( 고객이 자기 자신의 계정을 조회 후 계정 아이디 전달)
           campaign: {
             advertisingChannelType: "DISPLAY", // 검색 광고를 만들 것이고,

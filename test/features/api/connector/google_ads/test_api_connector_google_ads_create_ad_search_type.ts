@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { test_api_connector_google_ads_create_campaign_search_type } from "./test_api_connector_google_ads_create_campaign";
 
 export const test_api_connector_google_ads_create_ad_search_type_without_keywords =
@@ -14,6 +15,7 @@ export const test_api_connector_google_ads_create_ad_search_type_without_keyword
       await CApi.functional.connector.google_ads.campaigns.ads.appendAd(
         connection,
         {
+          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
           customerId: "8655555186",
           campaignResourceName,
           type: "SEARCH_STANDARD",
@@ -39,6 +41,7 @@ export const test_api_connector_google_ads_create_ad_search_type_with_keywords =
       await CApi.functional.connector.google_ads.campaigns.ads.appendAd(
         connection,
         {
+          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
           customerId: "8655555186",
           campaignResourceName,
           type: "SEARCH_STANDARD",
