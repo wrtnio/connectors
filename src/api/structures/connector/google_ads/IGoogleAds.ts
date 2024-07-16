@@ -788,6 +788,10 @@ export namespace IGoogleAds {
     ["https://www.googleapis.com/auth/adwords"]
   >;
 
+  export interface Customer {
+    resourceName: `customers/${number}`;
+  }
+
   export interface CustomerClient {
     /**
      * @title 고객 아이디

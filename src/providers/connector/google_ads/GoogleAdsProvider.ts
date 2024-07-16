@@ -17,6 +17,22 @@ export class GoogleAdsProvider {
 
   constructor(private readonly googleProvider: GoogleProvider) {}
 
+  async publish(input: IGoogleAds.ISecret): Promise<void> {
+    try {
+      const customers = await this.listAccessibleCustomers(input);
+      await Promise.all(
+        customers.resourceNames.map(async (resourceName) => {
+          await this.createClientLink({ resuorceName: resourceName });
+        }),
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
   /**
    * 원래대로라면 `parentId`가 아닌 자신의 id를 전달하는 것이 맞지만, 계정에 따른 의존성이 없는 것으로 보여 google ads secret 없이도 사용할 수 있도록 한다.
    *
@@ -622,24 +638,27 @@ export class GoogleAdsProvider {
    * @param validateOnly
    * @returns
    */
-  async createClientLink(
-    input: { customerId: string },
-    validateOnly: boolean = false,
-  ): Promise<IGoogleAds.ICreateClientLinkOutput | IGoogleAds.GoogleAdsError> {
+  async createClientLink(input: {
+    resuorceName: IGoogleAds.Customer["resourceName"];
+  }): Promise<void> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const url = `${this.baseUrl}/customers/${parentId}/customerClientLinks:mutate`;
-      const res = await axios.post(url, {
-        operation: {
-          create: {
-            clientCustomer: `customer/${input.customerId}`,
-            status: "PENDING",
+      const headers = await this.getHeaders();
+      await axios.post(
+        url,
+        {
+          operation: {
+            create: {
+              clientCustomer: input.resuorceName,
+              status: "PENDING",
+            },
           },
         },
-        validateOnly, // true인 경우에는 동작하지 않고 API 동작만 검증하는, 일종의 테스트 용 필드.
-      });
-
-      return res.data;
+        {
+          headers,
+        },
+      );
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

@@ -55,7 +55,19 @@ export class GoogleAdsController {
   }
 
   /**
-   * 뤼튼에 연동된 고객의 광고 계정을 가져와요
+   * 해당 구글 계정 내 광고 계정 모두에 관리자 승인 메일을 보내요
+   *
+   * @summary 광고 계정을 조회합니다
+   * @param input 고객 정보
+   * @returns 광고 계정
+   */
+  @core.TypedRoute.Post("cutomerClientLink")
+  async publish(@TypedBody() input: IGoogleAds.ISecret): Promise<void> {
+    return this.googleAdsProvider.publish(input);
+  }
+
+  /**
+   * 고객의 광고 계정을 가져와요
    *
    * @summary 광고 계정을 조회합니다
    * @param input 고객 정보
