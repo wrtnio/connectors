@@ -7,8 +7,10 @@ import {
   IMAGE_OPEN_AI_INJECT_IDENTIFIER,
   OPEN_AI_INJECT_IDENTIFIER,
 } from "./constants";
+import { LoggerModule } from "nestjs-pino";
 
 @Module({
+  imports: [LoggerModule],
   providers: [
     OpenAIProvider,
     {
