@@ -8,9 +8,10 @@ import {
   OPEN_AI_INJECT_IDENTIFIER,
 } from "./constants";
 import { LoggerModule } from "nestjs-pino";
+import { pinoLoggerParams } from "../../common/logger/logger";
 
 @Module({
-  imports: [LoggerModule],
+  imports: [LoggerModule.forRoot({ ...pinoLoggerParams })],
   providers: [
     OpenAIProvider,
     {
