@@ -13,3 +13,5 @@ Session.vim
 **/*.DS_Store
 
 hancell_test_file.cell
+
+.idea
