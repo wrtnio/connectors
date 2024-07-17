@@ -65,22 +65,6 @@ export class RagController {
     res.header("Cache-Control", "no-cache");
     res.header("Connection", "keep-alive");
     res.header("Access-Control-Allow-Origin", "*");
-    return await this.ragService.generateSse(input, res, chatId);
+    return await this.ragService.generate(input, res, chatId);
   }
-
-  // /**
-  //  * RAG 분석을 기반으로 채팅을 합니다.
-  //  *
-  //  * @summary RAG 기반 채팅.
-  //  *
-  //  * @param input
-  //  *
-  //  * @tag RAG
-  //  */
-  // @Post("generate")
-  // async generateChat(
-  //   @Body() input: IRag.IGenerateInput,
-  // ): Promise<IRag.IGenerateOutput> {
-  //   return await this.ragService.generate(input);
-  // }
 }

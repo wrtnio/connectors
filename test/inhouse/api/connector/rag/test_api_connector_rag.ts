@@ -20,19 +20,19 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     connection,
     analyzeInput,
   );
-  console.log("a", analyzeOutput);
   typia.assertEquals<IRag.IAnalysisOutput>(analyzeOutput);
 
-  // const generateInput: IRag.IGenerateInput = {
-  //   docId: analyzeOutput.docId,
-  //   query: "요약해줘",
-  // };
-  // const generateOutput =
-  //   await CApi.functional.connector.rag.generate.generateChat(
-  //     connection,
-  //     generateInput,
-  //   );
-  // typia.assertEquals<IRag.IGenerateOutput>(generateOutput);
+  const generateInput: IRag.IGenerateInput = {
+    query: "NOSQL의 단점을 알려줘",
+  };
+  const chatId = analyzeOutput.chatId;
+  const generateOutput = await CApi.functional.connector.rag.generate(
+    connection,
+    generateInput,
+    chatId,
+  );
+  console.log("gen output", generateOutput);
+  typia.assertEquals<IRag.IGenerateOutput>(generateOutput);
 
   /**
    * docx 형식

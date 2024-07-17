@@ -79,13 +79,6 @@ export namespace IRag {
 
   export interface IGenerateInput {
     /**
-     * 분석할 document의 id입니다.
-     *
-     * @title document id.
-     */
-    docId: string;
-
-    /**
      * 유저의 발화입니다.
      *
      * @title 유저 발화.
