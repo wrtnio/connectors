@@ -103,16 +103,16 @@ export class GoogleAdsController {
   }
 
   /**
-   * 구글 고객 계정의 캠페인 광고 목록을 가져와요
+   * 구글 고객 계정의 캠페인 광고 그룹 목록을 가져와요
    *
    * @summary 캠페인 광고 목록을 조회합니다.
    * @param input 광고 목록 조회 조건
    * @returns 광고 목록
    */
-  @core.TypedRoute.Post("get-ads")
-  async getAds(
-    @TypedBody() input: IGoogleAds.IGetAdGroupAdsInput,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
+  @core.TypedRoute.Post("get-ad-groups")
+  async getAdGroups(
+    @TypedBody() input: IGoogleAds.IGetAdGroupInput & IGoogleAds.ISecret,
+  ): Promise<IGoogleAds.IGetAdGroupOutput> {
     // const customers = await this.googleAdsProvider.getCustomers(input);
     // if (!customers.map((el) => el.id).includes(input.customerId)) {
     //   throw new Error(
@@ -122,6 +122,8 @@ export class GoogleAdsController {
 
     return retry(() => this.googleAdsProvider.getAds(input))();
   }
+
+  async getAds() {}
 
   /**
    * 구글 고객 계정의 광고에 검색 키워드를 추가해요
@@ -138,7 +140,15 @@ export class GoogleAdsController {
   }
 
   /**
+   * @param input
+   */
+  @core.TypedRoute.Patch("campaigns/ads/status")
+  async setOnOff(input: IGoogleAds.ISetOnOffInput) {}
+
+  /**
    * 구글 고객 계정의 특정 광고에서 키워드를 삭제해요
+   *
+   * 광고 그룹에 다른 광고가 있다면 함께 적용돼요.
    *
    * @summary 광고에 키워드를 삭제해요
    * @param input 키워드 삭제 조건
@@ -154,9 +164,11 @@ export class GoogleAdsController {
   /**
    * 구글 고객 계정의 광고에 검색 키워드를 추가해요
    *
+   * 광고 그룹에 다른 광고가 있다면 함께 적용돼요
+   *
    * @summary 광고에 키워드를 추가해요
    * @param input 키워드 추가 조건
-   * @returns
+   * @returns 추가된 키워드 리소스 이름
    */
   @core.TypedRoute.Post("campaigns/ads/keywords")
   async addKeywords(
@@ -167,6 +179,20 @@ export class GoogleAdsController {
       adGroupResourceName,
       rest,
     );
+  }
+
+  /**
+   * 광고의 상세를 조회해요
+   *
+   * @summary 광고 상세 조회
+   * @param input 광고 상세 조회 조건
+   * @returns 광고 상세
+   */
+  @core.TypedRoute.Post("campaigns/ads/get-details")
+  async getAdGroupAdDetail(
+    @TypedBody() input: IGoogleAds.IGetAdGroupAdDetailInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdDetailOutput> {
+    return retry(() => this.googleAdsProvider.getAdGroupAdDetail(input))();
   }
 
   /**
@@ -228,7 +254,7 @@ export class GoogleAdsController {
   /**
    * 구글 고객 계정에 광고를 한 번에 만들어요
    *
-   * @summaryh 구글 고객 계정에 광고를 한 번에 만들어요
+   * @summary 구글 고객 계정에 반응형 검색 광고를 한 번에 만들어요
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
    * @returns 생성된 캠페인부터 광고까지의 정보
    */
@@ -261,6 +287,13 @@ export class GoogleAdsController {
     return { campaign, campaignBudget, ad };
   }
 
+  /**
+   * 구글 고객 계정에 광고를 한 번에 만들어요
+   *
+   * @summary 구글 계정 광고에 반응형 디스플레이 광고를 한 번에 만들어요
+   * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
+   * @returns 생성된 캠페인부터 광고까지의 정보
+   */
   @core.TypedRoute.Post("display-ads")
   async createDisplayAd(
     @TypedBody()

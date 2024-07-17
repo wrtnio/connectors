@@ -142,6 +142,40 @@ export class GoogleAdsProvider {
     }
   }
 
+  /**
+   * 광고 소재 수정 전에 원래의 전체 형태를 조회하기 위한 용도
+   */
+  async getAdGroupAdDetail(
+    input: IGoogleAds.IGetAdGroupAdDetailInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdDetailOutput> {
+    const query = `
+    SELECT
+      ad_group_ad.resource_name,
+      ad_group_ad.ad.resource_name,
+      ad_group_ad.ad.responsive_search_ad.descriptions,
+      ad_group_ad.ad.responsive_search_ad.headlines,
+      ad_group_ad.ad.responsive_display_ad.headlines,
+      ad_group_ad.ad.responsive_display_ad.long_headline,
+      ad_group_ad.ad.responsive_display_ad.business_name,
+      ad_group_ad.ad.responsive_display_ad.descriptions,
+      ad_group_ad.ad.responsive_display_ad.marketing_images,
+      ad_group_ad.ad.responsive_display_ad.square_marketing_images,
+      ad_group_ad.ad.responsive_display_ad.square_logo_images
+    FROM ad_group_ad
+    WHERE ad_group_ad.resource_name = '${input.adGroupAdResourceName}'` as const;
+
+    const res = await this.searchStream(input.customerId, query);
+    const adGroupAd = res.results[0].adGroupAd;
+
+    const detail =
+      adGroupAd.ad.responsiveSearchAd || adGroupAd.ad.responsiveDisplayAd;
+
+    return {
+      resourceName: adGroupAd.resourceName,
+      ad: { resourceName: adGroupAd.ad.resourceName, detail },
+    };
+  }
+
   async createAd(
     input: IGoogleAds.ICreateAdGroupAdInputCommon,
   ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
@@ -179,77 +213,50 @@ export class GoogleAdsProvider {
         /**
          * DISPLAY_STANDARD
          */
-        const requestBody = {
-          operations: {
-            create: {
-              status: "PAUSED",
-              ad: {
-                final_urls: [input.finalUrl],
-                responsive_display_ad: {
-                  headlines: input.headlines.map((text) => ({ text })),
-                  long_headline: { text: input.longHeadline },
-                  descriptions: input.descriptions.map((text) => ({ text })),
-                  marketing_images: await this.createAssets({
-                    cusotmerId: input.customerId,
-                    images: await Promise.all(
-                      input.landscapeImages.map(async (image) => {
-                        const imageFile =
-                          await ImageProvider.getImageFile(image);
-                        const size = ImageProvider.getSize(
-                          imageFile.size,
-                          1.91,
-                        );
-
-                        const cropped = await imageFile.image
-                          .extract(size)
-                          .toBuffer();
-
-                        return cropped.toString("base64");
-                      }),
-                    ),
-                  }),
-                  square_marketing_images: await this.createAssets({
-                    cusotmerId: input.customerId,
-                    images: await Promise.all(
-                      input.squareImages.map(async (image) => {
-                        const imageFile =
-                          await ImageProvider.getImageFile(image);
-                        const size = ImageProvider.getSize(imageFile.size, 1);
-
-                        const cropped = await imageFile.image
-                          .extract(size)
-                          .toBuffer();
-
-                        return cropped.toString("base64");
-                      }),
-                    ),
-                  }),
-                  business_name: input.businessName,
-                  youtube_videos: [],
-                  square_logo_images: await this.createAssets({
-                    cusotmerId: input.customerId,
-                    images: await Promise.all(
-                      input.logoImages.map(async (image) => {
-                        const imageFile =
-                          await ImageProvider.getImageFile(image);
-                        const size = ImageProvider.getSize(imageFile.size, 1);
-
-                        const cropped = await imageFile.image
-                          .extract(size)
-                          .toBuffer();
-
-                        return cropped.toString("base64");
-                      }),
-                    ),
-                  }),
+        await axios.post(
+          url,
+          {
+            operations: {
+              create: {
+                status: "PAUSED",
+                ad: {
+                  final_urls: [input.finalUrl],
+                  responsive_display_ad: {
+                    headlines: input.headlines.map((text) => ({ text })),
+                    long_headline: { text: input.longHeadline },
+                    descriptions: input.descriptions.map((text) => ({ text })),
+                    marketing_images: await this.createAssets({
+                      cusotmerId: input.customerId,
+                      images: await Promise.all(
+                        input.landscapeImages.map((el) =>
+                          this.cropImage(el, 1.91),
+                        ),
+                      ),
+                    }),
+                    square_marketing_images: await this.createAssets({
+                      cusotmerId: input.customerId,
+                      images: await Promise.all(
+                        input.squareImages.map((el) => this.cropImage(el, 1)),
+                      ),
+                    }),
+                    business_name: input.businessName,
+                    youtube_videos: [],
+                    square_logo_images: await this.createAssets({
+                      cusotmerId: input.customerId,
+                      images: await Promise.all(
+                        input.logoImages.map((el) => this.cropImage(el, 1)),
+                      ),
+                    }),
+                  },
                 },
+                ad_group: adGroupResourceName,
               },
-              ad_group: adGroupResourceName,
             },
           },
-        } as const;
-
-        await axios.post(url, requestBody, { headers });
+          {
+            headers,
+          },
+        );
       }
 
       const [result] = await this.getAds({ ...input, adGroupResourceName });
@@ -265,9 +272,22 @@ export class GoogleAdsProvider {
     }
   }
 
+  async cropImage(
+    image: string &
+      typia.tags.Format<"uri"> &
+      typia.tags.ContentMediaType<"image/*">,
+    ratio: 1 | 1.91 | 0.8,
+  ): Promise<string> {
+    const imageFile = await ImageProvider.getImageFile(image);
+    const size = ImageProvider.getSize(imageFile.size, ratio);
+    const cropped = await imageFile.image.extract(size).toBuffer();
+
+    return cropped.toString("base64");
+  }
+
   async createAssets(input: {
     cusotmerId: string;
-    images: string[];
+    images: string[]; // base64 encoded images
   }): Promise<{ asset: string }[]> {
     try {
       const url = `${this.baseUrl}/customers/${input.cusotmerId}/assets:mutate`;
@@ -429,7 +449,7 @@ export class GoogleAdsProvider {
 
   private async getAdGroups(
     input: IGoogleAds.IGetAdGroupInput,
-  ): Promise<IGoogleAds.IGetAdGroupOutput> {
+  ): Promise<IGoogleAds.IGetGoogleAdGroupOutput> {
     try {
       const query = `
       SELECT 
@@ -509,8 +529,8 @@ export class GoogleAdsProvider {
    * @returns
    */
   async getAds(
-    input: Omit<IGoogleAds.IGetAdGroupAdsInput, "secretKey">,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
+    input: IGoogleAds.IGetAdGroupInput & IGoogleAds.ISecret,
+  ): Promise<IGoogleAds.IGetAdGroupOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
 

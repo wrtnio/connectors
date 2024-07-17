@@ -4,6 +4,117 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  export interface IGetAdGroupAdDetailInput {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName: IGoogleAds.AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response.flatMap((el) => el.adGroupAds)";
+        value: "return elem.resourceName";
+        label: "return elem.resourceName";
+      }>;
+  }
+
+  export interface Ad {
+    resourceName: `customers/${number}/ads/${number}`;
+  }
+
+  export interface IGetAdGroupAdDetailOutput {
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    resourceName: AdGroupAd["resourceName"];
+
+    /**
+     * @title 조회한 광고 내역
+     */
+    ad: {
+      /**
+       * @title 광고의 리소스 명
+       */
+      resourceName: Ad["resourceName"];
+
+      /**
+       * @title 광고 소재 정보
+       */
+      detail: ResponsiveSearchAd | ResponsiveDisplayAd;
+    };
+  }
+
+  export interface ResponsiveSearchAd {
+    descriptions: { text: string }[];
+    headlines: { text: string }[];
+  }
+
+  export interface ResponsiveDisplayAd extends ResponsiveSearchAd {
+    longHeadline: any;
+    businessName: any;
+    marketingImages: any;
+    squareMarketingImages: any;
+    squareLogoImages: any;
+  }
+  export interface IUpdateSearchAdInput {
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName: IGoogleAds.AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response.flatMap((el) => el.adGroupAds)";
+        value: "return elem.resourceName";
+        label: "return elem.resourceName";
+      }>;
+  }
+
+  export interface ISetOnOffInput extends IGoogleAds.ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName: AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response.flatMap((el) => el.adGroupAds)";
+        value: "return elem.resourceName";
+        label: "return elem.resourceName";
+      }>;
+
+    /**
+     * @title 광고 상태
+     */
+    status:
+      | tags.Constant<"ENABLED", { title: "ENABLED" }>
+      | tags.Constant<"PAUSED", { title: "PAUSED" }>;
+  }
+
   /**
    * @title 키워드 삭제 조건
    */
@@ -230,7 +341,7 @@ export namespace IGoogleAds {
     adGroupResourceName?: AdGroup["resourceName"];
   }
 
-  export interface IGetAdGroupOutput {
+  export interface IGetGoogleAdGroupOutput {
     results: IGetAdGroupOutputResult[];
   }
 
@@ -277,6 +388,11 @@ export namespace IGoogleAds {
         | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
         | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
     };
+
+    /**
+     * @title 광고의 상태
+     */
+    status: IGoogleAds.Status;
   }
 
   /**
@@ -391,7 +507,7 @@ export namespace IGoogleAds {
   /**
    * @title 광고 정보
    */
-  export interface Ad {
+  export interface AdWrapper {
     /**
      * @title 광고 정보
      */
@@ -402,13 +518,19 @@ export namespace IGoogleAds {
    */
   export type ICreateAdGroupAdAtOnceOutput = DeepStrictMerge<
     IGoogleAds.ICreateCampaignsOutput,
-    Ad
+    AdWrapper
   >;
 
   /**
    * @title 광고 생성 조건
    */
   export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
+    ICreateAdGroupAdInputCommon;
+
+  export type IUpdateAdGroupAdInput = Pick<
+    AdGroupAd,
+    "resourceName" | "status"
+  > &
     ICreateAdGroupAdInputCommon;
 
   /**
@@ -703,14 +825,9 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 광고 조회 조건
-   */
-  export type IGetAdGroupAdsInput = IGetAdGroupInput & IGoogleAds.ISecret;
-
-  /**
    * @title 광고 그룹 광고의 조회 결과
    */
-  export type IGetAdGroupAdsOutput = IGetAdGroupAdsOutputResult[];
+  export type IGetAdGroupOutput = IGetAdGroupAdsOutputResult[];
 
   export interface IGetAdGroupAdsOutputResult {
     /**

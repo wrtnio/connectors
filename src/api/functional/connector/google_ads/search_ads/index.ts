@@ -16,7 +16,7 @@ import type { IGoogleAds } from "../../../../structures/connector/google_ads/IGo
  * 구글 고객 계정에 광고를 한 번에 만들어요
  *
  * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
- * @summaryh 구글 고객 계정에 광고를 한 번에 만들어요
+ * @summary 구글 고객 계정에 반응형 검색 광고를 한 번에 만들어요
  * @returns 생성된 캠페인부터 광고까지의 정보
  *
  * @controller GoogleAdsController.createSearchAd
@@ -48,7 +48,10 @@ export async function createSearchAd(
 export namespace createSearchAd {
   export type Input = Primitive<IGoogleAds.ICreateAdGroupSearchAdAtOnceInput>;
   export type Output = Primitive<
-    DeepStrictMergeHelper<IGoogleAds.IGetCampaignsOutputResult, IGoogleAds.Ad>
+    DeepStrictMergeHelper<
+      IGoogleAds.IGetCampaignsOutputResult,
+      IGoogleAds.AdWrapper
+    >
   >;
 
   export const METADATA = {
@@ -70,14 +73,17 @@ export namespace createSearchAd {
     g?: Partial<typia.IRandomGenerator>,
   ): Resolved<
     Primitive<
-      DeepStrictMergeHelper<IGoogleAds.IGetCampaignsOutputResult, IGoogleAds.Ad>
+      DeepStrictMergeHelper<
+        IGoogleAds.IGetCampaignsOutputResult,
+        IGoogleAds.AdWrapper
+      >
     >
   > =>
     typia.random<
       Primitive<
         DeepStrictMergeHelper<
           IGoogleAds.IGetCampaignsOutputResult,
-          IGoogleAds.Ad
+          IGoogleAds.AdWrapper
         >
       >
     >(g);
