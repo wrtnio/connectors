@@ -61,7 +61,7 @@ export class GoogleAdsController {
    * @param input 고객 정보
    * @returns 광고 계정
    */
-  @core.TypedRoute.Post("cutomerClientLink")
+  @core.TypedRoute.Post("customerClientLink")
   async publish(@TypedBody() input: IGoogleAds.ISecret): Promise<void> {
     return this.googleAdsProvider.publish(input);
   }
