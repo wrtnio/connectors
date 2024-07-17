@@ -77,7 +77,10 @@ export class AwsProvider {
   /**
    * Transforms S3 URLs in output to presigned URLs
    */
-  async getGetObjectUrl(fileUrl: string): Promise<string> {
+  async getGetObjectUrl(
+    fileUrl: string,
+    image: boolean = false,
+  ): Promise<string> {
     const match = fileUrl.match(
       /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
     );
@@ -88,6 +91,21 @@ export class AwsProvider {
 
     const bucket = match[1];
     const key = match[3];
+
+    if (image) {
+      return await getSignedUrl(
+        this.s3,
+        new GetObjectCommand({
+          Bucket: bucket,
+          Key: key,
+          ResponseContentType: "image/png",
+        }),
+        {
+          expiresIn: 60 * this.EXPIRATION_IN_MINUTES,
+          signingRegion: this.region,
+        },
+      );
+    }
 
     return await getSignedUrl(
       this.s3,

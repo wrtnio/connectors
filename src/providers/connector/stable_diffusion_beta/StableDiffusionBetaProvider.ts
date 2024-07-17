@@ -54,7 +54,10 @@ export class StableDiffusionBetaProvider {
         return { imgUrl: imgUrl[0] };
       }
 
-      const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl[0]);
+      const presignedUrl = await this.awsProvider.getGetObjectUrl(
+        imgUrl[0],
+        true,
+      );
 
       return {
         imgUrl: presignedUrl,
