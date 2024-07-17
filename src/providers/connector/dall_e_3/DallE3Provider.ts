@@ -47,7 +47,7 @@ export class DallE3Provider {
         contentType: "DallE3/png",
       });
 
-      const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl);
+      const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl, true);
       return {
         imgUrl: presignedUrl,
       };
