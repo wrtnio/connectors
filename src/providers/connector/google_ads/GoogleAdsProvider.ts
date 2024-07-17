@@ -553,6 +553,28 @@ export class GoogleAdsProvider {
     return keywords;
   }
 
+  async getMetrics(input: IGoogleAds.IGetMetricInput) {
+    const query = `
+    SELECT
+      metrics.average_page_views, 
+      metrics.impressions, 
+      metrics.clicks, 
+      metrics.cost_micros, 
+      metrics.video_views, 
+      metrics.video_quartile_p25_rate, 
+      metrics.video_quartile_p50_rate, 
+      metrics.video_quartile_p75_rate, 
+      metrics.video_quartile_p100_rate,
+      ad_group_ad.resource_name
+    FROM 
+      ad_group_ad
+    WHERE
+      segments.date = '${input.date}'` as const;
+
+    const response = await this.searchStream(input.customerId, query);
+    return response.results;
+  }
+
   async getAdGroupAds(input: {
     customerId: `${number}`;
     adGroupResourceName?: string;

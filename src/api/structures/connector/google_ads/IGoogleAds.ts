@@ -4,6 +4,77 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  export interface IGetMetricInput extends ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 통계 조회 날짜
+     */
+    date: string & tags.Format<"date">;
+  }
+
+  export interface IGetMetricOutputResult {
+    metrics: {
+      /**
+       * @title 노출 수
+       */
+      impressions: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 클릭 수
+       */
+      clicks: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 광고 지출 (마이크로 단위)
+       * @description 1,000,000분의 1로 원화 가치 표시
+       */
+      costMicros: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 비디오 뷰
+       */
+      videoViews: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 평균 페이지 뷰
+       */
+      averagePageViews?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 25% 본 수
+       */
+      videoQuartileP25Rate?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 50% 본 수
+       */
+      videoQuartileP50Rate?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 75% 본 수
+       */
+      videoQuartileP75Rate?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 100% 본 수
+       */
+      videoQuartileP100Rate?: `${number & tags.Type<"int64">}`;
+    };
+
+    adGroupAd: Pick<AdGroupAd, "resourceName">;
+  }
+
   export interface IGetAdGroupAdInput extends ISecret {
     /**
      * @title 고객 리소스 이름

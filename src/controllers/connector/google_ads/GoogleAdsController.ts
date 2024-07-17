@@ -126,7 +126,7 @@ export class GoogleAdsController {
   /**
    * 구글 고객 계정의 캠페인 광고 목록을 가져와요
    *
-   * @summary 캠페인 광고 목록을 조회합니다.
+   * @summary 캠페인 광고 목록을 조회합니다
    * @param input 광고 목록 조회 조건
    * @returns 광고 목록
    */
@@ -135,6 +135,20 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.IGetAdGroupAdInput,
   ): Promise<IGoogleAds.IGetAdGroupAdOutput> {
     return retry(() => this.googleAdsProvider.getAdGroupAds(input))();
+  }
+
+  /**
+   * 구글 고객 계정 광고 당 지표를 조회해요
+   *
+   * @summary 캠페인 광고 성과(metrics)를 조회합니다
+   * @param input 광고 지표 조회 조건
+   * @returns 지표 목록
+   */
+  @core.TypedRoute.Post("get-metrics")
+  async getMetrics(
+    @TypedBody() input: IGoogleAds.IGetMetricInput,
+  ): Promise<IGoogleAds.IGetMetricOutputResult[]> {
+    return retry(() => this.googleAdsProvider.getMetrics(input))();
   }
 
   /**
