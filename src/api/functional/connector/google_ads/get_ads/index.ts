@@ -45,8 +45,8 @@ export async function getAds(
       );
 }
 export namespace getAds {
-  export type Input = Primitive<IGoogleAds.IGetAdGroupInput>;
-  export type Output = Primitive<IGoogleAds.IGetAdGroupOutput>;
+  export type Input = Primitive<IGoogleAds.IGetAdGroupAdInput>;
+  export type Output = Primitive<IGoogleAds.IGetAdGroupAdOutput>;
 
   export const METADATA = {
     method: "POST",
@@ -65,8 +65,8 @@ export namespace getAds {
   export const path = () => "/connector/google-ads/get-ads";
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
-  ): Resolved<Primitive<IGoogleAds.IGetAdGroupOutput>> =>
-    typia.random<Primitive<IGoogleAds.IGetAdGroupOutput>>(g);
+  ): Resolved<Primitive<IGoogleAds.IGetAdGroupAdOutput>> =>
+    typia.random<Primitive<IGoogleAds.IGetAdGroupAdOutput>>(g);
   export const simulate = (
     connection: IConnection,
     input: getAds.Input,

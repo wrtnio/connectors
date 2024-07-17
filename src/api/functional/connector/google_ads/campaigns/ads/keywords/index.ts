@@ -14,6 +14,8 @@ import type { IGoogleAds } from "../../../../../../structures/connector/google_a
 /**
  * 구글 고객 계정의 특정 광고에서 키워드를 삭제해요
  *
+ * 광고 그룹에 다른 광고가 있다면 함께 적용돼요.
+ *
  * @param input 키워드 삭제 조건
  * @summary 광고에 키워드를 삭제해요
  * @returns
@@ -87,9 +89,11 @@ export namespace deleteKeywords {
 /**
  * 구글 고객 계정의 광고에 검색 키워드를 추가해요
  *
+ * 광고 그룹에 다른 광고가 있다면 함께 적용돼요
+ *
  * @param input 키워드 추가 조건
  * @summary 광고에 키워드를 추가해요
- * @returns
+ * @returns 추가된 키워드 리소스 이름
  *
  * @controller GoogleAdsController.addKeywords
  * @path POST /connector/google-ads/campaigns/ads/keywords

@@ -3,7 +3,7 @@ import assert from "assert";
 import typia from "typia";
 import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { test_api_connector_google_ads_get_ads_by_campaign_id } from "./test_api_connector_google_ads_get_ads";
+import { test_api_connector_google_ads_get_ads_by_campaign_id } from "./test_api_connector_google_ads_get_ad_groups";
 
 export const test_api_connector_google_ads_add_keyword = async (
   connection: CApi.IConnection,

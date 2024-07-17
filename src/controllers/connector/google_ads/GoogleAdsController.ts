@@ -103,11 +103,11 @@ export class GoogleAdsController {
   }
 
   /**
-   * 구글 고객 계정의 캠페인 광고 그룹 목록을 가져와요
+   * 구글 고객 계정의 광고 그룹 목록을 가져와요
    *
-   * @summary 캠페인 광고 목록을 조회합니다.
-   * @param input 광고 목록 조회 조건
-   * @returns 광고 목록
+   * @summary 광고 그룹 목록을 조회합니다.
+   * @param input 광고 그룹 목록 조회 조건
+   * @returns 광고 그룹 목록
    */
   @core.TypedRoute.Post("get-ad-groups")
   async getAdGroups(
@@ -120,10 +120,22 @@ export class GoogleAdsController {
     //   );
     // }
 
-    return retry(() => this.googleAdsProvider.getAds(input))();
+    return retry(() => this.googleAdsProvider.getAdGroupDetails(input))();
   }
 
-  async getAds() {}
+  /**
+   * 구글 고객 계정의 캠페인 광고 목록을 가져와요
+   *
+   * @summary 캠페인 광고 목록을 조회합니다.
+   * @param input 광고 목록 조회 조건
+   * @returns 광고 목록
+   */
+  @core.TypedRoute.Post("get-ads")
+  async getAds(
+    @TypedBody() input: IGoogleAds.IGetAdGroupAdInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdOutput> {
+    return retry(() => this.googleAdsProvider.getAdGroupAds(input))();
+  }
 
   /**
    * 구글 고객 계정의 광고에 검색 키워드를 추가해요
@@ -143,7 +155,10 @@ export class GoogleAdsController {
    * @param input
    */
   @core.TypedRoute.Patch("campaigns/ads/status")
-  async setOnOff(input: IGoogleAds.ISetOnOffInput) {}
+  async setOnOff(input: IGoogleAds.ISetOnOffInput) {
+    input;
+    return null!;
+  }
 
   /**
    * 구글 고객 계정의 특정 광고에서 키워드를 삭제해요
@@ -206,7 +221,7 @@ export class GoogleAdsController {
   async appendAd(
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupAdInput,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
+  ): Promise<IGoogleAds.IGetAdGroupsOutputResult> {
     // const customers = await this.googleAdsProvider.getCustomers(input);
     // if (!customers.map((el) => el.id).includes(input.customerId)) {
     //   throw new Error(

@@ -178,7 +178,7 @@ export class GoogleAdsProvider {
 
   async createAd(
     input: IGoogleAds.ICreateAdGroupAdInputCommon,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
+  ): Promise<IGoogleAds.IGetAdGroupsOutputResult> {
     try {
       const adGroupResourceName = await this.createAdGroup(input);
       const headers = await this.getHeaders();
@@ -259,7 +259,10 @@ export class GoogleAdsProvider {
         );
       }
 
-      const [result] = await this.getAds({ ...input, adGroupResourceName });
+      const [result] = await this.getAdGroupDetails({
+        ...input,
+        adGroupResourceName,
+      });
       return result;
     } catch (err) {
       /**
@@ -520,6 +523,27 @@ export class GoogleAdsProvider {
     return keywords;
   }
 
+  async getAdGroupAds(input: {
+    customerId: `${number}`;
+    adGroupResourceName?: string;
+  }): Promise<IGoogleAds.IGetAdGroupAdOutput> {
+    const query = `
+    SELECT
+      ad_group_ad.resource_name,
+      ad_group_ad.policy_summary.approval_status,
+      ad_group_ad.policy_summary.review_status
+    FROM ad_group_ad 
+    WHERE 
+      ad_group.status != 'REMOVED'
+      ${input.adGroupResourceName ? `AND ad_group_ad.ad_group = '${input.adGroupResourceName}'` : ""}
+    ` as const;
+
+    const customerId = input.customerId;
+    const response = await this.searchStream(customerId, query);
+
+    return response.results.map((el) => el.adGroupAd);
+  }
+
   /**
    * 각 캠페인에 속한 광고 그룹과 광고 그룹 광고를 찾는다.
    *
@@ -528,30 +552,23 @@ export class GoogleAdsProvider {
    * @param input
    * @returns
    */
-  async getAds(
-    input: IGoogleAds.IGetAdGroupInput & IGoogleAds.ISecret,
+  async getAdGroupDetails(
+    input: IGoogleAds.IGetAdGroupInput,
   ): Promise<IGoogleAds.IGetAdGroupOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
 
       return await Promise.all(
         adGroupsResult.results.map(async ({ campaign, adGroup }) => {
-          const query = `
-          SELECT
-            ad_group_ad.resource_name,
-            ad_group_ad.policy_summary.approval_status,
-            ad_group_ad.policy_summary.review_status
-          FROM ad_group_ad 
-          WHERE 
-            ad_group_ad.ad_group = '${adGroup.resourceName}'
-          ` as const;
+          const adGroupResourceName = adGroup.resourceName;
+          const adGroupAds = await this.getAdGroupAds({
+            ...input,
+            adGroupResourceName,
+          });
 
-          const customerId = input.customerId;
-          const adGroupAdResult = await this.searchStream(customerId, query);
-          const adGroupAds = adGroupAdResult.results.map((el) => el.adGroupAd);
           const adGroupCriterions = await this.getKeywords({
             customerId: input.customerId,
-            adGroupResourceName: adGroup.resourceName,
+            adGroupResourceName,
           });
 
           return {

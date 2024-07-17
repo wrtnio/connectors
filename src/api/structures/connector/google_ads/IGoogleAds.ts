@@ -4,7 +4,26 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
-  export interface IGetAdGroupAdDetailInput {
+  export interface IGetAdGroupAdInput extends ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+  }
+
+  export type IGetAdGroupAdOutput = Pick<
+    AdGroupAd,
+    "resourceName" | "policySummary"
+  >[];
+
+  export interface IGetAdGroupAdDetailInput extends ISecret {
     /**
      * @title 고객 리소스 이름
      */
@@ -24,7 +43,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response.flatMap((el) => el.adGroupAds)";
+        array: "return response";
         value: "return elem.resourceName";
         label: "return elem.resourceName";
       }>;
@@ -76,7 +95,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response.flatMap((el) => el.adGroupAds)";
+        array: "return response";
         value: "return elem.resourceName";
         label: "return elem.resourceName";
       }>;
@@ -102,7 +121,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response.flatMap((el) => el.adGroupAds)";
+        array: "return response";
         value: "return elem.resourceName";
         label: "return elem.resourceName";
       }>;
@@ -511,7 +530,7 @@ export namespace IGoogleAds {
     /**
      * @title 광고 정보
      */
-    ad: IGoogleAds.IGetAdGroupAdsOutputResult;
+    ad: IGoogleAds.IGetAdGroupsOutputResult;
   }
   /**
    * @title 캠페인부터 광고까지 한 번에 만드는 요청에 대한 결과
@@ -827,9 +846,9 @@ export namespace IGoogleAds {
   /**
    * @title 광고 그룹 광고의 조회 결과
    */
-  export type IGetAdGroupOutput = IGetAdGroupAdsOutputResult[];
+  export type IGetAdGroupOutput = IGetAdGroupsOutputResult[];
 
-  export interface IGetAdGroupAdsOutputResult {
+  export interface IGetAdGroupsOutputResult {
     /**
      * @title 캠페인
      */

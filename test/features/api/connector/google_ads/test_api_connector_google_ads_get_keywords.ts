@@ -1,7 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { test_api_connector_google_ads_get_ads_by_campaign_id } from "./test_api_connector_google_ads_get_ads";
+import { test_api_connector_google_ads_get_ads_by_campaign_id } from "./test_api_connector_google_ads_get_ad_groups";
 
 export const test_api_connector_google_ads_get_keywords = async (
   connection: CApi.IConnection,
