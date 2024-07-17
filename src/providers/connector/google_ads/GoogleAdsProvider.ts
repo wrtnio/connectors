@@ -152,6 +152,7 @@ export class GoogleAdsProvider {
     SELECT
       ad_group_ad.resource_name,
       ad_group_ad.ad.resource_name,
+      ad_group_ad.status,
       ad_group_ad.ad.responsive_search_ad.descriptions,
       ad_group_ad.ad.responsive_search_ad.headlines,
       ad_group_ad.ad.responsive_display_ad.headlines,
@@ -172,8 +173,37 @@ export class GoogleAdsProvider {
 
     return {
       resourceName: adGroupAd.resourceName,
+      status: adGroupAd.status,
       ad: { resourceName: adGroupAd.ad.resourceName, detail },
     };
+  }
+
+  async updateAd(input: IGoogleAds.ISetOnOffInput) {
+    try {
+      const headers = await this.getHeaders();
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+
+      await axios.post(
+        url,
+        {
+          operations: {
+            update_mask: "status",
+            update: {
+              status: input.status,
+              resource_name: input.adGroupAdResourceName,
+            },
+          },
+        },
+        {
+          headers,
+        },
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
   }
 
   async createAd(

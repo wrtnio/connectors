@@ -142,7 +142,7 @@ export class GoogleAdsController {
    *
    * @summary 광고에 키워드를 추가해요
    * @param input 키워드 추가 조건
-   * @returns
+   * @returns 키워드 목록
    */
   @core.TypedRoute.Post("campaigns/ads/get-keywords")
   async getKeywords(
@@ -152,12 +152,16 @@ export class GoogleAdsController {
   }
 
   /**
-   * @param input
+   * 구글 고객 계정의 광고 상태를 변경해요
+   *
+   * 광고를 켜면 광고 비용이 나올 수 있으니 주의해야 해요
+   *
+   * @summary 광고의 상태를 변경해요
+   * @param input 변경할 광고의 상태
    */
   @core.TypedRoute.Patch("campaigns/ads/status")
-  async setOnOff(input: IGoogleAds.ISetOnOffInput) {
-    input;
-    return null!;
+  async setOnOff(@TypedBody() input: IGoogleAds.ISetOnOffInput): Promise<void> {
+    return retry(() => this.googleAdsProvider.updateAd(input))();
   }
 
   /**

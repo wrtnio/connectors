@@ -16,7 +16,7 @@ import type { IGoogleAds } from "../../../../../../structures/connector/google_a
  *
  * @param input 키워드 추가 조건
  * @summary 광고에 키워드를 추가해요
- * @returns
+ * @returns 키워드 목록
  *
  * @controller GoogleAdsController.getKeywords
  * @path POST /connector/google-ads/campaigns/ads/get-keywords

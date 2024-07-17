@@ -51,6 +51,8 @@ export namespace IGoogleAds {
 
   export interface Ad {
     resourceName: `customers/${number}/ads/${number}`;
+
+    status: Status;
   }
 
   export interface IGetAdGroupAdDetailOutput {
@@ -58,6 +60,11 @@ export namespace IGoogleAds {
      * @title 광고 그룹 광고의 리소스 명
      */
     resourceName: AdGroupAd["resourceName"];
+
+    /**
+     * @title 광고의 현재 상태
+     */
+    status: Ad["status"];
 
     /**
      * @title 조회한 광고 내역
