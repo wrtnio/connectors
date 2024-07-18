@@ -6,43 +6,93 @@ import {
   IRag,
 } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
-// import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-
 export const test_api_connector_rag = async (connection: CApi.IConnection) => {
   /**
    * Pdf 형식
    */
-  const analyzeInput: IRag.IAnalyzeInput = {
-    fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/2308.13921.pdf`,
+  const analyzePdfInput: IRag.IAnalyzeInput = {
+    fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
     fileType: FileType.PDF,
   };
-  const analyzeOutput = await CApi.functional.connector.rag.analyze(
+  const analyzePdf = await CApi.functional.connector.rag.analyze(
     connection,
-    analyzeInput,
+    analyzePdfInput,
   );
-  typia.assertEquals<IRag.IAnalysisOutput>(analyzeOutput);
+  typia.assertEquals<IRag.IAnalysisOutput>(analyzePdf);
 
   const generateInput: IRag.IGenerateInput = {
-    query: "NOSQL의 단점을 알려줘",
+    query:
+      "지구 온난화 (열 스트레스)와 미세플라스틱이 다양한 산호초 종에 미치는 세 가지 실험내용을 요약 분석해 줘",
   };
-  const chatId = analyzeOutput.chatId;
-  const generateOutput = await CApi.functional.connector.rag.generate(
+  const chatId = analyzePdf.chatId;
+  const generatePdfOutput = await CApi.functional.connector.rag.generate(
     connection,
     generateInput,
     chatId,
   );
-  console.log("gen output", generateOutput);
-  typia.assertEquals<IRag.IGenerateOutput>(generateOutput);
+  typia.assertEquals<IRag.IGenerateOutput>(generatePdfOutput);
 
   /**
    * docx 형식
    */
+  const analyzeDocxInput: IRag.IAnalyzeInput = {
+    fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
+    fileType: FileType.DOCX,
+  };
+  const analyzeDocx = await CApi.functional.connector.rag.analyze(
+    connection,
+    analyzeDocxInput,
+  );
+  typia.assertEquals<IRag.IAnalysisOutput>(analyzeDocx);
+
+  const generateDocxOutput = await CApi.functional.connector.rag.generate(
+    connection,
+    generateInput,
+    chatId,
+  );
+  typia.assertEquals<IRag.IGenerateOutput>(generateDocxOutput);
 
   /**
    * hwp 형식
    */
+  const analyzeHwpInput: IRag.IAnalyzeInput = {
+    fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
+    fileType: FileType.HWP,
+  };
+  const anaylzeHwp = await CApi.functional.connector.rag.analyze(
+    connection,
+    analyzeHwpInput,
+  );
+  typia.assertEquals<IRag.IAnalysisOutput>(anaylzeHwp);
+
+  const generateHwpoutput = await CApi.functional.connector.rag.generate(
+    connection,
+    generateInput,
+    chatId,
+  );
+  typia.assertEquals<IRag.IGenerateOutput>(generateHwpoutput);
 
   /**
    * text 형식
    */
+  const analyzeTextInput: IRag.IAnalyzeInput = {
+    fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-text-test.txt`,
+    fileType: FileType.TXT,
+  };
+  const analyzeText = await CApi.functional.connector.rag.analyze(
+    connection,
+    analyzeTextInput,
+  );
+  typia.assertEquals<IRag.IAnalysisOutput>(analyzeText);
+
+  const generateTextInput: IRag.IGenerateInput = {
+    query: "검색-증강 생성은 어떻게 작동해?",
+  };
+  const textChatId = analyzeText.chatId;
+  const generateTextOutput = await CApi.functional.connector.rag.generate(
+    connection,
+    generateTextInput,
+    textChatId,
+  );
+  typia.assertEquals<IRag.IGenerateOutput>(generateTextOutput);
 };

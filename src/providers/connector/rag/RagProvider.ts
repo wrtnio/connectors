@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -30,7 +31,6 @@ export class RagProvider {
     if (!matches) {
       return fileUrl;
     }
-
     const transFormedUrl = await this.awsProvider.getGetObjectUrl(matches[0]);
     return transFormedUrl;
   }
@@ -39,7 +39,17 @@ export class RagProvider {
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
     const fileId = v4();
     const chatId = v4();
+    // TODO: 타입이 html 일 때 로직 분기 해야함
     const url = await this.transformInput(input.fileUrl);
+
+    /**
+     * 파일 크기 5MB 이하로 제한
+     */
+    const fileSize = await this.awsProvider.getFileSize(url);
+    if (fileSize > 5 * 1024 * 1024) {
+      throw new BadRequestException("파일 크기가 5MB 보다 큽니다.");
+    }
+
     const requestBody = {
       url: url,
       file_type: input.fileType,
@@ -51,7 +61,6 @@ export class RagProvider {
         "x-service-id": "echo_file_chat",
       },
     });
-
     const jobId = res.data.job_id;
     return new Promise((resolve, reject) => {
       const intervalId = setInterval(async () => {
@@ -144,7 +153,6 @@ export class RagProvider {
                 dataBuffer += data.choices[0].delta.content;
               }
             } catch (error) {
-              console.log("error", error, line);
               // JSON 파싱 에러 발생 시 무시
             }
           }

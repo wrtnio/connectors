@@ -10,7 +10,7 @@ import { tags } from "typia";
  */
 export enum FileType {
   PDF = "pdf",
-  DOCS = "docx",
+  DOCX = "docx",
   HWP = "hwp",
   TXT = "txt",
 }
