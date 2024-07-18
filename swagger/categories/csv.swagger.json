@@ -1,0 +1,476 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "CSV",
+    "version": "0.1.15",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/csv/read": {
+      "post": {
+        "tags": [
+          "CSV",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "엑셀",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "CSV 파일을 읽어 오기 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICsv.IReadInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "CSV 파일 내용.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICsv.IReadOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "CSV 파일 읽기",
+        "description": "CSV 파일 내용을 읽어옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg"
+      }
+    },
+    "/connector/csv/write": {
+      "post": {
+        "tags": [
+          "CSV",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "엑셀",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "CSV 파일을 생성하기 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICsv.IWriteInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICsv.IWriteOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "CSV 파일 생성",
+        "description": "CSV 파일을 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/csv/csv-to-excel": {
+      "post": {
+        "tags": [
+          "CSV",
+          "파일",
+          "내보내기",
+          "다운로드",
+          "추출",
+          "추출하기",
+          "스프레드시트",
+          "데이터",
+          "엑셀",
+          "텍스트",
+          "대량",
+          "File",
+          "Export",
+          "Download",
+          "Extract",
+          "Spreadsheet",
+          "Save",
+          "Load",
+          "Data",
+          "Database",
+          "Import",
+          "Convert",
+          "Text",
+          "Large",
+          "Edit",
+          "Split",
+          "Integrate",
+          "Create",
+          "Open",
+          "Filter",
+          "Merge"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "CSV 파일을 엑셀 파일로 변환하기 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICsv.ICsvToExcelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "excel file url",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICsv.ICsvToExcelOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "CSV 파일 Excel 파일 변환",
+        "description": "CSV 파일을 엑셀 파일로 변환합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ICsv.IReadInput": {
+        "type": "object",
+        "properties": {
+          "s3Url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "text/csv",
+            "title": "파일",
+            "description": "읽어올 Csv 파일입니다."
+          },
+          "delimiter": {
+            "type": "string",
+            "x-wrtn-placeholder": ",",
+            "title": "구분자",
+            "description": "읽어올 Csv 파일 구분자 입니다."
+          }
+        },
+        "required": [
+          "s3Url",
+          "delimiter"
+        ],
+        "title": "Csv 파일 정보"
+      },
+      "ICsv.IReadOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "title": "csv 데이터 리스트.",
+            "description": "읽어온 csv 파일 데이터."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Csv 파일 읽기 결과"
+      },
+      "ICsv.IWriteInput": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "x-wrtn-placeholder": "example.csv",
+            "title": "파일명",
+            "description": "생성할 Csv 파일명입니다."
+          },
+          "delimiter": {
+            "type": "string",
+            "x-wrtn-placeholder": ",",
+            "title": "구분자",
+            "description": "생성할 Csv 파일 구분자 입니다."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "title": "파일 데이터 값들",
+            "description": "생성할 Csv 파일에 넣을 데이터 값 들 입니다."
+          }
+        },
+        "required": [
+          "fileName",
+          "delimiter",
+          "values"
+        ],
+        "title": "Csv 파일 생성에 필요한 정보"
+      },
+      "ICsv.IWriteOutput": {
+        "type": "object",
+        "properties": {
+          "s3Url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "text/csv",
+            "title": "csv 파일",
+            "description": "작성된 csv 파일의 s3 url입니다."
+          }
+        },
+        "required": [
+          "s3Url"
+        ],
+        "title": "Csv 파일 생성 결과"
+      },
+      "ICsv.ICsvToExcelInput": {
+        "type": "object",
+        "properties": {
+          "s3Url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "text/csv",
+            "title": "파일",
+            "description": "csv에서 excel로 변환할 파일입니다."
+          },
+          "delimiter": {
+            "type": "string",
+            "x-wrtn-placeholder": ",",
+            "title": "구분자",
+            "description": "csv에서 excel로 변환할 파일 구분자 입니다."
+          }
+        },
+        "required": [
+          "s3Url",
+          "delimiter"
+        ],
+        "title": "Csv 파일을 Excel 파일로 변환하는데 필요한 정보"
+      },
+      "ICsv.ICsvToExcelOutput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "text/csv",
+            "title": "s3 url",
+            "description": "변환된 excel 파일의 s3 url입니다."
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "Csv 파일을 Excel 파일 변환 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "CSV",
+      "description": "텍스트 파일 형식"
+    },
+    {
+      "name": "파일",
+      "description": "분할"
+    },
+    {
+      "name": "내보내기"
+    },
+    {
+      "name": "다운로드"
+    },
+    {
+      "name": "추출"
+    },
+    {
+      "name": "추출하기"
+    },
+    {
+      "name": "스프레드시트"
+    },
+    {
+      "name": "데이터",
+      "description": "저장"
+    },
+    {
+      "name": "엑셀",
+      "description": "변환"
+    },
+    {
+      "name": "텍스트",
+      "description": "파일"
+    },
+    {
+      "name": "대량",
+      "description": "데이터"
+    },
+    {
+      "name": "File"
+    },
+    {
+      "name": "Export",
+      "description": "Data"
+    },
+    {
+      "name": "Download"
+    },
+    {
+      "name": "Extract",
+      "description": "Data"
+    },
+    {
+      "name": "Spreadsheet"
+    },
+    {
+      "name": "Save",
+      "description": "Data"
+    },
+    {
+      "name": "Load",
+      "description": "Data"
+    },
+    {
+      "name": "Data",
+      "description": "Analysis"
+    },
+    {
+      "name": "Database"
+    },
+    {
+      "name": "Import",
+      "description": "Data"
+    },
+    {
+      "name": "Convert",
+      "description": "to Excel"
+    },
+    {
+      "name": "Text",
+      "description": "File"
+    },
+    {
+      "name": "Large",
+      "description": "Data"
+    },
+    {
+      "name": "Edit",
+      "description": "Data"
+    },
+    {
+      "name": "Split",
+      "description": "File"
+    },
+    {
+      "name": "Integrate",
+      "description": "Data"
+    },
+    {
+      "name": "Create",
+      "description": "CSV"
+    },
+    {
+      "name": "Open",
+      "description": "CSV File"
+    },
+    {
+      "name": "Filter",
+      "description": "Data"
+    },
+    {
+      "name": "Merge",
+      "description": "Data"
+    }
+  ],
+  "x-samchon-emended": true
+}

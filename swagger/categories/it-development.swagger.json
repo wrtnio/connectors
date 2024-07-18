@@ -15,8 +15,8 @@
     }
   ],
   "info": {
-    "version": "0.1.14",
-    "title": "@wrtn/connector",
+    "title": "IT/개발",
+    "version": "0.1.15",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"

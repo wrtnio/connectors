@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.14",
+    "version": "0.1.15",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -6018,7 +6018,13 @@
     },
     "/connector/google-ads/generateKeywordIdeas/keywordsAndUrl": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "URL을 담은 객체",
@@ -6045,12 +6051,19 @@
         },
         "summary": "키워드와 URL을 통한 키워드 생성",
         "description": "구글 광고를 위한 키워드를 추천받아요!",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-ads/generateKeywordIdeas/keywords": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "URL을 담은 객체",
@@ -6077,12 +6090,19 @@
         },
         "summary": "키워드를 통한 키워드 생성",
         "description": "구글 광고를 위한 키워드를 추천받아요!",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-ads/generateKeywordIdeas/url": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "URL을 담은 객체",
@@ -6109,12 +6129,50 @@
         },
         "summary": "URL을 통한 키워드 생성",
         "description": "구글 광고를 위한 키워드를 추천받아요!",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-ads/customerClientLink": {
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "고객 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "광고 계정"
+          }
+        },
+        "summary": "광고 계정을 조회합니다",
+        "description": "해당 구글 계정 내 광고 계정 모두에 관리자 승인 메일을 보내요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
       }
     },
     "/connector/google-ads/get-customers": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "고객 정보",
@@ -6140,13 +6198,20 @@
           }
         },
         "summary": "광고 계정을 조회합니다",
-        "description": "뤼튼에 연동된 고객의 광고 계정을 가져와요",
+        "description": "고객의 광고 계정을 가져와요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-ads/get-campaigns": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "고객 정보",
@@ -6172,19 +6237,64 @@
           }
         },
         "summary": "캠페인 목록을 조회합니다",
-        "description": "구글 고객 계정의 캠페인 목록을 가져와요"
+        "description": "구글 고객 계정의 캠페인 목록을 가져와요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/get-ad-groups": {
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "광고 그룹 목록 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGetAdGroupInputISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "광고 그룹 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "광고 그룹 목록을 조회합니다.",
+        "description": "구글 고객 계정의 광고 그룹 목록을 가져와요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
       }
     },
     "/connector/google-ads/get-ads": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "광고 목록 조회 조건",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdsInput"
+                "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdInput"
               }
             }
           },
@@ -6196,19 +6306,322 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdsOutput"
+                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdOutput"
                 }
               }
             }
           }
         },
-        "summary": "캠페인 광고 목록을 조회합니다.",
-        "description": "구글 고객 계정의 캠페인 광고 목록을 가져와요"
+        "summary": "캠페인 광고 목록을 조회합니다",
+        "description": "구글 고객 계정의 캠페인 광고 목록을 가져와요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
       }
     },
-    "/connector/google-ads/campaign": {
+    "/connector/google-ads/get-metrics": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "광고 지표 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetMetricInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "지표 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleAds.IGetMetricOutputResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "캠페인 광고 성과(metrics)를 조회합니다",
+        "description": "구글 고객 계정 광고 당 지표를 조회해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/campaigns/ads/get-keywords": {
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "키워드 추가 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "키워드 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "광고에 키워드를 추가해요",
+        "description": "구글 고객 계정의 광고에 검색 키워드를 추가해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/campaigns/ads/status": {
+      "patch": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "변경할 광고의 상태",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ISetOnOffInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "광고의 상태를 변경해요",
+        "description": "구글 고객 계정의 광고 상태를 변경해요\n\n광고를 켜면 광고 비용이 나올 수 있으니 주의해야 해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/campaigns/ads/keywords": {
+      "delete": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "키워드 삭제 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IDeleteAdGroupCriteriaInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "광고에 키워드를 삭제해요",
+        "description": "구글 고객 계정의 특정 광고에서 키워드를 삭제해요\n\n광고 그룹에 다른 광고가 있다면 함께 적용돼요.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      },
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "키워드 추가 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupCriteriaInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "추가된 키워드 리소스 이름",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupCriteriaOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "광고에 키워드를 추가해요",
+        "description": "구글 고객 계정의 광고에 검색 키워드를 추가해요\n\n광고 그룹에 다른 광고가 있다면 함께 적용돼요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/campaigns/ads/get-details": {
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "광고 상세 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "광고 상세",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdDetailOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "광고 상세 조회",
+        "description": "광고의 상세를 조회해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/campaigns/ads": {
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "광고 생성 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ISecretICreateAdGroupSearchAdInput"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ISecretICreateAdGroupDisplayAdInput"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "SEARCH_STANDARD": "#/components/schemas/ISecretICreateAdGroupSearchAdInput",
+                    "DISPLAY_STANDARD": "#/components/schemas/ISecretICreateAdGroupDisplayAdInput"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 광고 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupsOutputResult"
+                }
+              }
+            }
+          }
+        },
+        "summary": "광고를 생성해요",
+        "description": "구글 고객 계정의 광고를 생성해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      }
+    },
+    "/connector/google-ads/campaigns": {
+      "patch": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "캠페인 수정 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IUpdateCampaignInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "캠페인을 수정해요",
+        "description": "구글 고객 계정의 광고 캠페인을 수정해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
+      },
+      "post": {
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "캠페인 생성 조건",
@@ -6234,18 +6647,26 @@
           }
         },
         "summary": "캠페인을 생성합니다",
-        "description": "구글 고객 계정의 광고 캠페인을 생성해요"
+        "description": "구글 고객 계정의 광고 캠페인을 생성해요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
       }
     },
-    "/connector/google-ads/ads/at-once": {
+    "/connector/google-ads/search-ads": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
+          "description": "캠페인부터 광고까지 한 번에 생성하는 조건",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupAdAtOnceInput"
+                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupSearchAdAtOnceInput"
               }
             }
           },
@@ -6253,28 +6674,37 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "생성된 캠페인부터 광고까지의 정보",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.Ad"
+                  "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.AdWrapper"
                 }
               }
             }
           }
-        }
+        },
+        "summary": "구글 고객 계정에 반응형 검색 광고를 한 번에 만들어요",
+        "description": "구글 고객 계정에 광고를 한 번에 만들어요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
       }
     },
-    "/connector/google-ads/ads": {
+    "/connector/google-ads/display-ads": {
       "post": {
-        "tags": [],
+        "tags": [
+          "구글 애즈",
+          "광고",
+          "Google Ads",
+          "AD",
+          "마케팅"
+        ],
         "parameters": [],
         "requestBody": {
-          "description": "광고 생성 조건",
+          "description": "캠페인부터 광고까지 한 번에 생성하는 조건",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupAdInput"
+                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput"
               }
             }
           },
@@ -6282,17 +6712,19 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 광고 정보",
+            "description": "생성된 캠페인부터 광고까지의 정보",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdsOutputResult"
+                  "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.AdWrapper"
                 }
               }
             }
           }
         },
-        "description": "구글 고객 계정의 광고를 생성해요"
+        "summary": "구글 계정 광고에 반응형 디스플레이 광고를 한 번에 만들어요",
+        "description": "구글 고객 계정에 광고를 한 번에 만들어요",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg"
       }
     },
     "/connector/arxiv-search": {
@@ -25536,15 +25968,25 @@
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
                 "array": "return response",
-                "label": "return el.descriptiveName ?? ''",
-                "value": "return el.id"
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
               }
             },
-            "title": "조회할 고객 아이디"
+            "title": "고객 아이디"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "customerId"
+          "customerId",
+          "secretKey"
         ],
         "title": "캠페인 조회 조건"
       },
@@ -25582,23 +26024,7 @@
             "title": "캠페인 리소스 명"
           },
           "status": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ConstantENABLED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantPAUSED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantREMOVED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantUNKNOWN__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantUNSPECIFIED__type"
-              }
-            ],
+            "$ref": "#/components/schemas/IGoogleAds.Status",
             "title": "캠페인 상태"
           },
           "advertisingChannelType": {
@@ -25678,6 +26104,26 @@
           "endDate"
         ],
         "title": "구글 광고 캠페인"
+      },
+      "IGoogleAds.Status": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ConstantENABLED__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantPAUSED__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantREMOVED__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantUNKNOWN__type"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantUNSPECIFIED__type"
+          }
+        ],
+        "title": "구글 리소스 상태"
       },
       "ConstantENABLED__type": {
         "const": "ENABLED",
@@ -25774,7 +26220,7 @@
           "amountMicros"
         ]
       },
-      "IGoogleAds.IGetAdGroupAdsInput": {
+      "IGetAdGroupInputISecret": {
         "type": "object",
         "properties": {
           "customerId": {
@@ -25785,11 +26231,11 @@
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
                 "array": "return response",
-                "label": "return el.descriptiveName ?? ''",
-                "value": "return el.id"
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
               }
             },
-            "title": "조회할 고객 아이디"
+            "title": "고객 리소스 이름"
           },
           "campaignId": {
             "0": {
@@ -25798,7 +26244,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-campaigns",
-                "array": "return results",
+                "array": "return response",
                 "label": "return el.campaign.name",
                 "value": "return el.campaign.id"
               }
@@ -25811,21 +26257,30 @@
             "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
             "title": "광고 그룹의 리소스 명",
             "description": "해당 광고 그룹 리소스 명으로만 검색하고 싶을 경우"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "customerId"
-        ],
-        "title": "광고 조회 조건"
+          "customerId",
+          "secretKey"
+        ]
       },
-      "IGoogleAds.IGetAdGroupAdsOutput": {
+      "IGoogleAds.IGetAdGroupOutput": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdsOutputResult"
+          "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupsOutputResult"
         },
         "title": "광고 그룹 광고의 조회 결과"
       },
-      "IGoogleAds.IGetAdGroupAdsOutputResult": {
+      "IGoogleAds.IGetAdGroupsOutputResult": {
         "type": "object",
         "properties": {
           "campaign": {
@@ -25842,12 +26297,20 @@
               "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceNamepolicySummary"
             },
             "title": "광고 그룹 광고의 목록"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.KeywordPickIGoogleAds.AdGroupCriterionresourceNamecriterionId"
+            },
+            "title": "키워드 목록"
           }
         },
         "required": [
           "campaign",
           "adGroup",
-          "adGroupAds"
+          "adGroupAds",
+          "keywords"
         ]
       },
       "PickIGoogleAds.CampaignidresourceNamestatus": {
@@ -25864,23 +26327,7 @@
             "title": "캠페인 리소스 명"
           },
           "status": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ConstantENABLED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantPAUSED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantREMOVED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantUNKNOWN__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantUNSPECIFIED__type"
-              }
-            ],
+            "$ref": "#/components/schemas/IGoogleAds.Status",
             "title": "캠페인 상태"
           }
         },
@@ -26052,6 +26499,996 @@
         "const": "UNSPECIFIED",
         "title": "명시되지 않음"
       },
+      "DeepStrictMergeHelperIGoogleAds.KeywordPickIGoogleAds.AdGroupCriterionresourceNamecriterionId": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+          },
+          "criterionId": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+          },
+          "matchType": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ConstantUNSPECIFIED__type.o4"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantUNKNOWN__type.o4"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantEXACT__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantPHRASE__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantBROAD__type"
+              }
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "resourceName",
+          "criterionId",
+          "matchType"
+        ]
+      },
+      "ConstantUNSPECIFIED__type.o4": {
+        "const": "UNSPECIFIED",
+        "title": "명시되지 않음"
+      },
+      "ConstantUNKNOWN__type.o4": {
+        "const": "UNKNOWN",
+        "title": "알 수 없음"
+      },
+      "ConstantEXACT__type": {
+        "const": "EXACT",
+        "title": "완전일치"
+      },
+      "ConstantPHRASE__type": {
+        "const": "PHRASE",
+        "title": "구문일치"
+      },
+      "ConstantBROAD__type": {
+        "const": "BROAD",
+        "title": "확장검색"
+      },
+      "IGoogleAds.IGetAdGroupAdInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "customerId",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupAdOutput": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceNamepolicySummary"
+        }
+      },
+      "IGoogleAds.IGetMetricInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "통계 조회 날짜"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "customerId",
+          "date",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetMetricOutputResult": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "impressions": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "노출 수"
+              },
+              "clicks": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "클릭 수"
+              },
+              "costMicros": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "광고 지출 (마이크로 단위)",
+                "description": "1,000,000분의 1로 원화 가치 표시"
+              },
+              "videoViews": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "비디오 뷰"
+              },
+              "averagePageViews": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "평균 페이지 뷰"
+              },
+              "videoQuartileP25Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "동영상을 25% 본 수"
+              },
+              "videoQuartileP50Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "동영상을 50% 본 수"
+              },
+              "videoQuartileP75Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "동영상을 75% 본 수"
+              },
+              "videoQuartileP100Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "동영상을 100% 본 수"
+              }
+            },
+            "required": [
+              "impressions",
+              "clicks",
+              "costMicros",
+              "videoViews"
+            ]
+          },
+          "adGroupAd": {
+            "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceName"
+          }
+        },
+        "required": [
+          "metrics",
+          "adGroupAd"
+        ]
+      },
+      "PickIGoogleAds.AdGroupAdresourceName": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "광고 그룹 광고의 리소스 명"
+          }
+        },
+        "required": [
+          "resourceName"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGoogleAds.IGetKeywordsInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "adGroupResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-ads",
+                "array": "return response",
+                "value": "return elem.adGroup.resourceName",
+                "label": "return elem.name ?? '이름 없음'"
+              }
+            },
+            "title": "광고 그룹 리소스 명"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "customerId",
+          "adGroupResourceName",
+          "secretKey"
+        ],
+        "title": "키워드 조회 조건"
+      },
+      "IGoogleAds.IGetKeywordsOutput": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsOutputResult"
+            },
+            "title": "키워드 조회 결과"
+          }
+        },
+        "required": [
+          "results"
+        ],
+        "title": "키워드 조회 결과"
+      },
+      "IGoogleAds.IGetKeywordsOutputResult": {
+        "type": "object",
+        "properties": {
+          "adGroupCriterion": {
+            "$ref": "#/components/schemas/PickIGoogleAds.AdGroupCriteriontyperesourceNamestatuscriterionIdkeyword"
+          }
+        },
+        "required": [
+          "adGroupCriterion"
+        ]
+      },
+      "PickIGoogleAds.AdGroupCriteriontyperesourceNamestatuscriterionIdkeyword": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "KEYWORD",
+            "title": "타입"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "광고 그룹 표준 리소스 이름"
+          },
+          "status": {
+            "$ref": "#/components/schemas/IGoogleAds.Status",
+            "title": "광고 그룹 표준 상태"
+          },
+          "criterionId": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "광고 그룹 표준 아이디"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IGoogleAds.Keyword",
+            "title": "키워드"
+          }
+        },
+        "required": [
+          "type",
+          "resourceName",
+          "status",
+          "criterionId",
+          "keyword"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGoogleAds.Keyword": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "키워드 텍스트"
+          },
+          "matchType": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ConstantUNSPECIFIED__type.o4"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantUNKNOWN__type.o4"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantEXACT__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantPHRASE__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantBROAD__type"
+              }
+            ],
+            "title": "키워드 일치 타입"
+          }
+        },
+        "required": [
+          "text",
+          "matchType"
+        ]
+      },
+      "IGoogleAds.ISetOnOffInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "adGroupAdResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-ads",
+                "array": "return response",
+                "value": "return elem.resourceName",
+                "label": "return elem.resourceName"
+              }
+            },
+            "title": "광고 그룹 광고의 리소스 명"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED",
+                "title": "ENABLED"
+              },
+              {
+                "const": "PAUSED",
+                "title": "PAUSED"
+              }
+            ],
+            "title": "광고 상태"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "customerId",
+          "adGroupAdResourceName",
+          "status",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IDeleteAdGroupCriteriaInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "resourceNames": {
+            "type": "array",
+            "items": {
+              "0": {
+                "type": "string",
+                "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "connector/google-ads/get-keywords",
+                  "array": "return response.results",
+                  "value": "return elem.resourceName",
+                  "label": "return elem.text"
+                }
+              }
+            },
+            "title": "삭제할 키워드의 아이디"
+          }
+        },
+        "required": [
+          "customerId",
+          "resourceNames"
+        ],
+        "title": "키워드 삭제 조건"
+      },
+      "IGoogleAds.ICreateAdGroupCriteriaInput": {
+        "type": "object",
+        "properties": {
+          "adGroupResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-ads",
+                "array": "return response",
+                "value": "return elem.adGroup.resourceName",
+                "label": "return elem.name ?? '이름 없음'"
+              }
+            },
+            "title": "키워드를 추가할 광고 그룹의 리소스 네임"
+          },
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "생성할 키워드"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "adGroupResourceName",
+          "customerId",
+          "keywords",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.ICreateAdGroupCriteriaOutput": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+        },
+        "title": "키워드 생성 결과"
+      },
+      "IGoogleAds.IGetAdGroupAdDetailInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "adGroupAdResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-ads",
+                "array": "return response",
+                "value": "return elem.resourceName",
+                "label": "return elem.resourceName"
+              }
+            },
+            "title": "광고 그룹 광고의 리소스 명"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "customerId",
+          "adGroupAdResourceName",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupAdDetailOutput": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "광고 그룹 광고의 리소스 명"
+          },
+          "status": {
+            "$ref": "#/components/schemas/IGoogleAds.Status",
+            "title": "광고의 현재 상태"
+          },
+          "ad": {
+            "type": "object",
+            "properties": {
+              "resourceName": {
+                "type": "string",
+                "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/ads\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "광고의 리소스 명"
+              },
+              "detail": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IGoogleAds.ResponsiveSearchAd"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IGoogleAds.ResponsiveDisplayAd"
+                  }
+                ],
+                "title": "광고 소재 정보"
+              }
+            },
+            "required": [
+              "resourceName",
+              "detail"
+            ],
+            "title": "조회한 광고 내역"
+          }
+        },
+        "required": [
+          "resourceName",
+          "status",
+          "ad"
+        ]
+      },
+      "IGoogleAds.ResponsiveSearchAd": {
+        "type": "object",
+        "properties": {
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "descriptions",
+          "headlines"
+        ]
+      },
+      "IGoogleAds.ResponsiveDisplayAd": {
+        "type": "object",
+        "properties": {
+          "longHeadline": {},
+          "businessName": {},
+          "marketingImages": {},
+          "squareMarketingImages": {},
+          "squareLogoImages": {},
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        },
+        "required": [
+          "longHeadline",
+          "businessName",
+          "marketingImages",
+          "squareMarketingImages",
+          "squareLogoImages",
+          "descriptions",
+          "headlines"
+        ]
+      },
+      "ISecretICreateAdGroupSearchAdInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "uri",
+            "title": "광고의 대상이 되는 홈페이지"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "제목 리스트"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "title": "설명 리스트"
+          },
+          "type": {
+            "const": "SEARCH_STANDARD",
+            "title": "광고 그룹 타입"
+          },
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "campaignResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-campaigns",
+                "array": "return response",
+                "value": "return elem.campaign.resourceName",
+                "label": "return elem.name ?? '이름 없음'"
+              }
+            },
+            "title": "캠페인 리소스 이름"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "생성할 키워드"
+          }
+        },
+        "required": [
+          "secretKey",
+          "finalUrl",
+          "headlines",
+          "descriptions",
+          "type",
+          "customerId",
+          "campaignResourceName",
+          "keywords"
+        ]
+      },
+      "ISecretICreateAdGroupDisplayAdInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "uri",
+            "title": "광고의 대상이 되는 홈페이지"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "짧은 제목 리스트"
+          },
+          "longHeadline": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "title": "긴 제목"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "설명 리스트"
+          },
+          "businessName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25,
+            "title": "비즈니스 및 브랜드 이름"
+          },
+          "landscapeImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "가로형 이미지",
+            "description": "1.91:1의 가로형 이미지이며 권장은 5장"
+          },
+          "logoImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "로고 이미지",
+            "description": "정방형 이미지로 최소 크기는 128x128px, 권장은 1200x1200px"
+          },
+          "squareImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "정방형 이미지",
+            "description": "1.91:1의 가로형 이미지이며 최소 크기는 300x300px, 권장은 600x600px"
+          },
+          "type": {
+            "const": "DISPLAY_STANDARD",
+            "title": "광고 그룹 타입"
+          },
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "campaignResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-campaigns",
+                "array": "return response",
+                "value": "return elem.campaign.resourceName",
+                "label": "return elem.name ?? '이름 없음'"
+              }
+            },
+            "title": "캠페인 리소스 이름"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "생성할 키워드"
+          }
+        },
+        "required": [
+          "secretKey",
+          "finalUrl",
+          "headlines",
+          "longHeadline",
+          "descriptions",
+          "businessName",
+          "landscapeImages",
+          "logoImages",
+          "squareImages",
+          "type",
+          "customerId",
+          "campaignResourceName",
+          "keywords"
+        ]
+      },
+      "IGoogleAds.IUpdateCampaignInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 리소스 이름"
+          },
+          "campaignResourceName": {
+            "0": {
+              "type": "string",
+              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-campaigns",
+                "array": "return response",
+                "label": "return el.campaign.name",
+                "value": "return el.campaign.resourceName"
+              }
+            },
+            "title": "수정할 캠페인의 리소스 아이디"
+          },
+          "campaignName": {
+            "type": "string",
+            "default": "이름 없음",
+            "title": "캠페인 이름"
+          },
+          "campaignBudget": {
+            "type": "number",
+            "title": "광고 예산",
+            "description": "한국 통화 단위로써, 원화 단위"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "캠페인 종료 시간"
+          }
+        },
+        "required": [
+          "customerId",
+          "campaignResourceName"
+        ],
+        "title": "캠페인 수정 조건"
+      },
       "IGoogleAds.ICreateCampaignInput": {
         "type": "object",
         "properties": {
@@ -26073,57 +27510,161 @@
           },
           "campaignName": {
             "type": "string",
+            "default": "이름 없음",
             "title": "캠페인 이름"
           },
-          "customerId": {
+          "startDate": {
             "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "format": "date",
+            "title": "캠페인 시작 시간"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "캠페인 종료 시간"
+          },
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
             "title": "고객 아이디"
           },
           "campaignBudget": {
             "type": "number",
             "title": "광고 예산",
             "description": "한국 통화 단위로써, 원화 단위"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "advertisingChannelType",
-          "campaignName",
           "customerId",
-          "campaignBudget"
+          "campaignBudget",
+          "secretKey"
         ]
       },
-      "IGoogleAds.ICreateAdGroupAdAtOnceInput": {
+      "IGoogleAds.ICreateAdGroupSearchAdAtOnceInput": {
         "type": "object",
         "properties": {
+          "ad": {
+            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateAdGroupSearchAdInputtypecampaignResourceNamecustomerId",
+            "title": "광고 생성 조건"
+          },
           "customerId": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
             "title": "고객 아이디"
           },
           "campaign": {
-            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputcustomerId",
+            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateCampaignInputtypecustomerIdsecretKey",
             "title": "캠페인 생성 조건"
           },
-          "ad": {
-            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupAdInputtypecustomerIdcampaignResourceName",
-            "title": "광고 생성 조건"
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
+          "ad",
           "customerId",
           "campaign",
-          "ad"
+          "secretKey"
         ],
-        "title": "캠페인부터 광고까지 한 번에 만드는 요청 조건"
+        "title": "구글 검색 캠페인부터 광고까지 한 번에 만드는 요청 조건"
       },
-      "StrictOmitIGoogleAds.ICreateCampaignInputcustomerId": {
+      "OmitIGoogleAds.ICreateAdGroupSearchAdInputtypecampaignResourceNamecustomerId": {
         "type": "object",
         "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "생성할 키워드"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "uri",
+            "title": "광고의 대상이 되는 홈페이지"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "제목 리스트"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "title": "설명 리스트"
+          }
+        },
+        "required": [
+          "keywords",
+          "finalUrl",
+          "headlines",
+          "descriptions"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OmitIGoogleAds.ICreateCampaignInputtypecustomerIdsecretKey": {
+        "type": "object",
+        "properties": {
+          "campaignName": {
+            "type": "string",
+            "default": "이름 없음",
+            "title": "캠페인 이름"
+          },
           "campaignBudget": {
             "type": "number",
             "title": "광고 예산",
             "description": "한국 통화 단위로써, 원화 단위"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "캠페인 종료 시간"
           },
           "advertisingChannelType": {
             "oneOf": [
@@ -26141,18 +27682,81 @@
             ],
             "title": "캠페인 타입"
           },
-          "campaignName": {
+          "startDate": {
             "type": "string",
-            "title": "캠페인 이름"
+            "format": "date",
+            "title": "캠페인 시작 시간"
           }
         },
         "required": [
           "campaignBudget",
-          "advertisingChannelType",
-          "campaignName"
+          "advertisingChannelType"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.AdWrapper": {
+        "type": "object",
+        "properties": {
+          "campaignBudget": {
+            "$ref": "#/components/schemas/IGoogleAds.CampaignBudget"
+          },
+          "campaign": {
+            "$ref": "#/components/schemas/IGoogleAds.Campaign"
+          },
+          "ad": {
+            "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupsOutputResult"
+          }
+        },
+        "required": [
+          "campaignBudget",
+          "campaign",
+          "ad"
         ]
       },
-      "StrictOmitIGoogleAds.ICreateAdGroupAdInputtypecustomerIdcampaignResourceName": {
+      "IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput": {
+        "type": "object",
+        "properties": {
+          "ad": {
+            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecampaignResourceNamecustomerId",
+            "title": "광고 생성 조건"
+          },
+          "customerId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-customers",
+                "array": "return response",
+                "value": "return elem.id",
+                "label": "return elem.descriptiveName ?? '이름 없음'"
+              }
+            },
+            "title": "고객 아이디"
+          },
+          "campaign": {
+            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateCampaignInputtypecustomerIdsecretKey",
+            "title": "캠페인 생성 조건"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "ad",
+          "customerId",
+          "campaign",
+          "secretKey"
+        ],
+        "title": "구글 디스플레이 캠페인부터 광고까지 한 번에 만드는 요청 조건"
+      },
+      "OmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecampaignResourceNamecustomerId": {
         "type": "object",
         "properties": {
           "keywords": {
@@ -26174,9 +27778,9 @@
               "minLength": 1,
               "maxLength": 30
             },
-            "minItems": 3,
-            "maxItems": 3,
-            "title": "제목 리스트"
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "짧은 제목 리스트"
           },
           "descriptions": {
             "type": "array",
@@ -26185,108 +27789,71 @@
               "minLength": 1,
               "maxLength": 90
             },
-            "minItems": 2,
-            "maxItems": 2,
+            "minItems": 1,
+            "maxItems": 5,
             "title": "설명 리스트"
+          },
+          "longHeadline": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "title": "긴 제목"
+          },
+          "businessName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25,
+            "title": "비즈니스 및 브랜드 이름"
+          },
+          "landscapeImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "가로형 이미지",
+            "description": "1.91:1의 가로형 이미지이며 권장은 5장"
+          },
+          "logoImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "로고 이미지",
+            "description": "정방형 이미지로 최소 크기는 128x128px, 권장은 1200x1200px"
+          },
+          "squareImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "정방형 이미지",
+            "description": "1.91:1의 가로형 이미지이며 최소 크기는 300x300px, 권장은 600x600px"
           }
         },
         "required": [
           "keywords",
           "finalUrl",
           "headlines",
-          "descriptions"
-        ]
-      },
-      "DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.Ad": {
-        "type": "object",
-        "properties": {
-          "campaign": {
-            "$ref": "#/components/schemas/IGoogleAds.Campaign"
-          },
-          "campaignBudget": {
-            "$ref": "#/components/schemas/IGoogleAds.CampaignBudget"
-          },
-          "ad": {
-            "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdsOutputResult"
-          }
-        },
-        "required": [
-          "campaign",
-          "campaignBudget",
-          "ad"
-        ]
-      },
-      "IGoogleAds.ICreateAdGroupAdInput": {
-        "type": "object",
-        "properties": {
-          "finalUrl": {
-            "type": "string",
-            "format": "uri",
-            "title": "광고의 대상이 되는 홈페이지"
-          },
-          "headlines": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 30
-            },
-            "minItems": 3,
-            "maxItems": 3,
-            "title": "제목 리스트"
-          },
-          "descriptions": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 90
-            },
-            "minItems": 2,
-            "maxItems": 2,
-            "title": "설명 리스트"
-          },
-          "customerId": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "고객 리소스 이름"
-          },
-          "campaignResourceName": {
-            "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "캠페인 리소스 이름"
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "SEARCH_STANDARD",
-                "title": "검색 광고"
-              },
-              {
-                "const": "DISPLAY_STANDARD",
-                "title": "디스플레이 광고"
-              }
-            ],
-            "title": "광고 그룹 타입"
-          },
-          "keywords": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "생성할 키워드"
-          }
-        },
-        "required": [
-          "finalUrl",
-          "headlines",
           "descriptions",
-          "customerId",
-          "campaignResourceName",
-          "type",
-          "keywords"
+          "longHeadline",
+          "businessName",
+          "landscapeImages",
+          "logoImages",
+          "squareImages"
         ],
-        "title": "광고 생성 조건"
+        "description": "Construct a type with the properties of T except for those in type K."
       },
       "IConnector.ISearchInput": {
         "type": "object",
@@ -30062,6 +31629,21 @@
     },
     {
       "name": "dall-e-3 이미지 생성기 노드"
+    },
+    {
+      "name": "구글 애즈"
+    },
+    {
+      "name": "광고"
+    },
+    {
+      "name": "Google Ads"
+    },
+    {
+      "name": "AD"
+    },
+    {
+      "name": "마케팅"
     },
     {
       "name": "Arxiv"
