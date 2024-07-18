@@ -1,20 +1,5 @@
 import { tags } from "typia";
 
-/**
- * - PDF: PDF 파일.
- * - DOCS: DOCS 파일.
- * - HWP: HWP 파일.
- * - TXT: TXT 파일.
- *
- * @title 파일 형식.
- */
-export enum FileType {
-  PDF = "pdf",
-  DOCX = "docx",
-  HWP = "hwp",
-  TXT = "txt",
-}
-
 export namespace IRag {
   export interface IAnalyzeInput {
     /**
@@ -29,17 +14,15 @@ export namespace IRag {
      *
      * @title 파일 확장자.
      */
-    fileType: FileType;
+    fileType:
+      | tags.Constant<"pdf", { title: "PDF 파일" }>
+      | tags.Constant<"docx", { title: "DOCX 파일" }>
+      | tags.Constant<"hwp", { title: "HWP 파일" }>
+      | tags.Constant<"txt", { title: "TXT 파일" }>
+      | tags.Constant<"html", { title: "웹 링크" }>;
   }
 
   export interface IAnalysisOutput {
-    /**
-     * 분석 작업의 고유 id 입니다.
-     *
-     * @title job id.
-     */
-    jobId: string;
-
     /**
      * rag 생성 결과물에 필요한 chat id.
      *

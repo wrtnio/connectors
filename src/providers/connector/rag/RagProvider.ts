@@ -4,6 +4,7 @@ import {
   InternalServerErrorException,
   Logger,
   NotFoundException,
+  UnprocessableEntityException,
 } from "@nestjs/common";
 import axios, { AxiosError } from "axios";
 import { Response } from "express";
@@ -35,66 +36,102 @@ export class RagProvider {
     return transFormedUrl;
   }
 
-  async analyze(input: IRag.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
+  async analyze(input: IRag.IAnalyzeInput[]): Promise<IRag.IAnalysisOutput> {
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
-    const fileId = v4();
     const chatId = v4();
-    // TODO: 타입이 html 일 때 로직 분기 해야함
-    const url = await this.transformInput(input.fileUrl);
 
-    /**
-     * 파일 크기 5MB 이하로 제한
-     */
-    const fileSize = await this.awsProvider.getFileSize(url);
-    if (fileSize > 5 * 1024 * 1024) {
-      throw new BadRequestException("파일 크기가 5MB 보다 큽니다.");
-    }
+    for (const file of input) {
+      let url = file.fileUrl;
 
-    const requestBody = {
-      url: url,
-      file_type: input.fileType,
-      file_id: fileId,
-      chat_id: chatId,
-    };
-    const res = await axios.post(requestUrl, requestBody, {
-      headers: {
-        "x-service-id": "echo_file_chat",
-      },
-    });
-    const jobId = res.data.job_id;
-    return new Promise((resolve, reject) => {
-      const intervalId = setInterval(async () => {
-        try {
-          const status = (await this.getStatus(jobId)).status;
-          if (status === "RUNNING") {
-            this.logger.log(`Document analysis in progress - jobId: ${jobId}`);
-          } else if (status === "COMPLETED") {
-            this.logger.log(`Document analysis completed jobId: ${jobId}`);
-            clearInterval(intervalId);
-            resolve({ jobId, chatId });
-          } else if (status === "FAILED") {
-            this.logger.error(`Document analysis failed - docId: ${jobId}`);
-            clearInterval(intervalId);
-            reject(
-              new InternalServerErrorException(`Document analysis failed`),
-            );
-          }
-        } catch (err) {
-          clearInterval(intervalId);
-          if (
-            err instanceof AxiosError &&
-            err.response &&
-            err.response.status === 404 &&
-            err.response.statusText.includes("Not Found")
-          ) {
-            this.logger.error(`Status not found for jobId: ${jobId}`);
-            reject(new NotFoundException(`Document analysis failed`));
-          } else {
-            reject(err);
-          }
+      // web url일 때 s3 upload 및 파일 크기 제한 X
+      if (file.fileType !== "html") {
+        url = await this.transformInput(file.fileUrl);
+        //파일 크기 5MB 이하로 제한
+        const fileSize = await this.awsProvider.getFileSize(url);
+        if (fileSize > 5 * 1024 * 1024) {
+          throw new BadRequestException("파일 크기가 5MB 보다 큽니다.");
         }
-      }, 2000);
-    });
+      }
+
+      const fileId = v4();
+      const requestBody = {
+        url: url,
+        file_type: file.fileType,
+        file_id: fileId,
+        chat_id: chatId,
+      };
+
+      let jobId: string;
+      try {
+        const res = await axios.post(requestUrl, requestBody, {
+          headers: {
+            "x-service-id": "echo_file_chat",
+          },
+        });
+        jobId = res.data.job_id;
+      } catch (err) {
+        if (
+          err instanceof AxiosError &&
+          err.response &&
+          (err.response.status === 400 || err.response.status === 404)
+        ) {
+          this.logger.error(`${err.response.data.detail.message}`);
+        } else if (
+          err instanceof AxiosError &&
+          err.response &&
+          err.response.status === 422
+        ) {
+          this.logger.error(`${err.response.data.detail[0].msg}`);
+        }
+      }
+
+      await new Promise((resolve, reject) => {
+        const intervalId = setInterval(async () => {
+          try {
+            const status = (await this.getStatus(jobId)).status;
+            if (status === "RUNNING") {
+              this.logger.log(
+                `Document analysis in progress - jobId: ${jobId}`,
+              );
+            } else if (status === "COMPLETED") {
+              this.logger.log(`Document analysis completed jobId: ${jobId}`);
+              clearInterval(intervalId);
+              resolve({ chatId });
+            } else if (status === "FAILED") {
+              this.logger.error(`Document analysis failed - jobId: ${jobId}`);
+              clearInterval(intervalId);
+              reject(
+                new InternalServerErrorException(`Document analysis failed`),
+              );
+            }
+          } catch (err) {
+            clearInterval(intervalId);
+            if (
+              err instanceof AxiosError &&
+              err.response &&
+              err.response.status === 404 &&
+              err.response.statusText.includes("Not Found")
+            ) {
+              this.logger.error(`Status not found for jobId: ${jobId}`);
+              reject(new NotFoundException(`Document analysis failed`));
+            } else if (
+              err instanceof AxiosError &&
+              err.response &&
+              err.response.status === 422 &&
+              err.response.statusText.includes("Validation Error")
+            ) {
+              this.logger.error(
+                `Validation Error Occurred when analysis: ${jobId}`,
+              );
+              reject(
+                new UnprocessableEntityException(`Document analysis failed`),
+              );
+            }
+          }
+        }, 2000);
+      });
+    }
+    return { chatId };
   }
 
   async getStatus(jobId: string): Promise<IRag.IStatusOutput> {
@@ -125,7 +162,6 @@ export class RagProvider {
       params: {
         chat_id: chatId,
       },
-      timeout: 30000,
       headers: {
         "x-service-id": "echo_file_chat",
       },
