@@ -4,7 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 
 import { ApiTags } from "@nestjs/swagger";
-import { Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtn/decorators";
 import { GoogleAdsProvider } from "../../../providers/connector/google_ads/GoogleAdsProvider";
 import { retry } from "../../../utils/retry";
 
@@ -20,6 +20,9 @@ export class GoogleAdsController {
    * @returns 생성된 키워드
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("generateKeywordIdeas/keywordsAndUrl")
   async keywordsAndUrl(
@@ -36,6 +39,9 @@ export class GoogleAdsController {
    * @returns 생성된 키워드
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("generateKeywordIdeas/keywords")
   async keywords(
@@ -52,6 +58,9 @@ export class GoogleAdsController {
    * @returns 생성된 키워드
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("generateKeywordIdeas/url")
   async url(@TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput) {
@@ -65,6 +74,9 @@ export class GoogleAdsController {
    * @param input 고객 정보
    * @returns 광고 계정
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("customerClientLink")
   async publish(@TypedBody() input: IGoogleAds.ISecret): Promise<void> {
@@ -79,6 +91,9 @@ export class GoogleAdsController {
    * @returns 광고 계정
    */
   @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("get-customers")
   async getCustomers(
@@ -94,6 +109,9 @@ export class GoogleAdsController {
    * @param input 고객 정보
    * @returns 캠페인 목록
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("get-campaigns")
   async getCampaigns(
@@ -116,6 +134,9 @@ export class GoogleAdsController {
    * @param input 광고 그룹 목록 조회 조건
    * @returns 광고 그룹 목록
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("get-ad-groups")
   async getAdGroups(
@@ -138,6 +159,9 @@ export class GoogleAdsController {
    * @param input 광고 목록 조회 조건
    * @returns 광고 목록
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("get-ads")
   async getAds(
@@ -153,6 +177,9 @@ export class GoogleAdsController {
    * @param input 광고 지표 조회 조건
    * @returns 지표 목록
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("get-metrics")
   async getMetrics(
@@ -168,6 +195,9 @@ export class GoogleAdsController {
    * @param input 키워드 추가 조건
    * @returns 키워드 목록
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("campaigns/ads/get-keywords")
   async getKeywords(
@@ -184,6 +214,9 @@ export class GoogleAdsController {
    * @summary 광고의 상태를 변경해요
    * @param input 변경할 광고의 상태
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Patch("campaigns/ads/status")
   async setOnOff(@TypedBody() input: IGoogleAds.ISetOnOffInput): Promise<void> {
@@ -199,6 +232,9 @@ export class GoogleAdsController {
    * @param input 키워드 삭제 조건
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Delete("campaigns/ads/keywords")
   async deleteKeywords(
@@ -216,6 +252,9 @@ export class GoogleAdsController {
    * @param input 키워드 추가 조건
    * @returns 추가된 키워드 리소스 이름
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("campaigns/ads/keywords")
   async addKeywords(
@@ -235,6 +274,9 @@ export class GoogleAdsController {
    * @param input 광고 상세 조회 조건
    * @returns 광고 상세
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("campaigns/ads/get-details")
   async getAdGroupAdDetail(
@@ -250,6 +292,9 @@ export class GoogleAdsController {
    * @param input 광고 생성 조건
    * @returns 생성된 광고 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("campaigns/ads")
   async appendAd(
@@ -272,6 +317,9 @@ export class GoogleAdsController {
    * @summary 캠페인을 수정해요
    * @param input 캠페인 수정 조건
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Patch("campaigns")
   async updateCampaign(
@@ -287,6 +335,9 @@ export class GoogleAdsController {
    * @param input 캠페인 생성 조건
    * @returns 생성된 캠페인 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("campaigns")
   async createCampaign(
@@ -309,6 +360,9 @@ export class GoogleAdsController {
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
    * @returns 생성된 캠페인부터 광고까지의 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("search-ads")
   async createSearchAd(
@@ -346,6 +400,9 @@ export class GoogleAdsController {
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
    * @returns 생성된 캠페인부터 광고까지의 정보
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_ads.svg",
+  )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("display-ads")
   async createDisplayAd(
