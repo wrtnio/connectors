@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.15",
+    "version": "0.1.16",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8681,6 +8681,8 @@
         "properties": {
           "imageUrl": {
             "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
             "title": "마케팅 카피 시안의 이미지 URL.",
             "description": "생성된 마케팅 카피 시안의 이미지 URL입니다."
           }

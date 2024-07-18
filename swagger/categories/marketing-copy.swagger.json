@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "마케팅 카피",
-    "version": "0.1.15",
+    "version": "0.1.16",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -393,6 +393,8 @@
         "properties": {
           "imageUrl": {
             "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
             "title": "마케팅 카피 시안의 이미지 URL.",
             "description": "생성된 마케팅 카피 시안의 이미지 URL입니다."
           }
