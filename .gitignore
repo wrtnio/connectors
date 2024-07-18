@@ -15,3 +15,5 @@ Session.vim
 hancell_test_file.cell
 
 .idea
+
+src/api/functional
