@@ -44,12 +44,11 @@ export class DallE3Provider {
       const imgUrl = await this.awsProvider.uploadObject({
         key: `connector/generate-DallE3-node/dall-e-3/${v4()}`,
         data: img,
-        contentType: "DallE3/png",
+        contentType: "image/png",
       });
 
-      const presignedUrl = await this.awsProvider.getGetObjectUrl(imgUrl, true);
       return {
-        imgUrl: presignedUrl,
+        imgUrl: imgUrl,
       };
     } catch (err) {
       console.log("err", err);
