@@ -1,3 +1,4 @@
+import { tags } from "typia";
 import { IConnector } from "../../common/IConnector";
 import { IKeywordExtraction } from "../extract/IKeywordExtractor";
 
@@ -142,7 +143,7 @@ export interface IMarketingCopyImage {
    *
    * @title 마케팅 카피 시안의 이미지 URL.
    */
-  imageUrl: string;
+  imageUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
 }
 
 export namespace IMarketingCopyGenerator {
