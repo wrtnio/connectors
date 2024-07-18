@@ -1,4 +1,4 @@
-import type { Prerequisite } from "@wrtn/decorators";
+import type { Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";

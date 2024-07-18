@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 

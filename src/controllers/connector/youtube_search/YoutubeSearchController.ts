@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";

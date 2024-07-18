@@ -98,7 +98,7 @@
     "@nestjs/testing": "^10.3.9",
     "@notionhq/client": "^2.2.15",
     "@samchon/openapi": "^0.4.2",
-    "@wrtn/decorators": "^1.4.1",
+    "@wrtnio/decorators": "^1.4.3",
     "@wrtnio/openai-function-schema": "^0.2.0",
     "atob": "^2.1.2",
     "aws-sdk": "^2.1546.0",

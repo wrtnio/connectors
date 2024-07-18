@@ -1,7 +1,6 @@
-import { Placeholder, Prerequisite } from "@wrtn/decorators";
+import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
-import CApi from "../../..";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {

@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtn/decorators";
+import { Standalone } from "@wrtnio/decorators";
 
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 

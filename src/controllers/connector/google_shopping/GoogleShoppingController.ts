@@ -1,15 +1,16 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
-
-import { retry } from "../../../utils/retry";
-import { GoogleShoppingProvider } from "../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
+import { GoogleShoppingProvider } from "../../../providers/connector/google_shopping/GoogleShoppingProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingController {
-  constructor(private readonly googleShoppingProvider: GoogleShoppingProvider) {}
+  constructor(
+    private readonly googleShoppingProvider: GoogleShoppingProvider,
+  ) {}
 
   /**
    * 상품을 무신사에서 검색합니다.
@@ -31,7 +32,6 @@ export class GoogleShoppingController {
     return retry(() => this.googleShoppingProvider.musinsa(input))();
   }
 
-
   /**
    * 상품을 29cm에서 검색합니다.
    *
@@ -49,9 +49,10 @@ export class GoogleShoppingController {
   async twentyNineCentimeter(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
-    return retry(() => this.googleShoppingProvider.twentyNineCentimeter(input))();
+    return retry(() =>
+      this.googleShoppingProvider.twentyNineCentimeter(input),
+    )();
   }
-
 
   /**
    * 상품을 EQL에서 검색합니다.
@@ -73,7 +74,6 @@ export class GoogleShoppingController {
     return retry(() => this.googleShoppingProvider.hansumEQL(input))();
   }
 
-
   /**
    * 상품을 OCO에서 검색합니다.
    *
@@ -93,7 +93,6 @@ export class GoogleShoppingController {
   ): Promise<IGoogleShopping.IResponse[]> {
     return retry(() => this.googleShoppingProvider.oco(input))();
   }
-
 
   /**
    * 상품을 유니클로에서 검색합니다.
@@ -115,7 +114,6 @@ export class GoogleShoppingController {
     return retry(() => this.googleShoppingProvider.uniqlo(input))();
   }
 
-
   // /**
   //  * 상품을 W Concept에서 검색합니다.
   //  *
@@ -135,7 +133,6 @@ export class GoogleShoppingController {
   // ): Promise<IGoogleShopping.IResponse[]> {
   //   return retry(() => this.googleShoppingProvider.wconcept(input))();
   // }
-
 
   /**
    * 상품을 쿠팡에서 검색합니다.
@@ -157,7 +154,6 @@ export class GoogleShoppingController {
     return retry(() => this.googleShoppingProvider.coupang(input))();
   }
 
-
   /**
    * 상품을 마켓컬리에서 검색합니다.
    *
@@ -177,7 +173,6 @@ export class GoogleShoppingController {
   ): Promise<IGoogleShopping.IResponse[]> {
     return retry(() => this.googleShoppingProvider.marketKurly(input))();
   }
-
 
   /**
    * 상품을 아이허브에서 검색합니다.
@@ -199,7 +194,6 @@ export class GoogleShoppingController {
     return retry(() => this.googleShoppingProvider.iherb(input))();
   }
 
-
   /**
    * 상품을 알리 익스프레스에서 검색합니다.
    *
@@ -219,7 +213,6 @@ export class GoogleShoppingController {
   ): Promise<IGoogleShopping.IResponse[]> {
     return retry(() => this.googleShoppingProvider.aliExpress(input))();
   }
-
 
   /**
    * 상품을 올리브영에서 검색합니다.
@@ -241,7 +234,6 @@ export class GoogleShoppingController {
     return retry(() => this.googleShoppingProvider.oliveYoung(input))();
   }
 
-
   /**
    * 상품을 yes24에서 검색합니다.
    *
@@ -261,7 +253,6 @@ export class GoogleShoppingController {
   ): Promise<IGoogleShopping.IResponse[]> {
     return retry(() => this.googleShoppingProvider.yes24(input))();
   }
-
 
   /**
    * 상품을 알라딘에서 검색합니다.
