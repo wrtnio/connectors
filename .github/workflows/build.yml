@@ -28,7 +28,9 @@ jobs:
       - name: Install
         run: npm install
       - name: Build Test Program
-        run: npm run build:test
+        run: |
+          npm run build:sdk
+          npm run build:test
       - name: Secrets to Env
         run: |
           rm .env
