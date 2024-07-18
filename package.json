@@ -9,6 +9,7 @@
     "test:inhouse": "node bin/test/inhouse.js",
     "test:webpack": "npm run webpack && node bin/test/webpack.js",
     "------------------------BUILDS------------------------": "",
+    "postinstall": "ts-node ./src/executable/postinstall.ts",
     "build": "npm run build:sdk && npm run build:main && npm run build:test",
     "build:api": "rimraf packages/api/lib && npm run build:sdk && tsc -p packages/api/tsconfig.json",
     "build:main": "rimraf lib && tsc",
@@ -123,5 +124,8 @@
     "uuid": "^9.0.0",
     "xlsx": "^0.18.5",
     "xml2js": "^0.6.2"
+  },
+  "optionaldependencies": {
+    "sharp": "^0.33.4"
   }
 }

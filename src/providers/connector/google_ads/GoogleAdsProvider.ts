@@ -2,18 +2,36 @@ import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios, { AxiosError } from "axios";
 import typia from "typia";
+import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { TypedSplit } from "../../../utils/TypedSplit";
 import { SelectedColumns } from "../../../utils/types/SelectedColumns";
 import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { ImageProvider } from "../../internal/ImageProvider";
 
 @Injectable()
 export class GoogleAdsProvider {
   private readonly baseUrl = "https://googleads.googleapis.com/v17";
 
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  async publish(input: IGoogleAds.ISecret): Promise<void> {
+    try {
+      const customers = await this.listAccessibleCustomers(input);
+      await Promise.all(
+        customers.resourceNames.map(async (resourceName) => {
+          await this.createClientLink({ resuorceName: resourceName });
+        }),
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
 
   /**
    * 원래대로라면 `parentId`가 아닌 자신의 id를 전달하는 것이 맞지만, 계정에 따른 의존성이 없는 것으로 보여 google ads secret 없이도 사용할 수 있도록 한다.
@@ -100,7 +118,7 @@ export class GoogleAdsProvider {
         {
           operations: {
             create: {
-              name: `SEARCH_${new Date().getTime()}`,
+              name: `${input.type}_${new Date().getTime()}`,
               status: "ENABLED",
               campaign: input.campaignResourceName,
               type: input.type,
@@ -124,20 +142,83 @@ export class GoogleAdsProvider {
     }
   }
 
-  async createAd(
-    input: IGoogleAds.ICreateAdGroupAdInput,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutputResult> {
-    try {
-      let res: { data: any } | null = null;
-      const adGroupResourceName = await this.createAdGroup(input);
-      if (input.type === "SEARCH_STANDARD") {
-        if (input.keywords.length) {
-          await this.createAdGroupCriteria(adGroupResourceName, input);
-        }
+  /**
+   * 광고 소재 수정 전에 원래의 전체 형태를 조회하기 위한 용도
+   */
+  async getAdGroupAdDetail(
+    input: IGoogleAds.IGetAdGroupAdDetailInput,
+  ): Promise<IGoogleAds.IGetAdGroupAdDetailOutput> {
+    const query = `
+    SELECT
+      ad_group_ad.resource_name,
+      ad_group_ad.ad.resource_name,
+      ad_group_ad.status,
+      ad_group_ad.ad.responsive_search_ad.descriptions,
+      ad_group_ad.ad.responsive_search_ad.headlines,
+      ad_group_ad.ad.responsive_display_ad.headlines,
+      ad_group_ad.ad.responsive_display_ad.long_headline,
+      ad_group_ad.ad.responsive_display_ad.business_name,
+      ad_group_ad.ad.responsive_display_ad.descriptions,
+      ad_group_ad.ad.responsive_display_ad.marketing_images,
+      ad_group_ad.ad.responsive_display_ad.square_marketing_images,
+      ad_group_ad.ad.responsive_display_ad.square_logo_images
+    FROM ad_group_ad
+    WHERE ad_group_ad.resource_name = '${input.adGroupAdResourceName}'` as const;
 
-        const headers = await this.getHeaders();
-        const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
-        res = await axios.post(
+    const res = await this.searchStream(input.customerId, query);
+    const adGroupAd = res.results[0].adGroupAd;
+
+    const detail =
+      adGroupAd.ad.responsiveSearchAd || adGroupAd.ad.responsiveDisplayAd;
+
+    return {
+      resourceName: adGroupAd.resourceName,
+      status: adGroupAd.status,
+      ad: { resourceName: adGroupAd.ad.resourceName, detail },
+    };
+  }
+
+  async updateAd(input: IGoogleAds.ISetOnOffInput) {
+    try {
+      const headers = await this.getHeaders();
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+
+      await axios.post(
+        url,
+        {
+          operations: {
+            update_mask: "status",
+            update: {
+              status: input.status,
+              resource_name: input.adGroupAdResourceName,
+            },
+          },
+        },
+        {
+          headers,
+        },
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  async createAd(
+    input: IGoogleAds.ICreateAdGroupAdInputCommon,
+  ): Promise<IGoogleAds.IGetAdGroupsOutputResult> {
+    try {
+      const adGroupResourceName = await this.createAdGroup(input);
+      const headers = await this.getHeaders();
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+      if (input.keywords.length) {
+        await this.createAdGroupCriteria(adGroupResourceName, input); // Google Ads Keywords 생성
+      }
+
+      if (typia.is<IGoogleAds.ICreateAdGroupSearchAdInput>(input)) {
+        await axios.post(
           url,
           {
             operations: {
@@ -158,9 +239,60 @@ export class GoogleAdsProvider {
             headers,
           },
         );
+      } else {
+        /**
+         * DISPLAY_STANDARD
+         */
+        await axios.post(
+          url,
+          {
+            operations: {
+              create: {
+                status: "PAUSED",
+                ad: {
+                  final_urls: [input.finalUrl],
+                  responsive_display_ad: {
+                    headlines: input.headlines.map((text) => ({ text })),
+                    long_headline: { text: input.longHeadline },
+                    descriptions: input.descriptions.map((text) => ({ text })),
+                    marketing_images: await this.createAssets({
+                      cusotmerId: input.customerId,
+                      images: await Promise.all(
+                        input.landscapeImages.map((el) =>
+                          this.cropImage(el, 1.91),
+                        ),
+                      ),
+                    }),
+                    square_marketing_images: await this.createAssets({
+                      cusotmerId: input.customerId,
+                      images: await Promise.all(
+                        input.squareImages.map((el) => this.cropImage(el, 1)),
+                      ),
+                    }),
+                    business_name: input.businessName,
+                    youtube_videos: [],
+                    square_logo_images: await this.createAssets({
+                      cusotmerId: input.customerId,
+                      images: await Promise.all(
+                        input.logoImages.map((el) => this.cropImage(el, 1)),
+                      ),
+                    }),
+                  },
+                },
+                ad_group: adGroupResourceName,
+              },
+            },
+          },
+          {
+            headers,
+          },
+        );
       }
 
-      const [result] = await this.getAds({ ...input, adGroupResourceName });
+      const [result] = await this.getAdGroupDetails({
+        ...input,
+        adGroupResourceName,
+      });
       return result;
     } catch (err) {
       /**
@@ -173,14 +305,146 @@ export class GoogleAdsProvider {
     }
   }
 
+  async cropImage(
+    image: string &
+      typia.tags.Format<"uri"> &
+      typia.tags.ContentMediaType<"image/*">,
+    ratio: 1 | 1.91 | 0.8,
+  ): Promise<string> {
+    const imageFile = await ImageProvider.getImageFile(image);
+    const size = ImageProvider.getSize(imageFile.size, ratio);
+    const cropped = await imageFile.image.extract(size).toBuffer();
+
+    return cropped.toString("base64");
+  }
+
+  async createAssets(input: {
+    cusotmerId: string;
+    images: string[]; // base64 encoded images
+  }): Promise<{ asset: string }[]> {
+    try {
+      const url = `${this.baseUrl}/customers/${input.cusotmerId}/assets:mutate`;
+      const headers = await this.getHeaders();
+      const res = await axios.post(
+        url,
+        {
+          operations: input.images.map((image) => {
+            return {
+              create: {
+                name: v4(),
+                type: "IMAGE",
+                image_asset: {
+                  data: image,
+                },
+              },
+            };
+          }),
+        },
+        {
+          headers,
+        },
+      );
+
+      return (
+        res.data.results.map((el: { resourceName: string }) => ({
+          asset: el.resourceName,
+        })) ?? []
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  async updateCampaign(
+    input: Omit<IGoogleAds.IUpdateCampaignInput, "secretKey">,
+  ): Promise<void> {
+    try {
+      const { customerId, campaignResourceName, campaignBudget, ...rest } =
+        input;
+      const url = `${this.baseUrl}/customers/${customerId}/campaigns:mutate`;
+      const headers = await this.getHeaders();
+
+      const [campaign] = await this.getCampaigns(
+        input,
+        input.campaignResourceName,
+      );
+
+      if (campaignBudget) {
+        await this.updateCampaignBudget(
+          input.customerId,
+          campaign.campaignBudget.resourceName,
+          campaignBudget,
+        );
+      }
+
+      if (JSON.stringify(rest) != "{}") {
+        await axios.post(
+          url,
+          {
+            operations: {
+              update: {
+                resource_name: campaignResourceName,
+                ...(input.campaignName && { name: input.campaignName }),
+                ...(input.endDate && { end_date: input.endDate }),
+              },
+              update_mask: Object.keys(rest).join(","),
+            },
+          },
+          {
+            headers,
+          },
+        );
+      }
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  private async updateCampaignBudget(
+    customerId: IGoogleAds.CustomerClient["id"],
+    campaignBudgetResourceName: IGoogleAds.CampaignBudget["resourceName"],
+    campaignBudget: number, // 한국 돈 단위
+  ) {
+    try {
+      const url = `${this.baseUrl}/customers/${customerId}/campaignBudgets:mutate`;
+      const headers = await this.getHeaders();
+
+      await axios.post(
+        url,
+        {
+          operations: {
+            update_mask: "amount_micros",
+            update: {
+              resource_name: campaignBudgetResourceName,
+              amount_micros: campaignBudget * 1000000,
+            },
+          },
+        },
+        { headers },
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
   async createCampaign(
-    input: IGoogleAds.ICreateCampaignInput,
+    input: Omit<IGoogleAds.ICreateCampaignInput, "secretKey">,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
+      const url = `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`;
       const headers = await this.getHeaders();
       const campaignBudgetResourceName = await this.createCampaignBudget(input);
       const res = await axios.post(
-        `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`,
+        url,
         {
           operations: [
             {
@@ -194,6 +458,8 @@ export class GoogleAdsProvider {
                  * @todo 유저의 요구사항에 맞는 광고 효율 최적화를 진행해야 한다.
                  */
                 target_spend: {},
+                ...(input.startDate && { start_date: input.startDate }),
+                ...(input.endDate && { end_date: input.endDate }),
               },
             },
           ],
@@ -216,7 +482,7 @@ export class GoogleAdsProvider {
 
   private async getAdGroups(
     input: IGoogleAds.IGetAdGroupInput,
-  ): Promise<IGoogleAds.IGetAdGroupOutput> {
+  ): Promise<IGoogleAds.IGetGoogleAdGroupOutput> {
     try {
       const query = `
       SELECT 
@@ -225,6 +491,7 @@ export class GoogleAdsProvider {
         campaign.status,
         ad_group.id,
         ad_group.resource_name,
+        ad_group.name,
         ad_group.type
       FROM ad_group
       WHERE
@@ -243,6 +510,92 @@ export class GoogleAdsProvider {
     }
   }
 
+  async deleteKeywords(
+    input: IGoogleAds.IDeleteAdGroupCriteriaInput,
+  ): Promise<void> {
+    try {
+      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
+      const headers = await this.getHeaders();
+      await axios.post(
+        url,
+        {
+          operations: input.resourceNames.map((resourceName) => ({
+            remove: resourceName,
+          })),
+        },
+        {
+          headers,
+        },
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
+      );
+      throw err;
+    }
+  }
+
+  async getKeywords(
+    input: Omit<IGoogleAds.IGetKeywordsInput, "secretKey">,
+  ): Promise<IGoogleAds.IGetKeywordsOutput> {
+    const query = `
+    SELECT
+      ad_group_criterion.criterion_id,
+      ad_group_criterion.resource_name,
+      ad_group_criterion.type,
+      ad_group_criterion.keyword.text,
+      ad_group_criterion.keyword.match_type,
+      ad_group_criterion.status
+    FROM ad_group_criterion
+      WHERE ad_group_criterion.type = "KEYWORD" AND ad_group.resource_name = '${input.adGroupResourceName}' AND ad_group_criterion.status != "REMOVED"` as const;
+
+    const keywords = await this.searchStream(input.customerId, query);
+    return keywords;
+  }
+
+  async getMetrics(input: IGoogleAds.IGetMetricInput) {
+    const query = `
+    SELECT
+      metrics.average_page_views, 
+      metrics.impressions, 
+      metrics.clicks, 
+      metrics.cost_micros, 
+      metrics.video_views, 
+      metrics.video_quartile_p25_rate, 
+      metrics.video_quartile_p50_rate, 
+      metrics.video_quartile_p75_rate, 
+      metrics.video_quartile_p100_rate,
+      ad_group_ad.resource_name
+    FROM 
+      ad_group_ad
+    WHERE
+      segments.date = '${input.date}'` as const;
+
+    const response = await this.searchStream(input.customerId, query);
+    return response.results;
+  }
+
+  async getAdGroupAds(input: {
+    customerId: `${number}`;
+    adGroupResourceName?: string;
+  }): Promise<IGoogleAds.IGetAdGroupAdOutput> {
+    const query = `
+    SELECT
+      ad_group_ad.resource_name,
+      ad_group_ad.policy_summary.approval_status,
+      ad_group_ad.policy_summary.review_status
+    FROM ad_group_ad 
+    WHERE 
+      ad_group.status != 'REMOVED'
+      ${input.adGroupResourceName ? `AND ad_group_ad.ad_group = '${input.adGroupResourceName}'` : ""}
+    ` as const;
+
+    const customerId = input.customerId;
+    const response = await this.searchStream(customerId, query);
+
+    return response.results.map((el) => el.adGroupAd);
+  }
+
   /**
    * 각 캠페인에 속한 광고 그룹과 광고 그룹 광고를 찾는다.
    *
@@ -251,33 +604,37 @@ export class GoogleAdsProvider {
    * @param input
    * @returns
    */
-  async getAds(
-    input: IGoogleAds.IGetAdGroupAdsInput,
-  ): Promise<IGoogleAds.IGetAdGroupAdsOutput> {
+  async getAdGroupDetails(
+    input: IGoogleAds.IGetAdGroupInput,
+  ): Promise<IGoogleAds.IGetAdGroupOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
 
-      const results = await Promise.all(
+      return await Promise.all(
         adGroupsResult.results.map(async ({ campaign, adGroup }) => {
-          const query = `
-          SELECT
-            ad_group_ad.resource_name,
-            ad_group_ad.policy_summary.approval_status,
-            ad_group_ad.policy_summary.review_status
-          FROM ad_group_ad 
-          WHERE 
-            ad_group_ad.ad_group = '${adGroup.resourceName}'
-          ` as const;
+          const adGroupResourceName = adGroup.resourceName;
+          const adGroupAds = await this.getAdGroupAds({
+            ...input,
+            adGroupResourceName,
+          });
 
-          const customerId = input.customerId;
-          const adGroupAdResult = await this.searchStream(customerId, query);
-          const adGroupAds = adGroupAdResult.results.map((el) => el.adGroupAd);
+          const adGroupCriterions = await this.getKeywords({
+            customerId: input.customerId,
+            adGroupResourceName,
+          });
 
-          return { campaign, adGroup, adGroupAds };
+          return {
+            campaign,
+            adGroup,
+            adGroupAds,
+            keywords: (adGroupCriterions.results ?? []).map((result) => ({
+              criterionId: result.adGroupCriterion.criterionId,
+              resourceName: result.adGroupCriterion.resourceName,
+              ...result.adGroupCriterion.keyword,
+            })),
+          };
         }),
       );
-
-      return results;
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
@@ -290,10 +647,10 @@ export class GoogleAdsProvider {
    * `adGroupCriteria`를 생성한다.
    * 여기에는 구글 광고 키워드가 포함된다.
    */
-  private async createAdGroupCriteria(
+  async createAdGroupCriteria(
     adGroupResourceName: IGoogleAds.AdGroup["resourceName"],
     input: IGoogleAds.ICreateKeywordInput,
-  ) {
+  ): Promise<IGoogleAds.ICreateAdGroupCriteriaOutput> {
     try {
       const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
       const headers = await this.getHeaders();
@@ -319,7 +676,12 @@ export class GoogleAdsProvider {
         },
       );
 
-      return res.data;
+      return (
+        res.data.results.map(
+          (el: Pick<IGoogleAds.AdGroupCriterion, "resourceName">) =>
+            el.resourceName,
+        ) ?? []
+      );
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
@@ -329,7 +691,7 @@ export class GoogleAdsProvider {
   }
 
   async getCampaigns(
-    input: IGoogleAds.IGetCampaignsInput,
+    input: Omit<IGoogleAds.IGetCampaignsInput, "secretKey">,
     resourceName?: IGoogleAds.Campaign["resourceName"],
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
     try {
@@ -365,24 +727,27 @@ export class GoogleAdsProvider {
    * @param validateOnly
    * @returns
    */
-  async createClientLink(
-    input: { customerId: string },
-    validateOnly: boolean = false,
-  ): Promise<IGoogleAds.ICreateClientLinkOutput | IGoogleAds.GoogleAdsError> {
+  async createClientLink(input: {
+    resuorceName: IGoogleAds.Customer["resourceName"];
+  }): Promise<void> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const url = `${this.baseUrl}/customers/${parentId}/customerClientLinks:mutate`;
-      const res = await axios.post(url, {
-        operation: {
-          create: {
-            clientCustomer: `customer/${input.customerId}`,
-            status: "PENDING",
+      const headers = await this.getHeaders();
+      await axios.post(
+        url,
+        {
+          operation: {
+            create: {
+              clientCustomer: input.resuorceName,
+              status: "PENDING",
+            },
           },
         },
-        validateOnly, // true인 경우에는 동작하지 않고 API 동작만 검증하는, 일종의 테스트 용 필드.
-      });
-
-      return res.data;
+        {
+          headers,
+        },
+      );
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),

@@ -1,10 +1,364 @@
 import type { Prerequisite } from "@wrtn/decorators";
 import type { tags } from "typia";
-import { StrictOmit } from "../../../../utils/strictOmit";
 import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
+  export interface IGetMetricInput extends ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 통계 조회 날짜
+     */
+    date: string & tags.Format<"date">;
+  }
+
+  export interface IGetMetricOutputResult {
+    metrics: {
+      /**
+       * @title 노출 수
+       */
+      impressions: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 클릭 수
+       */
+      clicks: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 광고 지출 (마이크로 단위)
+       * @description 1,000,000분의 1로 원화 가치 표시
+       */
+      costMicros: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 비디오 뷰
+       */
+      videoViews: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 평균 페이지 뷰
+       */
+      averagePageViews?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 25% 본 수
+       */
+      videoQuartileP25Rate?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 50% 본 수
+       */
+      videoQuartileP50Rate?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 75% 본 수
+       */
+      videoQuartileP75Rate?: `${number & tags.Type<"int64">}`;
+
+      /**
+       * @title 동영상을 100% 본 수
+       */
+      videoQuartileP100Rate?: `${number & tags.Type<"int64">}`;
+    };
+
+    adGroupAd: Pick<AdGroupAd, "resourceName">;
+  }
+
+  export interface IGetAdGroupAdInput extends ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+  }
+
+  export type IGetAdGroupAdOutput = Pick<
+    AdGroupAd,
+    "resourceName" | "policySummary"
+  >[];
+
+  export interface IGetAdGroupAdDetailInput extends ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName: IGoogleAds.AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.resourceName";
+        label: "return elem.resourceName";
+      }>;
+  }
+
+  export interface Ad {
+    resourceName: `customers/${number}/ads/${number}`;
+
+    status: Status;
+  }
+
+  export interface IGetAdGroupAdDetailOutput {
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    resourceName: AdGroupAd["resourceName"];
+
+    /**
+     * @title 광고의 현재 상태
+     */
+    status: Ad["status"];
+
+    /**
+     * @title 조회한 광고 내역
+     */
+    ad: {
+      /**
+       * @title 광고의 리소스 명
+       */
+      resourceName: Ad["resourceName"];
+
+      /**
+       * @title 광고 소재 정보
+       */
+      detail: ResponsiveSearchAd | ResponsiveDisplayAd;
+    };
+  }
+
+  export interface ResponsiveSearchAd {
+    descriptions: { text: string }[];
+    headlines: { text: string }[];
+  }
+
+  export interface ResponsiveDisplayAd extends ResponsiveSearchAd {
+    longHeadline: any;
+    businessName: any;
+    marketingImages: any;
+    squareMarketingImages: any;
+    squareLogoImages: any;
+  }
+  export interface IUpdateSearchAdInput {
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName: IGoogleAds.AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.resourceName";
+        label: "return elem.resourceName";
+      }>;
+  }
+
+  export interface ISetOnOffInput extends IGoogleAds.ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName: AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.resourceName";
+        label: "return elem.resourceName";
+      }>;
+
+    /**
+     * @title 광고 상태
+     */
+    status:
+      | tags.Constant<"ENABLED", { title: "ENABLED" }>
+      | tags.Constant<"PAUSED", { title: "PAUSED" }>;
+  }
+
+  /**
+   * @title 키워드 삭제 조건
+   */
+  export interface IDeleteAdGroupCriteriaInput {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 삭제할 키워드의 아이디
+     */
+    resourceNames: (AdGroupCriterion["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-keywords";
+        array: "return response.results";
+        value: "return elem.resourceName";
+        label: "return elem.text";
+      }>)[];
+  }
+
+  /**
+   * @title 키워드 생성 결과
+   */
+  export type ICreateAdGroupCriteriaOutput = Array<
+    IGoogleAds.AdGroupCriterion["resourceName"]
+  >;
+
+  export interface ICreateAdGroupCriteriaInput
+    extends ICreateKeywordInput,
+      IGoogleAds.ISecret {
+    /**
+     * @title 키워드를 추가할 광고 그룹의 리소스 네임
+     */
+    adGroupResourceName: AdGroup["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.adGroup.resourceName";
+        label: "return elem.name ?? '이름 없음'";
+      }>;
+  }
+
+  export interface Keyword {
+    /**
+     * @title 키워드 텍스트
+     */
+    text: string;
+
+    /**
+     * @title 키워드 일치 타입
+     */
+    matchType:
+      | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>
+      | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
+      | tags.Constant<"EXACT", { title: "완전일치" }>
+      | tags.Constant<"PHRASE", { title: "구문일치" }>
+      | tags.Constant<"BROAD", { title: "확장검색" }>;
+  }
+
+  export type AdGroupCriterion = {
+    /**
+     * @title 광고 그룹 표준 리소스 이름
+     */
+    resourceName: `customers/${CustomerClient["id"]}/adGroupCriteria/${AdGroup["id"]}~${AdGroupCriterion["criterionId"]}`;
+
+    /**
+     * @title 타입
+     */
+    type: "KEYWORD";
+
+    /**
+     * @title 광고 그룹 표준 아이디
+     */
+    criterionId: `${number}`;
+
+    /**
+     * @title 키워드
+     */
+    keyword: Keyword;
+
+    /**
+     * @title 광고 그룹 표준 상태
+     */
+    status: IGoogleAds.Status;
+  };
+
+  export interface IGetKeywordsOutputResult {
+    adGroupCriterion: Pick<
+      AdGroupCriterion,
+      | "criterionId"
+      | "resourceName"
+      | "type"
+      | "criterionId"
+      | "keyword"
+      | "status"
+    >;
+  }
+
+  /**
+   * @title 키워드 조회 결과
+   */
+  export interface IGetKeywordsOutput {
+    /**
+     * @title 키워드 조회 결과
+     */
+    results: IGetKeywordsOutputResult[];
+  }
+
+  /**
+   * @title 키워드 조회 조건
+   */
+  export interface IGetKeywordsInput extends IGoogleAds.ISecret {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 광고 그룹 리소스 명
+     */
+    adGroupResourceName: AdGroup["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        array: "return response";
+        value: "return elem.adGroup.resourceName";
+        label: "return elem.name ?? '이름 없음'";
+      }>;
+  }
+
   /**
    * @title 키워드 생성 조건
    */
@@ -12,7 +366,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 리소스 이름
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 생성할 키워드
@@ -32,6 +393,11 @@ export namespace IGoogleAds {
     resourceName: `customers/${number}/adGroups/${number}`;
 
     /**
+     * @title 광고 그룹 이름
+     */
+    name: string;
+
+    /**
      * @title 광고 그룹의 타입
      */
     type:
@@ -43,7 +409,14 @@ export namespace IGoogleAds {
     /**
      * @title 고객 리소스 이름
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 부모 캠페인의 아이디
@@ -53,7 +426,7 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-campaigns";
-        array: "return results";
+        array: "return response";
         label: "return el.campaign.name";
         value: "return el.campaign.id";
       }>;
@@ -65,14 +438,14 @@ export namespace IGoogleAds {
     adGroupResourceName?: AdGroup["resourceName"];
   }
 
-  export interface IGetAdGroupOutput {
+  export interface IGetGoogleAdGroupOutput {
     results: IGetAdGroupOutputResult[];
   }
 
   export interface IGetAdGroupOutputResult {
     campaign: Pick<Campaign, "id" | "resourceName" | "status">;
 
-    adGroup: Pick<AdGroup, "id" | "type" | "resourceName">;
+    adGroup: Pick<AdGroup, "id" | "type" | "name" | "resourceName">;
   }
 
   export interface AdGroupAd {
@@ -112,67 +485,163 @@ export namespace IGoogleAds {
         | tags.Constant<"UNKNOWN", { title: "알 수 없음" }>
         | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
     };
+
+    /**
+     * @title 광고의 상태
+     */
+    status: IGoogleAds.Status;
   }
 
   /**
    * @title 광고 그룹 생성 조건
    */
-  export interface ICreateAdGroupInput {
+  export type ICreateAdGroupInput =
+    | ICreateSearchAdGroupInput
+    | ICreateDisplayAdGroupInput;
+
+  /**
+   * @title 광고 그룹 생성 공통
+   */
+  export interface ICreateAdGroupCommon {
     /**
      * @title 고객 리소스 이름
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 캠페인 리소스 이름
      */
-    campaignResourceName: Campaign["resourceName"];
-
-    /**
-     * @title 광고 그룹 타입
-     */
-    type: AdGroup["type"];
+    campaignResourceName: Campaign["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-campaigns";
+        array: "return response";
+        value: "return elem.campaign.resourceName";
+        label: "return elem.name ?? '이름 없음'";
+      }>;
   }
 
   /**
-   * @title 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   * @title 검색 광고 그룹 생성 조건
    */
-  export type ICreateAdGroupAdAtOnceInput = {
+  export interface ICreateSearchAdGroupInput extends ICreateAdGroupCommon {
+    /**
+     * @title 광고 그룹 타입
+     */
+    type: Extract<AdGroup["type"], "SEARCH_STANDARD">;
+  }
+
+  /**
+   * @title 디스플레이 광고 그룹 생성 조건
+   */
+  export interface ICreateDisplayAdGroupInput extends ICreateAdGroupCommon {
+    /**
+     * @title 광고 그룹 타입
+     */
+    type: Extract<AdGroup["type"], "DISPLAY_STANDARD">;
+  }
+
+  export type ICreateAdGroupAdAtOnceInput =
+    | ICreateAdGroupSearchAdAtOnceInput
+    | ICreateAdGroupDisplayAdAtOnceInput;
+
+  export interface ICreateAdGroupSearchAdAtOnceInputCommon {
     /**
      * @title 고객 아이디
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 캠페인 생성 조건
      */
-    campaign: StrictOmit<ICreateCampaignInput, "customerId">;
+    campaign: Omit<ICreateCampaignInput, "customerId" | "type" | "secretKey">;
+  }
 
+  /**
+   * @title 구글 검색 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   */
+  export interface ICreateAdGroupSearchAdAtOnceInput
+    extends ICreateAdGroupSearchAdAtOnceInputCommon,
+      IGoogleAds.ISecret {
     /**
      * @title 광고 생성 조건
      */
-    ad: StrictOmit<
-      ICreateAdGroupAdInput,
+    ad: Omit<
+      ICreateAdGroupSearchAdInput,
       "campaignResourceName" | "type" | "customerId"
     >;
-  };
+  }
 
-  export interface Ad {
-    ad: IGoogleAds.IGetAdGroupAdsOutputResult;
+  /**
+   * @title 구글 디스플레이 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   */
+  export interface ICreateAdGroupDisplayAdAtOnceInput
+    extends ICreateAdGroupSearchAdAtOnceInputCommon,
+      IGoogleAds.ISecret {
+    /**
+     * @title 광고 생성 조건
+     */
+    ad: Omit<
+      ICreateAdGroupDisplayAdInput,
+      "campaignResourceName" | "type" | "customerId"
+    >;
+  }
+
+  /**
+   * @title 광고 정보
+   */
+  export interface AdWrapper {
+    /**
+     * @title 광고 정보
+     */
+    ad: IGoogleAds.IGetAdGroupsOutputResult;
   }
   /**
    * @title 캠페인부터 광고까지 한 번에 만드는 요청에 대한 결과
    */
   export type ICreateAdGroupAdAtOnceOutput = DeepStrictMerge<
     IGoogleAds.ICreateCampaignsOutput,
-    Ad
+    AdWrapper
   >;
 
   /**
    * @title 광고 생성 조건
    */
-  export interface ICreateAdGroupAdInput
-    extends ICreateAdGroupInput,
+  export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
+    ICreateAdGroupAdInputCommon;
+
+  export type IUpdateAdGroupAdInput = Pick<
+    AdGroupAd,
+    "resourceName" | "status"
+  > &
+    ICreateAdGroupAdInputCommon;
+
+  /**
+   * @title 광고 생성 조건
+   */
+  export type ICreateAdGroupAdInputCommon =
+    | ICreateAdGroupSearchAdInput
+    | ICreateAdGroupDisplayAdInput;
+
+  /**
+   * @title 검색 광고 생성 조건
+   */
+  export interface ICreateAdGroupSearchAdInput
+    extends ICreateSearchAdGroupInput,
       ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
@@ -183,18 +652,118 @@ export namespace IGoogleAds {
      * @title 제목 리스트
      */
     headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
-      tags.MinItems<3> &
-      tags.MaxItems<3>;
+      tags.MinItems<1> &
+      tags.MaxItems<15>;
 
     /**
      * @title 설명 리스트
      */
     descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
-      tags.MinItems<2> &
-      tags.MaxItems<2>;
+      tags.MinItems<1> &
+      tags.MaxItems<4>;
   }
 
-  export interface ICreateCampaignInput extends ICreateCampaignBudgetInput {
+  /**
+   * @title 디스플레이 광고 생성 조건
+   */
+  export interface ICreateAdGroupDisplayAdInput
+    extends ICreateDisplayAdGroupInput,
+      ICreateKeywordInput {
+    /**
+     * @title 광고의 대상이 되는 홈페이지
+     */
+    finalUrl: string & tags.Format<"uri">;
+
+    /**
+     * @title 짧은 제목 리스트
+     */
+    headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
+
+    /**
+     * @title 긴 제목
+     */
+    longHeadline: string & tags.MinLength<1> & tags.MaxLength<90>;
+
+    /**
+     * @title 설명 리스트
+     */
+    descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
+
+    /**
+     * @title 비즈니스 및 브랜드 이름
+     */
+    businessName: string & tags.MinLength<1> & tags.MaxLength<25>;
+
+    /**
+     * @title 가로형 이미지
+     * @description 1.91:1의 가로형 이미지이며 권장은 5장
+     */
+    landscapeImages: (string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<15>;
+
+    /**
+     * @title 로고 이미지
+     * @description 정방형 이미지로 최소 크기는 128x128px, 권장은 1200x1200px
+     */
+    logoImages: (string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<5>;
+
+    /**
+     * @title 정방형 이미지
+     * @description 1.91:1의 가로형 이미지이며 최소 크기는 300x300px, 권장은 600x600px
+     */
+    squareImages: (string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">)[] &
+      tags.MinItems<1> &
+      tags.MaxItems<15>;
+  }
+
+  /**
+   * @title 캠페인 수정 조건
+   */
+  export interface IUpdateCampaignInput
+    extends Partial<
+      Pick<ICreateCampaignInput, "campaignName" | "campaignBudget" | "endDate">
+    > {
+    /**
+     * @title 고객 리소스 이름
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
+
+    /**
+     * @title 수정할 캠페인의 리소스 아이디
+     */
+    campaignResourceName: Campaign["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-campaigns";
+        array: "return response";
+        label: "return el.campaign.name";
+        value: "return el.campaign.resourceName";
+      }>;
+  }
+
+  export interface ICreateCampaignInput
+    extends ICreateCampaignBudgetInput,
+      IGoogleAds.ISecret {
     /**
      * @title 캠페인 타입
      */
@@ -218,14 +787,31 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 이름
      */
-    campaignName: string;
+    campaignName?: string & tags.Default<"이름 없음">;
+
+    /**
+     * @title 캠페인 시작 시간
+     */
+    startDate?: string & tags.Format<"date">;
+
+    /**
+     * @title 캠페인 종료 시간
+     */
+    endDate?: string & tags.Format<"date">;
   }
 
   export interface ICreateCampaignBudgetInput {
     /**
      * @title 고객 아이디
      */
-    customerId: CustomerClient["id"];
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
 
     /**
      * @title 광고 예산
@@ -233,6 +819,16 @@ export namespace IGoogleAds {
      */
     campaignBudget: number;
   }
+
+  /**
+   * @title 구글 리소스 상태
+   */
+  export type Status =
+    | tags.Constant<"ENABLED", { title: "ENABLED" }>
+    | tags.Constant<"PAUSED", { title: "PAUSED" }>
+    | tags.Constant<"REMOVED", { title: "REMOVED" }>
+    | tags.Constant<"UNKNOWN", { title: "UNKNOWN" }>
+    | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>;
 
   /**
    * @title 구글 광고 캠페인
@@ -246,12 +842,7 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 상태
      */
-    status:
-      | tags.Constant<"ENABLED", { title: "ENABLED" }>
-      | tags.Constant<"PAUSED", { title: "PAUSED" }>
-      | tags.Constant<"REMOVED", { title: "REMOVED" }>
-      | tags.Constant<"UNKNOWN", { title: "UNKNOWN" }>
-      | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>;
+    status: Status;
 
     /**
      * @title 캠페인 광고 채널
@@ -331,28 +922,11 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 광고 조회 조건
-   */
-  export interface IGetAdGroupAdsInput extends IGetAdGroupInput {
-    /**
-     * @title 조회할 고객 아이디
-     */
-    customerId: Prerequisite<{
-      method: "post";
-      path: "connector/google-ads/get-customers";
-      array: "return response";
-      label: "return el.descriptiveName ?? ''";
-      value: "return el.id";
-    }> &
-      `${number}`;
-  }
-
-  /**
    * @title 광고 그룹 광고의 조회 결과
    */
-  export type IGetAdGroupAdsOutput = IGetAdGroupAdsOutputResult[];
+  export type IGetAdGroupOutput = IGetAdGroupsOutputResult[];
 
-  export interface IGetAdGroupAdsOutputResult {
+  export interface IGetAdGroupsOutputResult {
     /**
      * @title 캠페인
      */
@@ -367,23 +941,31 @@ export namespace IGoogleAds {
      * @title 광고 그룹 광고의 목록
      */
     adGroupAds: Pick<AdGroupAd, "resourceName" | "policySummary">[];
+
+    /**
+     * @title 키워드 목록
+     */
+    keywords: DeepStrictMerge<
+      Keyword,
+      Pick<AdGroupCriterion, "criterionId" | "resourceName">
+    >[];
   }
 
   /**
    * @title 캠페인 조회 조건
    */
-  export interface IGetCampaignsInput {
+  export interface IGetCampaignsInput extends IGoogleAds.ISecret {
     /**
-     * @title 조회할 고객 아이디
+     * @title 고객 아이디
      */
-    customerId: Prerequisite<{
-      method: "post";
-      path: "connector/google-ads/get-customers";
-      array: "return response";
-      label: "return el.descriptiveName ?? ''";
-      value: "return el.id";
-    }> &
-      `${number}`;
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        array: "return response";
+        value: "return elem.id";
+        label: "return elem.descriptiveName ?? '이름 없음'";
+      }>;
   }
 
   /**
@@ -419,6 +1001,10 @@ export namespace IGoogleAds {
     "google-ads",
     ["https://www.googleapis.com/auth/adwords"]
   >;
+
+  export interface Customer {
+    resourceName: `customers/${number}`;
+  }
 
   export interface CustomerClient {
     /**

@@ -12,7 +12,7 @@ import typia from "typia";
 import type { IGoogleAds } from "../../../../structures/connector/google_ads/IGoogleAds";
 
 /**
- * 뤼튼에 연동된 고객의 광고 계정을 가져와요
+ * 고객의 광고 계정을 가져와요
  *
  * @param input 고객 정보
  * @summary 광고 계정을 조회합니다
