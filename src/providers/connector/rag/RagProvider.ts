@@ -40,6 +40,12 @@ export class RagProvider {
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
     const chatId = v4();
 
+    if (input.length > 5) {
+      throw new BadRequestException(
+        "파일 및 링크는 최대 5개까지 분석할 수 있습니다.",
+      );
+    }
+
     for (const file of input) {
       let url = file.fileUrl;
 
