@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtn/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 

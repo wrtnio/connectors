@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtn/decorators";
+import { RouteIcon } from "@wrtnio/decorators";
 
 import { IHwp } from "@wrtn/connector-api/lib/structures/connector/hwp/IHwp";
 

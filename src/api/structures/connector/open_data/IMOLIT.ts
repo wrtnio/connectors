@@ -1,4 +1,4 @@
-import { Placeholder, Prerequisite } from "@wrtn/decorators";
+import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { StrictOmit } from "../../../../utils/strictOmit";

@@ -1,7 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Standalone } from "@wrtn/decorators";
+import { Standalone } from "@wrtnio/decorators";
 
 import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
 

@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 

@@ -1,7 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 

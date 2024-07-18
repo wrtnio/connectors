@@ -1,4 +1,4 @@
-import { Placeholder } from "@wrtn/decorators";
+import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 export namespace IConnector {

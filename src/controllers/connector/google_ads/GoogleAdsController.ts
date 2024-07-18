@@ -4,7 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 
 import { ApiTags } from "@nestjs/swagger";
-import { RouteIcon, Standalone } from "@wrtn/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { GoogleAdsProvider } from "../../../providers/connector/google_ads/GoogleAdsProvider";
 import { retry } from "../../../utils/retry";
 

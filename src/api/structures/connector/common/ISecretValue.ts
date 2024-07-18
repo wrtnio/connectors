@@ -1,4 +1,4 @@
-import { SecretKey } from "@wrtn/decorators";
+import { SecretKey } from "@wrtnio/decorators";
 
 export namespace ICommon {
   export interface ISecret<
