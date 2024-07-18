@@ -143,7 +143,7 @@ export interface IMarketingCopyImage {
    *
    * @title 마케팅 카피 시안의 이미지 URL.
    */
-  imageUrl: string & tags.ContentMediaType<"image/*">;
+  imageUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
 }
 
 export namespace IMarketingCopyGenerator {
