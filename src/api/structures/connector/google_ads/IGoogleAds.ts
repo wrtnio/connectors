@@ -4,7 +4,9 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
-  export interface IGetMetricInput extends ISecret {
+  export interface IGetMetricInput
+    extends Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 통계 조회 날짜
      */
@@ -63,14 +65,31 @@ export namespace IGoogleAds {
     adGroupAd: Pick<AdGroupAd, "resourceName">;
   }
 
-  export type IGetAdGroupAdInput = ISecret;
+  export interface IGetAdGroupAdInput
+    extends Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+    /**
+     * @title 광고 그룹 광고의 리소스 명
+     */
+    adGroupAdResourceName?: IGoogleAds.AdGroupAd["resourceName"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-ads";
+        jmesPath: JMESPath<
+          IGetAdGroupAdOutput,
+          "[].{value:resourceName, label:resourceName}"
+        >;
+      }>;
+  }
 
   export type IGetAdGroupAdOutput = Pick<
     AdGroupAd,
-    "resourceName" | "policySummary"
+    "resourceName" | "policySummary" | "status"
   >[];
 
-  export interface IGetAdGroupAdDetailInput extends ISecret {
+  export interface IGetAdGroupAdDetailInput
+    extends Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 광고 그룹 광고의 리소스 명
      */
@@ -119,13 +138,38 @@ export namespace IGoogleAds {
   }
 
   export interface ResponsiveSearchAd {
-    descriptions: { text: string }[];
-    headlines: { text: string }[];
+    /**
+     * @title 설명 목록
+     */
+    descriptions: {
+      /**
+       * @title 등록된 설명
+       */
+      text: string;
+    }[];
+
+    /**
+     * @title 제목 목록
+     */
+    headlines: {
+      /**
+       * @title 등록된 제목
+       */
+      text: string;
+    }[];
   }
 
   export interface ResponsiveDisplayAd extends ResponsiveSearchAd {
+    /**
+     * @title 긴 제목
+     */
     longHeadline: any;
+
+    /**
+     * @title 브랜드 이름
+     */
     businessName: any;
+
     marketingImages: any;
     squareMarketingImages: any;
     squareLogoImages: any;
@@ -145,7 +189,9 @@ export namespace IGoogleAds {
       }>;
   }
 
-  export interface ISetOnOffInput extends IGoogleAds.ISecret {
+  export interface ISetOnOffInput
+    extends Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 광고 그룹 광고의 리소스 명
      */
@@ -170,7 +216,9 @@ export namespace IGoogleAds {
   /**
    * @title 키워드 삭제 조건
    */
-  export interface IDeleteAdGroupCriteriaInput extends IGoogleAds.ISecret {
+  export interface IDeleteAdGroupCriteriaInput
+    extends Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 삭제할 키워드의 아이디
      */
@@ -201,10 +249,10 @@ export namespace IGoogleAds {
     adGroupResourceName: AdGroup["resourceName"] &
       Prerequisite<{
         method: "post";
-        path: "connector/google-ads/get-ads";
+        path: "connector/google-ads/get-ad-groups";
         jmesPath: JMESPath<
-          IGetAdGroupAdOutput,
-          "[].{value:resourceName, label:resourceName}"
+          IGetAdGroupOutput,
+          "[].adGroup.{value:resourceName, label:resourceName}"
         >;
       }>;
   }
@@ -274,7 +322,9 @@ export namespace IGoogleAds {
   /**
    * @title 키워드 조회 조건
    */
-  export interface IGetKeywordsInput extends IGoogleAds.ISecret {
+  export interface IGetKeywordsInput
+    extends Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 광고 그룹 리소스 명
      */
@@ -325,7 +375,8 @@ export namespace IGoogleAds {
   }
 
   export interface IGetAdGroupInput
-    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
+    extends Pick<IGoogleAds.ISecret, "customerId">,
+      Pick<IGoogleAds.ISecret, "secretKey"> {
     /**
      * @title 부모 캠페인의 아이디
      * @description 해당 캠페인의 아이디만 검색하고 싶을 경우
@@ -508,7 +559,8 @@ export namespace IGoogleAds {
   /**
    * @title 광고 생성 조건
    */
-  export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
+  export type ICreateAdGroupAdInput = Pick<IGoogleAds.ISecret, "secretKey"> &
+    Required<Pick<IGoogleAds.ISecret, "customerId">> &
     ICreateAdGroupAdInputCommon;
 
   export type IUpdateAdGroupAdInput = Pick<
@@ -628,7 +680,8 @@ export namespace IGoogleAds {
           "campaignName" | "campaignBudget" | "endDate"
         >
       >,
-      IGoogleAds.ISecret {
+      Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 수정할 캠페인의 리소스 아이디
      */
@@ -645,7 +698,8 @@ export namespace IGoogleAds {
 
   export interface ICreateCampaignInput
     extends ICreateCampaignBudgetInput,
-      IGoogleAds.ISecret {
+      Pick<IGoogleAds.ISecret, "secretKey">,
+      Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 캠페인 타입
      */
@@ -668,6 +722,8 @@ export namespace IGoogleAds {
 
     /**
      * @title 캠페인 이름
+     *
+     * 이름이 비어있을 경우 '이름 없음'으로 자동으로 생성됩니다.
      */
     campaignName?: string & tags.Default<"이름 없음">;
 
@@ -1008,17 +1064,24 @@ export namespace IGoogleAds {
     competition?:
       | tags.Constant<
           "LOW",
-          { title: "낮은 경쟁률 경쟁 지수 범위는 [0, 33]입니다." }
+          {
+            title: "낮음";
+            description: "낮은 경쟁률 경쟁 지수 범위는 [0, 33]입니다.";
+          }
         >
       | tags.Constant<
           "MEDIUM",
           {
-            title: "경쟁이 보통입니다. 이에 대한 경쟁 지수의 범위는 [34, 66]입니다.";
+            title: "중간";
+            description: "경쟁이 보통입니다. 이에 대한 경쟁 지수의 범위는 [34, 66]입니다.";
           }
         >
       | tags.Constant<
           "HIGH",
-          { title: "경쟁이 치열합니다. 경쟁 지수 범위는 [67, 100]입니다." }
+          {
+            title: "높음";
+            description: "경쟁이 치열합니다. 경쟁 지수 범위는 [67, 100]입니다.";
+          }
         >;
 
     /**

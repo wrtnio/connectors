@@ -449,7 +449,7 @@ export class GoogleAdsProvider {
           operations: [
             {
               create: {
-                name: input.campaignName,
+                name: input.campaignName ?? "이름 없음",
                 advertising_channel_type: input.advertisingChannelType,
                 status: "ENABLED",
                 campaignBudget: campaignBudgetResourceName,
@@ -481,7 +481,7 @@ export class GoogleAdsProvider {
   }
 
   private async getAdGroups(
-    input: IGoogleAds.IGetAdGroupInput,
+    input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey">,
   ): Promise<IGoogleAds.IGetGoogleAdGroupOutput> {
     try {
       const query = `
@@ -590,6 +590,7 @@ export class GoogleAdsProvider {
     const query = `
     SELECT
       ad_group_ad.resource_name,
+      ad_group_ad.status,
       ad_group_ad.policy_summary.approval_status,
       ad_group_ad.policy_summary.review_status
     FROM ad_group_ad 
@@ -613,7 +614,7 @@ export class GoogleAdsProvider {
    * @returns
    */
   async getAdGroupDetails(
-    input: IGoogleAds.IGetAdGroupInput,
+    input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey">,
   ): Promise<IGoogleAds.IGetAdGroupOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
