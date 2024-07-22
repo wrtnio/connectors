@@ -723,9 +723,9 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 이름
      *
-     * 이름이 비어있을 경우 '이름 없음'으로 자동으로 생성됩니다.
+     * 이름이 비어있을 경우 무작위 이름이 생성됩니다. 이름은 기존에 생성된 캠페인과 중복되서는 안 됩니다.
      */
-    campaignName?: string & tags.Default<"이름 없음">;
+    campaignName?: string;
 
     /**
      * @title 캠페인 시작 시간
@@ -955,6 +955,7 @@ export namespace IGoogleAds {
   }
 
   export interface Customer {
+    id: `${number}`;
     resourceName: `customers/${number}`;
   }
 

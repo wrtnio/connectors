@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios, { AxiosError } from "axios";
+import { randomUUID } from "crypto";
 import typia from "typia";
 import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
@@ -16,6 +17,40 @@ export class GoogleAdsProvider {
   private readonly baseUrl = "https://googleads.googleapis.com/v17";
 
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  /**
+   * 유저의 시크릿 키와 유저가 사용하고자 하는 광고 계정이 유효한지 검사합니다.
+   * 만약 광고 계정의 아이디를 전달하지 않은 경우, 광고 계정 목록의 length가 1인 경우에 한하여 선택하지 않아도 통과시켜 줍니다.
+   *
+   * @param input
+   * @returns
+   */
+  async getTargetCustomerId(
+    input: Pick<IGoogleAds.ISecret, "secretKey"> &
+      Required<Pick<IGoogleAds.ISecret, "customerId">>,
+  ): Promise<IGoogleAds.Customer["id"]> {
+    const customers = await this.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return customerId;
+  }
 
   async publish(input: IGoogleAds.ISecret): Promise<void> {
     try {
@@ -449,7 +484,7 @@ export class GoogleAdsProvider {
           operations: [
             {
               create: {
-                name: input.campaignName ?? "이름 없음",
+                name: input.campaignName ?? randomUUID(),
                 advertising_channel_type: input.advertisingChannelType,
                 status: "ENABLED",
                 campaignBudget: campaignBudgetResourceName,
