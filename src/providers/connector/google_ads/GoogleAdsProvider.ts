@@ -550,7 +550,15 @@ export class GoogleAdsProvider {
       WHERE ad_group_criterion.type = "KEYWORD" AND ad_group.resource_name = '${input.adGroupResourceName}' AND ad_group_criterion.status != "REMOVED"` as const;
 
     const keywords = await this.searchStream(input.customerId, query);
-    return keywords;
+    return keywords.results.map((el) => {
+      return {
+        ...el,
+        adGroupCriterion: {
+          ...el.adGroupCriterion,
+          ...el.adGroupCriterion.keyword,
+        },
+      };
+    });
   }
 
   async getMetrics(input: IGoogleAds.IGetMetricInput) {
@@ -627,7 +635,7 @@ export class GoogleAdsProvider {
             campaign,
             adGroup,
             adGroupAds,
-            keywords: (adGroupCriterions.results ?? []).map((result) => ({
+            keywords: (adGroupCriterions ?? []).map((result) => ({
               criterionId: result.adGroupCriterion.criterionId,
               resourceName: result.adGroupCriterion.resourceName,
               ...result.adGroupCriterion.keyword,

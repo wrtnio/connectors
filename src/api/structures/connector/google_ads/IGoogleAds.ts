@@ -1,4 +1,4 @@
-import type { Prerequisite } from "@wrtnio/decorators";
+import type { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
@@ -12,9 +12,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -83,9 +84,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
   }
 
@@ -102,9 +104,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -114,9 +117,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response";
-        value: "return elem.resourceName";
-        label: "return elem.resourceName";
+        jmesPath: JMESPath<
+          IGetAdGroupAdOutput,
+          "[].{value:resourceName, label:resourceName}"
+        >;
       }>;
   }
 
@@ -173,9 +177,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response";
-        value: "return elem.resourceName";
-        label: "return elem.resourceName";
+        jmesPath: JMESPath<
+          IGetAdGroupAdOutput,
+          "[].{value:resourceName, label:resourceName}"
+        >;
       }>;
   }
 
@@ -187,9 +192,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -199,9 +205,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response";
-        value: "return elem.resourceName";
-        label: "return elem.resourceName";
+        jmesPath: JMESPath<
+          IGetAdGroupAdOutput,
+          "[].{value:resourceName, label:resourceName}"
+        >;
       }>;
 
     /**
@@ -223,9 +230,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -235,9 +243,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-keywords";
-        array: "return response.results";
-        value: "return elem.resourceName";
-        label: "return elem.text";
+        jmesPath: JMESPath<
+          IGetKeywordsOutput,
+          "[].adGroupCriterion.{value:resourceName, label:text}"
+        >;
       }>)[];
   }
 
@@ -258,9 +267,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response";
-        value: "return elem.adGroup.resourceName";
-        label: "return elem.name ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetAdGroupAdOutput,
+          "[].{value:resourceName, label:resourceName}"
+        >;
       }>;
   }
 
@@ -317,18 +327,14 @@ export namespace IGoogleAds {
       | "criterionId"
       | "keyword"
       | "status"
-    >;
+    > &
+      Keyword;
   }
 
   /**
    * @title 키워드 조회 결과
    */
-  export interface IGetKeywordsOutput {
-    /**
-     * @title 키워드 조회 결과
-     */
-    results: IGetKeywordsOutputResult[];
-  }
+  export type IGetKeywordsOutput = IGetKeywordsOutputResult[];
 
   /**
    * @title 키워드 조회 조건
@@ -341,9 +347,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -353,9 +360,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-ads";
-        array: "return response";
-        value: "return elem.adGroup.resourceName";
-        label: "return elem.name ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetAdGroupAdOutput,
+          "[].{value:resourceName, label:resourceName}"
+        >;
       }>;
   }
 
@@ -370,9 +378,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -413,9 +422,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -426,9 +436,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-campaigns";
-        array: "return response";
-        label: "return el.campaign.name";
-        value: "return el.campaign.id";
+        jmesPath: JMESPath<
+          IGetCampaignsOutput,
+          "[].campaign.{value:name, label:id}"
+        >;
       }>;
 
     /**
@@ -510,9 +521,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -522,9 +534,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-campaigns";
-        array: "return response";
-        value: "return elem.campaign.resourceName";
-        label: "return elem.name ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCampaignsOutput,
+          "[].campaign.{value:name, label:id}"
+        >;
       }>;
   }
 
@@ -560,9 +573,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -743,9 +757,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -755,9 +770,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-campaigns";
-        array: "return response";
-        label: "return el.campaign.name";
-        value: "return el.campaign.resourceName";
+        jmesPath: JMESPath<
+          IGetCampaignsOutput,
+          "[].campaign.{value:name, label:id}"
+        >;
       }>;
   }
 
@@ -808,9 +824,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
 
     /**
@@ -962,9 +979,10 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        array: "return response";
-        value: "return elem.id";
-        label: "return elem.descriptiveName ?? '이름 없음'";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
       }>;
   }
 
@@ -998,7 +1016,7 @@ export namespace IGoogleAds {
   }
 
   export type ISecret = ICommon.ISecret<
-    "google-ads",
+    "google",
     ["https://www.googleapis.com/auth/adwords"]
   >;
 
@@ -1055,14 +1073,7 @@ export namespace IGoogleAds {
      * @title 다음 페이지 토큰
      * @description 이전 요청으로부터 받을 수 있는 페이지 토큰을 사용한다.
      */
-    pageToken?: string &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/generateKeywordIdeas/url";
-        array: "response.keywordIdeas";
-        label: "elem.text";
-        value: "elem.text";
-      }>;
+    pageToken?: string;
   }
 
   export type IGenerateKeywordIdeaByKeywordsAndUrlInput =

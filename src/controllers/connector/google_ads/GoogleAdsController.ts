@@ -63,7 +63,9 @@ export class GoogleAdsController {
   )
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("generateKeywordIdeas/url")
-  async url(@TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput) {
+  async url(
+    @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput,
+  ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     return retry(() => this.googleAdsProvider.generateKeywordIdeas(input))();
   }
 
