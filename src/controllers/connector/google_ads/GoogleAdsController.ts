@@ -119,14 +119,29 @@ export class GoogleAdsController {
   async getCampaigns(
     @TypedBody() input: IGoogleAds.IGetCampaignsInput,
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
-    // const customers = await this.googleAdsProvider.getCustomers(input);
-    // if (!customers.map((el) => el.id).includes(input.customerId)) {
-    //   throw new Error(
-    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
-    //   );
-    // }
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
 
-    return retry(() => this.googleAdsProvider.getCampaigns(input))();
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.getCampaigns({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -144,14 +159,29 @@ export class GoogleAdsController {
   async getAdGroups(
     @TypedBody() input: IGoogleAds.IGetAdGroupInput & IGoogleAds.ISecret,
   ): Promise<IGoogleAds.IGetAdGroupOutput> {
-    // const customers = await this.googleAdsProvider.getCustomers(input);
-    // if (!customers.map((el) => el.id).includes(input.customerId)) {
-    //   throw new Error(
-    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
-    //   );
-    // }
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
 
-    return retry(() => this.googleAdsProvider.getAdGroupDetails(input))();
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.getAdGroupDetails({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -169,7 +199,29 @@ export class GoogleAdsController {
   async getAds(
     @TypedBody() input: IGoogleAds.IGetAdGroupAdInput,
   ): Promise<IGoogleAds.IGetAdGroupAdOutput> {
-    return retry(() => this.googleAdsProvider.getAdGroupAds(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.getAdGroupAds({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -187,7 +239,29 @@ export class GoogleAdsController {
   async getMetrics(
     @TypedBody() input: IGoogleAds.IGetMetricInput,
   ): Promise<IGoogleAds.IGetMetricOutputResult[]> {
-    return retry(() => this.googleAdsProvider.getMetrics(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.getMetrics({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -205,7 +279,29 @@ export class GoogleAdsController {
   async getKeywords(
     @TypedBody() input: IGoogleAds.IGetKeywordsInput,
   ): Promise<IGoogleAds.IGetKeywordsOutput> {
-    return retry(() => this.googleAdsProvider.getKeywords(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.getKeywords({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -222,7 +318,29 @@ export class GoogleAdsController {
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Patch("campaigns/ads/status")
   async setOnOff(@TypedBody() input: IGoogleAds.ISetOnOffInput): Promise<void> {
-    return retry(() => this.googleAdsProvider.updateAd(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.updateAd({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -242,7 +360,29 @@ export class GoogleAdsController {
   async deleteKeywords(
     @TypedBody() input: IGoogleAds.IDeleteAdGroupCriteriaInput,
   ): Promise<void> {
-    return retry(() => this.googleAdsProvider.deleteKeywords(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.deleteKeywords({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -262,6 +402,26 @@ export class GoogleAdsController {
   async addKeywords(
     @TypedBody() input: IGoogleAds.ICreateAdGroupCriteriaInput,
   ): Promise<IGoogleAds.ICreateAdGroupCriteriaOutput> {
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
     const { adGroupResourceName, ...rest } = input;
     return this.googleAdsProvider.createAdGroupCriteria(
       adGroupResourceName,
@@ -284,7 +444,29 @@ export class GoogleAdsController {
   async getAdGroupAdDetail(
     @TypedBody() input: IGoogleAds.IGetAdGroupAdDetailInput,
   ): Promise<IGoogleAds.IGetAdGroupAdDetailOutput> {
-    return retry(() => this.googleAdsProvider.getAdGroupAdDetail(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.getAdGroupAdDetail({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -303,12 +485,25 @@ export class GoogleAdsController {
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupAdInput,
   ): Promise<IGoogleAds.IGetAdGroupsOutputResult> {
-    // const customers = await this.googleAdsProvider.getCustomers(input);
-    // if (!customers.map((el) => el.id).includes(input.customerId)) {
-    //   throw new Error(
-    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
-    //   );
-    // }
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
 
     return this.googleAdsProvider.createAd(input);
   }
@@ -327,7 +522,29 @@ export class GoogleAdsController {
   async updateCampaign(
     @TypedBody() input: IGoogleAds.IUpdateCampaignInput,
   ): Promise<void> {
-    return retry(() => this.googleAdsProvider.updateCampaign(input))();
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
+
+    return retry(() =>
+      this.googleAdsProvider.updateCampaign({ ...input, customerId }),
+    )();
   }
 
   /**
@@ -345,12 +562,25 @@ export class GoogleAdsController {
   async createCampaign(
     @TypedBody() input: IGoogleAds.ICreateCampaignInput,
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
-    // const customers = await this.googleAdsProvider.getCustomers(input);
-    // if (!customers.map((el) => el.id).includes(input.customerId)) {
-    //   throw new Error(
-    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
-    //   );
-    // }
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
 
     return this.googleAdsProvider.createCampaign(input);
   }
@@ -371,12 +601,25 @@ export class GoogleAdsController {
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupSearchAdAtOnceInput,
   ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
-    // const customers = await this.googleAdsProvider.getCustomers(input);
-    // if (!customers.map((el) => el.id).includes(input.customerId)) {
-    //   throw new Error(
-    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
-    //   );
-    // }
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
 
     const { campaign, campaignBudget } =
       await this.googleAdsProvider.createCampaign({
@@ -387,7 +630,7 @@ export class GoogleAdsController {
 
     const ad = await this.googleAdsProvider.createAd({
       ...input.ad,
-      customerId: input.customerId,
+      customerId: customerId,
       campaignResourceName: campaign.resourceName,
       type: `SEARCH_STANDARD`,
     });
@@ -411,12 +654,25 @@ export class GoogleAdsController {
     @TypedBody()
     input: IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput,
   ): Promise<IGoogleAds.ICreateAdGroupAdAtOnceOutput> {
-    // const customers = await this.googleAdsProvider.getCustomers(input);
-    // if (!customers.map((el) => el.id).includes(input.customerId)) {
-    //   throw new Error(
-    //     "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
-    //   );
-    // }
+    const customers = await this.googleAdsProvider.getCustomers(input);
+    let customerId = input.customerId ?? null;
+    if (input.customerId) {
+      if (!customers.map((el) => el.id).includes(input.customerId)) {
+        throw new Error(
+          "뤼튼에 등록되지 않은 고객 또는 구글에서 심사 중인 고객입니다.",
+        );
+      }
+    } else {
+      if (customers.length > 1 && !input.customerId) {
+        throw new Error("고객 계정 중 어떤 것을 사용할지 명시해주어야 합니다.");
+      } else if (customers.length === 1) {
+        customerId = customers[0].id;
+      }
+    }
+
+    if (!customerId) {
+      throw new Error("고객 계정이 지정되지 않았습니다.");
+    }
 
     const { campaign, campaignBudget } =
       await this.googleAdsProvider.createCampaign({
@@ -427,7 +683,7 @@ export class GoogleAdsController {
 
     const ad = await this.googleAdsProvider.createAd({
       ...input.ad,
-      customerId: input.customerId,
+      customerId: customerId,
       campaignResourceName: campaign.resourceName,
       type: `DISPLAY_STANDARD`,
     });

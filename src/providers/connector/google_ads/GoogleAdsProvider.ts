@@ -561,7 +561,7 @@ export class GoogleAdsProvider {
     });
   }
 
-  async getMetrics(input: IGoogleAds.IGetMetricInput) {
+  async getMetrics(input: Required<IGoogleAds.IGetMetricInput>) {
     const query = `
     SELECT
       metrics.average_page_views, 

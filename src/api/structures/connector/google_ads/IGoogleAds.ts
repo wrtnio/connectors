@@ -6,19 +6,6 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IGoogleAds {
   export interface IGetMetricInput extends ISecret {
     /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
-    /**
      * @title 통계 조회 날짜
      */
     date: string & tags.Format<"date">;
@@ -76,20 +63,7 @@ export namespace IGoogleAds {
     adGroupAd: Pick<AdGroupAd, "resourceName">;
   }
 
-  export interface IGetAdGroupAdInput extends ISecret {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-  }
+  export type IGetAdGroupAdInput = ISecret;
 
   export type IGetAdGroupAdOutput = Pick<
     AdGroupAd,
@@ -97,19 +71,6 @@ export namespace IGoogleAds {
   >[];
 
   export interface IGetAdGroupAdDetailInput extends ISecret {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
     /**
      * @title 광고 그룹 광고의 리소스 명
      */
@@ -186,19 +147,6 @@ export namespace IGoogleAds {
 
   export interface ISetOnOffInput extends IGoogleAds.ISecret {
     /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
-    /**
      * @title 광고 그룹 광고의 리소스 명
      */
     adGroupAdResourceName: AdGroupAd["resourceName"] &
@@ -222,20 +170,7 @@ export namespace IGoogleAds {
   /**
    * @title 키워드 삭제 조건
    */
-  export interface IDeleteAdGroupCriteriaInput {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
+  export interface IDeleteAdGroupCriteriaInput extends IGoogleAds.ISecret {
     /**
      * @title 삭제할 키워드의 아이디
      */
@@ -341,19 +276,6 @@ export namespace IGoogleAds {
    */
   export interface IGetKeywordsInput extends IGoogleAds.ISecret {
     /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
-    /**
      * @title 광고 그룹 리소스 명
      */
     adGroupResourceName: AdGroup["resourceName"] &
@@ -370,20 +292,8 @@ export namespace IGoogleAds {
   /**
    * @title 키워드 생성 조건
    */
-  export interface ICreateKeywordInput {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
+  export interface ICreateKeywordInput
+    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 생성할 키워드
      */
@@ -414,20 +324,8 @@ export namespace IGoogleAds {
       | tags.Constant<"DISPLAY_STANDARD", { title: "디스플레이 광고" }>; // campaign으로부터 가져오게 한다.
   }
 
-  export interface IGetAdGroupInput {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
+  export interface IGetAdGroupInput
+    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 부모 캠페인의 아이디
      * @description 해당 캠페인의 아이디만 검색하고 싶을 경우
@@ -513,20 +411,8 @@ export namespace IGoogleAds {
   /**
    * @title 광고 그룹 생성 공통
    */
-  export interface ICreateAdGroupCommon {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
+  export interface ICreateAdGroupCommon
+    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 캠페인 리소스 이름
      */
@@ -566,19 +452,6 @@ export namespace IGoogleAds {
     | ICreateAdGroupDisplayAdAtOnceInput;
 
   export interface ICreateAdGroupSearchAdAtOnceInputCommon {
-    /**
-     * @title 고객 아이디
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
     /**
      * @title 캠페인 생성 조건
      */
@@ -655,7 +528,8 @@ export namespace IGoogleAds {
    * @title 검색 광고 생성 조건
    */
   export interface ICreateAdGroupSearchAdInput
-    extends ICreateSearchAdGroupInput,
+    extends Required<Pick<IGoogleAds.ISecret, "customerId">>,
+      ICreateSearchAdGroupInput,
       ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
@@ -681,7 +555,8 @@ export namespace IGoogleAds {
    * @title 디스플레이 광고 생성 조건
    */
   export interface ICreateAdGroupDisplayAdInput
-    extends ICreateDisplayAdGroupInput,
+    extends Required<Pick<IGoogleAds.ISecret, "customerId">>,
+      ICreateDisplayAdGroupInput,
       ICreateKeywordInput {
     /**
      * @title 광고의 대상이 되는 홈페이지
@@ -748,21 +623,12 @@ export namespace IGoogleAds {
    */
   export interface IUpdateCampaignInput
     extends Partial<
-      Pick<ICreateCampaignInput, "campaignName" | "campaignBudget" | "endDate">
-    > {
-    /**
-     * @title 고객 리소스 이름
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
+        Pick<
+          ICreateCampaignInput,
+          "campaignName" | "campaignBudget" | "endDate"
+        >
+      >,
+      IGoogleAds.ISecret {
     /**
      * @title 수정할 캠페인의 리소스 아이디
      */
@@ -816,20 +682,8 @@ export namespace IGoogleAds {
     endDate?: string & tags.Format<"date">;
   }
 
-  export interface ICreateCampaignBudgetInput {
-    /**
-     * @title 고객 아이디
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-
+  export interface ICreateCampaignBudgetInput
+    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title 광고 예산
      * @description 한국 통화 단위로써, 원화 단위
@@ -971,20 +825,7 @@ export namespace IGoogleAds {
   /**
    * @title 캠페인 조회 조건
    */
-  export interface IGetCampaignsInput extends IGoogleAds.ISecret {
-    /**
-     * @title 고객 아이디
-     */
-    customerId: CustomerClient["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
-      }>;
-  }
+  export type IGetCampaignsInput = IGoogleAds.ISecret;
 
   /**
    * @title 클라이언트 초대
@@ -1015,10 +856,34 @@ export namespace IGoogleAds {
     };
   }
 
-  export type ISecret = ICommon.ISecret<
-    "google",
-    ["https://www.googleapis.com/auth/adwords"]
-  >;
+  export interface ISecret
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/adwords"]
+    > {
+    /**
+     * 고객의 리소스 아이디이다.
+     *
+     * `customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.
+     *
+     * `Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,
+     *
+     * 이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.
+     *
+     * 만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다.
+     *
+     * @title 고객 리소스 아이디
+     */
+    customerId: CustomerClient["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "connector/google-ads/get-customers";
+        jmesPath: JMESPath<
+          IGetCustomerOutput,
+          "[].{value:id, label:descriptiveName}"
+        >;
+      }>;
+  }
 
   export interface Customer {
     resourceName: `customers/${number}`;
