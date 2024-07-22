@@ -1,6 +1,9 @@
 import { tags } from "typia";
 
 export namespace IRag {
+  /**
+   * @title RAG 분석을 위해 필요한 정보
+   */
   export interface IAnalyzeInput {
     /**
      * 분석할 파일 경로
@@ -22,6 +25,9 @@ export namespace IRag {
       | tags.Constant<"html", { title: "웹 링크" }>;
   }
 
+  /**
+   * @title RAG 분석 결과물
+   */
   export interface IAnalysisOutput {
     /**
      * rag 생성 결과물에 필요한 chat id.
@@ -31,19 +37,25 @@ export namespace IRag {
     chatId: string;
   }
 
+  /**
+   * @title RAG 분석 상태
+   */
   export interface IStatusOutput {
     /**
      * 분석 상태입니다.
      *
-     * - RUNNING: 색인 중
-     * - COMPLETED: 색인 완료
-     * - FAILED: 색인 실패
+     * - RUNNING: 분석 중
+     * - COMPLETED: 분석 완료
+     * - FAILED: 분석 실패
      *
      * @title 분석 상태.
      */
     status: "RUNNING" | "COMPLETED" | "FAILED";
   }
 
+  /**
+   * @title 이전 발화 내역
+   */
   interface IHistory {
     /**
      * 발화자의 역할입니다.
@@ -60,6 +72,9 @@ export namespace IRag {
     text: string;
   }
 
+  /**
+   * @title RAG를 통한 채팅을 위해 필요한 정보
+   */
   export interface IGenerateInput {
     /**
      * 유저의 발화입니다.
@@ -76,6 +91,9 @@ export namespace IRag {
     histories?: IHistory[];
   }
 
+  /**
+   * @title RAG를 통한 채팅 결과
+   */
   export interface IGenerateOutput {
     /**
      * RAG 기반 생성 요청에 대한 응답입니다.
