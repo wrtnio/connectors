@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.17",
+    "version": "0.1.18",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -25589,13 +25589,6 @@
           },
           "pageToken": {
             "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "connector/google-ads/generateKeywordIdeas/url",
-              "array": "response.keywordIdeas",
-              "label": "elem.text",
-              "value": "elem.text"
-            },
             "title": "다음 페이지 토큰",
             "description": "이전 요청으로부터 받을 수 있는 페이지 토큰을 사용한다."
           },
@@ -25860,13 +25853,6 @@
           },
           "pageToken": {
             "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "connector/google-ads/generateKeywordIdeas/url",
-              "array": "response.keywordIdeas",
-              "label": "elem.text",
-              "value": "elem.text"
-            },
             "title": "다음 페이지 토큰",
             "description": "이전 요청으로부터 받을 수 있는 페이지 토큰을 사용한다."
           }
@@ -25890,13 +25876,6 @@
           },
           "pageToken": {
             "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "connector/google-ads/generateKeywordIdeas/url",
-              "array": "response.keywordIdeas",
-              "label": "elem.text",
-              "value": "elem.text"
-            },
             "title": "다음 페이지 토큰",
             "description": "이전 요청으로부터 받을 수 있는 페이지 토큰을 사용한다."
           }
@@ -25910,7 +25889,7 @@
         "properties": {
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -25969,16 +25948,14 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 아이디"
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -26232,9 +26209,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -26246,9 +26221,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-campaigns",
-                "array": "return response",
-                "label": "return el.campaign.name",
-                "value": "return el.campaign.id"
+                "jmesPath": "[].campaign.{value:name, label:id}"
               }
             },
             "title": "부모 캠페인의 아이디",
@@ -26262,7 +26235,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -26572,16 +26545,14 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -26610,9 +26581,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -26624,7 +26593,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -26731,9 +26700,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -26745,16 +26712,14 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-ads",
-                "array": "return response",
-                "value": "return elem.adGroup.resourceName",
-                "label": "return elem.name ?? '이름 없음'"
+                "jmesPath": "[].{value:resourceName, label:resourceName}"
               }
             },
             "title": "광고 그룹 리소스 명"
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -26770,33 +26735,24 @@
         "title": "키워드 조회 조건"
       },
       "IGoogleAds.IGetKeywordsOutput": {
-        "type": "object",
-        "properties": {
-          "results": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsOutputResult"
-            },
-            "title": "키워드 조회 결과"
-          }
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsOutputResult"
         },
-        "required": [
-          "results"
-        ],
         "title": "키워드 조회 결과"
       },
       "IGoogleAds.IGetKeywordsOutputResult": {
         "type": "object",
         "properties": {
           "adGroupCriterion": {
-            "$ref": "#/components/schemas/PickIGoogleAds.AdGroupCriteriontyperesourceNamestatuscriterionIdkeyword"
+            "$ref": "#/components/schemas/PickAdGroupCriteriontyperesourceNamestatuscriterionIdkeywordKeyword"
           }
         },
         "required": [
           "adGroupCriterion"
         ]
       },
-      "PickIGoogleAds.AdGroupCriteriontyperesourceNamestatuscriterionIdkeyword": {
+      "PickAdGroupCriteriontyperesourceNamestatuscriterionIdkeywordKeyword": {
         "type": "object",
         "properties": {
           "type": {
@@ -26820,6 +26776,30 @@
           "keyword": {
             "$ref": "#/components/schemas/IGoogleAds.Keyword",
             "title": "키워드"
+          },
+          "text": {
+            "type": "string",
+            "title": "키워드 텍스트"
+          },
+          "matchType": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ConstantUNSPECIFIED__type.o4"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantUNKNOWN__type.o4"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantEXACT__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantPHRASE__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantBROAD__type"
+              }
+            ],
+            "title": "키워드 일치 타입"
           }
         },
         "required": [
@@ -26827,9 +26807,10 @@
           "resourceName",
           "status",
           "criterionId",
-          "keyword"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+          "keyword",
+          "text",
+          "matchType"
+        ]
       },
       "IGoogleAds.Keyword": {
         "type": "object",
@@ -26874,9 +26855,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -26888,9 +26867,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-ads",
-                "array": "return response",
-                "value": "return elem.resourceName",
-                "label": "return elem.resourceName"
+                "jmesPath": "[].{value:resourceName, label:resourceName}"
               }
             },
             "title": "광고 그룹 광고의 리소스 명"
@@ -26910,7 +26887,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -26935,9 +26912,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -26951,9 +26926,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "connector/google-ads/get-keywords",
-                  "array": "return response.results",
-                  "value": "return elem.resourceName",
-                  "label": "return elem.text"
+                  "jmesPath": "[].adGroupCriterion.{value:resourceName, label:text}"
                 }
               }
             },
@@ -26976,9 +26949,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-ads",
-                "array": "return response",
-                "value": "return elem.adGroup.resourceName",
-                "label": "return elem.name ?? '이름 없음'"
+                "jmesPath": "[].{value:resourceName, label:resourceName}"
               }
             },
             "title": "키워드를 추가할 광고 그룹의 리소스 네임"
@@ -26990,9 +26961,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -27006,7 +26975,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -27039,9 +27008,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -27053,16 +27020,14 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-ads",
-                "array": "return response",
-                "value": "return elem.resourceName",
-                "label": "return elem.resourceName"
+                "jmesPath": "[].{value:resourceName, label:resourceName}"
               }
             },
             "title": "광고 그룹 광고의 리소스 명"
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -27210,7 +27175,7 @@
         "properties": {
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -27255,9 +27220,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -27269,9 +27232,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-campaigns",
-                "array": "return response",
-                "value": "return elem.campaign.resourceName",
-                "label": "return elem.name ?? '이름 없음'"
+                "jmesPath": "[].campaign.{value:name, label:id}"
               }
             },
             "title": "캠페인 리소스 이름"
@@ -27300,7 +27261,7 @@
         "properties": {
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -27393,9 +27354,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -27407,9 +27366,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-campaigns",
-                "array": "return response",
-                "value": "return elem.campaign.resourceName",
-                "label": "return elem.name ?? '이름 없음'"
+                "jmesPath": "[].campaign.{value:name, label:id}"
               }
             },
             "title": "캠페인 리소스 이름"
@@ -27448,9 +27405,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 리소스 이름"
@@ -27462,9 +27417,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-campaigns",
-                "array": "return response",
-                "label": "return el.campaign.name",
-                "value": "return el.campaign.resourceName"
+                "jmesPath": "[].campaign.{value:name, label:id}"
               }
             },
             "title": "수정할 캠페인의 리소스 아이디"
@@ -27532,9 +27485,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 아이디"
@@ -27546,7 +27497,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -27575,9 +27526,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 아이디"
@@ -27588,7 +27537,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
@@ -27729,9 +27678,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "connector/google-ads/get-customers",
-                "array": "return response",
-                "value": "return elem.id",
-                "label": "return elem.descriptiveName ?? '이름 없음'"
+                "jmesPath": "[].{value:id, label:descriptiveName}"
               }
             },
             "title": "고객 아이디"
@@ -27742,7 +27689,7 @@
           },
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "google-ads",
+            "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/adwords"
             ],
