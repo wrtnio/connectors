@@ -885,6 +885,17 @@ export namespace IGoogleAds {
       }>;
   }
 
+  export interface RESOURCE_EXHAUSTED_ERROR {
+    message: "Too many requests. Retry in 7 seconds.";
+    details: {
+      quotaErrorDetails: {
+        rateScope: string;
+        rateName: string;
+        retryDelay: `${number}s`;
+      };
+    };
+  }
+
   export interface Customer {
     resourceName: `customers/${number}`;
   }

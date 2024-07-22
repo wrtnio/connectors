@@ -1,3 +1,8 @@
+import { AxiosError } from "axios";
+import typia from "typia";
+import { IGoogleAds } from "../api/structures/connector/google_ads/IGoogleAds";
+import { TypedSplit } from "./TypedSplit";
+
 const TIMEOUT = "TIMEOUT" as const;
 
 export function retry<T extends any[], ReturnType>(
@@ -34,6 +39,37 @@ export function retry<T extends any[], ReturnType>(
         attempts++;
         if (attempts >= count) {
           throw error;
+        }
+
+        /**
+         * For Google Ads Connectors
+         */
+        if (error instanceof AxiosError) {
+          if (typia.is<IGoogleAds.GoogleAdsError>(error.response?.data)) {
+            error.response.data.error.details
+              .flatMap((detail) => detail.errors)
+              .find(async (googleError) => {
+                if ("quotaError" in googleError.errorCode) {
+                  const errorType = googleError.errorCode.quotaError;
+                  if (errorType === "RESOURCE_EXHAUSTED") {
+                    if (
+                      typia.is<IGoogleAds.RESOURCE_EXHAUSTED_ERROR>(googleError)
+                    ) {
+                      const delay =
+                        googleError.details.quotaErrorDetails.retryDelay;
+                      const [seconds] = TypedSplit(delay, "s");
+
+                      /**
+                       * Wait for n seconds.
+                       */
+                      await new Promise<void>(async (res) => {
+                        setTimeout(() => res(), Number(seconds) * 1000);
+                      });
+                    }
+                  }
+                }
+              });
+          }
         }
 
         console.log(attempts, JSON.stringify(error));
