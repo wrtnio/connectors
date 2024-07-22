@@ -13,7 +13,7 @@ export const test_api_kakao_talk_send_message = async (
   const sendTextForm =
     await CApi.functional.connector.kakao_talk.message.text.send(connection, {
       secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-      receiver_uuids: ["z_fA9MX9xPfB7d_u2u_b7Nzk0PzK-cr8zP55"],
+      receiver_uuids: ["z_jB88bwyfzQ5tbj1OPR4ND8yvnK_Mz-jg"],
       message: "텍스트 영역입니다. 최대 200자 표시 가능합니다.",
     });
 
