@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { deepStrictEqual } from "assert";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { test_api_connector_google_ads_get_campaigns } from "./test_api_connector_google_ads_get_campaigns";
 
 export const test_api_connector_google_ads_update_campaign = async (
@@ -18,6 +19,7 @@ export const test_api_connector_google_ads_update_campaign = async (
   await CApi.functional.connector.google_ads.campaigns.updateCampaign(
     connection,
     {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       customerId: "8655555186",
       campaignResourceName: "customers/8655555186/campaigns/21445347960",
       campaignBudget: 2,
@@ -40,6 +42,7 @@ export const test_api_connector_google_ads_update_campaign = async (
   await CApi.functional.connector.google_ads.campaigns.updateCampaign(
     connection,
     {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       customerId: "8655555186",
       campaignResourceName: "customers/8655555186/campaigns/21445347960",
       campaignBudget: Number(before?.campaignBudget.amountMicros) / 1000000,

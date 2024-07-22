@@ -99,7 +99,7 @@ export class GoogleAdsController {
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("get-customers")
   async getCustomers(
-    @TypedBody() input: IGoogleAds.ISecret,
+    @TypedBody() input: IGoogleAds.IGetCustomerInput,
   ): Promise<IGoogleAds.IGetCustomerOutput> {
     return retry(() => this.googleAdsProvider.getCustomers(input))();
   }
@@ -542,8 +542,9 @@ export class GoogleAdsController {
       throw new Error("고객 계정이 지정되지 않았습니다.");
     }
 
+    const { secretKey, ...rest } = input;
     return retry(() =>
-      this.googleAdsProvider.updateCampaign({ ...input, customerId }),
+      this.googleAdsProvider.updateCampaign({ ...rest, customerId }),
     )();
   }
 

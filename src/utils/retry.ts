@@ -59,6 +59,7 @@ export function retry<T extends any[], ReturnType>(
                         googleError.details.quotaErrorDetails.retryDelay;
                       const [seconds] = TypedSplit(delay, "s");
 
+                      console.log(`delay ${seconds}s...`);
                       /**
                        * Wait for n seconds.
                        */

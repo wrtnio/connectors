@@ -856,6 +856,8 @@ export namespace IGoogleAds {
     };
   }
 
+  export type IGetCustomerInput = Pick<IGoogleAds.ISecret, "secretKey">;
+
   export interface ISecret
     extends ICommon.ISecret<
       "google",

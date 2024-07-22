@@ -768,7 +768,7 @@ export class GoogleAdsProvider {
    * 해당 토큰의 주인이 우리에게 등록된 customer clients를 가지고 있는지 체크한다.
    */
   async getCustomers(
-    input: IGoogleAds.ISecret,
+    input: IGoogleAds.IGetCustomerInput,
   ): Promise<IGoogleAds.CustomerClient[]> {
     try {
       const customers = await this.listAccessibleCustomers(input);
@@ -801,7 +801,7 @@ export class GoogleAdsProvider {
    * @returns
    */
   private async listAccessibleCustomers(
-    input: IGoogleAds.ISecret,
+    input: IGoogleAds.IGetCustomerInput,
   ): Promise<IGoogleAds.IGetlistAccessibleCustomersOutput> {
     const url = `${this.baseUrl}/customers:listAccessibleCustomers`;
     const developerToken = (await this.getHeaders())["developer-token"];
