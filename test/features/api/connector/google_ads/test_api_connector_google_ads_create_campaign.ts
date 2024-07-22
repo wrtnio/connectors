@@ -177,7 +177,6 @@ export const test_api_connector_google_ads_create_campaign_without_campaign_name
       );
     }
 
-    const testCampaignName = `SEARCH-${new Date().getTime()}`;
     const res =
       await CApi.functional.connector.google_ads.campaigns.createCampaign(
         connection,
@@ -190,7 +189,6 @@ export const test_api_connector_google_ads_create_campaign_without_campaign_name
       );
 
     typia.assert(res);
-    deepStrictEqual(res.campaign.name === testCampaignName, true);
     deepStrictEqual(res.campaignBudget.amountMicros === "1000000", true);
 
     return res;
