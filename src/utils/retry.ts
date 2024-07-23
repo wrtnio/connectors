@@ -41,42 +41,42 @@ export function retry<T extends any[], ReturnType>(
           throw error;
         }
 
-        /**
-         * For Google Ads Connectors
-         */
         if (error instanceof AxiosError) {
           if (typia.is<IGoogleAds.GoogleAdsError>(error.response?.data)) {
-            error.response.data.error.details
-              .flatMap((detail) => detail.errors)
-              .find(async (googleError) => {
-                if ("quotaError" in googleError.errorCode) {
-                  const errorType = googleError.errorCode.quotaError;
-                  if (errorType === "RESOURCE_EXHAUSTED") {
-                    if (
-                      typia.is<IGoogleAds.RESOURCE_EXHAUSTED_ERROR>(googleError)
-                    ) {
-                      const delay =
-                        googleError.details.quotaErrorDetails.retryDelay;
-                      const [seconds] = TypedSplit(delay, "s");
+            const maxDelay = Math.max(
+              ...error.response.data.error.details
+                .flatMap((detail) => detail.errors)
+                .map((googleError) => {
+                  if ("quotaError" in googleError.errorCode) {
+                    const errorType = googleError.errorCode.quotaError;
+                    if (errorType === "RESOURCE_EXHAUSTED") {
+                      if (
+                        typia.is<IGoogleAds.RESOURCE_EXHAUSTED_ERROR>(
+                          googleError,
+                        )
+                      ) {
+                        const delay =
+                          googleError.details.quotaErrorDetails.retryDelay;
+                        const [seconds] = TypedSplit(delay, "s");
 
-                      console.log(`delay ${seconds}s...`);
-                      /**
-                       * Wait for n seconds.
-                       */
-                      await new Promise<void>(async (res) => {
-                        setTimeout(() => res(), Number(seconds) * 1000);
-                      });
+                        console.log(`delay ${seconds}s...`);
+                        return seconds === "0" ? 1 : Number(seconds);
+                      }
                     }
                   }
-                }
-              });
+                  return 0;
+                }),
+            );
+
+            await new Promise<void>((res) => {
+              setTimeout(() => res(), maxDelay * 1000);
+            });
           }
         }
 
         console.log(attempts, JSON.stringify(error));
       }
     }
-
     throw new Error(`${fn.name} failed count: ${count}`);
   };
 }

@@ -30,6 +30,6 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     generateInput,
     chatId,
   );
-  console.log("generateOutput", generateOutput);
+
   typia.assertEquals<IRag.IGenerateOutput>(generateOutput);
 };
