@@ -191,11 +191,10 @@ export class RagProvider {
   }
 
   /**
-   * 위에서 분석된 파일에 대한 채팅 결과물을 생성
+   * 위에서 분석된 결과를 기반으로 요청받은 결과물을 생성
    */
   async generate(
     input: IRag.IGenerateInput,
-    res: Response,
     chatId: string,
   ): Promise<IRag.IGenerateOutput> {
     const requestUrl = `${this.ragServer}/file-chat/v1/chat/stream`;
@@ -243,13 +242,11 @@ export class RagProvider {
       stream.on("end", () => {
         try {
           const result = dataBuffer.trim();
-          res.write(JSON.stringify({ answer: result }));
           resolve({ answer: result });
         } catch (err) {
           this.logger.error("Error creating result:", err);
           reject(err);
         } finally {
-          res.end();
         }
       });
 
@@ -257,7 +254,6 @@ export class RagProvider {
       stream.on("error", (err: any) => {
         this.logger.error(`Stream error: ${err}`);
         reject(err);
-        res.end();
       });
     });
   }

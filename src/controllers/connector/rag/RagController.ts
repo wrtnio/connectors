@@ -45,15 +45,13 @@ export class RagController {
   }
 
   /**
-   * RAG 분석을 기반으로 채팅을 합니다.
+   * RAG 분석을 기반으로 요청받은 결과물을 생성합니다.
    *
-   * @summary RAG 기반 채팅
+   * @summary RAG 기반 결과물 생성
    *
    * @param input
    *
    * @tag RAG
-   *
-   * @internal
    */
   @Post("generate/:chatId")
   async generate(
@@ -61,10 +59,13 @@ export class RagController {
     @Res() res: Response,
     @core.TypedParam("chatId") chatId: string,
   ) {
+    //TODO: interceptor로 빼기
     res.header("Content-Type", "text/event-stream");
     res.header("Cache-Control", "no-cache");
     res.header("Connection", "keep-alive");
     res.header("Access-Control-Allow-Origin", "*");
-    return await this.ragService.generate(input, res, chatId);
+    const { answer } = await this.ragService.generate(input, chatId);
+    res.write(JSON.stringify({ answer }));
+    res.end();
   }
 }
