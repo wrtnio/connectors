@@ -1,10 +1,15 @@
 import {
   GetObjectCommand,
+  HeadObjectCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { randomUUID } from "crypto";
 
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
@@ -105,6 +110,36 @@ export class AwsProvider {
    */
   getFileUrl(key: string) {
     return `https://${this.fileBucket}.s3.amazonaws.com/${key}`;
+  }
+
+  async getFileSize(fileUrl: string): Promise<number> {
+    const matches = fileUrl.match(
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/u,
+    );
+
+    if (!matches) {
+      throw new Error("Invalid S3 URL");
+    }
+
+    const bucket = matches[1];
+    const key = matches[3];
+
+    try {
+      const command = new HeadObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      });
+
+      const { ContentLength } = await this.s3.send(command);
+
+      if (!ContentLength) {
+        throw new InternalServerErrorException();
+      }
+      return ContentLength;
+    } catch (err) {
+      console.error(JSON.stringify(`Failed to get file size: ${err}`));
+      throw err;
+    }
   }
 }
 
