@@ -165,3 +165,31 @@ export const test_api_connector_google_ads_create_campaign_search_type_with_end_
 
     return res;
   };
+
+export const test_api_connector_google_ads_create_campaign_without_campaign_name =
+  async (connection: CApi.IConnection) => {
+    const clients = await test_api_connector_google_ads_get_clients(connection);
+
+    const id = clients.map((el) => el.id).find((el) => el === "8655555186"); // individual account.
+    if (!id) {
+      throw new Error(
+        "클라이언트 목록에서 테스트 용 계정을 찾지 못하였습니다.",
+      );
+    }
+
+    const res =
+      await CApi.functional.connector.google_ads.campaigns.createCampaign(
+        connection,
+        {
+          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+          customerId: id,
+          campaignBudget: 1,
+          advertisingChannelType: "SEARCH",
+        },
+      );
+
+    typia.assert(res);
+    deepStrictEqual(res.campaignBudget.amountMicros === "1000000", true);
+
+    return res;
+  };

@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { deepStrictEqual } from "assert";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { test_api_connector_google_ads_add_keyword } from "./test_api_connector_google_ads_add_keyword";
 import { test_api_connector_google_ads_get_keywords } from "./test_api_connector_google_ads_get_keywords";
 
@@ -12,6 +13,7 @@ export const test_api_connector_google_ads_delete_keywords = async (
   await CApi.functional.connector.google_ads.campaigns.ads.keywords.deleteKeywords(
     connection,
     {
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       customerId: "8655555186",
       resourceNames: keyword,
     },
