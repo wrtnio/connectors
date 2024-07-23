@@ -6,12 +6,12 @@ import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 export const test_api_connector_rag = async (connection: CApi.IConnection) => {
   const analyzeInput: IRag.IAnalyzeInput[] = [
     {
-      fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
-      fileType: "pdf",
+      url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
+      type: "pdf",
     },
     {
-      fileUrl: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-hwp-test.hwp`,
-      fileType: "hwp",
+      url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-hwp-test.hwp`,
+      type: "hwp",
     },
   ];
   const analyzeOutput = await CApi.functional.connector.rag.analyze(
@@ -30,5 +30,6 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     generateInput,
     chatId,
   );
+  console.log("generateOutput", generateOutput);
   typia.assertEquals<IRag.IGenerateOutput>(generateOutput);
 };

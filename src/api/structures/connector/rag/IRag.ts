@@ -2,35 +2,118 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title RAG 분석을 위해 필요한 정보
+   * @title PDF 파일 RAG 분석을 위한 정보
    */
-  export interface IAnalyzeInput {
+  interface IPdfInput {
     /**
      * 분석할 파일 경로
      *
      * @title 파일 경로
      */
-    fileUrl: string & tags.Format<"uri">;
+    url: string & tags.Format<"uri">;
 
     /**
      * 분석할 파일의 확장자입니다.
      *
      * @title 파일 확장자.
      */
-    fileType:
-      | tags.Constant<"pdf", { title: "PDF 파일" }>
-      | tags.Constant<"docx", { title: "DOCX 파일" }>
-      | tags.Constant<"hwp", { title: "HWP 파일" }>
-      | tags.Constant<"txt", { title: "TXT 파일" }>
-      | tags.Constant<"html", { title: "웹 링크" }>;
+    type: tags.Constant<"pdf", { title: "PDF 파일" }>;
   }
+
+  /**
+   * @title DOCX 파일 RAG 분석을 위한 정보
+   */
+  interface IDocxInput {
+    /**
+     * 분석할 파일 경로
+     *
+     * @title 파일 경로
+     */
+    url: string & tags.Format<"uri">;
+
+    /**
+     * 분석할 파일의 확장자입니다.
+     *
+     * @title 파일 확장자.
+     */
+    type: tags.Constant<"docx", { title: "DOCX 파일" }>;
+  }
+
+  /**
+   * @title HWP 파일 RAG 분석을 위한 정보
+   */
+  interface IHwpInput {
+    /**
+     * 분석할 파일 경로
+     *
+     * @title 파일 경로
+     */
+    url: string & tags.Format<"uri">;
+
+    /**
+     * 분석할 파일의 확장자입니다.
+     *
+     * @title 파일 확장자.
+     */
+    type: tags.Constant<"hwp", { title: "HWP 파일" }>;
+  }
+
+  /**
+   * @title TXT 파일 RAG 분석을 위한 정보
+   */
+  interface ITextInput {
+    /**
+     * 분석할 파일 경로
+     *
+     * @title 파일 경로
+     */
+    url: string & tags.Format<"uri">;
+
+    /**
+     * 분석할 파일의 확장자입니다.
+     *
+     * @title 파일 확장자.
+     */
+    type: tags.Constant<"txt", { title: "TXT 파일" }>;
+  }
+
+  /**
+   * @title WEB 링크 RAG 분석을 위한 정보
+   */
+  interface ILinkInput {
+    /**
+     * 분석할 파일 경로
+     *
+     * @title 파일 경로
+     */
+    url: string & tags.Format<"uri">;
+
+    /**
+     * 분석할 파일의 확장자입니다.
+     *
+     * @title 파일 확장자.
+     */
+    type: tags.Constant<"html", { title: "웹 링크" }>;
+  }
+
+  /**
+   * @title RAG 분석을 위해 필요한 정보
+   */
+  export type IAnalyzeInput =
+    | IPdfInput
+    | IDocxInput
+    | IHwpInput
+    | ITextInput
+    | ILinkInput;
 
   /**
    * @title RAG 분석 결과물
    */
   export interface IAnalysisOutput {
     /**
-     * rag 생성 결과물에 필요한 chat id.
+     * RAG 생성 결과물에 필요한 chat id.
+     * RAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.
+     * 여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다.
      *
      * @title chat id.
      */

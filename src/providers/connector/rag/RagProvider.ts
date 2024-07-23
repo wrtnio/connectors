@@ -26,6 +26,9 @@ export class RagProvider {
   private readonly logger = new Logger("RagProvider");
   constructor(private readonly awsProvider: AwsProvider) {}
 
+  /**
+   * s3 url transform to presigned url
+   */
   async transformInput(
     fileUrl: string & tags.Format<"uri">,
   ): Promise<string & tags.Format<"uri">> {
@@ -40,6 +43,13 @@ export class RagProvider {
     return transFormedUrl;
   }
 
+  /**
+   * 파일 업로드 및 분석
+   * 최대 5개의 파일 및 링크 분석 가능
+   * 파일 크기 5MB 이하로 제한
+   * 파일 마다 고유 fileId 생성
+   * 여러 개의 파일을 분석 시키고 해당 분석 결과에 대해서 채팅을 하기 위해서 chatId는 같은 것을 사용
+   */
   async analyze(input: IRag.IAnalyzeInput[]): Promise<IRag.IAnalysisOutput> {
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
     const chatId = v4();
@@ -50,12 +60,15 @@ export class RagProvider {
       );
     }
 
+    /**
+     * 여러 개의 파일 중 하나라도 업로드 및 분석 실패시 실패 처리
+     */
     const uploadPromises = input.map(async (file) => {
-      let url = file.fileUrl;
+      let url = file.url;
 
       // web url일 때 s3 upload 및 파일 크기 제한 X
-      if (file.fileType !== "html") {
-        url = await this.transformInput(file.fileUrl);
+      if (file.type !== "html") {
+        url = await this.transformInput(file.url);
         //파일 크기 5MB 이하로 제한
         const fileSize = await this.awsProvider.getFileSize(url);
         if (fileSize > 5 * 1024 * 1024) {
@@ -66,7 +79,7 @@ export class RagProvider {
       const fileId = v4();
       const requestBody = {
         url: url,
-        file_type: file.fileType,
+        file_type: file.type,
         file_id: fileId,
         chat_id: chatId,
       };
@@ -79,6 +92,10 @@ export class RagProvider {
         });
         const jobId = res.data.job_id;
 
+        /**
+         * 파일 분석 진행
+         * 2초마다 상태 조회
+         */
         await new Promise<void>((resolve, reject) => {
           const intervalId = setInterval(async () => {
             try {
@@ -173,6 +190,9 @@ export class RagProvider {
     return res.data;
   }
 
+  /**
+   * 위에서 분석된 파일에 대한 채팅 결과물을 생성
+   */
   async generate(
     input: IRag.IGenerateInput,
     res: Response,
