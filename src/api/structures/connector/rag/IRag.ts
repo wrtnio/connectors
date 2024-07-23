@@ -10,7 +10,7 @@ export namespace IRag {
      *
      * @title 파일 경로
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"uri"> & tags.ContentMediaType<"application/pdf">;
 
     /**
      * 분석할 파일의 확장자입니다.
@@ -29,7 +29,9 @@ export namespace IRag {
      *
      * @title 파일 경로
      */
-    url: string & tags.Format<"uri">;
+    url: string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"application/vnd.openxmlformats-officedocument.wordprocessingml.document">;
 
     /**
      * 분석할 파일의 확장자입니다.
@@ -48,7 +50,9 @@ export namespace IRag {
      *
      * @title 파일 경로
      */
-    url: string & tags.Format<"uri">;
+    url: string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"application/vnd.hancom.hwp">;
 
     /**
      * 분석할 파일의 확장자입니다.
@@ -67,7 +71,7 @@ export namespace IRag {
      *
      * @title 파일 경로
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">;
 
     /**
      * 분석할 파일의 확장자입니다.
