@@ -1,6 +1,6 @@
 import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
+import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
@@ -85,8 +85,11 @@ export class FigmaController {
    * @param input 프로젝트 조회 조건
    * @returns 프로젝트의 모든 파일
    */
-  @core.TypedRoute.Post("projects/:id/get-files")
-  async getProjectFiles(
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+  )
+  @core.TypedRoute.Post("projects/:id/get-canvas")
+  async getProjectCanvas(
     @Prerequisite({
       neighbor: () => FigmaController.prototype.getProjects,
       jmesPath: "proejcts[].{value:id, label:name}",
@@ -111,6 +114,7 @@ export class FigmaController {
    *
    * @returns 프로젝트 목록
    */
+  @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
   )

@@ -4,11 +4,6 @@ import CApi from "@wrtn/connector-api/lib/index";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-const requestBody = {
-  secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
-  fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
-};
-
 export const test_api_connector_figma_read_file = async (
   connection: CApi.IConnection,
 ) => {
@@ -16,10 +11,10 @@ export const test_api_connector_figma_read_file = async (
    * read file API
    */
   const readFileEvent =
-    await CApi.functional.connector.figma.get_files.readFiles(
-      connection,
-      requestBody,
-    );
+    await CApi.functional.connector.figma.get_files.readFiles(connection, {
+      secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
+    });
 
   typia.assertEquals(readFileEvent);
 };
@@ -34,7 +29,8 @@ export const test_api_connector_figma_read_comment = async (
     await CApi.functional.connector.figma.get_comments.readComments(
       connection,
       {
-        ...requestBody,
+        secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+        fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
         as_md: true,
       },
     );
@@ -51,7 +47,8 @@ export const test_api_connector_figma_add_comment = async (
    */
   const addCommentEvent =
     await CApi.functional.connector.figma.comments.addComment(connection, {
-      ...requestBody,
+      secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
       message: typia.random<string>(),
     });
 
@@ -89,7 +86,7 @@ export const test_api_connector_figma_get_project_files = async (
 
   for await (const project of team.projects) {
     const files =
-      await CApi.functional.connector.figma.projects.get_files.getProjectFiles(
+      await CApi.functional.connector.figma.projects.get_canvas.getProjectCanvas(
         connection,
         project.id,
         {
