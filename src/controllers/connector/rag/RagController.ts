@@ -53,19 +53,12 @@ export class RagController {
    *
    * @tag RAG
    */
-  @Post("generate/:chatId")
-  async generate(
-    @Body() input: IRag.IGenerateInput,
-    @Res() res: Response,
+  @core.TypedRoute.Post("/generate/:chatId")
+  public async generate(
+    @core.TypedBody() input: IRag.IGenerateInput,
     @core.TypedParam("chatId") chatId: string,
-  ) {
-    //TODO: interceptor로 빼기
-    res.header("Content-Type", "text/event-stream");
-    res.header("Cache-Control", "no-cache");
-    res.header("Connection", "keep-alive");
-    res.header("Access-Control-Allow-Origin", "*");
+  ): Promise<IRag.IGenerateOutput> {
     const { answer } = await this.ragService.generate(input, chatId);
-    res.write(JSON.stringify({ answer }));
-    res.end();
+    return { answer };
   }
 }
