@@ -273,4 +273,53 @@ export namespace IFigma {
      */
     name: string;
   }
+
+  export interface IGetProjectFileOutput {
+    /**
+     * @title 프로젝트 이름
+     */
+    name: Project["name"];
+
+    /**
+     * 프로젝트에서 관리하고 있는 캔버스의 목록입니다.
+     *
+     * @title 캔버스 목록
+     */
+    files: File[];
+  }
+
+  export interface File {
+    /**
+     * 파일을 고유하게 식별할 수 있는 키입니다.
+     * 여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.
+     * 피그마에서는 캔버스를 포함한, 캔버스의 자식 컴포넌트 요소 모두 다 파일이라고 부르기 때문에 용어의 혼동에 주의해야 합니다.
+     *
+     * @title 캔버스 키
+     */
+    key: string;
+
+    /**
+     * 파일을 식별할 수 있도록 사용자가 붙여 놓은 이름을 의미합니다.
+     * 여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.
+     * 피그마에서는 캔버스를 포함한, 캔버스의 자식 컴포넌트 요소 모두 다 파일이라고 부르기 때문에 용어의 혼동에 주의해야 합니다.
+     *
+     * @title 캔버스 이름
+     */
+    name: string;
+
+    /**
+     * 섬네일 이미지로, 이 캔버스의 메인이 되는 화면을 스크린샷처럼 제공합니다.
+     * 하지만, 이 섬네일을 링크로 저장해서 사용하려는 경우에는 이 이미지가 일정 시간동안만 제공되는 점에 주의해야 합니다.
+     *
+     * @title 섬네일
+     */
+    thumbnail_url: string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"image/*">;
+
+    /**
+     * @title 마지막 수정 시간
+     */
+    last_modified: string & tags.Format<"date-time">;
+  }
 }

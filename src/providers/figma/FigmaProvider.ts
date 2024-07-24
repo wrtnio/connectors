@@ -73,16 +73,34 @@ export class FigmaProvider {
         },
       );
       return res.data;
-    } catch (err) {
-      console.log("err", err);
-      throw err;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async getProjectFiles(projectId: string, input: IFigma.Secret) {
+    try {
+      const url = `https://api.figma.com/v1/projects/${projectId}/files`;
+      const accessToken = await this.refresh(input.secretKey);
+
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      return res.data;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
     }
   }
 
   async getProjects(
     input: IFigma.IGetProjectInput,
   ): Promise<IFigma.IGetProejctOutput> {
-    const url = `https://api.figma.com/v1/teams/${input.teamId}/projects`;
+    const url = `https://api.figma.com/v1/teams/${input.teamId}/projects?branch_data=true`;
     const accessToken = await this.refresh(input.secretKey);
 
     const res = await axios.get(url, {

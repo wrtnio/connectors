@@ -70,14 +70,33 @@ export const test_api_connector_figma_add_comment = async (
 export const test_api_connector_figma_get_projects = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * add comment API
-   */
-  const projects =
-    await CApi.functional.connector.figma.get_projects.getProjects(connection, {
+  const team = await CApi.functional.connector.figma.get_projects.getProjects(
+    connection,
+    {
       secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
       teamId: "1379663189749043465",
-    });
+    },
+  );
 
-  typia.assertEquals(projects);
+  typia.assertEquals(team);
+  return team;
+};
+
+export const test_api_connector_figma_get_project_files = async (
+  connection: CApi.IConnection,
+) => {
+  const team = await test_api_connector_figma_get_projects(connection);
+
+  for await (const project of team.projects) {
+    const files =
+      await CApi.functional.connector.figma.projects.get_files.getProjectFiles(
+        connection,
+        project.id,
+        {
+          secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+        },
+      );
+
+    typia.assert(files);
+  }
 };

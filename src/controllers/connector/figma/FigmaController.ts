@@ -1,6 +1,6 @@
-import core from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtnio/decorators";
+import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
 
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
@@ -72,6 +72,27 @@ export class FigmaController {
     @core.TypedBody() input: IFigma.IReadCommentInput,
   ): Promise<IFigma.IReadCommentOutput> {
     return retry(() => this.figmaProvider.getComments(input))();
+  }
+
+  /**
+   * 특정 프로젝트의 모든 파일을 가져옵니다.
+   *
+   * @param projectId 조회할 프로젝트의 아이디
+   * @param input 프로젝트 조회 조건
+   * @returns 프로젝트의 모든 파일
+   */
+  @core.TypedRoute.Post("projects/:id/get-files")
+  async getProjectFiles(
+    @Prerequisite({
+      neighbor: () => 1,
+      jmesPath: "",
+    })
+    @TypedParam("id")
+    projectId: string,
+    @TypedBody()
+    input: IFigma.Secret,
+  ) {
+    return retry(() => this.figmaProvider.getProjectFiles(projectId, input))();
   }
 
   /**
