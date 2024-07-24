@@ -75,6 +75,11 @@ export namespace IGoogleHotel {
       | tags.Constant<"8", { title: "평점 4.0 이상" }>
       | tags.Constant<"9", { title: "평점 4.5 이상" }>;
 
+    /**
+     * 숙소 유형을 선택해주세요.
+     *
+     * @title 숙소 유형
+     */
     type?: Array<
       string &
         (
