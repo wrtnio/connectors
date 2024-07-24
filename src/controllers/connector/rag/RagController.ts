@@ -53,7 +53,7 @@ export class RagController {
    *
    * @tag RAG
    */
-  @core.TypedRoute.Post("generate/:chatId")
+  @core.TypedRoute.Post("/generate/:chatId")
   public async generate(
     @core.TypedBody() input: IRag.IGenerateInput,
     @core.TypedParam("chatId") chatId: string,
