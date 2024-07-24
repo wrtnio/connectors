@@ -1,4 +1,4 @@
-import type { JMESPath, Prerequisite } from "@wrtnio/decorators";
+import type { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
@@ -277,8 +277,12 @@ export namespace IGoogleAds {
   export type AdGroupCriterion = {
     /**
      * @title 광고 그룹 표준 리소스 이름
+     *
+     * `customers/${number}/adGroupCriteria/number~${number}` 형식
      */
-    resourceName: `customers/${CustomerClient["id"]}/adGroupCriteria/${AdGroup["id"]}~${AdGroupCriterion["criterionId"]}`;
+    resourceName: string &
+      tags.Pattern<"(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"customers/1/adGroupCriteria/1">;
 
     /**
      * @title 타입
@@ -331,10 +335,10 @@ export namespace IGoogleAds {
     adGroupResourceName: AdGroup["resourceName"] &
       Prerequisite<{
         method: "post";
-        path: "connector/google-ads/get-ads";
+        path: "connector/google-ads/get-ad-groups";
         jmesPath: JMESPath<
-          IGetAdGroupAdOutput,
-          "[].{value:resourceName, label:resourceName}"
+          IGetAdGroupOutput,
+          "[].adGroup.{value:resourceName, label:resourceName}"
         >;
       }>;
   }
@@ -357,9 +361,13 @@ export namespace IGoogleAds {
     id: `${number}`;
 
     /**
+     * `customers/${number}/adGroups/${number}` 형식
+     *
      * @title 광고 그룹 리소스 명
      */
-    resourceName: `customers/${number}/adGroups/${number}`;
+    resourceName: string &
+      tags.Pattern<"(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"customers/1/adGroups/1">;
 
     /**
      * @title 광고 그룹 이름
@@ -410,9 +418,13 @@ export namespace IGoogleAds {
 
   export interface AdGroupAd {
     /**
+     * `customers/${number}/adGroupAds/${number}~${number}` 형식
+     *
      * @title 광고 그룹 광고의 리소스 명
      */
-    resourceName: `customers/${number}/adGroupAds/${number}~${number}`;
+    resourceName: string &
+      tags.Pattern<"(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"customers/1/adGroupAds/1~1">;
 
     /**
      * @title 광고 심사 및 정책에 대한 평가 내역
@@ -764,7 +776,9 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 리소스 명
      */
-    resourceName: `customers/${number}/campaigns/${number}`;
+    resourceName: string &
+      tags.Pattern<"(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"customers/1/campaigns/1">;
 
     /**
      * @title 캠페인 상태
@@ -798,7 +812,9 @@ export namespace IGoogleAds {
     /**
      * @title 캠페인 아이디
      */
-    id: `${number}`;
+    id: string &
+      tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"1">;
 
     /**
      * @title 캠페인 시작 일자
@@ -936,15 +952,12 @@ export namespace IGoogleAds {
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
-        jmesPath: JMESPath<
-          IGetCustomerOutput,
-          "[].{value:id, label:descriptiveName}"
-        >;
+        jmesPath: JMESPath<IGetCustomerOutput, "[].{value:id, label:id}">;
       }>;
   }
 
   export interface RESOURCE_EXHAUSTED_ERROR {
-    message: "Too many requests. Retry in 7 seconds.";
+    message: string;
     details: {
       quotaErrorDetails: {
         rateScope: string;
@@ -955,7 +968,8 @@ export namespace IGoogleAds {
   }
 
   export interface Customer {
-    id: `${number}`;
+    id: string;
+
     resourceName: `customers/${number}`;
   }
 
@@ -964,7 +978,9 @@ export namespace IGoogleAds {
      * @title 고객 아이디
      * @description 고객마다 고유한 값을 가지고 있다.
      */
-    id: `${number}`;
+    id: string &
+      tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"1">;
 
     /**
      * @title 고객 리소스 명

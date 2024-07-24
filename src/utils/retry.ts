@@ -68,9 +68,7 @@ export function retry<T extends any[], ReturnType>(
                 }),
             );
 
-            await new Promise<void>((res) => {
-              setTimeout(() => res(), maxDelay * 1000);
-            });
+            await new Promise<void>((res) => setTimeout(res, maxDelay * 1000));
           }
         }
 
