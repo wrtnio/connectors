@@ -16,13 +16,17 @@ export namespace IKakaoNavi {
      * @title 출발지
      * @description X좌표,Y좌표 형식의 경도, 위도 값
      */
-    origin: `${number},${number}` & Placeholder<"127.111202,37.394912">;
+    origin: string &
+      tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"127.111202,37.394912">;
 
     /**
      * @title 목적지
      * @description X좌표,Y좌표 형식의 경도, 위도 값
      */
-    destination: `${number},${number}` & Placeholder<"127.111202,37.394912">;
+    destination: string &
+      tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
+      Placeholder<"127.111202,37.394912">;
   }
 
   /**

@@ -30,7 +30,7 @@ export class GoogleAdsProvider {
       Required<Pick<IGoogleAds.ISecret, "customerId">>,
   ): Promise<IGoogleAds.Customer["id"]> {
     const customers = await this.getCustomers(input);
-    let customerId = input.customerId ?? null;
+    let customerId: string = input.customerId ?? null;
     if (input.customerId) {
       if (!customers.map((el) => el.id).includes(input.customerId)) {
         throw new Error(
@@ -143,7 +143,9 @@ export class GoogleAdsProvider {
   }
 
   async createAdGroup(
-    input: IGoogleAds.ICreateAdGroupInput,
+    input: Omit<IGoogleAds.ICreateAdGroupInput, "campaignResourceName"> & {
+      campaignResourceName: string;
+    },
   ): Promise<IGoogleAds.AdGroup["resourceName"]> {
     try {
       const url = `${this.baseUrl}/customers/${input.customerId}/adGroups:mutate`;
@@ -242,7 +244,12 @@ export class GoogleAdsProvider {
   }
 
   async createAd(
-    input: IGoogleAds.ICreateAdGroupAdInputCommon,
+    input: Omit<
+      IGoogleAds.ICreateAdGroupAdInputCommon,
+      "campaignResourceName"
+    > & {
+      campaignResourceName: string;
+    },
   ): Promise<IGoogleAds.IGetAdGroupsOutputResult> {
     try {
       const adGroupResourceName = await this.createAdGroup(input);
@@ -252,7 +259,7 @@ export class GoogleAdsProvider {
         await this.createAdGroupCriteria(adGroupResourceName, input); // Google Ads Keywords 생성
       }
 
-      if (typia.is<IGoogleAds.ICreateAdGroupSearchAdInput>(input)) {
+      if (input.type === "SEARCH_STANDARD") {
         await axios.post(
           url,
           {
@@ -275,6 +282,8 @@ export class GoogleAdsProvider {
           },
         );
       } else {
+        const asserted =
+          typia.assert<IGoogleAds.ICreateAdGroupDisplayAdInput>(input);
         /**
          * DISPLAY_STANDARD
          */
@@ -285,31 +294,35 @@ export class GoogleAdsProvider {
               create: {
                 status: "PAUSED",
                 ad: {
-                  final_urls: [input.finalUrl],
+                  final_urls: [asserted.finalUrl],
                   responsive_display_ad: {
-                    headlines: input.headlines.map((text) => ({ text })),
-                    long_headline: { text: input.longHeadline },
-                    descriptions: input.descriptions.map((text) => ({ text })),
+                    headlines: asserted.headlines.map((text) => ({ text })),
+                    long_headline: { text: asserted.longHeadline },
+                    descriptions: asserted.descriptions.map((text) => ({
+                      text,
+                    })),
                     marketing_images: await this.createAssets({
-                      cusotmerId: input.customerId,
+                      cusotmerId: asserted.customerId,
                       images: await Promise.all(
-                        input.landscapeImages.map((el) =>
+                        asserted.landscapeImages.map((el) =>
                           this.cropImage(el, 1.91),
                         ),
                       ),
                     }),
                     square_marketing_images: await this.createAssets({
-                      cusotmerId: input.customerId,
+                      cusotmerId: asserted.customerId,
                       images: await Promise.all(
-                        input.squareImages.map((el) => this.cropImage(el, 1)),
+                        asserted.squareImages.map((el) =>
+                          this.cropImage(el, 1),
+                        ),
                       ),
                     }),
-                    business_name: input.businessName,
+                    business_name: asserted.businessName,
                     youtube_videos: [],
                     square_logo_images: await this.createAssets({
-                      cusotmerId: input.customerId,
+                      cusotmerId: asserted.customerId,
                       images: await Promise.all(
-                        input.logoImages.map((el) => this.cropImage(el, 1)),
+                        asserted.logoImages.map((el) => this.cropImage(el, 1)),
                       ),
                     }),
                   },
@@ -570,9 +583,10 @@ export class GoogleAdsProvider {
     }
   }
 
-  async getKeywords(
-    input: Omit<IGoogleAds.IGetKeywordsInput, "secretKey">,
-  ): Promise<IGoogleAds.IGetKeywordsOutput> {
+  async getKeywords(input: {
+    customerId: string;
+    adGroupResourceName: string;
+  }): Promise<IGoogleAds.IGetKeywordsOutput> {
     const query = `
     SELECT
       ad_group_criterion.criterion_id,
@@ -619,7 +633,7 @@ export class GoogleAdsProvider {
   }
 
   async getAdGroupAds(input: {
-    customerId: `${number}`;
+    customerId: string;
     adGroupResourceName?: string;
   }): Promise<IGoogleAds.IGetAdGroupAdOutput> {
     const query = `
@@ -921,7 +935,7 @@ export class GoogleAdsProvider {
   }
 
   private async searchStream<T extends string>(
-    customerId: `${number}`,
+    customerId: string,
     query: T,
   ): Promise<{ results: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
     try {
