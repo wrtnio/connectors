@@ -79,6 +79,21 @@ export class FigmaProvider {
     }
   }
 
+  async getProjects(
+    input: IFigma.IGetProjectInput,
+  ): Promise<IFigma.IGetProejctOutput> {
+    const url = `https://api.figma.com/v1/teams/${input.teamId}/projects`;
+    const accessToken = await this.refresh(input.secretKey);
+
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return res.data;
+  }
+
   private async refresh(refreshToken: string): Promise<string> {
     const url = `https://www.figma.com/api/oauth/refresh`;
     const res = await axios.post(

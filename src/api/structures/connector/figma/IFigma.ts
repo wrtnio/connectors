@@ -233,4 +233,44 @@ export namespace IFigma {
    * 읽어온 피그마 댓글의 정보에 해당하는 DTO.
    */
   export type IReadCommentOutput = GetCommentsResponse;
+
+  /**
+   * @title 프로젝트 조회 조건
+   */
+  export interface IGetProjectInput extends IFigma.Secret {
+    /**
+     * @title 팀 아이디
+     *
+     * `https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.
+     *
+     * 팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다.
+     */
+    teamId: string;
+  }
+
+  export interface IGetProejctOutput {
+    /**
+     * @title 팀 이름
+     */
+    name: string;
+
+    /**
+     * @title 프로젝트 목록
+     *
+     * 팀에 속해있는 프로젝트들의 목록을 의미합니다.
+     */
+    projects: Array<Project>;
+  }
+
+  export interface Project {
+    /**
+     * @title 프로젝트 아이디
+     */
+    id: string;
+
+    /**
+     * @title 프로젝트 이름
+     */
+    name: string;
+  }
 }
