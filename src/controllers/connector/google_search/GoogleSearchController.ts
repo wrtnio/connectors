@@ -42,9 +42,9 @@ export class GoogleSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post("wanted")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/wanted.svg",
+  )
   async searchForWanted(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -62,9 +62,9 @@ export class GoogleSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post("incruit")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Incruit.svg",
+  )
   async searchForIncruit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -82,9 +82,9 @@ export class GoogleSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post("saramin")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/saramin.svg",
+  )
   async searchForSaramin(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -102,9 +102,9 @@ export class GoogleSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post("jumpit")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/jumpit.svg",
+  )
   async searchForJumpit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -122,9 +122,9 @@ export class GoogleSearchController {
    */
   @Standalone()
   @core.TypedRoute.Post("careerly")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/careerly.svg",
+  )
   async searchForCareerly(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
