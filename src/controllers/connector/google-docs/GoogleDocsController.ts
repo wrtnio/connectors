@@ -240,9 +240,7 @@ export class GoogleDocsController {
      */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
-      array: (response) => response.data,
-      value: (elem) => elem?.id,
-      label: (elem) => elem?.title ?? "",
+      jmesPath: "[].{value: id, label: title || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -403,9 +401,7 @@ export class GoogleDocsController {
      */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
-      array: (response) => response.data,
-      value: (elem) => elem?.id,
-      label: (elem) => elem?.title ?? "",
+      jmesPath: "[].{value: id, label: title || ''}",
     })
     @core.TypedParam("id")
     id: string,

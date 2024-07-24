@@ -244,9 +244,7 @@ export class NotionController {
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.readPageList,
-      array: (response): INotion.IReadPageOutput[] => response,
-      value: (elem) => elem.pageId,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value:pageId, label:title || ''}",
     })
     @core.TypedParam("pageId")
     pageId: string,
@@ -374,9 +372,7 @@ export class NotionController {
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      array: (response): INotion.IDatabaseInfo[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value:id, label:title || ''}",
     })
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -447,9 +443,7 @@ export class NotionController {
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      array: (response): INotion.IDatabaseInfo[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value:id, label:title || ''}",
     })
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -520,9 +514,7 @@ export class NotionController {
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      array: (response): INotion.IDatabaseInfo[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value:id, label:title || ''}",
     })
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -651,9 +643,7 @@ export class NotionController {
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      array: (response): INotion.IDatabaseInfo[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value:id, label:title || ''}",
     })
     @core.TypedParam("databaseId")
     databaseId: string,
@@ -726,9 +716,7 @@ export class NotionController {
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      array: (response): INotion.IDatabaseInfo[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value:id, label:title || ''}",
     })
     @core.TypedParam("databaseId")
     databaseId: string,

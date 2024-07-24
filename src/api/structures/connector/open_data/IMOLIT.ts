@@ -1,4 +1,4 @@
-import { Placeholder, Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { StrictOmit } from "../../../../utils/strictOmit";
@@ -12,14 +12,15 @@ export namespace IMOLIT {
     /**
      * @title 시군구 코드
      */
-    LAWD_CD: Prerequisite<{
-      method: "post";
-      path: "/connector/open-data/getStandardRegionCodeList";
-      array: "return response.rows";
-      value: "return elem.sigunguCd";
-      label: "return elem.sigunguNm";
-    }> &
-      string;
+    LAWD_CD: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/open-data/getStandardRegionCodeList";
+        jmesPath: JMESPath<
+          IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput,
+          "rows[].{value:sigunguCd, label:sigunguNm}"
+        >;
+      }>;
 
     /**
      * @title 실거래 자료의 계약년월(6자리)
@@ -56,26 +57,27 @@ export namespace IMOLIT {
     /**
      * @title 시군구 코드
      */
-    sigunguCd: Prerequisite<{
-      method: "post";
-      path: "/connector/open-data/getStandardRegionCodeList";
-      array: "return response.rows";
-      value: "return elem.sigunguCd";
-      label: "return elem.sigunguNm";
-    }> &
-      string;
-
+    sigunguCd: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/open-data/getStandardRegionCodeList";
+        jmesPath: JMESPath<
+          IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput,
+          "rows[].{value:sigunguCd, label:sigunguNm}"
+        >;
+      }>;
     /**
      * @title 법정동 코드
      */
-    bjdongCd: Prerequisite<{
-      method: "post";
-      path: "/connector/open-data/getStandardRegionCodeList";
-      array: "return response.rows";
-      value: "return elem.sigunguCd";
-      label: "return elem.locatadd_nm";
-    }> &
-      string;
+    bjdongCd: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/open-data/getStandardRegionCodeList";
+        jmesPath: JMESPath<
+          IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput,
+          "rows[].{value:sigunguCd, label:sigunguNm}"
+        >;
+      }>;
   }
 
   /**

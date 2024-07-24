@@ -249,9 +249,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -345,9 +343,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -438,9 +434,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -533,9 +527,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -630,9 +622,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -642,10 +632,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
-      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
-        response.events,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value: id, label: title || ''}",
     })
     @core.TypedParam("eventId")
     eventId: string,
@@ -740,9 +727,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -753,10 +738,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
-      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
-        response.events,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value: id, label: title || ''}",
     })
     @core.TypedParam("eventId")
     eventId: string,
@@ -851,9 +833,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
-      array: (response): IGoogleCalendar.IGoogleCalendarOutput[] => response,
-      value: (elem) => elem.id,
-      label: (elem) => elem.summary ?? "",
+      jmesPath: "[].{value:id, label:summary || ''}",
     })
     @core.TypedParam("calendarId")
     calendarId: string,
@@ -863,10 +843,7 @@ export class GoogleCalendarController {
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
-      array: (response): IGoogleCalendar.IGoogleCalendarEvent[] =>
-        response.events,
-      value: (elem) => elem.id,
-      label: (elem) => elem.title ?? "",
+      jmesPath: "[].{value: id, label: title || ''}",
     })
     @core.TypedParam("eventId")
     eventId: string,

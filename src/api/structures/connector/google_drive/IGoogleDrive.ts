@@ -1,4 +1,4 @@
-import { Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -77,9 +77,10 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/folders";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.name";
+        jmesPath: JMESPath<
+          IFolderListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
       }>;
   }
 
@@ -159,9 +160,10 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/folders";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.name";
+        jmesPath: JMESPath<
+          IFolderListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
       }>)[] &
       tags.MinItems<1>;
 
@@ -228,9 +230,10 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/files";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.name";
+        jmesPath: JMESPath<
+          IFileListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
       }>;
 
     /**
@@ -242,9 +245,10 @@ export namespace IGoogleDrive {
       Prerequisite<{
         method: "post";
         path: "/connector/google-drive/get/folders";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.name";
+        jmesPath: JMESPath<
+          IFolderListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
       }>;
 
     /**

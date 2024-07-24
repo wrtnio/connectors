@@ -226,9 +226,7 @@ export class GmailController {
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
-      value: (elem) => elem.id,
-      label: (elem) => elem.subject ?? "",
+      jmesPath: "data[].{value: id, label: subject || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -312,9 +310,7 @@ export class GmailController {
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
-      value: (elem) => elem.id,
-      label: (elem) => elem.subject ?? "",
+      jmesPath: "data[].{value: id, label: subject || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -470,9 +466,7 @@ export class GmailController {
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
-      value: (elem) => elem.id,
-      label: (elem) => elem.subject ?? "",
+      jmesPath: "data[].{value: id, label: subject || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -630,9 +624,7 @@ export class GmailController {
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
-      value: (elem) => elem.id,
-      label: (elem) => elem.subject ?? "",
+      jmesPath: "data[].{value: id, label: subject || ''}",
     })
     @core.TypedParam("mailId")
     mailId: string,
@@ -715,9 +707,7 @@ export class GmailController {
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
-      array: (response): IGmail.IFindGmailOutput[] => response.data,
-      value: (elem) => elem.id,
-      label: (elem) => elem.subject ?? "",
+      jmesPath: "data[].{value: id, label: subject || ''}",
     })
     @core.TypedParam("mailId")
     mailId: string,

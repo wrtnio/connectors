@@ -25,7 +25,8 @@ export namespace KakaoTalkProvider {
           Authorization: `bearer ${accessToken.access_token}`,
         },
       });
-      return res.data;
+
+      return { ...res.data, elements: res.data.elements ?? [] }; // elements는 비어 있을 때 빈 Array로 나오지 않고 undefined로 나온다.
     } catch (err) {
       console.log("err", err);
       throw err;
