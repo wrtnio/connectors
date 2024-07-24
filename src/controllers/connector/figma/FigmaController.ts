@@ -98,8 +98,30 @@ export class FigmaController {
     projectId: string,
     @TypedBody()
     input: IFigma.Secret,
-  ) {
-    return retry(() => this.figmaProvider.getProjectFiles(projectId, input))();
+  ): Promise<IFigma.IGetProjectFileOutput> {
+    return retry(() => this.figmaProvider.getProjectCanvas(projectId, input))();
+  }
+
+  /**
+   * 팀 단위의 통계를 조회합니다.
+   *
+   * @summary 팀 단위 피그마 통계 조회
+   * @param input 팀 단위 통계 조회 조건
+   * @tag figma
+   *
+   * @returns 팀의 통계 조회 결과
+   */
+  @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+  )
+  @core.TypedRoute.Post("get-statistics")
+  async getStatistics(
+    @TypedBody()
+    input: IFigma.IGetProjectStatisticsInput,
+  ): Promise<IFigma.IGetStatisticsOutput[]> {
+    const team = await this.figmaProvider.getProjects(input);
+    return this.figmaProvider.getStatistics(input, team);
   }
 
   /**

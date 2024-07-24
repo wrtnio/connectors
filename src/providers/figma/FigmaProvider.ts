@@ -79,7 +79,10 @@ export class FigmaProvider {
     }
   }
 
-  async getProjectFiles(projectId: string, input: IFigma.Secret) {
+  async getProjectCanvas(
+    projectId: string,
+    input: IFigma.Secret,
+  ): Promise<IFigma.IGetProjectFileOutput> {
     try {
       const url = `https://api.figma.com/v1/projects/${projectId}/files`;
       const accessToken = await this.refresh(input.secretKey);
@@ -91,6 +94,51 @@ export class FigmaProvider {
       });
 
       return res.data;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async getStatistics(
+    input: IFigma.IGetProjectStatisticsInput,
+    team: IFigma.IGetProejctOutput,
+  ): Promise<IFigma.IGetStatisticsOutput[]> {
+    try {
+      return await Promise.all(
+        team.projects.map(async (project) => {
+          const projectDetail = await this.getProjectCanvas(project.id, input);
+
+          const canvasList = await Promise.all(
+            projectDetail.files.map(async (canvas) => {
+              const canvasDetail = await this.getComments({
+                secretKey: input.secretKey,
+                fileKey: canvas.key,
+                as_md: input.as_md,
+              });
+
+              const comments = canvasDetail.comments;
+              const users = comments.map((el) => el.user.handle);
+
+              const statistics = {
+                users: Array.from(new Set(users)),
+                counts: users.reduce<Record<string, number>>((acc, cur) => {
+                  if (!acc[cur]) {
+                    acc[cur] = 1;
+                  } else {
+                    acc[cur] += 1;
+                  }
+
+                  return acc;
+                }, {}),
+              };
+              return { ...canvas, comments, statistics };
+            }),
+          );
+
+          return { ...project, canvasList };
+        }),
+      );
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

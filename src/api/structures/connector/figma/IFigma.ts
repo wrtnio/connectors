@@ -5,6 +5,7 @@ import {
   GetCommentsResponse,
   PostCommentRequestBody,
   PostCommentResponse,
+  Comment,
   Style,
 } from "@figma/rest-api-spec";
 import { tags } from "typia";
@@ -248,6 +249,11 @@ export namespace IFigma {
     teamId: string;
   }
 
+  export interface IGetProjectStatisticsInput
+    extends IFigma.Secret,
+      Pick<IFigma.IReadCommentInput, "as_md">,
+      IFigma.IGetProjectInput {}
+
   export interface IGetProejctOutput {
     /**
      * @title 팀 이름
@@ -285,10 +291,10 @@ export namespace IFigma {
      *
      * @title 캔버스 목록
      */
-    files: File[];
+    files: Canvas[];
   }
 
-  export interface File {
+  export interface Canvas {
     /**
      * 파일을 고유하게 식별할 수 있는 키입니다.
      * 여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.
@@ -321,5 +327,34 @@ export namespace IFigma {
      * @title 마지막 수정 시간
      */
     last_modified: string & tags.Format<"date-time">;
+  }
+
+  export interface CanvasStatistics extends Canvas {
+    /**
+     * @title 캔버스 내 댓글 목록
+     */
+    comments: Comment[];
+
+    /**
+     * @title 캔버스 내 댓글에 대한 통계
+     */
+    statistics: {
+      /**
+       * @title 토론에 참여한 사람 명단
+       */
+      users: string[];
+
+      /**
+       * @title 각 사람 별 댓글 수
+       */
+      counts: Record<string, number>;
+    };
+  }
+
+  export interface IGetStatisticsOutput extends Pick<Project, "id" | "name"> {
+    /**
+     * @title 프로젝트 내 캔버스 별 통계
+     */
+    canvasList: CanvasStatistics[];
   }
 }

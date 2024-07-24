@@ -97,3 +97,20 @@ export const test_api_connector_figma_get_project_files = async (
     typia.assert(files);
   }
 };
+
+export const test_api_connector_get_statistics = async (
+  connection: CApi.IConnection,
+) => {
+  const res =
+    await CApi.functional.connector.figma.get_statistics.getStatistics(
+      connection,
+      {
+        as_md: true,
+        teamId: "1379663189749043465",
+        secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      },
+    );
+
+  console.log(JSON.stringify(res, null, 2));
+  typia.assert(res);
+};
