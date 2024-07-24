@@ -75,8 +75,12 @@ export class FigmaController {
   }
 
   /**
-   * 특정 프로젝트의 모든 파일을 가져옵니다.
+   * 특정 프로젝트의 모든 캔버스를 가져옵니다.
+   * 캔버스는 특정 팀에서 관리하고 있는 피그마 파일들을 의미합니다.
+   * 이 커넥터를 통해 사용자는 자신의 피그마 팀 내에 어떤 캔버스들이 관리되고 있는지 캔버스의 이름과 섬네일 링크를 받아 볼 수 있습니다.
    *
+   * @summary 팀 내 캔버스 조회
+   * @tag figma
    * @param projectId 조회할 프로젝트의 아이디
    * @param input 프로젝트 조회 조건
    * @returns 프로젝트의 모든 파일
@@ -84,8 +88,8 @@ export class FigmaController {
   @core.TypedRoute.Post("projects/:id/get-files")
   async getProjectFiles(
     @Prerequisite({
-      neighbor: () => 1,
-      jmesPath: "",
+      neighbor: () => FigmaController.prototype.getProjects,
+      jmesPath: "proejcts[].{value:id, label:name}",
     })
     @TypedParam("id")
     projectId: string,
