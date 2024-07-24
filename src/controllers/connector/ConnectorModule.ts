@@ -45,6 +45,7 @@ import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -94,6 +95,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     GoogleScholarModule,
     CsvModule,
     NotionModule,
+    GoogleHotelModule,
   ],
   controllers: [TypeformController],
 })
