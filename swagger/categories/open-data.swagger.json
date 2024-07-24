@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "공공데이터",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -429,9 +429,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/open-data/getStandardRegionCodeList",
-              "array": "return response.rows",
-              "value": "return elem.sigunguCd",
-              "label": "return elem.sigunguNm"
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
             "title": "시군구 코드"
           },
@@ -1377,9 +1375,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/open-data/getStandardRegionCodeList",
-              "array": "return response.rows",
-              "value": "return elem.sigunguCd",
-              "label": "return elem.sigunguNm"
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
             "title": "시군구 코드"
           },
@@ -1388,9 +1384,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/open-data/getStandardRegionCodeList",
-              "array": "return response.rows",
-              "value": "return elem.sigunguCd",
-              "label": "return elem.locatadd_nm"
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
             "title": "법정동 코드"
           },

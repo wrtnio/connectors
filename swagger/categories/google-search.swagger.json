@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "구글 검색",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -91,6 +91,7 @@
         },
         "summary": "원티드 채용 공고 검색",
         "description": "원티드에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/wanted.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -126,6 +127,7 @@
         },
         "summary": "인크루트 채용 공고 검색",
         "description": "인크루트에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Incruit.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -161,6 +163,7 @@
         },
         "summary": "사람인 채용 공고 검색",
         "description": "사람인에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/saramin.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -196,6 +199,7 @@
         },
         "summary": "점핏 채용 공고 검색",
         "description": "점핏에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/jumpit.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -231,6 +235,7 @@
         },
         "summary": "커리어리 검색",
         "description": "커리어리에서 게시물을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/careerly.svg",
         "x-wrtn-standalone": true
       }
     }

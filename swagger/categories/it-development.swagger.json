@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "IT/개발",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -765,9 +765,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/page",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.pageId)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:pageId, label:title || ''}"
               }
             },
             "required": true,
@@ -915,9 +913,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1000,9 +996,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1084,9 +1078,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1239,9 +1231,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1327,9 +1317,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1827,9 +1815,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-docs/get-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -1970,9 +1956,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-docs/get-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -2704,9 +2688,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -2788,9 +2770,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -2880,9 +2860,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -2965,9 +2943,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -3057,9 +3033,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -3074,9 +3048,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -3164,9 +3136,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -3181,9 +3151,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -3265,9 +3233,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -3282,9 +3248,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -3650,9 +3614,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -3730,9 +3692,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/folders",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -3873,9 +3833,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -3954,9 +3912,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -4158,9 +4114,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -4233,9 +4187,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -4379,9 +4331,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -4518,9 +4468,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -4591,9 +4539,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -4721,6 +4667,40 @@
         },
         "summary": "피그마 댓글 가져오기.",
         "description": "피그마 댓글들을 가져옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
+      }
+    },
+    "/connector/figma/get-projects": {
+      "post": {
+        "tags": [
+          "figma"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "프로젝트 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IFigma.IGetProjectInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "프로젝트 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IFigma.IGetProejctOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "팀 내 프로젝트 조회",
+        "description": "팀 내의 프로젝트를 조회합니다.\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
@@ -5548,9 +5528,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/notion/get/page",
-              "array": "return response",
-              "value": "return elem.pageId",
-              "label": "return elem.title"
+              "jmesPath": "[].{value:pageId, label:title}"
             },
             "x-wrtn-placeholder": "부모 페이지를 선택하세요.",
             "title": "부모 페이지",
@@ -6996,9 +6974,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/notion/get/page",
-              "array": "return response",
-              "value": "return elem.pageId",
-              "label": "return elem.title"
+              "jmesPath": "[].{value:pageId, label:title}"
             },
             "title": "페이지",
             "description": "업데이트 할 페이지"
@@ -7677,9 +7653,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "구글 docs id.",
             "description": "접근 권한을 부여할 구글 docs의 id입니다."
@@ -7834,9 +7808,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "복제할 구글 docs.",
             "description": "복제할 구글 docs."
@@ -7929,9 +7901,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "구글 docs.",
             "description": "텍스트를 추가할 구글 docs를 선택합니다."
@@ -9288,9 +9258,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/folders",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive 폴더.",
             "description": "파일을 불러 올 폴더."
@@ -9406,9 +9374,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/folders",
-                "array": "return response.elements",
-                "value": "return elem.id",
-                "label": "return elem.name"
+                "jmesPath": "data[].{value:id, label:name}"
               }
             },
             "minItems": 1,
@@ -9460,9 +9426,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/files",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive file id.",
             "description": "접근 권한을 부여할 drive 파일 id."
@@ -9472,9 +9436,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/folders",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive folder id.",
             "description": "접근 권한을 부여할 drive 폴더 id."
@@ -10164,7 +10126,7 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read"
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -10463,7 +10425,7 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "file_comments:write"
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -10784,7 +10746,7 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read"
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -10816,6 +10778,66 @@
           "comments"
         ],
         "description": "Response from the GET /v1/files/{file_key}/comments endpoint."
+      },
+      "IFigma.IGetProjectInput": {
+        "type": "object",
+        "properties": {
+          "teamId": {
+            "type": "string",
+            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "figma",
+            "x-wrtn-secret-scopes": [
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "teamId",
+          "secretKey"
+        ],
+        "title": "프로젝트 조회 조건"
+      },
+      "IFigma.IGetProejctOutput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "팀 이름"
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IFigma.Project"
+            },
+            "title": "프로젝트 목록\n\n팀에 속해있는 프로젝트들의 목록을 의미합니다."
+          }
+        },
+        "required": [
+          "name",
+          "projects"
+        ]
+      },
+      "IFigma.Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "프로젝트 아이디"
+          },
+          "name": {
+            "type": "string",
+            "title": "프로젝트 이름"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
       },
       "IGoogleSlides.IExportPresentationInput": {
         "type": "object",

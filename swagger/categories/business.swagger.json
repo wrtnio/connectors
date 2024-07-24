@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "비즈니스",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -452,9 +452,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-docs/get-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -595,9 +593,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-docs/get-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -1329,9 +1325,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1413,9 +1407,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1505,9 +1497,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1590,9 +1580,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1682,9 +1670,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1699,9 +1685,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -1789,9 +1773,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1806,9 +1788,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -1890,9 +1870,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1907,9 +1885,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -2275,9 +2251,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2355,9 +2329,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/folders",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2498,9 +2470,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2579,9 +2549,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2783,9 +2751,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -2858,9 +2824,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3004,9 +2968,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3143,9 +3105,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3216,9 +3176,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3794,9 +3752,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "구글 docs id.",
             "description": "접근 권한을 부여할 구글 docs의 id입니다."
@@ -3951,9 +3907,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "복제할 구글 docs.",
             "description": "복제할 구글 docs."
@@ -4046,9 +4000,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "구글 docs.",
             "description": "텍스트를 추가할 구글 docs를 선택합니다."
@@ -5405,9 +5357,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/folders",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive 폴더.",
             "description": "파일을 불러 올 폴더."
@@ -5523,9 +5473,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/folders",
-                "array": "return response.elements",
-                "value": "return elem.id",
-                "label": "return elem.name"
+                "jmesPath": "data[].{value:id, label:name}"
               }
             },
             "minItems": 1,
@@ -5577,9 +5525,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/files",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive file id.",
             "description": "접근 권한을 부여할 drive 파일 id."
@@ -5589,9 +5535,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/folders",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive folder id.",
             "description": "접근 권한을 부여할 drive 폴더 id."

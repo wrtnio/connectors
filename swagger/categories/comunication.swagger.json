@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "커뮤니케이션",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -464,9 +464,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -539,9 +537,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -685,9 +681,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -824,9 +818,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -897,9 +889,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -2675,9 +2665,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/kakao-talk/get-friends",
-                "array": "return response.elements",
-                "value": "return elem.uuid",
-                "label": "return elem.profile_nickname"
+                "jmesPath": "{value:elements[].uuid, label:elements[].profile_nickname}"
               }
             },
             "minItems": 1,
@@ -3900,7 +3888,8 @@
               },
               "required": [
                 "id",
-                "uuid"
+                "uuid",
+                "profile_nickname"
               ]
             },
             "title": "친구 목록"
@@ -3939,6 +3928,7 @@
           }
         },
         "required": [
+          "elements",
           "total_count"
         ]
       },

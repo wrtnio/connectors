@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.21",
+    "version": "0.1.22",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -306,7 +306,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRag.IGenerateOutput"
+                }
+              }
+            }
           }
         },
         "summary": "RAG 기반 결과물 생성",
@@ -742,9 +749,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-docs/get-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -885,9 +890,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-docs/get-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem === null || elem === void 0 ? void 0 : elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -1619,9 +1622,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1703,9 +1704,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1795,9 +1794,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1880,9 +1877,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1972,9 +1967,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1989,9 +1982,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -2079,9 +2070,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -2096,9 +2085,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -2180,9 +2167,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -2197,9 +2182,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -2565,9 +2548,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2645,9 +2626,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/folders",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2788,9 +2767,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -2869,9 +2846,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/files",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.id) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem === null || elem === void 0 ? void 0 : elem.name) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
             },
             "required": true,
@@ -3106,9 +3081,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3181,9 +3154,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3327,9 +3298,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3466,9 +3435,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3539,9 +3506,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -3776,6 +3741,40 @@
         },
         "summary": "피그마 댓글 가져오기.",
         "description": "피그마 댓글들을 가져옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
+      }
+    },
+    "/connector/figma/get-projects": {
+      "post": {
+        "tags": [
+          "figma"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "프로젝트 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IFigma.IGetProjectInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "프로젝트 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IFigma.IGetProejctOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "팀 내 프로젝트 조회",
+        "description": "팀 내의 프로젝트를 조회합니다.\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
@@ -5472,6 +5471,7 @@
         },
         "summary": "원티드 채용 공고 검색",
         "description": "원티드에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/wanted.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -5507,6 +5507,7 @@
         },
         "summary": "인크루트 채용 공고 검색",
         "description": "인크루트에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Incruit.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -5542,6 +5543,7 @@
         },
         "summary": "사람인 채용 공고 검색",
         "description": "사람인에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/saramin.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -5577,6 +5579,7 @@
         },
         "summary": "점핏 채용 공고 검색",
         "description": "점핏에서 채용 공고를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/jumpit.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -5612,6 +5615,7 @@
         },
         "summary": "커리어리 검색",
         "description": "커리어리에서 게시물을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/careerly.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -7741,9 +7745,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/page",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.pageId)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:pageId, label:title || ''}"
               }
             },
             "required": true,
@@ -7891,9 +7893,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -7976,9 +7976,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -8060,9 +8058,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -8215,9 +8211,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -8303,9 +8297,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -8339,6 +8331,43 @@
         "summary": "데이터베이스 아이템 조회",
         "description": "테이블 데이터베이스에 존재하는 아이템을 조회합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/google-hotel": {
+      "post": {
+        "tags": [
+          "Google Hotel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "구글 호텔 검색 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleHotel.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "구글 호텔 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleHotel.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글 호텔 검색",
+        "description": "구글 호텔 서비스를 사용하여 숙소를 검색합니다",
+        "x-wrtn-standalone": true
       }
     }
   },
@@ -9011,6 +9040,20 @@
         ],
         "title": "이전 발화 내역"
       },
+      "IRag.IGenerateOutput": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "발화에 대한 응답.",
+            "description": "RAG 기반 생성 요청에 대한 응답입니다."
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "RAG를 통한 채팅 결과"
+      },
       "IHwp.IParseInput": {
         "type": "object",
         "properties": {
@@ -9238,9 +9281,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "구글 docs id.",
             "description": "접근 권한을 부여할 구글 docs의 id입니다."
@@ -9395,9 +9436,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "복제할 구글 docs.",
             "description": "복제할 구글 docs."
@@ -9490,9 +9529,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-docs/get-list",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.title"
+              "jmesPath": "data[].{value:id, label:title}"
             },
             "title": "구글 docs.",
             "description": "텍스트를 추가할 구글 docs를 선택합니다."
@@ -10849,9 +10886,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/folders",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive 폴더.",
             "description": "파일을 불러 올 폴더."
@@ -10967,9 +11002,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-drive/get/folders",
-                "array": "return response.elements",
-                "value": "return elem.id",
-                "label": "return elem.name"
+                "jmesPath": "data[].{value:id, label:name}"
               }
             },
             "minItems": 1,
@@ -11021,9 +11054,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/files",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive file id.",
             "description": "접근 권한을 부여할 drive 파일 id."
@@ -11033,9 +11064,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/google-drive/get/folders",
-              "array": "return response.elements",
-              "value": "return elem.id",
-              "label": "return elem.name"
+              "jmesPath": "data[].{value:id, label:name}"
             },
             "title": "구글 drive folder id.",
             "description": "접근 권한을 부여할 drive 폴더 id."
@@ -11940,7 +11969,7 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read"
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12239,7 +12268,7 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "file_comments:write"
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12560,7 +12589,7 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read"
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12592,6 +12621,66 @@
           "comments"
         ],
         "description": "Response from the GET /v1/files/{file_key}/comments endpoint."
+      },
+      "IFigma.IGetProjectInput": {
+        "type": "object",
+        "properties": {
+          "teamId": {
+            "type": "string",
+            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "figma",
+            "x-wrtn-secret-scopes": [
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "teamId",
+          "secretKey"
+        ],
+        "title": "프로젝트 조회 조건"
+      },
+      "IFigma.IGetProejctOutput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "팀 이름"
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IFigma.Project"
+            },
+            "title": "프로젝트 목록\n\n팀에 속해있는 프로젝트들의 목록을 의미합니다."
+          }
+        },
+        "required": [
+          "name",
+          "projects"
+        ]
+      },
+      "IFigma.Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "프로젝트 아이디"
+          },
+          "name": {
+            "type": "string",
+            "title": "프로젝트 이름"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
       },
       "IZoom.ICreateMeetingInput": {
         "type": "object",
@@ -14087,9 +14176,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/kakao-talk/get-friends",
-                "array": "return response.elements",
-                "value": "return elem.uuid",
-                "label": "return elem.profile_nickname"
+                "jmesPath": "{value:elements[].uuid, label:elements[].profile_nickname}"
               }
             },
             "minItems": 1,
@@ -15312,7 +15399,8 @@
               },
               "required": [
                 "id",
-                "uuid"
+                "uuid",
+                "profile_nickname"
               ]
             },
             "title": "친구 목록"
@@ -15351,6 +15439,7 @@
           }
         },
         "required": [
+          "elements",
           "total_count"
         ]
       },
@@ -16321,20 +16410,16 @@
             "description": "YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정"
           },
           "origin": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-placeholder": "127.111202,37.394912"
-            },
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
             "title": "출발지",
             "description": "X좌표,Y좌표 형식의 경도, 위도 값"
           },
           "destination": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-placeholder": "127.111202,37.394912"
-            },
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
             "title": "목적지",
             "description": "X좌표,Y좌표 형식의 경도, 위도 값"
           }
@@ -23032,9 +23117,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/open-data/getStandardRegionCodeList",
-              "array": "return response.rows",
-              "value": "return elem.sigunguCd",
-              "label": "return elem.sigunguNm"
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
             "title": "시군구 코드"
           },
@@ -23980,9 +24063,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/open-data/getStandardRegionCodeList",
-              "array": "return response.rows",
-              "value": "return elem.sigunguCd",
-              "label": "return elem.sigunguNm"
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
             "title": "시군구 코드"
           },
@@ -23991,9 +24072,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/open-data/getStandardRegionCodeList",
-              "array": "return response.rows",
-              "value": "return elem.sigunguCd",
-              "label": "return elem.locatadd_nm"
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
             "title": "법정동 코드"
           },
@@ -25993,14 +26072,13 @@
         "type": "object",
         "properties": {
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -26049,7 +26127,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
             "title": "고객 아이디",
             "description": "고객마다 고유한 값을 가지고 있다."
           },
@@ -26104,7 +26183,8 @@
         "properties": {
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
             "title": "캠페인 리소스 명"
           },
           "status": {
@@ -26164,7 +26244,8 @@
           },
           "id": {
             "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
             "title": "캠페인 아이디"
           },
           "startDate": {
@@ -26308,33 +26389,32 @@
         "type": "object",
         "properties": {
           "campaignId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-campaigns",
-                "jmesPath": "[].campaign.{value:name, label:id}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
             },
             "title": "부모 캠페인의 아이디",
             "description": "해당 캠페인의 아이디만 검색하고 싶을 경우"
           },
           "adGroupResourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
             "title": "광고 그룹의 리소스 명",
             "description": "해당 광고 그룹 리소스 명으로만 검색하고 싶을 경우"
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -26399,12 +26479,14 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
             "title": "캠페인 아이디"
           },
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
             "title": "캠페인 리소스 명"
           },
           "status": {
@@ -26440,8 +26522,10 @@
           },
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "광고 그룹 리소스 명"
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "title": "광고 그룹 리소스 명",
+            "description": "`customers/${number}/adGroups/${number}` 형식"
           }
         },
         "required": [
@@ -26464,8 +26548,10 @@
         "properties": {
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "광고 그룹 광고의 리소스 명"
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "광고 그룹 광고의 리소스 명",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` 형식"
           },
           "policySummary": {
             "type": "object",
@@ -26588,7 +26674,8 @@
           },
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupCriteria/1"
           },
           "criterionId": {
             "type": "string",
@@ -26645,14 +26732,13 @@
         "type": "object",
         "properties": {
           "adGroupAdResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-ads",
-                "jmesPath": "[].{value:resourceName, label:resourceName}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ads",
+              "jmesPath": "[].{value:resourceName, label:resourceName}"
             },
             "title": "광고 그룹 광고의 리소스 명"
           },
@@ -26666,14 +26752,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -26695,8 +26780,10 @@
         "properties": {
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "광고 그룹 광고의 리소스 명"
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "광고 그룹 광고의 리소스 명",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` 형식"
           },
           "status": {
             "$ref": "#/components/schemas/IGoogleAds.Status",
@@ -26786,14 +26873,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -26879,8 +26965,10 @@
         "properties": {
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "광고 그룹 광고의 리소스 명"
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "광고 그룹 광고의 리소스 명",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` 형식"
           }
         },
         "required": [
@@ -26892,14 +26980,13 @@
         "type": "object",
         "properties": {
           "adGroupResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-ads",
-                "jmesPath": "[].{value:resourceName, label:resourceName}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ad-groups",
+              "jmesPath": "[].adGroup.{value:resourceName, label:resourceName}"
             },
             "title": "광고 그룹 리소스 명"
           },
@@ -26913,14 +27000,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -26960,8 +27046,9 @@
           },
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "광고 그룹 표준 리소스 이름"
+            "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupCriteria/1",
+            "title": "광고 그룹 표준 리소스 이름\n\n`customers/${number}/adGroupCriteria/number~${number}` 형식"
           },
           "status": {
             "$ref": "#/components/schemas/IGoogleAds.Status",
@@ -27048,14 +27135,13 @@
         "type": "object",
         "properties": {
           "adGroupAdResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-ads",
-                "jmesPath": "[].{value:resourceName, label:resourceName}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ads",
+              "jmesPath": "[].{value:resourceName, label:resourceName}"
             },
             "title": "광고 그룹 광고의 리소스 명"
           },
@@ -27082,14 +27168,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27108,14 +27193,13 @@
           "resourceNames": {
             "type": "array",
             "items": {
-              "0": {
-                "type": "string",
-                "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "connector/google-ads/get-keywords",
-                  "jmesPath": "[].adGroupCriterion.{value:resourceName, label:text}"
-                }
+              "type": "string",
+              "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-placeholder": "customers/1/adGroupCriteria/1",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-keywords",
+                "jmesPath": "[].adGroupCriterion.{value:resourceName, label:text}"
               }
             },
             "title": "삭제할 키워드의 아이디"
@@ -27130,14 +27214,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27154,14 +27237,13 @@
         "type": "object",
         "properties": {
           "adGroupResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-ad-groups",
-                "jmesPath": "[].adGroup.{value:resourceName, label:resourceName}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ad-groups",
+              "jmesPath": "[].adGroup.{value:resourceName, label:resourceName}"
             },
             "title": "키워드를 추가할 광고 그룹의 리소스 네임"
           },
@@ -27173,14 +27255,13 @@
             "title": "생성할 키워드"
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27206,7 +27287,8 @@
         "type": "array",
         "items": {
           "type": "string",
-          "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+          "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+          "x-wrtn-placeholder": "customers/1/adGroupCriteria/1"
         },
         "title": "키워드 생성 결과"
       },
@@ -27214,14 +27296,13 @@
         "type": "object",
         "properties": {
           "adGroupAdResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-ads",
-                "jmesPath": "[].{value:resourceName, label:resourceName}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ads",
+              "jmesPath": "[].{value:resourceName, label:resourceName}"
             },
             "title": "광고 그룹 광고의 리소스 명"
           },
@@ -27235,14 +27316,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27259,7 +27339,8 @@
         "properties": {
           "resourceName": {
             "type": "string",
-            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
             "title": "광고 그룹 광고의 리소스 명"
           },
           "status": {
@@ -27408,14 +27489,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27452,14 +27532,13 @@
             "title": "광고 그룹 타입"
           },
           "campaignResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-campaigns",
-                "jmesPath": "[].campaign.{value:name, label:id}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
             },
             "title": "캠페인 리소스 이름"
           },
@@ -27495,14 +27574,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27587,14 +27665,13 @@
             "title": "광고 그룹 타입"
           },
           "campaignResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-campaigns",
-                "jmesPath": "[].campaign.{value:name, label:id}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
             },
             "title": "캠페인 리소스 이름"
           },
@@ -27626,14 +27703,13 @@
         "type": "object",
         "properties": {
           "campaignResourceName": {
-            "0": {
-              "type": "string",
-              "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-campaigns",
-                "jmesPath": "[].campaign.{value:name, label:id}"
-              }
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
             },
             "title": "수정할 캠페인의 리소스 아이디"
           },
@@ -27661,14 +27737,13 @@
             "description": "secret key."
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27720,14 +27795,13 @@
             "description": "한국 통화 단위로써, 원화 단위"
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27761,14 +27835,13 @@
             "title": "캠페인 생성 조건"
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -27913,14 +27986,13 @@
             "title": "캠페인 생성 조건"
           },
           "customerId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "connector/google-ads/get-customers",
-                "jmesPath": "[].{value:id, label:descriptiveName}"
-              }
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
@@ -28924,9 +28996,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/notion/get/page",
-              "array": "return response",
-              "value": "return elem.pageId",
-              "label": "return elem.title"
+              "jmesPath": "[].{value:pageId, label:title}"
             },
             "x-wrtn-placeholder": "부모 페이지를 선택하세요.",
             "title": "부모 페이지",
@@ -30372,9 +30442,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/notion/get/page",
-              "array": "return response",
-              "value": "return elem.pageId",
-              "label": "return elem.title"
+              "jmesPath": "[].{value:pageId, label:title}"
             },
             "title": "페이지",
             "description": "업데이트 할 페이지"
@@ -30784,6 +30852,327 @@
         ],
         "title": "데이터베이스에 있는 아이템을 찾을 때 필요한 정보",
         "additionalProperties": {}
+      },
+      "IGoogleHotel.IRequest": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "검색어",
+            "description": "검색할 키워드를 입력하세요."
+          },
+          "check_in_date": {
+            "type": "string",
+            "format": "date",
+            "title": "체크인 날짜",
+            "description": "체크인 날짜를 설정하세요."
+          },
+          "check_out_date": {
+            "type": "string",
+            "format": "date",
+            "title": "체크아웃 날짜",
+            "description": "체크아웃 날짜를 설정하세요."
+          },
+          "adults": {
+            "type": "integer",
+            "default": 2,
+            "title": "성인 인원",
+            "description": "투숙하는 성인 인원수를 설정하세요. 기본값은 2입니다."
+          },
+          "children": {
+            "type": "integer",
+            "default": 0,
+            "title": "아동 인원",
+            "description": "투숙하는 아동 인원수를 설정하세요. 기본값은 0입니다."
+          },
+          "sort_by": {
+            "oneOf": [
+              {
+                "const": "3",
+                "title": "낮은 가격 순"
+              },
+              {
+                "const": "8",
+                "title": "평점 높은 순"
+              },
+              {
+                "const": "13",
+                "title": "리뷰 많은 순"
+              }
+            ],
+            "title": "정렬 기준",
+            "description": "원하는 정렬 기준을 선택해주세요."
+          },
+          "min_price": {
+            "type": "integer",
+            "title": "최소 가격",
+            "description": "가격 범위의 최소 가격을 설정해주세요."
+          },
+          "max_price": {
+            "type": "integer",
+            "title": "최대 가격",
+            "description": "가격 범위의 최대 가격을 설정해주세요."
+          },
+          "rating": {
+            "oneOf": [
+              {
+                "const": "7",
+                "title": "평점 3.5 이상"
+              },
+              {
+                "const": "8",
+                "title": "평점 4.0 이상"
+              },
+              {
+                "const": "9",
+                "title": "평점 4.5 이상"
+              }
+            ],
+            "title": "평점",
+            "description": "선택한 평점 이상의 숙소만 검색합니다."
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "12",
+                  "title": "비치 호텔"
+                },
+                {
+                  "const": "13",
+                  "title": "부티크 호텔"
+                },
+                {
+                  "const": "14",
+                  "title": "호스텔"
+                },
+                {
+                  "const": "15",
+                  "title": "여관"
+                },
+                {
+                  "const": "16",
+                  "title": "모텔"
+                },
+                {
+                  "const": "17",
+                  "title": "리조트"
+                },
+                {
+                  "const": "18",
+                  "title": "스파 호텔"
+                },
+                {
+                  "const": "19",
+                  "title": "아침 식사를 제공하는 숙소(B&B)"
+                },
+                {
+                  "const": "20",
+                  "title": "기타"
+                },
+                {
+                  "const": "21",
+                  "title": "아파트 호텔"
+                },
+                {
+                  "const": "22",
+                  "title": "민박"
+                },
+                {
+                  "const": "23",
+                  "title": "일본식 비즈니스 호텔"
+                },
+                {
+                  "const": "24",
+                  "title": "료칸"
+                }
+              ]
+            },
+            "title": "숙소 유형",
+            "description": "숙소 유형을 선택해주세요."
+          },
+          "hotel_class": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "1",
+                  "title": "1성급"
+                },
+                {
+                  "const": "2",
+                  "title": "2성급"
+                },
+                {
+                  "const": "3",
+                  "title": "3성급"
+                },
+                {
+                  "const": "4",
+                  "title": "4성급"
+                },
+                {
+                  "const": "5",
+                  "title": "5성급"
+                }
+              ]
+            },
+            "title": "숙소 등급",
+            "description": "숙소 등급을 선택해주세요."
+          },
+          "free_cancellation": {
+            "type": "boolean",
+            "default": false,
+            "title": "무료취소 가능 여부",
+            "description": "무료 취소 가능한 숙소만 검색합니다."
+          },
+          "max_results": {
+            "type": "integer",
+            "title": "검색 결과 개수",
+            "description": "검색 결과의 개수를 설정합니다."
+          }
+        },
+        "required": [
+          "keyword",
+          "check_in_date",
+          "check_out_date",
+          "max_results"
+        ],
+        "title": "숙소 검색 조건"
+      },
+      "IGoogleHotel.IResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "숙소 이름",
+            "description": "숙소 이름"
+          },
+          "description": {
+            "type": "string",
+            "title": "숙소 설명",
+            "description": "숙소 설명"
+          },
+          "link": {
+            "type": "string",
+            "title": "숙소 링크",
+            "description": "숙소 링크"
+          },
+          "check_in_time": {
+            "type": "string",
+            "title": "체크인 시간",
+            "description": "숙소 체크인 시간"
+          },
+          "check_out_time": {
+            "type": "string",
+            "title": "체크아웃 시간",
+            "description": "숙소 체크아웃 시간"
+          },
+          "price": {
+            "type": "string",
+            "title": "숙소 가격",
+            "description": "숙소 가격"
+          },
+          "nearby_place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleHotel.INearbyPlace"
+            },
+            "title": "주변 시설",
+            "description": "숙소 주변 시설"
+          },
+          "hotel_class": {
+            "type": "string",
+            "title": "숙소 등급",
+            "description": "숙소 등급"
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "title": "썸네일",
+            "description": "숙소 썸네일 이미지"
+          },
+          "rating": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?점)$",
+            "title": "평점",
+            "description": "숙소 평점"
+          },
+          "review_count": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?개)$",
+            "title": "리뷰 갯수",
+            "description": "리뷰 갯수"
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "어메니티",
+            "description": "숙소에서 제공하는 어메니티"
+          },
+          "excluded_amenities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "제공 하지 않는 어메니티",
+            "description": "숙소에서 제공하지 않는 어메니티"
+          }
+        },
+        "required": [
+          "name",
+          "price",
+          "thumbnails",
+          "rating",
+          "review_count",
+          "amenities"
+        ],
+        "title": "숙소 검색 결과"
+      },
+      "IGoogleHotel.INearbyPlace": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "주변 시설 이름",
+            "description": "주변 시설 이름"
+          },
+          "transportations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "교통편 종류",
+                  "description": "교통편 종류"
+                },
+                "duration": {
+                  "type": "string",
+                  "title": "소요 시간",
+                  "description": "주변 시설까지 소요 시간"
+                }
+              },
+              "required": [
+                "type",
+                "duration"
+              ]
+            },
+            "title": "교통편",
+            "description": "주변 시설 교통편"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "주변 시설"
       }
     }
   },
@@ -32460,6 +32849,9 @@
     },
     {
       "name": "Portfolio"
+    },
+    {
+      "name": "Google Hotel"
     }
   ],
   "x-samchon-emended": true

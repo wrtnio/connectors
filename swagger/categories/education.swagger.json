@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "교육",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -572,9 +572,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/page",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.pageId)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:pageId, label:title || ''}"
               }
             },
             "required": true,
@@ -722,9 +720,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -807,9 +803,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -891,9 +885,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1046,9 +1038,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1134,9 +1124,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/notion/get/database-info",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:title || ''}"
               }
             },
             "required": true,
@@ -1545,9 +1533,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/notion/get/page",
-              "array": "return response",
-              "value": "return elem.pageId",
-              "label": "return elem.title"
+              "jmesPath": "[].{value:pageId, label:title}"
             },
             "x-wrtn-placeholder": "부모 페이지를 선택하세요.",
             "title": "부모 페이지",
@@ -2993,9 +2979,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/notion/get/page",
-              "array": "return response",
-              "value": "return elem.pageId",
-              "label": "return elem.title"
+              "jmesPath": "[].{value:pageId, label:title}"
             },
             "title": "페이지",
             "description": "업데이트 할 페이지"

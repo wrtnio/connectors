@@ -1,0 +1,395 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Google Hotel",
+    "version": "0.1.22",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-hotel": {
+      "post": {
+        "tags": [
+          "Google Hotel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "구글 호텔 검색 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleHotel.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "구글 호텔 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleHotel.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글 호텔 검색",
+        "description": "구글 호텔 서비스를 사용하여 숙소를 검색합니다",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleHotel.IRequest": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "검색어",
+            "description": "검색할 키워드를 입력하세요."
+          },
+          "check_in_date": {
+            "type": "string",
+            "format": "date",
+            "title": "체크인 날짜",
+            "description": "체크인 날짜를 설정하세요."
+          },
+          "check_out_date": {
+            "type": "string",
+            "format": "date",
+            "title": "체크아웃 날짜",
+            "description": "체크아웃 날짜를 설정하세요."
+          },
+          "adults": {
+            "type": "integer",
+            "default": 2,
+            "title": "성인 인원",
+            "description": "투숙하는 성인 인원수를 설정하세요. 기본값은 2입니다."
+          },
+          "children": {
+            "type": "integer",
+            "default": 0,
+            "title": "아동 인원",
+            "description": "투숙하는 아동 인원수를 설정하세요. 기본값은 0입니다."
+          },
+          "sort_by": {
+            "oneOf": [
+              {
+                "const": "3",
+                "title": "낮은 가격 순"
+              },
+              {
+                "const": "8",
+                "title": "평점 높은 순"
+              },
+              {
+                "const": "13",
+                "title": "리뷰 많은 순"
+              }
+            ],
+            "title": "정렬 기준",
+            "description": "원하는 정렬 기준을 선택해주세요."
+          },
+          "min_price": {
+            "type": "integer",
+            "title": "최소 가격",
+            "description": "가격 범위의 최소 가격을 설정해주세요."
+          },
+          "max_price": {
+            "type": "integer",
+            "title": "최대 가격",
+            "description": "가격 범위의 최대 가격을 설정해주세요."
+          },
+          "rating": {
+            "oneOf": [
+              {
+                "const": "7",
+                "title": "평점 3.5 이상"
+              },
+              {
+                "const": "8",
+                "title": "평점 4.0 이상"
+              },
+              {
+                "const": "9",
+                "title": "평점 4.5 이상"
+              }
+            ],
+            "title": "평점",
+            "description": "선택한 평점 이상의 숙소만 검색합니다."
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "12",
+                  "title": "비치 호텔"
+                },
+                {
+                  "const": "13",
+                  "title": "부티크 호텔"
+                },
+                {
+                  "const": "14",
+                  "title": "호스텔"
+                },
+                {
+                  "const": "15",
+                  "title": "여관"
+                },
+                {
+                  "const": "16",
+                  "title": "모텔"
+                },
+                {
+                  "const": "17",
+                  "title": "리조트"
+                },
+                {
+                  "const": "18",
+                  "title": "스파 호텔"
+                },
+                {
+                  "const": "19",
+                  "title": "아침 식사를 제공하는 숙소(B&B)"
+                },
+                {
+                  "const": "20",
+                  "title": "기타"
+                },
+                {
+                  "const": "21",
+                  "title": "아파트 호텔"
+                },
+                {
+                  "const": "22",
+                  "title": "민박"
+                },
+                {
+                  "const": "23",
+                  "title": "일본식 비즈니스 호텔"
+                },
+                {
+                  "const": "24",
+                  "title": "료칸"
+                }
+              ]
+            },
+            "title": "숙소 유형",
+            "description": "숙소 유형을 선택해주세요."
+          },
+          "hotel_class": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "1",
+                  "title": "1성급"
+                },
+                {
+                  "const": "2",
+                  "title": "2성급"
+                },
+                {
+                  "const": "3",
+                  "title": "3성급"
+                },
+                {
+                  "const": "4",
+                  "title": "4성급"
+                },
+                {
+                  "const": "5",
+                  "title": "5성급"
+                }
+              ]
+            },
+            "title": "숙소 등급",
+            "description": "숙소 등급을 선택해주세요."
+          },
+          "free_cancellation": {
+            "type": "boolean",
+            "default": false,
+            "title": "무료취소 가능 여부",
+            "description": "무료 취소 가능한 숙소만 검색합니다."
+          },
+          "max_results": {
+            "type": "integer",
+            "title": "검색 결과 개수",
+            "description": "검색 결과의 개수를 설정합니다."
+          }
+        },
+        "required": [
+          "keyword",
+          "check_in_date",
+          "check_out_date",
+          "max_results"
+        ],
+        "title": "숙소 검색 조건"
+      },
+      "IGoogleHotel.IResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "숙소 이름",
+            "description": "숙소 이름"
+          },
+          "description": {
+            "type": "string",
+            "title": "숙소 설명",
+            "description": "숙소 설명"
+          },
+          "link": {
+            "type": "string",
+            "title": "숙소 링크",
+            "description": "숙소 링크"
+          },
+          "check_in_time": {
+            "type": "string",
+            "title": "체크인 시간",
+            "description": "숙소 체크인 시간"
+          },
+          "check_out_time": {
+            "type": "string",
+            "title": "체크아웃 시간",
+            "description": "숙소 체크아웃 시간"
+          },
+          "price": {
+            "type": "string",
+            "title": "숙소 가격",
+            "description": "숙소 가격"
+          },
+          "nearby_place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleHotel.INearbyPlace"
+            },
+            "title": "주변 시설",
+            "description": "숙소 주변 시설"
+          },
+          "hotel_class": {
+            "type": "string",
+            "title": "숙소 등급",
+            "description": "숙소 등급"
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "title": "썸네일",
+            "description": "숙소 썸네일 이미지"
+          },
+          "rating": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?점)$",
+            "title": "평점",
+            "description": "숙소 평점"
+          },
+          "review_count": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?개)$",
+            "title": "리뷰 갯수",
+            "description": "리뷰 갯수"
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "어메니티",
+            "description": "숙소에서 제공하는 어메니티"
+          },
+          "excluded_amenities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "제공 하지 않는 어메니티",
+            "description": "숙소에서 제공하지 않는 어메니티"
+          }
+        },
+        "required": [
+          "name",
+          "price",
+          "thumbnails",
+          "rating",
+          "review_count",
+          "amenities"
+        ],
+        "title": "숙소 검색 결과"
+      },
+      "IGoogleHotel.INearbyPlace": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "주변 시설 이름",
+            "description": "주변 시설 이름"
+          },
+          "transportations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "교통편 종류",
+                  "description": "교통편 종류"
+                },
+                "duration": {
+                  "type": "string",
+                  "title": "소요 시간",
+                  "description": "주변 시설까지 소요 시간"
+                }
+              },
+              "required": [
+                "type",
+                "duration"
+              ]
+            },
+            "title": "교통편",
+            "description": "주변 시설 교통편"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "주변 시설"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google Hotel"
+    }
+  ],
+  "x-samchon-emended": true
+}

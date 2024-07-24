@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Gmail",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -190,9 +190,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -265,9 +263,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -411,9 +407,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -550,9 +544,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,
@@ -623,9 +615,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/gmail/read-list",
-                "array": "return ((response) => response.data)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.subject) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
             "required": true,

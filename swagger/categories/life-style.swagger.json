@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "라이프스타일",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -470,9 +470,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -554,9 +552,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -646,9 +642,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -731,9 +725,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -823,9 +815,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -840,9 +830,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -930,9 +918,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -947,9 +933,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -1031,9 +1015,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/get-list",
-                "array": "return ((response) => response)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.summary) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value:id, label:summary || ''}"
               }
             },
             "required": true,
@@ -1048,9 +1030,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
-                "array": "return ((response) => response.events)(response)",
-                "value": "return ((elem) => elem.id)(elem, index, array)",
-                "label": "return ((elem) => { var _a; return (_a = elem.title) !== null && _a !== void 0 ? _a : \"\"; })(elem, index, array)"
+                "jmesPath": "[].{value: id, label: title || ''}"
               }
             },
             "required": true,
@@ -3781,9 +3761,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/kakao-talk/get-friends",
-                "array": "return response.elements",
-                "value": "return elem.uuid",
-                "label": "return elem.profile_nickname"
+                "jmesPath": "{value:elements[].uuid, label:elements[].profile_nickname}"
               }
             },
             "minItems": 1,
@@ -5006,7 +4984,8 @@
               },
               "required": [
                 "id",
-                "uuid"
+                "uuid",
+                "profile_nickname"
               ]
             },
             "title": "친구 목록"
@@ -5045,6 +5024,7 @@
           }
         },
         "required": [
+          "elements",
           "total_count"
         ]
       },
@@ -6015,20 +5995,16 @@
             "description": "YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정"
           },
           "origin": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-placeholder": "127.111202,37.394912"
-            },
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
             "title": "출발지",
             "description": "X좌표,Y좌표 형식의 경도, 위도 값"
           },
           "destination": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-placeholder": "127.111202,37.394912"
-            },
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
             "title": "목적지",
             "description": "X좌표,Y좌표 형식의 경도, 위도 값"
           }

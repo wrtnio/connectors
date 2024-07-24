@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오톡d",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -392,9 +392,7 @@
               "x-wrtn-prerequisite": {
                 "method": "post",
                 "path": "/connector/kakao-talk/get-friends",
-                "array": "return response.elements",
-                "value": "return elem.uuid",
-                "label": "return elem.profile_nickname"
+                "jmesPath": "{value:elements[].uuid, label:elements[].profile_nickname}"
               }
             },
             "minItems": 1,
@@ -1617,7 +1615,8 @@
               },
               "required": [
                 "id",
-                "uuid"
+                "uuid",
+                "profile_nickname"
               ]
             },
             "title": "친구 목록"
@@ -1656,6 +1655,7 @@
           }
         },
         "required": [
+          "elements",
           "total_count"
         ]
       },

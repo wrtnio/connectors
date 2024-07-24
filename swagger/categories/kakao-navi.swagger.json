@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오 네비게이션",
-    "version": "0.1.21",
+    "version": "0.1.22",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -68,20 +68,16 @@
             "description": "YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정"
           },
           "origin": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-placeholder": "127.111202,37.394912"
-            },
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
             "title": "출발지",
             "description": "X좌표,Y좌표 형식의 경도, 위도 값"
           },
           "destination": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-placeholder": "127.111202,37.394912"
-            },
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
             "title": "목적지",
             "description": "X좌표,Y좌표 형식의 경도, 위도 값"
           }
