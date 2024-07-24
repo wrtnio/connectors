@@ -99,7 +99,7 @@
     "@notionhq/client": "^2.2.15",
     "@samchon/openapi": "^0.4.2",
     "@wrtnio/decorators": "^1.4.12",
-    "@wrtnio/openai-function-schema": "^0.2.2",
+    "@wrtnio/openai-function-schema": "^0.2.3",
     "atob": "^2.1.2",
     "aws-sdk": "^2.1546.0",
     "axios": "^1.6.8",
