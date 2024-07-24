@@ -11,6 +11,15 @@ import { ApiTags } from "@nestjs/swagger";
 export class GoogleHotelController {
   constructor(private readonly googleHotelProvider: GoogleHotelProvider) {}
 
+  /**
+   * 구글 호텔 서비스를 사용하여 숙소를 검색합니다
+   *
+   * @summary 구글 호텔 검색
+   *
+   * @param input 구글 호텔 검색 조건
+   *
+   * @returns 구글 호텔 검색 결과
+   */
   @Standalone()
   @core.TypedRoute.Post("")
   // @RouteIcon(
