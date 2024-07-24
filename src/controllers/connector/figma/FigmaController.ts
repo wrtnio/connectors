@@ -73,4 +73,26 @@ export class FigmaController {
   ): Promise<IFigma.IReadCommentOutput> {
     return retry(() => this.figmaProvider.getComments(input))();
   }
+
+  /**
+   * 팀 내의 프로젝트를 조회합니다.
+   * 인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.
+   * `https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.
+   * 유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.
+   *
+   * @summary 팀 내 프로젝트 조회
+   * @param input 프로젝트 조회 조건
+   * @tag figma
+   *
+   * @returns 프로젝트 목록
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+  )
+  @core.TypedRoute.Post("get-projects")
+  async getProjects(
+    @core.TypedBody() input: IFigma.IGetProjectInput,
+  ): Promise<IFigma.IGetProejctOutput> {
+    return retry(() => this.figmaProvider.getProjects(input))();
+  }
 }

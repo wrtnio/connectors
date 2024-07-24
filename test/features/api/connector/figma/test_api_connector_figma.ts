@@ -66,3 +66,18 @@ export const test_api_connector_figma_add_comment = async (
     readCommentEvent.comments.find((el) => el.id === addCommentEvent.id)!,
   );
 };
+
+export const test_api_connector_figma_get_projects = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * add comment API
+   */
+  const projects =
+    await CApi.functional.connector.figma.get_projects.getProjects(connection, {
+      secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      teamId: "1379663189749043465",
+    });
+
+  typia.assertEquals(projects);
+};

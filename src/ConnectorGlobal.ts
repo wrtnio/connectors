@@ -53,8 +53,11 @@ export namespace ConnectorGlobal {
     TYPEFORM_PERSONAL_ACCESS_KEY: string;
 
     // FIGMA
-    FIGMA_TEST_SECRET: string;
     FIGMA_TEST_FILE_KEY: string;
+
+    FIGMA_CLIENT_ID: string;
+    FIGMA_CLIENT_SECRET: string;
+    FIGMA_TEST_SECRET: string;
 
     // ZOOM
     ZOOM_TEST_REFRESH_TOKEN: string;

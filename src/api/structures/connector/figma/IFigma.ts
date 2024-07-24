@@ -12,13 +12,19 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IFigma {
+  export type Secret = ICommon.ISecret<
+    "figma",
+    [
+      "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write",
+    ]
+  >;
+
   /**
    * 피그마 특정 프레임으로부터 파일을 조회하는 DTO.
    *
    * 한 번에 하나의 프레임으로부터 파일을 읽을 수 있다.
    */
-  export interface IReadFileInput
-    extends ICommon.ISecret<"figma", ["files:read"]> {
+  export interface IReadFileInput extends IFigma.Secret {
     /**
      * 파일의 키를 의미합니다.
      *
@@ -193,7 +199,7 @@ export namespace IFigma {
    * 한 번의 하나의 댓글을 작성할 수 있으며, 좌표 값이나 노드, 또는 부모 댓글(root comment) 이용해 댓글을 작성할 수 있다.
    */
   export interface IAddCommentInput
-    extends ICommon.ISecret<"figma", ["file_comments:write"]>,
+    extends IFigma.Secret,
       PostCommentRequestBody {
     /**
      * 파일의 키를 의미합니다.
@@ -208,7 +214,7 @@ export namespace IFigma {
    * 한 번에 하나의 프레임으로부터 댓글을 읽을 수 있다.
    */
   export interface IReadCommentInput
-    extends ICommon.ISecret<"figma", ["files:read"]>,
+    extends IFigma.Secret,
       GetCommentsQueryParams {
     /**
      * 파일의 키를 의미합니다.
@@ -227,4 +233,44 @@ export namespace IFigma {
    * 읽어온 피그마 댓글의 정보에 해당하는 DTO.
    */
   export type IReadCommentOutput = GetCommentsResponse;
+
+  /**
+   * @title 프로젝트 조회 조건
+   */
+  export interface IGetProjectInput extends IFigma.Secret {
+    /**
+     * @title 팀 아이디
+     *
+     * `https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.
+     *
+     * 팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다.
+     */
+    teamId: string;
+  }
+
+  export interface IGetProejctOutput {
+    /**
+     * @title 팀 이름
+     */
+    name: string;
+
+    /**
+     * @title 프로젝트 목록
+     *
+     * 팀에 속해있는 프로젝트들의 목록을 의미합니다.
+     */
+    projects: Array<Project>;
+  }
+
+  export interface Project {
+    /**
+     * @title 프로젝트 아이디
+     */
+    id: string;
+
+    /**
+     * @title 프로젝트 이름
+     */
+    name: string;
+  }
 }
