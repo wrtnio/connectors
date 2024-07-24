@@ -1,4 +1,4 @@
-import { Placeholder, Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
@@ -84,7 +84,7 @@ export namespace IKakaoTalk {
     /**
      * @title 친구 목록
      */
-    elements?: {
+    elements: {
       /**
        * @title 회원 번호
        */
@@ -104,7 +104,7 @@ export namespace IKakaoTalk {
       /**
        * @title 닉네임
        */
-      profile_nickname?: string;
+      profile_nickname: string;
 
       /**
        * @title 썸네일
@@ -555,9 +555,10 @@ export namespace IKakaoTalk {
       Prerequisite<{
         method: "post";
         path: "/connector/kakao-talk/get-friends";
-        array: "return response.elements";
-        value: "return elem.uuid";
-        label: "return elem.profile_nickname";
+        jmesPath: JMESPath<
+          IKakaoTalk.IGetFriendsOutput,
+          "{value:elements[].uuid, label:elements[].profile_nickname}"
+        >;
       }>)[] &
       tags.MinItems<1> &
       tags.MaxItems<5>;

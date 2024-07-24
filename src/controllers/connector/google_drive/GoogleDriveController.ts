@@ -528,10 +528,7 @@ export class GoogleDriveController {
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
-      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
-        response.data,
-      value: (elem): string => elem?.id ?? "",
-      label: (elem): string => elem?.name ?? "",
+      jmesPath: "data[].{value: id || '', label: name || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -643,10 +640,7 @@ export class GoogleDriveController {
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.folderList,
-      array: (response): IGoogleDrive.IFolderListGoogleDriveOutput["data"] =>
-        response.data,
-      value: (elem): string => elem?.id ?? "",
-      label: (elem): string => elem?.name ?? "",
+      jmesPath: "data[].{value: id || '', label: name || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -861,10 +855,7 @@ export class GoogleDriveController {
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
-      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
-        response.data,
-      value: (elem): string => elem?.id ?? "",
-      label: (elem): string => elem?.name ?? "",
+      jmesPath: "data[].{value: id || '', label: name || ''}",
     })
     @core.TypedParam("id")
     id: string,
@@ -977,10 +968,7 @@ export class GoogleDriveController {
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
-      array: (response): IGoogleDrive.IFileListGoogleDriveOutput["data"] =>
-        response.data,
-      value: (elem): string => elem?.id ?? "",
-      label: (elem): string => elem?.name ?? "",
+      jmesPath: "data[].{value: id || '', label: name || ''}",
     })
     @core.TypedParam("id")
     id: string,

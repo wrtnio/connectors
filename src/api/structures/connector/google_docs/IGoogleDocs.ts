@@ -1,4 +1,4 @@
-import { Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
@@ -125,9 +125,10 @@ export namespace IGoogleDocs {
       Prerequisite<{
         method: "post";
         path: "/connector/google-docs/get-list";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.title";
+        jmesPath: JMESPath<
+          IListGoogleDocsOutput,
+          "data[].{value:id, label:title}"
+        >;
       }>;
 
     /**
@@ -170,9 +171,10 @@ export namespace IGoogleDocs {
       Prerequisite<{
         method: "post";
         path: "/connector/google-docs/get-list";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.title";
+        jmesPath: JMESPath<
+          IListGoogleDocsOutput,
+          "data[].{value:id, label:title}"
+        >;
       }>;
 
     /**
@@ -241,9 +243,10 @@ export namespace IGoogleDocs {
       Prerequisite<{
         method: "post";
         path: "/connector/google-docs/get-list";
-        array: "return response.elements";
-        value: "return elem.id";
-        label: "return elem.title";
+        jmesPath: JMESPath<
+          IListGoogleDocsOutput,
+          "data[].{value:id, label:title}"
+        >;
       }>;
 
     /**

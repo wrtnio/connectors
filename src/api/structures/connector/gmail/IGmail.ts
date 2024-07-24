@@ -61,20 +61,6 @@ export namespace IGmail {
    */
   export interface IReplyInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
-    // /**
-    //  * 답장할 메일.
-    //  *
-    //  * @title 답장할 메일.
-    //  */
-    // originalMailId: string &
-    //   Prerequisite<{
-    //     method: "post";
-    //     path: "/connector/gmail/findEmailList";
-    //     array: "return response.data";
-    //     value: "return elem.id";
-    //     label: "return elem.subject";
-    //   }>;
-
     /**
      * 답장할 문구.
      *

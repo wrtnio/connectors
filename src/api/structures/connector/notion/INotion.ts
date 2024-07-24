@@ -1,4 +1,4 @@
-import { Placeholder, Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
@@ -405,9 +405,7 @@ export namespace INotion {
       Prerequisite<{
         method: "post";
         path: "/connector/notion/get/page";
-        array: "return response";
-        value: "return elem.pageId";
-        label: "return elem.title";
+        jmesPath: JMESPath<IReadPageOutput[], "[].{value:pageId, label:title}">;
       }> &
       Placeholder<"부모 페이지를 선택하세요.">;
 
@@ -635,9 +633,7 @@ export namespace INotion {
       Prerequisite<{
         method: "post";
         path: "/connector/notion/get/page";
-        array: "return response";
-        value: "return elem.pageId";
-        label: "return elem.title";
+        jmesPath: JMESPath<IReadPageOutput[], "[].{value:pageId, label:title}">;
       }>;
 
     /**
