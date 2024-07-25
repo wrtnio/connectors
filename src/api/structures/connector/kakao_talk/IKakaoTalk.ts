@@ -4,6 +4,17 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
+  export type ISecret = ICommon.ISecret<
+    "kakao",
+    [
+      "friends",
+      "talk_message",
+      "profile_image",
+      "profile_nickname",
+      "talk_calendar",
+    ]
+  >;
+
   /**
    * @title 카카오 로그인 후 받게 되는 코드 DTO.
    */
@@ -342,7 +353,12 @@ export namespace IKakaoTalk {
      * @title 일정을 조회할 캘린더 ID
      * @description 값이 없을 시의 기본 값은 전체 캘린더 조회이다.
      */
-    calender_id?: string;
+    calender_id?: Calendar["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-talk/get-calendars";
+        jmesPath: "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}";
+      }>;
 
     /**
      * @title 일정 조회 기간
