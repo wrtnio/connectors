@@ -324,6 +324,9 @@ export namespace IFigma {
       tags.ContentMediaType<"image/*">;
 
     /**
+     * 해당 캔버스의 마지막 수정 시간을 의미한다.
+     * 이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다.
+     *
      * @title 마지막 수정 시간
      */
     last_modified: string & tags.Format<"date-time">;

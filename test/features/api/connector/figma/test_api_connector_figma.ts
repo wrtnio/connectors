@@ -111,6 +111,5 @@ export const test_api_connector_get_statistics = async (
       },
     );
 
-  console.log(JSON.stringify(res, null, 2));
   typia.assert(res);
 };
