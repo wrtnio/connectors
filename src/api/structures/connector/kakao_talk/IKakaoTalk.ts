@@ -111,11 +111,11 @@ export namespace IKakaoTalk {
 
     /**
      * 카카오톡 메시지 전송 시 사용하는 친구 코드로 추후 카카오톡 메시지 전송 등의 액션을 수행할 때에 사용한다.
-     * 사람을 가리키는 유니크한 코드.
+     * 사람을 가리키는 유니크한 코드지만, 프로퍼티 명이 uuid 지만 우리가 일반적으로 알고 있는 uuid 포맷은 아니기 때문에 사용에 주의해야 한다.
      *
      * @title 친구 코드
      */
-    uuid: string & tags.Format<"uuid">;
+    uuid: string;
 
     /**
      * @title 해당 친구의 즐겨 찾기 여부
