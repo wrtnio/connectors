@@ -36,7 +36,11 @@ export class GoogleAdsController {
   async keywordsAndUrl(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    return this.googleAdsProvider.generateKeywordIdeas(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.generateKeywordIdeas({
+      ...input,
+      customerId,
+    });
   }
 
   /**
@@ -63,7 +67,11 @@ export class GoogleAdsController {
   async keywords(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    return this.googleAdsProvider.generateKeywordIdeas(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.generateKeywordIdeas({
+      ...input,
+      customerId,
+    });
   }
 
   /**
@@ -90,7 +98,11 @@ export class GoogleAdsController {
   async url(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    return this.googleAdsProvider.generateKeywordIdeas(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.generateKeywordIdeas({
+      ...input,
+      customerId,
+    });
   }
 
   /**
@@ -114,7 +126,8 @@ export class GoogleAdsController {
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("customerClientLink")
   async publish(@TypedBody() input: IGoogleAds.ISecret): Promise<void> {
-    return this.googleAdsProvider.publish(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.publish({ ...input, customerId });
   }
 
   /**

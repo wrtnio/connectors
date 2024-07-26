@@ -1030,14 +1030,18 @@ export namespace IGoogleAds {
   export type IGenerateKeywordIdeaByKeywordsAndUrlInput =
     IGenerateKeywordIdeaByKeywordsInput & IGenerateKeywordIdeaByURLInput;
 
-  export interface IGenerateKeywordIdeaByKeywordsInput extends ICommonInput {
+  export interface IGenerateKeywordIdeaByKeywordsInput
+    extends ICommonInput,
+      IGoogleAds.ISecret {
     /**
      * @title 키워드 생성을 위한 검색 키워드
      */
     keywords: string[] & tags.MinItems<1>;
   }
 
-  export interface IGenerateKeywordIdeaByURLInput extends ICommonInput {
+  export interface IGenerateKeywordIdeaByURLInput
+    extends ICommonInput,
+      IGoogleAds.ISecret {
     /**
      * @title 광고 키워드 아이디어 생성에 참조할 URL.
      */
