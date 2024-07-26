@@ -11,9 +11,16 @@ import { retry } from "../../../utils/retry";
 export class GmailController {
   constructor(private readonly gmailProvider: GmailProvider) {}
   /**
-   * 메일을 전송합니다.
+   * 메일을 전송합니다
    *
-   * @summary GMAIL 전송.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * 이 커넥터는 이메일 보내는 용도이며,
+   * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
+   * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
+   * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   *
+   * @summary GMAIL 전송
    *
    * @param input 메일을 보내기 위해 필요한 정보.
    *
@@ -85,9 +92,16 @@ export class GmailController {
   }
 
   /**
-   * 메일 초안을 생성 합니다.
+   * 메일 초안을 생성 합니다
    *
-   * @summary GMAIL 초안 생성.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * 이 커넥터는 이메일 보내는 용도이며,
+   * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
+   * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
+   * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   *
+   * @summary GMAIL 초안 생성
    *
    * @param input 메일 초안을 생성하기 위한 정보.
    *
@@ -155,9 +169,16 @@ export class GmailController {
   }
 
   /**
-   * 수신된 메일에 답장을 보냅니다.
+   * 수신된 메일에 답장을 보냅니다
    *
-   * @summary GMAIL 답장.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * 이 커넥터는 이메일 보내는 용도이며,
+   * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
+   * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
+   * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   *
+   * @summary GMAIL 답장
    *
    * @param input 메일 답장에 필요한 정보.
    *
@@ -237,9 +258,11 @@ export class GmailController {
   }
 
   /**
-   * 메일의 정보를 가져옵니다.
+   * 메일의 정보를 가져옵니다
    *
-   * @summary GMAIL 정보 가져오기.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 정보 가져오기
    *
    * @param id 해당 메일의 고유 ID.
    *
@@ -321,9 +344,11 @@ export class GmailController {
   }
 
   /**
-   * 메일 리스트를 가져옵니다.
+   * 메일 리스트를 가져옵니다
    *
-   * @summary GMAIL 리스트 가져오기.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 리스트 가져오기
    *
    * @param input 메일 리스트를 가져오기 위한 정보.
    *
@@ -395,9 +420,11 @@ export class GmailController {
   }
 
   /**
-   * 메일을 삭제합니다.
+   * 메일을 삭제합니다
    *
-   * @summary GMAIL 삭제.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 삭제
    *
    * @param id 삭제할 메일의 고유 ID.
    *
@@ -477,9 +504,11 @@ export class GmailController {
   }
 
   /**
-   * 라벨을 생성합니다.
+   * 라벨을 생성합니다
    *
-   * @summary GMAIL 라벨 생성.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 라벨 생성
    *
    * @param input 라벨 생성을 위한 정보.
    *
@@ -551,9 +580,11 @@ export class GmailController {
   }
 
   /**
-   * 메일에 라벨을 부여합니다.
+   * 메일에 라벨을 부여합니다
    *
-   * @summary GMAIL 라벨 부여.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 라벨 부여
    *
    * @param mailId 라벨을 부여할 메일의 고유 ID.
    *
@@ -634,9 +665,11 @@ export class GmailController {
   }
 
   /**
-   * 메일에 부여된 라벨을 제거합니다.
+   * 메일에 부여된 라벨을 제거합니다
    *
-   * @summary GMAIL 라벨 제거.
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 라벨 제거
    *
    * @param mailId 라벨을 제거할 메일의 고유 ID.
    *
