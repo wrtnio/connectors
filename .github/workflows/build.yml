@@ -38,4 +38,4 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Run Test Program
-        run: npm run test -- --exclude sweet_tracker korea_exim google_ads
+        run: npm run test -- --exclude sweet_tracker korea_exim
