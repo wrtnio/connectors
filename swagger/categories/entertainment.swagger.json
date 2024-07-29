@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "엔터테인먼트",
-    "version": "0.1.25",
+    "version": "0.1.26",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -233,7 +233,7 @@
           }
         },
         "summary": "카카오톡 친구에게 메시지 쓰기",
-        "description": "친구에게 메시지를 카카오톡 메시지를 보냅니다",
+        "description": "친구에게 텍스트 타입 카카오톡 메시지를 보냅니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg"
       }
     },
@@ -267,7 +267,7 @@
           }
         },
         "summary": "카카오톡 내게 쓰기",
-        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
+        "description": "카카오톡 내게 쓰기로 커머스 타입 메시지를 보냅니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -302,7 +302,7 @@
           }
         },
         "summary": "카카오톡 내게 쓰기",
-        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
+        "description": "카카오톡 내게 쓰기로 위치 타입 메시지를 보냅니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -337,7 +337,7 @@
           }
         },
         "summary": "카카오톡 내게 쓰기",
-        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
+        "description": "카카오톡 내게 쓰기로 리스트 타입 메시지를 보냅니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -372,7 +372,7 @@
           }
         },
         "summary": "카카오톡 내게 쓰기",
-        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
+        "description": "카카오톡 내게 쓰기로 피드 타입 메시지를 보냅니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -407,7 +407,7 @@
           }
         },
         "summary": "카카오톡 내게 쓰기",
-        "description": "카카오톡 내게 쓰기로 메시지를 보냅니다.",
+        "description": "카카오톡 내게 쓰기로 텍스트 타입 메시지를 보냅니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -419,7 +419,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "일정 생성을 위한 입력 DTO.",
+          "description": "일정 생성을 위한 입력 조건",
           "content": {
             "application/json": {
               "schema": {
@@ -431,7 +431,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 일정 ID DTO.",
+            "description": "생성된 일정 ID 조건",
             "content": {
               "application/json": {
                 "schema": {
@@ -441,8 +441,8 @@
             }
           }
         },
-        "summary": "카카오톡 캘린더 일정 추가.",
-        "description": "카카오톡 캘린더에 일정을 추가합니다.",
+        "summary": "카카오톡 캘린더 일정 추가",
+        "description": "카카오톡 캘린더에 일정을 추가합니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -477,7 +477,7 @@
           }
         },
         "summary": "카카오톡 친구 목록 조회",
-        "description": "카카오톡 친구 목록을 조회합니다.",
+        "description": "카카오톡 친구 목록을 조회합니다\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -495,10 +495,10 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/ISecretkakaotalk_calendarcalender_idstringundefinedpresetConstantTODAYtitle조회당일ConstantTHIS_WEEKtitle일요일로시작하는조회일이포함된한주Constant...undefinedtime_zonestringundefinedlimit(number...2more...Maximum...)undefined..."
+                    "$ref": "#/components/schemas/ISecretkakaotalk_calendarcalender_id(stringDefaultprimaryPlaceholderprimaryPrerequisitemethodpostpath/connector/kakao-talk/get-calendarsjmesPathcalendars.valueidlabelnamesubscribe_calendars.valueidlabelname)undefinedpres..."
                   },
                   {
-                    "$ref": "#/components/schemas/ISecretkakaotalk_calendarcalender_idstringundefinedpresetConstantTODAYtitle조회당일ConstantTHIS_WEEKtitle일요일로시작하는조회일이포함된한주Constant...undefinedtime_zonestringundefinedlimit(number...2more...Maximum...)undefined....o1"
+                    "$ref": "#/components/schemas/ISecretkakaotalk_calendarcalender_id(stringDefaultprimaryPlaceholderprimaryPrerequisitemethodpostpath/connector/kakao-talk/get-calendarsjmesPathcalendars.valueidlabelnamesubscribe_calendars.valueidlabelname)undefinedpres....o1"
                   }
                 ]
               }
@@ -518,8 +518,8 @@
             }
           }
         },
-        "summary": "카카오톡 캘린더 일정 조회.",
-        "description": "카카오톡 캘린더 일정을 조회합니다.",
+        "summary": "카카오톡 캘린더 일정 조회",
+        "description": "카카오톡 캘린더 일정을 조회합니다\n\n유저에게 인자로 캘린더의 아이디를 받아야 합니다.\n캘린더를 주지 않을 경우, 기본 값으로 자기 자신의 캘린더를 조회합니다.\n따라서 캘린더 아이디를 지정하지 않은 경우에도 단독으로 사용 가능한 기능이기도 합니다.\n\n일정 조회 조건으로는 일정을 조회하는 기간을 명시해야 합니다.\n이 커넥터에서는 일주일 혹은 한 달 치의 데이터를 볼 수 있도록 설계되어 있습니다.\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -553,8 +553,8 @@
             }
           }
         },
-        "summary": "카카오톡 캘린더 목록 조회.",
-        "description": "카카오톡 캘린더 목록들을 모두 조회합니다.",
+        "summary": "카카오톡 캘린더 목록 조회",
+        "description": "카카오톡 캘린더 목록들을 모두 조회합니다\n\n캘린더는 두 종류로 자신의 기본 캘린더들과 내가 구독하고 있는 캘린더가 있을 수 있습니다.\n모든 카카오 유저들은 자기 자신의 개인 캘린더가 존재하기 때문에 1개 이상의 캘린더는 존재할 것입니다.\n기본 캘린더에는 아이디가 `primary` 라는 값으로 되어 있는 캘린더가 있는데, 이 캘린더는 유저 자기 자신의 캘린더입니다.\n\n카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -1833,133 +1833,15 @@
             "type": "string",
             "default": "primary",
             "x-wrtn-placeholder": "primary",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-talk/get-calendars",
+              "jmesPath": "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}"
+            },
             "title": "일정을 생성할 캘린더 ID"
           },
           "event": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string",
-                "maxLength": 50,
-                "x-wrtn-placeholder": "일정 제목",
-                "title": "일정 제목"
-              },
-              "time": {
-                "$ref": "#/components/schemas/IKakaoTalk.Time",
-                "title": "일정 시간"
-              },
-              "rrule": {
-                "type": "string",
-                "title": "일정의 반복 주기",
-                "description": "RFC5545의 RRULE 형식"
-              },
-              "description": {
-                "type": "string",
-                "maxLength": 5000,
-                "x-wrtn-placeholder": "일정 설명",
-                "title": "일정 설명"
-              },
-              "location": {
-                "$ref": "#/components/schemas/IKakaoTalk.Location",
-                "title": "일정 장소"
-              },
-              "reminders": {
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "multipleOf": 5,
-                  "minimum": -1440,
-                  "maximum": 43200
-                },
-                "maxItems": 2,
-                "title": "미리 알림 설정",
-                "description": "분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능. 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다."
-              },
-              "color": {
-                "oneOf": [
-                  {
-                    "const": "BLUE",
-                    "title": "BLUE",
-                    "description": "2C88DE"
-                  },
-                  {
-                    "const": "ROYAL_BLUE",
-                    "title": "ROYAL_BLUE",
-                    "description": "2D69E0"
-                  },
-                  {
-                    "const": "NAVY_BLUE",
-                    "title": "NAVY_BLUE",
-                    "description": "223788"
-                  },
-                  {
-                    "const": "RED",
-                    "title": "RED",
-                    "description": "D42726"
-                  },
-                  {
-                    "const": "PINK",
-                    "title": "PINK",
-                    "description": "ED5683"
-                  },
-                  {
-                    "const": "ORANGE",
-                    "title": "ORANGE",
-                    "description": "FF9429"
-                  },
-                  {
-                    "const": "GREEN",
-                    "title": "GREEN",
-                    "description": "149959"
-                  },
-                  {
-                    "const": "LIME",
-                    "title": "LIME",
-                    "description": "7CB343"
-                  },
-                  {
-                    "const": "OLIVE",
-                    "title": "OLIVE",
-                    "description": "A4AD15"
-                  },
-                  {
-                    "const": "MINT",
-                    "title": "MINT",
-                    "description": "5CC5BE"
-                  },
-                  {
-                    "const": "MAGENTA",
-                    "title": "MAGENTA",
-                    "description": "AB47BC"
-                  },
-                  {
-                    "const": "VIOLET",
-                    "title": "VIOLET",
-                    "description": "8A4B9B"
-                  },
-                  {
-                    "const": "LAVENDER",
-                    "title": "LAVENDER",
-                    "description": "7986CB"
-                  },
-                  {
-                    "const": "BROWN",
-                    "title": "BROWN",
-                    "description": "945C1F"
-                  },
-                  {
-                    "const": "GRAY",
-                    "title": "GRAY",
-                    "description": "666666"
-                  }
-                ],
-                "title": "일정 색상"
-              }
-            },
-            "required": [
-              "title",
-              "time"
-            ],
+            "$ref": "#/components/schemas/IKakaoTalk.Event",
             "title": "생성할 일정 정보"
           },
           "secretKey": {
@@ -1977,6 +1859,134 @@
           "secretKey"
         ],
         "title": "일정을 생성하기 위한 조건"
+      },
+      "IKakaoTalk.Event": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 50,
+            "x-wrtn-placeholder": "일정 제목",
+            "title": "일정 제목"
+          },
+          "time": {
+            "$ref": "#/components/schemas/IKakaoTalk.Time",
+            "title": "일정 시간"
+          },
+          "rrule": {
+            "type": "string",
+            "title": "일정의 반복 주기",
+            "description": "RFC5545의 RRULE 형식"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000,
+            "x-wrtn-placeholder": "일정 설명",
+            "title": "일정 설명"
+          },
+          "location": {
+            "$ref": "#/components/schemas/IKakaoTalk.Location",
+            "title": "일정 장소"
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "multipleOf": 5,
+              "minimum": -1440,
+              "maximum": 43200
+            },
+            "maxItems": 2,
+            "title": "미리 알림 설정",
+            "description": "분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능. 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다."
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "BLUE",
+                "title": "BLUE",
+                "description": "2C88DE"
+              },
+              {
+                "const": "ROYAL_BLUE",
+                "title": "ROYAL_BLUE",
+                "description": "2D69E0"
+              },
+              {
+                "const": "NAVY_BLUE",
+                "title": "NAVY_BLUE",
+                "description": "223788"
+              },
+              {
+                "const": "RED",
+                "title": "RED",
+                "description": "D42726"
+              },
+              {
+                "const": "PINK",
+                "title": "PINK",
+                "description": "ED5683"
+              },
+              {
+                "const": "ORANGE",
+                "title": "ORANGE",
+                "description": "FF9429"
+              },
+              {
+                "const": "GREEN",
+                "title": "GREEN",
+                "description": "149959"
+              },
+              {
+                "const": "LIME",
+                "title": "LIME",
+                "description": "7CB343"
+              },
+              {
+                "const": "OLIVE",
+                "title": "OLIVE",
+                "description": "A4AD15"
+              },
+              {
+                "const": "MINT",
+                "title": "MINT",
+                "description": "5CC5BE"
+              },
+              {
+                "const": "MAGENTA",
+                "title": "MAGENTA",
+                "description": "AB47BC"
+              },
+              {
+                "const": "VIOLET",
+                "title": "VIOLET",
+                "description": "8A4B9B"
+              },
+              {
+                "const": "LAVENDER",
+                "title": "LAVENDER",
+                "description": "7986CB"
+              },
+              {
+                "const": "BROWN",
+                "title": "BROWN",
+                "description": "945C1F"
+              },
+              {
+                "const": "GRAY",
+                "title": "GRAY",
+                "description": "666666"
+              }
+            ],
+            "title": "일정 색상"
+          }
+        },
+        "required": [
+          "title",
+          "time"
+        ],
+        "title": "일정",
+        "description": "카카오톡 캘린더에서 생성한 일정"
       },
       "IKakaoTalk.Time": {
         "type": "object",
@@ -2007,7 +2017,8 @@
             "default": false,
             "title": "날짜 기준을 음력으로 설정"
           }
-        }
+        },
+        "title": "일정의 시간 설정"
       },
       "IKakaoTalk.Location": {
         "type": "object",
@@ -2058,7 +2069,7 @@
             "title": "친구 목록 시작 지점"
           },
           "limit": {
-            "type": "number",
+            "type": "integer",
             "title": "한 페이지 당 친구 수"
           },
           "order": {
@@ -2103,7 +2114,8 @@
         },
         "required": [
           "secretKey"
-        ]
+        ],
+        "title": "친구 조회 조건"
       },
       "IKakaoTalk.IGetFriendsOutput": {
         "type": "object",
@@ -2111,37 +2123,7 @@
           "elements": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "title": "회원 번호"
-                },
-                "uuid": {
-                  "type": "string",
-                  "format": "uuid",
-                  "title": "친구 코드",
-                  "description": "카카오톡 메시지 전송 시 사용하는 친구 코드"
-                },
-                "favorite": {
-                  "type": "boolean",
-                  "title": "해당 친구의 즐겨 찾기 여부"
-                },
-                "profile_nickname": {
-                  "type": "string",
-                  "title": "닉네임"
-                },
-                "profile_thumbnail_image": {
-                  "type": "string",
-                  "format": "uri",
-                  "title": "썸네일"
-                }
-              },
-              "required": [
-                "id",
-                "uuid",
-                "profile_nickname"
-              ]
+              "$ref": "#/components/schemas/IKakaoTalk.Friend"
             },
             "title": "친구 목록"
           },
@@ -2181,9 +2163,44 @@
         "required": [
           "elements",
           "total_count"
-        ]
+        ],
+        "title": "친구 조회 결과"
       },
-      "ISecretkakaotalk_calendarcalender_idstringundefinedpresetConstantTODAYtitle조회당일ConstantTHIS_WEEKtitle일요일로시작하는조회일이포함된한주Constant...undefinedtime_zonestringundefinedlimit(number...2more...Maximum...)undefined...": {
+      "IKakaoTalk.Friend": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "회원 번호",
+            "description": "회원의 아이디\n\n카카오톡에서 친구에 부여한 회원 번호로 아이디 값에 해당한다.\n단, 실제로 메세지 전송에 사용하는 것은 `uuid` 프로퍼티기 때문에 주의한다."
+          },
+          "uuid": {
+            "type": "string",
+            "title": "친구 코드",
+            "description": "카카오톡 메시지 전송 시 사용하는 친구 코드로 추후 카카오톡 메시지 전송 등의 액션을 수행할 때에 사용한다.\n사람을 가리키는 유니크한 코드지만, 프로퍼티 명이 uuid 지만 우리가 일반적으로 알고 있는 uuid 포맷은 아니기 때문에 사용에 주의해야 한다."
+          },
+          "favorite": {
+            "type": "boolean",
+            "title": "해당 친구의 즐겨 찾기 여부"
+          },
+          "profile_nickname": {
+            "type": "string",
+            "title": "닉네임"
+          },
+          "profile_thumbnail_image": {
+            "type": "string",
+            "format": "uri",
+            "title": "썸네일"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "profile_nickname"
+        ],
+        "title": "카카오톡 친구"
+      },
+      "ISecretkakaotalk_calendarcalender_id(stringDefaultprimaryPlaceholderprimaryPrerequisitemethodpostpath/connector/kakao-talk/get-calendarsjmesPathcalendars.valueidlabelnamesubscribe_calendars.valueidlabelname)undefinedpres...": {
         "type": "object",
         "properties": {
           "secretKey": {
@@ -2197,6 +2214,13 @@
           },
           "calender_id": {
             "type": "string",
+            "default": "primary",
+            "x-wrtn-placeholder": "primary",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-talk/get-calendars",
+              "jmesPath": "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}"
+            },
             "title": "일정을 조회할 캘린더 ID",
             "description": "값이 없을 시의 기본 값은 전체 캘린더 조회이다."
           },
@@ -2247,7 +2271,7 @@
           "to"
         ]
       },
-      "ISecretkakaotalk_calendarcalender_idstringundefinedpresetConstantTODAYtitle조회당일ConstantTHIS_WEEKtitle일요일로시작하는조회일이포함된한주Constant...undefinedtime_zonestringundefinedlimit(number...2more...Maximum...)undefined....o1": {
+      "ISecretkakaotalk_calendarcalender_id(stringDefaultprimaryPlaceholderprimaryPrerequisitemethodpostpath/connector/kakao-talk/get-calendarsjmesPathcalendars.valueidlabelnamesubscribe_calendars.valueidlabelname)undefinedpres....o1": {
         "type": "object",
         "properties": {
           "secretKey": {
@@ -2261,6 +2285,13 @@
           },
           "calender_id": {
             "type": "string",
+            "default": "primary",
+            "x-wrtn-placeholder": "primary",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-talk/get-calendars",
+              "jmesPath": "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}"
+            },
             "title": "일정을 조회할 캘린더 ID",
             "description": "값이 없을 시의 기본 값은 전체 캘린더 조회이다."
           },
@@ -2348,6 +2379,11 @@
             "type": "string",
             "default": "primary",
             "x-wrtn-placeholder": "primary",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-talk/get-calendars",
+              "jmesPath": "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}"
+            },
             "title": "캘린더 ID",
             "description": "기본 캘린더의 경우 primary로 고정"
           },
@@ -2523,16 +2559,20 @@
             "items": {
               "$ref": "#/components/schemas/IKakaoTalk.Calendar"
             },
-            "title": "기본 캘린더"
+            "title": "기본 캘린더",
+            "description": "개인의 캘린더입니다.\n개인이지만 반드시 나의 것만 보이는 것은 아니며, 친구의 일정에 초대, 일정을 공유 받았다면 조회할 수 있습니다."
           },
           "subscribe_calendars": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IKakaoTalk.SubscribeCalendars"
             },
-            "title": "구독한 구독 캘린더 목록"
+            "title": "구독한 구독 캘린더 목록",
+            "description": "구독 캘린더입니다.\n카카오톡에 다수의 구성원들이 채팅방을 구성한 경우에 해당 채팅방에서 캘린더를 관리할 수 있습니다.\n내가 속한 채팅방의 캘린더들을 조회할 수 있습니다."
           }
-        }
+        },
+        "title": "톡 캘린더",
+        "description": "카카오톡의 캘린더에는 두 종류가 있습니다.\n하나는 기본 캘린더로 개인의 캘린더이며, 두번째는 구독 캘린더로 구성원들이 함께 공유하는 캘린더입니다."
       },
       "IKakaoTalk.Calendar": {
         "type": "object",
@@ -2623,11 +2663,13 @@
           "profile_image_url": {
             "type": "string",
             "format": "url",
+            "contentMediaType": "image/*",
             "title": "구독 캘린더의 프로필 이미지 URL"
           },
           "thumbnail_url": {
             "type": "string",
             "format": "url",
+            "contentMediaType": "image/*",
             "title": "구독 캘린더의 말풍선 썸네일 URL"
           },
           "id": {
