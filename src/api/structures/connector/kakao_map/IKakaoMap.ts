@@ -159,7 +159,7 @@ export namespace IKakaoMap {
   export type CategoryGroupCode =
     | tags.Constant<"MT1", { title: "대형마트" }>
     | tags.Constant<"CS2", { title: "편의점" }>
-    | tags.Constant<"PS3", { title: "어린이집, 유치원" }>
+    | tags.Constant<"PS3", { title: "어린이집,유치원" }>
     | tags.Constant<"SC4", { title: "학교" }>
     | tags.Constant<"AC5", { title: "학원" }>
     | tags.Constant<"PK6", { title: "주차장" }>
@@ -183,7 +183,7 @@ export namespace IKakaoMap {
   export type CategoryGroupName =
     | tags.Constant<"대형마트", { title: "대형마트" }>
     | tags.Constant<"편의점", { title: "편의점" }>
-    | tags.Constant<"어린이집, 유치원", { title: "어린이집, 유치원" }>
+    | tags.Constant<"어린이집,유치원", { title: "어린이집,유치원" }>
     | tags.Constant<"학교", { title: "학교" }>
     | tags.Constant<"학원", { title: "학원" }>
     | tags.Constant<"주차장", { title: "주차장" }>
