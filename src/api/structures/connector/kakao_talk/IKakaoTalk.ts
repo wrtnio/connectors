@@ -1,8 +1,8 @@
 import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
-import { ICommon } from "../common/ISecretValue";
 import type { ContentMediaType } from "typia/lib/tags";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
   export type ISecret = ICommon.ISecret<
@@ -552,6 +552,7 @@ export namespace IKakaoTalk {
   export interface Button {
     /**
      * @title 버튼 이름
+     *
      */
     title: string & Placeholder<"버튼 이름">;
 
@@ -577,8 +578,7 @@ export namespace IKakaoTalk {
     /**
      * @title 웹 링크
      */
-
-    web_url: `https://studio-pro.wrtn.ai${string}`;
+    web_url: string & tags.Format<"url">;
   }
 
   /**
@@ -588,7 +588,7 @@ export namespace IKakaoTalk {
     /**
      * @title 모바일 링크
      */
-    mobile_web_url: `https://studio-pro.wrtn.ai${string}`;
+    mobile_web_url: string & tags.Format<"url">;
   }
 
   /**
