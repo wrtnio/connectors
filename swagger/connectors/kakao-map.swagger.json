@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오 지도",
-    "version": "0.1.31",
+    "version": "0.1.33",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -235,6 +235,9 @@
           },
           {
             "$ref": "#/components/schemas/ConstantPM9__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant__type"
           }
         ],
         "title": "카테고리 그룹 코드"
@@ -311,6 +314,10 @@
         "const": "PM9",
         "title": "약국"
       },
+      "Constant__type": {
+        "const": "",
+        "title": "알수 없음"
+      },
       "IKakaoMap.CategoryGroupName": {
         "oneOf": [
           {
@@ -366,6 +373,9 @@
           },
           {
             "$ref": "#/components/schemas/Constant약국__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant__type.o1"
           }
         ],
         "title": "카테고리 그룹 이름"
@@ -441,6 +451,10 @@
       "Constant약국__type": {
         "const": "약국",
         "title": "약국"
+      },
+      "Constant__type.o1": {
+        "const": "",
+        "title": "알수 없음"
       },
       "IKakaoMap.Meta": {
         "type": "object",
