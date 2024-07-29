@@ -6,7 +6,10 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
-import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
+import {
+  IKoreaMeteorologicalAdministration,
+  IOpenData,
+} from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
@@ -169,6 +172,30 @@ export class OpenDataController {
   /**
    * [기상청] 오늘 날씨를 조회합니다.
    *
+   * 조회 시 위도와 경도 좌표가 필요합니다.
+   * 입력 시 위도와 경도를 입력하면 해당 지역의 날씨 값을 매 시각의 00분을 기준으로 현재 날씨를 조회해줍니다.
+   * 출력 시에는 격좌 좌표 대신 위경도로 변환하여, 각 지역의 날씨부터 풍향, 풍속 등 날씨와 연관된 정보들을 모두 제공해줍니다.
+   * 제공해주는 정보는 현재 아래와 같습니다.
+   *
+   * - POP : 강수확률
+   * - PTY : 강수형태
+   * - PCP : 1시간 강수량
+   * - REH : 습도
+   * - SNO : 1시간 신적설
+   * - SKY : 하늘 상태
+   * - TMP : 1시간 기온
+   * - TMN : 일 최저기온
+   * - TMX : 일 최고기온
+   * - UUU : 풍속 (동서성분)
+   * - VVV : 풍속 (남북성분)
+   * - WAV : 파고 (파도높이)
+   * - VEC : 풍향
+   * - WSD : 풍속
+   * - T1H : 기온
+   * - RN1 : 1시간 강수량
+   * - VEC : 풍향
+   * - T1H : 기온
+   *
    * @summary 기상청 오늘 날씨 조회
    *
    * @param input 날씨 조회를 위한 위치 정보 DTO
@@ -182,8 +209,8 @@ export class OpenDataController {
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()
-    input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
-  ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
+    input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
+  ): Promise<IKoreaMeteorologicalAdministration.IGetForecastOutput[]> {
     return retry(() => OpenDataProvider.getShortTermForecast(input))();
   }
 
