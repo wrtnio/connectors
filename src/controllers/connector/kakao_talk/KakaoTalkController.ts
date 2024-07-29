@@ -11,12 +11,12 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
   /**
-   * 친구에게 메시지를 카카오톡 메시지를 보냅니다
+   * 친구에게 텍스트 타입 카카오톡 메시지를 보냅니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 친구에게 메시지 쓰기
-   *
    * @param input 메시지를 보내기 위한 조건
-   *
    * @returns 응답 및 실패 정보
    *
    * @tag 카카오톡
@@ -32,12 +32,12 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   * 카카오톡 내게 쓰기로 커머스 타입 메시지를 보냅니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 내게 쓰기
-   *
    * @param input 메시지를 보내기 위한 조건
-   *
    * @returns 응답 코드
    *
    * @tag 카카오톡
@@ -54,12 +54,12 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   * 카카오톡 내게 쓰기로 위치 타입 메시지를 보냅니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 내게 쓰기
-   *
    * @param input 메시지를 보내기 위한 조건
-   *
    * @returns 응답 코드
    *
    * @tag 카카오톡
@@ -76,12 +76,12 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   * 카카오톡 내게 쓰기로 리스트 타입 메시지를 보냅니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 내게 쓰기
-   *
    * @param input 메시지를 보내기 위한 조건
-   *
    * @returns 응답 코드
    *
    * @tag 카카오톡
@@ -98,12 +98,12 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   * 카카오톡 내게 쓰기로 피드 타입 메시지를 보냅니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 내게 쓰기
-   *
    * @param input 메시지를 보내기 위한 조건
-   *
    * @returns 응답 코드
    *
    * @tag 카카오톡
@@ -120,12 +120,12 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 메시지를 보냅니다.
+   * 카카오톡 내게 쓰기로 텍스트 타입 메시지를 보냅니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 내게 쓰기
-   *
    * @param input 메시지를 보내기 위한 조건
-   *
    * @returns 응답 코드
    *
    * @tag 카카오톡
@@ -142,30 +142,14 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 액세스 토큰 갱신.
+   * 카카오톡 캘린더에 일정을 추가합니다
    *
-   * @internal
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
-   * @param input Refresh를 위한 요청 DTO.
-   */
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
-  )
-  @core.TypedRoute.Post("refresh")
-  async refresh(
-    @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
-  ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
-    return retry(() => KakaoTalkProvider.refresh(input))();
-  }
-
-  /**
-   * 카카오톡 캘린더에 일정을 추가합니다.
+   * @summary 카카오톡 캘린더 일정 추가
+   * @param input 일정 생성을 위한 입력 조건
    *
-   * @summary 카카오톡 캘린더 일정 추가.
-   *
-   * @param input 일정 생성을 위한 입력 DTO.
-   *
-   * @returns 생성된 일정 ID DTO.
+   * @returns 생성된 일정 ID 조건
    *
    * @tag 카카오톡
    */
@@ -181,10 +165,11 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 친구 목록을 조회합니다.
+   * 카카오톡 친구 목록을 조회합니다
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
    *
    * @summary 카카오톡 친구 목록 조회
-   *
    * @param input 친구 목록 조회 조건
    * @returns 조회한 친구 모록
    *
@@ -202,12 +187,19 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 캘린더 일정을 조회합니다.
+   * 카카오톡 캘린더 일정을 조회합니다
    *
-   * @summary 카카오톡 캘린더 일정 조회.
+   * 유저에게 인자로 캘린더의 아이디를 받아야 합니다.
+   * 캘린더를 주지 않을 경우, 기본 값으로 자기 자신의 캘린더를 조회합니다.
+   * 따라서 캘린더 아이디를 지정하지 않은 경우에도 단독으로 사용 가능한 기능이기도 합니다.
    *
+   * 일정 조회 조건으로는 일정을 조회하는 기간을 명시해야 합니다.
+   * 이 커넥터에서는 일주일 혹은 한 달 치의 데이터를 볼 수 있도록 설계되어 있습니다.
+   *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   *
+   * @summary 카카오톡 캘린더 일정 조회
    * @param input 일정 조회를 위한 DTO.
-   *
    * @returns 일정 정보 DTO.
    *
    * @tag 카카오톡
@@ -224,12 +216,16 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 캘린더 목록들을 모두 조회합니다.
+   * 카카오톡 캘린더 목록들을 모두 조회합니다
    *
-   * @summary 카카오톡 캘린더 목록 조회.
+   * 캘린더는 두 종류로 자신의 기본 캘린더들과 내가 구독하고 있는 캘린더가 있을 수 있습니다.
+   * 모든 카카오 유저들은 자기 자신의 개인 캘린더가 존재하기 때문에 1개 이상의 캘린더는 존재할 것입니다.
+   * 기본 캘린더에는 아이디가 `primary` 라는 값으로 되어 있는 캘린더가 있는데, 이 캘린더는 유저 자기 자신의 캘린더입니다.
    *
+   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   *
+   * @summary 카카오톡 캘린더 목록 조회
    * @param input 캘린더를 조회하기 위한 요청 DTO.
-   *
    * @returns 캘린더 목록 객체.
    *
    * @tag 카카오톡
@@ -246,7 +242,7 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 액세스 토큰 발급.
+   * 카카오톡 액세스 토큰 발급
    *
    * @internal
    *
@@ -257,5 +253,22 @@ export class KakaoTalkController {
     @Query() query: IKakaoTalk.IAuthorizationCode,
   ): Promise<IKakaoTalk.IGetAccessTokenOutput> {
     return null!;
+  }
+
+  /**
+   * 카카오톡 액세스 토큰 갱신.
+   *
+   * @internal
+   *
+   * @param input Refresh를 위한 요청 DTO.
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+  )
+  @core.TypedRoute.Post("refresh")
+  async refresh(
+    @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,
+  ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
+    return retry(() => KakaoTalkProvider.refresh(input))();
   }
 }

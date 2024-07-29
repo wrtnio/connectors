@@ -2,8 +2,20 @@ import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { ICommon } from "../common/ISecretValue";
+import type { ContentMediaType } from "typia/lib/tags";
 
 export namespace IKakaoTalk {
+  export type ISecret = ICommon.ISecret<
+    "kakao",
+    [
+      "friends",
+      "talk_message",
+      "profile_image",
+      "profile_nickname",
+      "talk_calendar",
+    ]
+  >;
+
   /**
    * @title 카카오 로그인 후 받게 되는 코드 DTO.
    */
@@ -49,6 +61,9 @@ export namespace IKakaoTalk {
     refresh_token_expires_in: number;
   }
 
+  /**
+   * @title 친구 조회 조건
+   */
   export interface IGetFriendsInput
     extends ICommon.ISecret<"kakao", ["friends"]> {
     /**
@@ -59,7 +74,7 @@ export namespace IKakaoTalk {
     /**
      * @title 한 페이지 당 친구 수
      */
-    limit?: number;
+    limit?: number & tags.Type<"int32">;
 
     /**
      * @title 친구 목록 정렬 순서
@@ -80,37 +95,52 @@ export namespace IKakaoTalk {
       tags.Default<"favorite">;
   }
 
+  /**
+   * @title 카카오톡 친구
+   */
+  export interface Friend {
+    /**
+     * 회원의 아이디
+     *
+     * 카카오톡에서 친구에 부여한 회원 번호로 아이디 값에 해당한다.
+     * 단, 실제로 메세지 전송에 사용하는 것은 `uuid` 프로퍼티기 때문에 주의한다.
+     *
+     * @title 회원 번호
+     */
+    id: number & tags.Type<"int32">;
+
+    /**
+     * 카카오톡 메시지 전송 시 사용하는 친구 코드로 추후 카카오톡 메시지 전송 등의 액션을 수행할 때에 사용한다.
+     * 사람을 가리키는 유니크한 코드지만, 프로퍼티 명이 uuid 지만 우리가 일반적으로 알고 있는 uuid 포맷은 아니기 때문에 사용에 주의해야 한다.
+     *
+     * @title 친구 코드
+     */
+    uuid: string;
+
+    /**
+     * @title 해당 친구의 즐겨 찾기 여부
+     */
+    favorite?: boolean;
+
+    /**
+     * @title 닉네임
+     */
+    profile_nickname: string;
+
+    /**
+     * @title 썸네일
+     */
+    profile_thumbnail_image?: string & tags.Format<"uri">;
+  }
+
+  /**
+   * @title 친구 조회 결과
+   */
   export interface IGetFriendsOutput {
     /**
      * @title 친구 목록
      */
-    elements: {
-      /**
-       * @title 회원 번호
-       */
-      id: number & tags.Type<"int32">;
-
-      /**
-       * @title 친구 코드
-       * @description 카카오톡 메시지 전송 시 사용하는 친구 코드
-       */
-      uuid: string & tags.Format<"uuid">;
-
-      /**
-       * @title 해당 친구의 즐겨 찾기 여부
-       */
-      favorite?: boolean;
-
-      /**
-       * @title 닉네임
-       */
-      profile_nickname: string;
-
-      /**
-       * @title 썸네일
-       */
-      profile_thumbnail_image?: string & tags.Format<"uri">;
-    }[];
+    elements: Friend[];
 
     /**
      * @title 전체 친구 수
@@ -180,7 +210,12 @@ export namespace IKakaoTalk {
      * @title	캘린더 ID
      * @description 기본 캘린더의 경우 primary로 고정
      */
-    calendar_id?: string & tags.Default<"primary"> & Placeholder<"primary">;
+    calendar_id?: Calendar["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-talk/get-calendars";
+        jmesPath: "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}";
+      }>;
 
     /**
      * @title 일정 시간
@@ -206,6 +241,9 @@ export namespace IKakaoTalk {
     color?: IKakaoTalk.Color;
   }
 
+  /**
+   * @title 일정의 시간 설정
+   */
   export interface Time {
     /**
      * @title 일정 시작 시각
@@ -237,6 +275,54 @@ export namespace IKakaoTalk {
   }
 
   /**
+   * 카카오톡 캘린더에서 생성한 일정
+   *
+   * @title 일정
+   */
+  export interface Event {
+    /**
+     * @title 일정 제목
+     */
+    title: string & tags.MaxLength<50> & Placeholder<"일정 제목">;
+
+    /**
+     * @title 일정 시간
+     */
+    time: IKakaoTalk.Time;
+
+    /**
+     * @title 일정의 반복 주기
+     * @description RFC5545의 RRULE 형식
+     */
+    rrule?: string;
+
+    /**
+     * @title 일정 설명
+     */
+    description?: string & tags.MaxLength<5000> & Placeholder<"일정 설명">;
+
+    /**
+     * @title 일정 장소
+     */
+    location?: IKakaoTalk.Location;
+
+    /**
+     * @title 미리 알림 설정
+     * @description 분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능. 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
+     */
+    reminders?: (number &
+      tags.MultipleOf<5> &
+      tags.Minimum<-1440> &
+      tags.Maximum<43200>)[] &
+      tags.MaxItems<2>;
+
+    /**
+     * @title 일정 색상
+     */
+    color?: IKakaoTalk.Color;
+  }
+
+  /**
    * @title 생성된 일정
    */
   export interface ICreateEventOutput {
@@ -254,53 +340,17 @@ export namespace IKakaoTalk {
     /**
      * @title 일정을 생성할 캘린더 ID
      */
-    calendar_id?: string & tags.Default<"primary"> & Placeholder<"primary">;
+    calendar_id?: Calendar["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-talk/get-calendars";
+        jmesPath: "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}";
+      }>;
 
     /**
      * @title 생성할 일정 정보
      */
-    event: {
-      /**
-       * @title 일정 제목
-       */
-      title: string & tags.MaxLength<50> & Placeholder<"일정 제목">;
-
-      /**
-       * @title 일정 시간
-       */
-      time: IKakaoTalk.Time;
-
-      /**
-       * @title 일정의 반복 주기
-       * @description RFC5545의 RRULE 형식
-       */
-      rrule?: string;
-
-      /**
-       * @title 일정 설명
-       */
-      description?: string & tags.MaxLength<5000> & Placeholder<"일정 설명">;
-
-      /**
-       * @title 일정 장소
-       */
-      location?: IKakaoTalk.Location;
-
-      /**
-       * @title 미리 알림 설정
-       * @description 분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능. 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
-       */
-      reminders?: (number &
-        tags.MultipleOf<5> &
-        tags.Minimum<-1440> &
-        tags.Maximum<43200>)[] &
-        tags.MaxItems<2>;
-
-      /**
-       * @title 일정 색상
-       */
-      color?: IKakaoTalk.Color;
-    };
+    event: Event;
   }
 
   /**
@@ -342,7 +392,12 @@ export namespace IKakaoTalk {
      * @title 일정을 조회할 캘린더 ID
      * @description 값이 없을 시의 기본 값은 전체 캘린더 조회이다.
      */
-    calender_id?: string;
+    calender_id?: Calendar["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-talk/get-calendars";
+        jmesPath: "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}";
+      }>;
 
     /**
      * @title 일정 조회 기간
@@ -403,13 +458,26 @@ export namespace IKakaoTalk {
     refresh_token: string;
   }
 
+  /**
+   * 카카오톡의 캘린더에는 두 종류가 있습니다.
+   * 하나는 기본 캘린더로 개인의 캘린더이며, 두번째는 구독 캘린더로 구성원들이 함께 공유하는 캘린더입니다.
+   *
+   * @title 톡 캘린더
+   */
   export interface IGetCalendarOutput {
     /**
+     * 개인의 캘린더입니다.
+     * 개인이지만 반드시 나의 것만 보이는 것은 아니며, 친구의 일정에 초대, 일정을 공유 받았다면 조회할 수 있습니다.
+     *
      * @title 기본 캘린더
      */
     calendars?: IKakaoTalk.Calendar[];
 
     /**
+     * 구독 캘린더입니다.
+     * 카카오톡에 다수의 구성원들이 채팅방을 구성한 경우에 해당 채팅방에서 캘린더를 관리할 수 있습니다.
+     * 내가 속한 채팅방의 캘린더들을 조회할 수 있습니다.
+     *
      * @title 구독한 구독 캘린더 목록
      */
     subscribe_calendars?: IKakaoTalk.SubscribeCalendars[];
@@ -427,12 +495,14 @@ export namespace IKakaoTalk {
     /**
      * @title 구독 캘린더의 프로필 이미지 URL
      */
-    profile_image_url?: string & tags.Format<"url">;
+    profile_image_url?: string &
+      tags.Format<"url"> &
+      ContentMediaType<"image/*">;
 
     /**
      * @title 구독 캘린더의 말풍선 썸네일 URL
      */
-    thumbnail_url?: string & tags.Format<"url">;
+    thumbnail_url?: string & tags.Format<"url"> & ContentMediaType<"image/*">;
   }
 
   /**
@@ -551,7 +621,7 @@ export namespace IKakaoTalk {
     /**
      * @title 친구의 uuid 값 목록
      */
-    receiver_uuids: (string &
+    receiver_uuids: (Friend["uuid"] &
       Prerequisite<{
         method: "post";
         path: "/connector/kakao-talk/get-friends";
