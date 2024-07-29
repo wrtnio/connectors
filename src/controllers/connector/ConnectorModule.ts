@@ -46,6 +46,8 @@ import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
+import { AirportInformationModule } from "./airport_information/AirportInformationModule";
+import { GoogleFlightModule } from "./google_flight/GoogleFlightModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -96,6 +98,8 @@ import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
     CsvModule,
     NotionModule,
     GoogleHotelModule,
+    AirportInformationModule,
+    GoogleFlightModule,
   ],
   controllers: [TypeformController],
 })

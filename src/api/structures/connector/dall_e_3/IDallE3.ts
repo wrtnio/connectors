@@ -15,6 +15,8 @@ export namespace IDallE3 {
     /**
      * 생성할 이미지 사이즈 프리셋 입니다.
      *
+     * 가능한 값으로는 "square", "landscape", "portrait" 3가지만 가능합니다.
+     *
      * @title 이미지 사이즈
      */
     image_ratio:
