@@ -11,7 +11,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/categories/stable-diffusion.swagger.json",
+    output: "packages/api/connectors/stable-diffusion.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",

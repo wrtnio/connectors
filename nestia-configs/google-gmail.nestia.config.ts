@@ -11,7 +11,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/categories/google-gmail.swagger.json",
+    output: "packages/api/connectors/google-gmail.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",

@@ -11,7 +11,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/categories/keyword-extract.swagger.json",
+    output: "packages/api/connectors/keyword-extract.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",

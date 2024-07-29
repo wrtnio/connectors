@@ -17,15 +17,7 @@ const processDirectory = async (directory: string): Promise<void> => {
 
 const main = async (): Promise<void> => {
   const rootLocation = path.join(ConnectorConfiguration.ROOT, "nestia-configs");
-  const tagsLocation = path.join(rootLocation, "tags");
-
-  // Process root nestia-configs directory
   await processDirectory(rootLocation);
-
-  // Process nestia-configs/tags directory if it exists
-  if (fs.existsSync(tagsLocation)) {
-    await processDirectory(tagsLocation);
-  }
 };
 
 main().catch((exp) => {

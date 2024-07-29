@@ -11,7 +11,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/categories/sweet-tracker.swagger.json",
+    output: "packages/api/connectors/sweet-tracker.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",

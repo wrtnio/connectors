@@ -11,7 +11,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/categories/marketing-copy.swagger.json",
+    output: "packages/api/connectors/marketing-copy.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",

@@ -11,7 +11,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/categories/kakao-talk.swagger.json",
+    output: "packages/api/connectors/kakao-talk.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",
