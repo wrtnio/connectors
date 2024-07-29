@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.26",
+    "version": "0.1.27",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -232,29 +232,29 @@
                 "items": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/IRag.ILinkInput"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IRag.ITextInput"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IRag.IHwpInput"
+                      "$ref": "#/components/schemas/IRag.IPdfInput"
                     },
                     {
                       "$ref": "#/components/schemas/IRag.IDocxInput"
                     },
                     {
-                      "$ref": "#/components/schemas/IRag.IPdfInput"
+                      "$ref": "#/components/schemas/IRag.IHwpInput"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IRag.ITextInput"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IRag.ILinkInput"
                     }
                   ],
                   "discriminator": {
                     "propertyName": "type",
                     "mapping": {
-                      "html": "#/components/schemas/IRag.ILinkInput",
-                      "txt": "#/components/schemas/IRag.ITextInput",
-                      "hwp": "#/components/schemas/IRag.IHwpInput",
+                      "pdf": "#/components/schemas/IRag.IPdfInput",
                       "docx": "#/components/schemas/IRag.IDocxInput",
-                      "pdf": "#/components/schemas/IRag.IPdfInput"
+                      "hwp": "#/components/schemas/IRag.IHwpInput",
+                      "txt": "#/components/schemas/IRag.ITextInput",
+                      "html": "#/components/schemas/IRag.ILinkInput"
                     }
                   }
                 }
@@ -3744,6 +3744,93 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
+    "/connector/figma/projects/{id}/get-canvas": {
+      "post": {
+        "tags": [
+          "figma"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/figma/get-projects",
+                "jmesPath": "proejcts[].{value:id, label:name}"
+              }
+            },
+            "required": true,
+            "description": " 조회할 프로젝트의 아이디"
+          }
+        ],
+        "requestBody": {
+          "description": "프로젝트 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IFigma.Secret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "프로젝트의 모든 파일",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IFigma.IGetProjectFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "팀 내 캔버스 조회",
+        "description": "특정 프로젝트의 모든 캔버스를 가져옵니다.\n캔버스는 특정 팀에서 관리하고 있는 피그마 파일들을 의미합니다.\n이 커넥터를 통해 사용자는 자신의 피그마 팀 내에 어떤 캔버스들이 관리되고 있는지 캔버스의 이름과 섬네일 링크를 받아 볼 수 있습니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
+      }
+    },
+    "/connector/figma/get-statistics": {
+      "post": {
+        "tags": [
+          "figma"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "팀 단위 통계 조회 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IFigma.IGetProjectStatisticsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "팀의 통계 조회 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IFigma.IGetStatisticsOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "팀 단위 피그마 통계 조회",
+        "description": "팀 단위의 통계를 조회합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+        "x-wrtn-standalone": true
+      }
+    },
     "/connector/figma/get-projects": {
       "post": {
         "tags": [
@@ -3775,7 +3862,8 @@
         },
         "summary": "팀 내 프로젝트 조회",
         "description": "팀 내의 프로젝트를 조회합니다.\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/zoom/meetings": {
@@ -8868,17 +8956,18 @@
           "data"
         ]
       },
-      "IRag.ILinkInput": {
+      "IRag.IPdfInput": {
         "type": "object",
         "properties": {
           "url": {
             "type": "string",
             "format": "uri",
+            "contentMediaType": "application/pdf",
             "title": "파일 경로",
             "description": "분석할 파일 경로"
           },
           "type": {
-            "const": "html",
+            "const": "pdf",
             "title": "파일 확장자.",
             "description": "분석할 파일의 확장자입니다."
           }
@@ -8887,51 +8976,7 @@
           "url",
           "type"
         ],
-        "title": "WEB 링크 RAG 분석을 위한 정보"
-      },
-      "IRag.ITextInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "text/plain",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "txt",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
-          }
-        },
-        "required": [
-          "url",
-          "type"
-        ],
-        "title": "TXT 파일 RAG 분석을 위한 정보"
-      },
-      "IRag.IHwpInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "application/vnd.hancom.hwp",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "hwp",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
-          }
-        },
-        "required": [
-          "url",
-          "type"
-        ],
-        "title": "HWP 파일 RAG 분석을 위한 정보"
+        "title": "PDF 파일 RAG 분석을 위한 정보"
       },
       "IRag.IDocxInput": {
         "type": "object",
@@ -8955,18 +9000,18 @@
         ],
         "title": "DOCX 파일 RAG 분석을 위한 정보"
       },
-      "IRag.IPdfInput": {
+      "IRag.IHwpInput": {
         "type": "object",
         "properties": {
           "url": {
             "type": "string",
             "format": "uri",
-            "contentMediaType": "application/pdf",
+            "contentMediaType": "application/vnd.hancom.hwp",
             "title": "파일 경로",
             "description": "분석할 파일 경로"
           },
           "type": {
-            "const": "pdf",
+            "const": "hwp",
             "title": "파일 확장자.",
             "description": "분석할 파일의 확장자입니다."
           }
@@ -8975,7 +9020,50 @@
           "url",
           "type"
         ],
-        "title": "PDF 파일 RAG 분석을 위한 정보"
+        "title": "HWP 파일 RAG 분석을 위한 정보"
+      },
+      "IRag.ITextInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "text/plain",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "txt",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "TXT 파일 RAG 분석을 위한 정보"
+      },
+      "IRag.ILinkInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "html",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "WEB 링크 RAG 분석을 위한 정보"
       },
       "IRag.IAnalysisOutput": {
         "type": "object",
@@ -12621,6 +12709,202 @@
           "comments"
         ],
         "description": "Response from the GET /v1/files/{file_key}/comments endpoint."
+      },
+      "IFigma.Secret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "figma",
+            "x-wrtn-secret-scopes": [
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IFigma.IGetProjectFileOutput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "프로젝트 이름"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IFigma.Canvas"
+            },
+            "title": "캔버스 목록",
+            "description": "프로젝트에서 관리하고 있는 캔버스의 목록입니다."
+          }
+        },
+        "required": [
+          "name",
+          "files"
+        ]
+      },
+      "IFigma.Canvas": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "캔버스 키",
+            "description": "파일을 고유하게 식별할 수 있는 키입니다.\n여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.\n피그마에서는 캔버스를 포함한, 캔버스의 자식 컴포넌트 요소 모두 다 파일이라고 부르기 때문에 용어의 혼동에 주의해야 합니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "캔버스 이름",
+            "description": "파일을 식별할 수 있도록 사용자가 붙여 놓은 이름을 의미합니다.\n여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.\n피그마에서는 캔버스를 포함한, 캔버스의 자식 컴포넌트 요소 모두 다 파일이라고 부르기 때문에 용어의 혼동에 주의해야 합니다."
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "섬네일",
+            "description": "섬네일 이미지로, 이 캔버스의 메인이 되는 화면을 스크린샷처럼 제공합니다.\n하지만, 이 섬네일을 링크로 저장해서 사용하려는 경우에는 이 이미지가 일정 시간동안만 제공되는 점에 주의해야 합니다."
+          },
+          "last_modified": {
+            "type": "string",
+            "format": "date-time",
+            "title": "마지막 수정 시간",
+            "description": "해당 캔버스의 마지막 수정 시간을 의미한다.\n이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다."
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "thumbnail_url",
+          "last_modified"
+        ]
+      },
+      "IFigma.IGetProjectStatisticsInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "figma",
+            "x-wrtn-secret-scopes": [
+              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "as_md": {
+            "type": "boolean",
+            "title": "If enabled, will return comments as their markdown equivalents when applicable",
+            "description": "If enabled, will return comments as their markdown equivalents when applicable."
+          },
+          "teamId": {
+            "type": "string",
+            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
+          }
+        },
+        "required": [
+          "secretKey",
+          "teamId"
+        ]
+      },
+      "IFigma.IGetStatisticsOutput": {
+        "type": "object",
+        "properties": {
+          "canvasList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IFigma.CanvasStatistics"
+            },
+            "title": "프로젝트 내 캔버스 별 통계"
+          },
+          "id": {
+            "type": "string",
+            "title": "프로젝트 아이디"
+          },
+          "name": {
+            "type": "string",
+            "title": "프로젝트 이름"
+          }
+        },
+        "required": [
+          "canvasList",
+          "id",
+          "name"
+        ]
+      },
+      "IFigma.CanvasStatistics": {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            },
+            "title": "캔버스 내 댓글 목록"
+          },
+          "statistics": {
+            "type": "object",
+            "properties": {
+              "users": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "토론에 참여한 사람 명단"
+              },
+              "counts": {
+                "$ref": "#/components/schemas/Recordstringnumber",
+                "title": "각 사람 별 댓글 수"
+              }
+            },
+            "required": [
+              "users",
+              "counts"
+            ],
+            "title": "캔버스 내 댓글에 대한 통계"
+          },
+          "key": {
+            "type": "string",
+            "title": "캔버스 키",
+            "description": "파일을 고유하게 식별할 수 있는 키입니다.\n여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.\n피그마에서는 캔버스를 포함한, 캔버스의 자식 컴포넌트 요소 모두 다 파일이라고 부르기 때문에 용어의 혼동에 주의해야 합니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "캔버스 이름",
+            "description": "파일을 식별할 수 있도록 사용자가 붙여 놓은 이름을 의미합니다.\n여기서 말하는 파일은 프로젝트에서 관리하고 있는 캔버스들을 의미합니다.\n피그마에서는 캔버스를 포함한, 캔버스의 자식 컴포넌트 요소 모두 다 파일이라고 부르기 때문에 용어의 혼동에 주의해야 합니다."
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "섬네일",
+            "description": "섬네일 이미지로, 이 캔버스의 메인이 되는 화면을 스크린샷처럼 제공합니다.\n하지만, 이 섬네일을 링크로 저장해서 사용하려는 경우에는 이 이미지가 일정 시간동안만 제공되는 점에 주의해야 합니다."
+          },
+          "last_modified": {
+            "type": "string",
+            "format": "date-time",
+            "title": "마지막 수정 시간",
+            "description": "해당 캔버스의 마지막 수정 시간을 의미한다.\n이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다."
+          }
+        },
+        "required": [
+          "comments",
+          "statistics",
+          "key",
+          "name",
+          "thumbnail_url",
+          "last_modified"
+        ]
+      },
+      "Recordstringnumber": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "type": "number"
+        }
       },
       "IFigma.IGetProjectInput": {
         "type": "object",
