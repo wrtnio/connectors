@@ -1,2 +1,2 @@
 out/swagger/*.json
-out/swagger/categories/*.swagger.json
+out/swagger/connectors/*.swagger.json
