@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.24",
+    "version": "0.1.25",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -2973,8 +2973,8 @@
             }
           }
         },
-        "summary": "GMAIL 전송.",
-        "description": "메일을 전송합니다.",
+        "summary": "GMAIL 전송",
+        "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
@@ -3031,8 +3031,8 @@
             "description": ""
           }
         },
-        "summary": "GMAIL 초안 생성.",
-        "description": "메일 초안을 생성 합니다.",
+        "summary": "GMAIL 초안 생성",
+        "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
@@ -3105,8 +3105,8 @@
             "description": ""
           }
         },
-        "summary": "GMAIL 답장.",
-        "description": "수신된 메일에 답장을 보냅니다.",
+        "summary": "GMAIL 답장",
+        "description": "수신된 메일에 답장을 보냅니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
@@ -3184,8 +3184,8 @@
             }
           }
         },
-        "summary": "GMAIL 정보 가져오기.",
-        "description": "메일의 정보를 가져옵니다.",
+        "summary": "GMAIL 정보 가져오기",
+        "description": "메일의 정보를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
@@ -3248,8 +3248,8 @@
             }
           }
         },
-        "summary": "GMAIL 리스트 가져오기.",
-        "description": "메일 리스트를 가져옵니다.",
+        "summary": "GMAIL 리스트 가져오기",
+        "description": "메일 리스트를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
@@ -3321,8 +3321,8 @@
             "description": ""
           }
         },
-        "summary": "GMAIL 삭제.",
-        "description": "메일을 삭제합니다.",
+        "summary": "GMAIL 삭제",
+        "description": "메일을 삭제합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
@@ -3385,8 +3385,8 @@
             }
           }
         },
-        "summary": "GMAIL 라벨 생성.",
-        "description": "라벨을 생성합니다.",
+        "summary": "GMAIL 라벨 생성",
+        "description": "라벨을 생성합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
@@ -3459,8 +3459,8 @@
             "description": ""
           }
         },
-        "summary": "GMAIL 라벨 부여.",
-        "description": "메일에 라벨을 부여합니다.",
+        "summary": "GMAIL 라벨 부여",
+        "description": "메일에 라벨을 부여합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       },
       "delete": {
@@ -3530,8 +3530,8 @@
             "description": ""
           }
         },
-        "summary": "GMAIL 라벨 제거.",
-        "description": "메일에 부여된 라벨을 제거합니다.",
+        "summary": "GMAIL 라벨 제거",
+        "description": "메일에 부여된 라벨을 제거합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
