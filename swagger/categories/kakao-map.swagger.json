@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오 지도",
-    "version": "0.1.23",
+    "version": "0.1.24",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
