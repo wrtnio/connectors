@@ -1,0 +1,212 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "생활기록부",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/student-report-generator": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "학생 생활 기록부 생성을 위한 정보.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IStudentReportGeneratorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 학생 생활 기록부.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IStudentReportGeneratorResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "학생 생활 기록부 생성",
+        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다."
+      }
+    },
+    "/connector/student-report-generator/row": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "학생 생활 기록부 생성을 위한 정보.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IStudentReportRowGeneratorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 학생 생활 기록부.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IStudentReportRowGeneratorResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "학생 생활 기록부 생성",
+        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IStudentReportGeneratorRequest": {
+        "type": "object",
+        "properties": {
+          "consideration": {
+            "type": "string",
+            "title": "고려사항.",
+            "description": "생기부 데이터 생성시 LLM에게 전달할 고려사항입니다."
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IOutputStructure"
+            },
+            "title": "생성될 생기부 데이터 구조.",
+            "description": "생성될 생기부 데이터 구조 입니다."
+          },
+          "reference_data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ITableRowData"
+            },
+            "title": "참고자료 데이터.",
+            "description": "생기부 데이터 생성시 참고할 표의 데이터입니다."
+          }
+        },
+        "required": [
+          "consideration",
+          "outputs",
+          "reference_data"
+        ]
+      },
+      "IOutputStructure": {
+        "type": "object",
+        "properties": {
+          "field_name": {
+            "type": "string",
+            "title": "LLM으로 부터 생성될 필드명.",
+            "description": "LLM으로 부터 생성될 필드명입니다."
+          },
+          "field_description": {
+            "type": "string",
+            "title": "필드에 대한 설명.",
+            "description": "필드에 대한 설명 및 LLM이 해당 필드를 어떻게 채울지에 대한 가이드."
+          },
+          "example": {
+            "type": "string",
+            "title": "필드에 대한 예시.",
+            "description": "필드에 대한 예시입니다."
+          }
+        },
+        "required": [
+          "field_name",
+          "field_description",
+          "example"
+        ]
+      },
+      "ITableRowData": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "IStudentReportGeneratorResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ITableRowData"
+            },
+            "title": "생성된 생기부 데이터.",
+            "description": "생성된 생기부 데이터입니다."
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "IStudentReportRowGeneratorRequest": {
+        "type": "object",
+        "properties": {
+          "consideration": {
+            "type": "string",
+            "title": "고려사항.",
+            "description": "생기부 데이터 생성시 LLM에게 전달할 고려사항입니다."
+          },
+          "output_structure": {
+            "$ref": "#/components/schemas/IOutputStructure",
+            "title": "생성될 생기부 데이터 구조.",
+            "description": "생성될 생기부 데이터 구조 입니다."
+          },
+          "reference_data": {
+            "$ref": "#/components/schemas/ITableRowData",
+            "title": "참고자료 데이터.",
+            "description": "생기부 데이터 생성시 참고할 표의 데이터입니다."
+          }
+        },
+        "required": [
+          "consideration",
+          "output_structure",
+          "reference_data"
+        ]
+      },
+      "IStudentReportRowGeneratorResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ITableRowData",
+            "title": "생성된 생기부 데이터.",
+            "description": "생성된 생기부 데이터입니다."
+          }
+        },
+        "required": [
+          "data"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}

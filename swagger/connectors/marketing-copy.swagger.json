@@ -1,0 +1,415 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "마케팅 카피",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/marketing-copy/generate-copy": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "마케팅 카피 생성을 위한 입력",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMarketingCopyGenerator.IGenerateMarketingCopyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 마케팅 카피",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartialIMarketingCopyComponents"
+                }
+              }
+            }
+          }
+        },
+        "summary": "마케팅 카피 생성",
+        "description": "주어진 입력으로부터 마케팅 카피를 생성합니다."
+      }
+    },
+    "/connector/marketing-copy/generate-copy-image": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "마케팅 카피 이미지 생성을 위한 입력",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMarketingCopyGenerator.IGenerateMarketingCopyImageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 마케팅 카피 이미지",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMarketingCopyImage"
+                }
+              }
+            }
+          }
+        },
+        "summary": "마케팅 카피 이미지 생성",
+        "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IMarketingCopyGenerator.IGenerateMarketingCopyInput": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
+            "title": "키워드",
+            "description": "마케팅 카피의 전반적인 키워드"
+          },
+          "marketingPurpose": {
+            "$ref": "#/components/schemas/IMarketingPurpose",
+            "title": "마케팅 목적",
+            "description": "마케팅을 하려는 목적 및 상품 정보"
+          },
+          "distributionChannel": {
+            "$ref": "#/components/schemas/IDistributionChannel",
+            "title": "마케팅 채널",
+            "description": "마케팅 카피를 사용할 채널 정보"
+          },
+          "referenceContent": {
+            "$ref": "#/components/schemas/IConnector.IReferenceContent",
+            "title": "참고 자료",
+            "description": "마케팅 카피 생성을 위한 참고 자료"
+          }
+        },
+        "required": [
+          "keyword",
+          "marketingPurpose",
+          "distributionChannel",
+          "referenceContent"
+        ],
+        "title": "마케팅 카피 생성을 위한 입력"
+      },
+      "IKeywordExtraction.IExtractKeywordOutput": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "추출된 키워드"
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      },
+      "IMarketingPurpose": {
+        "type": "object",
+        "properties": {
+          "purpose": {
+            "oneOf": [
+              {
+                "const": "sign_up"
+              },
+              {
+                "const": "purchase"
+              },
+              {
+                "const": "visit"
+              }
+            ],
+            "title": "마케팅 목적.",
+            "description": "마케팅을 하려는 목적입니다."
+          },
+          "product_name": {
+            "type": "string",
+            "title": "마케팅 할 상품명.",
+            "description": "마케팅을 할 상품명입니다."
+          },
+          "unique_selling_point": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "상품의 셀링 포인트.",
+            "description": "상품의 셀링 포인트입니다."
+          },
+          "user_benefit": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "마케팅 하려는 제품의 베네핏.",
+            "description": "마케팅 하려는 제품의 베네핏입니다."
+          }
+        },
+        "required": [
+          "purpose",
+          "product_name",
+          "unique_selling_point",
+          "user_benefit"
+        ]
+      },
+      "IDistributionChannel": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "instagram_feed"
+              },
+              {
+                "const": "instagram_story"
+              },
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "naver"
+              },
+              {
+                "const": "kakao"
+              }
+            ],
+            "title": "마케팅 카피를 사용할 채널.",
+            "description": "마케팅 카피를 사용할 채널 입니다."
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "title"
+                },
+                {
+                  "const": "cta"
+                },
+                {
+                  "const": "subtitle"
+                }
+              ]
+            },
+            "title": "마케팅 카피를 사용할 채널에서 가져올 정보.",
+            "description": "마케팅 카피를 사용할 채널에서 가져올 정보입니다."
+          }
+        },
+        "required": [
+          "channel",
+          "components"
+        ]
+      },
+      "IConnector.IReferenceContent": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "산출물의 제목입니다."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "video"
+              },
+              {
+                "const": "image"
+              },
+              {
+                "const": "news_article"
+              },
+              {
+                "const": "research_paper"
+              }
+            ],
+            "title": "산출물 타입",
+            "description": "비디오, 이미지, 뉴스기사, 논문.."
+          },
+          "source": {
+            "oneOf": [
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "instagram"
+              },
+              {
+                "const": "google_search"
+              },
+              {
+                "const": "arxiv"
+              },
+              {
+                "const": "google_news"
+              }
+            ],
+            "title": "산출물의 출처",
+            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "URL 주소",
+            "description": "산출물의 URL 주소입니다."
+          },
+          "contents": {
+            "type": "string",
+            "title": "산출물 내용",
+            "description": "산출물의 내용입니다."
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "title": "산출물 이미지 url",
+            "description": "산출물의 이미지 URL 주소입니다."
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/PartialRecordIConnector.MetricTypenumberTypeint32",
+            "title": "산출물 통계 자료 정보",
+            "description": "산출물의 통계 자료 정보입니다."
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "source",
+          "url"
+        ]
+      },
+      "PartialRecordIConnector.MetricTypenumberTypeint32": {
+        "type": "object",
+        "properties": {
+          "view_count": {
+            "type": "integer"
+          },
+          "like_count": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        },
+        "description": "Make all properties in T optional"
+      },
+      "PartialIMarketingCopyComponents": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "마케팅 카피의 제목.",
+            "description": "마케팅 카피의 제목입니다."
+          },
+          "cta": {
+            "type": "string",
+            "title": "마케팅 카피의 CTA 문구.",
+            "description": "마케팅 카피의 CTA 문구입니다."
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "마케팅 카피의 설명.",
+            "description": "마케팅 카피의 설명입니다."
+          }
+        },
+        "description": "Make all properties in T optional"
+      },
+      "IMarketingCopyGenerator.IGenerateMarketingCopyImageInput": {
+        "type": "object",
+        "properties": {
+          "copy": {
+            "$ref": "#/components/schemas/PartialIMarketingCopyComponents",
+            "title": "마케팅 카피 생성 결과",
+            "description": "마케팅 카피 이미지과 관련된 마케팅 카피 생성 결과"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
+            "title": "키워드",
+            "description": "마케팅 카피 이미지의 전반적인 키워드"
+          },
+          "marketingPurpose": {
+            "$ref": "#/components/schemas/IMarketingPurpose",
+            "title": "마케팅 목적",
+            "description": "마케팅을 하려는 목적 및 상품 정보"
+          },
+          "distributionChannel": {
+            "$ref": "#/components/schemas/IDistributionChannel",
+            "title": "마케팅 채널",
+            "description": "마케팅 카피를 사용할 채널 정보"
+          },
+          "referenceContent": {
+            "$ref": "#/components/schemas/IConnector.IReferenceContent",
+            "title": "참고 자료",
+            "description": "마케팅 카피 생성을 위한 참고 자료"
+          }
+        },
+        "required": [
+          "copy",
+          "keyword",
+          "marketingPurpose",
+          "distributionChannel",
+          "referenceContent"
+        ],
+        "title": "마케팅 카피 이미지 생성을 위한 입력"
+      },
+      "IMarketingCopyImage": {
+        "type": "object",
+        "properties": {
+          "imageUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "마케팅 카피 시안의 이미지 URL.",
+            "description": "생성된 마케팅 카피 시안의 이미지 URL입니다."
+          }
+        },
+        "required": [
+          "imageUrl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Llm",
+      "description": "마케팅 카피 텍스트 생성"
+    }
+  ],
+  "x-samchon-emended": true
+}

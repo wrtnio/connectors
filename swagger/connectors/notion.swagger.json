@@ -1,0 +1,2870 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "노션",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/notion/page": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "페이지 생성에 필요한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreatePageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 페이지 고유 id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "페이지 생성",
+        "description": "노션 페이지를 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/get/page": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "페이지 정보들",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/INotion.IReadPageOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "페이지 목록 조회",
+        "description": "노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/get/users": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "유저 정보들",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/INotion.IUserOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "유저 목록 조회",
+        "description": "워크스페이스에 있는 유저 목록을 조회합니다.",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/page/content/{pageId}": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/notion/get/page",
+                "jmesPath": "[].{value:pageId, label:title || ''}"
+              }
+            },
+            "required": true,
+            "title": "내용을 추가할 페이지",
+            "description": "내용을 추가할 페이지를 선택해 주세요."
+          }
+        ],
+        "requestBody": {
+          "description": "페이지에 추가할 내용 및 추가할 페이지 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IAppendPageToContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "void"
+          }
+        },
+        "summary": "페이지에 내용 추가",
+        "description": "페이지 끝에 내용을 추가합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/get/database-info": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "데이터베이스 정보 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/INotion.IDatabaseInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "데이터베이스 목록 조회",
+        "description": "데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/get/database-info/{databaseId}": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [
+          {
+            "name": "databaseId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/notion/get/database-info",
+                "jmesPath": "[].{value:id, label:title || ''}"
+              }
+            },
+            "required": true,
+            "title": "정보를 받아올 데이터베이스",
+            "description": "정보를 받아올 데이터베이스를 선택해 주세요."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "데이터베이스 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IDatabaseInfo"
+                }
+              }
+            }
+          }
+        },
+        "summary": "데이터베이스 정보 조회",
+        "description": "데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/database-item/{databaseId}": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [
+          {
+            "name": "databaseId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/notion/get/database-info",
+                "jmesPath": "[].{value:id, label:title || ''}"
+              }
+            },
+            "required": true,
+            "title": "아이템을 추가할 데이터베이스",
+            "description": "아이템을 추가할 데이터베이스를 선택해 주세요."
+          }
+        ],
+        "requestBody": {
+          "description": "데이터베이스 아이템 생성에 필요한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateDatabaseItemInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 데이터베이스 아이템 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "데이터베이스 아이템 생성",
+        "description": "노션 테이블 데이터베이스에 아이템을 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      },
+      "patch": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [
+          {
+            "name": "databaseId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/notion/get/database-info",
+                "jmesPath": "[].{value:id, label:title || ''}"
+              }
+            },
+            "required": true,
+            "title": "아이템을 수정할 데이터베이스",
+            "description": "아이템을 수정할 데이터베이스를 선택해 주세요."
+          }
+        ],
+        "requestBody": {
+          "description": "수정할 데이터베이스 아이템 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IUpdateDatabaseItemInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "수정된 데이터베이스 아이템 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "데이터베이스 아이템 수정",
+        "description": "데이터베이스에 있는 아이템 정보를 수정합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/get-page-by-title": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "페이지 제목",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IFindPageOrDatabaseItemInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "검색된 페이지 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IFindPageByTitleOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "제목으로 페이지 검색",
+        "description": "제목으로 페이지를 검색합니다.",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/find-item-list/{databaseId}": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [
+          {
+            "name": "databaseId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/notion/get/database-info",
+                "jmesPath": "[].{value:id, label:title || ''}"
+              }
+            },
+            "required": true,
+            "title": "아이템 목록을 가져올 데이터베이스",
+            "description": "아이템 목록을 가져올 데이터베이스를 선택해 주세요."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "조회된 데이터베이스 아이템 목록 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "데이터베이스 아이템 목록 조회",
+        "description": "테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    },
+    "/connector/notion/find-item/{databaseId}": {
+      "post": {
+        "tags": [
+          "Notion",
+          "노션",
+          "노트",
+          "메모",
+          "작업",
+          "프로젝트",
+          "할",
+          "일정",
+          "문서",
+          "회의록",
+          "체크리스트",
+          "아이디어",
+          "업무",
+          "학습",
+          "스터디",
+          "제품기획",
+          "이력서",
+          "포트폴리오",
+          "협업",
+          "Note",
+          "Memo",
+          "Task",
+          "Project",
+          "To",
+          "Schedule",
+          "Document",
+          "Meeting",
+          "Checklist",
+          "Idea",
+          "Work",
+          "Study",
+          "Product",
+          "Resume",
+          "Portfolio",
+          "Collaboration"
+        ],
+        "parameters": [
+          {
+            "name": "databaseId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/notion/get/database-info",
+                "jmesPath": "[].{value:id, label:title || ''}"
+              }
+            },
+            "required": true,
+            "title": "아이템 정보를 가져올 데이터베이스",
+            "description": "아이템 정보를 가져올 데이터베이스를 선택해 주세요."
+          }
+        ],
+        "requestBody": {
+          "description": "데이터베이스 아이템 조회에 필요한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IFindDatabaseItemInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "조회된 데이터베이스 아이템 정보",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "데이터베이스 아이템 조회",
+        "description": "테이블 데이터베이스에 존재하는 아이템을 조회합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "INotion.ICreatePageInput": {
+        "type": "object",
+        "properties": {
+          "parentPageId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/page",
+              "jmesPath": "[].{value:pageId, label:title}"
+            },
+            "x-wrtn-placeholder": "부모 페이지를 선택하세요.",
+            "title": "부모 페이지",
+            "description": "새로 생성할 페이지의 부모 페이지"
+          },
+          "title": {
+            "type": "string",
+            "x-wrtn-placeholder": "테스트 페이지.",
+            "title": "페이지 제목",
+            "description": "새로 생성할 페이지 제목"
+          },
+          "content": {
+            "type": "string",
+            "x-wrtn-placeholder": "테스트 페이지를 생성했습니다.",
+            "title": "내용",
+            "description": "페이지에 생성할 내용"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "parentPageId",
+          "title",
+          "content",
+          "secretKey"
+        ],
+        "title": "페이지 생성에 필요한 조건"
+      },
+      "INotion.ICreatePageOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "페이지 id",
+            "description": "생성된 페이지의 고유 id"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "페이지 생성 결과"
+      },
+      "INotion.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "INotion.IReadPageOutput": {
+        "type": "object",
+        "properties": {
+          "pageId": {
+            "type": "string",
+            "title": "id",
+            "description": "페이지 고유 id"
+          },
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "페이지 제목"
+          }
+        },
+        "required": [
+          "pageId",
+          "title"
+        ],
+        "title": "페이지 목록 조회 결과"
+      },
+      "INotion.IUserOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "유저 고유 id"
+          },
+          "name": {
+            "type": "string",
+            "title": "이름",
+            "description": "유저 이름"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "유저 목록 조회 결과"
+      },
+      "INotion.IAppendPageToContentInput": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "x-wrtn-placeholder": "뤼튼 스튜디오",
+            "title": "내용",
+            "description": "페이지에 추가할 내용"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "content",
+          "secretKey"
+        ],
+        "title": "페이지에 내용을 추가할 때 필요한 정보"
+      },
+      "INotion.IDatabaseInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "데이터베이스 고유 id"
+          },
+          "title": {
+            "type": "string",
+            "title": "제목P",
+            "description": "데이터베이스 제목"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/RecordstringINotion.DatabaseProperty",
+            "title": "속성",
+            "description": "데이터베이스 속성 정보"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "properties"
+        ],
+        "title": "데이터베이스 정보"
+      },
+      "RecordstringINotion.DatabaseProperty": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/INotion.DatabaseProperty"
+        }
+      },
+      "INotion.DatabaseProperty": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/INotion.NumberDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.FormulaDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.SelectDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.MultiSelectDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.StatusDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.RelationDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.RollupDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.TitleDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.RichTextDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.UrlDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.PeopleDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.FilesDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.EmailDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.PhoneNumberDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.DateDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.CheckboxDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.CreatedByDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.CreatedTimeDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.LastEditedByDatabaseProperty"
+          },
+          {
+            "$ref": "#/components/schemas/INotion.LastEditedTimeDatabaseProperty"
+          }
+        ],
+        "title": "데이터베이스 속성"
+      },
+      "INotion.NumberDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "number"
+          },
+          "number": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "$ref": "#/components/schemas/INotion.NumberFormat"
+              }
+            },
+            "required": [
+              "format"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "number"
+        ],
+        "title": "데이터베이스 숫자 속성"
+      },
+      "INotion.NumberFormat": {
+        "oneOf": [
+          {
+            "const": "number"
+          },
+          {
+            "const": "number_with_commas"
+          },
+          {
+            "const": "percent"
+          },
+          {
+            "const": "dollar"
+          },
+          {
+            "const": "canadian_dollar"
+          },
+          {
+            "const": "singapore_dollar"
+          },
+          {
+            "const": "euro"
+          },
+          {
+            "const": "pound"
+          },
+          {
+            "const": "yen"
+          },
+          {
+            "const": "ruble"
+          },
+          {
+            "const": "rupee"
+          },
+          {
+            "const": "won"
+          },
+          {
+            "const": "yuan"
+          },
+          {
+            "const": "real"
+          },
+          {
+            "const": "lira"
+          },
+          {
+            "const": "rupiah"
+          },
+          {
+            "const": "franc"
+          },
+          {
+            "const": "hong_kong_dollar"
+          },
+          {
+            "const": "new_zealand_dollar"
+          },
+          {
+            "const": "krona"
+          },
+          {
+            "const": "norwegian_krone"
+          },
+          {
+            "const": "mexican_peso"
+          },
+          {
+            "const": "rand"
+          },
+          {
+            "const": "new_taiwan_dollar"
+          },
+          {
+            "const": "danish_krone"
+          },
+          {
+            "const": "zloty"
+          },
+          {
+            "const": "baht"
+          },
+          {
+            "const": "forint"
+          },
+          {
+            "const": "koruna"
+          },
+          {
+            "const": "shekel"
+          },
+          {
+            "const": "chilean_peso"
+          },
+          {
+            "const": "philippine_peso"
+          },
+          {
+            "const": "dirham"
+          },
+          {
+            "const": "colombian_peso"
+          },
+          {
+            "const": "riyal"
+          },
+          {
+            "const": "ringgit"
+          },
+          {
+            "const": "leu"
+          },
+          {
+            "const": "argentine_peso"
+          },
+          {
+            "const": "uruguayan_peso"
+          },
+          {
+            "const": "peruvian_sol"
+          }
+        ],
+        "title": "데이터베이스 숫자 포맷"
+      },
+      "INotion.FormulaDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "formula"
+          },
+          "formula": {
+            "type": "object",
+            "properties": {
+              "expression": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "expression"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "formula"
+        ],
+        "title": "데이터베이스 공식 속성"
+      },
+      "INotion.SelectDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "select"
+          },
+          "select": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "$ref": "#/components/schemas/INotion.Color"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "color"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "options"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "select"
+        ],
+        "title": "데이터베이스 선택 속성"
+      },
+      "INotion.Color": {
+        "oneOf": [
+          {
+            "const": "default"
+          },
+          {
+            "const": "gray"
+          },
+          {
+            "const": "brown"
+          },
+          {
+            "const": "orange"
+          },
+          {
+            "const": "yellow"
+          },
+          {
+            "const": "green"
+          },
+          {
+            "const": "blue"
+          },
+          {
+            "const": "purple"
+          },
+          {
+            "const": "pink"
+          },
+          {
+            "const": "red"
+          }
+        ],
+        "title": "색상"
+      },
+      "INotion.MultiSelectDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "multi_select"
+          },
+          "multi_select": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "$ref": "#/components/schemas/INotion.Color"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "color"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "options"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "multi_select"
+        ],
+        "title": "데이터베이스 다중 선택 속성"
+      },
+      "INotion.StatusDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "status"
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "$ref": "#/components/schemas/INotion.Color"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "color"
+                  ]
+                }
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "$ref": "#/components/schemas/INotion.Color"
+                    },
+                    "option_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "color",
+                    "option_ids"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "options",
+              "groups"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "status"
+        ],
+        "title": "데이터베이스 상태 속성"
+      },
+      "INotion.RelationDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "relation"
+          },
+          "relation": {
+            "type": "object",
+            "properties": {
+              "database_id": {
+                "type": "string"
+              },
+              "synced_property_id": {
+                "type": "string"
+              },
+              "synced_property_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "database_id",
+              "synced_property_id",
+              "synced_property_name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "relation"
+        ],
+        "title": "데이터베이스 관계 속성"
+      },
+      "INotion.RollupDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rollup"
+          },
+          "rollup": {
+            "type": "object",
+            "properties": {
+              "rollup_property_name": {
+                "type": "string"
+              },
+              "relation_property_name": {
+                "type": "string"
+              },
+              "rollup_property_id": {
+                "type": "string"
+              },
+              "relation_property_id": {
+                "type": "string"
+              },
+              "function": {
+                "$ref": "#/components/schemas/INotion.RollupFunction"
+              }
+            },
+            "required": [
+              "rollup_property_name",
+              "relation_property_name",
+              "rollup_property_id",
+              "relation_property_id",
+              "function"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "rollup",
+          "id",
+          "name"
+        ],
+        "title": "데이터베이스 집계 속성"
+      },
+      "INotion.RollupFunction": {
+        "oneOf": [
+          {
+            "const": "count"
+          },
+          {
+            "const": "count_values"
+          },
+          {
+            "const": "empty"
+          },
+          {
+            "const": "not_empty"
+          },
+          {
+            "const": "unique"
+          },
+          {
+            "const": "show_unique"
+          },
+          {
+            "const": "percent_empty"
+          },
+          {
+            "const": "percent_not_empty"
+          },
+          {
+            "const": "sum"
+          },
+          {
+            "const": "average"
+          },
+          {
+            "const": "median"
+          },
+          {
+            "const": "min"
+          },
+          {
+            "const": "max"
+          },
+          {
+            "const": "range"
+          },
+          {
+            "const": "earliest_date"
+          },
+          {
+            "const": "latest_date"
+          },
+          {
+            "const": "date_range"
+          },
+          {
+            "const": "checked"
+          },
+          {
+            "const": "unchecked"
+          },
+          {
+            "const": "percent_checked"
+          },
+          {
+            "const": "percent_unchecked"
+          },
+          {
+            "const": "count_per_group"
+          },
+          {
+            "const": "percent_per_group"
+          },
+          {
+            "const": "show_original"
+          }
+        ],
+        "title": "집계 함수"
+      },
+      "INotion.TitleDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "title"
+          },
+          "title": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "id",
+          "name"
+        ],
+        "title": "데이터베이스 제목 속성"
+      },
+      "Recordstringnever": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T"
+      },
+      "INotion.RichTextDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "rich_text"
+          },
+          "rich_text": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "rich_text"
+        ],
+        "title": "데이터베이스 텍스트 속성"
+      },
+      "INotion.UrlDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "url"
+          },
+          "url": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "url",
+          "id",
+          "name"
+        ],
+        "title": "데이터베이스 Url 속성"
+      },
+      "INotion.PeopleDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "people"
+          },
+          "people": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "people"
+        ],
+        "title": "데이터베이스 사람 속성"
+      },
+      "INotion.FilesDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "files"
+          },
+          "files": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "files"
+        ],
+        "title": "데이터베이스 파일 속성"
+      },
+      "INotion.EmailDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "email"
+          },
+          "email": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "email"
+        ],
+        "title": "데이터베이스 이메일 속성"
+      },
+      "INotion.PhoneNumberDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "phone_number"
+          },
+          "phone_number": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "phone_number"
+        ],
+        "title": "데이터베이스 전화번호 속성"
+      },
+      "INotion.DateDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "date"
+          },
+          "date": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "date"
+        ],
+        "title": "데이터베이스 날짜 속성"
+      },
+      "INotion.CheckboxDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "checkbox"
+          },
+          "checkbox": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "checkbox"
+        ],
+        "title": "데이터베이스 체크박스 속성"
+      },
+      "INotion.CreatedByDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "created_by"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type"
+        ],
+        "title": "데이터베이스 작성자 속성"
+      },
+      "INotion.CreatedTimeDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "created_time"
+          },
+          "created_time": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "created_time"
+        ],
+        "title": "데이터베이스 작성 시간 속성"
+      },
+      "INotion.LastEditedByDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "last_edited_by"
+          },
+          "last_edited_by": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "last_edited_by"
+        ],
+        "title": "데이터베이스 마지막 수정자 속성"
+      },
+      "INotion.LastEditedTimeDatabaseProperty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "const": "last_edited_time"
+          },
+          "last_edited_time": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "last_edited_time"
+        ],
+        "title": "데이터베이스 수정 시간 속성"
+      },
+      "INotion.ICreateDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "속성 값",
+            "description": "데이터베이스 속성에 추가할 값"
+          },
+          "content": {
+            "type": "string",
+            "title": "페이지에 넣을 내용",
+            "description": "생성할 데이터베이스 아이템 페이지에 넣을 내용"
+          },
+          "contentType": {
+            "oneOf": [
+              {
+                "const": "plainText"
+              },
+              {
+                "const": "markdown"
+              }
+            ],
+            "title": "페이지 내용의 유형",
+            "description": "생성할 데이터베이스 아이템 페이지 내용 유형"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "데이터베이스에 아이템을 추가할 때 필요한 정보",
+        "additionalProperties": {}
+      },
+      "INotion.IDatabaseItemOutput": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "title": "유형",
+                "description": "부모 데이터베이스 아이템 객체 유형"
+              },
+              "database_id": {
+                "type": "string",
+                "title": "데이터베이스 id",
+                "description": "데이터 베이스 아이템 부모 id"
+              }
+            },
+            "required": [
+              "type",
+              "database_id"
+            ],
+            "title": "부모 데이터베이스 아이템",
+            "description": "부모 데이터베이스 아이템 정보"
+          },
+          "properties": {
+            "title": "속성",
+            "description": "데이터베이스 아이템 속성"
+          },
+          "object": {
+            "$ref": "#/components/schemas/INotion.NotionObject",
+            "title": "개체 유형",
+            "description": "페이지 객체의 유형"
+          },
+          "created_time": {
+            "type": "string",
+            "title": "생성 일자",
+            "description": "페이지가 생성된 일자"
+          },
+          "last_edited_time": {
+            "type": "string",
+            "title": "마지막 수정 일자",
+            "description": "페이지가 마지막으로 수정된 일자"
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "$ref": "#/components/schemas/INotion.NotionObject",
+                "title": "개체 유형",
+                "description": "페이지를 생성한 사람 객체의 유형"
+              },
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "페이지를 생성한 사람의 고유 id"
+              }
+            },
+            "required": [
+              "object",
+              "id"
+            ],
+            "title": "생성한 사람",
+            "description": "페이지를 생성한 사람에 대한 정보"
+          },
+          "last_edited_by": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "$ref": "#/components/schemas/INotion.NotionObject",
+                "title": "개체 유형",
+                "description": "페이지를 마지막으로 수정한 사람 객체의 유형"
+              },
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "페이지를 마지막으로 수정한 사람의 고유 id"
+              }
+            },
+            "required": [
+              "object",
+              "id"
+            ],
+            "title": "마지막으로 수정한 사람",
+            "description": "페이지를 마지막으로 수정한 사람에 대한 정보"
+          },
+          "cover": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IPageCover"
+              }
+            ],
+            "title": "배경 이미지",
+            "description": "페이지 배경 이미지 정보"
+          },
+          "icon": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IPageIcon"
+              }
+            ],
+            "title": "아이콘",
+            "description": "페이지 아이콘 정보"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "임시 보관 여부",
+            "description": "페이지 임시 보관 여부"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "url",
+            "description": "페이지 url"
+          },
+          "public_url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "공개 url",
+            "description": "페이지 공개 url"
+          },
+          "id": {
+            "type": "string",
+            "title": "페이지 id",
+            "description": "생성된 페이지의 고유 id"
+          }
+        },
+        "required": [
+          "parent",
+          "properties",
+          "object",
+          "created_time",
+          "last_edited_time",
+          "created_by",
+          "last_edited_by",
+          "cover",
+          "icon",
+          "archived",
+          "url",
+          "public_url",
+          "id"
+        ],
+        "title": "데이터베이스 아이템 생성 결과"
+      },
+      "INotion.NotionObject": {
+        "oneOf": [
+          {
+            "const": "database"
+          },
+          {
+            "const": "page"
+          },
+          {
+            "const": "user"
+          },
+          {
+            "const": "block"
+          },
+          {
+            "const": "property_item"
+          },
+          {
+            "const": "list"
+          },
+          {
+            "const": "comment"
+          }
+        ],
+        "title": "노션 개체 유형",
+        "description": "- database: 데이터베이스\n- page: 페이지\n- user: 사람\n- block: 블럭\n- property_item: 속성 아이템\n- list: 목록\n- comment: 댓글"
+      },
+      "INotion.IPageCover": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "유형",
+            "description": "이미지 유형"
+          },
+          "external": {
+            "$ref": "#/components/schemas/INotion.IExternalImage",
+            "title": "이미지",
+            "description": "이미지 정보"
+          }
+        },
+        "required": [
+          "type",
+          "external"
+        ],
+        "title": "페이지 배경 이미지 정보"
+      },
+      "INotion.IExternalImage": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "url",
+            "description": "이미지 url"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "외부 이미지 정보"
+      },
+      "INotion.IPageIcon": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/INotion.IconType",
+            "title": "유형",
+            "description": "아이콘 유형"
+          },
+          "emoji": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "이모지 아이콘",
+            "description": "아이콘 유형이 emoji 일 때의 아이콘 정보"
+          },
+          "external": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IExternalImage"
+              }
+            ],
+            "title": "아이콘",
+            "description": "아이콘 유형이 icon 일 때의 아이콘 정보"
+          },
+          "file": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "url",
+                "description": "파일 url"
+              },
+              "expiry_time": {
+                "type": "string",
+                "title": "만료시간",
+                "description": "이미지 파일 만료시간"
+              }
+            },
+            "required": [
+              "url",
+              "expiry_time"
+            ],
+            "title": "아이콘 파일",
+            "description": "아이콘 유형이 file 일 때의 아이콘 정보"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "페이지 아이콘 정보"
+      },
+      "INotion.IconType": {
+        "oneOf": [
+          {
+            "const": "emoji"
+          },
+          {
+            "const": "external"
+          },
+          {
+            "const": "file"
+          }
+        ],
+        "title": "노션 페이지 아이콘의 유형",
+        "description": "- emoji: 이모지\n- external: 외부 이미지\n- file: 이미지 파일"
+      },
+      "INotion.IUpdateDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "pageId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/page",
+              "jmesPath": "[].{value:pageId, label:title}"
+            },
+            "title": "페이지",
+            "description": "업데이트 할 페이지"
+          },
+          "content": {
+            "type": "string",
+            "title": "내용",
+            "description": "업데이트 할 데이터베이스 페이지 내용"
+          },
+          "value": {
+            "type": "string",
+            "title": "속성 값",
+            "description": "업데이트 할 데이터베이스 속성 값"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "pageId",
+          "secretKey"
+        ],
+        "title": "데이터베이스에 존재하는 아이템을 수정할 때 필요한 정보",
+        "additionalProperties": {}
+      },
+      "INotion.IFindPageOrDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "페이지 제목"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "secretKey"
+        ],
+        "title": "페이지 검색에 필요한 정보"
+      },
+      "INotion.IFindPageByTitleOutput": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "title": "유형",
+                "description": "부모 페이지 객체 유형"
+              },
+              "workspace": {
+                "type": "boolean",
+                "title": "워크스페이스 여부",
+                "description": "부모 페이지가 워크스페이스 인지 여부"
+              }
+            },
+            "required": [
+              "type",
+              "workspace"
+            ],
+            "title": "부모 페이지",
+            "description": "부모 페이지 정보"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/INotion.IFindPageProperty",
+            "title": "속성",
+            "description": "페이지 속성 정보"
+          },
+          "object": {
+            "$ref": "#/components/schemas/INotion.NotionObject",
+            "title": "개체 유형",
+            "description": "페이지 객체의 유형"
+          },
+          "created_time": {
+            "type": "string",
+            "title": "생성 일자",
+            "description": "페이지가 생성된 일자"
+          },
+          "last_edited_time": {
+            "type": "string",
+            "title": "마지막 수정 일자",
+            "description": "페이지가 마지막으로 수정된 일자"
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "$ref": "#/components/schemas/INotion.NotionObject",
+                "title": "개체 유형",
+                "description": "페이지를 생성한 사람 객체의 유형"
+              },
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "페이지를 생성한 사람의 고유 id"
+              }
+            },
+            "required": [
+              "object",
+              "id"
+            ],
+            "title": "생성한 사람",
+            "description": "페이지를 생성한 사람에 대한 정보"
+          },
+          "last_edited_by": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "$ref": "#/components/schemas/INotion.NotionObject",
+                "title": "개체 유형",
+                "description": "페이지를 마지막으로 수정한 사람 객체의 유형"
+              },
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "페이지를 마지막으로 수정한 사람의 고유 id"
+              }
+            },
+            "required": [
+              "object",
+              "id"
+            ],
+            "title": "마지막으로 수정한 사람",
+            "description": "페이지를 마지막으로 수정한 사람에 대한 정보"
+          },
+          "cover": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IPageCover"
+              }
+            ],
+            "title": "배경 이미지",
+            "description": "페이지 배경 이미지 정보"
+          },
+          "icon": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IPageIcon"
+              }
+            ],
+            "title": "아이콘",
+            "description": "페이지 아이콘 정보"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "임시 보관 여부",
+            "description": "페이지 임시 보관 여부"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "url",
+            "description": "페이지 url"
+          },
+          "public_url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "공개 url",
+            "description": "페이지 공개 url"
+          },
+          "id": {
+            "type": "string",
+            "title": "페이지 id",
+            "description": "생성된 페이지의 고유 id"
+          }
+        },
+        "required": [
+          "parent",
+          "properties",
+          "object",
+          "created_time",
+          "last_edited_time",
+          "created_by",
+          "last_edited_by",
+          "cover",
+          "icon",
+          "archived",
+          "url",
+          "public_url",
+          "id"
+        ]
+      },
+      "INotion.IFindPageProperty": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "페이지 속성 id"
+              },
+              "type": {
+                "type": "string",
+                "title": "속성 유형",
+                "description": "페이지 속성 유형"
+              },
+              "title": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/INotion.IFindPageTitleProperty"
+                },
+                "title": "제목 속성",
+                "description": "페이지 제목 속성 정보"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "title"
+            ],
+            "title": "제목 속성",
+            "description": "제목 속성의 정보"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "title": "페이지 속성 정보"
+      },
+      "INotion.IFindPageTitleProperty": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "유형",
+            "description": "제목 속성 유형"
+          },
+          "text": {
+            "$ref": "#/components/schemas/INotion.IPageTitleText",
+            "title": "텍스트 정보",
+            "description": "페이지 제목 텍스트 정보"
+          },
+          "annotations": {
+            "$ref": "#/components/schemas/INotion.IPageTitleAnnotation",
+            "title": "부가 정보",
+            "description": "페이지 제목 부가 정보"
+          },
+          "plain_text": {
+            "type": "string",
+            "title": "원본",
+            "description": "페이지 제목 원본 텍스트"
+          },
+          "href": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "링크",
+            "description": "페이지 링크"
+          }
+        },
+        "required": [
+          "type",
+          "text",
+          "annotations",
+          "plain_text",
+          "href"
+        ],
+        "title": "페이지 제목 속성"
+      },
+      "INotion.IPageTitleText": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "내용",
+            "description": "제목 텍스트 내용"
+          },
+          "link": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "링크",
+            "description": "페이지 제목 링크"
+          }
+        },
+        "required": [
+          "content",
+          "link"
+        ],
+        "title": "페이지 제목 텍스트 정보"
+      },
+      "INotion.IPageTitleAnnotation": {
+        "type": "object",
+        "properties": {
+          "bold": {
+            "type": "boolean",
+            "title": "볼드체 여부",
+            "description": "제목 텍스트 볼드체 여부"
+          },
+          "italic": {
+            "type": "boolean",
+            "title": "이탤릭체 여부",
+            "description": "제목 텍스트 이탤릭체 여부"
+          },
+          "strikethrough": {
+            "type": "boolean",
+            "title": "취소선 여부",
+            "description": "제목 텍스트 취소선 여부"
+          },
+          "underline": {
+            "type": "boolean",
+            "title": "밑줄 여부",
+            "description": "제목 텍스트 밑줄 여부"
+          },
+          "code": {
+            "type": "boolean",
+            "title": "코드로 감싸져 있는지 여부",
+            "description": "제목 텍스트가 코드로 감싸져 있는지 여부"
+          },
+          "color": {
+            "type": "string",
+            "title": "색깔",
+            "description": "제목 텍스트 색상"
+          }
+        },
+        "required": [
+          "bold",
+          "italic",
+          "strikethrough",
+          "underline",
+          "code",
+          "color"
+        ],
+        "title": "페이지 제목 부가 정보"
+      },
+      "INotion.IFindDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "데이터베이스 아이템에 있는 아이템의 제목"
+          },
+          "number": {
+            "type": "integer",
+            "title": "숫자",
+            "description": "데이터베이스 아이템에 있는 숫자"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "url",
+            "description": "데이터베이스 아이템에 있는 url"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "이메일 주소",
+            "description": "데이터베이스 아이템에 있는 이메일 주소"
+          },
+          "rich_text": {
+            "type": "string",
+            "title": "텍스트",
+            "description": "데이터베이스 아이템에 있는 텍스트"
+          },
+          "phone_number": {
+            "type": "string",
+            "title": "전화번호",
+            "description": "데이터베이스 아이템에 있는 전화번호"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "데이터베이스에 있는 아이템을 찾을 때 필요한 정보",
+        "additionalProperties": {}
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Notion"
+    },
+    {
+      "name": "노션"
+    },
+    {
+      "name": "노트"
+    },
+    {
+      "name": "메모"
+    },
+    {
+      "name": "작업",
+      "description": "관리"
+    },
+    {
+      "name": "프로젝트",
+      "description": "관리"
+    },
+    {
+      "name": "할",
+      "description": "일 목록"
+    },
+    {
+      "name": "일정",
+      "description": "관리"
+    },
+    {
+      "name": "문서",
+      "description": "작성"
+    },
+    {
+      "name": "회의록",
+      "description": "작성"
+    },
+    {
+      "name": "체크리스트"
+    },
+    {
+      "name": "아이디어",
+      "description": "정리"
+    },
+    {
+      "name": "업무",
+      "description": "기록"
+    },
+    {
+      "name": "학습",
+      "description": "노트"
+    },
+    {
+      "name": "스터디",
+      "description": "플래너"
+    },
+    {
+      "name": "제품기획"
+    },
+    {
+      "name": "이력서"
+    },
+    {
+      "name": "포트폴리오"
+    },
+    {
+      "name": "협업"
+    },
+    {
+      "name": "Note"
+    },
+    {
+      "name": "Memo"
+    },
+    {
+      "name": "Task",
+      "description": "Management"
+    },
+    {
+      "name": "Project",
+      "description": "Management"
+    },
+    {
+      "name": "To",
+      "description": "do list"
+    },
+    {
+      "name": "Schedule",
+      "description": "Management"
+    },
+    {
+      "name": "Document",
+      "description": "Creation"
+    },
+    {
+      "name": "Meeting",
+      "description": "Notes"
+    },
+    {
+      "name": "Checklist"
+    },
+    {
+      "name": "Idea",
+      "description": "Organization"
+    },
+    {
+      "name": "Work",
+      "description": "Logging"
+    },
+    {
+      "name": "Study",
+      "description": "Notes"
+    },
+    {
+      "name": "Product",
+      "description": "Management"
+    },
+    {
+      "name": "Resume"
+    },
+    {
+      "name": "Portfolio"
+    },
+    {
+      "name": "Collaboration"
+    }
+  ],
+  "x-samchon-emended": true
+}

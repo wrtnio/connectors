@@ -1,0 +1,103 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "프롬프트",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/prompt/generate": {
+      "post": {
+        "tags": [
+          "프롬프트 노드"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "유저의 프롬프트 입력",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IPrompt.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "프롬프트를 통한 답변",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPrompt.IResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "프롬프트 노드",
+        "description": "LLM에게 지시할 요청사항을 입력합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/prompt_node.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IPrompt.IRequest": {
+        "type": "object",
+        "properties": {
+          "user_request": {
+            "type": "string",
+            "x-wrtn-placeholder": "제품 이름과 제품 특징을 참고해서 광고 문구를 기발하고 유머러스하게 만들어주세요.",
+            "title": "유저 요청 사항"
+          },
+          "system_prompt": {
+            "type": "string",
+            "x-wrtn-placeholder": "친절한 어투로 말해주세요.",
+            "title": "시스템 프롬프트"
+          }
+        },
+        "required": [
+          "user_request"
+        ],
+        "title": "프롬프트 입력"
+      },
+      "IPrompt.IResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "title": "입력된 프롬프트를 통해 받은 결과"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "프롬프트를 통해 받은 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "프롬프트 노드"
+    }
+  ],
+  "x-samchon-emended": true
+}

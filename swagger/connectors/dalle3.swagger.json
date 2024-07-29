@@ -1,0 +1,123 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "DallE3",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/dall-e-3/generate": {
+      "post": {
+        "tags": [
+          "dall-e-3 이미지 생성기 노드"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "이미지 생성을 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDallE3.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 이미지 URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDallE3.IResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "dall-e-3 이미지 생성기 노드",
+        "description": "dall-e-3 모델을 이용하여 이미지를 생성합니다.",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IDallE3.IRequest": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "title": "프롬프트",
+            "description": "이미지를 생성하기 위한 프롬프트"
+          },
+          "image_ratio": {
+            "oneOf": [
+              {
+                "const": "square",
+                "title": "정사각형",
+                "description": "1024x1024"
+              },
+              {
+                "const": "landscape",
+                "title": "풍경",
+                "description": "1792x1024"
+              },
+              {
+                "const": "portrait",
+                "title": "인물",
+                "description": "1024x1792"
+              }
+            ],
+            "title": "이미지 사이즈",
+            "description": "생성할 이미지 사이즈 프리셋 입니다."
+          }
+        },
+        "required": [
+          "prompt",
+          "image_ratio"
+        ],
+        "title": "이미지 생성을 위한 정보"
+      },
+      "IDallE3.IResponse": {
+        "type": "object",
+        "properties": {
+          "imgUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "생성된 이미지 Url",
+            "description": "생성된 이미지 url"
+          }
+        },
+        "required": [
+          "imgUrl"
+        ],
+        "title": "이미지 생성 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "dall-e-3 이미지 생성기 노드"
+    }
+  ],
+  "x-samchon-emended": true
+}

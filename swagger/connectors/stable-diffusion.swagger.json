@@ -1,0 +1,197 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Stable Diffusion",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/stable-diffusion-beta/generate": {
+      "post": {
+        "tags": [
+          "스테이블 디퓨전 이미지 생성기 노드"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "이미지 생성을 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IStableDiffusionBeta.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 이미지 URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IStableDiffusionBeta.IResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "스테이블 디퓨전 이미지 생성기 노드",
+        "description": "스테이블 디퓨전 모델을 이용하여 이미지를 생성합니다.",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IStableDiffusionBeta.IRequest": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "title": "프롬프트",
+            "description": "생성하고자 하는 이미지에 포함하고 싶은 요소, 스타일, 주제 등을 구체적으로 적어주세요. 이 프롬프트는 모델이 이미지를 생성할 때 원하는 특징과 디테일을 반영하도록 지시합니다."
+          },
+          "image_ratio": {
+            "oneOf": [
+              {
+                "const": "square",
+                "title": "정사각형",
+                "description": "512x512"
+              },
+              {
+                "const": "landscape",
+                "title": "풍경",
+                "description": "896x512"
+              },
+              {
+                "const": "portrait",
+                "title": "인물",
+                "description": "512x896"
+              }
+            ],
+            "title": "이미지 사이즈",
+            "description": "생성할 이미지 사이즈 프리셋 입니다."
+          },
+          "style_preset": {
+            "oneOf": [
+              {
+                "const": "3d-model",
+                "title": "3D 모델"
+              },
+              {
+                "const": "analog-film",
+                "title": "아날로그 필름"
+              },
+              {
+                "const": "anime",
+                "title": "에니메이션"
+              },
+              {
+                "const": "cinematic",
+                "title": "영화"
+              },
+              {
+                "const": "comic-book",
+                "title": "만화"
+              },
+              {
+                "const": "digital-art",
+                "title": "디지털 아트"
+              },
+              {
+                "const": "enhance",
+                "title": "보정"
+              },
+              {
+                "const": "fantasy-art",
+                "title": "판타지 아트"
+              },
+              {
+                "const": "isometric",
+                "title": "등각뷰"
+              },
+              {
+                "const": "line-art",
+                "title": "라인 아트"
+              },
+              {
+                "const": "low-poly",
+                "title": "로우 폴리곤"
+              },
+              {
+                "const": "modeling-compound",
+                "title": "클레이 아트"
+              },
+              {
+                "const": "neon-punk",
+                "title": "네온 펑크"
+              },
+              {
+                "const": "origami",
+                "title": "종이 접기"
+              },
+              {
+                "const": "photographic",
+                "title": "사진"
+              },
+              {
+                "const": "pixel-art",
+                "title": "픽셀 아트"
+              },
+              {
+                "const": "tile-texture",
+                "title": "타일 텍스쳐"
+              }
+            ],
+            "title": "스타일 프리셋",
+            "description": "이미지를 특정한 스타일로 생성합니다."
+          }
+        },
+        "required": [
+          "prompt",
+          "image_ratio"
+        ],
+        "title": "이미지 생성기 설정"
+      },
+      "IStableDiffusionBeta.IResponse": {
+        "type": "object",
+        "properties": {
+          "imgUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "생성된 이미지 Url",
+            "description": "생성된 이미지 url"
+          }
+        },
+        "required": [
+          "imgUrl"
+        ],
+        "title": "이미지 생성 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "스테이블 디퓨전 이미지 생성기 노드"
+    }
+  ],
+  "x-samchon-emended": true
+}

@@ -1,0 +1,520 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "송장 조회",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/sweet-tacker/get-companies/recommended": {
+      "post": {
+        "tags": [
+          "sweet-tracker"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "택배사 조회를 위한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISweetTracker.IGetRecommendedCompanyListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "택배사 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISweetTracker.IGetRecommendedCompanyListOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "송장 번호에 매칭되는 택배사 목록",
+        "description": "송장번호에 매칭되는 택배사 목록을 조회합니다.",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/sweet-tacker/get-companies": {
+      "post": {
+        "tags": [
+          "sweet-tracker"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "택배사 목록",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISweetTracker.IGetCompanyListOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "택배사 목록 조회",
+        "description": "택배사 목록을 조회합니다.",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/sweet-tacker/tracking-info": {
+      "post": {
+        "tags": [
+          "sweet-tracker"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "송장 번호를 조회하기 위한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISweetTracker.IGetTrackingInfoInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "택배의 이동 경로",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISweetTracker.IGetTrackingInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "송장 조회",
+        "description": "송장 번호를 조회합니다."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ISweetTracker.IGetRecommendedCompanyListInput": {
+        "type": "object",
+        "properties": {
+          "t_invoice": {
+            "type": "string",
+            "title": "송장번호."
+          },
+          "t_key": {
+            "type": "string",
+            "title": "sweet-tracker로부터 발급받은 키."
+          }
+        },
+        "required": [
+          "t_invoice",
+          "t_key"
+        ]
+      },
+      "ISweetTracker.IGetRecommendedCompanyListOutput": {
+        "type": "object",
+        "properties": {
+          "Recommend": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OmitISweetTracker.CompanyInternational"
+            },
+            "title": "택배사 목록."
+          }
+        },
+        "required": [
+          "Recommend"
+        ],
+        "title": "송장 번호에 매칭되는 택배사 목록 DTO."
+      },
+      "OmitISweetTracker.CompanyInternational": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "택배사가 가지는 고유한 코드 값."
+          },
+          "Name": {
+            "type": "string",
+            "title": "택배사 이름."
+          }
+        },
+        "required": [
+          "Code",
+          "Name"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "ISweetTracker.IGetCompanyListOutput": {
+        "type": "object",
+        "properties": {
+          "Company": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISweetTracker.Company"
+            },
+            "title": "택배사 목록."
+          }
+        },
+        "required": [
+          "Company"
+        ],
+        "title": "택배사 조회 응답 DTO."
+      },
+      "ISweetTracker.Company": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "택배사가 가지는 고유한 코드 값."
+          },
+          "International": {
+            "oneOf": [
+              {
+                "const": "false"
+              },
+              {
+                "const": "true"
+              }
+            ],
+            "title": "국제 배송 여부."
+          },
+          "Name": {
+            "type": "string",
+            "title": "택배사 이름."
+          }
+        },
+        "required": [
+          "Code",
+          "International",
+          "Name"
+        ]
+      },
+      "ISweetTracker.IGetTrackingInfoInput": {
+        "type": "object",
+        "properties": {
+          "t_invoice": {
+            "type": "string",
+            "title": "송장번호."
+          },
+          "t_key": {
+            "type": "string",
+            "title": "sweet-tracker로부터 발급받은 키."
+          },
+          "t_code": {
+            "type": "string",
+            "title": "택배사 코드.",
+            "description": "택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다."
+          }
+        },
+        "required": [
+          "t_invoice",
+          "t_key",
+          "t_code"
+        ]
+      },
+      "ISweetTracker.IGetTrackingInfoOutput": {
+        "type": "object",
+        "properties": {
+          "senderName": {
+            "type": "string",
+            "title": "보내는 사람 이름."
+          },
+          "receiverAddr": {
+            "type": "string",
+            "title": "받는 사람 주소."
+          },
+          "firstDetail": {
+            "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
+            "title": "경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다",
+            "description": "경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다."
+          },
+          "level": {
+            "$ref": "#/components/schemas/ISweetTracker.Level",
+            "title": "진행 단계."
+          },
+          "lastDetail": {
+            "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
+            "title": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다",
+            "description": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다."
+          },
+          "estimate": {
+            "type": "string",
+            "title": "배송 예정 시간.",
+            "description": "'15시~17시' 형식의 텍스트."
+          },
+          "itemImage": {
+            "type": "string",
+            "title": "상품 이미지 URL."
+          },
+          "adUrl": {
+            "type": "string",
+            "title": "택배사에서 광고용으로 사용하는 주소."
+          },
+          "lastStateDetail": {
+            "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
+            "title": "lastStateDetail."
+          },
+          "zipCode": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "우편주소."
+          },
+          "invoiceNo": {
+            "type": "string",
+            "title": "운송장 번호."
+          },
+          "completeYN": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ConstantY__type"
+              },
+              {
+                "$ref": "#/components/schemas/ConstantN__type"
+              }
+            ],
+            "title": "배송 완료 여부."
+          },
+          "orderNumber": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "주문 번호."
+          },
+          "complete": {
+            "type": "boolean",
+            "title": "배송 완료 여부."
+          },
+          "recipient": {
+            "type": "string",
+            "title": "수령인 정보."
+          },
+          "receiverName": {
+            "type": "string",
+            "title": "받는 사람."
+          },
+          "result": {
+            "type": "string",
+            "title": "조회 결과."
+          },
+          "productInfo": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "상품 정보."
+          },
+          "itemName": {
+            "type": "string",
+            "title": "상품 이름."
+          }
+        },
+        "required": [
+          "senderName",
+          "receiverAddr",
+          "firstDetail",
+          "level",
+          "lastDetail",
+          "estimate",
+          "itemImage",
+          "adUrl",
+          "lastStateDetail",
+          "zipCode",
+          "invoiceNo",
+          "completeYN",
+          "orderNumber",
+          "complete",
+          "recipient",
+          "receiverName",
+          "result",
+          "productInfo",
+          "itemName"
+        ]
+      },
+      "ISweetTracker.TrackingDetail": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "배송 상태 코드"
+          },
+          "kind": {
+            "type": "string",
+            "title": "진행 상태."
+          },
+          "level": {
+            "$ref": "#/components/schemas/ISweetTracker.Level",
+            "title": "진행 단계"
+          },
+          "manName": {
+            "type": "string",
+            "title": "배송기사 이름."
+          },
+          "manPic": {
+            "type": "string",
+            "title": "배송기사 전화번호."
+          },
+          "remark": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "비고."
+          },
+          "telno": {
+            "type": "string",
+            "title": "배송기사 전화번호."
+          },
+          "telno2": {
+            "type": "string",
+            "title": "배송기사 전화번호."
+          },
+          "time": {
+            "type": "number",
+            "title": "진행 시간."
+          },
+          "timeString": {
+            "type": "string",
+            "title": "진행 시간."
+          },
+          "where": {
+            "type": "string",
+            "title": "진행 위치."
+          }
+        },
+        "required": [
+          "code",
+          "kind",
+          "level",
+          "manName",
+          "manPic",
+          "remark",
+          "telno",
+          "telno2",
+          "time",
+          "timeString",
+          "where"
+        ]
+      },
+      "ISweetTracker.Level": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Constant1__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant2__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant3__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant4__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant5__type"
+          },
+          {
+            "$ref": "#/components/schemas/Constant6__type"
+          }
+        ],
+        "title": "진행 단계"
+      },
+      "Constant1__type": {
+        "const": 1,
+        "title": "배송 준비 중",
+        "description": "배송 준비 중"
+      },
+      "Constant2__type": {
+        "const": 2,
+        "title": "집화 완료",
+        "description": "집화 완료"
+      },
+      "Constant3__type": {
+        "const": 3,
+        "title": "배송 중",
+        "description": "배송 중"
+      },
+      "Constant4__type": {
+        "const": 4,
+        "title": "지점 도착",
+        "description": "지점 도착"
+      },
+      "Constant5__type": {
+        "const": 5,
+        "title": "배송 출발",
+        "description": "배송 출발"
+      },
+      "Constant6__type": {
+        "const": 6,
+        "title": "배송 완료",
+        "description": "배송 완료"
+      },
+      "ConstantY__type": {
+        "const": "Y",
+        "title": "배송 완료.",
+        "description": "배송이 완료된 경우에는 Y로 표기된다."
+      },
+      "ConstantN__type": {
+        "const": "N",
+        "title": "배송 중.",
+        "description": "배송이 완료되지 않은 경우에는 N으로 표기된다."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "sweet-tracker"
+    }
+  ],
+  "x-samchon-emended": true
+}

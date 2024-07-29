@@ -1,0 +1,326 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "RAG",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/rag/analyze": {
+      "post": {
+        "tags": [
+          "RAG"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "분석할 파일 정보.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/IRag.ILinkInput"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IRag.ITextInput"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IRag.IHwpInput"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IRag.IDocxInput"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IRag.IPdfInput"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "html": "#/components/schemas/IRag.ILinkInput",
+                      "txt": "#/components/schemas/IRag.ITextInput",
+                      "hwp": "#/components/schemas/IRag.IHwpInput",
+                      "docx": "#/components/schemas/IRag.IDocxInput",
+                      "pdf": "#/components/schemas/IRag.IPdfInput"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRag.IAnalysisOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "RAG 분석 요청.",
+        "description": "입력된 파일에 대해 RAG 분석을 요청합니다."
+      }
+    },
+    "/connector/rag/generate/{chatId}": {
+      "post": {
+        "tags": [
+          "RAG"
+        ],
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IRag.IGenerateInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRag.IGenerateOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "RAG 기반 결과물 생성",
+        "description": "RAG 분석을 기반으로 요청받은 결과물을 생성합니다."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IRag.ILinkInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "html",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "WEB 링크 RAG 분석을 위한 정보"
+      },
+      "IRag.ITextInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "text/plain",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "txt",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "TXT 파일 RAG 분석을 위한 정보"
+      },
+      "IRag.IHwpInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.hancom.hwp",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "hwp",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "HWP 파일 RAG 분석을 위한 정보"
+      },
+      "IRag.IDocxInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "docx",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "DOCX 파일 RAG 분석을 위한 정보"
+      },
+      "IRag.IPdfInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/pdf",
+            "title": "파일 경로",
+            "description": "분석할 파일 경로"
+          },
+          "type": {
+            "const": "pdf",
+            "title": "파일 확장자.",
+            "description": "분석할 파일의 확장자입니다."
+          }
+        },
+        "required": [
+          "url",
+          "type"
+        ],
+        "title": "PDF 파일 RAG 분석을 위한 정보"
+      },
+      "IRag.IAnalysisOutput": {
+        "type": "object",
+        "properties": {
+          "chatId": {
+            "type": "string",
+            "title": "chat id.",
+            "description": "RAG 생성 결과물에 필요한 chat id.\nRAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.\n여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다."
+          }
+        },
+        "required": [
+          "chatId"
+        ],
+        "title": "RAG 분석 결과물"
+      },
+      "IRag.IGenerateInput": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "유저 발화.",
+            "description": "유저의 발화입니다."
+          },
+          "histories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IRag.IHistory"
+            },
+            "title": "이전 발화 내역.",
+            "description": "이전 발화 내역입니다."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "RAG를 통한 채팅을 위해 필요한 정보"
+      },
+      "IRag.IHistory": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "oneOf": [
+              {
+                "const": "user"
+              },
+              {
+                "const": "assistant"
+              }
+            ],
+            "title": "발화자 역할.",
+            "description": "발화자의 역할입니다."
+          },
+          "text": {
+            "type": "string",
+            "title": "발화 내용.",
+            "description": "발화 내용입니다."
+          }
+        },
+        "required": [
+          "role",
+          "text"
+        ],
+        "title": "이전 발화 내역"
+      },
+      "IRag.IGenerateOutput": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "발화에 대한 응답.",
+            "description": "RAG 기반 생성 요청에 대한 응답입니다."
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "RAG를 통한 채팅 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "RAG"
+    }
+  ],
+  "x-samchon-emended": true
+}

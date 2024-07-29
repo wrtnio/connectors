@@ -1,0 +1,119 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "조건 정렬",
+    "version": "0.1.28",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/rank/rank": {
+      "post": {
+        "tags": [
+          "Sort"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "정렬할 후보 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IRanker.IRankInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "정렬된 후보의 인덱스 배열",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRanker.IRankOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "조건 정렬",
+        "description": "주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IRanker.IRankInput": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IRanker.IScoredItem"
+            },
+            "title": "아이템 목록",
+            "description": "정렬할 아이템 목록"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "정렬을 위한 입력"
+      },
+      "IRanker.IScoredItem": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number",
+            "title": "점수",
+            "description": "아이템의 점수"
+          }
+        },
+        "required": [
+          "score"
+        ],
+        "title": "정렬할 아이템"
+      },
+      "IRanker.IRankOutput": {
+        "type": "object",
+        "properties": {
+          "rankedIndices": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "title": "정렬된 아이템의 인덱스 배열",
+            "description": "정렬된 아이템의 인덱스 배열"
+          }
+        },
+        "required": [
+          "rankedIndices"
+        ],
+        "title": "정렬된 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Sort",
+      "description": "Rank Ranking 정렬 순위 순서 랭킹 랭크"
+    }
+  ],
+  "x-samchon-emended": true
+}
