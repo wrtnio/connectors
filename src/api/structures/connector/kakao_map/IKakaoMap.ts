@@ -174,7 +174,8 @@ export namespace IKakaoMap {
     | tags.Constant<"FD6", { title: "음식점" }>
     | tags.Constant<"CE7", { title: "카페" }>
     | tags.Constant<"HP8", { title: "병원" }>
-    | tags.Constant<"PM9", { title: "약국" }>;
+    | tags.Constant<"PM9", { title: "약국" }>
+    | tags.Constant<"", { title: "알수 없음" }>;
 
   /**
    * @title 카테고리 그룹 이름
@@ -197,5 +198,6 @@ export namespace IKakaoMap {
     | tags.Constant<"음식점", { title: "음식점" }>
     | tags.Constant<"카페", { title: "카페" }>
     | tags.Constant<"병원", { title: "병원" }>
-    | tags.Constant<"약국", { title: "약국" }>;
+    | tags.Constant<"약국", { title: "약국" }>
+    | tags.Constant<"", { title: "알수 없음" }>;
 }
