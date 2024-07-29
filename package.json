@@ -14,7 +14,7 @@
     "build:api": "rimraf packages/api/lib && npm run build:sdk && tsc -p packages/api/tsconfig.json",
     "build:main": "rimraf lib && tsc",
     "build:sdk": "rimraf src/api/functional && node --max-old-space-size=8000 node_modules/nestia/bin sdk",
-    "build:swagger": "node --max-old-space-size=8000 node_modules/nestia/bin swagger && ts-node src/executable/categorize.ts && ts-node src/executable/openai.ts",
+    "build:swagger": "node --max-old-space-size=8000 node_modules/nestia/bin swagger && ts-node src/executable/connector-separation.ts && ts-node src/executable/openai.ts",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
     "eslint": "eslint src && eslint test",
