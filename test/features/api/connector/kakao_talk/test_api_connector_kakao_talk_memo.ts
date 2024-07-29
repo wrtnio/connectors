@@ -491,3 +491,70 @@ export const test_api_kakao_talk_commerce_memo = async (
 
   typia.assertEquals(sendTextForm);
 };
+
+export const test_api_kakao_talk_commerce_memo_with_redirect_url = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 액세스 토큰 갱신.
+   */
+  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
+    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+  });
+
+  typia.assertEquals(res);
+
+  /**
+   * 커머스 메시지 발송.
+   */
+  const sendTextForm =
+    await CApi.functional.connector.kakao_talk.memo.commerce.commerceMemo(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+        template_object: {
+          object_type: "commerce",
+          content: {
+            title: "리다이렉트 URL 테스트",
+            image_url:
+              "https://mud-kage.kakao.com/dn/RY8ZN/btqgOGzITp3/uCM1x2xu7GNfr7NS9QvEs0/kakaolink40_original.png",
+            image_width: 640,
+            image_height: 640,
+            link: {
+              web_url: "https://www.naver.com",
+              mobile_web_url: "https://www.naver.com",
+              android_execution_params: "contentId=100",
+              ios_execution_params: "contentId=100",
+            },
+          },
+          commerce: {
+            regular_price: 208800,
+            discount_price: 146160,
+            discount_rate: 30,
+          },
+          buttons: [
+            {
+              title: "구매하기",
+              link: {
+                web_url: "https://www.naver.com",
+                mobile_web_url: "https://www.naver.com",
+                android_execution_params: "contentId=100&buy=true",
+                ios_execution_params: "contentId=100&buy=true",
+              },
+            },
+            {
+              title: "공유하기",
+              link: {
+                web_url: "https://www.naver.com",
+                mobile_web_url: "https://www.naver.com",
+                android_execution_params: "contentId=100&share=true",
+                ios_execution_params: "contentId=100&share=true",
+              },
+            },
+          ],
+        },
+      },
+    );
+
+  typia.assertEquals(sendTextForm);
+};

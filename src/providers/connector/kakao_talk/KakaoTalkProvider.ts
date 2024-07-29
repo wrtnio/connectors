@@ -160,6 +160,7 @@ export namespace KakaoTalkProvider {
           mobile_web_url: "https://studio-pro.wrtn.ai",
           web_url: "https://studio-pro.wrtn.ai",
         },
+        button_title: "이동하기",
       };
 
       const res = await axios.post(
@@ -194,6 +195,32 @@ export namespace KakaoTalkProvider {
     try {
       const accessToken = await KakaoTalkProvider.refresh({
         refresh_token: input.secretKey,
+      });
+
+      const defaultUrl = "https://studio-pro.wrtn.ai" as const;
+      input.template_object.buttons?.forEach((button) => {
+        button.title = "이동하기";
+        if ("web_url" in button.link) {
+          if (!button.link.web_url.startsWith(defaultUrl)) {
+            const redirectUrl = button.link.web_url;
+            button.link.web_url = `${defaultUrl}/redirect/custom?redirect_url=${redirectUrl}`;
+          }
+        } else if ("mobile_web_url" in button.link) {
+          if (!button.link.mobile_web_url.startsWith(defaultUrl)) {
+            const redirectUrl = button.link.mobile_web_url;
+            button.link.mobile_web_url = `${defaultUrl}/redirect/custom?redirect_url=${redirectUrl}`;
+          }
+        } else if ("android_execution_params" in button.link) {
+          if (!button.link.android_execution_params.startsWith(defaultUrl)) {
+            const redirectUrl = button.link.android_execution_params;
+            button.link.android_execution_params = `${defaultUrl}/redirect/custom?redirect_url=${redirectUrl}`;
+          }
+        } else if ("ios_execution_params" in button.link) {
+          if (!button.link.ios_execution_params.startsWith(defaultUrl)) {
+            const redirectUrl = button.link.ios_execution_params;
+            button.link.ios_execution_params = `${defaultUrl}/redirect/custom?redirect_url=${redirectUrl}`;
+          }
+        }
       });
 
       const res = await axios.post(
