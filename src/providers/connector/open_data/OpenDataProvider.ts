@@ -3,7 +3,10 @@ import axios from "axios";
 import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
 import { IMOLIT } from "@wrtn/connector-api/lib/structures/connector/open_data/IMOLIT";
 import { INIA } from "@wrtn/connector-api/lib/structures/connector/open_data/INIA";
-import { IOpenData } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
+import {
+  IKoreaMeteorologicalAdministration,
+  IOpenData,
+} from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
@@ -322,8 +325,8 @@ export namespace OpenDataProvider {
   }
 
   export async function getShortTermForecast(
-    input: IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
-  ): Promise<IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput> {
+    input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
+  ): Promise<IKoreaMeteorologicalAdministration.IGetForecastOutput[]> {
     try {
       const baseUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
@@ -334,10 +337,11 @@ export namespace OpenDataProvider {
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = `00`;
 
+      const { x: nx, y: ny } = dfs_xy_conv("toXY", input.ny, input.nx);
       const queryObject = {
         serviceKey,
-        nx: input.nx,
-        ny: input.ny,
+        nx,
+        ny,
         pageNo: 1,
         numOfRows: 14, // 코드 값의 수가 14개이므로 14를 고정 값으로 사용.
         base_date: `${year}${month}${day}`,
@@ -350,7 +354,12 @@ export namespace OpenDataProvider {
         .join("&");
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
-      return res.data;
+      const data =
+        res.data as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput;
+      return data.response.body.items?.item.map((el) => {
+        const { lat, lng } = dfs_xy_conv("toLL", el.ny, el.nx);
+        return { ...el, nx: lat, ny: lng };
+      });
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -382,5 +391,91 @@ export namespace OpenDataProvider {
       console.error(JSON.stringify(error));
       throw error;
     }
+  }
+
+  /**
+   * LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
+   *
+   * @param code
+   * @param v1 y좌표 혹은 위도
+   * @param v2 x좌표 혹은 경도
+   * @returns
+   */
+  export function dfs_xy_conv(code: "toXY" | "toLL", v1: number, v2: number) {
+    const RE = 6371.00877; // 지구 반경(km)
+    const GRID = 5.0; // 격자 간격(km)
+    const SLAT1 = 30.0; // 투영 위도1(degree)
+    const SLAT2 = 60.0; // 투영 위도2(degree)
+    const OLON = 126.0; // 기준점 경도(degree)
+    const OLAT = 38.0; // 기준점 위도(degree)
+    const XO = 43; // 기준점 X좌표(GRID)
+    const YO = 136; // 기준점 Y좌표(GRID)
+
+    const DEGRAD = Math.PI / 180.0;
+    const RADDEG = 180.0 / Math.PI;
+
+    const re = RE / GRID;
+    const slat1 = SLAT1 * DEGRAD;
+    const slat2 = SLAT2 * DEGRAD;
+    const olon = OLON * DEGRAD;
+    const olat = OLAT * DEGRAD;
+
+    const sn =
+      Math.tan(Math.PI * 0.25 + slat2 * 0.5) /
+      Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+    let sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+    sf = (Math.pow(sf, sn) * Math.cos(slat1)) / sn;
+    let ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+    ro = (re * sf) / Math.pow(ro, sn);
+    let ra: number | null = null;
+    let theta: number | null = null;
+
+    const rs: Record<"lat" | "lng" | "x" | "y", number> = {
+      lat: 0,
+      lng: 0,
+      x: 0,
+      y: 0,
+    };
+
+    if (code == "toXY") {
+      rs["lat"] = v1;
+      rs["lng"] = v2;
+      ra = Math.tan(Math.PI * 0.25 + v1 * DEGRAD * 0.5);
+      if (!ra) {
+        console.error("Invalid ra value", ra);
+      }
+      ra = (re * sf) / Math.pow(ra, sn);
+      if (!ra || isNaN(ra)) {
+        console.error("Invalid ra value after pow", ra);
+      }
+      theta = v2 * DEGRAD - olon;
+      if (theta > Math.PI) theta -= 2.0 * Math.PI;
+      if (theta < -Math.PI) theta += 2.0 * Math.PI;
+      theta *= sn;
+      rs["x"] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+      rs["y"] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+    } else {
+      rs["x"] = v1;
+      rs["y"] = v2;
+      const xn = v1 - XO;
+      const yn = ro - v2 + YO;
+      ra = Math.sqrt(xn * xn + yn * yn);
+      if (sn < 0.0) -ra;
+      let alat = Math.pow((re * sf) / ra, 1.0 / sn);
+      alat = 2.0 * Math.atan(alat) - Math.PI * 0.5;
+
+      if (Math.abs(xn) <= 0.0) {
+        theta = 0.0;
+      } else {
+        if (Math.abs(yn) <= 0.0) {
+          theta = Math.PI * 0.5;
+          if (xn < 0.0) -theta;
+        } else theta = Math.atan2(xn, yn);
+      }
+      const alon = theta / sn + olon;
+      rs["lat"] = alat * RADDEG;
+      rs["lng"] = alon * RADDEG;
+    }
+    return rs;
   }
 }
