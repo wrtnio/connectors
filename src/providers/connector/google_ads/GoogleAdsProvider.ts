@@ -81,10 +81,8 @@ export class GoogleAdsProvider {
       | IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     try {
-      const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
       const headers = await this.getHeaders();
-
-      const endPoint = `${this.baseUrl}/customers/${parentId}:generateKeywordIdeas`;
+      const endPoint = `${this.baseUrl}/customers/${input.customerId}:generateKeywordIdeas`;
 
       const res = await axios.post(
         endPoint,

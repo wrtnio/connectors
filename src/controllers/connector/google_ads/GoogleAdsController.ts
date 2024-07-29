@@ -23,6 +23,8 @@ export class GoogleAdsController {
    *
    * 요청 결과는 키워드들의 목록과 각 키워드들의 경쟁 지수, 단가, 광고 등록 시 예상되는 지표 값들이 조회됩니다.
    *
+   * 이 커넥터는 성인 광고를 위한 키워드를 제외하며, 언어적 조건은 한국어, 지리적 조건은 한국(South Korea)으로 설정되어 있습니다.
+   *
    * @summary 키워드와 URL을 통한 키워드 생성
    * @param input URL을 담은 객체
    * @returns 추천 받은 키워드 목록과 각 키워드에 대한 경쟁 지수 및 지표, 단가 정보
@@ -36,7 +38,11 @@ export class GoogleAdsController {
   async keywordsAndUrl(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    return this.googleAdsProvider.generateKeywordIdeas(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.generateKeywordIdeas({
+      ...input,
+      customerId,
+    });
   }
 
   /**
@@ -49,6 +55,8 @@ export class GoogleAdsController {
    * 키워드들을 입력 시 그에 파생될 수 있는 다른 키워드들을 추천해줍니다.
    *
    * 요청 결과는 키워드들의 목록과 각 키워드들의 경쟁 지수, 단가, 광고 등록 시 예상되는 지표 값들이 조회됩니다.
+   *
+   * 이 커넥터는 성인 광고를 위한 키워드를 제외하며, 언어적 조건은 한국어, 지리적 조건은 한국(South Korea)으로 설정되어 있습니다.
    *
    * @summary 키워드를 통한 키워드 생성
    * @param input URL을 담은 객체
@@ -63,7 +71,11 @@ export class GoogleAdsController {
   async keywords(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    return this.googleAdsProvider.generateKeywordIdeas(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.generateKeywordIdeas({
+      ...input,
+      customerId,
+    });
   }
 
   /**
@@ -76,6 +88,8 @@ export class GoogleAdsController {
    * URL을 입력 시 그에 파생될 수 있는 다른 키워드들을 추천해줍니다.
    *
    * 요청 결과는 키워드들의 목록과 각 키워드들의 경쟁 지수, 단가, 광고 등록 시 예상되는 지표 값들이 조회됩니다.
+   *
+   * 이 커넥터는 성인 광고를 위한 키워드를 제외하며, 언어적 조건은 한국어, 지리적 조건은 한국(South Korea)으로 설정되어 있습니다.
    *
    * @summary URL을 통한 키워드 생성
    * @param input URL을 담은 객체
@@ -90,7 +104,11 @@ export class GoogleAdsController {
   async url(
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
-    return this.googleAdsProvider.generateKeywordIdeas(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.generateKeywordIdeas({
+      ...input,
+      customerId,
+    });
   }
 
   /**
@@ -114,7 +132,8 @@ export class GoogleAdsController {
   @ApiTags("구글 애즈", "광고", "Google Ads", "AD", "마케팅")
   @core.TypedRoute.Post("customerClientLink")
   async publish(@TypedBody() input: IGoogleAds.ISecret): Promise<void> {
-    return this.googleAdsProvider.publish(input);
+    const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
+    return this.googleAdsProvider.publish({ ...input, customerId });
   }
 
   /**
@@ -418,6 +437,12 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
+   * 광고는 생성 직후 바로 검토 중으로 넘어가며, 이 때 구글 심사가 통과되면 광고는 집행되여 지출이 발생하게 됩니다.
+   * 하지만 이 커넥터로 광고를 생성할 경우에는 광고 상태가 `PAUSED`로 설정이 됩니다.
+   * 이는 만약의 사태를 대비하여 유저가 캠페인, 광고 그룹, 광고 등을 재조회하여 자신이 원하는 상태로 만들어졌는지 체크하게 하기 위함입니다.
+   * 따라서 광고의 검토가 끝나더라도 광고는 집행되지 않으며 성과와 지출 역시 발생하지 않습니다.
+   * 광고가 올바른지 체크하였다면, 유저는 `광고 수정 커넥터`를 이용하여 광고의 상태(status)를 `ENABLED` 값으로 변경할 수 있습니다.
+   *
    * @summary 광고를 생성해요
    * @param input 광고 생성 조건
    * @returns 생성된 광고 정보
@@ -509,6 +534,12 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
+   * 광고는 생성 직후 바로 검토 중으로 넘어가며, 이 때 구글 심사가 통과되면 광고는 집행되여 지출이 발생하게 됩니다.
+   * 하지만 이 커넥터로 광고를 생성할 경우에는 광고 상태가 `PAUSED`로 설정이 됩니다.
+   * 이는 만약의 사태를 대비하여 유저가 캠페인, 광고 그룹, 광고 등을 재조회하여 자신이 원하는 상태로 만들어졌는지 체크하게 하기 위함입니다.
+   * 따라서 광고의 검토가 끝나더라도 광고는 집행되지 않으며 성과와 지출 역시 발생하지 않습니다.
+   * 광고가 올바른지 체크하였다면, 유저는 `광고 수정 커넥터`를 이용하여 광고의 상태(status)를 `ENABLED` 값으로 변경할 수 있습니다.
+   *
    * @summary 구글 고객 계정에 반응형 검색 광고를 한 번에 만들어요
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
    * @returns 생성된 캠페인부터 광고까지의 정보
@@ -555,6 +586,12 @@ export class GoogleAdsController {
    * 대부분의 경우에는 이 방식으로 광고를 생성하더라도 문제가 되지 않습니다.
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
+   *
+   * 광고는 생성 직후 바로 검토 중으로 넘어가며, 이 때 구글 심사가 통과되면 광고는 집행되여 지출이 발생하게 됩니다.
+   * 하지만 이 커넥터로 광고를 생성할 경우에는 광고 상태가 `PAUSED`로 설정이 됩니다.
+   * 이는 만약의 사태를 대비하여 유저가 캠페인, 광고 그룹, 광고 등을 재조회하여 자신이 원하는 상태로 만들어졌는지 체크하게 하기 위함입니다.
+   * 따라서 광고의 검토가 끝나더라도 광고는 집행되지 않으며 성과와 지출 역시 발생하지 않습니다.
+   * 광고가 올바른지 체크하였다면, 유저는 `광고 수정 커넥터`를 이용하여 광고의 상태(status)를 `ENABLED` 값으로 변경할 수 있습니다.
    *
    * @summary 구글 계정 광고에 반응형 디스플레이 광고를 한 번에 만들어요
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
