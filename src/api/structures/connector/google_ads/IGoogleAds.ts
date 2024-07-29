@@ -4,9 +4,7 @@ import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
-  export interface IGetMetricInput
-    extends Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+  export interface IGetMetricInput extends IGoogleAds.ISecret {
     /**
      * @title 통계 조회 날짜
      */
@@ -65,9 +63,7 @@ export namespace IGoogleAds {
     adGroupAd: Pick<AdGroupAd, "resourceName">;
   }
 
-  export interface IGetAdGroupAdInput
-    extends Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+  export interface IGetAdGroupAdInput extends IGoogleAds.ISecret {
     /**
      * @title 광고 그룹 광고의 리소스 명
      */
@@ -87,9 +83,7 @@ export namespace IGoogleAds {
     "resourceName" | "policySummary" | "status"
   >[];
 
-  export interface IGetAdGroupAdDetailInput
-    extends Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+  export interface IGetAdGroupAdDetailInput extends IGoogleAds.ISecret {
     /**
      * @title 광고 그룹 광고의 리소스 명
      */
@@ -189,9 +183,7 @@ export namespace IGoogleAds {
       }>;
   }
 
-  export interface ISetOnOffInput
-    extends Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+  export interface ISetOnOffInput extends IGoogleAds.ISecret {
     /**
      * @title 광고 그룹 광고의 리소스 명
      */
@@ -216,9 +208,7 @@ export namespace IGoogleAds {
   /**
    * @title 키워드 삭제 조건
    */
-  export interface IDeleteAdGroupCriteriaInput
-    extends Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+  export interface IDeleteAdGroupCriteriaInput extends IGoogleAds.ISecret {
     /**
      * @title 삭제할 키워드의 아이디
      */
@@ -241,7 +231,7 @@ export namespace IGoogleAds {
   >;
 
   export interface ICreateAdGroupCriteriaInput
-    extends ICreateKeywordInput,
+    extends Omit<ICreateKeywordInput, "customerId">,
       IGoogleAds.ISecret {
     /**
      * @title 키워드를 추가할 광고 그룹의 리소스 네임
@@ -326,9 +316,7 @@ export namespace IGoogleAds {
   /**
    * @title 키워드 조회 조건
    */
-  export interface IGetKeywordsInput
-    extends Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+  export interface IGetKeywordsInput extends IGoogleAds.ISecret {
     /**
      * @title 광고 그룹 리소스 명
      */
@@ -571,8 +559,7 @@ export namespace IGoogleAds {
   /**
    * @title 광고 생성 조건
    */
-  export type ICreateAdGroupAdInput = Pick<IGoogleAds.ISecret, "secretKey"> &
-    Required<Pick<IGoogleAds.ISecret, "customerId">> &
+  export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
     ICreateAdGroupAdInputCommon;
 
   export type IUpdateAdGroupAdInput = Pick<
@@ -693,7 +680,7 @@ export namespace IGoogleAds {
         >
       >,
       Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+      IGoogleAds.ISecret {
     /**
      * @title 수정할 캠페인의 리소스 아이디
      */
@@ -709,9 +696,8 @@ export namespace IGoogleAds {
   }
 
   export interface ICreateCampaignInput
-    extends ICreateCampaignBudgetInput,
-      Pick<IGoogleAds.ISecret, "secretKey">,
-      Required<Pick<IGoogleAds.ISecret, "customerId">> {
+    extends Omit<ICreateCampaignBudgetInput, "customerId">,
+      IGoogleAds.ISecret {
     /**
      * @title 캠페인 타입
      */
@@ -914,7 +900,12 @@ export namespace IGoogleAds {
    */
   export interface GoogleAdsError {
     error: {
+      code: number;
+      message: string;
+      status: string;
       details: {
+        "@type": string;
+        requestId: string;
         errors: {
           /**
            * 아래와 같이 에러 이름과 에러의 메시지가 담긴 객체
@@ -923,8 +914,22 @@ export namespace IGoogleAds {
            * { managerLinkError: "ALREADY_INVITED_BY_THIS_MANAGER" }
            */
           errorCode: Record<string, string>;
+          message: string;
+          details: object;
         }[];
       }[];
+    };
+  }
+
+  export interface RESOURCE_EXHAUSTED_ERROR {
+    errorCode: Record<string, string>;
+    message: string;
+    details: {
+      quotaErrorDetails: {
+        rateScope: string;
+        rateName: string;
+        retryDelay: `${number}s`;
+      };
     };
   }
 
@@ -948,23 +953,12 @@ export namespace IGoogleAds {
      *
      * @title 고객 리소스 아이디
      */
-    customerId: CustomerClient["id"] &
+    customerId?: CustomerClient["id"] &
       Prerequisite<{
         method: "post";
         path: "connector/google-ads/get-customers";
         jmesPath: JMESPath<IGetCustomerOutput, "[].{value:id, label:id}">;
       }>;
-  }
-
-  export interface RESOURCE_EXHAUSTED_ERROR {
-    message: string;
-    details: {
-      quotaErrorDetails: {
-        rateScope: string;
-        rateName: string;
-        retryDelay: `${number}s`;
-      };
-    };
   }
 
   export interface Customer {
