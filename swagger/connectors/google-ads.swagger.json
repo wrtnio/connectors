@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "구글 광고",
-    "version": "0.1.30",
+    "version": "0.1.31",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -556,17 +556,17 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/PickISecretsecretKeyRequiredPickISecretcustomerIdICreateAdGroupSearchAdInput"
+                    "$ref": "#/components/schemas/ISecretICreateAdGroupSearchAdInput"
                   },
                   {
-                    "$ref": "#/components/schemas/PickISecretsecretKeyRequiredPickISecretcustomerIdICreateAdGroupDisplayAdInput"
+                    "$ref": "#/components/schemas/ISecretICreateAdGroupDisplayAdInput"
                   }
                 ],
                 "discriminator": {
                   "propertyName": "type",
                   "mapping": {
-                    "SEARCH_STANDARD": "#/components/schemas/PickISecretsecretKeyRequiredPickISecretcustomerIdICreateAdGroupSearchAdInput",
-                    "DISPLAY_STANDARD": "#/components/schemas/PickISecretsecretKeyRequiredPickISecretcustomerIdICreateAdGroupDisplayAdInput"
+                    "SEARCH_STANDARD": "#/components/schemas/ISecretICreateAdGroupSearchAdInput",
+                    "DISPLAY_STANDARD": "#/components/schemas/ISecretICreateAdGroupDisplayAdInput"
                   }
                 }
               }
@@ -787,7 +787,6 @@
         },
         "required": [
           "keywords",
-          "customerId",
           "secretKey",
           "url"
         ]
@@ -1073,7 +1072,6 @@
         },
         "required": [
           "keywords",
-          "customerId",
           "secretKey"
         ]
       },
@@ -1119,7 +1117,6 @@
         },
         "required": [
           "url",
-          "customerId",
           "secretKey"
         ]
       },
@@ -1149,7 +1146,6 @@
           }
         },
         "required": [
-          "customerId",
           "secretKey"
         ]
       },
@@ -1485,7 +1481,6 @@
           }
         },
         "required": [
-          "customerId",
           "secretKey"
         ]
       },
@@ -1797,15 +1792,6 @@
             },
             "title": "광고 그룹 광고의 리소스 명"
           },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -1817,11 +1803,19 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "secretKey",
-          "customerId"
+          "secretKey"
         ]
       },
       "IGoogleAds.IGetAdGroupAdOutput": {
@@ -1918,15 +1912,6 @@
             "format": "date",
             "title": "통계 조회 날짜"
           },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -1938,12 +1923,20 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "date",
-          "secretKey",
-          "customerId"
+          "secretKey"
         ]
       },
       "IGoogleAds.IGetMetricOutputResult": {
@@ -2045,15 +2038,6 @@
             },
             "title": "광고 그룹 리소스 명"
           },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2065,12 +2049,20 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "adGroupResourceName",
-          "secretKey",
-          "customerId"
+          "secretKey"
         ],
         "title": "키워드 조회 조건"
       },
@@ -2213,15 +2205,6 @@
             ],
             "title": "광고 상태"
           },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2233,13 +2216,21 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "adGroupAdResourceName",
           "status",
-          "secretKey",
-          "customerId"
+          "secretKey"
         ]
       },
       "IGoogleAds.IDeleteAdGroupCriteriaInput": {
@@ -2259,15 +2250,6 @@
             },
             "title": "삭제할 키워드의 아이디"
           },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2279,12 +2261,20 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "resourceNames",
-          "secretKey",
-          "customerId"
+          "secretKey"
         ],
         "title": "키워드 삭제 조건"
       },
@@ -2334,7 +2324,6 @@
         "required": [
           "adGroupResourceName",
           "keywords",
-          "customerId",
           "secretKey"
         ]
       },
@@ -2361,15 +2350,6 @@
             },
             "title": "광고 그룹 광고의 리소스 명"
           },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2381,12 +2361,20 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "adGroupAdResourceName",
-          "secretKey",
-          "customerId"
+          "secretKey"
         ]
       },
       "IGoogleAds.IGetAdGroupAdDetailOutput": {
@@ -2531,18 +2519,9 @@
           "headlines"
         ]
       },
-      "PickISecretsecretKeyRequiredPickISecretcustomerIdICreateAdGroupSearchAdInput": {
+      "ISecretICreateAdGroupSearchAdInput": {
         "type": "object",
         "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2554,6 +2533,15 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           },
           "finalUrl": {
             "type": "string",
@@ -2606,8 +2594,8 @@
           }
         },
         "required": [
-          "secretKey",
           "customerId",
+          "secretKey",
           "finalUrl",
           "headlines",
           "descriptions",
@@ -2616,18 +2604,9 @@
           "keywords"
         ]
       },
-      "PickISecretsecretKeyRequiredPickISecretcustomerIdICreateAdGroupDisplayAdInput": {
+      "ISecretICreateAdGroupDisplayAdInput": {
         "type": "object",
         "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/adwords"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
           "customerId": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2639,6 +2618,15 @@
             },
             "title": "고객 리소스 아이디",
             "description": "고객의 리소스 아이디이다.\n\n`customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.\n\n`Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,\n\n이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.\n\n만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
           },
           "finalUrl": {
             "type": "string",
@@ -2739,8 +2727,8 @@
           }
         },
         "required": [
-          "secretKey",
           "customerId",
+          "secretKey",
           "finalUrl",
           "headlines",
           "longHeadline",
@@ -2806,8 +2794,7 @@
         },
         "required": [
           "campaignResourceName",
-          "secretKey",
-          "customerId"
+          "secretKey"
         ],
         "title": "캠페인 수정 조건"
       },
@@ -2874,7 +2861,6 @@
         "required": [
           "advertisingChannelType",
           "campaignBudget",
-          "customerId",
           "secretKey"
         ]
       },
@@ -2914,7 +2900,6 @@
         "required": [
           "ad",
           "campaign",
-          "customerId",
           "secretKey"
         ],
         "title": "구글 검색 캠페인부터 광고까지 한 번에 만드는 요청 조건"
@@ -3065,7 +3050,6 @@
         "required": [
           "ad",
           "campaign",
-          "customerId",
           "secretKey"
         ],
         "title": "구글 디스플레이 캠페인부터 광고까지 한 번에 만드는 요청 조건"
