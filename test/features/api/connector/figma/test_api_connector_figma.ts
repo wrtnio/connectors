@@ -4,11 +4,6 @@ import CApi from "@wrtn/connector-api/lib/index";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-const requestBody = {
-  secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
-  fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
-};
-
 export const test_api_connector_figma_read_file = async (
   connection: CApi.IConnection,
 ) => {
@@ -16,10 +11,10 @@ export const test_api_connector_figma_read_file = async (
    * read file API
    */
   const readFileEvent =
-    await CApi.functional.connector.figma.get_files.readFiles(
-      connection,
-      requestBody,
-    );
+    await CApi.functional.connector.figma.get_files.readFiles(connection, {
+      secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
+    });
 
   typia.assertEquals(readFileEvent);
 };
@@ -34,7 +29,8 @@ export const test_api_connector_figma_read_comment = async (
     await CApi.functional.connector.figma.get_comments.readComments(
       connection,
       {
-        ...requestBody,
+        secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+        fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
         as_md: true,
       },
     );
@@ -51,7 +47,8 @@ export const test_api_connector_figma_add_comment = async (
    */
   const addCommentEvent =
     await CApi.functional.connector.figma.comments.addComment(connection, {
-      ...requestBody,
+      secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
       message: typia.random<string>(),
     });
 
@@ -70,14 +67,49 @@ export const test_api_connector_figma_add_comment = async (
 export const test_api_connector_figma_get_projects = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * add comment API
-   */
-  const projects =
-    await CApi.functional.connector.figma.get_projects.getProjects(connection, {
+  const team = await CApi.functional.connector.figma.get_projects.getProjects(
+    connection,
+    {
       secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
       teamId: "1379663189749043465",
-    });
+    },
+  );
 
-  typia.assertEquals(projects);
+  typia.assertEquals(team);
+  return team;
+};
+
+export const test_api_connector_figma_get_project_files = async (
+  connection: CApi.IConnection,
+) => {
+  const team = await test_api_connector_figma_get_projects(connection);
+
+  for await (const project of team.projects) {
+    const files =
+      await CApi.functional.connector.figma.projects.get_canvas.getProjectCanvas(
+        connection,
+        project.id,
+        {
+          secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+        },
+      );
+
+    typia.assert(files);
+  }
+};
+
+export const test_api_connector_get_statistics = async (
+  connection: CApi.IConnection,
+) => {
+  const res =
+    await CApi.functional.connector.figma.get_statistics.getStatistics(
+      connection,
+      {
+        as_md: true,
+        teamId: "1379663189749043465",
+        secretKey: ConnectorGlobal.env.FIGMA_TEST_SECRET,
+      },
+    );
+
+  typia.assert(res);
 };
