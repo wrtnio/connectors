@@ -68,6 +68,7 @@ export function retry<T extends any[], ReturnType>(
                 }),
             );
 
+            console.log(`retry delay: ${maxDelay} seconds...`);
             await new Promise<void>((res) => setTimeout(res, maxDelay * 1000));
           }
         }

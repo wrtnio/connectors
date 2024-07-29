@@ -26,11 +26,10 @@ export class GoogleAdsProvider {
    * @returns
    */
   async getTargetCustomerId(
-    input: Pick<IGoogleAds.ISecret, "secretKey"> &
-      Required<Pick<IGoogleAds.ISecret, "customerId">>,
+    input: IGoogleAds.ISecret,
   ): Promise<IGoogleAds.Customer["id"]> {
     const customers = await this.getCustomers(input);
-    let customerId: string = input.customerId ?? null;
+    let customerId: string | null = input.customerId ?? null;
     if (input.customerId) {
       if (!customers.map((el) => el.id).includes(input.customerId)) {
         throw new Error(
@@ -55,11 +54,9 @@ export class GoogleAdsProvider {
   async publish(input: IGoogleAds.ISecret): Promise<void> {
     try {
       const customers = await this.listAccessibleCustomers(input);
-      await Promise.all(
-        customers.resourceNames.map(async (resourceName) => {
-          await this.createClientLink({ resuorceName: resourceName });
-        }),
-      );
+      for await (const resourceName of customers.resourceNames) {
+        await this.createClientLink({ resourceName: resourceName });
+      }
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
@@ -181,7 +178,9 @@ export class GoogleAdsProvider {
    * 광고 소재 수정 전에 원래의 전체 형태를 조회하기 위한 용도
    */
   async getAdGroupAdDetail(
-    input: IGoogleAds.IGetAdGroupAdDetailInput,
+    input: Omit<IGoogleAds.IGetAdGroupAdDetailInput, "customerId"> & {
+      customerId: string;
+    },
   ): Promise<IGoogleAds.IGetAdGroupAdDetailOutput> {
     const query = `
     SELECT
@@ -405,7 +404,9 @@ export class GoogleAdsProvider {
   }
 
   async updateCampaign(
-    input: Omit<IGoogleAds.IUpdateCampaignInput, "secretKey">,
+    input: Omit<IGoogleAds.IUpdateCampaignInput, "secretKey"> & {
+      customerId: string;
+    },
   ): Promise<void> {
     try {
       const { customerId, campaignResourceName, campaignBudget, ...rest } =
@@ -483,7 +484,9 @@ export class GoogleAdsProvider {
   }
 
   async createCampaign(
-    input: Omit<IGoogleAds.ICreateCampaignInput, "secretKey">,
+    input: Omit<IGoogleAds.ICreateCampaignInput, "secretKey"> & {
+      customerId: string;
+    },
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
       const url = `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`;
@@ -527,7 +530,9 @@ export class GoogleAdsProvider {
   }
 
   private async getAdGroups(
-    input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey">,
+    input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey" | "customerId"> & {
+      customerId: string;
+    },
   ): Promise<IGoogleAds.IGetGoogleAdGroupOutput> {
     try {
       const query = `
@@ -661,36 +666,39 @@ export class GoogleAdsProvider {
    * @returns
    */
   async getAdGroupDetails(
-    input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey">,
+    input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey" | "customerId"> & {
+      customerId: string;
+    },
   ): Promise<IGoogleAds.IGetAdGroupOutput> {
     try {
       const adGroupsResult = await this.getAdGroups(input);
 
-      return await Promise.all(
-        adGroupsResult.results.map(async ({ campaign, adGroup }) => {
-          const adGroupResourceName = adGroup.resourceName;
-          const adGroupAds = await this.getAdGroupAds({
-            ...input,
-            adGroupResourceName,
-          });
+      const response = [];
+      for await (const { campaign, adGroup } of adGroupsResult.results) {
+        const adGroupResourceName = adGroup.resourceName;
+        const adGroupAds = await this.getAdGroupAds({
+          ...input,
+          adGroupResourceName,
+        });
 
-          const adGroupCriterions = await this.getKeywords({
-            customerId: input.customerId,
-            adGroupResourceName,
-          });
+        const adGroupCriterions = await this.getKeywords({
+          customerId: input.customerId,
+          adGroupResourceName,
+        });
 
-          return {
-            campaign,
-            adGroup,
-            adGroupAds,
-            keywords: (adGroupCriterions ?? []).map((result) => ({
-              criterionId: result.adGroupCriterion.criterionId,
-              resourceName: result.adGroupCriterion.resourceName,
-              ...result.adGroupCriterion.keyword,
-            })),
-          };
-        }),
-      );
+        response.push({
+          campaign,
+          adGroup,
+          adGroupAds,
+          keywords: (adGroupCriterions ?? []).map((result) => ({
+            criterionId: result.adGroupCriterion.criterionId,
+            resourceName: result.adGroupCriterion.resourceName,
+            ...result.adGroupCriterion.keyword,
+          })),
+        });
+      }
+
+      return response;
     } catch (err) {
       console.error(
         JSON.stringify(err instanceof AxiosError ? err.response?.data : err),
@@ -747,7 +755,9 @@ export class GoogleAdsProvider {
   }
 
   async getCampaigns(
-    input: Omit<IGoogleAds.IGetCampaignsInput, "secretKey">,
+    input: Omit<IGoogleAds.IGetCampaignsInput, "secretKey" | "customerId"> & {
+      customerId: string;
+    },
     resourceName?: IGoogleAds.Campaign["resourceName"],
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
     try {
@@ -784,7 +794,7 @@ export class GoogleAdsProvider {
    * @returns
    */
   async createClientLink(input: {
-    resuorceName: IGoogleAds.Customer["resourceName"];
+    resourceName: IGoogleAds.Customer["resourceName"];
   }): Promise<void> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
@@ -795,7 +805,7 @@ export class GoogleAdsProvider {
         {
           operation: {
             create: {
-              clientCustomer: input.resuorceName,
+              clientCustomer: input.resourceName,
               status: "PENDING",
             },
           },
@@ -967,29 +977,6 @@ export class GoogleAdsProvider {
       `SELECT customer_client.resource_name, customer_client.id, customer_client.descriptive_name, customer_client.currency_code FROM customer_client`,
     );
 
-    // type TypeMapper = Typing<
-    //   typeof res,
-    //   [
-    //     [
-    //       "results[*].customerClient.resourceName", // 이 위치에 있는 타입을
-    //       `customers/${number}/customerClients/${number}`, // 이 타입으로 매핑한다.
-    //     ],
-    //     [
-    //       "results[*].customerClient.id",
-    //       `${number}`, // resourceName의 맨 끝 숫자 부분을 의미한다.
-    //     ],
-    //     [
-    //       "results[*].customerClient.descriptiveName",
-    //       string | undefined, // 이름이 없는 경우에는 키 자체가 존재하지 않을 수도 있다.
-    //     ],
-    //     [
-    //       "results[*].customerClient.currencyCode",
-    //       string, // 통화 단위
-    //     ],
-    //   ]
-    // >;
-
-    // const response = typia.assert<TypeMapper>(res);
     return res;
   }
 

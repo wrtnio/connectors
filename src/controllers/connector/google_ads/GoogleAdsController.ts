@@ -39,10 +39,14 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
-    return this.googleAdsProvider.generateKeywordIdeas({
-      ...input,
-      customerId,
-    });
+    return retry(
+      () =>
+        this.googleAdsProvider.generateKeywordIdeas({
+          ...input,
+          customerId,
+        }),
+      1,
+    )();
   }
 
   /**
@@ -72,10 +76,14 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByKeywordsInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
-    return this.googleAdsProvider.generateKeywordIdeas({
-      ...input,
-      customerId,
-    });
+    return retry(
+      () =>
+        this.googleAdsProvider.generateKeywordIdeas({
+          ...input,
+          customerId,
+        }),
+      1,
+    )();
   }
 
   /**
@@ -105,10 +113,14 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.IGenerateKeywordIdeaByURLInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
-    return this.googleAdsProvider.generateKeywordIdeas({
-      ...input,
-      customerId,
-    });
+    return retry(
+      () =>
+        this.googleAdsProvider.generateKeywordIdeas({
+          ...input,
+          customerId,
+        }),
+      1,
+    )();
   }
 
   /**
@@ -280,9 +292,7 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.IGetMetricInput,
   ): Promise<IGoogleAds.IGetMetricOutputResult[]> {
     const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
-    return retry(() =>
-      this.googleAdsProvider.getMetrics({ ...input, customerId }),
-    )();
+    return this.googleAdsProvider.getMetrics({ ...input, customerId });
   }
 
   /**
@@ -344,9 +354,7 @@ export class GoogleAdsController {
   @core.TypedRoute.Patch("campaigns/ads/status")
   async setOnOff(@TypedBody() input: IGoogleAds.ISetOnOffInput): Promise<void> {
     const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
-    return retry(() =>
-      this.googleAdsProvider.updateAd({ ...input, customerId }),
-    )();
+    return this.googleAdsProvider.updateAd({ ...input, customerId });
   }
 
   /**
@@ -486,6 +494,7 @@ export class GoogleAdsController {
     @TypedBody() input: IGoogleAds.IUpdateCampaignInput,
   ): Promise<void> {
     const { secretKey, ...rest } = input; // secretKey가 updateCampaign에 들어가면 에러가 발생한다.
+
     const customerId = await this.googleAdsProvider.getTargetCustomerId(input);
     return this.googleAdsProvider.updateCampaign({ ...rest, customerId });
   }
@@ -558,7 +567,7 @@ export class GoogleAdsController {
       await this.googleAdsProvider.createCampaign({
         ...input.campaign,
         advertisingChannelType: "SEARCH",
-        customerId: input.customerId,
+        customerId,
       });
 
     const ad = await this.googleAdsProvider.createAd({
@@ -611,7 +620,7 @@ export class GoogleAdsController {
       await this.googleAdsProvider.createCampaign({
         ...input.campaign,
         advertisingChannelType: "DISPLAY",
-        customerId: input.customerId,
+        customerId,
       });
 
     const ad = await this.googleAdsProvider.createAd({
