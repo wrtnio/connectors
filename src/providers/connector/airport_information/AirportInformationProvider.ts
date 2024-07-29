@@ -10,7 +10,8 @@ export class AirportInformationProvider {
     input: IAirportInformation.IRequest,
   ): Promise<IAirportInformation.IResponse[]> {
     const s3 = new AWS.S3();
-    const fileUrl = ""; //TODO: fileUrl 넣어야함
+    const fileUrl =
+      "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/airport_inforamtion.csv";
     const match = fileUrl.match(
       /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
     );
