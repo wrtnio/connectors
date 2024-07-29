@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.29",
+    "version": "0.1.30",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -5264,7 +5264,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput"
+                "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput"
               }
             }
           },
@@ -5276,14 +5276,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.IGetForecastOutput"
+                  }
                 }
               }
             }
           }
         },
         "summary": "기상청 오늘 날씨 조회",
-        "description": "[기상청] 오늘 날씨를 조회합니다.",
+        "description": "[기상청] 오늘 날씨를 조회합니다.\n\n조회 시 위도와 경도 좌표가 필요합니다.\n입력 시 위도와 경도를 입력하면 해당 지역의 날씨 값을 매 시각의 00분을 기준으로 현재 날씨를 조회해줍니다.\n출력 시에는 격좌 좌표 대신 위경도로 변환하여, 각 지역의 날씨부터 풍향, 풍속 등 날씨와 연관된 정보들을 모두 제공해줍니다.\n제공해주는 정보는 현재 아래와 같습니다.\n\n- POP : 강수확률\n- PTY : 강수형태\n- PCP : 1시간 강수량\n- REH : 습도\n- SNO : 1시간 신적설\n- SKY : 하늘 상태\n- TMP : 1시간 기온\n- TMN : 일 최저기온\n- TMX : 일 최고기온\n- UUU : 풍속 (동서성분)\n- VVV : 풍속 (남북성분)\n- WAV : 파고 (파도높이)\n- VEC : 풍향\n- WSD : 풍속\n- T1H : 기온\n- RN1 : 1시간 강수량\n- VEC : 풍향\n- T1H : 기온",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -25293,16 +25296,16 @@
         "const": "KONEX",
         "title": "KONEX"
       },
-      "IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
+      "IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
         "type": "object",
         "properties": {
           "nx": {
             "type": "number",
-            "title": "격자 좌표 값의 x 좌표."
+            "title": "경도"
           },
           "ny": {
             "type": "number",
-            "title": "격자 좌표 값의 y 좌표."
+            "title": "위도"
           }
         },
         "required": [
@@ -25311,83 +25314,50 @@
         ],
         "title": "날씨 조회를 위한 요청 조건"
       },
-      "IOpenData.IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput": {
+      "IKoreaMeteorologicalAdministration.IGetForecastOutput": {
         "type": "object",
         "properties": {
-          "response": {
-            "type": "object",
-            "properties": {
-              "body": {
-                "type": "object",
-                "properties": {
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "item": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "baseDate": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                              "title": "`20240619`와 같은 년,월,일자가 합성된 날짜 값."
-                            },
-                            "baseTime": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                              "title": "`1200`와 같이 정각 시간을 나타내는 시간 값."
-                            },
-                            "category": {
-                              "$ref": "#/components/schemas/IOpenData.IKoreaMeteorologicalAdministration.CategoryType",
-                              "title": "카테고리."
-                            },
-                            "nx": {
-                              "type": "number",
-                              "title": "격자 좌표 값의 x 좌표."
-                            },
-                            "ny": {
-                              "type": "number",
-                              "title": "격자 좌표 값의 y 좌표."
-                            },
-                            "obsrValue": {
-                              "type": "string",
-                              "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                              "title": "카테고리에 해당하는 값."
-                            }
-                          },
-                          "required": [
-                            "baseDate",
-                            "baseTime",
-                            "category",
-                            "nx",
-                            "ny",
-                            "obsrValue"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "item"
-                    ]
-                  }
-                },
-                "required": [
-                  "items"
-                ]
-              }
-            },
-            "required": [
-              "body"
-            ]
+          "baseDate": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "`20240619`와 같은 년,월,일자가 합성된 날짜 값"
+          },
+          "baseTime": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "`1200`와 같이 정각 시간을 나타내는 시간 값"
+          },
+          "category": {
+            "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.CategoryType",
+            "title": "카테고리",
+            "description": "각 수치가 무엇을 의미하는지에 대한 분류 값을 의미"
+          },
+          "nx": {
+            "type": "number",
+            "title": "경도"
+          },
+          "ny": {
+            "type": "number",
+            "title": "위도"
+          },
+          "obsrValue": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "카테고리에 해당하는 값"
           }
         },
         "required": [
-          "response"
+          "baseDate",
+          "baseTime",
+          "category",
+          "nx",
+          "ny",
+          "obsrValue"
         ],
-        "title": "날씨 조회 결과"
+        "title": "날씨 조회 결과",
+        "description": "뤼튼에서 가공한 결과"
       },
-      "IOpenData.IKoreaMeteorologicalAdministration.CategoryType": {
+      "IKoreaMeteorologicalAdministration.CategoryType": {
         "oneOf": [
           {
             "$ref": "#/components/schemas/ConstantPOP__type"
