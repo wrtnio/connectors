@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "조건 정렬",
-    "version": "0.1.34",
+    "version": "0.1.35",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
