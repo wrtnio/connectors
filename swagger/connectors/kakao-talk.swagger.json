@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오톡d",
-    "version": "0.1.28",
+    "version": "0.1.29",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -496,8 +496,8 @@
         "properties": {
           "object_type": {
             "const": "commerce",
-            "x-wrtn-placeholder": "commerce",
-            "title": "커머스 타입"
+            "title": "커머스 타입",
+            "x-wrtn-placeholder": "commerce"
           },
           "commerce": {
             "oneOf": [
@@ -898,8 +898,8 @@
         "properties": {
           "object_type": {
             "const": "location",
-            "x-wrtn-placeholder": "location",
-            "title": "위치 타입"
+            "title": "위치 타입",
+            "x-wrtn-placeholder": "location"
           },
           "address": {
             "type": "string",
@@ -1005,8 +1005,8 @@
         "properties": {
           "object_type": {
             "const": "list",
-            "x-wrtn-placeholder": "list",
-            "title": "리스트 타입"
+            "title": "리스트 타입",
+            "x-wrtn-placeholder": "list"
           },
           "header_title": {
             "type": "string",
