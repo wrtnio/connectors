@@ -19,8 +19,8 @@ const main = () => {
     );
 
   fs.cpSync(
-    `${__dirname}/../../packages/api/categories`,
-    `${__dirname}/../out/swagger/categories`,
+    `${__dirname}/../../packages/api/connectors`,
+    `${__dirname}/../out/swagger/connectors`,
     {
       recursive: true,
     },
