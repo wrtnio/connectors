@@ -79,7 +79,7 @@ export namespace IImweb {
     /**
      * @title Custom product code
      */
-    custom_prod_code: string;
+    custom_prod_code: string | null;
 
     /**
      * @title Name of product
@@ -93,8 +93,10 @@ export namespace IImweb {
 
     /**
      * @title File urls
+     *
+     * Can't call it right away because it's not a completed URL.
      */
-    image_url: (string & tags.Format<"url">)[];
+    image_url: (string & tags.Format<"uri">)[];
 
     /**
      * @title Detailed description
@@ -102,9 +104,18 @@ export namespace IImweb {
     content: string;
 
     /**
+     * Text that contains html tags and is generally difficult to use
+     *
      * @title Simple description of product's content
      */
     simple_content: string;
+
+    /**
+     * Pure string except html tag
+     *
+     * @title Simple description of product's content
+     */
+    simple_content_plain: string;
 
     /**
      * @title Whether or not mobile details are used
@@ -114,7 +125,7 @@ export namespace IImweb {
     /**
      * @title Description of mobile details
      */
-    mobile_content: string;
+    mobile_content?: string;
 
     /**
      * @title Setting the sales method
@@ -129,7 +140,7 @@ export namespace IImweb {
     /**
      * @title Sales method data
      */
-    prod_type_data: (
+    prod_type_data?: (
       | IImweb.ProdTypeData.DigitalData
       | IImweb.ProdTypeData.SubscribeData
     )[];
@@ -142,12 +153,12 @@ export namespace IImweb {
     /**
      * @title Timestamp for sale
      */
-    pre_sale_start_date: number;
+    pre_sale_start_date?: number;
 
     /**
      * @title Timestamp is the end of the sale period
      */
-    pre_sale_end_date: number;
+    pre_sale_end_date?: number;
 
     /**
      * @title Price
@@ -161,7 +172,7 @@ export namespace IImweb {
      * the seller can also set the original price of the product differently from the actual price it sells.
      * This is a common sales promotion strategy in commerce.
      */
-    price_org: number;
+    price_org?: number;
 
     /**
      * @title Whether taxes are included or not
@@ -176,7 +187,7 @@ export namespace IImweb {
     /**
      * @title Set up a reserve
      */
-    point: IImweb.PointConfigData[];
+    point: IImweb.PointConfigData;
 
     /**
      * @title Set Discount Usage.
@@ -190,12 +201,12 @@ export namespace IImweb {
     /**
      * @title Product Weight
      */
-    weight: number & tags.Type<"float">;
+    weight: string;
 
     /**
      * @title Product Stock Information
      */
-    stock: IImweb.ProdStockConfigData[];
+    stock: IImweb.ProdStockConfigData;
 
     /**
      * @title Origin
@@ -215,22 +226,17 @@ export namespace IImweb {
     /**
      * @title Badge Information
      */
-    badge: IImweb.ProdBadgeData[];
-
-    /**
-     * @title SEO Related Information
-     */
-    seo: IImweb.ProdSeoData[];
+    badge: IImweb.ProdBadgeData;
 
     /**
      * @title External Integration Information
      */
-    sync: IImweb.ProdSyncData[];
+    sync: IImweb.ProdSyncData;
 
     /**
      * @title Miscellaneous Settings
      */
-    etc: IImweb.ProdEtcData[];
+    etc: IImweb.ProdEtcData;
 
     /**
      * @title Product Information Disclosure
@@ -313,7 +319,7 @@ export namespace IImweb {
     /**
      * @title Point Accumulation Unit
      */
-    value_type:
+    value_type?:
       | tags.Constant<"percent", { title: "Percentage" }>
       | tags.Constant<"price", { title: "Currency Unit" }>;
 
@@ -322,7 +328,7 @@ export namespace IImweb {
      *
      * Calculated as a percentage if `value_type` is percent
      */
-    value: `${number}`;
+    value?: `${number}`;
   }
 
   /**
@@ -342,12 +348,12 @@ export namespace IImweb {
     /**
      * @title Product Stock Quantity
      */
-    stock_no_option: number & tags.Type<"int64">;
+    stock_no_option: (number & tags.Type<"int64">) | "";
 
     /**
      * @title Product Stock Number (SKU)
      */
-    sku_no_option: number & tags.Type<"int64">;
+    sku_no_option: (number & tags.Type<"int64">) | "";
   }
 
   /**
@@ -373,26 +379,6 @@ export namespace IImweb {
      * @title High Demand
      */
     hot: boolean;
-  }
-
-  /**
-   * @title SEO Related Information Data Structure
-   */
-  export interface ProdSeoData {
-    /**
-     * @title SEO Title
-     */
-    seo_title: string;
-
-    /**
-     * @title SEO Description
-     */
-    seo_description: string;
-
-    /**
-     * @title Exclude from Search Engine Access
-     */
-    seo_access_bot: boolean;
   }
 
   /**
@@ -493,7 +479,7 @@ export namespace IImweb {
      *
      * Maximum Purchase Quantity Limit
      */
-    optional_limit: number & tags.Type<"int64">;
+    optional_limit?: number & tags.Type<"int64">;
 
     use_unipass_number:
       | tags.Constant<
