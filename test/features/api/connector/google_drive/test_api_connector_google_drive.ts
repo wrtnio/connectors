@@ -3,6 +3,7 @@ import typia from "typia";
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
+import { notDeepStrictEqual } from "assert";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_google_drive = async (
@@ -122,6 +123,24 @@ export const test_api_connector_google_drive = async (
   typia.assertEquals<IGoogleDrive.IFileListGoogleDriveOutput>(
     findFileListOutput,
   );
+
+  /**
+   * get file list without folderId
+   */
+
+  const findFileListWtthoutFolderIdOutput =
+    await CApi.functional.connector.google_drive.get.files.fileList(
+      connection,
+      {
+        secretKey,
+      },
+    );
+  typia.assertEquals<IGoogleDrive.IFileListGoogleDriveOutput>(
+    findFileListWtthoutFolderIdOutput,
+  );
+
+  console.log(JSON.stringify(findFileListWtthoutFolderIdOutput, null, 2));
+  notDeepStrictEqual(findFileListOutput, findFileListWtthoutFolderIdOutput);
 
   /**
    * delete file
