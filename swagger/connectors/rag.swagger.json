@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "RAG",
-    "version": "0.1.38",
+    "version": "0.1.40",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -36,33 +36,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/IRag.ILinkInput"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IRag.ITextInput"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IRag.IHwpInput"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IRag.IDocxInput"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IRag.IPdfInput"
-                    }
-                  ],
-                  "discriminator": {
-                    "propertyName": "type",
-                    "mapping": {
-                      "html": "#/components/schemas/IRag.ILinkInput",
-                      "txt": "#/components/schemas/IRag.ITextInput",
-                      "hwp": "#/components/schemas/IRag.IHwpInput",
-                      "docx": "#/components/schemas/IRag.IDocxInput",
-                      "pdf": "#/components/schemas/IRag.IPdfInput"
-                    }
-                  }
+                  "$ref": "#/components/schemas/IRag.IAnalyzeInput"
                 }
               }
             }
@@ -129,114 +103,21 @@
   },
   "components": {
     "schemas": {
-      "IRag.ILinkInput": {
+      "IRag.IAnalyzeInput": {
         "type": "object",
         "properties": {
           "url": {
             "type": "string",
             "format": "uri",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "html",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
+            "contentMediaType": "application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html",
+            "title": "파일 또는 링크",
+            "description": "분석할 파일 또는 링크"
           }
         },
         "required": [
-          "url",
-          "type"
+          "url"
         ],
-        "title": "WEB 링크 RAG 분석을 위한 정보"
-      },
-      "IRag.ITextInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "text/plain",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "txt",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
-          }
-        },
-        "required": [
-          "url",
-          "type"
-        ],
-        "title": "TXT 파일 RAG 분석을 위한 정보"
-      },
-      "IRag.IHwpInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "application/vnd.hancom.hwp",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "hwp",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
-          }
-        },
-        "required": [
-          "url",
-          "type"
-        ],
-        "title": "HWP 파일 RAG 분석을 위한 정보"
-      },
-      "IRag.IDocxInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "docx",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
-          }
-        },
-        "required": [
-          "url",
-          "type"
-        ],
-        "title": "DOCX 파일 RAG 분석을 위한 정보"
-      },
-      "IRag.IPdfInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "application/pdf",
-            "title": "파일 경로",
-            "description": "분석할 파일 경로"
-          },
-          "type": {
-            "const": "pdf",
-            "title": "파일 확장자.",
-            "description": "분석할 파일의 확장자입니다."
-          }
-        },
-        "required": [
-          "url",
-          "type"
-        ],
-        "title": "PDF 파일 RAG 분석을 위한 정보"
+        "title": "RAG 분석을 위해 필요한 정보"
       },
       "IRag.IAnalysisOutput": {
         "type": "object",
