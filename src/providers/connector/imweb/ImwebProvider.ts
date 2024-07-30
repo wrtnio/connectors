@@ -7,11 +7,12 @@ export namespace ImwebProvider {
     input: IImweb.IGetProductInput,
   ): Promise<IImweb.IGetProductOutput> {
     try {
+      const { access_token } = await ImwebProvider.getAccessToken(input);
       const res = await axios.get(
         `https://api.imweb.me/v2/shop/products?product_status=${input.prod_status}&category=${input.category}`,
         {
           headers: {
-            "access-token": input.secretKey,
+            "access-token": access_token,
           },
         },
       );

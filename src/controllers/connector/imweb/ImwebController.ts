@@ -10,9 +10,16 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/imweb")
 export class ImwebController {
   /**
-   * 아임웹에서 판매자의 상품들을 불러온다.
+   * Look up the sales product
    *
-   * @summary 자신의 상품 조회.
+   * The `Imweb` seller uses the seller's authentication key and secret to import his or her product.
+   * `Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.
+   * If a commerce site is opened using `Imweb`,
+   * sellers can register the items they are selling,
+   * which is only available to sellers who open `Imweb` pages and is intended to bring up their products.
+   * Sellers must provide their API keys and secrets to import `Imweb` products.
+   *
+   * @summary 자신의 상품 조회
    *
    * @param input 상품을 조회하기 위한 조건 DTO.
    * @returns 액세스 토큰을 담은 응답 DTO.

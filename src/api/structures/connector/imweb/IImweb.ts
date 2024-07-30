@@ -1,7 +1,5 @@
 import { tags } from "typia";
 
-import { ICommon } from "../common/ISecretValue";
-
 export namespace IImweb {
   export interface ResponseForm {
     /**
@@ -28,7 +26,7 @@ export namespace IImweb {
   /**
    * @title 상품 조회 요청 DTO.
    */
-  export interface IGetProductInput extends ICommon.ISecret<"imweb", []> {
+  export interface IGetProductInput extends IImweb.Credential {
     /**
      * @title 특정 상태.
      *
