@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "아임웹",
-    "version": "0.1.35",
+    "version": "0.1.36",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -28,7 +28,7 @@
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "상품을 조회하기 위한 조건 DTO.",
+          "description": "key and secret",
           "content": {
             "application/json": {
               "schema": {
@@ -40,18 +40,21 @@
         },
         "responses": {
           "201": {
-            "description": "액세스 토큰을 담은 응답 DTO.",
+            "description": "the seller's own goods",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IImweb.IGetProductOutput"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IImweb.Product"
+                  }
                 }
               }
             }
           }
         },
-        "summary": "자신의 상품 조회.",
-        "description": "아임웹에서 판매자의 상품들을 불러온다.",
+        "summary": "Get my sales product from `Imweb`",
+        "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
         "x-wrtn-standalone": true
       }
     }
@@ -76,104 +79,59 @@
                 "title": "숨김"
               }
             ],
-            "title": "특정 상태.\n\n특정 상태의 상품만 조회하고자 할 때 사용한다."
+            "title": "the sales status of a product\n\nYou can deliver the value when you want to inquire based on the sales status of the product.\nYou can select 'sale', 'soldout', 'nosale'."
           },
           "category": {
             "type": "string",
-            "title": "상품 카테고리 코드."
+            "title": "product category code\n\nYou can also search with the product's category code,\nbut this code is randomly determined by `Imweb`, so it's currently unavailable.\nIf you don't know the exact category code, it's better not to use it."
           },
-          "secretKey": {
+          "key": {
             "type": "string",
-            "x-wrtn-secret-key": "imweb",
-            "x-wrtn-secret-scopes": [],
-            "title": "인증 정보 선택",
-            "description": "secret key."
+            "title": "API Key\n\nThis can be found in the configuration settings on the `Imweb`."
+          },
+          "secret": {
+            "type": "string",
+            "title": "API Secret Key\n\nThis can be found in the configuration settings on the `Imweb`."
           }
         },
         "required": [
-          "secretKey"
+          "key",
+          "secret"
         ],
         "title": "상품 조회 요청 DTO."
-      },
-      "IImweb.IGetProductOutput": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "object",
-            "properties": {
-              "list": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/IImweb.Product"
-                },
-                "title": "상품의 배열."
-              }
-            },
-            "required": [
-              "list"
-            ],
-            "title": "상품 정보."
-          },
-          "msg": {
-            "$ref": "#/components/schemas/ConstantSUCCESS__type",
-            "title": "응답에 대한 요약 메시지",
-            "description": "응답에 대한 요약 메시지."
-          },
-          "code": {
-            "const": 200,
-            "title": "status code."
-          },
-          "request_count": {
-            "type": "number",
-            "title": "해당 키에서 사용된 요청 횟수."
-          },
-          "version": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "현재 사용 중인 API의 버전."
-          }
-        },
-        "required": [
-          "data",
-          "msg",
-          "code",
-          "request_count",
-          "version"
-        ],
-        "title": "상품 조회 응답 DTO."
       },
       "IImweb.Product": {
         "type": "object",
         "properties": {
           "no": {
             "type": "number",
-            "title": "상품번호."
+            "title": "Product number"
           },
           "prod_status": {
             "$ref": "#/components/schemas/IImweb.ProductStatus",
-            "title": "상품 상태."
+            "title": "Status of product"
           },
           "categories": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "카테고리 코드 목록."
+            "title": "Category codes"
           },
           "custom_prod_code": {
             "type": "string",
-            "title": "자체 상품코드."
+            "title": "Custom product code"
           },
           "name": {
             "type": "string",
-            "title": "상품명."
+            "title": "Name of product"
           },
           "images": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "이미지 파일 코드."
+            "title": "File code of product images"
           },
           "image_url": {
             "type": "array",
@@ -181,23 +139,23 @@
               "type": "string",
               "format": "url"
             },
-            "title": "이미지 파일 URL."
+            "title": "File urls"
           },
           "content": {
             "type": "string",
-            "title": "상세설명."
+            "title": "Detailed description"
           },
           "simple_content": {
             "type": "string",
-            "title": "요약 설명."
+            "title": "Simple description of product's content"
           },
           "use_mobile_prod_content": {
             "type": "boolean",
-            "title": "모바일 상세설명 사용 유무."
+            "title": "Whether or not mobile details are used"
           },
           "mobile_content": {
             "type": "string",
-            "title": "모바일 상세 설명."
+            "title": "Description of mobile details"
           },
           "prod_type": {
             "oneOf": [
@@ -211,7 +169,7 @@
                 "$ref": "#/components/schemas/Constantsubscribe__type"
               }
             ],
-            "title": "판매 방식 설정."
+            "title": "Setting the sales method\n\nIt will be 'normal', 'digital' and 'subscribe' product."
           },
           "prod_type_data": {
             "type": "array",
@@ -225,42 +183,42 @@
                 }
               ]
             },
-            "title": "판매 방식 데이터."
+            "title": "Sales method data"
           },
           "use_pre_sale": {
             "type": "boolean",
-            "title": "판매기간 설정 여부."
+            "title": "Whether the sales period is set or not"
           },
           "pre_sale_start_date": {
             "type": "number",
-            "title": "판매기간 시작일(Timestamp)."
+            "title": "Timestamp for sale"
           },
           "pre_sale_end_date": {
             "type": "number",
-            "title": "판매기간 종료일(Timestamp)."
+            "title": "Timestamp is the end of the sale period"
           },
           "price": {
             "type": "number",
-            "title": "상품가격."
+            "title": "Price"
           },
           "price_org": {
             "type": "number",
-            "title": "할인 이전 가격."
+            "title": "The price before the discount\n\nTo provide an experience as if the product was discounted,\nthe seller can also set the original price of the product differently from the actual price it sells.\nThis is a common sales promotion strategy in commerce."
           },
           "price_tax": {
             "type": "boolean",
-            "title": "세금 포함 여부."
+            "title": "Whether taxes are included or not"
           },
           "price_none": {
             "type": "boolean",
-            "title": "가격 없음 여부."
+            "title": "Whether or not there is no price"
           },
           "point": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IImweb.PointConfigData"
             },
-            "title": "적립금 설정."
+            "title": "Set up a reserve"
           },
           "product_discount_options": {
             "type": "array",
@@ -277,63 +235,63 @@
                 }
               ]
             },
-            "title": "할인 사용 설정."
+            "title": "Set Discount Usage."
           },
           "weight": {
             "type": "number",
-            "title": "상품 무게."
+            "title": "Product Weight"
           },
           "stock": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IImweb.ProdStockConfigData"
             },
-            "title": "상품 재고 정보."
+            "title": "Product Stock Information"
           },
           "origin": {
             "type": "string",
-            "title": "원산지."
+            "title": "Origin"
           },
           "maker": {
             "type": "string",
-            "title": "제조사."
+            "title": "Manufacturer"
           },
           "brand": {
             "type": "string",
-            "title": "브랜드."
+            "title": "Brand"
           },
           "badge": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IImweb.ProdBadgeData"
             },
-            "title": "뱃지 정보."
+            "title": "Badge Information"
           },
           "seo": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IImweb.ProdSeoData"
             },
-            "title": "SEO 관련 정보."
+            "title": "SEO Related Information"
           },
           "sync": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IImweb.ProdSyncData"
             },
-            "title": "외부 연동용 정보."
+            "title": "External Integration Information"
           },
           "etc": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IImweb.ProdEtcData"
             },
-            "title": "기타설정."
+            "title": "Miscellaneous Settings"
           },
           "prodinfo": {
             "type": "array",
             "items": {},
-            "title": "상품정보제공고시.\n\n타입이 명시되어 있질 않아 `any`의 배열로만 표기."
+            "title": "Product Information Disclosure\n\nType is not specified, so it is denoted as an array of `any`."
           },
           "is_exist_options": {
             "oneOf": [
@@ -344,7 +302,7 @@
                 "$ref": "#/components/schemas/ConstantN__type.o1"
               }
             ],
-            "title": "상품의 옵션 유무."
+            "title": "Existence of Product Options"
           },
           "is_mix": {
             "oneOf": [
@@ -355,15 +313,15 @@
                 "$ref": "#/components/schemas/ConstantN__type.o2"
               }
             ],
-            "title": "상품의 조합형 옵션 여부."
+            "title": "Combination Option for Product"
           },
           "add_time": {
             "type": "number",
-            "title": "상품 추가시간 Timestamp."
+            "title": "Product Add Time Timestamp"
           },
           "edit_time": {
             "type": "number",
-            "title": "상품 최근 수정시간 Timestamp."
+            "title": "Product Last Edit Time Timestamp"
           }
         },
         "required": [
@@ -447,15 +405,15 @@
         "properties": {
           "use_limit": {
             "type": "boolean",
-            "title": "다운로드 한도 설정."
+            "title": "Download Limit Setting"
           },
           "period": {
             "type": "integer",
-            "title": "기간 제한."
+            "title": "Period Limit"
           },
           "maximum": {
             "type": "integer",
-            "title": "횟수 제한."
+            "title": "Usage Limit"
           }
         },
         "required": [
@@ -469,11 +427,11 @@
         "properties": {
           "group_code": {
             "type": "string",
-            "title": "대상 그룹 코드."
+            "title": "Target Group Code"
           },
           "period": {
             "type": "integer",
-            "title": "그룹 유지 기간(일)"
+            "title": "Group Retention Period (Days)"
           }
         },
         "required": [
@@ -493,7 +451,7 @@
                 "$ref": "#/components/schemas/Constantindividual__type"
               }
             ],
-            "title": "적립금 설정 타입."
+            "title": "Point Configuration Type"
           },
           "value_type": {
             "oneOf": [
@@ -504,12 +462,12 @@
                 "$ref": "#/components/schemas/Constantprice__type"
               }
             ],
-            "title": "적립금 적립 단위."
+            "title": "Point Accumulation Unit"
           },
           "value": {
             "type": "string",
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "적립금 값\n\n`value_type`이 percent인 경우 백분율로 계산한다."
+            "title": "Point Value\n\nCalculated as a percentage if `value_type` is percent"
           }
         },
         "required": [
@@ -517,54 +475,54 @@
           "value_type",
           "value"
         ],
-        "title": "적립금 설정 데이터 구조 정의."
+        "title": "Point Configuration Data Structure"
       },
       "Constantcommon__type": {
         "const": "common",
-        "title": "기본 설정을 따름."
+        "title": "Default Settings"
       },
       "Constantindividual__type": {
         "const": "individual",
-        "title": "개별 적립금 설정"
+        "title": "Individual Point Settings"
       },
       "Constantpercent__type": {
         "const": "percent",
-        "title": "퍼센트"
+        "title": "Percentage"
       },
       "Constantprice__type": {
         "const": "price",
-        "title": "통화 단위"
+        "title": "Currency Unit"
       },
       "Constantcoupon__type": {
         "const": "coupon",
-        "title": "쿠폰"
+        "title": "Coupon"
       },
       "Constantpoint__type": {
         "const": "point",
-        "title": "적립금"
+        "title": "Points"
       },
       "Constantshopping_group_dc__type": {
         "const": "shopping_group_dc",
-        "title": "쇼핑등급 할인"
+        "title": "Shopping Group Discount"
       },
       "IImweb.ProdStockConfigData": {
         "type": "object",
         "properties": {
           "stock_use": {
             "type": "boolean",
-            "title": "재고 사용 여부."
+            "title": "Use Stock"
           },
           "stock_unlimit": {
             "type": "boolean",
-            "title": "재고 소진 후 주문 가능 여부."
+            "title": "Allow Orders After Stock Depletion"
           },
           "stock_no_option": {
             "type": "integer",
-            "title": "상품 재고 수량."
+            "title": "Product Stock Quantity"
           },
           "sku_no_option": {
             "type": "integer",
-            "title": "상품 재고 번호(SKU)"
+            "title": "Product Stock Number (SKU)"
           }
         },
         "required": [
@@ -573,26 +531,26 @@
           "stock_no_option",
           "sku_no_option"
         ],
-        "title": "상품 재고 정보 데이터 구조 정의"
+        "title": "Product Stock Information Data Structure"
       },
       "IImweb.ProdBadgeData": {
         "type": "object",
         "properties": {
           "new": {
             "type": "boolean",
-            "title": "신상품 여부."
+            "title": "New Product"
           },
           "best": {
             "type": "boolean",
-            "title": "베스트 여부."
+            "title": "Best Product"
           },
           "md": {
             "type": "boolean",
-            "title": "MD 추천 여부."
+            "title": "MD Recommended"
           },
           "hot": {
             "type": "boolean",
-            "title": "주문폭주 여부."
+            "title": "High Demand"
           }
         },
         "required": [
@@ -601,22 +559,22 @@
           "md",
           "hot"
         ],
-        "title": "뱃지 정보 데이터 구조 정의"
+        "title": "Badge Information Data Structure"
       },
       "IImweb.ProdSeoData": {
         "type": "object",
         "properties": {
           "seo_title": {
             "type": "string",
-            "title": "SEO 제목."
+            "title": "SEO Title"
           },
           "seo_description": {
             "type": "string",
-            "title": "SEO 설명."
+            "title": "SEO Description"
           },
           "seo_access_bot": {
             "type": "boolean",
-            "title": "SEO 검색엔진 접근 제외 유무."
+            "title": "Exclude from Search Engine Access"
           }
         },
         "required": [
@@ -624,22 +582,22 @@
           "seo_description",
           "seo_access_bot"
         ],
-        "title": "SEO 관련 정보 데이터 구조 정의"
+        "title": "SEO Related Information Data Structure"
       },
       "IImweb.ProdSyncData": {
         "type": "object",
         "properties": {
           "pay_product_name": {
             "type": "string",
-            "title": "네이버, 카카오 쇼핑 노출용 상품명."
+            "title": "Product Name for Naver and Kakao Shopping Exposure"
           },
           "event_words": {
             "type": "string",
-            "title": "네이버 쇼핑 이벤트 문구."
+            "title": "Naver Shopping Event Phrase"
           },
           "naver_category": {
             "type": "string",
-            "title": "네이버 쇼핑 카테고리 ID."
+            "title": "Naver Shopping Category ID"
           },
           "product_flag": {
             "oneOf": [
@@ -665,7 +623,7 @@
                 "$ref": "#/components/schemas/Constant구매대행__type"
               }
             ],
-            "title": "네이버 쇼핑 판매 방식."
+            "title": "Naver Shopping Sales Method"
           },
           "product_condition": {
             "oneOf": [
@@ -688,23 +646,23 @@
                 "$ref": "#/components/schemas/Constant스크래치__type"
               }
             ],
-            "title": "네이버 쇼핑 상품상태."
+            "title": "Naver Shopping Product Condition"
           },
           "import_flag": {
             "type": "boolean",
-            "title": "해외구매대행 여부."
+            "title": "Overseas Buying Agent"
           },
           "parallel_import": {
             "type": "boolean",
-            "title": "병행 수입 여부."
+            "title": "Parallel Import"
           },
           "is_culture_benefit": {
             "type": "boolean",
-            "title": "도서공연비 소득공제."
+            "title": "Cultural Performance Income Deduction"
           },
           "order_made": {
             "type": "boolean",
-            "title": "주문제작 여부."
+            "title": "Made to Order"
           }
         },
         "required": [
@@ -718,74 +676,74 @@
           "is_culture_benefit",
           "order_made"
         ],
-        "title": "외부 연동용 정보 데이터 구조 정의"
+        "title": "External Integration Information Data Structure"
       },
       "Constant소매__type": {
         "const": "소매",
-        "title": "소매"
+        "title": "Retail"
       },
       "Constant도매__type": {
         "const": "도매",
-        "title": "도매"
+        "title": "Wholesale"
       },
       "Constant렌탈__type": {
         "const": "렌탈",
-        "title": "렌탈"
+        "title": "Rental"
       },
       "Constant대여__type": {
         "const": "대여",
-        "title": "대여"
+        "title": "Lease"
       },
       "Constant할부__type": {
         "const": "할부",
-        "title": "할부"
+        "title": "Installment"
       },
       "Constant예약판매__type": {
         "const": "예약판매",
-        "title": "예약판매"
+        "title": "Pre-order"
       },
       "Constant구매대행__type": {
         "const": "구매대행",
-        "title": "구매대행"
+        "title": "Buying Agent"
       },
       "Constant신상품__type": {
         "const": "신상품",
-        "title": "신상품"
+        "title": "New"
       },
       "Constant중고__type": {
         "const": "중고",
-        "title": "중고"
+        "title": "Used"
       },
       "Constant리퍼__type": {
         "const": "리퍼",
-        "title": "리퍼"
+        "title": "Refurbished"
       },
       "Constant전시__type": {
         "const": "전시",
-        "title": "전시"
+        "title": "Exhibition"
       },
       "Constant반품__type": {
         "const": "반품",
-        "title": "반품"
+        "title": "Returned"
       },
       "Constant스크래치__type": {
         "const": "스크래치",
-        "title": "스크래치"
+        "title": "Scratch"
       },
       "IImweb.ProdEtcData": {
         "type": "object",
         "properties": {
           "minimum_purchase_quantity": {
             "type": "integer",
-            "title": "최소 구매 수량."
+            "title": "Minimum Purchase Quantity"
           },
           "maximum_purchase_quantity": {
             "type": "integer",
-            "title": "1회 구매 시 최대 수량."
+            "title": "Maximum Quantity per Purchase"
           },
           "member_maximum_purchase_quantity": {
             "type": "integer",
-            "title": "1인 구매 시 최대 수량."
+            "title": "Maximum Quantity per Member Purchase"
           },
           "optional_limit_type": {
             "oneOf": [
@@ -799,11 +757,11 @@
                 "$ref": "#/components/schemas/Constantunique__type"
               }
             ],
-            "title": "0원 선택옵션 구매 시 최대 구매수량 제한 타입."
+            "title": "Maximum Purchase Quantity Limit Type for Free Options"
           },
           "optional_limit": {
             "type": "integer",
-            "title": "0원 선택옵션 구매 시 최대 구매수량.\n\n최대 구매 수량 제한."
+            "title": "Maximum Purchase Quantity for Free Options\n\nMaximum Purchase Quantity Limit"
           },
           "use_unipass_number": {
             "oneOf": [
@@ -820,7 +778,7 @@
           },
           "adult": {
             "type": "boolean",
-            "title": "미성년자 구매 제한."
+            "title": "Minor Purchase Restriction"
           }
         },
         "required": [
@@ -832,52 +790,48 @@
           "use_unipass_number",
           "adult"
         ],
-        "title": "기타 설정 데이터 구조 정의"
+        "title": "Miscellaneous Settings Data Structure"
       },
       "Constantrelative__type": {
         "const": "relative",
-        "title": "본상품 구매 수량만큼 구매 가능"
+        "title": "Can Purchase as Much as the Main Product"
       },
       "Constantlimit__type": {
         "const": "limit",
-        "title": "최대 구매 수량 제한"
+        "title": "Maximum Purchase Quantity Limit"
       },
       "Constantunique__type": {
         "const": "unique",
-        "title": "1개만 구매 가능"
+        "title": "Can Purchase Only One"
       },
       "Constantdefault__type": {
         "const": "default",
-        "title": "기본 방법을 따름",
-        "description": "쇼핑 환경 설정마다 다를 수 있다."
+        "title": "Follow Default Method",
+        "description": "May vary depending on shopping environment settings"
       },
       "ConstantY__type": {
         "const": "Y",
-        "title": "사용"
+        "title": "Use"
       },
       "ConstantN__type": {
         "const": "N",
-        "title": "사용안함"
+        "title": "Do Not Use"
       },
       "ConstantY__type.o1": {
         "const": "Y",
-        "title": "옵션이 존재하는 경우"
+        "title": "Options Exist"
       },
       "ConstantN__type.o1": {
         "const": "N",
-        "title": "단일 상품인 경우"
+        "title": "Single Product"
       },
       "ConstantY__type.o2": {
         "const": "Y",
-        "title": "조합형 옵션"
+        "title": "Combination Option"
       },
       "ConstantN__type.o2": {
         "const": "N",
-        "title": "단일 옵션"
-      },
-      "ConstantSUCCESS__type": {
-        "const": "SUCCESS",
-        "title": "성공"
+        "title": "Single Option"
       }
     }
   },
