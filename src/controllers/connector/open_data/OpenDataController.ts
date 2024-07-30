@@ -18,16 +18,25 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
-   * [국토교통부] 단독 주택, 다가구 주택 전세, 월세 정보를 조회합니다.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.
    *
-   * @summary 다가구 전세, 월세 정보 조회
-   * @param input 조회 조건
-   * @returns 조회한 전세, 월세 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve multi-family lease and rental information
+   * @param input Query conditions
+   * @returns Information on leases and rents
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("주거", "단독주택", "다가구", "월세", "전세")
+  @ApiTags(
+    "Housing",
+    "Single-Family Homes",
+    "Multi-Family Homes",
+    "Rent",
+    "Lease",
+  )
   @TypedRoute.Post("getRTMSDataSvcSHRent")
   async getRTMSDataSvcSHRent(
     @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
@@ -36,16 +45,19 @@ export class OpenDataController {
   }
 
   /**
-   * [국토교통부] 오피스텔 전세, 월세 정보를 조회합니다.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.
    *
-   * @summary 오피스텔 전세, 월세 정보 조회
-   * @param input 조회 조건
-   * @returns 조회한 전세, 월세 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve officetel lease and rental information
+   * @param input Query conditions
+   * @returns Information on leases and rents
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("주거", "오피스텔", "월세", "전세")
+  @ApiTags("Housing", "Officetel", "Rent", "Lease")
   @TypedRoute.Post("getRTMSDataSvcOffiRent")
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
@@ -54,17 +66,20 @@ export class OpenDataController {
   }
 
   /**
-   * [국토교통부] 아파트 전세, 월세 정보를 조회합니다.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.
    *
-   * @summary 아파트 전세, 월세 정보 조회
-   * @param input 조회 조건
-   * @returns 조회한 전세, 월세 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve apartment lease and rental information
+   * @param input Query conditions
+   * @returns Information on leases and rents
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("공공 데이터", "주거", "아파트", "월세", "전세")
+  @ApiTags("Public Data", "Housing", "Apartment", "Rent", "Lease")
   @TypedRoute.Post("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
@@ -73,17 +88,20 @@ export class OpenDataController {
   }
 
   /**
-   * [한국토지주택공사] LH 임대주택 단지를 조회합니다.
+   * [Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.
    *
-   * @summary LH 임대주택 조회
-   * @param input 조회할 임대주택 조건
-   * @returns LH 임대주택 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve LH rental housing information
+   * @param input Conditions for querying rental housing
+   * @returns LH rental housing information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("공공 데이터", "LH", "주거", "임대주택", "행복주택")
+  @ApiTags("Public Data", "LH", "Housing", "Rental Housing", "Happy Housing")
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
@@ -92,17 +110,20 @@ export class OpenDataController {
   }
 
   /**
-   * [한국지능정보사회진흥원] 주차장 정보를 조회합니다.
+   * [National Information Society Agency] Retrieves parking lot information.
    *
-   * @summary 주차장 조회
-   * @param input 주차장 조회 조건
-   * @returns 주차장 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve parking lot information
+   * @param input Conditions for querying parking lots
+   * @returns Parking lot information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("공공 데이터", "주차장", "주차")
+  @ApiTags("Public Data", "Parking Lot", "Parking")
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
@@ -111,16 +132,24 @@ export class OpenDataController {
   }
 
   /**
-   * [국토교통부] 건축물대장정보를 조회합니다.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves building registration information.
    *
-   * @summary 건축물대장정보 조회
-   * @param input 빌딩 정보를 조회하는 조건
-   * @returns 빌딩 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve building registration information
+   * @param input Conditions for querying building information
+   * @returns Building information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("공공 데이터", "건축물", "빌딩", "내진설계", "건축물대장정보")
+  @ApiTags(
+    "Public Data",
+    "Building",
+    "Building Information",
+    "Earthquake Design",
+  )
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
@@ -129,17 +158,27 @@ export class OpenDataController {
   }
 
   /**
-   * [행정안전부] 국내 지역의 행정 표준 상 코드를 조회합니다.
+   * [Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.
    *
-   * @summary 행정표준 코드 조회
-   * @param input 조회할 지역 조건
-   * @returns 지역 코드
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary Retrieve administrative standard codes
+   * @param input Conditions for querying regions
+   * @returns Region codes
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("공공 데이터", "행정구역", "지역구", "읍면동", "시도", "시군구")
+  @ApiTags(
+    "Public Data",
+    "Administrative District",
+    "Region Code",
+    "Township",
+    "City",
+    "County",
+  )
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
     @TypedBody()
@@ -149,18 +188,27 @@ export class OpenDataController {
   }
 
   /**
-   * [금융위원회] 시가총액과 주식 정보를 조회합니다.
+   * [Financial Services Commission] Retrieves market capitalization and stock information.
    *
-   * @summary 시가총액 및 주식 정보 조회
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * @param input 시가총액 조회를 위한 조건
-   * @returns 시가 총액 및 주식 정보
+   * @summary Retrieve market capitalization and stock information
+   *
+   * @param input Conditions for querying market capitalization
+   * @returns Market capitalization and stock information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("공공 데이터", "주식", "시가총액", "기업", "자본")
+  @ApiTags(
+    "Public Data",
+    "Stock",
+    "Market Capitalization",
+    "Company",
+    "Capital",
+  )
   @TypedRoute.Post("getStockPriceInfo")
   async getStockPriceInfo(
     @TypedBody()
@@ -170,42 +218,45 @@ export class OpenDataController {
   }
 
   /**
-   * [기상청] 오늘 날씨를 조회합니다.
+   * [Korea Meteorological Administration] Retrieves today's weather information.
    *
-   * 조회 시 위도와 경도 좌표가 필요합니다.
-   * 입력 시 위도와 경도를 입력하면 해당 지역의 날씨 값을 매 시각의 00분을 기준으로 현재 날씨를 조회해줍니다.
-   * 출력 시에는 격좌 좌표 대신 위경도로 변환하여, 각 지역의 날씨부터 풍향, 풍속 등 날씨와 연관된 정보들을 모두 제공해줍니다.
-   * 제공해주는 정보는 현재 아래와 같습니다.
+   * Latitude and longitude coordinates are required for querying.
+   * When provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.
+   * The output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.
+   * The currently provided information includes:
    *
-   * - POP : 강수확률
-   * - PTY : 강수형태
-   * - PCP : 1시간 강수량
-   * - REH : 습도
-   * - SNO : 1시간 신적설
-   * - SKY : 하늘 상태
-   * - TMP : 1시간 기온
-   * - TMN : 일 최저기온
-   * - TMX : 일 최고기온
-   * - UUU : 풍속 (동서성분)
-   * - VVV : 풍속 (남북성분)
-   * - WAV : 파고 (파도높이)
-   * - VEC : 풍향
-   * - WSD : 풍속
-   * - T1H : 기온
-   * - RN1 : 1시간 강수량
-   * - VEC : 풍향
-   * - T1H : 기온
+   * - POP: Probability of Precipitation
+   * - PTY: Precipitation Type
+   * - PCP: Precipitation Amount in the Last Hour
+   * - REH: Humidity
+   * - SNO: Snowfall in the Last Hour
+   * - SKY: Sky Condition
+   * - TMP: Temperature in the Last Hour
+   * - TMN: Daily Minimum Temperature
+   * - TMX: Daily Maximum Temperature
+   * - UUU: Wind Speed (East-West Component)
+   * - VVV: Wind Speed (North-South Component)
+   * - WAV: Wave Height
+   * - VEC: Wind Direction
+   * - WSD: Wind Speed
+   * - T1H: Temperature
+   * - RN1: Precipitation Amount in the Last Hour
+   * - VEC: Wind Direction
+   * - T1H: Temperature
    *
-   * @summary 기상청 오늘 날씨 조회
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * @param input 날씨 조회를 위한 위치 정보 DTO
-   * @returns 해당 지역의 기상 정보
+   * @summary Retrieve today's weather from the Korea Meteorological Administration
+   *
+   * @param input DTO for weather query location
+   * @returns Weather information for the specified region
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("공공 데이터", "날씨", "기상청", "오늘 날씨", "기후")
+  @ApiTags("Public Data", "Weather", "KMA", "Today’s Weather", "Climate")
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()
@@ -215,17 +266,20 @@ export class OpenDataController {
   }
 
   /**
-   * [한국저작권위원회] 저작권을 검색합니다.
+   * [Korea Copyright Commission] Searches for copyright information.
    *
-   * @summary [저작권등록정보서비스(신규)
-   * @param input 저작권 조회를 위한 조건
-   * @returns 저작권 정보
+   * This Connect is based on data obtained from public data portals in Korea.
+   * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * @summary [Copyright Registration Information Service (New)]
+   * @param input Conditions for querying copyright
+   * @returns Copyright information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("저작권")
+  @ApiTags("Copyright")
   @core.TypedRoute.Post("getCopyRight")
   async getCopyRight(
     @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,

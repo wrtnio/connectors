@@ -5,133 +5,133 @@ export namespace IOpenData {
   export namespace ICommon {
     export interface IPaginationInput {
       /**
-       * @title 한 페이지 당 결과 수
+       * @title Number of results per page
        */
       numOfRows?: number & tags.Type<"int32"> & tags.Default<10>;
 
       /**
-       * @title 페이지 번호
+       * @title Page number
        */
       pageNo?: number & tags.Type<"int32"> & tags.Default<1>;
     }
 
     export interface IPaginationOutput extends IPaginationInput {
       /**
-       * @title 한 페이지 당 결과 수
+       * @title Number of results per page
        */
       numOfRows?: number & tags.Type<"int32"> & tags.Default<10>;
 
       /**
-       * @title 페이지 번호
+       * @title Page number
        */
       pageNo?: number & tags.Type<"int32"> & tags.Default<1>;
 
       /**
-       * @title 전체 데이터 수
+       * @title Total number of records
        */
       totalCount: number;
     }
   }
   /**
-   * @title 행정안전부 타입
+   * @title Ministry of the Interior and Safety Type
    */
   export namespace MinistryOfTheInteriorAndSafety {
     /**
-     * @title 행정표준코드 조회 요청
+     * @title Request for Administrative Standard Code Lookup
      */
     export interface IGetStandardRegionCodeListInput
       extends ICommon.IPaginationInput {
       /**
-       * @title 지역주소명
+       * @title Region address name
        */
-      locatadd_nm: string & Placeholder<"서울특별시">;
+      locatadd_nm: string & Placeholder<"Seoul Special City">;
     }
 
     /**
-     * @title 행정표준코드 조회 결과
+     * @title Result of Administrative Standard Code Lookup
      */
     export interface IGetStandardRegionCodeListOutput
       extends ICommon.IPaginationOutput {
       rows: {
         /**
-         * @title 지역코드
+         * @title Region code
          */
         region_cd: string;
 
         /**
-         * @title 시도코드
+         * @title City code
          */
         sido_cd?: string;
 
         /**
-         * @title 시군구코드
+         * @title District code
          */
         sgg_cd?: string;
 
         /**
-         * @title 시도, 시군구 코드
-         * @description 시도코드와 시군구코드의 합
+         * @title City and District Code
+         * @description Combination of city code and district code
          */
         sigunguCd?: string;
 
         /**
-         * @title 시군구 이름
+         * @title District name
          */
         sigunguNm: string;
 
         /**
-         * @title 읍면동코드
+         * @title Town/Village code
          */
         umd_cd?: string;
 
         /**
-         * @title 리코드
+         * @title Ri code
          */
         ri_cd?: string;
 
         /**
-         * @title 법정동 코드
-         * @title 읍면동 코드와 리 코드의 합
+         * @title Legal Dong code
+         * @description Combination of Town/Village code and Ri code
          */
         bjdongCd?: string;
 
         /**
-         * @title 지역코드_주민
+         * @title Resident region code
          */
         locatjumin_cd?: string;
 
         /**
-         * @title 지역코드_지적
+         * @title Land region code
          */
         locatjijuk_cd?: string;
 
         /**
-         * @title 지역주소명
+         * @title Region address name
          */
         locatadd_nm?: string;
 
         /**
-         * @title 서열
+         * @title Sequence
          */
         locat_order?: number & tags.Type<"int32">;
 
         /**
-         * @title 비고
+         * @title Remark
          */
         locat_rm?: string;
 
         /**
-         * @title 상위지역코드
+         * @title Parent region code
          */
         locathigh_cd?: string;
 
         /**
-         * @title 최하위지역명
+         * @title Lowest region name
          */
         locallow_nm?: string;
 
         /**
-         * @title 생성일
+         * @title Date of creation
          */
         adpt_de?: string;
       }[];
@@ -139,90 +139,92 @@ export namespace IOpenData {
   }
 
   /**
-   * @title 금융위원회 타입
+   * @title Financial Services Commission Type
    */
   export namespace FinancialServicesCommission {
     /**
-     * @title 시가총액 및 주식 정보 조회 조건
+     * @title Conditions for querying market capitalization and stock information
      */
     export type IGetStockPriceInfoInput = ICommon.IPaginationInput & {
       /**
-       * @title 종목명 검색 키워드
+       * @title Keyword for stock name search
        */
-      likeItmsNm?: string & tags.MaxLength<120> & Placeholder<"삼성전자">;
+      likeItmsNm?: string &
+        tags.MaxLength<120> &
+        Placeholder<"Samsung Electronics">;
     } & (
         | {
             /**
-             * @title 기준일자
-             * @description 검색값과 기준일자가 일치하는 데이터 검색
+             * @title Base date
+             * @description Searches for data matching the search value and base date
              */
             basDt?: string & Placeholder<"20220919">;
           }
         | {
             /**
-             * @title 기준일자(이상)
-             * @description 기준일자가 검색값보다 크거나 같은 데이터를 검색
+             * @title Start date (inclusive)
+             * @description Searches for data where the base date is greater than or equal to the search value
              */
             beginBasDt?: string & Placeholder<"20220919">;
 
             /**
-             * @title 기준일자(미만)
-             * @description 기준일자가 검색값보다 작은 데이터를 검색
+             * @title End date (exclusive)
+             * @description Searches for data where the base date is less than the search value
              */
             endBasDt?: string & Placeholder<"20220919">;
           }
       );
 
     /**
-     * @title 시가총액 및 주식 정보 조회 결과
+     * @title Result of querying market capitalization and stock information
      */
     export interface IGetStockPriceInfoOutput {
       response: {
         body: {
           /**
-           * @title 한 페이지 당 결과 수
+           * @title Number of results per page
            */
           numOfRows: number & tags.Type<"int32"> & tags.Default<10>;
 
           /**
-           * @title 페이지 번호
+           * @title Page number
            */
           pageNo: number & tags.Type<"int32"> & tags.Default<1>;
 
           /**
-           * @title 전체 데이터 수
+           * @title Total number of records
            */
           totalCount: number;
 
           /**
-           * @title 조회된 기업 정보
+           * @title Retrieved company information
            */
           items: {
             item: {
               /**
-               * @title 기준 일자
+               * @title Base date
                */
               basDt: string & Placeholder<"20220919">;
 
               /**
-               * @title 단축 코드
-               * @description 종목 코드보다 짧으면서 유일성이 보장되는 6자리 코드
+               * @title Short code
+               * @description 6-digit code shorter than stock code and uniquely guaranteed
                */
               srtnCd: string;
 
               /**
-               * @title ISIN 코드
-               * @description 국제 채권 식별 번호
+               * @title ISIN code
+               * @description International Securities Identification Number
                */
               isinCd: string;
 
               /**
-               * @title 종목 명칭
+               * @title Stock name
                */
               itmsNm: string;
 
               /**
-               * @title 주식의 시장 구분
+               * @title Market category
                */
               mrktCtg:
                 | tags.Constant<"KOSPI", { title: "KOSPI" }>
@@ -230,63 +232,61 @@ export namespace IOpenData {
                 | tags.Constant<"KONEX", { title: "KONEX" }>;
 
               /**
-               * @title 종가
-               * @description 정규시장의 매매시간 종료 시 형성되는 최종 가격
-               *
+               * @title Closing price
+               * @description Final price formed at the end of regular trading hours
                */
               clpr: string;
 
               /**
-               * @title 대비
-               * @description 전일 대비 등락
+               * @title Change
+               * @description Fluctuation compared to the previous day
                */
               vs: string;
 
               /**
-               * @title 등락률
-               * @description 전일 대비 등락에 따른 비율
+               * @title Rate of change
+               * @description Ratio of fluctuation compared to the previous day
                */
               fltRt: string;
 
               /**
-               * @title 정규 시간의 매매 시간
-               * @description 개시 후 형성되는 최초 가격
+               * @title Opening price
+               * @description Initial price formed after opening
                */
               mkp: string;
 
               /**
-               * @title 고가
-               * @description 하루 중 가격의 최고치
+               * @title Highest price
+               * @description Highest price during the day
                */
-
               hipr: string;
 
               /**
-               * @title 저가
-               * @description 하루 중 가격의 최저치
+               * @title Lowest price
+               * @description Lowest price during the day
                */
               lopr: string;
 
               /**
-               * @title 거래량
-               * @description 체결수량의 누적합계
+               * @title Trading volume
+               * @description Cumulative total of trade quantities
                */
               trqu: string;
 
               /**
-               * @title 거래 대금
-               * @description 거래건 별 체결가격 * 체결수량의 누적 합계
+               * @title Trading amount
+               * @description Cumulative total of trade prices * quantities
                */
               trPrc: string;
 
               /**
-               * @title 상장주식수
+               * @title Listed shares
                */
               lstgStCnt: string;
 
               /**
-               * @title 시가총액
-               * @description 종가 * 상장주식수
+               * @title Market capitalization
+               * @description Closing price * listed shares
                */
               mrktTotAmt: string;
             }[];
@@ -298,51 +298,99 @@ export namespace IOpenData {
 }
 
 /**
- * @title 기상청 타입
+ * @title Korea Meteorological Administration Type
  */
 export namespace IKoreaMeteorologicalAdministration {
   /**
-   * @title 단기 예보에서 표현되는 코드 값.
+   * @title Code values expressed in short-term forecasts.
    */
   export type CategoryType =
-    | tags.Constant<"POP", { title: "강수확률"; description: "단위는 %" }>
-    | tags.Constant<"PTY", { title: "강수형태"; description: "코드 값" }>
-    | tags.Constant<"PCP", { title: "1시간 강수량"; description: "범주(1mm)" }>
-    | tags.Constant<"REH", { title: "습도"; description: "단위는 %" }>
-    | tags.Constant<"SNO", { title: "1시간 신적설"; description: "범주(1cm)" }>
-    | tags.Constant<"SKY", { title: "하늘 상태"; description: "코드 값" }>
-    | tags.Constant<"TMP", { title: "1시간 기온"; description: "섭씨 온도" }>
-    | tags.Constant<"TMN", { title: "일 최저기온"; description: "섭씨 온도" }>
-    | tags.Constant<"TMX", { title: "일 최고기온"; description: "섭씨 온도" }>
-    | tags.Constant<"UUU", { title: "풍속 (동서성분)"; description: "m/s" }>
-    | tags.Constant<"VVV", { title: "풍속 (남북성분)"; description: "m/s" }>
-    | tags.Constant<"WAV", { title: "파고 (파도높이)"; description: "M" }>
-    | tags.Constant<"VEC", { title: "풍향"; description: "각도 (deg)" }>
-    | tags.Constant<"WSD", { title: "풍속"; description: "m/s" }>
-    | tags.Constant<"T1H", { title: "기온"; description: "섭씨 온도" }>
-    | tags.Constant<"RN1", { title: "1시간 강수량"; description: "mm" }>
-    | tags.Constant<"VEC", { title: "풍향"; description: "deg" }>
-    | tags.Constant<"T1H", { title: "기온"; description: "섭씨 온도" }>;
+    | tags.Constant<
+        "POP",
+        { title: "Precipitation Probability"; description: "Unit is %" }
+      >
+    | tags.Constant<
+        "PTY",
+        { title: "Precipitation Type"; description: "Code value" }
+      >
+    | tags.Constant<
+        "PCP",
+        { title: "Hourly Precipitation"; description: "Category (1mm)" }
+      >
+    | tags.Constant<"REH", { title: "Humidity"; description: "Unit is %" }>
+    | tags.Constant<
+        "SNO",
+        { title: "Hourly Snowfall"; description: "Category (1cm)" }
+      >
+    | tags.Constant<
+        "SKY",
+        { title: "Sky Condition"; description: "Code value" }
+      >
+    | tags.Constant<
+        "TMP",
+        { title: "Hourly Temperature"; description: "Celsius temperature" }
+      >
+    | tags.Constant<
+        "TMN",
+        {
+          title: "Daily Minimum Temperature";
+          description: "Celsius temperature";
+        }
+      >
+    | tags.Constant<
+        "TMX",
+        {
+          title: "Daily Maximum Temperature";
+          description: "Celsius temperature";
+        }
+      >
+    | tags.Constant<
+        "UUU",
+        { title: "Wind Speed (East-West Component)"; description: "m/s" }
+      >
+    | tags.Constant<
+        "VVV",
+        { title: "Wind Speed (North-South Component)"; description: "m/s" }
+      >
+    | tags.Constant<
+        "WAV",
+        { title: "Wave Height (Wave Height)"; description: "M" }
+      >
+    | tags.Constant<
+        "VEC",
+        { title: "Wind Direction"; description: "Angle (deg)" }
+      >
+    | tags.Constant<"WSD", { title: "Wind Speed"; description: "m/s" }>
+    | tags.Constant<
+        "T1H",
+        { title: "Temperature"; description: "Celsius temperature" }
+      >
+    | tags.Constant<"RN1", { title: "Hourly Precipitation"; description: "mm" }>
+    | tags.Constant<"VEC", { title: "Wind Direction"; description: "deg" }>
+    | tags.Constant<
+        "T1H",
+        { title: "Temperature"; description: "Celsius temperature" }
+      >;
 
   /**
-   * @title 날씨 조회를 위한 요청 조건
+   * @title Weather query request conditions
    */
   export interface IGetVillageForecastInformationInput {
     /**
-     * @title 경도
+     * @title Longitude
      */
     nx: number;
 
     /**
-     * @title 위도
+     * @title Latitude
      */
     ny: number;
   }
 
   /**
-   * 기상청에서 준 원래의 값
+   * Original values provided by the Korea Meteorological Administration
    *
-   * @title 날씨 조회 결과
+   * @title Weather query result
    */
   export interface IGetVillageForecastInformationOutput {
     response: {
@@ -350,32 +398,32 @@ export namespace IKoreaMeteorologicalAdministration {
         items: {
           item: {
             /**
-             * @title `20240619`와 같은 년,월,일자가 합성된 날짜 값.
+             * @title Date value composed of year, month, and day, e.g., `20240619`.
              */
             baseDate: `${number}`;
 
             /**
-             * @title `1200`와 같이 정각 시간을 나타내는 시간 값.
+             * @title Time value indicating the exact hour, e.g., `1200`.
              */
             baseTime: `${number}`;
 
             /**
-             * @title 카테고리.
+             * @title Category.
              */
             category: IKoreaMeteorologicalAdministration.CategoryType;
 
             /**
-             * @title 경도
+             * @title Longitude
              */
             nx: number;
 
             /**
-             * @title 격자 좌표 값의 y 좌표.
+             * @title Y-coordinate of the grid point value.
              */
             ny: number;
 
             /**
-             * @title 카테고리에 해당하는 값.
+             * @title Value corresponding to the category.
              */
             obsrValue: `${number}`;
           }[];
@@ -385,40 +433,40 @@ export namespace IKoreaMeteorologicalAdministration {
   }
 
   /**
-   * 뤼튼에서 가공한 결과
+   * Processed results from Lütton
    *
-   * @title 날씨 조회 결과
+   * @title Weather query result
    */
   export interface IGetForecastOutput {
     /**
-     * @title `20240619`와 같은 년,월,일자가 합성된 날짜 값
+     * @title Date value composed of year, month, and day, e.g., `20240619`.
      */
     baseDate: `${number}`;
 
     /**
-     * @title `1200`와 같이 정각 시간을 나타내는 시간 값
+     * @title Time value indicating the exact hour, e.g., `1200`.
      */
     baseTime: `${number}`;
 
     /**
-     * 각 수치가 무엇을 의미하는지에 대한 분류 값을 의미
+     * Classification of what each value represents
      *
-     * @title 카테고리
+     * @title Category
      */
     category: IKoreaMeteorologicalAdministration.CategoryType;
 
     /**
-     * @title 경도
+     * @title Longitude
      */
     nx: number;
 
     /**
-     * @title 위도
+     * @title Latitude
      */
     ny: number;
 
     /**
-     * @title 카테고리에 해당하는 값
+     * @title Value corresponding to the category
      */
     obsrValue: `${number}`;
   }
