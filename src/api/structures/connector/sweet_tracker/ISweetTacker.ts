@@ -6,11 +6,6 @@ export namespace ISweetTracker {
      * @title 송장번호.
      */
     t_invoice: string;
-
-    /**
-     * @title sweet-tracker로부터 발급받은 키.
-     */
-    t_key: string;
   }
 
   /**
@@ -38,11 +33,6 @@ export namespace ISweetTracker {
      * @title 송장번호.
      */
     t_invoice: string;
-
-    /**
-     * @title sweet-tracker로부터 발급받은 키.
-     */
-    t_key: string;
 
     /**
      * 택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다.
