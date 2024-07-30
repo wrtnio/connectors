@@ -2,190 +2,95 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title PDF 파일 RAG 분석을 위한 정보
+   * @title Information required for RAG analysis
    */
-  interface IPdfInput {
+  export interface IAnalyzeInput {
     /**
-     * 분석할 파일 경로
+     * File or link to be analyzed
      *
-     * @title 파일 경로
-     */
-    url: string & tags.Format<"uri"> & tags.ContentMediaType<"application/pdf">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"pdf", { title: "PDF 파일" }>;
-  }
-
-  /**
-   * @title DOCX 파일 RAG 분석을 위한 정보
-   */
-  interface IDocxInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
+     * @title File or Link
      */
     url: string &
       tags.Format<"uri"> &
-      tags.ContentMediaType<"application/vnd.openxmlformats-officedocument.wordprocessingml.document">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"docx", { title: "DOCX 파일" }>;
+      tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">;
   }
 
   /**
-   * @title HWP 파일 RAG 분석을 위한 정보
-   */
-  interface IHwpInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string &
-      tags.Format<"uri"> &
-      tags.ContentMediaType<"application/vnd.hancom.hwp">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"hwp", { title: "HWP 파일" }>;
-  }
-
-  /**
-   * @title TXT 파일 RAG 분석을 위한 정보
-   */
-  interface ITextInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"txt", { title: "TXT 파일" }>;
-  }
-
-  /**
-   * @title WEB 링크 RAG 분석을 위한 정보
-   */
-  interface ILinkInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string & tags.Format<"uri">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"html", { title: "웹 링크" }>;
-  }
-
-  /**
-   * @title RAG 분석을 위해 필요한 정보
-   */
-  export type IAnalyzeInput =
-    | IPdfInput
-    | IDocxInput
-    | IHwpInput
-    | ITextInput
-    | ILinkInput;
-
-  /**
-   * @title RAG 분석 결과물
+   * @title RAG analysis result
    */
   export interface IAnalysisOutput {
     /**
-     * RAG 생성 결과물에 필요한 chat id.
-     * RAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.
-     * 여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다.
+     * Chat ID required for generating RAG results.
+     * Returns the chat ID for the analyzed file to generate chat results for the file analyzed by RAG.
+     * To analyze multiple files and generate results for them in the same chat, the same chat ID is needed.
      *
-     * @title chat id.
+     * @title Chat ID.
      */
     chatId: string;
   }
 
   /**
-   * @title RAG 분석 상태
+   * @title RAG analysis status
    */
   export interface IStatusOutput {
     /**
-     * 분석 상태입니다.
+     * Analysis status.
      *
-     * - RUNNING: 분석 중
-     * - COMPLETED: 분석 완료
-     * - FAILED: 분석 실패
+     * - RUNNING: Analysis in progress
+     * - COMPLETED: Analysis completed
+     * - FAILED: Analysis failed
      *
-     * @title 분석 상태.
+     * @title Analysis status.
      */
     status: "RUNNING" | "COMPLETED" | "FAILED";
   }
 
   /**
-   * @title 이전 발화 내역
+   * @title Previous utterance history
    */
   interface IHistory {
     /**
-     * 발화자의 역할입니다.
+     * Role of the speaker.
      *
-     * @title 발화자 역할.
+     * @title Speaker role.
      */
     role: "user" | "assistant";
 
     /**
-     * 발화 내용입니다.
+     * Content of the utterance.
      *
-     * @title 발화 내용.
+     * @title Utterance content.
      */
     text: string;
   }
 
   /**
-   * @title RAG를 통한 채팅을 위해 필요한 정보
+   * @title Information required for chat through RAG
    */
   export interface IGenerateInput {
     /**
-     * 유저의 발화입니다.
+     * User's utterance.
      *
-     * @title 유저 발화.
+     * @title User utterance.
      */
     query: string;
 
     /**
-     * 이전 발화 내역입니다.
+     * Previous utterance history.
      *
-     * @title 이전 발화 내역.
+     * @title Previous utterance history.
      */
     histories?: IHistory[];
   }
 
   /**
-   * @title RAG를 통한 채팅 결과
+   * @title Chat result through RAG
    */
   export interface IGenerateOutput {
     /**
-     * RAG 기반 생성 요청에 대한 응답입니다.
+     * Response to the RAG-based generation request.
      *
-     * @title 발화에 대한 응답.
+     * @title Response to the utterance.
      */
     answer: string;
   }
