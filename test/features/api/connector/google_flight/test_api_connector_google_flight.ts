@@ -24,15 +24,25 @@ export const test_api_connector_google_flight = async (
 
   const arrivalResult = await CApi.functional.connector.google_flight.arrival(
     connection,
-    params,
-    departureResult.best_flights[0]?.departure_token!,
+    {
+      ...params,
+      departure_token:
+        departureResult.best_flights.length === 0
+          ? departureResult.other_flights[0]?.departure_token!
+          : departureResult.best_flights[0]?.departure_token!,
+    },
   );
   typia.assert<IGoogleFlight.IResponse>(arrivalResult);
 
   const finalResult = await CApi.functional.connector.google_flight.final(
     connection,
-    params,
-    arrivalResult.best_flights[0]?.booking_token!,
+    {
+      ...params,
+      booking_token:
+        arrivalResult.best_flights.length === 0
+          ? arrivalResult.other_flights[0]?.booking_token!
+          : arrivalResult.best_flights[0]?.booking_token!,
+    },
   );
   typia.assert<IGoogleFlight.IFinalResponse>(finalResult);
 };

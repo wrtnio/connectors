@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
+import { ConfigurationServicePlaceholders } from "aws-sdk/lib/config_service_placeholders";
 import { getJson } from "serpapi";
 
 const defaultParams = {
@@ -19,15 +20,13 @@ export class GoogleFlightProvider {
   }
 
   async searchForArrival(
-    input: IGoogleFlight.IRequest,
-    departure_token: string,
+    input: IGoogleFlight.IRequestArrival,
   ): Promise<IGoogleFlight.IResponse> {
-    return await this.search(input, departure_token);
+    return await this.search(input, input.departure_token);
   }
 
   async searchForFinal(
-    input: IGoogleFlight.IRequest,
-    booking_token: string,
+    input: IGoogleFlight.IRequestFinal,
   ): Promise<IGoogleFlight.IFinalResponse> {
     try {
       const params: any = {
@@ -42,7 +41,7 @@ export class GoogleFlightProvider {
         ...(input.children && { children: input.children }),
         stops: Number(input.stop),
         ...(input.max_price && { max_price: input.max_price }),
-        ...(booking_token && { booking_token: booking_token }),
+        ...(input.booking_token && { booking_token: input.booking_token }),
       };
 
       const res = await getJson(params);
@@ -86,23 +85,13 @@ export class GoogleFlightProvider {
         ...(departure_token && { departure_token: departure_token }),
         ...(booking_token && { booking_token: booking_token }),
       };
-
       const res = await getJson(params);
       const bestResults = res["best_flights"];
       const otherResults = res["other_flights"];
 
-      /**
-       * 검색 결과가 없을 경우 빈배열 return
-       */
-      if (
-        (!bestResults || bestResults.length === 0) &&
-        (!otherResults || otherResults.length === 0)
-      ) {
-        return { best_flights: [], other_flights: [] };
-      }
       const output: IGoogleFlight.IResponse = {
-        best_flights: this.transformResults(bestResults),
-        other_flights: this.transformResults(otherResults),
+        best_flights: bestResults ? this.transformResults(bestResults) : [],
+        other_flights: otherResults ? this.transformResults(otherResults) : [],
       };
 
       return output;
