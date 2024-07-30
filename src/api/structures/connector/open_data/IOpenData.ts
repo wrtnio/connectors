@@ -378,6 +378,8 @@ export namespace IKoreaMeteorologicalAdministration {
   export interface IGetVillageForecastInformationInput {
     /**
      * @title Definition of nx, ny
+     *
+     * use 'latitude_and_longitude' or 'grid_coordinates'.
      */
     type:
       | tags.Constant<

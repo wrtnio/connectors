@@ -50,7 +50,9 @@ export class GoogleDriveProvider {
     const res = await drive.files.list({
       pageSize: 10,
       fields: "nextPageToken, files(id, name)",
-      q: `'${folderId}' in parents and trashed = false`,
+      q: folderId
+        ? `'${folderId}' in parents and trashed = false`
+        : `trashed = false`,
     });
     const files = res.data.files;
     if (!files || !files.length) {
