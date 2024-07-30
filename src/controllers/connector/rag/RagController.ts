@@ -11,11 +11,11 @@ export class RagController {
   constructor(private readonly ragService: RagProvider) {}
 
   /**
-   * Requests RAG analysis for the provided files or links.
+   * 입력된 파일에 대해 RAG 분석을 요청합니다.
    *
-   * @summary RAG analysis request.
+   * @summary RAG 분석 요청.
    *
-   * @param input Information about the files or links to be analyzed.
+   * @param input 분석할 파일 정보.
    *
    * @tag RAG
    */
@@ -27,11 +27,11 @@ export class RagController {
   }
 
   /**
-   * Retrieves the status of the analysis in progress.
+   * 분석 진행 상태를 조회합니다.
    *
-   * @summary RAG analysis status retrieval.
+   * @summary RAG 분석 상태 조회.
    *
-   * @param docId The document ID to check the analysis status for.
+   * @param docId 분석 진행 상태를 조회할 문서 ID.
    *
    * @tag RAG
    *
@@ -45,9 +45,9 @@ export class RagController {
   }
 
   /**
-   * Generates the requested output based on RAG analysis.
+   * RAG 분석을 기반으로 요청받은 결과물을 생성합니다.
    *
-   * @summary Generate output based on RAG analysis.
+   * @summary RAG 기반 결과물 생성
    *
    * @param input
    *

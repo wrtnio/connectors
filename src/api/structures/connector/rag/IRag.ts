@@ -2,13 +2,13 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title Information required for RAG analysis
+   * @title RAG 분석을 위해 필요한 정보
    */
   export interface IAnalyzeInput {
     /**
-     * File or link to be analyzed
+     * 분석할 파일 또는 링크
      *
-     * @title File or Link
+     * @title 파일 또는 링크
      */
     url: string &
       tags.Format<"uri"> &
@@ -16,81 +16,81 @@ export namespace IRag {
   }
 
   /**
-   * @title RAG analysis result
+   * @title RAG 분석 결과물
    */
   export interface IAnalysisOutput {
     /**
-     * Chat ID required for generating RAG results.
-     * Returns the chat ID for the analyzed file to generate chat results for the file analyzed by RAG.
-     * To analyze multiple files and generate results for them in the same chat, the same chat ID is needed.
+     * RAG 생성 결과물에 필요한 chat id.
+     * RAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.
+     * 여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다.
      *
-     * @title Chat ID.
+     * @title chat id.
      */
     chatId: string;
   }
 
   /**
-   * @title RAG analysis status
+   * @title RAG 분석 상태
    */
   export interface IStatusOutput {
     /**
-     * Analysis status.
+     * 분석 상태입니다.
      *
-     * - RUNNING: Analysis in progress
-     * - COMPLETED: Analysis completed
-     * - FAILED: Analysis failed
+     * - RUNNING: 분석 중
+     * - COMPLETED: 분석 완료
+     * - FAILED: 분석 실패
      *
-     * @title Analysis status.
+     * @title 분석 상태.
      */
     status: "RUNNING" | "COMPLETED" | "FAILED";
   }
 
   /**
-   * @title Previous utterance history
+   * @title 이전 발화 내역
    */
   interface IHistory {
     /**
-     * Role of the speaker.
+     * 발화자의 역할입니다.
      *
-     * @title Speaker role.
+     * @title 발화자 역할.
      */
     role: "user" | "assistant";
 
     /**
-     * Content of the utterance.
+     * 발화 내용입니다.
      *
-     * @title Utterance content.
+     * @title 발화 내용.
      */
     text: string;
   }
 
   /**
-   * @title Information required for chat through RAG
+   * @title RAG를 통한 채팅을 위해 필요한 정보
    */
   export interface IGenerateInput {
     /**
-     * User's utterance.
+     * 유저의 발화입니다.
      *
-     * @title User utterance.
+     * @title 유저 발화.
      */
     query: string;
 
     /**
-     * Previous utterance history.
+     * 이전 발화 내역입니다.
      *
-     * @title Previous utterance history.
+     * @title 이전 발화 내역.
      */
     histories?: IHistory[];
   }
 
   /**
-   * @title Chat result through RAG
+   * @title RAG를 통한 채팅 결과
    */
   export interface IGenerateOutput {
     /**
-     * Response to the RAG-based generation request.
+     * RAG 기반 생성 요청에 대한 응답입니다.
      *
-     * @title Response to the utterance.
+     * @title 발화에 대한 응답.
      */
     answer: string;
   }
