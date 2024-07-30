@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Studio 1.0 툴",
-    "version": "0.1.41",
+    "version": "0.1.42",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -61,7 +61,7 @@
           }
         },
         "summary": "툴 사용",
-        "description": "툴을 사용합니다."
+        "description": "툴을 사용합니다.\n\n이 커넥터는 특수 목적으로 제작된 커넥터로써, 일반적인 상황에는 사용되지 않습니다.\n\n스튜디오 1.0에서 마이그레이션된 툴을 사용할 때만 사용되는 커넥터 입니다.\n\n일반 워크플로우를 만들 때 사용되지 않는 커넥터입니다."
       }
     }
   },
