@@ -393,11 +393,17 @@ export namespace IKoreaMeteorologicalAdministration {
 
     /**
      * @title Longitude or x_position
+     *
+     * If the type property in this object is 'latitude_and_longitude', this value means longitude.
+     * If not, use x position value of grid coordinates in Korea.
      */
     nx: number;
 
     /**
      * @title Latitude or y_position
+     *
+     * If the type property in this object is 'latitude_and_longitude', this value means latitude.
+     * If not, use y position value of grid coordinates in Korea.
      */
     ny: number;
   }
