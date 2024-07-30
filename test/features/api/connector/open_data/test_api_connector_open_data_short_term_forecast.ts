@@ -7,6 +7,7 @@ export const test_api_connector_open_data_get_short_term_forecast_1 = async (
   const seoul = await CApi.functional.connector.open_data.getShortTermForecast(
     connection,
     {
+      type: "latitude_and_longitude",
       nx: 126.978,
       ny: 37.5665,
     },
@@ -21,6 +22,7 @@ export const test_api_connector_open_data_get_short_term_forecast_2 = async (
   const busan = await CApi.functional.connector.open_data.getShortTermForecast(
     connection,
     {
+      type: "latitude_and_longitude",
       nx: 129.0756,
       ny: 35.1796,
     },
@@ -35,6 +37,7 @@ export const test_api_connector_open_data_get_short_term_forecast_3 = async (
   const daegu = await CApi.functional.connector.open_data.getShortTermForecast(
     connection,
     {
+      type: "latitude_and_longitude",
       nx: 128.6014,
       ny: 35.8714,
     },
@@ -48,6 +51,7 @@ export const test_api_connector_open_data_get_short_term_forecast_4 = async (
 ) => {
   const incheon =
     await CApi.functional.connector.open_data.getShortTermForecast(connection, {
+      type: "latitude_and_longitude",
       nx: 126.8529,
       ny: 37.4563,
     });
@@ -60,6 +64,7 @@ export const test_api_connector_open_data_get_short_term_forecast_5 = async (
 ) => {
   const gwangju =
     await CApi.functional.connector.open_data.getShortTermForecast(connection, {
+      type: "latitude_and_longitude",
       nx: 126.8526,
       ny: 37.1595,
     });
@@ -72,6 +77,7 @@ export const test_api_connector_open_data_get_short_term_forecast_6 = async (
 ) => {
   const daejeon =
     await CApi.functional.connector.open_data.getShortTermForecast(connection, {
+      type: "latitude_and_longitude",
       nx: 127.3845,
       ny: 36.3504,
     });
@@ -85,6 +91,7 @@ export const test_api_connector_open_data_get_short_term_forecast_7 = async (
   const ulsan = await CApi.functional.connector.open_data.getShortTermForecast(
     connection,
     {
+      type: "latitude_and_longitude",
       nx: 129.3114,
       ny: 35.5384,
     },
@@ -92,3 +99,26 @@ export const test_api_connector_open_data_get_short_term_forecast_7 = async (
 
   typia.assertEquals(ulsan);
 };
+
+export const test_api_connector_open_data_get_short_term_forecast_by_grid_coordinates =
+  async (connection: CApi.IConnection) => {
+    const grids = [
+      { gridX: 60, gridY: 127 },
+      { gridX: 97, gridY: 74 },
+      { gridX: 53, gridY: 38 },
+    ] as const;
+
+    for await (const grid of grids) {
+      const res =
+        await CApi.functional.connector.open_data.getShortTermForecast(
+          connection,
+          {
+            type: "grid_coordinates",
+            nx: grid.gridX,
+            ny: grid.gridY,
+          },
+        );
+
+      typia.assertEquals(res);
+    }
+  };
