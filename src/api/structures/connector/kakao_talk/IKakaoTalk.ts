@@ -17,198 +17,198 @@ export namespace IKakaoTalk {
   >;
 
   /**
-   * @title 카카오 로그인 후 받게 되는 코드 DTO.
+   * @title DTO for the code received after Kakao login.
    */
   export interface IAuthorizationCode {
     /**
-     * @title kakaoTalk OAuth2 authorization code.
+     * @title KakaoTalk OAuth2 authorization code.
      */
     code: string;
   }
 
   /**
-   * @title 액세스 토큰 출력 DTO.
+   * @title DTO for output of access token.
    */
   export interface IGetAccessTokenOutput {
     /**
-     * @title 액세스 토큰.
+     * @title Access token.
      */
     access_token: string;
 
     /**
-     * @title 토큰 타입.
+     * @title Token type.
      */
     token_type: "bearer";
 
     /**
-     * @title 리프레시 토큰.
+     * @title Refresh token.
      */
     refresh_token: string;
 
     /**
-     * @title 이 액세스 토큰의 권한 범위.
+     * @title Scope of this access token.
      */
     scope: string;
 
     /**
-     * @title 액세스 토큰 만료 시간.
+     * @title Expiry time of the access token.
      */
     expires_in: number;
 
     /**
-     * @title 리프레시 토큰 만료 시간.
+     * @title Expiry time of the refresh token.
      */
     refresh_token_expires_in: number;
   }
 
   /**
-   * @title 친구 조회 조건
+   * @title Conditions for retrieving friends
    */
   export interface IGetFriendsInput
     extends ICommon.ISecret<"kakao", ["friends"]> {
     /**
-     * @title 친구 목록 시작 지점
+     * @title Starting point of the friends list
      */
     offset?: number & tags.Type<"int32"> & tags.Default<0>;
 
     /**
-     * @title 한 페이지 당 친구 수
+     * @title Number of friends per page
      */
     limit?: number & tags.Type<"int32">;
 
     /**
-     * @title 친구 목록 정렬 순서
+     * @title Sort order of the friends list
      */
     order?: (
-      | tags.Constant<"asc", { title: "오름차순" }>
-      | tags.Constant<"desc", { title: "내림차순" }>
+      | tags.Constant<"asc", { title: "Ascending" }>
+      | tags.Constant<"desc", { title: "Descending" }>
     ) &
       tags.Default<"asc">;
 
     /**
-     * @title 친구 목록 정렬 시 기준
+     * @title Sort criteria of the friends list
      */
     friend_order?: (
-      | tags.Constant<"favorite", { title: "즐겨찾기 우선 정렬" }>
-      | tags.Constant<"nickname", { title: "닉네임 우선 정렬" }>
+      | tags.Constant<"favorite", { title: "Sort by favorite" }>
+      | tags.Constant<"nickname", { title: "Sort by nickname" }>
     ) &
       tags.Default<"favorite">;
   }
 
   /**
-   * @title 카카오톡 친구
+   * @title KakaoTalk friend
    */
   export interface Friend {
     /**
-     * 회원의 아이디
+     * User ID
      *
-     * 카카오톡에서 친구에 부여한 회원 번호로 아이디 값에 해당한다.
-     * 단, 실제로 메세지 전송에 사용하는 것은 `uuid` 프로퍼티기 때문에 주의한다.
+     * A member number assigned to a friend in KakaoTalk, equivalent to the ID value.
+     * Note that the `uuid` property is used when sending messages.
      *
-     * @title 회원 번호
+     * @title Member number
      */
     id: number & tags.Type<"int32">;
 
     /**
-     * 카카오톡 메시지 전송 시 사용하는 친구 코드로 추후 카카오톡 메시지 전송 등의 액션을 수행할 때에 사용한다.
-     * 사람을 가리키는 유니크한 코드지만, 프로퍼티 명이 uuid 지만 우리가 일반적으로 알고 있는 uuid 포맷은 아니기 때문에 사용에 주의해야 한다.
+     * Friend code used when sending KakaoTalk messages. Used for actions such as sending KakaoTalk messages later.
+     * Although the property name is `uuid`, it is not in the usual uuid format, so use it with caution.
      *
-     * @title 친구 코드
+     * @title Friend code
      */
     uuid: string;
 
     /**
-     * @title 해당 친구의 즐겨 찾기 여부
+     * @title Whether the friend is a favorite
      */
     favorite?: boolean;
 
     /**
-     * @title 닉네임
+     * @title Nickname
      */
     profile_nickname: string;
 
     /**
-     * @title 썸네일
+     * @title Thumbnail
      */
     profile_thumbnail_image?: string & tags.Format<"uri">;
   }
 
   /**
-   * @title 친구 조회 결과
+   * @title Result of retrieving friends
    */
   export interface IGetFriendsOutput {
     /**
-     * @title 친구 목록
+     * @title Friends list
      */
     elements: Friend[];
 
     /**
-     * @title 전체 친구 수
+     * @title Total number of friends
      */
     total_count: number & tags.Type<"int32">;
 
     /**
-     * @title 친구 목록 다음 페이지 URL
+     * @title Next page URL of the friends list
      */
     after_url?: (string & tags.Format<"uri">) | null;
 
     /**
-     * @title 친구 목록 이전 페이지 URL
+     * @title Previous page URL of the friends list
      */
     before_url?: (string & tags.Format<"uri">) | null;
 
     /**
-     * @title 즐겨찾기한 친구 수
+     * @title Number of favorite friends
      */
     favorite_count?: number & tags.Type<"int32">;
   }
 
   /**
-   * @title 일정 조회 결과
+   * @title Result of retrieving events
    */
   export interface IGetEventOutput {
     /**
-     * @title 일정 리스트
+     * @title List of events
      */
-    events: IKakaoTalk.EventBriref[];
+    events: IKakaoTalk.EventBrief[];
 
     /**
-     * @title 다음 페이지 존재 여부
+     * @title Whether there is a next page
      */
     has_next: boolean;
 
     /**
-     * @title 다음 페이지 URL
+     * @title URL of the next page
      *
-     * 다음 페이지를 조회하기 위한 파라미터와 값을 포함한 URL이므로, 다음 페이지 요청 시 그대로 사용.
+     * A URL containing parameters and values to retrieve the next page, used as is when requesting the next page.
      *
-     * 제공 조건은 `has_next`가 true인 경우이다.
+     * Provided when `has_next` is true.
      */
     after_url?: string & tags.Format<"url">;
   }
 
   /**
-   * @title 일정
+   * @title Event
    */
-  export interface EventBriref {
+  export interface EventBrief {
     /**
-     * 	@title 일정 ID
+     * @title Event ID
      */
     id?: string;
 
     /**
-     * @title	일정 제목
+     * @title Event title
      */
     title?: string;
 
     /**
-     * 	@title 일정 타입
+     * @title Event type
      */
     type?: string;
 
     /**
-     * @title	캘린더 ID
-     * @description 기본 캘린더의 경우 primary로 고정
+     * @title Calendar ID
+     * @description Fixed to primary for the default calendar
      */
     calendar_id?: Calendar["id"] &
       Prerequisite<{
@@ -218,97 +218,99 @@ export namespace IKakaoTalk {
       }>;
 
     /**
-     * @title 일정 시간
+     * @title Event time
      */
     time: IKakaoTalk.Time;
 
     /**
-     * @title 일정 작성자인지 여부
-     * @description 공개/구독 일정 또는 초대 받은 일정인 경우
+     * @title Whether the user is the host of the event
+     * @description For public/subscribed or invited events
      */
     is_host?: boolean & tags.Default<false>;
 
     /**
-     * @title 반복 일정 여부
-     * @description type이 USER인 경우 필수.
+     * @title Whether the event is recurring
+     * @description Required if type is USER.
      */
     is_recur_event?: boolean;
 
     /**
-     * @title 일정 색상
-     * @description 일정 생성 또는 편집 시 지정하지 않은 경우 미포함.
+     * @title Event color
+     * @description Not included if not specified during event creation or editing.
      */
     color?: IKakaoTalk.Color;
   }
 
   /**
-   * @title 일정의 시간 설정
+   * @title Time settings for an event
    */
   export interface Time {
     /**
-     * @title 일정 시작 시각
-     * @description 5분 간격으로 설정 가능
+     * @title Start time of the event
+     * @description Can be set in 5-minute intervals
      */
     start_at?: string & Placeholder<"2023-12-31T15:00:00Z">;
 
     /**
-     * @title 일정 종료 시각
+     * @title End time of the event
      */
     end_at?: string & Placeholder<"2024-01-01T15:00:00Z">;
 
     /**
-     * @title 타임존 설정
+     * @title Timezone setting
      *
-     * TZID 형식.
+     * In TZID format.
      */
     time_zone?: string & tags.Default<"Asia/Seoul">;
 
     /**
-     * @title 종일 일정 여부
+     * @title Whether the event is all-day
      */
     all_day?: boolean & tags.Default<false>;
 
     /**
-     * @title 날짜 기준을 음력으로 설정
+     * @title Whether to set the date based on the lunar calendar
      */
     lunar?: boolean & tags.Default<false>;
   }
 
   /**
-   * 카카오톡 캘린더에서 생성한 일정
+   * @title Event created in KakaoTalk calendar
    *
-   * @title 일정
+   * @title Event
    */
   export interface Event {
     /**
-     * @title 일정 제목
+     * @title Event title
      */
-    title: string & tags.MaxLength<50> & Placeholder<"일정 제목">;
+    title: string & tags.MaxLength<50> & Placeholder<"Event title">;
 
     /**
-     * @title 일정 시간
+     * @title Event time
      */
     time: IKakaoTalk.Time;
 
     /**
-     * @title 일정의 반복 주기
-     * @description RFC5545의 RRULE 형식
+     * @title Recurrence rule for the event
+     * @description In RFC5545 RRULE format
      */
     rrule?: string;
 
     /**
-     * @title 일정 설명
+     * @title Event description
      */
-    description?: string & tags.MaxLength<5000> & Placeholder<"일정 설명">;
+    description?: string &
+      tags.MaxLength<5000> &
+      Placeholder<"Event description">;
 
     /**
-     * @title 일정 장소
+     * @title Event location
      */
     location?: IKakaoTalk.Location;
 
     /**
-     * @title 미리 알림 설정
-     * @description 분 단위이며, 5분 간격으로 최대 2개까지만 설정 가능. 종일 일정인 경우 -1440부터 시작 가능하며, 종일 일정이 아닌 경우 0부터 시작한다.
+     * @title Reminder settings
+     * @description In minutes, can be set in 5-minute intervals, up to 2 reminders. For all-day events, can start from -1440, for non-all-day events, starts from 0.
      */
     reminders?: (number &
       tags.MultipleOf<5> &
@@ -317,28 +319,28 @@ export namespace IKakaoTalk {
       tags.MaxItems<2>;
 
     /**
-     * @title 일정 색상
+     * @title Event color
      */
     color?: IKakaoTalk.Color;
   }
 
   /**
-   * @title 생성된 일정
+   * @title Output of created event
    */
   export interface ICreateEventOutput {
     /**
-     * @title 생성한 일정 ID
+     * @title ID of the created event
      */
     event_id: string;
   }
 
   /**
-   * @title 일정을 생성하기 위한 조건
+   * @title Conditions for creating an event
    */
   export interface ICreateEventInput
     extends ICommon.ISecret<"kakao", ["talk_calendar"]> {
     /**
-     * @title 일정을 생성할 캘린더 ID
+     * @title Calendar ID to create the event in
      */
     calendar_id?: Calendar["id"] &
       Prerequisite<{
@@ -348,49 +350,49 @@ export namespace IKakaoTalk {
       }>;
 
     /**
-     * @title 생성할 일정 정보
+     * @title Information of the event to be created
      */
     event: Event;
   }
 
   /**
-   * @title 일정 장소
+   * @title Location
    */
   export interface Location {
     /**
-     * @title 장소 이름
+     * @title Place Name
      */
     name?: string & tags.MaxLength<50>;
 
     /**
-     * @title 장소 ID
+     * @title Place ID
      */
     location_id?: number;
 
     /**
-     * @title 주소
+     * @title Address
      */
     address?: string;
 
     /**
-     * @title 위도
+     * @title Latitude
      */
     latitude?: number;
 
     /**
-     * @title 경도
+     * @title Longitude
      */
     longitude?: number;
   }
 
   /**
-   * @title 캘린더 이벤트를 조회하기 위한 요청 조건
-   * @description `from`, `to` 쌍 또는 `next_page_token` 둘 중 하나는 필수적으로 들어가야 한다.
+   * @title Request Conditions for Retrieving Calendar Events
+   * @description Either a `from` and `to` pair or `next_page_token` must be included.
    */
   export type IGetEventInput = ICommon.ISecret<"kakao", ["talk_calendar"]> & {
     /**
-     * @title 일정을 조회할 캘린더 ID
-     * @description 값이 없을 시의 기본 값은 전체 캘린더 조회이다.
+     * @title Calendar ID to Retrieve Events
+     * @description Defaults to retrieving all calendars if not specified.
      */
     calender_id?: Calendar["id"] &
       Prerequisite<{
@@ -400,29 +402,29 @@ export namespace IKakaoTalk {
       }>;
 
     /**
-     * @title 일정 조회 기간
-     * @description from과 to가 포함되지 않은 경우 필수이며 next_page_token가 포함된 경우 무시.
+     * @title Time Period for Retrieving Events
+     * @description Required if `from` and `to` are not included, and ignored if `next_page_token` is included.
      */
     preset?:
-      | tags.Constant<"TODAY", { title: "조회 당일" }>
+      | tags.Constant<"TODAY", { title: "The day of the query" }>
       | tags.Constant<
           "THIS_WEEK",
-          { title: "일요일로 시작하는 조회일이 포함된 한 주" }
+          { title: "The week containing the query date starting on Sunday" }
         >
       | tags.Constant<
           "THIS_MONTH",
-          { title: "1일로 시작하는 조회일이 포함된 한 달" }
+          { title: "The month containing the query date starting on the 1st" }
         >;
 
     /**
-     * @title 기한 일자의 타임존
+     * @title Time Zone for Deadline Dates
      *
-     * TZID 형식.
+     * In TZID format.
      */
     time_zone?: string;
 
     /**
-     * @title 응답으로 받을 최대 일정 수
+     * @title Maximum Number of Events to Receive in Response
      */
     limit?: number &
       tags.Type<"int64"> &
@@ -431,115 +433,28 @@ export namespace IKakaoTalk {
   } & (
       | {
           /**
-           * @title 일정을 조회할 기간의 시작 시각
-           * @description from과 to가 포함되지 않은 경우 필수이며 next_page_token가 포함된 경우 무시.
+           * @title Start Time of the Period to Retrieve Events
+           * @description Required if `from` and `to` are not included and ignored if `next_page_token` is included.
            */
           from: string & tags.Format<"date-time">;
 
           /**
-           * @title 일정을 조회할 기간의 종료 시각
-           * @description from과 to가 포함되지 않은 경우 필수이며 next_page_token가 포함된 경우 무시한다. `to`로부터 31일 이내의 값이어야 한다.
+           * @title End Time of the Period to Retrieve Events
+           * @description Required if `from` and `to` are not included and ignored if `next_page_token` is included. Must be within 31 days from `to`.
            */
           to: string & tags.Format<"date-time">;
         }
       | {
           /**
-           * @title 다음 페이지 조회를 위한 조건 토큰
-           * @description from, to, limit 값이 포함된 조회 조건 토큰으로 응답으로 받은 after_url에서 확인 가능
+           * @title Token for Pagination
+           * @description Query condition token including `from`, `to`, and `limit` values, available in the `after_url` received in the response.
            */
           next_page_token: string;
         }
     );
 
   /**
-   * @title 카카오 액세스 토큰을 갱신하기 위한 조건
-   */
-  export interface IRefreshAccessTokenInput {
-    refresh_token: string;
-  }
-
-  /**
-   * 카카오톡의 캘린더에는 두 종류가 있습니다.
-   * 하나는 기본 캘린더로 개인의 캘린더이며, 두번째는 구독 캘린더로 구성원들이 함께 공유하는 캘린더입니다.
-   *
-   * @title 톡 캘린더
-   */
-  export interface IGetCalendarOutput {
-    /**
-     * 개인의 캘린더입니다.
-     * 개인이지만 반드시 나의 것만 보이는 것은 아니며, 친구의 일정에 초대, 일정을 공유 받았다면 조회할 수 있습니다.
-     *
-     * @title 기본 캘린더
-     */
-    calendars?: IKakaoTalk.Calendar[];
-
-    /**
-     * 구독 캘린더입니다.
-     * 카카오톡에 다수의 구성원들이 채팅방을 구성한 경우에 해당 채팅방에서 캘린더를 관리할 수 있습니다.
-     * 내가 속한 채팅방의 캘린더들을 조회할 수 있습니다.
-     *
-     * @title 구독한 구독 캘린더 목록
-     */
-    subscribe_calendars?: IKakaoTalk.SubscribeCalendars[];
-  }
-
-  /**
-   * @title 구독한 구독 캘린더 목록
-   */
-  export interface SubscribeCalendars extends IKakaoTalk.Calendar {
-    /**
-     * @title 채널에서 설정한 구독 캘린더 설명
-     */
-    description?: string;
-
-    /**
-     * @title 구독 캘린더의 프로필 이미지 URL
-     */
-    profile_image_url?: string &
-      tags.Format<"url"> &
-      ContentMediaType<"image/*">;
-
-    /**
-     * @title 구독 캘린더의 말풍선 썸네일 URL
-     */
-    thumbnail_url?: string & tags.Format<"url"> & ContentMediaType<"image/*">;
-  }
-
-  /**
-   * @title 기본 캘린더
-   * @description 서브 캘린더 목록
-   */
-  export interface Calendar {
-    /**
-     * @title 캘린더 ID.
-     *
-     * 유저마다 기본적으로 가지고 있는 캘린더의 경우 `primary`라고 한다.
-     */
-    id: string & tags.Default<"primary"> & Placeholder<"primary">;
-
-    /**
-     * @title 캘린더 이름
-     */
-    name?: string & Placeholder<"캘린더 이름">;
-
-    /**
-     * @title 일정 색상
-     */
-    color?: IKakaoTalk.Color;
-
-    /**
-     * @title 종일 일정이 아닌 일정의 기본 알림 시간
-     */
-    reminder?: number & tags.Type<"int64">;
-
-    /**
-     * @title 종일 일정의 기본 알림 시간
-     */
-    reminder_all_day?: number & tags.Type<"int64">;
-  }
-
-  /**
-   * @title 액세스 토큰 갱신
+   * @title Refresh Access Token
    */
   export type IRefreshAccessTokenOutput = Pick<
     IGetAccessTokenOutput,
@@ -547,23 +462,109 @@ export namespace IKakaoTalk {
   >;
 
   /**
-   * @title 버튼 정보
+   * @title Conditions to Refresh Kakao Access Token
+   */
+  export interface IRefreshAccessTokenInput {
+    refresh_token: string;
+  }
+
+  /**
+   * There are two types of calendars in KakaoTalk:
+   * 1. Basic Calendar: This is a personal calendar. While it is personal, it is not limited to viewing only your own events; you can view events shared by friends or events you were invited to.
+   * 2. Subscription Calendar: This is a shared calendar managed by a group of members in a chat room. You can view the calendars of the chat rooms you are part of.
+   *
+   * @title Talk Calendar
+   */
+  export interface IGetCalendarOutput {
+    /**
+     * Personal calendars.
+     * Although these are personal, they are not limited to just your own events; you can view events from friends' schedules if invited or shared.
+     *
+     * @title Basic Calendar
+     */
+    calendars?: IKakaoTalk.Calendar[];
+
+    /**
+     * Subscription calendars.
+     * These are managed in chat rooms where multiple members have created a group. You can view the calendars of the chat rooms you belong to.
+     *
+     * @title List of Subscribed Calendars
+     */
+    subscribe_calendars?: IKakaoTalk.SubscribeCalendars[];
+  }
+
+  /**
+   * @title List of Subscribed Calendars
+   */
+  export interface SubscribeCalendars extends IKakaoTalk.Calendar {
+    /**
+     * @title Description of the subscribed calendar set by the channel
+     */
+    description?: string;
+
+    /**
+     * @title Profile image URL of the subscribed calendar
+     */
+    profile_image_url?: string &
+      tags.Format<"url"> &
+      ContentMediaType<"image/*">;
+
+    /**
+     * @title Thumbnail URL of the subscribed calendar's speech bubble
+     */
+    thumbnail_url?: string & tags.Format<"url"> & ContentMediaType<"image/*">;
+  }
+
+  /**
+   * @title Basic Calendar
+   * @description List of sub-calendars
+   */
+  export interface Calendar {
+    /**
+     * @title Calendar ID.
+     *
+     * For calendars that users typically have by default, it is referred to as `primary`.
+     */
+    id: string & tags.Default<"primary"> & Placeholder<"primary">;
+
+    /**
+     * @title Calendar Name
+     */
+    name?: string & Placeholder<"Calendar Name">;
+
+    /**
+     * @title Event Color
+     */
+    color?: IKakaoTalk.Color;
+
+    /**
+     * @title Default reminder time for non-all-day events
+     */
+    reminder?: number & tags.Type<"int64">;
+
+    /**
+     * @title Default reminder time for all-day events
+     */
+    reminder_all_day?: number & tags.Type<"int64">;
+  }
+
+  /**
+   * @title Button Information
    */
   export interface Button {
     /**
-     * @title 버튼 이름
-     *
+     * @title Button Name
      */
-    title: string & Placeholder<"버튼 이름">;
+    title: string & Placeholder<"Button Name">;
 
     /**
-     * @title 버튼의 링크
+     * @title Button Link
      */
     link: IKakaoTalk.ButtonLink;
   }
 
   /**
-   * @title 링크 정보
+   * @title Link Information
    */
   export type ButtonLink =
     | IWebLink
@@ -572,54 +573,54 @@ export namespace IKakaoTalk {
     | IiOSAppLink;
 
   /**
-   * @title 웹 링크
+   * @title Web Link
    */
   export interface IWebLink {
     /**
-     * @title 웹 링크
+     * @title Web Link
      */
     web_url: string & tags.Format<"url">;
   }
 
   /**
-   * @title 모바일 링크
+   * @title Mobile Web Link
    */
   export interface IMobileWebLink {
     /**
-     * @title 모바일 링크
+     * @title Mobile Web Link
      */
     mobile_web_url: string & tags.Format<"url">;
   }
 
   /**
-   * @title 안드로이드 앱 링크
+   * @title Android App Link
    */
   export interface IAndroidAppLink {
     /**
-     * @title 앱 링크
-     * @description 해당 값이 없을 경우 mobile_web_url 이용
+     * @title App Link
+     * @description Use `mobile_web_url` if this value is absent
      */
     android_execution_params: string;
   }
 
   /**
-   * @title iOS 앱 링크
+   * @title iOS App Link
    */
   export interface IiOSAppLink {
     /**
-     * @title 앱 링크
-     * @description 해당 값이 없을 경우 mobile_web_url 이용
+     * @title App Link
+     * @description Use `mobile_web_url` if this value is absent
      */
     ios_execution_params: string;
   }
 
   /**
-   * @title 메세지 전송 조건
+   * @title Message Sending Conditions
    */
   export interface ISendKakaoTalkToFriendsInput
     extends ICommon.ISecret<"kakao", ["talk_message"]> {
     /**
-     * @title 친구의 uuid 값 목록
+     * @title List of friends' UUIDs
      */
     receiver_uuids: (Friend["uuid"] &
       Prerequisite<{
@@ -634,48 +635,48 @@ export namespace IKakaoTalk {
       tags.MaxItems<5>;
 
     /**
-     * @title 전송할 메시지
+     * @title Message to send
      */
     message: ITextMemoInput["text"];
   }
 
   /**
-   * @title 메시지 전송 결과
+   * @title Message Sending Result
    */
   export interface ISendKakaoTalkToFriendsOutput {
     /**
-     * @title 전송에 성공한 친구 uuid 목록
+     * @title List of successfully sent friend UUIDs
      */
     successful_receiver_uuids?: string[] & tags.MaxItems<5>;
 
     /**
-     * @title 실패 정보
+     * @title Failure Information
      */
     failure_info?: failureInfo;
   }
 
   /**
-   * @title 실패 정보
+   * @title Failure Information
    */
   export interface failureInfo {
     /**
-     * @title 에러 코드
+     * @title Error Code
      */
     code: number;
 
     /**
-     * @title 에러 메시지
+     * @title Error Message
      */
     msg: string;
 
     /**
-     * @title 해당 에러 코드로 실패한 친구 uuid 목록
+     * @title List of friend UUIDs that failed with the given error code
      */
     receiver_uuids: string[] & tags.MaxItems<5>;
   }
 
   /**
-   * @title 메시지 전송 조건
+   * @title Message Sending Conditions
    */
   export interface ISendKakaoTalkCommerceInput
     extends ICommon.ISecret<
@@ -683,13 +684,13 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 커머스 템플릿
+     * @title Commerce Template
      */
     template_object: ICommerceMemoInput;
   }
 
   /**
-   * @title 메시지 전송 조건
+   * @title Message Sending Conditions
    */
   export interface ISendKakaoTalkLocationInput
     extends ICommon.ISecret<
@@ -697,13 +698,13 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 위치 템플릿
+     * @title Location Template
      */
     template_object: ILocationMemoInput;
   }
 
   /**
-   * @title 메시지 전송 조건
+   * @title Message Sending Conditions
    */
   export interface ISendKakaoTalkListInput
     extends ICommon.ISecret<
@@ -711,13 +712,13 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 리스트 템플릿
+     * @title List Template
      */
     template_object: IListMemoInput;
   }
 
   /**
-   * @title 메시지 전송 조건
+   * @title Message Sending Conditions
    */
   export interface ISendKakaoTalkFeedInput
     extends ICommon.ISecret<
@@ -725,13 +726,13 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 피드 템플릿
+     * @title Feed Template
      */
     template_object: IFeedMemoInput;
   }
 
   /**
-   * @title 메시지 전송 조건
+   * @title Message Sending Conditions
    */
   export interface ISendKakaoTalkTextInput
     extends ICommon.ISecret<
@@ -739,79 +740,79 @@ export namespace IKakaoTalk {
       ["talk_message", "profile_image", "profile_nickname"]
     > {
     /**
-     * @title 텍스트 템플릿
+     * @title Text Template
      */
     template_object: ITextMemoInput;
   }
 
   /**
-   * @title 모든 템플릿이 공통으로 가진 값
+   * @title Common Values for All Templates
    */
   export interface MemoBase {
     /**
-     * @title 메시지의 콘텐츠
+     * @title Message Content
      */
     content: IKakaoTalk.Content;
 
     /**
-     * @title 버튼 이름
+     * @title Button Title
      */
     button_title?: string;
   }
 
   /**
-   * @title 커머스형 템플릿
+   * @title Commerce Template
    */
   export interface ICommerceMemoInput extends MemoBase {
     /**
-     * @title 커머스 타입
+     * @title Commerce Type
      */
     object_type: "commerce" & Placeholder<"commerce">;
 
     /**
-     * @title 상품 이름 및 가격 정보
+     * @title Product Name and Pricing Information
      */
     commerce: IKakaoTalk.Commerce;
 
     /**
-     * @title 버튼 목록
-     * @description 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용하며 button_title보다 우선시된다.
+     * @title List of Buttons
+     * @description Used to customize button titles and links. Supports two buttons and takes precedence over `button_title`.
      */
     buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   export type Commerce = {
     /**
-     * @title 상품 이름 및 제목
+     * @title Product Name and Title
      */
     product_name?: string;
 
     /**
-     * @title 정상 가격
+     * @title Regular Price
      */
     regular_price: number & tags.Type<"int64">;
 
     /**
-     * @title 할인된 가격
+     * @title Discounted Price
      */
     discount_price?: number & tags.Type<"int64">;
 
     /**
-     * @title 통화 단위 또는 기호
+     * @title Currency Unit or Symbol
      */
     currency_unit?: string & tags.Default<"원">;
 
     /**
-     * @title 통화 단위 표시 위치
+     * @title Currency Unit Position
      */
     currency_unit_position?:
-      | tags.Constant<0, { title: "가격 뒤에 표시" }>
-      | tags.Constant<1, { title: "가격 앞에 표시" }>;
+      | tags.Constant<0, { title: "Displayed after price" }>
+      | tags.Constant<1, { title: "Displayed before price" }>;
   } & (
     | {
         /**
-         * @title 할인률
-         * @description 0부터 100까지의 숫자
+         * @title Discount Rate
+         * @description A number between 0 and 100
          */
         discount_rate?: number &
           tags.Type<"int64"> &
@@ -820,317 +821,317 @@ export namespace IKakaoTalk {
       }
     | {
         /**
-         * @title 정액 할인 가격
-         * @description 할인율과 동시 사용 불가
+         * @title Fixed Discount Price
+         * @description Cannot be used together with discount rate
          */
         fixedDiscountPrice?: number & tags.Type<"int64"> & tags.Minimum<0>;
       }
   );
 
   /**
-   * @title 위치형 템플릿
+   * @title Location Template
    */
   export interface ILocationMemoInput extends MemoBase {
     /**
-     * @title 위치 타입
+     * @title Location Type
      */
     object_type: "location" & Placeholder<"location">;
 
     /**
-     * @title 공유할 위치의 주소
+     * @title Address of the Location to Share
      */
     address: string;
 
     /**
-     * @title 카카오톡 내의 지도 뷰에서 사용되는 타이틀
+     * @title Title Used in KakaoTalk Map View
      */
     address_title?: string;
 
     /**
-     * @title 부가적인 소셜 정보
+     * @title Additional Social Information
      */
     social?: IKakaoTalk.Social;
 
     /**
-     * @title 버튼 목록
-     * @description 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용하며 button_title보다 우선시된다.
+     * @title List of Buttons
+     * @description Used to customize button titles and links. Supports two buttons and takes precedence over `button_title`.
      */
     buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   /**
-   * @title 리스트형 템플릿
+   * @title List Template
    */
   export interface IListMemoInput extends Pick<MemoBase, "button_title"> {
     /**
-     * @title 리스트 타입
+     * @title List Type
      */
     object_type: "list" & Placeholder<"list">;
 
     /**
-     * @title 리스트 상단에 노출되는 메인 타이틀
+     * @title Main Title Displayed at the Top of the List
      */
     header_title: string & tags.MaxLength<200>;
 
     /**
-     * @title 헤더 타이틀 내용에 해당하는 링크 정보
+     * @title Link Information Corresponding to the Header Title
      */
     header_link: IKakaoTalk.ButtonLink;
 
     /**
-     * @title 리스트에 노출되는 콘텐츠 목록
+     * @title List of Contents Displayed in the List
      */
     contents: IKakaoTalk.Content[] & tags.MinItems<2> & tags.MaxItems<3>;
 
     /**
-     * @title 버튼 목록
-     * @description 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용하며 button_title보다 우선시된다.
+     * @title List of Buttons
+     * @description Used to customize button titles and links. Supports two buttons and takes precedence over `button_title`.
      */
     buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   /**
-   * @title 캘린더형 템플릿
+   * @title Calendar Template
    */
   export interface ICalendarMemoInput {
     /**
-     * @title 캘린더 타입
+     * @title Calendar Type
      */
     object_type: "calendar";
 
     /**
-     * @title `id`의 타입
+     * @title ID Type
      */
     id_type:
-      | tags.Constant<"event", { title: "공개 일정" }>
-      | tags.Constant<"calendar", { title: "구독 캘린더" }>;
+      | tags.Constant<"event", { title: "Public Event" }>
+      | tags.Constant<"calendar", { title: "Subscribed Calendar" }>;
 
     /**
-     * @title 공개 일정 혹은 구독 캘린더의 ID
+     * @title ID of the Public Event or Subscribed Calendar
      */
     id: string;
 
     /**
-     * @title 일정 제목과 설명
+     * @title Event Title and Description
      */
     content: IKakaoTalk.Content;
 
     /**
-     * @title 사용자 정의 버튼 정보
-     * @description 캘린더 메시지는 기본적으로 공개 일정 추가 또는 구독 캘린더 구독을 위한 기본 버튼을 제공함. 따라서 1개의 사용자 정의 버튼을 선택적으로 추가 가능.
+     * @title Custom Button Information
+     * @description Calendar messages provide default buttons for adding public events or subscribing to calendars. One custom button can be optionally added.
      */
     buttons?: IKakaoTalk.Button[] & tags.MaxItems<1>;
   }
 
   /**
-   * @title 피드형 템플릿
+   * @title Feed Template
    */
   export interface IFeedMemoInput extends MemoBase {
     /**
-     * @title 피드 타입
+     * @title Feed Type
      */
     object_type: "feed";
 
     /**
-     * @title 아이템 영역에 포함할 콘텐츠
+     * @title Content to Include in the Item Area
      */
     item_content: IKakaoTalk.ItemContent;
 
     /**
-     * @title 콘텐츠에 대한 소셜 정보
+     * @title Social Information About the Content
      */
     social?: IKakaoTalk.Social;
 
     /**
-     * @title 버튼 목록
-     * @description 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용하며 button_title보다 우선시된다.
+     * @title List of Buttons
+     * @description Used to customize button titles and links. Supports two buttons and takes precedence over `button_title`.
      */
     buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   /**
-   * @title 아이템 콘텐츠
+   * @title Item Content
    */
   export interface ItemContent {
     /**
-     * @title 헤더 또는 프로필 영역에 출력될 텍스트
-     * @description profile_image_url 값이 없을 경우, 볼드(Bold)체로 된 제목만 담은 헤더 형태로 출력됨.
+     * @title Text to Display in the Header or Profile Area
+     * @description If `profile_image_url` is absent, it will be displayed as a bold header containing only the title.
      */
     profile_text?: string & tags.MaxLength<16>;
 
     /**
-     * @title 프로필 이미지
-     * @description 작은 원형의 프로필 사진 형태로 출력됨.
+     * @title Profile Image
+     * @description Displayed as a small circular profile photo.
      */
     profile_image_url?: string & tags.Format<"url">;
 
     /**
-     * @title 아이템의 이미지
-     * @description iOS 108*108, Android 98*98 크기. 1:1 비율이 아닌 이미지는 센터 크롭(Center crop) 방식으로 재조정됨.
+     * @title Item Image
+     * @description iOS 108x108, Android 98x98 size. Images not in a 1:1 ratio will be center cropped.
      */
     title_image_url?: string & tags.Format<"url">;
 
     /**
-     * @title 아이템의 제목
-     * @description 최대 2줄
+     * @title Item Title
+     * @description Maximum of 2 lines.
      */
     title_image_text?: string & tags.MaxLength<24>;
 
     /**
-     * @title 카테고리
-     * @description 최대 1줄
+     * @title Category
+     * @description Maximum of 1 line.
      */
     title_image_category?: string & tags.MaxLength<14>;
 
     /**
-     * @title 아이템 목록
-     * @description 각 텍스트 아이템 정보
+     * @title List of Items
+     * @description Information for each text item.
      */
     items?: IKakaoTalk.ItemInfo[] & tags.MaxItems<5>;
 
     /**
-     * @title 주문금액
+     * @title Total Amount
      */
     sum?: string & tags.MaxLength<6>;
 
     /**
-     * @title 가격 합산 정보
+     * @title Price Summary Information
      */
     sum_op?: string & tags.MaxLength<11>;
   }
 
   /**
-   * @title 아이템 정보
+   * @title Item Information
    */
   export interface ItemInfo {
     /**
-     * @title 아이템 이름
+     * @title Item Name
      */
     item: string & tags.MaxLength<6>;
 
     /**
-     * @title 아이템 가격
+     * @title Item Price
      */
     item_op: string & tags.MaxLength<14>;
   }
 
   /**
-   * @title 콘텐츠
+   * @title Content
    *
-   * title, image_url, description 중 하나 필수.
+   * One of title, image_url, or description is required.
    */
   export type Content = (
     | {
         /**
-         * @title 타이틀.
+         * @title Title.
          */
         title: string;
       }
     | {
         /**
-         * @title 이미지 URL
-         * @description 이미지의 크기는 `5MB`를 초과해선 안 된다.
+         * @title Image URL
+         * @description The image size must not exceed `5MB`.
          */
         image_url: string & tags.Format<"url">;
       }
     | {
         /**
-         * @title 상세 설명
-         * @description title과 합쳐 최대 4줄 표시.
+         * @title Detailed Description
+         * @description Combined with title, displayed up to 4 lines.
          */
         description: string;
       }
   ) & {
     /**
-     * @title 이미지 너비
-     * @description 픽셀 단위
+     * @title Image Width
+     * @description In pixels.
      */
     image_width?: number & tags.Type<"int32"> & tags.Minimum<200>;
 
     /**
-     * @title 이미지 높이
-     * @description 픽셀 단위
+     * @title Image Height
+     * @description In pixels.
      */
     image_height?: number & tags.Type<"int32"> & tags.Minimum<200>;
 
     /**
-     * @title 클릭 시 이동할 링크 정보
+     * @title Link Information for Redirection
      */
     link: IKakaoTalk.ButtonLink;
   };
 
   /**
-   * @title 소셜 정보
-   * @description 5개의 속성 중 최대 3개까지만 표시한다. 우선 순위는 Like > Comment > Shared > View > Subscriber 순서.
+   * @title Social Information
+   * @description Up to 3 out of 5 attributes will be displayed. Priority is Like > Comment > Shared > View > Subscriber.
    */
   export interface Social {
     /**
-     * @title 콘텐츠의 좋아요 수
+     * @title Number of Likes on the Content
      */
     like_count?: number & tags.Type<"int64">;
 
     /**
-     * @title 콘텐츠의 댓글 수
+     * @title Number of Comments on the Content
      */
     comment_count?: number & tags.Type<"int64">;
 
     /**
-     * @title 콘텐츠의 공유 수
+     * @title Number of Shares of the Content
      */
     shared_count?: number & tags.Type<"int64">;
 
     /**
-     * @title 콘텐츠의 조회 수
+     * @title Number of Views of the Content
      */
     view_count?: number & tags.Type<"int64">;
 
     /**
-     * @title 콘텐츠의 구독 수
+     * @title Number of Subscribers to the Content
      */
     subscriber_count?: number & tags.Type<"int64">;
   }
 
   /**
-   * @title 텍스트형 템플릿
+   * @title Text Template
    */
   export interface ITextMemoInput extends Pick<MemoBase, "button_title"> {
     /**
-     * @title 텍스트 타입
+     * @title Text Type
      */
     object_type: "text";
 
     /**
-     * @title 본문
+     * @title Body Text
      */
     text: string & tags.MaxLength<200>;
 
     /**
-     * @title 링크
+     * @title Link
      */
     link: IWebLink & IMobileWebLink;
 
     /**
-     * @title 버튼 목록
-     * @description 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용하며 button_title보다 우선시된다.
+     * @title List of Buttons
+     * @description Used to customize button titles and links. Supports two buttons and takes precedence over `button_title`.
      */
     buttons?: IKakaoTalk.Button[] & tags.MaxItems<2>;
   }
 
   export interface IMemoOutput {
     /**
-     * @title 응답 코드
+     * @title Response Code
      */
     result_code: tags.Constant<
       0,
       {
-        title: "성공";
-        description: "메시지 전송에 성공한 경우를 의미";
+        title: "Success";
+        description: "Indicates successful message sending";
       }
     >;
   }
 
   /**
-   * @title 일정 색상
+   * @title Schedule Color
    */
   export type Color =
     | tags.Constant<"BLUE", { title: "BLUE"; description: "2C88DE" }>
