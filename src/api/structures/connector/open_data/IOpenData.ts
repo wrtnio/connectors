@@ -380,6 +380,7 @@ export namespace IKoreaMeteorologicalAdministration {
      * @title Definition of nx, ny
      *
      * use 'latitude_and_longitude' or 'grid_coordinates'.
+     * This property can never be used except for these two strings.
      */
     type:
       | tags.Constant<
@@ -454,7 +455,7 @@ export namespace IKoreaMeteorologicalAdministration {
   }
 
   /**
-   * Processed results from Lütton
+   * Processed results
    *
    * @title Weather query result
    */

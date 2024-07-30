@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace SweetTrackerProvider {
   export async function getRecommendedCompanyList(
@@ -8,7 +9,10 @@ export namespace SweetTrackerProvider {
   ): Promise<ISweetTracker.IGetRecommendedCompanyListOutput> {
     try {
       const queryParams =
-        Object.entries(input)
+        Object.entries({
+          ...input,
+          t_key: ConnectorGlobal.env.TEST_SWEET_TRACKER_KEY,
+        })
           .map(([key, value]) => `${key}=${value}`)
           .join("&") ?? "";
 
@@ -40,7 +44,10 @@ export namespace SweetTrackerProvider {
   ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
     try {
       const queryParams =
-        Object.entries(input)
+        Object.entries({
+          ...input,
+          t_key: ConnectorGlobal.env.TEST_SWEET_TRACKER_KEY,
+        })
           .map(([key, value]) => `${key}=${value}`)
           .join("&") ?? "";
 
