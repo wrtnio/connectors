@@ -247,6 +247,15 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * There are two types here.
+   * One is 'latitude_and_longitude' and the other is 'grid_coordinates'.
+   * This function uses grid coordinate values to express Korean geographical conditions inside,
+   * so grid coordinates must be entered.
+   * However, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,
+   * you must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.
+   * If the latitude hardness value is delivered,
+   * it is converted to grid coordinate value from the inside and used.
+   *
    * @summary Retrieve today's weather from the Korea Meteorological Administration
    *
    * @param input DTO for weather query location

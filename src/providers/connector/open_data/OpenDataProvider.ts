@@ -337,7 +337,14 @@ export namespace OpenDataProvider {
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = `00`;
 
-      const { x: nx, y: ny } = dfs_xy_conv("toXY", input.ny, input.nx);
+      let nx: number | null = input.nx;
+      let ny: number | null = input.ny;
+      if (input.type === "latitude_and_longitude") {
+        const { x, y } = dfs_xy_conv("toXY", input.ny, input.nx);
+        nx = x;
+        ny = y;
+      }
+
       const queryObject = {
         serviceKey,
         nx,

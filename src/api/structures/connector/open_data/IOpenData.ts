@@ -377,12 +377,25 @@ export namespace IKoreaMeteorologicalAdministration {
    */
   export interface IGetVillageForecastInformationInput {
     /**
-     * @title Longitude
+     * @title Definition of nx, ny
+     */
+    type:
+      | tags.Constant<
+          "latitude_and_longitude",
+          { title: "latitude and longitude" }
+        >
+      | tags.Constant<
+          "grid_coordinates",
+          { title: "Grid Coordinates of Korean" }
+        >;
+
+    /**
+     * @title Longitude or x_position
      */
     nx: number;
 
     /**
-     * @title Latitude
+     * @title Latitude or y_position
      */
     ny: number;
   }
