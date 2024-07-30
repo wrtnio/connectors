@@ -42,23 +42,15 @@ export class GoogleFlightController {
    * @returns 항공편 검색 결과
    */
   @Standalone()
-  @core.TypedRoute.Post("/arrival/:departureToken")
+  @core.TypedRoute.Post("/arrival")
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
   // )
   @ApiTags("Google Flight")
   async arrival(
-    @core.TypedBody() input: IGoogleFlight.IRequest,
-    @Prerequisite({
-      neighbor: () => GoogleFlightController.prototype.departure,
-      jmesPath: "[].{value:departure_token, label:departure_token || ''}",
-    })
-    @core.TypedParam("departureToken")
-    departureToken: string,
+    @core.TypedBody() input: IGoogleFlight.IRequestArrival,
   ): Promise<IGoogleFlight.IResponse> {
-    return retry(() =>
-      this.googleFlightProvider.searchForArrival(input, departureToken),
-    )();
+    return retry(() => this.googleFlightProvider.searchForArrival(input))();
   }
 
   /**
@@ -73,22 +65,14 @@ export class GoogleFlightController {
    * @returns 항공편 선택 결과
    */
   @Standalone()
-  @core.TypedRoute.Post("/final/:bookingToken")
+  @core.TypedRoute.Post("/final")
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
   // )
   @ApiTags("Google Flight")
   async final(
-    @core.TypedBody() input: IGoogleFlight.IRequest,
-    @Prerequisite({
-      neighbor: () => GoogleFlightController.prototype.arrival,
-      jmesPath: "[].{value:booking_token, label:booking_token || ''}",
-    })
-    @core.TypedParam("bookingToken")
-    bookingToken: string,
+    @core.TypedBody() input: IGoogleFlight.IRequestFinal,
   ): Promise<IGoogleFlight.IFinalResponse> {
-    return retry(() =>
-      this.googleFlightProvider.searchForFinal(input, bookingToken),
-    )();
+    return retry(() => this.googleFlightProvider.searchForFinal(input))();
   }
 }

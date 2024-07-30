@@ -110,6 +110,40 @@ export namespace IGoogleFlight {
     max_price?: number & tags.Type<"int32">;
   }
 
+  export interface IRequestArrival extends IRequest {
+    /**
+     * 돌아오는 항공편 검색을 위한 토큰입니다.
+     *
+     * @title 돌아오는 항공편 검색 토큰
+     */
+    departure_token: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-flight/departure";
+        jmesPath: JMESPath<
+          IGoogleFlight.IResponse,
+          "[].{value:departure_token, label:'도착 항공편 검색을 위한 토큰'}"
+        >;
+      }>;
+  }
+
+  export interface IRequestFinal extends IRequest {
+    /**
+     * 항공편 최종 확인을 위한 토큰입니다.
+     *
+     * @title 항공편 최종 확인 토큰
+     */
+    booking_token: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-flight/arrival";
+        jmesPath: JMESPath<
+          IGoogleFlight.IResponse,
+          "[].{value:booking_token, label:'항공편 최종 확인을 위한 토큰'}"
+        >;
+      }>;
+  }
+
   /**
    * 항공권 검색 결과입니다.
    *
