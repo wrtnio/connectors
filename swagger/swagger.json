@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.43",
+    "version": "0.1.44",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -3904,8 +3904,8 @@
             }
           }
         },
-        "summary": "송장 번호에 매칭되는 택배사 목록",
-        "description": "송장번호에 매칭되는 택배사 목록을 조회합니다.",
+        "summary": "송장 번호에 매칭되는 택배사 목록 조회",
+        "description": "송장번호에 매칭되는 택배사 목록을 조회합니다\n\n송장 조회를 하기 위해서는 택배사 코드가 필수적입니다.\n따라서 유저가 송장번호는 알고 자신의 택배를 전달해줄 택배사가 어딘지 모르면 송장 조회를 할 수 없습니다.\n이 커넥터는 이러한 문제를 해결하기 위해 송장번호에 맞는 택배사를 추론해주는 기능을 제공합니다.\n다만 이 기능을 호출해도 택배사일 가능성이 있는 여러 개의 택배사로 나올 수도 있기 때문에 어느 회사가 이 택배를 운송해줄지는 알 수 없습니다.\n\n물론, 리스트에 대상이 1개라면 그 택배사일 가능성이 거의 100% 일 것입니다.",
         "x-wrtn-standalone": true
       }
     },
@@ -3928,7 +3928,7 @@
           }
         },
         "summary": "택배사 목록 조회",
-        "description": "택배사 목록을 조회합니다.",
+        "description": "택배사 목록을 조회합니다\n\n대한민국 국내, 국외의 택배사들을 모두 조회합니다.\n추후 송장번호를 통한 배송 조회를 할 때에는 택배사 코드가 함께 필요하기 때문에 먼저 택배사 목록부터 조회해야 합니다.\n택배사 목록을 조회한 후 자신의 택배사를 찾아서 해당 택배사의 코드를 송장 조회 시에 제공해주면 됩니다.",
         "x-wrtn-standalone": true
       }
     },
@@ -3962,7 +3962,7 @@
           }
         },
         "summary": "송장 조회",
-        "description": "송장 번호를 조회합니다."
+        "description": "송장 번호를 조회합니다\n\n송장을 조회하기 위해서는 자신이 조회하고자 하는 송장 번호 외에도 택배사 코드가 필요합니다.\n내 택배를 운송해줄 택배사가 어딘지 안다면 택배사를 조회하여 택배사 이름이 일치하는 택배사로부터 택배사 코드를 가져오면 됩니다.\n만약 송장 번호는 알지만 택배사 코드는 모르는 상태라면 '송장 번호에 매칭되는 택배사 목록 조회' 를 사용하여 자신의 택배를 운송해줄 택배사를 유추해볼 수 있습니다.\n택배를 조회하면 현재 택배가 어디까지 도달하였는지 그 위치와 시간, 그리고 그 택배를 운송해주는 담당자가 누군지를 알 수 있습니다.\n경우에 따라 전화번호가 있을 수도 있지만 절대적인 것은 아닙니다.\n또한, 쿠팡과 같이 커머스 업체에서 직배송하는 경우에는 송장 번호가 있어도 조회할 수 없는 경우도 있습니다."
       }
     },
     "/connector/hancell/sheet": {
@@ -5262,7 +5262,7 @@
           }
         },
         "summary": "Retrieve today's weather from the Korea Meteorological Administration",
-        "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types here.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.",
+        "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -14007,16 +14007,11 @@
         "properties": {
           "t_invoice": {
             "type": "string",
-            "title": "송장번호."
-          },
-          "t_key": {
-            "type": "string",
-            "title": "sweet-tracker로부터 발급받은 키."
+            "title": "송장번호"
           }
         },
         "required": [
-          "t_invoice",
-          "t_key"
+          "t_invoice"
         ]
       },
       "ISweetTracker.IGetRecommendedCompanyListOutput": {
@@ -14027,13 +14022,13 @@
             "items": {
               "$ref": "#/components/schemas/OmitISweetTracker.CompanyInternational"
             },
-            "title": "택배사 목록."
+            "title": "택배사 목록"
           }
         },
         "required": [
           "Recommend"
         ],
-        "title": "송장 번호에 매칭되는 택배사 목록 DTO."
+        "title": "송장 번호에 매칭되는 택배사 목록 DTO"
       },
       "OmitISweetTracker.CompanyInternational": {
         "type": "object",
@@ -14041,11 +14036,11 @@
           "Code": {
             "type": "string",
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "택배사가 가지는 고유한 코드 값."
+            "title": "택배사가 가지는 고유한 코드 값"
           },
           "Name": {
             "type": "string",
-            "title": "택배사 이름."
+            "title": "택배사 이름"
           }
         },
         "required": [
@@ -14062,13 +14057,13 @@
             "items": {
               "$ref": "#/components/schemas/ISweetTracker.Company"
             },
-            "title": "택배사 목록."
+            "title": "택배사 목록"
           }
         },
         "required": [
           "Company"
         ],
-        "title": "택배사 조회 응답 DTO."
+        "title": "택배사 조회 응답 DTO"
       },
       "ISweetTracker.Company": {
         "type": "object",
@@ -14076,7 +14071,7 @@
           "Code": {
             "type": "string",
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "택배사가 가지는 고유한 코드 값."
+            "title": "택배사가 가지는 고유한 코드 값"
           },
           "International": {
             "oneOf": [
@@ -14087,11 +14082,11 @@
                 "const": "false"
               }
             ],
-            "title": "국제 배송 여부."
+            "title": "국제 배송 여부"
           },
           "Name": {
             "type": "string",
-            "title": "택배사 이름."
+            "title": "택배사 이름"
           }
         },
         "required": [
@@ -14105,21 +14100,16 @@
         "properties": {
           "t_invoice": {
             "type": "string",
-            "title": "송장번호."
-          },
-          "t_key": {
-            "type": "string",
-            "title": "sweet-tracker로부터 발급받은 키."
+            "title": "송장번호"
           },
           "t_code": {
             "type": "string",
-            "title": "택배사 코드.",
-            "description": "택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다."
+            "title": "택배사 코드",
+            "description": "택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다"
           }
         },
         "required": [
           "t_invoice",
-          "t_key",
           "t_code"
         ]
       },
@@ -14128,42 +14118,40 @@
         "properties": {
           "senderName": {
             "type": "string",
-            "title": "보내는 사람 이름."
+            "title": "보내는 사람 이름"
           },
           "receiverAddr": {
             "type": "string",
-            "title": "받는 사람 주소."
+            "title": "받는 사람 주소"
           },
           "firstDetail": {
             "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
-            "title": "경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다",
-            "description": "경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다."
+            "description": "경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다"
           },
           "level": {
             "$ref": "#/components/schemas/ISweetTracker.Level",
-            "title": "진행 단계."
+            "title": "진행 단계"
           },
           "lastDetail": {
             "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
-            "title": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다",
-            "description": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다."
+            "description": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다"
           },
           "estimate": {
             "type": "string",
-            "title": "배송 예정 시간.",
-            "description": "'15시~17시' 형식의 텍스트."
+            "title": "배송 예정 시간",
+            "description": "'15시~17시' 형식의 텍스트"
           },
           "itemImage": {
             "type": "string",
-            "title": "상품 이미지 URL."
+            "title": "상품 이미지 URL"
           },
           "adUrl": {
             "type": "string",
-            "title": "택배사에서 광고용으로 사용하는 주소."
+            "title": "택배사에서 광고용으로 사용하는 주소"
           },
           "lastStateDetail": {
             "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
-            "title": "lastStateDetail."
+            "title": "lastStateDetail"
           },
           "zipCode": {
             "oneOf": [
@@ -14174,11 +14162,11 @@
                 "type": "string"
               }
             ],
-            "title": "우편주소."
+            "title": "우편주소"
           },
           "invoiceNo": {
             "type": "string",
-            "title": "운송장 번호."
+            "title": "운송장 번호"
           },
           "completeYN": {
             "oneOf": [
@@ -14189,7 +14177,7 @@
                 "$ref": "#/components/schemas/ConstantN__type"
               }
             ],
-            "title": "배송 완료 여부."
+            "title": "배송 완료 여부"
           },
           "orderNumber": {
             "oneOf": [
@@ -14200,23 +14188,23 @@
                 "type": "string"
               }
             ],
-            "title": "주문 번호."
+            "title": "주문 번호"
           },
           "complete": {
             "type": "boolean",
-            "title": "배송 완료 여부."
+            "title": "배송 완료 여부"
           },
           "recipient": {
             "type": "string",
-            "title": "수령인 정보."
+            "title": "수령인 정보"
           },
           "receiverName": {
             "type": "string",
-            "title": "받는 사람."
+            "title": "받는 사람"
           },
           "result": {
             "type": "string",
-            "title": "조회 결과."
+            "title": "조회 결과"
           },
           "productInfo": {
             "oneOf": [
@@ -14227,11 +14215,11 @@
                 "type": "string"
               }
             ],
-            "title": "상품 정보."
+            "title": "상품 정보"
           },
           "itemName": {
             "type": "string",
-            "title": "상품 이름."
+            "title": "상품 이름"
           }
         },
         "required": [
@@ -14272,7 +14260,7 @@
           },
           "kind": {
             "type": "string",
-            "title": "진행 상태."
+            "title": "진행 상태"
           },
           "level": {
             "$ref": "#/components/schemas/ISweetTracker.Level",
@@ -14280,11 +14268,11 @@
           },
           "manName": {
             "type": "string",
-            "title": "배송기사 이름."
+            "title": "배송기사 이름"
           },
           "manPic": {
             "type": "string",
-            "title": "배송기사 전화번호."
+            "title": "배송기사 전화번호"
           },
           "remark": {
             "oneOf": [
@@ -14295,27 +14283,27 @@
                 "type": "string"
               }
             ],
-            "title": "비고."
+            "title": "비고"
           },
           "telno": {
             "type": "string",
-            "title": "배송기사 전화번호."
+            "title": "배송기사 전화번호"
           },
           "telno2": {
             "type": "string",
-            "title": "배송기사 전화번호."
+            "title": "배송기사 전화번호"
           },
           "time": {
             "type": "number",
-            "title": "진행 시간."
+            "title": "진행 시간"
           },
           "timeString": {
             "type": "string",
-            "title": "진행 시간."
+            "title": "진행 시간"
           },
           "where": {
             "type": "string",
-            "title": "진행 위치."
+            "title": "진행 위치"
           }
         },
         "required": [
@@ -14387,12 +14375,12 @@
       },
       "ConstantY__type": {
         "const": "Y",
-        "title": "배송 완료.",
+        "title": "배송 완료",
         "description": "배송이 완료된 경우에는 Y로 표기된다."
       },
       "ConstantN__type": {
         "const": "N",
-        "title": "배송 중.",
+        "title": "배송 중",
         "description": "배송이 완료되지 않은 경우에는 N으로 표기된다."
       },
       "IHancell.IUpsertSheetInput": {
@@ -25269,7 +25257,7 @@
                 "title": "Grid Coordinates of Korean"
               }
             ],
-            "title": "Definition of nx, ny\n\nuse 'latitude_and_longitude' or 'grid_coordinates'."
+            "title": "Definition of nx, ny\n\nuse 'latitude_and_longitude' or 'grid_coordinates'.\nThis property can never be used except for these two strings."
           },
           "nx": {
             "type": "number",
@@ -25328,7 +25316,7 @@
           "obsrValue"
         ],
         "title": "Weather query result",
-        "description": "Processed results from Lütton"
+        "description": "Processed results"
       },
       "IKoreaMeteorologicalAdministration.CategoryType": {
         "oneOf": [
