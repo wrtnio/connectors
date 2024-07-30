@@ -521,11 +521,15 @@ export namespace IImweb {
   export interface Credential {
     /**
      * @title API Key
+     *
+     * This can be found in the configuration settings on the `Imweb`.
      */
     key: string;
 
     /**
-     * @title API Secret
+     * @title API Secret Key
+     *
+     * This can be found in the configuration settings on the `Imweb`.
      */
     secret: string;
   }
