@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "아임웹",
-    "version": "0.1.42",
+    "version": "0.1.43",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -119,7 +119,14 @@
             "title": "Category codes"
           },
           "custom_prod_code": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Custom product code"
           },
           "name": {
@@ -137,9 +144,9 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "url"
+              "format": "uri"
             },
-            "title": "File urls"
+            "title": "File urls\n\nCan't call it right away because it's not a completed URL."
           },
           "content": {
             "type": "string",
@@ -147,7 +154,13 @@
           },
           "simple_content": {
             "type": "string",
-            "title": "Simple description of product's content"
+            "title": "Simple description of product's content",
+            "description": "Text that contains html tags and is generally difficult to use"
+          },
+          "simple_content_plain": {
+            "type": "string",
+            "title": "Simple description of product's content",
+            "description": "Pure string except html tag"
           },
           "use_mobile_prod_content": {
             "type": "boolean",
@@ -214,10 +227,7 @@
             "title": "Whether or not there is no price"
           },
           "point": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IImweb.PointConfigData"
-            },
+            "$ref": "#/components/schemas/IImweb.PointConfigData",
             "title": "Set up a reserve"
           },
           "product_discount_options": {
@@ -238,14 +248,11 @@
             "title": "Set Discount Usage."
           },
           "weight": {
-            "type": "number",
+            "type": "string",
             "title": "Product Weight"
           },
           "stock": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IImweb.ProdStockConfigData"
-            },
+            "$ref": "#/components/schemas/IImweb.ProdStockConfigData",
             "title": "Product Stock Information"
           },
           "origin": {
@@ -261,31 +268,15 @@
             "title": "Brand"
           },
           "badge": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IImweb.ProdBadgeData"
-            },
+            "$ref": "#/components/schemas/IImweb.ProdBadgeData",
             "title": "Badge Information"
           },
-          "seo": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IImweb.ProdSeoData"
-            },
-            "title": "SEO Related Information"
-          },
           "sync": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IImweb.ProdSyncData"
-            },
+            "$ref": "#/components/schemas/IImweb.ProdSyncData",
             "title": "External Integration Information"
           },
           "etc": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IImweb.ProdEtcData"
-            },
+            "$ref": "#/components/schemas/IImweb.ProdEtcData",
             "title": "Miscellaneous Settings"
           },
           "prodinfo": {
@@ -334,15 +325,11 @@
           "image_url",
           "content",
           "simple_content",
+          "simple_content_plain",
           "use_mobile_prod_content",
-          "mobile_content",
           "prod_type",
-          "prod_type_data",
           "use_pre_sale",
-          "pre_sale_start_date",
-          "pre_sale_end_date",
           "price",
-          "price_org",
           "price_tax",
           "price_none",
           "point",
@@ -353,7 +340,6 @@
           "maker",
           "brand",
           "badge",
-          "seo",
           "sync",
           "etc",
           "prodinfo",
@@ -471,9 +457,7 @@
           }
         },
         "required": [
-          "type",
-          "value_type",
-          "value"
+          "type"
         ],
         "title": "Point Configuration Data Structure"
       },
@@ -517,11 +501,25 @@
             "title": "Allow Orders After Stock Depletion"
           },
           "stock_no_option": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "const": ""
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Product Stock Quantity"
           },
           "sku_no_option": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "const": ""
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Product Stock Number (SKU)"
           }
         },
@@ -560,29 +558,6 @@
           "hot"
         ],
         "title": "Badge Information Data Structure"
-      },
-      "IImweb.ProdSeoData": {
-        "type": "object",
-        "properties": {
-          "seo_title": {
-            "type": "string",
-            "title": "SEO Title"
-          },
-          "seo_description": {
-            "type": "string",
-            "title": "SEO Description"
-          },
-          "seo_access_bot": {
-            "type": "boolean",
-            "title": "Exclude from Search Engine Access"
-          }
-        },
-        "required": [
-          "seo_title",
-          "seo_description",
-          "seo_access_bot"
-        ],
-        "title": "SEO Related Information Data Structure"
       },
       "IImweb.ProdSyncData": {
         "type": "object",
@@ -786,7 +761,6 @@
           "maximum_purchase_quantity",
           "member_maximum_purchase_quantity",
           "optional_limit_type",
-          "optional_limit",
           "use_unipass_number",
           "adult"
         ],

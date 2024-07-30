@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "생활기록부",
-    "version": "0.1.42",
+    "version": "0.1.43",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
