@@ -139,7 +139,6 @@ export const test_api_connector_google_drive = async (
     findFileListWtthoutFolderIdOutput,
   );
 
-  console.log(JSON.stringify(findFileListWtthoutFolderIdOutput, null, 2));
   notDeepStrictEqual(findFileListOutput, findFileListWtthoutFolderIdOutput);
 
   /**
