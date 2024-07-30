@@ -5,7 +5,7 @@ import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImwe
 export namespace ImwebProvider {
   export async function getProducts(
     input: IImweb.IGetProductInput,
-  ): Promise<IImweb.IGetProductOutput> {
+  ): Promise<IImweb.Product[]> {
     try {
       const { access_token } = await ImwebProvider.getAccessToken(input);
       const res = await axios.get(
@@ -17,7 +17,8 @@ export namespace ImwebProvider {
         },
       );
 
-      return res.data;
+      const data = res.data as IImweb.IGetProductOutput;
+      return data.data.list ?? [];
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

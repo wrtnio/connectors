@@ -19,16 +19,16 @@ export class ImwebController {
    * which is only available to sellers who open `Imweb` pages and is intended to bring up their products.
    * Sellers must provide their API keys and secrets to import `Imweb` products.
    *
-   * @summary 자신의 상품 조회
+   * @summary Get my sales product from `Imweb`
    *
-   * @param input 상품을 조회하기 위한 조건 DTO.
-   * @returns 액세스 토큰을 담은 응답 DTO.
+   * @param input key and secret
+   * @returns the seller's own goods
    */
   @Standalone()
   @core.TypedRoute.Post("get-products")
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
-  ): Promise<IImweb.IGetProductOutput> {
+  ): Promise<IImweb.Product[]> {
     return retry(() => ImwebProvider.getProducts(input))();
   }
 
