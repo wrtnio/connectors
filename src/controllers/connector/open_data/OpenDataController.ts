@@ -247,7 +247,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * There are two types here.
+   * There are two types in request body.
    * One is 'latitude_and_longitude' and the other is 'grid_coordinates'.
    * This function uses grid coordinate values to express Korean geographical conditions inside,
    * so grid coordinates must be entered.
