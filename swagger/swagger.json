@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.44",
+    "version": "0.1.46",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
