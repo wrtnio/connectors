@@ -11,15 +11,15 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
   /**
-   * 친구에게 텍스트 타입 카카오톡 메시지를 보냅니다
+   * Sends a text type KakaoTalk message to a friend
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 친구에게 메시지 쓰기
-   * @param input 메시지를 보내기 위한 조건
-   * @returns 응답 및 실패 정보
+   * @summary Send a message to a KakaoTalk friend
+   * @param input Conditions for sending the message
+   * @returns Response and failure information
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
@@ -32,20 +32,17 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 커머스 타입 메시지를 보냅니다
+   * Sends a commerce type message to myself on KakaoTalk
    *
-   * 카카오톡 메시지를 전송할 때에는 버튼이 존재합니다.
-   * 버튼에 만약 링크를 넣고 싶은 경우라면 `https://studio-pro.wrtn.ai/`로 시작되는 URL 혹은 리다이렉트하고 싶은 링크를 넣으면 됩니다.
-   * `https://studio-pro.wrtn.ai/`로 시작되는 링크라면 그 페이지가 조회될 것이고, 그렇지 않다면 새 링크로 리다이렉트 시킵니다.
-   * 이는 카카오톡 API 스펙 상 우리 도메인으로 등록되어 있는 링크만을 허용하기 때문입니다.
+   * When sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 내게 쓰기
-   * @param input 메시지를 보내기 위한 조건
-   * @returns 응답 코드
+   * @summary Send a message to myself on KakaoTalk
+   * @param input Conditions for sending the message
+   * @returns Response code
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -59,20 +56,17 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 위치 타입 메시지를 보냅니다
+   * Sends a location type message to myself on KakaoTalk
    *
-   * 카카오톡 메시지를 전송할 때에는 버튼이 존재합니다.
-   * 버튼에 만약 링크를 넣고 싶은 경우라면 `https://studio-pro.wrtn.ai/`로 시작되는 URL 혹은 리다이렉트하고 싶은 링크를 넣으면 됩니다.
-   * `https://studio-pro.wrtn.ai/`로 시작되는 링크라면 그 페이지가 조회될 것이고, 그렇지 않다면 새 링크로 리다이렉트 시킵니다.
-   * 이는 카카오톡 API 스펙 상 우리 도메인으로 등록되어 있는 링크만을 허용하기 때문입니다.
+   * When sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 내게 쓰기
-   * @param input 메시지를 보내기 위한 조건
-   * @returns 응답 코드
+   * @summary Send a message to myself on KakaoTalk
+   * @param input Conditions for sending the message
+   * @returns Response code
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -86,20 +80,17 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 리스트 타입 메시지를 보냅니다
+   * Sends a list type message to myself on KakaoTalk
    *
-   * 카카오톡 메시지를 전송할 때에는 버튼이 존재합니다.
-   * 버튼에 만약 링크를 넣고 싶은 경우라면 `https://studio-pro.wrtn.ai/`로 시작되는 URL 혹은 리다이렉트하고 싶은 링크를 넣으면 됩니다.
-   * `https://studio-pro.wrtn.ai/`로 시작되는 링크라면 그 페이지가 조회될 것이고, 그렇지 않다면 새 링크로 리다이렉트 시킵니다.
-   * 이는 카카오톡 API 스펙 상 우리 도메인으로 등록되어 있는 링크만을 허용하기 때문입니다.
+   * When sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 내게 쓰기
-   * @param input 메시지를 보내기 위한 조건
-   * @returns 응답 코드
+   * @summary Send a message to myself on KakaoTalk
+   * @param input Conditions for sending the message
+   * @returns Response code
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -113,20 +104,17 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 피드 타입 메시지를 보냅니다
+   * Sends a feed type message to myself on KakaoTalk
    *
-   * 카카오톡 메시지를 전송할 때에는 버튼이 존재합니다.
-   * 버튼에 만약 링크를 넣고 싶은 경우라면 `https://studio-pro.wrtn.ai/`로 시작되는 URL 혹은 리다이렉트하고 싶은 링크를 넣으면 됩니다.
-   * `https://studio-pro.wrtn.ai/`로 시작되는 링크라면 그 페이지가 조회될 것이고, 그렇지 않다면 새 링크로 리다이렉트 시킵니다.
-   * 이는 카카오톡 API 스펙 상 우리 도메인으로 등록되어 있는 링크만을 허용하기 때문입니다.
+   * When sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 내게 쓰기
-   * @param input 메시지를 보내기 위한 조건
-   * @returns 응답 코드
+   * @summary Send a message to myself on KakaoTalk
+   * @param input Conditions for sending the message
+   * @returns Response code
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -140,20 +128,17 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 내게 쓰기로 텍스트 타입 메시지를 보냅니다
+   * Sends a text type message to myself on KakaoTalk
    *
-   * 카카오톡 메시지를 전송할 때에는 버튼이 존재합니다.
-   * 버튼에 만약 링크를 넣고 싶은 경우라면 `https://studio-pro.wrtn.ai/`로 시작되는 URL 혹은 리다이렉트하고 싶은 링크를 넣으면 됩니다.
-   * `https://studio-pro.wrtn.ai/`로 시작되는 링크라면 그 페이지가 조회될 것이고, 그렇지 않다면 새 링크로 리다이렉트 시킵니다.
-   * 이는 카카오톡 API 스펙 상 우리 도메인으로 등록되어 있는 링크만을 허용하기 때문입니다.
+   * When sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 내게 쓰기
-   * @param input 메시지를 보내기 위한 조건
-   * @returns 응답 코드
+   * @summary Send a message to myself on KakaoTalk
+   * @param input Conditions for sending the message
+   * @returns Response code
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -167,16 +152,16 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 캘린더에 일정을 추가합니다
+   * Adds an event to the KakaoTalk calendar
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 캘린더 일정 추가
-   * @param input 일정 생성을 위한 입력 조건
+   * @summary Add an event to the KakaoTalk calendar
+   * @param input Input conditions for creating an event
    *
-   * @returns 생성된 일정 ID 조건
+   * @returns Created event ID condition
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -190,15 +175,15 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 친구 목록을 조회합니다
+   * Retrieves the list of friends on KakaoTalk
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.
    *
-   * @summary 카카오톡 친구 목록 조회
-   * @param input 친구 목록 조회 조건
-   * @returns 조회한 친구 모록
+   * @summary Retrieve the list of friends on KakaoTalk
+   * @param input Conditions for retrieving the friend list
+   * @returns Retrieved friend list
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -212,22 +197,22 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 캘린더 일정을 조회합니다
+   * Retrieves KakaoTalk calendar events.
    *
-   * 유저에게 인자로 캘린더의 아이디를 받아야 합니다.
-   * 캘린더를 주지 않을 경우, 기본 값으로 자기 자신의 캘린더를 조회합니다.
-   * 따라서 캘린더 아이디를 지정하지 않은 경우에도 단독으로 사용 가능한 기능이기도 합니다.
+   * The user needs to provide the calendar ID as an input parameter.
+   * If no calendar is provided, it defaults to retrieving the user's own calendar.
+   * Therefore, this feature can be used even if no calendar ID is specified.
    *
-   * 일정 조회 조건으로는 일정을 조회하는 기간을 명시해야 합니다.
-   * 이 커넥터에서는 일주일 혹은 한 달 치의 데이터를 볼 수 있도록 설계되어 있습니다.
+   * The conditions for retrieving events include specifying the period for which events are to be fetched.
+   * This connector is designed to view data for either a week or a month.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messaging application in South Korea, and it also provides additional services.
    *
-   * @summary 카카오톡 캘린더 일정 조회
-   * @param input 일정 조회를 위한 DTO.
-   * @returns 일정 정보 DTO.
+   * @summary Retrieve KakaoTalk calendar events
+   * @param input DTO for event retrieval.
+   * @returns DTO containing event information.
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -241,19 +226,19 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 캘린더 목록들을 모두 조회합니다
+   * Retrieves all KakaoTalk calendar lists
    *
-   * 캘린더는 두 종류로 자신의 기본 캘린더들과 내가 구독하고 있는 캘린더가 있을 수 있습니다.
-   * 모든 카카오 유저들은 자기 자신의 개인 캘린더가 존재하기 때문에 1개 이상의 캘린더는 존재할 것입니다.
-   * 기본 캘린더에는 아이디가 `primary` 라는 값으로 되어 있는 캘린더가 있는데, 이 캘린더는 유저 자기 자신의 캘린더입니다.
+   * There are two types of calendars: your primary calendars and calendars you are subscribed to.
+   * All Kakao users have their own personal calendars, so there will be at least one calendar.
+   * The primary calendar has an ID of `primary`, which is the user's own calendar.
    *
-   * 카카오톡(KakaoTalk)은 대한민국의 모바일 메신저 애플리케이션으로, 또한 그 외 부가적인 서비스를 함께 제공하고 있습니다.
+   * KakaoTalk is a mobile messenger application from South Korea that also provides additional services.
    *
-   * @summary 카카오톡 캘린더 목록 조회
-   * @param input 캘린더를 조회하기 위한 요청 DTO.
-   * @returns 캘린더 목록 객체.
+   * @summary Retrieve KakaoTalk calendar lists
+   * @param input Request DTO to retrieve calendars.
+   * @returns Calendar list object.
    *
-   * @tag 카카오톡
+   * @tag KakaoTalk
    */
   @Standalone()
   @RouteIcon(
@@ -267,11 +252,11 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 액세스 토큰 발급
+   * Issues a KakaoTalk access token
    *
    * @internal
    *
-   * @param query Authorization Code Dto.
+   * @param query Authorization Code DTO.
    */
   @Get("auth")
   authorization(
@@ -281,11 +266,11 @@ export class KakaoTalkController {
   }
 
   /**
-   * 카카오톡 액세스 토큰 갱신.
+   * Refreshes the KakaoTalk access token
    *
    * @internal
    *
-   * @param input Refresh를 위한 요청 DTO.
+   * @param input Request DTO for refresh.
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
