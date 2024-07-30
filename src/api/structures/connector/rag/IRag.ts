@@ -2,113 +2,18 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title PDF 파일 RAG 분석을 위한 정보
-   */
-  interface IPdfInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string & tags.Format<"uri"> & tags.ContentMediaType<"application/pdf">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"pdf", { title: "PDF 파일" }>;
-  }
-
-  /**
-   * @title DOCX 파일 RAG 분석을 위한 정보
-   */
-  interface IDocxInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string &
-      tags.Format<"uri"> &
-      tags.ContentMediaType<"application/vnd.openxmlformats-officedocument.wordprocessingml.document">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"docx", { title: "DOCX 파일" }>;
-  }
-
-  /**
-   * @title HWP 파일 RAG 분석을 위한 정보
-   */
-  interface IHwpInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string &
-      tags.Format<"uri"> &
-      tags.ContentMediaType<"application/vnd.hancom.hwp">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"hwp", { title: "HWP 파일" }>;
-  }
-
-  /**
-   * @title TXT 파일 RAG 분석을 위한 정보
-   */
-  interface ITextInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"txt", { title: "TXT 파일" }>;
-  }
-
-  /**
-   * @title WEB 링크 RAG 분석을 위한 정보
-   */
-  interface ILinkInput {
-    /**
-     * 분석할 파일 경로
-     *
-     * @title 파일 경로
-     */
-    url: string & tags.Format<"uri">;
-
-    /**
-     * 분석할 파일의 확장자입니다.
-     *
-     * @title 파일 확장자.
-     */
-    type: tags.Constant<"html", { title: "웹 링크" }>;
-  }
-
-  /**
    * @title RAG 분석을 위해 필요한 정보
    */
-  export type IAnalyzeInput =
-    | IPdfInput
-    | IDocxInput
-    | IHwpInput
-    | ITextInput
-    | ILinkInput;
+  export interface IAnalyzeInput {
+    /**
+     * 분석할 파일 또는 링크
+     *
+     * @title 파일 또는 링크
+     */
+    url: string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">;
+  }
 
   /**
    * @title RAG 분석 결과물

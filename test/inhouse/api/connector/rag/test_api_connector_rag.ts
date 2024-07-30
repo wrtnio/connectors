@@ -7,11 +7,12 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
   const analyzeInput: IRag.IAnalyzeInput[] = [
     {
       url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
-      type: "pdf",
     },
     {
       url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-hwp-test.hwp`,
-      type: "hwp",
+    },
+    {
+      url: "https://namu.wiki/w/%EC%98%AC%EB%A6%BC%ED%94%BD",
     },
   ];
   const analyzeOutput = await CApi.functional.connector.rag.analyze(

@@ -7,7 +7,6 @@ import {
   UnprocessableEntityException,
 } from "@nestjs/common";
 import axios, { AxiosError } from "axios";
-import { Response } from "express";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
@@ -30,8 +29,14 @@ export class RagProvider {
    * s3 url transform to presigned url
    */
   async transformInput(
-    fileUrl: string & tags.Format<"uri">,
-  ): Promise<string & tags.Format<"uri">> {
+    fileUrl: string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">,
+  ): Promise<
+    string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">
+  > {
     const matches = fileUrl.match(
       /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
     );
@@ -40,7 +45,43 @@ export class RagProvider {
       return fileUrl;
     }
     const transFormedUrl = await this.awsProvider.getGetObjectUrl(matches[0]);
-    return transFormedUrl;
+    return transFormedUrl as string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">;
+  }
+
+  /**
+   * 파일 타입 추론
+   */
+  inferFileType(fileUrl: string): string {
+    try {
+      const url = new URL(fileUrl);
+      const pathSegments = url.pathname.split("/");
+      const fileName = pathSegments.pop();
+
+      if (fileName) {
+        const fileExtension = fileName.split(".").pop()?.toLowerCase();
+
+        switch (fileExtension) {
+          case "pdf":
+            return "pdf";
+          case "docx":
+            return "docx";
+          case "hwp":
+            return "hwp";
+          case "txt":
+            return "txt";
+          default:
+            return "html"; // 기본값은 html
+        }
+      }
+
+      // 파일 이름이 없는 경우 기본값 반환
+      return "html";
+    } catch (error) {
+      console.error(JSON.stringify("Invalid URL format"));
+      return "html"; // URL이 유효하지 않으면 기본값 반환
+    }
   }
 
   /**
@@ -65,9 +106,10 @@ export class RagProvider {
      */
     const uploadPromises = input.map(async (file) => {
       let url = file.url;
+      const fileType = this.inferFileType(file.url);
 
       // web url일 때 s3 upload 및 파일 크기 제한 X
-      if (file.type !== "html") {
+      if (fileType !== "html") {
         url = await this.transformInput(file.url);
         //파일 크기 5MB 이하로 제한
         const fileSize = await this.awsProvider.getFileSize(url);
@@ -79,7 +121,7 @@ export class RagProvider {
       const fileId = v4();
       const requestBody = {
         url: url,
-        file_type: file.type,
+        file_type: fileType,
         file_id: fileId,
         chat_id: chatId,
       };
