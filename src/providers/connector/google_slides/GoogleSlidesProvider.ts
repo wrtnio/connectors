@@ -819,13 +819,13 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.Presentation> {
     try {
-      const { secretKey, ...body } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        input.secretKey,
+      );
 
       const res = await axios.post(
         "https://slides.googleapis.com/v1/presentations",
-        body,
+        {},
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

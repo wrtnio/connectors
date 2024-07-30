@@ -541,8 +541,7 @@ export namespace IGoogleSlides {
   export type ICreatePresentationInput = ICommon.ISecret<
     "google",
     ["https://www.googleapis.com/auth/presentations"]
-  > &
-    Omit<Presentation, "presentationId">;
+  >;
 
   /**
    * @title Google Slides의 Presentation resource.
@@ -3323,10 +3322,6 @@ export namespace IGoogleSlides {
      */
     solidFill?: SolidFill;
   }
-
-  // export interface Table {}
-
-  // export interface WordArt {}
 
   /**
    * @title 페이지 요소의 변환.
