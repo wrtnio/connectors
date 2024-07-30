@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.40",
+    "version": "0.1.41",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -12795,7 +12795,7 @@
             "type": "string",
             "format": "date-time",
             "title": "마지막 수정 시간",
-            "description": "해당 캔버스의 마지막 수정 시간을 의미한다.\n이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다."
+            "description": "해당 캔버스의 마지막 수정 시간을 의미한다.\n이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다.\n다만, 이 값은 댓글이 추가되었다던가 캔버스에 변경점이 있는 게 아니면 알 수 없다."
           }
         },
         "required": [
@@ -12909,7 +12909,7 @@
             "type": "string",
             "format": "date-time",
             "title": "마지막 수정 시간",
-            "description": "해당 캔버스의 마지막 수정 시간을 의미한다.\n이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다."
+            "description": "해당 캔버스의 마지막 수정 시간을 의미한다.\n이를 기준으로 가장 최근에 변경점이 있거나 소통이 오가는 등 유지관리되는 캔버스를 구별할 수도 있을 것이다.\n다만, 이 값은 댓글이 추가되었다던가 캔버스에 변경점이 있는 게 아니면 알 수 없다."
           }
         },
         "required": [
@@ -25295,7 +25295,7 @@
                 "title": "Grid Coordinates of Korean"
               }
             ],
-            "title": "Definition of nx, ny"
+            "title": "Definition of nx, ny\n\nuse 'latitude_and_longitude' or 'grid_coordinates'."
           },
           "nx": {
             "type": "number",
