@@ -1,26 +1,24 @@
 import { tags } from "typia";
 
-import { ICommon } from "../common/ISecretValue";
-
 export namespace IImweb {
   export interface ResponseForm {
     /**
-     * 응답에 대한 요약 메시지.
+     * @title Summary message for the response
      */
     msg: tags.Constant<"SUCCESS", { title: "성공" }>;
 
     /**
-     * @title status code.
+     * @title Status code
      */
     code: 200;
 
     /**
-     * @title 해당 키에서 사용된 요청 횟수.
+     * @title Number of requests used by this key
      */
     request_count: number;
 
     /**
-     * @title 현재 사용 중인 API의 버전.
+     * @title Version of the API currently in use
      */
     version: `${number}`;
   }
@@ -28,30 +26,35 @@ export namespace IImweb {
   /**
    * @title 상품 조회 요청 DTO.
    */
-  export interface IGetProductInput extends ICommon.ISecret<"imweb", []> {
+  export interface IGetProductInput extends IImweb.Credential {
     /**
-     * @title 특정 상태.
+     * @title the sales status of a product
      *
-     * 특정 상태의 상품만 조회하고자 할 때 사용한다.
+     * You can deliver the value when you want to inquire based on the sales status of the product.
+     * You can select 'sale', 'soldout', 'nosale'.
      */
     prod_status?: IImweb.ProductStatus;
 
     /**
-     * @title 상품 카테고리 코드.
+     * @title product category code
+     *
+     * You can also search with the product's category code,
+     * but this code is randomly determined by `Imweb`, so it's currently unavailable.
+     * If you don't know the exact category code, it's better not to use it.
      */
     category?: string;
   }
 
   /**
-   * @title 상품 조회 응답 DTO.
+   * @title Product inquiry results
    */
   export interface IGetProductOutput extends ResponseForm {
     /**
-     * @title 상품 정보.
+     * @title Product info
      */
     data: {
       /**
-       * @title 상품의 배열.
+       * @title Product list
        */
       list: IImweb.Product[];
     };
@@ -59,62 +62,64 @@ export namespace IImweb {
 
   export interface Product {
     /**
-     * @title 상품번호.
+     * @title Product number
      */
     no: number;
 
     /**
-     * @title 상품 상태.
+     * @title Status of product
      */
     prod_status: IImweb.ProductStatus;
 
     /**
-     * @title 카테고리 코드 목록.
+     * @title Category codes
      */
     categories: string[];
 
     /**
-     * @title 자체 상품코드.
+     * @title Custom product code
      */
     custom_prod_code: string;
 
     /**
-     * @title 상품명.
+     * @title Name of product
      */
     name: string;
 
     /**
-     * @title 이미지 파일 코드.
+     * @title File code of product images
      */
     images: string[];
 
     /**
-     * @title 이미지 파일 URL.
+     * @title File urls
      */
     image_url: (string & tags.Format<"url">)[];
 
     /**
-     * @title 상세설명.
+     * @title Detailed description
      */
     content: string;
 
     /**
-     * @title 요약 설명.
+     * @title Simple description of product's content
      */
     simple_content: string;
 
     /**
-     * @title 모바일 상세설명 사용 유무.
+     * @title Whether or not mobile details are used
      */
     use_mobile_prod_content: boolean;
 
     /**
-     * @title 모바일 상세 설명.
+     * @title Description of mobile details
      */
     mobile_content: string;
 
     /**
-     * @title 판매 방식 설정.
+     * @title Setting the sales method
+     *
+     * It will be 'normal', 'digital' and 'subscribe' product.
      */
     prod_type:
       | tags.Constant<"normal", { title: "일반 상품" }>
@@ -122,7 +127,7 @@ export namespace IImweb {
       | tags.Constant<"subscribe", { title: "회원그룹 이용권" }>;
 
     /**
-     * @title 판매 방식 데이터.
+     * @title Sales method data
      */
     prod_type_data: (
       | IImweb.ProdTypeData.DigitalData
@@ -130,127 +135,131 @@ export namespace IImweb {
     )[];
 
     /**
-     * @title 판매기간 설정 여부.
+     * @title Whether the sales period is set or not
      */
     use_pre_sale: boolean;
 
     /**
-     * @title 판매기간 시작일(Timestamp).
+     * @title Timestamp for sale
      */
     pre_sale_start_date: number;
 
     /**
-     * @title 판매기간 종료일(Timestamp).
+     * @title Timestamp is the end of the sale period
      */
     pre_sale_end_date: number;
 
     /**
-     * @title 상품가격.
+     * @title Price
      */
     price: number;
 
     /**
-     * @title 할인 이전 가격.
+     * @title The price before the discount
+     *
+     * To provide an experience as if the product was discounted,
+     * the seller can also set the original price of the product differently from the actual price it sells.
+     * This is a common sales promotion strategy in commerce.
      */
     price_org: number;
 
     /**
-     * @title 세금 포함 여부.
+     * @title Whether taxes are included or not
      */
     price_tax: boolean;
 
     /**
-     * @title 가격 없음 여부.
+     * @title Whether or not there is no price
      */
     price_none: boolean;
 
     /**
-     * @title 적립금 설정.
+     * @title Set up a reserve
      */
     point: IImweb.PointConfigData[];
 
     /**
-     * @title 할인 사용 설정.
+     * @title Set Discount Usage.
      */
     product_discount_options: (
-      | tags.Constant<"coupon", { title: "쿠폰" }>
-      | tags.Constant<"point", { title: "적립금" }>
-      | tags.Constant<"shopping_group_dc", { title: "쇼핑등급 할인" }>
+      | tags.Constant<"coupon", { title: "Coupon" }>
+      | tags.Constant<"point", { title: "Points" }>
+      | tags.Constant<"shopping_group_dc", { title: "Shopping Group Discount" }>
     )[];
 
     /**
-     * @title 상품 무게.
+     * @title Product Weight
      */
     weight: number & tags.Type<"float">;
 
     /**
-     * @title 상품 재고 정보.
+     * @title Product Stock Information
      */
     stock: IImweb.ProdStockConfigData[];
 
     /**
-     * @title 원산지.
+     * @title Origin
      */
     origin: string;
 
     /**
-     * @title 제조사.
+     * @title Manufacturer
      */
     maker: string;
 
     /**
-     * @title 브랜드.
+     * @title Brand
      */
     brand: string;
 
     /**
-     * @title 뱃지 정보.
+     * @title Badge Information
      */
     badge: IImweb.ProdBadgeData[];
 
     /**
-     * @title SEO 관련 정보.
+     * @title SEO Related Information
      */
     seo: IImweb.ProdSeoData[];
 
     /**
-     * @title 외부 연동용 정보.
+     * @title External Integration Information
      */
     sync: IImweb.ProdSyncData[];
 
     /**
-     * @title 기타설정.
+     * @title Miscellaneous Settings
      */
     etc: IImweb.ProdEtcData[];
 
     /**
-     * @title 상품정보제공고시.
+     * @title Product Information Disclosure
      *
-     * 타입이 명시되어 있질 않아 `any`의 배열로만 표기.
+     * Type is not specified, so it is denoted as an array of `any`.
      */
     prodinfo: any[];
 
     /**
-     * @title 상품의 옵션 유무.
+     * @title Existence of Product Options
      */
     is_exist_options:
-      | tags.Constant<"Y", { title: "옵션이 존재하는 경우" }>
-      | tags.Constant<"N", { title: "단일 상품인 경우" }>;
+      | tags.Constant<"Y", { title: "Options Exist" }>
+      | tags.Constant<"N", { title: "Single Product" }>;
 
     /**
-     * @title 상품의 조합형 옵션 여부.
+     * @title Combination Option for Product
      */
     is_mix:
-      | tags.Constant<"Y", { title: "조합형 옵션" }>
-      | tags.Constant<"N", { title: "단일 옵션" }>;
+      | tags.Constant<"Y", { title: "Combination Option" }>
+      | tags.Constant<"N", { title: "Single Option" }>;
 
     /**
-     * @title 상품 추가시간 Timestamp.
+     * @title Product Add Time Timestamp
      */
     add_time: number;
 
     /**
-     * @title 상품 최근 수정시간 Timestamp.
+     * @title Product Last Edit Time Timestamp
      */
     edit_time: number;
   }
@@ -263,224 +272,226 @@ export namespace IImweb {
   export namespace ProdTypeData {
     export interface DigitalData {
       /**
-       * @title 다운로드 한도 설정.
+       * @title Download Limit Setting
        */
       use_limit: boolean;
 
       /**
-       * @title 기간 제한.
+       * @title Period Limit
        */
       period: number & tags.Type<"int64">;
 
       /**
-       * @title 횟수 제한.
+       * @title Usage Limit
        */
       maximum: number & tags.Type<"int64">;
     }
 
     export interface SubscribeData {
       /**
-       * @title 대상 그룹 코드.
+       * @title Target Group Code
        */
       group_code: string;
 
       /**
-       * @title 그룹 유지 기간(일)
+       * @title Group Retention Period (Days)
        */
       period: number & tags.Type<"int64">;
     }
   }
-
   /**
-   * @title 적립금 설정 데이터 구조 정의.
+   * @title Point Configuration Data Structure
    */
   export interface PointConfigData {
     /**
-     * @title 적립금 설정 타입.
+     * @title Point Configuration Type
      */
     type:
-      | tags.Constant<"common", { title: "기본 설정을 따름." }>
-      | tags.Constant<"individual", { title: "개별 적립금 설정" }>;
+      | tags.Constant<"common", { title: "Default Settings" }>
+      | tags.Constant<"individual", { title: "Individual Point Settings" }>;
 
     /**
-     * @title 적립금 적립 단위.
+     * @title Point Accumulation Unit
      */
     value_type:
-      | tags.Constant<"percent", { title: "퍼센트" }>
-      | tags.Constant<"price", { title: "통화 단위" }>;
+      | tags.Constant<"percent", { title: "Percentage" }>
+      | tags.Constant<"price", { title: "Currency Unit" }>;
 
     /**
-     * @title 적립금 값
+     * @title Point Value
      *
-     * `value_type`이 percent인 경우 백분율로 계산한다.
+     * Calculated as a percentage if `value_type` is percent
      */
     value: `${number}`;
   }
 
   /**
-   * @title 상품 재고 정보 데이터 구조 정의
+   * @title Product Stock Information Data Structure
    */
   export interface ProdStockConfigData {
     /**
-     * @title 재고 사용 여부.
+     * @title Use Stock
      */
     stock_use: boolean;
 
     /**
-     * @title 재고 소진 후 주문 가능 여부.
+     * @title Allow Orders After Stock Depletion
      */
     stock_unlimit: boolean;
 
     /**
-     * @title 상품 재고 수량.
+     * @title Product Stock Quantity
      */
     stock_no_option: number & tags.Type<"int64">;
 
     /**
-     * @title 상품 재고 번호(SKU)
+     * @title Product Stock Number (SKU)
      */
     sku_no_option: number & tags.Type<"int64">;
   }
 
   /**
-   * @title 뱃지 정보 데이터 구조 정의
+   * @title Badge Information Data Structure
    */
   export interface ProdBadgeData {
     /**
-     * @title 신상품 여부.
+     * @title New Product
      */
     new: boolean;
 
     /**
-     * @title 베스트 여부.
+     * @title Best Product
      */
     best: boolean;
 
     /**
-     * @title MD 추천 여부.
+     * @title MD Recommended
      */
     md: boolean;
 
     /**
-     * @title 주문폭주 여부.
+     * @title High Demand
      */
     hot: boolean;
   }
 
   /**
-   * @title SEO 관련 정보 데이터 구조 정의
+   * @title SEO Related Information Data Structure
    */
   export interface ProdSeoData {
     /**
-     * @title SEO 제목.
+     * @title SEO Title
      */
     seo_title: string;
 
     /**
-     * @title SEO 설명.
+     * @title SEO Description
      */
     seo_description: string;
 
     /**
-     * @title SEO 검색엔진 접근 제외 유무.
+     * @title Exclude from Search Engine Access
      */
     seo_access_bot: boolean;
   }
 
   /**
-   * @title 외부 연동용 정보 데이터 구조 정의
+   * @title External Integration Information Data Structure
    */
   export interface ProdSyncData {
     /**
-     * @title 네이버, 카카오 쇼핑 노출용 상품명.
+     * @title Product Name for Naver and Kakao Shopping Exposure
      */
     pay_product_name: string;
 
     /**
-     * @title 네이버 쇼핑 이벤트 문구.
+     * @title Naver Shopping Event Phrase
      */
     event_words: string;
 
     /**
-     * @title 네이버 쇼핑 카테고리 ID.
+     * @title Naver Shopping Category ID
      */
     naver_category: string;
 
     /**
-     * @title 네이버 쇼핑 판매 방식.
+     * @title Naver Shopping Sales Method
      */
     product_flag:
-      | tags.Constant<"소매", { title: "소매" }>
-      | tags.Constant<"도매", { title: "도매" }>
-      | tags.Constant<"렌탈", { title: "렌탈" }>
-      | tags.Constant<"대여", { title: "대여" }>
-      | tags.Constant<"할부", { title: "할부" }>
-      | tags.Constant<"예약판매", { title: "예약판매" }>
-      | tags.Constant<"구매대행", { title: "구매대행" }>;
+      | tags.Constant<"소매", { title: "Retail" }>
+      | tags.Constant<"도매", { title: "Wholesale" }>
+      | tags.Constant<"렌탈", { title: "Rental" }>
+      | tags.Constant<"대여", { title: "Lease" }>
+      | tags.Constant<"할부", { title: "Installment" }>
+      | tags.Constant<"예약판매", { title: "Pre-order" }>
+      | tags.Constant<"구매대행", { title: "Buying Agent" }>;
 
     /**
-     * @title 네이버 쇼핑 상품상태.
+     * @title Naver Shopping Product Condition
      */
     product_condition:
-      | tags.Constant<"신상품", { title: "신상품" }>
-      | tags.Constant<"중고", { title: "중고" }>
-      | tags.Constant<"리퍼", { title: "리퍼" }>
-      | tags.Constant<"전시", { title: "전시" }>
-      | tags.Constant<"반품", { title: "반품" }>
-      | tags.Constant<"스크래치", { title: "스크래치" }>;
+      | tags.Constant<"신상품", { title: "New" }>
+      | tags.Constant<"중고", { title: "Used" }>
+      | tags.Constant<"리퍼", { title: "Refurbished" }>
+      | tags.Constant<"전시", { title: "Exhibition" }>
+      | tags.Constant<"반품", { title: "Returned" }>
+      | tags.Constant<"스크래치", { title: "Scratch" }>;
 
     /**
-     * @title 해외구매대행 여부.
+     * @title Overseas Buying Agent
      */
     import_flag: boolean;
 
     /**
-     * @title 병행 수입 여부.
+     * @title Parallel Import
      */
     parallel_import: boolean;
 
     /**
-     * @title 도서공연비 소득공제.
+     * @title Cultural Performance Income Deduction
      */
     is_culture_benefit: boolean;
 
     /**
-     * @title 주문제작 여부.
+     * @title Made to Order
      */
     order_made: boolean;
   }
 
   /**
-   * @title 기타 설정 데이터 구조 정의
+   * @title Miscellaneous Settings Data Structure
    */
   export interface ProdEtcData {
     /**
-     * @title 최소 구매 수량.
+     * @title Minimum Purchase Quantity
      */
     minimum_purchase_quantity: number & tags.Type<"int64">;
 
     /**
-     * @title 1회 구매 시 최대 수량.
+     * @title Maximum Quantity per Purchase
      */
     maximum_purchase_quantity: number & tags.Type<"int64">;
 
     /**
-     * @title 1인 구매 시 최대 수량.
+     * @title Maximum Quantity per Member Purchase
      */
     member_maximum_purchase_quantity: number & tags.Type<"int64">;
 
     /**
-     * @title 0원 선택옵션 구매 시 최대 구매수량 제한 타입.
+     * @title Maximum Purchase Quantity Limit Type for Free Options
      */
     optional_limit_type:
-      | tags.Constant<"relative", { title: "본상품 구매 수량만큼 구매 가능" }>
-      | tags.Constant<"limit", { title: "최대 구매 수량 제한" }>
-      | tags.Constant<"unique", { title: "1개만 구매 가능" }>;
+      | tags.Constant<
+          "relative",
+          { title: "Can Purchase as Much as the Main Product" }
+        >
+      | tags.Constant<"limit", { title: "Maximum Purchase Quantity Limit" }>
+      | tags.Constant<"unique", { title: "Can Purchase Only One" }>;
 
     /**
-     * @title 0원 선택옵션 구매 시 최대 구매수량.
+     * @title Maximum Purchase Quantity for Free Options
      *
-     * 최대 구매 수량 제한.
+     * Maximum Purchase Quantity Limit
      */
     optional_limit: number & tags.Type<"int64">;
 
@@ -488,59 +499,62 @@ export namespace IImweb {
       | tags.Constant<
           "default",
           {
-            title: "기본 방법을 따름";
-            description: "쇼핑 환경 설정마다 다를 수 있다.";
+            title: "Follow Default Method";
+            description: "May vary depending on shopping environment settings";
           }
         >
-      | tags.Constant<"Y", { title: "사용" }>
-      | tags.Constant<"N", { title: "사용안함" }>;
+      | tags.Constant<"Y", { title: "Use" }>
+      | tags.Constant<"N", { title: "Do Not Use" }>;
 
     /**
-     * @title 미성년자 구매 제한.
+     * @title Minor Purchase Restriction
      */
     adult: boolean;
   }
 
   /**
-   * @title Imweb Access Token을 발급 받기 위한 요청 DTO.
+   * @title Imweb Access Token Request DTO
    *
-   * Rest API를 사용하기 위해 먼저 API Key 와 Secret Key를 발급 받아야 한다.
-   *
-   * 해당 키는 사이트 단위로 생성된다.
+   * An API Key and Secret Key must be issued first to use the Rest API.
+   * These keys are generated on a site-by-site basis.
    */
   export interface Credential {
     /**
-     * @title api key.
+     * @title API Key
+     *
+     * This can be found in the configuration settings on the `Imweb`.
      */
     key: string;
 
     /**
-     * @title api secret.
+     * @title API Secret Key
+     *
+     * This can be found in the configuration settings on the `Imweb`.
      */
     secret: string;
   }
 
   /**
-   * @title 아임웹 토큰 발급 요청 응답 DTO.
+   * @title Imweb Token Issuance Request Response DTO
    */
   export interface IGetAccessTokenOutput {
     /**
-     * @title response message.
+     * @title Response Message
      */
     msg: "SUCCESS";
 
     /**
-     * @title IMWEB custom code.
+     * @title IMWEB Custom Code
      */
-    code: tags.Constant<200, { title: "성공을 의미하는 값" }>;
+    code: tags.Constant<200, { title: "Value Indicating Success" }>;
 
     /**
-     * @title HTTP status code.
+     * @title HTTP Status Code
      */
     http_code: tags.Constant<200, { title: "HTTP STATUS CODE 200" }>;
 
     /**
-     * @title access token.
+     * @title Access Token
      */
     access_token: string;
   }

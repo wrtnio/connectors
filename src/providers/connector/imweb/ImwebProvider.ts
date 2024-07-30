@@ -5,18 +5,20 @@ import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImwe
 export namespace ImwebProvider {
   export async function getProducts(
     input: IImweb.IGetProductInput,
-  ): Promise<IImweb.IGetProductOutput> {
+  ): Promise<IImweb.Product[]> {
     try {
+      const { access_token } = await ImwebProvider.getAccessToken(input);
       const res = await axios.get(
         `https://api.imweb.me/v2/shop/products?product_status=${input.prod_status}&category=${input.category}`,
         {
           headers: {
-            "access-token": input.secretKey,
+            "access-token": access_token,
           },
         },
       );
 
-      return res.data;
+      const data = res.data as IImweb.IGetProductOutput;
+      return data.data.list ?? [];
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

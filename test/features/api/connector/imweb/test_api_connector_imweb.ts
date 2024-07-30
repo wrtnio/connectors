@@ -23,13 +23,11 @@ export const test_api_connector_imweb_get_access_token = async (
 export const test_api_connector_imweb_get_products = async (
   connection: CApi.IConnection,
 ) => {
-  const accessToken = await test_api_connector_imweb_get_access_token(
-    connection,
-  );
   const res = await CApi.functional.connector.imweb.get_products.getProducts(
     connection,
     {
-      secretKey: accessToken,
+      key: ConnectorGlobal.env.IMWEB_TEST_API_KEY,
+      secret: ConnectorGlobal.env.IMWEB_TEST_API_SECRET,
     },
   );
 
