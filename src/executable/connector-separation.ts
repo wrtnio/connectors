@@ -1,7 +1,7 @@
 import cp from "child_process";
 import fs from "fs";
-import { ConnectorConfiguration } from "../ConnectorConfiguration";
 import path from "path";
+import { ConnectorConfiguration } from "../ConnectorConfiguration";
 
 const processDirectory = async (directory: string): Promise<void> => {
   const files = await fs.promises.readdir(directory);

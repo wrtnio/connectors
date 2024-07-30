@@ -169,16 +169,16 @@ export class GoogleSlidesController {
   @core.TypedRoute.Post("get-presentations")
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
-  ): Promise<void> {
-    await retry(() => this.googleSlideProvider.getPresentation(input))();
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    return retry(() => this.googleSlideProvider.getPresentation(input))();
   }
 
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendSlideInput,
-  ): Promise<void> {
-    await retry(() =>
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    return retry(() =>
       this.googleSlideProvider.appendImageSlide(presentationId, input),
     )();
   }
@@ -229,7 +229,7 @@ export class GoogleSlidesController {
   @core.TypedRoute.Post("presentations")
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
-  ): Promise<void> {
-    await retry(() => this.googleSlideProvider.createPresentation(input))();
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    return retry(() => this.googleSlideProvider.createPresentation(input))();
   }
 }

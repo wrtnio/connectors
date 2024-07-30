@@ -9,6 +9,11 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
   : never;
 
 export namespace IGoogleSlides {
+  export type ISimplePresentationIdOutput = Pick<
+    Presentation,
+    "presentationId" | "pageSize" | "title"
+  >;
+
   /**
    * @title 슬라이드를 pptx로 내보내는 조건
    */
@@ -541,7 +546,8 @@ export namespace IGoogleSlides {
   export type ICreatePresentationInput = ICommon.ISecret<
     "google",
     ["https://www.googleapis.com/auth/presentations"]
-  >;
+  > &
+    Pick<Presentation, "title">;
 
   /**
    * @title Google Slides의 Presentation resource.
@@ -3322,6 +3328,10 @@ export namespace IGoogleSlides {
      */
     solidFill?: SolidFill;
   }
+
+  // export interface Table {}
+
+  // export interface WordArt {}
 
   /**
    * @title 페이지 요소의 변환.
