@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "아카이브 검색",
-    "version": "0.1.53",
+    "version": "0.1.54",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -278,7 +278,7 @@
             "description": "산출물의 이미지 URL 주소입니다."
           },
           "statistics": {
-            "$ref": "#/components/schemas/PartialRecordIConnector.MetricTypenumberTypeint32",
+            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
             "title": "산출물 통계 자료 정보",
             "description": "산출물의 통계 자료 정보입니다.\n\n가능한 값: view_count, like_count, rank"
           }
@@ -332,7 +332,7 @@
         "title": "Connector 산출물 출처",
         "description": "산출물의 출처입니다."
       },
-      "PartialRecordIConnector.MetricTypenumberTypeint32": {
+      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
         "type": "object",
         "properties": {
           "view_count": {
@@ -344,8 +344,7 @@
           "rank": {
             "type": "integer"
           }
-        },
-        "description": "Make all properties in T optional"
+        }
       }
     }
   },

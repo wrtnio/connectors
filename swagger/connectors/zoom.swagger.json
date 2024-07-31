@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Zoom",
-    "version": "0.1.53",
+    "version": "0.1.54",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -46,7 +46,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PartialIZoom.Meeting"
+                  "$ref": "#/components/schemas/MyPartialIZoom.Meeting"
                 }
               }
             }
@@ -83,7 +83,7 @@
           "secretKey"
         ]
       },
-      "PartialIZoom.Meeting": {
+      "MyPartialIZoom.Meeting": {
         "type": "object",
         "properties": {
           "agenda": {
@@ -175,7 +175,7 @@
             "title": "미팅의 반복 주기에 대한 정보."
           },
           "settings": {
-            "$ref": "#/components/schemas/PartialIZoom.Settings",
+            "$ref": "#/components/schemas/MyPartialIZoom.Settings",
             "title": "Zoom 세팅 정보."
           },
           "start_time": {
@@ -233,8 +233,7 @@
             "type": "string",
             "title": "미팅의 dynamic_host_key."
           }
-        },
-        "description": "Make all properties in T optional"
+        }
       },
       "IZoom.Occurrence": {
         "type": "object",
@@ -358,7 +357,7 @@
         ],
         "title": "미팅의 반복 주기에 대한 정보."
       },
-      "PartialIZoom.Settings": {
+      "MyPartialIZoom.Settings": {
         "type": "object",
         "properties": {
           "allow_multiple_devices": {
@@ -988,8 +987,7 @@
             "title": "Whether to automatically start AI Companion questions",
             "description": "Whether to automatically start AI Companion questions."
           }
-        },
-        "description": "Make all properties in T optional"
+        }
       },
       "keystringMaxLength64valuestringMaxLength256MaxItems10": {
         "type": "object",
