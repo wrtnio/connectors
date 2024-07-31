@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { ContentMediaType } from "typia/lib/tags";
 
 export namespace IImweb {
   export interface ResponseForm {
@@ -96,7 +97,7 @@ export namespace IImweb {
      *
      * Can't call it right away because it's not a completed URL.
      */
-    image_url: (string & tags.Format<"uri">)[];
+    image_url: (string & tags.Format<"uri"> & ContentMediaType<"image/*">)[];
 
     /**
      * @title Detailed description
