@@ -19,6 +19,10 @@ export class StoryGeneratorController {
    *
    * 그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.
    *
+   * 스토리 이미지 생성 커넥터와 연계해서 사용해주세요.
+   *
+   * connector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요.
+   *
    * @summary 스토리 생성
    *
    * @param input 스토리 생성을 위한 입력

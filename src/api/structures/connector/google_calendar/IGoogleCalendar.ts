@@ -107,6 +107,11 @@ export namespace IGoogleCalendar {
     /**
      * 캘린더 이벤트 정렬 순서입니다.
      *
+     * - startTime: 이벤트 시작 시간.
+     * - updated: 이벤트 업데이트 날짜.
+     *
+     * 가능한 값으로는 "startTime", "updated" 2가지만 가능합니다.
+     *
      * @title 어떤 순서대로 받아올 것인지.
      */
     orderBy?: OrderBy;
@@ -590,6 +595,13 @@ export namespace IGoogleCalendar {
     /**
      * 이벤트 반복 주기입니다.
      *
+     * - DAILY: 매일
+     * - WEEKLY: 매주
+     * - MONTHLY: 매달
+     * - YEARLY: 매년
+     *
+     * 가능한 값으로는 "DAILY", "WEEKLY", "MONTHLY", "YEARLY" 4가지만 가능합니다.
+     *
      * @title 이벤트 반복 주기.
      */
     repeatFrequency?: RepeatFrequency;
@@ -625,6 +637,11 @@ export namespace IGoogleCalendar {
     /**
      * 이벤트 알림 유형입니다.
      *
+     * - popup: 팝업 알림
+     * - email: 이메일 알림
+     *
+     * 가능한 값으로는 "popup", "email" 2가지만 가능합니다.
+     *
      * @title 이벤트 알림 유형.
      */
     remindersType?: EventRemindersType;
@@ -645,6 +662,12 @@ export namespace IGoogleCalendar {
 
     /**
      * 이벤트 공개 상태입니다.
+     *
+     * default - 기본 공개 상태
+     * public - 일정이 공개되며 일정 세부정보가 캘린더의 모든 독자에게 표시
+     * private - 일정이 비공개이며 일정 참석자만 일정 세부정보를 볼 수 있음
+     *
+     * 가능한 값으로는 "default", "public", "private" 3가지만 가능합니다.
      *
      * @title 이벤트 공개 상태.
      */

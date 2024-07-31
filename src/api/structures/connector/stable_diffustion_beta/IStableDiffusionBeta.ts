@@ -15,6 +15,8 @@ export namespace IStableDiffusionBeta {
     /**
      * 생성할 이미지 사이즈 프리셋 입니다.
      *
+     * 가능한 값으로는 "square", "landscape", "portrait" 3가지만 가능합니다.
+     *
      * @title 이미지 사이즈
      */
     image_ratio:
@@ -24,6 +26,8 @@ export namespace IStableDiffusionBeta {
 
     /**
      * 이미지를 특정한 스타일로 생성합니다.
+     *
+     * 가능한 값으로는 "3d-model", "analog-film", "anime", "cinematic", "comic-book", "digital-art", "enhance", "fantasy-art", "isometric", "line-art", "low-poly", "modeling-compound", "neon-punk", "origami", "photographic", "pixel-art", "tile-texture" 16가지만 가능합니다.
      *
      * @title 스타일 프리셋
      */
