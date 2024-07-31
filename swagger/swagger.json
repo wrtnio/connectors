@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.52",
+    "version": "0.1.53",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -4700,7 +4700,7 @@
           }
         },
         "summary": "프레젠테이션을 PPT 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!"
+        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다."
       }
     },
     "/connector/google-slides/get-presentations": {
@@ -4867,7 +4867,7 @@
           }
         },
         "summary": "Google Slides 프레젠테이션 생성.",
-        "description": "Google Slides 프레젠테이션을 생성합니다."
+        "description": "Google Slides 프레젠테이션을 생성합니다.\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다."
       }
     },
     "/connector/imweb/get-products": {
@@ -5366,7 +5366,7 @@
           }
         },
         "summary": "스토리 생성",
-        "description": "유저의 입력을 기반으로 스토리를 짭니다.\n\n그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.\n\n스토리 이미지 생성 커넥터와 연계해서 사용해주세요.\n\nconnector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요."
+        "description": "유저의 입력을 기반으로 스토리를 짭니다.\n\n그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.\n\n스토리 이미지 생성 커넥터와 연계해서 사용해주세요.\n\nconnector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요.\n\n생성된 스토리와 이미지를 구글 슬라이드를 이용해서 내보내주세요.\n\nconnector/google-slides/presentations 커넥터를 사용하여 생성된 스토리와 이미지를 구글 슬라이드로 내보내주세요."
       }
     },
     "/connector/story-image-generator": {
