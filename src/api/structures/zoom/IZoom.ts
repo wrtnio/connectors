@@ -1,5 +1,6 @@
 import { tags } from "typia";
 
+import { MyPartial } from "../../../utils/types/MyPartial";
 import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {
@@ -8,7 +9,7 @@ export namespace IZoom {
     userId: string;
   }
 
-  export type ICreateMeetingOutput = Partial<Meeting>;
+  export type ICreateMeetingOutput = MyPartial<Meeting>;
 
   export interface Meeting {
     /**
@@ -114,7 +115,7 @@ export namespace IZoom {
     /**
      * @title Zoom 세팅 정보.
      */
-    settings: Partial<IZoom.Settings>;
+    settings: MyPartial<IZoom.Settings>;
 
     /**
      * @title 미팅 시작 시간.
