@@ -9,6 +9,38 @@ export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
 
   /**
+   * send message to myself
+   *
+   * @summary post text message to myself in slack
+   * @param input
+   * @returns channel histories
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("postMessage/text/myself")
+  async sendTextToMyself(
+    @TypedBody() input: ISlack.IPostMessageToMyselfInput,
+  ): Promise<void> {
+    return this.slackProvider.sendTextToMyself(input);
+  }
+
+  /**
+   * send message to channel
+   *
+   * @summary post text message in slack
+   * @param input
+   * @returns channel histories
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("postMessage/text")
+  async sendText(@TypedBody() input: ISlack.IPostMessageInput): Promise<void> {
+    return this.slackProvider.sendText(input);
+  }
+
+  /**
    * get channel histories in slack
    *
    * Look up conversations that have been made in and out of the channel.

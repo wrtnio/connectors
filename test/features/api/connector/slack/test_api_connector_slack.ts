@@ -14,6 +14,7 @@ export const test_api_connector_slack_get_private_channels = async (
     );
 
   typia.assertEquals(res);
+  return res.channels;
 };
 
 export const test_api_connector_slack_get_public_channels = async (
@@ -28,7 +29,6 @@ export const test_api_connector_slack_get_public_channels = async (
     );
 
   typia.assertEquals(res);
-
   return res.channels;
 };
 
@@ -44,6 +44,7 @@ export const test_api_connector_slack_get_im_channels = async (
     );
 
   typia.assertEquals(res);
+  return res.channels;
 };
 
 export const test_api_connector_slack_get_channel_histories = async (
@@ -62,4 +63,36 @@ export const test_api_connector_slack_get_channel_histories = async (
     );
 
   typia.assertEquals(messages);
+};
+
+export const test_api_connector_slack_text_message = async (
+  connection: CApi.IConnection,
+) => {
+  const [PublicChannel] =
+    await test_api_connector_slack_get_public_channels(connection);
+  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
+    channel: PublicChannel.id,
+    text: "hello, world",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+
+  const [PrivateChannel] =
+    await test_api_connector_slack_get_private_channels(connection);
+  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
+    channel: PrivateChannel.id,
+    text: "hello, world",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+};
+
+export const test_api_connector_slack_send_text_message_to_myself = async (
+  connection: CApi.IConnection,
+) => {
+  await CApi.functional.connector.slack.postMessage.text.myself.sendTextToMyself(
+    connection,
+    {
+      text: "hello, world",
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+    },
+  );
 };

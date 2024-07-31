@@ -4,6 +4,65 @@ import axios from "axios";
 
 @Injectable()
 export class SlackProvider {
+  async sendTextToMyself(
+    input: ISlack.IPostMessageToMyselfInput,
+  ): Promise<void> {
+    const url = `https://slack.com/api/chat.postMessage`;
+    try {
+      const { channels } = await this.getImChannels(input);
+      const auth = await this.authTest(input);
+      const mySelf = channels.find((el) => el.user === auth.user_id);
+      await axios.post(
+        url,
+        {
+          channel: mySelf?.id,
+          text: input.text,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async authTest(input: {
+    secretKey: string;
+  }): Promise<ISlack.IAuthTestOutput> {
+    const res = await axios.get("https://slack.com/api/auth.test", {
+      headers: {
+        Authorization: `Bearer ${input.secretKey}`,
+      },
+    });
+
+    return res.data;
+  }
+
+  async sendText(input: ISlack.IPostMessageInput): Promise<void> {
+    const url = `https://slack.com/api/chat.postMessage`;
+    try {
+      await axios.post(
+        url,
+        {
+          channel: input.channel,
+          text: input.text,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getChannelHistories(
     input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
