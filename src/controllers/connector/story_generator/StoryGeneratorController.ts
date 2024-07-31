@@ -23,6 +23,10 @@ export class StoryGeneratorController {
    *
    * connector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요.
    *
+   * 생성된 스토리와 이미지를 구글 슬라이드를 이용해서 내보내주세요.
+   *
+   * connector/google-slides/presentations 커넥터를 사용하여 생성된 스토리와 이미지를 구글 슬라이드로 내보내주세요.
+   *
    * @summary 스토리 생성
    *
    * @param input 스토리 생성을 위한 입력

@@ -70,6 +70,8 @@ export class GoogleSlidesController {
   /**
    * 구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!
    *
+   * 이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.
+   *
    * @summary 프레젠테이션을 PPT 파일로 내보내기
    *
    * @param presentationId 변환할 프레젠테이션 아이디
@@ -185,6 +187,8 @@ export class GoogleSlidesController {
 
   /**
    * Google Slides 프레젠테이션을 생성합니다.
+   *
+   * 이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.
    *
    * @summary Google Slides 프레젠테이션 생성.
    *
