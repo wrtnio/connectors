@@ -25,12 +25,16 @@ export namespace IConnector {
     /**
      * 비디오, 이미지, 뉴스기사, 논문..
      *
+     * 가능한 값: video, image, news_article, research_paper
+     *
      * @title 산출물 타입
      */
     type: ReferenceType;
 
     /**
      * 유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스
+     *
+     * 가능한 값: youtube, facebook, instagram, google_search, arxiv, google_news
      *
      * @title 산출물의 출처
      */
@@ -59,6 +63,8 @@ export namespace IConnector {
 
     /**
      * 산출물의 통계 자료 정보입니다.
+     *
+     * 가능한 값: view_count, like_count, rank
      *
      * @title 산출물 통계 자료 정보
      */

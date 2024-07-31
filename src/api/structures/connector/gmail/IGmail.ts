@@ -102,7 +102,14 @@ export namespace IGmail {
 
     /**
      * 생성할 라벨의 공개 상태.
+     *
      * 숨김 / 보임 / 안읽었을 때 보임
+     *
+     * - labelHide: 숨김
+     * - labelShow: 보임
+     * - labelShowIfUnread: 안읽었을 때 보임
+     *
+     * 가능한 값으로 labelHide, labelShow, labelShowIfUnread 3가지만 가능합니다.
      *
      * @title 라벨의 공개 상태.
      */
@@ -110,7 +117,13 @@ export namespace IGmail {
 
     /**
      * 생성된 라벨이 지정된 메일의 공개 상태.
+     *
      * 숨김 / 보임
+     *
+     * - hide: 숨김
+     * - show: 보임
+     *
+     * 가능한 값으로 hide, show 2가지만 가능합니다.
      *
      * @title 라벨이 지정된 메일의 공개 상태.
      */

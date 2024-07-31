@@ -35,6 +35,8 @@ export interface IMarketingPurpose {
   /**
    * 마케팅을 하려는 목적입니다.
    *
+   * 가능한 값으로는 sign_up, purchase, visit 3가지만 가능합니다.
+   *
    * @title 마케팅 목적.
    */
   purpose: MarketingDesiredAction;
@@ -65,12 +67,16 @@ export interface IDistributionChannel {
   /**
    * 마케팅 카피를 사용할 채널 입니다.
    *
+   * 가능한 값으로 facebook, instagram_feed, instagram_story, youtube, naver, kakao 6가지만 가능합니다.
+   *
    * @title 마케팅 카피를 사용할 채널.
    */
   channel: ContentChannel;
 
   /**
    * 마케팅 카피를 사용할 채널에서 가져올 정보입니다.
+   *
+   * 가능한 값으로 title, cta, subtitle 3가지만 가능합니다.
    *
    * @title 마케팅 카피를 사용할 채널에서 가져올 정보.
    */
@@ -87,6 +93,8 @@ export interface IMarketingCopyGeneratorRequest {
 
   /**
    * 마케팅 카피 시안을 정렬할 기준입니다.
+   *
+   * 가능한 값으로 view_count, like_count, rank 3가지만 가능합니다.
    *
    * @title 정렬 기준.
    */
