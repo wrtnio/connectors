@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "아임웹",
-    "version": "0.1.46",
+    "version": "0.1.47",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -144,7 +144,8 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri"
+              "format": "uri",
+              "contentMediaType": "image/*"
             },
             "title": "File urls\n\nCan't call it right away because it's not a completed URL."
           },
