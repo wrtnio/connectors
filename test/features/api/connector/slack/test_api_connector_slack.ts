@@ -70,32 +70,27 @@ export const test_api_connector_slack_text_message = async (
 ) => {
   const [PublicChannel] =
     await test_api_connector_slack_get_public_channels(connection);
-  await CApi.functional.connector.slack.postMessage.text.textMessage(
-    connection,
-    {
-      channel: PublicChannel.id,
-      text: "hello, world",
-      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-    },
-  );
+  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
+    channel: PublicChannel.id,
+    text: "hello, world",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
 
   const [PrivateChannel] =
     await test_api_connector_slack_get_private_channels(connection);
-  await CApi.functional.connector.slack.postMessage.text.textMessage(
-    connection,
-    {
-      channel: PrivateChannel.id,
-      text: "hello, world",
-      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-    },
-  );
+  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
+    channel: PrivateChannel.id,
+    text: "hello, world",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+};
 
-  const [ImChannel] =
-    await test_api_connector_slack_get_im_channels(connection);
-  await CApi.functional.connector.slack.postMessage.text.textMessage(
+export const test_api_connector_slack_send_text_message_to_myself = async (
+  connection: CApi.IConnection,
+) => {
+  await CApi.functional.connector.slack.postMessage.text.myself.sendTextToMyself(
     connection,
     {
-      channel: ImChannel.id,
       text: "hello, world",
       secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
     },

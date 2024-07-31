@@ -10,6 +10,23 @@ export namespace ISlack {
     ]
   >;
 
+  export interface IPostMessageToMyselfInput extends ISlack.ISecret {
+    /**
+     * @title message to send
+     */
+    text: string;
+  }
+
+  export interface IAuthTestOutput {
+    ok: boolean;
+    url: "https://kakasootest.slack.com/";
+    team: string;
+    user: string;
+    team_id: string;
+    user_id: string;
+    is_enterprise_install: boolean;
+  }
+
   export interface IPostMessageInput extends ISlack.ISecret {
     /**
      * @title channel id
