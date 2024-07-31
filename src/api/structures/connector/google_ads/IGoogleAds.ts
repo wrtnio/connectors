@@ -1,6 +1,7 @@
 import type { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
+import { MyPartial } from "../../../../utils/types/MyPartial";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
@@ -673,7 +674,7 @@ export namespace IGoogleAds {
    * @title 캠페인 수정 조건
    */
   export interface IUpdateCampaignInput
-    extends Partial<
+    extends MyPartial<
         Pick<
           ICreateCampaignInput,
           "campaignName" | "campaignBudget" | "endDate"

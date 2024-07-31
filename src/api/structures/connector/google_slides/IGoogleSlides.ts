@@ -2,6 +2,7 @@ import { tags } from "typia";
 
 import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
 
+import { MyPartial } from "../../../../utils/types/MyPartial";
 import { ICommon } from "../common/ISecretValue";
 
 type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
@@ -882,7 +883,7 @@ export namespace IGoogleSlides {
      * @title 배경 채우기 속성 상태입니다.
      */
     propertyState?: PropertyState | null;
-  } & Partial<FillOption>;
+  } & MyPartial<FillOption>;
 
   type FillOption = OneOf<{
     /**

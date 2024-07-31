@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { MyPartial } from "../../../../utils/types/MyPartial";
 import { IConnector } from "../../common/IConnector";
 import { IKeywordExtraction } from "../extract/IKeywordExtractor";
 
@@ -183,7 +184,8 @@ export namespace IMarketingCopyGenerator {
   /**
    * @title 마케팅 카피 생성 결과
    */
-  export type IGenerateMarketingCopyOutput = Partial<IMarketingCopyComponents>;
+  export type IGenerateMarketingCopyOutput =
+    MyPartial<IMarketingCopyComponents>;
 
   /**
    * @title 마케팅 카피 이미지 생성을 위한 입력

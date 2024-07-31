@@ -1,5 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { MyPartial } from "../../../utils/types/MyPartial";
 
 export namespace IConnector {
   /**
@@ -62,7 +63,7 @@ export namespace IConnector {
      *
      * @title 산출물 통계 자료 정보
      */
-    statistics?: Partial<Record<MetricType, number & tags.Type<"int32">>>;
+    statistics?: MyPartial<Record<MetricType, number & tags.Type<"int32">>>;
   }
 
   /**
