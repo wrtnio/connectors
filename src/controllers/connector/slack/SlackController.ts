@@ -11,27 +11,31 @@ export class SlackController {
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    return this.slackProvider.getChannelHistories(input);
+    const res = await this.slackProvider.getChannelHistories(input);
+    return res;
   }
 
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return this.slackProvider.getPrivateChannels(input);
+    const res = await this.slackProvider.getPrivateChannels(input);
+    return res;
   }
 
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
-    return this.slackProvider.getPublicChannels(input);
+    const res = await this.slackProvider.getPublicChannels(input);
+    return res;
   }
 
   @TypedRoute.Post("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
-    return this.slackProvider.getImChannels(input);
+    const res = await this.slackProvider.getImChannels(input);
+    return res;
   }
 }

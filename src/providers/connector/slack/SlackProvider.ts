@@ -7,9 +7,9 @@ export class SlackProvider {
   async getChannelHistories(
     input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    const url = `https://slack.com/api/conversations.history?channel=C07ER9HLDGD&limit=30&pretty=1`;
+    const url = `https://slack.com/api/conversations.history?&pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, type: "private_channel" })
+    const queryParameter = Object.entries({ ...rest })
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
@@ -19,7 +19,7 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_coursor;
     const messages = res.data.messages.map((message: ISlack.Message) => {
       return {
         type: message.type,
@@ -30,7 +30,7 @@ export class SlackProvider {
       };
     });
 
-    return { messages, next_cursor };
+    return { messages, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getPrivateChannels(
@@ -38,7 +38,7 @@ export class SlackProvider {
   ): Promise<ISlack.IGetPrivateChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, type: "private_channel" })
+    const queryParameter = Object.entries({ ...rest, types: "private_channel" })
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
@@ -48,14 +48,14 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_coursor;
     const channels = res.data.channels.map((channel: ISlack.PrivateChannel) => {
       return {
         id: channel.id,
         name: channel.name,
       };
     });
-    return { channels, next_cursor };
+    return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getPublicChannels(
@@ -63,7 +63,7 @@ export class SlackProvider {
   ): Promise<ISlack.IGetPublicChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, type: "public_channel" })
+    const queryParameter = Object.entries({ ...rest, types: "public_channel" })
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
@@ -73,14 +73,14 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_coursor;
     const channels = res.data.channels.map((channel: ISlack.PublicChannel) => {
       return {
         id: channel.id,
         name: channel.name,
       };
     });
-    return { channels, next_cursor };
+    return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getImChannels(
@@ -88,7 +88,7 @@ export class SlackProvider {
   ): Promise<ISlack.IGetImChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, type: "im" })
+    const queryParameter = Object.entries({ ...rest, types: "im" })
       .map(([key, value]) => `${key}=${value}`)
       .join("&");
 
@@ -98,9 +98,9 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_coursor;
     const channels = res.data.channels;
 
-    return { channels, next_cursor };
+    return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 }

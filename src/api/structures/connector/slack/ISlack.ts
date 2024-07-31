@@ -5,7 +5,7 @@ import { ICommon } from "../common/ISecretValue";
 export namespace ISlack {
   export type ISecret = ICommon.ISecret<
     "slack",
-    ["channels:read,channels:history,users.profile:read,im:read"]
+    ["channels:read,channels:history,users.profile:read,im:read,groups:read"]
   >;
 
   export interface ICommonPaginationInput {
@@ -28,7 +28,7 @@ export namespace ISlack {
   export interface IGetChannelHistoryOutput {
     messages: ISlack.Message[];
 
-    next_cursor: string;
+    next_cursor: string | null;
   }
 
   export interface IGetChannelHistoryInput
@@ -57,19 +57,19 @@ export namespace ISlack {
   export interface IGetPrivateChannelOutput {
     channels: ISlack.PrivateChannel[];
 
-    next_cursor: string;
+    next_cursor: string | null;
   }
 
   export interface IGetPublicChannelOutput {
     channels: ISlack.PublicChannel[];
 
-    next_cursor: string;
+    next_cursor: string | null;
   }
 
   export interface IGetImChannelOutput {
     channels: ISlack.ImChannel[];
 
-    next_cursor: string;
+    next_cursor: string | null;
   }
 
   export interface IGetChannelInput
