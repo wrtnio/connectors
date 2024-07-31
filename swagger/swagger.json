@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.50",
+    "version": "0.1.51",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8572,6 +8572,130 @@
         "summary": "최종 항공편 선택 결과",
         "description": "최종 항공편을 검색합니다.\n출발, 도착 항공편을 선택한 결과를 보여줍니다.",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/slack/get-channel-histories": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelHistoryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "channel histories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetChannelHistoryOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "get channel histories in slack",
+        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/get-private-channels": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "private channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetPrivateChannelOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "get private channels in slack",
+        "description": "get private channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/get-public-channels": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "public channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetPublicChannelOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "get public channels in slack",
+        "description": "get public channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `public` channel.\nThe channel ID is required to look up the conversation history within the channel later.\nThe `public` channel is anyone's accessible.\nThis does not require an invitation process, and users can join the channel themselves if necessary.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/get-im-channels": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "im channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetImChannelOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "get im channels in slack",
+        "description": "get im channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     }
   },
@@ -27792,6 +27916,350 @@
         ],
         "title": "예약 옵션",
         "description": "예약 옵션입니다."
+      },
+      "ISlack.IGetChannelHistoryInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channels",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first."
+          },
+          "latest": {
+            "type": "number",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nfor example, '1234567890.123456'"
+          },
+          "oldest": {
+            "type": "number",
+            "default": 0,
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nfor example, '1234567890.123456'"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read,channels:history,users.profile:read,im:read,groups:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 100,
+            "x-wrtn-placeholder": "100",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page."
+          }
+        },
+        "required": [
+          "channel",
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetChannelHistoryOutput": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.Message"
+            },
+            "title": "message\n\nThis refers to the history of conversations made on the channel."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "messages",
+          "next_cursor"
+        ]
+      },
+      "ISlack.Message": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "message",
+            "title": "type"
+          },
+          "user": {
+            "type": "string",
+            "title": "ID of the person who made this message"
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents"
+          },
+          "ts": {
+            "type": "string",
+            "title": "timestamp"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.Attachment"
+            },
+            "title": "Attachments"
+          }
+        },
+        "required": [
+          "type",
+          "user",
+          "text",
+          "ts"
+        ]
+      },
+      "ISlack.Attachment": {
+        "type": "object",
+        "properties": {
+          "service_name": {
+            "type": "string",
+            "title": "service_name"
+          },
+          "text": {
+            "type": "string",
+            "title": "text"
+          },
+          "fallback": {
+            "type": "string",
+            "title": "fallback"
+          },
+          "thumb_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "thumb_url"
+          },
+          "thumb_width": {
+            "type": "number",
+            "title": "thumb_width"
+          },
+          "thumb_height": {
+            "type": "number",
+            "title": "thumb_height"
+          },
+          "id": {
+            "type": "number",
+            "title": "id"
+          }
+        },
+        "required": [
+          "service_name",
+          "text",
+          "fallback",
+          "thumb_url",
+          "thumb_width",
+          "thumb_height",
+          "id"
+        ]
+      },
+      "ISlack.IGetChannelInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read,channels:history,users.profile:read,im:read,groups:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 100,
+            "x-wrtn-placeholder": "100",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "request condition"
+      },
+      "ISlack.IGetPrivateChannelOutput": {
+        "type": "object",
+        "properties": {
+          "channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.PrivateChannel"
+            },
+            "title": "channels"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "channels",
+          "next_cursor"
+        ],
+        "title": "response"
+      },
+      "ISlack.PrivateChannel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "channel name"
+          },
+          "id": {
+            "type": "string",
+            "title": "channel id"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "ISlack.IGetPublicChannelOutput": {
+        "type": "object",
+        "properties": {
+          "channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.PublicChannel"
+            },
+            "title": "channels"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "channels",
+          "next_cursor"
+        ],
+        "title": "response"
+      },
+      "ISlack.PublicChannel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "channel name"
+          },
+          "id": {
+            "type": "string",
+            "title": "channel id"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "ISlack.IGetImChannelOutput": {
+        "type": "object",
+        "properties": {
+          "channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.ImChannel"
+            },
+            "title": "channels"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "channels",
+          "next_cursor"
+        ],
+        "title": "response"
+      },
+      "ISlack.ImChannel": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "title": "created time"
+          },
+          "is_im": {
+            "const": true,
+            "title": "Is it the `im` type or not"
+          },
+          "is_org_shared": {
+            "const": false,
+            "title": "is org shared"
+          },
+          "is_user_deleted": {
+            "type": "boolean",
+            "title": "is user deleted"
+          },
+          "priority": {
+            "type": "number",
+            "title": "priority"
+          },
+          "user": {
+            "type": "string",
+            "title": "channel owner's id"
+          },
+          "id": {
+            "type": "string",
+            "title": "channel id"
+          }
+        },
+        "required": [
+          "created",
+          "is_im",
+          "is_org_shared",
+          "is_user_deleted",
+          "priority",
+          "user",
+          "id"
+        ]
       }
     }
   },
