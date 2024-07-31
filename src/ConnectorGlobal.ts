@@ -87,6 +87,11 @@ export namespace ConnectorGlobal {
     STABILITY_AI_DEFAULT_STEP: `${number}`;
     STABILITY_AI_CFG_SCALE: `${number}`;
 
+    // SLACK
+    SLACK_CLIENT_ID: string;
+    SLACK_CLIENT_SECRET: string;
+    SLACK_TEST_SECRET: string;
+
     //----
     // INHOUSE SERVERS
     //----
