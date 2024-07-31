@@ -330,7 +330,12 @@ export namespace OpenDataProvider {
     try {
       const baseUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
-      const now = new Date();
+
+      const koreanTimeString = new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Seoul",
+      });
+      const now = new Date(koreanTimeString);
+
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
       const day = String(now.getDate()).padStart(2, "0");

@@ -78,7 +78,7 @@ export class GoogleSlidesProvider {
 
   async getPresentation(
     input: IGoogleSlides.IGetPresentationInput,
-  ): Promise<IGoogleSlides.Presentation> {
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
       const { secretKey, presentationId } = input;
       const accessToken =
@@ -93,7 +93,12 @@ export class GoogleSlidesProvider {
         },
       );
 
-      return res.data;
+      const data: IGoogleSlides.Presentation = res.data;
+      return {
+        presentationId: data.presentationId,
+        pageSize: data.pageSize,
+        title: data.title,
+      };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -131,7 +136,7 @@ export class GoogleSlidesProvider {
   async appendImageSlide(
     presentationId: string,
     input: IGoogleSlides.AppendSlideInput,
-  ): Promise<IGoogleSlides.Presentation> {
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
       input = await this.transformUrl(input);
       const { secretKey, templates } = input;
@@ -808,7 +813,12 @@ export class GoogleSlidesProvider {
         },
       );
 
-      return res.data;
+      const data: IGoogleSlides.Presentation = res.data;
+      return {
+        presentationId: data.presentationId,
+        pageSize: data.pageSize,
+        title: data.title,
+      };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -817,15 +827,15 @@ export class GoogleSlidesProvider {
 
   async createPresentation(
     input: IGoogleSlides.ICreatePresentationInput,
-  ): Promise<IGoogleSlides.Presentation> {
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
-      const { secretKey, ...body } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(
+        input.secretKey,
+      );
 
       const res = await axios.post(
         "https://slides.googleapis.com/v1/presentations",
-        body,
+        {},
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -833,7 +843,12 @@ export class GoogleSlidesProvider {
         },
       );
 
-      return res.data;
+      const data: IGoogleSlides.Presentation = res.data;
+      return {
+        presentationId: data.presentationId,
+        pageSize: data.pageSize,
+        title: data.title,
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

@@ -1,5 +1,4 @@
 import typia from "typia";
-import { v4 } from "uuid";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -46,21 +45,6 @@ export const test_api_connector_google_slides_create_presentation = async (
       connection,
       {
         secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-        pageSize: {
-          width: {
-            magnitude: 9_144_000,
-            unit: "EMU",
-          },
-          height: {
-            magnitude: 6_858_000,
-            unit: "EMU",
-          },
-        },
-        slides: [],
-        title: `${createPresentationName()} - no slides`,
-        masters: [],
-        layouts: [],
-        locale: "ko",
       },
     );
 
@@ -82,53 +66,7 @@ export const test_api_connector_google_slides_create_presentation_with_one_slide
         connection,
         {
           secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-          pageSize: {
-            width: {
-              magnitude: 9_144_000,
-              unit: "EMU",
-            },
-            height: {
-              magnitude: 6_858_000,
-              unit: "EMU",
-            },
-          },
-          slides: [
-            {
-              pageType: "MASTER",
-              objectId: `${PresentationName} - objectId`,
-              masterProperties: {
-                displayName: `${PresentationName} - displayName`,
-              },
-              pageElements: [
-                {
-                  description: `${PresentationName} - page0 - description`,
-                  image: {
-                    contentUrl: "",
-                    imageProperties: {},
-                  },
-                  objectId: "",
-                  size: {
-                    height: {
-                      unit: "EMU",
-                    },
-                    width: {
-                      unit: "EMU",
-                    },
-                  },
-                  transform: {
-                    scaleX: 1,
-                    scaleY: 1,
-                    unit: "EMU",
-                  },
-                },
-              ],
-              pageProperties: {},
-            },
-          ],
           title: PresentationName,
-          masters: [],
-          layouts: [],
-          locale: "ko",
         },
       );
 
@@ -144,12 +82,10 @@ export const test_api_connector_google_slides_create_random_presentation =
     /**
      * create a new Google Slides Presentation.
      */
-    const random = typia.random<IGoogleSlides.ICreatePresentationInput>();
     const res =
       await CApi.functional.connector.google_slides.presentations.createPresentation(
         connection,
         {
-          ...random,
           secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
           title: `${createPresentationName()} - random presentation`,
         },
@@ -192,40 +128,6 @@ export const test_api_connector_google_slides_append_image_slide = async (
       connection,
     );
 
-  // const slideId = v4();
-  // const imageId = v4();
-  // const res =
-  //   await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
-  //     connection,
-  //     presentation.presentationId as string,
-  //     {
-  //       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-  //       requests: [
-  //         {
-  //           createSlide: {
-  //             objectId: slideId,
-  //           },
-  //         },
-  //         {
-  //           createImage: {
-  //             objectId: imageId,
-  //             elementProperties: {
-  //               pageObjectId: slideId,
-  //               size: {
-  //                 height: presentation.pageSize?.height,
-  //                 width: presentation.pageSize?.width,
-  //               },
-  //             },
-  //             url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s",
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   );
-
-  // return res;
-
-  //const testImage = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7ZTfLF01jt92TCutlhcM_gzn9nIPMaWdpg&s`;
   const testImage = `https://dev-studio-pro.s3.amazonaws.com/connector/generate-story-copy/f42e4450-3064-43d1-b973-2c913f08581a`;
   await CApi.functional.connector.google_slides.presentations.image_slide.appendImageSlide(
     connection,
