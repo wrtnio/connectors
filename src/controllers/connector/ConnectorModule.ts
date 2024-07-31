@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { LoggerModule } from "nestjs-pino";
 
+import { AirportInformationModule } from "./airport_information/AirportInformationModule";
 import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
 import { AwsModule } from "./aws/AwsModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
@@ -16,6 +17,8 @@ import { GoogleSheetModule } from "./google-sheet/GoogleSheetModule";
 import { GoogleAdsModule } from "./google_ads/GoogleAdsModule";
 import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
+import { GoogleFlightModule } from "./google_flight/GoogleFlightModule";
+import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
 import { GoogleScholarModule } from "./google_scholar/GoolgeScholarModule";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
 import { GoogleShoppingModule } from "./google_shopping/GoogleShoppingModule";
@@ -35,6 +38,7 @@ import { NotionModule } from "./notion/NotionModule";
 import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
+import { SlackModule } from "./slack/SlackModule";
 import { RankModule } from "./sort/RankModule";
 import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffusionBetaModule";
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
@@ -45,9 +49,6 @@ import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
-import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
-import { AirportInformationModule } from "./airport_information/AirportInformationModule";
-import { GoogleFlightModule } from "./google_flight/GoogleFlightModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -100,6 +101,7 @@ import { GoogleFlightModule } from "./google_flight/GoogleFlightModule";
     GoogleHotelModule,
     AirportInformationModule,
     GoogleFlightModule,
+    SlackModule,
   ],
   controllers: [TypeformController],
 })
