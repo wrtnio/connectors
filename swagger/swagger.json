@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.54",
+    "version": "0.1.55",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8572,6 +8572,54 @@
         "summary": "최종 항공편 선택 결과",
         "description": "최종 항공편을 검색합니다.\n출발, 도착 항공편을 선택한 결과를 보여줍니다.",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/slack/postMessage/text/myself": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IPostMessageToMyselfInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "channel histories"
+          }
+        },
+        "summary": "post text message to myself in slack",
+        "description": "send message to myself",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/postMessage/text": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IPostMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "channel histories"
+          }
+        },
+        "summary": "post text message in slack",
+        "description": "send message to channel",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
     "/connector/slack/get-channel-histories": {
@@ -27913,6 +27961,60 @@
         "title": "예약 옵션",
         "description": "예약 옵션입니다."
       },
+      "ISlack.IPostMessageToMyselfInput": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,identity.basic"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "text",
+          "secretKey"
+        ]
+      },
+      "ISlack.IPostMessageInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channels",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,identity.basic"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
         "properties": {
@@ -27940,7 +28042,7 @@
             "type": "string",
             "x-wrtn-secret-key": "slack",
             "x-wrtn-secret-scopes": [
-              "channels:read,channels:history,users.profile:read,im:read,groups:read"
+              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,identity.basic"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -28074,7 +28176,7 @@
             "type": "string",
             "x-wrtn-secret-key": "slack",
             "x-wrtn-secret-scopes": [
-              "channels:read,channels:history,users.profile:read,im:read,groups:read"
+              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,identity.basic"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
