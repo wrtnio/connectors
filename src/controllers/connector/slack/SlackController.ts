@@ -33,7 +33,7 @@ export class SlackController {
    * get private channels in slack
    *
    * View channels in Slack.
-   * This connector will only look up its own `private` channel."
+   * This connector will only look up its own `private` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * `private` channel is a locked channel that can only be viewed by those invited to the channel.
    *
@@ -55,7 +55,7 @@ export class SlackController {
    * get public channels in slack
    *
    * View channels in Slack.
-   * This connector will only look up its own `public` channel."
+   * This connector will only look up its own `public` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * The `public` channel is anyone's accessible.
    * This does not require an invitation process, and users can join the channel themselves if necessary.
@@ -78,7 +78,7 @@ export class SlackController {
    * get im channels in slack
    *
    * View channels in Slack.
-   * This connector will only look up its own `im` channel."
+   * This connector will only look up its own `im` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * `im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.
    * Users also use chat as storage or notepad, such as storing files and images here.

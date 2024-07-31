@@ -73,7 +73,7 @@ export namespace ISlack {
      * Only messages before this Unix timestamp will be included in results. Default is the current time.
      * for example, '1234567890.123456'
      */
-    lastest?: number & Placeholder<"1234567890.123456">;
+    latest?: number & Placeholder<"1234567890.123456">;
 
     /**
      * @title oldest
