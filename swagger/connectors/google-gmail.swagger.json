@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Gmail",
-    "version": "0.1.51",
+    "version": "0.1.52",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1072,7 +1072,7 @@
               }
             ],
             "title": "라벨의 공개 상태.",
-            "description": "생성할 라벨의 공개 상태.\n숨김 / 보임 / 안읽었을 때 보임"
+            "description": "생성할 라벨의 공개 상태.\n\n숨김 / 보임 / 안읽었을 때 보임\n\n- labelHide: 숨김\n- labelShow: 보임\n- labelShowIfUnread: 안읽었을 때 보임\n\n가능한 값으로 labelHide, labelShow, labelShowIfUnread 3가지만 가능합니다."
           },
           "messageListVisibility": {
             "oneOf": [
@@ -1084,7 +1084,7 @@
               }
             ],
             "title": "라벨이 지정된 메일의 공개 상태.",
-            "description": "생성된 라벨이 지정된 메일의 공개 상태.\n숨김 / 보임"
+            "description": "생성된 라벨이 지정된 메일의 공개 상태.\n\n숨김 / 보임\n\n- hide: 숨김\n- show: 보임\n\n가능한 값으로 hide, show 2가지만 가능합니다."
           },
           "color": {
             "$ref": "#/components/schemas/IGmail.ILabelColor",

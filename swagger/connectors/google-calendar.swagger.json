@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "구글 캘린더",
-    "version": "0.1.51",
+    "version": "0.1.52",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -991,7 +991,7 @@
               }
             ],
             "title": "어떤 순서대로 받아올 것인지.",
-            "description": "캘린더 이벤트 정렬 순서입니다."
+            "description": "캘린더 이벤트 정렬 순서입니다.\n\n- startTime: 이벤트 시작 시간.\n- updated: 이벤트 업데이트 날짜.\n\n가능한 값으로는 \"startTime\", \"updated\" 2가지만 가능합니다."
           },
           "query": {
             "type": "string",
@@ -1728,7 +1728,7 @@
               }
             ],
             "title": "이벤트 반복 주기.",
-            "description": "이벤트 반복 주기입니다."
+            "description": "이벤트 반복 주기입니다.\n\n- DAILY: 매일\n- WEEKLY: 매주\n- MONTHLY: 매달\n- YEARLY: 매년\n\n가능한 값으로는 \"DAILY\", \"WEEKLY\", \"MONTHLY\", \"YEARLY\" 4가지만 가능합니다."
           },
           "repeatNum": {
             "type": "number",
@@ -1760,7 +1760,7 @@
               }
             ],
             "title": "이벤트 알림 유형.",
-            "description": "이벤트 알림 유형입니다."
+            "description": "이벤트 알림 유형입니다.\n\n- popup: 팝업 알림\n- email: 이메일 알림\n\n가능한 값으로는 \"popup\", \"email\" 2가지만 가능합니다."
           },
           "minutesBeforeReminders": {
             "type": "number",
@@ -1785,7 +1785,7 @@
               }
             ],
             "title": "이벤트 공개 상태.",
-            "description": "이벤트 공개 상태입니다."
+            "description": "이벤트 공개 상태입니다.\n\ndefault - 기본 공개 상태\npublic - 일정이 공개되며 일정 세부정보가 캘린더의 모든 독자에게 표시\nprivate - 일정이 비공개이며 일정 참석자만 일정 세부정보를 볼 수 있음\n\n가능한 값으로는 \"default\", \"public\", \"private\" 3가지만 가능합니다."
           },
           "colorId": {
             "type": "string",

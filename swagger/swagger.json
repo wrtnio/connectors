@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.51",
+    "version": "0.1.52",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -5366,7 +5366,7 @@
           }
         },
         "summary": "스토리 생성",
-        "description": "유저의 입력을 기반으로 스토리를 짭니다.\n\n그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다."
+        "description": "유저의 입력을 기반으로 스토리를 짭니다.\n\n그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.\n\n스토리 이미지 생성 커넥터와 연계해서 사용해주세요.\n\nconnector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요."
       }
     },
     "/connector/story-image-generator": {
@@ -8744,7 +8744,7 @@
               }
             ],
             "title": "산출물 타입",
-            "description": "비디오, 이미지, 뉴스기사, 논문.."
+            "description": "비디오, 이미지, 뉴스기사, 논문..\n\n가능한 값: video, image, news_article, research_paper"
           },
           "source": {
             "oneOf": [
@@ -8768,7 +8768,7 @@
               }
             ],
             "title": "산출물의 출처",
-            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스"
+            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스\n\n가능한 값: youtube, facebook, instagram, google_search, arxiv, google_news"
           },
           "url": {
             "type": "string",
@@ -8790,7 +8790,7 @@
           "statistics": {
             "$ref": "#/components/schemas/PartialRecordIConnector.MetricTypenumberTypeint32",
             "title": "산출물 통계 자료 정보",
-            "description": "산출물의 통계 자료 정보입니다."
+            "description": "산출물의 통계 자료 정보입니다.\n\n가능한 값: view_count, like_count, rank"
           }
         },
         "required": [
@@ -8923,7 +8923,7 @@
               }
             ],
             "title": "마케팅 목적.",
-            "description": "마케팅을 하려는 목적입니다."
+            "description": "마케팅을 하려는 목적입니다.\n\n가능한 값으로는 sign_up, purchase, visit 3가지만 가능합니다."
           },
           "product_name": {
             "type": "string",
@@ -8979,7 +8979,7 @@
               }
             ],
             "title": "마케팅 카피를 사용할 채널.",
-            "description": "마케팅 카피를 사용할 채널 입니다."
+            "description": "마케팅 카피를 사용할 채널 입니다.\n\n가능한 값으로 facebook, instagram_feed, instagram_story, youtube, naver, kakao 6가지만 가능합니다."
           },
           "components": {
             "type": "array",
@@ -8997,7 +8997,7 @@
               ]
             },
             "title": "마케팅 카피를 사용할 채널에서 가져올 정보.",
-            "description": "마케팅 카피를 사용할 채널에서 가져올 정보입니다."
+            "description": "마케팅 카피를 사용할 채널에서 가져올 정보입니다.\n\n가능한 값으로 title, cta, subtitle 3가지만 가능합니다."
           }
         },
         "required": [
@@ -9578,7 +9578,7 @@
               }
             ],
             "title": "부여할 권한.",
-            "description": "부여할 권한의 종류입니다."
+            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\norganizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.\nfileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"writer\", \"commenter\", \"reader\", \"organizer\", \"fileOrganizer\" 6가지만 가능합니다."
           },
           "type": {
             "oneOf": [
@@ -9596,7 +9596,7 @@
               }
             ],
             "title": "부여할 권한의 타입.",
-            "description": "부여할 권한의 타입입니다."
+            "description": "부여할 권한의 타입입니다.\n\n user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.\ngroup - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.\ndomain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.\nanyone - 모든 사용자\n\n가능한 값으로는 \"user\", \"group\", \"domain\", \"anyone\" 4가지만 가능합니다."
           }
         },
         "required": [
@@ -9895,7 +9895,7 @@
               }
             ],
             "title": "부여할 권한.",
-            "description": "부여할 권한의 종류입니다."
+            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"writer\", \"commenter\", \"reader\" 4가지만 가능합니다."
           }
         },
         "required": [
@@ -10202,7 +10202,7 @@
               }
             ],
             "title": "어떤 순서대로 받아올 것인지.",
-            "description": "캘린더 이벤트 정렬 순서입니다."
+            "description": "캘린더 이벤트 정렬 순서입니다.\n\n- startTime: 이벤트 시작 시간.\n- updated: 이벤트 업데이트 날짜.\n\n가능한 값으로는 \"startTime\", \"updated\" 2가지만 가능합니다."
           },
           "query": {
             "type": "string",
@@ -10939,7 +10939,7 @@
               }
             ],
             "title": "이벤트 반복 주기.",
-            "description": "이벤트 반복 주기입니다."
+            "description": "이벤트 반복 주기입니다.\n\n- DAILY: 매일\n- WEEKLY: 매주\n- MONTHLY: 매달\n- YEARLY: 매년\n\n가능한 값으로는 \"DAILY\", \"WEEKLY\", \"MONTHLY\", \"YEARLY\" 4가지만 가능합니다."
           },
           "repeatNum": {
             "type": "number",
@@ -10971,7 +10971,7 @@
               }
             ],
             "title": "이벤트 알림 유형.",
-            "description": "이벤트 알림 유형입니다."
+            "description": "이벤트 알림 유형입니다.\n\n- popup: 팝업 알림\n- email: 이메일 알림\n\n가능한 값으로는 \"popup\", \"email\" 2가지만 가능합니다."
           },
           "minutesBeforeReminders": {
             "type": "number",
@@ -10996,7 +10996,7 @@
               }
             ],
             "title": "이벤트 공개 상태.",
-            "description": "이벤트 공개 상태입니다."
+            "description": "이벤트 공개 상태입니다.\n\ndefault - 기본 공개 상태\npublic - 일정이 공개되며 일정 세부정보가 캘린더의 모든 독자에게 표시\nprivate - 일정이 비공개이며 일정 참석자만 일정 세부정보를 볼 수 있음\n\n가능한 값으로는 \"default\", \"public\", \"private\" 3가지만 가능합니다."
           },
           "colorId": {
             "type": "string",
@@ -11359,7 +11359,7 @@
               }
             ],
             "title": "부여할 권한.",
-            "description": "부여할 권한의 종류입니다."
+            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\norganizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.\nfileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"organizer\", \"fileOrganizer\", \"writer\", \"commenter\", \"reader\" 6가지만 가능합니다."
           },
           "type": {
             "oneOf": [
@@ -11377,7 +11377,7 @@
               }
             ],
             "title": "부여할 권한의 타입.",
-            "description": "부여할 권한의 타입입니다."
+            "description": "부여할 권한의 타입입니다.\n\nuser - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.\ngroup - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.\ndomain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.\nanyone - 모든 사용자\n\n가능한 값으로는 \"user\", \"group\", \"domain\", \"anyone\" 4가지만 가능합니다."
           }
         },
         "required": [
@@ -11891,7 +11891,7 @@
               }
             ],
             "title": "라벨의 공개 상태.",
-            "description": "생성할 라벨의 공개 상태.\n숨김 / 보임 / 안읽었을 때 보임"
+            "description": "생성할 라벨의 공개 상태.\n\n숨김 / 보임 / 안읽었을 때 보임\n\n- labelHide: 숨김\n- labelShow: 보임\n- labelShowIfUnread: 안읽었을 때 보임\n\n가능한 값으로 labelHide, labelShow, labelShowIfUnread 3가지만 가능합니다."
           },
           "messageListVisibility": {
             "oneOf": [
@@ -11903,7 +11903,7 @@
               }
             ],
             "title": "라벨이 지정된 메일의 공개 상태.",
-            "description": "생성된 라벨이 지정된 메일의 공개 상태.\n숨김 / 보임"
+            "description": "생성된 라벨이 지정된 메일의 공개 상태.\n\n숨김 / 보임\n\n- hide: 숨김\n- show: 보임\n\n가능한 값으로 hide, show 2가지만 가능합니다."
           },
           "color": {
             "$ref": "#/components/schemas/IGmail.ILabelColor",
@@ -21494,7 +21494,7 @@
               }
             ],
             "title": "이미지 사이즈",
-            "description": "생성할 이미지 사이즈 프리셋 입니다."
+            "description": "생성할 이미지 사이즈 프리셋 입니다.\n\n가능한 값으로는 \"square\", \"landscape\", \"portrait\" 3가지만 가능합니다."
           },
           "style_preset": {
             "oneOf": [
@@ -21568,7 +21568,7 @@
               }
             ],
             "title": "스타일 프리셋",
-            "description": "이미지를 특정한 스타일로 생성합니다."
+            "description": "이미지를 특정한 스타일로 생성합니다.\n\n가능한 값으로는 \"3d-model\", \"analog-film\", \"anime\", \"cinematic\", \"comic-book\", \"digital-art\", \"enhance\", \"fantasy-art\", \"isometric\", \"line-art\", \"low-poly\", \"modeling-compound\", \"neon-punk\", \"origami\", \"photographic\", \"pixel-art\", \"tile-texture\" 16가지만 가능합니다."
           }
         },
         "required": [
