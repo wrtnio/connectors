@@ -6,7 +6,7 @@ export namespace ISlack {
   export type ISecret = ICommon.ISecret<
     "slack",
     [
-      "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,identity.basic",
+      "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,users:read,identify",
     ]
   >;
 
