@@ -4,6 +4,27 @@ import axios from "axios";
 
 @Injectable()
 export class SlackProvider {
+  async textMessage(input: ISlack.IPostMessageInput): Promise<void> {
+    const url = `https://slack.com/api/chat.postMessage`;
+    try {
+      await axios.post(
+        url,
+        {
+          channel: input.channel,
+          text: input.text,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getChannelHistories(
     input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {

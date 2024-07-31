@@ -5,8 +5,30 @@ import { ICommon } from "../common/ISecretValue";
 export namespace ISlack {
   export type ISecret = ICommon.ISecret<
     "slack",
-    ["channels:read,channels:history,users.profile:read,im:read,groups:read"]
+    [
+      "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,identity.basic",
+    ]
   >;
+
+  export interface IPostMessageInput extends ISlack.ISecret {
+    /**
+     * @title channel id
+     *
+     * It refers to the channel on which you want to view the conversation history.
+     * You need to view the channel first.
+     */
+    channel: Channel["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channels";
+        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+      }>;
+
+    /**
+     * @title message to send
+     */
+    text: string;
+  }
 
   export interface ICommonPaginationInput {
     /**
