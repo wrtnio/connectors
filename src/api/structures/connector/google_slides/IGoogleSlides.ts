@@ -46,6 +46,8 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
+     * 이야기 또는 그림책을 생성할 때는 정방형으로만 사용해주세요.
+     *
      * @title 한 번에 생성하고자 하는 템플릿의 목록.
      */
     templates: IGoogleSlides.Template[];
@@ -94,6 +96,8 @@ export namespace IGoogleSlides {
     };
 
     /**
+     * 이야기 또는 그림책을 생성할 때는 정방형으로만 사용해주세요.
+     *
      * @title 정방형
      */
     export type Square = {
