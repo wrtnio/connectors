@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.69",
+    "version": "0.1.70",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -27571,8 +27571,14 @@
             "description": "선택된 항공편의 가격입니다."
           },
           "book_link": {
-            "type": "string",
-            "format": "uri",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/Formaturi"
+              }
+            ],
             "title": "예약 링크",
             "description": "선택된 항공편을 예약할 수 있는 링크입니다."
           }
@@ -27584,6 +27590,63 @@
         ],
         "title": "예약 옵션",
         "description": "예약 옵션입니다."
+      },
+      "Formaturi": {
+        "type": "object",
+        "properties": {
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "const": "string"
+              },
+              "kind": {
+                "const": "format"
+              },
+              "value": {
+                "const": "uri"
+              },
+              "validate": {
+                "const": "/\\/|:/.test($input) && /^(?:[a-z][a-z0-9+\\-.]*:)(?:\\/?\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\\.[a-z0-9\\-._~!$&'()*+,;=:]+)\\]|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)|(?:[a-z0-9\\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\\d*)?(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\\?(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i.test($input)"
+              },
+              "exclusive": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "const": "format"
+                  },
+                  {
+                    "const": "pattern"
+                  }
+                ],
+                "additionalItems": {
+                  "const": "pattern"
+                }
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "format": {
+                    "const": "uri"
+                  }
+                },
+                "required": [
+                  "format"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "validate",
+              "exclusive",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        }
       },
       "ISlack.IPostMessageToMyselfInput": {
         "type": "object",
