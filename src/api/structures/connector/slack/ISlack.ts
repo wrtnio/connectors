@@ -153,6 +153,8 @@ export namespace ISlack {
      * @title message
      *
      * This refers to the history of conversations made on the channel.
+     * The closer you are to the 0th in the array, the more recent it is.
+     * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
      */
     messages: ISlack.Message[];
   }
@@ -335,49 +337,82 @@ export namespace ISlack {
 
     /**
      * @title timestamp
+     *
+     * for example, `1721804246.083609`.
+     * This is the time value expression method used by Slack.
+     *
      */
     ts: string;
 
     /**
+     * @title date format of `ts`
+     *
+     * This is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'.
+     */
+    tsDate: string;
+
+    /**
      * @title Attachments
+     *
+     * Attachement contains all types of files and can sometimes be an external link.
+     * It is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up.
      */
     attachments?: ISlack.Attachment[];
   }
 
   export interface Attachment {
     /**
-     * @title service_name
-     */
-    service_name: string;
-
-    /**
      * @title text
+     *
+     * The main body text of the attachment.
+     * It can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.
+     * The content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a "Show more..." link to expand the content.
      */
-    text: string;
+    text?: string;
 
     /**
      * @title fallback
+     *
+     * 	A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
      */
-    fallback: string;
+    fallback?: string;
 
     /**
      * @title thumb_url
+     *
+     * A valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.
+     * The thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.
+     * For best results, please use images that are already 75px by 75px.
      */
-    thumb_url: string & tags.Format<"uri">;
+    thumb_url?: string & tags.Format<"uri">;
 
     /**
      * @title thumb_width
      */
-    thumb_width: number;
+    thumb_width?: number;
 
     /**
      * @title thumb_height
      */
-    thumb_height: number;
+    thumb_height?: number;
 
     /**
      * @title id
      */
     id: number;
+
+    /**
+     * @title title
+     *
+     * Large title text near the top of the attachment.
+     */
+    title?: string;
+
+    /**
+     * @title title link
+     *
+     * A valid URL that turns the title text into a hyperlink.
+     */
+    title_link?: string;
   }
 }

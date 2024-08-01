@@ -114,6 +114,7 @@ export class SlackProvider {
         user: message.user,
         text: message.text,
         ts: message.ts,
+        tsDate: new Date(message.ts.split(".").at(0) + "000").toISOString(),
         ...(message.attachments && { attachments: message.attachments }),
       };
     });
