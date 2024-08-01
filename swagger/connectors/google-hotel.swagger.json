@@ -112,7 +112,7 @@
               }
             ],
             "title": "정렬 기준",
-            "description": "원하는 정렬 기준을 선택해주세요."
+            "description": "원하는 정렬 기준을 선택해주세요.\n\n가능한 값으로 3, 8, 13만 가능합니다."
           },
           "min_price": {
             "type": "integer",
@@ -140,7 +140,7 @@
               }
             ],
             "title": "평점",
-            "description": "선택한 평점 이상의 숙소만 검색합니다."
+            "description": "선택한 평점 이상의 숙소만 검색합니다.\n\n가능한 값으로 7, 8, 9만 가능합니다."
           },
           "type": {
             "type": "array",
@@ -201,7 +201,7 @@
               ]
             },
             "title": "숙소 유형",
-            "description": "숙소 유형을 선택해주세요."
+            "description": "숙소 유형을 선택해주세요.\n\n가능한 값으로 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24만 가능합니다."
           },
           "hotel_class": {
             "type": "array",
@@ -230,7 +230,7 @@
               ]
             },
             "title": "숙소 등급",
-            "description": "숙소 등급을 선택해주세요."
+            "description": "숙소 등급을 선택해주세요.'\n\n가능한 값으로 1, 2, 3, 4, 5만 가능합니다."
           },
           "free_cancellation": {
             "type": "boolean",
