@@ -10,6 +10,10 @@ export namespace IGoogleFlight {
     /**
      * 출발지 공항의 코드를 입력해주세요.
      *
+     * 왕복(type이 "1")이어도 출발지 코드는 동일해야 합니다.
+     *
+     * 왕복(type이 "1")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다.
+     *
      * @title 출발지
      */
     departure_id: string &
@@ -24,6 +28,10 @@ export namespace IGoogleFlight {
 
     /**
      * 도착지 공항의 코드를 입력해주세요.
+     *
+     * 왕복(type이 "1")이어도 도착지 코드는 동일해야 합니다.
+     *
+     * 왕복(type이 "1")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다.
      *
      * @title 도착지
      */
