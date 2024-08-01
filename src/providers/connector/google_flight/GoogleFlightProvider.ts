@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
-import { ConfigurationServicePlaceholders } from "aws-sdk/lib/config_service_placeholders";
 import { getJson } from "serpapi";
 
 const defaultParams = {
@@ -13,19 +12,86 @@ const defaultParams = {
 
 @Injectable()
 export class GoogleFlightProvider {
-  async searchForDeparture(
+  async searchOneWay(
     input: IGoogleFlight.IRequest,
-  ): Promise<IGoogleFlight.IResponse> {
-    return await this.search(input);
+  ): Promise<IGoogleFlight.IFinalResponse> {
+    try {
+      const params: any = {
+        ...defaultParams,
+        type: "2",
+        departure_id: input.departure_id,
+        arrival_id: input.arrival_id,
+        outbound_date: input.outbound_date,
+        travel_class: Number(input.travel_class),
+        adults: input.adults,
+        ...(input.children && { children: input.children }),
+        stops: Number(input.stop),
+        ...(input.max_price && { max_price: input.max_price }),
+      };
+      const res = await getJson(params);
+      const bookingToken = res["best_flights"][0].booking_token;
+
+      // 최종 결과 조회
+      const finalParams = {
+        ...params,
+        booking_token: bookingToken,
+      };
+
+      return await this.searchForFinal(
+        finalParams as IGoogleFlight.IRequestFinal,
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  async searchForArrival(
-    input: IGoogleFlight.IRequestArrival,
-  ): Promise<IGoogleFlight.IResponse> {
-    return await this.search(input, input.departure_token);
+  async searchRoundTrip(
+    input: IGoogleFlight.IRequest,
+  ): Promise<IGoogleFlight.IFinalResponse> {
+    try {
+      const initialParams: any = {
+        ...defaultParams,
+        type: "1",
+        departure_id: input.departure_id,
+        arrival_id: input.arrival_id,
+        outbound_date: input.outbound_date,
+        return_date: input.return_date,
+        travel_class: Number(input.travel_class),
+        adults: input.adults,
+        ...(input.children && { children: input.children }),
+        stops: Number(input.stop),
+        ...(input.max_price && { max_price: input.max_price }),
+      };
+
+      // 출발편 조회
+      const departureRes = await getJson(initialParams);
+      const departureToken = departureRes["best_flights"][0].departure_token;
+
+      // 도착편 조회
+      const arrivalParams = {
+        ...initialParams,
+        departure_token: departureToken,
+      };
+      const arrivalRes = await getJson(arrivalParams);
+      const bookingToken = arrivalRes["best_flights"][0].booking_token;
+
+      // 최종 결과 조회
+      const finalParams = {
+        ...initialParams,
+        booking_token: bookingToken,
+      };
+
+      return await this.searchForFinal(
+        finalParams as IGoogleFlight.IRequestFinal,
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  async searchForFinal(
+  private async searchForFinal(
     input: IGoogleFlight.IRequestFinal,
   ): Promise<IGoogleFlight.IFinalResponse> {
     try {
@@ -45,7 +111,6 @@ export class GoogleFlightProvider {
       };
 
       const res = await getJson(params);
-
       /**
        * 검색 결과가 없을 경우 빈배열 return
        */
@@ -53,7 +118,10 @@ export class GoogleFlightProvider {
         return { flight: [], booking_options: [] };
       }
       const output: IGoogleFlight.IFinalResponse = {
-        flight: this.transformResults(res["selected_flights"]),
+        flight: this.transformResults(
+          res["selected_flights"],
+          res["price_insights"],
+        ),
         booking_options: this.transformBookingOption(res["booking_options"]),
       };
 
@@ -64,44 +132,10 @@ export class GoogleFlightProvider {
     }
   }
 
-  private async search(
-    input: IGoogleFlight.IRequest,
-    departure_token?: string,
-    booking_token?: string,
-  ): Promise<IGoogleFlight.IResponse> {
-    try {
-      const params: any = {
-        ...defaultParams,
-        departure_id: input.departure_id,
-        arrival_id: input.arrival_id,
-        type: input.type,
-        outbound_date: input.outbound_date,
-        ...(input.return_date && { return_date: input.return_date }),
-        travel_class: Number(input.travel_class),
-        adults: input.adults,
-        ...(input.children && { children: input.children }),
-        stops: Number(input.stop),
-        ...(input.max_price && { max_price: input.max_price }),
-        ...(departure_token && { departure_token: departure_token }),
-        ...(booking_token && { booking_token: booking_token }),
-      };
-      const res = await getJson(params);
-      const bestResults = res["best_flights"];
-      const otherResults = res["other_flights"];
-
-      const output: IGoogleFlight.IResponse = {
-        best_flights: bestResults ? this.transformResults(bestResults) : [],
-        other_flights: otherResults ? this.transformResults(otherResults) : [],
-      };
-
-      return output;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  private transformResults(results: any[]): IGoogleFlight.ISearchOutput[] {
+  private transformResults(
+    results: any[],
+    price_insights: any,
+  ): IGoogleFlight.ISearchOutput[] {
     return results.map((result) => ({
       flight: result.flights.map((flight: any) => ({
         departure_airport: {
@@ -126,9 +160,11 @@ export class GoogleFlightProvider {
       })),
       total_duration: this.transformDuration(result.total_duration),
       price:
-        result.price === undefined
-          ? "가격 정보가 없습니다."
-          : `${result.price}원`,
+        result.price !== undefined
+          ? `${result.price}원`
+          : price_insights.lowest_price !== undefined
+            ? `${price_insights.lowest_price}원`
+            : "가격 정보가 없습니다.",
       layover: result.layover?.map((layover: any) => ({
         name: layover.name,
         code: layover.id,
