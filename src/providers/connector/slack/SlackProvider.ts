@@ -112,7 +112,7 @@ export class SlackProvider {
       return {
         type: message.type,
         user: message.user,
-        text: message.user,
+        text: message.text,
         ts: message.ts,
         ...(message.attachments && { attachments: message.attachments }),
       };
