@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.58",
+    "version": "0.1.59",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8607,7 +8607,7 @@
           }
         },
         "summary": "post text message to myself in slack",
-        "description": "send message to myself",
+        "description": "send message to myself\n\nHere, you can send a message as long as you have the message.\nThis feature identifies who the token's users are inside and sends a message to themselves.\nTherefore, even if you don't specify a channel,\nyou send a message to the `im` channel that corresponds to your own user id.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
@@ -8631,7 +8631,38 @@
           }
         },
         "summary": "post text message in slack",
-        "description": "send message to channel",
+        "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/get-users": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetUserListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetUserListOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Look up the list of users in Slack",
+        "description": "Look up the list of users in Slack.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
@@ -28040,6 +28071,114 @@
           "secretKey"
         ]
       },
+      "ISlack.IGetUserListInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "1000",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetUserListOutput": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "name",
+                  "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
+                },
+                "display_name": {
+                  "type": "string",
+                  "title": "display name",
+                  "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+                },
+                "real_name": {
+                  "type": "string",
+                  "title": "real_name",
+                  "description": "The user's first and last name.\nUpdating this field will update first_name and last_name.\nIf only one name is provided, the value of last_name will be cleared."
+                },
+                "deleted": {
+                  "type": "boolean",
+                  "title": "deleted",
+                  "description": "This value is used to distinguish between deleted users."
+                },
+                "profile_image": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "format": "uri",
+                      "contentMediaType": "image/*"
+                    }
+                  ],
+                  "title": "profile image",
+                  "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "display_name",
+                "real_name",
+                "deleted",
+                "profile_image"
+              ]
+            },
+            "title": "user list"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "users",
+          "next_cursor"
+        ]
+      },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
         "properties": {
@@ -28081,14 +28220,13 @@
           "limit": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 100,
-            "default": 100,
-            "x-wrtn-placeholder": "100",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default."
+            "maximum": 1000,
+            "x-wrtn-placeholder": "1000",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
           },
           "cursor": {
             "type": "string",
-            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page."
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -28221,14 +28359,13 @@
           "limit": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 100,
-            "default": 100,
-            "x-wrtn-placeholder": "100",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default."
+            "maximum": 1000,
+            "x-wrtn-placeholder": "1000",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
           },
           "cursor": {
             "type": "string",
-            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page."
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
