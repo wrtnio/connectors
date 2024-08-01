@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { retry } from "../../../utils/retry";
 import { ApiTags } from "@nestjs/swagger";
@@ -12,67 +12,44 @@ export class GoogleFlightController {
   constructor(private readonly googleFlightProvider: GoogleFlightProvider) {}
 
   /**
-   * 출발 항공편을 검색합니다.
+   * 편도 항공편을 검색합니다.
    *
-   * @summary 출발 항공편 검색
+   * @summary 편도 항공편 검색
    *
    * @param input 항공편 검색에 필요한 조건
-   * @returns 항공편 검색 결과
+   * @returns 편도 항공편 검색 결과
    */
   @Standalone()
-  @core.TypedRoute.Post("/departure")
+  @core.TypedRoute.Post("/one-way")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
   )
   @ApiTags("Google Flight")
-  async departure(
+  async oneWay(
     @core.TypedBody() input: IGoogleFlight.IRequest,
-  ): Promise<IGoogleFlight.IResponse> {
-    return retry(() => this.googleFlightProvider.searchForDeparture(input))();
+  ): Promise<IGoogleFlight.IFinalResponse> {
+    return retry(() => this.googleFlightProvider.searchOneWay(input))();
   }
 
   /**
-   * 도착 항공편을 검색합니다.
+   * 왕복 항공편을 검색합니다.
    *
-   * @summary 도착 항공편 검색
+   * @summary 왕복 항공편 검색
    *
    * @param departureToken 이전 단계에서 선택한 항공편의 departure token
    *
    * @param input 항공편 검색에 필요한 조건
-   * @returns 항공편 검색 결과
+   * @returns 왕복 항공편 검색 결과
    */
   @Standalone()
-  @core.TypedRoute.Post("/arrival")
+  @core.TypedRoute.Post("/round-trip")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
   )
   @ApiTags("Google Flight")
-  async arrival(
-    @core.TypedBody() input: IGoogleFlight.IRequestArrival,
-  ): Promise<IGoogleFlight.IResponse> {
-    return retry(() => this.googleFlightProvider.searchForArrival(input))();
-  }
-
-  /**
-   * 최종 항공편을 검색합니다.
-   * 출발, 도착 항공편을 선택한 결과를 보여줍니다.
-   *
-   * @summary 최종 항공편 선택 결과
-   *
-   * @param bookingToken 이전 단계에서 선택한 항공편의 booking token
-   *
-   * @param input 항공편 검색에 필요한 조건
-   * @returns 항공편 선택 결과
-   */
-  @Standalone()
-  @core.TypedRoute.Post("/final")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
-  )
-  @ApiTags("Google Flight")
-  async final(
-    @core.TypedBody() input: IGoogleFlight.IRequestFinal,
+  async roundTrip(
+    @core.TypedBody() input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {
-    return retry(() => this.googleFlightProvider.searchForFinal(input))();
+    return retry(() => this.googleFlightProvider.searchRoundTrip(input))();
   }
 }
