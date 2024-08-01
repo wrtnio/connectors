@@ -116,6 +116,8 @@ export class SlackProvider {
         user: message.user ?? null,
         text: message.text,
         ts: message.ts,
+        replyCount: message?.reply_count ?? 0,
+        replyUsersCount: message?.reply_users_count ?? 0,
         tsDate: new Date(timestamp).toISOString(),
         ...(message.attachments && { attachments: message.attachments }),
       };
