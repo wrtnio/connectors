@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "송장 조회",
-    "version": "0.1.66",
+    "version": "0.1.67",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"

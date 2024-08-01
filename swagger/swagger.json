@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.66",
+    "version": "0.1.67",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8486,7 +8486,7 @@
         "x-wrtn-standalone": true
       }
     },
-    "/connector/google-flight/departure": {
+    "/connector/google-flight/one-way": {
       "post": {
         "tags": [
           "Google Flight"
@@ -8505,77 +8505,7 @@
         },
         "responses": {
           "201": {
-            "description": "항공편 검색 결과",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleFlight.IResponse"
-                }
-              }
-            }
-          }
-        },
-        "summary": "출발 항공편 검색",
-        "description": "출발 항공편을 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
-        "x-wrtn-standalone": true
-      }
-    },
-    "/connector/google-flight/arrival": {
-      "post": {
-        "tags": [
-          "Google Flight"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "항공편 검색에 필요한 조건",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleFlight.IRequestArrival"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "항공편 검색 결과",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleFlight.IResponse"
-                }
-              }
-            }
-          }
-        },
-        "summary": "도착 항공편 검색",
-        "description": "도착 항공편을 검색합니다.",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
-        "x-wrtn-standalone": true
-      }
-    },
-    "/connector/google-flight/final": {
-      "post": {
-        "tags": [
-          "Google Flight"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "항공편 검색에 필요한 조건",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleFlight.IRequestFinal"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "항공편 선택 결과",
+            "description": "편도 항공편 검색 결과",
             "content": {
               "application/json": {
                 "schema": {
@@ -8585,8 +8515,43 @@
             }
           }
         },
-        "summary": "최종 항공편 선택 결과",
-        "description": "최종 항공편을 검색합니다.\n출발, 도착 항공편을 선택한 결과를 보여줍니다.",
+        "summary": "편도 항공편 검색",
+        "description": "편도 항공편을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-flight/round-trip": {
+      "post": {
+        "tags": [
+          "Google Flight"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "항공편 검색에 필요한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleFlight.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "왕복 항공편 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleFlight.IFinalResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "왕복 항공편 검색",
+        "description": "왕복 항공편을 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
         "x-wrtn-standalone": true
       }
@@ -27515,32 +27480,32 @@
         ],
         "title": "항공권 검색에 필요한 정보"
       },
-      "IGoogleFlight.IResponse": {
+      "IGoogleFlight.IFinalResponse": {
         "type": "object",
         "properties": {
-          "best_flights": {
+          "flight": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGoogleFlight.ISearchOutput"
             },
-            "title": "최적의 항공권 검색 결과",
-            "description": "주어진 조건에 맞는 최적의 항공권 검색 결과입니다."
+            "title": "최종 선택된 항공권 정보",
+            "description": "최종 선택된 항공권 정보입니다."
           },
-          "other_flights": {
+          "booking_options": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IGoogleFlight.ISearchOutput"
+              "$ref": "#/components/schemas/IGoogleFlight.IBookingOption"
             },
-            "title": "나머지 항공권 검색 결과",
-            "description": "나머지 항공권 검색 결과입니다."
+            "title": "예약 정보",
+            "description": "선택한 항공편을 예약할 수 있는 정보들입니다."
           }
         },
         "required": [
-          "best_flights",
-          "other_flights"
+          "flight",
+          "booking_options"
         ],
-        "title": "항공권 검색 결과",
-        "description": "항공권 검색 결과입니다."
+        "title": "최종 항공권 선택 결과",
+        "description": "최종 항공권 선택 결과입니다."
       },
       "IGoogleFlight.ISearchOutput": {
         "type": "object",
@@ -27695,293 +27660,6 @@
           "code"
         ],
         "title": "환승 정보"
-      },
-      "IGoogleFlight.IRequestArrival": {
-        "type": "object",
-        "properties": {
-          "departure_token": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-flight/departure",
-              "jmesPath": "[].{value:departure_token, label:'도착 항공편 검색을 위한 토큰'}"
-            },
-            "title": "돌아오는 항공편 검색 토큰",
-            "description": "돌아오는 항공편 검색을 위한 토큰입니다."
-          },
-          "departure_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/airport-information/search",
-              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
-            },
-            "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
-          },
-          "arrival_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/airport-information/search",
-              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
-            },
-            "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "1",
-                "title": "왕복"
-              },
-              {
-                "const": "2",
-                "title": "편도"
-              }
-            ],
-            "title": "왕복 또는 편도 여부",
-            "description": "왕복 또는 편도 여부를 선택해주세요.\n\n가능한 값으로 1, 2가 있습니다.\n\n왕복이면 \"1\", 편도면 \"2\"를 선택해주세요."
-          },
-          "outbound_date": {
-            "type": "string",
-            "format": "date",
-            "title": "가는 날짜",
-            "description": "가는 날짜를 입력해주세요."
-          },
-          "return_date": {
-            "type": "string",
-            "format": "date",
-            "title": "오는 날짜",
-            "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다."
-          },
-          "travel_class": {
-            "oneOf": [
-              {
-                "const": "1",
-                "title": "이코노미"
-              },
-              {
-                "const": "2",
-                "title": "프리미엄 이코노미"
-              },
-              {
-                "const": "3",
-                "title": "비즈니스"
-              },
-              {
-                "const": "4",
-                "title": "퍼스트"
-              }
-            ],
-            "title": "좌석 등급",
-            "description": "좌석 등급을 선택해주세요.\n\n가능한 값으로 1, 2, 3, 4가 있습니다."
-          },
-          "adults": {
-            "type": "integer",
-            "title": "성인 인원",
-            "description": "성인 인원수를 입력해주세요."
-          },
-          "children": {
-            "type": "integer",
-            "title": "아동 인원",
-            "description": "아동 인원수를 입력해주세요."
-          },
-          "stop": {
-            "oneOf": [
-              {
-                "const": "0",
-                "title": "상관 없음"
-              },
-              {
-                "const": "1",
-                "title": "직항"
-              },
-              {
-                "const": "2",
-                "title": "1번 경유"
-              },
-              {
-                "const": "3",
-                "title": "2번 이상 경유"
-              }
-            ],
-            "title": "직항 여부",
-            "description": "직항 여부를 선택해주세요.\n\n가능한 값으로 0, 1, 2, 3이 있습니다."
-          },
-          "max_price": {
-            "type": "integer",
-            "title": "최대 가격",
-            "description": "항공권의 최대 가격을 입력해주세요.\n\n입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다."
-          }
-        },
-        "required": [
-          "departure_token",
-          "departure_id",
-          "arrival_id",
-          "type",
-          "outbound_date",
-          "travel_class",
-          "adults",
-          "stop"
-        ]
-      },
-      "IGoogleFlight.IRequestFinal": {
-        "type": "object",
-        "properties": {
-          "booking_token": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-flight/arrival",
-              "jmesPath": "[].{value:booking_token, label:'항공편 최종 확인을 위한 토큰'}"
-            },
-            "title": "항공편 최종 확인 토큰",
-            "description": "항공편 최종 확인을 위한 토큰입니다."
-          },
-          "departure_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/airport-information/search",
-              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
-            },
-            "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
-          },
-          "arrival_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/airport-information/search",
-              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
-            },
-            "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "1",
-                "title": "왕복"
-              },
-              {
-                "const": "2",
-                "title": "편도"
-              }
-            ],
-            "title": "왕복 또는 편도 여부",
-            "description": "왕복 또는 편도 여부를 선택해주세요.\n\n가능한 값으로 1, 2가 있습니다.\n\n왕복이면 \"1\", 편도면 \"2\"를 선택해주세요."
-          },
-          "outbound_date": {
-            "type": "string",
-            "format": "date",
-            "title": "가는 날짜",
-            "description": "가는 날짜를 입력해주세요."
-          },
-          "return_date": {
-            "type": "string",
-            "format": "date",
-            "title": "오는 날짜",
-            "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다."
-          },
-          "travel_class": {
-            "oneOf": [
-              {
-                "const": "1",
-                "title": "이코노미"
-              },
-              {
-                "const": "2",
-                "title": "프리미엄 이코노미"
-              },
-              {
-                "const": "3",
-                "title": "비즈니스"
-              },
-              {
-                "const": "4",
-                "title": "퍼스트"
-              }
-            ],
-            "title": "좌석 등급",
-            "description": "좌석 등급을 선택해주세요.\n\n가능한 값으로 1, 2, 3, 4가 있습니다."
-          },
-          "adults": {
-            "type": "integer",
-            "title": "성인 인원",
-            "description": "성인 인원수를 입력해주세요."
-          },
-          "children": {
-            "type": "integer",
-            "title": "아동 인원",
-            "description": "아동 인원수를 입력해주세요."
-          },
-          "stop": {
-            "oneOf": [
-              {
-                "const": "0",
-                "title": "상관 없음"
-              },
-              {
-                "const": "1",
-                "title": "직항"
-              },
-              {
-                "const": "2",
-                "title": "1번 경유"
-              },
-              {
-                "const": "3",
-                "title": "2번 이상 경유"
-              }
-            ],
-            "title": "직항 여부",
-            "description": "직항 여부를 선택해주세요.\n\n가능한 값으로 0, 1, 2, 3이 있습니다."
-          },
-          "max_price": {
-            "type": "integer",
-            "title": "최대 가격",
-            "description": "항공권의 최대 가격을 입력해주세요.\n\n입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다."
-          }
-        },
-        "required": [
-          "booking_token",
-          "departure_id",
-          "arrival_id",
-          "type",
-          "outbound_date",
-          "travel_class",
-          "adults",
-          "stop"
-        ]
-      },
-      "IGoogleFlight.IFinalResponse": {
-        "type": "object",
-        "properties": {
-          "flight": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleFlight.ISearchOutput"
-            },
-            "title": "최종 선택된 항공권 정보",
-            "description": "최종 선택된 항공권 정보입니다."
-          },
-          "booking_options": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleFlight.IBookingOption"
-            },
-            "title": "예약 정보",
-            "description": "선택한 항공편을 예약할 수 있는 정보들입니다."
-          }
-        },
-        "required": [
-          "flight",
-          "booking_options"
-        ],
-        "title": "최종 항공권 선택 결과",
-        "description": "최종 항공권 선택 결과입니다."
       },
       "IGoogleFlight.IBookingOption": {
         "type": "object",
