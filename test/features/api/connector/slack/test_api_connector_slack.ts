@@ -57,7 +57,7 @@ export const test_api_connector_slack_get_channel_histories = async (
     await CApi.functional.connector.slack.get_channel_histories.getChannelHistories(
       connection,
       {
-        channel: channels[0].id,
+        channel: channels[0].id as any,
         secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
       },
     );
@@ -71,7 +71,7 @@ export const test_api_connector_slack_text_message = async (
   const [PublicChannel] =
     await test_api_connector_slack_get_public_channels(connection);
   await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
-    channel: PublicChannel.id,
+    channel: PublicChannel.id as any,
     text: "hello, world",
     secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
   });
@@ -79,7 +79,7 @@ export const test_api_connector_slack_text_message = async (
   const [PrivateChannel] =
     await test_api_connector_slack_get_private_channels(connection);
   await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
-    channel: PrivateChannel.id,
+    channel: PrivateChannel.id as any,
     text: "hello, world",
     secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
   });
