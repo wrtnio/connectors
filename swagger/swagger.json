@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.65",
+    "version": "0.1.66",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -28289,8 +28289,15 @@
             "title": "type"
           },
           "user": {
-            "type": "string",
-            "title": "ID of the person who made this message"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
           },
           "text": {
             "type": "string",
