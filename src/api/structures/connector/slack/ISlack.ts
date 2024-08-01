@@ -167,7 +167,7 @@ export namespace ISlack {
      *
      * It refers to the channel on which you want to view the conversation history.
      * You need to view the channel first.
-     * This is a string that must begin with a capital letter C.
+     * This is a string that always begins with a capital letter 'C' or 'D'.
      */
     channel: Channel["id"] &
       Prerequisite<{
@@ -280,7 +280,7 @@ export namespace ISlack {
     /**
      * @title channel id
      */
-    id: string & tags.Pattern<"^(C(.*))">;
+    id: string & tags.Pattern<"^((C(.*))|(D(.*)))">;
   }
 
   export interface User {

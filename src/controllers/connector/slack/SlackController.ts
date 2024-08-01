@@ -81,7 +81,7 @@ export class SlackController {
    * it is prioritized to find the channel ID.
    * Usually, users don't know their channel ID.
    * Therefore, most users will ask for a channel by its name or with only the keywords they remember.
-   * Therefore, unless it's an unknown string and begins with a C uppercase letter, look for the channel first.
+   * Therefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.
    *
    * When you look up a conversation,
    * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
