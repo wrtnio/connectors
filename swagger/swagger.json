@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.70",
+    "version": "0.1.71",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8629,7 +8629,7 @@
           }
         },
         "summary": "get channel histories in slack",
-        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.",
+        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital C.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
@@ -27681,6 +27681,7 @@
         "properties": {
           "channel": {
             "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
@@ -27841,12 +27842,13 @@
         "properties": {
           "channel": {
             "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
               "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
             },
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first."
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
           "latest": {
             "type": "number",
@@ -28087,6 +28089,7 @@
           },
           "id": {
             "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
             "title": "channel id"
           }
         },
@@ -28132,6 +28135,7 @@
           },
           "id": {
             "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
             "title": "channel id"
           }
         },
@@ -28197,6 +28201,7 @@
           },
           "id": {
             "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
             "title": "channel id"
           }
         },
