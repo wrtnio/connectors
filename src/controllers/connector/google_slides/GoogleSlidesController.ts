@@ -185,6 +185,20 @@ export class GoogleSlidesController {
     return retry(() => this.googleSlideProvider.getPresentation(input))();
   }
 
+  /**
+   * Google Slides 프레젠테이션에 슬라이드를 추가합니다.
+   *
+   * createPresentation 커넥터와 함께 사용해주세요.
+   *
+   * 이야기 또는 그림책을 생성할 때 createPresentation 커넥터로 부터 생성된 프레젠테이션에 이 커넥터를 사용해서 생성된 이야기와 그림을 넣어주세요.
+   *
+   * 이야기 또는 그림책을 생성할 때 해당 커넥터를 사용하지 않으면 빈 그림책이 될 수 있으니 조심해주세요.
+   *
+   * @summary Google Slides 프레젠테이션에 이미지 및 텍스트 슬라이드를 추가합니다.
+   * @param presentationId 슬라이드를 추가할 프레젠테이션 id
+   * @param input 추가할 템플릿
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
   )
@@ -202,6 +216,12 @@ export class GoogleSlidesController {
    * Google Slides 프레젠테이션을 생성합니다.
    *
    * 이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.
+   *
+   * appendImageSlide 커넥터와 함께 사용해주세요.
+   *
+   * 이야기 또는 그림책을 생성할 때 이 커넥터로 새로운 프레젠테이션을 생성하고 appendImageSlide 커넥터를 사용해서 생성된 이야기와 그림을 슬라이드에 넣어주세요.
+   *
+   * 이야기 또는 그림책을 생성할 때 appendImageSlide 커넥터와 같이 사용하지 않으면 빈 그림책이 될 수 있으니 조심해주세요.
    *
    * @summary Google Slides 프레젠테이션 생성.
    *
