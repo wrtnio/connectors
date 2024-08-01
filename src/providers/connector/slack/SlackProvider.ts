@@ -47,7 +47,7 @@ export class SlackProvider {
         url,
         {
           channel: mySelf?.id,
-          text: input.text,
+          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
         },
         {
           headers: {
@@ -80,7 +80,7 @@ export class SlackProvider {
         url,
         {
           channel: input.channel,
-          text: input.text,
+          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
         },
         {
           headers: {
