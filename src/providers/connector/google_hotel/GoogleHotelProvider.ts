@@ -63,11 +63,13 @@ export class GoogleHotelProvider {
 
           const data: IGoogleHotel.IResponse = {
             name: result.name,
-            description: result.description ?? "정보가 없습니다.",
-            link: result.link ?? "정보가 없습니다.",
-            check_in_time: result.check_in_time ?? "정보가 없습니다.",
-            check_out_time: result.check_out_time ?? "정보가 없습니다.",
-            price: result.rate_per_night.lowest ?? "가격 정보가 없습니다.",
+            description: result.description ?? "숙소 설명 정보가 없습니다.",
+            link: result.link ?? "숙소 링크 정보가 없습니다.",
+            check_in_time:
+              result.check_in_time ?? "체크인 시간 정보가 없습니다.",
+            check_out_time:
+              result.check_out_time ?? "체크아웃 정보가 없습니다.",
+            price: result.rate_per_night ?? "가격 정보가 없습니다.",
             nearby_place: result.nearby_places?.map(
               (place: IGoogleHotel.INearbyPlace) => {
                 return {
