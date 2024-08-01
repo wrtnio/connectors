@@ -1,5 +1,5 @@
-import { tags } from "typia";
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
+import { tags } from "typia";
 import { IAirportInformation } from "../airport_information/IAirportInformation";
 
 export namespace IGoogleFlight {
@@ -82,6 +82,8 @@ export namespace IGoogleFlight {
      * 가능한 값으로 1, 2, 3, 4가 있습니다.
      *
      * @title 좌석 등급
+     *
+     * @internal
      */
     travel_class:
       | tags.Constant<"1", { title: "이코노미" }>
