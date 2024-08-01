@@ -41,7 +41,16 @@ export namespace ISlack {
        *
        * @title display name
        */
-      display_name: ISlack.User["display_name"];
+      display_name: ISlack.User["profile"]["display_name"];
+
+      /**
+       * The user's first and last name.
+       * Updating this field will update first_name and last_name.
+       * If only one name is provided, the value of last_name will be cleared.
+       *
+       * @title real_name
+       */
+      real_name: ISlack.User["real_name"];
 
       /**
        * This value is used to distinguish between deleted users.
@@ -108,13 +117,15 @@ export namespace ISlack {
      * Indicates the number of data to look up at at once.
      * If not entered, use 100 as the default.
      * This should never be null. If you don't have a value, don't forward properties.
+     *
+     * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200
+     * If there is a user's request and there is a section that is cumbersome to page, you can enter 1000.
      */
     limit?: number &
       tags.Type<"int32"> &
       tags.Minimum<1> &
-      tags.Maximum<100> &
-      tags.Default<100> &
-      Placeholder<"100">;
+      tags.Maximum<1000> &
+      Placeholder<"1000">;
 
     /**
      * @title cursor
@@ -281,10 +292,9 @@ export namespace ISlack {
     name: string;
 
     /**
-     *
-     * @title display name
+     * @title real name
      */
-    display_name: string;
+    real_name: string;
 
     /**
      * @title deleted
@@ -293,9 +303,17 @@ export namespace ISlack {
 
     profile: {
       /**
+       *
+       * @title display name
+       */
+      display_name: string;
+
+      /**
        * @title profile image
        */
-      image_original: string & tags.Format<"uri"> & ContentMediaType<"image/*">;
+      image_original:
+        | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+        | null;
     };
   }
 

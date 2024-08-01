@@ -23,13 +23,15 @@ export class SlackProvider {
       return {
         id: el.id,
         name: el.name,
-        display_name: el.display_name,
+        real_name: el.real_name,
+        display_name: el.profile.display_name,
         deleted: el.deleted,
         profile_image: el.profile.image_original
           ? el.profile.image_original
           : null,
       };
     });
+
     return { users, next_cursor: next_cursor ? next_cursor : null };
   }
 

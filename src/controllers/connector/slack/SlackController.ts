@@ -66,9 +66,9 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
   )
-  @TypedRoute.Get("get-users")
+  @TypedRoute.Post("get-users")
   async getUsers(
-    input: ISlack.IGetUserListInput,
+    @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
     return this.slackProvider.getUsers(input);
   }
