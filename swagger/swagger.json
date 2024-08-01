@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.63",
+    "version": "0.1.64",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -27406,7 +27406,7 @@
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
             "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요."
+            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
           },
           "arrival_id": {
             "type": "string",
@@ -27416,7 +27416,7 @@
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
             "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요."
+            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
           },
           "type": {
             "oneOf": [
@@ -27717,7 +27717,7 @@
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
             "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요."
+            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
           },
           "arrival_id": {
             "type": "string",
@@ -27727,7 +27727,7 @@
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
             "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요."
+            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
           },
           "type": {
             "oneOf": [
@@ -27847,7 +27847,7 @@
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
             "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요."
+            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
           },
           "arrival_id": {
             "type": "string",
@@ -27857,7 +27857,7 @@
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
             "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요."
+            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
           },
           "type": {
             "oneOf": [
