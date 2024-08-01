@@ -167,6 +167,7 @@ export namespace ISlack {
      *
      * It refers to the channel on which you want to view the conversation history.
      * You need to view the channel first.
+     * This is a string that must begin with a capital letter C.
      */
     channel: Channel["id"] &
       Prerequisite<{
