@@ -56,6 +56,10 @@ export class SlackController {
    *
    * This connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.
    *
+   * The user has a separate display name.
+   * A display name is a name that the user has chosen to show.
+   * Therefore, it would be best to use this name as a courtesy.
+   *
    * @param input
    * @returns
    */

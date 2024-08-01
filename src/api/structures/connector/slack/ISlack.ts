@@ -18,26 +18,42 @@ export namespace ISlack {
   >;
 
   export interface IGetUserListOutput extends ISlack.ICommonPaginationOutput {
+    /**
+     * @title user list
+     */
     users: {
       id: ISlack.User["id"];
 
       /**
+       * This is the name of the user,
+       * but in some countries,
+       * it may not be possible to call the user's name carelessly,
+       * and the company should refrain from using it because the position exists.
+       *
        * @title name
        */
       name: ISlack.User["name"];
 
       /**
+       * The user has a separate display name.
+       * A display name is a name that the user has chosen to show.
+       * Therefore, it would be best to use this name as a courtesy.
        *
        * @title display name
        */
       display_name: ISlack.User["display_name"];
 
       /**
+       * This value is used to distinguish between deleted users.
+       *
        * @title deleted
        */
       deleted: ISlack.User["deleted"];
 
       /**
+       * There are several profile images for each image quality,
+       * but here we provide them based on the first image uploaded by the user.
+       *
        * @title profile image
        */
       profile_image: ISlack.User["profile"]["image_original"];
