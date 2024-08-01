@@ -1,5 +1,6 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { ContentMediaType } from "typia/lib/tags";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ISlack {
@@ -15,6 +16,37 @@ export namespace ISlack {
       "users:read",
     ]
   >;
+
+  export interface IGetUserListOutput extends ISlack.ICommonPaginationOutput {
+    users: {
+      id: ISlack.User["id"];
+
+      /**
+       * @title name
+       */
+      name: ISlack.User["name"];
+
+      /**
+       *
+       * @title display name
+       */
+      display_name: ISlack.User["display_name"];
+
+      /**
+       * @title deleted
+       */
+      deleted: ISlack.User["deleted"];
+
+      /**
+       * @title profile image
+       */
+      profile_image: ISlack.User["profile"]["image_original"];
+    }[];
+  }
+
+  export interface IGetUserListInput
+    extends ISlack.ISecret,
+      ISlack.ICommonPaginationInput {}
 
   export interface IPostMessageToMyselfInput extends ISlack.ISecret {
     /**
@@ -59,6 +91,7 @@ export namespace ISlack {
      *
      * Indicates the number of data to look up at at once.
      * If not entered, use 100 as the default.
+     * This should never be null. If you don't have a value, don't forward properties.
      */
     limit?: number &
       tags.Type<"int32"> &
@@ -72,6 +105,7 @@ export namespace ISlack {
      *
      * If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.
      * If you don't put a value, it will be recognized as the first page.
+     * This should never be null. If you don't have a value, don't forward properties.
      */
     cursor?: string;
   }
@@ -224,6 +258,29 @@ export namespace ISlack {
      * @title user id
      */
     id: string;
+
+    /**
+     * @title name
+     */
+    name: string;
+
+    /**
+     *
+     * @title display name
+     */
+    display_name: string;
+
+    /**
+     * @title deleted
+     */
+    deleted: boolean;
+
+    profile: {
+      /**
+       * @title profile image
+       */
+      image_original: string & tags.Format<"uri"> & ContentMediaType<"image/*">;
+    };
   }
 
   export interface Message {

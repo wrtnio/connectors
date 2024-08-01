@@ -11,6 +11,11 @@ export class SlackController {
   /**
    * send message to myself
    *
+   * Here, you can send a message as long as you have the message.
+   * This feature identifies who the token's users are inside and sends a message to themselves.
+   * Therefore, even if you don't specify a channel,
+   * you send a message to the `im` channel that corresponds to your own user id.
+   *
    * @summary post text message to myself in slack
    * @param input
    * @returns channel histories
@@ -28,6 +33,8 @@ export class SlackController {
   /**
    * send message to channel
    *
+   * Here, you can send a message as long as you have the message and channel information you want to send.
+   *
    * @summary post text message in slack
    * @param input
    * @returns channel histories
@@ -38,6 +45,28 @@ export class SlackController {
   @TypedRoute.Post("postMessage/text")
   async sendText(@TypedBody() input: ISlack.IPostMessageInput): Promise<void> {
     return this.slackProvider.sendText(input);
+  }
+
+  /**
+   * Look up the list of users in Slack.
+   *
+   * Users include bots and refer to all users in the team who are looking up.
+   * Here, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.
+   * If you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )
+   *
+   * This connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.
+   *
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Get("get-users")
+  async getUsers(
+    input: ISlack.IGetUserListInput,
+  ): Promise<ISlack.IGetUserListOutput> {
+    return this.slackProvider.getUsers(input);
   }
 
   /**
