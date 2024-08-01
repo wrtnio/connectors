@@ -21,9 +21,9 @@ export class GoogleFlightController {
    */
   @Standalone()
   @core.TypedRoute.Post("/departure")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+  )
   @ApiTags("Google Flight")
   async departure(
     @core.TypedBody() input: IGoogleFlight.IRequest,
@@ -43,9 +43,9 @@ export class GoogleFlightController {
    */
   @Standalone()
   @core.TypedRoute.Post("/arrival")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+  )
   @ApiTags("Google Flight")
   async arrival(
     @core.TypedBody() input: IGoogleFlight.IRequestArrival,
@@ -66,9 +66,9 @@ export class GoogleFlightController {
    */
   @Standalone()
   @core.TypedRoute.Post("/final")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+  )
   @ApiTags("Google Flight")
   async final(
     @core.TypedBody() input: IGoogleFlight.IRequestFinal,

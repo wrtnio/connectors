@@ -5,6 +5,7 @@ import { Response } from "express";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 import { RagProvider } from "../../../providers/connector/rag/RagProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("/connector/rag")
 export class RagController {
@@ -21,6 +22,9 @@ export class RagController {
    *
    * @tag RAG
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg",
+  )
   @core.TypedRoute.Post("/analyze")
   async analyze(
     @core.TypedBody() input: IRag.IAnalyzeInput[],
@@ -57,6 +61,9 @@ export class RagController {
    *
    * @tag RAG
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg",
+  )
   @core.TypedRoute.Post("/generate/:chatId")
   public async generate(
     @core.TypedBody() input: IRag.IGenerateInput,
