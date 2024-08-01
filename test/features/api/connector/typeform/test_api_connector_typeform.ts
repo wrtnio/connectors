@@ -1,6 +1,7 @@
 import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_typeform = async (
   connection: CApi.IConnection,
@@ -11,7 +12,10 @@ export const test_api_connector_typeform = async (
   const workspace =
     await CApi.functional.connector.typeform.workspace.createWorkspace(
       connection,
-      { name: "create-workspace-test" },
+      {
+        name: "create-workspace-test",
+        secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+      },
     );
   const workspaceId = workspace.id;
 
@@ -21,6 +25,9 @@ export const test_api_connector_typeform = async (
   const workspaceListInfo =
     await CApi.functional.connector.typeform.get_workspaces.getWorkspaces(
       connection,
+      {
+        secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+      },
     );
   typia.assert(workspaceListInfo);
 
@@ -30,7 +37,10 @@ export const test_api_connector_typeform = async (
   const form =
     await CApi.functional.connector.typeform.empty_form.createEmptyForm(
       connection,
-      { name: "create-empty-form-test" },
+      {
+        name: "create-empty-form-test",
+        secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+      },
     );
   typia.assert(form);
 
@@ -41,6 +51,9 @@ export const test_api_connector_typeform = async (
    */
   const formsInfo = await CApi.functional.connector.typeform.get_forms.getForms(
     connection,
+    {
+      secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+    },
   );
   typia.assert(formsInfo);
 
@@ -52,8 +65,9 @@ export const test_api_connector_typeform = async (
       connection,
       {
         workspaceLink: "https://api.typeform.com/workspaces/tUHBPc",
-        formId: "CpXFu4Y3",
+        formId: formsInfo[0].formId,
         name: "duplicate-form-test",
+        secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
       },
     );
   typia.assert(duplicatedForm);
@@ -64,9 +78,12 @@ export const test_api_connector_typeform = async (
    * getPropertiesForUpdateFieldValue
    */
   const fields =
-    await CApi.functional.connector.typeform.forms.fields.getFieldsForUpdateFieldValue(
+    await CApi.functional.connector.typeform.forms.get_update_form_fields.getFieldsForUpdateFieldValue(
       connection,
-      "CpXFu4Y3",
+      {
+        formId: formsInfo[0].formId,
+        secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+      },
     );
   typia.assert(fields);
   const fieldId = fields[0].id;
@@ -75,12 +92,13 @@ export const test_api_connector_typeform = async (
    * Update Dropdown, Multiple Choice or Ranking Question Options in Typeform.
    */
   const updatedForm =
-    await CApi.functional.connector.typeform.forms.updateFormFieldValue(
+    await CApi.functional.connector.typeform.form_field_value_update.updateFormFieldValue(
       connection,
-      "CpXFu4Y3",
       {
+        formId: formsInfo[0].formId,
         fieldId: fieldId,
         value: ["가", "나", "다", "라", "마"],
+        secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
       },
     );
   typia.assert(updatedForm);
@@ -90,19 +108,31 @@ export const test_api_connector_typeform = async (
    */
   await CApi.functional.connector.typeform.workspace.deleteWorkspace(
     connection,
+    {
+      secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+    },
     workspaceId,
   );
 
   /**
    * Delete Create Form
    */
-  await CApi.functional.connector.typeform.forms.deleteForm(connection, formId);
+  await CApi.functional.connector.typeform.forms.deleteForm(
+    connection,
+    {
+      secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+    },
+    formId,
+  );
 
   /**
    * Delete Duplicated Form
    */
   await CApi.functional.connector.typeform.forms.deleteForm(
     connection,
+    {
+      secretKey: ConnectorGlobal.env.TYPEFORM_TEST_SECRET,
+    },
     duplicatedFormId,
   );
 };

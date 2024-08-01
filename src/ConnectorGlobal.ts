@@ -115,6 +115,9 @@ export namespace ConnectorGlobal {
 
     // TYPEFORM
     TYPEFORM_PERSONAL_ACCESS_KEY: string;
+    TYPEFORM_TEST_SECRET: string;
+    TYPEFORM_CLIENT_ID: string;
+    TYPEFORM_CLIENT_SECRET: string;
 
     // FIGMA
     FIGMA_TEST_FILE_KEY: string;
