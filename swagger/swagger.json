@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.67",
+    "version": "0.1.68",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -54,39 +54,6 @@
         },
         "summary": "키워드 추출",
         "description": "주어진 입력과 관련 높은 키워드를 추출합니다.\n\n마케팅 카피를 생성할 때 사용하는 커넥터 입니다."
-      }
-    },
-    "/connector/rank/rank": {
-      "post": {
-        "tags": [
-          "Sort"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "정렬할 후보 정보",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IRanker.IRankInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "정렬된 후보의 인덱스 배열",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IRanker.IRankOutput"
-                }
-              }
-            }
-          }
-        },
-        "summary": "조건 정렬",
-        "description": "주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다."
       }
     },
     "/connector/marketing-copy/generate-copy": {
@@ -8886,54 +8853,6 @@
         "required": [
           "keyword"
         ]
-      },
-      "IRanker.IRankInput": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IRanker.IScoredItem"
-            },
-            "title": "아이템 목록",
-            "description": "정렬할 아이템 목록"
-          }
-        },
-        "required": [
-          "items"
-        ],
-        "title": "정렬을 위한 입력"
-      },
-      "IRanker.IScoredItem": {
-        "type": "object",
-        "properties": {
-          "score": {
-            "type": "number",
-            "title": "점수",
-            "description": "아이템의 점수"
-          }
-        },
-        "required": [
-          "score"
-        ],
-        "title": "정렬할 아이템"
-      },
-      "IRanker.IRankOutput": {
-        "type": "object",
-        "properties": {
-          "rankedIndices": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "title": "정렬된 아이템의 인덱스 배열",
-            "description": "정렬된 아이템의 인덱스 배열"
-          }
-        },
-        "required": [
-          "rankedIndices"
-        ],
-        "title": "정렬된 결과"
       },
       "IMarketingCopyGenerator.IGenerateMarketingCopyInput": {
         "type": "object",
@@ -28249,10 +28168,6 @@
       "description": "키워드 추출 생성"
     },
     {
-      "name": "Sort",
-      "description": "Rank Ranking 정렬 순위 순서 랭킹 랭크"
-    },
-    {
       "name": "RAG"
     },
     {
@@ -28614,6 +28529,10 @@
     {
       "name": "Conditional",
       "description": "Formatting"
+    },
+    {
+      "name": "Sort",
+      "description": "Data"
     },
     {
       "name": "Clean",
