@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.68",
+    "version": "0.1.69",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -27328,28 +27328,6 @@
             "title": "오는 날짜",
             "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다."
           },
-          "travel_class": {
-            "oneOf": [
-              {
-                "const": "1",
-                "title": "이코노미"
-              },
-              {
-                "const": "2",
-                "title": "프리미엄 이코노미"
-              },
-              {
-                "const": "3",
-                "title": "비즈니스"
-              },
-              {
-                "const": "4",
-                "title": "퍼스트"
-              }
-            ],
-            "title": "좌석 등급",
-            "description": "좌석 등급을 선택해주세요.\n\n가능한 값으로 1, 2, 3, 4가 있습니다."
-          },
           "adults": {
             "type": "integer",
             "title": "성인 인원",
@@ -27393,7 +27371,6 @@
           "arrival_id",
           "type",
           "outbound_date",
-          "travel_class",
           "adults",
           "stop"
         ],
@@ -27908,6 +27885,14 @@
             "type": "string",
             "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
           },
+          "reply_count": {
+            "type": "number",
+            "title": "reply_count\n\nIndicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+          },
+          "reply_users_count": {
+            "type": "number",
+            "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+          },
           "attachments": {
             "type": "array",
             "items": {
@@ -27921,7 +27906,9 @@
           "user",
           "text",
           "ts",
-          "tsDate"
+          "tsDate",
+          "reply_count",
+          "reply_users_count"
         ]
       },
       "ISlack.Attachment": {
