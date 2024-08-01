@@ -280,7 +280,7 @@ export namespace ISlack {
     /**
      * @title channel id
      */
-    id: string;
+    id: string & tags.Pattern<"^(C(.*))">;
   }
 
   export interface User {
