@@ -69,7 +69,7 @@ export class GoogleHotelProvider {
               result.check_in_time ?? "체크인 시간 정보가 없습니다.",
             check_out_time:
               result.check_out_time ?? "체크아웃 정보가 없습니다.",
-            price: result.rate_per_night ?? "가격 정보가 없습니다.",
+            price: result.rate_per_night?.lowest ?? "가격 정보가 없습니다.",
             nearby_place: result.nearby_places?.map(
               (place: IGoogleHotel.INearbyPlace) => {
                 return {
