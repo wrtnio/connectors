@@ -18,7 +18,7 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata?.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_cursor;
     const users = res.data.members.map((el: ISlack.User) => {
       return {
         id: el.id,
@@ -107,7 +107,7 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata?.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_cursor;
     const messages = res.data.messages.map((message: ISlack.Message) => {
       const timestamp = Number(message.ts.split(".").at(0) + "000");
 
@@ -140,7 +140,7 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata?.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_cursor;
     const channels = res.data.channels.map((channel: ISlack.PrivateChannel) => {
       return {
         id: channel.id,
@@ -166,7 +166,7 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata?.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_cursor;
     const channels = res.data.channels.map((channel: ISlack.PublicChannel) => {
       return {
         id: channel.id,
@@ -192,7 +192,7 @@ export class SlackProvider {
       },
     });
 
-    const next_cursor = res.data.response_metadata?.next_coursor;
+    const next_cursor = res.data.response_metadata?.next_cursor;
     const channels = res.data.channels;
 
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
