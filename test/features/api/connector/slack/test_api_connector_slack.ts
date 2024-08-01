@@ -96,3 +96,17 @@ export const test_api_connector_slack_send_text_message_to_myself = async (
     },
   );
 };
+
+export const test_api_connector_slack_get_users = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.slack.get_users.getUsers(
+    connection,
+    {
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+    },
+  );
+
+  typia.assert(res);
+  return res.users;
+};

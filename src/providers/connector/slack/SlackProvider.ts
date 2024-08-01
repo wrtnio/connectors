@@ -1,9 +1,40 @@
 import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class SlackProvider {
+  async getUsers(
+    input: ISlack.IGetUserListInput,
+  ): Promise<ISlack.IGetUserListOutput> {
+    const { secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+
+    const url = `https://slack.com/api/users.list?pretty=1`;
+    const res = await axios.get(`${url}&${queryParameter}`, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const next_cursor = res.data.response_metadata?.next_coursor;
+    const users = res.data.members.map((el: ISlack.User) => {
+      return {
+        id: el.id,
+        name: el.name,
+        real_name: el.real_name,
+        display_name: el.profile.display_name,
+        deleted: el.deleted,
+        profile_image: el.profile.image_original
+          ? el.profile.image_original
+          : null,
+      };
+    });
+
+    return { users, next_cursor: next_cursor ? next_cursor : null };
+  }
+
   async sendTextToMyself(
     input: ISlack.IPostMessageToMyselfInput,
   ): Promise<void> {
@@ -68,9 +99,7 @@ export class SlackProvider {
   ): Promise<ISlack.IGetChannelHistoryOutput> {
     const url = `https://slack.com/api/conversations.history?&pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest })
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+    const queryParameter = createQueryParameter(rest);
 
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
@@ -97,9 +126,10 @@ export class SlackProvider {
   ): Promise<ISlack.IGetPrivateChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, types: "private_channel" })
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+    const queryParameter = createQueryParameter({
+      ...rest,
+      types: "private_channel",
+    });
 
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
@@ -122,9 +152,10 @@ export class SlackProvider {
   ): Promise<ISlack.IGetPublicChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, types: "public_channel" })
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+    const queryParameter = createQueryParameter({
+      ...rest,
+      types: "public_channel",
+    });
 
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
@@ -147,9 +178,10 @@ export class SlackProvider {
   ): Promise<ISlack.IGetImChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = Object.entries({ ...rest, types: "im" })
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+    const queryParameter = createQueryParameter({
+      ...rest,
+      types: "im",
+    });
 
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {

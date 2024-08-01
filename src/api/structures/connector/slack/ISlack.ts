@@ -1,5 +1,6 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { ContentMediaType } from "typia/lib/tags";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ISlack {
@@ -15,6 +16,62 @@ export namespace ISlack {
       "users:read",
     ]
   >;
+
+  export interface IGetUserListOutput extends ISlack.ICommonPaginationOutput {
+    /**
+     * @title user list
+     */
+    users: {
+      id: ISlack.User["id"];
+
+      /**
+       * This is the name of the user,
+       * but in some countries,
+       * it may not be possible to call the user's name carelessly,
+       * and the company should refrain from using it because the position exists.
+       *
+       * @title name
+       */
+      name: ISlack.User["name"];
+
+      /**
+       * The user has a separate display name.
+       * A display name is a name that the user has chosen to show.
+       * Therefore, it would be best to use this name as a courtesy.
+       *
+       * @title display name
+       */
+      display_name: ISlack.User["profile"]["display_name"];
+
+      /**
+       * The user's first and last name.
+       * Updating this field will update first_name and last_name.
+       * If only one name is provided, the value of last_name will be cleared.
+       *
+       * @title real_name
+       */
+      real_name: ISlack.User["real_name"];
+
+      /**
+       * This value is used to distinguish between deleted users.
+       *
+       * @title deleted
+       */
+      deleted: ISlack.User["deleted"];
+
+      /**
+       * There are several profile images for each image quality,
+       * but here we provide them based on the first image uploaded by the user.
+       *
+       * @title profile image
+       */
+      profile_image: ISlack.User["profile"]["image_original"];
+    }[];
+  }
+
+  export interface IGetUserListInput
+    extends ISlack.ISecret,
+      ISlack.ICommonPaginationInput {}
 
   export interface IPostMessageToMyselfInput extends ISlack.ISecret {
     /**
@@ -59,19 +116,23 @@ export namespace ISlack {
      *
      * Indicates the number of data to look up at at once.
      * If not entered, use 100 as the default.
+     * This should never be null. If you don't have a value, don't forward properties.
+     *
+     * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200
+     * If there is a user's request and there is a section that is cumbersome to page, you can enter 1000.
      */
     limit?: number &
       tags.Type<"int32"> &
       tags.Minimum<1> &
-      tags.Maximum<100> &
-      tags.Default<100> &
-      Placeholder<"100">;
+      tags.Maximum<1000> &
+      Placeholder<"1000">;
 
     /**
      * @title cursor
      *
      * If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.
      * If you don't put a value, it will be recognized as the first page.
+     * This should never be null. If you don't have a value, don't forward properties.
      */
     cursor?: string;
   }
@@ -224,6 +285,36 @@ export namespace ISlack {
      * @title user id
      */
     id: string;
+
+    /**
+     * @title name
+     */
+    name: string;
+
+    /**
+     * @title real name
+     */
+    real_name: string;
+
+    /**
+     * @title deleted
+     */
+    deleted: boolean;
+
+    profile: {
+      /**
+       *
+       * @title display name
+       */
+      display_name: string;
+
+      /**
+       * @title profile image
+       */
+      image_original:
+        | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+        | null;
+    };
   }
 
   export interface Message {
