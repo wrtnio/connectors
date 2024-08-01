@@ -1,7 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Standalone } from "@wrtnio/decorators";
+import { Standalone, RouteIcon } from "@wrtnio/decorators";
 
 import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
 
@@ -23,9 +23,9 @@ export class DallE3Controller {
   @ApiTags("dall-e-3 이미지 생성기 노드")
   @Standalone()
   @core.TypedRoute.Post("/generate")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/hwp.svg",
-  // )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/dall_e3.svg",
+  )
   async generateImage(
     @core.TypedBody() input: IDallE3.IRequest,
   ): Promise<IDallE3.IResponse> {

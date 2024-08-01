@@ -6,6 +6,7 @@ import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/goog
 
 import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
 import { retry } from "../../../utils/retry";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
@@ -54,6 +55,9 @@ export class GoogleSlidesController {
     "프레젠테이션 준비",
     "슬라이드 협업",
     "슬라이드 제목",
+  )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
   )
   @core.TypedRoute.Post("presentations/:id/export/hanshow")
   async hanshow(
@@ -113,6 +117,9 @@ export class GoogleSlidesController {
     "슬라이드 협업",
     "슬라이드 제목",
   )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+  )
   @core.TypedRoute.Post("presentations/:id/export/power-point")
   async powerPoint(
     @TypedParam("id") presentationId: string,
@@ -168,6 +175,9 @@ export class GoogleSlidesController {
     "슬라이드 협업",
     "슬라이드 제목",
   )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+  )
   @core.TypedRoute.Post("get-presentations")
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
@@ -175,6 +185,9 @@ export class GoogleSlidesController {
     return retry(() => this.googleSlideProvider.getPresentation(input))();
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+  )
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
     @TypedParam("id") presentationId: string,
@@ -229,6 +242,9 @@ export class GoogleSlidesController {
     "프레젠테이션 준비",
     "슬라이드 협업",
     "슬라이드 제목",
+  )
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
   )
   @core.TypedRoute.Post("presentations")
   async createPresentation(
