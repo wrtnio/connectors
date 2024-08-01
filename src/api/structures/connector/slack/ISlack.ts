@@ -327,8 +327,10 @@ export namespace ISlack {
 
     /**
      * @title ID of the person who made this message
+     *
+     * If not a user, message does not have an ID.
      */
-    user: User["id"];
+    user: User["id"] | null;
 
     /**
      * @title message contents
