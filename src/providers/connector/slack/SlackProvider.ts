@@ -113,7 +113,7 @@ export class SlackProvider {
 
       return {
         type: message.type,
-        user: message.user,
+        user: message.user ?? null,
         text: message.text,
         ts: message.ts,
         tsDate: new Date(timestamp).toISOString(),
