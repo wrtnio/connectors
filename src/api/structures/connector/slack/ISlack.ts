@@ -50,7 +50,7 @@ export namespace ISlack {
        *
        * @title real_name
        */
-      real_name: ISlack.User["real_name"];
+      real_name: ISlack.User["profile"]["real_name"];
 
       /**
        * This value is used to distinguish between deleted users.
@@ -292,11 +292,6 @@ export namespace ISlack {
     name: string;
 
     /**
-     * @title real name
-     */
-    real_name: string;
-
-    /**
      * @title deleted
      */
     deleted: boolean;
@@ -306,7 +301,12 @@ export namespace ISlack {
        *
        * @title display name
        */
-      display_name: string;
+      display_name: string | null;
+
+      /**
+       * @title real name
+       */
+      real_name: string | null;
 
       /**
        * @title profile image
