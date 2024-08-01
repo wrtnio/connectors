@@ -29,6 +29,11 @@ export class GoogleFlightProvider {
         ...(input.max_price && { max_price: input.max_price }),
       };
       const res = await getJson(params);
+
+      if (!res["best_flights"] || res["best_flights"].length === 0) {
+        return { flight: [], booking_options: [] };
+      }
+
       const bookingToken = res["best_flights"][0].booking_token;
 
       // 최종 결과 조회
@@ -66,6 +71,13 @@ export class GoogleFlightProvider {
 
       // 출발편 조회
       const departureRes = await getJson(initialParams);
+      if (
+        !departureRes["best_flights"] ||
+        departureRes["best_flights"].length === 0
+      ) {
+        return { flight: [], booking_options: [] };
+      }
+
       const departureToken = departureRes["best_flights"][0].departure_token;
 
       // 도착편 조회
@@ -74,6 +86,14 @@ export class GoogleFlightProvider {
         departure_token: departureToken,
       };
       const arrivalRes = await getJson(arrivalParams);
+
+      if (
+        !arrivalRes["best_flights"] ||
+        arrivalRes["best_flights"].length === 0
+      ) {
+        return { flight: [], booking_options: [] };
+      }
+
       const bookingToken = arrivalRes["best_flights"][0].booking_token;
 
       // 최종 결과 조회
