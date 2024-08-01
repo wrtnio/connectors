@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.57",
+    "version": "0.1.58",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -250,7 +250,8 @@
           }
         },
         "summary": "RAG 분석 요청.",
-        "description": "입력된 파일에 대해 RAG 분석을 요청합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 제작할 때 사용될 수 있는 커넥터 입니다."
+        "description": "입력된 파일에 대해 RAG 분석을 요청합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 제작할 때 사용될 수 있는 커넥터 입니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg"
       }
     },
     "/connector/rag/generate/{chatId}": {
@@ -291,7 +292,8 @@
           }
         },
         "summary": "RAG 기반 결과물 생성",
-        "description": "RAG 분석을 기반으로 요청받은 결과물을 생성합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 통해 유저가 질문한 내용에 대한 답변을 생성할 때 사용될 수 있는 커넥터 입니다."
+        "description": "RAG 분석을 기반으로 요청받은 결과물을 생성합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 통해 유저가 질문한 내용에 대한 답변을 생성할 때 사용될 수 있는 커넥터 입니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg"
       }
     },
     "/connector/hwp/parse": {
@@ -4625,7 +4627,8 @@
           }
         },
         "summary": "프레젠테이션을 한쇼 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 한쇼 형식으로 내보내요!"
+        "description": "구글 슬라이드 프레젠테이션을 한쇼 형식으로 내보내요!",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/presentations/{id}/export/power-point": {
@@ -4700,7 +4703,8 @@
           }
         },
         "summary": "프레젠테이션을 PPT 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다."
+        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/get-presentations": {
@@ -4765,7 +4769,8 @@
           }
         },
         "summary": "Google Slides 프레젠테이션 조회.",
-        "description": "Google Slides 프레젠테이션을 조회합니다."
+        "description": "Google Slides 프레젠테이션을 조회합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/presentations/{id}/image-slide": {
@@ -4802,7 +4807,8 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/presentations": {
@@ -4867,7 +4873,8 @@
           }
         },
         "summary": "Google Slides 프레젠테이션 생성.",
-        "description": "Google Slides 프레젠테이션을 생성합니다.\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다."
+        "description": "Google Slides 프레젠테이션을 생성합니다.\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/imweb/get-products": {
@@ -5467,6 +5474,7 @@
         },
         "summary": "dall-e-3 이미지 생성기 노드",
         "description": "dall-e-3 모델을 이용하여 이미지를 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/dall_e3.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -8434,6 +8442,7 @@
         },
         "summary": "구글 호텔 검색",
         "description": "구글 호텔 서비스를 사용하여 숙소를 검색합니다",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_hotel.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -8469,6 +8478,7 @@
         },
         "summary": "공항 정보 검색",
         "description": "입력된 검색어를 사용하여 공항 정보를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/airport_information.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -8503,6 +8513,7 @@
         },
         "summary": "출발 항공편 검색",
         "description": "출발 항공편을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -8537,6 +8548,7 @@
         },
         "summary": "도착 항공편 검색",
         "description": "도착 항공편을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -8571,6 +8583,7 @@
         },
         "summary": "최종 항공편 선택 결과",
         "description": "최종 항공편을 검색합니다.\n출발, 도착 항공편을 선택한 결과를 보여줍니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
         "x-wrtn-standalone": true
       }
     },

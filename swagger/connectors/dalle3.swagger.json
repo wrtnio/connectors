@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "DallE3",
-    "version": "0.1.57",
+    "version": "0.1.58",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -54,6 +54,7 @@
         },
         "summary": "dall-e-3 이미지 생성기 노드",
         "description": "dall-e-3 모델을 이용하여 이미지를 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/dall_e3.svg",
         "x-wrtn-standalone": true
       }
     }

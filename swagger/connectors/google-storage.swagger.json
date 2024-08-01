@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "구글 스토리지",
-    "version": "0.1.57",
+    "version": "0.1.58",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1588,7 +1588,8 @@
           }
         },
         "summary": "프레젠테이션을 한쇼 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 한쇼 형식으로 내보내요!"
+        "description": "구글 슬라이드 프레젠테이션을 한쇼 형식으로 내보내요!",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/presentations/{id}/export/power-point": {
@@ -1663,7 +1664,8 @@
           }
         },
         "summary": "프레젠테이션을 PPT 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다."
+        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/get-presentations": {
@@ -1728,7 +1730,8 @@
           }
         },
         "summary": "Google Slides 프레젠테이션 조회.",
-        "description": "Google Slides 프레젠테이션을 조회합니다."
+        "description": "Google Slides 프레젠테이션을 조회합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/presentations/{id}/image-slide": {
@@ -1765,7 +1768,8 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     },
     "/connector/google-slides/presentations": {
@@ -1830,7 +1834,8 @@
           }
         },
         "summary": "Google Slides 프레젠테이션 생성.",
-        "description": "Google Slides 프레젠테이션을 생성합니다.\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다."
+        "description": "Google Slides 프레젠테이션을 생성합니다.\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg"
       }
     }
   },
