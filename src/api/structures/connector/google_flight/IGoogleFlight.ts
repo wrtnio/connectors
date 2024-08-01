@@ -376,6 +376,6 @@ export namespace IGoogleFlight {
      *
      * @title 예약 링크
      */
-    book_link: string & tags.Format<"uri">;
+    book_link: string | tags.Format<"uri">;
   }
 }

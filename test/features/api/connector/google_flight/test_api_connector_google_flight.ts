@@ -8,7 +8,7 @@ export const test_api_connector_google_flight = async (
 ) => {
   const params: IGoogleFlight.IRequest = {
     departure_id: "ICN",
-    arrival_id: "FUK",
+    arrival_id: "KIX",
     type: "1",
     outbound_date: "2024-09-07",
     travel_class: "1",
@@ -32,6 +32,5 @@ export const test_api_connector_google_flight = async (
         return_date: "2024-09-10",
       },
     );
-
   typia.assert<IGoogleFlight.IFinalResponse>(roundTripResult);
 };
