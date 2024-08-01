@@ -33,7 +33,8 @@ export class AirportInformationProvider {
         .on("data", (row) => {
           if (
             row["한글국가명"] === input.keyword ||
-            row["한글도시명"] === input.keyword
+            row["한글도시명"] === input.keyword ||
+            row["영문도시명"] === input.keyword
           ) {
             results.push({
               country_name: row["한글국가명"],

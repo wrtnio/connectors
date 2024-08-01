@@ -354,6 +354,22 @@ export namespace ISlack {
     tsDate: string;
 
     /**
+     * @title reply_count
+     *
+     * Indicates the number of replies on this thread.
+     * If there are many replies, active discussions are underway.
+     */
+    reply_count: number;
+
+    /**
+     * @title reply_users_count
+     *
+     * This means the person who has one or more Replys in this thread.
+     * The number of unique people discussing in the thread.
+     */
+    reply_users_count: number;
+
+    /**
      * @title Attachments
      *
      * Attachement contains all types of files and can sometimes be an external link.
