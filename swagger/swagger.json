@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.59",
+    "version": "0.1.60",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -28122,12 +28122,26 @@
                   "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
                 },
                 "display_name": {
-                  "type": "string",
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "title": "display name",
                   "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
                 },
                 "real_name": {
-                  "type": "string",
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "title": "real_name",
                   "description": "The user's first and last name.\nUpdating this field will update first_name and last_name.\nIf only one name is provided, the value of last_name will be cleared."
                 },
