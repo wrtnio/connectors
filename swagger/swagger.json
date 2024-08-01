@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.56",
+    "version": "0.1.57",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -27972,7 +27972,13 @@
             "type": "string",
             "x-wrtn-secret-key": "slack",
             "x-wrtn-secret-scopes": [
-              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,users:read,identify"
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -28003,7 +28009,13 @@
             "type": "string",
             "x-wrtn-secret-key": "slack",
             "x-wrtn-secret-scopes": [
-              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,users:read,identify"
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -28042,7 +28054,13 @@
             "type": "string",
             "x-wrtn-secret-key": "slack",
             "x-wrtn-secret-scopes": [
-              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,users:read,identify"
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -28176,7 +28194,13 @@
             "type": "string",
             "x-wrtn-secret-key": "slack",
             "x-wrtn-secret-scopes": [
-              "channels:read,channels:history,users.profile:read,im:read,groups:read,chat:write,users:read,identify"
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
