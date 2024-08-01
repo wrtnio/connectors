@@ -5,6 +5,13 @@ import { TypedSplit } from "./TypedSplit";
 
 const TIMEOUT = "TIMEOUT" as const;
 
+function backoff(attempt: number): Promise<void> {
+  const baseDelay = 2 * attempt * 1000; // 지수적으로 증가하는 대기 시간 (밀리초)
+  const jitter = Math.random() * baseDelay;
+  const delay = baseDelay + jitter;
+  return new Promise((resolve) => setTimeout(resolve, delay));
+}
+
 export function retry<T extends any[], ReturnType>(
   fn: (...args: T) => ReturnType,
   count: number = 5, // default로 5번까지는 재실행되게 한다.
@@ -73,6 +80,7 @@ export function retry<T extends any[], ReturnType>(
           }
         }
 
+        await backoff(attempts);
         console.log(attempts, JSON.stringify(error));
       }
     }
