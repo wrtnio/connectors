@@ -42,6 +42,8 @@ export namespace IGoogleFlight {
      *
      * 가능한 값으로 1, 2가 있습니다.
      *
+     * 왕복이면 "1", 편도면 "2"를 선택해주세요.
+     *
      * @title 왕복 또는 편도 여부
      */
     type:
@@ -57,6 +59,10 @@ export namespace IGoogleFlight {
 
     /**
      * 오는 날짜를 입력해주세요.
+     *
+     * type이 "1" 이면 필수로 넣어줘야 합니다.
+     *
+     * type이 "2" 이면 넣어주지 않아야 합니다.
      *
      * @title 오는 날짜
      */
@@ -104,6 +110,8 @@ export namespace IGoogleFlight {
 
     /**
      * 항공권의 최대 가격을 입력해주세요.
+     *
+     * 입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다.
      *
      * @title 최대 가격
      */
