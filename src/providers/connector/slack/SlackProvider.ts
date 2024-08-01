@@ -108,20 +108,23 @@ export class SlackProvider {
     });
 
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const messages = res.data.messages.map((message: ISlack.Message) => {
-      const timestamp = Number(message.ts.split(".").at(0) + "000");
+    const messages: ISlack.Message[] = res.data.messages.map(
+      (message: ISlack.Message) => {
+        const timestampString = message.ts.split(".").at(0) + "000";
+        const timestamp = Number(timestampString);
 
-      return {
-        type: message.type,
-        user: message.user ?? null,
-        text: message.text,
-        ts: message.ts,
-        replyCount: message?.reply_count ?? 0,
-        replyUsersCount: message?.reply_users_count ?? 0,
-        tsDate: new Date(timestamp).toISOString(),
-        ...(message.attachments && { attachments: message.attachments }),
-      };
-    });
+        return {
+          type: message.type,
+          user: message.user ?? null,
+          text: message.text,
+          ts: message.ts,
+          reply_count: message?.reply_count ?? 0,
+          reply_users_count: message?.reply_users_count ?? 0,
+          tsDate: new Date(timestamp).toISOString(),
+          ...(message.attachments && { attachments: message.attachments }),
+        };
+      },
+    );
 
     return { messages, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
