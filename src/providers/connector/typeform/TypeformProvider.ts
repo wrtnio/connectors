@@ -1,26 +1,25 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import axios from "axios";
 
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
-export namespace TypeformProvider {
-  const apiKey = ConnectorGlobal.env.TYPEFORM_PERSONAL_ACCESS_KEY;
-  const headers = () => ({
-    Authorization: `Bearer ${apiKey}`,
-  });
-
-  export async function createWorkspace(
+@Injectable()
+export class TypeformProvider {
+  async createWorkspace(
     input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const res = await axios.post(
       "https://api.typeform.com/workspaces",
       {
         name: input.name,
       },
       {
-        headers: headers(),
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       },
     );
 
@@ -39,11 +38,14 @@ export namespace TypeformProvider {
     return createdResult;
   }
 
-  export async function getWorkspaces(): Promise<
-    ITypeform.IFindWorkspaceOutput[]
-  > {
+  async getWorkspaces(
+    input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindWorkspaceOutput[]> {
+    const accessToken = await this.refresh(input.secretKey);
     const res = await axios.get("https://api.typeform.com/workspaces", {
-      headers: headers(),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     if (!res) {
       throw new HttpException(
@@ -66,15 +68,20 @@ export namespace TypeformProvider {
     return workspaceListInfo;
   }
 
-  export async function createEmptyForm(
+  async createEmptyForm(
     input: ITypeform.ICreateEmptyFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const res = await axios.post(
       "https://api.typeform.com/forms",
       {
         title: input.name,
       },
-      { headers: headers() },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
 
     if (!res) {
@@ -94,9 +101,14 @@ export namespace TypeformProvider {
     return createEmptyFormResult;
   }
 
-  export async function getForms(): Promise<ITypeform.IFindFormOutput[]> {
+  async getForms(
+    input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindFormOutput[]> {
+    const accessToken = await this.refresh(input.secretKey);
     const res = await axios.get("https://api.typeform.com/forms", {
-      headers: headers(),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
 
     if (!res) {
@@ -119,11 +131,13 @@ export namespace TypeformProvider {
     return formListInfo;
   }
 
-  export async function duplicateExistingForm(
+  async duplicateExistingForm(
     input: ITypeform.IDuplicateExistingFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    const existingFormInfo = await getFormInfo(input.formId);
-
+    const existingFormInfo = await this.getFormInfo(
+      input.secretKey,
+      input.formId,
+    );
     if (!existingFormInfo) {
       throw new HttpException("Cannot find form", HttpStatus.NOT_FOUND);
     }
@@ -159,7 +173,11 @@ export namespace TypeformProvider {
         settings: settings,
         fields: fieldsWithoutId,
       },
-      { headers: headers() },
+      {
+        headers: {
+          Authorization: `Bearer ${input.secretKey}`,
+        },
+      },
     );
 
     if (!res) {
@@ -179,10 +197,10 @@ export namespace TypeformProvider {
     return duplicatedFormInfo;
   }
 
-  export async function getFieldsForUpdateFieldValue(
-    formId: string,
+  async getFieldsForUpdateFieldValue(
+    input: ITypeform.IGetFieldForUpdateFieldValueInput,
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
-    const formInfo = await getFormInfo(formId);
+    const formInfo = await this.getFormInfo(input.secretKey, input.formId);
 
     if (!formInfo) {
       throw new HttpException("Cannot find Form", HttpStatus.NOT_FOUND);
@@ -210,17 +228,20 @@ export namespace TypeformProvider {
     return fieldInfoList;
   }
 
-  export async function updateFormFieldValue(
-    formId: string,
+  async updateFormFieldValue(
     input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
-    const formInfo = await getFormInfo(formId);
+    const formInfo = await this.getFormInfo(input.secretKey, input.formId);
     if (!formInfo)
       throw new HttpException("Cannot get form info", HttpStatus.NOT_FOUND);
 
-    const updatedFormInfo = updateFormInfo(formInfo, input);
-    const updatedForm = await updateForm(formId, updatedFormInfo);
-    const fieldInfoList = getFieldInfoList(updatedForm.fields);
+    const updatedFormInfo = this.updateFormInfo(formInfo, input);
+    const updatedForm = await this.updateForm(
+      input,
+      input.formId,
+      updatedFormInfo,
+    );
+    const fieldInfoList = this.getFieldInfoList(updatedForm.fields);
 
     const updatedFieldResult: ITypeform.IUpdateFormFieldValueOutput = {
       formId: updatedForm.id,
@@ -231,14 +252,20 @@ export namespace TypeformProvider {
     return updatedFieldResult;
   }
 
-  async function updateForm(
+  async updateForm(
+    input: ITypeform.ISecret,
     formId: string,
     updatedFormInfo: any,
   ): Promise<ITypeform.IFormOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const res = await axios.put(
       `https://api.typeform.com/forms/${formId}`,
       updatedFormInfo,
-      { headers: headers() },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
 
     if (!res) {
@@ -250,27 +277,44 @@ export namespace TypeformProvider {
     return res.data;
   }
 
-  export async function deleteWorkspace(workspaceId: string): Promise<void> {
+  async deleteWorkspace(
+    input: ITypeform.ISecret,
+    workspaceId: string,
+  ): Promise<void> {
+    const accessToken = await this.refresh(input.secretKey);
     await axios.delete(`https://api.typeform.com/workspaces/${workspaceId}`, {
-      headers: headers(),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
 
-  export async function deleteForm(formId: string): Promise<void> {
+  async deleteForm(input: ITypeform.ISecret, formId: string): Promise<void> {
+    const accessToken = await this.refresh(input.secretKey);
     await axios.delete(`https://api.typeform.com/forms/${formId}`, {
-      headers: headers(),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
 
-  async function getFormInfo(formId: string): Promise<ITypeform.IFormOutput> {
+  async getFormInfo(
+    secretKey: string,
+    formId?: string,
+  ): Promise<ITypeform.IFormOutput> {
+    const accessToken = await this.refresh(secretKey);
     const formInfo = await axios.get(
       `https://api.typeform.com/forms/${formId}`,
-      { headers: headers() },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
     return formInfo.data;
   }
 
-  function updateFormInfo(
+  private updateFormInfo(
     formInfo: ITypeform.IFormOutput,
     input: ITypeform.IUpdateFormFieldValueInput,
   ) {
@@ -292,7 +336,7 @@ export namespace TypeformProvider {
     };
   }
 
-  function getFieldInfoList(updatedFields: ITypeform.IFormFieldOutput[]) {
+  private getFieldInfoList(updatedFields: ITypeform.IFormFieldOutput[]) {
     const fieldInfoList: ITypeform.IFieldInformation[] = [];
     for (const field of updatedFields) {
       const labels: string[] = field.properties.choices.map(
@@ -308,5 +352,23 @@ export namespace TypeformProvider {
       }
     }
     return fieldInfoList;
+  }
+
+  private async refresh(refreshToken: string): Promise<string> {
+    const res = await axios.post("https://api.typeform.com/oauth/token", {
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+      client_id: ConnectorGlobal.env.TYPEFORM_CLIENT_ID,
+      client_secret: ConnectorGlobal.env.TYPEFORM_CLIENT_SECRET,
+    });
+
+    if (!res) {
+      throw new HttpException(
+        "Failed to refresh token",
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    return res.data.access_token;
   }
 }

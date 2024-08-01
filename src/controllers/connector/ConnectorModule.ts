@@ -46,9 +46,9 @@ import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGen
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
-import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { TypeformModule } from "./typeform/TypeformModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -102,7 +102,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     AirportInformationModule,
     GoogleFlightModule,
     SlackModule,
+    TypeformModule,
   ],
-  controllers: [TypeformController],
 })
 export class ConnectorModule {}

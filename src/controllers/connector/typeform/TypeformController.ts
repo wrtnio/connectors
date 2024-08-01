@@ -5,9 +5,11 @@ import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform
 
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
 import { retry } from "../../../utils/retry";
+import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/typeform")
 export class TypeformController {
+  constructor(private readonly typeformProvider: TypeformProvider) {}
   /**
    * 워크스페이스를 생성합니다.
    *
@@ -66,14 +68,15 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Post("/workspace")
   async createWorkspace(
     @core.TypedBody() input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
-    return retry(() => TypeformProvider.createWorkspace(input))();
+    return retry(() => this.typeformProvider.createWorkspace(input))();
   }
 
   /**
@@ -132,14 +135,27 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Delete("/workspace/:workspaceId")
   async deleteWorkspace(
-    @core.TypedParam("workspaceId") workspaceId: string,
+    @core.TypedBody() input: ITypeform.ISecret,
+    /**
+     * @title 삭제할 워크스페이스
+     * @description 삭제할 워크스페이스를 선택해주세요.
+     */
+    @Prerequisite({
+      neighbor: () => TypeformController.prototype.getWorkspaces,
+      jmesPath: "[].{value:workspace_id, label:name || '워크스페이스 이름'}",
+    })
+    @core.TypedParam("workspaceId")
+    workspaceId: string,
   ): Promise<void> {
-    return retry(() => TypeformProvider.deleteWorkspace(workspaceId))();
+    return retry(() =>
+      this.typeformProvider.deleteWorkspace(input, workspaceId),
+    )();
   }
 
   /**
@@ -198,12 +214,15 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Post("/get-workspaces")
-  async getWorkspaces(): Promise<ITypeform.IFindWorkspaceOutput[]> {
-    return retry(() => TypeformProvider.getWorkspaces())();
+  async getWorkspaces(
+    @core.TypedBody() input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindWorkspaceOutput[]> {
+    return retry(() => this.typeformProvider.getWorkspaces(input))();
   }
 
   /**
@@ -264,14 +283,15 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Post("/empty-form")
   async createEmptyForm(
     @core.TypedBody() input: ITypeform.ICreateEmptyFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    return retry(() => TypeformProvider.createEmptyForm(input))();
+    return retry(() => this.typeformProvider.createEmptyForm(input))();
   }
 
   /**
@@ -330,12 +350,15 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Post("/get-forms")
-  async getForms(): Promise<ITypeform.IFindFormOutput[]> {
-    return retry(() => TypeformProvider.getForms())();
+  async getForms(
+    @core.TypedBody() input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindFormOutput[]> {
+    return retry(() => this.typeformProvider.getForms(input))();
   }
 
   /**
@@ -396,22 +419,21 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Post("/duplicate-form")
   async duplicateExistingForm(
     @core.TypedBody() input: ITypeform.IDuplicateExistingFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    return retry(() => TypeformProvider.duplicateExistingForm(input))();
+    return retry(() => this.typeformProvider.duplicateExistingForm(input))();
   }
 
   /**
    * 랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트 할 폼의 필드 정보 가져오기.
    *
    * @summary 타입폼 업데이트 할 폼의 필드 정보 가져오기.
-   *
-   * @param formId 업데이트 할 폼의 ID.
    *
    * @returns 폼의 필드 ID와 필드명.
    *
@@ -464,14 +486,17 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
-  @core.TypedRoute.Get("/forms/:formId/fields")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
+  @core.TypedRoute.Post("/forms/get-update-form-fields")
   async getFieldsForUpdateFieldValue(
-    @core.TypedParam("formId") formId: string,
+    @core.TypedBody() input: ITypeform.IGetFieldForUpdateFieldValueInput,
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
-    return retry(() => TypeformProvider.getFieldsForUpdateFieldValue(formId))();
+    return retry(() =>
+      this.typeformProvider.getFieldsForUpdateFieldValue(input),
+    )();
   }
 
   /**
@@ -530,15 +555,15 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
-  @core.TypedRoute.Put("/forms/:formId")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
+  @core.TypedRoute.Post("/form-field-value-update")
   async updateFormFieldValue(
-    @core.TypedParam("formId") formId: string,
     @core.TypedBody() input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
-    return retry(() => TypeformProvider.updateFormFieldValue(formId, input))();
+    return retry(() => this.typeformProvider.updateFormFieldValue(input))();
   }
 
   /**
@@ -597,11 +622,24 @@ export class TypeformController {
    * @tag Feedback
    * @tag User Survey
    * @tag Event Feedback
-   *
-   * @internal
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
+  )
   @core.TypedRoute.Delete("/forms/:formId")
-  async deleteForm(@core.TypedParam("formId") formId: string): Promise<void> {
-    return retry(() => TypeformProvider.deleteForm(formId))();
+  async deleteForm(
+    @core.TypedBody() input: ITypeform.ISecret,
+    /**
+     * @title 삭제할 폼
+     * @description 삭제할 폼을 선택해주세요.
+     */
+    @Prerequisite({
+      neighbor: () => TypeformController.prototype.getForms,
+      jmesPath: "[].{value:formId, label:name || '폼 이름'}",
+    })
+    @core.TypedParam("formId")
+    formId: string,
+  ): Promise<void> {
+    return retry(() => this.typeformProvider.deleteForm(input, formId))();
   }
 }
