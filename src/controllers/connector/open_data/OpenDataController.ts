@@ -154,7 +154,7 @@ export class OpenDataController {
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
-    return retry(() => OpenDataProvider.getBuildingInfo(input), 10, 500)();
+    return retry(() => OpenDataProvider.getBuildingInfo(input), 10, 3000)();
   }
 
   /**

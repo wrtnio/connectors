@@ -18,7 +18,6 @@ export class SlackController {
    *
    * @summary post text message to myself in slack
    * @param input
-   * @returns channel histories
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -37,7 +36,6 @@ export class SlackController {
    *
    * @summary post text message in slack
    * @param input
-   * @returns channel histories
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
