@@ -109,12 +109,14 @@ export class SlackProvider {
 
     const next_cursor = res.data.response_metadata?.next_coursor;
     const messages = res.data.messages.map((message: ISlack.Message) => {
+      const timestamp = Number(message.ts.split(".").at(0) + "000");
+
       return {
         type: message.type,
         user: message.user,
         text: message.text,
         ts: message.ts,
-        tsDate: new Date(message.ts.split(".").at(0) + "000").toISOString(),
+        tsDate: new Date(timestamp).toISOString(),
         ...(message.attachments && { attachments: message.attachments }),
       };
     });
