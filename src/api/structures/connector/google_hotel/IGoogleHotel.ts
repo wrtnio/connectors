@@ -1,4 +1,3 @@
-import { long } from "aws-sdk/clients/cloudfront";
 import { tags } from "typia";
 
 export namespace IGoogleHotel {
@@ -44,6 +43,8 @@ export namespace IGoogleHotel {
     /**
      * 원하는 정렬 기준을 선택해주세요.
      *
+     * 가능한 값으로 3, 8, 13만 가능합니다.
+     *
      * @title 정렬 기준
      */
     sort_by?:
@@ -68,6 +69,8 @@ export namespace IGoogleHotel {
     /**
      * 선택한 평점 이상의 숙소만 검색합니다.
      *
+     * 가능한 값으로 7, 8, 9만 가능합니다.
+     *
      * @title 평점
      */
     rating?:
@@ -77,6 +80,8 @@ export namespace IGoogleHotel {
 
     /**
      * 숙소 유형을 선택해주세요.
+     *
+     * 가능한 값으로 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24만 가능합니다.
      *
      * @title 숙소 유형
      */
@@ -100,7 +105,9 @@ export namespace IGoogleHotel {
     >;
 
     /**
-     * 숙소 등급을 선택해주세요.
+     * 숙소 등급을 선택해주세요.'
+     *
+     * 가능한 값으로 1, 2, 3, 4, 5만 가능합니다.
      *
      * @title 숙소 등급
      */

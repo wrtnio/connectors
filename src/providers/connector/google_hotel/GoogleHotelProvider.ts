@@ -67,7 +67,7 @@ export class GoogleHotelProvider {
             link: result.link ?? "정보가 없습니다.",
             check_in_time: result.check_in_time ?? "정보가 없습니다.",
             check_out_time: result.check_out_time ?? "정보가 없습니다.",
-            price: result.rate_per_night.lowest,
+            price: result.rate_per_night.lowest ?? "가격 정보가 없습니다.",
             nearby_place: result.nearby_places?.map(
               (place: IGoogleHotel.INearbyPlace) => {
                 return {
@@ -81,7 +81,7 @@ export class GoogleHotelProvider {
               (image: { thumbnail: string; original_image: string }) =>
                 image.thumbnail,
             ),
-            rating: `${result.overall_rating}점`,
+            rating: `${result.overall_rating}점` ?? "평점 정보가 없습니다.",
             review_count: `${result.reviews}개`,
             amenities: result.amenities,
             excluded_amenities: result?.excluded_amenities,

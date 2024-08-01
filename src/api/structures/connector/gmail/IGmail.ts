@@ -25,6 +25,8 @@ export namespace IGmail {
     /**
      * 보낼 메일의 본문.
      *
+     * html로 작성해야 합니다. 그렇지 않으면 본문이 제대로 표시되지 않을 수 있습니다.
+     *
      * @title 이메일 본문.
      */
     body: string;
