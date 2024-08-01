@@ -23,7 +23,7 @@ export class SlackProvider {
       return {
         id: el.id,
         name: el.name,
-        real_name: el.real_name,
+        real_name: el.profile.real_name ?? null,
         display_name: el.profile.display_name,
         deleted: el.deleted,
         profile_image: el.profile.image_original
