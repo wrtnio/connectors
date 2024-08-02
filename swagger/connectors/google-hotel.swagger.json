@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Hotel",
-    "version": "0.1.72",
+    "version": "0.1.73",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -321,10 +321,17 @@
             "description": "리뷰 갯수"
           },
           "amenities": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
             "title": "어메니티",
             "description": "숙소에서 제공하는 어메니티"
           },
