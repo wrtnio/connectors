@@ -73,6 +73,20 @@ export namespace ISlack {
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {}
 
+  export interface IPostMessageReplyInput extends IPostMessageInput {
+    /**
+     * It means the 'ts' value of the chat you want to reply
+     *
+     * @title ts
+     */
+    ts: Message["ts"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "messages[].{value: ts, label: text}";
+      }>;
+  }
+
   export interface IPostMessageToMyselfInput extends ISlack.ISecret {
     /**
      * @title message to send
@@ -146,6 +160,29 @@ export namespace ISlack {
      * you can pass this value to the next request condition, `cursor`.
      */
     next_cursor: string | null;
+  }
+
+  export interface IGetReplyOutput extends ICommonPaginationOutput {
+    /**
+     * This value refers to replies that depend on the currently viewed thread.
+     *
+     * @title replies
+     */
+    replies: ISlack.Reply[];
+  }
+
+  export interface IGetReplyInput extends IGetChannelHistoryInput {
+    /**
+     * It means the 'ts' value of the chat you want to look up.
+     *
+     * @title ts
+     */
+    ts: Message["ts"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "messages[].{value: ts, label: text}";
+      }>;
   }
 
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
@@ -320,6 +357,26 @@ export namespace ISlack {
     };
   }
 
+  export interface Reply
+    extends Pick<
+      Message,
+      "type" | "user" | "text" | "ts" | "tsDate" | "attachments"
+    > {
+    /**
+     * @title thread ts
+     */
+    thread_ts: Message["ts"];
+
+    /**
+     * @title ID of the person who made parent message of this message
+     *
+     * If this Reply has been published from thread to thread,
+     * outside of thread, and also as a channel,
+     * there is no parent_user_id.
+     */
+    parent_user_id: User["id"] | null;
+  }
+
   export interface Message {
     /**
      * @title type
@@ -334,6 +391,11 @@ export namespace ISlack {
     user: User["id"] | null;
 
     /**
+     * @title channel id
+     */
+    channel: Channel["id"];
+
+    /**
      * @title message contents
      */
     text: string;
@@ -345,7 +407,7 @@ export namespace ISlack {
      * This is the time value expression method used by Slack.
      *
      */
-    ts: string;
+    ts: string & Placeholder<"1234567890.123456">;
 
     /**
      * @title date format of `ts`

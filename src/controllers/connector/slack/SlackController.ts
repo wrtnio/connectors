@@ -30,6 +30,31 @@ export class SlackController {
   }
 
   /**
+   * send reply message to thread
+   *
+   * Creates a reply.
+   * To reply, you must first look up the thread.
+   * You can look up the thread and pass on the 'ts' value of that thread.
+   * You still need the channel's ID here.
+   * The channel's ID will start with a C or D and be an unknown string,
+   * not a natural language name recognized by the user.
+   * Therefore, if you don't know the channel ID, you should also look up the channel.
+   *
+   * @summary post reply message to thread
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("postMessage/reply")
+  async sendReply(
+    @TypedBody() input: ISlack.IPostMessageReplyInput,
+  ): Promise<void> {
+    return this.slackProvider.sendReply(input);
+  }
+
+  /**
    * send message to channel
    *
    * Here, you can send a message as long as you have the message and channel information you want to send.
@@ -59,7 +84,7 @@ export class SlackController {
    * Therefore, it would be best to use this name as a courtesy.
    *
    * @param input
-   * @returns
+   * @returns Users
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -69,6 +94,27 @@ export class SlackController {
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
     return this.slackProvider.getUsers(input);
+  }
+
+  /**
+   * Inquire the inside of the thread in History
+   *
+   * If you have inquired the history of a channel,
+   * you can use the 'ts' values of its history elements to query the internal thread for each history again.
+   * Each channel history has a number of replies, so if this number is more than 1, it is worth looking up.
+   * 'Reply' is basically no different from the 'Message'(=Channel History).
+   *
+   * @param input
+   * @returns Replies
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("get-replies")
+  async getReplies(
+    @TypedBody() input: ISlack.IGetReplyInput,
+  ): Promise<ISlack.IGetReplyOutput> {
+    return this.slackProvider.getReplies(input);
   }
 
   /**
