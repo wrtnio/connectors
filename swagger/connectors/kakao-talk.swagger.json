@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오톡d",
-    "version": "0.1.73",
+    "version": "0.1.74",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -26,7 +26,7 @@
     "/connector/kakao-talk/message/text": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -52,15 +52,15 @@
             }
           }
         },
-        "summary": "Send a message to a KakaoTalk friend",
-        "description": "Sends a text type KakaoTalk message to a friend\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to a KakaoTalk(카카오톡) friend",
+        "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg"
       }
     },
     "/connector/kakao-talk/memo/commerce": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -86,8 +86,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a commerce type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a commerce type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -95,7 +95,7 @@
     "/connector/kakao-talk/memo/location": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -121,8 +121,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a location type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a location type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -130,7 +130,7 @@
     "/connector/kakao-talk/memo/list": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -156,8 +156,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a list type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a list type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -165,7 +165,7 @@
     "/connector/kakao-talk/memo/feed": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -191,8 +191,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a feed type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a feed type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -200,7 +200,7 @@
     "/connector/kakao-talk/memo/text": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -226,8 +226,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a text type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a text type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -235,7 +235,7 @@
     "/connector/kakao-talk/calendars/events": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -261,8 +261,8 @@
             }
           }
         },
-        "summary": "Add an event to the KakaoTalk calendar",
-        "description": "Adds an event to the KakaoTalk calendar\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Add an event to the KakaoTalk(카카오톡) calendar",
+        "description": "Adds an event to the KakaoTalk(카카오톡) calendar\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -270,7 +270,7 @@
     "/connector/kakao-talk/get-friends": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -296,8 +296,8 @@
             }
           }
         },
-        "summary": "Retrieve the list of friends on KakaoTalk",
-        "description": "Retrieves the list of friends on KakaoTalk\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
+        "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -305,7 +305,7 @@
     "/connector/kakao-talk/get-events": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -338,8 +338,8 @@
             }
           }
         },
-        "summary": "Retrieve KakaoTalk calendar events",
-        "description": "Retrieves KakaoTalk calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk is a mobile messaging application in South Korea, and it also provides additional services.",
+        "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
+        "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -347,7 +347,7 @@
     "/connector/kakao-talk/get-calendars": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -373,8 +373,8 @@
             }
           }
         },
-        "summary": "Retrieve KakaoTalk calendar lists",
-        "description": "Retrieves all KakaoTalk calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk is a mobile messenger application from South Korea that also provides additional services.",
+        "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
+        "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -2226,7 +2226,7 @@
   },
   "tags": [
     {
-      "name": "KakaoTalk"
+      "name": "KakaoTalk(카카오톡)"
     }
   ],
   "x-samchon-emended": true

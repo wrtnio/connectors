@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.73",
+    "version": "0.1.74",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -4104,7 +4104,7 @@
     "/connector/kakao-talk/message/text": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4130,15 +4130,15 @@
             }
           }
         },
-        "summary": "Send a message to a KakaoTalk friend",
-        "description": "Sends a text type KakaoTalk message to a friend\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to a KakaoTalk(카카오톡) friend",
+        "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg"
       }
     },
     "/connector/kakao-talk/memo/commerce": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4164,8 +4164,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a commerce type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a commerce type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4173,7 +4173,7 @@
     "/connector/kakao-talk/memo/location": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4199,8 +4199,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a location type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a location type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4208,7 +4208,7 @@
     "/connector/kakao-talk/memo/list": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4234,8 +4234,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a list type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a list type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4243,7 +4243,7 @@
     "/connector/kakao-talk/memo/feed": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4269,8 +4269,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a feed type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a feed type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4278,7 +4278,7 @@
     "/connector/kakao-talk/memo/text": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4304,8 +4304,8 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk",
-        "description": "Sends a text type message to myself on KakaoTalk\n\nWhen sending a KakaoTalk message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk API specifications.\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a text type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4313,7 +4313,7 @@
     "/connector/kakao-talk/calendars/events": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4339,8 +4339,8 @@
             }
           }
         },
-        "summary": "Add an event to the KakaoTalk calendar",
-        "description": "Adds an event to the KakaoTalk calendar\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Add an event to the KakaoTalk(카카오톡) calendar",
+        "description": "Adds an event to the KakaoTalk(카카오톡) calendar\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4348,7 +4348,7 @@
     "/connector/kakao-talk/get-friends": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4374,8 +4374,8 @@
             }
           }
         },
-        "summary": "Retrieve the list of friends on KakaoTalk",
-        "description": "Retrieves the list of friends on KakaoTalk\n\nKakaoTalk is a mobile messenger application in South Korea, which also provides various additional services.",
+        "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
+        "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4383,7 +4383,7 @@
     "/connector/kakao-talk/get-events": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4416,8 +4416,8 @@
             }
           }
         },
-        "summary": "Retrieve KakaoTalk calendar events",
-        "description": "Retrieves KakaoTalk calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk is a mobile messaging application in South Korea, and it also provides additional services.",
+        "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
+        "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -4425,7 +4425,7 @@
     "/connector/kakao-talk/get-calendars": {
       "post": {
         "tags": [
-          "KakaoTalk"
+          "KakaoTalk(카카오톡)"
         ],
         "parameters": [],
         "requestBody": {
@@ -4451,8 +4451,8 @@
             }
           }
         },
-        "summary": "Retrieve KakaoTalk calendar lists",
-        "description": "Retrieves all KakaoTalk calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk is a mobile messenger application from South Korea that also provides additional services.",
+        "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
+        "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
@@ -8547,6 +8547,30 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
+    "/connector/slack/postMessage/reply": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IPostMessageReplyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "post reply message to thread",
+        "description": "send reply message to thread\n\nCreates a reply.\nTo reply, you must first look up the thread.\nYou can look up the thread and pass on the 'ts' value of that thread.\nYou still need the channel's ID here.\nThe channel's ID will start with a C or D and be an unknown string,\nnot a natural language name recognized by the user.\nTherefore, if you don't know the channel ID, you should also look up the channel.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
     "/connector/slack/postMessage/text": {
       "post": {
         "tags": [],
@@ -8587,7 +8611,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "Users",
             "content": {
               "application/json": {
                 "schema": {
@@ -8599,6 +8623,36 @@
         },
         "summary": "Look up the list of users in Slack",
         "description": "Look up the list of users in Slack.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/get-replies": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetReplyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Replies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetReplyOutput"
+                }
+              }
+            }
+          }
+        },
+        "description": "Inquire the inside of the thread in History\n\nIf you have inquired the history of a channel,\nyou can use the 'ts' values of its history elements to query the internal thread for each history again.\nEach channel history has a number of replies, so if this number is more than 1, it is worth looking up.\n'Reply' is basically no different from the 'Message'(=Channel History).",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
@@ -27683,6 +27737,57 @@
           "secretKey"
         ]
       },
+      "ISlack.IPostMessageReplyInput": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "messages[].{value: ts, label: text}"
+            },
+            "title": "ts",
+            "description": "It means the 'ts' value of the chat you want to reply"
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channels",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "ts",
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
       "ISlack.IPostMessageInput": {
         "type": "object",
         "properties": {
@@ -27844,6 +27949,205 @@
           "next_cursor"
         ]
       },
+      "ISlack.IGetReplyInput": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "messages[].{value: ts, label: text}"
+            },
+            "title": "ts",
+            "description": "It means the 'ts' value of the chat you want to look up."
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channels",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
+          },
+          "latest": {
+            "type": "number",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nfor example, '1234567890.123456'"
+          },
+          "oldest": {
+            "type": "number",
+            "default": 0,
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nfor example, '1234567890.123456'"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "1000",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "ts",
+          "channel",
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetReplyOutput": {
+        "type": "object",
+        "properties": {
+          "replies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.Reply"
+            },
+            "title": "replies",
+            "description": "This value refers to replies that depend on the currently viewed thread."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "replies",
+          "next_cursor"
+        ]
+      },
+      "ISlack.Reply": {
+        "type": "object",
+        "properties": {
+          "thread_ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "thread ts"
+          },
+          "parent_user_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made parent message of this message\n\nIf this Reply has been published from thread to thread,\noutside of thread, and also as a channel,\nthere is no parent_user_id."
+          },
+          "type": {
+            "const": "message",
+            "title": "type"
+          },
+          "user": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.Attachment"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents"
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "tsDate": {
+            "type": "string",
+            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          }
+        },
+        "required": [
+          "thread_ts",
+          "parent_user_id",
+          "type",
+          "user",
+          "text",
+          "ts",
+          "tsDate"
+        ]
+      },
+      "ISlack.Attachment": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "text\n\nThe main body text of the attachment.\nIt can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.\nThe content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a \"Show more...\" link to expand the content."
+          },
+          "fallback": {
+            "type": "string",
+            "title": "fallback\n\nA plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications)."
+          },
+          "thumb_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "thumb_url\n\nA valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.\nThe thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.\nFor best results, please use images that are already 75px by 75px."
+          },
+          "thumb_width": {
+            "type": "number",
+            "title": "thumb_width"
+          },
+          "thumb_height": {
+            "type": "number",
+            "title": "thumb_height"
+          },
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title\n\nLarge title text near the top of the attachment."
+          },
+          "title_link": {
+            "type": "string",
+            "title": "title link\n\nA valid URL that turns the title text into a hyperlink."
+          }
+        }
+      },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
         "properties": {
@@ -27945,12 +28249,18 @@
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
           },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "title": "channel id"
+          },
           "text": {
             "type": "string",
             "title": "message contents"
           },
           "ts": {
             "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
             "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
           "tsDate": {
@@ -27976,50 +28286,13 @@
         "required": [
           "type",
           "user",
+          "channel",
           "text",
           "ts",
           "tsDate",
           "reply_count",
           "reply_users_count"
         ]
-      },
-      "ISlack.Attachment": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "text\n\nThe main body text of the attachment.\nIt can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.\nThe content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a \"Show more...\" link to expand the content."
-          },
-          "fallback": {
-            "type": "string",
-            "title": "fallback\n\nA plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications)."
-          },
-          "thumb_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "thumb_url\n\nA valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.\nThe thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.\nFor best results, please use images that are already 75px by 75px."
-          },
-          "thumb_width": {
-            "type": "number",
-            "title": "thumb_width"
-          },
-          "thumb_height": {
-            "type": "number",
-            "title": "thumb_height"
-          },
-          "id": {
-            "type": "number",
-            "title": "id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title\n\nLarge title text near the top of the attachment."
-          },
-          "title_link": {
-            "type": "string",
-            "title": "title link\n\nA valid URL that turns the title text into a hyperlink."
-          }
-        }
       },
       "ISlack.IGetChannelInput": {
         "type": "object",
@@ -29043,7 +29316,7 @@
       "name": "Merge Data"
     },
     {
-      "name": "KakaoTalk"
+      "name": "KakaoTalk(카카오톡)"
     },
     {
       "name": "구글 슬라이드"
