@@ -63,6 +63,7 @@ export const test_api_connector_slack_get_channel_histories = async (
     );
 
   typia.assertEquals(messages);
+  return messages;
 };
 
 export const test_api_connector_slack_text_message = async (
@@ -109,4 +110,49 @@ export const test_api_connector_slack_get_users = async (
 
   typia.assert(res);
   return res.users;
+};
+
+export const test_api_connector_slack_reply = async (
+  connection: CApi.IConnection,
+) => {
+  const histories =
+    await test_api_connector_slack_get_channel_histories(connection);
+  const history = histories.messages[0];
+  const channel = history.channel;
+
+  const before = await CApi.functional.connector.slack.get_replies.getReplies(
+    connection,
+    {
+      channel: channel as any,
+      ts: history.ts as any,
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+    },
+  );
+
+  typia.assertEquals(before);
+
+  await CApi.functional.connector.slack.postMessage.reply.sendReply(
+    connection,
+    {
+      channel: channel as any,
+      ts: history.ts as any,
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      text: "hello, world",
+    },
+  );
+
+  const after = await CApi.functional.connector.slack.get_replies.getReplies(
+    connection,
+    {
+      channel: channel as any,
+      ts: history.ts as any,
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+    },
+  );
+
+  typia.assertEquals(after);
+
+  if (before.replies.length + 1 !== after.replies.length) {
+    throw new Error("Reply가 추가되지 않은 것으로 추정되는 상태");
+  }
 };

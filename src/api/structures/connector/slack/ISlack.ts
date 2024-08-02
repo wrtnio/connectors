@@ -365,7 +365,7 @@ export namespace ISlack {
     /**
      * @title thread ts
      */
-    tnread_ts: Message["ts"];
+    thread_ts: Message["ts"];
 
     /**
      * @title ID of the person who made parent message of this message
@@ -387,6 +387,11 @@ export namespace ISlack {
      * If not a user, message does not have an ID.
      */
     user: User["id"] | null;
+
+    /**
+     * @title channel id
+     */
+    channel: Channel["id"];
 
     /**
      * @title message contents

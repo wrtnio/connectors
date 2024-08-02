@@ -33,7 +33,7 @@ export class SlackProvider {
     const { secretKey, ...rest } = input;
     const queryParameter = createQueryParameter(rest);
 
-    const url = `https://slack.com/api/conversations.replies`;
+    const url = `https://slack.com/api/conversations.replies?pretty=1`;
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
@@ -41,8 +41,9 @@ export class SlackProvider {
     });
 
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const replies = res.data.messages.map(
-      (message: ISlack.Reply): ISlack.Reply => {
+    const replies = res.data.messages
+      .slice(1)
+      .map((message: ISlack.Reply): ISlack.Reply => {
         const timestampString = message.ts.split(".").at(0) + "000";
         const timestamp = Number(timestampString);
 
@@ -51,13 +52,12 @@ export class SlackProvider {
           user: message.user ?? null,
           text: message.text,
           ts: message.ts,
-          tnread_ts: message.tnread_ts,
+          thread_ts: message.thread_ts,
           parent_user_id: message.parent_user_id,
           tsDate: new Date(timestamp).toISOString(),
           ...(message.attachments && { attachments: message.attachments }),
         };
-      },
-    );
+      });
 
     return { replies, next_cursor: next_cursor ? next_cursor : null };
   }
@@ -166,7 +166,7 @@ export class SlackProvider {
 
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.Message[] = res.data.messages.map(
-      (message: ISlack.Message) => {
+      (message: ISlack.Message): ISlack.Message => {
         const timestampString = message.ts.split(".").at(0) + "000";
         const timestamp = Number(timestampString);
 
@@ -175,6 +175,7 @@ export class SlackProvider {
           user: message.user ?? null,
           text: message.text,
           ts: message.ts,
+          channel: input.channel,
           reply_count: message?.reply_count ?? 0,
           reply_users_count: message?.reply_users_count ?? 0,
           tsDate: new Date(timestamp).toISOString(),
