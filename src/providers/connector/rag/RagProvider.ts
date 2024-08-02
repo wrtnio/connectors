@@ -129,7 +129,7 @@ export class RagProvider {
       try {
         const res = await axios.post(requestUrl, requestBody, {
           headers: {
-            "x-service-id": "echo_file_chat",
+            "x-service-id": "eco_file_chat",
           },
         });
         const jobId = res.data.job_id;
@@ -226,7 +226,7 @@ export class RagProvider {
         job_id: jobId,
       },
       headers: {
-        "x-service-id": "echo_file_chat",
+        "x-service-id": "eco_file_chat",
       },
     });
     return res.data;
@@ -250,7 +250,7 @@ export class RagProvider {
         chat_id: chatId,
       },
       headers: {
-        "x-service-id": "echo_file_chat",
+        "x-service-id": "eco_file_chat",
       },
     });
     const stream = response.data;
