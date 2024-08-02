@@ -418,7 +418,7 @@ export namespace ISlack {
     /**
      * @title id
      */
-    id: number;
+    id?: number;
 
     /**
      * @title title
