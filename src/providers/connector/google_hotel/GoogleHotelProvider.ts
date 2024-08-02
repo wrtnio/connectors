@@ -85,7 +85,7 @@ export class GoogleHotelProvider {
             ),
             rating: `${result.overall_rating}점` ?? "평점 정보가 없습니다.",
             review_count: `${result.reviews}개`,
-            amenities: result.amenities,
+            amenities: result.amenities ?? "편의시설 정보가 없습니다.",
             excluded_amenities: result?.excluded_amenities,
           };
           output.push(data);
