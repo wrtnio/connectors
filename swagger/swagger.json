@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.75",
+    "version": "0.1.76",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -12236,7 +12236,14 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12535,7 +12542,14 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12856,7 +12870,14 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12896,7 +12917,14 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -12968,7 +12996,14 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
@@ -13096,7 +13131,14 @@
             "type": "string",
             "x-wrtn-secret-key": "figma",
             "x-wrtn-secret-scopes": [
-              "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write"
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
