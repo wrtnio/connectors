@@ -16,7 +16,14 @@ export namespace IFigma {
   export type Secret = ICommon.ISecret<
     "figma",
     [
-      "files:read,file_variables:read,file_variables:write,file_comments:write,file_dev_resources:read,file_dev_resources:write,library_analytics:read,webhooks:write",
+      "files:read",
+      "file_variables:read",
+      "file_variables:write",
+      "file_comments:write",
+      "file_dev_resources:read",
+      "file_dev_resources:write",
+      "library_analytics:read",
+      "webhooks:write",
     ]
   >;
 
