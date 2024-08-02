@@ -5,6 +5,28 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class SlackProvider {
+  async sendReply(input: ISlack.IPostMessageReplyInput): Promise<void> {
+    const url = `https://slack.com/api/chat.postMessage`;
+    try {
+      await axios.post(
+        url,
+        {
+          channel: input.channel,
+          thread_ts: input.ts,
+          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getReplies(
     input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {

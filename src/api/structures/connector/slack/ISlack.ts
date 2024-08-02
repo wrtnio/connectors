@@ -73,6 +73,20 @@ export namespace ISlack {
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {}
 
+  export interface IPostMessageReplyInput extends IPostMessageInput {
+    /**
+     * It means the 'ts' value of the chat you want to reply
+     *
+     * @title ts
+     */
+    ts: Message["ts"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "messages[].{value: ts, label: text}";
+      }>;
+  }
+
   export interface IPostMessageToMyselfInput extends ISlack.ISecret {
     /**
      * @title message to send
