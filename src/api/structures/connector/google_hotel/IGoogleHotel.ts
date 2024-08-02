@@ -225,7 +225,7 @@ export namespace IGoogleHotel {
      *
      * @title 어메니티
      */
-    amenities: string[];
+    amenities: string[] | string;
 
     /**
      * 숙소에서 제공하지 않는 어메니티
