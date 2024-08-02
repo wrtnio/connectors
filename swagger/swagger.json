@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.71",
+    "version": "0.1.72",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -28012,10 +28012,7 @@
             "type": "string",
             "title": "title link\n\nA valid URL that turns the title text into a hyperlink."
           }
-        },
-        "required": [
-          "id"
-        ]
+        }
       },
       "ISlack.IGetChannelInput": {
         "type": "object",
