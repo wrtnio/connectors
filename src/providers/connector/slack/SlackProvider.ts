@@ -53,7 +53,7 @@ export class SlackProvider {
           text: message.text,
           ts: message.ts,
           thread_ts: message.thread_ts,
-          parent_user_id: message.parent_user_id,
+          parent_user_id: message.parent_user_id ?? null,
           tsDate: new Date(timestamp).toISOString(),
           ...(message.attachments && { attachments: message.attachments }),
         };

@@ -370,7 +370,9 @@ export namespace ISlack {
     /**
      * @title ID of the person who made parent message of this message
      *
-     * If not a user, message does not have an ID.
+     * If this Reply has been published from thread to thread,
+     * outside of thread, and also as a channel,
+     * there is no parent_user_id.
      */
     parent_user_id: User["id"] | null;
   }
