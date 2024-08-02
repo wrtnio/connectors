@@ -5,6 +5,41 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class SlackProvider {
+  async getReplies(
+    input: ISlack.IGetReplyInput,
+  ): Promise<ISlack.IGetReplyOutput> {
+    const { secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+
+    const url = `https://slack.com/api/conversations.replies`;
+    const res = await axios.get(`${url}&${queryParameter}`, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const next_cursor = res.data.response_metadata?.next_cursor;
+    const replies = res.data.messages.map(
+      (message: ISlack.Reply): ISlack.Reply => {
+        const timestampString = message.ts.split(".").at(0) + "000";
+        const timestamp = Number(timestampString);
+
+        return {
+          type: message.type,
+          user: message.user ?? null,
+          text: message.text,
+          ts: message.ts,
+          tnread_ts: message.tnread_ts,
+          parent_user_id: message.parent_user_id,
+          tsDate: new Date(timestamp).toISOString(),
+          ...(message.attachments && { attachments: message.attachments }),
+        };
+      },
+    );
+
+    return { replies, next_cursor: next_cursor ? next_cursor : null };
+  }
+
   async getUsers(
     input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {

@@ -59,7 +59,7 @@ export class SlackController {
    * Therefore, it would be best to use this name as a courtesy.
    *
    * @param input
-   * @returns
+   * @returns Users
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -69,6 +69,27 @@ export class SlackController {
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
     return this.slackProvider.getUsers(input);
+  }
+
+  /**
+   * Inquire the inside of the thread in History
+   *
+   * If you have inquired the history of a channel,
+   * you can use the 'ts' values of its history elements to query the internal thread for each history again.
+   * Each channel history has a number of replies, so if this number is more than 1, it is worth looking up.
+   * 'Reply' is basically no different from the 'Message'(=Channel History).
+   *
+   * @param input
+   * @returns Replies
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("get-replies")
+  async getReplies(
+    @TypedBody() input: ISlack.IGetReplyInput,
+  ): Promise<ISlack.IGetReplyOutput> {
+    return this.slackProvider.getReplies(input);
   }
 
   /**
