@@ -5,16 +5,54 @@ import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJ
 
 @Injectable()
 export class JiraProvider {
+  async getIssues(input: { secretKey: string }) {
+    try {
+      const accessTokenDto = await this.refresh(input);
+      const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
+
+      const res = await axios.post(
+        `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search`,
+        {
+          jql: "project = KAK",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessTokenDto.access_token}`,
+            Accept: "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+    }
+  }
+
+  async getUserProfile(input: {
+    access_token: string;
+  }): Promise<{ email: string }> {
+    const url = `https://api.atlassian.com/me`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${input.access_token}`,
+      },
+    });
+
+    return res.data;
+  }
+
   async getAccessibleResources(input: {
-    secretKey: string;
+    access_token: string;
   }): Promise<IJira.IGetAccessibleResourcesOutput> {
     const url = `https://api.atlassian.com/oauth/token/accessible-resources`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${input.access_token}`,
       },
     });
-    return res.data;
+
+    return res.data[0];
   }
 
   async refresh(input: { secretKey: string }) {
