@@ -36,6 +36,11 @@ export namespace ConnectorGlobal {
     GOOGLE_ADS_DEVELOPER_TOKEN: string;
     GOOGLE_ADS_PARENT_SECRET: string;
 
+    JIRA_CLIENT_ID: string;
+    JIRA_CLIENT_SECRET: string;
+    JIRA_TEST_SECRET: string;
+    JIRA_REFRESH_URI: string;
+
     // NAVER
     NAVER_CLIENT_ID: string;
     NAVER_CLIENT_SECRET: string;
