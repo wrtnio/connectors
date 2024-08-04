@@ -5,6 +5,12 @@ import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJ
 
 @Injectable()
 export class JiraProvider {
+  async getProjects(input: {
+    secretKey: string;
+  }): Promise<IJira.IGetProjectOutput> {
+    return null!;
+  }
+
   async getIssues(input: { secretKey: string }) {
     try {
       const accessTokenDto = await this.refresh(input);
