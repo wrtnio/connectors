@@ -4,6 +4,7 @@ import { pinoLoggerParams } from "../common/logger/logger";
 import { DaumModule } from "../controllers/connector/daum/DaumModule";
 import { LlmModule } from "../controllers/connector/llm/LlmModule";
 import { NaverModule } from "../controllers/connector/naver/NaverModule";
+import { GoogleTrendModule } from "../controllers/connector/google_trend/GoogleTrendModule";
 
 /**
  * 마케팅/광고
@@ -14,6 +15,7 @@ import { NaverModule } from "../controllers/connector/naver/NaverModule";
     DaumModule,
     NaverModule,
     LlmModule,
+    GoogleTrendModule,
   ],
 })
 export class MarketingModule {}
