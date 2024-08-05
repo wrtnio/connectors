@@ -7,6 +7,7 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/story_image_generator/IStoryImageGenerator";
 
 import { StoryImageGeneratorProvider } from "../../../providers/connector/story_image_generator/StoryImageGeneratorProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/story-image-generator")
 export class StoryImageGeneratorController {
@@ -25,6 +26,9 @@ export class StoryImageGeneratorController {
    *
    * @tag 스토리 이미지 생성
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/image.svg",
+  )
   @core.TypedRoute.Post()
   async generateImage(
     @core.TypedBody()

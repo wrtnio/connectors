@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IRanker } from "@wrtn/connector-api/lib/structures/connector/sort/IRanker";
 
 import { RankerProvider } from "../../../providers/connector/sort/RankerProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/rank")
 export class RankController {
@@ -22,6 +23,9 @@ export class RankController {
    *
    * @tag Sort Rank Ranking 정렬 순위 순서 랭킹 랭크
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Sort.svg",
+  )
   @core.TypedRoute.Post("rank")
   async rank(
     @core.TypedBody()

@@ -8,6 +8,7 @@ import {
   IStudentReportRowGeneratorResponse,
 } from "../../../api/structures/connector/student_report_generator/IStudentReportGenerator";
 import { StudentReportGeneratorProvider } from "../../../providers/connector/student_report_generator/StudentReportGeneratorProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 /**
  * StudentReportGeneratorNode controller.
@@ -27,6 +28,9 @@ export class StudentReportGeneratorController {
    *
    * @returns 생성된 학생 생활 기록부.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg",
+  )
   @core.TypedRoute.Post()
   public generate(
     @core.TypedBody() input: IStudentReportGeneratorRequest,
@@ -43,6 +47,9 @@ export class StudentReportGeneratorController {
    *
    * @returns 생성된 학생 생활 기록부.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg",
+  )
   @core.TypedRoute.Post("row")
   public generateRow(
     @core.TypedBody() input: IStudentReportRowGeneratorRequest,

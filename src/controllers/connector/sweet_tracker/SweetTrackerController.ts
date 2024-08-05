@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtnio/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/sweet_tracker/ISweetTacker";
 
@@ -24,6 +24,9 @@ export class SweetTrackerController {
    * @param input 택배사 조회를 위한 조건
    * @tag sweet-tracker
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/delivery.svg",
+  )
   @Standalone()
   @core.TypedRoute.Post("get-companies/recommended")
   async getRecommendedCompanyList(
@@ -43,6 +46,9 @@ export class SweetTrackerController {
    * @returns 택배사 목록
    * @tag sweet-tracker
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/delivery.svg",
+  )
   @Standalone()
   @core.TypedRoute.Post("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
@@ -64,6 +70,9 @@ export class SweetTrackerController {
    * @returns 택배의 이동 경로
    * @tag sweet-tracker
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/delivery.svg",
+  )
   @core.TypedRoute.Post("tracking-info")
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,

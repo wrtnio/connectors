@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Standalone } from "@wrtnio/decorators";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
@@ -24,6 +24,9 @@ export class ImwebController {
    * @param input key and secret
    * @returns the seller's own goods
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg",
+  )
   @Standalone()
   @core.TypedRoute.Post("get-products")
   async getProducts(
@@ -40,6 +43,9 @@ export class ImwebController {
    * @param input 액세스 토큰 발급을 위한 요청 DTO.
    * @returns 액세스 토큰을 담은 응답 DTO.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg",
+  )
   @core.TypedRoute.Post("auth")
   async authorization(
     @TypedBody() input: IImweb.Credential,
