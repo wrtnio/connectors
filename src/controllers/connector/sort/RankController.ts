@@ -12,7 +12,7 @@ export class RankController {
   /**
    * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
    *
-   * @internal
+   * @deprecated
    *
    * @summary 조건 정렬
    *
