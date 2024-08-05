@@ -8,7 +8,17 @@ export class JiraProvider {
   async getProjects(input: {
     secretKey: string;
   }): Promise<IJira.IGetProjectOutput> {
-    return null!;
+    const accessTokenDto = await this.refresh(input);
+    const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
+    const url = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/project/search`;
+
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessTokenDto.access_token}`,
+      },
+    });
+
+    return res.data;
   }
 
   async getIssues(input: { secretKey: string }) {

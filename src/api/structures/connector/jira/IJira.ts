@@ -75,7 +75,7 @@ export namespace IJira {
     id: string;
     key: string;
     name: string;
-    projectCategory: {
+    projectCategory?: {
       description: string;
       id: string;
       name: string;
