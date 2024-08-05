@@ -7,11 +7,13 @@ import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJ
 export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
-  /**
-   *
-   * @param input
-   * @returns
-   */
+  @core.TypedRoute.Post("get-issues")
+  async getIssues(
+    @TypedBody() input: IJira.IGetIssueInput,
+  ): Promise<IJira.IGetIssueOutput> {
+    return this.jiraProvider.getIssues(input);
+  }
+
   @core.TypedRoute.Post("get-projects")
   async getProjects(
     @TypedBody() input: IJira.IGetProjectInput,

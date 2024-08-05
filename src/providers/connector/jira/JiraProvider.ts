@@ -2,34 +2,44 @@ import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
-  async getProjects(input: {
-    secretKey: string;
-  }): Promise<IJira.IGetProjectOutput> {
-    const accessTokenDto = await this.refresh(input);
-    const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
-    const url = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/project/search`;
+  async getProjects(
+    input: IJira.IGetProjectInput,
+  ): Promise<IJira.IGetProjectOutput> {
+    try {
+      const { secretKey, ...rest } = input;
+      const accessTokenDto = await this.refresh({ secretKey });
+      const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
+      const queryParameter = createQueryParameter(rest);
+      const url = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/project/search?${queryParameter}`;
 
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${accessTokenDto.access_token}`,
-      },
-    });
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessTokenDto.access_token}`,
+        },
+      });
 
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  async getIssues(input: { secretKey: string }) {
+  async getIssues(input: IJira.IGetIssueInput): Promise<IJira.IGetIssueOutput> {
     try {
-      const accessTokenDto = await this.refresh(input);
+      const { secretKey, project_key, ...rest } = input;
+      const accessTokenDto = await this.refresh({ secretKey });
       const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
+      const queryParameter = createQueryParameter(rest);
 
       const res = await axios.post(
-        `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search`,
+        `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search?${queryParameter}`,
         {
-          jql: "project = KAK",
+          jql: `project = ${project_key}`,
         },
         {
           headers: {
@@ -42,6 +52,7 @@ export class JiraProvider {
       return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
+      throw err;
     }
   }
 
@@ -72,23 +83,28 @@ export class JiraProvider {
   }
 
   async refresh(input: { secretKey: string }) {
-    const url = `https://auth.atlassian.com/oauth/token` as const;
-    const res = await axios.post(
-      url,
-      {
-        grant_type: "refresh_token",
-        client_id: ConnectorGlobal.env.JIRA_CLIENT_ID,
-        client_secret: ConnectorGlobal.env.JIRA_CLIENT_SECRET,
-        redirect_uri: ConnectorGlobal.env.JIRA_REFRESH_URI,
-        refresh_token: input.secretKey,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const url = `https://auth.atlassian.com/oauth/token` as const;
+      const res = await axios.post(
+        url,
+        {
+          grant_type: "refresh_token",
+          client_id: ConnectorGlobal.env.JIRA_CLIENT_ID,
+          client_secret: ConnectorGlobal.env.JIRA_CLIENT_SECRET,
+          redirect_uri: ConnectorGlobal.env.JIRA_REFRESH_URI,
+          refresh_token: input.secretKey,
         },
-      },
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
 
-    return res.data as { access_token: string };
+      return res.data as { access_token: string };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }

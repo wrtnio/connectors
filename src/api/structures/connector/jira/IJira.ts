@@ -1,10 +1,24 @@
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
+import type { Prerequisite } from "@wrtnio/decorators";
 
 export namespace IJira {
-  export type ISecret = ICommon.ISecret<"atlassian", []>;
+  export type ISecret = ICommon.ISecret<
+    "atlassian",
+    [
+      "offline_access",
+      "read:me",
+      "read:account",
+      "read:jira-work",
+      "manage:jira-project",
+      "read:jira-user",
+      "write:jira-work",
+      "manage:jira-webhook",
+      "manage:jira-data-provider",
+    ]
+  >;
 
-  export interface IGetProjectInput extends ISecret {
+  export interface ICommonPaginationInput {
     /**
      * The index of the first item to return in a page of results (page offset).
      *
@@ -18,7 +32,31 @@ export namespace IJira {
      * @title max results
      */
     maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
+  }
 
+  export interface ICommonPaginationOutput {
+    total: number & tags.Type<"int64">;
+    maxResults: number & tags.Type<"int32">;
+    startAt: number & tags.Type<"int64">;
+  }
+
+  export interface IGetIssueInput extends ISecret, ICommonPaginationInput {
+    /**
+     * @title key of project
+     */
+    project_key: Project["key"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-projects";
+        jmesPath: "values[].{value:key, label:name}";
+      }>;
+  }
+
+  export interface IGetIssueOutput extends ICommonPaginationOutput {
+    issues: any[];
+  }
+
+  export interface IGetProjectInput extends ISecret, ICommonPaginationInput {
     /**
      * Order the results by a field.
      *
@@ -49,11 +87,8 @@ export namespace IJira {
         >;
   }
 
-  export interface IGetProjectOutput {
+  export interface IGetProjectOutput extends ICommonPaginationOutput {
     isLast: boolean;
-    total: number & tags.Type<"int64">;
-    startAt: number & tags.Type<"int64">;
-    maxResults: number & tags.Type<"int32">;
     values: IJira.Project[];
   }
 
