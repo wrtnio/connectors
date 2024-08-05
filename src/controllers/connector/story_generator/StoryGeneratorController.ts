@@ -6,6 +6,7 @@ import {
   IStoryGeneratorResponse,
 } from "../../../api/structures/connector/story_generator/IStoryGenerator";
 import { StoryGeneratorProvider } from "../../../providers/connector/story_generator/StoryGeneratorProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 /**
  * StoryGeneratorNode controller.
@@ -35,6 +36,9 @@ export class StoryGeneratorController {
    *
    * @tag Llm 스토리 생성
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg",
+  )
   @core.TypedRoute.Post()
   public generate(
     @core.TypedBody() input: IStoryGeneratorRequest,
