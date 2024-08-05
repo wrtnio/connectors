@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.79",
+    "version": "0.1.80",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8812,6 +8812,42 @@
         "summary": "get im channels in slack",
         "description": "get im channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/google-trend/daily": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "검색 날짜",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleTrend.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "데일리 트렌드 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleTrend.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글 트렌드 데일리 검색",
+        "description": "구글 트렌드에서 데일리 검색 결과를 가져옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_trend.svg",
+        "x-wrtn-standalone": true
       }
     }
   },
@@ -28592,6 +28628,55 @@
           "user",
           "id"
         ]
+      },
+      "IGoogleTrend.IRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "날짜",
+            "description": "데일리 트렌드를 조회할 날짜 입니다.\n\n입력되지 않으면 오늘 날짜를 기준으로 조회합니다."
+          }
+        },
+        "title": "구글 데일리 트렌드 조회를 위한 정보",
+        "description": "입력한 날짜의 트렌드를 조회합니다.\n\n입력하지 않으면 오늘 날짜를 기준으로 조회합니다.\n\n날짜 형식은 \"20241231\" 형식입니다."
+      },
+      "IGoogleTrend.IResponse": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "날짜",
+            "description": "트렌드 조회 날짜입니다."
+          },
+          "query": {
+            "type": "string",
+            "title": "검색어",
+            "description": "데일리 트렌드로 조회된 검색어입니다."
+          },
+          "related_queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "연관 검색어",
+            "description": "데일리 트렌드로 조회된 검색어와 연관된 검색어 목록입니다."
+          },
+          "traffic": {
+            "type": "string",
+            "title": "트래픽 수",
+            "description": "해당 키워드가 검색된 트래픽 수입니다."
+          }
+        },
+        "required": [
+          "date",
+          "query",
+          "related_queries",
+          "traffic"
+        ],
+        "title": "구글 데일리 트렌드 조회 결과",
+        "description": "데일리 트렌드 조회 결과입니다."
       }
     }
   },

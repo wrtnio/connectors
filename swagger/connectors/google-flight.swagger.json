@@ -1,0 +1,474 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Google Flight",
+    "version": "0.1.80",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-flight/one-way": {
+      "post": {
+        "tags": [
+          "Google Flight"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "항공편 검색에 필요한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleFlight.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "편도 항공편 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleFlight.IFinalResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "편도 항공편 검색",
+        "description": "편도 항공편을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-flight/round-trip": {
+      "post": {
+        "tags": [
+          "Google Flight"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "항공편 검색에 필요한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleFlight.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "왕복 항공편 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleFlight.IFinalResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "왕복 항공편 검색",
+        "description": "왕복 항공편을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleFlight.IRequest": {
+        "type": "object",
+        "properties": {
+          "departure_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/airport-information/search",
+              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
+            },
+            "title": "출발지",
+            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
+          },
+          "arrival_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/airport-information/search",
+              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
+            },
+            "title": "도착지",
+            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "1",
+                "title": "왕복"
+              },
+              {
+                "const": "2",
+                "title": "편도"
+              }
+            ],
+            "title": "왕복 또는 편도 여부",
+            "description": "왕복 또는 편도 여부를 선택해주세요.\n\n가능한 값으로 1, 2가 있습니다.\n\n왕복이면 \"1\", 편도면 \"2\"를 선택해주세요."
+          },
+          "outbound_date": {
+            "type": "string",
+            "format": "date",
+            "title": "가는 날짜",
+            "description": "가는 날짜를 입력해주세요."
+          },
+          "return_date": {
+            "type": "string",
+            "format": "date",
+            "title": "오는 날짜",
+            "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다."
+          },
+          "adults": {
+            "type": "integer",
+            "title": "성인 인원",
+            "description": "성인 인원수를 입력해주세요."
+          },
+          "children": {
+            "type": "integer",
+            "title": "아동 인원",
+            "description": "아동 인원수를 입력해주세요."
+          },
+          "stop": {
+            "oneOf": [
+              {
+                "const": "0",
+                "title": "상관 없음"
+              },
+              {
+                "const": "1",
+                "title": "직항"
+              },
+              {
+                "const": "2",
+                "title": "1번 경유"
+              },
+              {
+                "const": "3",
+                "title": "2번 이상 경유"
+              }
+            ],
+            "title": "직항 여부",
+            "description": "직항 여부를 선택해주세요.\n\n가능한 값으로 0, 1, 2, 3이 있습니다."
+          },
+          "max_price": {
+            "type": "integer",
+            "title": "최대 가격",
+            "description": "항공권의 최대 가격을 입력해주세요.\n\n입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다."
+          }
+        },
+        "required": [
+          "departure_id",
+          "arrival_id",
+          "type",
+          "outbound_date",
+          "adults",
+          "stop"
+        ],
+        "title": "항공권 검색에 필요한 정보"
+      },
+      "IGoogleFlight.IFinalResponse": {
+        "type": "object",
+        "properties": {
+          "flight": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleFlight.ISearchOutput"
+            },
+            "title": "최종 선택된 항공권 정보",
+            "description": "최종 선택된 항공권 정보입니다."
+          },
+          "booking_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleFlight.IBookingOption"
+            },
+            "title": "예약 정보",
+            "description": "선택한 항공편을 예약할 수 있는 정보들입니다."
+          }
+        },
+        "required": [
+          "flight",
+          "booking_options"
+        ],
+        "title": "최종 항공권 선택 결과",
+        "description": "최종 항공권 선택 결과입니다."
+      },
+      "IGoogleFlight.ISearchOutput": {
+        "type": "object",
+        "properties": {
+          "flight": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleFlight.IFlight"
+            },
+            "title": "항공편 정보",
+            "description": "항공편 정보입니다."
+          },
+          "total_duration": {
+            "type": "string",
+            "title": "비행 총 소요시간",
+            "description": "비행에 걸리는 총 소요시간입니다."
+          },
+          "price": {
+            "type": "string",
+            "title": "항공편 가격",
+            "description": "항공편 가격입니다."
+          },
+          "layover": {
+            "$ref": "#/components/schemas/IGoogleFlight.ILayover",
+            "title": "환승 정보",
+            "description": "항공편 환승 정보입니다."
+          },
+          "departure_token": {
+            "type": "string",
+            "title": "돌아오는 항공편 검색 토큰",
+            "description": "돌아오는 항공편 검색을 위한 토큰"
+          },
+          "booking_token": {
+            "type": "string",
+            "title": "항공편 최종 확인 토큰",
+            "description": "항공편 최종 확인을 위한 토큰"
+          }
+        },
+        "required": [
+          "flight",
+          "total_duration",
+          "price"
+        ],
+        "title": "항공권 검색 결과",
+        "description": "항공권 검색 결과입니다."
+      },
+      "IGoogleFlight.IFlight": {
+        "type": "object",
+        "properties": {
+          "departure_airport": {
+            "$ref": "#/components/schemas/IGoogleFlight.IAirport",
+            "title": "출발 정보",
+            "description": "항공편 출발 정보입니다."
+          },
+          "arrival_airport": {
+            "$ref": "#/components/schemas/IGoogleFlight.IAirport",
+            "title": "도착 정보",
+            "description": "항공편 도착 정보입니다."
+          },
+          "duration": {
+            "type": "string",
+            "title": "비행 시간",
+            "description": "비행에 걸리는 소요 시간입니다."
+          },
+          "airplane": {
+            "type": "string",
+            "title": "비행기 기종",
+            "description": "비행기 기종 정보입니다."
+          },
+          "airline": {
+            "type": "string",
+            "title": "항공사",
+            "description": "항공사 정보입니다."
+          },
+          "airline_logo": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "항공사 로고",
+            "description": "항공사 로고 이미지입니다."
+          },
+          "travel_class": {
+            "type": "string",
+            "title": "좌석 등급",
+            "description": "좌석 등급 정보입니다."
+          },
+          "flight_number": {
+            "type": "string",
+            "title": "항공편 번호",
+            "description": "항공편 번호입니다."
+          }
+        },
+        "required": [
+          "departure_airport",
+          "arrival_airport",
+          "duration",
+          "airplane",
+          "airline",
+          "airline_logo",
+          "travel_class",
+          "flight_number"
+        ]
+      },
+      "IGoogleFlight.IAirport": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "공항 이름",
+            "description": "공항 이름입니다."
+          },
+          "code": {
+            "type": "string",
+            "title": "공항 코드",
+            "description": "세자리 공항 코드입니다."
+          },
+          "time": {
+            "type": "string",
+            "title": "비행기 출발 일자 / 시각",
+            "description": "비행기가 출발하는 일자와 시각입니다."
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "time"
+        ],
+        "title": "항공편 정보"
+      },
+      "IGoogleFlight.ILayover": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "type": "string",
+            "title": "환승 시간",
+            "description": "환승 시간입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "공항 이름",
+            "description": "공항 이름입니다."
+          },
+          "code": {
+            "type": "string",
+            "title": "공항 코드",
+            "description": "세자리 공항 코드입니다."
+          }
+        },
+        "required": [
+          "duration",
+          "name",
+          "code"
+        ],
+        "title": "환승 정보"
+      },
+      "IGoogleFlight.IBookingOption": {
+        "type": "object",
+        "properties": {
+          "book_with": {
+            "type": "string",
+            "title": "예약 사이트",
+            "description": "선택할 항공편을 예약할 수 있는 사이트 입니다."
+          },
+          "price": {
+            "type": "string",
+            "title": "가격",
+            "description": "선택된 항공편의 가격입니다."
+          },
+          "book_link": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/Formaturi"
+              }
+            ],
+            "title": "예약 링크",
+            "description": "선택된 항공편을 예약할 수 있는 링크입니다."
+          }
+        },
+        "required": [
+          "book_with",
+          "price",
+          "book_link"
+        ],
+        "title": "예약 옵션",
+        "description": "예약 옵션입니다."
+      },
+      "Formaturi": {
+        "type": "object",
+        "properties": {
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "const": "string"
+              },
+              "kind": {
+                "const": "format"
+              },
+              "value": {
+                "const": "uri"
+              },
+              "validate": {
+                "const": "/\\/|:/.test($input) && /^(?:[a-z][a-z0-9+\\-.]*:)(?:\\/?\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\\.[a-z0-9\\-._~!$&'()*+,;=:]+)\\]|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)|(?:[a-z0-9\\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\\d*)?(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\\?(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i.test($input)"
+              },
+              "exclusive": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "const": "format"
+                  },
+                  {
+                    "const": "pattern"
+                  }
+                ],
+                "additionalItems": false
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "format": {
+                    "const": "uri"
+                  }
+                },
+                "required": [
+                  "format"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "validate",
+              "exclusive",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google Flight"
+    }
+  ],
+  "x-samchon-emended": true
+}
