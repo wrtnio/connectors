@@ -211,14 +211,14 @@ export namespace IGoogleHotel {
      *
      * @title 평점
      */
-    rating: `${number}점`;
+    rating?: string;
 
     /**
      * 리뷰 갯수
      *
      * @title 리뷰 갯수
      */
-    review_count: `${number}개`;
+    review_count?: string;
 
     /**
      * 숙소에서 제공하는 어메니티
