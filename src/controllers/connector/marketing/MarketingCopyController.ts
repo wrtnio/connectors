@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IMarketingCopyGenerator } from "@wrtn/connector-api/lib/structures/connector/marketing/IMarketingCopyGenerator";
 
 import { MarketingCopyGeneratorProvider } from "../../../providers/connector/marketing/MarketingCopyGeneratorProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/marketing-copy")
 export class MarketingCopyController {
@@ -20,6 +21,9 @@ export class MarketingCopyController {
    *
    * @tag Llm 마케팅 카피 텍스트 생성
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg",
+  )
   @core.TypedRoute.Post("generate-copy")
   async generateCopy(
     @core.TypedBody()
@@ -39,6 +43,9 @@ export class MarketingCopyController {
    *
    * @tag Llm 마케팅 카피 이미지 생성
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg",
+  )
   @core.TypedRoute.Post("generate-copy-image")
   async generateCopyImage(
     @core.TypedBody()

@@ -7,6 +7,7 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/llm/ILlm";
 
 import { LlmProvider } from "../../../providers/connector/llm/LlmProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/llm")
 export class LlmController {
@@ -23,6 +24,9 @@ export class LlmController {
    *
    * @tag Llm selection 선택 추출
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/LLM(1).svg",
+  )
   @core.TypedRoute.Post("/selector-llm")
   async selectorLlm(
     @core.TypedBody() body: ISelectorLlmRequest,
