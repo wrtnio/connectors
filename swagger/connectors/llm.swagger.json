@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "LLM",
-    "version": "0.1.80",
+    "version": "0.1.81",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -53,7 +53,8 @@
           }
         },
         "summary": "조건 선택",
-        "description": "주어진 후보 중에서 조건에 맞는 것을 선택합니다."
+        "description": "주어진 후보 중에서 조건에 맞는 것을 선택합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/LLM(1).svg"
       }
     }
   },

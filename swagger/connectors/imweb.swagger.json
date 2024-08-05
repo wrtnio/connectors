@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "아임웹",
-    "version": "0.1.80",
+    "version": "0.1.81",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -55,7 +55,8 @@
         },
         "summary": "Get my sales product from `Imweb`",
         "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg"
       }
     }
   },

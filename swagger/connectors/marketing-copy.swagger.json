@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "마케팅 카피",
-    "version": "0.1.80",
+    "version": "0.1.81",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -53,7 +53,8 @@
           }
         },
         "summary": "마케팅 카피 생성",
-        "description": "주어진 입력으로부터 마케팅 카피를 생성합니다."
+        "description": "주어진 입력으로부터 마케팅 카피를 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg"
       }
     },
     "/connector/marketing-copy/generate-copy-image": {
@@ -86,7 +87,8 @@
           }
         },
         "summary": "마케팅 카피 이미지 생성",
-        "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다."
+        "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg"
       }
     }
   },

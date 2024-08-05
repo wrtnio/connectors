@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "카카오 네비게이션",
-    "version": "0.1.80",
+    "version": "0.1.81",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -52,7 +52,8 @@
         },
         "summary": "카카오 네비 길찾기",
         "description": "카카오 네비로 길을 찾습니다.",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/KakaoNavi.svg"
       }
     }
   },
