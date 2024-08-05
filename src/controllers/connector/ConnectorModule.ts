@@ -49,6 +49,7 @@ import { ToolModule } from "./tool/ToolModule";
 import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -102,6 +103,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     AirportInformationModule,
     GoogleFlightModule,
     SlackModule,
+    GoogleTrendModule,
   ],
   controllers: [TypeformController],
 })
