@@ -83,10 +83,16 @@ export class GoogleHotelProvider {
               (image: { thumbnail: string; original_image: string }) =>
                 image.thumbnail,
             ),
-            rating: `${result.overall_rating}점` ?? "평점 정보가 없습니다.",
-            review_count: `${result.reviews}개`,
+            rating:
+              result.overll_rating !== undefined
+                ? `${result.overall_rating}점`
+                : "평점 정보가 없습니다.",
+            review_count:
+              result.reviews !== undefined
+                ? `${result.reviews}개`
+                : "리뷰 갯수 정보가 없습니다.",
             amenities: result.amenities ?? "편의시설 정보가 없습니다.",
-            excluded_amenities: result?.excluded_amenities,
+            excluded_amenities: result?.excluded_amenities ?? [],
           };
           output.push(data);
         }
