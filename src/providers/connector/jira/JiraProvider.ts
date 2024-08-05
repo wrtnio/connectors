@@ -1,13 +1,64 @@
 import { Injectable } from "@nestjs/common";
-import axios from "axios";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
+import axios from "axios";
+import typia from "typia";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
-  async getProjects(
-    input: IJira.IGetProjectInput,
+  async getProjectsByBasicAuth(
+    input: IJira.IGetProjectInputByBasicAuth,
+  ): Promise<IJira.IGetProjectOutput> {
+    try {
+      const { apiToken, domain, email, ...rest } = input;
+      const queryParameter = createQueryParameter(rest);
+      const url = `${domain}/rest/api/3/project/search?${queryParameter}`;
+      const Authorization = await this.getAuthorization({ apiToken, email });
+      const res = await axios.get(url, {
+        headers: {
+          Authorization,
+        },
+      });
+
+      return typia.misc.assertClone<IJira.IGetProjectOutput>(res.data);
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getIssuesByBasicAuth(
+    input: IJira.IGetIssueInputByBasicAuth,
+  ): Promise<IJira.IGetIssueOutput> {
+    try {
+      const { apiToken, domain, email, project_key, ...rest } = input;
+      const url = `${domain}/rest/api/3/search`;
+      const Authorization = await this.getAuthorization({ apiToken, email });
+
+      const res = await axios.post(
+        url,
+        {
+          jql: `project = ${project_key}`,
+          ...rest,
+        },
+        {
+          headers: {
+            Authorization,
+            Accept: "application/json",
+          },
+        },
+      );
+
+      return typia.misc.assertClone<IJira.IGetIssueOutput>(res.data);
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getProjectsBySecretKey(
+    input: IJira.IGetProjectInputBySecretKey,
   ): Promise<IJira.IGetProjectOutput> {
     try {
       const { secretKey, ...rest } = input;
@@ -22,14 +73,16 @@ export class JiraProvider {
         },
       });
 
-      return res.data;
+      return typia.misc.assertClone<IJira.IGetProjectOutput>(res.data);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
   }
 
-  async getIssues(input: IJira.IGetIssueInput): Promise<IJira.IGetIssueOutput> {
+  async getIssuesBySecretKey(
+    input: IJira.IGetIssueInputBySecretKey,
+  ): Promise<IJira.IGetIssueOutput> {
     try {
       const { secretKey, project_key, ...rest } = input;
       const accessTokenDto = await this.refresh({ secretKey });
@@ -49,7 +102,7 @@ export class JiraProvider {
         },
       );
 
-      return res.data;
+      return typia.misc.assertClone<IJira.IGetIssueOutput>(res.data);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -82,7 +135,23 @@ export class JiraProvider {
     return res.data[0];
   }
 
-  async refresh(input: { secretKey: string }) {
+  async getAuthorization(
+    input: { secretKey: string } | { email: string; apiToken: string },
+  ) {
+    if ("secretKey" in input) {
+      const { access_token } = await this.refresh(input);
+      return `Bearer ${access_token}`;
+    } else {
+      const basicAuth = `${input.email}:${input.apiToken}`;
+      return `Basic ${Buffer.from(basicAuth).toString("base64")}`;
+    }
+  }
+
+  private async createBasicAuth() {
+    return "";
+  }
+
+  private async refresh(input: { secretKey: string }) {
     try {
       const url = `https://auth.atlassian.com/oauth/token` as const;
       const res = await axios.post(

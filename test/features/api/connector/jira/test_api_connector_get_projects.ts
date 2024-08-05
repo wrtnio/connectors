@@ -8,7 +8,9 @@ export const test_api_connector_jira_get_projects = async (
   const res = await CApi.functional.connector.jira.get_projects.getProjects(
     connection,
     {
-      secretKey: ConnectorGlobal.env.JIRA_TEST_SECRET,
+      email: "studio@wrtn.io",
+      apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+      domain: "https://wrtn-ecosystem.atlassian.net",
     },
   );
 
