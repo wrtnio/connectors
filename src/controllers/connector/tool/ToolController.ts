@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { ITool } from "@wrtn/connector-api/lib/structures/connector/tool/ITool";
 
 import { ToolProvider } from "../../../providers/connector/tool/ToolProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/tool")
 export class ToolController {
@@ -25,6 +26,9 @@ export class ToolController {
    *
    * @tag Tool
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Studio1.0Tool.svg",
+  )
   @core.TypedRoute.Post(":id/generate")
   async generateTool(
     @core.TypedParam("id") id: string,

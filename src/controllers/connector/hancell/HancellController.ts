@@ -146,9 +146,6 @@ export class HancellController {
     "Filter Data",
     "Merge Data",
   )
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
-  )
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",

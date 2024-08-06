@@ -50,6 +50,7 @@ import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { JiraModule } from "./jira/JiraModule";
+import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -104,6 +105,7 @@ import { JiraModule } from "./jira/JiraModule";
     GoogleFlightModule,
     SlackModule,
     JiraModule,
+    GoogleTrendModule,
   ],
   controllers: [TypeformController],
 })

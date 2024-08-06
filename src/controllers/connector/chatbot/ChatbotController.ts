@@ -5,6 +5,7 @@ import { IChatbot } from "@wrtn/connector-api/lib/structures/connector/chatbot/I
 
 import { ChatbotProvider } from "../../../providers/connector/chatbot/ChatbotProvider";
 import { retry } from "../../../utils/retry";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/chatbot")
 export class ChatBotController {
@@ -27,6 +28,9 @@ export class ChatBotController {
    *
    * @tag Chatbot
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Studio1.0Chatbot.svg",
+  )
   @core.TypedRoute.Post("generate/easy")
   async generateEasyChatbot(
     @core.TypedBody() input: IChatbot.IChatbotEasyGenerateInput,
@@ -51,6 +55,9 @@ export class ChatBotController {
    *
    * @tag Chatbot
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Studio1.0Chatbot.svg",
+  )
   @core.TypedRoute.Post("generate/hard")
   async generateHardChatbot(
     @core.TypedBody() input: IChatbot.IChatBotHardGenerateInput,

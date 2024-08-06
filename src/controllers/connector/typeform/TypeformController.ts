@@ -5,6 +5,7 @@ import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform
 
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
 import { retry } from "../../../utils/retry";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/typeform")
 export class TypeformController {
@@ -69,6 +70,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Post("/workspace")
   async createWorkspace(
     @core.TypedBody() input: ITypeform.ICreateWorkspaceInput,
@@ -135,6 +139,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Delete("/workspace/:workspaceId")
   async deleteWorkspace(
     @core.TypedParam("workspaceId") workspaceId: string,
@@ -201,6 +208,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Post("/get-workspaces")
   async getWorkspaces(): Promise<ITypeform.IFindWorkspaceOutput[]> {
     return retry(() => TypeformProvider.getWorkspaces())();
@@ -267,6 +277,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Post("/empty-form")
   async createEmptyForm(
     @core.TypedBody() input: ITypeform.ICreateEmptyFormInput,
@@ -333,6 +346,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Post("/get-forms")
   async getForms(): Promise<ITypeform.IFindFormOutput[]> {
     return retry(() => TypeformProvider.getForms())();
@@ -399,6 +415,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Post("/duplicate-form")
   async duplicateExistingForm(
     @core.TypedBody() input: ITypeform.IDuplicateExistingFormInput,
@@ -467,6 +486,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Get("/forms/:formId/fields")
   async getFieldsForUpdateFieldValue(
     @core.TypedParam("formId") formId: string,
@@ -533,6 +555,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Put("/forms/:formId")
   async updateFormFieldValue(
     @core.TypedParam("formId") formId: string,
@@ -600,6 +625,9 @@ export class TypeformController {
    *
    * @internal
    */
+  @RouteIcon(
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/TypeForm.svg",
+  )
   @core.TypedRoute.Delete("/forms/:formId")
   async deleteForm(@core.TypedParam("formId") formId: string): Promise<void> {
     return retry(() => TypeformProvider.deleteForm(formId))();

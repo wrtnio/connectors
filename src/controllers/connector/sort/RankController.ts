@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IRanker } from "@wrtn/connector-api/lib/structures/connector/sort/IRanker";
 
 import { RankerProvider } from "../../../providers/connector/sort/RankerProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/rank")
 export class RankController {
@@ -11,6 +12,8 @@ export class RankController {
 
   /**
    * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
+   *
+   * @deprecated
    *
    * @summary 조건 정렬
    *
@@ -20,6 +23,9 @@ export class RankController {
    *
    * @tag Sort Rank Ranking 정렬 순위 순서 랭킹 랭크
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Sort.svg",
+  )
   @core.TypedRoute.Post("rank")
   async rank(
     @core.TypedBody()

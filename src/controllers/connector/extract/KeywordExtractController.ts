@@ -5,6 +5,7 @@ import { IKeywordExtraction } from "@wrtn/connector-api/lib/structures/connector
 
 import { KeywordExtractorProvider } from "../../../providers/connector/extract/KeywordExtractorProvider";
 import { retry } from "../../../utils/retry";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/extract/keyword")
 export class KeywordExtractController {
@@ -24,6 +25,9 @@ export class KeywordExtractController {
    * @tag Llm 키워드 추출 생성
    */
   @core.TypedRoute.Post()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/keyword.svg",
+  )
   async extractKeyword(
     @core.TypedBody() input: IKeywordExtraction.IExtractKeywordInput,
   ): Promise<IKeywordExtraction.IExtractKeywordOutput> {
