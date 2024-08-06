@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "한셀",
+      description: "한셀을 읽고 쓸 수 있게 도와줘요",
     },
     beautify: true,
     decompose: true,

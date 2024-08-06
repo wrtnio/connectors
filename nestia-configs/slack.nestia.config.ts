@@ -1,18 +1,18 @@
 // nestia configuration file
 import type sdk from "@nestia/sdk";
 import { NestFactory } from "@nestjs/core";
-import { StableDiffusionBetaModule } from "../src/controllers/connector/stable_diffustion_beta/StableDiffusionBetaModule";
+import { SlackModule } from "../src/controllers/connector/slack/SlackModule";
 
 const NESTIA_CONFIG: sdk.INestiaConfig = {
-  input: async () => NestFactory.create(StableDiffusionBetaModule),
+  input: async () => NestFactory.create(SlackModule),
   swagger: {
     info: {
-      title: "Stable Diffusion",
-      description: "Stable Diffusion으로 그림을 그려요",
+      title: "Slack",
+      description: "슬랙 채널에서 대화를 가져오거나 보낼 수 있어요",
     },
     beautify: true,
     decompose: true,
-    output: "packages/api/connectors/stable-diffusion.swagger.json",
+    output: "packages/api/connectors/slack.swagger.json",
     servers: [
       {
         url: "https://studio-connector-api.wrtn.ai",

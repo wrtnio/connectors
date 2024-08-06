@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "조건 정렬",
+      description: "",
     },
     beautify: true,
     decompose: true,

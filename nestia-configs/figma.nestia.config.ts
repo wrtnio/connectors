@@ -7,7 +7,8 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(FigmaModule),
   swagger: {
     info: {
-      title: "피그마",
+      title: "Figma",
+      description: "Figma를 연동해 디자인 생산성을 높이세요",
     },
     beautify: true,
     decompose: true,

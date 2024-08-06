@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "DallE3",
+      description: "DallE3를 이용해 그림을 그릴 수 있어요",
     },
     beautify: true,
     decompose: true,

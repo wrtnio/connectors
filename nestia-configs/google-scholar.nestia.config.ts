@@ -7,7 +7,8 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(GoogleScholarModule),
   swagger: {
     info: {
-      title: "스콜라",
+      title: "Google Scholar",
+      description: "Google Scholar로 다양한 학술 자료를 찾아봐요",
     },
     beautify: true,
     decompose: true,

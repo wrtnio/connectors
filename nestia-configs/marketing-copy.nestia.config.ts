@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "마케팅 카피",
+      description: "마케팅 카피를 생성할 수 있어요",
     },
     beautify: true,
     decompose: true,

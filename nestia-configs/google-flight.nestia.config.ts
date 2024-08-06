@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "Google Flight",
+      description: "여행 전에 항공권을 조회해볼 수 있어요",
     },
     beautify: true,
     decompose: true,

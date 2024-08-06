@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "LLM",
+      description: "",
     },
     beautify: true,
     decompose: true,

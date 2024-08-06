@@ -7,7 +7,8 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(KakaoNaviModule),
   swagger: {
     info: {
-      title: "카카오 네비게이션",
+      title: "카카오 네비",
+      description: "카카오 네비로 교통 현황에 맞게 길을 찾을 수 있어요",
     },
     beautify: true,
     decompose: true,

@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "Google Hotel",
+      description: "여행 전 숙소를 미리 찾아볼 수 있어요",
     },
     beautify: true,
     decompose: true,

@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "Gmail",
+      description: "Gmail로 초안을 작성하거나 이메일을 보낼 수 있어요",
     },
     beautify: true,
     decompose: true,

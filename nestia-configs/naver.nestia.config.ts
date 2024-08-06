@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "네이버",
+      description: "네이버의 각종 기능을 활용할 수 있어요",
     },
     beautify: true,
     decompose: true,

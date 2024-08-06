@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "생활기록부",
+      description: "",
     },
     beautify: true,
     decompose: true,

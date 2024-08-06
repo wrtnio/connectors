@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "구글 캘린더",
+      description: "구글 캘린더에 내 일정을 기록하고 관리해요",
     },
     beautify: true,
     decompose: true,

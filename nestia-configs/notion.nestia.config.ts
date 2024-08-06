@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "노션",
+      description: "노션을 이용해 글을 쓸 수 있어요",
     },
     beautify: true,
     decompose: true,

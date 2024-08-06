@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "구글 쇼핑",
+      description: "구글에서 브랜드와 상품을 검색해요",
     },
     beautify: true,
     decompose: true,

@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "구글 광고",
+      description: "광고를 만들고 성과를 분석할 수 있어요",
     },
     beautify: true,
     decompose: true,

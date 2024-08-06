@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "아카이브 검색",
+      description: "아카이브를 이용해서 다양한 학술 자료 및 논문을 찾아보아요.",
     },
     beautify: true,
     decompose: true,

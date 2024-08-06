@@ -7,7 +7,8 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(KakaoTalkModule),
   swagger: {
     info: {
-      title: "카카오톡d",
+      title: "카카오톡",
+      description: "카카오톡으로 나와 친구들에게 메세지를 남길 수 있어요",
     },
     beautify: true,
     decompose: true,

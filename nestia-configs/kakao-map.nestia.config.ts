@@ -7,7 +7,8 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(KakaoMapModule),
   swagger: {
     info: {
-      title: "카카오 지도",
+      title: "카카오 맵",
+      description: "카카오 맵으로 지도 검색을 해볼 수 있어요",
     },
     beautify: true,
     decompose: true,

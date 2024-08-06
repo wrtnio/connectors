@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "Studio 1.0 챗봇",
+      description: "",
     },
     beautify: true,
     decompose: true,

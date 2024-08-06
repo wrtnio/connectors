@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "구글 검색",
+      description: "구글 검색 및 채용 공고 조회에 활용할 수 있어요",
     },
     beautify: true,
     decompose: true,

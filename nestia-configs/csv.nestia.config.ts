@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "CSV",
+      description: "CSV 파일을 편집하고 엑셀로 내보낼 수 있어요",
     },
     beautify: true,
     decompose: true,

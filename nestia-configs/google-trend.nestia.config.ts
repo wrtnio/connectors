@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "Google Trend",
+      description: "오늘의 트렌드를 검색해봐요",
     },
     beautify: true,
     decompose: true,

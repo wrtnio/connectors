@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "구글 스토리지",
+      description: "구글 문서, 시트, 드라이브, 슬라이드 등 자료들을 관리해요",
     },
     beautify: true,
     decompose: true,

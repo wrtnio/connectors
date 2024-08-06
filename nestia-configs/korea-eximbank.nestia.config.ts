@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "한국 환율",
+      description: "",
     },
     beautify: true,
     decompose: true,

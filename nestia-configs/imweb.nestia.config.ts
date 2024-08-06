@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "아임웹",
+      description: "아임웹 판매자를 도와주는 기능이 있어요",
     },
     beautify: true,
     decompose: true,

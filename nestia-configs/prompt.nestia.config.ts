@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "프롬프트",
+      description: "",
     },
     beautify: true,
     decompose: true,
