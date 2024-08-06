@@ -24,7 +24,7 @@ export class JiraController {
   async getIssues(
     @TypedBody() input: IJira.IGetIssueInputByBasicAuth,
   ): Promise<IJira.IGetIssueOutput> {
-    return this.jiraProvider.getIssuesByBasicAuth(input);
+    return this.jiraProvider.getIssues(input);
   }
 
   /**
@@ -46,6 +46,6 @@ export class JiraController {
   async getProjects(
     @TypedBody() input: IJira.IGetProjectInputByBasicAuth,
   ): Promise<IJira.IGetProjectOutput> {
-    return this.jiraProvider.getProjectsByBasicAuth(input);
+    return this.jiraProvider.getProjects(input);
   }
 }
