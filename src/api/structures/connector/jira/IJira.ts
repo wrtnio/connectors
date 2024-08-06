@@ -1,6 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
+import type { DeepStrictOmit } from "../../../../utils/types/DeepStrictOmit";
 
 export namespace IJira {
   export type ISecret = ICommon.ISecret<
@@ -50,7 +51,10 @@ export namespace IJira {
      *
      * @title max results
      */
-    maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
+    maxResults?: number &
+      tags.Type<"int32"> &
+      tags.Default<50> &
+      tags.Maximum<100>; // maybe it's maximum value is 100
   }
 
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
@@ -288,7 +292,7 @@ export namespace IJira {
       /**
        * @title parent of this issue
        */
-      parent?: Omit<Issue, "parent">;
+      parent?: DeepStrictOmit<Issue, "fields.parent">;
     };
   }
 
