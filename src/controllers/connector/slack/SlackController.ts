@@ -16,7 +16,6 @@ export class SlackController {
    *
    * @summary Marks a specific message in a Slack channel as read
    * @param input
-   * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -44,7 +43,7 @@ export class SlackController {
    * it would be a good idea to let them know that it will actually be transmitted in our service.
    *
    * @param input
-   * @returns
+   * @returns scheduled message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -57,6 +56,17 @@ export class SlackController {
     return typia.misc.assertClone(response);
   }
 
+  /**
+   * Delete the scheduled message
+   *
+   * To clear a scheduled message,
+   * you must get the exact id of that message, so you must first use the scheduled message lookup connector.
+   * When using this connector,
+   * the ID of the channel is also required, which can be retrieved from the message object by querying the channel or by querying the scheduled message.
+   *
+   * @summary Delete the scheduled message
+   * @param input
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
   )
@@ -78,6 +88,7 @@ export class SlackController {
    *
    * @summary post text message to myself in slack
    * @param input
+   * @returns created message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -103,7 +114,7 @@ export class SlackController {
    *
    * @summary post reply message to thread
    * @param input
-   * @returns
+   * @returns created message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -123,6 +134,7 @@ export class SlackController {
    *
    * @summary post text message in slack
    * @param input
+   * @returns created message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
