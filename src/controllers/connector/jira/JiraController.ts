@@ -1,6 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
+import { RouteIcon } from "@wrtnio/decorators";
 import { JiraProvider } from "../../../providers/connector/jira/JiraProvider";
 
 @Controller("connector/jira")
@@ -16,6 +17,9 @@ export class JiraController {
    * @param input condition of request
    * @returns paginated list of issues visible to the user
    */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
   @core.TypedRoute.Post("get-issues")
   async getIssues(
     @TypedBody() input: IJira.IGetIssueInputByBasicAuth,
@@ -35,6 +39,9 @@ export class JiraController {
    * @param input condition of request
    * @returns paginated list of projects visible to the user
    */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
   @core.TypedRoute.Post("get-projects")
   async getProjects(
     @TypedBody() input: IJira.IGetProjectInputByBasicAuth,
