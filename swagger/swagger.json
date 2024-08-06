@@ -8575,6 +8575,84 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/slack/conversation/mark": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IMarkInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Marks a specific message in a Slack channel as read",
+        "description": "Marks a specific message in a Slack channel as read\n\nYou need to know both the channel ID and the ts value of the message.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/scheduleMessage/text": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.ISCheduleMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "scheduled message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.ScheduledMessagepost_at"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a schduled message\n\nBy default,\nit is not much different from sending a message except for specifying a schduled time,\nand requires a channel ID and message content.\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.\n\nMessages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.\nTherefore, be careful in writing messages.\nIf you want to cancel, please refer to the message created through another connector and call the delete connector again.\n\nUsers may be embarrassed if the message you booked is not viewed in the Slack desktop app,\nso although it cannot be viewed in Slack before and after transmission,\nit would be a good idea to let them know that it will actually be transmitted in our service.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/scheduleMessage": {
+      "delete": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IDeleteSCheduleMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete the scheduled message",
+        "description": "Delete the scheduled message\n\nTo clear a scheduled message,\nyou must get the exact id of that message, so you must first use the scheduled message lookup connector.\nWhen using this connector,\nthe ID of the channel is also required, which can be retrieved from the message object by querying the channel or by querying the scheduled message.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
     "/connector/slack/postMessage/text/myself": {
       "post": {
         "tags": [],
@@ -8591,7 +8669,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "created message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                }
+              }
+            }
           }
         },
         "summary": "post text message to myself in slack",
@@ -8615,7 +8700,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "created message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                }
+              }
+            }
           }
         },
         "summary": "post reply message to thread",
@@ -8639,12 +8731,48 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "created message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                }
+              }
+            }
           }
         },
         "summary": "post text message in slack",
         "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/slack/get-scheduled-messages": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetScheduledMessageListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetScheduledMessageListOutput"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a list of scheduled messages\n\nLook up the messages you booked.\nYou can use `post_at` and `post_at_date` to find out when the message will be sent.\nIf you want to clear the message, use the `id` value in the scheduled message."
       }
     },
     "/connector/slack/get-users": {
@@ -27928,6 +28056,161 @@
           }
         }
       },
+      "ISlack.IMarkInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to mark the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "messages[].{value: ts, label: text}"
+            },
+            "title": "ts",
+            "description": "It means the 'ts' value of the chat you want to mark"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "ts",
+          "secretKey"
+        ]
+      },
+      "ISlack.ISCheduleMessageInput": {
+        "type": "object",
+        "properties": {
+          "post_at": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "Transfer Schedule Time",
+            "description": "You can schedule the time you want to send the message in advance.\nThe scheduled time must be in the same form as the ts property in the Message."
+          },
+          "thread_ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "thread ts\n\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message."
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channels",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "post_at",
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
+      "PickISlack.ScheduledMessagepost_at": {
+        "type": "object",
+        "properties": {
+          "post_at": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          }
+        },
+        "required": [
+          "post_at"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "ISlack.IDeleteSCheduleMessageInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+            },
+            "title": "channel id\n\nIt refers to the channel on which you want to delete the scheduled message.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "scheduled_message_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-scheduled-messages",
+              "jmesPath": "scheduled_messages[].{value:id, label:text}"
+            },
+            "title": "scheduled message id to delete"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "scheduled_message_id",
+          "secretKey"
+        ]
+      },
       "ISlack.IPostMessageToMyselfInput": {
         "type": "object",
         "properties": {
@@ -27956,6 +28239,20 @@
           "secretKey"
         ]
       },
+      "PickISlack.Messagets": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          }
+        },
+        "required": [
+          "ts"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
       "ISlack.IPostMessageReplyInput": {
         "type": "object",
         "properties": {
@@ -27978,7 +28275,7 @@
               "path": "/connector/slack/get-channels",
               "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
             },
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first."
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
             "type": "string",
@@ -28018,7 +28315,7 @@
               "path": "/connector/slack/get-channels",
               "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
             },
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first."
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
             "type": "string",
@@ -28045,6 +28342,152 @@
           "text",
           "secretKey"
         ]
+      },
+      "ISlack.IGetScheduledMessageListInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "1000",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetScheduledMessageListOutput": {
+        "type": "object",
+        "properties": {
+          "scheduled_messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduledMessageidstringpost_at_datestring"
+            },
+            "title": "scheduled messages"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "scheduled_messages",
+          "next_cursor"
+        ]
+      },
+      "ScheduledMessageidstringpost_at_datestring": {
+        "type": "object",
+        "properties": {
+          "post_at": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "date_created": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "when the user scheduled the message"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.Attachment"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents"
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*)))",
+            "title": "channel id"
+          },
+          "id": {
+            "type": "string",
+            "title": "id of scheduled message"
+          },
+          "post_at_date": {
+            "type": "string",
+            "title": "date-time format of post_at"
+          }
+        },
+        "required": [
+          "post_at",
+          "date_created",
+          "text",
+          "channel",
+          "id",
+          "post_at_date"
+        ]
+      },
+      "ISlack.Attachment": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "text\n\nThe main body text of the attachment.\nIt can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.\nThe content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a \"Show more...\" link to expand the content."
+          },
+          "fallback": {
+            "type": "string",
+            "title": "fallback\n\nA plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications)."
+          },
+          "thumb_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "thumb_url\n\nA valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.\nThe thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.\nFor best results, please use images that are already 75px by 75px."
+          },
+          "thumb_width": {
+            "type": "number",
+            "title": "thumb_width"
+          },
+          "thumb_height": {
+            "type": "number",
+            "title": "thumb_height"
+          },
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title\n\nLarge title text near the top of the attachment."
+          },
+          "title_link": {
+            "type": "string",
+            "title": "title link\n\nA valid URL that turns the title text into a hyperlink."
+          }
+        }
       },
       "ISlack.IGetUserListInput": {
         "type": "object",
@@ -28314,7 +28757,7 @@
             "x-wrtn-placeholder": "1234567890.123456",
             "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
-          "tsDate": {
+          "ts_date": {
             "type": "string",
             "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
           }
@@ -28326,46 +28769,8 @@
           "user",
           "text",
           "ts",
-          "tsDate"
+          "ts_date"
         ]
-      },
-      "ISlack.Attachment": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "text\n\nThe main body text of the attachment.\nIt can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.\nThe content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a \"Show more...\" link to expand the content."
-          },
-          "fallback": {
-            "type": "string",
-            "title": "fallback\n\nA plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications)."
-          },
-          "thumb_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "thumb_url\n\nA valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.\nThe thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.\nFor best results, please use images that are already 75px by 75px."
-          },
-          "thumb_width": {
-            "type": "number",
-            "title": "thumb_width"
-          },
-          "thumb_height": {
-            "type": "number",
-            "title": "thumb_height"
-          },
-          "id": {
-            "type": "number",
-            "title": "id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title\n\nLarge title text near the top of the attachment."
-          },
-          "title_link": {
-            "type": "string",
-            "title": "title link\n\nA valid URL that turns the title text into a hyperlink."
-          }
-        }
       },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
@@ -28482,7 +28887,7 @@
             "x-wrtn-placeholder": "1234567890.123456",
             "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
-          "tsDate": {
+          "ts_date": {
             "type": "string",
             "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
           },
@@ -28508,7 +28913,7 @@
           "channel",
           "text",
           "ts",
-          "tsDate",
+          "ts_date",
           "reply_count",
           "reply_users_count"
         ]
@@ -28586,7 +28991,7 @@
           "id": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*)))",
-            "title": "channel id"
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'."
           }
         },
         "required": [
@@ -28632,7 +29037,7 @@
           "id": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*)))",
-            "title": "channel id"
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'."
           }
         },
         "required": [
@@ -28698,7 +29103,7 @@
           "id": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*)))",
-            "title": "channel id"
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'."
           }
         },
         "required": [
@@ -28800,7 +29205,7 @@
             "title": "The key of the issue"
           },
           "fields": {
-            "$ref": "#/components/schemas/__type.o1233"
+            "$ref": "#/components/schemas/__type.o1245"
           }
         },
         "required": [
@@ -28809,7 +29214,7 @@
           "fields"
         ]
       },
-      "__type.o1233": {
+      "__type.o1245": {
         "type": "object",
         "properties": {
           "reporter": {
@@ -29009,7 +29414,7 @@
             "title": "The key of the issue"
           },
           "fields": {
-            "$ref": "#/components/schemas/__type.o1233"
+            "$ref": "#/components/schemas/__type.o1245"
           }
         },
         "required": [
