@@ -19,9 +19,22 @@ export namespace IJira {
   >;
 
   export interface BasicAuthorization {
+    /**
+     * @title email in Jira
+     */
     email: string;
+
+    /**
+     * @title jira api token
+     *
+     * You can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.
+     */
     apiToken: string;
-    domain: string;
+
+    /**
+     * @title domain of your workspace site in Jira
+     */
+    domain: string & tags.Pattern<"^(https:\\/\\/(.*)\\.atlassian\\.net)$">;
   }
 
   export interface ICommonPaginationInput {
@@ -40,10 +53,11 @@ export namespace IJira {
     maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
   }
 
-  export interface ICommonPaginationOutput {
+  export interface ICommonPaginationOutput extends ICommonPaginationInput {
+    /**
+     * @title total count
+     */
     total: number & tags.Type<"int64">;
-    maxResults: number & tags.Type<"int32">;
-    startAt: number & tags.Type<"int64">;
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -75,6 +89,9 @@ export namespace IJira {
   }
 
   export interface IGetIssueOutput extends ICommonPaginationOutput {
+    /**
+     * @title Jira issue list
+     */
     issues: Issue[];
   }
 
@@ -144,11 +161,22 @@ export namespace IJira {
         >;
   }
 
+  /**
+   * @title output of getting Jira projects
+   */
   export interface IGetProjectOutput extends ICommonPaginationOutput {
+    /**
+     * @title Wheather is last page
+     */
     isLast: boolean;
+
+    /**
+     * @title Jira project list
+     */
     values: IJira.Project[];
   }
 
+  // OAuth 연동 시에 필요한 타입이기 때문에 주석 생략
   export interface IGetAccessibleResourcesOutput {
     id: string;
     url: string;
@@ -158,40 +186,116 @@ export namespace IJira {
   }
 
   export interface Issue {
+    /**
+     * @title The ID of the issue
+     */
     id: string;
+
+    /**
+     * @title The key of the issue
+     */
     key: string;
-    reporter?: User | null;
-    creator?: User | null;
-    assignee?: User | null;
 
     fields: {
+      /**
+       * @title reporter
+       */
+      reporter?: User | null;
+
+      /**
+       * @title creator
+       */
+      creator?: User | null;
+
+      /**
+       * @title assignee
+       */
+      assignee?: User | null;
+
+      /**
+       * @title summary
+       */
       summary?: string;
+
+      /**
+       * @title issue type
+       */
       issuetype?: {
         id: string;
+
+        /**
+         * @title issue type name
+         *
+         * It may be name, bug, story or etc.
+         */
         name: string & Placeholder<"스토리">;
       };
 
       status: {
-        description: string;
-        name: string;
+        /**
+         * @title status id
+         */
         id: string;
+
+        /**
+         * @title status description
+         */
+        description: string;
+
+        /**
+         * @title status name
+         */
+        name: string & Placeholder<"해야 할 일">;
+
+        /**
+         * @title status category
+         */
         statusCategory: {
+          /**
+           * @title category id
+           */
           id: number;
-          key: string;
+
+          /**
+           * @title category key
+           */
+          key: string & Placeholder<"new">;
         };
       };
 
+      /**
+       * @title priority
+       */
       priority: {
+        /**
+         * @title url of icon
+         */
         iconUrl: string & tags.Format<"uri">;
+
+        /**
+         * @title priority name
+         *
+         * It may be Low, Medium, High.
+         */
         name: string;
+
+        /**
+         * @title id
+         */
         id: string;
       };
 
+      /**
+       * @title parent of this issue
+       */
       parent?: Omit<Issue, "parent">;
     };
   }
 
   export interface User {
+    /**
+     * @title profile images of user
+     */
     avatarUrls: AvartarUrls;
 
     /**
@@ -199,25 +303,75 @@ export namespace IJira {
      */
     displayName: string;
 
+    /**
+     * @title Whether is user active
+     */
     active: boolean;
   }
 
   export interface Project {
+    /**
+     * @title images of this project
+     */
     avatarUrls: AvartarUrls;
+
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title key of project
+     *
+     * Key properties used to query the inside of a project.
+     */
     key: string;
+
+    /**
+     * @title name of this project
+     */
     name: string;
+
+    /**
+     * @title project category info
+     */
     projectCategory?: {
+      /**
+       * @title description
+       */
       description: string;
+
+      /**
+       * @title id
+       */
       id: string;
+
+      /**
+       * @title name
+       */
       name: string;
     };
   }
 
   export interface AvartarUrls {
+    /**
+     * @title "16x16" size image
+     */
     "16x16": string & tags.Format<"uri">;
+
+    /**
+     * @title "24x24" size image
+     */
     "24x24": string & tags.Format<"uri">;
+
+    /**
+     * @title "32x32" size image
+     */
     "32x32": string & tags.Format<"uri">;
+
+    /**
+     * @title "48x48" size image
+     */
     "48x48": string & tags.Format<"uri">;
   }
 }

@@ -9,8 +9,10 @@ export class JiraController {
 
   /**
    * Find Jira issues
-   * @summary Find The Jira issues.
    *
+   * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
+   *
+   * @summary Find The Jira issues.
    * @param input condition of request
    * @returns paginated list of issues visible to the user
    */
@@ -26,6 +28,8 @@ export class JiraController {
    *
    * The Jira project has a unique key and can then be used to query issues with the key.
    * Returns a paginated list of projects visible to the user.
+   *
+   * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
    *
    * @summary Find the Jira projects.
    * @param input condition of request
