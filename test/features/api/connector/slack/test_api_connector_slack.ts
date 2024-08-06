@@ -66,7 +66,7 @@ export const test_api_connector_slack_get_channel_histories = async (
   return messages;
 };
 
-export const test_api_connector_slack_text_message = async (
+export const test_api_connector_slack_send_text_message_to_public = async (
   connection: CApi.IConnection,
 ) => {
   const [PublicChannel] =
@@ -76,26 +76,67 @@ export const test_api_connector_slack_text_message = async (
     text: "hello, world",
     secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
   });
+};
 
+export const test_api_connector_slack_send_text_message_to_private = async (
+  connection: CApi.IConnection,
+) => {
   const [PrivateChannel] =
     await test_api_connector_slack_get_private_channels(connection);
-  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
-    channel: PrivateChannel.id as any,
-    text: "hello, world",
-    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-  });
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.sendText(
+      connection,
+      {
+        channel: PrivateChannel.id as any,
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  return message;
+};
+
+export const test_api_connector_slack_mark_message = async (
+  connection: CApi.IConnection,
+) => {
+  const [PublicChannel] =
+    await test_api_connector_slack_get_public_channels(connection);
+
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.sendText(
+      connection,
+      {
+        channel: PublicChannel.id as any,
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  const res = await CApi.functional.connector.slack.conversation.mark(
+    connection,
+    {
+      channel: PublicChannel.id as any,
+      ts: message.ts as any,
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+    },
+  );
+
+  typia.assertEquals(res);
 };
 
 export const test_api_connector_slack_send_text_message_to_myself = async (
   connection: CApi.IConnection,
 ) => {
-  await CApi.functional.connector.slack.postMessage.text.myself.sendTextToMyself(
-    connection,
-    {
-      text: "hello, world",
-      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-    },
-  );
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.myself.sendTextToMyself(
+      connection,
+      {
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  return message;
 };
 
 export const test_api_connector_slack_get_users = async (

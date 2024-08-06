@@ -9,6 +9,24 @@ export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
 
   /**
+   * Marks a specific message in a Slack channel as read
+   *
+   * Bookmark the messages you want to see later.
+   * You need to know both the channel ID and the ts value of the message.
+   *
+   * @summary Marks a specific message in a Slack channel as read
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("conversation/mark")
+  async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
+    return this.slackProvider.mark(input);
+  }
+
+  /**
    * send message to myself
    *
    * Here, you can send a message as long as you have the message.
@@ -25,7 +43,7 @@ export class SlackController {
   @TypedRoute.Post("postMessage/text/myself")
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
-  ): Promise<void> {
+  ): Promise<Pick<ISlack.Message, "ts">> {
     return this.slackProvider.sendTextToMyself(input);
   }
 
@@ -50,7 +68,7 @@ export class SlackController {
   @TypedRoute.Post("postMessage/reply")
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
-  ): Promise<void> {
+  ): Promise<Pick<ISlack.Message, "ts">> {
     return this.slackProvider.sendReply(input);
   }
 
@@ -66,7 +84,9 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
   )
   @TypedRoute.Post("postMessage/text")
-  async sendText(@TypedBody() input: ISlack.IPostMessageInput): Promise<void> {
+  async sendText(
+    @TypedBody() input: ISlack.IPostMessageInput,
+  ): Promise<Pick<ISlack.Message, "ts">> {
     return this.slackProvider.sendText(input);
   }
 

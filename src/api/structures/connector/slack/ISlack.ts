@@ -17,6 +17,33 @@ export namespace ISlack {
     ]
   >;
 
+  export interface IMarkInput extends ISecret {
+    /**
+     * @title channel id
+     *
+     * It refers to the channel on which you want to view the conversation history.
+     * If you don't know the channel's ID, You need to view the channel first.
+     */
+    channel: Channel["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+      }>;
+
+    /**
+     * It means the 'ts' value of the chat you want to mark
+     *
+     * @title ts
+     */
+    ts: Message["ts"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "messages[].{value: ts, label: text}";
+      }>;
+  }
+
   export interface IGetUserListOutput extends ISlack.ICommonPaginationOutput {
     /**
      * @title user list
@@ -109,7 +136,7 @@ export namespace ISlack {
      * @title channel id
      *
      * It refers to the channel on which you want to view the conversation history.
-     * You need to view the channel first.
+     * If you don't know the channel's ID, You need to view the channel first.
      */
     channel: Channel["id"] &
       Prerequisite<{
@@ -316,6 +343,8 @@ export namespace ISlack {
   export interface Channel {
     /**
      * @title channel id
+     *
+     * The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.
      */
     id: string & tags.Pattern<"^((C(.*))|(D(.*)))">;
   }

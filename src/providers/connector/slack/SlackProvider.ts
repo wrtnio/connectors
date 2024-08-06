@@ -5,10 +5,33 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class SlackProvider {
-  async sendReply(input: ISlack.IPostMessageReplyInput): Promise<void> {
-    const url = `https://slack.com/api/chat.postMessage`;
+  async mark(input: ISlack.IMarkInput): Promise<void> {
+    const url = `https://slack.com/api/conversations.mark`;
     try {
       await axios.post(
+        url,
+        {
+          channel: input.channel,
+          ts: input.ts,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async sendReply(
+    input: ISlack.IPostMessageReplyInput,
+  ): Promise<Pick<ISlack.Message, "ts">> {
+    const url = `https://slack.com/api/chat.postMessage`;
+    try {
+      const res = await axios.post(
         url,
         {
           channel: input.channel,
@@ -21,6 +44,8 @@ export class SlackProvider {
           },
         },
       );
+
+      return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -94,13 +119,13 @@ export class SlackProvider {
 
   async sendTextToMyself(
     input: ISlack.IPostMessageToMyselfInput,
-  ): Promise<void> {
+  ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
     try {
       const { channels } = await this.getImChannels(input);
       const auth = await this.authTest(input);
       const mySelf = channels.find((el) => el.user === auth.user_id);
-      await axios.post(
+      const res = await axios.post(
         url,
         {
           channel: mySelf?.id,
@@ -112,6 +137,8 @@ export class SlackProvider {
           },
         },
       );
+
+      return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -130,10 +157,12 @@ export class SlackProvider {
     return res.data;
   }
 
-  async sendText(input: ISlack.IPostMessageInput): Promise<void> {
+  async sendText(
+    input: ISlack.IPostMessageInput,
+  ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
     try {
-      await axios.post(
+      const res = await axios.post(
         url,
         {
           channel: input.channel,
@@ -145,6 +174,8 @@ export class SlackProvider {
           },
         },
       );
+
+      return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
