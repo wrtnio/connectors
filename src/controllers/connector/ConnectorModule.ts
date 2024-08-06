@@ -50,6 +50,7 @@ import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
+import { GoogleSearchCareerModule } from "./google_search_career/GoogleSearchCareerModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -90,6 +91,7 @@ import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
     StableDiffusionBetaModule,
     DallE3Module,
     GoogleSearchModule,
+    GoogleSearchCareerModule,
     GoogleShoppingModule,
     GoogleAdsModule,
     ArxivSearchModule,

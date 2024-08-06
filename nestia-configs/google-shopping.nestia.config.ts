@@ -7,8 +7,10 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(GoogleShoppingModule),
   swagger: {
     info: {
-      title: "구글 쇼핑",
-      description: "구글에서 브랜드와 상품을 검색해요",
+      title: "통합 상품 검색",
+      summary: "다양한 쇼핑몰의 상품을 한 번에 검색해요.",
+      description:
+        "무신사, 29cm, EQL, OCO, 유니클로, 쿠팡, 마켓컬리, 아이허브, 알리익스프레스, 올리브영, yes24, 알라딘 등 다양한 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격, 리뷰, 판매처 등을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색, 가격 범위 설정, 브랜드 필터링 등 다양한 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
     },
     beautify: true,
     decompose: true,
