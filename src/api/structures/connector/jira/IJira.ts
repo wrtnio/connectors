@@ -51,7 +51,10 @@ export namespace IJira {
      *
      * @title max results
      */
-    maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
+    maxResults?: number &
+      tags.Type<"int32"> &
+      tags.Default<50> &
+      tags.Maximum<100>; // maybe it's maximum value is 100
   }
 
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
