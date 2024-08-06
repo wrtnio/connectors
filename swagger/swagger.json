@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.81",
+    "version": "0.1.82",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8830,6 +8830,70 @@
         "summary": "get im channels in slack",
         "description": "get im channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/jira/get-issues": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "condition of request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetIssueInputByBasicAuth"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "paginated list of issues visible to the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find The Jira issues.",
+        "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
+    "/connector/jira/get-projects": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "condition of request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetProjectInputByBasicAuth"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "paginated list of projects visible to the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetProjectOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find the Jira projects.",
+        "description": "Find the Jira projects.\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
     "/connector/google-trend/daily": {
@@ -28645,6 +28709,458 @@
           "priority",
           "user",
           "id"
+        ]
+      },
+      "IJira.IGetIssueInputByBasicAuth": {
+        "type": "object",
+        "properties": {
+          "project_key": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project"
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page."
+          }
+        },
+        "required": [
+          "project_key",
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssueOutput": {
+        "type": "object",
+        "properties": {
+          "issues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.Issue"
+            },
+            "title": "Jira issue list"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page."
+          }
+        },
+        "required": [
+          "issues",
+          "total"
+        ]
+      },
+      "IJira.Issue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "The ID of the issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/__type.o1233"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "fields"
+        ]
+      },
+      "__type.o1233": {
+        "type": "object",
+        "properties": {
+          "reporter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "reporter"
+          },
+          "creator": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "creator"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "assignee"
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary"
+          },
+          "issuetype": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string",
+                "x-wrtn-placeholder": "스토리",
+                "title": "issue type name\n\nIt may be name, bug, story or etc."
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "title": "issue type"
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "status id"
+              },
+              "description": {
+                "type": "string",
+                "title": "status description"
+              },
+              "name": {
+                "type": "string",
+                "x-wrtn-placeholder": "해야 할 일",
+                "title": "status name"
+              },
+              "statusCategory": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "title": "category id"
+                  },
+                  "key": {
+                    "type": "string",
+                    "x-wrtn-placeholder": "new",
+                    "title": "category key"
+                  }
+                },
+                "required": [
+                  "id",
+                  "key"
+                ],
+                "title": "status category"
+              }
+            },
+            "required": [
+              "id",
+              "description",
+              "name",
+              "statusCategory"
+            ]
+          },
+          "priority": {
+            "type": "object",
+            "properties": {
+              "iconUrl": {
+                "type": "string",
+                "format": "uri",
+                "title": "url of icon"
+              },
+              "name": {
+                "type": "string",
+                "title": "priority name\n\nIt may be Low, Medium, High."
+              },
+              "id": {
+                "type": "string",
+                "title": "id"
+              }
+            },
+            "required": [
+              "iconUrl",
+              "name",
+              "id"
+            ],
+            "title": "priority"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/OmitIJira.Issueparent",
+            "title": "parent of this issue"
+          }
+        },
+        "required": [
+          "status",
+          "priority"
+        ]
+      },
+      "IJira.User": {
+        "type": "object",
+        "properties": {
+          "avatarUrls": {
+            "$ref": "#/components/schemas/IJira.AvartarUrls",
+            "title": "profile images of user"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          }
+        },
+        "required": [
+          "avatarUrls",
+          "displayName",
+          "active"
+        ]
+      },
+      "IJira.AvartarUrls": {
+        "type": "object",
+        "properties": {
+          "16x16": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"16x16\" size image"
+          },
+          "24x24": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"24x24\" size image"
+          },
+          "32x32": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"32x32\" size image"
+          },
+          "48x48": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"48x48\" size image"
+          }
+        },
+        "required": [
+          "16x16",
+          "24x24",
+          "32x32",
+          "48x48"
+        ]
+      },
+      "OmitIJira.Issueparent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "The ID of the issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/__type.o1233"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "fields"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "IJira.IGetProjectInputByBasicAuth": {
+        "type": "object",
+        "properties": {
+          "orderBy": {
+            "oneOf": [
+              {
+                "const": "issueCount",
+                "title": "issueCount",
+                "description": "Sorts by the total number of issues in each project."
+              },
+              {
+                "const": "lastIssueUpdatedTime",
+                "title": "lastIssueUpdatedTime",
+                "description": "Sorts by the last issue update time."
+              },
+              {
+                "const": "name",
+                "title": "name",
+                "description": "Sorts by project name."
+              }
+            ],
+            "title": "order by",
+            "description": "Order the results by a field.\n\n- issueCount : Sorts by the total number of issues in each project.\n- lastIssueUpdatedTime : Sorts by the last issue update time.\n- name : Sorts by project name."
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page."
+          }
+        },
+        "required": [
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetProjectOutput": {
+        "type": "object",
+        "properties": {
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.Project"
+            },
+            "title": "Jira project list"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page."
+          }
+        },
+        "required": [
+          "isLast",
+          "values",
+          "total"
+        ],
+        "title": "output of getting Jira projects"
+      },
+      "IJira.Project": {
+        "type": "object",
+        "properties": {
+          "avatarUrls": {
+            "$ref": "#/components/schemas/IJira.AvartarUrls",
+            "title": "images of this project"
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "key": {
+            "type": "string",
+            "title": "key of project\n\nKey properties used to query the inside of a project."
+          },
+          "name": {
+            "type": "string",
+            "title": "name of this project"
+          },
+          "projectCategory": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "title": "description"
+              },
+              "id": {
+                "type": "string",
+                "title": "id"
+              },
+              "name": {
+                "type": "string",
+                "title": "name"
+              }
+            },
+            "required": [
+              "description",
+              "id",
+              "name"
+            ],
+            "title": "project category info"
+          }
+        },
+        "required": [
+          "avatarUrls",
+          "id",
+          "key",
+          "name"
         ]
       },
       "IGoogleTrend.IRequest": {

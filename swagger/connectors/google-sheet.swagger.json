@@ -1,0 +1,836 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "구글 시트",
+    "version": "0.1.82",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-sheet": {
+      "post": {
+        "tags": [
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "구글 시트 URL과 가져올 헤더 index.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetHeadersInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "구글 시트 헤더 정보.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글 시트 헤더 정보 가져오기.",
+        "description": "구글 시트의 헤더 정보를 가져옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/permission": {
+      "post": {
+        "tags": [
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "권한 부여를 위한 정보.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IPermissionInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "구글 시트 권한 부여.",
+        "description": "구글 시트에 권한을 부여합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/header": {
+      "post": {
+        "tags": [
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "구글 시트 url과 추가할 헤더 이름.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IWriteGoogleSheetHeadersInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "구글 시트 헤더 추가.",
+        "description": "구글 시트에 헤더를 추가합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/worksheet": {
+      "post": {
+        "tags": [
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "워크시트 목록을 가져올 구글 시트 url.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IGetWorkSheetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSheet.IGetWorkSheetOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글 시트 워크시트 목록 가져오기.",
+        "description": "구글 워크시트 목록을 가져옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/get-rows": {
+      "post": {
+        "tags": [
+          "Google-Sheet",
+          "구글",
+          "스프레드",
+          "엑셀",
+          "데이터",
+          "차트",
+          "함수",
+          "셀",
+          "피벗",
+          "조건부",
+          "파일",
+          "CSV",
+          "통계",
+          "매크로",
+          "자동화",
+          "시트",
+          "Google",
+          "Spreadsheet",
+          "Excel",
+          "Enter",
+          "Analyze",
+          "Create",
+          "Cell",
+          "Filter",
+          "Pivot",
+          "Visualize",
+          "Conditional",
+          "Export",
+          "Import",
+          "Load",
+          "Sort",
+          "Clean",
+          "Statistics",
+          "Calculate",
+          "Macro",
+          "Automation",
+          "Duplicate",
+          "Delete",
+          "Rename",
+          "Lock",
+          "Share",
+          "Extract",
+          "Merge",
+          "Add",
+          "Manage"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "구글 시트 Row 정보.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowsOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글 시트 Row 정보 가져오기.",
+        "description": "구글 시트의 Row 정보를 가져옵니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleSheet.IReadGoogleSheetHeadersInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "시트 url.",
+            "description": "헤더 정보를 읽어올 시트의 url 주소입니다."
+          },
+          "index": {
+            "type": "number",
+            "title": "시트 헤더 index.",
+            "description": "읽어올 시트의 헤더 index입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "secretKey"
+        ],
+        "title": "구글 시트 헤더 읽기에 필요한 정보"
+      },
+      "IGoogleSheet.IReadGoogleSheetOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "시트 데이터.",
+            "description": "읽어온 시트의 데이터입니다."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "구글 시트 읽기 결과"
+      },
+      "IGoogleSheet.IPermissionInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "시트 url.",
+            "description": "권한을 부여할 시트의 url 입니다."
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IPermission"
+            },
+            "title": "접근 가능하게 할 이메일과 부여할 권한 리스트.",
+            "description": "접근 가능하게 할 이메일과 부여할 권한 리스트 입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "permissions",
+          "secretKey"
+        ],
+        "title": "구글 시트 권한 부여에 필요한 정보"
+      },
+      "IPermission": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "권한을 부여할 사용자의 이메일.",
+            "description": "권한을 부여할 사용자의 이메일입니다."
+          },
+          "role": {
+            "oneOf": [
+              {
+                "const": "owner"
+              },
+              {
+                "const": "writer"
+              },
+              {
+                "const": "commenter"
+              },
+              {
+                "const": "reader"
+              }
+            ],
+            "title": "부여할 권한.",
+            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"writer\", \"commenter\", \"reader\" 4가지만 가능합니다."
+          }
+        },
+        "required": [
+          "email",
+          "role"
+        ],
+        "title": "권한 정보"
+      },
+      "IGoogleSheet.IWriteGoogleSheetHeadersInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "시트 url.",
+            "description": "헤더를 추가할 시트의 url 입니다."
+          },
+          "index": {
+            "type": "number",
+            "title": "시트 index.",
+            "description": "추가할 헤더의 index 입니다."
+          },
+          "headerNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "시트에 추가할 헤더 리스트.",
+            "description": "시트에 추가할 헤더 리스트 입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "headerNames",
+          "secretKey"
+        ],
+        "title": "구글 시트 헤더 추가에 필요한 정보"
+      },
+      "IGoogleSheet.IGetWorkSheetInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "시트 url.",
+            "description": "읽어올 시트의 url 입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "secretKey"
+        ],
+        "title": "워크시트 조회에 필요한 정보"
+      },
+      "IGoogleSheet.IGetWorkSheetOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "워크시트 제목 리스트.",
+            "description": "읽어온 시트의 제목 리스트 입니다."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "워크시트 조회 결과"
+      },
+      "IGoogleSheet.IReadGoogleSheetRowsInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "시트 url.",
+            "description": "행을 읽어올 시트의 url 입니다."
+          },
+          "workSheetTitle": {
+            "type": "string",
+            "title": "작업할 시트 제목.",
+            "description": "작업할 시트의 제목입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "workSheetTitle",
+          "secretKey"
+        ],
+        "title": "구글 시트 행 읽기에 필요한 정보"
+      },
+      "IGoogleSheet.IReadGoogleSheetRowsOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowData"
+            },
+            "title": "읽어온 구글 시트 행 데이터.",
+            "description": "읽어온 구글 시트 행 데이터입니다."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "구글 시트 행 읽기 결과"
+      },
+      "IGoogleSheet.IReadGoogleSheetRowData": {
+        "type": "object",
+        "properties": {},
+        "title": "구글 시트 행 데이터 정보",
+        "additionalProperties": {}
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google-Sheet"
+    },
+    {
+      "name": "구글",
+      "description": "시트"
+    },
+    {
+      "name": "스프레드",
+      "description": "시트"
+    },
+    {
+      "name": "엑셀",
+      "description": "파일"
+    },
+    {
+      "name": "데이터",
+      "description": "입력"
+    },
+    {
+      "name": "차트",
+      "description": "생성"
+    },
+    {
+      "name": "함수",
+      "description": "생성"
+    },
+    {
+      "name": "셀",
+      "description": "서식"
+    },
+    {
+      "name": "피벗",
+      "description": "테이블"
+    },
+    {
+      "name": "조건부",
+      "description": "서식"
+    },
+    {
+      "name": "파일",
+      "description": "내보내기"
+    },
+    {
+      "name": "CSV",
+      "description": "불러오기"
+    },
+    {
+      "name": "통계",
+      "description": "계산"
+    },
+    {
+      "name": "매크로"
+    },
+    {
+      "name": "자동화",
+      "description": "스크립트"
+    },
+    {
+      "name": "시트",
+      "description": "복제"
+    },
+    {
+      "name": "Google",
+      "description": "Sheets"
+    },
+    {
+      "name": "Spreadsheet"
+    },
+    {
+      "name": "Excel",
+      "description": "File"
+    },
+    {
+      "name": "Enter",
+      "description": "Data"
+    },
+    {
+      "name": "Analyze",
+      "description": "Data"
+    },
+    {
+      "name": "Create",
+      "description": "Chart"
+    },
+    {
+      "name": "Cell",
+      "description": "Format"
+    },
+    {
+      "name": "Filter",
+      "description": "Data"
+    },
+    {
+      "name": "Pivot",
+      "description": "Table"
+    },
+    {
+      "name": "Visualize",
+      "description": "Data"
+    },
+    {
+      "name": "Conditional",
+      "description": "Formatting"
+    },
+    {
+      "name": "Export",
+      "description": "File"
+    },
+    {
+      "name": "Import",
+      "description": "File"
+    },
+    {
+      "name": "Load",
+      "description": "CSV"
+    },
+    {
+      "name": "Sort",
+      "description": "Data"
+    },
+    {
+      "name": "Clean",
+      "description": "Data"
+    },
+    {
+      "name": "Statistics"
+    },
+    {
+      "name": "Calculate",
+      "description": "Statistics"
+    },
+    {
+      "name": "Macro"
+    },
+    {
+      "name": "Automation",
+      "description": "Script"
+    },
+    {
+      "name": "Duplicate",
+      "description": "Sheet"
+    },
+    {
+      "name": "Delete",
+      "description": "Sheet"
+    },
+    {
+      "name": "Rename",
+      "description": "Sheet"
+    },
+    {
+      "name": "Lock",
+      "description": "Sheet"
+    },
+    {
+      "name": "Share",
+      "description": "Sheet"
+    },
+    {
+      "name": "Extract",
+      "description": "Data"
+    },
+    {
+      "name": "Merge",
+      "description": "Sheets"
+    },
+    {
+      "name": "Add",
+      "description": "Data"
+    },
+    {
+      "name": "Manage",
+      "description": "Data"
+    }
+  ],
+  "x-samchon-emended": true
+}
