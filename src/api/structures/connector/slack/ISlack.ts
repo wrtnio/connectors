@@ -17,6 +17,23 @@ export namespace ISlack {
     ]
   >;
 
+  export interface ISCheduleMessageInput extends IPostMessageInput {
+    /**
+     * You can schedule the time you want to send the message in advance.
+     * The scheduled time must be in the same form as the ts property in the Message.
+     *
+     * @title Transfer Schedule Time
+     */
+    post_at: Message["ts"];
+
+    /**
+     * @title thread ts
+     *
+     * If the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.
+     */
+    thread_ts?: Message["ts"];
+  }
+
   export interface IMarkInput extends ISecret {
     /**
      * @title channel id
@@ -404,6 +421,17 @@ export namespace ISlack {
      * there is no parent_user_id.
      */
     parent_user_id: User["id"] | null;
+  }
+
+  export interface ScheduledMessage extends Omit<Message, "ts"> {
+    /**
+     * @title timestamp
+     *
+     * for example, `1721804246.083609`.
+     * This is the time value expression method used by Slack.
+     *
+     */
+    post_at: string & Placeholder<"1234567890.123456">;
   }
 
   export interface Message {

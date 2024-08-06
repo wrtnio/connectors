@@ -5,6 +5,33 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class SlackProvider {
+  async sendScheduleMessage(
+    input: ISlack.ISCheduleMessageInput,
+  ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
+    const url = `https://slack.com/api/chat.scheduleMessage`;
+    try {
+      const res = await axios.post(
+        url,
+        {
+          channel: input.channel,
+          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
+          post_at: input.post_at,
+          ...(input.thread_ts && { thread_ts: input.thread_ts }),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+
+      return { post_at: String(res.data.post_at) };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async mark(input: ISlack.IMarkInput): Promise<void> {
     const url = `https://slack.com/api/conversations.mark`;
     try {
@@ -76,7 +103,7 @@ export class SlackProvider {
           type: message.type,
           user: message.user ?? null,
           text: message.text,
-          ts: message.ts,
+          ts: String(message.ts),
           thread_ts: message.thread_ts,
           parent_user_id: message.parent_user_id ?? null,
           tsDate: new Date(timestamp).toISOString(),
@@ -205,7 +232,7 @@ export class SlackProvider {
           type: message.type,
           user: message.user ?? null,
           text: message.text,
-          ts: message.ts,
+          ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
           reply_users_count: message?.reply_users_count ?? 0,

@@ -2,6 +2,7 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { RouteIcon } from "@wrtnio/decorators";
+import typia from "typia";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 
 @Controller("connector/slack")
@@ -11,7 +12,6 @@ export class SlackController {
   /**
    * Marks a specific message in a Slack channel as read
    *
-   * Bookmark the messages you want to see later.
    * You need to know both the channel ID and the ts value of the message.
    *
    * @summary Marks a specific message in a Slack channel as read
@@ -23,7 +23,34 @@ export class SlackController {
   )
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
-    return this.slackProvider.mark(input);
+    const response = await this.slackProvider.mark(input);
+    return typia.misc.assertClone(response);
+  }
+
+  /**
+   * Create a schduled message
+   *
+   * By default,
+   * it is not much different from sending a message except for specifying a schduled time,
+   * and requires a channel ID and message content.
+   * If the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.
+   *
+   * Messages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.
+   * Therefore, be careful in writing messages.
+   * If you want to cancel, please refer to the message created through another connector and call the delete connector again.
+   *
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("scheduleMessage/text")
+  async sendScheduleMessage(
+    @TypedBody() input: ISlack.ISCheduleMessageInput,
+  ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
+    const response = await this.slackProvider.sendScheduleMessage(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -44,7 +71,8 @@ export class SlackController {
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendTextToMyself(input);
+    const response = await this.slackProvider.sendTextToMyself(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -69,7 +97,8 @@ export class SlackController {
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendReply(input);
+    const response = await this.slackProvider.sendReply(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -87,7 +116,8 @@ export class SlackController {
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendText(input);
+    const response = await this.slackProvider.sendText(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -113,7 +143,8 @@ export class SlackController {
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
-    return this.slackProvider.getUsers(input);
+    const response = await this.slackProvider.getUsers(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -134,7 +165,8 @@ export class SlackController {
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
-    return this.slackProvider.getReplies(input);
+    const response = await this.slackProvider.getReplies(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -163,7 +195,8 @@ export class SlackController {
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    return this.slackProvider.getChannelHistories(input);
+    const response = await this.slackProvider.getChannelHistories(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -185,7 +218,8 @@ export class SlackController {
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return this.slackProvider.getPrivateChannels(input);
+    const response = await this.slackProvider.getPrivateChannels(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -208,7 +242,8 @@ export class SlackController {
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
-    return this.slackProvider.getPublicChannels(input);
+    const response = await this.slackProvider.getPublicChannels(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -231,6 +266,7 @@ export class SlackController {
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
-    return this.slackProvider.getImChannels(input);
+    const response = await this.slackProvider.getImChannels(input);
+    return typia.misc.assertClone(response);
   }
 }

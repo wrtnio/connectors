@@ -78,6 +78,57 @@ export const test_api_connector_slack_send_text_message_to_public = async (
   });
 };
 
+export const test_api_connector_slack_send_scheduled_text_message_to_public =
+  async (connection: CApi.IConnection) => {
+    const [PublicChannel] =
+      await test_api_connector_slack_get_public_channels(connection);
+
+    const after1m = new Date().getTime() + 60000;
+    const ts = String(after1m).split("").slice(0, -3).join("");
+    await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+      connection,
+      {
+        channel: PublicChannel.id as any,
+        text: "hello, world",
+        post_at: ts,
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+  };
+
+export const test_api_connector_slack_add_reply_scheduled_text_message_to_public =
+  async (connection: CApi.IConnection) => {
+    const [PublicChannel] =
+      await test_api_connector_slack_get_public_channels(connection);
+
+    const after1m = new Date().getTime() + 60000;
+    const ts = String(after1m).split("").slice(0, -3).join("");
+
+    const parent =
+      await CApi.functional.connector.slack.postMessage.text.sendText(
+        connection,
+        {
+          channel: PublicChannel.id as any,
+          text: "PARENT",
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+
+    const res =
+      await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+        connection,
+        {
+          channel: PublicChannel.id as any,
+          text: "SCHEDULED",
+          post_at: ts,
+          thread_ts: parent.ts as any,
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+
+    typia.assertEquals(res);
+  };
+
 export const test_api_connector_slack_send_text_message_to_private = async (
   connection: CApi.IConnection,
 ) => {
