@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "구글 쇼핑",
-    "version": "0.1.84",
+    "version": "0.1.86",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -486,8 +486,16 @@
             "title": "상품명"
           },
           "link": {
-            "type": "string",
-            "format": "uri",
+            "oneOf": [
+              {
+                "const": "#",
+                "title": "알 수 없는 링크"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
             "title": "상품 링크"
           },
           "price": {

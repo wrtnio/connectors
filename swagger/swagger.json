@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.84",
+    "version": "0.1.86",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -22130,8 +22130,16 @@
             "title": "상품명"
           },
           "link": {
-            "type": "string",
-            "format": "uri",
+            "oneOf": [
+              {
+                "const": "#",
+                "title": "알 수 없는 링크"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
             "title": "상품 링크"
           },
           "price": {
@@ -29150,6 +29158,7 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
+            "maximum": 100,
             "title": "max results",
             "description": "The maximum number of items to return per page."
           }
@@ -29184,6 +29193,7 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
+            "maximum": 100,
             "title": "max results",
             "description": "The maximum number of items to return per page."
           }
@@ -29205,7 +29215,139 @@
             "title": "The key of the issue"
           },
           "fields": {
-            "$ref": "#/components/schemas/__type.o1245"
+            "type": "object",
+            "properties": {
+              "reporter": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IJira.User"
+                  }
+                ],
+                "title": "reporter"
+              },
+              "creator": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IJira.User"
+                  }
+                ],
+                "title": "creator"
+              },
+              "assignee": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IJira.User"
+                  }
+                ],
+                "title": "assignee"
+              },
+              "summary": {
+                "type": "string",
+                "title": "summary"
+              },
+              "issuetype": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string",
+                    "x-wrtn-placeholder": "스토리",
+                    "title": "issue type name\n\nIt may be name, bug, story or etc."
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "title": "issue type"
+              },
+              "status": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "title": "status id"
+                  },
+                  "description": {
+                    "type": "string",
+                    "title": "status description"
+                  },
+                  "name": {
+                    "type": "string",
+                    "x-wrtn-placeholder": "해야 할 일",
+                    "title": "status name"
+                  },
+                  "statusCategory": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "title": "category id"
+                      },
+                      "key": {
+                        "type": "string",
+                        "x-wrtn-placeholder": "new",
+                        "title": "category key"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "key"
+                    ],
+                    "title": "status category"
+                  }
+                },
+                "required": [
+                  "id",
+                  "description",
+                  "name",
+                  "statusCategory"
+                ]
+              },
+              "priority": {
+                "type": "object",
+                "properties": {
+                  "iconUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "url of icon"
+                  },
+                  "name": {
+                    "type": "string",
+                    "title": "priority name\n\nIt may be Low, Medium, High."
+                  },
+                  "id": {
+                    "type": "string",
+                    "title": "id"
+                  }
+                },
+                "required": [
+                  "iconUrl",
+                  "name",
+                  "id"
+                ],
+                "title": "priority"
+              },
+              "parent": {
+                "$ref": "#/components/schemas/___DeepStrictOmitIJira.Issuefields.parent",
+                "title": "parent of this issue"
+              }
+            },
+            "required": [
+              "status",
+              "priority"
+            ]
           }
         },
         "required": [
@@ -29214,7 +29356,81 @@
           "fields"
         ]
       },
-      "__type.o1245": {
+      "IJira.User": {
+        "type": "object",
+        "properties": {
+          "avatarUrls": {
+            "$ref": "#/components/schemas/IJira.AvartarUrls",
+            "title": "profile images of user"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          }
+        },
+        "required": [
+          "avatarUrls",
+          "displayName",
+          "active"
+        ]
+      },
+      "IJira.AvartarUrls": {
+        "type": "object",
+        "properties": {
+          "16x16": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"16x16\" size image"
+          },
+          "24x24": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"24x24\" size image"
+          },
+          "32x32": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"32x32\" size image"
+          },
+          "48x48": {
+            "type": "string",
+            "format": "uri",
+            "title": "\"48x48\" size image"
+          }
+        },
+        "required": [
+          "16x16",
+          "24x24",
+          "32x32",
+          "48x48"
+        ]
+      },
+      "___DeepStrictOmitIJira.Issuefields.parent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "The ID of the issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/___DeepStrictOmit__typeparent"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "fields"
+        ]
+      },
+      "___DeepStrictOmit__typeparent": {
         "type": "object",
         "properties": {
           "reporter": {
@@ -29273,75 +29489,11 @@
             "title": "issue type"
           },
           "status": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "status id"
-              },
-              "description": {
-                "type": "string",
-                "title": "status description"
-              },
-              "name": {
-                "type": "string",
-                "x-wrtn-placeholder": "해야 할 일",
-                "title": "status name"
-              },
-              "statusCategory": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number",
-                    "title": "category id"
-                  },
-                  "key": {
-                    "type": "string",
-                    "x-wrtn-placeholder": "new",
-                    "title": "category key"
-                  }
-                },
-                "required": [
-                  "id",
-                  "key"
-                ],
-                "title": "status category"
-              }
-            },
-            "required": [
-              "id",
-              "description",
-              "name",
-              "statusCategory"
-            ]
+            "$ref": "#/components/schemas/___DeepStrictOmit__typenever"
           },
           "priority": {
-            "type": "object",
-            "properties": {
-              "iconUrl": {
-                "type": "string",
-                "format": "uri",
-                "title": "url of icon"
-              },
-              "name": {
-                "type": "string",
-                "title": "priority name\n\nIt may be Low, Medium, High."
-              },
-              "id": {
-                "type": "string",
-                "title": "id"
-              }
-            },
-            "required": [
-              "iconUrl",
-              "name",
-              "id"
-            ],
+            "$ref": "#/components/schemas/___DeepStrictOmit__typenever.o2",
             "title": "priority"
-          },
-          "parent": {
-            "$ref": "#/components/schemas/OmitIJira.Issueparent",
-            "title": "parent of this issue"
           }
         },
         "required": [
@@ -29349,80 +29501,255 @@
           "priority"
         ]
       },
-      "IJira.User": {
-        "type": "object",
-        "properties": {
-          "avatarUrls": {
-            "$ref": "#/components/schemas/IJira.AvartarUrls",
-            "title": "profile images of user"
-          },
-          "displayName": {
-            "type": "string",
-            "title": "creator's name"
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Whether is user active"
-          }
-        },
-        "required": [
-          "avatarUrls",
-          "displayName",
-          "active"
-        ]
-      },
-      "IJira.AvartarUrls": {
-        "type": "object",
-        "properties": {
-          "16x16": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"16x16\" size image"
-          },
-          "24x24": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"24x24\" size image"
-          },
-          "32x32": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"32x32\" size image"
-          },
-          "48x48": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"48x48\" size image"
-          }
-        },
-        "required": [
-          "16x16",
-          "24x24",
-          "32x32",
-          "48x48"
-        ]
-      },
-      "OmitIJira.Issueparent": {
+      "___DeepStrictOmit__typenever": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "The ID of the issue"
+            "title": "status id"
           },
-          "key": {
+          "description": {
             "type": "string",
-            "title": "The key of the issue"
+            "title": "status description"
           },
-          "fields": {
-            "$ref": "#/components/schemas/__type.o1245"
+          "name": {
+            "$ref": "#/components/schemas/___DeepStrictOmitstringPlaceholder해야할일never",
+            "title": "status name"
+          },
+          "statusCategory": {
+            "$ref": "#/components/schemas/___DeepStrictOmit__typenever.o1",
+            "title": "status category"
           }
         },
         "required": [
           "id",
-          "key",
-          "fields"
+          "description",
+          "name",
+          "statusCategory"
+        ]
+      },
+      "___DeepStrictOmitstringPlaceholder해야할일never": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "title": "Returns the length of a String object",
+            "description": "Returns the length of a String object."
+          },
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "oneOf": [
+                  {
+                    "const": "string"
+                  },
+                  {
+                    "const": "number"
+                  },
+                  {
+                    "const": "boolean"
+                  }
+                ]
+              },
+              "kind": {
+                "const": "placeholder"
+              },
+              "value": {
+                "const": "해야 할 일"
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "x-wrtn-placeholder": {
+                    "const": "해야 할 일"
+                  }
+                },
+                "required": [
+                  "x-wrtn-placeholder"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        },
+        "required": [
+          "length"
         ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "___DeepStrictOmit__typenever.o1": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "category id"
+          },
+          "key": {
+            "$ref": "#/components/schemas/___DeepStrictOmitstringPlaceholdernewnever",
+            "title": "category key"
+          }
+        },
+        "required": [
+          "id",
+          "key"
+        ]
+      },
+      "___DeepStrictOmitstringPlaceholdernewnever": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "title": "Returns the length of a String object",
+            "description": "Returns the length of a String object."
+          },
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "oneOf": [
+                  {
+                    "const": "string"
+                  },
+                  {
+                    "const": "number"
+                  },
+                  {
+                    "const": "boolean"
+                  }
+                ]
+              },
+              "kind": {
+                "const": "placeholder"
+              },
+              "value": {
+                "const": "new"
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "x-wrtn-placeholder": {
+                    "const": "new"
+                  }
+                },
+                "required": [
+                  "x-wrtn-placeholder"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        },
+        "required": [
+          "length"
+        ],
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "___DeepStrictOmit__typenever.o2": {
+        "type": "object",
+        "properties": {
+          "iconUrl": {
+            "$ref": "#/components/schemas/___DeepStrictOmitstringFormaturinever",
+            "title": "url of icon"
+          },
+          "name": {
+            "type": "string",
+            "title": "priority name\n\nIt may be Low, Medium, High."
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          }
+        },
+        "required": [
+          "iconUrl",
+          "name",
+          "id"
+        ]
+      },
+      "___DeepStrictOmitstringFormaturinever": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "title": "Returns the length of a String object",
+            "description": "Returns the length of a String object."
+          },
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "const": "string"
+              },
+              "kind": {
+                "const": "format"
+              },
+              "value": {
+                "const": "uri"
+              },
+              "validate": {
+                "const": "/\\/|:/.test($input) && /^(?:[a-z][a-z0-9+\\-.]*:)(?:\\/?\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\\.[a-z0-9\\-._~!$&'()*+,;=:]+)\\]|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)|(?:[a-z0-9\\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\\d*)?(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\\?(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i.test($input)"
+              },
+              "exclusive": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "const": "format"
+                  },
+                  {
+                    "const": "pattern"
+                  }
+                ],
+                "additionalItems": false
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "format": {
+                    "const": "uri"
+                  }
+                },
+                "required": [
+                  "format"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "validate",
+              "exclusive",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        },
+        "required": [
+          "length"
+        ],
+        "additionalProperties": {
+          "type": "string"
+        }
       },
       "IJira.IGetProjectInputByBasicAuth": {
         "type": "object",
@@ -29470,6 +29797,7 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
+            "maximum": 100,
             "title": "max results",
             "description": "The maximum number of items to return per page."
           }
@@ -29507,6 +29835,7 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
+            "maximum": 100,
             "title": "max results",
             "description": "The maximum number of items to return per page."
           }
