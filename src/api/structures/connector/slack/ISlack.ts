@@ -410,8 +410,9 @@ export namespace ISlack {
      * @title channel id
      *
      * The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.
+     * But Sometimes there are channel names that start with a G.
      */
-    id: string & tags.Pattern<"^((C(.*))|(D(.*)))">;
+    id: string & tags.Pattern<"^((C(.*))|(D(.*))|(G(.*)))">;
   }
 
   export interface User {
