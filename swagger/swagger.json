@@ -28061,7 +28061,7 @@
         "properties": {
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channel-histories",
@@ -28118,7 +28118,7 @@
           },
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
@@ -28172,7 +28172,7 @@
         "properties": {
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channel-histories",
@@ -28269,7 +28269,7 @@
           },
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
@@ -28309,7 +28309,7 @@
         "properties": {
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
@@ -28430,7 +28430,7 @@
           },
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "title": "channel id"
           },
           "id": {
@@ -28627,7 +28627,7 @@
           },
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
@@ -28777,7 +28777,7 @@
         "properties": {
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/slack/get-channels",
@@ -28875,7 +28875,7 @@
           },
           "channel": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "title": "channel id"
           },
           "text": {
@@ -28990,8 +28990,8 @@
           },
           "id": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
-            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'."
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
           }
         },
         "required": [
@@ -29036,8 +29036,8 @@
           },
           "id": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
-            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'."
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
           }
         },
         "required": [
@@ -29102,8 +29102,8 @@
           },
           "id": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*)))",
-            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'."
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
           }
         },
         "required": [
