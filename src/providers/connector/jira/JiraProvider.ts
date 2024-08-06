@@ -7,17 +7,23 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
-  async getProjectsByBasicAuth(
-    input: IJira.IGetProjectInputByBasicAuth,
-  ): Promise<IJira.IGetProjectOutput> {
+  async getProjects(
+    input:
+      | IJira.IGetProjectInputByBasicAuth
+      | IJira.IGetProjectInputBySecretKey,
+  ) {
     try {
-      const { apiToken, domain, email, ...rest } = input;
-      const queryParameter = createQueryParameter(rest);
-      const url = `${domain}/rest/api/3/project/search?${queryParameter}`;
-      const Authorization = await this.getAuthorization({ apiToken, email });
+      const config = await this.getAuthorizationAndDomain(input);
+      const queryParameter = createQueryParameter({
+        maxResults: input.maxResults,
+        orderBy: input.orderBy,
+        startAt: input.startAt,
+      });
+
+      const url = `${config.domain}/project/search?${queryParameter}`;
       const res = await axios.get(url, {
         headers: {
-          Authorization,
+          Authorization: config.Authorization,
         },
       });
 
@@ -28,75 +34,21 @@ export class JiraProvider {
     }
   }
 
-  async getIssuesByBasicAuth(
-    input: IJira.IGetIssueInputByBasicAuth,
-  ): Promise<IJira.IGetIssueOutput> {
+  async getIssues(
+    input: IJira.IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
+  ) {
     try {
-      const { apiToken, domain, email, project_key, ...rest } = input;
-      const url = `${domain}/rest/api/3/search`;
-      const Authorization = await this.getAuthorization({ apiToken, email });
-
+      const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.post(
-        url,
+        `${config.domain}/search`,
         {
-          jql: `project = ${project_key}`,
-          ...rest,
+          jql: `project = ${input.project_key}`,
+          ...(input.maxResults && { maxResults: input.maxResults }),
+          ...(input.startAt && { startAt: input.startAt }),
         },
         {
           headers: {
-            Authorization,
-            Accept: "application/json",
-          },
-        },
-      );
-
-      return typia.misc.assertClone<IJira.IGetIssueOutput>(res.data);
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async getProjectsBySecretKey(
-    input: IJira.IGetProjectInputBySecretKey,
-  ): Promise<IJira.IGetProjectOutput> {
-    try {
-      const { secretKey, ...rest } = input;
-      const accessTokenDto = await this.refresh({ secretKey });
-      const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
-      const queryParameter = createQueryParameter(rest);
-      const url = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/project/search?${queryParameter}`;
-
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${accessTokenDto.access_token}`,
-        },
-      });
-
-      return typia.misc.assertClone<IJira.IGetProjectOutput>(res.data);
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async getIssuesBySecretKey(
-    input: IJira.IGetIssueInputBySecretKey,
-  ): Promise<IJira.IGetIssueOutput> {
-    try {
-      const { secretKey, project_key, ...rest } = input;
-      const accessTokenDto = await this.refresh({ secretKey });
-      const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
-      const queryParameter = createQueryParameter(rest);
-
-      const res = await axios.post(
-        `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3/search?${queryParameter}`,
-        {
-          jql: `project = ${project_key}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessTokenDto.access_token}`,
+            Authorization: config.Authorization,
             Accept: "application/json",
           },
         },
@@ -135,6 +87,23 @@ export class JiraProvider {
     return res.data[0];
   }
 
+  async getAuthorizationAndDomain(
+    input:
+      | { secretKey: string }
+      | { domain: string; email: string; apiToken: string },
+  ): Promise<{ Authorization: string; domain: string }> {
+    const Authorization = await this.getAuthorization(input);
+    if (typia.is<{ secretKey: string }>(input)) {
+      const accessTokenDto = await this.refresh({ secretKey: input.secretKey });
+      const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
+      const domain = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3`;
+      return { Authorization, domain };
+    } else {
+      const domain = `${input.domain}/rest/api/3`;
+      return { Authorization, domain };
+    }
+  }
+
   async getAuthorization(
     input: { secretKey: string } | { email: string; apiToken: string },
   ) {
@@ -145,10 +114,6 @@ export class JiraProvider {
       const basicAuth = `${input.email}:${input.apiToken}`;
       return `Basic ${Buffer.from(basicAuth).toString("base64")}`;
     }
-  }
-
-  private async createBasicAuth() {
-    return "";
   }
 
   private async refresh(input: { secretKey: string }) {
