@@ -2,9 +2,56 @@ import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { ElementOf } from "../../../utils/types/ElementOf";
 
 @Injectable()
 export class SlackProvider {
+  async getScheduledMessages(
+    input: ISlack.IGetScheduledMessageListInput,
+  ): Promise<ISlack.IGetScheduledMessageListOutput> {
+    const url = `https://slack.com/api/chat.scheduledMessages.list`;
+    try {
+      const { secretKey, ...rest } = input;
+      const queryParameter = createQueryParameter(rest);
+      const res = await axios.post(
+        `${url}?${queryParameter}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${secretKey}`,
+          },
+        },
+      );
+
+      const next_cursor = res.data.response_metadata?.next_cursor;
+      const scheduled_messages = res.data.scheduled_messages.map(
+        (
+          message: any,
+        ): ElementOf<
+          ISlack.IGetScheduledMessageListOutput["scheduled_messages"]
+        > => {
+          const timestampString =
+            String(message.post_at).split(".").at(0) + "000";
+          const timestamp = Number(timestampString);
+
+          return {
+            id: message.id,
+            channel: message.channel_id,
+            post_at: String(message.post_at) as string,
+            post_at_date: new Date(timestamp).toISOString(),
+            date_created: String(message.date_created),
+            text: message.text,
+          };
+        },
+      );
+
+      return { scheduled_messages, next_cursor };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async sendScheduleMessage(
     input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
@@ -106,7 +153,7 @@ export class SlackProvider {
           ts: String(message.ts),
           thread_ts: message.thread_ts,
           parent_user_id: message.parent_user_id ?? null,
-          tsDate: new Date(timestamp).toISOString(),
+          ts_date: new Date(timestamp).toISOString(),
           ...(message.attachments && { attachments: message.attachments }),
         };
       });
@@ -236,7 +283,7 @@ export class SlackProvider {
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
           reply_users_count: message?.reply_users_count ?? 0,
-          tsDate: new Date(timestamp).toISOString(),
+          ts_date: new Date(timestamp).toISOString(),
           ...(message.attachments && { attachments: message.attachments }),
         };
       },

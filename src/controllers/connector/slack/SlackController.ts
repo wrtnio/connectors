@@ -39,6 +39,10 @@ export class SlackController {
    * Therefore, be careful in writing messages.
    * If you want to cancel, please refer to the message created through another connector and call the delete connector again.
    *
+   * Users may be embarrassed if the message you booked is not viewed in the Slack desktop app,
+   * so although it cannot be viewed in Slack before and after transmission,
+   * it would be a good idea to let them know that it will actually be transmitted in our service.
+   *
    * @param input
    * @returns
    */
@@ -117,6 +121,24 @@ export class SlackController {
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const response = await this.slackProvider.sendText(input);
+    return typia.misc.assertClone(response);
+  }
+
+  /**
+   * Get a list of scheduled messages
+   *
+   * Look up the messages you booked.
+   * You can use `post_at` and `post_at_date` to find out when the message will be sent.
+   * If you want to clear the message, use the `id` value in the scheduled message.
+   *
+   * @param input
+   * @returns
+   */
+  @TypedRoute.Post("get-scheduled-messages")
+  async getScheduledMessages(
+    @TypedBody() input: ISlack.IGetScheduledMessageListInput,
+  ): Promise<ISlack.IGetScheduledMessageListOutput> {
+    const response = await this.slackProvider.getScheduledMessages(input);
     return typia.misc.assertClone(response);
   }
 

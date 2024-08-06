@@ -1,6 +1,7 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
+import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ISlack {
@@ -112,6 +113,28 @@ export namespace ISlack {
       profile_image: ISlack.User["profile"]["image_original"];
     }[];
   }
+
+  export interface IGetScheduledMessageListOutput
+    extends ISlack.ICommonPaginationOutput {
+    /**
+     * @title scheduled messages
+     */
+    scheduled_messages: (ScheduledMessage & {
+      /**
+       * @title id of scheduled message
+       */
+      id: string;
+
+      /**
+       * @title date-time format of post_at
+       */
+      post_at_date: string;
+    })[];
+  }
+
+  export interface IGetScheduledMessageListInput
+    extends ISlack.ISecret,
+      ISlack.ICommonPaginationInput {}
 
   export interface IGetUserListInput
     extends ISlack.ISecret,
@@ -406,7 +429,7 @@ export namespace ISlack {
   export interface Reply
     extends Pick<
       Message,
-      "type" | "user" | "text" | "ts" | "tsDate" | "attachments"
+      "type" | "user" | "text" | "ts" | "ts_date" | "attachments"
     > {
     /**
      * @title thread ts
@@ -423,7 +446,11 @@ export namespace ISlack {
     parent_user_id: User["id"] | null;
   }
 
-  export interface ScheduledMessage extends Omit<Message, "ts"> {
+  export interface ScheduledMessage
+    extends StrictOmit<
+      Message,
+      "ts" | "type" | "user" | "reply_count" | "reply_users_count" | "ts_date"
+    > {
     /**
      * @title timestamp
      *
@@ -432,6 +459,11 @@ export namespace ISlack {
      *
      */
     post_at: string & Placeholder<"1234567890.123456">;
+
+    /**
+     * @title when the user scheduled the message
+     */
+    date_created: string & Placeholder<"1234567890.123456">;
   }
 
   export interface Message {
@@ -471,7 +503,7 @@ export namespace ISlack {
      *
      * This is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'.
      */
-    tsDate: string;
+    ts_date: string;
 
     /**
      * @title reply_count

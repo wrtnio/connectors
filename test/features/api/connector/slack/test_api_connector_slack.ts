@@ -1,4 +1,5 @@
 import CApi from "@wrtn/connector-api/lib/index";
+import assert from "assert";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
@@ -127,7 +128,44 @@ export const test_api_connector_slack_add_reply_scheduled_text_message_to_public
       );
 
     typia.assertEquals(res);
+
+    return res;
   };
+
+export const test_api_connector_slack_get_scheduled_messages = async (
+  connection: CApi.IConnection,
+) => {
+  const before =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  const scheduledMessage =
+    await test_api_connector_slack_add_reply_scheduled_text_message_to_public(
+      connection,
+    );
+
+  const after =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  typia.assertEquals(after);
+  assert(
+    before.scheduled_messages.length + 1 === after.scheduled_messages.length,
+  );
+  assert(
+    after.scheduled_messages.some(
+      (el) => el.post_at === scheduledMessage.post_at,
+    ),
+  );
+};
 
 export const test_api_connector_slack_send_text_message_to_private = async (
   connection: CApi.IConnection,
