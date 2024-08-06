@@ -1,6 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
+import type { DeepStrictOmit } from "../../../../utils/types/DeepStrictOmit";
 
 export namespace IJira {
   export type ISecret = ICommon.ISecret<
@@ -288,7 +289,7 @@ export namespace IJira {
       /**
        * @title parent of this issue
        */
-      parent?: Omit<Issue, "parent">;
+      parent?: DeepStrictOmit<Issue, "fields.parent">;
     };
   }
 
