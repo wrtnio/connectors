@@ -83,18 +83,20 @@ export const test_api_connector_slack_send_scheduled_text_message_to_public =
   async (connection: CApi.IConnection) => {
     const [PublicChannel] =
       await test_api_connector_slack_get_public_channels(connection);
-
     const after1m = new Date().getTime() + 60000;
     const ts = String(after1m).split("").slice(0, -3).join("");
-    await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
-      connection,
-      {
-        channel: PublicChannel.id as any,
-        text: "hello, world",
-        post_at: ts,
-        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-      },
-    );
+    const res =
+      await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+        connection,
+        {
+          channel: PublicChannel.id as any,
+          text: "hello, world",
+          post_at: ts,
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+
+    return typia.assertEquals(res);
   };
 
 export const test_api_connector_slack_add_reply_scheduled_text_message_to_public =
@@ -163,6 +165,74 @@ export const test_api_connector_slack_get_scheduled_messages = async (
   assert(
     after.scheduled_messages.some(
       (el) => el.post_at === scheduledMessage.post_at,
+    ),
+  );
+};
+
+export const test_api_connector_slack_delete_scheduled_message = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 테스트 용으로 일단 예약 메시지를 생성한다.
+   */
+  const [PublicChannel] =
+    await test_api_connector_slack_get_public_channels(connection);
+  const after1m = new Date().getTime() + 60000 * 60;
+  const ts = String(after1m).split("").slice(0, -3).join("");
+  const scheduledMessage =
+    await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+      connection,
+      {
+        channel: PublicChannel.id as any,
+        text: "hello, world",
+        post_at: ts,
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  /**
+   * 테스트하기 전 전체 내역을 조회하여 메세지가 있는지 체크한다.
+   */
+  const before =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+  const justScheduledMessage = before.scheduled_messages.find(
+    (el) => el.post_at === scheduledMessage.post_at,
+  );
+
+  if (!justScheduledMessage) {
+    throw new Error("삭제 테스트를 위한 예약 메세지 추가 실패");
+  }
+  /**
+   * 생성했던 예약 메세지를 삭제한다.
+   */
+  await CApi.functional.connector.slack.scheduleMessage.deleteScheduleMessage(
+    connection,
+    {
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      channel: justScheduledMessage?.channel as string,
+      scheduled_message_id: justScheduledMessage?.id as string,
+    },
+  );
+
+  const after =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  /**
+   * 삭제 후에는 목록에서 찾을 수 없어야 한다.
+   */
+  assert(
+    after.scheduled_messages.every(
+      (el) => el.post_at !== scheduledMessage.post_at,
     ),
   );
 };

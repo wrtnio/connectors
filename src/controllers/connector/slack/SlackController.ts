@@ -57,6 +57,17 @@ export class SlackController {
     return typia.misc.assertClone(response);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Delete("scheduleMessage")
+  async deleteScheduleMessage(
+    @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
+  ): Promise<void> {
+    const response = await this.slackProvider.deleteScheduleMessage(input);
+    return typia.misc.assertClone(response);
+  }
+
   /**
    * send message to myself
    *

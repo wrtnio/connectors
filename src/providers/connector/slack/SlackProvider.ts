@@ -6,6 +6,30 @@ import { ElementOf } from "../../../utils/types/ElementOf";
 
 @Injectable()
 export class SlackProvider {
+  async deleteScheduleMessage(
+    input: ISlack.IDeleteSCheduleMessageInput,
+  ): Promise<void> {
+    try {
+      const url = `https://slack.com/api/chat.deleteScheduledMessage`;
+      const { secretKey, ...rest } = input;
+
+      await axios.post(
+        url,
+        {
+          ...rest,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getScheduledMessages(
     input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {

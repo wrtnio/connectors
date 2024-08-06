@@ -18,6 +18,31 @@ export namespace ISlack {
     ]
   >;
 
+  export interface IDeleteSCheduleMessageInput extends ISecret {
+    /**
+     * @title channel id
+     *
+     * It refers to the channel on which you want to delete the scheduled message.
+     * If you don't know the channel's ID, You need to view the channel first.
+     */
+    channel: Channel["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+      }>;
+
+    /**
+     * @title scheduled message id to delete
+     */
+    scheduled_message_id: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-scheduled-messages";
+        jmesPath: "scheduled_messages[].{value:id, label:text}";
+      }>;
+  }
+
   export interface ISCheduleMessageInput extends IPostMessageInput {
     /**
      * You can schedule the time you want to send the message in advance.
@@ -39,7 +64,7 @@ export namespace ISlack {
     /**
      * @title channel id
      *
-     * It refers to the channel on which you want to view the conversation history.
+     * It refers to the channel on which you want to mark the conversation history.
      * If you don't know the channel's ID, You need to view the channel first.
      */
     channel: Channel["id"] &
