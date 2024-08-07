@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.91",
+    "version": "0.1.92",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -99,7 +99,7 @@
           }
         },
         "summary": "유튜브 영상 검색",
-        "description": "유튜브 영상 검색 결과를 가져옵니다.",
+        "description": "유튜브 영상 검색 결과를 가져옵니다.\n\n검색 결과는 영상의 제목과 링크가 있습니다.\n대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg",
         "x-wrtn-standalone": true
       }

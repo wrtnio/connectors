@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.91",
+    "version": "0.1.92",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -7240,7 +7240,7 @@
           }
         },
         "summary": "유튜브 영상 검색",
-        "description": "유튜브 영상 검색 결과를 가져옵니다.",
+        "description": "유튜브 영상 검색 결과를 가져옵니다.\n\n검색 결과는 영상의 제목과 링크가 있습니다.\n대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg",
         "x-wrtn-standalone": true
       }
@@ -8863,7 +8863,7 @@
           }
         },
         "summary": "get channel histories in slack",
-        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital C.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.",
+        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
@@ -28495,8 +28495,8 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 1000,
-            "x-wrtn-placeholder": "1000",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
           },
           "cursor": {
             "type": "string",
@@ -28617,8 +28617,8 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 1000,
-            "x-wrtn-placeholder": "1000",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
           },
           "cursor": {
             "type": "string",
@@ -28771,8 +28771,8 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 1000,
-            "x-wrtn-placeholder": "1000",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
           },
           "cursor": {
             "type": "string",
@@ -28921,8 +28921,8 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 1000,
-            "x-wrtn-placeholder": "1000",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
           },
           "cursor": {
             "type": "string",
@@ -29046,8 +29046,8 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 1000,
-            "x-wrtn-placeholder": "1000",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 1000."
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
           },
           "cursor": {
             "type": "string",
