@@ -1,10 +1,10 @@
 // nestia configuration file
 import type sdk from "@nestia/sdk";
 import { NestFactory } from "@nestjs/core";
-import { GoogleShoppingAladineModule } from "../src/controllers/connector/google_shopping/google_shopping_aladine/GoogleShoppingAladineModule";
+import { GoogleShoppingAladinModule } from "../src/controllers/connector/google_shopping/google_shopping_aladine/GoogleShoppingAladinModule";
 
 const NESTIA_CONFIG: sdk.INestiaConfig = {
-  input: async () => NestFactory.create(GoogleShoppingAladineModule),
+  input: async () => NestFactory.create(GoogleShoppingAladinModule),
   swagger: {
     info: {
       title: "알라딘 상품 검색",

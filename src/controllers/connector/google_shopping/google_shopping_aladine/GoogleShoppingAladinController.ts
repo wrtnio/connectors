@@ -7,7 +7,7 @@ import { GoogleShoppingProvider } from "../../../../providers/connector/google_s
 import { retry } from "../../../../utils/retry";
 
 @Controller("connector/google-shopping")
-export class GoogleShoppingAladineController {
+export class GoogleShoppingAladinController {
   constructor(
     private readonly googleShoppingProvider: GoogleShoppingProvider,
   ) {}

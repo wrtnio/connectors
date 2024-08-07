@@ -50,7 +50,7 @@ import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
 import { GoogleSearchCareerModule } from "./google_search_career/GoogleSearchCareerModule";
-import { GoogleShoppingAladineModule } from "./google_shopping/google_shopping_aladine/GoogleShoppingAladineModule";
+import { GoogleShoppingAladinModule } from "./google_shopping/google_shopping_aladine/GoogleShoppingAladinModule";
 import { GoogleShoppingAliexpressModule } from "./google_shopping/google_shopping_aliexpress/GoogleShoppingAliexpressModule";
 import { GoogleShoppingCoupangModule } from "./google_shopping/google_shopping_coupang/GoogleShoppingCoupangModule";
 import { GoogleShoppingEqlModule } from "./google_shopping/google_shopping_eql/GoogleShoppingEqlModule";
@@ -102,7 +102,7 @@ import { GoogleShoppingTwentyNineCentimeterModule } from "./google_shopping/goog
     DallE3Module,
     GoogleSearchModule,
     GoogleSearchCareerModule,
-    GoogleShoppingAladineModule,
+    GoogleShoppingAladinModule,
     GoogleShoppingAliexpressModule,
     GoogleShoppingCoupangModule,
     GoogleShoppingEqlModule,
