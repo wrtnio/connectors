@@ -98,6 +98,25 @@ export namespace IJira {
     issues: Issue[];
   }
 
+  export interface IGetIssueTypeOutput {
+    /**
+     * @title issue types in this projects
+     */
+    issuetypes: IssueType[];
+  }
+
+  export interface IGetIssueTypeInput extends BasicAuthorization {
+    /**
+     * @title id of project
+     */
+    projectId: Project["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connectors/jira/get-projects";
+        jmesPath: "values[].{value:id,label:name}";
+      }>;
+  }
+
   export interface IGetProjectInputByBasicAuth
     extends BasicAuthorization,
       ICommonPaginationInput {
@@ -188,6 +207,27 @@ export namespace IJira {
     avartarUrl: string;
   }
 
+  export interface IssueType {
+    id: string;
+
+    /**
+     * @title issue type name
+     *
+     * It may be name, bug, story or etc.
+     */
+    name: string & Placeholder<"스토리">;
+
+    /**
+     * @title description
+     */
+    description: string;
+
+    /**
+     * @title whether is for substask issue type
+     */
+    subtask: boolean;
+  }
+
   export interface Issue {
     /**
      * @title The ID of the issue
@@ -223,16 +263,7 @@ export namespace IJira {
       /**
        * @title issue type
        */
-      issuetype?: {
-        id: string;
-
-        /**
-         * @title issue type name
-         *
-         * It may be name, bug, story or etc.
-         */
-        name: string & Placeholder<"스토리">;
-      };
+      issuetype?: Pick<IssueType, "id" | "name">;
 
       status: {
         /**

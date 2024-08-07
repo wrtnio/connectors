@@ -48,4 +48,14 @@ export class JiraController {
   ): Promise<IJira.IGetProjectOutput> {
     return this.jiraProvider.getProjects(input);
   }
+
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-types")
+  async getIssueTypes(
+    @TypedBody() input: IJira.IGetIssueTypeInput,
+  ): Promise<IJira.IGetIssueTypeOutput> {
+    return this.jiraProvider.getIssueTypes(input);
+  }
 }

@@ -7,6 +7,26 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
+  async getIssueTypes(
+    input: IJira.IGetIssueTypeInput,
+  ): Promise<IJira.IGetIssueTypeOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const url = `${config.domain}/issuetype?project_id=${input.projectId}`;
+      const res = await axios.get(url, {
+        params: "",
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+
+      return { issuetypes: res.data };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getProjects(
     input:
       | IJira.IGetProjectInputByBasicAuth
@@ -27,7 +47,7 @@ export class JiraProvider {
         },
       });
 
-      return typia.misc.assertClone<IJira.IGetProjectOutput>(res.data);
+      return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -54,7 +74,7 @@ export class JiraProvider {
         },
       );
 
-      return typia.misc.assertClone<IJira.IGetIssueOutput>(res.data);
+      return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
