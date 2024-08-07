@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.86",
+    "version": "0.1.87",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -29340,7 +29340,7 @@
                 "title": "priority"
               },
               "parent": {
-                "$ref": "#/components/schemas/___DeepStrictOmitIJira.Issuefields.parent",
+                "$ref": "#/components/schemas/IJira.Parent",
                 "title": "parent of this issue"
               }
             },
@@ -29409,19 +29409,25 @@
           "48x48"
         ]
       },
-      "___DeepStrictOmitIJira.Issuefields.parent": {
+      "IJira.Parent": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "The ID of the issue"
+            "title": "The ID of the parent issue"
           },
           "key": {
             "type": "string",
-            "title": "The key of the issue"
+            "title": "The key of the parent issue"
           },
           "fields": {
-            "$ref": "#/components/schemas/___DeepStrictOmit__typeparent"
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "string",
+                "title": "summary"
+              }
+            }
           }
         },
         "required": [
@@ -29429,327 +29435,6 @@
           "key",
           "fields"
         ]
-      },
-      "___DeepStrictOmit__typeparent": {
-        "type": "object",
-        "properties": {
-          "reporter": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/IJira.User"
-              }
-            ],
-            "title": "reporter"
-          },
-          "creator": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/IJira.User"
-              }
-            ],
-            "title": "creator"
-          },
-          "assignee": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/IJira.User"
-              }
-            ],
-            "title": "assignee"
-          },
-          "summary": {
-            "type": "string",
-            "title": "summary"
-          },
-          "issuetype": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string",
-                "x-wrtn-placeholder": "스토리",
-                "title": "issue type name\n\nIt may be name, bug, story or etc."
-              }
-            },
-            "required": [
-              "id",
-              "name"
-            ],
-            "title": "issue type"
-          },
-          "status": {
-            "$ref": "#/components/schemas/___DeepStrictOmit__typenever"
-          },
-          "priority": {
-            "$ref": "#/components/schemas/___DeepStrictOmit__typenever.o2",
-            "title": "priority"
-          }
-        },
-        "required": [
-          "status",
-          "priority"
-        ]
-      },
-      "___DeepStrictOmit__typenever": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "status id"
-          },
-          "description": {
-            "type": "string",
-            "title": "status description"
-          },
-          "name": {
-            "$ref": "#/components/schemas/___DeepStrictOmitstringPlaceholder해야할일never",
-            "title": "status name"
-          },
-          "statusCategory": {
-            "$ref": "#/components/schemas/___DeepStrictOmit__typenever.o1",
-            "title": "status category"
-          }
-        },
-        "required": [
-          "id",
-          "description",
-          "name",
-          "statusCategory"
-        ]
-      },
-      "___DeepStrictOmitstringPlaceholder해야할일never": {
-        "type": "object",
-        "properties": {
-          "length": {
-            "type": "number",
-            "title": "Returns the length of a String object",
-            "description": "Returns the length of a String object."
-          },
-          "typia.tag": {
-            "type": "object",
-            "properties": {
-              "target": {
-                "oneOf": [
-                  {
-                    "const": "string"
-                  },
-                  {
-                    "const": "number"
-                  },
-                  {
-                    "const": "boolean"
-                  }
-                ]
-              },
-              "kind": {
-                "const": "placeholder"
-              },
-              "value": {
-                "const": "해야 할 일"
-              },
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "x-wrtn-placeholder": {
-                    "const": "해야 할 일"
-                  }
-                },
-                "required": [
-                  "x-wrtn-placeholder"
-                ]
-              }
-            },
-            "required": [
-              "target",
-              "kind",
-              "value",
-              "schema"
-            ],
-            "title": "This is a dummy property for compilation",
-            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
-          }
-        },
-        "required": [
-          "length"
-        ],
-        "additionalProperties": {
-          "type": "string"
-        }
-      },
-      "___DeepStrictOmit__typenever.o1": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "title": "category id"
-          },
-          "key": {
-            "$ref": "#/components/schemas/___DeepStrictOmitstringPlaceholdernewnever",
-            "title": "category key"
-          }
-        },
-        "required": [
-          "id",
-          "key"
-        ]
-      },
-      "___DeepStrictOmitstringPlaceholdernewnever": {
-        "type": "object",
-        "properties": {
-          "length": {
-            "type": "number",
-            "title": "Returns the length of a String object",
-            "description": "Returns the length of a String object."
-          },
-          "typia.tag": {
-            "type": "object",
-            "properties": {
-              "target": {
-                "oneOf": [
-                  {
-                    "const": "string"
-                  },
-                  {
-                    "const": "number"
-                  },
-                  {
-                    "const": "boolean"
-                  }
-                ]
-              },
-              "kind": {
-                "const": "placeholder"
-              },
-              "value": {
-                "const": "new"
-              },
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "x-wrtn-placeholder": {
-                    "const": "new"
-                  }
-                },
-                "required": [
-                  "x-wrtn-placeholder"
-                ]
-              }
-            },
-            "required": [
-              "target",
-              "kind",
-              "value",
-              "schema"
-            ],
-            "title": "This is a dummy property for compilation",
-            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
-          }
-        },
-        "required": [
-          "length"
-        ],
-        "additionalProperties": {
-          "type": "string"
-        }
-      },
-      "___DeepStrictOmit__typenever.o2": {
-        "type": "object",
-        "properties": {
-          "iconUrl": {
-            "$ref": "#/components/schemas/___DeepStrictOmitstringFormaturinever",
-            "title": "url of icon"
-          },
-          "name": {
-            "type": "string",
-            "title": "priority name\n\nIt may be Low, Medium, High."
-          },
-          "id": {
-            "type": "string",
-            "title": "id"
-          }
-        },
-        "required": [
-          "iconUrl",
-          "name",
-          "id"
-        ]
-      },
-      "___DeepStrictOmitstringFormaturinever": {
-        "type": "object",
-        "properties": {
-          "length": {
-            "type": "number",
-            "title": "Returns the length of a String object",
-            "description": "Returns the length of a String object."
-          },
-          "typia.tag": {
-            "type": "object",
-            "properties": {
-              "target": {
-                "const": "string"
-              },
-              "kind": {
-                "const": "format"
-              },
-              "value": {
-                "const": "uri"
-              },
-              "validate": {
-                "const": "/\\/|:/.test($input) && /^(?:[a-z][a-z0-9+\\-.]*:)(?:\\/?\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\\.[a-z0-9\\-._~!$&'()*+,;=:]+)\\]|(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)|(?:[a-z0-9\\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\\d*)?(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\\/(?:(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\\/(?:[a-z0-9\\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\\?(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i.test($input)"
-              },
-              "exclusive": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "const": "format"
-                  },
-                  {
-                    "const": "pattern"
-                  }
-                ],
-                "additionalItems": false
-              },
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "format": {
-                    "const": "uri"
-                  }
-                },
-                "required": [
-                  "format"
-                ]
-              }
-            },
-            "required": [
-              "target",
-              "kind",
-              "value",
-              "validate",
-              "exclusive",
-              "schema"
-            ],
-            "title": "This is a dummy property for compilation",
-            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
-          }
-        },
-        "required": [
-          "length"
-        ],
-        "additionalProperties": {
-          "type": "string"
-        }
       },
       "IJira.IGetProjectInputByBasicAuth": {
         "type": "object",
