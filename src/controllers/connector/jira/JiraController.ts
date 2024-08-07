@@ -58,4 +58,14 @@ export class JiraController {
   ): Promise<IJira.IGetIssueTypeOutput> {
     return this.jiraProvider.getIssueTypes(input);
   }
+
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-statuses")
+  async getIssueStatus(
+    @TypedBody() input: IJira.IGetIssueStatusInput,
+  ): Promise<IJira.IGetIssueStatusOutput> {
+    return this.jiraProvider.getIssueStatuses(input);
+  }
 }

@@ -7,6 +7,39 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
+  async getIssueStatuses(
+    input: IJira.IGetIssueStatusInput,
+  ): Promise<IJira.IGetIssueStatusOutput> {
+    try {
+      const projectId = input.projectId;
+      const config = await this.getAuthorizationAndDomain(input);
+      const url = `${config.domain}/status`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+
+      return {
+        statuses: res.data
+          .filter((status: { scope?: { project: { id: string } } }) =>
+            // 프로젝트로 필터링하고자 projectId를 프론트에서 전달한 경우, 상태의 범위가 프로젝트를 모두 포괄하거나 또는 해당 프로젝트에 속한 경우만 전달
+            projectId
+              ? status.scope?.project.id === projectId ||
+                !status.scope?.project.id
+              : true,
+          )
+          .map((status: { scope?: { project: { id: string } } }) => {
+            const fixedProjectId = status.scope?.project.id ?? projectId;
+            return { ...status, projectId: fixedProjectId };
+          }),
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getIssueTypes(
     input: IJira.IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
@@ -14,7 +47,6 @@ export class JiraProvider {
       const config = await this.getAuthorizationAndDomain(input);
       const url = `${config.domain}/issuetype?project_id=${input.projectId}`;
       const res = await axios.get(url, {
-        params: "",
         headers: {
           Authorization: config.Authorization,
         },
