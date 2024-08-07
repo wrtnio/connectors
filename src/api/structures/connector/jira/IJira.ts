@@ -225,16 +225,51 @@ export namespace IJira {
       }>;
   }
 
-  export type IGetAssignableOutput = Pick<
+  export type IGetIssueAssignableOutput = Pick<
     User,
     "accountId" | "displayName" | "active"
   >[];
 
-  export interface IGetAssignableInput
+  export interface IGetIssueAssignableInput
     extends ICommonPaginationInput,
       BasicAuthorization {
     /**
      * @title key of project
+     *
+     * It refers to the key of the project to search for the user to be assigned.
+     */
+    project: Project["key"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-projects";
+        jmesPath: "values[].{value:key, label:name}";
+      }>;
+
+    /**
+     * @title key of issue
+     *
+     * It refers to the key of the issue to search for the user to be assigned.
+     */
+    issueKey: Issue["key"] &
+      Prerequisite<{
+        method: "post";
+        path: "connectors/jira/get-issues";
+        jmesPath: "issues[].{value:key, label:key}";
+      }>;
+  }
+
+  export type IGetProjectAssignableOutput = Pick<
+    User,
+    "accountId" | "displayName" | "active"
+  >[];
+
+  export interface IGetProjectAssignableInput
+    extends ICommonPaginationInput,
+      BasicAuthorization {
+    /**
+     * @title key of project
+     *
+     * It refers to the key of the project to search for the user to be assigned.
      */
     project_key: Project["key"] &
       Prerequisite<{

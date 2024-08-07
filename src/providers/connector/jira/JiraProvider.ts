@@ -7,14 +7,39 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
-  async getUsersAssignable(
-    input: IJira.IGetAssignableInput,
-  ): Promise<IJira.IGetAssignableOutput> {
+  async getUsersAssignableInIssue(
+    input: IJira.IGetIssueAssignableInput,
+  ): Promise<IJira.IGetIssueAssignableOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const queryParameter = createQueryParameter({
-        a: input.maxResults,
-        b: input.startAt,
+        maxResults: input.maxResults,
+        startAt: input.startAt,
+        project: input.project,
+        issueKey: input.issueKey,
+      });
+
+      const url = `${config.domain}/user/assignable/search?${queryParameter}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getUsersAssignableInProject(
+    input: IJira.IGetProjectAssignableInput,
+  ): Promise<IJira.IGetProjectAssignableOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const queryParameter = createQueryParameter({
+        maxResults: input.maxResults,
+        startAt: input.startAt,
         projectKeys: input.project_key,
       });
       const url = `${config.domain}/user/assignable/multiProjectSearch?${queryParameter}`;
@@ -23,7 +48,6 @@ export class JiraProvider {
           Authorization: config.Authorization,
         },
       });
-      console.log(JSON.stringify(res.data, null, 2));
       return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));

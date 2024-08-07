@@ -73,9 +73,19 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
   @core.TypedRoute.Post("projects/get-users-assignable")
-  async getUsersAssignable(
-    @TypedBody() input: IJira.IGetAssignableInput,
-  ): Promise<IJira.IGetAssignableOutput> {
-    return this.jiraProvider.getUsersAssignable(input);
+  async getUsersAssignableInIssue(
+    @TypedBody() input: IJira.IGetIssueAssignableInput,
+  ): Promise<IJira.IGetIssueAssignableOutput> {
+    return this.jiraProvider.getUsersAssignableInIssue(input);
+  }
+
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("projects/get-users-assignable")
+  async getUsersAssignableInProject(
+    @TypedBody() input: IJira.IGetProjectAssignableInput,
+  ): Promise<IJira.IGetProjectAssignableOutput> {
+    return this.jiraProvider.getUsersAssignableInProject(input);
   }
 }
