@@ -1,10 +1,10 @@
 // nestia configuration file
 import type sdk from "@nestia/sdk";
 import { NestFactory } from "@nestjs/core";
-import { GoogleSearchCareerController } from "../src/controllers/connector/google_search_career/GoogleSearchCareerController";
+import { GoogleSearchCareerModule } from "../src/controllers/connector/google_search_career/GoogleSearchCareerModule";
 
 const NESTIA_CONFIG: sdk.INestiaConfig = {
-  input: async () => NestFactory.create(GoogleSearchCareerController),
+  input: async () => NestFactory.create(GoogleSearchCareerModule),
   swagger: {
     info: {
       title: "통합 채용정보 검색",
