@@ -61,6 +61,7 @@ import { GoogleShoppingOliveYoungModule } from "./google_shopping/google_shoppin
 import { GoogleShoppingYesTwentyFourModule } from "./google_shopping/google_shopping_yes_twenty_four/GoogleShoppingYesTwentyFourModule";
 import { GoogleShoppingUniqloModule } from "./google_shopping/google_shopping_uniqlo/GoogleShoppingUniqloModule";
 import { GoogleShoppingTwentyNineCentimeterModule } from "./google_shopping/google_shopping_twenty_nine_cenetimeter/GoogleShoppingTwentyNineCentimeterModule";
+import { GoogleShoppingMusinsaModule } from "./google_shopping/google_shopping_musinsa/GoogleShoppingMusinsaModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -113,6 +114,7 @@ import { GoogleShoppingTwentyNineCentimeterModule } from "./google_shopping/goog
     GoogleShoppingTwentyNineCentimeterModule,
     GoogleShoppingUniqloModule,
     GoogleShoppingYesTwentyFourModule,
+    GoogleShoppingMusinsaModule,
     GoogleAdsModule,
     ArxivSearchModule,
     DaumModule,

@@ -13,22 +13,22 @@ export class GoogleShoppingEqlController {
   ) {}
 
   /**
-   * 상품을 OCO에서 검색합니다.
+   * 상품을 EQL에서 검색합니다.
    *
-   * @summary OCO 검색
+   * @summary EQL 검색
    *
    * @param input  검색 조건
    *
    * @returns  검색 결과
    */
   @Standalone()
-  @core.TypedRoute.Post("oco")
+  @core.TypedRoute.Post("eql")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/oco.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/eql.svg",
   )
-  async oco(
+  async hansumEQL(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
-    return retry(() => this.googleShoppingProvider.oco(input))();
+    return retry(() => this.googleShoppingProvider.hansumEQL(input))();
   }
 }
