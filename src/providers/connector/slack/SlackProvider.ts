@@ -302,7 +302,10 @@ export class SlackProvider {
         return {
           type: message.type,
           user: message.user ?? null,
-          text: message.text,
+          text: message.text
+            .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
+            .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
+            .replaceAll(/\n/gs, " "),
           ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
