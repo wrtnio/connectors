@@ -1,8 +1,6 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
-import type { DeepStrictOmit } from "../../../../utils/types/DeepStrictOmit";
-import type { DeepStrictPick } from "../../../../utils/types/DeepStrictPick";
 
 export namespace IJira {
   export type ISecret = ICommon.ISecret<
@@ -275,7 +273,7 @@ export namespace IJira {
         /**
          * @title url of icon
          */
-        iconUrl: string & tags.Format<"uri">;
+        // iconUrl: string & tags.Format<"uri">;
 
         /**
          * @title priority name
@@ -320,7 +318,7 @@ export namespace IJira {
     /**
      * @title profile images of user
      */
-    avatarUrls: AvartarUrls;
+    // avatarUrls: AvartarUrls;
 
     /**
      * @title creator's name
@@ -337,7 +335,7 @@ export namespace IJira {
     /**
      * @title images of this project
      */
-    avatarUrls: AvartarUrls;
+    // avatarUrls: AvartarUrls;
 
     /**
      * @title id
