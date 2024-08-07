@@ -1,0 +1,140 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "올리브영 상품 검색",
+    "summary": "올리브영 쇼핑몰의 상품을 한 번에 검색해요.",
+    "description": "알라딘 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격, 을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
+    "version": "0.1.89",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-shopping/olive-young": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "검색 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "올리브영 검색",
+        "description": "상품을 올리브영에서 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/olive_young.svg",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleShopping.IRequestStandAlone": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "검색어",
+            "description": "검색할 키워드를 입력하세요."
+          },
+          "max_results": {
+            "type": "integer",
+            "title": "검색 결과 개수",
+            "description": "검색 결과의 개수를 설정합니다."
+          }
+        },
+        "required": [
+          "keyword",
+          "max_results"
+        ],
+        "title": "상품 검색 조건"
+      },
+      "IGoogleShopping.IResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "상품명"
+          },
+          "link": {
+            "oneOf": [
+              {
+                "const": "#",
+                "title": "알 수 없는 링크"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "상품 링크"
+          },
+          "price": {
+            "type": "string",
+            "title": "상품 가격",
+            "description": "₩57,600 형식"
+          },
+          "source": {
+            "type": "string",
+            "title": "상품 출처"
+          },
+          "deliveryCost": {
+            "type": "string",
+            "title": "배송비"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "상품 이미지"
+          }
+        },
+        "required": [
+          "title",
+          "link",
+          "price",
+          "source",
+          "deliveryCost",
+          "thumbnail"
+        ],
+        "title": "상품 검색 결과"
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}

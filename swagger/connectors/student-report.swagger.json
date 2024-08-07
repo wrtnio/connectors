@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "title": "생활기록부",
-    "version": "0.1.88",
-    "description": "Starter kit of Nestia",
+    "title": "내파일 기반 생활기록부 일괄 작성",
+    "description": "",
+    "version": "0.1.89",
     "license": {
       "name": "AGPL-3.0-only"
     }
