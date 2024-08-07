@@ -21,7 +21,6 @@ import { GoogleFlightModule } from "./google_flight/GoogleFlightModule";
 import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
 import { GoogleScholarModule } from "./google_scholar/GoolgeScholarModule";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
-import { GoogleShoppingModule } from "./google_shopping/GoogleShoppingModule";
 import { GoogleSlidesModule } from "./google_slides/GoogleSlidesModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
@@ -51,6 +50,17 @@ import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
 import { GoogleSearchCareerModule } from "./google_search_career/GoogleSearchCareerModule";
+import { GoogleShoppingAladineModule } from "./google_shopping/google_shopping_aladine/GoogleShoppingAladineModule";
+import { GoogleShoppingAliexpressModule } from "./google_shopping/google_shopping_aliexpress/GoogleShoppingAliexpressModule";
+import { GoogleShoppingCoupangModule } from "./google_shopping/google_shopping_coupang/GoogleShoppingCoupangModule";
+import { GoogleShoppingEqlModule } from "./google_shopping/google_shopping_eql/GoogleShoppingEqlModule";
+import { GoogleShoppingIherbModule } from "./google_shopping/google_shopping_iherb/GoogleShoppingIherbModule";
+import { GoogleShoppingMarketKurlyModule } from "./google_shopping/google_shopping_market_kurly/GoogleShoppingMarketKurlyModule";
+import { GoogleShoppingOcoModule } from "./google_shopping/google_shopping_oco/GoogleShoppingOcoModule";
+import { GoogleShoppingOliveYoungModule } from "./google_shopping/google_shopping_olive_young/GoogleShoppingOliveYoungModule";
+import { GoogleShoppingYesTwentyFourModule } from "./google_shopping/google_shopping_yes_twenty_four/GoogleShoppingYesTwentyFourModule";
+import { GoogleShoppingUniqloModule } from "./google_shopping/google_shopping_uniqlo/GoogleShoppingUniqloModule";
+import { GoogleShoppingTwentyNineCentimeterModule } from "./google_shopping/google_shopping_twenty_nine_cenetimeter/GoogleShoppingTwentyNineCentimeterModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -92,7 +102,17 @@ import { GoogleSearchCareerModule } from "./google_search_career/GoogleSearchCar
     DallE3Module,
     GoogleSearchModule,
     GoogleSearchCareerModule,
-    GoogleShoppingModule,
+    GoogleShoppingAladineModule,
+    GoogleShoppingAliexpressModule,
+    GoogleShoppingCoupangModule,
+    GoogleShoppingEqlModule,
+    GoogleShoppingIherbModule,
+    GoogleShoppingMarketKurlyModule,
+    GoogleShoppingOcoModule,
+    GoogleShoppingOliveYoungModule,
+    GoogleShoppingTwentyNineCentimeterModule,
+    GoogleShoppingUniqloModule,
+    GoogleShoppingYesTwentyFourModule,
     GoogleAdsModule,
     ArxivSearchModule,
     DaumModule,
