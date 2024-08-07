@@ -219,7 +219,7 @@ export class SlackController {
    *
    * Look up conversations that have been made in and out of the channel.
    *
-   * The 'channel' received as a factor means the channel's ID and is a character string that begins with a capital C.
+   * The 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.
    * Therefore, if the user does not hand over the ID when looking for the conversation history of the channel,
    * it is prioritized to find the channel ID.
    * Usually, users don't know their channel ID.
@@ -228,6 +228,8 @@ export class SlackController {
    *
    * When you look up a conversation,
    * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
+   * 
+   * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
    *
    * @summary get channel histories in slack
    * @param input
