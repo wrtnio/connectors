@@ -225,6 +225,25 @@ export namespace IJira {
       }>;
   }
 
+  export type IGetAssignableOutput = Pick<
+    User,
+    "accountId" | "displayName" | "active"
+  >[];
+
+  export interface IGetAssignableInput
+    extends ICommonPaginationInput,
+      BasicAuthorization {
+    /**
+     * @title key of project
+     */
+    project_key: Project["key"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-projects";
+        jmesPath: "values[].{value:key, label:name}";
+      }>;
+  }
+
   export interface IGetIssueOutput extends ICommonPaginationOutput {
     /**
      * @title Jira issue list
@@ -456,6 +475,11 @@ export namespace IJira {
   }
 
   export interface User {
+    /**
+     * @title id of this user account
+     */
+    accountId: string;
+
     /**
      * @title profile images of user
      */

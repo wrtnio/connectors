@@ -7,6 +7,30 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class JiraProvider {
+  async getUsersAssignable(
+    input: IJira.IGetAssignableInput,
+  ): Promise<IJira.IGetAssignableOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const queryParameter = createQueryParameter({
+        a: input.maxResults,
+        b: input.startAt,
+        projectKeys: input.project_key,
+      });
+      const url = `${config.domain}/user/assignable/multiProjectSearch?${queryParameter}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+      console.log(JSON.stringify(res.data, null, 2));
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getIssueStatuses(
     input: IJira.IGetIssueStatusInput,
   ): Promise<IJira.IGetIssueStatusOutput> {

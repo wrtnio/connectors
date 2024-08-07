@@ -68,4 +68,14 @@ export class JiraController {
   ): Promise<IJira.IGetIssueStatusOutput> {
     return this.jiraProvider.getIssueStatuses(input);
   }
+
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("projects/get-users-assignable")
+  async getUsersAssignable(
+    @TypedBody() input: IJira.IGetAssignableInput,
+  ): Promise<IJira.IGetAssignableOutput> {
+    return this.jiraProvider.getUsersAssignable(input);
+  }
 }
