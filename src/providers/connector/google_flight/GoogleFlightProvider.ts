@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
+import axios from "axios";
 import { getJson } from "serpapi";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 const defaultParams = {
   engine: "google_flights",
@@ -143,7 +145,9 @@ export class GoogleFlightProvider {
           res["selected_flights"],
           res["price_insights"],
         ),
-        booking_options: this.transformBookingOption(res["booking_options"]),
+        booking_options: await this.transformBookingOption(
+          res["booking_options"],
+        ),
       };
 
       return output;
@@ -202,32 +206,62 @@ export class GoogleFlightProvider {
     return `${hours}시간 ${minutes}분`;
   }
 
-  private transformBookingOption(
+  private async transformBookingOption(
     bookingOptions: any[],
-  ): IGoogleFlight.IBookingOption[] {
-    return bookingOptions.map((bookingOption) => {
-      const togetherBookingRequest = bookingOption.together?.booking_request;
-      const departingBookingRequest = bookingOption.departing?.booking_request;
-      const returningBookingRequest = bookingOption.returning?.booking_request;
+  ): Promise<IGoogleFlight.IBookingOption[]> {
+    const transformedOptions = await Promise.all(
+      bookingOptions.map(async (bookingOption) => {
+        const togetherBookingRequest = bookingOption.together?.booking_request;
+        const departingBookingRequest =
+          bookingOption.departing?.booking_request;
+        const returningBookingRequest =
+          bookingOption.returning?.booking_request;
 
-      let bookLink: string;
+        let bookLink: string;
+        if (togetherBookingRequest) {
+          bookLink = await this.getShortLink(
+            `${togetherBookingRequest.url}?${togetherBookingRequest.post_data}`,
+          );
+        } else if (departingBookingRequest && returningBookingRequest) {
+          const departingLink = await this.getShortLink(
+            `${departingBookingRequest.url}?${departingBookingRequest.post_data}`,
+          );
+          const returningLink = await this.getShortLink(
+            `${returningBookingRequest.url}?${returningBookingRequest.post_data}`,
+          );
+          bookLink = `출발 항공편 예약 링크: ${departingLink} / 도착 항공편 예약 링크: ${returningLink}`;
+        } else {
+          bookLink = "예약 링크가 없습니다.";
+        }
 
-      if (togetherBookingRequest) {
-        bookLink = `${togetherBookingRequest.url}?${togetherBookingRequest.post_data}`;
-      } else if (departingBookingRequest && returningBookingRequest) {
-        bookLink = `출발 항공편 예약 링크: ${departingBookingRequest.url}?${departingBookingRequest.post_data} / 도착 항공편 예약 링크: ${returningBookingRequest.url}?${returningBookingRequest.post_data}`;
-      } else {
-        bookLink = "예약 링크가 없습니다.";
-      }
+        return {
+          book_with: bookingOption.together?.book_with || "정보 없음",
+          price:
+            bookingOption.together?.price !== undefined
+              ? `${bookingOption.together.price}원`
+              : "가격 정보가 없습니다.",
+          book_link: bookLink,
+        };
+      }),
+    );
+    return transformedOptions;
+  }
 
-      return {
-        book_with: bookingOption.together?.book_with || "정보 없음",
-        price:
-          bookingOption.together?.price !== undefined
-            ? `${bookingOption.together.price}원`
-            : "가격 정보가 없습니다.",
-        book_link: bookLink,
-      };
-    });
+  private async getShortLink(url: string): Promise<string> {
+    try {
+      const res = await axios.get(
+        `https://openapi.naver.com/v1/util/shorturl?url=${url}`,
+        {
+          headers: {
+            "X-Naver-Client-Id": ConnectorGlobal.env.NAVER_CLIENT_ID,
+            "X-Naver-Client-Secret": ConnectorGlobal.env.NAVER_CLIENT_SECRET,
+          },
+        },
+      );
+      return res.data.result.url;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }
