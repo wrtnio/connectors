@@ -225,13 +225,13 @@ export namespace ISlack {
      * This should never be null. If you don't have a value, don't forward properties.
      *
      * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200
-     * If there is a user's request and there is a section that is cumbersome to page, you can enter 1000.
+     * If there is a user's request and there is a section that is cumbersome to page, you can enter 200.
      */
     limit?: number &
       tags.Type<"int32"> &
       tags.Minimum<1> &
       tags.Maximum<1000> &
-      Placeholder<"1000">;
+      Placeholder<"200">;
 
     /**
      * @title cursor
