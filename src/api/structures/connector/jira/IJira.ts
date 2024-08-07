@@ -150,14 +150,14 @@ export namespace IJira {
       | tags.Constant<
           "Open",
           {
-            title: "열림";
+            title: "Open";
             description: "The issue is open and ready for the assignee to start work on it.";
           }
         >
       | tags.Constant<
           "In Progress",
           {
-            title: "진행중";
+            title: "In Progress";
             description: "This issue is being actively worked on at the moment by the assignee.";
           }
         >
@@ -168,42 +168,42 @@ export namespace IJira {
       | tags.Constant<
           "To Do",
           {
-            title: "";
+            title: "To Do";
             description: "The issue has been reported and is waiting for the team to action it.";
           }
         >
       | tags.Constant<
           "In Review",
           {
-            title: "";
+            title: "In Review";
             description: "The assignee has carried out the work needed on the issue, and it needs peer review before being considered done.";
           }
         >
       | tags.Constant<
           "Under review",
           {
-            title: "";
+            title: "Under review";
             description: "A reviewer is currently assessing the work completed on the issue before considering it done.";
           }
         >
       | tags.Constant<
           "Approved",
           {
-            title: "";
+            title: "Approved";
             description: "A reviewer has approved the work completed on the issue and the issue is considered done.";
           }
         >
       | tags.Constant<
           "Cancelled",
           {
-            title: "";
+            title: "Cancelled";
             description: "Work has stopped on the issue and the issue is considered done.";
           }
         >
       | tags.Constant<
           "Rejected",
           {
-            title: "";
+            title: "Rejected";
             description: "A reviewer has rejected the work completed on the issue and the issue is considered done.";
           }
         >;
@@ -221,7 +221,7 @@ export namespace IJira {
     /**
      * @title Search for issues created after this date
      */
-    created_end_date: string & tags.Format<"date">;
+    created_end_date?: string & tags.Format<"date">;
   }
 
   export interface IGetIssueInputByBasicAuth
