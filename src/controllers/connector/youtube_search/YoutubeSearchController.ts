@@ -12,6 +12,9 @@ import { retry } from "../../../utils/retry";
 export class YoutubeSearchController {
   /**
    * 유튜브 영상 검색 결과를 가져옵니다.
+   * 
+   * 검색 결과는 영상의 제목과 링크가 있습니다.
+   * 대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.
    *
    * @summary 유튜브 영상 검색
    *
