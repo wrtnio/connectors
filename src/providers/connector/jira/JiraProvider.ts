@@ -136,19 +136,19 @@ export class JiraProvider {
 
   async getIssues(
     input: IJira.IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
-  ) {
+  ): Promise<IJira.IGetIssueOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.post(
         `${config.domain}/search`,
         {
           jql: `
-          project = ${input.project_key}
-          ${input.issuetype && ` AND issuetype = ${input.issuetype} `}
-          ${input.status && ` AND status = ${input.status} `}
-          ${input.assignee && ` AND assignee = ${input.assignee} `}
-          ${input.created_start_date && ` AND created_start_date >= ${input.created_start_date} `}
-          ${input.created_end_date && ` AND created_end_date < ${input.created_end_date} `}
+          project = "${input.project_key}"
+          ${input.issuetype ? ` AND issuetype = "${input.issuetype}" ` : ""}
+          ${input.status ? ` AND status = "${input.status}" ` : ""}
+          ${input.assignee ? ` AND assignee = "${input.assignee}" ` : ""}
+          ${input.created_start_date ? ` AND created >= "${input.created_start_date}" ` : ""}
+          ${input.created_end_date ? ` AND created < "${input.created_end_date}" ` : ""}
           `,
           ...(input.maxResults && { maxResults: input.maxResults }),
           ...(input.startAt && { startAt: input.startAt }),

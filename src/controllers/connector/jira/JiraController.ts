@@ -72,7 +72,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
-  @core.TypedRoute.Post("projects/get-users-assignable")
+  @core.TypedRoute.Post("issues/get-users-assignable")
   async getUsersAssignableInIssue(
     @TypedBody() input: IJira.IGetIssueAssignableInput,
   ): Promise<IJira.IGetIssueAssignableOutput> {

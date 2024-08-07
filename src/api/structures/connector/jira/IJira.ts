@@ -82,7 +82,7 @@ export namespace IJira {
     /**
      * @title untranslated name
      */
-    untranslatedName: string;
+    untranslatedName?: string;
 
     /**
      * @title status category
