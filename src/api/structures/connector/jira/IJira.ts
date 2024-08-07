@@ -2,6 +2,7 @@ import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
 import type { DeepStrictOmit } from "../../../../utils/types/DeepStrictOmit";
+import type { DeepStrictPick } from "../../../../utils/types/DeepStrictPick";
 
 export namespace IJira {
   export type ISecret = ICommon.ISecret<
@@ -292,7 +293,26 @@ export namespace IJira {
       /**
        * @title parent of this issue
        */
-      parent?: DeepStrictOmit<Issue, "fields.parent">;
+      parent?: Parent;
+    };
+  }
+
+  export interface Parent {
+    /**
+     * @title The ID of the parent issue
+     */
+    id: string;
+
+    /**
+     * @title The key of the parent issue
+     */
+    key: string;
+
+    fields: {
+      /**
+       * @title summary
+       */
+      summary?: string;
     };
   }
 
