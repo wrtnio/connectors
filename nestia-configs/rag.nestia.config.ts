@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "RAG",
+      description: "",
     },
     beautify: true,
     decompose: true,

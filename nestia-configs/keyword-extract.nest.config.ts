@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "키워드 추출",
+      description: "",
     },
     beautify: true,
     decompose: true,

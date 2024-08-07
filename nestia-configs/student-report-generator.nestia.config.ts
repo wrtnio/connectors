@@ -7,7 +7,8 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   input: async () => NestFactory.create(StudentReportGeneratorModule),
   swagger: {
     info: {
-      title: "생활기록부",
+      title: "내파일 기반 생활기록부 일괄 작성",
+      description: "",
     },
     beautify: true,
     decompose: true,

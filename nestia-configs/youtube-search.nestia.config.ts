@@ -8,6 +8,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig = {
   swagger: {
     info: {
       title: "유튜브 검색",
+      description: "",
     },
     beautify: true,
     decompose: true,
