@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.90",
+    "version": "0.1.91",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -28550,7 +28550,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ISlack.Attachment"
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
@@ -28581,43 +28581,19 @@
           "post_at_date"
         ]
       },
-      "ISlack.Attachment": {
+      "PickISlack.Attachmenttitleid": {
         "type": "object",
         "properties": {
-          "text": {
-            "type": "string",
-            "title": "text\n\nThe main body text of the attachment.\nIt can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.\nThe content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a \"Show more...\" link to expand the content."
-          },
-          "fallback": {
-            "type": "string",
-            "title": "fallback\n\nA plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications)."
-          },
-          "thumb_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "thumb_url\n\nA valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.\nThe thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.\nFor best results, please use images that are already 75px by 75px."
-          },
-          "thumb_width": {
-            "type": "number",
-            "title": "thumb_width"
-          },
-          "thumb_height": {
-            "type": "number",
-            "title": "thumb_height"
-          },
-          "id": {
-            "type": "number",
-            "title": "id"
-          },
           "title": {
             "type": "string",
             "title": "title\n\nLarge title text near the top of the attachment."
           },
-          "title_link": {
-            "type": "string",
-            "title": "title link\n\nA valid URL that turns the title text into a hyperlink."
+          "id": {
+            "type": "number",
+            "title": "id"
           }
-        }
+        },
+        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "ISlack.IGetUserListInput": {
         "type": "object",
@@ -28874,7 +28850,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ISlack.Attachment"
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
@@ -29032,7 +29008,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ISlack.Attachment"
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           }
@@ -29347,6 +29323,10 @@
             "type": "string",
             "title": "name of assignee"
           },
+          "reporter": {
+            "type": "string",
+            "title": "name of reporter"
+          },
           "created_start_date": {
             "type": "string",
             "format": "date",
@@ -29356,6 +29336,10 @@
             "type": "string",
             "format": "date",
             "title": "Search for issues created after this date"
+          },
+          "keyword": {
+            "type": "string",
+            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
           }
         },
         "required": [
