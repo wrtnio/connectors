@@ -553,7 +553,7 @@ export namespace ISlack {
      * Attachement contains all types of files and can sometimes be an external link.
      * It is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up.
      */
-    attachments?: ISlack.Attachment[];
+    attachments?: Pick<ISlack.Attachment, "id" | "title">[];
   }
 
   export interface Attachment {
