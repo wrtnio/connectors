@@ -1,6 +1,7 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
+import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ISlack {
@@ -16,6 +17,75 @@ export namespace ISlack {
       "users:read",
     ]
   >;
+
+  export interface IDeleteSCheduleMessageInput extends ISecret {
+    /**
+     * @title channel id
+     *
+     * It refers to the channel on which you want to delete the scheduled message.
+     * If you don't know the channel's ID, You need to view the channel first.
+     */
+    channel: Channel["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+      }>;
+
+    /**
+     * @title scheduled message id to delete
+     */
+    scheduled_message_id: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-scheduled-messages";
+        jmesPath: "scheduled_messages[].{value:id, label:text}";
+      }>;
+  }
+
+  export interface ISCheduleMessageInput extends IPostMessageInput {
+    /**
+     * You can schedule the time you want to send the message in advance.
+     * The scheduled time must be in the same form as the ts property in the Message.
+     *
+     * @title Transfer Schedule Time
+     */
+    post_at: Message["ts"];
+
+    /**
+     * @title thread ts
+     *
+     * If the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.
+     */
+    thread_ts?: Message["ts"];
+  }
+
+  export interface IMarkInput extends ISecret {
+    /**
+     * @title channel id
+     *
+     * It refers to the channel on which you want to mark the conversation history.
+     * If you don't know the channel's ID, You need to view the channel first.
+     */
+    channel: Channel["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+      }>;
+
+    /**
+     * It means the 'ts' value of the chat you want to mark
+     *
+     * @title ts
+     */
+    ts: Message["ts"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-channel-histories";
+        jmesPath: "messages[].{value: ts, label: text}";
+      }>;
+  }
 
   export interface IGetUserListOutput extends ISlack.ICommonPaginationOutput {
     /**
@@ -69,6 +139,28 @@ export namespace ISlack {
     }[];
   }
 
+  export interface IGetScheduledMessageListOutput
+    extends ISlack.ICommonPaginationOutput {
+    /**
+     * @title scheduled messages
+     */
+    scheduled_messages: (ScheduledMessage & {
+      /**
+       * @title id of scheduled message
+       */
+      id: string;
+
+      /**
+       * @title date-time format of post_at
+       */
+      post_at_date: string;
+    })[];
+  }
+
+  export interface IGetScheduledMessageListInput
+    extends ISlack.ISecret,
+      ISlack.ICommonPaginationInput {}
+
   export interface IGetUserListInput
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {}
@@ -109,7 +201,7 @@ export namespace ISlack {
      * @title channel id
      *
      * It refers to the channel on which you want to view the conversation history.
-     * You need to view the channel first.
+     * If you don't know the channel's ID, You need to view the channel first.
      */
     channel: Channel["id"] &
       Prerequisite<{
@@ -316,8 +408,11 @@ export namespace ISlack {
   export interface Channel {
     /**
      * @title channel id
+     *
+     * The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.
+     * But Sometimes there are channel names that start with a G.
      */
-    id: string & tags.Pattern<"^((C(.*))|(D(.*)))">;
+    id: string & tags.Pattern<"^((C(.*))|(D(.*))|(G(.*)))">;
   }
 
   export interface User {
@@ -360,7 +455,7 @@ export namespace ISlack {
   export interface Reply
     extends Pick<
       Message,
-      "type" | "user" | "text" | "ts" | "tsDate" | "attachments"
+      "type" | "user" | "text" | "ts" | "ts_date" | "attachments"
     > {
     /**
      * @title thread ts
@@ -375,6 +470,26 @@ export namespace ISlack {
      * there is no parent_user_id.
      */
     parent_user_id: User["id"] | null;
+  }
+
+  export interface ScheduledMessage
+    extends StrictOmit<
+      Message,
+      "ts" | "type" | "user" | "reply_count" | "reply_users_count" | "ts_date"
+    > {
+    /**
+     * @title timestamp
+     *
+     * for example, `1721804246.083609`.
+     * This is the time value expression method used by Slack.
+     *
+     */
+    post_at: string & Placeholder<"1234567890.123456">;
+
+    /**
+     * @title when the user scheduled the message
+     */
+    date_created: string & Placeholder<"1234567890.123456">;
   }
 
   export interface Message {
@@ -414,7 +529,7 @@ export namespace ISlack {
      *
      * This is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'.
      */
-    tsDate: string;
+    ts_date: string;
 
     /**
      * @title reply_count

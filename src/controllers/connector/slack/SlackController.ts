@@ -2,11 +2,81 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { RouteIcon } from "@wrtnio/decorators";
+import typia from "typia";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 
 @Controller("connector/slack")
 export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
+
+  /**
+   * Marks a specific message in a Slack channel as read
+   *
+   * You need to know both the channel ID and the ts value of the message.
+   *
+   * @summary Marks a specific message in a Slack channel as read
+   * @param input
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("conversation/mark")
+  async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
+    const response = await this.slackProvider.mark(input);
+    return typia.misc.assertClone(response);
+  }
+
+  /**
+   * Create a schduled message
+   *
+   * By default,
+   * it is not much different from sending a message except for specifying a schduled time,
+   * and requires a channel ID and message content.
+   * If the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.
+   *
+   * Messages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.
+   * Therefore, be careful in writing messages.
+   * If you want to cancel, please refer to the message created through another connector and call the delete connector again.
+   *
+   * Users may be embarrassed if the message you booked is not viewed in the Slack desktop app,
+   * so although it cannot be viewed in Slack before and after transmission,
+   * it would be a good idea to let them know that it will actually be transmitted in our service.
+   *
+   * @param input
+   * @returns scheduled message
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Post("scheduleMessage/text")
+  async sendScheduleMessage(
+    @TypedBody() input: ISlack.ISCheduleMessageInput,
+  ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
+    const response = await this.slackProvider.sendScheduleMessage(input);
+    return typia.misc.assertClone(response);
+  }
+
+  /**
+   * Delete the scheduled message
+   *
+   * To clear a scheduled message,
+   * you must get the exact id of that message, so you must first use the scheduled message lookup connector.
+   * When using this connector,
+   * the ID of the channel is also required, which can be retrieved from the message object by querying the channel or by querying the scheduled message.
+   *
+   * @summary Delete the scheduled message
+   * @param input
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+  )
+  @TypedRoute.Delete("scheduleMessage")
+  async deleteScheduleMessage(
+    @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
+  ): Promise<void> {
+    const response = await this.slackProvider.deleteScheduleMessage(input);
+    return typia.misc.assertClone(response);
+  }
 
   /**
    * send message to myself
@@ -18,6 +88,7 @@ export class SlackController {
    *
    * @summary post text message to myself in slack
    * @param input
+   * @returns created message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -25,8 +96,9 @@ export class SlackController {
   @TypedRoute.Post("postMessage/text/myself")
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
-  ): Promise<void> {
-    return this.slackProvider.sendTextToMyself(input);
+  ): Promise<Pick<ISlack.Message, "ts">> {
+    const response = await this.slackProvider.sendTextToMyself(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -42,7 +114,7 @@ export class SlackController {
    *
    * @summary post reply message to thread
    * @param input
-   * @returns
+   * @returns created message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
@@ -50,8 +122,9 @@ export class SlackController {
   @TypedRoute.Post("postMessage/reply")
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
-  ): Promise<void> {
-    return this.slackProvider.sendReply(input);
+  ): Promise<Pick<ISlack.Message, "ts">> {
+    const response = await this.slackProvider.sendReply(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -61,13 +134,35 @@ export class SlackController {
    *
    * @summary post text message in slack
    * @param input
+   * @returns created message
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
   )
   @TypedRoute.Post("postMessage/text")
-  async sendText(@TypedBody() input: ISlack.IPostMessageInput): Promise<void> {
-    return this.slackProvider.sendText(input);
+  async sendText(
+    @TypedBody() input: ISlack.IPostMessageInput,
+  ): Promise<Pick<ISlack.Message, "ts">> {
+    const response = await this.slackProvider.sendText(input);
+    return typia.misc.assertClone(response);
+  }
+
+  /**
+   * Get a list of scheduled messages
+   *
+   * Look up the messages you booked.
+   * You can use `post_at` and `post_at_date` to find out when the message will be sent.
+   * If you want to clear the message, use the `id` value in the scheduled message.
+   *
+   * @param input
+   * @returns
+   */
+  @TypedRoute.Post("get-scheduled-messages")
+  async getScheduledMessages(
+    @TypedBody() input: ISlack.IGetScheduledMessageListInput,
+  ): Promise<ISlack.IGetScheduledMessageListOutput> {
+    const response = await this.slackProvider.getScheduledMessages(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -93,7 +188,8 @@ export class SlackController {
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
-    return this.slackProvider.getUsers(input);
+    const response = await this.slackProvider.getUsers(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -114,7 +210,8 @@ export class SlackController {
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
-    return this.slackProvider.getReplies(input);
+    const response = await this.slackProvider.getReplies(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -143,7 +240,8 @@ export class SlackController {
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    return this.slackProvider.getChannelHistories(input);
+    const response = await this.slackProvider.getChannelHistories(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -165,7 +263,8 @@ export class SlackController {
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return this.slackProvider.getPrivateChannels(input);
+    const response = await this.slackProvider.getPrivateChannels(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -188,7 +287,8 @@ export class SlackController {
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
-    return this.slackProvider.getPublicChannels(input);
+    const response = await this.slackProvider.getPublicChannels(input);
+    return typia.misc.assertClone(response);
   }
 
   /**
@@ -211,6 +311,7 @@ export class SlackController {
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
-    return this.slackProvider.getImChannels(input);
+    const response = await this.slackProvider.getImChannels(input);
+    return typia.misc.assertClone(response);
   }
 }

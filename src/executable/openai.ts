@@ -33,6 +33,11 @@ const main = async (): Promise<void> => {
             s.contentMediaType !== undefined),
       },
     });
+
+    if (openai.errors.length > 0) {
+      throw new Error("new openai function schema has errors");
+    }
+
     await fs.promises.writeFile(
       `${location}/openai-${keyword ? "keyword" : "positional"}.json`,
       JSON.stringify(openai),

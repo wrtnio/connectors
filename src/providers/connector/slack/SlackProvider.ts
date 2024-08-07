@@ -2,13 +2,134 @@ import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { ElementOf } from "../../../utils/types/ElementOf";
 
 @Injectable()
 export class SlackProvider {
-  async sendReply(input: ISlack.IPostMessageReplyInput): Promise<void> {
-    const url = `https://slack.com/api/chat.postMessage`;
+  async deleteScheduleMessage(
+    input: ISlack.IDeleteSCheduleMessageInput,
+  ): Promise<void> {
+    try {
+      const url = `https://slack.com/api/chat.deleteScheduledMessage`;
+      const { secretKey, ...rest } = input;
+
+      await axios.post(
+        url,
+        {
+          ...rest,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getScheduledMessages(
+    input: ISlack.IGetScheduledMessageListInput,
+  ): Promise<ISlack.IGetScheduledMessageListOutput> {
+    const url = `https://slack.com/api/chat.scheduledMessages.list`;
+    try {
+      const { secretKey, ...rest } = input;
+      const queryParameter = createQueryParameter(rest);
+      const res = await axios.post(
+        `${url}?${queryParameter}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${secretKey}`,
+          },
+        },
+      );
+
+      const next_cursor = res.data.response_metadata?.next_cursor;
+      const scheduled_messages = res.data.scheduled_messages.map(
+        (
+          message: any,
+        ): ElementOf<
+          ISlack.IGetScheduledMessageListOutput["scheduled_messages"]
+        > => {
+          const timestampString =
+            String(message.post_at).split(".").at(0) + "000";
+          const timestamp = Number(timestampString);
+
+          return {
+            id: message.id,
+            channel: message.channel_id,
+            post_at: String(message.post_at) as string,
+            post_at_date: new Date(timestamp).toISOString(),
+            date_created: String(message.date_created),
+            text: message.text,
+          };
+        },
+      );
+
+      return { scheduled_messages, next_cursor };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async sendScheduleMessage(
+    input: ISlack.ISCheduleMessageInput,
+  ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
+    const url = `https://slack.com/api/chat.scheduleMessage`;
+    try {
+      const res = await axios.post(
+        url,
+        {
+          channel: input.channel,
+          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
+          post_at: input.post_at,
+          ...(input.thread_ts && { thread_ts: input.thread_ts }),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+
+      return { post_at: String(res.data.post_at) };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async mark(input: ISlack.IMarkInput): Promise<void> {
+    const url = `https://slack.com/api/conversations.mark`;
     try {
       await axios.post(
+        url,
+        {
+          channel: input.channel,
+          ts: input.ts,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${input.secretKey}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async sendReply(
+    input: ISlack.IPostMessageReplyInput,
+  ): Promise<Pick<ISlack.Message, "ts">> {
+    const url = `https://slack.com/api/chat.postMessage`;
+    try {
+      const res = await axios.post(
         url,
         {
           channel: input.channel,
@@ -21,6 +142,8 @@ export class SlackProvider {
           },
         },
       );
+
+      return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -51,10 +174,10 @@ export class SlackProvider {
           type: message.type,
           user: message.user ?? null,
           text: message.text,
-          ts: message.ts,
+          ts: String(message.ts),
           thread_ts: message.thread_ts,
           parent_user_id: message.parent_user_id ?? null,
-          tsDate: new Date(timestamp).toISOString(),
+          ts_date: new Date(timestamp).toISOString(),
           ...(message.attachments && { attachments: message.attachments }),
         };
       });
@@ -94,13 +217,13 @@ export class SlackProvider {
 
   async sendTextToMyself(
     input: ISlack.IPostMessageToMyselfInput,
-  ): Promise<void> {
+  ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
     try {
       const { channels } = await this.getImChannels(input);
       const auth = await this.authTest(input);
       const mySelf = channels.find((el) => el.user === auth.user_id);
-      await axios.post(
+      const res = await axios.post(
         url,
         {
           channel: mySelf?.id,
@@ -112,6 +235,8 @@ export class SlackProvider {
           },
         },
       );
+
+      return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -130,10 +255,12 @@ export class SlackProvider {
     return res.data;
   }
 
-  async sendText(input: ISlack.IPostMessageInput): Promise<void> {
+  async sendText(
+    input: ISlack.IPostMessageInput,
+  ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
     try {
-      await axios.post(
+      const res = await axios.post(
         url,
         {
           channel: input.channel,
@@ -145,6 +272,8 @@ export class SlackProvider {
           },
         },
       );
+
+      return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -174,11 +303,11 @@ export class SlackProvider {
           type: message.type,
           user: message.user ?? null,
           text: message.text,
-          ts: message.ts,
+          ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
           reply_users_count: message?.reply_users_count ?? 0,
-          tsDate: new Date(timestamp).toISOString(),
+          ts_date: new Date(timestamp).toISOString(),
           ...(message.attachments && { attachments: message.attachments }),
         };
       },

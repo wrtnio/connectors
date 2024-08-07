@@ -1,4 +1,5 @@
 import CApi from "@wrtn/connector-api/lib/index";
+import assert from "assert";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
@@ -66,7 +67,7 @@ export const test_api_connector_slack_get_channel_histories = async (
   return messages;
 };
 
-export const test_api_connector_slack_text_message = async (
+export const test_api_connector_slack_send_text_message_to_public = async (
   connection: CApi.IConnection,
 ) => {
   const [PublicChannel] =
@@ -76,26 +77,225 @@ export const test_api_connector_slack_text_message = async (
     text: "hello, world",
     secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
   });
+};
 
+export const test_api_connector_slack_send_scheduled_text_message_to_public =
+  async (connection: CApi.IConnection) => {
+    const [PublicChannel] =
+      await test_api_connector_slack_get_public_channels(connection);
+    const after1m = new Date().getTime() + 60000;
+    const ts = String(after1m).split("").slice(0, -3).join("");
+    const res =
+      await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+        connection,
+        {
+          channel: PublicChannel.id as any,
+          text: "hello, world",
+          post_at: ts,
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+
+    return typia.assertEquals(res);
+  };
+
+export const test_api_connector_slack_add_reply_scheduled_text_message_to_public =
+  async (connection: CApi.IConnection) => {
+    const [PublicChannel] =
+      await test_api_connector_slack_get_public_channels(connection);
+
+    const after1m = new Date().getTime() + 60000;
+    const ts = String(after1m).split("").slice(0, -3).join("");
+
+    const parent =
+      await CApi.functional.connector.slack.postMessage.text.sendText(
+        connection,
+        {
+          channel: PublicChannel.id as any,
+          text: "PARENT",
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+
+    const res =
+      await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+        connection,
+        {
+          channel: PublicChannel.id as any,
+          text: "SCHEDULED",
+          post_at: ts,
+          thread_ts: parent.ts as any,
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+
+    typia.assertEquals(res);
+
+    return res;
+  };
+
+export const test_api_connector_slack_get_scheduled_messages = async (
+  connection: CApi.IConnection,
+) => {
+  const before =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  const scheduledMessage =
+    await test_api_connector_slack_add_reply_scheduled_text_message_to_public(
+      connection,
+    );
+
+  const after =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  typia.assertEquals(after);
+  assert(
+    before.scheduled_messages.length + 1 === after.scheduled_messages.length,
+  );
+  assert(
+    after.scheduled_messages.some(
+      (el) => el.post_at === scheduledMessage.post_at,
+    ),
+  );
+};
+
+export const test_api_connector_slack_delete_scheduled_message = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * 테스트 용으로 일단 예약 메시지를 생성한다.
+   */
+  const [PublicChannel] =
+    await test_api_connector_slack_get_public_channels(connection);
+  const after1m = new Date().getTime() + 60000 * 60;
+  const ts = String(after1m).split("").slice(0, -3).join("");
+  const scheduledMessage =
+    await CApi.functional.connector.slack.scheduleMessage.text.sendScheduleMessage(
+      connection,
+      {
+        channel: PublicChannel.id as any,
+        text: "hello, world",
+        post_at: ts,
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  /**
+   * 테스트하기 전 전체 내역을 조회하여 메세지가 있는지 체크한다.
+   */
+  const before =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+  const justScheduledMessage = before.scheduled_messages.find(
+    (el) => el.post_at === scheduledMessage.post_at,
+  );
+
+  if (!justScheduledMessage) {
+    throw new Error("삭제 테스트를 위한 예약 메세지 추가 실패");
+  }
+  /**
+   * 생성했던 예약 메세지를 삭제한다.
+   */
+  await CApi.functional.connector.slack.scheduleMessage.deleteScheduleMessage(
+    connection,
+    {
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      channel: justScheduledMessage?.channel as string,
+      scheduled_message_id: justScheduledMessage?.id as string,
+    },
+  );
+
+  const after =
+    await CApi.functional.connector.slack.get_scheduled_messages.getScheduledMessages(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  /**
+   * 삭제 후에는 목록에서 찾을 수 없어야 한다.
+   */
+  assert(
+    after.scheduled_messages.every(
+      (el) => el.post_at !== scheduledMessage.post_at,
+    ),
+  );
+};
+
+export const test_api_connector_slack_send_text_message_to_private = async (
+  connection: CApi.IConnection,
+) => {
   const [PrivateChannel] =
     await test_api_connector_slack_get_private_channels(connection);
-  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
-    channel: PrivateChannel.id as any,
-    text: "hello, world",
-    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-  });
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.sendText(
+      connection,
+      {
+        channel: PrivateChannel.id as any,
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  return message;
+};
+
+export const test_api_connector_slack_mark_message = async (
+  connection: CApi.IConnection,
+) => {
+  const [PublicChannel] =
+    await test_api_connector_slack_get_public_channels(connection);
+
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.sendText(
+      connection,
+      {
+        channel: PublicChannel.id as any,
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  const res = await CApi.functional.connector.slack.conversation.mark(
+    connection,
+    {
+      channel: PublicChannel.id as any,
+      ts: message.ts as any,
+      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+    },
+  );
+
+  typia.assertEquals(res);
 };
 
 export const test_api_connector_slack_send_text_message_to_myself = async (
   connection: CApi.IConnection,
 ) => {
-  await CApi.functional.connector.slack.postMessage.text.myself.sendTextToMyself(
-    connection,
-    {
-      text: "hello, world",
-      secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
-    },
-  );
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.myself.sendTextToMyself(
+      connection,
+      {
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  return message;
 };
 
 export const test_api_connector_slack_get_users = async (
