@@ -206,6 +206,8 @@ export class JiraProvider {
       const domain = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3`;
       return { Authorization, domain };
     } else {
+      const domain = `${input.domain}/rest/api/3`;
+      return { Authorization, domain };
     }
   }
 
