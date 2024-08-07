@@ -122,9 +122,7 @@ export namespace IJira {
       }>;
   }
 
-  export interface IGetIssueInputByBasicAuth
-    extends BasicAuthorization,
-      ICommonPaginationInput {
+  export interface IGetIssueCommonRequestInput {
     /**
      * @title key of project
      */
@@ -209,21 +207,32 @@ export namespace IJira {
             description: "A reviewer has rejected the work completed on the issue and the issue is considered done.";
           }
         >;
+
+    /**
+     * @title name of assignee
+     */
+    assignee?: string;
+
+    /**
+     * @title Search for issues created after this date
+     */
+    created_start_date?: string & tags.Format<"date">;
+
+    /**
+     * @title Search for issues created after this date
+     */
+    created_end_date: string & tags.Format<"date">;
   }
+
+  export interface IGetIssueInputByBasicAuth
+    extends BasicAuthorization,
+      ICommonPaginationInput,
+      IGetIssueCommonRequestInput {}
 
   export interface IGetIssueInputBySecretKey
     extends ISecret,
-      ICommonPaginationInput {
-    /**
-     * @title key of project
-     */
-    project_key: Project["key"] &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/jira/get-projects";
-        jmesPath: "values[].{value:key, label:name}";
-      }>;
-  }
+      ICommonPaginationInput,
+      IGetIssueCommonRequestInput {}
 
   export type IGetIssueAssignableOutput = Pick<
     User,

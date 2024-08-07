@@ -142,7 +142,14 @@ export class JiraProvider {
       const res = await axios.post(
         `${config.domain}/search`,
         {
-          jql: `project = ${input.project_key}`,
+          jql: `
+          project = ${input.project_key}
+          ${input.issuetype && ` AND issuetype = ${input.issuetype} `}
+          ${input.status && ` AND status = ${input.status} `}
+          ${input.assignee && ` AND assignee = ${input.assignee} `}
+          ${input.created_start_date && ` AND created_start_date >= ${input.created_start_date} `}
+          ${input.created_end_date && ` AND created_end_date < ${input.created_end_date} `}
+          `,
           ...(input.maxResults && { maxResults: input.maxResults }),
           ...(input.startAt && { startAt: input.startAt }),
         },
@@ -199,8 +206,6 @@ export class JiraProvider {
       const domain = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3`;
       return { Authorization, domain };
     } else {
-      const domain = `${input.domain}/rest/api/3`;
-      return { Authorization, domain };
     }
   }
 
