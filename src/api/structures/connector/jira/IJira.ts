@@ -214,6 +214,11 @@ export namespace IJira {
     assignee?: string;
 
     /**
+     * @title name of reporter
+     */
+    reporter?: string;
+
+    /**
      * @title Search for issues created after this date
      */
     created_start_date?: string & tags.Format<"date">;
@@ -222,6 +227,13 @@ export namespace IJira {
      * @title Search for issues created after this date
      */
     created_end_date?: string & tags.Format<"date">;
+
+    /**
+     * @title search keyword
+     *
+     * It is a keyword you want to find in the title or explanation of an issue, which is useful when searching.
+     */
+    keyword?: string;
   }
 
   export interface IGetIssueInputByBasicAuth

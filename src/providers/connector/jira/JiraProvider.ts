@@ -147,8 +147,10 @@ export class JiraProvider {
           ${input.issuetype ? ` AND issuetype = "${input.issuetype}" ` : ""}
           ${input.status ? ` AND status = "${input.status}" ` : ""}
           ${input.assignee ? ` AND assignee = "${input.assignee}" ` : ""}
+          ${input.reporter ? ` AND reporter = "${input.reporter}" ` : ""}
           ${input.created_start_date ? ` AND created >= "${input.created_start_date}" ` : ""}
           ${input.created_end_date ? ` AND created < "${input.created_end_date}" ` : ""}
+          ${input.keyword ? ` AND text ~ "${input.keyword}" ` : ""}
           `,
           ...(input.maxResults && { maxResults: input.maxResults }),
           ...(input.startAt && { startAt: input.startAt }),
