@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.89",
+    "version": "0.1.90",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9021,6 +9021,128 @@
         },
         "summary": "Find the Jira projects.",
         "description": "Find the Jira projects.\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
+    "/connector/jira/get-issue-types": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetIssueTypeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueTypeOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
+    "/connector/jira/get-issue-statuses": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetIssueStatusInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueStatusOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find issue statuses",
+        "description": "Find issue statuses for searching issue",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
+    "/connector/jira/issues/get-users-assignable": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetIssueAssignableInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueAssignableOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find assignable users in issue",
+        "description": "Find a person within the issue who can be assigned as assignee.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
+    "/connector/jira/projects/get-users-assignable": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetProjectAssignableInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetProjectAssignableOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find assignable users in project",
+        "description": "Find a person within the project who can be assigned as assignee.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -29127,15 +29249,6 @@
       "IJira.IGetIssueInputByBasicAuth": {
         "type": "object",
         "properties": {
-          "project_key": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/jira/get-projects",
-              "jmesPath": "values[].{value:key, label:name}"
-            },
-            "title": "key of project"
-          },
           "email": {
             "type": "string",
             "title": "email in Jira"
@@ -29161,13 +29274,95 @@
             "maximum": 100,
             "title": "max results",
             "description": "The maximum number of items to return per page."
+          },
+          "project_key": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project"
+          },
+          "issuetype": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-issue-types",
+              "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
+            },
+            "title": "issue type"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "Open",
+                "title": "Open",
+                "description": "The issue is open and ready for the assignee to start work on it."
+              },
+              {
+                "const": "In Progress",
+                "title": "In Progress",
+                "description": "This issue is being actively worked on at the moment by the assignee."
+              },
+              {
+                "const": "Done",
+                "title": "완료",
+                "description": "Work has finished on the issue."
+              },
+              {
+                "const": "To Do",
+                "title": "To Do",
+                "description": "The issue has been reported and is waiting for the team to action it."
+              },
+              {
+                "const": "In Review",
+                "title": "In Review",
+                "description": "The assignee has carried out the work needed on the issue, and it needs peer review before being considered done."
+              },
+              {
+                "const": "Under review",
+                "title": "Under review",
+                "description": "A reviewer is currently assessing the work completed on the issue before considering it done."
+              },
+              {
+                "const": "Approved",
+                "title": "Approved",
+                "description": "A reviewer has approved the work completed on the issue and the issue is considered done."
+              },
+              {
+                "const": "Cancelled",
+                "title": "Cancelled",
+                "description": "Work has stopped on the issue and the issue is considered done."
+              },
+              {
+                "const": "Rejected",
+                "title": "Rejected",
+                "description": "A reviewer has rejected the work completed on the issue and the issue is considered done."
+              }
+            ],
+            "title": "status"
+          },
+          "assignee": {
+            "type": "string",
+            "title": "name of assignee"
+          },
+          "created_start_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Search for issues created after this date"
+          },
+          "created_end_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Search for issues created after this date"
           }
         },
         "required": [
-          "project_key",
           "email",
           "apiToken",
-          "domain"
+          "domain",
+          "project_key"
         ]
       },
       "IJira.IGetIssueOutput": {
@@ -29255,74 +29450,16 @@
                 "title": "summary"
               },
               "issuetype": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string",
-                    "x-wrtn-placeholder": "스토리",
-                    "title": "issue type name\n\nIt may be name, bug, story or etc."
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ],
+                "$ref": "#/components/schemas/PickIJira.IssueTypeidname",
                 "title": "issue type"
               },
               "status": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "title": "status id"
-                  },
-                  "description": {
-                    "type": "string",
-                    "title": "status description"
-                  },
-                  "name": {
-                    "type": "string",
-                    "x-wrtn-placeholder": "해야 할 일",
-                    "title": "status name"
-                  },
-                  "statusCategory": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "title": "category id"
-                      },
-                      "key": {
-                        "type": "string",
-                        "x-wrtn-placeholder": "new",
-                        "title": "category key"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "key"
-                    ],
-                    "title": "status category"
-                  }
-                },
-                "required": [
-                  "id",
-                  "description",
-                  "name",
-                  "statusCategory"
-                ]
+                "$ref": "#/components/schemas/PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName",
+                "title": "status"
               },
               "priority": {
                 "type": "object",
                 "properties": {
-                  "iconUrl": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "url of icon"
-                  },
                   "name": {
                     "type": "string",
                     "title": "priority name\n\nIt may be Low, Medium, High."
@@ -29333,7 +29470,6 @@
                   }
                 },
                 "required": [
-                  "iconUrl",
                   "name",
                   "id"
                 ],
@@ -29359,9 +29495,9 @@
       "IJira.User": {
         "type": "object",
         "properties": {
-          "avatarUrls": {
-            "$ref": "#/components/schemas/IJira.AvartarUrls",
-            "title": "profile images of user"
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
           },
           "displayName": {
             "type": "string",
@@ -29373,41 +29509,76 @@
           }
         },
         "required": [
-          "avatarUrls",
+          "accountId",
           "displayName",
           "active"
         ]
       },
-      "IJira.AvartarUrls": {
+      "PickIJira.IssueTypeidname": {
         "type": "object",
         "properties": {
-          "16x16": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"16x16\" size image"
+          "id": {
+            "type": "string"
           },
-          "24x24": {
+          "name": {
             "type": "string",
-            "format": "uri",
-            "title": "\"24x24\" size image"
-          },
-          "32x32": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"32x32\" size image"
-          },
-          "48x48": {
-            "type": "string",
-            "format": "uri",
-            "title": "\"48x48\" size image"
+            "x-wrtn-placeholder": "스토리",
+            "title": "issue type name\n\nIt may be name, bug, story or etc."
           }
         },
         "required": [
-          "16x16",
-          "24x24",
-          "32x32",
-          "48x48"
-        ]
+          "id",
+          "name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "status id"
+          },
+          "description": {
+            "type": "string",
+            "title": "status description"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "해야 할 일",
+            "title": "status name"
+          },
+          "statusCategory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "title": "category id"
+              },
+              "key": {
+                "type": "string",
+                "x-wrtn-placeholder": "new",
+                "title": "category key"
+              }
+            },
+            "required": [
+              "id",
+              "key"
+            ],
+            "title": "status category"
+          },
+          "untranslatedName": {
+            "type": "string",
+            "title": "untranslated name"
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "name",
+          "statusCategory"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IJira.Parent": {
         "type": "object",
@@ -29535,10 +29706,6 @@
       "IJira.Project": {
         "type": "object",
         "properties": {
-          "avatarUrls": {
-            "$ref": "#/components/schemas/IJira.AvartarUrls",
-            "title": "images of this project"
-          },
           "id": {
             "type": "string",
             "title": "id"
@@ -29576,11 +29743,293 @@
           }
         },
         "required": [
-          "avatarUrls",
           "id",
           "key",
           "name"
         ]
+      },
+      "IJira.IGetIssueTypeInput": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connectors/jira/get-projects",
+              "jmesPath": "values[].{value:id,label:name}"
+            },
+            "title": "id of project"
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "projectId",
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssueTypeOutput": {
+        "type": "object",
+        "properties": {
+          "issuetypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.IssueType"
+            },
+            "title": "issue types in this projects"
+          }
+        },
+        "required": [
+          "issuetypes"
+        ]
+      },
+      "IJira.IssueType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "스토리",
+            "title": "issue type name\n\nIt may be name, bug, story or etc."
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "subtask": {
+            "type": "boolean",
+            "title": "whether is for substask issue type"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "subtask"
+        ]
+      },
+      "IJira.IGetIssueStatusInput": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connectors/jira/get-projects",
+              "jmesPath": "values[].{value:id,label:name}"
+            },
+            "title": "id of project\n\nIf the status does not have the project ID,\nit means this status is beyond the scope of the project and can be selected by the entire team.\nIt can also be the default status created from the beginning by Jira."
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssueStatusOutput": {
+        "type": "object",
+        "properties": {
+          "statuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickStatusidnameuntranslatedNameprojectIdstringundefined"
+            }
+          }
+        },
+        "required": [
+          "statuses"
+        ]
+      },
+      "PickStatusidnameuntranslatedNameprojectIdstringundefined": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "status id"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "해야 할 일",
+            "title": "status name"
+          },
+          "untranslatedName": {
+            "type": "string",
+            "title": "untranslated name"
+          },
+          "projectId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "IJira.IGetIssueAssignableInput": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
+          },
+          "issueKey": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connectors/jira/get-issues",
+              "jmesPath": "issues[].{value:key, label:key}"
+            },
+            "title": "key of issue\n\nIt refers to the key of the issue to search for the user to be assigned."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "maximum": 100,
+            "title": "max results",
+            "description": "The maximum number of items to return per page."
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "project",
+          "issueKey",
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssueAssignableOutput": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PickIJira.UseraccountIddisplayNameactive"
+        }
+      },
+      "PickIJira.UseraccountIddisplayNameactive": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          }
+        },
+        "required": [
+          "accountId",
+          "displayName",
+          "active"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.IGetProjectAssignableInput": {
+        "type": "object",
+        "properties": {
+          "project_key": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "maximum": 100,
+            "title": "max results",
+            "description": "The maximum number of items to return per page."
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "project_key",
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetProjectAssignableOutput": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PickIJira.UseraccountIddisplayNameactive"
+        }
       },
       "IGoogleTrend.IRequest": {
         "type": "object",
