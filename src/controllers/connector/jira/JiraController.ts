@@ -48,4 +48,65 @@ export class JiraController {
   ): Promise<IJira.IGetProjectOutput> {
     return this.jiraProvider.getProjects(input);
   }
+
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-types")
+  async getIssueTypes(
+    @TypedBody() input: IJira.IGetIssueTypeInput,
+  ): Promise<IJira.IGetIssueTypeOutput> {
+    return this.jiraProvider.getIssueTypes(input);
+  }
+
+  /**
+   * Find issue statuses for searching issue
+   *
+   * @summary Find issue statuses
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-statuses")
+  async getIssueStatus(
+    @TypedBody() input: IJira.IGetIssueStatusInput,
+  ): Promise<IJira.IGetIssueStatusOutput> {
+    return this.jiraProvider.getIssueStatuses(input);
+  }
+
+  /**
+   * Find a person within the issue who can be assigned as assignee.
+   *
+   * @summary Find assignable users in issue
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("issues/get-users-assignable")
+  async getUsersAssignableInIssue(
+    @TypedBody() input: IJira.IGetIssueAssignableInput,
+  ): Promise<IJira.IGetIssueAssignableOutput> {
+    return this.jiraProvider.getUsersAssignableInIssue(input);
+  }
+
+  /**
+   * Find a person within the project who can be assigned as assignee.
+   *
+   * @summary Find assignable users in project
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("projects/get-users-assignable")
+  async getUsersAssignableInProject(
+    @TypedBody() input: IJira.IGetProjectAssignableInput,
+  ): Promise<IJira.IGetProjectAssignableOutput> {
+    return this.jiraProvider.getUsersAssignableInProject(input);
+  }
 }

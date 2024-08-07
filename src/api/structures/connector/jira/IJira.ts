@@ -1,8 +1,6 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
-import type { DeepStrictOmit } from "../../../../utils/types/DeepStrictOmit";
-import type { DeepStrictPick } from "../../../../utils/types/DeepStrictPick";
 
 export namespace IJira {
   export type ISecret = ICommon.ISecret<
@@ -65,9 +63,66 @@ export namespace IJira {
     total: number & tags.Type<"int64">;
   }
 
-  export interface IGetIssueInputByBasicAuth
-    extends BasicAuthorization,
-      ICommonPaginationInput {
+  export interface Status {
+    /**
+     * @title status id
+     */
+    id: string;
+
+    /**
+     * @title status description
+     */
+    description: string;
+
+    /**
+     * @title status name
+     */
+    name: string & Placeholder<"해야 할 일">;
+
+    /**
+     * @title untranslated name
+     */
+    untranslatedName?: string;
+
+    /**
+     * @title status category
+     */
+    statusCategory: {
+      /**
+       * @title category id
+       */
+      id: number;
+
+      /**
+       * @title category key
+       */
+      key: string & Placeholder<"new">;
+    };
+  }
+
+  export interface IGetIssueStatusOutput {
+    statuses: (Pick<Status, "id" | "name" | "untranslatedName"> & {
+      projectId?: string;
+    })[];
+  }
+
+  export interface IGetIssueStatusInput extends BasicAuthorization {
+    /**
+     * @title id of project
+     *
+     * If the status does not have the project ID,
+     * it means this status is beyond the scope of the project and can be selected by the entire team.
+     * It can also be the default status created from the beginning by Jira.
+     */
+    projectId?: Project["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connectors/jira/get-projects";
+        jmesPath: "values[].{value:id,label:name}";
+      }>;
+  }
+
+  export interface IGetIssueCommonRequestInput {
     /**
      * @title key of project
      */
@@ -77,13 +132,153 @@ export namespace IJira {
         path: "/connector/jira/get-projects";
         jmesPath: "values[].{value:key, label:name}";
       }>;
+
+    /**
+     * @title issue type
+     */
+    issuetype?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-issue-types";
+        jmesPath: "[].{label:untranslatedName, value:untranslatedName}";
+      }>;
+
+    /**
+     * @title status
+     */
+    status?:
+      | tags.Constant<
+          "Open",
+          {
+            title: "Open";
+            description: "The issue is open and ready for the assignee to start work on it.";
+          }
+        >
+      | tags.Constant<
+          "In Progress",
+          {
+            title: "In Progress";
+            description: "This issue is being actively worked on at the moment by the assignee.";
+          }
+        >
+      | tags.Constant<
+          "Done",
+          { title: "완료"; description: "Work has finished on the issue." }
+        >
+      | tags.Constant<
+          "To Do",
+          {
+            title: "To Do";
+            description: "The issue has been reported and is waiting for the team to action it.";
+          }
+        >
+      | tags.Constant<
+          "In Review",
+          {
+            title: "In Review";
+            description: "The assignee has carried out the work needed on the issue, and it needs peer review before being considered done.";
+          }
+        >
+      | tags.Constant<
+          "Under review",
+          {
+            title: "Under review";
+            description: "A reviewer is currently assessing the work completed on the issue before considering it done.";
+          }
+        >
+      | tags.Constant<
+          "Approved",
+          {
+            title: "Approved";
+            description: "A reviewer has approved the work completed on the issue and the issue is considered done.";
+          }
+        >
+      | tags.Constant<
+          "Cancelled",
+          {
+            title: "Cancelled";
+            description: "Work has stopped on the issue and the issue is considered done.";
+          }
+        >
+      | tags.Constant<
+          "Rejected",
+          {
+            title: "Rejected";
+            description: "A reviewer has rejected the work completed on the issue and the issue is considered done.";
+          }
+        >;
+
+    /**
+     * @title name of assignee
+     */
+    assignee?: string;
+
+    /**
+     * @title Search for issues created after this date
+     */
+    created_start_date?: string & tags.Format<"date">;
+
+    /**
+     * @title Search for issues created after this date
+     */
+    created_end_date?: string & tags.Format<"date">;
   }
+
+  export interface IGetIssueInputByBasicAuth
+    extends BasicAuthorization,
+      ICommonPaginationInput,
+      IGetIssueCommonRequestInput {}
 
   export interface IGetIssueInputBySecretKey
     extends ISecret,
-      ICommonPaginationInput {
+      ICommonPaginationInput,
+      IGetIssueCommonRequestInput {}
+
+  export type IGetIssueAssignableOutput = Pick<
+    User,
+    "accountId" | "displayName" | "active"
+  >[];
+
+  export interface IGetIssueAssignableInput
+    extends ICommonPaginationInput,
+      BasicAuthorization {
     /**
      * @title key of project
+     *
+     * It refers to the key of the project to search for the user to be assigned.
+     */
+    project: Project["key"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-projects";
+        jmesPath: "values[].{value:key, label:name}";
+      }>;
+
+    /**
+     * @title key of issue
+     *
+     * It refers to the key of the issue to search for the user to be assigned.
+     */
+    issueKey: Issue["key"] &
+      Prerequisite<{
+        method: "post";
+        path: "connectors/jira/get-issues";
+        jmesPath: "issues[].{value:key, label:key}";
+      }>;
+  }
+
+  export type IGetProjectAssignableOutput = Pick<
+    User,
+    "accountId" | "displayName" | "active"
+  >[];
+
+  export interface IGetProjectAssignableInput
+    extends ICommonPaginationInput,
+      BasicAuthorization {
+    /**
+     * @title key of project
+     *
+     * It refers to the key of the project to search for the user to be assigned.
      */
     project_key: Project["key"] &
       Prerequisite<{
@@ -98,6 +293,25 @@ export namespace IJira {
      * @title Jira issue list
      */
     issues: Issue[];
+  }
+
+  export interface IGetIssueTypeOutput {
+    /**
+     * @title issue types in this projects
+     */
+    issuetypes: IssueType[];
+  }
+
+  export interface IGetIssueTypeInput extends BasicAuthorization {
+    /**
+     * @title id of project
+     */
+    projectId: Project["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connectors/jira/get-projects";
+        jmesPath: "values[].{value:id,label:name}";
+      }>;
   }
 
   export interface IGetProjectInputByBasicAuth
@@ -190,6 +404,27 @@ export namespace IJira {
     avartarUrl: string;
   }
 
+  export interface IssueType {
+    id: string;
+
+    /**
+     * @title issue type name
+     *
+     * It may be name, bug, story or etc.
+     */
+    name: string & Placeholder<"스토리">;
+
+    /**
+     * @title description
+     */
+    description: string;
+
+    /**
+     * @title whether is for substask issue type
+     */
+    subtask: boolean;
+  }
+
   export interface Issue {
     /**
      * @title The ID of the issue
@@ -225,48 +460,15 @@ export namespace IJira {
       /**
        * @title issue type
        */
-      issuetype?: {
-        id: string;
+      issuetype?: Pick<IssueType, "id" | "name">;
 
-        /**
-         * @title issue type name
-         *
-         * It may be name, bug, story or etc.
-         */
-        name: string & Placeholder<"스토리">;
-      };
-
-      status: {
-        /**
-         * @title status id
-         */
-        id: string;
-
-        /**
-         * @title status description
-         */
-        description: string;
-
-        /**
-         * @title status name
-         */
-        name: string & Placeholder<"해야 할 일">;
-
-        /**
-         * @title status category
-         */
-        statusCategory: {
-          /**
-           * @title category id
-           */
-          id: number;
-
-          /**
-           * @title category key
-           */
-          key: string & Placeholder<"new">;
-        };
-      };
+      /**
+       * @title status
+       */
+      status: Pick<
+        Status,
+        "id" | "name" | "description" | "statusCategory" | "untranslatedName"
+      >;
 
       /**
        * @title priority
@@ -275,7 +477,7 @@ export namespace IJira {
         /**
          * @title url of icon
          */
-        iconUrl: string & tags.Format<"uri">;
+        // iconUrl: string & tags.Format<"uri">;
 
         /**
          * @title priority name
@@ -318,9 +520,14 @@ export namespace IJira {
 
   export interface User {
     /**
+     * @title id of this user account
+     */
+    accountId: string;
+
+    /**
      * @title profile images of user
      */
-    avatarUrls: AvartarUrls;
+    // avatarUrls: AvartarUrls;
 
     /**
      * @title creator's name
@@ -337,7 +544,7 @@ export namespace IJira {
     /**
      * @title images of this project
      */
-    avatarUrls: AvartarUrls;
+    // avatarUrls: AvartarUrls;
 
     /**
      * @title id
