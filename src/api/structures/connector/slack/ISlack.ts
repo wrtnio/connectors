@@ -26,11 +26,23 @@ export namespace ISlack {
      * If you don't know the channel's ID, You need to view the channel first.
      */
     channel: Channel["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/slack/get-channel-histories";
-        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
-      }>;
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
 
     /**
      * @title scheduled message id to delete
@@ -68,11 +80,23 @@ export namespace ISlack {
      * If you don't know the channel's ID, You need to view the channel first.
      */
     channel: Channel["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/slack/get-channel-histories";
-        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
-      }>;
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
 
     /**
      * It means the 'ts' value of the chat you want to mark
@@ -204,11 +228,23 @@ export namespace ISlack {
      * If you don't know the channel's ID, You need to view the channel first.
      */
     channel: Channel["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/slack/get-channels";
-        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
-      }>;
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
 
     /**
      * @title message to send
@@ -302,11 +338,23 @@ export namespace ISlack {
      * This is a string that always begins with a capital letter 'C' or 'D'.
      */
     channel: Channel["id"] &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/slack/get-channels";
-        jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
-      }>;
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "channels[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
 
     /**
      * @title lastest
