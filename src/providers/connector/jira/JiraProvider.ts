@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
@@ -131,7 +131,7 @@ export class JiraProvider {
   ): Promise<IJira.IGetIssueTypeOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      const url = `${config.domain}/issuetype?project_id=${input.projectId}`;
+      const url = `${config.domain}/issuetype/project?projectId=${input.projectId}`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -309,6 +309,33 @@ export class JiraProvider {
       return res.data as { access_token: string };
     } catch (err) {
       console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createIssue(input: IJira.ICreateIssueInput) {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.post(
+        `${config.domain}/issue`,
+        {
+          fields: input.fields,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.log(JSON.stringify(err.response?.data));
+      }
       throw err;
     }
   }
