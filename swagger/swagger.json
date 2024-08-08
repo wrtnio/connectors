@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.96",
+    "version": "0.1.97",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -22458,7 +22458,6 @@
           "title",
           "link",
           "price",
-          "deliveryCost",
           "thumbnail"
         ],
         "title": "상품 검색 결과"
