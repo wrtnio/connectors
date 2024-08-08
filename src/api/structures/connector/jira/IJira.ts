@@ -108,9 +108,9 @@ export namespace IJira {
       assignee?: { id: User["accountId"] };
 
       description?: {
-        type: "doc";
-        version: 1;
-        content: ContentBody[];
+        type?: "doc";
+        version?: 1;
+        content: Content[];
       };
 
       duedate?: string & tags.Format<"date">;
@@ -316,29 +316,69 @@ export namespace IJira {
     fields: DetailedIssueField;
   }
 
-  export interface ContentBody {
-    /**
-     * @title content
-     * 
-     * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
-     * By combining each element in the array, you can understand the entire comment content.
-
-     */
-    content: Content[];
-  }
-
   /**
    * @title content with only text
    */
-  export type TextContent = { type: string; text: string };
+  export type TextContent = {
+    type: "text";
+    text: string;
+
+    /**
+     * @title marks
+     *
+     * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
+     */
+    marks?: (
+      | {
+          type: "code";
+        }
+      | {
+          type: string;
+          attrs?: { href: string };
+        }
+    )[];
+  };
 
   /**
-   * @title content with link
+   * @title content with mention
    */
-  export type AttrContent = {
-    type: string;
-    text?: string;
-    attrs?: { id: string; text: string };
+  export type MentionContent = {
+    type: "mention";
+    attrs: {
+      id?: string;
+      text: `@${string}`;
+      accessLevel?: string;
+    };
+  };
+
+  export type MediaContent = {
+    type: "mediaSingle";
+    content: {
+      type: "media";
+      attrs: {
+        /**
+         * @title type
+         *
+         * for example, 'file'
+         */
+        type: string;
+
+        /**
+         * @title image width
+         */
+        width?: number;
+
+        /**
+         * @title image height
+         */
+        height?: number;
+
+        /**
+         * if type is 'file' and image
+         */
+        alt?: string;
+      };
+    }[];
   };
 
   /**
@@ -351,22 +391,36 @@ export namespace IJira {
   };
 
   /**
-   * @title content with inner content
+   * @title code block
    */
-  export type RecursiveContent = {
-    type: string;
-    text?: string;
-    content?: any[]; // 재귀적인 타입
+  export type CodeBlockContent = {
+    type: "codeBlock";
+    attrs: {
+      /**
+       * @title programming language name
+       */
+      language: string;
+    };
+
+    content: TextContent[];
+  };
+
+  export type ParagraphContent = {
+    type: "paragraph";
+    attrs?: never;
+    content: TextContent[];
   };
 
   /**
    * @title content types
    */
   export type Content =
+    | CodeBlockContent
     | TextContent
-    | AttrContent
-    | MarkContent
-    | RecursiveContent;
+    | ParagraphContent
+    | MentionContent
+    | MediaContent
+    | MarkContent;
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
@@ -617,7 +671,7 @@ export namespace IJira {
     };
 
     description: null | {
-      content: ContentBody[];
+      content: Content[];
     };
   }
 
@@ -645,7 +699,7 @@ export namespace IJira {
        * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
        * By combining each element in the array, you can understand the entire comment content.
        */
-      content: ContentBody[];
+      content: Content[];
     };
 
     /**

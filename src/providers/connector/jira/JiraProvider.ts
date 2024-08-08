@@ -313,7 +313,9 @@ export class JiraProvider {
     }
   }
 
-  async createIssue(input: IJira.ICreateIssueInput) {
+  async createIssue(
+    input: IJira.ICreateIssueInput,
+  ): Promise<{ id: string; key: string }> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.post(
