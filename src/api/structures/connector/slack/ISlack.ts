@@ -224,8 +224,11 @@ export namespace ISlack {
      * If not entered, use 100 as the default.
      * This should never be null. If you don't have a value, don't forward properties.
      *
-     * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200
+     * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200.
      * If there is a user's request and there is a section that is cumbersome to page, you can enter 200.
+     *
+     * Since it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.
+     * Alternatively, it is also helpful to get a date to inquire from the user.
      */
     limit?: number &
       tags.Type<"int32"> &
