@@ -9,6 +9,23 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
+   * Provides more accurate and detailed information, including the title and body of the issue
+   *
+   * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
+   * If you do not know the key or ID, it is recommended to use the issue inquiry connector first.
+   *
+   * @summary get detailed Issue Information
+   * @param input
+   * @returns Detailed Issue Information
+   */
+  @core.TypedRoute.Post("get-issue-detail")
+  async getIssueDetail(
+    @TypedBody() input: IJira.IGetIssueDetailInput,
+  ): Promise<IJira.IGetIssueDetailOutput> {
+    return this.jiraProvider.getIssueDetail(input);
+  }
+
+  /**
    * Find Jira issues
    *
    * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
@@ -49,6 +66,30 @@ export class JiraController {
     return this.jiraProvider.getProjects(input);
   }
 
+  /**
+   * Find issue labels like as 'story', 'bug' and so on.
+   *
+   * @summary Find issue labels
+   * @param input
+   * @returns paginated list of labels
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-labels")
+  async getIssueLabels(
+    @TypedBody() input: IJira.IGetIssueLabelInput,
+  ): Promise<IJira.IGetIssueLabelOutput> {
+    return this.jiraProvider.getIssueLabels(input);
+  }
+
+  /**
+   * Find issue types like as 'story', 'bug' and so on.
+   *
+   * @summary Find issue types
+   * @param input
+   * @returns issue types
+   */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
@@ -64,7 +105,7 @@ export class JiraController {
    *
    * @summary Find issue statuses
    * @param input
-   * @returns
+   * @returns issue statuses
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
@@ -77,11 +118,31 @@ export class JiraController {
   }
 
   /**
+   * There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.
+   * Therefore, it can be used as an enum value without requesting this API,
+   * and this API is already deprecated on the Jira REST API document.
+   * However, for projects that can already be specified by creating a priority level, this connector is added just in case.
+   *
+   * @summary Inquire the priority levels that can be assigned to the issue.
+   * @param input
+   * @returns issue priorities
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-priorities")
+  async getIssuePriorities(
+    @TypedBody() input: IJira.IGetIssuePriorityInput,
+  ): Promise<IJira.IGetIssuePriorityOutput> {
+    return this.jiraProvider.getIssuePriorities(input);
+  }
+
+  /**
    * Find a person within the issue who can be assigned as assignee.
    *
    * @summary Find assignable users in issue
    * @param input
-   * @returns
+   * @returns assignable users
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
@@ -98,7 +159,7 @@ export class JiraController {
    *
    * @summary Find assignable users in project
    * @param input
-   * @returns
+   * @returns assignable users
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,

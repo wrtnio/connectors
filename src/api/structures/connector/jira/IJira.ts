@@ -47,16 +47,19 @@ export namespace IJira {
 
     /**
      * The maximum number of items to return per page.
+     * In the issue, it seems that up to 100 can be viewed at a time.
      *
      * @title max results
      */
-    maxResults?: number &
-      tags.Type<"int32"> &
-      tags.Default<50> &
-      tags.Maximum<100>; // maybe it's maximum value is 100
+    maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
   }
 
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
+    /**
+     * @title Wheather is last page
+     */
+    isLast?: boolean;
+
     /**
      * @title total count
      */
@@ -99,6 +102,21 @@ export namespace IJira {
       key: string & Placeholder<"new">;
     };
   }
+
+  export interface IGetIssueLabelOutput extends ICommonPaginationOutput {
+    /**
+     * @title label list
+     */
+    values: string[];
+  }
+
+  export interface IGetIssueLabelInput
+    extends BasicAuthorization,
+      ICommonPaginationInput {}
+
+  export type IGetIssuePriorityOutput = Pick<Priority, "id" | "name">[];
+
+  export type IGetIssuePriorityInput = BasicAuthorization;
 
   export interface IGetIssueStatusOutput {
     statuses: (Pick<Status, "id" | "name" | "untranslatedName"> & {
@@ -234,6 +252,99 @@ export namespace IJira {
      * It is a keyword you want to find in the title or explanation of an issue, which is useful when searching.
      */
     keyword?: string;
+
+    /**
+     * @title priority name
+     *
+     * If you want to search based on priority, deliver the name of the priority.
+     * There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.
+     * Although it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.
+     * It also exists as our connector, so use it if necessary.
+     */
+    priority?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-issue-priorities";
+        jmesPath: "[].{value:name, label:name}";
+      }>;
+
+    /**
+     * @title label titles
+     *
+     * Complex searches are possible using various labels.
+     */
+    labels?: string[];
+  }
+
+  export interface IGetIssueDetailOutput extends Issue {
+    /**
+     * @title labels attached to the issue
+     */
+    labels?: string[];
+
+    /**
+     * @title Details of the issue
+     */
+    fields: DetailedIssueField;
+  }
+
+  export interface ContentBody {
+    /**
+     * @title content
+     * 
+     * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
+     * By combining each element in the array, you can understand the entire comment content.
+
+     */
+    content: Content[];
+  }
+
+  /**
+   * @title content with only text
+   */
+  export type TextContent = { type: string; text: string };
+
+  /**
+   * @title content with link
+   */
+  export type AttrContent = {
+    type: string;
+    text?: string;
+    attrs?: { id: string; text: string };
+  };
+
+  /**
+   * @title content with maybe marks
+   */
+  export type MarkContent = {
+    type: string;
+    text?: string;
+    marks?: { type: string; attrs: { href: string } }[];
+  };
+
+  /**
+   * @title content with inner content
+   */
+  export type RecursiveContent = {
+    type: string;
+    text?: string;
+    content?: any[]; // 재귀적인 타입
+  };
+
+  /**
+   * @title content types
+   */
+  export type Content =
+    | TextContent
+    | AttrContent
+    | MarkContent
+    | RecursiveContent;
+
+  export interface IGetIssueDetailInput extends BasicAuthorization {
+    /**
+     * @title id or key
+     */
+    issueIdOrKey: string;
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -304,7 +415,7 @@ export namespace IJira {
     /**
      * @title Jira issue list
      */
-    issues: Issue[];
+    issues: Pick<Issue, "fields" | "id" | "key">[];
   }
 
   export interface IGetIssueTypeOutput {
@@ -397,11 +508,6 @@ export namespace IJira {
    */
   export interface IGetProjectOutput extends ICommonPaginationOutput {
     /**
-     * @title Wheather is last page
-     */
-    isLast: boolean;
-
-    /**
      * @title Jira project list
      */
     values: IJira.Project[];
@@ -448,67 +554,126 @@ export namespace IJira {
      */
     key: string;
 
-    fields: {
-      /**
-       * @title reporter
-       */
-      reporter?: User | null;
+    /**
+     * @title fields
+     */
+    fields: IssueField;
+  }
 
+  export interface DetailedIssueField extends IssueField {
+    /**
+     * @title comment infomation
+     */
+    comment: {
       /**
-       * @title creator
+       * @title Number of comments viewed at one time
        */
-      creator?: User | null;
-
-      /**
-       * @title assignee
-       */
-      assignee?: User | null;
-
-      /**
-       * @title summary
-       */
-      summary?: string;
+      maxResults: number;
 
       /**
-       * @title issue type
+       * @title Total count of comments
        */
-      issuetype?: Pick<IssueType, "id" | "name">;
+      total: number;
 
       /**
-       * @title status
+       * The index of the first item to return in a page of results (page offset).
+       *
+       * @title page offset
        */
-      status: Pick<
-        Status,
-        "id" | "name" | "description" | "statusCategory" | "untranslatedName"
-      >;
+      startAt: number;
 
       /**
-       * @title priority
+       * @title list of comments
        */
-      priority: {
-        /**
-         * @title url of icon
-         */
-        // iconUrl: string & tags.Format<"uri">;
-
-        /**
-         * @title priority name
-         *
-         * It may be Low, Medium, High.
-         */
-        name: string;
-
-        /**
-         * @title id
-         */
-        id: string;
-      };
-
-      /**
-       * @title parent of this issue
-       */
-      parent?: Parent;
+      comments: Comment[];
     };
+
+    description: null | {
+      content: ContentBody[];
+    };
+  }
+
+  export interface Comment {
+    /**
+     * @title id of comment
+     */
+    id: string;
+
+    /**
+     * @title author of this comment
+     */
+    author: Pick<User, "accountId" | "active" | "displayName">;
+
+    /**
+     * @title who updates this comment
+     */
+    updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
+
+    /**
+     * @title body of comment
+     */
+    body: {
+      /**
+       * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
+       * By combining each element in the array, you can understand the entire comment content.
+       */
+      content: ContentBody[];
+    };
+
+    /**
+     * @title created time of this comment
+     */
+    created: string;
+
+    /**
+     * @title updated time of this comment
+     */
+    updated: string;
+  }
+
+  export interface IssueField {
+    /**
+     * @title reporter
+     */
+    reporter?: User | null;
+
+    /**
+     * @title creator
+     */
+    creator?: User | null;
+
+    /**
+     * @title assignee
+     */
+    assignee?: User | null;
+
+    /**
+     * @title summary
+     */
+    summary?: string;
+
+    /**
+     * @title issue type
+     */
+    issuetype?: Pick<IssueType, "id" | "name">;
+
+    /**
+     * @title status
+     */
+    status: Pick<
+      Status,
+      "id" | "name" | "description" | "statusCategory" | "untranslatedName"
+    >;
+
+    /**
+     * @title priority
+     */
+    priority: Pick<Priority, "id" | "name">;
+
+    /**
+     * @title parent of this issue
+     */
+    parent?: Parent;
   }
 
   export interface Parent {
@@ -616,5 +781,32 @@ export namespace IJira {
      * @title "48x48" size image
      */
     "48x48": string & tags.Format<"uri">;
+  }
+
+  /**
+   * @title priority
+   */
+  export interface Priority {
+    /**
+     * @title url of icon
+     */
+    // iconUrl: string & tags.Format<"uri">;
+
+    /**
+     * @title priority name
+     *
+     * It may be Low, Medium, High.
+     */
+    name: string;
+
+    /**
+     * @title id
+     */
+    id: string;
+
+    /**
+     * @title meaning of this priority level
+     */
+    description: string;
   }
 }

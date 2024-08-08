@@ -224,8 +224,11 @@ export namespace ISlack {
      * If not entered, use 100 as the default.
      * This should never be null. If you don't have a value, don't forward properties.
      *
-     * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200
+     * In reality, the value can be from 1 to 1000, so the recommendation is a number over 200.
      * If there is a user's request and there is a section that is cumbersome to page, you can enter 200.
+     *
+     * Since it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.
+     * Alternatively, it is also helpful to get a date to inquire from the user.
      */
     limit?: number &
       tags.Type<"int32"> &
@@ -309,6 +312,7 @@ export namespace ISlack {
      * @title lastest
      *
      * Only messages before this Unix timestamp will be included in results. Default is the current time.
+     * Slack's own timestamp format.
      * for example, '1234567890.123456'
      */
     latest?: number & Placeholder<"1234567890.123456">;
@@ -317,9 +321,28 @@ export namespace ISlack {
      * @title oldest
      *
      * Only messages after this Unix timestamp will be included in results.
+     * Slack's own timestamp format.
      * for example, '1234567890.123456'
      */
     oldest?: number & tags.Default<0> & Placeholder<"1234567890.123456">;
+
+    /**
+     * @title latestTimestamp
+     *
+     * Only messages before this Unix timestamp will be included in results. Default is the current time.
+     * It can be obtained through `Date.getTime()` as a commonly thought timestamp value.
+     * If it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `lastest` property is present together.
+     */
+    latestTimestamp?: number;
+
+    /**
+     * @title oldestTimestamp
+     *
+     * Only messages after this Unix timestamp will be included in results.
+     * It can be obtained through `Date.getTime()` as a commonly thought timestamp value.
+     * If it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together.
+     */
+    oldestTimestamp?: number;
   }
 
   /**

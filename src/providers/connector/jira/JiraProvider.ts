@@ -88,6 +88,44 @@ export class JiraProvider {
     }
   }
 
+  async getIssueLabels(
+    input: IJira.IGetIssueLabelInput,
+  ): Promise<IJira.IGetIssueLabelOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const url = `${config.domain}/label`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getIssuePriorities(
+    input: IJira.IGetIssuePriorityInput,
+  ): Promise<IJira.IGetIssuePriorityOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const url = `${config.domain}/priority`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getIssueTypes(
     input: IJira.IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
@@ -134,6 +172,28 @@ export class JiraProvider {
     }
   }
 
+  async getIssueDetail(
+    input: IJira.IGetIssueDetailInput,
+  ): Promise<IJira.IGetIssueDetailOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(
+        `${config.domain}/issue/${input.issueIdOrKey}`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getIssues(
     input: IJira.IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
   ): Promise<IJira.IGetIssueOutput> {
@@ -148,6 +208,8 @@ export class JiraProvider {
           ${input.status ? ` AND status = "${input.status}" ` : ""}
           ${input.assignee ? ` AND assignee = "${input.assignee}" ` : ""}
           ${input.reporter ? ` AND reporter = "${input.reporter}" ` : ""}
+          ${input.priority ? ` AND priority = "${input.priority}" ` : ""}
+          ${input.labels?.length ? ` AND labels IN (${input.labels.map((label) => `"${label}"`)}) ` : ""}
           ${input.created_start_date ? ` AND created >= "${input.created_start_date}" ` : ""}
           ${input.created_end_date ? ` AND created < "${input.created_end_date}" ` : ""}
           ${input.keyword ? ` AND text ~ "${input.keyword}" ` : ""}
