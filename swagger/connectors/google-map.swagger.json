@@ -1,0 +1,293 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Google Map",
+    "version": "0.1.94",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-map": {
+      "post": {
+        "tags": [
+          "Google map"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "맛집을 검색할 검색어",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleMap.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "맛집 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleMap.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글맵 맛집 검색",
+        "description": "구글맵을 사용하여 맛집을 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_map.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-map/review": {
+      "post": {
+        "tags": [
+          "Google map"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "맛집의 고유 id",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleMap.IReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "맛집 리뷰 검색 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleMap.IReviewResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "구글맵 맛집 리뷰 검색",
+        "description": "구글맵에서 선택한 맛집 리뷰를 검색합니다.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_map.svg",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleMap.IRequest": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "x-wrtn-placeholder": "강남역 맛집",
+            "title": "검색어",
+            "description": "검색어를 입력해주세요"
+          }
+        },
+        "required": [
+          "keyword"
+        ],
+        "title": "구글 맵 맛집 검색을 위한 정보"
+      },
+      "IGoogleMap.IResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "이름",
+            "description": "맛집 이름입니다."
+          },
+          "place_id": {
+            "type": "string",
+            "title": "고유 id",
+            "description": "맛집 고유 id입니다.\n\n리뷰를 검색하기 위해 필요한 정보입니다."
+          },
+          "gps_coordinate": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "title": "위도",
+                "description": "맛집 좌표상 위도입니다."
+              },
+              "longitude": {
+                "type": "number",
+                "title": "경도",
+                "description": "맛집 좌표상 경도입니다."
+              }
+            },
+            "required": [
+              "latitude",
+              "longitude"
+            ],
+            "title": "좌표",
+            "description": "맛집 좌표입니다."
+          },
+          "rating": {
+            "type": "number",
+            "title": "평점",
+            "description": "맛집 평점입니다."
+          },
+          "reviews": {
+            "type": "number",
+            "title": "리뷰 수",
+            "description": "맛집 리뷰 수 입니다."
+          },
+          "address": {
+            "type": "string",
+            "title": "주소",
+            "description": "맛집 주소 입니다."
+          },
+          "open_state": {
+            "type": "string",
+            "title": "운영 정보",
+            "description": "맛집이 현재 운영중인지에 대한 정보입니다."
+          },
+          "operating_hours": {
+            "type": "object",
+            "properties": {},
+            "title": "운영 시간 정보",
+            "description": "맛집 운영 시간 정보입니다.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "phone_number": {
+            "type": "string",
+            "title": "전화번호",
+            "description": "맛집 전화번호입니다."
+          },
+          "service_options": {
+            "type": "object",
+            "properties": {},
+            "title": "서비스 옵션",
+            "description": "맛집에서 제공하는 서비스 옵션입니다.",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "user_review": {
+            "type": "string",
+            "title": "유저 리뷰",
+            "description": "맛집 유저 리뷰 입니다."
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "이미지",
+            "description": "맛집 썸네일 이미지 입니다."
+          }
+        },
+        "required": [
+          "title",
+          "place_id",
+          "gps_coordinate",
+          "address",
+          "thumbnail"
+        ],
+        "title": "구글 맵 맛집 검색 결과"
+      },
+      "IGoogleMap.IReviewRequest": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-map/search",
+              "jmesPath": "[].{value:place_id, label:place_id}"
+            }
+          }
+        },
+        "required": [
+          "place_id"
+        ]
+      },
+      "IGoogleMap.IReviewResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "작성자 이름",
+            "description": "리뷰 작성자 이름입니다."
+          },
+          "rating": {
+            "type": "number",
+            "title": "리뷰 평점",
+            "description": "리뷰 평점입니다."
+          },
+          "description": {
+            "type": "string",
+            "title": "리뷰 내용",
+            "description": "리뷰 내용입니다."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "title": "리뷰 링크",
+            "description": "리뷰 링크입니다."
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "title": "리뷰 이미지",
+            "description": "리뷰에 등록된 이미지입니다."
+          },
+          "date": {
+            "type": "string",
+            "title": "리뷰 날짜",
+            "description": "리뷰가 작성된 날짜입니다."
+          }
+        },
+        "required": [
+          "username",
+          "rating",
+          "description",
+          "link",
+          "images",
+          "date"
+        ],
+        "title": "리뷰 조회 결과"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google map"
+    }
+  ],
+  "x-samchon-emended": true
+}
