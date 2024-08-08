@@ -53,7 +53,7 @@ export namespace IGoogleShopping {
     /**
      * @title 상품 출처
      */
-    source: string;
+    source?: string;
 
     /**
      * @title 배송비
