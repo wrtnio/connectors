@@ -277,31 +277,63 @@ export namespace IJira {
   }
 
   export interface IGetIssueDetailOutput extends Issue {
+    /**
+     * @title labels attached to the issue
+     */
     labels?: string[];
 
+    /**
+     * @title Details of the issue
+     */
     fields: DetailedIssueField;
   }
 
   export interface ContentBody {
+    /**
+     * @title content
+     * 
+     * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
+     * By combining each element in the array, you can understand the entire comment content.
+
+     */
     content: Content[];
   }
 
+  /**
+   * @title content with only text
+   */
   export type TextContent = { type: string; text: string };
+
+  /**
+   * @title content with link
+   */
   export type AttrContent = {
     type: string;
     text?: string;
     attrs?: { id: string; text: string };
   };
+
+  /**
+   * @title content with maybe marks
+   */
   export type MarkContent = {
     type: string;
     text?: string;
     marks?: { type: string; attrs: { href: string } }[];
   };
+
+  /**
+   * @title content with inner content
+   */
   export type RecursiveContent = {
     type: string;
     text?: string;
     content?: any[]; // 재귀적인 타입
   };
+
+  /**
+   * @title content types
+   */
   export type Content =
     | TextContent
     | AttrContent
@@ -529,10 +561,30 @@ export namespace IJira {
   }
 
   export interface DetailedIssueField extends IssueField {
+    /**
+     * @title comment infomation
+     */
     comment: {
+      /**
+       * @title Number of comments viewed at one time
+       */
       maxResults: number;
+
+      /**
+       * @title Total count of comments
+       */
       total: number;
+
+      /**
+       * The index of the first item to return in a page of results (page offset).
+       *
+       * @title page offset
+       */
       startAt: number;
+
+      /**
+       * @title list of comments
+       */
       comments: Comment[];
     };
 
@@ -542,13 +594,40 @@ export namespace IJira {
   }
 
   export interface Comment {
+    /**
+     * @title id of comment
+     */
     id: string;
+
+    /**
+     * @title author of this comment
+     */
     author: Pick<User, "accountId" | "active" | "displayName">;
+
+    /**
+     * @title who updates this comment
+     */
     updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
+
+    /**
+     * @title body of comment
+     */
     body: {
+      /**
+       * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
+       * By combining each element in the array, you can understand the entire comment content.
+       */
       content: ContentBody[];
     };
+
+    /**
+     * @title created time of this comment
+     */
     created: string;
+
+    /**
+     * @title updated time of this comment
+     */
     updated: string;
   }
 

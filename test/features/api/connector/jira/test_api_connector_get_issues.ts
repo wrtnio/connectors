@@ -307,3 +307,50 @@ export const test_api_connector_jira_get_issues_with_empty_labels = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_jira_get_one_detailed_issue = async (
+  connection: CApi.IConnection,
+) => {
+  const projects = await test_api_connector_jira_get_projects(connection);
+  assert(projects.length >= 1);
+
+  const res = await CApi.functional.connector.jira.get_issues.getIssues(
+    connection,
+    {
+      email: "studio@wrtn.io",
+      apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+      domain: "https://wrtn-ecosystem.atlassian.net",
+      project_key: projects[0].key,
+    },
+  );
+
+  typia.assertEquals(res);
+
+  for await (const issue of res.issues.slice(0, 10)) {
+    const foundIssueById =
+      await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
+        connection,
+        {
+          email: "studio@wrtn.io",
+          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+          domain: "https://wrtn-ecosystem.atlassian.net",
+          issueIdOrKey: issue.id,
+        },
+      );
+
+    typia.assertEquals(foundIssueById);
+
+    const foundIssueByKey =
+      await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
+        connection,
+        {
+          email: "studio@wrtn.io",
+          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+          domain: "https://wrtn-ecosystem.atlassian.net",
+          issueIdOrKey: issue.key,
+        },
+      );
+
+    typia.assertEquals(foundIssueByKey);
+  }
+};
