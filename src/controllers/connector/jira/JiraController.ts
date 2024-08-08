@@ -49,6 +49,30 @@ export class JiraController {
     return this.jiraProvider.getProjects(input);
   }
 
+  /**
+   * Find issue labels like as 'story', 'bug' and so on.
+   *
+   * @summary Find issue labels
+   * @param input
+   * @returns paginated list of labels
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-labels")
+  async getIssueLabels(
+    @TypedBody() input: IJira.IGetIssueLabelInput,
+  ): Promise<IJira.IGetIssueLabelOutput> {
+    return this.jiraProvider.getIssueLabels(input);
+  }
+
+  /**
+   * Find issue types like as 'story', 'bug' and so on.
+   *
+   * @summary Find issue types
+   * @param input
+   * @returns issue types
+   */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
@@ -64,7 +88,7 @@ export class JiraController {
    *
    * @summary Find issue statuses
    * @param input
-   * @returns
+   * @returns issue statuses
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
@@ -84,7 +108,7 @@ export class JiraController {
    *
    * @summary Inquire the priority levels that can be assigned to the issue.
    * @param input
-   * @returns
+   * @returns issue priorities
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
@@ -101,7 +125,7 @@ export class JiraController {
    *
    * @summary Find assignable users in issue
    * @param input
-   * @returns
+   * @returns assignable users
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
@@ -118,7 +142,7 @@ export class JiraController {
    *
    * @summary Find assignable users in project
    * @param input
-   * @returns
+   * @returns assignable users
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,

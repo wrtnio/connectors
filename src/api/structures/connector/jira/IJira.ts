@@ -47,16 +47,19 @@ export namespace IJira {
 
     /**
      * The maximum number of items to return per page.
+     * In the issue, it seems that up to 100 can be viewed at a time.
      *
      * @title max results
      */
-    maxResults?: number &
-      tags.Type<"int32"> &
-      tags.Default<50> &
-      tags.Maximum<100>; // maybe it's maximum value is 100
+    maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
   }
 
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
+    /**
+     * @title Wheather is last page
+     */
+    isLast?: boolean;
+
     /**
      * @title total count
      */
@@ -99,6 +102,17 @@ export namespace IJira {
       key: string & Placeholder<"new">;
     };
   }
+
+  export interface IGetIssueLabelOutput extends ICommonPaginationOutput {
+    /**
+     * @title label list
+     */
+    values: string[];
+  }
+
+  export interface IGetIssueLabelInput
+    extends BasicAuthorization,
+      ICommonPaginationInput {}
 
   export type IGetIssuePriorityOutput = Pick<Priority, "id" | "name">[];
 
@@ -253,6 +267,13 @@ export namespace IJira {
         path: "/connector/jira/get-issue-priorities";
         jmesPath: "[].{value:name, label:name}";
       }>;
+
+    /**
+     * @title label titles
+     *
+     * Complex searches are possible using various labels.
+     */
+    labels?: string[];
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -415,11 +436,6 @@ export namespace IJira {
    * @title output of getting Jira projects
    */
   export interface IGetProjectOutput extends ICommonPaginationOutput {
-    /**
-     * @title Wheather is last page
-     */
-    isLast: boolean;
-
     /**
      * @title Jira project list
      */
