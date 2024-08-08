@@ -103,30 +103,160 @@ export namespace IJira {
     };
   }
 
+  export interface ICreateIssueOutput {
+    /**
+     * @title ID of the issue that was created just now
+     */
+    id: Issue["id"];
+
+    /**
+     * @title Key of the issue that was created just now
+     */
+    key: Issue["key"];
+  }
+
   export interface ICreateIssueInput extends BasicAuthorization {
     fields: {
-      assignee?: { id: User["accountId"] };
-
-      description?: {
-        type: "doc";
-        version: 1;
-        content: ContentBody[];
+      /**
+       * @title Specify a representative at the same time as you create
+       */
+      assignee?: {
+        /**
+         * @title accountId of the user you want to designate as the person in charge
+         */
+        id: User["accountId"] &
+          (
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/issues/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/project/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+          );
       };
 
+      /**
+       * @title description
+       *
+       * The content of the Jira issue consists of a combination of various contents.
+       */
+      description?: {
+        /**
+         * @title type of description
+         *
+         * Allow doc type only Now
+         */
+        type: "doc";
+
+        /**
+         * @title version
+         */
+        version: 1;
+
+        /**
+         * @title contents of description
+         */
+        content: Content[];
+      };
+
+      /**
+       * @title due date
+       *
+       * date format type
+       */
       duedate?: string & tags.Format<"date">;
 
-      issuetype: { id: IssueType["id"] };
+      /**
+       * @title id of issue
+       */
+      issuetype: {
+        id: IssueType["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-types";
+            jmesPath: "issuetypes[].{value:id, label:name}";
+          }>;
+      };
 
+      /**
+       * @title labels
+       */
       labels?: string[];
 
-      parent?: { key: Issue["key"] };
+      /**
+       * @title parent of this issue
+       */
+      parent?: {
+        key: Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>;
+      };
 
-      priority?: { id: Priority["id"] };
+      /**
+       * @title priority
+       */
+      priority?: {
+        id: Priority["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-priorities";
+            jmesPath: "[].{value:id, label:name}";
+          }>;
+      };
 
-      project: { id: Project["id"] } | { key: Project["key"] };
+      /**
+       * @title project
+       */
+      project:
+        | {
+            id: Project["id"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-projects";
+                jmesPath: "[].{value:id, label:name}";
+              }>;
+          }
+        | {
+            key: Project["key"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-project";
+                jmesPath: "[].{value:key, label:name}";
+              }>;
+          };
 
-      reporter?: { id: User["accountId"] };
+      /**
+       * @title reporter
+       */
+      reporter?: {
+        id: User["accountId"] &
+          (
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/issues/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/project/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+          );
+      };
 
+      /**
+       * @title summary
+       *
+       * Meaning the title of the issue.
+       * Make sure you write a sentence that best represents this issue.
+       */
       summary: string;
     };
   }
@@ -316,57 +446,185 @@ export namespace IJira {
     fields: DetailedIssueField;
   }
 
-  export interface ContentBody {
-    /**
-     * @title content
-     * 
-     * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
-     * By combining each element in the array, you can understand the entire comment content.
-
-     */
-    content: Content[];
-  }
-
   /**
    * @title content with only text
    */
-  export type TextContent = { type: string; text: string };
+  export type TextContent = {
+    /**
+     * @title text type
+     */
+    type: "text";
+
+    /**
+     * @title content of this text content
+     */
+    text: string;
+
+    /**
+     * @title marks
+     *
+     * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
+     */
+    marks?:
+      | [
+          {
+            type: "code";
+          },
+        ]
+      | {
+          type: "link";
+          attrs: { href: string };
+        }[];
+  };
 
   /**
-   * @title content with link
+   * @title content with mention
    */
-  export type AttrContent = {
-    type: string;
-    text?: string;
-    attrs?: { id: string; text: string };
+  export type MentionContent = {
+    /**
+     * @title mention type
+     */
+    type: "mention";
+
+    text?: never;
+
+    /**
+     * @title content of this mention content
+     */
+    attrs: {
+      /**
+       * @title id
+       *
+       * add any string like as uuid
+       */
+      id?: string;
+
+      /**
+       * @title Who is mentioned
+       *
+       * It means a string that connects @ and the user's name
+       */
+      text: `@${string}`;
+
+      /**
+       * @title accessLevel
+       */
+      accessLevel?: string;
+    };
+  };
+
+  export type MediaContent = {
+    /**
+     * @title mediaSingle type
+     */
+    type: "mediaSingle";
+
+    /**
+     * @title media
+     */
+    content: {
+      /**
+       * @title media
+       */
+      type: "media";
+      attrs: {
+        /**
+         * @title type
+         *
+         * for example, 'file'
+         * but I'dont know what type is.
+         */
+        type: string;
+
+        /**
+         * @title image width
+         */
+        width?: number;
+
+        /**
+         * @title image height
+         */
+        height?: number;
+
+        /**
+         * if type is 'file' and image
+         */
+        alt?: string;
+      };
+    }[];
   };
 
   /**
    * @title content with maybe marks
    */
-  export type MarkContent = {
-    type: string;
-    text?: string;
-    marks?: { type: string; attrs: { href: string } }[];
+  // export type MarkContent = {
+  //   type: string;
+  //   text?: string;
+  //   marks?: { type: string; attrs: { href: string } }[];
+  // };
+
+  /**
+   * @title code block
+   */
+  export type CodeBlockContent = {
+    type: "codeBlock";
+
+    /**
+     * @title attrs
+     *
+     * If you do not specify a programming language, this property may not exist.
+     */
+    attrs?: {
+      /**
+       * @title programming language name
+       */
+      language: string;
+    };
+
+    /**
+     * @title code content
+     */
+    content: Pick<TextContent, "text" | "type">[];
   };
 
   /**
-   * @title content with inner content
+   * @title paragraph type
    */
-  export type RecursiveContent = {
-    type: string;
-    text?: string;
-    content?: any[]; // 재귀적인 타입
+  export type ParagraphContent = {
+    /**
+     * @title paragraph type
+     */
+    type: "paragraph";
+
+    attrs?: never;
+
+    /**
+     * @title content
+     *
+     * If you want to make a new line, there will be an empty array.
+     */
+    content: (TextContent | MentionContent)[];
+  };
+
+  export type BlockquoteType = {
+    /**
+     * @title blockquote type
+     */
+    type: "blockquote";
+
+    content: ParagraphContent[];
   };
 
   /**
    * @title content types
    */
   export type Content =
+    | CodeBlockContent
     | TextContent
-    | AttrContent
-    | MarkContent
-    | RecursiveContent;
+    | ParagraphContent
+    | MentionContent
+    | MediaContent
+    | BlockquoteType;
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
@@ -617,7 +875,7 @@ export namespace IJira {
     };
 
     description: null | {
-      content: ContentBody[];
+      content: Content[];
     };
   }
 
@@ -645,7 +903,7 @@ export namespace IJira {
        * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
        * By combining each element in the array, you can understand the entire comment content.
        */
-      content: ContentBody[];
+      content: Content[];
     };
 
     /**

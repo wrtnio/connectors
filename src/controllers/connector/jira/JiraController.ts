@@ -9,6 +9,21 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
+   * Create an issue.
+   * Issue type, project, and summary are essential properties.
+   *
+   * @summary create issue in jira
+   * @param input issue information to create
+   * @returns id and key of created issue
+   */
+  @core.TypedRoute.Post("issues")
+  async createIssue(
+    @TypedBody() input: IJira.ICreateIssueInput,
+  ): Promise<IJira.ICreateIssueOutput> {
+    return this.jiraProvider.createIssue(input);
+  }
+
+  /**
    * Provides more accurate and detailed information, including the title and body of the issue
    *
    * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
