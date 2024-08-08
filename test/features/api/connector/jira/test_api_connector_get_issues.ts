@@ -197,3 +197,37 @@ export const test_api_connector_jira_get_users_assignable_in_issue = async (
 
   typia.assertEquals(user);
 };
+
+export const test_api_connector_jira_get_issues_with_priority = async (
+  connection: CApi.IConnection,
+) => {
+  const projects = await test_api_connector_jira_get_projects(connection);
+  assert(projects.length >= 1);
+
+  const projectKey = projects[0].key;
+
+  const priorities =
+    await CApi.functional.connector.jira.get_issue_priorities.getIssuePriorities(
+      connection,
+      {
+        email: "studio@wrtn.io",
+        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+        domain: "https://wrtn-ecosystem.atlassian.net",
+      },
+    );
+
+  for (const priority of priorities) {
+    const res = await CApi.functional.connector.jira.get_issues.getIssues(
+      connection,
+      {
+        email: "studio@wrtn.io",
+        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+        domain: "https://wrtn-ecosystem.atlassian.net",
+        project_key: projectKey,
+        priority: priority.name,
+      },
+    );
+
+    typia.assertEquals(res);
+  }
+};

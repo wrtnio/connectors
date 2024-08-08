@@ -77,6 +77,26 @@ export class JiraController {
   }
 
   /**
+   * There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.
+   * Therefore, it can be used as an enum value without requesting this API,
+   * and this API is already deprecated on the Jira REST API document.
+   * However, for projects that can already be specified by creating a priority level, this connector is added just in case.
+   *
+   * @summary Inquire the priority levels that can be assigned to the issue.
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-issue-priorities")
+  async getIssuePriorities(
+    @TypedBody() input: IJira.IGetIssuePriorityInput,
+  ): Promise<IJira.IGetIssuePriorityOutput> {
+    return this.jiraProvider.getIssuePriorities(input);
+  }
+
+  /**
    * Find a person within the issue who can be assigned as assignee.
    *
    * @summary Find assignable users in issue

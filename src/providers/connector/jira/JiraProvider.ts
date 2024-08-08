@@ -88,6 +88,25 @@ export class JiraProvider {
     }
   }
 
+  async getIssuePriorities(
+    input: IJira.IGetIssuePriorityInput,
+  ): Promise<IJira.IGetIssuePriorityOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const url = `${config.domain}/priority`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: config.Authorization,
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getIssueTypes(
     input: IJira.IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
@@ -148,6 +167,7 @@ export class JiraProvider {
           ${input.status ? ` AND status = "${input.status}" ` : ""}
           ${input.assignee ? ` AND assignee = "${input.assignee}" ` : ""}
           ${input.reporter ? ` AND reporter = "${input.reporter}" ` : ""}
+          ${input.priority ? ` AND priority = "${input.priority}" ` : ""}
           ${input.created_start_date ? ` AND created >= "${input.created_start_date}" ` : ""}
           ${input.created_end_date ? ` AND created < "${input.created_end_date}" ` : ""}
           ${input.keyword ? ` AND text ~ "${input.keyword}" ` : ""}

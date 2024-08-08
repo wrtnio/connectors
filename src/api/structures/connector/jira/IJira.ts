@@ -100,6 +100,10 @@ export namespace IJira {
     };
   }
 
+  export type IGetIssuePriorityOutput = Pick<Priority, "id" | "name">[];
+
+  export type IGetIssuePriorityInput = BasicAuthorization;
+
   export interface IGetIssueStatusOutput {
     statuses: (Pick<Status, "id" | "name" | "untranslatedName"> & {
       projectId?: string;
@@ -234,6 +238,21 @@ export namespace IJira {
      * It is a keyword you want to find in the title or explanation of an issue, which is useful when searching.
      */
     keyword?: string;
+
+    /**
+     * @title priority name
+     *
+     * If you want to search based on priority, deliver the name of the priority.
+     * There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.
+     * Although it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.
+     * It also exists as our connector, so use it if necessary.
+     */
+    priority?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-issue-priorities";
+        jmesPath: "[].{value:name, label:name}";
+      }>;
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -485,24 +504,7 @@ export namespace IJira {
       /**
        * @title priority
        */
-      priority: {
-        /**
-         * @title url of icon
-         */
-        // iconUrl: string & tags.Format<"uri">;
-
-        /**
-         * @title priority name
-         *
-         * It may be Low, Medium, High.
-         */
-        name: string;
-
-        /**
-         * @title id
-         */
-        id: string;
-      };
+      priority: Pick<Priority, "id" | "name">;
 
       /**
        * @title parent of this issue
@@ -616,5 +618,32 @@ export namespace IJira {
      * @title "48x48" size image
      */
     "48x48": string & tags.Format<"uri">;
+  }
+
+  /**
+   * @title priority
+   */
+  export interface Priority {
+    /**
+     * @title url of icon
+     */
+    // iconUrl: string & tags.Format<"uri">;
+
+    /**
+     * @title priority name
+     *
+     * It may be Low, Medium, High.
+     */
+    name: string;
+
+    /**
+     * @title id
+     */
+    id: string;
+
+    /**
+     * @title meaning of this priority level
+     */
+    description: string;
   }
 }
