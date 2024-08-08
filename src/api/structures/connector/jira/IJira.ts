@@ -465,15 +465,16 @@ export namespace IJira {
      *
      * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
      */
-    marks?: (
-      | {
-          type: "code";
-        }
+    marks?:
+      | [
+          {
+            type: "code";
+          },
+        ]
       | {
           type: "link";
           attrs: { href: string };
-        }
-    )[];
+        }[];
   };
 
   /**
@@ -491,6 +492,11 @@ export namespace IJira {
      * @title content of this mention content
      */
     attrs: {
+      /**
+       * @title id
+       *
+       * add any string like as uuid
+       */
       id?: string;
 
       /**
@@ -562,7 +568,13 @@ export namespace IJira {
    */
   export type CodeBlockContent = {
     type: "codeBlock";
-    attrs: {
+
+    /**
+     * @title attrs
+     *
+     * If you do not specify a programming language, this property may not exist.
+     */
+    attrs?: {
       /**
        * @title programming language name
        */

@@ -16,7 +16,7 @@ export class JiraController {
    * @param input issue information to create
    * @returns id and key of created issue
    */
-  @core.TypedRoute.Post("issue")
+  @core.TypedRoute.Post("issues")
   async createIssue(
     @TypedBody() input: IJira.ICreateIssueInput,
   ): Promise<IJira.ICreateIssueOutput> {
