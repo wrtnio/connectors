@@ -52,7 +52,7 @@ export class GoogleShoppingProvider {
             link: result.link,
             price: result.price,
             source: result?.source,
-            deliveryCost: result.delivery,
+            deliveryCost: result?.delivery,
             thumbnail: result.thumbnail,
           };
           output.push(data);
