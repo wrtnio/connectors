@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.97",
+    "version": "0.1.98",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8958,6 +8958,37 @@
         "summary": "get im channels in slack",
         "description": "get im channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
+      }
+    },
+    "/connector/jira/issues": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "issue information to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.ICreateIssueInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "id and key of created issue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.ICreateIssueOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "create issue in jira",
+        "description": "Create an issue.\nIssue type, project, and summary are essential properties."
       }
     },
     "/connector/jira/get-issue-detail": {
@@ -28358,13 +28389,35 @@
         "type": "object",
         "properties": {
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channel-histories",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to mark the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "ts": {
@@ -28415,13 +28468,35 @@
             "title": "thread ts\n\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message."
           },
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channels",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
@@ -28469,13 +28544,35 @@
         "type": "object",
         "properties": {
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channel-histories",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to delete the scheduled message.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "scheduled_message_id": {
@@ -28566,13 +28663,35 @@
             "description": "It means the 'ts' value of the chat you want to reply"
           },
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channels",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
@@ -28606,13 +28725,35 @@
         "type": "object",
         "properties": {
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channels",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
@@ -28900,13 +29041,35 @@
             "description": "It means the 'ts' value of the chat you want to look up."
           },
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channels",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
           "latest": {
@@ -29058,13 +29221,35 @@
         "type": "object",
         "properties": {
           "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/slack/get-channels",
-              "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
-            },
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
           "latest": {
@@ -29406,6 +29591,537 @@
           "id"
         ]
       },
+      "IJira.ICreateIssueInput": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "properties": {
+              "assignee": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/issues/get-users-assignable",
+                          "jmesPath": "[].{value:accountId, label:displayName}"
+                        }
+                      },
+                      {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/project/get-users-assignable",
+                          "jmesPath": "[].{value:accountId, label:displayName}"
+                        }
+                      }
+                    ],
+                    "title": "accountId of the user you want to designate as the person in charge"
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "Specify a representative at the same time as you create"
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "doc",
+                    "title": "type of description\n\nAllow doc type only Now"
+                  },
+                  "version": {
+                    "const": 1,
+                    "title": "version"
+                  },
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/IJira.CodeBlockContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.TextContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.ParagraphContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MentionContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MediaContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.BlockquoteType"
+                        }
+                      ],
+                      "discriminator": {
+                        "propertyName": "type",
+                        "mapping": {
+                          "codeBlock": "#/components/schemas/IJira.CodeBlockContent",
+                          "text": "#/components/schemas/IJira.TextContent",
+                          "paragraph": "#/components/schemas/IJira.ParagraphContent",
+                          "mention": "#/components/schemas/IJira.MentionContent",
+                          "mediaSingle": "#/components/schemas/IJira.MediaContent",
+                          "blockquote": "#/components/schemas/IJira.BlockquoteType"
+                        }
+                      }
+                    },
+                    "title": "contents of description"
+                  }
+                },
+                "required": [
+                  "type",
+                  "version",
+                  "content"
+                ],
+                "title": "description\n\nThe content of the Jira issue consists of a combination of various contents."
+              },
+              "duedate": {
+                "type": "string",
+                "format": "date",
+                "title": "due date\n\ndate format type"
+              },
+              "issuetype": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-types",
+                      "jmesPath": "issuetypes[].{value:id, label:name}"
+                    }
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "id of issue"
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "labels"
+              },
+              "parent": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issues",
+                      "jmesPath": "issues[].{value:key, label:key}"
+                    }
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "title": "parent of this issue"
+              },
+              "priority": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-priorities",
+                      "jmesPath": "[].{value:id, label:name}"
+                    }
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "priority"
+              },
+              "project": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-projects",
+                          "jmesPath": "[].{value:id, label:name}"
+                        }
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-project",
+                          "jmesPath": "[].{value:key, label:name}"
+                        }
+                      }
+                    },
+                    "required": [
+                      "key"
+                    ]
+                  }
+                ],
+                "title": "project"
+              },
+              "reporter": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/issues/get-users-assignable",
+                          "jmesPath": "[].{value:accountId, label:displayName}"
+                        }
+                      },
+                      {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/project/get-users-assignable",
+                          "jmesPath": "[].{value:accountId, label:displayName}"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "reporter"
+              },
+              "summary": {
+                "type": "string",
+                "title": "summary\n\nMeaning the title of the issue.\nMake sure you write a sentence that best represents this issue."
+              }
+            },
+            "required": [
+              "issuetype",
+              "project",
+              "summary"
+            ]
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "fields",
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.CodeBlockContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "codeBlock"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "language": {
+                "type": "string",
+                "title": "programming language name"
+              }
+            },
+            "required": [
+              "language"
+            ],
+            "title": "attrs\n\nIf you do not specify a programming language, this property may not exist."
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIJira.TextContenttypetext"
+            },
+            "title": "code content"
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "code block"
+      },
+      "PickIJira.TextContenttypetext": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "title": "text type"
+          },
+          "text": {
+            "type": "string",
+            "title": "content of this text content"
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.TextContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "title": "text type"
+          },
+          "text": {
+            "type": "string",
+            "title": "content of this text content"
+          },
+          "marks": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "link"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "href": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "href"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                }
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "code"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            ],
+            "title": "marks\n\nIt means the emphasis of the markdown format, and it means that there is a string between the backticks."
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "title": "content with only text"
+      },
+      "IJira.ParagraphContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "paragraph",
+            "title": "paragraph type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.TextContent"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MentionContent"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "text": "#/components/schemas/IJira.TextContent",
+                  "mention": "#/components/schemas/IJira.MentionContent"
+                }
+              }
+            },
+            "title": "content\n\nIf you want to make a new line, there will be an empty array."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "paragraph type"
+      },
+      "IJira.MentionContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mention",
+            "title": "mention type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "id\n\nadd any string like as uuid"
+              },
+              "text": {
+                "type": "string",
+                "pattern": "^(@(.*))",
+                "title": "Who is mentioned\n\nIt means a string that connects @ and the user's name"
+              },
+              "accessLevel": {
+                "type": "string",
+                "title": "accessLevel"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "content of this mention content"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "title": "content with mention"
+      },
+      "IJira.MediaContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mediaSingle",
+            "title": "mediaSingle type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "media",
+                  "title": "media"
+                },
+                "attrs": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "title": "type\n\nfor example, 'file'\nbut I'dont know what type is."
+                    },
+                    "width": {
+                      "type": "number",
+                      "title": "image width"
+                    },
+                    "height": {
+                      "type": "number",
+                      "title": "image height"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "description": "if type is 'file' and image"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "attrs"
+              ]
+            },
+            "title": "media"
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.BlockquoteType": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "blockquote",
+            "title": "blockquote type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.ParagraphContent"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.ICreateIssueOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID of the issue that was created just now"
+          },
+          "key": {
+            "type": "string",
+            "title": "Key of the issue that was created just now"
+          }
+        },
+        "required": [
+          "id",
+          "key"
+        ]
+      },
       "IJira.IGetIssueDetailInput": {
         "type": "object",
         "properties": {
@@ -29509,7 +30225,37 @@
                   "content": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/IJira.ContentBody"
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/IJira.CodeBlockContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.TextContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.ParagraphContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MentionContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MediaContent"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.BlockquoteType"
+                        }
+                      ],
+                      "discriminator": {
+                        "propertyName": "type",
+                        "mapping": {
+                          "codeBlock": "#/components/schemas/IJira.CodeBlockContent",
+                          "text": "#/components/schemas/IJira.TextContent",
+                          "paragraph": "#/components/schemas/IJira.ParagraphContent",
+                          "mention": "#/components/schemas/IJira.MentionContent",
+                          "mediaSingle": "#/components/schemas/IJira.MediaContent",
+                          "blockquote": "#/components/schemas/IJira.BlockquoteType"
+                        }
+                      }
                     }
                   }
                 },
@@ -29601,7 +30347,37 @@
               "content": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/IJira.ContentBody"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/IJira.CodeBlockContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.TextContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.ParagraphContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MentionContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaContent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.BlockquoteType"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                      "codeBlock": "#/components/schemas/IJira.CodeBlockContent",
+                      "text": "#/components/schemas/IJira.TextContent",
+                      "paragraph": "#/components/schemas/IJira.ParagraphContent",
+                      "mention": "#/components/schemas/IJira.MentionContent",
+                      "mediaSingle": "#/components/schemas/IJira.MediaContent",
+                      "blockquote": "#/components/schemas/IJira.BlockquoteType"
+                    }
+                  }
                 },
                 "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
                 "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
@@ -29652,144 +30428,6 @@
           "displayName"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
-      },
-      "IJira.ContentBody": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IJira.Content"
-            },
-            "title": "content\n\nA document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
-          }
-        },
-        "required": [
-          "content"
-        ]
-      },
-      "IJira.Content": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/IJira.TextContent"
-          },
-          {
-            "$ref": "#/components/schemas/IJira.AttrContent"
-          },
-          {
-            "$ref": "#/components/schemas/IJira.MarkContent"
-          },
-          {
-            "$ref": "#/components/schemas/IJira.RecursiveContent"
-          }
-        ],
-        "title": "content types"
-      },
-      "IJira.TextContent": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "type",
-          "text"
-        ],
-        "title": "content with only text"
-      },
-      "IJira.AttrContent": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "text": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "text"
-            ]
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "content with link"
-      },
-      "IJira.MarkContent": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          },
-          "marks": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string"
-                },
-                "attrs": {
-                  "type": "object",
-                  "properties": {
-                    "href": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "href"
-                  ]
-                }
-              },
-              "required": [
-                "type",
-                "attrs"
-              ]
-            }
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "content with maybe marks"
-      },
-      "IJira.RecursiveContent": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          },
-          "content": {
-            "type": "array",
-            "items": {}
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "content with inner content"
       },
       "IJira.User": {
         "type": "object",
@@ -30072,7 +30710,7 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.Issueidfieldskey"
+              "$ref": "#/components/schemas/PickIJira.Issueidkeyfields"
             },
             "title": "Jira issue list"
           },
@@ -30102,26 +30740,26 @@
           "total"
         ]
       },
-      "PickIJira.Issueidfieldskey": {
+      "PickIJira.Issueidkeyfields": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "The ID of the issue"
           },
-          "fields": {
-            "$ref": "#/components/schemas/IJira.IssueField",
-            "title": "fields"
-          },
           "key": {
             "type": "string",
             "title": "The key of the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/IJira.IssueField",
+            "title": "fields"
           }
         },
         "required": [
           "id",
-          "fields",
-          "key"
+          "key",
+          "fields"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
