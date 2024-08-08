@@ -124,9 +124,26 @@ export namespace IJira {
         /**
          * @title accountId of the user you want to designate as the person in charge
          */
-        id: User["accountId"];
+        id: User["accountId"] &
+          (
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/issues/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/project/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+          );
       };
 
+      /**
+       * @title description
+       *
+       * The content of the Jira issue consists of a combination of various contents.
+       */
       description?: {
         /**
          * @title type of description
@@ -156,7 +173,14 @@ export namespace IJira {
       /**
        * @title id of issue
        */
-      issuetype: { id: IssueType["id"] };
+      issuetype: {
+        id: IssueType["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-types";
+            jmesPath: "issuetypes[].{value:id, label:name}";
+          }>;
+      };
 
       /**
        * @title labels
@@ -166,25 +190,72 @@ export namespace IJira {
       /**
        * @title parent of this issue
        */
-      parent?: { key: Issue["key"] };
+      parent?: {
+        key: Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>;
+      };
 
       /**
        * @title priority
        */
-      priority?: { id: Priority["id"] };
+      priority?: {
+        id: Priority["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-priorities";
+            jmesPath: "[].{value:id, label:name}";
+          }>;
+      };
 
       /**
        * @title project
        */
-      project: { id: Project["id"] } | { key: Project["key"] };
+      project:
+        | {
+            id: Project["id"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-projects";
+                jmesPath: "[].{value:id, label:name}";
+              }>;
+          }
+        | {
+            key: Project["key"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-project";
+                jmesPath: "[].{value:key, label:name}";
+              }>;
+          };
 
       /**
        * @title reporter
        */
-      reporter?: { id: User["accountId"] };
+      reporter?: {
+        id: User["accountId"] &
+          (
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/issues/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/project/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+          );
+      };
 
       /**
        * @title summary
+       *
+       * Meaning the title of the issue.
+       * Make sure you write a sentence that best represents this issue.
        */
       summary: string;
     };
@@ -508,8 +579,18 @@ export namespace IJira {
    * @title paragraph type
    */
   export type ParagraphContent = {
+    /**
+     * @title paragraph type
+     */
     type: "paragraph";
+
     attrs?: never;
+
+    /**
+     * @title content
+     *
+     * If you want to make a new line, there will be an empty array.
+     */
     content: (TextContent | MentionContent)[];
   };
 
