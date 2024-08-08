@@ -103,30 +103,89 @@ export namespace IJira {
     };
   }
 
+  export interface ICreateIssueOutput {
+    /**
+     * @title ID of the issue that was created just now
+     */
+    id: Issue["id"];
+
+    /**
+     * @title Key of the issue that was created just now
+     */
+    key: Issue["key"];
+  }
+
   export interface ICreateIssueInput extends BasicAuthorization {
     fields: {
-      assignee?: { id: User["accountId"] };
+      /**
+       * @title Specify a representative at the same time as you create
+       */
+      assignee?: {
+        /**
+         * @title accountId of the user you want to designate as the person in charge
+         */
+        id: User["accountId"];
+      };
 
       description?: {
-        type?: "doc";
-        version?: 1;
+        /**
+         * @title type of description
+         *
+         * Allow doc type only Now
+         */
+        type: "doc";
+
+        /**
+         * @title version
+         */
+        version: 1;
+
+        /**
+         * @title contents of description
+         */
         content: Content[];
       };
 
+      /**
+       * @title due date
+       *
+       * date format type
+       */
       duedate?: string & tags.Format<"date">;
 
+      /**
+       * @title id of issue
+       */
       issuetype: { id: IssueType["id"] };
 
+      /**
+       * @title labels
+       */
       labels?: string[];
 
+      /**
+       * @title parent of this issue
+       */
       parent?: { key: Issue["key"] };
 
+      /**
+       * @title priority
+       */
       priority?: { id: Priority["id"] };
 
+      /**
+       * @title project
+       */
       project: { id: Project["id"] } | { key: Project["key"] };
 
+      /**
+       * @title reporter
+       */
       reporter?: { id: User["accountId"] };
 
+      /**
+       * @title summary
+       */
       summary: string;
     };
   }
@@ -320,7 +379,14 @@ export namespace IJira {
    * @title content with only text
    */
   export type TextContent = {
+    /**
+     * @title text type
+     */
     type: "text";
+
+    /**
+     * @title content of this text content
+     */
     text: string;
 
     /**
@@ -333,8 +399,8 @@ export namespace IJira {
           type: "code";
         }
       | {
-          type: string;
-          attrs?: { href: string };
+          type: "link";
+          attrs: { href: string };
         }
     )[];
   };
@@ -343,23 +409,53 @@ export namespace IJira {
    * @title content with mention
    */
   export type MentionContent = {
+    /**
+     * @title mention type
+     */
     type: "mention";
+
+    text?: never;
+
+    /**
+     * @title content of this mention content
+     */
     attrs: {
       id?: string;
+
+      /**
+       * @title Who is mentioned
+       *
+       * It means a string that connects @ and the user's name
+       */
       text: `@${string}`;
+
+      /**
+       * @title accessLevel
+       */
       accessLevel?: string;
     };
   };
 
   export type MediaContent = {
+    /**
+     * @title mediaSingle type
+     */
     type: "mediaSingle";
+
+    /**
+     * @title media
+     */
     content: {
+      /**
+       * @title media
+       */
       type: "media";
       attrs: {
         /**
          * @title type
          *
          * for example, 'file'
+         * but I'dont know what type is.
          */
         type: string;
 
@@ -384,11 +480,11 @@ export namespace IJira {
   /**
    * @title content with maybe marks
    */
-  export type MarkContent = {
-    type: string;
-    text?: string;
-    marks?: { type: string; attrs: { href: string } }[];
-  };
+  // export type MarkContent = {
+  //   type: string;
+  //   text?: string;
+  //   marks?: { type: string; attrs: { href: string } }[];
+  // };
 
   /**
    * @title code block
@@ -402,13 +498,28 @@ export namespace IJira {
       language: string;
     };
 
-    content: TextContent[];
+    /**
+     * @title code content
+     */
+    content: Pick<TextContent, "text" | "type">[];
   };
 
+  /**
+   * @title paragraph type
+   */
   export type ParagraphContent = {
     type: "paragraph";
     attrs?: never;
-    content: TextContent[];
+    content: (TextContent | MentionContent)[];
+  };
+
+  export type BlockquoteType = {
+    /**
+     * @title blockquote type
+     */
+    type: "blockquote";
+
+    content: ParagraphContent[];
   };
 
   /**
@@ -420,7 +531,7 @@ export namespace IJira {
     | ParagraphContent
     | MentionContent
     | MediaContent
-    | MarkContent;
+    | BlockquoteType;
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
