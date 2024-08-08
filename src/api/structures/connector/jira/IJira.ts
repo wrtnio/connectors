@@ -103,6 +103,34 @@ export namespace IJira {
     };
   }
 
+  export interface ICreateIssueInput extends BasicAuthorization {
+    fields: {
+      assignee?: { id: User["accountId"] };
+
+      description?: {
+        type: "doc";
+        version: 1;
+        content: ContentBody[];
+      };
+
+      duedate?: string & tags.Format<"date">;
+
+      issuetype: { id: IssueType["id"] };
+
+      labels?: string[];
+
+      parent?: { key: Issue["key"] };
+
+      priority?: { id: Priority["id"] };
+
+      project: { id: Project["id"] } | { key: Project["key"] };
+
+      reporter?: { id: User["accountId"] };
+
+      summary: string;
+    };
+  }
+
   export interface IGetIssueLabelOutput extends ICommonPaginationOutput {
     /**
      * @title label list
