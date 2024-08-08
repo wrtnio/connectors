@@ -276,6 +276,38 @@ export namespace IJira {
     labels?: string[];
   }
 
+  export interface IGetIssueDetailOutput extends Issue {
+    labels: string[];
+
+    comment: {
+      maxResults: number;
+      total: number;
+      startAt: number;
+      comments: {
+        id: string;
+        author: Pick<User, "accountId" | "active" | "displayName">;
+        updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
+        body: {
+          content: {
+            type: string;
+            text: string;
+            attrs?: { id: string; text: string };
+            marks?: { type: string; attrs: { href: string } }[];
+            content?: { type: string; text: String }[];
+          }[];
+        };
+        created: string & tags.Format<"date-time">;
+        updated: string & tags.Format<"date-time">;
+      }[];
+    };
+
+    fields: DetailedIssueField;
+  }
+
+  export interface IGetIssueDetailInput extends BasicAuthorization {
+    issueIdOrKey: string;
+  }
+
   export interface IGetIssueInputByBasicAuth
     extends BasicAuthorization,
       ICommonPaginationInput,
@@ -344,7 +376,7 @@ export namespace IJira {
     /**
      * @title Jira issue list
      */
-    issues: Issue[];
+    issues: Pick<Issue, "fields" | "id" | "key">[];
   }
 
   export interface IGetIssueTypeOutput {
@@ -483,50 +515,59 @@ export namespace IJira {
      */
     key: string;
 
-    fields: {
-      /**
-       * @title reporter
-       */
-      reporter?: User | null;
+    /**
+     * @title fields
+     */
+    fields: IssueField;
+  }
 
-      /**
-       * @title creator
-       */
-      creator?: User | null;
+  export interface DetailedIssueField extends IssueField {
+    a: 1;
+  }
 
-      /**
-       * @title assignee
-       */
-      assignee?: User | null;
+  export interface IssueField {
+    /**
+     * @title reporter
+     */
+    reporter?: User | null;
 
-      /**
-       * @title summary
-       */
-      summary?: string;
+    /**
+     * @title creator
+     */
+    creator?: User | null;
 
-      /**
-       * @title issue type
-       */
-      issuetype?: Pick<IssueType, "id" | "name">;
+    /**
+     * @title assignee
+     */
+    assignee?: User | null;
 
-      /**
-       * @title status
-       */
-      status: Pick<
-        Status,
-        "id" | "name" | "description" | "statusCategory" | "untranslatedName"
-      >;
+    /**
+     * @title summary
+     */
+    summary?: string;
 
-      /**
-       * @title priority
-       */
-      priority: Pick<Priority, "id" | "name">;
+    /**
+     * @title issue type
+     */
+    issuetype?: Pick<IssueType, "id" | "name">;
 
-      /**
-       * @title parent of this issue
-       */
-      parent?: Parent;
-    };
+    /**
+     * @title status
+     */
+    status: Pick<
+      Status,
+      "id" | "name" | "description" | "statusCategory" | "untranslatedName"
+    >;
+
+    /**
+     * @title priority
+     */
+    priority: Pick<Priority, "id" | "name">;
+
+    /**
+     * @title parent of this issue
+     */
+    parent?: Parent;
   }
 
   export interface Parent {

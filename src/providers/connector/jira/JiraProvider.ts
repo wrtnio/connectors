@@ -172,6 +172,28 @@ export class JiraProvider {
     }
   }
 
+  async getIssueDetail(
+    input: IJira.IGetIssueDetailInput,
+  ): Promise<IJira.IGetIssueDetailOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(
+        `${config.domain}/issue/${input.issueIdOrKey}`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getIssues(
     input: IJira.IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
   ): Promise<IJira.IGetIssueOutput> {

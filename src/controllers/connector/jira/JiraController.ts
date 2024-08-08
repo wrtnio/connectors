@@ -9,6 +9,23 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
+   * Provides more accurate and detailed information, including the title and body of the issue
+   *
+   * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
+   * If you do not know the key or ID, it is recommended to use the issue inquiry connector first.
+   *
+   * @summary get detailed Issue Information
+   * @param input
+   * @returns Detailed Issue Information
+   */
+  @core.TypedRoute.Post("get-issue-detail")
+  async getIssueDetail(
+    @TypedBody() input: IJira.IGetIssueDetailInput,
+  ): Promise<IJira.IGetIssueDetailOutput> {
+    return this.jiraProvider.getIssueDetail(input);
+  }
+
+  /**
    * Find Jira issues
    *
    * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
