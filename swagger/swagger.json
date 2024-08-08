@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.92",
+    "version": "0.1.93",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8960,6 +8960,36 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg"
       }
     },
+    "/connector/jira/get-issue-detail": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetIssueDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Detailed Issue Information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueDetailOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "get detailed Issue Information",
+        "description": "Provides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first."
+      }
+    },
     "/connector/jira/get-issues": {
       "post": {
         "tags": [],
@@ -9024,6 +9054,37 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
+    "/connector/jira/get-issue-labels": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IGetIssueLabelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "paginated list of labels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueLabelOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Find issue labels",
+        "description": "Find issue labels like as 'story', 'bug' and so on.",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
     "/connector/jira/get-issue-types": {
       "post": {
         "tags": [],
@@ -9040,7 +9101,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "issue types",
             "content": {
               "application/json": {
                 "schema": {
@@ -9050,6 +9111,8 @@
             }
           }
         },
+        "summary": "Find issue types",
+        "description": "Find issue types like as 'story', 'bug' and so on.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9069,7 +9132,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "issue statuses",
             "content": {
               "application/json": {
                 "schema": {
@@ -9081,6 +9144,37 @@
         },
         "summary": "Find issue statuses",
         "description": "Find issue statuses for searching issue",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
+      }
+    },
+    "/connector/jira/get-issue-priorities": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.BasicAuthorization"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "issue priorities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssuePriorityOutput"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Inquire the priority levels that can be assigned to the issue.",
+        "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9100,7 +9194,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "assignable users",
             "content": {
               "application/json": {
                 "schema": {
@@ -9131,7 +9225,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "assignable users",
             "content": {
               "application/json": {
                 "schema": {
@@ -28496,7 +28590,7 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -28618,7 +28712,7 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -28744,13 +28838,21 @@
           "latest": {
             "type": "number",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nfor example, '1234567890.123456'"
+            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
           },
           "oldest": {
             "type": "number",
             "default": 0,
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nfor example, '1234567890.123456'"
+            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
+          },
+          "latestTimestamp": {
+            "type": "number",
+            "title": "latestTimestamp\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `lastest` property is present together."
+          },
+          "oldestTimestamp": {
+            "type": "number",
+            "title": "oldestTimestamp\n\nOnly messages after this Unix timestamp will be included in results.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together."
           },
           "secretKey": {
             "type": "string",
@@ -28772,7 +28874,7 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -28894,13 +28996,21 @@
           "latest": {
             "type": "number",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nfor example, '1234567890.123456'"
+            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
           },
           "oldest": {
             "type": "number",
             "default": 0,
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nfor example, '1234567890.123456'"
+            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
+          },
+          "latestTimestamp": {
+            "type": "number",
+            "title": "latestTimestamp\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `lastest` property is present together."
+          },
+          "oldestTimestamp": {
+            "type": "number",
+            "title": "oldestTimestamp\n\nOnly messages after this Unix timestamp will be included in results.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together."
           },
           "secretKey": {
             "type": "string",
@@ -28922,7 +29032,7 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -29047,7 +29157,7 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200."
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -29222,6 +29332,524 @@
           "id"
         ]
       },
+      "IJira.IGetIssueDetailInput": {
+        "type": "object",
+        "properties": {
+          "issueIdOrKey": {
+            "type": "string",
+            "title": "id or key"
+          },
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "issueIdOrKey",
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssueDetailOutput": {
+        "type": "object",
+        "properties": {
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels attached to the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/IJira.DetailedIssueField",
+            "title": "Details of the issue"
+          },
+          "id": {
+            "type": "string",
+            "title": "The ID of the issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the issue"
+          }
+        },
+        "required": [
+          "fields",
+          "id",
+          "key"
+        ]
+      },
+      "IJira.DetailedIssueField": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "object",
+            "properties": {
+              "maxResults": {
+                "type": "number",
+                "title": "Number of comments viewed at one time"
+              },
+              "total": {
+                "type": "number",
+                "title": "Total count of comments"
+              },
+              "startAt": {
+                "type": "number",
+                "title": "page offset",
+                "description": "The index of the first item to return in a page of results (page offset)."
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IJira.Comment"
+                },
+                "title": "list of comments"
+              }
+            },
+            "required": [
+              "maxResults",
+              "total",
+              "startAt",
+              "comments"
+            ],
+            "title": "comment infomation"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/IJira.ContentBody"
+                    }
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            ]
+          },
+          "reporter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "reporter"
+          },
+          "creator": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "creator"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "assignee"
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary"
+          },
+          "issuetype": {
+            "$ref": "#/components/schemas/PickIJira.IssueTypeidname",
+            "title": "issue type"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName",
+            "title": "status"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/PickIJira.Priorityidname",
+            "title": "priority"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/IJira.Parent",
+            "title": "parent of this issue"
+          }
+        },
+        "required": [
+          "comment",
+          "description",
+          "status",
+          "priority"
+        ]
+      },
+      "IJira.Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id of comment"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIJira.UseraccountIdactivedisplayName",
+            "title": "author of this comment"
+          },
+          "updateAuthor": {
+            "$ref": "#/components/schemas/PickIJira.UseraccountIdactivedisplayName",
+            "title": "who updates this comment"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IJira.ContentBody"
+                },
+                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
+                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
+              }
+            },
+            "required": [
+              "content"
+            ],
+            "title": "body of comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
+          },
+          "updated": {
+            "type": "string",
+            "title": "updated time of this comment"
+          }
+        },
+        "required": [
+          "id",
+          "author",
+          "updateAuthor",
+          "body",
+          "created",
+          "updated"
+        ]
+      },
+      "PickIJira.UseraccountIdactivedisplayName": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          }
+        },
+        "required": [
+          "accountId",
+          "active",
+          "displayName"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.ContentBody": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.Content"
+            },
+            "title": "content\n\nA document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
+          }
+        },
+        "required": [
+          "content"
+        ]
+      },
+      "IJira.Content": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/IJira.TextContent"
+          },
+          {
+            "$ref": "#/components/schemas/IJira.AttrContent"
+          },
+          {
+            "$ref": "#/components/schemas/IJira.MarkContent"
+          },
+          {
+            "$ref": "#/components/schemas/IJira.RecursiveContent"
+          }
+        ],
+        "title": "content types"
+      },
+      "IJira.TextContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "title": "content with only text"
+      },
+      "IJira.AttrContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "text"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "content with link"
+      },
+      "IJira.MarkContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "marks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "attrs": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "href"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "attrs"
+              ]
+            }
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "content with maybe marks"
+      },
+      "IJira.RecursiveContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "content": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "content with inner content"
+      },
+      "IJira.User": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          }
+        },
+        "required": [
+          "accountId",
+          "displayName",
+          "active"
+        ]
+      },
+      "PickIJira.IssueTypeidname": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "스토리",
+            "title": "issue type name\n\nIt may be name, bug, story or etc."
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "status id"
+          },
+          "description": {
+            "type": "string",
+            "title": "status description"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "해야 할 일",
+            "title": "status name"
+          },
+          "statusCategory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "title": "category id"
+              },
+              "key": {
+                "type": "string",
+                "x-wrtn-placeholder": "new",
+                "title": "category key"
+              }
+            },
+            "required": [
+              "id",
+              "key"
+            ],
+            "title": "status category"
+          },
+          "untranslatedName": {
+            "type": "string",
+            "title": "untranslated name"
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "name",
+          "statusCategory"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIJira.Priorityidname": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "priority name\n\nIt may be Low, Medium, High."
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.Parent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "The ID of the parent issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the parent issue"
+          },
+          "fields": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "string",
+                "title": "summary"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "fields"
+        ]
+      },
       "IJira.IGetIssueInputByBasicAuth": {
         "type": "object",
         "properties": {
@@ -29247,9 +29875,8 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
-            "maximum": 100,
             "title": "max results",
-            "description": "The maximum number of items to return per page."
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
           "project_key": {
             "type": "string",
@@ -29340,6 +29967,22 @@
           "keyword": {
             "type": "string",
             "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
+          },
+          "priority": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-issue-priorities",
+              "jmesPath": "[].{value:name, label:name}"
+            },
+            "title": "priority name\n\nIf you want to search based on priority, deliver the name of the priority.\nThere are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nAlthough it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.\nIt also exists as our connector, so use it if necessary."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "label titles\n\nComplex searches are possible using various labels."
           }
         },
         "required": [
@@ -29355,9 +29998,13 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IJira.Issue"
+              "$ref": "#/components/schemas/PickIJira.Issueidfieldskey"
             },
             "title": "Jira issue list"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
           },
           "total": {
             "type": "integer",
@@ -29372,9 +30019,8 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
-            "maximum": 100,
             "title": "max results",
-            "description": "The maximum number of items to return per page."
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           }
         },
         "required": [
@@ -29382,213 +30028,89 @@
           "total"
         ]
       },
-      "IJira.Issue": {
+      "PickIJira.Issueidfieldskey": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "The ID of the issue"
           },
+          "fields": {
+            "$ref": "#/components/schemas/IJira.IssueField",
+            "title": "fields"
+          },
           "key": {
             "type": "string",
             "title": "The key of the issue"
-          },
-          "fields": {
-            "type": "object",
-            "properties": {
-              "reporter": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/components/schemas/IJira.User"
-                  }
-                ],
-                "title": "reporter"
-              },
-              "creator": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/components/schemas/IJira.User"
-                  }
-                ],
-                "title": "creator"
-              },
-              "assignee": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/components/schemas/IJira.User"
-                  }
-                ],
-                "title": "assignee"
-              },
-              "summary": {
-                "type": "string",
-                "title": "summary"
-              },
-              "issuetype": {
-                "$ref": "#/components/schemas/PickIJira.IssueTypeidname",
-                "title": "issue type"
-              },
-              "status": {
-                "$ref": "#/components/schemas/PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName",
-                "title": "status"
-              },
-              "priority": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "title": "priority name\n\nIt may be Low, Medium, High."
-                  },
-                  "id": {
-                    "type": "string",
-                    "title": "id"
-                  }
-                },
-                "required": [
-                  "name",
-                  "id"
-                ],
-                "title": "priority"
-              },
-              "parent": {
-                "$ref": "#/components/schemas/IJira.Parent",
-                "title": "parent of this issue"
-              }
-            },
-            "required": [
-              "status",
-              "priority"
-            ]
           }
         },
         "required": [
           "id",
-          "key",
-          "fields"
-        ]
-      },
-      "IJira.User": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string",
-            "title": "id of this user account"
-          },
-          "displayName": {
-            "type": "string",
-            "title": "creator's name"
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Whether is user active"
-          }
-        },
-        "required": [
-          "accountId",
-          "displayName",
-          "active"
-        ]
-      },
-      "PickIJira.IssueTypeidname": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string",
-            "x-wrtn-placeholder": "스토리",
-            "title": "issue type name\n\nIt may be name, bug, story or etc."
-          }
-        },
-        "required": [
-          "id",
-          "name"
+          "fields",
+          "key"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
-      "PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName": {
+      "IJira.IssueField": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "status id"
-          },
-          "description": {
-            "type": "string",
-            "title": "status description"
-          },
-          "name": {
-            "type": "string",
-            "x-wrtn-placeholder": "해야 할 일",
-            "title": "status name"
-          },
-          "statusCategory": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number",
-                "title": "category id"
+          "reporter": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "key": {
-                "type": "string",
-                "x-wrtn-placeholder": "new",
-                "title": "category key"
+              {
+                "$ref": "#/components/schemas/IJira.User"
               }
-            },
-            "required": [
-              "id",
-              "key"
             ],
-            "title": "status category"
+            "title": "reporter"
           },
-          "untranslatedName": {
-            "type": "string",
-            "title": "untranslated name"
-          }
-        },
-        "required": [
-          "id",
-          "description",
-          "name",
-          "statusCategory"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
-      },
-      "IJira.Parent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "The ID of the parent issue"
-          },
-          "key": {
-            "type": "string",
-            "title": "The key of the parent issue"
-          },
-          "fields": {
-            "type": "object",
-            "properties": {
-              "summary": {
-                "type": "string",
-                "title": "summary"
+          "creator": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
               }
-            }
+            ],
+            "title": "creator"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "assignee"
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary"
+          },
+          "issuetype": {
+            "$ref": "#/components/schemas/PickIJira.IssueTypeidname",
+            "title": "issue type"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PickIJira.StatusiddescriptionnamestatusCategoryuntranslatedName",
+            "title": "status"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/PickIJira.Priorityidname",
+            "title": "priority"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/IJira.Parent",
+            "title": "parent of this issue"
           }
         },
         "required": [
-          "id",
-          "key",
-          "fields"
+          "status",
+          "priority"
         ]
       },
       "IJira.IGetProjectInputByBasicAuth": {
@@ -29637,9 +30159,8 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
-            "maximum": 100,
             "title": "max results",
-            "description": "The maximum number of items to return per page."
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           }
         },
         "required": [
@@ -29651,16 +30172,16 @@
       "IJira.IGetProjectOutput": {
         "type": "object",
         "properties": {
-          "isLast": {
-            "type": "boolean",
-            "title": "Wheather is last page"
-          },
           "values": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJira.Project"
             },
             "title": "Jira project list"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
           },
           "total": {
             "type": "integer",
@@ -29675,13 +30196,11 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
-            "maximum": 100,
             "title": "max results",
-            "description": "The maximum number of items to return per page."
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           }
         },
         "required": [
-          "isLast",
           "values",
           "total"
         ],
@@ -29730,6 +30249,77 @@
           "id",
           "key",
           "name"
+        ]
+      },
+      "IJira.IGetIssueLabelInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssueLabelOutput": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "label list"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "values",
+          "total"
         ]
       },
       "IJira.IGetIssueTypeInput": {
@@ -29878,6 +30468,35 @@
           "name"
         ]
       },
+      "IJira.BasicAuthorization": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "email in Jira"
+          },
+          "apiToken": {
+            "type": "string",
+            "title": "jira api token\n\nYou can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued."
+          },
+          "domain": {
+            "type": "string",
+            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
+            "title": "domain of your workspace site in Jira"
+          }
+        },
+        "required": [
+          "email",
+          "apiToken",
+          "domain"
+        ]
+      },
+      "IJira.IGetIssuePriorityOutput": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PickIJira.Priorityidname"
+        }
+      },
       "IJira.IGetIssueAssignableInput": {
         "type": "object",
         "properties": {
@@ -29908,9 +30527,8 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
-            "maximum": 100,
             "title": "max results",
-            "description": "The maximum number of items to return per page."
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
           "email": {
             "type": "string",
@@ -29937,31 +30555,8 @@
       "IJira.IGetIssueAssignableOutput": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/PickIJira.UseraccountIddisplayNameactive"
+          "$ref": "#/components/schemas/PickIJira.UseraccountIdactivedisplayName"
         }
-      },
-      "PickIJira.UseraccountIddisplayNameactive": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string",
-            "title": "id of this user account"
-          },
-          "displayName": {
-            "type": "string",
-            "title": "creator's name"
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Whether is user active"
-          }
-        },
-        "required": [
-          "accountId",
-          "displayName",
-          "active"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IJira.IGetProjectAssignableInput": {
         "type": "object",
@@ -29984,9 +30579,8 @@
           "maxResults": {
             "type": "integer",
             "default": 50,
-            "maximum": 100,
             "title": "max results",
-            "description": "The maximum number of items to return per page."
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
           "email": {
             "type": "string",
@@ -30012,7 +30606,7 @@
       "IJira.IGetProjectAssignableOutput": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/PickIJira.UseraccountIddisplayNameactive"
+          "$ref": "#/components/schemas/PickIJira.UseraccountIdactivedisplayName"
         }
       },
       "IGoogleTrend.IRequest": {
