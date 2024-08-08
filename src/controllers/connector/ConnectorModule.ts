@@ -63,6 +63,7 @@ import { GoogleShoppingYesTwentyFourModule } from "./google_shopping/google_shop
 import { GoogleShoppingUniqloModule } from "./google_shopping/google_shopping_uniqlo/GoogleShoppingUniqloModule";
 import { GoogleShoppingTwentyNineCentimeterModule } from "./google_shopping/google_shopping_twenty_nine_cenetimeter/GoogleShoppingTwentyNineCentimeterModule";
 import { GoogleShoppingMusinsaModule } from "./google_shopping/google_shopping_musinsa/GoogleShoppingMusinsaModule";
+import { GoogleMapModule } from "./google_map/GoogleMapModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -130,6 +131,7 @@ import { GoogleShoppingMusinsaModule } from "./google_shopping/google_shopping_m
     SlackModule,
     JiraModule,
     GoogleTrendModule,
+    GoogleMapModule,
   ],
   controllers: [TypeformController],
 })
