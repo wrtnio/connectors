@@ -277,34 +277,41 @@ export namespace IJira {
   }
 
   export interface IGetIssueDetailOutput extends Issue {
-    labels: string[];
-
-    comment: {
-      maxResults: number;
-      total: number;
-      startAt: number;
-      comments: {
-        id: string;
-        author: Pick<User, "accountId" | "active" | "displayName">;
-        updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
-        body: {
-          content: {
-            type: string;
-            text: string;
-            attrs?: { id: string; text: string };
-            marks?: { type: string; attrs: { href: string } }[];
-            content?: { type: string; text: String }[];
-          }[];
-        };
-        created: string & tags.Format<"date-time">;
-        updated: string & tags.Format<"date-time">;
-      }[];
-    };
+    labels?: string[];
 
     fields: DetailedIssueField;
   }
 
+  export interface ContentBody {
+    content: Content[];
+  }
+
+  export type TextContent = { type: string; text: string };
+  export type AttrContent = {
+    type: string;
+    text?: string;
+    attrs?: { id: string; text: string };
+  };
+  export type MarkContent = {
+    type: string;
+    text?: string;
+    marks?: { type: string; attrs: { href: string } }[];
+  };
+  export type RecursiveContent = {
+    type: string;
+    text?: string;
+    content?: any[]; // 재귀적인 타입
+  };
+  export type Content =
+    | TextContent
+    | AttrContent
+    | MarkContent
+    | RecursiveContent;
+
   export interface IGetIssueDetailInput extends BasicAuthorization {
+    /**
+     * @title id or key
+     */
     issueIdOrKey: string;
   }
 
@@ -522,7 +529,27 @@ export namespace IJira {
   }
 
   export interface DetailedIssueField extends IssueField {
-    a: 1;
+    comment: {
+      maxResults: number;
+      total: number;
+      startAt: number;
+      comments: Comment[];
+    };
+
+    description: null | {
+      content: ContentBody[];
+    };
+  }
+
+  export interface Comment {
+    id: string;
+    author: Pick<User, "accountId" | "active" | "displayName">;
+    updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
+    body: {
+      content: ContentBody[];
+    };
+    created: string;
+    updated: string;
   }
 
   export interface IssueField {
