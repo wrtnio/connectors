@@ -58,7 +58,7 @@ export namespace IGoogleShopping {
     /**
      * @title 배송비
      */
-    deliveryCost: string;
+    deliveryCost?: string;
 
     /**
      * @title 상품 이미지
