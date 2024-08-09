@@ -11,6 +11,15 @@ export class JiraController {
   /**
    * Create an issue.
    * Issue type, project, and summary are essential properties.
+   * If you don't know the issue type or priority type for generating the issue, you can look it up through other connectors.
+   * In order to write the body of an issue,
+   * you must create the body as if you were assembling several blocks.
+   * There are pre-designated content types,
+   * so please check this type information carefully.
+   *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
    *
    * @summary create issue in jira
    * @param input issue information to create
@@ -29,6 +38,10 @@ export class JiraController {
    * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
    * If you do not know the key or ID, it is recommended to use the issue inquiry connector first.
    *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   *
    * @summary get detailed Issue Information
    * @param input
    * @returns Detailed Issue Information
@@ -44,6 +57,10 @@ export class JiraController {
    * Find Jira issues
    *
    * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
+   *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
    *
    * @summary Find The Jira issues.
    * @param input condition of request
@@ -67,6 +84,10 @@ export class JiraController {
    *
    * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
    *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   *
    * @summary Find the Jira projects.
    * @param input condition of request
    * @returns paginated list of projects visible to the user
@@ -83,6 +104,10 @@ export class JiraController {
 
   /**
    * Find issue labels like as 'story', 'bug' and so on.
+   *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
    *
    * @summary Find issue labels
    * @param input
@@ -101,6 +126,10 @@ export class JiraController {
   /**
    * Find issue types like as 'story', 'bug' and so on.
    *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   *
    * @summary Find issue types
    * @param input
    * @returns issue types
@@ -117,6 +146,10 @@ export class JiraController {
 
   /**
    * Find issue statuses for searching issue
+   *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
    *
    * @summary Find issue statuses
    * @param input
@@ -138,6 +171,10 @@ export class JiraController {
    * and this API is already deprecated on the Jira REST API document.
    * However, for projects that can already be specified by creating a priority level, this connector is added just in case.
    *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   *
    * @summary Inquire the priority levels that can be assigned to the issue.
    * @param input
    * @returns issue priorities
@@ -155,6 +192,10 @@ export class JiraController {
   /**
    * Find a person within the issue who can be assigned as assignee.
    *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   *
    * @summary Find assignable users in issue
    * @param input
    * @returns assignable users
@@ -171,6 +212,10 @@ export class JiraController {
 
   /**
    * Find a person within the project who can be assigned as assignee.
+   *
+   * This always requires the user's api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
    *
    * @summary Find assignable users in project
    * @param input
