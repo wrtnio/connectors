@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.99",
+    "version": "0.1.100",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8772,7 +8772,7 @@
             }
           }
         },
-        "description": "Get a list of scheduled messages\n\nLook up the messages you booked.\nYou can use `post_at` and `post_at_date` to find out when the message will be sent.\nIf you want to clear the message, use the `id` value in the scheduled message."
+        "description": "Get a list of scheduled messages\n\nLook up the messages you booked.\nYou can use `post_at` and `post_at_date` to find out when the message will be sent.\nIf you want to clear the message, use the `id` value in the scheduled message.\n\nIf a user wants to send a reservation message to himself,\nhe or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.\nWhat is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user."
       }
     },
     "/connector/slack/get-users": {
@@ -9143,7 +9143,7 @@
           }
         },
         "summary": "Find issue types",
-        "description": "Find issue types like as 'story', 'bug' and so on.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
+        "description": "Find issue types like as 'story', 'bug' and so on.\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
