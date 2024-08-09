@@ -919,6 +919,20 @@ export namespace IJira {
 
   export interface IssueField {
     /**
+     * @title statuscategorychangedate
+     *
+     * The date and time when the status category of the issue was last changed.
+     *
+     * This property indicates the most recent timestamp when the issue transitioned
+     * between status categories (e.g., from "To Do" to "In Progress" or from
+     * "In Progress" to "Done"). Status categories in Jira typically include:
+     * - "To Do": The issue is pending and not yet started.
+     * - "In Progress": The issue is currently being worked on.
+     * - "Done": The issue has been completed.
+     */
+    statuscategorychangedate?: string;
+
+    /**
      * @title reporter
      */
     reporter?: User | null;
