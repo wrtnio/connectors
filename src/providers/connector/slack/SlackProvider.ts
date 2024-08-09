@@ -21,6 +21,7 @@ export class SlackProvider {
         {
           headers: {
             Authorization: `Bearer ${secretKey}`,
+            "Content-Type": "application/json; charset=utf-8;",
           },
         },
       );
@@ -43,6 +44,7 @@ export class SlackProvider {
         {
           headers: {
             Authorization: `Bearer ${secretKey}`,
+            "Content-Type": "application/json; charset=utf-8;",
           },
         },
       );
@@ -160,6 +162,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -194,6 +197,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -297,6 +301,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -338,6 +343,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -364,6 +370,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -390,6 +397,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
