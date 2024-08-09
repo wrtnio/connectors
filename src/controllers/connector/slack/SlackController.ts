@@ -22,8 +22,7 @@ export class SlackController {
   )
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
-    const response = await this.slackProvider.mark(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.mark(input);
   }
 
   /**
@@ -52,8 +51,7 @@ export class SlackController {
   async sendScheduleMessage(
     @TypedBody() input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
-    const response = await this.slackProvider.sendScheduleMessage(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.sendScheduleMessage(input);
   }
 
   /**
@@ -74,8 +72,7 @@ export class SlackController {
   async deleteScheduleMessage(
     @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
   ): Promise<void> {
-    const response = await this.slackProvider.deleteScheduleMessage(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.deleteScheduleMessage(input);
   }
 
   /**
@@ -97,8 +94,7 @@ export class SlackController {
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const response = await this.slackProvider.sendTextToMyself(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.sendTextToMyself(input);
   }
 
   /**
@@ -153,6 +149,10 @@ export class SlackController {
    * Look up the messages you booked.
    * You can use `post_at` and `post_at_date` to find out when the message will be sent.
    * If you want to clear the message, use the `id` value in the scheduled message.
+   *
+   * If a user wants to send a reservation message to himself,
+   * he or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.
+   * What is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user.
    *
    * @param input
    * @returns
@@ -210,8 +210,7 @@ export class SlackController {
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
-    const response = await this.slackProvider.getReplies(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getReplies(input);
   }
 
   /**
@@ -228,7 +227,7 @@ export class SlackController {
    *
    * When you look up a conversation,
    * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
-   * 
+   *
    * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
    *
    * @summary get channel histories in slack
@@ -242,8 +241,7 @@ export class SlackController {
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    const response = await this.slackProvider.getChannelHistories(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getChannelHistories(input);
   }
 
   /**
@@ -265,8 +263,7 @@ export class SlackController {
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
-    const response = await this.slackProvider.getPrivateChannels(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getPrivateChannels(input);
   }
 
   /**
@@ -289,8 +286,7 @@ export class SlackController {
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
-    const response = await this.slackProvider.getPublicChannels(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getPublicChannels(input);
   }
 
   /**
@@ -313,7 +309,6 @@ export class SlackController {
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
-    const response = await this.slackProvider.getImChannels(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getImChannels(input);
   }
 }

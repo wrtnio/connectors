@@ -21,6 +21,7 @@ export class SlackProvider {
         {
           headers: {
             Authorization: `Bearer ${secretKey}`,
+            "Content-Type": "application/json; charset=utf-8;",
           },
         },
       );
@@ -43,6 +44,7 @@ export class SlackProvider {
         {
           headers: {
             Authorization: `Bearer ${secretKey}`,
+            "Content-Type": "application/json; charset=utf-8;",
           },
         },
       );
@@ -160,6 +162,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -167,8 +170,7 @@ export class SlackProvider {
     const replies = res.data.messages
       .slice(1)
       .map((message: ISlack.Reply): ISlack.Reply => {
-        const timestampString = message.ts.split(".").at(0) + "000";
-        const timestamp = Number(timestampString);
+        const timestamp = this.transformTsToTimestamp(message.ts);
 
         return {
           type: message.type,
@@ -195,6 +197,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -285,19 +288,27 @@ export class SlackProvider {
   ): Promise<ISlack.IGetChannelHistoryOutput> {
     const url = `https://slack.com/api/conversations.history?&pretty=1`;
     const { secretKey, ...rest } = input;
-    const queryParameter = createQueryParameter(rest);
+    const queryParameter = createQueryParameter({
+      ...rest,
+      latest: input.latestTimestamp
+        ? this.transformTimestampToTs(input.latestTimestamp)
+        : input.latest,
+      oldest: input.oldestTimestamp
+        ? this.transformTimestampToTs(input.oldestTimestamp)
+        : input.oldest,
+    });
 
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.Message[] = res.data.messages.map(
       (message: ISlack.Message): ISlack.Message => {
-        const timestampString = message.ts.split(".").at(0) + "000";
-        const timestamp = Number(timestampString);
+        const timestamp = this.transformTsToTimestamp(message.ts);
 
         return {
           type: message.type,
@@ -332,6 +343,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -358,6 +370,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -384,6 +397,7 @@ export class SlackProvider {
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json; charset=utf-8;",
       },
     });
 
@@ -391,5 +405,15 @@ export class SlackProvider {
     const channels = res.data.channels;
 
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  private transformTsToTimestamp(ts: string) {
+    const timestampString = ts.split(".").at(0) + "000";
+    const timestamp = Number(timestampString);
+    return timestamp;
+  }
+
+  private transformTimestampToTs(timestamp: number) {
+    return String(timestamp).split("").slice(0, -3).join("");
   }
 }

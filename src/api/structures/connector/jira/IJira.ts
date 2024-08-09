@@ -47,16 +47,19 @@ export namespace IJira {
 
     /**
      * The maximum number of items to return per page.
+     * In the issue, it seems that up to 100 can be viewed at a time.
      *
      * @title max results
      */
-    maxResults?: number &
-      tags.Type<"int32"> &
-      tags.Default<50> &
-      tags.Maximum<100>; // maybe it's maximum value is 100
+    maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
   }
 
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
+    /**
+     * @title Wheather is last page
+     */
+    isLast?: boolean;
+
     /**
      * @title total count
      */
@@ -99,6 +102,179 @@ export namespace IJira {
       key: string & Placeholder<"new">;
     };
   }
+
+  export interface ICreateIssueOutput {
+    /**
+     * @title ID of the issue that was created just now
+     */
+    id: Issue["id"];
+
+    /**
+     * @title Key of the issue that was created just now
+     */
+    key: Issue["key"];
+  }
+
+  export interface ICreateIssueInput extends BasicAuthorization {
+    fields: {
+      /**
+       * @title Specify a representative at the same time as you create
+       */
+      assignee?: {
+        /**
+         * @title accountId of the user you want to designate as the person in charge
+         */
+        id: User["accountId"] &
+          (
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/issues/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/project/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+          );
+      };
+
+      /**
+       * @title description
+       *
+       * The content of the Jira issue consists of a combination of various contents.
+       */
+      description?: {
+        /**
+         * @title type of description
+         *
+         * Allow doc type only Now
+         */
+        type: "doc";
+
+        /**
+         * @title version
+         */
+        version: 1;
+
+        /**
+         * @title contents of description
+         */
+        content: Content[];
+      };
+
+      /**
+       * @title due date
+       *
+       * date format type
+       */
+      duedate?: string & tags.Format<"date">;
+
+      /**
+       * @title id of issue
+       */
+      issuetype: {
+        id: IssueType["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-types";
+            jmesPath: "issuetypes[].{value:id, label:name}";
+          }>;
+      };
+
+      /**
+       * @title labels
+       */
+      labels?: string[];
+
+      /**
+       * @title parent of this issue
+       */
+      parent?: {
+        key: Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>;
+      };
+
+      /**
+       * @title priority
+       */
+      priority?: {
+        id: Priority["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-priorities";
+            jmesPath: "[].{value:id, label:name}";
+          }>;
+      };
+
+      /**
+       * @title project
+       */
+      project:
+        | {
+            id: Project["id"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-projects";
+                jmesPath: "[].{value:id, label:name}";
+              }>;
+          }
+        | {
+            key: Project["key"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-project";
+                jmesPath: "[].{value:key, label:name}";
+              }>;
+          };
+
+      /**
+       * @title reporter
+       */
+      reporter?: {
+        id: User["accountId"] &
+          (
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/issues/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+            | Prerequisite<{
+                method: "post";
+                path: "/connector/jira/project/get-users-assignable";
+                jmesPath: "[].{value:accountId, label:displayName}";
+              }>
+          );
+      };
+
+      /**
+       * @title summary
+       *
+       * Meaning the title of the issue.
+       * Make sure you write a sentence that best represents this issue.
+       */
+      summary: string;
+    };
+  }
+
+  export interface IGetIssueLabelOutput extends ICommonPaginationOutput {
+    /**
+     * @title label list
+     */
+    values: string[];
+  }
+
+  export interface IGetIssueLabelInput
+    extends BasicAuthorization,
+      ICommonPaginationInput {}
+
+  export type IGetIssuePriorityOutput = Pick<Priority, "id" | "name">[];
+
+  export type IGetIssuePriorityInput = BasicAuthorization;
 
   export interface IGetIssueStatusOutput {
     statuses: (Pick<Status, "id" | "name" | "untranslatedName"> & {
@@ -234,6 +410,227 @@ export namespace IJira {
      * It is a keyword you want to find in the title or explanation of an issue, which is useful when searching.
      */
     keyword?: string;
+
+    /**
+     * @title priority name
+     *
+     * If you want to search based on priority, deliver the name of the priority.
+     * There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.
+     * Although it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.
+     * It also exists as our connector, so use it if necessary.
+     */
+    priority?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-issue-priorities";
+        jmesPath: "[].{value:name, label:name}";
+      }>;
+
+    /**
+     * @title label titles
+     *
+     * Complex searches are possible using various labels.
+     */
+    labels?: string[];
+  }
+
+  export interface IGetIssueDetailOutput extends Issue {
+    /**
+     * @title labels attached to the issue
+     */
+    labels?: string[];
+
+    /**
+     * @title Details of the issue
+     */
+    fields: DetailedIssueField;
+  }
+
+  /**
+   * @title content with only text
+   */
+  export type TextContent = {
+    /**
+     * @title text type
+     */
+    type: "text";
+
+    /**
+     * @title content of this text content
+     */
+    text: string;
+
+    /**
+     * @title marks
+     *
+     * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
+     */
+    marks?:
+      | [
+          {
+            type: "code";
+          },
+        ]
+      | {
+          type: "link";
+          attrs: { href: string };
+        }[];
+  };
+
+  /**
+   * @title content with mention
+   */
+  export type MentionContent = {
+    /**
+     * @title mention type
+     */
+    type: "mention";
+
+    text?: never;
+
+    /**
+     * @title content of this mention content
+     */
+    attrs: {
+      /**
+       * @title id
+       *
+       * add any string like as uuid
+       */
+      id?: string;
+
+      /**
+       * @title Who is mentioned
+       *
+       * It means a string that connects @ and the user's name
+       */
+      text: `@${string}`;
+
+      /**
+       * @title accessLevel
+       */
+      accessLevel?: string;
+    };
+  };
+
+  export type MediaContent = {
+    /**
+     * @title mediaSingle type
+     */
+    type: "mediaSingle";
+
+    /**
+     * @title media
+     */
+    content: {
+      /**
+       * @title media
+       */
+      type: "media";
+      attrs: {
+        /**
+         * @title type
+         *
+         * for example, 'file'
+         * but I'dont know what type is.
+         */
+        type: string;
+
+        /**
+         * @title image width
+         */
+        width?: number;
+
+        /**
+         * @title image height
+         */
+        height?: number;
+
+        /**
+         * if type is 'file' and image
+         */
+        alt?: string;
+      };
+    }[];
+  };
+
+  /**
+   * @title content with maybe marks
+   */
+  // export type MarkContent = {
+  //   type: string;
+  //   text?: string;
+  //   marks?: { type: string; attrs: { href: string } }[];
+  // };
+
+  /**
+   * @title code block
+   */
+  export type CodeBlockContent = {
+    type: "codeBlock";
+
+    /**
+     * @title attrs
+     *
+     * If you do not specify a programming language, this property may not exist.
+     */
+    attrs?: {
+      /**
+       * @title programming language name
+       */
+      language: string;
+    };
+
+    /**
+     * @title code content
+     */
+    content: Pick<TextContent, "text" | "type">[];
+  };
+
+  /**
+   * @title paragraph type
+   */
+  export type ParagraphContent = {
+    /**
+     * @title paragraph type
+     */
+    type: "paragraph";
+
+    attrs?: never;
+
+    /**
+     * @title content
+     *
+     * If you want to make a new line, there will be an empty array.
+     */
+    content: (TextContent | MentionContent)[];
+  };
+
+  export type BlockquoteType = {
+    /**
+     * @title blockquote type
+     */
+    type: "blockquote";
+
+    content: ParagraphContent[];
+  };
+
+  /**
+   * @title content types
+   */
+  export type Content =
+    | CodeBlockContent
+    | TextContent
+    | ParagraphContent
+    | MentionContent
+    | MediaContent
+    | BlockquoteType;
+
+  export interface IGetIssueDetailInput extends BasicAuthorization {
+    /**
+     * @title id or key
+     */
+    issueIdOrKey: string;
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -304,7 +701,7 @@ export namespace IJira {
     /**
      * @title Jira issue list
      */
-    issues: Issue[];
+    issues: Pick<Issue, "fields" | "id" | "key">[];
   }
 
   export interface IGetIssueTypeOutput {
@@ -397,11 +794,6 @@ export namespace IJira {
    */
   export interface IGetProjectOutput extends ICommonPaginationOutput {
     /**
-     * @title Wheather is last page
-     */
-    isLast: boolean;
-
-    /**
      * @title Jira project list
      */
     values: IJira.Project[];
@@ -448,67 +840,140 @@ export namespace IJira {
      */
     key: string;
 
-    fields: {
-      /**
-       * @title reporter
-       */
-      reporter?: User | null;
+    /**
+     * @title fields
+     */
+    fields: IssueField;
+  }
 
+  export interface DetailedIssueField extends IssueField {
+    /**
+     * @title comment infomation
+     */
+    comment: {
       /**
-       * @title creator
+       * @title Number of comments viewed at one time
        */
-      creator?: User | null;
-
-      /**
-       * @title assignee
-       */
-      assignee?: User | null;
-
-      /**
-       * @title summary
-       */
-      summary?: string;
+      maxResults: number;
 
       /**
-       * @title issue type
+       * @title Total count of comments
        */
-      issuetype?: Pick<IssueType, "id" | "name">;
+      total: number;
 
       /**
-       * @title status
+       * The index of the first item to return in a page of results (page offset).
+       *
+       * @title page offset
        */
-      status: Pick<
-        Status,
-        "id" | "name" | "description" | "statusCategory" | "untranslatedName"
-      >;
+      startAt: number;
 
       /**
-       * @title priority
+       * @title list of comments
        */
-      priority: {
-        /**
-         * @title url of icon
-         */
-        // iconUrl: string & tags.Format<"uri">;
-
-        /**
-         * @title priority name
-         *
-         * It may be Low, Medium, High.
-         */
-        name: string;
-
-        /**
-         * @title id
-         */
-        id: string;
-      };
-
-      /**
-       * @title parent of this issue
-       */
-      parent?: Parent;
+      comments: Comment[];
     };
+
+    description: null | {
+      content: Content[];
+    };
+  }
+
+  export interface Comment {
+    /**
+     * @title id of comment
+     */
+    id: string;
+
+    /**
+     * @title author of this comment
+     */
+    author: Pick<User, "accountId" | "active" | "displayName">;
+
+    /**
+     * @title who updates this comment
+     */
+    updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
+
+    /**
+     * @title body of comment
+     */
+    body: {
+      /**
+       * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
+       * By combining each element in the array, you can understand the entire comment content.
+       */
+      content: Content[];
+    };
+
+    /**
+     * @title created time of this comment
+     */
+    created: string;
+
+    /**
+     * @title updated time of this comment
+     */
+    updated: string;
+  }
+
+  export interface IssueField {
+    /**
+     * @title statuscategorychangedate
+     *
+     * The date and time when the status category of the issue was last changed.
+     *
+     * This property indicates the most recent timestamp when the issue transitioned
+     * between status categories (e.g., from "To Do" to "In Progress" or from
+     * "In Progress" to "Done"). Status categories in Jira typically include:
+     * - "To Do": The issue is pending and not yet started.
+     * - "In Progress": The issue is currently being worked on.
+     * - "Done": The issue has been completed.
+     */
+    statuscategorychangedate?: string;
+
+    /**
+     * @title reporter
+     */
+    reporter?: User | null;
+
+    /**
+     * @title creator
+     */
+    creator?: User | null;
+
+    /**
+     * @title assignee
+     */
+    assignee?: User | null;
+
+    /**
+     * @title summary
+     */
+    summary?: string;
+
+    /**
+     * @title issue type
+     */
+    issuetype?: Pick<IssueType, "id" | "name">;
+
+    /**
+     * @title status
+     */
+    status: Pick<
+      Status,
+      "id" | "name" | "description" | "statusCategory" | "untranslatedName"
+    >;
+
+    /**
+     * @title priority
+     */
+    priority: Pick<Priority, "id" | "name">;
+
+    /**
+     * @title parent of this issue
+     */
+    parent?: Parent;
   }
 
   export interface Parent {
@@ -616,5 +1081,32 @@ export namespace IJira {
      * @title "48x48" size image
      */
     "48x48": string & tags.Format<"uri">;
+  }
+
+  /**
+   * @title priority
+   */
+  export interface Priority {
+    /**
+     * @title url of icon
+     */
+    // iconUrl: string & tags.Format<"uri">;
+
+    /**
+     * @title priority name
+     *
+     * It may be Low, Medium, High.
+     */
+    name: string;
+
+    /**
+     * @title id
+     */
+    id: string;
+
+    /**
+     * @title meaning of this priority level
+     */
+    description: string;
   }
 }
