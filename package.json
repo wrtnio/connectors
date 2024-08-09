@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@wrtn/connector",
-  "version": "0.1.99",
+  "version": "0.1.100",
   "description": "Starter kit of Nestia",
   "main": "lib/index.js",
   "scripts": {
