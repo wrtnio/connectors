@@ -126,6 +126,11 @@ export class JiraController {
   /**
    * Find issue types like as 'story', 'bug' and so on.
    *
+   * In order for the user to inquire about the issue type, the ID of the project is required.
+   * If the user mentioned the key or name of the project,
+   * it is necessary to first inquire the project and get the correct project ID.
+   * The ID of the project is a numeric character type.
+   *
    * This always requires the user's api token for authentication.
    * User will also need your domain address and email from Jira.
    * Domain means 'http://*.atlassian.net' format.
