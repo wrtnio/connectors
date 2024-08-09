@@ -150,6 +150,10 @@ export class SlackController {
    * You can use `post_at` and `post_at_date` to find out when the message will be sent.
    * If you want to clear the message, use the `id` value in the scheduled message.
    *
+   * If a user wants to send a reservation message to himself,
+   * he or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.
+   * What is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user.
+   *
    * @param input
    * @returns
    */
