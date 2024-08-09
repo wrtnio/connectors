@@ -465,16 +465,7 @@ export namespace IJira {
      *
      * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
      */
-    marks?:
-      | [
-          {
-            type: "code";
-          },
-        ]
-      | {
-          type: "link";
-          attrs: { href: string };
-        }[];
+    marks?: Mark[];
   };
 
   /**
@@ -519,6 +510,11 @@ export namespace IJira {
      */
     type: "mediaSingle";
 
+    attrs: {
+      layout: string;
+      widthType?: "pixel" | "percentage";
+    };
+
     /**
      * @title media
      */
@@ -527,7 +523,10 @@ export namespace IJira {
        * @title media
        */
       type: "media";
+
       attrs: {
+        id?: string;
+
         /**
          * @title type
          *
@@ -535,6 +534,8 @@ export namespace IJira {
          * but I'dont know what type is.
          */
         type: string;
+
+        collection?: string;
 
         /**
          * @title image width
@@ -551,17 +552,10 @@ export namespace IJira {
          */
         alt?: string;
       };
+
+      marks: Mark[];
     }[];
   };
-
-  /**
-   * @title content with maybe marks
-   */
-  // export type MarkContent = {
-  //   type: string;
-  //   text?: string;
-  //   marks?: { type: string; attrs: { href: string } }[];
-  // };
 
   /**
    * @title code block
@@ -584,7 +578,14 @@ export namespace IJira {
     /**
      * @title code content
      */
-    content: Pick<TextContent, "text" | "type">[];
+    content?: {
+      type: "text";
+
+      /**
+       * @title text includeing code
+       */
+      text: string;
+    }[];
   };
 
   /**
@@ -596,14 +597,14 @@ export namespace IJira {
      */
     type: "paragraph";
 
-    attrs?: never;
+    attrs?: never | Record<string, never>;
 
     /**
      * @title content
      *
      * If you want to make a new line, there will be an empty array.
      */
-    content: (TextContent | MentionContent)[];
+    content: InlineContent[];
   };
 
   export type BlockquoteType = {
@@ -615,6 +616,63 @@ export namespace IJira {
     content: ParagraphContent[];
   };
 
+  export type EmojiContent = {
+    type: "emoji";
+    attrs: {
+      /**
+       * @title icon name
+       *
+       * A string exists between a colon and a colon, meaning a name for representing the emoji.
+       */
+      shortName: `:${string}:`;
+
+      /**
+       * @title emoji icon
+       */
+      text?: string;
+    };
+  };
+
+  export type HardBreakContent = {
+    type: "hardBreak";
+    attrs?: {
+      text: "\n";
+    };
+  };
+
+  export type OrderedListContent = {
+    type: "orderedList";
+    attrs: {
+      order: number & tags.Type<"int64"> & tags.Minimum<0>;
+    };
+
+    content: ListItemContent[];
+  };
+
+  export type InlineCardContent = {
+    type: "inlineCard";
+    attrs: {
+      url: string & tags.Format<"uri">;
+    };
+  };
+
+  export type BulletListContent = {
+    type: "bulletList";
+    content: ListItemContent[];
+  };
+
+  export type ListItemContent = {
+    type: "listItem";
+    content: (ParagraphContent | CodeBlockContent | MediaContent)[];
+  };
+
+  export type InlineContent =
+    | EmojiContent
+    | HardBreakContent
+    | MentionContent
+    | TextContent
+    | InlineCardContent;
+
   /**
    * @title content types
    */
@@ -622,9 +680,9 @@ export namespace IJira {
     | CodeBlockContent
     | TextContent
     | ParagraphContent
-    | MentionContent
     | MediaContent
-    | BlockquoteType;
+    | BlockquoteType
+    | BulletListContent;
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
@@ -1109,4 +1167,67 @@ export namespace IJira {
      */
     description: string;
   }
+
+  export type Mark =
+    | {
+        type: "backgroundColor";
+        attrs: {
+          /**
+           * @title color
+           *
+           * Color can be expressed using symbols('#') and RGB values.
+           */
+          color: `#${string}`;
+        };
+      }
+    | {
+        type: "code";
+      }
+    | {
+        type: "em";
+      }
+    | {
+        type: "link";
+        attrs: {
+          id?: string;
+          colletion?: string;
+          occurrenceKey?: string;
+
+          /**
+           * @title title for the URL
+           */
+          title?: string;
+
+          /**
+           * @title link
+           */
+          href: string & tags.Format<"uri">;
+        };
+      }
+    | {
+        type: "strike";
+      }
+    | {
+        type: "strong";
+      }
+    | {
+        type: "subsup";
+        attrs: {
+          type: "sub" | "sup";
+        };
+      }
+    | {
+        type: "textColor";
+        attrs: {
+          /**
+           * @title color
+           *
+           * Color can be expressed using symbols('#') and RGB values.
+           */
+          color: `#${string}`;
+        };
+      }
+    | {
+        type: "underline";
+      };
 }

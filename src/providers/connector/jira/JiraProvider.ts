@@ -336,7 +336,7 @@ export class JiraProvider {
     } catch (err) {
       console.error(JSON.stringify(err));
       if (err instanceof AxiosError) {
-        console.log(JSON.stringify(err.response?.data));
+        console.log("data : ", JSON.stringify(err.response?.data));
       }
       throw err;
     }
