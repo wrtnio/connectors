@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.98",
+    "version": "0.1.99",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8988,7 +8988,7 @@
           }
         },
         "summary": "create issue in jira",
-        "description": "Create an issue.\nIssue type, project, and summary are essential properties."
+        "description": "Create an issue.\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type for generating the issue, you can look it up through other connectors.\nIn order to write the body of an issue,\nyou must create the body as if you were assembling several blocks.\nThere are pre-designated content types,\nso please check this type information carefully.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format."
       }
     },
     "/connector/jira/get-issue-detail": {
@@ -9018,7 +9018,7 @@
           }
         },
         "summary": "get detailed Issue Information",
-        "description": "Provides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first."
+        "description": "Provides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format."
       }
     },
     "/connector/jira/get-issues": {
@@ -9049,7 +9049,7 @@
           }
         },
         "summary": "Find The Jira issues.",
-        "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9081,7 +9081,7 @@
           }
         },
         "summary": "Find the Jira projects.",
-        "description": "Find the Jira projects.\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "description": "Find the Jira projects.\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9112,7 +9112,7 @@
           }
         },
         "summary": "Find issue labels",
-        "description": "Find issue labels like as 'story', 'bug' and so on.",
+        "description": "Find issue labels like as 'story', 'bug' and so on.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9143,7 +9143,7 @@
           }
         },
         "summary": "Find issue types",
-        "description": "Find issue types like as 'story', 'bug' and so on.",
+        "description": "Find issue types like as 'story', 'bug' and so on.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9174,7 +9174,7 @@
           }
         },
         "summary": "Find issue statuses",
-        "description": "Find issue statuses for searching issue",
+        "description": "Find issue statuses for searching issue\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9205,7 +9205,7 @@
           }
         },
         "summary": "Inquire the priority levels that can be assigned to the issue.",
-        "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
+        "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9236,7 +9236,7 @@
           }
         },
         "summary": "Find assignable users in issue",
-        "description": "Find a person within the issue who can be assigned as assignee.",
+        "description": "Find a person within the issue who can be assigned as assignee.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -9267,7 +9267,7 @@
           }
         },
         "summary": "Find assignable users in project",
-        "description": "Find a person within the project who can be assigned as assignee.",
+        "description": "Find a person within the project who can be assigned as assignee.\n\nThis always requires the user's api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg"
       }
     },
@@ -30265,6 +30265,10 @@
               }
             ]
           },
+          "statuscategorychangedate": {
+            "type": "string",
+            "title": "statuscategorychangedate\n\nThe date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
+          },
           "reporter": {
             "oneOf": [
               {
@@ -30766,6 +30770,10 @@
       "IJira.IssueField": {
         "type": "object",
         "properties": {
+          "statuscategorychangedate": {
+            "type": "string",
+            "title": "statuscategorychangedate\n\nThe date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
+          },
           "reporter": {
             "oneOf": [
               {
