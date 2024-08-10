@@ -35,6 +35,7 @@ const main = async (): Promise<void> => {
     });
 
     if (openai.errors.length > 0) {
+      console.log(JSON.stringify(openai.errors, null, 2));
       throw new Error("new openai function schema has errors");
     }
 
