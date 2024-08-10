@@ -1,6 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
+import type { BulletListNode_1, OrderedListNode_1 } from "./ListNode";
 
 export type LookUp<
   U extends { type: string },
@@ -493,21 +494,10 @@ export namespace IJira {
      */
     content: (
       | ParagraphContentWithoutNoMarks
-      | BulletListNode
-      | OrderedListNode
+      | BulletListNode_1
+      | OrderedListNode_1
     )[] &
       tags.MinItems<1>;
-  };
-
-  export type BulletListNode = {
-    type: "bulletList";
-
-    /**
-     * @title content
-     *
-     * content can contain one or more listItem nodes.
-     */
-    content: ListItemNode[];
   };
 
   /**
@@ -628,27 +618,6 @@ export namespace IJira {
        */
       data?: object;
     };
-  };
-
-  export type ListItemNode = {
-    type: "listItem";
-
-    /**
-     * @title content
-     * content must contain at least one of the following nodes:
-     * - bulletList
-     * - codeBlock with no marks
-     * - mediaSingle
-     * - orderedList
-     * - paragraph with no marks
-     */
-    content: (
-      | BulletListNode
-      | CodeBlockNode
-      | MediaSingleNode
-      | OrderedListNode
-      | ParagraphContentWithoutNoMarks
-    )[];
   };
 
   /**
@@ -820,18 +789,6 @@ export namespace IJira {
     };
   };
 
-  export type OrderedListNode = {
-    type: "orderedList";
-    attrs: {
-      /**
-       * order defines the number of the first item in the list. For example, 3 would mean the list starts at number three. When not specified, the list starts from 1.
-       */
-      order: number & tags.Type<"int64"> & tags.Minimum<0>;
-    };
-
-    content: ListItemNode[];
-  };
-
   /**
    * The panel node is a container that highlights content.
    */
@@ -841,9 +798,9 @@ export namespace IJira {
       panelType: "info" | "note" | "warning" | "success" | "error";
     };
     content: (
-      | BulletListNode
+      | BulletListNode_1
       | HeadingNodeWithoutMarks
-      | OrderedListNode
+      | OrderedListNode_1
       | ParagraphContentWithoutNoMarks
     )[];
   };
@@ -953,11 +910,11 @@ export namespace IJira {
     type: "tabelCell";
     content: (
       | BlockquoteNode
-      | BulletListNode
+      | BulletListNode_1
       | CodeBlockNode
       | HeadingNode
       | MediaGroupNode
-      | OrderedListNode
+      | OrderedListNode_1
       | PanelNode
       | ParagraphNode
       | RuleNode
@@ -1000,11 +957,11 @@ export namespace IJira {
     type: "tableHeader";
     content: (
       | BlockquoteNode
-      | BulletListNode
+      | BulletListNode_1
       | CodeBlockNode
       | HeadingNode
       | MediaGroupNode
-      | OrderedListNode
+      | OrderedListNode_1
       | PanelNode
       | ParagraphNode
       | RuleNode
@@ -1076,7 +1033,7 @@ export namespace IJira {
    */
   export type TopLevelBlockNode =
     | BlockquoteNode
-    | BulletListNode
+    | BulletListNode_1
     | CodeBlockNode
     | HeadingNode
     | ParagraphNode
