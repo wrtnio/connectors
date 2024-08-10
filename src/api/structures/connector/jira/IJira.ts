@@ -2,6 +2,11 @@ import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import type { ICommon } from "../common/ISecretValue";
 
+export type LookUp<
+  U extends { type: string },
+  T extends U["type"],
+> = U["type"] extends T ? U : never;
+
 export namespace IJira {
   export type ISecret = ICommon.ISecret<
     "atlassian",
@@ -160,7 +165,7 @@ export namespace IJira {
         /**
          * @title contents of description
          */
-        content: Content[];
+        content: TopLevelBlockNode[];
       };
 
       /**
@@ -465,28 +470,330 @@ export namespace IJira {
      *
      * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
      */
-    marks?:
-      | [
-          {
-            type: "code";
-          },
-        ]
-      | {
-          type: "link";
-          attrs: { href: string };
-        }[];
+    marks?: Mark[];
+  };
+
+  /**
+   * @title Blockquote node
+   *
+   * The blockquote node is a container for quotes.
+   * blockquote is a top-level block node.
+   */
+  export type BlockquoteNode = {
+    /**
+     * @title blockquote type
+     */
+    type: "blockquote";
+
+    /**
+     * content must contain array of one or more of the following nodes:
+     * - paragraph with no marks.
+     * - bulletList
+     * - orderedList
+     */
+    content: (
+      | ParagraphContentWithoutNoMarks
+      | BulletListNode
+      | OrderedListNode
+    )[] &
+      tags.MinItems<1>;
+  };
+
+  export type BulletListNode = {
+    type: "bulletList";
+
+    /**
+     * @title content
+     *
+     * content can contain one or more listItem nodes.
+     */
+    content: ListItemNode[];
+  };
+
+  /**
+   * @title code block
+   */
+  export type CodeBlockNode = {
+    type: "codeBlock";
+
+    /**
+     * @title attrs
+     *
+     * If you do not specify a programming language, this property may not exist.
+     */
+    attrs?: {
+      /**
+       * @title programming language name
+       */
+      language: string;
+    };
+
+    /**
+     * @title code content
+     *
+     * content takes an array of one or more text nodes without marks.
+     */
+    content?: {
+      type: "text";
+
+      /**
+       * @title text includeing code
+       */
+      text: string;
+    }[];
+  };
+
+  export type EmojiNode = {
+    type: "emoji";
+    attrs: {
+      /**
+       * Emoji service ID of the emoji
+       *
+       * For custom emojis by atlasian or user, you may have an ID.
+       */
+      id?: string;
+
+      /**
+       * @title icon name
+       *
+       * A string exists between a colon and a colon, meaning a name for representing the emoji.
+       */
+      shortName: `:${string}:`;
+
+      /**
+       * @title emoji icon
+       */
+      text?: string;
+    };
+  };
+
+  export type HardBreakNode = {
+    type: "hardBreak";
+    attrs?: {
+      text?: "\n";
+    };
+  };
+
+  /**
+   * @title heading node
+   *
+   * It means h1, h2, h3, h4, h5, h6 node.
+   */
+  export type HeadingNode = {
+    type: "heading";
+    content: InlineNode[];
+
+    attrs: {
+      /**
+       * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
+       */
+      level: 1 | 2 | 3 | 4 | 5 | 6;
+    };
+  };
+
+  export type HeadingNodeWithoutMarks = {
+    type: "heading";
+
+    content: (
+      | Omit<EmojiNode, "marks">
+      | Omit<HardBreakNode, "marks">
+      | Omit<InlineCardContent, "marks">
+      | Omit<MentionNode, "marks">
+      | Omit<TextContent, "marks">
+    )[];
+
+    attrs: {
+      /**
+       * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
+       */
+      level: 1 | 2 | 3 | 4 | 5 | 6;
+    };
+  };
+
+  /**
+   * @title inline card
+   *
+   * The inlineCard node is an Atlassian link card with a type icon and content description derived from the link.
+   */
+  export type InlineCardContent = {
+    type: "inlineCard";
+    attrs: {
+      /**
+       * @title url
+       */
+      url?: string & tags.Format<"uri">;
+
+      /**
+       * @title representation of the link
+       */
+      data?: object;
+    };
+  };
+
+  export type ListItemNode = {
+    type: "listItem";
+
+    /**
+     * @title content
+     * content must contain at least one of the following nodes:
+     * - bulletList
+     * - codeBlock with no marks
+     * - mediaSingle
+     * - orderedList
+     * - paragraph with no marks
+     */
+    content: (
+      | BulletListNode
+      | CodeBlockNode
+      | MediaSingleNode
+      | OrderedListNode
+      | ParagraphContentWithoutNoMarks
+    )[];
+  };
+
+  /**
+   * media is a child block node of:
+   * - mediaGroup
+   * - mediaSingle
+   */
+  export type MediaNode =
+    | {
+        type: "media";
+
+        /**
+         * @title Attributes
+         */
+        attrs: {
+          /**
+           * width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           */
+          width?: number;
+
+          /**
+           * height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           */
+          height?: number;
+
+          /**
+           * id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API.
+           */
+          id?: string;
+
+          /**
+           * @title type
+           * There are three types.
+           * However, in our service, we have to use "external" type only, because we are only considering universal users who do not save images through Media API, but save images through external links.
+           */
+          type: "link" | "file";
+        };
+
+        /**
+         * @title marks
+         */
+        marks: LookUp<Mark, "link">;
+      }
+    | {
+        type: "media";
+
+        /**
+         * @title Attributes
+         */
+        attrs: {
+          /**
+           * width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           */
+          width?: number;
+
+          /**
+           * height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           */
+          height?: number;
+
+          /**
+           * id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API.
+           */
+          id?: string;
+
+          /**
+           * @title type
+           * There are three types.
+           * However, in our service, we have to use "external" type only, because we are only considering universal users who do not save images through Media API, but save images through external links.
+           */
+          type: "external";
+
+          /**
+           * @title url
+           */
+          url: string;
+        };
+      };
+
+  export type MediaGroupNode = {
+    type: "mediaGroup";
+
+    /**
+     * @title content
+     * content must contain one or more media nodes.
+     */
+    content: MediaNode[];
+  };
+
+  /**
+   * The mediaSingle node is a container for one media item.
+   * This node enables the display of the content in full,
+   * in contrast to a mediaGroup that is intended for a list of attachments.
+   * A common use case is to display an image,
+   * but it can also be used for videos,
+   * or other types of content usually renderable by a @atlaskit/media card component.
+   */
+  export type MediaSingleNode = {
+    /**
+     * @title mediaSingle type
+     */
+    type: "mediaSingle";
+
+    attrs: {
+      /**
+       * layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page.
+       */
+      layout:
+        | "wrap-left"
+        | "center"
+        | "wrap-right"
+        | "wide"
+        | "full-width"
+        | "align-start"
+        | "align-end";
+
+      /**
+       * width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width.
+       */
+      width?: number & tags.Minimum<0> & tags.Maximum<100>;
+
+      /**
+       * widthType [optional] determines what the "unit" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage.
+       */
+      widthType?: ("pixel" | "percentage") & tags.Default<"percentage">;
+    };
+
+    /**
+     * @title media
+     *
+     * only single of media node type
+     */
+    content: [MediaNode];
   };
 
   /**
    * @title content with mention
    */
-  export type MentionContent = {
+  export type MentionNode = {
     /**
      * @title mention type
      */
     type: "mention";
 
-    text?: never;
+    // text?: never;
 
     /**
      * @title content of this mention content
@@ -513,118 +820,274 @@ export namespace IJira {
     };
   };
 
-  export type MediaContent = {
-    /**
-     * @title mediaSingle type
-     */
-    type: "mediaSingle";
-
-    /**
-     * @title media
-     */
-    content: {
+  export type OrderedListNode = {
+    type: "orderedList";
+    attrs: {
       /**
-       * @title media
+       * order defines the number of the first item in the list. For example, 3 would mean the list starts at number three. When not specified, the list starts from 1.
        */
-      type: "media";
-      attrs: {
-        /**
-         * @title type
-         *
-         * for example, 'file'
-         * but I'dont know what type is.
-         */
-        type: string;
+      order: number & tags.Type<"int64"> & tags.Minimum<0>;
+    };
 
-        /**
-         * @title image width
-         */
-        width?: number;
-
-        /**
-         * @title image height
-         */
-        height?: number;
-
-        /**
-         * if type is 'file' and image
-         */
-        alt?: string;
-      };
-    }[];
+    content: ListItemNode[];
   };
 
   /**
-   * @title content with maybe marks
+   * The panel node is a container that highlights content.
    */
-  // export type MarkContent = {
-  //   type: string;
-  //   text?: string;
-  //   marks?: { type: string; attrs: { href: string } }[];
-  // };
-
-  /**
-   * @title code block
-   */
-  export type CodeBlockContent = {
-    type: "codeBlock";
-
-    /**
-     * @title attrs
-     *
-     * If you do not specify a programming language, this property may not exist.
-     */
-    attrs?: {
-      /**
-       * @title programming language name
-       */
-      language: string;
+  export type PanelNode = {
+    type: "panel";
+    attrs: {
+      panelType: "info" | "note" | "warning" | "success" | "error";
     };
-
-    /**
-     * @title code content
-     */
-    content: Pick<TextContent, "text" | "type">[];
+    content: (
+      | BulletListNode
+      | HeadingNodeWithoutMarks
+      | OrderedListNode
+      | ParagraphContentWithoutNoMarks
+    )[];
   };
 
   /**
    * @title paragraph type
+   * The paragraph node is a container for a block of formatted text delineated by a carriage return. It's the equivalent of the HTML <p> tag.
    */
-  export type ParagraphContent = {
+  export type ParagraphNode = {
     /**
      * @title paragraph type
      */
     type: "paragraph";
 
-    attrs?: never;
+    attrs?: never | Record<string, never>;
 
     /**
      * @title content
      *
      * If you want to make a new line, there will be an empty array.
      */
-    content: (TextContent | MentionContent)[];
-  };
-
-  export type BlockquoteType = {
-    /**
-     * @title blockquote type
-     */
-    type: "blockquote";
-
-    content: ParagraphContent[];
+    content: InlineNode[];
   };
 
   /**
-   * @title content types
+   * @title paragraph type
    */
-  export type Content =
-    | CodeBlockContent
-    | TextContent
-    | ParagraphContent
-    | MentionContent
-    | MediaContent
-    | BlockquoteType;
+  export type ParagraphContentWithoutNoMarks = {
+    /**
+     * @title paragraph type
+     */
+    type: "paragraph";
+
+    attrs?: never | Record<string, never>;
+
+    /**
+     * @title content
+     *
+     * If you want to make a new line, there will be an empty array.
+     */
+    content: (
+      | Omit<EmojiNode, "marks">
+      | Omit<HardBreakNode, "marks">
+      | Omit<InlineCardContent, "marks">
+      | Omit<MentionNode, "marks">
+      | Omit<TextContent, "marks">
+    )[];
+  };
+
+  /**
+   * The rule node represents a divider, it is equivalent to the HTML <hr/> tag.
+   */
+  export type RuleNode = {
+    type: "rule";
+  };
+
+  /**
+   * The table node provides a container for the nodes that define a table.
+   *
+   * Note: only supported on web and desktop. Mobile rendering support for tables is not available.
+   */
+  export type TableNode = {
+    type: "table";
+    content: TableRowNode[];
+    attrs?: {
+      /**
+       * When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows.
+       */
+      isNumberColumnEnabled?: (true | false) & tags.Default<true>;
+
+      /**
+       * width sets the length (in pixels) of the table on the page.
+       * This value is independent of the table's column width, this allows control of the table's overflow.
+       * It supersedes the existing layout attribute and will be used instead of it at runtime.
+       * If width is not provided the editor will convert layout to pixels (default=760, wide=960 and full-width=1800).
+       * Although no minimum and maximum width is enforced it is recommended to follow these guidelines:
+       *
+       * - Minimum width
+       *
+       *   - 1 column table = 48px
+       *   - 2 column table = 96px
+       *   - 3 column table = 144px
+       *   - > 3 column table = 144px
+       * - Maximum width
+       *   - 1800
+       */
+      width?: number & tags.Minimum<0>;
+
+      /**
+       * layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.
+       * The layout values are mapped as follows:
+       * - 'center' : will align the table to the center of page, its width can be larger than the line length
+       *  - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
+       */
+      layout?: "center" | "align-start";
+
+      /**
+       * displayMode attribute controls how tables adapt to narrow screens:
+       * When displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.
+       * When displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size.
+       */
+      displayMode?: "default" | "fixed";
+    };
+  };
+
+  export type TableCellNode = {
+    type: "tabelCell";
+    content: (
+      | BlockquoteNode
+      | BulletListNode
+      | CodeBlockNode
+      | HeadingNode
+      | MediaGroupNode
+      | OrderedListNode
+      | PanelNode
+      | ParagraphNode
+      | RuleNode
+    )[];
+
+    attrs?: {
+      /**
+       * Short or long hex color code or HTML color name
+       */
+      background?: string;
+
+      /**
+       * @title colspan
+       * colspan defines the number of columns the cell spans.
+       */
+      colspan: number & tags.Type<"uint64"> & tags.Default<1>;
+
+      /**
+       * defines the width of the column or,
+       * where the cell spans columns, the width of the columns it spans in pixels.
+       * The length of the array should be equal to the number of spanned columns.
+       * 0 is permitted as an array value if the column size is not fixed,
+       * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
+       */
+      colwidth: [
+        number & tags.Type<"uint64">,
+        number & tags.Type<"uint64">,
+        number & tags.Type<"uint64">,
+      ];
+
+      /**
+       * @title rowspan
+       * rowspan defines the number of rows a cell spans.
+       */
+      rowspan: number & tags.Type<"uint64"> & tags.Default<1>;
+    };
+  };
+
+  export type TableHeaderNode = {
+    type: "tableHeader";
+    content: (
+      | BlockquoteNode
+      | BulletListNode
+      | CodeBlockNode
+      | HeadingNode
+      | MediaGroupNode
+      | OrderedListNode
+      | PanelNode
+      | ParagraphNode
+      | RuleNode
+    )[];
+
+    attrs?: {
+      /**
+       * Short or long hex color code or HTML color name
+       */
+      background?: string;
+
+      /**
+       * @title colspan
+       * colspan defines the number of columns the cell spans.
+       */
+      colspan: number & tags.Type<"uint64"> & tags.Default<1>;
+
+      /**
+       * defines the width of the column or,
+       * where the cell spans columns, the width of the columns it spans in pixels.
+       * The length of the array should be equal to the number of spanned columns.
+       * 0 is permitted as an array value if the column size is not fixed,
+       * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
+       */
+      colwidth: [
+        number & tags.Type<"uint64">,
+        number & tags.Type<"uint64">,
+        number & tags.Type<"uint64">,
+      ];
+
+      /**
+       * @title rowspan
+       * rowspan defines the number of rows a cell spans.
+       */
+      rowspan: number & tags.Type<"uint64"> & tags.Default<1>;
+    };
+  };
+
+  /**
+   * The tableRow node defines rows within a table and is a container for table heading and table cell nodes.
+   * tableRow is a child block node of the table node.
+   */
+  export type TableRowNode = {
+    type: "tableRow";
+
+    /**
+     * content takes an array of one or more tableHeader or tableCell nodes.
+     */
+    content: (TableHeaderNode | TableCellNode)[];
+  };
+
+  /**
+   * @title node types
+   *
+   * 가장 바깥쪽에 쓰일 수 있는 콘텐츠 타입들을 의미한다.
+   *
+   * - blockquote
+   * - bulletList
+   * - codeBlock
+   * - heading
+   * - mediaGroup
+   * - mediaSingle
+   * - orderedList
+   * - panel
+   * - paragraph
+   * - rule
+   * - table
+   * - multiBodiedExtension
+   */
+  export type TopLevelBlockNode =
+    | BlockquoteNode
+    | BulletListNode
+    | CodeBlockNode
+    | HeadingNode
+    | ParagraphNode
+    | MediaSingleNode;
+
+  export type InlineNode =
+    | EmojiNode
+    | HardBreakNode
+    | InlineCardContent
+    | MentionNode
+    | TextContent;
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
@@ -875,7 +1338,7 @@ export namespace IJira {
     };
 
     description: null | {
-      content: Content[];
+      content: TopLevelBlockNode[];
     };
   }
 
@@ -903,7 +1366,7 @@ export namespace IJira {
        * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
        * By combining each element in the array, you can understand the entire comment content.
        */
-      content: Content[];
+      content: TopLevelBlockNode[];
     };
 
     /**
@@ -1109,4 +1572,58 @@ export namespace IJira {
      */
     description: string;
   }
+
+  export type Mark =
+    | {
+        type: "backgroundColor";
+        attrs: {
+          /**
+           * @title color
+           *
+           * Color can be expressed using symbols('#') and RGB values.
+           */
+          color: `#${string}`;
+        };
+      }
+    | {
+        type: "code";
+      }
+    | {
+        type: "em";
+      }
+    | {
+        type: "link";
+        attrs: {
+          /**
+           * @title link
+           */
+          href: string & tags.Format<"uri">;
+        };
+      }
+    | {
+        type: "strike";
+      }
+    | {
+        type: "strong";
+      }
+    | {
+        type: "subsup";
+        attrs: {
+          type: "sub" | "sup";
+        };
+      }
+    | {
+        type: "textColor";
+        attrs: {
+          /**
+           * @title color
+           *
+           * Color can be expressed using symbols('#') and RGB values.
+           */
+          color: `#${string}`;
+        };
+      }
+    | {
+        type: "underline";
+      };
 }

@@ -11,11 +11,10 @@ export class JiraController {
   /**
    * Create an issue.
    * Issue type, project, and summary are essential properties.
-   * If you don't know the issue type or priority type for generating the issue, you can look it up through other connectors.
-   * In order to write the body of an issue,
-   * you must create the body as if you were assembling several blocks.
-   * There are pre-designated content types,
-   * so please check this type information carefully.
+   * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
+   *
+   * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
+   * There are pre-designated content types, so please check this type information carefully.
    *
    * This always requires the user's api token for authentication.
    * User will also need your domain address and email from Jira.
