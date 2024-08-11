@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.101",
+    "version": "0.1.102",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -29619,7 +29619,7 @@
                         }
                       }
                     ],
-                    "title": "accountId of the user you want to designate as the person in charge"
+                    "title": "accountId of the user you want to designate as the person in charge\n\nIf you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want."
                   }
                 },
                 "required": [
@@ -29655,10 +29655,25 @@
                           "$ref": "#/components/schemas/IJira.HeadingNode"
                         },
                         {
+                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/OrderedListNode_1"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.PanelNode"
+                        },
+                        {
                           "$ref": "#/components/schemas/IJira.ParagraphNode"
                         },
                         {
-                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                          "$ref": "#/components/schemas/IJira.TableNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.RuleNode"
                         }
                       ],
                       "discriminator": {
@@ -29668,12 +29683,17 @@
                           "bulletList": "#/components/schemas/BulletListNode_1",
                           "codeBlock": "#/components/schemas/IJira.CodeBlockNode",
                           "heading": "#/components/schemas/IJira.HeadingNode",
+                          "mediaSingle": "#/components/schemas/IJira.MediaSingleNode",
+                          "orderedList": "#/components/schemas/OrderedListNode_1",
+                          "panel": "#/components/schemas/IJira.PanelNode",
                           "paragraph": "#/components/schemas/IJira.ParagraphNode",
-                          "mediaSingle": "#/components/schemas/IJira.MediaSingleNode"
+                          "table": "#/components/schemas/IJira.TableNode",
+                          "mediaGroup": "#/components/schemas/IJira.MediaGroupNode",
+                          "rule": "#/components/schemas/IJira.RuleNode"
                         }
                       }
                     },
-                    "title": "contents of description"
+                    "title": "contents of description\n\nYou must use node types that are configured with TopLevelBlockNodes.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
                   }
                 },
                 "required": [
@@ -29686,31 +29706,35 @@
               "duedate": {
                 "type": "string",
                 "format": "date",
-                "title": "due date\n\ndate format type"
+                "title": "due date\n\ndate format type.\nIndicates the schedule you want to be closed.Of course, it will be good to create a date or today."
               },
               "issuetype": {
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/jira/get-issue-types",
-                      "jmesPath": "issuetypes[].{value:id, label:name}"
-                    }
+                    "0": {
+                      "type": "string",
+                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                      "x-wrtn-prerequisite": {
+                        "method": "post",
+                        "path": "/connector/jira/get-issue-types",
+                        "jmesPath": "issuetypes[].{value:id, label:name}"
+                      }
+                    },
+                    "title": "id of issue type\n\nThe ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
                   }
                 },
                 "required": [
                   "id"
                 ],
-                "title": "id of issue"
+                "title": "issuetype"
               },
               "labels": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "title": "labels"
+                "title": "labels\nYou can add labels to make it easier to read issues.\nLabels are simply strings, which can be added immediately without having to look up using other connectors."
               },
               "parent": {
                 "type": "object",
@@ -29721,7 +29745,8 @@
                       "method": "post",
                       "path": "/connector/jira/get-issues",
                       "jmesPath": "issues[].{value:key, label:key}"
-                    }
+                    },
+                    "title": "key of parent issue\n\nSometimes an issue can be a sub-issue of another issue.\nIn this case, you need to specify the key for the parent issue.\nIf you want to know the key, use an issue list query or another connector to look up the details of the issue."
                   }
                 },
                 "required": [
@@ -29733,12 +29758,16 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "type": "string",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/jira/get-issue-priorities",
-                      "jmesPath": "[].{value:id, label:name}"
-                    }
+                    "0": {
+                      "type": "string",
+                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                      "x-wrtn-prerequisite": {
+                        "method": "post",
+                        "path": "/connector/jira/get-issue-priorities",
+                        "jmesPath": "[].{value:id, label:name}"
+                      }
+                    },
+                    "title": "id of proirity\n\nYou can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
                   }
                 },
                 "required": [
@@ -29752,12 +29781,16 @@
                     "type": "object",
                     "properties": {
                       "id": {
-                        "type": "string",
-                        "x-wrtn-prerequisite": {
-                          "method": "post",
-                          "path": "/connector/jira/get-projects",
-                          "jmesPath": "[].{value:id, label:name}"
-                        }
+                        "0": {
+                          "type": "string",
+                          "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                          "x-wrtn-prerequisite": {
+                            "method": "post",
+                            "path": "/connector/jira/get-projects",
+                            "jmesPath": "[].{value:id, label:name}"
+                          }
+                        },
+                        "title": "id of project"
                       }
                     },
                     "required": [
@@ -29773,7 +29806,8 @@
                           "method": "post",
                           "path": "/connector/jira/get-project",
                           "jmesPath": "[].{value:key, label:name}"
-                        }
+                        },
+                        "title": "key of project"
                       }
                     },
                     "required": [
@@ -29781,7 +29815,7 @@
                     ]
                   }
                 ],
-                "title": "project"
+                "title": "project\n\nIssues must inevitably belong to the project.\nAt this point, the project can be specified by receiving an ID or key.\nIf you do not know the key or ID of the project, you should first look up the project."
               },
               "reporter": {
                 "type": "object",
@@ -29804,7 +29838,8 @@
                           "jmesPath": "[].{value:accountId, label:displayName}"
                         }
                       }
-                    ]
+                    ],
+                    "title": "id of reporter\n\nIf you know who the reporter is, you can specify.\nPerhaps the person who created the issue is more likely to be the reporter, but not necessarily.\nYou can also find the first person to find the problem and put someone with a similar nickname."
                   }
                 },
                 "required": [
@@ -29821,7 +29856,8 @@
               "issuetype",
               "project",
               "summary"
-            ]
+            ],
+            "title": "fields\n\nIndicates the fields that you need to fill in when you want to create an issue."
           },
           "email": {
             "type": "string",
@@ -29842,7 +29878,8 @@
           "email",
           "apiToken",
           "domain"
-        ]
+        ],
+        "title": "Issue Creation Conditions"
       },
       "IJira.BlockquoteNode": {
         "type": "object",
@@ -29859,18 +29896,18 @@
                   "$ref": "#/components/schemas/BulletListNode_1"
                 },
                 {
-                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
+                  "$ref": "#/components/schemas/OrderedListNode_1"
                 },
                 {
-                  "$ref": "#/components/schemas/OrderedListNode_1"
+                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
                 }
               ],
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
                   "bulletList": "#/components/schemas/BulletListNode_1",
-                  "paragraph": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks",
-                  "orderedList": "#/components/schemas/OrderedListNode_1"
+                  "orderedList": "#/components/schemas/OrderedListNode_1",
+                  "paragraph": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
                 }
               }
             },
@@ -30796,6 +30833,152 @@
         ],
         "title": "content with only text"
       },
+      "IJira.PanelNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "panel"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "panelType": {
+                "oneOf": [
+                  {
+                    "const": "info"
+                  },
+                  {
+                    "const": "note"
+                  },
+                  {
+                    "const": "warning"
+                  },
+                  {
+                    "const": "success"
+                  },
+                  {
+                    "const": "error"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "panelType"
+            ]
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/BulletListNode_1"
+                },
+                {
+                  "$ref": "#/components/schemas/OrderedListNode_1"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HeadingNodeWithoutMarks"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "bulletList": "#/components/schemas/BulletListNode_1",
+                  "orderedList": "#/components/schemas/OrderedListNode_1",
+                  "paragraph": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks",
+                  "heading": "#/components/schemas/IJira.HeadingNodeWithoutMarks"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "attrs",
+          "content"
+        ],
+        "description": "The panel node is a container that highlights content."
+      },
+      "IJira.HeadingNodeWithoutMarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "heading"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.InlineCardContentmarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
+                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
+                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardContentmarks",
+                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
+                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
+                }
+              }
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "oneOf": [
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": 3
+                  },
+                  {
+                    "const": 4
+                  },
+                  {
+                    "const": 5
+                  },
+                  {
+                    "const": 6
+                  }
+                ],
+                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
+                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
+              }
+            },
+            "required": [
+              "level"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "content",
+          "attrs"
+        ]
+      },
       "IJira.ParagraphNode": {
         "type": "object",
         "properties": {
@@ -30845,6 +31028,424 @@
           "content"
         ],
         "title": "paragraph type\nThe paragraph node is a container for a block of formatted text delineated by a carriage return. It's the equivalent of the HTML <p> tag."
+      },
+      "IJira.TableNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "table"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.TableRowNode"
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "isNumberColumnEnabled": {
+                "type": "boolean",
+                "default": true,
+                "title": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows",
+                "description": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows."
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0,
+                "title": "width sets the length (in pixels) of the table on the page",
+                "description": "width sets the length (in pixels) of the table on the page.\nThis value is independent of the table's column width, this allows control of the table's overflow.\nIt supersedes the existing layout attribute and will be used instead of it at runtime.\nIf width is not provided the editor will convert layout to pixels (default=760, wide=960 and full-width=1800).\nAlthough no minimum and maximum width is enforced it is recommended to follow these guidelines:\n\n- Minimum width\n\n  - 1 column table = 48px\n  - 2 column table = 96px\n  - 3 column table = 144px\n  - > 3 column table = 144px\n- Maximum width\n  - 1800"
+              },
+              "layout": {
+                "oneOf": [
+                  {
+                    "const": "center"
+                  },
+                  {
+                    "const": "align-start"
+                  }
+                ],
+                "title": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported",
+                "description": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.\nThe layout values are mapped as follows:\n- 'center' : will align the table to the center of page, its width can be larger than the line length\n - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length"
+              },
+              "displayMode": {
+                "oneOf": [
+                  {
+                    "const": "default"
+                  },
+                  {
+                    "const": "fixed"
+                  }
+                ],
+                "description": "displayMode attribute controls how tables adapt to narrow screens:\nWhen displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.\nWhen displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size."
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "description": "The table node provides a container for the nodes that define a table.\n\nNote: only supported on web and desktop. Mobile rendering support for tables is not available."
+      },
+      "IJira.TableRowNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "tableRow"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.TableHeaderNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.TableCellNode"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "tableHeader": "#/components/schemas/IJira.TableHeaderNode",
+                  "tabelCell": "#/components/schemas/IJira.TableCellNode"
+                }
+              }
+            },
+            "title": "content takes an array of one or more tableHeader or tableCell nodes",
+            "description": "content takes an array of one or more tableHeader or tableCell nodes."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "description": "The tableRow node defines rows within a table and is a container for table heading and table cell nodes.\ntableRow is a child block node of the table node."
+      },
+      "IJira.TableHeaderNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "tableHeader"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                },
+                {
+                  "$ref": "#/components/schemas/BulletListNode_1"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HeadingNode"
+                },
+                {
+                  "$ref": "#/components/schemas/OrderedListNode_1"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.PanelNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.RuleNode"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "blockquote": "#/components/schemas/IJira.BlockquoteNode",
+                  "bulletList": "#/components/schemas/BulletListNode_1",
+                  "codeBlock": "#/components/schemas/IJira.CodeBlockNode",
+                  "heading": "#/components/schemas/IJira.HeadingNode",
+                  "orderedList": "#/components/schemas/OrderedListNode_1",
+                  "panel": "#/components/schemas/IJira.PanelNode",
+                  "paragraph": "#/components/schemas/IJira.ParagraphNode",
+                  "mediaGroup": "#/components/schemas/IJira.MediaGroupNode",
+                  "rule": "#/components/schemas/IJira.RuleNode"
+                }
+              }
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "background": {
+                "type": "string",
+                "description": "Short or long hex color code or HTML color name"
+              },
+              "colspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "colspan\ncolspan defines the number of columns the cell spans."
+              },
+              "colwidth": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
+              },
+              "rowspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "rowspan\nrowspan defines the number of rows a cell spans."
+              }
+            },
+            "required": [
+              "colspan",
+              "colwidth",
+              "rowspan"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.MediaGroupNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mediaGroup"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "media"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number",
+                          "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "height": {
+                          "type": "number",
+                          "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                        },
+                        "type": {
+                          "oneOf": [
+                            {
+                              "const": "file"
+                            },
+                            {
+                              "const": "link"
+                            }
+                          ],
+                          "title": "type\nThere are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "title": "Attributes"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "media"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number",
+                          "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "height": {
+                          "type": "number",
+                          "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                        },
+                        "type": {
+                          "const": "external",
+                          "title": "type\nThere are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                        },
+                        "url": {
+                          "type": "string",
+                          "title": "url"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "url"
+                      ],
+                      "title": "Attributes"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                }
+              ]
+            },
+            "title": "content\ncontent must contain one or more media nodes."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.RuleNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rule"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "The rule node represents a divider, it is equivalent to the HTML <hr/> tag."
+      },
+      "IJira.TableCellNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "tabelCell"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                },
+                {
+                  "$ref": "#/components/schemas/BulletListNode_1"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HeadingNode"
+                },
+                {
+                  "$ref": "#/components/schemas/OrderedListNode_1"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.PanelNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.RuleNode"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "blockquote": "#/components/schemas/IJira.BlockquoteNode",
+                  "bulletList": "#/components/schemas/BulletListNode_1",
+                  "codeBlock": "#/components/schemas/IJira.CodeBlockNode",
+                  "heading": "#/components/schemas/IJira.HeadingNode",
+                  "orderedList": "#/components/schemas/OrderedListNode_1",
+                  "panel": "#/components/schemas/IJira.PanelNode",
+                  "paragraph": "#/components/schemas/IJira.ParagraphNode",
+                  "mediaGroup": "#/components/schemas/IJira.MediaGroupNode",
+                  "rule": "#/components/schemas/IJira.RuleNode"
+                }
+              }
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "background": {
+                "type": "string",
+                "description": "Short or long hex color code or HTML color name"
+              },
+              "colspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "colspan\ncolspan defines the number of columns the cell spans."
+              },
+              "colwidth": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
+              },
+              "rowspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "rowspan\nrowspan defines the number of rows a cell spans."
+              }
+            },
+            "required": [
+              "colspan",
+              "colwidth",
+              "rowspan"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
       },
       "IJira.ICreateIssueOutput": {
         "type": "object",
@@ -30980,10 +31581,25 @@
                           "$ref": "#/components/schemas/IJira.HeadingNode"
                         },
                         {
+                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/OrderedListNode_1"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.PanelNode"
+                        },
+                        {
                           "$ref": "#/components/schemas/IJira.ParagraphNode"
                         },
                         {
-                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                          "$ref": "#/components/schemas/IJira.TableNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.RuleNode"
                         }
                       ],
                       "discriminator": {
@@ -30993,8 +31609,13 @@
                           "bulletList": "#/components/schemas/BulletListNode_1",
                           "codeBlock": "#/components/schemas/IJira.CodeBlockNode",
                           "heading": "#/components/schemas/IJira.HeadingNode",
+                          "mediaSingle": "#/components/schemas/IJira.MediaSingleNode",
+                          "orderedList": "#/components/schemas/OrderedListNode_1",
+                          "panel": "#/components/schemas/IJira.PanelNode",
                           "paragraph": "#/components/schemas/IJira.ParagraphNode",
-                          "mediaSingle": "#/components/schemas/IJira.MediaSingleNode"
+                          "table": "#/components/schemas/IJira.TableNode",
+                          "mediaGroup": "#/components/schemas/IJira.MediaGroupNode",
+                          "rule": "#/components/schemas/IJira.RuleNode"
                         }
                       }
                     }
@@ -31106,10 +31727,25 @@
                       "$ref": "#/components/schemas/IJira.HeadingNode"
                     },
                     {
+                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OrderedListNode_1"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.PanelNode"
+                    },
+                    {
                       "$ref": "#/components/schemas/IJira.ParagraphNode"
                     },
                     {
-                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                      "$ref": "#/components/schemas/IJira.TableNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.RuleNode"
                     }
                   ],
                   "discriminator": {
@@ -31119,8 +31755,13 @@
                       "bulletList": "#/components/schemas/BulletListNode_1",
                       "codeBlock": "#/components/schemas/IJira.CodeBlockNode",
                       "heading": "#/components/schemas/IJira.HeadingNode",
+                      "mediaSingle": "#/components/schemas/IJira.MediaSingleNode",
+                      "orderedList": "#/components/schemas/OrderedListNode_1",
+                      "panel": "#/components/schemas/IJira.PanelNode",
                       "paragraph": "#/components/schemas/IJira.ParagraphNode",
-                      "mediaSingle": "#/components/schemas/IJira.MediaSingleNode"
+                      "table": "#/components/schemas/IJira.TableNode",
+                      "mediaGroup": "#/components/schemas/IJira.MediaGroupNode",
+                      "rule": "#/components/schemas/IJira.RuleNode"
                     }
                   }
                 },
@@ -31200,7 +31841,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
           },
           "name": {
             "type": "string",
@@ -31267,6 +31909,7 @@
         "properties": {
           "id": {
             "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
             "title": "id"
           },
           "name": {
@@ -31672,6 +32315,7 @@
         "properties": {
           "id": {
             "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
             "title": "id"
           },
           "key": {
@@ -31787,11 +32431,14 @@
         "type": "object",
         "properties": {
           "projectId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connectors/jira/get-projects",
-              "jmesPath": "values[].{value:id,label:name}"
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connectors/jira/get-projects",
+                "jmesPath": "values[].{value:id,label:name}"
+              }
             },
             "title": "id of project"
           },
@@ -31835,7 +32482,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
           },
           "name": {
             "type": "string",
@@ -31862,11 +32510,14 @@
         "type": "object",
         "properties": {
           "projectId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connectors/jira/get-projects",
-              "jmesPath": "values[].{value:id,label:name}"
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connectors/jira/get-projects",
+                "jmesPath": "values[].{value:id,label:name}"
+              }
             },
             "title": "id of project\n\nIf the status does not have the project ID,\nit means this status is beyond the scope of the project and can be selected by the entire team.\nIt can also be the default status created from the beginning by Jira."
           },
