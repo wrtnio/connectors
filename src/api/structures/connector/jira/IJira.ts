@@ -121,7 +121,15 @@ export namespace IJira {
     key: Issue["key"];
   }
 
+  /**
+   * @title Issue Creation Conditions
+   */
   export interface ICreateIssueInput extends BasicAuthorization {
+    /**
+     * @title fields
+     *
+     * Indicates the fields that you need to fill in when you want to create an issue.
+     */
     fields: {
       /**
        * @title Specify a representative at the same time as you create
@@ -129,6 +137,8 @@ export namespace IJira {
       assignee?: {
         /**
          * @title accountId of the user you want to designate as the person in charge
+         *
+         * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
          */
         id: User["accountId"] &
           (
@@ -165,6 +175,11 @@ export namespace IJira {
 
         /**
          * @title contents of description
+         *
+         * You must use node types that are configured with TopLevelBlockNodes.
+         *
+         * It is recommended to contain as much detail as possible on the issue raised by the user,
+         * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
          */
         content: TopLevelBlockNode[];
       };
@@ -172,14 +187,28 @@ export namespace IJira {
       /**
        * @title due date
        *
-       * date format type
+       * date format type.
+       * Indicates the schedule you want to be closed.Of course, it will be good to create a date or today.
        */
       duedate?: string & tags.Format<"date">;
 
       /**
-       * @title id of issue
+       * @title issuetype
        */
       issuetype: {
+        /**
+         * @title id of issue type
+         *
+         * The ID of the issue.
+         * Sometimes the user can say the name of the issue type,
+         * such as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.
+         * Because there can be types with the same name.
+         * Therefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.
+         *
+         * However, if you handed over the number string type from the beginning, it could be the ID of the issue type.
+         *
+         * @inheritdoc
+         */
         id: IssueType["id"] &
           Prerequisite<{
             method: "post";
@@ -190,6 +219,8 @@ export namespace IJira {
 
       /**
        * @title labels
+       * You can add labels to make it easier to read issues.
+       * Labels are simply strings, which can be added immediately without having to look up using other connectors.
        */
       labels?: string[];
 
@@ -197,6 +228,13 @@ export namespace IJira {
        * @title parent of this issue
        */
       parent?: {
+        /**
+         * @title key of parent issue
+         *
+         * Sometimes an issue can be a sub-issue of another issue.
+         * In this case, you need to specify the key for the parent issue.
+         * If you want to know the key, use an issue list query or another connector to look up the details of the issue.
+         */
         key: Issue["key"] &
           Prerequisite<{
             method: "post";
@@ -209,6 +247,14 @@ export namespace IJira {
        * @title priority
        */
       priority?: {
+        /**
+         * @title id of proirity
+         *
+         * You can prioritize issues.
+         * Users can also prioritize issues in natural languages such as Low, Medium, High, and so on,
+         * but when creating issues, ID values for these priorities are required.
+         * Therefore, you should first call a connector that looks up what priorities are available for the project and issue.
+         */
         id: Priority["id"] &
           Prerequisite<{
             method: "post";
@@ -219,9 +265,16 @@ export namespace IJira {
 
       /**
        * @title project
+       *
+       * Issues must inevitably belong to the project.
+       * At this point, the project can be specified by receiving an ID or key.
+       * If you do not know the key or ID of the project, you should first look up the project.
        */
       project:
         | {
+            /**
+             * @title id of project
+             */
             id: Project["id"] &
               Prerequisite<{
                 method: "post";
@@ -230,6 +283,9 @@ export namespace IJira {
               }>;
           }
         | {
+            /**
+             * @title key of project
+             */
             key: Project["key"] &
               Prerequisite<{
                 method: "post";
@@ -242,6 +298,13 @@ export namespace IJira {
        * @title reporter
        */
       reporter?: {
+        /**
+         * @title id of reporter
+         *
+         * If you know who the reporter is, you can specify.
+         * Perhaps the person who created the issue is more likely to be the reporter, but not necessarily.
+         * You can also find the first person to find the problem and put someone with a similar nickname.
+         */
         id: User["accountId"] &
           (
             | Prerequisite<{
@@ -1014,9 +1077,10 @@ export namespace IJira {
   };
 
   /**
-   * @title node types
+   * @title TopLevelBlockNode
    *
-   * 가장 바깥쪽에 쓰일 수 있는 콘텐츠 타입들을 의미한다.
+   * It refers to the types of content that are directly below the 'doc' type and can be used at the outermost level.
+   * These are the types separated by the TopLevelBlockNode in the Jira document.
    *
    * - blockquote
    * - bulletList
@@ -1036,9 +1100,20 @@ export namespace IJira {
     | BulletListNode_1
     | CodeBlockNode
     | HeadingNode
+    | MediaGroupNode
+    | MediaSingleNode
+    | OrderedListNode_1
+    | PanelNode
     | ParagraphNode
-    | MediaSingleNode;
+    | RuleNode
+    | TableNode;
 
+  /**
+   * @title inlineNode
+   *
+   * An inline node is the nodes that belong to Paragrap and are used to write.
+   * Typically used as a child node for a Paragrap node.
+   */
   export type InlineNode =
     | EmojiNode
     | HardBreakNode
@@ -1229,7 +1304,7 @@ export namespace IJira {
   }
 
   export interface IssueType {
-    id: string;
+    id: `${number}`;
 
     /**
      * @title issue type name
@@ -1446,7 +1521,7 @@ export namespace IJira {
     /**
      * @title id
      */
-    id: string;
+    id: `${number}`;
 
     /**
      * @title key of project
@@ -1522,7 +1597,7 @@ export namespace IJira {
     /**
      * @title id
      */
-    id: string;
+    id: `${number}`;
 
     /**
      * @title meaning of this priority level
