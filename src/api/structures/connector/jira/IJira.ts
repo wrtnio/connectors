@@ -24,21 +24,45 @@ export namespace IJira {
     ]
   >;
 
+  /**
+   * @title BasicAuthorization
+   *
+   * To call the API in Jira, you must have API Token,
+   * the domain address that will be the user's Jira workspace,
+   * and the user's email address that the user is currently using in Jira.
+   * This object contains this information.
+   * If the user did not provide these values at the time of the connector call,
+   * you should ask the user to give them.
+   * There is no point in substituting any value here.
+   */
   export interface BasicAuthorization {
     /**
      * @title email in Jira
+     *
+     * Indicates the email address that the user is using in the Jira workspace.
+     * It must be an email address that Jira is using, not any email address of the user.
+     * This email is used for Basic Authentication with API Token.
      */
     email: string;
 
     /**
      * @title jira api token
      *
-     * You can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.
+     * User can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.
+     *
+     * This is the user's API Token.
+     * It is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.
+     * If the user does not have this token, Jira's API cannot be called.
      */
     apiToken: string;
 
     /**
      * @title domain of your workspace site in Jira
+     *
+     * Address in the form of 'https://*.atlassian.net '.
+     * It always starts with https:// and the string in the middle can vary from team to team.
+     * Therefore, you must receive this address directly from the user.
+     * All authentication is available only when you know both the user's email and API token for each workspace URL address.
      */
     domain: string & tags.Pattern<"^(https:\\/\\/(.*)\\.atlassian\\.net)$">;
   }
