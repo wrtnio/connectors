@@ -2,7 +2,7 @@ import CApi from "@wrtn/connector-api/lib/index";
 import assert from "assert";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { test_api_connector_jira_get_projects } from "./test_api_connector_get_projects";
+import { test_api_connector_jira_get_projects } from "./test_api_connector_jira_get_projects";
 
 export const test_api_connector_jira_get_issues_without_paramter = async (
   connection: CApi.IConnection,
