@@ -313,6 +313,28 @@ export class JiraProvider {
     }
   }
 
+  async createComment(input: IJira.ICreateCommentInput): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.post(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment`,
+        {
+          body: input.body,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getComments(
     input: IJira.IGetCommentInput,
   ): Promise<IJira.IGetCommentOutput> {

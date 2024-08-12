@@ -9,6 +9,20 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
+   * Creates a comment on an issue
+   * Here, user can write the body of the comment you want to write with the ID or key of the issue.
+   *
+   * @summary creates a comment on an issue
+   * @param input condition of creation
+   */
+  @core.TypedRoute.Post("issues/comments")
+  async createComment(
+    @TypedBody() input: IJira.ICreateCommentInput,
+  ): Promise<void> {
+    return this.jiraProvider.createComment(input);
+  }
+
+  /**
    * Get comments by issue id or key
    *
    * This connector uses the issue's key or ID value to query the comments written on the issue.

@@ -174,6 +174,33 @@ export namespace IJira {
           }>);
   }
 
+  export interface ICreateCommentInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title body of comment
+     */
+    body: Comment["body"];
+  }
+
   /**
    * @title output of creation of issue
    */
@@ -1513,6 +1540,9 @@ export namespace IJira {
      * @title body of comment
      */
     body: {
+      type: "doc";
+      version: 1;
+
       /**
        * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
        * By combining each element in the array, you can understand the entire comment content.
