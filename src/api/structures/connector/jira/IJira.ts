@@ -140,6 +140,40 @@ export namespace IJira {
     };
   }
 
+  export interface IGetCommentOutput extends ICommonPaginationOutput {
+    /**
+     * @title comments
+     */
+    comments: Pick<
+      IJira.Comment,
+      "id" | "author" | "body" | "created" | "updated" | "updateAuthor"
+    >[];
+  }
+
+  export interface IGetCommentInput
+    extends BasicAuthorization,
+      ICommonPaginationInput {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+  }
+
   /**
    * @title output of creation of issue
    */
@@ -180,6 +214,7 @@ export namespace IJira {
          * @title accountId of the user you want to designate as the person in charge
          *
          * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
+         * The person in charge is inevitably one of Jira's users.
          */
         id: User["accountId"] &
           (

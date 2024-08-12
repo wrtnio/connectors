@@ -9,6 +9,25 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
+   * Get comments by issue id or key
+   *
+   * This connector uses the issue's key or ID value to query the comments written on the issue.
+   * Comments are also visible when looking up issues,
+   * but not all comments inside are visible,
+   * so user have to use this connector to look up them in pagination.
+   *
+   * @summary get comments by issue id or key
+   * @param input issue id or key
+   * @returns comments of this issue
+   */
+  @core.TypedRoute.Post("issues/get-comments")
+  async getComments(
+    @TypedBody() input: IJira.IGetCommentInput,
+  ): Promise<IJira.IGetCommentOutput> {
+    return this.jiraProvider.getComments(input);
+  }
+
+  /**
    * Update an issue
    *
    * You can modify any element in the field.
