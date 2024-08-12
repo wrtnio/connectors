@@ -485,33 +485,6 @@ export const test_api_connector_jira_create_random_issue_blockquote = async (
                     },
                   ],
                 },
-                // {
-                //   type: "paragraph",
-                //   content: [
-                //     {
-                //       type: "hardBreak",
-                //     },
-                //     {
-                //       type: "hardBreak",
-                //       attrs: {},
-                //     },
-                //   ],
-                // },
-                // {
-                //   type: "paragraph",
-                //   content: [
-                //     {
-                //       type: "text",
-                //       text: "kkhggwbqs",
-                //     },
-                //     {
-                //       type: "inlineCard",
-                //       attrs: {
-                //         url: "https://sfpiofvpob.jck",
-                //       },
-                //     },
-                //   ],
-                // },
               ],
             },
           ],
