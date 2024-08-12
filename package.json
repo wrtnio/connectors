@@ -97,7 +97,7 @@
     "@nestjs/swagger": "^7.4.0",
     "@nestjs/testing": "^10.3.10",
     "@notionhq/client": "^2.2.15",
-    "@samchon/openapi": "^0.4.3",
+    "@samchon/openapi": "^0.4.4",
     "@wrtnio/decorators": "^1.4.12",
     "@wrtnio/openai-function-schema": "^0.2.4",
     "atob": "^2.1.2",
