@@ -142,3 +142,45 @@ export const test_api_connector_jira_update_issue_assignee = async (
 
   typia.assertEquals(updateAssignee);
 };
+
+export const test_api_connector_jira_update_issue_status = async (
+  connection: CApi.IConnection,
+) => {
+  const { issues } = await CApi.functional.connector.jira.get_issues.getIssues(
+    connection,
+    {
+      ...Configuration,
+      project_key: "KAK",
+      maxResults: 200,
+      status: "Backlog",
+    },
+  );
+
+  for await (const issue of issues) {
+    const { transitions } =
+      await CApi.functional.connector.jira.issues.get_transitions.getTransitions(
+        connection,
+        {
+          ...Configuration,
+          issueIdOrKey: issue.id,
+        },
+      );
+
+    // 완료 상태로 갈 수 있는 게 있는지 찾는다.
+    const transition = transitions.find(
+      (el) => el.to.statusCategory.key === "done", // key는 done이지만 status 조회 시는 Done으로 나온다. 이는 Jira가 대소문자 구분을 안하기 때문.
+    );
+
+    const res =
+      await CApi.functional.connector.jira.issues.status.updateIssueStatus(
+        connection,
+        {
+          ...Configuration,
+          issueIdOrKey: issue.id,
+          transitionId: transition?.id as any,
+        },
+      );
+
+    typia.assertEquals(res);
+  }
+};

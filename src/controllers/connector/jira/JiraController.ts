@@ -41,6 +41,20 @@ export class JiraController {
     return this.jiraProvider.getComments(input);
   }
 
+  @core.TypedRoute.Post("issues/get-transitions")
+  async getTransitions(
+    @TypedBody() input: IJira.IGetTransitionInput,
+  ): Promise<IJira.IGetTransitionOutput> {
+    return this.jiraProvider.getTransitions(input);
+  }
+
+  @core.TypedRoute.Put("issues/status")
+  async updateIssueStatus(
+    @TypedBody() input: IJira.IUpdateStatusInput,
+  ): Promise<void> {
+    return this.jiraProvider.updateIssueStatus(input);
+  }
+
   /**
    * Update an issue
    *
@@ -316,5 +330,19 @@ export class JiraController {
     @TypedBody() input: IJira.IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
     return this.jiraProvider.getUsersAssignableInProject(input);
+  }
+
+  @core.TypedRoute.Post("get-status-categories")
+  async getStatusCategories(
+    @TypedBody() input: IJira.IGetStatusCategoryInput,
+  ): Promise<IJira.IGetStatusCategoryOutput> {
+    return this.jiraProvider.getStatusCategories(input);
+  }
+
+  @core.TypedRoute.Post("get-statuses")
+  async getStatus(
+    @TypedBody() input: IJira.IGetStatusInput,
+  ): Promise<IJira.IGetStatusOutput> {
+    return this.jiraProvider.getStatus(input);
   }
 }

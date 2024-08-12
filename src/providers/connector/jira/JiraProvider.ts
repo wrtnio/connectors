@@ -32,6 +32,44 @@ export class JiraProvider {
     }
   }
 
+  async getStatus(
+    input: IJira.IGetStatusInput,
+  ): Promise<IJira.IGetStatusOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(`${config.domain}/status`, {
+        headers: {
+          Authorization: config.Authorization,
+          Accept: "application/json",
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getStatusCategories(
+    input: IJira.IGetStatusCategoryInput,
+  ): Promise<IJira.IGetStatusCategoryOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(`${config.domain}/statuscategory`, {
+        headers: {
+          Authorization: config.Authorization,
+          Accept: "application/json",
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getUsersAssignableInProject(
     input: IJira.IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
@@ -65,6 +103,7 @@ export class JiraProvider {
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
+          Accept: "application/json",
         },
       });
 
@@ -351,6 +390,53 @@ export class JiraProvider {
         },
       );
       return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getTransitions(
+    input: IJira.IGetTransitionInput,
+  ): Promise<IJira.IGetTransitionOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(
+        `${config.domain}/issue/${input.issueIdOrKey}/transitions`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async updateIssueStatus(input: IJira.IUpdateStatusInput): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.post(
+        `${config.domain}/issue/${input.issueIdOrKey}/transitions`,
+        {
+          transition: {
+            id: input.transitionId,
+          },
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

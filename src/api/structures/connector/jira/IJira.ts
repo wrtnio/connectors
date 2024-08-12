@@ -216,6 +216,80 @@ export namespace IJira {
     key: Issue["key"];
   }
 
+  export interface IGetTransitionOutput {
+    /**
+     * @title transition list of this jira issue
+     */
+    transitions: {
+      /**
+       * @title id of transition
+       */
+      id: string;
+
+      /**
+       * @title to
+       *
+       * StatusDetail.
+       * Details of the issue status after the transition.
+       */
+      to: Pick<Status, "id" | "description" | "name" | "statusCategory">;
+    }[];
+  }
+
+  export interface IUpdateStatusInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title ID of transition
+     */
+    transitionId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/issue-get-transitions";
+        jmesPath: "transitions[].{value:id, label: to.name}";
+      }>;
+  }
+
+  export interface IGetTransitionInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+  }
+
   /**
    * @title Issue update Conditions
    */
@@ -468,67 +542,12 @@ export namespace IJira {
     /**
      * @title status
      */
-    status?:
-      | tags.Constant<
-          "Open",
-          {
-            title: "Open";
-            description: "The issue is open and ready for the assignee to start work on it.";
-          }
-        >
-      | tags.Constant<
-          "In Progress",
-          {
-            title: "In Progress";
-            description: "This issue is being actively worked on at the moment by the assignee.";
-          }
-        >
-      | tags.Constant<
-          "Done",
-          { title: "완료"; description: "Work has finished on the issue." }
-        >
-      | tags.Constant<
-          "To Do",
-          {
-            title: "To Do";
-            description: "The issue has been reported and is waiting for the team to action it.";
-          }
-        >
-      | tags.Constant<
-          "In Review",
-          {
-            title: "In Review";
-            description: "The assignee has carried out the work needed on the issue, and it needs peer review before being considered done.";
-          }
-        >
-      | tags.Constant<
-          "Under review",
-          {
-            title: "Under review";
-            description: "A reviewer is currently assessing the work completed on the issue before considering it done.";
-          }
-        >
-      | tags.Constant<
-          "Approved",
-          {
-            title: "Approved";
-            description: "A reviewer has approved the work completed on the issue and the issue is considered done.";
-          }
-        >
-      | tags.Constant<
-          "Cancelled",
-          {
-            title: "Cancelled";
-            description: "Work has stopped on the issue and the issue is considered done.";
-          }
-        >
-      | tags.Constant<
-          "Rejected",
-          {
-            title: "Rejected";
-            description: "A reviewer has rejected the work completed on the issue and the issue is considered done.";
-          }
-        >;
+    status?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-statuses";
+        jmesPath: "[].{value:id, label:untranslatedName}";
+      }>;
 
     /**
      * @title name of assignee
@@ -1269,9 +1288,24 @@ export namespace IJira {
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
-     * @title id or key
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
      */
-    issueIdOrKey: string;
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -1321,6 +1355,17 @@ export namespace IJira {
     User,
     "accountId" | "displayName" | "active"
   >[];
+
+  export type IGetStatusOutput = Pick<
+    Status,
+    "id" | "name" | "statusCategory" | "description" | "untranslatedName"
+  >[];
+
+  export type IGetStatusInput = BasicAuthorization;
+
+  export type IGetStatusCategoryOutput = StatusCategory[];
+
+  export type IGetStatusCategoryInput = BasicAuthorization;
 
   export interface IGetProjectAssignableInput
     extends ICommonPaginationInput,
@@ -1807,4 +1852,26 @@ export namespace IJira {
     | {
         type: "underline";
       };
+
+  export interface StatusCategory {
+    /**
+     * @title name of color
+     */
+    colorName: string;
+
+    /**
+     * @title The ID of status category
+     */
+    id: number;
+
+    /**
+     * @title The key of status category
+     */
+    key: string;
+
+    /**
+     * @title name of the status category
+     */
+    name: string;
+  }
 }
