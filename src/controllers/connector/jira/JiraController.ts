@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import { RouteIcon } from "@wrtnio/decorators";
@@ -9,7 +9,35 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
-   * Create an issue.
+   * Update an issue
+   *
+   * You can modify any element in the field.
+   * It can be used to modify the issue type, person in charge, summary, and description.
+   *
+   * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
+   * There are pre-designated content types, so please check this type information carefully.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary update issue in jira
+   * @param id issue id to update
+   * @param input fields to update
+   */
+  @core.TypedRoute.Put("issues/:id")
+  async updateIssue(
+    @TypedParam("id") id: IJira.Issue["id"],
+    @TypedBody() input: IJira.IUpdateIssueInput,
+  ): Promise<void> {
+    return this.jiraProvider.updateIssue(id, input);
+  }
+
+  /**
+   * Create an issue
+   *
    * Issue type, project, and summary are essential properties.
    * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
    *
@@ -34,6 +62,8 @@ export class JiraController {
   }
 
   /**
+   * Get detailed issue information
+   *
    * Provides more accurate and detailed information, including the title and body of the issue
    *
    * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
@@ -82,7 +112,7 @@ export class JiraController {
   }
 
   /**
-   * Find the Jira projects.
+   * Find the Jira projects
    *
    * The Jira project has a unique key and can then be used to query issues with the key.
    * Returns a paginated list of projects visible to the user.
@@ -110,7 +140,7 @@ export class JiraController {
   }
 
   /**
-   * Find issue labels like as 'story', 'bug' and so on.
+   * Find issue labels
    *
    * This always requires the user's email address and api token for authentication.
    * User will also need your domain address and email from Jira.
@@ -133,7 +163,7 @@ export class JiraController {
   }
 
   /**
-   * Find issue types like as 'story', 'bug' and so on.
+   * Find issue types
    *
    * In order for the user to inquire about the issue type, the ID of the project is required.
    * If the user mentioned the key or name of the project,

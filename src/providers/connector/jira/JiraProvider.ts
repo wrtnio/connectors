@@ -313,6 +313,31 @@ export class JiraProvider {
     }
   }
 
+  async updateIssue(
+    id: IJira.Issue["id"],
+    input: IJira.IUpdateIssueInput,
+  ): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.put(
+        `${config.domain}/issue/${id}`,
+        {
+          fields: input.fields,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async createIssue(
     input: IJira.ICreateIssueInput,
   ): Promise<{ id: string; key: string }> {

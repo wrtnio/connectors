@@ -1,5 +1,6 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
+import { DeepPartial } from "../../../../utils/types/DeepPartial";
 import type { ICommon } from "../common/ISecretValue";
 import type { BulletListNode_1, OrderedListNode_1 } from "./ListNode";
 
@@ -153,6 +154,13 @@ export namespace IJira {
      */
     key: Issue["key"];
   }
+
+  /**
+   * @title Issue update Conditions
+   */
+  export interface IUpdateIssueInput
+    extends BasicAuthorization,
+      DeepPartial<Omit<ICreateIssueInput, keyof BasicAuthorization>> {}
 
   /**
    * @title Issue Creation Conditions
@@ -326,32 +334,6 @@ export namespace IJira {
                 jmesPath: "[].{value:key, label:name}";
               }>;
           };
-
-      /**
-       * @title reporter
-       */
-      reporter?: {
-        /**
-         * @title id of reporter
-         *
-         * If you know who the reporter is, you can specify.
-         * Perhaps the person who created the issue is more likely to be the reporter, but not necessarily.
-         * You can also find the first person to find the problem and put someone with a similar nickname.
-         */
-        id: User["accountId"] &
-          (
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/issues/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/project/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-          );
-      };
 
       /**
        * @title summary
