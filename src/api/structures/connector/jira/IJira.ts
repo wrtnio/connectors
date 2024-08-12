@@ -84,6 +84,9 @@ export namespace IJira {
     maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
   }
 
+  /**
+   * @title pagination output properties
+   */
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
     /**
      * @title Wheather is last page
@@ -96,6 +99,9 @@ export namespace IJira {
     total: number & tags.Type<"int64">;
   }
 
+  /**
+   * @title issue status
+   */
   export interface Status {
     /**
      * @title status id
@@ -133,6 +139,9 @@ export namespace IJira {
     };
   }
 
+  /**
+   * @title output of creation of issue
+   */
   export interface ICreateIssueOutput {
     /**
      * @title ID of the issue that was created just now
@@ -620,8 +629,18 @@ export namespace IJira {
     }[];
   };
 
+  /**
+   * @title emoji node
+   */
   export type EmojiNode = {
+    /**
+     * @title emoji type
+     */
     type: "emoji";
+
+    /**
+     * @title attributes of emoji node
+     */
     attrs: {
       /**
        * Emoji service ID of the emoji
@@ -644,9 +663,24 @@ export namespace IJira {
     };
   };
 
+  /**
+   * @title hard break node
+   */
   export type HardBreakNode = {
+    /**
+     * @title hardBreak type
+     */
     type: "hardBreak";
+
+    /**
+     * @title attributes of hard break node
+     */
     attrs?: {
+      /**
+       * @title text
+       *
+       * It can be only `\n` text for braking.
+       */
       text?: "\n";
     };
   };
@@ -657,28 +691,21 @@ export namespace IJira {
    * It means h1, h2, h3, h4, h5, h6 node.
    */
   export type HeadingNode = {
+    /**
+     * @title heading type
+     */
     type: "heading";
+
+    /**
+     * @title content
+     *
+     * Heading node's content can be combined with only inline nodes.
+     */
     content: InlineNode[];
 
-    attrs: {
-      /**
-       * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
-       */
-      level: 1 | 2 | 3 | 4 | 5 | 6;
-    };
-  };
-
-  export type HeadingNodeWithoutMarks = {
-    type: "heading";
-
-    content: (
-      | Omit<EmojiNode, "marks">
-      | Omit<HardBreakNode, "marks">
-      | Omit<InlineCardContent, "marks">
-      | Omit<MentionNode, "marks">
-      | Omit<TextContent, "marks">
-    )[];
-
+    /**
+     * @title attributes of heading node
+     */
     attrs: {
       /**
        * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
@@ -688,15 +715,66 @@ export namespace IJira {
   };
 
   /**
+   * @title heading node without `marks` property
+   */
+  export type HeadingNodeWithoutMarks = {
+    /**
+     * @title heading type
+     */
+    type: "heading";
+
+    /**
+     * @title content
+     *
+     * Heading node's content can be combined with only inline nodes.
+     * A property called marks is not available here.
+     */
+    content: (
+      | Omit<EmojiNode, "marks">
+      | Omit<HardBreakNode, "marks">
+      | Omit<InlineCardNode, "marks">
+      | Omit<MentionNode, "marks">
+      | Omit<TextContent, "marks">
+    )[];
+
+    /**
+     * @title attributes of heading node
+     */
+    attrs: {
+      /**
+       * @title level
+       *
+       * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
+       */
+      level:
+        | tags.Constant<1, { title: "1"; description: "level" }>
+        | tags.Constant<2, { title: "2"; description: "level" }>
+        | tags.Constant<3, { title: "3"; description: "level" }>
+        | tags.Constant<4, { title: "4"; description: "level" }>
+        | tags.Constant<5, { title: "5"; description: "level" }>
+        | tags.Constant<6, { title: "6"; description: "level" }>;
+    };
+  };
+
+  /**
    * @title inline card
    *
    * The inlineCard node is an Atlassian link card with a type icon and content description derived from the link.
    */
-  export type InlineCardContent = {
+  export type InlineCardNode = {
+    /**
+     * @title inline card type
+     */
     type: "inlineCard";
+
+    /**
+     * @title attributes of inline card node
+     */
     attrs: {
       /**
        * @title url
+       * Indicates the address value that the inline card will represent.
+       * To allow you to move when you click on the card, you need to put a link in advance.
        */
       url?: string & tags.Format<"uri">;
 
@@ -780,7 +858,7 @@ export namespace IJira {
           /**
            * @title url
            */
-          url: string;
+          url: string & tags.Format<"uri">;
         };
       };
 
@@ -931,7 +1009,7 @@ export namespace IJira {
     content: (
       | Omit<EmojiNode, "marks">
       | Omit<HardBreakNode, "marks">
-      | Omit<InlineCardContent, "marks">
+      | Omit<InlineCardNode, "marks">
       | Omit<MentionNode, "marks">
       | Omit<TextContent, "marks">
     )[];
@@ -1141,7 +1219,7 @@ export namespace IJira {
   export type InlineNode =
     | EmojiNode
     | HardBreakNode
-    | InlineCardContent
+    | InlineCardNode
     | MentionNode
     | TextContent;
 
