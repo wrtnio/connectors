@@ -32,25 +32,6 @@ export class JiraProvider {
     }
   }
 
-  async getStatus(
-    input: IJira.IGetStatusInput,
-  ): Promise<IJira.IGetStatusOutput> {
-    try {
-      const config = await this.getAuthorizationAndDomain(input);
-      const res = await axios.get(`${config.domain}/status`, {
-        headers: {
-          Authorization: config.Authorization,
-          Accept: "application/json",
-        },
-      });
-
-      return res.data;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
   async getStatusCategories(
     input: IJira.IGetStatusCategoryInput,
   ): Promise<IJira.IGetStatusCategoryOutput> {
@@ -390,6 +371,42 @@ export class JiraProvider {
         },
       );
       return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async unassign(input: IJira.IUnAssignInput): Promise<void> {
+    try {
+      await this.updateIssue(input.issueId, {
+        email: input.email,
+        apiToken: input.apiToken,
+        domain: input.domain,
+        fields: {
+          assignee: {
+            id: null,
+          },
+        },
+      });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async assign(input: IJira.IAssignInput): Promise<void> {
+    try {
+      await this.updateIssue(input.issueId, {
+        email: input.email,
+        apiToken: input.apiToken,
+        domain: input.domain,
+        fields: {
+          assignee: {
+            id: input.issueId,
+          },
+        },
+      });
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

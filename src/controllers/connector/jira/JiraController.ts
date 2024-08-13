@@ -48,6 +48,16 @@ export class JiraController {
     return this.jiraProvider.getTransitions(input);
   }
 
+  @core.TypedRoute.Delete("issues/asignee")
+  async unassign(@TypedBody() input: IJira.IUnAssignInput): Promise<void> {
+    return this.jiraProvider.unassign(input);
+  }
+
+  @core.TypedRoute.Put("issues/asignee")
+  async assign(@TypedBody() input: IJira.IAssignInput): Promise<void> {
+    return this.jiraProvider.assign(input);
+  }
+
   @core.TypedRoute.Put("issues/status")
   async updateIssueStatus(
     @TypedBody() input: IJira.IUpdateStatusInput,
@@ -337,12 +347,5 @@ export class JiraController {
     @TypedBody() input: IJira.IGetStatusCategoryInput,
   ): Promise<IJira.IGetStatusCategoryOutput> {
     return this.jiraProvider.getStatusCategories(input);
-  }
-
-  @core.TypedRoute.Post("get-statuses")
-  async getStatus(
-    @TypedBody() input: IJira.IGetStatusInput,
-  ): Promise<IJira.IGetStatusOutput> {
-    return this.jiraProvider.getStatus(input);
   }
 }

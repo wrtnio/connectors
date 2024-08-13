@@ -1,5 +1,6 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
+import { StrictOmit } from "../../../../utils/strictOmit";
 import { DeepPartial } from "../../../../utils/types/DeepPartial";
 import type { ICommon } from "../common/ISecretValue";
 import type { BulletListNode_1, OrderedListNode_1 } from "./ListNode";
@@ -290,6 +291,35 @@ export namespace IJira {
           }>);
   }
 
+  export type IUnAssignInput = StrictOmit<IAssignInput, "asigneeId">;
+
+  export interface IAssignInput extends BasicAuthorization {
+    /**
+     * @title ID of issue
+     */
+    issueId: Issue["id"];
+
+    /**
+     * @title accountId of the user you want to designate as the person in charge
+     *
+     * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
+     * The person in charge is inevitably one of Jira's users.
+     */
+    asigneeId: User["accountId"] &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/jira/issues/get-users-assignable";
+            jmesPath: "[].{value:accountId, label:displayName}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/jira/project/get-users-assignable";
+            jmesPath: "[].{value:accountId, label:displayName}";
+          }>
+      );
+  }
+
   /**
    * @title Issue update Conditions
    */
@@ -317,19 +347,21 @@ export namespace IJira {
          * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
          * The person in charge is inevitably one of Jira's users.
          */
-        id: User["accountId"] &
-          (
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/issues/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/project/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-          );
+        id:
+          | null
+          | (User["accountId"] &
+              (
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/issues/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/project/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+              ));
       };
 
       /**
