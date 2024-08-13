@@ -8,15 +8,16 @@ const Configuration = {
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
-export const test_api_connector_jira_get_status = async (
+export const test_api_connector_jira_get_issue_statuses = async (
   connection: CApi.IConnection,
 ) => {
-  const statuses = await CApi.functional.connector.jira.get_statuses.getStatus(
-    connection,
-    {
-      ...Configuration,
-    },
-  );
+  const statuses =
+    await CApi.functional.connector.jira.get_issue_statuses.getIssueStatus(
+      connection,
+      {
+        ...Configuration,
+      },
+    );
 
   typia.assertEquals(statuses);
   return statuses;

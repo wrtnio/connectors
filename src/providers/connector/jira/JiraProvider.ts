@@ -403,7 +403,7 @@ export class JiraProvider {
         domain: input.domain,
         fields: {
           assignee: {
-            id: input.issueId,
+            id: input.asigneeId,
           },
         },
       });
@@ -480,6 +480,7 @@ export class JiraProvider {
         },
       );
     } catch (err) {
+      console.log((err as any)?.response.data);
       console.error(JSON.stringify(err));
       throw err;
     }
