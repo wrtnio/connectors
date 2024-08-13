@@ -934,7 +934,7 @@ export namespace IJira {
        * Indicates the address value that the inline card will represent.
        * To allow you to move when you click on the card, you need to put a link in advance.
        */
-      url?: string & tags.Format<"uri">;
+      url: string & tags.Format<"uri">;
 
       /**
        * @title representation of the link

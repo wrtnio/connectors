@@ -241,6 +241,52 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   typia.assertEquals(res);
 };
 
+export const test_api_connector_jira_create_random_issue_paragraph_2 = async (
+  connection: CApi.IConnection,
+) => {
+  // 생성에 실패했던 케이스 검증
+  const failedCase = await CApi.functional.connector.jira.issues.createIssue(
+    connection,
+    {
+      ...Configuration,
+      fields: {
+        summary: "TEST",
+        project: { key: "KAK" },
+        issuetype: { id: "10005" },
+
+        description: {
+          type: "doc",
+          version: 1,
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "hardBreak",
+                },
+                {
+                  type: "inlineCard",
+                  attrs: {
+                    url: "https://twfdxphqjs.gwz",
+                  },
+                },
+                {
+                  type: "inlineCard",
+                  attrs: {
+                    url: "https://twfdxphqjs.gwz",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  );
+
+  typia.assertEquals(failedCase);
+};
+
 export const test_api_connector_jira_create_random_issue_media_single = async (
   connection: CApi.IConnection,
 ) => {
