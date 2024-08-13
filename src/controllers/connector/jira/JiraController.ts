@@ -15,6 +15,11 @@ export class JiraController {
     return this.jiraProvider.deleteComment(input);
   }
 
+  @core.TypedRoute.Put("issues/comments")
+  async updateComment(@TypedBody() input: IJira.IUpdateCommentInput) {
+    return this.jiraProvider.updateComment(input);
+  }
+
   /**
    * Creates a comment on an issue
    * Here, user can write the body of the comment you want to write with the ID or key of the issue.

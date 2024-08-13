@@ -175,28 +175,6 @@ export namespace IJira {
           }>);
   }
 
-  export interface IUpdateCommentInput extends BasicAuthorization {
-    /**
-     * @title issue id or key
-     *
-     * This connector doesn't matter the key or ID of the issue.
-     * If you hand over one of them, you can use it to look up.
-     */
-    issueIdOrKey:
-      | (Issue["id"] &
-          Prerequisite<{
-            method: "post";
-            path: "/connector/jira/get-issues";
-            jmesPath: "issues[].{value:id, label:key}";
-          }>)
-      | (Issue["key"] &
-          Prerequisite<{
-            method: "post";
-            path: "/connector/jira/get-issues";
-            jmesPath: "issues[].{value:key, label:key}";
-          }>);
-  }
-
   export interface IDeleteCommentInput extends BasicAuthorization {
     /**
      * @title issue id or key
@@ -374,6 +352,42 @@ export namespace IJira {
             jmesPath: "[].{value:accountId, label:displayName}";
           }>
       );
+  }
+
+  export interface IUpdateCommentInput
+    extends BasicAuthorization,
+      MyPartial<
+        StrictOmit<ICreateCommentInput, keyof BasicAuthorization | "body">
+      > {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title ID of comment to update
+     */
+    commentId: Comment["id"];
+
+    /**
+     * @title body of comment to update
+     */
+    body: Comment["body"];
   }
 
   /**

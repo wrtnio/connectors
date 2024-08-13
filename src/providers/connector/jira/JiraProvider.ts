@@ -481,6 +481,28 @@ export class JiraProvider {
     }
   }
 
+  async updateComment(input: IJira.IUpdateCommentInput): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.put(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        {
+          body: input.body,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async updateIssue(
     id: IJira.Issue["id"],
     input: IJira.IUpdateIssueInput,
