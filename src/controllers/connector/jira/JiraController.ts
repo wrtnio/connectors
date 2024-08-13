@@ -8,6 +8,13 @@ import { JiraProvider } from "../../../providers/connector/jira/JiraProvider";
 export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
+  @core.TypedRoute.Delete("issues/comments")
+  async deleteComment(
+    @TypedBody() input: IJira.IDeleteCommentInput,
+  ): Promise<void> {
+    return this.jiraProvider.deleteComment(input);
+  }
+
   /**
    * Creates a comment on an issue
    * Here, user can write the body of the comment you want to write with the ID or key of the issue.
@@ -18,7 +25,7 @@ export class JiraController {
   @core.TypedRoute.Post("issues/comments")
   async createComment(
     @TypedBody() input: IJira.ICreateCommentInput,
-  ): Promise<void> {
+  ): Promise<IJira.ICreateCommentOutput> {
     return this.jiraProvider.createComment(input);
   }
 

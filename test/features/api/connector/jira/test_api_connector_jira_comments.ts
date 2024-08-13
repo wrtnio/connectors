@@ -9,7 +9,7 @@ const Configuration = {
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
-export const test_api_connector_jira_create_comment = async (
+export const test_api_connector_jira_create_and_delete_comment = async (
   connection: CApi.IConnection,
 ) => {
   // 댓글을 작성할 이슈를 생성한다.
@@ -79,4 +79,27 @@ export const test_api_connector_jira_create_comment = async (
   typia.assertEquals(after);
 
   assert(before.comments.length + 1 === after.comments.length);
+
+  // 댓글을 삭제한다
+  await CApi.functional.connector.jira.issues.comments.deleteComment(
+    connection,
+    {
+      ...Configuration,
+      issueIdOrKey: issue.id,
+      commentId: comment.id,
+    },
+  );
+
+  // 댓글을 작성한 다음을 조회한다.
+  const afterDelete =
+    await CApi.functional.connector.jira.issues.get_comments.getComments(
+      connection,
+      {
+        ...Configuration,
+        issueIdOrKey: issue.key, // 이번에는 키를 이용해서 조회해본다.
+      },
+    );
+
+  typia.assertEquals(afterDelete);
+  assert(afterDelete.comments.length === 0);
 };

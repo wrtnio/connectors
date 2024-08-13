@@ -333,10 +333,29 @@ export class JiraProvider {
     }
   }
 
-  async createComment(input: IJira.ICreateCommentInput): Promise<void> {
+  async deleteComment(input: IJira.IDeleteCommentInput): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      await axios.post(
+      await axios.delete(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createComment(
+    input: IJira.ICreateCommentInput,
+  ): Promise<IJira.ICreateCommentOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.post(
         `${config.domain}/issue/${input.issueIdOrKey}/comment`,
         {
           body: input.body,
@@ -349,6 +368,8 @@ export class JiraProvider {
           },
         },
       );
+
+      return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
