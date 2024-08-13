@@ -1,7 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
-import { DeepPartial } from "../../../../utils/types/DeepPartial";
+import { MyPartial } from "../../../../utils/types/MyPartial";
 import type { ICommon } from "../common/ISecretValue";
 import type { BulletListNode_1, OrderedListNode_1 } from "./ListNode";
 
@@ -154,6 +154,28 @@ export namespace IJira {
   export interface IGetCommentInput
     extends BasicAuthorization,
       ICommonPaginationInput {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+  }
+
+  export interface IUpdateCommentInput extends BasicAuthorization {
     /**
      * @title issue id or key
      *
@@ -359,7 +381,14 @@ export namespace IJira {
    */
   export interface IUpdateIssueInput
     extends BasicAuthorization,
-      DeepPartial<Omit<ICreateIssueInput, keyof BasicAuthorization>> {}
+      MyPartial<
+        StrictOmit<ICreateIssueInput, keyof BasicAuthorization | "fields">
+      > {
+    /**
+     * @title fields to update
+     */
+    fields: MyPartial<ICreateIssueInput["fields"]>;
+  }
 
   /**
    * @title Issue Creation Conditions
