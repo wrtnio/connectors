@@ -115,52 +115,54 @@ export namespace ISlack {
     /**
      * @title user list
      */
-    users: {
-      id: ISlack.User["id"];
+    users: IGetUserOutput[];
+  }
 
-      /**
-       * This is the name of the user,
-       * but in some countries,
-       * it may not be possible to call the user's name carelessly,
-       * and the company should refrain from using it because the position exists.
-       *
-       * @title name
-       */
-      name: ISlack.User["name"];
+  export interface IGetUserOutput {
+    id: ISlack.User["id"];
 
-      /**
-       * The user has a separate display name.
-       * A display name is a name that the user has chosen to show.
-       * Therefore, it would be best to use this name as a courtesy.
-       *
-       * @title display name
-       */
-      display_name: ISlack.User["profile"]["display_name"];
+    /**
+     * This is the name of the user,
+     * but in some countries,
+     * it may not be possible to call the user's name carelessly,
+     * and the company should refrain from using it because the position exists.
+     *
+     * @title name
+     */
+    name: ISlack.User["name"];
 
-      /**
-       * The user's first and last name.
-       * Updating this field will update first_name and last_name.
-       * If only one name is provided, the value of last_name will be cleared.
-       *
-       * @title real_name
-       */
-      real_name: ISlack.User["profile"]["real_name"];
+    /**
+     * The user has a separate display name.
+     * A display name is a name that the user has chosen to show.
+     * Therefore, it would be best to use this name as a courtesy.
+     *
+     * @title display name
+     */
+    display_name: ISlack.User["profile"]["display_name"];
 
-      /**
-       * This value is used to distinguish between deleted users.
-       *
-       * @title deleted
-       */
-      deleted: ISlack.User["deleted"];
+    /**
+     * The user's first and last name.
+     * Updating this field will update first_name and last_name.
+     * If only one name is provided, the value of last_name will be cleared.
+     *
+     * @title real_name
+     */
+    real_name: ISlack.User["profile"]["real_name"];
 
-      /**
-       * There are several profile images for each image quality,
-       * but here we provide them based on the first image uploaded by the user.
-       *
-       * @title profile image
-       */
-      profile_image: ISlack.User["profile"]["image_original"];
-    }[];
+    /**
+     * This value is used to distinguish between deleted users.
+     *
+     * @title deleted
+     */
+    deleted: ISlack.User["deleted"];
+
+    /**
+     * There are several profile images for each image quality,
+     * but here we provide them based on the first image uploaded by the user.
+     *
+     * @title profile image
+     */
+    profile_image: ISlack.User["profile"]["image_original"];
   }
 
   export interface IGetScheduledMessageListOutput
@@ -325,6 +327,13 @@ export namespace ISlack {
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
      */
     messages: ISlack.Message[];
+
+    /**
+     * @title members
+     *
+     * This is a list of people who participated in the conversation in this conversation list.
+     */
+    members: Pick<IGetUserOutput, "id" | "display_name">[];
   }
 
   export interface IGetChannelHistoryInput

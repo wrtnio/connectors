@@ -187,6 +187,25 @@ export class SlackProvider {
     return { replies, next_cursor: next_cursor ? next_cursor : null };
   }
 
+  async getAllUsers(input: {
+    secretKey: string;
+  }): Promise<Awaited<ReturnType<typeof this.getUsers>>["users"]> {
+    let nextCursor: string | null = null;
+    let response: Awaited<ReturnType<typeof this.getUsers>>["users"] = [];
+    do {
+      const { next_cursor, users } = await this.getUsers({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(users);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
+  }
+
   async getUsers(
     input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
@@ -327,7 +346,19 @@ export class SlackProvider {
       },
     );
 
-    return { messages, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
+    const allMembers = await this.getAllUsers(input);
+    const userIds = Array.from(
+      new Set(messages.map((message) => message.user).filter(Boolean)),
+    );
+
+    const members = userIds
+      .map((userId) => {
+        const member = allMembers.find((el) => el.id === userId);
+        return member;
+      })
+      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+
+    return { messages, next_cursor: next_cursor ? next_cursor : null, members }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getPrivateChannels(
