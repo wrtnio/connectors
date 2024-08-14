@@ -25,6 +25,7 @@ src
   ㄴ controllers
     ㄴ connectors # The controller for the api you will make
   ㄴ providers # Business logic to be used by the controller
+  ㄴ modules
 ```
 
 In these folders, there will be folders again under the name of the service, for example, 'api/structures/google-ads', and there will be types of google-ads.  
@@ -39,6 +40,8 @@ src
         ㄴ wrtn/IWrtn.ts
   ㄴ controllers
     ㄴ connectors
+      ㄴ ConnectorModule.ts # Import WrtnModule here
+      ㄴ wrtn/WrtnModule.ts
       ㄴ wrtn/WrtnController.ts
   ㄴ providers
     ㄴ wrtn/WrtnProvider.ts
@@ -148,6 +151,63 @@ export namespace IWrtn {
 
 Finally, please write `@title` and `description` in JSDOC. It is used to pass domain and business knowledge that is difficult to explain by type to LLM. You need to provide a sufficient level of description so that LLM can understand the purpose of this connector and use it.
 
+### Configuration
+
+If you can run or test the code only by inserting an environmental variable, you should write the following in `.env` and `src/ConnectorGlobal.ts`. One is where you put the environment variables, and the other is where you inject the environment variables in the .env file when the code is executed.
+
+```
+// .env file
+WRTN_CLIENT_ID=a
+WRTN_CLIENT_SECRET=b
+```
+
+```ts
+// src/ConnectorGlobal.ts
+export namespace ConnectorGlobal {
+  export interface IEnvironments {
+    WRTN_CLIENT_ID: string;
+    WRTN_CLIENT_SECRET: string;
+  }
+}
+```
+
+Maybe you linked a connector that needed an environmental variable. For example, it could be sensitive information such as the value of the service client_id or client_secret, or it could be an environmental variable that is only needed for testing. For security reasons, you don't have to provide us with the values you used. Instead, please let us know which values we should link.
+
+If you are using an environment variable that belongs to you, such as the client ID or the secret, you don't need to share it either. If you let me know the link, we will create the application ourselves and issue the ID and the secret key.
+
+### Secret key for api calling
+
+```ts
+export namespace ICommon {
+  export interface ISecret<
+    T extends string,
+    S extends undefined | never | string[] = never,
+  > {
+    secretKey: string & SecretKey<T, S>;
+  }
+}
+```
+
+There is an interface called 'ICommon.ISsecret' in our code. The service sometimes needs to inherit this interface to implement the body type of the request. The reason for the existence of 'ICommon.ISsecret' is to receive the SecretKey from the user and call the user's API instead. For example, it can be implemented as follows.
+
+```ts
+export namespace IWrtn {
+  export interface ISecret
+    extends ICommon.ISecret<
+      "wrtn", // service name
+      ["a_scope", "b_scope"] // scope
+    > {}
+
+  export interface IGetSomethingInput extends IWrtn.ISecret {
+    someProperty1: number;
+  }
+}
+```
+
+This means that in order to call get something api, you need to get a token from the user, the name of the service is wrtn, and the required permissions should be a_scope and b_scope.
+
+The `secretKey` will probably be the user's refresh token or access token with no expiration date. If you want to designate the refresh token as the `secretKey`, the provider will also need to write a private method of reissuing the token.
+
 ### Test your code
 
 ```ts
@@ -174,30 +234,6 @@ The function of all test codes has a prefix of 'test_api_connector' like that, a
 ```
 
 Now run the above command so that you can only test the connectors you created as above. The include option examines the name of a test function, allowing it to test only functions with that keyword.
-
-### Configuration
-
-If you can run or test the code only by inserting an environmental variable, you should write the following in `.env` and `src/ConnectorGlobal.ts`. One is where you put the environment variables, and the other is where you inject the environment variables in the .env file when the code is executed.
-
-```
-// .env file
-WRTN_CLIENT_ID=a
-WRTN_CLIENT_SECRET=b
-```
-
-```ts
-// src/ConnectorGlobal.ts
-export namespace ConnectorGlobal {
-  export interface IEnvironments {
-    WRTN_CLIENT_ID: string;
-    WRTN_CLIENT_SECRET: string;
-  }
-}
-```
-
-Maybe you linked a connector that needed an environmental variable. For example, it could be sensitive information such as the value of the service client_id or client_secret, or it could be an environmental variable that is only needed for testing. For security reasons, you don't have to provide us with the values you used. Instead, please let us know which values we should link.
-
-If you are using an environment variable that belongs to you, such as the client ID or the secret, you don't need to share it either. If you let me know the link, we will create the application ourselves and issue the ID and the secret key.
 
 ### Prerequisite(Optional)
 
