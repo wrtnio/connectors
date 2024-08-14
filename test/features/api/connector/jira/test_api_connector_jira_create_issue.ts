@@ -241,6 +241,114 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   typia.assertEquals(res);
 };
 
+export const test_api_connector_jira_create_random_issue_paragraph_2 = async (
+  connection: CApi.IConnection,
+) => {
+  // 생성에 실패했던 케이스 검증
+  const failedCase = await CApi.functional.connector.jira.issues.createIssue(
+    connection,
+    {
+      ...Configuration,
+      fields: {
+        summary: "TEST",
+        project: { key: "KAK" },
+        issuetype: { id: "10005" },
+
+        description: {
+          type: "doc",
+          version: 1,
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "hardBreak",
+                },
+                {
+                  type: "inlineCard",
+                  attrs: {
+                    url: "https://twfdxphqjs.gwz",
+                  },
+                },
+                {
+                  type: "inlineCard",
+                  attrs: {
+                    url: "https://twfdxphqjs.gwz",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  );
+
+  typia.assertEquals(failedCase);
+};
+
+export const test_api_connector_jira_create_random_issue_paragraph_3 = async (
+  connection: CApi.IConnection,
+) => {
+  // 생성에 실패했던 케이스 검증
+  const failedCase = await CApi.functional.connector.jira.issues.createIssue(
+    connection,
+    {
+      ...Configuration,
+      fields: {
+        summary: "TEST",
+        project: { key: "KAK" },
+        issuetype: { id: "10005" },
+
+        description: {
+          type: "doc",
+          version: 1,
+          content: [
+            {
+              type: "paragraph",
+              attrs: {},
+              content: [
+                {
+                  type: "text",
+                  text: "wrstteeznh",
+                  marks: [],
+                },
+                {
+                  type: "text",
+                  text: "rcfktl",
+                  marks: [
+                    {
+                      type: "backgroundColor",
+                      attrs: {
+                        color: "#111111", // 잘못된 컬러 지정으로 인한 에러 였기 때문에 typia.Pattern을 추가함으로써 해결
+                      },
+                    },
+                    {
+                      type: "subsup",
+                      attrs: {
+                        type: "sup",
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: "emoji",
+                  attrs: {
+                    shortName: ":ebcjxacajf:",
+                    text: "taeyr",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  );
+
+  typia.assertEquals(failedCase);
+};
+
 export const test_api_connector_jira_create_random_issue_media_single = async (
   connection: CApi.IConnection,
 ) => {
@@ -485,33 +593,6 @@ export const test_api_connector_jira_create_random_issue_blockquote = async (
                     },
                   ],
                 },
-                // {
-                //   type: "paragraph",
-                //   content: [
-                //     {
-                //       type: "hardBreak",
-                //     },
-                //     {
-                //       type: "hardBreak",
-                //       attrs: {},
-                //     },
-                //   ],
-                // },
-                // {
-                //   type: "paragraph",
-                //   content: [
-                //     {
-                //       type: "text",
-                //       text: "kkhggwbqs",
-                //     },
-                //     {
-                //       type: "inlineCard",
-                //       attrs: {
-                //         url: "https://sfpiofvpob.jck",
-                //       },
-                //     },
-                //   ],
-                // },
               ],
             },
           ],

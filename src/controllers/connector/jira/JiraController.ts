@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import { RouteIcon } from "@wrtnio/decorators";
@@ -9,7 +9,236 @@ export class JiraController {
   constructor(private readonly jiraProvider: JiraProvider) {}
 
   /**
-   * Create an issue.
+   * Delete the comment
+   *
+   * Delete the comments on the issue.
+   * In order to delete the comments on the issue, you need the issue ID or key and the ID of the comment to be deleted.
+   * Please be careful because deleted comments will not be able to be viewed again.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary delete comment
+   * @param input
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Delete("issues/comments")
+  async deleteComment(
+    @TypedBody() input: IJira.IDeleteCommentInput,
+  ): Promise<void> {
+    return this.jiraProvider.deleteComment(input);
+  }
+
+  /**
+   * modify comment
+   *
+   * Modify the comment. You can only modify the body of the comment here.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary modify comment body
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Put("issues/comments")
+  async updateComment(
+    @TypedBody() input: IJira.IUpdateCommentInput,
+  ): Promise<void> {
+    return this.jiraProvider.updateComment(input);
+  }
+
+  /**
+   * Creates a comment on an issue
+   * Here, user can write the body of the comment you want to write with the ID or key of the issue.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary creates a comment on an issue
+   * @param input condition of creation
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("issues/comments")
+  async createComment(
+    @TypedBody() input: IJira.ICreateCommentInput,
+  ): Promise<IJira.ICreateCommentOutput> {
+    return this.jiraProvider.createComment(input);
+  }
+
+  /**
+   * Get comments by issue id or key
+   *
+   * This connector uses the issue's key or ID value to query the comments written on the issue.
+   * Comments are also visible when looking up issues,
+   * but not all comments inside are visible,
+   * so user have to use this connector to look up them in pagination.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary get comments by issue id or key
+   * @param input issue id or key
+   * @returns comments of this issue
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("issues/get-comments")
+  async getComments(
+    @TypedBody() input: IJira.IGetCommentInput,
+  ): Promise<IJira.IGetCommentOutput> {
+    return this.jiraProvider.getComments(input);
+  }
+
+  /**
+   * Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue
+   * If the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.
+   * In Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.
+   * When designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.
+   * In this case, you need to move two edges to turn the backoff issue into 'done'.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   *
+   * @summary Inquire the transition of an issue
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("issues/get-transitions")
+  async getTransitions(
+    @TypedBody() input: IJira.IGetTransitionInput,
+  ): Promise<IJira.IGetTransitionOutput> {
+    return this.jiraProvider.getTransitions(input);
+  }
+
+  /**
+   * Unassign the assignee from the Jira issue
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @symmary Unaasign the assignee
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Delete("issues/asignee")
+  async unassign(@TypedBody() input: IJira.IUnAssignInput): Promise<void> {
+    return this.jiraProvider.unassign(input);
+  }
+
+  /**
+   * Assign the assignee from the Jira issue
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary assign the assignee
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Put("issues/asignee")
+  async assign(@TypedBody() input: IJira.IAssignInput): Promise<void> {
+    return this.jiraProvider.assign(input);
+  }
+
+  /**
+   * Change issue status
+   *
+   * Changing the status of an issue must be done after inquiring about changeable Transitions from the current issue.
+   * This is forced by the person who designed the workflow in the project, so you must change the status in the order set.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary change issue status
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Put("issues/status")
+  async updateIssueStatus(
+    @TypedBody() input: IJira.IUpdateStatusInput,
+  ): Promise<void> {
+    return this.jiraProvider.updateIssueStatus(input);
+  }
+
+  /**
+   * Update an issue
+   *
+   * You can modify any element in the field.
+   * It can be used to modify the issue type, person in charge, summary, and description.
+   *
+   * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
+   * There are pre-designated content types, so please check this type information carefully.
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary update issue in jira
+   * @param id issue id to update
+   * @param input fields to update
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Put("issues/:id")
+  async updateIssue(
+    @TypedParam("id") id: IJira.Issue["id"],
+    @TypedBody() input: IJira.IUpdateIssueInput,
+  ): Promise<void> {
+    return this.jiraProvider.updateIssue(id, input);
+  }
+
+  /**
+   * Create an issue
+   *
    * Issue type, project, and summary are essential properties.
    * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
    *
@@ -26,6 +255,9 @@ export class JiraController {
    * @param input issue information to create
    * @returns id and key of created issue
    */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
   @core.TypedRoute.Post("issues")
   async createIssue(
     @TypedBody() input: IJira.ICreateIssueInput,
@@ -34,6 +266,8 @@ export class JiraController {
   }
 
   /**
+   * Get detailed issue information
+   *
    * Provides more accurate and detailed information, including the title and body of the issue
    *
    * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
@@ -49,6 +283,9 @@ export class JiraController {
    * @param input
    * @returns Detailed Issue Information
    */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
   @core.TypedRoute.Post("get-issue-detail")
   async getIssueDetail(
     @TypedBody() input: IJira.IGetIssueDetailInput,
@@ -82,7 +319,7 @@ export class JiraController {
   }
 
   /**
-   * Find the Jira projects.
+   * Find the Jira projects
    *
    * The Jira project has a unique key and can then be used to query issues with the key.
    * Returns a paginated list of projects visible to the user.
@@ -110,7 +347,7 @@ export class JiraController {
   }
 
   /**
-   * Find issue labels like as 'story', 'bug' and so on.
+   * Find issue labels
    *
    * This always requires the user's email address and api token for authentication.
    * User will also need your domain address and email from Jira.
@@ -133,7 +370,7 @@ export class JiraController {
   }
 
   /**
-   * Find issue types like as 'story', 'bug' and so on.
+   * Find issue types
    *
    * In order for the user to inquire about the issue type, the ID of the project is required.
    * If the user mentioned the key or name of the project,
@@ -253,5 +490,28 @@ export class JiraController {
     @TypedBody() input: IJira.IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
     return this.jiraProvider.getUsersAssignableInProject(input);
+  }
+
+  /**
+   * Get status categories
+   *
+   * This always requires the user's email address and api token for authentication.
+   * User will also need your domain address and email from Jira.
+   * Domain means 'http://*.atlassian.net' format.
+   * Users may not know that they need to hand over these credentials to use Jira APIs.
+   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
+   *
+   * @summary get status categories
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
+  )
+  @core.TypedRoute.Post("get-status-categories")
+  async getStatusCategories(
+    @TypedBody() input: IJira.IGetStatusCategoryInput,
+  ): Promise<IJira.IGetStatusCategoryOutput> {
+    return this.jiraProvider.getStatusCategories(input);
   }
 }

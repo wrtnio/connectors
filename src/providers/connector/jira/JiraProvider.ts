@@ -32,6 +32,25 @@ export class JiraProvider {
     }
   }
 
+  async getStatusCategories(
+    input: IJira.IGetStatusCategoryInput,
+  ): Promise<IJira.IGetStatusCategoryOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(`${config.domain}/statuscategory`, {
+        headers: {
+          Authorization: config.Authorization,
+          Accept: "application/json",
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getUsersAssignableInProject(
     input: IJira.IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
@@ -65,6 +84,7 @@ export class JiraProvider {
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
+          Accept: "application/json",
         },
       });
 
@@ -308,6 +328,202 @@ export class JiraProvider {
 
       return res.data as { access_token: string };
     } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async deleteComment(input: IJira.IDeleteCommentInput): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.delete(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createComment(
+    input: IJira.ICreateCommentInput,
+  ): Promise<IJira.ICreateCommentOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.post(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment`,
+        {
+          body: input.body,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getComments(
+    input: IJira.IGetCommentInput,
+  ): Promise<IJira.IGetCommentOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async unassign(input: IJira.IUnAssignInput): Promise<void> {
+    try {
+      await this.updateIssue(input.issueId, {
+        email: input.email,
+        apiToken: input.apiToken,
+        domain: input.domain,
+        fields: {
+          assignee: {
+            id: null,
+          },
+        },
+      });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async assign(input: IJira.IAssignInput): Promise<void> {
+    try {
+      await this.updateIssue(input.issueId, {
+        email: input.email,
+        apiToken: input.apiToken,
+        domain: input.domain,
+        fields: {
+          assignee: {
+            id: input.asigneeId,
+          },
+        },
+      });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getTransitions(
+    input: IJira.IGetTransitionInput,
+  ): Promise<IJira.IGetTransitionOutput> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      const res = await axios.get(
+        `${config.domain}/issue/${input.issueIdOrKey}/transitions`,
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async updateIssueStatus(input: IJira.IUpdateStatusInput): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.post(
+        `${config.domain}/issue/${input.issueIdOrKey}/transitions`,
+        {
+          transition: {
+            id: input.transitionId,
+          },
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async updateComment(input: IJira.IUpdateCommentInput): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.put(
+        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        {
+          body: input.body,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async updateIssue(
+    id: IJira.Issue["id"],
+    input: IJira.IUpdateIssueInput,
+  ): Promise<void> {
+    try {
+      const config = await this.getAuthorizationAndDomain(input);
+      await axios.put(
+        `${config.domain}/issue/${id}`,
+        {
+          fields: input.fields,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.log((err as any)?.response.data);
       console.error(JSON.stringify(err));
       throw err;
     }

@@ -1,7 +1,9 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
+import { StrictOmit } from "../../../../utils/strictOmit";
+import { MyPartial } from "../../../../utils/types/MyPartial";
 import type { ICommon } from "../common/ISecretValue";
-import type { BulletListNode_1, OrderedListNode_1 } from "./ListNode";
+import type { ListNode } from "./ListNode";
 
 export type LookUp<
   U extends { type: string },
@@ -84,6 +86,9 @@ export namespace IJira {
     maxResults?: number & tags.Type<"int32"> & tags.Default<50>;
   }
 
+  /**
+   * @title pagination output properties
+   */
   export interface ICommonPaginationOutput extends ICommonPaginationInput {
     /**
      * @title Wheather is last page
@@ -96,6 +101,9 @@ export namespace IJira {
     total: number & tags.Type<"int64">;
   }
 
+  /**
+   * @title issue status
+   */
   export interface Status {
     /**
      * @title status id
@@ -133,6 +141,104 @@ export namespace IJira {
     };
   }
 
+  export interface IGetCommentOutput extends ICommonPaginationOutput {
+    /**
+     * @title comments
+     */
+    comments: Pick<
+      IJira.Comment,
+      "id" | "author" | "body" | "created" | "updated" | "updateAuthor"
+    >[];
+  }
+
+  export interface IGetCommentInput
+    extends BasicAuthorization,
+      ICommonPaginationInput {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+  }
+
+  export interface IDeleteCommentInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title ID of comment to delete
+     */
+    commentId: Comment["id"];
+  }
+
+  export interface ICreateCommentOutput {
+    /**
+     * @title ID of comment
+     */
+    id: string;
+  }
+
+  export interface ICreateCommentInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title body of comment
+     */
+    body: Comment["body"];
+  }
+
+  /**
+   * @title output of creation of issue
+   */
   export interface ICreateIssueOutput {
     /**
      * @title ID of the issue that was created just now
@@ -143,6 +249,159 @@ export namespace IJira {
      * @title Key of the issue that was created just now
      */
     key: Issue["key"];
+  }
+
+  export interface IGetTransitionOutput {
+    /**
+     * @title transition list of this jira issue
+     */
+    transitions: {
+      /**
+       * @title id of transition
+       */
+      id: string;
+
+      /**
+       * @title to
+       *
+       * StatusDetail.
+       * Details of the issue status after the transition.
+       */
+      to: Pick<Status, "id" | "description" | "name" | "statusCategory">;
+    }[];
+  }
+
+  export interface IUpdateStatusInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title ID of transition
+     */
+    transitionId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/issue-get-transitions";
+        jmesPath: "transitions[].{value:id, label: to.name}";
+      }>;
+  }
+
+  export interface IGetTransitionInput extends BasicAuthorization {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+  }
+
+  export type IUnAssignInput = StrictOmit<IAssignInput, "asigneeId">;
+
+  export interface IAssignInput extends BasicAuthorization {
+    /**
+     * @title ID of issue
+     */
+    issueId: Issue["id"];
+
+    /**
+     * @title accountId of the user you want to designate as the person in charge
+     *
+     * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
+     * The person in charge is inevitably one of Jira's users.
+     */
+    asigneeId: User["accountId"] &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/jira/issues/get-users-assignable";
+            jmesPath: "[].{value:accountId, label:displayName}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/jira/project/get-users-assignable";
+            jmesPath: "[].{value:accountId, label:displayName}";
+          }>
+      );
+  }
+
+  export interface IUpdateCommentInput
+    extends BasicAuthorization,
+      MyPartial<
+        StrictOmit<ICreateCommentInput, keyof BasicAuthorization | "body">
+      > {
+    /**
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
+     */
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
+
+    /**
+     * @title ID of comment to update
+     */
+    commentId: Comment["id"];
+
+    /**
+     * @title body of comment to update
+     */
+    body: Comment["body"];
+  }
+
+  /**
+   * @title Issue update Conditions
+   */
+  export interface IUpdateIssueInput
+    extends BasicAuthorization,
+      MyPartial<
+        StrictOmit<ICreateIssueInput, keyof BasicAuthorization | "fields">
+      > {
+    /**
+     * @title fields to update
+     */
+    fields: MyPartial<ICreateIssueInput["fields"]>;
   }
 
   /**
@@ -163,20 +422,23 @@ export namespace IJira {
          * @title accountId of the user you want to designate as the person in charge
          *
          * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
+         * The person in charge is inevitably one of Jira's users.
          */
-        id: User["accountId"] &
-          (
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/issues/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/project/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-          );
+        id:
+          | null
+          | (User["accountId"] &
+              (
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/issues/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/project/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+              ));
       };
 
       /**
@@ -319,32 +581,6 @@ export namespace IJira {
           };
 
       /**
-       * @title reporter
-       */
-      reporter?: {
-        /**
-         * @title id of reporter
-         *
-         * If you know who the reporter is, you can specify.
-         * Perhaps the person who created the issue is more likely to be the reporter, but not necessarily.
-         * You can also find the first person to find the problem and put someone with a similar nickname.
-         */
-        id: User["accountId"] &
-          (
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/issues/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-            | Prerequisite<{
-                method: "post";
-                path: "/connector/jira/project/get-users-assignable";
-                jmesPath: "[].{value:accountId, label:displayName}";
-              }>
-          );
-      };
-
-      /**
        * @title summary
        *
        * Meaning the title of the issue.
@@ -415,67 +651,12 @@ export namespace IJira {
     /**
      * @title status
      */
-    status?:
-      | tags.Constant<
-          "Open",
-          {
-            title: "Open";
-            description: "The issue is open and ready for the assignee to start work on it.";
-          }
-        >
-      | tags.Constant<
-          "In Progress",
-          {
-            title: "In Progress";
-            description: "This issue is being actively worked on at the moment by the assignee.";
-          }
-        >
-      | tags.Constant<
-          "Done",
-          { title: "완료"; description: "Work has finished on the issue." }
-        >
-      | tags.Constant<
-          "To Do",
-          {
-            title: "To Do";
-            description: "The issue has been reported and is waiting for the team to action it.";
-          }
-        >
-      | tags.Constant<
-          "In Review",
-          {
-            title: "In Review";
-            description: "The assignee has carried out the work needed on the issue, and it needs peer review before being considered done.";
-          }
-        >
-      | tags.Constant<
-          "Under review",
-          {
-            title: "Under review";
-            description: "A reviewer is currently assessing the work completed on the issue before considering it done.";
-          }
-        >
-      | tags.Constant<
-          "Approved",
-          {
-            title: "Approved";
-            description: "A reviewer has approved the work completed on the issue and the issue is considered done.";
-          }
-        >
-      | tags.Constant<
-          "Cancelled",
-          {
-            title: "Cancelled";
-            description: "Work has stopped on the issue and the issue is considered done.";
-          }
-        >
-      | tags.Constant<
-          "Rejected",
-          {
-            title: "Rejected";
-            description: "A reviewer has rejected the work completed on the issue and the issue is considered done.";
-          }
-        >;
+    status?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/jira/get-statuses";
+        jmesPath: "[].{value:id, label:untranslatedName}";
+      }>;
 
     /**
      * @title name of assignee
@@ -579,12 +760,7 @@ export namespace IJira {
      * - bulletList
      * - orderedList
      */
-    content: (
-      | ParagraphContentWithoutNoMarks
-      | BulletListNode_1
-      | OrderedListNode_1
-    )[] &
-      tags.MinItems<1>;
+    content: (ParagraphContentWithoutNoMarks | ListNode)[] & tags.MinItems<1>;
   };
 
   /**
@@ -610,18 +786,30 @@ export namespace IJira {
      *
      * content takes an array of one or more text nodes without marks.
      */
-    content?: {
-      type: "text";
+    content?: [
+      {
+        type: "text";
 
-      /**
-       * @title text includeing code
-       */
-      text: string;
-    }[];
+        /**
+         * @title text includeing code
+         */
+        text: string;
+      },
+    ];
   };
 
+  /**
+   * @title emoji node
+   */
   export type EmojiNode = {
+    /**
+     * @title emoji type
+     */
     type: "emoji";
+
+    /**
+     * @title attributes of emoji node
+     */
     attrs: {
       /**
        * Emoji service ID of the emoji
@@ -644,9 +832,24 @@ export namespace IJira {
     };
   };
 
+  /**
+   * @title hard break node
+   */
   export type HardBreakNode = {
+    /**
+     * @title hardBreak type
+     */
     type: "hardBreak";
+
+    /**
+     * @title attributes of hard break node
+     */
     attrs?: {
+      /**
+       * @title text
+       *
+       * It can be only `\n` text for braking.
+       */
       text?: "\n";
     };
   };
@@ -657,28 +860,21 @@ export namespace IJira {
    * It means h1, h2, h3, h4, h5, h6 node.
    */
   export type HeadingNode = {
+    /**
+     * @title heading type
+     */
     type: "heading";
+
+    /**
+     * @title content
+     *
+     * Heading node's content can be combined with only inline nodes.
+     */
     content: InlineNode[];
 
-    attrs: {
-      /**
-       * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
-       */
-      level: 1 | 2 | 3 | 4 | 5 | 6;
-    };
-  };
-
-  export type HeadingNodeWithoutMarks = {
-    type: "heading";
-
-    content: (
-      | Omit<EmojiNode, "marks">
-      | Omit<HardBreakNode, "marks">
-      | Omit<InlineCardContent, "marks">
-      | Omit<MentionNode, "marks">
-      | Omit<TextContent, "marks">
-    )[];
-
+    /**
+     * @title attributes of heading node
+     */
     attrs: {
       /**
        * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
@@ -688,17 +884,68 @@ export namespace IJira {
   };
 
   /**
+   * @title heading node without `marks` property
+   */
+  export type HeadingNodeWithoutMarks = {
+    /**
+     * @title heading type
+     */
+    type: "heading";
+
+    /**
+     * @title content
+     *
+     * Heading node's content can be combined with only inline nodes.
+     * A property called marks is not available here.
+     */
+    content: (
+      | Omit<EmojiNode, "marks">
+      | Omit<HardBreakNode, "marks">
+      | Omit<InlineCardNode, "marks">
+      | Omit<MentionNode, "marks">
+      | Omit<TextContent, "marks">
+    )[];
+
+    /**
+     * @title attributes of heading node
+     */
+    attrs: {
+      /**
+       * @title level
+       *
+       * level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>.
+       */
+      level:
+        | tags.Constant<1, { title: "1"; description: "level" }>
+        | tags.Constant<2, { title: "2"; description: "level" }>
+        | tags.Constant<3, { title: "3"; description: "level" }>
+        | tags.Constant<4, { title: "4"; description: "level" }>
+        | tags.Constant<5, { title: "5"; description: "level" }>
+        | tags.Constant<6, { title: "6"; description: "level" }>;
+    };
+  };
+
+  /**
    * @title inline card
    *
    * The inlineCard node is an Atlassian link card with a type icon and content description derived from the link.
    */
-  export type InlineCardContent = {
+  export type InlineCardNode = {
+    /**
+     * @title inline card type
+     */
     type: "inlineCard";
+
+    /**
+     * @title attributes of inline card node
+     */
     attrs: {
       /**
        * @title url
+       * Indicates the address value that the inline card will represent.
+       * To allow you to move when you click on the card, you need to put a link in advance.
        */
-      url?: string & tags.Format<"uri">;
+      url: string & tags.Format<"uri">;
 
       /**
        * @title representation of the link
@@ -780,7 +1027,7 @@ export namespace IJira {
           /**
            * @title url
            */
-          url: string;
+          url: string & tags.Format<"uri">;
         };
       };
 
@@ -885,9 +1132,8 @@ export namespace IJira {
       panelType: "info" | "note" | "warning" | "success" | "error";
     };
     content: (
-      | BulletListNode_1
+      | ListNode
       | HeadingNodeWithoutMarks
-      | OrderedListNode_1
       | ParagraphContentWithoutNoMarks
     )[];
   };
@@ -931,7 +1177,7 @@ export namespace IJira {
     content: (
       | Omit<EmojiNode, "marks">
       | Omit<HardBreakNode, "marks">
-      | Omit<InlineCardContent, "marks">
+      | Omit<InlineCardNode, "marks">
       | Omit<MentionNode, "marks">
       | Omit<TextContent, "marks">
     )[];
@@ -997,11 +1243,10 @@ export namespace IJira {
     type: "tabelCell";
     content: (
       | BlockquoteNode
-      | BulletListNode_1
+      | ListNode
       | CodeBlockNode
       | HeadingNode
       | MediaGroupNode
-      | OrderedListNode_1
       | PanelNode
       | ParagraphNode
       | RuleNode
@@ -1044,11 +1289,10 @@ export namespace IJira {
     type: "tableHeader";
     content: (
       | BlockquoteNode
-      | BulletListNode_1
+      | ListNode
       | CodeBlockNode
       | HeadingNode
       | MediaGroupNode
-      | OrderedListNode_1
       | PanelNode
       | ParagraphNode
       | RuleNode
@@ -1121,12 +1365,11 @@ export namespace IJira {
    */
   export type TopLevelBlockNode =
     | BlockquoteNode
-    | BulletListNode_1
+    // | ListNode
     | CodeBlockNode
     | HeadingNode
     | MediaGroupNode
     | MediaSingleNode
-    | OrderedListNode_1
     | PanelNode
     | ParagraphNode
     | RuleNode
@@ -1141,15 +1384,30 @@ export namespace IJira {
   export type InlineNode =
     | EmojiNode
     | HardBreakNode
-    | InlineCardContent
+    | InlineCardNode
     | MentionNode
     | TextContent;
 
   export interface IGetIssueDetailInput extends BasicAuthorization {
     /**
-     * @title id or key
+     * @title issue id or key
+     *
+     * This connector doesn't matter the key or ID of the issue.
+     * If you hand over one of them, you can use it to look up.
      */
-    issueIdOrKey: string;
+    issueIdOrKey:
+      | (Issue["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:id, label:key}";
+          }>)
+      | (Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>);
   }
 
   export interface IGetIssueInputByBasicAuth
@@ -1199,6 +1457,17 @@ export namespace IJira {
     User,
     "accountId" | "displayName" | "active"
   >[];
+
+  export type IGetStatusOutput = Pick<
+    Status,
+    "id" | "name" | "statusCategory" | "description" | "untranslatedName"
+  >[];
+
+  export type IGetStatusInput = BasicAuthorization;
+
+  export type IGetStatusCategoryOutput = StatusCategory[];
+
+  export type IGetStatusCategoryInput = BasicAuthorization;
 
   export interface IGetProjectAssignableInput
     extends ICommonPaginationInput,
@@ -1418,6 +1687,9 @@ export namespace IJira {
      * @title body of comment
      */
     body: {
+      type: "doc";
+      version: 1;
+
       /**
        * A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.
        * By combining each element in the array, you can understand the entire comment content.
@@ -1638,7 +1910,7 @@ export namespace IJira {
            *
            * Color can be expressed using symbols('#') and RGB values.
            */
-          color: `#${string}`;
+          color: string & tags.Pattern<"^#([0-9A-Fa-f]{6})$">;
         };
       }
     | {
@@ -1682,4 +1954,26 @@ export namespace IJira {
     | {
         type: "underline";
       };
+
+  export interface StatusCategory {
+    /**
+     * @title name of color
+     */
+    colorName: string;
+
+    /**
+     * @title The ID of status category
+     */
+    id: number;
+
+    /**
+     * @title The key of status category
+     */
+    key: string;
+
+    /**
+     * @title name of the status category
+     */
+    name: string;
+  }
 }
