@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.105",
+    "version": "0.1.106",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -29220,68 +29220,7 @@
           "users": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string",
-                  "title": "name",
-                  "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
-                },
-                "display_name": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "title": "display name",
-                  "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
-                },
-                "real_name": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "title": "real_name",
-                  "description": "The user's first and last name.\nUpdating this field will update first_name and last_name.\nIf only one name is provided, the value of last_name will be cleared."
-                },
-                "deleted": {
-                  "type": "boolean",
-                  "title": "deleted",
-                  "description": "This value is used to distinguish between deleted users."
-                },
-                "profile_image": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uri",
-                      "contentMediaType": "image/*"
-                    }
-                  ],
-                  "title": "profile image",
-                  "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "display_name",
-                "real_name",
-                "deleted",
-                "profile_image"
-              ]
+              "$ref": "#/components/schemas/ISlack.IGetUserOutput"
             },
             "title": "user list"
           },
@@ -29300,6 +29239,70 @@
         "required": [
           "users",
           "next_cursor"
+        ]
+      },
+      "ISlack.IGetUserOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          },
+          "real_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "real_name",
+            "description": "The user's first and last name.\nUpdating this field will update first_name and last_name.\nIf only one name is provided, the value of last_name will be cleared."
+          },
+          "deleted": {
+            "type": "boolean",
+            "title": "deleted",
+            "description": "This value is used to distinguish between deleted users."
+          },
+          "profile_image": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri",
+                "contentMediaType": "image/*"
+              }
+            ],
+            "title": "profile image",
+            "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "display_name",
+          "real_name",
+          "deleted",
+          "profile_image"
         ]
       },
       "ISlack.IGetReplyInput": {
@@ -29589,6 +29592,13 @@
             },
             "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+            },
+            "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
+          },
           "next_cursor": {
             "oneOf": [
               {
@@ -29603,6 +29613,7 @@
         },
         "required": [
           "messages",
+          "members",
           "next_cursor"
         ]
       },
@@ -29668,6 +29679,31 @@
           "reply_count",
           "reply_users_count"
         ]
+      },
+      "PickISlack.IGetUserOutputiddisplay_name": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          }
+        },
+        "required": [
+          "id",
+          "display_name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "ISlack.IGetChannelInput": {
         "type": "object",
