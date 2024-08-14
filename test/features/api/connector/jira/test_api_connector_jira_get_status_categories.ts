@@ -20,6 +20,5 @@ export const test_api_connector_jira_get_status_categories = async (
     );
 
   typia.assertEquals(categories);
-  console.log(categories);
   return categories;
 };

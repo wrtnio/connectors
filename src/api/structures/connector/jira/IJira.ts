@@ -3,7 +3,7 @@ import type { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { MyPartial } from "../../../../utils/types/MyPartial";
 import type { ICommon } from "../common/ISecretValue";
-import type { BulletListNode_1, OrderedListNode_1 } from "./ListNode";
+import type { ListNode } from "./ListNode";
 
 export type LookUp<
   U extends { type: string },
@@ -760,12 +760,7 @@ export namespace IJira {
      * - bulletList
      * - orderedList
      */
-    content: (
-      | ParagraphContentWithoutNoMarks
-      | BulletListNode_1
-      | OrderedListNode_1
-    )[] &
-      tags.MinItems<1>;
+    content: (ParagraphContentWithoutNoMarks | ListNode)[] & tags.MinItems<1>;
   };
 
   /**
@@ -791,14 +786,16 @@ export namespace IJira {
      *
      * content takes an array of one or more text nodes without marks.
      */
-    content?: {
-      type: "text";
+    content?: [
+      {
+        type: "text";
 
-      /**
-       * @title text includeing code
-       */
-      text: string;
-    }[];
+        /**
+         * @title text includeing code
+         */
+        text: string;
+      },
+    ];
   };
 
   /**
@@ -1135,9 +1132,8 @@ export namespace IJira {
       panelType: "info" | "note" | "warning" | "success" | "error";
     };
     content: (
-      | BulletListNode_1
+      | ListNode
       | HeadingNodeWithoutMarks
-      | OrderedListNode_1
       | ParagraphContentWithoutNoMarks
     )[];
   };
@@ -1247,11 +1243,10 @@ export namespace IJira {
     type: "tabelCell";
     content: (
       | BlockquoteNode
-      | BulletListNode_1
+      | ListNode
       | CodeBlockNode
       | HeadingNode
       | MediaGroupNode
-      | OrderedListNode_1
       | PanelNode
       | ParagraphNode
       | RuleNode
@@ -1294,11 +1289,10 @@ export namespace IJira {
     type: "tableHeader";
     content: (
       | BlockquoteNode
-      | BulletListNode_1
+      | ListNode
       | CodeBlockNode
       | HeadingNode
       | MediaGroupNode
-      | OrderedListNode_1
       | PanelNode
       | ParagraphNode
       | RuleNode
@@ -1371,12 +1365,11 @@ export namespace IJira {
    */
   export type TopLevelBlockNode =
     | BlockquoteNode
-    | BulletListNode_1
+    // | ListNode
     | CodeBlockNode
     | HeadingNode
     | MediaGroupNode
     | MediaSingleNode
-    | OrderedListNode_1
     | PanelNode
     | ParagraphNode
     | RuleNode
@@ -1917,7 +1910,7 @@ export namespace IJira {
            *
            * Color can be expressed using symbols('#') and RGB values.
            */
-          color: `#${string}`;
+          color: string & tags.Pattern<"^#([0-9A-Fa-f]{6})$">;
         };
       }
     | {

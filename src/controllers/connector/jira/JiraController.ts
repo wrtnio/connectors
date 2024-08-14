@@ -53,7 +53,9 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
   @core.TypedRoute.Put("issues/comments")
-  async updateComment(@TypedBody() input: IJira.IUpdateCommentInput) {
+  async updateComment(
+    @TypedBody() input: IJira.IUpdateCommentInput,
+  ): Promise<void> {
     return this.jiraProvider.updateComment(input);
   }
 

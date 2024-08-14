@@ -187,8 +187,8 @@ export class GoogleFlightProvider {
       price:
         result.price !== undefined
           ? `${result.price}원`
-          : price_insights.lowest_price !== undefined
-            ? `${price_insights.lowest_price}원`
+          : price_insights?.lowest_price !== undefined
+            ? `${price_insights?.lowest_price}원`
             : "가격 정보가 없습니다.",
       layover: result.layover?.map((layover: any) => ({
         name: layover.name,
