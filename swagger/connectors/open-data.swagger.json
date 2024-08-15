@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/open-data/getRTMSDataSvcSHRent": {
       "post": {
+        "summary": "Retrieve multi-family lease and rental information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Housing",
           "Single-Family Homes",
@@ -57,13 +59,13 @@
             }
           }
         },
-        "summary": "Retrieve multi-family lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getRTMSDataSvcOffiRent": {
       "post": {
+        "summary": "Retrieve officetel lease and rental information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Housing",
           "Officetel",
@@ -94,13 +96,13 @@
             }
           }
         },
-        "summary": "Retrieve officetel lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getRTMSDataSvcAptRent": {
       "post": {
+        "summary": "Retrieve apartment lease and rental information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Public Data",
           "Housing",
@@ -132,14 +134,14 @@
             }
           }
         },
-        "summary": "Retrieve apartment lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getLHLeaseInfo": {
       "post": {
+        "summary": "Retrieve LH rental housing information",
+        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Public Data",
           "LH",
@@ -171,14 +173,14 @@
             }
           }
         },
-        "summary": "Retrieve LH rental housing information",
-        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getParkingLot": {
       "post": {
+        "summary": "Retrieve parking lot information",
+        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Public Data",
           "Parking Lot",
@@ -215,14 +217,14 @@
             }
           }
         },
-        "summary": "Retrieve parking lot information",
-        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getBuildingInfo": {
       "post": {
+        "summary": "Retrieve building registration information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Public Data",
           "Building",
@@ -253,13 +255,13 @@
             }
           }
         },
-        "summary": "Retrieve building registration information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getStandardRegionCodeList": {
       "post": {
+        "summary": "Retrieve administrative standard codes",
+        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Public Data",
           "Administrative District",
@@ -292,14 +294,14 @@
             }
           }
         },
-        "summary": "Retrieve administrative standard codes",
-        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getStockPriceInfo": {
       "post": {
+        "summary": "Retrieve market capitalization and stock information",
+        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Public Data",
           "Stock",
@@ -338,14 +340,14 @@
             }
           }
         },
-        "summary": "Retrieve market capitalization and stock information",
-        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getShortTermForecast": {
       "post": {
+        "summary": "Retrieve today's weather from the Korea Meteorological Administration",
+        "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.",
         "tags": [
           "Public Data",
           "Weather",
@@ -380,14 +382,14 @@
             }
           }
         },
-        "summary": "Retrieve today's weather from the Korea Meteorological Administration",
-        "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
     "/connector/open-data/getCopyRight": {
       "post": {
+        "summary": "[Copyright Registration Information Service (New)]",
+        "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "tags": [
           "Copyright"
         ],
@@ -415,8 +417,6 @@
             }
           }
         },
-        "summary": "[Copyright Registration Information Service (New)]",
-        "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -424,29 +424,6 @@
   },
   "components": {
     "schemas": {
-      "IMOLIT.IGetRTMSDataSvcAptRentInput": {
-        "type": "object",
-        "properties": {
-          "LAWD_CD": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/open-data/getStandardRegionCodeList",
-              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
-            },
-            "title": "시군구 코드"
-          },
-          "DEAL_YMD": {
-            "type": "string",
-            "x-wrtn-placeholder": "202201",
-            "title": "실거래 자료의 계약년월(6자리)"
-          }
-        },
-        "required": [
-          "LAWD_CD",
-          "DEAL_YMD"
-        ]
-      },
       "IMOLIT.IgetRTMSDataSvcSHRentOutput": {
         "type": "object",
         "properties": {
@@ -597,6 +574,29 @@
           "previousContractDeposit",
           "previousContractMonthlyRent",
           "areaCode"
+        ]
+      },
+      "IMOLIT.IGetRTMSDataSvcAptRentInput": {
+        "type": "object",
+        "properties": {
+          "LAWD_CD": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/open-data/getStandardRegionCodeList",
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
+            },
+            "title": "시군구 코드"
+          },
+          "DEAL_YMD": {
+            "type": "string",
+            "x-wrtn-placeholder": "202201",
+            "title": "실거래 자료의 계약년월(6자리)"
+          }
+        },
+        "required": [
+          "LAWD_CD",
+          "DEAL_YMD"
         ]
       },
       "IMOLIT.IGetRTMSDataSvcOffiRentOutput": {
@@ -945,6 +945,96 @@
           "floor"
         ]
       },
+      "ILH.IGetLHLeaseInfoOutput": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "type": "boolean",
+            "title": "다음 페이지 유무"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SUM_HSH_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "873",
+                  "title": "총세대수"
+                },
+                "RFE": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "373500",
+                  "title": "월임대료(원)"
+                },
+                "RNUM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "순번"
+                },
+                "HSH_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "72",
+                  "title": "세대수"
+                },
+                "ARA_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "서울특별시 강남구",
+                  "title": "지역명"
+                },
+                "LS_GMY": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "45003000",
+                  "title": "임대보증금"
+                },
+                "AIS_TP_CD_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "국민임대",
+                  "title": "공급유형명"
+                },
+                "SBD_LGO_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "서울강남 3블록",
+                  "title": "단지명"
+                },
+                "ALL_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "157",
+                  "title": "전체건수"
+                },
+                "DDO_AR": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "46.71",
+                  "title": "전용면적"
+                },
+                "MVIN_XPC_YM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "201311",
+                  "title": "최초입주년월"
+                }
+              },
+              "required": [
+                "SUM_HSH_CNT",
+                "RFE",
+                "RNUM",
+                "HSH_CNT",
+                "ARA_NM",
+                "LS_GMY",
+                "AIS_TP_CD_NM",
+                "SBD_LGO_NM",
+                "ALL_CNT",
+                "DDO_AR",
+                "MVIN_XPC_YM"
+              ]
+            }
+          }
+        },
+        "required": [
+          "nextPage",
+          "data"
+        ],
+        "title": "LH 임대주택 조회 응답"
+      },
       "ILH.IGetLHLeaseInfoInput": {
         "type": "object",
         "properties": {
@@ -1069,134 +1159,6 @@
           "CNP_CD"
         ],
         "title": "LH 임대주택 조회 조건"
-      },
-      "ILH.IGetLHLeaseInfoOutput": {
-        "type": "object",
-        "properties": {
-          "nextPage": {
-            "type": "boolean",
-            "title": "다음 페이지 유무"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "SUM_HSH_CNT": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "873",
-                  "title": "총세대수"
-                },
-                "RFE": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "373500",
-                  "title": "월임대료(원)"
-                },
-                "RNUM": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "1",
-                  "title": "순번"
-                },
-                "HSH_CNT": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "72",
-                  "title": "세대수"
-                },
-                "ARA_NM": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "서울특별시 강남구",
-                  "title": "지역명"
-                },
-                "LS_GMY": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "45003000",
-                  "title": "임대보증금"
-                },
-                "AIS_TP_CD_NM": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "국민임대",
-                  "title": "공급유형명"
-                },
-                "SBD_LGO_NM": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "서울강남 3블록",
-                  "title": "단지명"
-                },
-                "ALL_CNT": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "157",
-                  "title": "전체건수"
-                },
-                "DDO_AR": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "46.71",
-                  "title": "전용면적"
-                },
-                "MVIN_XPC_YM": {
-                  "type": "string",
-                  "x-wrtn-placeholder": "201311",
-                  "title": "최초입주년월"
-                }
-              },
-              "required": [
-                "SUM_HSH_CNT",
-                "RFE",
-                "RNUM",
-                "HSH_CNT",
-                "ARA_NM",
-                "LS_GMY",
-                "AIS_TP_CD_NM",
-                "SBD_LGO_NM",
-                "ALL_CNT",
-                "DDO_AR",
-                "MVIN_XPC_YM"
-              ]
-            }
-          }
-        },
-        "required": [
-          "nextPage",
-          "data"
-        ],
-        "title": "LH 임대주택 조회 응답"
-      },
-      "IPaginationInputPickParkingLotrdnmadr": {
-        "type": "object",
-        "properties": {
-          "numOfRows": {
-            "type": "integer",
-            "default": 10,
-            "title": "Number of results per page"
-          },
-          "pageNo": {
-            "type": "integer",
-            "default": 1,
-            "title": "Page number"
-          },
-          "rdnmadr": {
-            "type": "string",
-            "title": "소재지도로명주소"
-          }
-        }
-      },
-      "IPaginationInputPickParkingLotlnmadr": {
-        "type": "object",
-        "properties": {
-          "numOfRows": {
-            "type": "integer",
-            "default": 10,
-            "title": "Number of results per page"
-          },
-          "pageNo": {
-            "type": "integer",
-            "default": 1,
-            "title": "Page number"
-          },
-          "lnmadr": {
-            "type": "string",
-            "title": "소재지지번주소"
-          }
-        }
       },
       "INIA.IGetParkingLotOutput": {
         "type": "object",
@@ -1370,27 +1332,9 @@
           }
         }
       },
-      "IMOLIT.GetBuildingInfoInput": {
+      "IPaginationInputPickParkingLotrdnmadr": {
         "type": "object",
         "properties": {
-          "sigunguCd": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/open-data/getStandardRegionCodeList",
-              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
-            },
-            "title": "시군구 코드"
-          },
-          "bjdongCd": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/open-data/getStandardRegionCodeList",
-              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
-            },
-            "title": "법정동 코드"
-          },
           "numOfRows": {
             "type": "integer",
             "default": 10,
@@ -1400,13 +1344,31 @@
             "type": "integer",
             "default": 1,
             "title": "Page number"
+          },
+          "rdnmadr": {
+            "type": "string",
+            "title": "소재지도로명주소"
           }
-        },
-        "required": [
-          "sigunguCd",
-          "bjdongCd"
-        ],
-        "title": "빌딩 조회 조건"
+        }
+      },
+      "IPaginationInputPickParkingLotlnmadr": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "lnmadr": {
+            "type": "string",
+            "title": "소재지지번주소"
+          }
+        }
       },
       "IMOLIT.GetBuildingInfoOutput": {
         "type": "object",
@@ -1891,13 +1853,16 @@
           "rserthqkDsgnApplyYn": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constant1__type"
+                "const": 0,
+                "title": "미적용"
               },
               {
-                "$ref": "#/components/schemas/Constant0__type"
+                "const": 1,
+                "title": "적용"
               },
               {
-                "$ref": "#/components/schemas/Constant__type"
+                "const": " ",
+                "title": "알 수 없음"
               }
             ],
             "title": "내진설계적용여부"
@@ -1915,25 +1880,26 @@
           "mgmBldrgstPk"
         ]
       },
-      "Constant1__type": {
-        "const": 1,
-        "title": "적용"
-      },
-      "Constant0__type": {
-        "const": 0,
-        "title": "미적용"
-      },
-      "Constant__type": {
-        "const": " ",
-        "title": "알 수 없음"
-      },
-      "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput": {
+      "IMOLIT.GetBuildingInfoInput": {
         "type": "object",
         "properties": {
-          "locatadd_nm": {
+          "sigunguCd": {
             "type": "string",
-            "x-wrtn-placeholder": "Seoul Special City",
-            "title": "Region address name"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/open-data/getStandardRegionCodeList",
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
+            },
+            "title": "시군구 코드"
+          },
+          "bjdongCd": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/open-data/getStandardRegionCodeList",
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
+            },
+            "title": "법정동 코드"
           },
           "numOfRows": {
             "type": "integer",
@@ -1947,9 +1913,10 @@
           }
         },
         "required": [
-          "locatadd_nm"
+          "sigunguCd",
+          "bjdongCd"
         ],
-        "title": "Request for Administrative Standard Code Lookup"
+        "title": "빌딩 조회 조건"
       },
       "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput": {
         "type": "object",
@@ -2053,9 +2020,14 @@
         ],
         "title": "Result of Administrative Standard Code Lookup"
       },
-      "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbasDt(stringPlaceholder...)undefined": {
+      "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput": {
         "type": "object",
         "properties": {
+          "locatadd_nm": {
+            "type": "string",
+            "x-wrtn-placeholder": "Seoul Special City",
+            "title": "Region address name"
+          },
           "numOfRows": {
             "type": "integer",
             "default": 10,
@@ -2065,53 +2037,12 @@
             "type": "integer",
             "default": 1,
             "title": "Page number"
-          },
-          "likeItmsNm": {
-            "type": "string",
-            "maxLength": 120,
-            "x-wrtn-placeholder": "Samsung Electronics",
-            "title": "Keyword for stock name search"
-          },
-          "basDt": {
-            "type": "string",
-            "x-wrtn-placeholder": "20220919",
-            "title": "Base date",
-            "description": "Searches for data matching the search value and base date"
           }
-        }
-      },
-      "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbeginBasDt(stringPlaceholder...)undefinedendBasDt(stringPlaceholder...)undefined": {
-        "type": "object",
-        "properties": {
-          "numOfRows": {
-            "type": "integer",
-            "default": 10,
-            "title": "Number of results per page"
-          },
-          "pageNo": {
-            "type": "integer",
-            "default": 1,
-            "title": "Page number"
-          },
-          "likeItmsNm": {
-            "type": "string",
-            "maxLength": 120,
-            "x-wrtn-placeholder": "Samsung Electronics",
-            "title": "Keyword for stock name search"
-          },
-          "beginBasDt": {
-            "type": "string",
-            "x-wrtn-placeholder": "20220919",
-            "title": "Start date (inclusive)",
-            "description": "Searches for data where the base date is greater than or equal to the search value"
-          },
-          "endBasDt": {
-            "type": "string",
-            "x-wrtn-placeholder": "20220919",
-            "title": "End date (exclusive)",
-            "description": "Searches for data where the base date is less than the search value"
-          }
-        }
+        },
+        "required": [
+          "locatadd_nm"
+        ],
+        "title": "Request for Administrative Standard Code Lookup"
       },
       "IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput": {
         "type": "object",
@@ -2166,13 +2097,16 @@
                             "mrktCtg": {
                               "oneOf": [
                                 {
-                                  "$ref": "#/components/schemas/ConstantKOSPI__type"
+                                  "const": "KOSPI",
+                                  "title": "KOSPI"
                                 },
                                 {
-                                  "$ref": "#/components/schemas/ConstantKOSDAQ__type"
+                                  "const": "KOSDAQ",
+                                  "title": "KOSDAQ"
                                 },
                                 {
-                                  "$ref": "#/components/schemas/ConstantKONEX__type"
+                                  "const": "KONEX",
+                                  "title": "KONEX"
                                 }
                               ],
                               "title": "Market category"
@@ -2271,17 +2205,199 @@
         ],
         "title": "Result of querying market capitalization and stock information"
       },
-      "ConstantKOSPI__type": {
-        "const": "KOSPI",
-        "title": "KOSPI"
+      "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbasDt(stringPlaceholder...)undefined": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "likeItmsNm": {
+            "type": "string",
+            "maxLength": 120,
+            "x-wrtn-placeholder": "Samsung Electronics",
+            "title": "Keyword for stock name search"
+          },
+          "basDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "Base date",
+            "description": "Searches for data matching the search value and base date"
+          }
+        }
       },
-      "ConstantKOSDAQ__type": {
-        "const": "KOSDAQ",
-        "title": "KOSDAQ"
+      "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbeginBasDt(stringPlaceholder...)undefinedendBasDt(stringPlaceholder...)undefined": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "likeItmsNm": {
+            "type": "string",
+            "maxLength": 120,
+            "x-wrtn-placeholder": "Samsung Electronics",
+            "title": "Keyword for stock name search"
+          },
+          "beginBasDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "Start date (inclusive)",
+            "description": "Searches for data where the base date is greater than or equal to the search value"
+          },
+          "endBasDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "End date (exclusive)",
+            "description": "Searches for data where the base date is less than the search value"
+          }
+        }
       },
-      "ConstantKONEX__type": {
-        "const": "KONEX",
-        "title": "KONEX"
+      "IKoreaMeteorologicalAdministration.IGetForecastOutput": {
+        "type": "object",
+        "properties": {
+          "baseDate": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Date value composed of year, month, and day, e.g., `20240619`."
+          },
+          "baseTime": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Time value indicating the exact hour, e.g., `1200`."
+          },
+          "category": {
+            "oneOf": [
+              {
+                "const": "POP",
+                "title": "Precipitation Probability",
+                "description": "Unit is %"
+              },
+              {
+                "const": "PTY",
+                "title": "Precipitation Type",
+                "description": "Code value"
+              },
+              {
+                "const": "PCP",
+                "title": "Hourly Precipitation",
+                "description": "Category (1mm)"
+              },
+              {
+                "const": "REH",
+                "title": "Humidity",
+                "description": "Unit is %"
+              },
+              {
+                "const": "SNO",
+                "title": "Hourly Snowfall",
+                "description": "Category (1cm)"
+              },
+              {
+                "const": "SKY",
+                "title": "Sky Condition",
+                "description": "Code value"
+              },
+              {
+                "const": "TMP",
+                "title": "Hourly Temperature",
+                "description": "Celsius temperature"
+              },
+              {
+                "const": "TMN",
+                "title": "Daily Minimum Temperature",
+                "description": "Celsius temperature"
+              },
+              {
+                "const": "TMX",
+                "title": "Daily Maximum Temperature",
+                "description": "Celsius temperature"
+              },
+              {
+                "const": "UUU",
+                "title": "Wind Speed (East-West Component)",
+                "description": "m/s"
+              },
+              {
+                "const": "VVV",
+                "title": "Wind Speed (North-South Component)",
+                "description": "m/s"
+              },
+              {
+                "const": "WAV",
+                "title": "Wave Height (Wave Height)",
+                "description": "M"
+              },
+              {
+                "const": "VEC",
+                "title": "Wind Direction",
+                "description": "Angle (deg)"
+              },
+              {
+                "const": "VEC",
+                "title": "Wind Direction",
+                "description": "deg"
+              },
+              {
+                "const": "WSD",
+                "title": "Wind Speed",
+                "description": "m/s"
+              },
+              {
+                "const": "T1H",
+                "title": "Temperature",
+                "description": "Celsius temperature"
+              },
+              {
+                "const": "T1H",
+                "title": "Temperature",
+                "description": "Celsius temperature"
+              },
+              {
+                "const": "RN1",
+                "title": "Hourly Precipitation",
+                "description": "mm"
+              }
+            ],
+            "title": "Category",
+            "description": "Classification of what each value represents"
+          },
+          "nx": {
+            "type": "number",
+            "title": "Longitude"
+          },
+          "ny": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "obsrValue": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Value corresponding to the category"
+          }
+        },
+        "required": [
+          "baseDate",
+          "baseTime",
+          "category",
+          "nx",
+          "ny",
+          "obsrValue"
+        ],
+        "title": "Weather query result",
+        "description": "Processed results"
       },
       "IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
         "type": "object",
@@ -2314,229 +2430,6 @@
           "ny"
         ],
         "title": "Weather query request conditions"
-      },
-      "IKoreaMeteorologicalAdministration.IGetForecastOutput": {
-        "type": "object",
-        "properties": {
-          "baseDate": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "Date value composed of year, month, and day, e.g., `20240619`."
-          },
-          "baseTime": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "Time value indicating the exact hour, e.g., `1200`."
-          },
-          "category": {
-            "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.CategoryType",
-            "title": "Category",
-            "description": "Classification of what each value represents"
-          },
-          "nx": {
-            "type": "number",
-            "title": "Longitude"
-          },
-          "ny": {
-            "type": "number",
-            "title": "Latitude"
-          },
-          "obsrValue": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "Value corresponding to the category"
-          }
-        },
-        "required": [
-          "baseDate",
-          "baseTime",
-          "category",
-          "nx",
-          "ny",
-          "obsrValue"
-        ],
-        "title": "Weather query result",
-        "description": "Processed results"
-      },
-      "IKoreaMeteorologicalAdministration.CategoryType": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ConstantPOP__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantPTY__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantPCP__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantREH__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantSNO__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantSKY__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantTMP__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantTMN__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantTMX__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantUUU__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantVVV__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantWAV__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantVEC__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantWSD__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantT1H__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantRN1__type"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantVEC__type.o1"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantT1H__type.o1"
-          }
-        ],
-        "title": "Code values expressed in short-term forecasts."
-      },
-      "ConstantPOP__type": {
-        "const": "POP",
-        "title": "Precipitation Probability",
-        "description": "Unit is %"
-      },
-      "ConstantPTY__type": {
-        "const": "PTY",
-        "title": "Precipitation Type",
-        "description": "Code value"
-      },
-      "ConstantPCP__type": {
-        "const": "PCP",
-        "title": "Hourly Precipitation",
-        "description": "Category (1mm)"
-      },
-      "ConstantREH__type": {
-        "const": "REH",
-        "title": "Humidity",
-        "description": "Unit is %"
-      },
-      "ConstantSNO__type": {
-        "const": "SNO",
-        "title": "Hourly Snowfall",
-        "description": "Category (1cm)"
-      },
-      "ConstantSKY__type": {
-        "const": "SKY",
-        "title": "Sky Condition",
-        "description": "Code value"
-      },
-      "ConstantTMP__type": {
-        "const": "TMP",
-        "title": "Hourly Temperature",
-        "description": "Celsius temperature"
-      },
-      "ConstantTMN__type": {
-        "const": "TMN",
-        "title": "Daily Minimum Temperature",
-        "description": "Celsius temperature"
-      },
-      "ConstantTMX__type": {
-        "const": "TMX",
-        "title": "Daily Maximum Temperature",
-        "description": "Celsius temperature"
-      },
-      "ConstantUUU__type": {
-        "const": "UUU",
-        "title": "Wind Speed (East-West Component)",
-        "description": "m/s"
-      },
-      "ConstantVVV__type": {
-        "const": "VVV",
-        "title": "Wind Speed (North-South Component)",
-        "description": "m/s"
-      },
-      "ConstantWAV__type": {
-        "const": "WAV",
-        "title": "Wave Height (Wave Height)",
-        "description": "M"
-      },
-      "ConstantVEC__type": {
-        "const": "VEC",
-        "title": "Wind Direction",
-        "description": "Angle (deg)"
-      },
-      "ConstantWSD__type": {
-        "const": "WSD",
-        "title": "Wind Speed",
-        "description": "m/s"
-      },
-      "ConstantT1H__type": {
-        "const": "T1H",
-        "title": "Temperature",
-        "description": "Celsius temperature"
-      },
-      "ConstantRN1__type": {
-        "const": "RN1",
-        "title": "Hourly Precipitation",
-        "description": "mm"
-      },
-      "ConstantVEC__type.o1": {
-        "const": "VEC",
-        "title": "Wind Direction",
-        "description": "deg"
-      },
-      "ConstantT1H__type.o1": {
-        "const": "T1H",
-        "title": "Temperature",
-        "description": "Celsius temperature"
-      },
-      "KoreaCopyrightCommission.IGetCopyRightInput": {
-        "type": "object",
-        "properties": {
-          "perPage": {
-            "type": "integer",
-            "default": 10,
-            "title": "한 페이지 당 결과 수"
-          },
-          "page": {
-            "type": "integer",
-            "default": 1,
-            "title": "페이지 번호"
-          },
-          "REG_ID": {
-            "type": "string",
-            "title": "저작권 등록번호",
-            "description": "완전일치하는 저작권만 조회된다."
-          },
-          "CONT_TITLE": {
-            "type": "string",
-            "x-wrtn-placeholder": "제호 (명칭)",
-            "title": "제호(명칭)"
-          },
-          "AUTHOR_NAME": {
-            "type": "string",
-            "x-wrtn-placeholder": "저작자 이름",
-            "title": "저작권 이름"
-          }
-        },
-        "title": "저작권 조회 조건"
       },
       "KoreaCopyrightCommission.IGetCopyRightOutput": {
         "type": "object",
@@ -2601,6 +2494,37 @@
         "required": [
           "REG_DATE"
         ]
+      },
+      "KoreaCopyrightCommission.IGetCopyRightInput": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "integer",
+            "default": 10,
+            "title": "한 페이지 당 결과 수"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "페이지 번호"
+          },
+          "REG_ID": {
+            "type": "string",
+            "title": "저작권 등록번호",
+            "description": "완전일치하는 저작권만 조회된다."
+          },
+          "CONT_TITLE": {
+            "type": "string",
+            "x-wrtn-placeholder": "제호 (명칭)",
+            "title": "제호(명칭)"
+          },
+          "AUTHOR_NAME": {
+            "type": "string",
+            "x-wrtn-placeholder": "저작자 이름",
+            "title": "저작권 이름"
+          }
+        },
+        "title": "저작권 조회 조건"
       }
     }
   },

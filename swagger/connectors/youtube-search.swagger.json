@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/youtube-search": {
       "post": {
+        "summary": "유튜브 영상 검색",
+        "description": "유튜브 영상 검색 결과를 가져옵니다.\n\n검색 결과는 영상의 제목과 링크가 있습니다.\n대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.",
         "tags": [
           "Youtube",
           "유튜브",
@@ -98,8 +100,6 @@
             }
           }
         },
-        "summary": "유튜브 영상 검색",
-        "description": "유튜브 영상 검색 결과를 가져옵니다.\n\n검색 결과는 영상의 제목과 링크가 있습니다.\n대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/youtube.svg",
         "x-wrtn-standalone": true
       }
@@ -107,6 +107,117 @@
   },
   "components": {
     "schemas": {
+      "IConnector.ISearchOutput": {
+        "type": "object",
+        "properties": {
+          "references": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConnector.IReferenceContent"
+            },
+            "title": "산출물 정보",
+            "description": "검색 결과에 대한 산출물 정보를 담고 있습니다."
+          }
+        },
+        "required": [
+          "references"
+        ],
+        "title": "검색 결과"
+      },
+      "IConnector.IReferenceContent": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "산출물의 제목입니다."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "video"
+              },
+              {
+                "const": "image"
+              },
+              {
+                "const": "news_article"
+              },
+              {
+                "const": "research_paper"
+              }
+            ],
+            "title": "산출물 타입",
+            "description": "비디오, 이미지, 뉴스기사, 논문..\n\n가능한 값: video, image, news_article, research_paper"
+          },
+          "source": {
+            "oneOf": [
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "instagram"
+              },
+              {
+                "const": "google_search"
+              },
+              {
+                "const": "arxiv"
+              },
+              {
+                "const": "google_news"
+              }
+            ],
+            "title": "산출물의 출처",
+            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스\n\n가능한 값: youtube, facebook, instagram, google_search, arxiv, google_news"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "URL 주소",
+            "description": "산출물의 URL 주소입니다."
+          },
+          "contents": {
+            "type": "string",
+            "title": "산출물 내용",
+            "description": "산출물의 내용입니다."
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "title": "산출물 이미지 url",
+            "description": "산출물의 이미지 URL 주소입니다."
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
+            "title": "산출물 통계 자료 정보",
+            "description": "산출물의 통계 자료 정보입니다.\n\n가능한 값: view_count, like_count, rank"
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "source",
+          "url"
+        ]
+      },
+      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
+        "type": "object",
+        "properties": {
+          "view_count": {
+            "type": "integer"
+          },
+          "like_count": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        }
+      },
       "IYoutubeSearch.ISearchInput": {
         "type": "object",
         "properties": {
@@ -142,127 +253,6 @@
           "and_keywords"
         ],
         "title": "유튜브 검색 조건"
-      },
-      "IConnector.ISearchOutput": {
-        "type": "object",
-        "properties": {
-          "references": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IConnector.IReferenceContent"
-            },
-            "title": "산출물 정보",
-            "description": "검색 결과에 대한 산출물 정보를 담고 있습니다."
-          }
-        },
-        "required": [
-          "references"
-        ],
-        "title": "검색 결과"
-      },
-      "IConnector.IReferenceContent": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "제목",
-            "description": "산출물의 제목입니다."
-          },
-          "type": {
-            "$ref": "#/components/schemas/IConnector.ReferenceType",
-            "title": "산출물 타입",
-            "description": "비디오, 이미지, 뉴스기사, 논문..\n\n가능한 값: video, image, news_article, research_paper"
-          },
-          "source": {
-            "$ref": "#/components/schemas/IConnector.ContentProvider",
-            "title": "산출물의 출처",
-            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스\n\n가능한 값: youtube, facebook, instagram, google_search, arxiv, google_news"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "title": "URL 주소",
-            "description": "산출물의 URL 주소입니다."
-          },
-          "contents": {
-            "type": "string",
-            "title": "산출물 내용",
-            "description": "산출물의 내용입니다."
-          },
-          "image": {
-            "type": "string",
-            "format": "uri",
-            "title": "산출물 이미지 url",
-            "description": "산출물의 이미지 URL 주소입니다."
-          },
-          "statistics": {
-            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
-            "title": "산출물 통계 자료 정보",
-            "description": "산출물의 통계 자료 정보입니다.\n\n가능한 값: view_count, like_count, rank"
-          }
-        },
-        "required": [
-          "title",
-          "type",
-          "source",
-          "url"
-        ]
-      },
-      "IConnector.ReferenceType": {
-        "oneOf": [
-          {
-            "const": "video"
-          },
-          {
-            "const": "image"
-          },
-          {
-            "const": "news_article"
-          },
-          {
-            "const": "research_paper"
-          }
-        ],
-        "title": "Connector 산출물 타입",
-        "description": "비디오, 이미지, 뉴스기사, 논문.."
-      },
-      "IConnector.ContentProvider": {
-        "oneOf": [
-          {
-            "const": "youtube"
-          },
-          {
-            "const": "facebook"
-          },
-          {
-            "const": "instagram"
-          },
-          {
-            "const": "google_search"
-          },
-          {
-            "const": "arxiv"
-          },
-          {
-            "const": "google_news"
-          }
-        ],
-        "title": "Connector 산출물 출처",
-        "description": "산출물의 출처입니다."
-      },
-      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
-        "type": "object",
-        "properties": {
-          "view_count": {
-            "type": "integer"
-          },
-          "like_count": {
-            "type": "integer"
-          },
-          "rank": {
-            "type": "integer"
-          }
-        }
       }
     }
   },

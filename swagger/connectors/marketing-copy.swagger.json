@@ -17,7 +17,7 @@
   "info": {
     "title": "마케팅 카피",
     "description": "마케팅 카피를 생성할 수 있어요",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/marketing-copy/generate-copy": {
       "post": {
+        "summary": "마케팅 카피 생성",
+        "description": "주어진 입력으로부터 마케팅 카피를 생성합니다.",
         "tags": [
           "Llm"
         ],
@@ -52,13 +54,13 @@
             }
           }
         },
-        "summary": "마케팅 카피 생성",
-        "description": "주어진 입력으로부터 마케팅 카피를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg"
       }
     },
     "/connector/marketing-copy/generate-copy-image": {
       "post": {
+        "summary": "마케팅 카피 이미지 생성",
+        "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다.",
         "tags": [
           "Llm"
         ],
@@ -86,14 +88,64 @@
             }
           }
         },
-        "summary": "마케팅 카피 이미지 생성",
-        "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg"
+      }
+    },
+    "/connector/aws/file/upload-url": {
+      "get": {
+        "summary": "파일 업로드 URL 생성",
+        "description": "파일 업로드를 하기 위해 필요한 URL을 생성합니다.",
+        "tags": [
+          "AWS"
+        ],
+        "parameters": [
+          {
+            "name": "extension",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "파일 확장자",
+            "description": "파일 확장자입니다."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IAws.IGetPutObjectUrlOutput"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "MyPartialIMarketingCopyComponents": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "마케팅 카피의 제목.",
+            "description": "마케팅 카피의 제목입니다."
+          },
+          "cta": {
+            "type": "string",
+            "title": "마케팅 카피의 CTA 문구.",
+            "description": "마케팅 카피의 CTA 문구입니다."
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "마케팅 카피의 설명.",
+            "description": "마케팅 카피의 설명입니다."
+          }
+        }
+      },
       "IMarketingCopyGenerator.IGenerateMarketingCopyInput": {
         "type": "object",
         "properties": {
@@ -191,7 +243,13 @@
           "channel": {
             "oneOf": [
               {
+                "const": "youtube"
+              },
+              {
                 "const": "facebook"
+              },
+              {
+                "const": "kakao"
               },
               {
                 "const": "instagram_feed"
@@ -200,13 +258,7 @@
                 "const": "instagram_story"
               },
               {
-                "const": "youtube"
-              },
-              {
                 "const": "naver"
-              },
-              {
-                "const": "kakao"
               }
             ],
             "title": "마케팅 카피를 사용할 채널.",
@@ -265,10 +317,10 @@
           "source": {
             "oneOf": [
               {
-                "const": "facebook"
+                "const": "youtube"
               },
               {
-                "const": "youtube"
+                "const": "facebook"
               },
               {
                 "const": "instagram"
@@ -330,25 +382,20 @@
           }
         }
       },
-      "MyPartialIMarketingCopyComponents": {
+      "IMarketingCopyImage": {
         "type": "object",
         "properties": {
-          "title": {
+          "imageUrl": {
             "type": "string",
-            "title": "마케팅 카피의 제목.",
-            "description": "마케팅 카피의 제목입니다."
-          },
-          "cta": {
-            "type": "string",
-            "title": "마케팅 카피의 CTA 문구.",
-            "description": "마케팅 카피의 CTA 문구입니다."
-          },
-          "subtitle": {
-            "type": "string",
-            "title": "마케팅 카피의 설명.",
-            "description": "마케팅 카피의 설명입니다."
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "마케팅 카피 시안의 이미지 URL.",
+            "description": "생성된 마케팅 카피 시안의 이미지 URL입니다."
           }
-        }
+        },
+        "required": [
+          "imageUrl"
+        ]
       },
       "IMarketingCopyGenerator.IGenerateMarketingCopyImageInput": {
         "type": "object",
@@ -388,19 +435,43 @@
         ],
         "title": "마케팅 카피 이미지 생성을 위한 입력"
       },
-      "IMarketingCopyImage": {
+      "IAws.IGetPutObjectUrlOutput": {
         "type": "object",
         "properties": {
-          "imageUrl": {
+          "uuid": {
             "type": "string",
-            "format": "uri",
-            "contentMediaType": "image/*",
-            "title": "마케팅 카피 시안의 이미지 URL.",
-            "description": "생성된 마케팅 카피 시안의 이미지 URL입니다."
+            "format": "uuid",
+            "title": "파일 uuid",
+            "description": "파일 uuid입니다."
+          },
+          "uploadUrl": {
+            "type": "string",
+            "title": "업로드 url",
+            "description": "파일을 업로드하기 위한 url입니다."
+          },
+          "urlExpTsMillis": {
+            "type": "number",
+            "title": "url 만료 시간",
+            "description": "url 만료 시간입니다."
           }
         },
         "required": [
-          "imageUrl"
+          "uuid",
+          "uploadUrl",
+          "urlExpTsMillis"
+        ]
+      },
+      "IAws.IGetPutObjectUrlInput": {
+        "type": "object",
+        "properties": {
+          "extension": {
+            "type": "string",
+            "title": "파일 확장자",
+            "description": "파일 확장자입니다."
+          }
+        },
+        "required": [
+          "extension"
         ]
       }
     }
@@ -409,6 +480,9 @@
     {
       "name": "Llm",
       "description": "마케팅 카피 텍스트 생성"
+    },
+    {
+      "name": "AWS"
     }
   ],
   "x-samchon-emended": true

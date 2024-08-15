@@ -18,7 +18,7 @@
     "title": "구글 클라우드 스토리지 관리",
     "summary": "구글 드라이브로 파일을 쉽게 저장하고 공유해요.",
     "description": "구글 드라이브를 사용해 파일과 폴더를 효율적으로 관리할 수 있어요. 드라이브 내의 폴더와 파일 목록을 가져오고, 새로운 폴더나 파일을 만들 수 있어요. 불필요한 파일이나 폴더는 삭제할 수 있고, 특정 파일이나 폴더에 대한 접근 권한을 다른 사용자에게 부여할 수도 있어요. 텍스트 파일의 경우 내용을 직접 추가하거나 읽을 수 있어요. 이를 통해 개인 파일 보관, 팀 프로젝트 자료 공유, 대용량 파일 전송 등 다양한 목적으로 활용할 수 있어요. 클라우드 기반이라 어느 기기에서든 접근이 가능하고, 자동 동기화 기능으로 항상 최신 버전의 파일을 유지할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-drive/get/folders": {
       "post": {
+        "summary": "구글 드라이브 폴더 목록 가져오기.",
+        "description": "구글 드라이브에 있는 폴더 목록을 가져옵니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -88,14 +90,14 @@
             }
           }
         },
-        "summary": "구글 드라이브 폴더 목록 가져오기.",
-        "description": "구글 드라이브에 있는 폴더 목록을 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-drive/get/files": {
       "post": {
+        "summary": "구글 드라이브 파일 목록 가져오기.",
+        "description": "구글 드라이브에 있는 파일 목록을 가져옵니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -158,13 +160,13 @@
             }
           }
         },
-        "summary": "구글 드라이브 파일 목록 가져오기.",
-        "description": "구글 드라이브에 있는 파일 목록을 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
       }
     },
     "/connector/google-drive/folder": {
       "post": {
+        "summary": "구글 드라이브 폴더 생성.",
+        "description": "구글 드라이브에 새로운 폴더를 생성합니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -228,14 +230,14 @@
             }
           }
         },
-        "summary": "구글 드라이브 폴더 생성.",
-        "description": "구글 드라이브에 새로운 폴더를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-drive/file": {
       "post": {
+        "summary": "구글 드라이브 파일 생성.",
+        "description": "구글 드라이브에 새로운 파일을 생성합니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -299,13 +301,13 @@
             }
           }
         },
-        "summary": "구글 드라이브 파일 생성.",
-        "description": "구글 드라이브에 새로운 파일을 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
       }
     },
     "/connector/google-drive/file/{id}": {
       "delete": {
+        "summary": "구글 드라이브 파일 삭제.",
+        "description": "구글 드라이브에 있는 파일을 삭제합니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -358,8 +360,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 파일",
-            "description": "삭제할 파일을 선택해 주세요."
+            "title": "삭제할 파일 고유 ID",
+            "description": " 삭제할 파일 고유 ID."
           }
         ],
         "requestBody": {
@@ -374,16 +376,18 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 드라이브 파일 삭제.",
-        "description": "구글 드라이브에 있는 파일을 삭제합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
       }
     },
     "/connector/google-drive/folder/{id}": {
       "delete": {
+        "summary": "구글 드라이브 폴더 삭제.",
+        "description": "구글 드라이브에 있는 폴더를 삭제합니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -436,8 +440,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 폴더",
-            "description": "삭제할 폴더를 선택해 주세요."
+            "title": "삭제할 폴더 고유 ID",
+            "description": " 삭제할 폴더 고유 ID."
           }
         ],
         "requestBody": {
@@ -452,16 +456,18 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 드라이브 폴더 삭제.",
-        "description": "구글 드라이브에 있는 폴더를 삭제합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
       }
     },
     "/connector/google-drive/permission": {
       "post": {
+        "summary": "구글 드라이브 권한 부여.",
+        "description": "파일 또는 폴더에 접근하기 위한 권한을 부여합니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -515,16 +521,18 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 드라이브 권한 부여.",
-        "description": "파일 또는 폴더에 접근하기 위한 권한을 부여합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
       }
     },
     "/connector/google-drive/file/{id}/text": {
       "post": {
+        "summary": "구글 드라이브 파일 텍스트 추가.",
+        "description": "파일에 텍스트를 추가합니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -577,8 +585,8 @@
               }
             },
             "required": true,
-            "title": "텍스트를 추가할 파일",
-            "description": "텍스트를 추가할 파일을 선택해 주세요."
+            "title": "파일 고유 ID",
+            "description": " 파일 고유 ID."
           }
         ],
         "requestBody": {
@@ -594,16 +602,18 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 드라이브 파일 텍스트 추가.",
-        "description": "파일에 텍스트를 추가합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
       }
     },
     "/connector/google-drive/get/file/{id}": {
       "post": {
+        "summary": "구글 드라이브 파일 텍스트 읽기.",
+        "description": "파일에서 텍스트를 읽어옵니다.",
         "tags": [
           "Google-Drive",
           "구글",
@@ -656,8 +666,8 @@
               }
             },
             "required": true,
-            "title": "읽어올 파일",
-            "description": "읽어올 파일을 선택해 주세요."
+            "title": "파일 고유 ID",
+            "description": " 파일 고유 ID."
           }
         ],
         "requestBody": {
@@ -682,32 +692,30 @@
             }
           }
         },
-        "summary": "구글 드라이브 파일 텍스트 읽기.",
-        "description": "파일에서 텍스트를 읽어옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg"
+      }
+    },
+    "/internal/google": {
+      "get": {
+        "description": "구글 access token 재발급 요청",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "IGoogleDrive.ISecret": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "인증 정보"
-      },
       "IGoogleDrive.IFolderListGoogleDriveOutput": {
         "type": "object",
         "properties": {
@@ -751,19 +759,9 @@
         ],
         "title": "구글 drive에 있는 폴더 리스트 정보"
       },
-      "IGoogleDrive.IFileListGoogleDriveInput": {
+      "IGoogleDrive.ISecret": {
         "type": "object",
         "properties": {
-          "folderId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-drive/get/folders",
-              "jmesPath": "data[].{value:id, label:name}"
-            },
-            "title": "구글 drive 폴더.",
-            "description": "파일을 불러 올 폴더."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "google",
@@ -777,7 +775,7 @@
         "required": [
           "secretKey"
         ],
-        "title": "구글 drive에 있는 파일 리스트를 불러오기 위한 정보"
+        "title": "인증 정보"
       },
       "IGoogleDrive.IFileListGoogleDriveOutput": {
         "type": "object",
@@ -822,6 +820,48 @@
         ],
         "title": "구글 drive에 있는 파일 리스트 정보"
       },
+      "IGoogleDrive.IFileListGoogleDriveInput": {
+        "type": "object",
+        "properties": {
+          "folderId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/folders",
+              "jmesPath": "data[].{value:id, label:name}"
+            },
+            "title": "구글 drive 폴더.",
+            "description": "파일을 불러 올 폴더."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "구글 drive에 있는 파일 리스트를 불러오기 위한 정보"
+      },
+      "IGoogleDrive.ICreateFolderGoogleDriveOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "생성된 drive id.",
+            "description": "생성된 drive 폴더 id."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "구글 drive 폴더 생성 결과"
+      },
       "IGoogleDrive.ICreateFolderGoogleDriveInput": {
         "type": "object",
         "properties": {
@@ -846,19 +886,19 @@
         ],
         "title": "구글 drive 폴더 생성에 필요한 정보"
       },
-      "IGoogleDrive.ICreateFolderGoogleDriveOutput": {
+      "IGoogleDrive.ICreateFileGoogleDriveOutput": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "생성된 drive id.",
-            "description": "생성된 drive 폴더 id."
+            "title": "생성된 drive file id.",
+            "description": "생성된 drive 파일 id."
           }
         },
         "required": [
           "id"
         ],
-        "title": "구글 drive 폴더 생성 결과"
+        "title": "구글 drive에 파일 생성 결과"
       },
       "IGoogleDrive.ICreateFileGoogleDriveInput": {
         "type": "object",
@@ -904,20 +944,6 @@
           "secretKey"
         ],
         "title": "구글 drive에 파일 생성에 필요한 정보"
-      },
-      "IGoogleDrive.ICreateFileGoogleDriveOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "생성된 drive file id.",
-            "description": "생성된 drive 파일 id."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "구글 drive에 파일 생성 결과"
       },
       "IGoogleDrive.IPermissionGoogleDriveInput": {
         "type": "object",

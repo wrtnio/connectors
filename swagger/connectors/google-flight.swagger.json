@@ -18,7 +18,7 @@
     "title": "구글 항공권 검색 및 비교",
     "summary": "항공편을 검색하고 최적의 옵션을 선택해요.",
     "description": "출발지와 목적지, 날짜를 입력하면 다양한 항공편을 검색할 수 있어요. 직항/경유, 항공사, 가격 범위 등으로 검색 결과를 필터링할 수 있고, 가격, 소요 시간, 편의성 등을 기준으로 정렬할 수 있어요. 왕복 항공편 검색도 가능하며, 여러 날짜의 가격을 한눈에 비교할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-flight/one-way": {
       "post": {
+        "summary": "편도 항공편 검색",
+        "description": "편도 항공편을 검색합니다.",
         "tags": [
           "Google Flight"
         ],
@@ -53,14 +55,14 @@
             }
           }
         },
-        "summary": "편도 항공편 검색",
-        "description": "편도 항공편을 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-flight/round-trip": {
       "post": {
+        "summary": "왕복 항공편 검색",
+        "description": "왕복 항공편을 검색합니다.",
         "tags": [
           "Google Flight"
         ],
@@ -88,8 +90,6 @@
             }
           }
         },
-        "summary": "왕복 항공편 검색",
-        "description": "왕복 항공편을 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
         "x-wrtn-standalone": true
       }
@@ -97,103 +97,6 @@
   },
   "components": {
     "schemas": {
-      "IGoogleFlight.IRequest": {
-        "type": "object",
-        "properties": {
-          "departure_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/airport-information/search",
-              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
-            },
-            "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
-          },
-          "arrival_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/airport-information/search",
-              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
-            },
-            "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "1",
-                "title": "왕복"
-              },
-              {
-                "const": "2",
-                "title": "편도"
-              }
-            ],
-            "title": "왕복 또는 편도 여부",
-            "description": "왕복 또는 편도 여부를 선택해주세요.\n\n가능한 값으로 1, 2가 있습니다.\n\n왕복이면 \"1\", 편도면 \"2\"를 선택해주세요."
-          },
-          "outbound_date": {
-            "type": "string",
-            "format": "date",
-            "title": "가는 날짜",
-            "description": "가는 날짜를 입력해주세요."
-          },
-          "return_date": {
-            "type": "string",
-            "format": "date",
-            "title": "오는 날짜",
-            "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다."
-          },
-          "adults": {
-            "type": "integer",
-            "title": "성인 인원",
-            "description": "성인 인원수를 입력해주세요."
-          },
-          "children": {
-            "type": "integer",
-            "title": "아동 인원",
-            "description": "아동 인원수를 입력해주세요."
-          },
-          "stop": {
-            "oneOf": [
-              {
-                "const": "0",
-                "title": "상관 없음"
-              },
-              {
-                "const": "1",
-                "title": "직항"
-              },
-              {
-                "const": "2",
-                "title": "1번 경유"
-              },
-              {
-                "const": "3",
-                "title": "2번 이상 경유"
-              }
-            ],
-            "title": "직항 여부",
-            "description": "직항 여부를 선택해주세요.\n\n가능한 값으로 0, 1, 2, 3이 있습니다."
-          },
-          "max_price": {
-            "type": "integer",
-            "title": "최대 가격",
-            "description": "항공권의 최대 가격을 입력해주세요.\n\n입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다."
-          }
-        },
-        "required": [
-          "departure_id",
-          "arrival_id",
-          "type",
-          "outbound_date",
-          "adults",
-          "stop"
-        ],
-        "title": "항공권 검색에 필요한 정보"
-      },
       "IGoogleFlight.IFinalResponse": {
         "type": "object",
         "properties": {
@@ -463,6 +366,103 @@
             "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
           }
         }
+      },
+      "IGoogleFlight.IRequest": {
+        "type": "object",
+        "properties": {
+          "departure_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/airport-information/search",
+              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
+            },
+            "title": "출발지",
+            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
+          },
+          "arrival_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/airport-information/search",
+              "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
+            },
+            "title": "도착지",
+            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "1",
+                "title": "왕복"
+              },
+              {
+                "const": "2",
+                "title": "편도"
+              }
+            ],
+            "title": "왕복 또는 편도 여부",
+            "description": "왕복 또는 편도 여부를 선택해주세요.\n\n가능한 값으로 1, 2가 있습니다.\n\n왕복이면 \"1\", 편도면 \"2\"를 선택해주세요."
+          },
+          "outbound_date": {
+            "type": "string",
+            "format": "date",
+            "title": "가는 날짜",
+            "description": "가는 날짜를 입력해주세요."
+          },
+          "return_date": {
+            "type": "string",
+            "format": "date",
+            "title": "오는 날짜",
+            "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다."
+          },
+          "adults": {
+            "type": "integer",
+            "title": "성인 인원",
+            "description": "성인 인원수를 입력해주세요."
+          },
+          "children": {
+            "type": "integer",
+            "title": "아동 인원",
+            "description": "아동 인원수를 입력해주세요."
+          },
+          "stop": {
+            "oneOf": [
+              {
+                "const": "0",
+                "title": "상관 없음"
+              },
+              {
+                "const": "1",
+                "title": "직항"
+              },
+              {
+                "const": "2",
+                "title": "1번 경유"
+              },
+              {
+                "const": "3",
+                "title": "2번 이상 경유"
+              }
+            ],
+            "title": "직항 여부",
+            "description": "직항 여부를 선택해주세요.\n\n가능한 값으로 0, 1, 2, 3이 있습니다."
+          },
+          "max_price": {
+            "type": "integer",
+            "title": "최대 가격",
+            "description": "항공권의 최대 가격을 입력해주세요.\n\n입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다."
+          }
+        },
+        "required": [
+          "departure_id",
+          "arrival_id",
+          "type",
+          "outbound_date",
+          "adults",
+          "stop"
+        ],
+        "title": "항공권 검색에 필요한 정보"
       }
     }
   },

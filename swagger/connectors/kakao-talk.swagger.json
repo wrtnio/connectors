@@ -18,7 +18,7 @@
     "title": "카카오톡 메시징 및 일정 관리",
     "summary": "카카오톡으로 메시지를 보내고 일정을 관리해요.",
     "description": "카카오톡으로 다양한 유형의 메시지를 보내고, 캘린더를 조회하고 일정을 추가할 수 있어요. 친구 목록도 조회할 수 있어요. 텍스트 메시지는 물론 이미지, 링크, 위치 정보 등을 포함한 다양한 형태의 메시지를 전송할 수 있어요. 개인 캘린더와 채널 캘린더를 관리하여 효율적인 일정 관리가 가능해요. 친구나 그룹채팅방에 일정을 공유하고, 알림을 설정할 수 있어 중요한 약속을 잊지 않을 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/kakao-talk/message/text": {
       "post": {
+        "summary": "Send a message to a KakaoTalk(카카오톡) friend",
+        "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -53,13 +55,13 @@
             }
           }
         },
-        "summary": "Send a message to a KakaoTalk(카카오톡) friend",
-        "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg"
       }
     },
     "/connector/kakao-talk/memo/commerce": {
       "post": {
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a commerce type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -87,14 +89,14 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
-        "description": "Sends a commerce type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/memo/location": {
       "post": {
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a location type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -122,14 +124,14 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
-        "description": "Sends a location type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/memo/list": {
       "post": {
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a list type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -157,14 +159,14 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
-        "description": "Sends a list type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/memo/feed": {
       "post": {
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a feed type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -192,14 +194,14 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
-        "description": "Sends a feed type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/memo/text": {
       "post": {
+        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
+        "description": "Sends a text type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -227,14 +229,14 @@
             }
           }
         },
-        "summary": "Send a message to myself on KakaoTalk(카카오톡)",
-        "description": "Sends a text type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/calendars/events": {
       "post": {
+        "summary": "Add an event to the KakaoTalk(카카오톡) calendar",
+        "description": "Adds an event to the KakaoTalk(카카오톡) calendar\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -262,14 +264,14 @@
             }
           }
         },
-        "summary": "Add an event to the KakaoTalk(카카오톡) calendar",
-        "description": "Adds an event to the KakaoTalk(카카오톡) calendar\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/get-friends": {
       "post": {
+        "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
+        "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -297,14 +299,14 @@
             }
           }
         },
-        "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
-        "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/get-events": {
       "post": {
+        "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
+        "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -339,14 +341,14 @@
             }
           }
         },
-        "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
-        "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/kakao-talk/get-calendars": {
       "post": {
+        "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
+        "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
         "tags": [
           "KakaoTalk(카카오톡)"
         ],
@@ -374,54 +376,71 @@
             }
           }
         },
-        "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
-        "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/kakao-talk/auth": {
+      "get": {
+        "description": "Issues a KakaoTalk(카카오톡) access token",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "KakaoTalk OAuth2 authorization code."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoTalk.IGetAccessTokenOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/kakao-talk/refresh": {
+      "post": {
+        "description": "Refreshes the KakaoTalk(카카오톡) access token",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request DTO for refresh.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoTalk.IRefreshAccessTokenInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoTalk.IRefreshAccessTokenOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg"
       }
     }
   },
   "components": {
     "schemas": {
-      "IKakaoTalk.ISendKakaoTalkToFriendsInput": {
-        "type": "object",
-        "properties": {
-          "receiver_uuids": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/kakao-talk/get-friends",
-                "jmesPath": "{value:elements[].uuid, label:elements[].profile_nickname}"
-              }
-            },
-            "minItems": 1,
-            "maxItems": 5,
-            "title": "List of friends' UUIDs"
-          },
-          "message": {
-            "type": "string",
-            "maxLength": 200,
-            "title": "Message to send"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "kakao",
-            "x-wrtn-secret-scopes": [
-              "talk_message"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "receiver_uuids",
-          "message",
-          "secretKey"
-        ],
-        "title": "Message Sending Conditions"
-      },
       "IKakaoTalk.ISendKakaoTalkToFriendsOutput": {
         "type": "object",
         "properties": {
@@ -466,6 +485,58 @@
           "receiver_uuids"
         ],
         "title": "Failure Information"
+      },
+      "IKakaoTalk.ISendKakaoTalkToFriendsInput": {
+        "type": "object",
+        "properties": {
+          "receiver_uuids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/kakao-talk/get-friends",
+                "jmesPath": "{value:elements[].uuid, label:elements[].profile_nickname}"
+              }
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "List of friends' UUIDs"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "kakao",
+            "x-wrtn-secret-scopes": [
+              "talk_message"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "receiver_uuids",
+          "message",
+          "secretKey"
+        ],
+        "title": "Message Sending Conditions"
+      },
+      "IKakaoTalk.IMemoOutput": {
+        "type": "object",
+        "properties": {
+          "result_code": {
+            "const": 0,
+            "title": "Response Code",
+            "description": "Indicates successful message sending"
+          }
+        },
+        "required": [
+          "result_code"
+        ]
       },
       "IKakaoTalk.ISendKakaoTalkCommerceInput": {
         "type": "object",
@@ -851,23 +922,6 @@
           "description",
           "link"
         ]
-      },
-      "IKakaoTalk.IMemoOutput": {
-        "type": "object",
-        "properties": {
-          "result_code": {
-            "$ref": "#/components/schemas/Constant0__type",
-            "title": "Response Code"
-          }
-        },
-        "required": [
-          "result_code"
-        ]
-      },
-      "Constant0__type": {
-        "const": 0,
-        "title": "Success",
-        "description": "Indicates successful message sending"
       },
       "IKakaoTalk.ISendKakaoTalkLocationInput": {
         "type": "object",
@@ -1303,6 +1357,19 @@
           "mobile_web_url"
         ]
       },
+      "IKakaoTalk.ICreateEventOutput": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "title": "ID of the created event"
+          }
+        },
+        "required": [
+          "event_id"
+        ],
+        "title": "Output of created event"
+      },
       "IKakaoTalk.ICreateEventInput": {
         "type": "object",
         "properties": {
@@ -1523,76 +1590,6 @@
         },
         "title": "Location"
       },
-      "IKakaoTalk.ICreateEventOutput": {
-        "type": "object",
-        "properties": {
-          "event_id": {
-            "type": "string",
-            "title": "ID of the created event"
-          }
-        },
-        "required": [
-          "event_id"
-        ],
-        "title": "Output of created event"
-      },
-      "IKakaoTalk.IGetFriendsInput": {
-        "type": "object",
-        "properties": {
-          "offset": {
-            "type": "integer",
-            "default": 0,
-            "title": "Starting point of the friends list"
-          },
-          "limit": {
-            "type": "integer",
-            "title": "Number of friends per page"
-          },
-          "order": {
-            "oneOf": [
-              {
-                "const": "asc",
-                "title": "Ascending",
-                "default": "asc"
-              },
-              {
-                "const": "desc",
-                "title": "Descending",
-                "default": "asc"
-              }
-            ],
-            "title": "Sort order of the friends list"
-          },
-          "friend_order": {
-            "oneOf": [
-              {
-                "const": "favorite",
-                "title": "Sort by favorite",
-                "default": "favorite"
-              },
-              {
-                "const": "nickname",
-                "title": "Sort by nickname",
-                "default": "favorite"
-              }
-            ],
-            "title": "Sort criteria of the friends list"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "kakao",
-            "x-wrtn-secret-scopes": [
-              "friends"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "Conditions for retrieving friends"
-      },
       "IKakaoTalk.IGetFriendsOutput": {
         "type": "object",
         "properties": {
@@ -1675,6 +1672,218 @@
           "profile_nickname"
         ],
         "title": "KakaoTalk friend"
+      },
+      "IKakaoTalk.IGetFriendsInput": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "default": 0,
+            "title": "Starting point of the friends list"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Number of friends per page"
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "title": "Ascending",
+                "default": "asc"
+              },
+              {
+                "const": "desc",
+                "title": "Descending",
+                "default": "asc"
+              }
+            ],
+            "title": "Sort order of the friends list"
+          },
+          "friend_order": {
+            "oneOf": [
+              {
+                "const": "favorite",
+                "title": "Sort by favorite",
+                "default": "favorite"
+              },
+              {
+                "const": "nickname",
+                "title": "Sort by nickname",
+                "default": "favorite"
+              }
+            ],
+            "title": "Sort criteria of the friends list"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "kakao",
+            "x-wrtn-secret-scopes": [
+              "friends"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "Conditions for retrieving friends"
+      },
+      "IKakaoTalk.IGetEventOutput": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoTalk.EventBrief"
+            },
+            "title": "List of events"
+          },
+          "has_next": {
+            "type": "boolean",
+            "title": "Whether there is a next page"
+          },
+          "after_url": {
+            "type": "string",
+            "format": "url",
+            "title": "URL of the next page\n\nA URL containing parameters and values to retrieve the next page, used as is when requesting the next page.\n\nProvided when `has_next` is true."
+          }
+        },
+        "required": [
+          "events",
+          "has_next"
+        ],
+        "title": "Result of retrieving events"
+      },
+      "IKakaoTalk.EventBrief": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Event ID"
+          },
+          "title": {
+            "type": "string",
+            "title": "Event title"
+          },
+          "type": {
+            "type": "string",
+            "title": "Event type"
+          },
+          "calendar_id": {
+            "type": "string",
+            "default": "primary",
+            "x-wrtn-placeholder": "primary",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-talk/get-calendars",
+              "jmesPath": "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}"
+            },
+            "title": "Calendar ID",
+            "description": "Fixed to primary for the default calendar"
+          },
+          "time": {
+            "$ref": "#/components/schemas/IKakaoTalk.Time",
+            "title": "Event time"
+          },
+          "is_host": {
+            "type": "boolean",
+            "default": false,
+            "title": "Whether the user is the host of the event",
+            "description": "For public/subscribed or invited events"
+          },
+          "is_recur_event": {
+            "type": "boolean",
+            "title": "Whether the event is recurring",
+            "description": "Required if type is USER."
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "BLUE",
+                "title": "BLUE",
+                "description": "2C88DE"
+              },
+              {
+                "const": "ROYAL_BLUE",
+                "title": "ROYAL_BLUE",
+                "description": "2D69E0"
+              },
+              {
+                "const": "NAVY_BLUE",
+                "title": "NAVY_BLUE",
+                "description": "223788"
+              },
+              {
+                "const": "RED",
+                "title": "RED",
+                "description": "D42726"
+              },
+              {
+                "const": "PINK",
+                "title": "PINK",
+                "description": "ED5683"
+              },
+              {
+                "const": "ORANGE",
+                "title": "ORANGE",
+                "description": "FF9429"
+              },
+              {
+                "const": "GREEN",
+                "title": "GREEN",
+                "description": "149959"
+              },
+              {
+                "const": "LIME",
+                "title": "LIME",
+                "description": "7CB343"
+              },
+              {
+                "const": "OLIVE",
+                "title": "OLIVE",
+                "description": "A4AD15"
+              },
+              {
+                "const": "MINT",
+                "title": "MINT",
+                "description": "5CC5BE"
+              },
+              {
+                "const": "MAGENTA",
+                "title": "MAGENTA",
+                "description": "AB47BC"
+              },
+              {
+                "const": "VIOLET",
+                "title": "VIOLET",
+                "description": "8A4B9B"
+              },
+              {
+                "const": "LAVENDER",
+                "title": "LAVENDER",
+                "description": "7986CB"
+              },
+              {
+                "const": "BROWN",
+                "title": "BROWN",
+                "description": "945C1F"
+              },
+              {
+                "const": "GRAY",
+                "title": "GRAY",
+                "description": "666666"
+              }
+            ],
+            "title": "Event color",
+            "description": "Not included if not specified during event creation or editing."
+          }
+        },
+        "required": [
+          "time"
+        ],
+        "title": "Event"
       },
       "ISecretkakaotalk_calendarcalender_id(stringDefaultprimaryPlaceholderprimaryPrerequisitemethodpostpath/connector/kakao-talk/get-calendarsjmesPathcalendars.valueidlabelnamesubscribe_calendars.valueidlabelname)undefinedpres...": {
         "type": "object",
@@ -1810,223 +2019,6 @@
           "next_page_token"
         ]
       },
-      "IKakaoTalk.IGetEventOutput": {
-        "type": "object",
-        "properties": {
-          "events": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IKakaoTalk.EventBrief"
-            },
-            "title": "List of events"
-          },
-          "has_next": {
-            "type": "boolean",
-            "title": "Whether there is a next page"
-          },
-          "after_url": {
-            "type": "string",
-            "format": "url",
-            "title": "URL of the next page\n\nA URL containing parameters and values to retrieve the next page, used as is when requesting the next page.\n\nProvided when `has_next` is true."
-          }
-        },
-        "required": [
-          "events",
-          "has_next"
-        ],
-        "title": "Result of retrieving events"
-      },
-      "IKakaoTalk.EventBrief": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Event ID"
-          },
-          "title": {
-            "type": "string",
-            "title": "Event title"
-          },
-          "type": {
-            "type": "string",
-            "title": "Event type"
-          },
-          "calendar_id": {
-            "type": "string",
-            "default": "primary",
-            "x-wrtn-placeholder": "primary",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/kakao-talk/get-calendars",
-              "jmesPath": "calendars[].{value:id, label: name || ''} || subscribe_calendars[].{value:id, label: name || ''}"
-            },
-            "title": "Calendar ID",
-            "description": "Fixed to primary for the default calendar"
-          },
-          "time": {
-            "$ref": "#/components/schemas/IKakaoTalk.Time",
-            "title": "Event time"
-          },
-          "is_host": {
-            "type": "boolean",
-            "default": false,
-            "title": "Whether the user is the host of the event",
-            "description": "For public/subscribed or invited events"
-          },
-          "is_recur_event": {
-            "type": "boolean",
-            "title": "Whether the event is recurring",
-            "description": "Required if type is USER."
-          },
-          "color": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ConstantBLUE__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantROYAL_BLUE__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantNAVY_BLUE__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantRED__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantPINK__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantORANGE__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantGREEN__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantLIME__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantOLIVE__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantMINT__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantMAGENTA__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantVIOLET__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantLAVENDER__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantBROWN__type"
-              },
-              {
-                "$ref": "#/components/schemas/ConstantGRAY__type"
-              }
-            ],
-            "title": "Event color",
-            "description": "Not included if not specified during event creation or editing."
-          }
-        },
-        "required": [
-          "time"
-        ],
-        "title": "Event"
-      },
-      "ConstantBLUE__type": {
-        "const": "BLUE",
-        "title": "BLUE",
-        "description": "2C88DE"
-      },
-      "ConstantROYAL_BLUE__type": {
-        "const": "ROYAL_BLUE",
-        "title": "ROYAL_BLUE",
-        "description": "2D69E0"
-      },
-      "ConstantNAVY_BLUE__type": {
-        "const": "NAVY_BLUE",
-        "title": "NAVY_BLUE",
-        "description": "223788"
-      },
-      "ConstantRED__type": {
-        "const": "RED",
-        "title": "RED",
-        "description": "D42726"
-      },
-      "ConstantPINK__type": {
-        "const": "PINK",
-        "title": "PINK",
-        "description": "ED5683"
-      },
-      "ConstantORANGE__type": {
-        "const": "ORANGE",
-        "title": "ORANGE",
-        "description": "FF9429"
-      },
-      "ConstantGREEN__type": {
-        "const": "GREEN",
-        "title": "GREEN",
-        "description": "149959"
-      },
-      "ConstantLIME__type": {
-        "const": "LIME",
-        "title": "LIME",
-        "description": "7CB343"
-      },
-      "ConstantOLIVE__type": {
-        "const": "OLIVE",
-        "title": "OLIVE",
-        "description": "A4AD15"
-      },
-      "ConstantMINT__type": {
-        "const": "MINT",
-        "title": "MINT",
-        "description": "5CC5BE"
-      },
-      "ConstantMAGENTA__type": {
-        "const": "MAGENTA",
-        "title": "MAGENTA",
-        "description": "AB47BC"
-      },
-      "ConstantVIOLET__type": {
-        "const": "VIOLET",
-        "title": "VIOLET",
-        "description": "8A4B9B"
-      },
-      "ConstantLAVENDER__type": {
-        "const": "LAVENDER",
-        "title": "LAVENDER",
-        "description": "7986CB"
-      },
-      "ConstantBROWN__type": {
-        "const": "BROWN",
-        "title": "BROWN",
-        "description": "945C1F"
-      },
-      "ConstantGRAY__type": {
-        "const": "GRAY",
-        "title": "GRAY",
-        "description": "666666"
-      },
-      "ICommon.ISecretkakaotalk_calendar": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "kakao",
-            "x-wrtn-secret-scopes": [
-              "talk_calendar"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ]
-      },
       "IKakaoTalk.IGetCalendarOutput": {
         "type": "object",
         "properties": {
@@ -2067,49 +2059,79 @@
           "color": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ConstantBLUE__type"
+                "const": "BLUE",
+                "title": "BLUE",
+                "description": "2C88DE"
               },
               {
-                "$ref": "#/components/schemas/ConstantROYAL_BLUE__type"
+                "const": "ROYAL_BLUE",
+                "title": "ROYAL_BLUE",
+                "description": "2D69E0"
               },
               {
-                "$ref": "#/components/schemas/ConstantNAVY_BLUE__type"
+                "const": "NAVY_BLUE",
+                "title": "NAVY_BLUE",
+                "description": "223788"
               },
               {
-                "$ref": "#/components/schemas/ConstantRED__type"
+                "const": "RED",
+                "title": "RED",
+                "description": "D42726"
               },
               {
-                "$ref": "#/components/schemas/ConstantPINK__type"
+                "const": "PINK",
+                "title": "PINK",
+                "description": "ED5683"
               },
               {
-                "$ref": "#/components/schemas/ConstantORANGE__type"
+                "const": "ORANGE",
+                "title": "ORANGE",
+                "description": "FF9429"
               },
               {
-                "$ref": "#/components/schemas/ConstantGREEN__type"
+                "const": "GREEN",
+                "title": "GREEN",
+                "description": "149959"
               },
               {
-                "$ref": "#/components/schemas/ConstantLIME__type"
+                "const": "LIME",
+                "title": "LIME",
+                "description": "7CB343"
               },
               {
-                "$ref": "#/components/schemas/ConstantOLIVE__type"
+                "const": "OLIVE",
+                "title": "OLIVE",
+                "description": "A4AD15"
               },
               {
-                "$ref": "#/components/schemas/ConstantMINT__type"
+                "const": "MINT",
+                "title": "MINT",
+                "description": "5CC5BE"
               },
               {
-                "$ref": "#/components/schemas/ConstantMAGENTA__type"
+                "const": "MAGENTA",
+                "title": "MAGENTA",
+                "description": "AB47BC"
               },
               {
-                "$ref": "#/components/schemas/ConstantVIOLET__type"
+                "const": "VIOLET",
+                "title": "VIOLET",
+                "description": "8A4B9B"
               },
               {
-                "$ref": "#/components/schemas/ConstantLAVENDER__type"
+                "const": "LAVENDER",
+                "title": "LAVENDER",
+                "description": "7986CB"
               },
               {
-                "$ref": "#/components/schemas/ConstantBROWN__type"
+                "const": "BROWN",
+                "title": "BROWN",
+                "description": "945C1F"
               },
               {
-                "$ref": "#/components/schemas/ConstantGRAY__type"
+                "const": "GRAY",
+                "title": "GRAY",
+                "description": "666666"
               }
             ],
             "title": "Event Color"
@@ -2162,49 +2184,79 @@
           "color": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ConstantBLUE__type"
+                "const": "BLUE",
+                "title": "BLUE",
+                "description": "2C88DE"
               },
               {
-                "$ref": "#/components/schemas/ConstantROYAL_BLUE__type"
+                "const": "ROYAL_BLUE",
+                "title": "ROYAL_BLUE",
+                "description": "2D69E0"
               },
               {
-                "$ref": "#/components/schemas/ConstantNAVY_BLUE__type"
+                "const": "NAVY_BLUE",
+                "title": "NAVY_BLUE",
+                "description": "223788"
               },
               {
-                "$ref": "#/components/schemas/ConstantRED__type"
+                "const": "RED",
+                "title": "RED",
+                "description": "D42726"
               },
               {
-                "$ref": "#/components/schemas/ConstantPINK__type"
+                "const": "PINK",
+                "title": "PINK",
+                "description": "ED5683"
               },
               {
-                "$ref": "#/components/schemas/ConstantORANGE__type"
+                "const": "ORANGE",
+                "title": "ORANGE",
+                "description": "FF9429"
               },
               {
-                "$ref": "#/components/schemas/ConstantGREEN__type"
+                "const": "GREEN",
+                "title": "GREEN",
+                "description": "149959"
               },
               {
-                "$ref": "#/components/schemas/ConstantLIME__type"
+                "const": "LIME",
+                "title": "LIME",
+                "description": "7CB343"
               },
               {
-                "$ref": "#/components/schemas/ConstantOLIVE__type"
+                "const": "OLIVE",
+                "title": "OLIVE",
+                "description": "A4AD15"
               },
               {
-                "$ref": "#/components/schemas/ConstantMINT__type"
+                "const": "MINT",
+                "title": "MINT",
+                "description": "5CC5BE"
               },
               {
-                "$ref": "#/components/schemas/ConstantMAGENTA__type"
+                "const": "MAGENTA",
+                "title": "MAGENTA",
+                "description": "AB47BC"
               },
               {
-                "$ref": "#/components/schemas/ConstantVIOLET__type"
+                "const": "VIOLET",
+                "title": "VIOLET",
+                "description": "8A4B9B"
               },
               {
-                "$ref": "#/components/schemas/ConstantLAVENDER__type"
+                "const": "LAVENDER",
+                "title": "LAVENDER",
+                "description": "7986CB"
               },
               {
-                "$ref": "#/components/schemas/ConstantBROWN__type"
+                "const": "BROWN",
+                "title": "BROWN",
+                "description": "945C1F"
               },
               {
-                "$ref": "#/components/schemas/ConstantGRAY__type"
+                "const": "GRAY",
+                "title": "GRAY",
+                "description": "666666"
               }
             ],
             "title": "Event Color"
@@ -2222,6 +2274,109 @@
           "id"
         ],
         "title": "List of Subscribed Calendars"
+      },
+      "ICommon.ISecretkakaotalk_calendar": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "kakao",
+            "x-wrtn-secret-scopes": [
+              "talk_calendar"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IKakaoTalk.IGetAccessTokenOutput": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access token."
+          },
+          "token_type": {
+            "const": "bearer",
+            "title": "Token type."
+          },
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh token."
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope of this access token."
+          },
+          "expires_in": {
+            "type": "number",
+            "title": "Expiry time of the access token."
+          },
+          "refresh_token_expires_in": {
+            "type": "number",
+            "title": "Expiry time of the refresh token."
+          }
+        },
+        "required": [
+          "access_token",
+          "token_type",
+          "refresh_token",
+          "scope",
+          "expires_in",
+          "refresh_token_expires_in"
+        ],
+        "title": "DTO for output of access token."
+      },
+      "IKakaoTalk.IAuthorizationCode": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "KakaoTalk OAuth2 authorization code."
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "DTO for the code received after Kakao login."
+      },
+      "IKakaoTalk.IRefreshAccessTokenOutput": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access token."
+          },
+          "expires_in": {
+            "type": "number",
+            "title": "Expiry time of the access token."
+          },
+          "token_type": {
+            "const": "bearer",
+            "title": "Token type."
+          }
+        },
+        "required": [
+          "access_token",
+          "expires_in",
+          "token_type"
+        ],
+        "title": "Refresh Access Token"
+      },
+      "IKakaoTalk.IRefreshAccessTokenInput": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refresh_token"
+        ],
+        "title": "Conditions to Refresh Kakao Access Token"
       }
     }
   },

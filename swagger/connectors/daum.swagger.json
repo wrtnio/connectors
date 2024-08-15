@@ -18,7 +18,7 @@
     "title": "다음 포털 콘텐츠 조회",
     "summary": "다음에서 블로그와 카페 정보를 쉽게 찾아볼 수 있어요.",
     "description": "다음의 블로그와 카페에서 원하는 정보를 효과적으로 검색할 수 있어요. 블로그 검색을 통해 개인의 경험담, 리뷰, 일상 이야기 등을 찾아볼 수 있고, 카페 검색으로 특정 주제에 대한 커뮤니티의 대화를 확인할 수 있어요. 키워드 검색, 최신순/인기순 정렬, 특정 기간 내 검색 등 다양한 옵션을 활용해 원하는 정보를 정확하게 찾을 수 있어요. 트렌드 파악, 제품 리뷰 확인, 여행 정보 수집 등 다양한 목적으로 활용할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/daum/blog": {
       "post": {
+        "summary": "다음 블로그 검색",
+        "description": "다음 블로그 컨텐츠를 검색합니다.",
         "tags": [
           "Daum",
           "다음",
@@ -46,7 +48,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -56,14 +57,14 @@
             }
           }
         },
-        "summary": "다음 블로그 검색",
-        "description": "다음 블로그 컨텐츠를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/daum/cafe": {
       "post": {
+        "summary": "다음 카페 검색",
+        "description": "다음 카페 컨텐츠를 검색합니다.",
         "tags": [
           "Daum",
           "다음",
@@ -88,7 +89,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -98,8 +98,6 @@
             }
           }
         },
-        "summary": "다음 카페 검색",
-        "description": "다음 카페 컨텐츠를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
         "x-wrtn-standalone": true
       }
@@ -107,65 +105,6 @@
   },
   "components": {
     "schemas": {
-      "IDaum.ISearchDaumInput": {
-        "type": "object",
-        "properties": {
-          "andKeywords": {
-            "type": "string",
-            "x-wrtn-placeholder": "뤼튼",
-            "title": "꼭 들어가야하는 키워드",
-            "description": "다음 검색 결과에 들어가야하는 키워드를 설정합니다."
-          },
-          "orKeywords": {
-            "type": "string",
-            "x-wrtn-placeholder": "스튜디오",
-            "title": "들어가면 좋은 키워드",
-            "description": "다음 검색 결과에 들어가면 좋은 키워드를 설정합니다."
-          },
-          "notKeywords": {
-            "type": "string",
-            "x-wrtn-placeholder": "폭력",
-            "title": "들어가면 안되는 키워드",
-            "description": "다음 검색 결과에 들어가면 안되는 키워드를 설정합니다."
-          },
-          "sort": {
-            "oneOf": [
-              {
-                "const": "accuracy",
-                "default": "accuracy",
-                "x-wrtn-placeholder": "accuracy"
-              },
-              {
-                "const": "recency",
-                "default": "accuracy",
-                "x-wrtn-placeholder": "accuracy"
-              }
-            ],
-            "title": "결과 문서 정렬 방식",
-            "description": "- accuracy: 정확도순 (default)\n- recency: 최신순"
-          },
-          "page": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 50,
-            "default": 1,
-            "title": "결과 페이지 번호",
-            "description": "결과 페이지의 번호입니다."
-          },
-          "size": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 50,
-            "default": 10,
-            "title": "한 페이지에 보여질 문서 수",
-            "description": "한 페이지에 보여질 문서 수 입니다."
-          }
-        },
-        "required": [
-          "andKeywords"
-        ],
-        "title": "다음 검색에 필요한 정보"
-      },
       "IDaum.IBlogDaumOutput": {
         "type": "object",
         "properties": {
@@ -247,6 +186,65 @@
           "documents"
         ],
         "title": "다음 블로그 검색 결과"
+      },
+      "IDaum.ISearchDaumInput": {
+        "type": "object",
+        "properties": {
+          "andKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "뤼튼",
+            "title": "꼭 들어가야하는 키워드",
+            "description": "다음 검색 결과에 들어가야하는 키워드를 설정합니다."
+          },
+          "orKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "스튜디오",
+            "title": "들어가면 좋은 키워드",
+            "description": "다음 검색 결과에 들어가면 좋은 키워드를 설정합니다."
+          },
+          "notKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "폭력",
+            "title": "들어가면 안되는 키워드",
+            "description": "다음 검색 결과에 들어가면 안되는 키워드를 설정합니다."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "accuracy",
+                "default": "accuracy",
+                "x-wrtn-placeholder": "accuracy"
+              },
+              {
+                "const": "recency",
+                "default": "accuracy",
+                "x-wrtn-placeholder": "accuracy"
+              }
+            ],
+            "title": "결과 문서 정렬 방식",
+            "description": "- accuracy: 정확도순 (default)\n- recency: 최신순"
+          },
+          "page": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 1,
+            "title": "결과 페이지 번호",
+            "description": "결과 페이지의 번호입니다."
+          },
+          "size": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 10,
+            "title": "한 페이지에 보여질 문서 수",
+            "description": "한 페이지에 보여질 문서 수 입니다."
+          }
+        },
+        "required": [
+          "andKeywords"
+        ],
+        "title": "다음 검색에 필요한 정보"
       },
       "IDaum.ICafeDaumOutput": {
         "type": "object",

@@ -1,0 +1,138 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "스토리 생성",
+    "description": "",
+    "version": "0.1.107",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/story-generator": {
+      "post": {
+        "summary": "스토리 생성",
+        "description": "유저의 입력을 기반으로 스토리를 짭니다.\n\n그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.\n\n스토리 이미지 생성 커넥터와 연계해서 사용해주세요.\n\nconnector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요.\n\n생성된 스토리와 이미지를 구글 슬라이드를 이용해서 내보내주세요.\n\nconnector/google-slides/presentations 커넥터를 사용하여 생성된 스토리와 이미지를 구글 슬라이드로 내보내주세요.",
+        "tags": [
+          "Llm"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "스토리 생성을 위한 입력",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IStoryGeneratorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 스토리 혹은 추가 정보 요청",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IStoryGeneratorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IStoryGeneratorResponse": {
+        "type": "object",
+        "properties": {
+          "done": {
+            "type": "boolean",
+            "title": "Whether the story has reached a natural conclusion and is ready to be outputted",
+            "description": "Whether the story has reached a natural conclusion and is ready to be outputted."
+          },
+          "messageToUser": {
+            "type": "string",
+            "title": "When there is not enough information to create the next story line, prompt the user for more information",
+            "description": "When there is not enough information to create the next story line, prompt the user for more information."
+          },
+          "storyLine": {
+            "type": "string",
+            "title": "If the next story line can be generated, provide it here",
+            "description": "If the next story line can be generated, provide it here.\nOnly generate the story when you have a good idea of what the user wants.\nWhen the user is not sure, you can suggest stories but ask the user first before generating the story line."
+          },
+          "title": {
+            "type": "string",
+            "title": "If the entire story has been generated, provide the title here",
+            "description": "If the entire story has been generated, provide the title here."
+          }
+        },
+        "required": [
+          "done"
+        ],
+        "description": "When there is not enough information to create the next story line, prompt the user for more information."
+      },
+      "IStoryGeneratorRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "chatHistory": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ]
+            }
+          },
+          "previousStories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "query",
+          "chatHistory",
+          "previousStories"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Llm",
+      "description": "스토리 생성"
+    }
+  ],
+  "x-samchon-emended": true
+}

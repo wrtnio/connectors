@@ -17,7 +17,7 @@
   "info": {
     "title": "LLM",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/llm/selector-llm": {
       "post": {
+        "summary": "조건 선택",
+        "description": "주어진 후보 중에서 조건에 맞는 것을 선택합니다.",
         "tags": [
           "Llm"
         ],
@@ -52,14 +54,28 @@
             }
           }
         },
-        "summary": "조건 선택",
-        "description": "주어진 후보 중에서 조건에 맞는 것을 선택합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/LLM(1).svg"
       }
     }
   },
   "components": {
     "schemas": {
+      "ISelectorLlmResponse": {
+        "type": "object",
+        "properties": {
+          "selection": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "title": "선택된 후보 인덱스 정보.",
+            "description": "선택된 후보들의 인덱스 리스트입니다."
+          }
+        },
+        "required": [
+          "selection"
+        ]
+      },
       "ISelectorLlmRequest": {
         "type": "object",
         "properties": {
@@ -83,22 +99,6 @@
           "candidates",
           "num_select",
           "context"
-        ]
-      },
-      "ISelectorLlmResponse": {
-        "type": "object",
-        "properties": {
-          "selection": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "title": "선택된 후보 인덱스 정보.",
-            "description": "선택된 후보들의 인덱스 리스트입니다."
-          }
-        },
-        "required": [
-          "selection"
         ]
       }
     }

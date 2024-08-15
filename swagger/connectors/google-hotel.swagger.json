@@ -18,7 +18,7 @@
     "title": "구글 호텔 정보 검색 및 예약",
     "summary": "일정에 맞는 숙소를 쉽게 찾아볼 수 있어요.",
     "description": "여행 일정에 맞는 호텔, 리조트, 펜션 등 다양한 숙소를 검색할 수 있어요. 목적지, 체크인/체크아웃 날짜, 인원 수 등을 입력하면 조건에 맞는 숙소 목록을 볼 수 있어요. 가격, 평점, 위치 등으로 검색 결과를 필터링하거나 정렬할 수 있어요. 또한 지도 보기를 통해 숙소의 위치를 직관적으로 파악할 수 있어, 여행 계획을 더욱 쉽고 효율적으로 세울 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-hotel": {
       "post": {
+        "summary": "구글 호텔 검색",
+        "description": "구글 호텔 서비스를 사용하여 숙소를 검색합니다",
         "tags": [
           "Google Hotel"
         ],
@@ -56,8 +58,6 @@
             }
           }
         },
-        "summary": "구글 호텔 검색",
-        "description": "구글 호텔 서비스를 사용하여 숙소를 검색합니다",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_hotel.svg",
         "x-wrtn-standalone": true
       }
@@ -65,6 +65,142 @@
   },
   "components": {
     "schemas": {
+      "IGoogleHotel.IResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "숙소 이름",
+            "description": "숙소 이름"
+          },
+          "description": {
+            "type": "string",
+            "title": "숙소 설명",
+            "description": "숙소 설명"
+          },
+          "link": {
+            "type": "string",
+            "title": "숙소 링크",
+            "description": "숙소 링크"
+          },
+          "check_in_time": {
+            "type": "string",
+            "title": "체크인 시간",
+            "description": "숙소 체크인 시간"
+          },
+          "check_out_time": {
+            "type": "string",
+            "title": "체크아웃 시간",
+            "description": "숙소 체크아웃 시간"
+          },
+          "price": {
+            "type": "string",
+            "title": "숙소 가격",
+            "description": "숙소 가격"
+          },
+          "nearby_place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleHotel.INearbyPlace"
+            },
+            "title": "주변 시설",
+            "description": "숙소 주변 시설"
+          },
+          "hotel_class": {
+            "type": "string",
+            "title": "숙소 등급",
+            "description": "숙소 등급"
+          },
+          "thumbnails": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "title": "썸네일",
+            "description": "숙소 썸네일 이미지"
+          },
+          "rating": {
+            "type": "string",
+            "title": "평점",
+            "description": "숙소 평점"
+          },
+          "review_count": {
+            "type": "string",
+            "title": "리뷰 갯수",
+            "description": "리뷰 갯수"
+          },
+          "amenities": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "title": "어메니티",
+            "description": "숙소에서 제공하는 어메니티"
+          },
+          "excluded_amenities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "제공 하지 않는 어메니티",
+            "description": "숙소에서 제공하지 않는 어메니티"
+          }
+        },
+        "required": [
+          "name",
+          "price",
+          "thumbnails",
+          "amenities"
+        ],
+        "title": "숙소 검색 결과"
+      },
+      "IGoogleHotel.INearbyPlace": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "주변 시설 이름",
+            "description": "주변 시설 이름"
+          },
+          "transportations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "교통편 종류",
+                  "description": "교통편 종류"
+                },
+                "duration": {
+                  "type": "string",
+                  "title": "소요 시간",
+                  "description": "주변 시설까지 소요 시간"
+                }
+              },
+              "required": [
+                "type",
+                "duration"
+              ]
+            },
+            "title": "교통편",
+            "description": "주변 시설 교통편"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "주변 시설"
+      },
       "IGoogleHotel.IRequest": {
         "type": "object",
         "properties": {
@@ -252,142 +388,6 @@
           "max_results"
         ],
         "title": "숙소 검색 조건"
-      },
-      "IGoogleHotel.IResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "숙소 이름",
-            "description": "숙소 이름"
-          },
-          "description": {
-            "type": "string",
-            "title": "숙소 설명",
-            "description": "숙소 설명"
-          },
-          "link": {
-            "type": "string",
-            "title": "숙소 링크",
-            "description": "숙소 링크"
-          },
-          "check_in_time": {
-            "type": "string",
-            "title": "체크인 시간",
-            "description": "숙소 체크인 시간"
-          },
-          "check_out_time": {
-            "type": "string",
-            "title": "체크아웃 시간",
-            "description": "숙소 체크아웃 시간"
-          },
-          "price": {
-            "type": "string",
-            "title": "숙소 가격",
-            "description": "숙소 가격"
-          },
-          "nearby_place": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleHotel.INearbyPlace"
-            },
-            "title": "주변 시설",
-            "description": "숙소 주변 시설"
-          },
-          "hotel_class": {
-            "type": "string",
-            "title": "숙소 등급",
-            "description": "숙소 등급"
-          },
-          "thumbnails": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uri",
-              "contentMediaType": "image/*"
-            },
-            "title": "썸네일",
-            "description": "숙소 썸네일 이미지"
-          },
-          "rating": {
-            "type": "string",
-            "title": "평점",
-            "description": "숙소 평점"
-          },
-          "review_count": {
-            "type": "string",
-            "title": "리뷰 갯수",
-            "description": "리뷰 갯수"
-          },
-          "amenities": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ],
-            "title": "어메니티",
-            "description": "숙소에서 제공하는 어메니티"
-          },
-          "excluded_amenities": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "제공 하지 않는 어메니티",
-            "description": "숙소에서 제공하지 않는 어메니티"
-          }
-        },
-        "required": [
-          "name",
-          "price",
-          "thumbnails",
-          "amenities"
-        ],
-        "title": "숙소 검색 결과"
-      },
-      "IGoogleHotel.INearbyPlace": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "주변 시설 이름",
-            "description": "주변 시설 이름"
-          },
-          "transportations": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "title": "교통편 종류",
-                  "description": "교통편 종류"
-                },
-                "duration": {
-                  "type": "string",
-                  "title": "소요 시간",
-                  "description": "주변 시설까지 소요 시간"
-                }
-              },
-              "required": [
-                "type",
-                "duration"
-              ]
-            },
-            "title": "교통편",
-            "description": "주변 시설 교통편"
-          }
-        },
-        "required": [
-          "name"
-        ],
-        "title": "주변 시설"
       }
     }
   },

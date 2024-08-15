@@ -17,7 +17,7 @@
   "info": {
     "title": "프롬프트",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/prompt/generate": {
       "post": {
+        "summary": "프롬프트 노드",
+        "description": "LLM에게 지시할 요청사항을 입력합니다.",
         "tags": [
           "프롬프트 노드"
         ],
@@ -52,14 +54,25 @@
             }
           }
         },
-        "summary": "프롬프트 노드",
-        "description": "LLM에게 지시할 요청사항을 입력합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/prompt_node.svg"
       }
     }
   },
   "components": {
     "schemas": {
+      "IPrompt.IResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "title": "입력된 프롬프트를 통해 받은 결과"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "프롬프트를 통해 받은 결과"
+      },
       "IPrompt.IRequest": {
         "type": "object",
         "properties": {
@@ -78,19 +91,6 @@
           "user_request"
         ],
         "title": "프롬프트 입력"
-      },
-      "IPrompt.IResponse": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "type": "string",
-            "title": "입력된 프롬프트를 통해 받은 결과"
-          }
-        },
-        "required": [
-          "result"
-        ],
-        "title": "프롬프트를 통해 받은 결과"
       }
     }
   },

@@ -18,7 +18,7 @@
     "title": "한셀 문서 데이터 관리",
     "summary": "한셀 파일을 쉽게 다룰 수 있어요.",
     "description": "한셀 파일의 내용을 가져오고, 워크시트를 수정하거나 새로운 파일을 만들 수 있어요. 셀 데이터를 읽고 쓸 수 있으며, 수식을 적용하거나 차트를 만들 수도 있어요. 여러 워크시트를 한 번에 관리할 수 있고, 데이터 필터링이나 정렬 기능을 사용할 수 있어요. 또한 한셀 파일을 다른 형식(CSV, PDF 등)으로 변환할 수 있어, 다양한 환경에서 데이터를 활용할 수 있어요. 이를 통해 재무 관리, 성적 관리, 재고 관리 등 다양한 업무를 효율적으로 처리할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/hancell/sheet": {
       "post": {
+        "summary": "한셀 수정",
+        "description": "한셀 시트를 수정합니다.\n\n만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.",
         "tags": [
           "Hancell 엑셀 파일",
           "엑셀",
@@ -102,13 +104,13 @@
             }
           }
         },
-        "summary": "한셀 수정",
-        "description": "한셀 시트를 수정합니다.\n\n만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg"
       }
     },
     "/connector/hancell/read": {
       "post": {
+        "summary": "한셀 파일 읽기",
+        "description": "한셀 파일을 읽습니다.",
         "tags": [
           "Hancell 엑셀 파일",
           "엑셀",
@@ -185,15 +187,57 @@
             }
           }
         },
-        "summary": "한셀 파일 읽기",
-        "description": "한셀 파일을 읽습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/aws/file/upload-url": {
+      "get": {
+        "summary": "파일 업로드 URL 생성",
+        "description": "파일 업로드를 하기 위해 필요한 URL을 생성합니다.",
+        "tags": [
+          "AWS"
+        ],
+        "parameters": [
+          {
+            "name": "extension",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "파일 확장자",
+            "description": "파일 확장자입니다."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IAws.IGetPutObjectUrlOutput"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "IHancell.IUpsertSheetOutput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "title": "새 한셀 파일 링크"
+          }
+        },
+        "required": [
+          "fileUrl"
+        ]
+      },
       "IHancell.IUpsertSheetInput": {
         "type": "object",
         "properties": {
@@ -236,17 +280,13 @@
           ]
         }
       },
-      "IHancell.IUpsertSheetOutput": {
+      "IHancell.IReadHancellOutput": {
         "type": "object",
-        "properties": {
-          "fileUrl": {
-            "type": "string",
-            "title": "새 한셀 파일 링크"
-          }
-        },
-        "required": [
-          "fileUrl"
-        ]
+        "properties": {},
+        "title": "한셀 읽기 응답",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/IHancell.Cells"
+        }
       },
       "IHancell.IReadHancellInput": {
         "type": "object",
@@ -264,13 +304,44 @@
         ],
         "title": "한셀 읽기 조건"
       },
-      "IHancell.IReadHancellOutput": {
+      "IAws.IGetPutObjectUrlOutput": {
         "type": "object",
-        "properties": {},
-        "title": "한셀 읽기 응답",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/IHancell.Cells"
-        }
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "파일 uuid",
+            "description": "파일 uuid입니다."
+          },
+          "uploadUrl": {
+            "type": "string",
+            "title": "업로드 url",
+            "description": "파일을 업로드하기 위한 url입니다."
+          },
+          "urlExpTsMillis": {
+            "type": "number",
+            "title": "url 만료 시간",
+            "description": "url 만료 시간입니다."
+          }
+        },
+        "required": [
+          "uuid",
+          "uploadUrl",
+          "urlExpTsMillis"
+        ]
+      },
+      "IAws.IGetPutObjectUrlInput": {
+        "type": "object",
+        "properties": {
+          "extension": {
+            "type": "string",
+            "title": "파일 확장자",
+            "description": "파일 확장자입니다."
+          }
+        },
+        "required": [
+          "extension"
+        ]
       }
     }
   },
@@ -424,6 +495,9 @@
     },
     {
       "name": "Merge Data"
+    },
+    {
+      "name": "AWS"
     }
   ],
   "x-samchon-emended": true

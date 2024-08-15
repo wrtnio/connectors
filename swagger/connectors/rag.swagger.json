@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/rag/analyze": {
       "post": {
+        "summary": "RAG 분석 요청.",
+        "description": "입력된 파일에 대해 RAG 분석을 요청합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 제작할 때 사용될 수 있는 커넥터 입니다.",
         "tags": [
           "RAG"
         ],
@@ -45,7 +47,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -55,13 +56,43 @@
             }
           }
         },
-        "summary": "RAG 분석 요청.",
-        "description": "입력된 파일에 대해 RAG 분석을 요청합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 제작할 때 사용될 수 있는 커넥터 입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg"
+      }
+    },
+    "/connector/rag/{jobId}/status": {
+      "get": {
+        "summary": "RAG 분석 상태 조회.",
+        "description": "분석 진행 상태를 조회합니다.",
+        "tags": [
+          "RAG"
+        ],
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRag.IStatusOutput"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/connector/rag/generate/{chatId}": {
       "post": {
+        "summary": "RAG 기반 결과물 생성",
+        "description": "RAG 분석을 기반으로 요청받은 결과물을 생성합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 통해 유저가 질문한 내용에 대한 답변을 생성할 때 사용될 수 있는 커넥터 입니다.",
         "tags": [
           "RAG"
         ],
@@ -87,7 +118,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -97,14 +127,26 @@
             }
           }
         },
-        "summary": "RAG 기반 결과물 생성",
-        "description": "RAG 분석을 기반으로 요청받은 결과물을 생성합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 통해 유저가 질문한 내용에 대한 답변을 생성할 때 사용될 수 있는 커넥터 입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg"
       }
     }
   },
   "components": {
     "schemas": {
+      "IRag.IAnalysisOutput": {
+        "type": "object",
+        "properties": {
+          "chatId": {
+            "type": "string",
+            "title": "chat id.",
+            "description": "RAG 생성 결과물에 필요한 chat id.\nRAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.\n여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다."
+          }
+        },
+        "required": [
+          "chatId"
+        ],
+        "title": "RAG 분석 결과물"
+      },
       "IRag.IAnalyzeInput": {
         "type": "object",
         "properties": {
@@ -121,19 +163,43 @@
         ],
         "title": "RAG 분석을 위해 필요한 정보"
       },
-      "IRag.IAnalysisOutput": {
+      "IRag.IStatusOutput": {
         "type": "object",
         "properties": {
-          "chatId": {
-            "type": "string",
-            "title": "chat id.",
-            "description": "RAG 생성 결과물에 필요한 chat id.\nRAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.\n여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다."
+          "status": {
+            "oneOf": [
+              {
+                "const": "COMPLETED"
+              },
+              {
+                "const": "FAILED"
+              },
+              {
+                "const": "RUNNING"
+              }
+            ],
+            "title": "분석 상태.",
+            "description": "분석 상태입니다.\n\n- RUNNING: 분석 중\n- COMPLETED: 분석 완료\n- FAILED: 분석 실패"
           }
         },
         "required": [
-          "chatId"
+          "status"
         ],
-        "title": "RAG 분석 결과물"
+        "title": "RAG 분석 상태"
+      },
+      "IRag.IGenerateOutput": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "발화에 대한 응답.",
+            "description": "RAG 기반 생성 요청에 대한 응답입니다."
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "RAG를 통한 채팅 결과"
       },
       "IRag.IGenerateInput": {
         "type": "object",
@@ -183,20 +249,6 @@
           "text"
         ],
         "title": "이전 발화 내역"
-      },
-      "IRag.IGenerateOutput": {
-        "type": "object",
-        "properties": {
-          "answer": {
-            "type": "string",
-            "title": "발화에 대한 응답.",
-            "description": "RAG 기반 생성 요청에 대한 응답입니다."
-          }
-        },
-        "required": [
-          "answer"
-        ],
-        "title": "RAG를 통한 채팅 결과"
       }
     }
   },

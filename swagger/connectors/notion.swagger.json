@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/notion/page": {
       "post": {
+        "summary": "페이지 생성",
+        "description": "노션 페이지를 생성합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -87,13 +89,13 @@
             }
           }
         },
-        "summary": "페이지 생성",
-        "description": "노션 페이지를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/get/page": {
       "post": {
+        "summary": "페이지 목록 조회",
+        "description": "노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -157,14 +159,14 @@
             }
           }
         },
-        "summary": "페이지 목록 조회",
-        "description": "노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/get/users": {
       "post": {
+        "summary": "유저 목록 조회",
+        "description": "워크스페이스에 있는 유저 목록을 조회합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -228,14 +230,14 @@
             }
           }
         },
-        "summary": "유저 목록 조회",
-        "description": "워크스페이스에 있는 유저 목록을 조회합니다.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/page/content/{pageId}": {
       "post": {
+        "summary": "페이지에 내용 추가",
+        "description": "페이지 끝에 내용을 추가합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -285,9 +287,7 @@
                 "jmesPath": "[].{value:pageId, label:title || ''}"
               }
             },
-            "required": true,
-            "title": "내용을 추가할 페이지",
-            "description": "내용을 추가할 페이지를 선택해 주세요."
+            "required": true
           }
         ],
         "requestBody": {
@@ -303,16 +303,19 @@
         },
         "responses": {
           "201": {
-            "description": "void"
+            "description": "void",
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "페이지에 내용 추가",
-        "description": "페이지 끝에 내용을 추가합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/get/database-info": {
       "post": {
+        "summary": "데이터베이스 목록 조회",
+        "description": "데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -376,14 +379,14 @@
             }
           }
         },
-        "summary": "데이터베이스 목록 조회",
-        "description": "데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/get/database-info/{databaseId}": {
       "post": {
+        "summary": "데이터베이스 정보 조회",
+        "description": "데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -434,8 +437,7 @@
               }
             },
             "required": true,
-            "title": "정보를 받아올 데이터베이스",
-            "description": "정보를 받아올 데이터베이스를 선택해 주세요."
+            "description": " 데이터베이스 고유 id"
           }
         ],
         "requestBody": {
@@ -460,13 +462,13 @@
             }
           }
         },
-        "summary": "데이터베이스 정보 조회",
-        "description": "데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/database-item/{databaseId}": {
       "post": {
+        "summary": "데이터베이스 아이템 생성",
+        "description": "노션 테이블 데이터베이스에 아이템을 생성합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -517,8 +519,7 @@
               }
             },
             "required": true,
-            "title": "아이템을 추가할 데이터베이스",
-            "description": "아이템을 추가할 데이터베이스를 선택해 주세요."
+            "description": " 아이템을 생성할 데이터베이스 고유 id"
           }
         ],
         "requestBody": {
@@ -544,11 +545,11 @@
             }
           }
         },
-        "summary": "데이터베이스 아이템 생성",
-        "description": "노션 테이블 데이터베이스에 아이템을 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       },
       "patch": {
+        "summary": "데이터베이스 아이템 수정",
+        "description": "데이터베이스에 있는 아이템 정보를 수정합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -599,8 +600,7 @@
               }
             },
             "required": true,
-            "title": "아이템을 수정할 데이터베이스",
-            "description": "아이템을 수정할 데이터베이스를 선택해 주세요."
+            "description": " 수정할 데이터베이스 고유 id"
           }
         ],
         "requestBody": {
@@ -626,13 +626,13 @@
             }
           }
         },
-        "summary": "데이터베이스 아이템 수정",
-        "description": "데이터베이스에 있는 아이템 정보를 수정합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/get-page-by-title": {
       "post": {
+        "summary": "제목으로 페이지 검색",
+        "description": "제목으로 페이지를 검색합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -694,14 +694,14 @@
             }
           }
         },
-        "summary": "제목으로 페이지 검색",
-        "description": "제목으로 페이지를 검색합니다.",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/find-item-list/{databaseId}": {
       "post": {
+        "summary": "데이터베이스 아이템 목록 조회",
+        "description": "테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -752,8 +752,7 @@
               }
             },
             "required": true,
-            "title": "아이템 목록을 가져올 데이터베이스",
-            "description": "아이템 목록을 가져올 데이터베이스를 선택해 주세요."
+            "description": " 데이터베이스 고유 id"
           }
         ],
         "requestBody": {
@@ -781,13 +780,13 @@
             }
           }
         },
-        "summary": "데이터베이스 아이템 목록 조회",
-        "description": "테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     },
     "/connector/notion/find-item/{databaseId}": {
       "post": {
+        "summary": "데이터베이스 아이템 조회",
+        "description": "테이블 데이터베이스에 존재하는 아이템을 조회합니다.",
         "tags": [
           "Notion",
           "노션",
@@ -838,8 +837,7 @@
               }
             },
             "required": true,
-            "title": "아이템 정보를 가져올 데이터베이스",
-            "description": "아이템 정보를 가져올 데이터베이스를 선택해 주세요."
+            "description": " 데이터베이스 고유 id"
           }
         ],
         "requestBody": {
@@ -865,14 +863,26 @@
             }
           }
         },
-        "summary": "데이터베이스 아이템 조회",
-        "description": "테이블 데이터베이스에 존재하는 아이템을 조회합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg"
       }
     }
   },
   "components": {
     "schemas": {
+      "INotion.ICreatePageOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "페이지 id",
+            "description": "생성된 페이지의 고유 id"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "페이지 생성 결과"
+      },
       "INotion.ICreatePageInput": {
         "type": "object",
         "properties": {
@@ -914,34 +924,6 @@
         ],
         "title": "페이지 생성에 필요한 조건"
       },
-      "INotion.ICreatePageOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "페이지 id",
-            "description": "생성된 페이지의 고유 id"
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "페이지 생성 결과"
-      },
-      "INotion.ISecret": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ]
-      },
       "INotion.IReadPageOutput": {
         "type": "object",
         "properties": {
@@ -961,6 +943,20 @@
           "title"
         ],
         "title": "페이지 목록 조회 결과"
+      },
+      "INotion.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
       },
       "INotion.IUserOutput": {
         "type": "object",
@@ -1035,73 +1031,94 @@
         "properties": {},
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
-          "$ref": "#/components/schemas/INotion.DatabaseProperty"
-        }
-      },
-      "INotion.DatabaseProperty": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/INotion.NumberDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.FormulaDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.SelectDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.MultiSelectDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.StatusDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.RelationDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.RollupDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.TitleDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.RichTextDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.UrlDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.PeopleDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.FilesDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.EmailDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.PhoneNumberDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.DateDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.CheckboxDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.CreatedByDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.CreatedTimeDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.LastEditedByDatabaseProperty"
-          },
-          {
-            "$ref": "#/components/schemas/INotion.LastEditedTimeDatabaseProperty"
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/INotion.NumberDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.FormulaDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.SelectDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.MultiSelectDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.StatusDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.RelationDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.RollupDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.TitleDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.RichTextDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.UrlDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.PeopleDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.FilesDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.EmailDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.PhoneNumberDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.DateDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.CheckboxDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.CreatedByDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.CreatedTimeDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.LastEditedByDatabaseProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.LastEditedTimeDatabaseProperty"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "type",
+            "mapping": {
+              "number": "#/components/schemas/INotion.NumberDatabaseProperty",
+              "formula": "#/components/schemas/INotion.FormulaDatabaseProperty",
+              "select": "#/components/schemas/INotion.SelectDatabaseProperty",
+              "multi_select": "#/components/schemas/INotion.MultiSelectDatabaseProperty",
+              "status": "#/components/schemas/INotion.StatusDatabaseProperty",
+              "relation": "#/components/schemas/INotion.RelationDatabaseProperty",
+              "rollup": "#/components/schemas/INotion.RollupDatabaseProperty",
+              "title": "#/components/schemas/INotion.TitleDatabaseProperty",
+              "rich_text": "#/components/schemas/INotion.RichTextDatabaseProperty",
+              "url": "#/components/schemas/INotion.UrlDatabaseProperty",
+              "people": "#/components/schemas/INotion.PeopleDatabaseProperty",
+              "files": "#/components/schemas/INotion.FilesDatabaseProperty",
+              "email": "#/components/schemas/INotion.EmailDatabaseProperty",
+              "phone_number": "#/components/schemas/INotion.PhoneNumberDatabaseProperty",
+              "date": "#/components/schemas/INotion.DateDatabaseProperty",
+              "checkbox": "#/components/schemas/INotion.CheckboxDatabaseProperty",
+              "created_by": "#/components/schemas/INotion.CreatedByDatabaseProperty",
+              "created_time": "#/components/schemas/INotion.CreatedTimeDatabaseProperty",
+              "last_edited_by": "#/components/schemas/INotion.LastEditedByDatabaseProperty",
+              "last_edited_time": "#/components/schemas/INotion.LastEditedTimeDatabaseProperty"
+            }
           }
-        ],
-        "title": "데이터베이스 속성"
+        }
       },
       "INotion.NumberDatabaseProperty": {
         "type": "object",
@@ -1119,7 +1136,128 @@
             "type": "object",
             "properties": {
               "format": {
-                "$ref": "#/components/schemas/INotion.NumberFormat"
+                "oneOf": [
+                  {
+                    "const": "number"
+                  },
+                  {
+                    "const": "percent"
+                  },
+                  {
+                    "const": "number_with_commas"
+                  },
+                  {
+                    "const": "dollar"
+                  },
+                  {
+                    "const": "canadian_dollar"
+                  },
+                  {
+                    "const": "singapore_dollar"
+                  },
+                  {
+                    "const": "euro"
+                  },
+                  {
+                    "const": "pound"
+                  },
+                  {
+                    "const": "yen"
+                  },
+                  {
+                    "const": "ruble"
+                  },
+                  {
+                    "const": "rupee"
+                  },
+                  {
+                    "const": "won"
+                  },
+                  {
+                    "const": "yuan"
+                  },
+                  {
+                    "const": "real"
+                  },
+                  {
+                    "const": "lira"
+                  },
+                  {
+                    "const": "rupiah"
+                  },
+                  {
+                    "const": "franc"
+                  },
+                  {
+                    "const": "hong_kong_dollar"
+                  },
+                  {
+                    "const": "new_zealand_dollar"
+                  },
+                  {
+                    "const": "krona"
+                  },
+                  {
+                    "const": "norwegian_krone"
+                  },
+                  {
+                    "const": "mexican_peso"
+                  },
+                  {
+                    "const": "rand"
+                  },
+                  {
+                    "const": "new_taiwan_dollar"
+                  },
+                  {
+                    "const": "danish_krone"
+                  },
+                  {
+                    "const": "zloty"
+                  },
+                  {
+                    "const": "baht"
+                  },
+                  {
+                    "const": "forint"
+                  },
+                  {
+                    "const": "koruna"
+                  },
+                  {
+                    "const": "shekel"
+                  },
+                  {
+                    "const": "chilean_peso"
+                  },
+                  {
+                    "const": "philippine_peso"
+                  },
+                  {
+                    "const": "dirham"
+                  },
+                  {
+                    "const": "colombian_peso"
+                  },
+                  {
+                    "const": "riyal"
+                  },
+                  {
+                    "const": "ringgit"
+                  },
+                  {
+                    "const": "leu"
+                  },
+                  {
+                    "const": "argentine_peso"
+                  },
+                  {
+                    "const": "uruguayan_peso"
+                  },
+                  {
+                    "const": "peruvian_sol"
+                  }
+                ]
               }
             },
             "required": [
@@ -1134,131 +1272,6 @@
           "number"
         ],
         "title": "데이터베이스 숫자 속성"
-      },
-      "INotion.NumberFormat": {
-        "oneOf": [
-          {
-            "const": "number"
-          },
-          {
-            "const": "number_with_commas"
-          },
-          {
-            "const": "percent"
-          },
-          {
-            "const": "dollar"
-          },
-          {
-            "const": "canadian_dollar"
-          },
-          {
-            "const": "singapore_dollar"
-          },
-          {
-            "const": "euro"
-          },
-          {
-            "const": "pound"
-          },
-          {
-            "const": "yen"
-          },
-          {
-            "const": "ruble"
-          },
-          {
-            "const": "rupee"
-          },
-          {
-            "const": "won"
-          },
-          {
-            "const": "yuan"
-          },
-          {
-            "const": "real"
-          },
-          {
-            "const": "lira"
-          },
-          {
-            "const": "rupiah"
-          },
-          {
-            "const": "franc"
-          },
-          {
-            "const": "hong_kong_dollar"
-          },
-          {
-            "const": "new_zealand_dollar"
-          },
-          {
-            "const": "krona"
-          },
-          {
-            "const": "norwegian_krone"
-          },
-          {
-            "const": "mexican_peso"
-          },
-          {
-            "const": "rand"
-          },
-          {
-            "const": "new_taiwan_dollar"
-          },
-          {
-            "const": "danish_krone"
-          },
-          {
-            "const": "zloty"
-          },
-          {
-            "const": "baht"
-          },
-          {
-            "const": "forint"
-          },
-          {
-            "const": "koruna"
-          },
-          {
-            "const": "shekel"
-          },
-          {
-            "const": "chilean_peso"
-          },
-          {
-            "const": "philippine_peso"
-          },
-          {
-            "const": "dirham"
-          },
-          {
-            "const": "colombian_peso"
-          },
-          {
-            "const": "riyal"
-          },
-          {
-            "const": "ringgit"
-          },
-          {
-            "const": "leu"
-          },
-          {
-            "const": "argentine_peso"
-          },
-          {
-            "const": "uruguayan_peso"
-          },
-          {
-            "const": "peruvian_sol"
-          }
-        ],
-        "title": "데이터베이스 숫자 포맷"
       },
       "INotion.FormulaDatabaseProperty": {
         "type": "object",
@@ -1319,7 +1332,38 @@
                       "type": "string"
                     },
                     "color": {
-                      "$ref": "#/components/schemas/INotion.Color"
+                      "oneOf": [
+                        {
+                          "const": "default"
+                        },
+                        {
+                          "const": "gray"
+                        },
+                        {
+                          "const": "brown"
+                        },
+                        {
+                          "const": "orange"
+                        },
+                        {
+                          "const": "yellow"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
+                          "const": "purple"
+                        },
+                        {
+                          "const": "pink"
+                        },
+                        {
+                          "const": "red"
+                        }
+                      ]
                     }
                   },
                   "required": [
@@ -1342,41 +1386,6 @@
           "select"
         ],
         "title": "데이터베이스 선택 속성"
-      },
-      "INotion.Color": {
-        "oneOf": [
-          {
-            "const": "default"
-          },
-          {
-            "const": "gray"
-          },
-          {
-            "const": "brown"
-          },
-          {
-            "const": "orange"
-          },
-          {
-            "const": "yellow"
-          },
-          {
-            "const": "green"
-          },
-          {
-            "const": "blue"
-          },
-          {
-            "const": "purple"
-          },
-          {
-            "const": "pink"
-          },
-          {
-            "const": "red"
-          }
-        ],
-        "title": "색상"
       },
       "INotion.MultiSelectDatabaseProperty": {
         "type": "object",
@@ -1405,7 +1414,38 @@
                       "type": "string"
                     },
                     "color": {
-                      "$ref": "#/components/schemas/INotion.Color"
+                      "oneOf": [
+                        {
+                          "const": "default"
+                        },
+                        {
+                          "const": "gray"
+                        },
+                        {
+                          "const": "brown"
+                        },
+                        {
+                          "const": "orange"
+                        },
+                        {
+                          "const": "yellow"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
+                          "const": "purple"
+                        },
+                        {
+                          "const": "pink"
+                        },
+                        {
+                          "const": "red"
+                        }
+                      ]
                     }
                   },
                   "required": [
@@ -1456,7 +1496,38 @@
                       "type": "string"
                     },
                     "color": {
-                      "$ref": "#/components/schemas/INotion.Color"
+                      "oneOf": [
+                        {
+                          "const": "default"
+                        },
+                        {
+                          "const": "gray"
+                        },
+                        {
+                          "const": "brown"
+                        },
+                        {
+                          "const": "orange"
+                        },
+                        {
+                          "const": "yellow"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
+                          "const": "purple"
+                        },
+                        {
+                          "const": "pink"
+                        },
+                        {
+                          "const": "red"
+                        }
+                      ]
                     }
                   },
                   "required": [
@@ -1478,7 +1549,38 @@
                       "type": "string"
                     },
                     "color": {
-                      "$ref": "#/components/schemas/INotion.Color"
+                      "oneOf": [
+                        {
+                          "const": "default"
+                        },
+                        {
+                          "const": "gray"
+                        },
+                        {
+                          "const": "brown"
+                        },
+                        {
+                          "const": "orange"
+                        },
+                        {
+                          "const": "yellow"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
+                          "const": "purple"
+                        },
+                        {
+                          "const": "pink"
+                        },
+                        {
+                          "const": "red"
+                        }
+                      ]
                     },
                     "option_ids": {
                       "type": "array",
@@ -1572,7 +1674,80 @@
                 "type": "string"
               },
               "function": {
-                "$ref": "#/components/schemas/INotion.RollupFunction"
+                "oneOf": [
+                  {
+                    "const": "average"
+                  },
+                  {
+                    "const": "unique"
+                  },
+                  {
+                    "const": "count"
+                  },
+                  {
+                    "const": "count_values"
+                  },
+                  {
+                    "const": "empty"
+                  },
+                  {
+                    "const": "not_empty"
+                  },
+                  {
+                    "const": "show_unique"
+                  },
+                  {
+                    "const": "percent_empty"
+                  },
+                  {
+                    "const": "percent_not_empty"
+                  },
+                  {
+                    "const": "sum"
+                  },
+                  {
+                    "const": "median"
+                  },
+                  {
+                    "const": "min"
+                  },
+                  {
+                    "const": "max"
+                  },
+                  {
+                    "const": "range"
+                  },
+                  {
+                    "const": "earliest_date"
+                  },
+                  {
+                    "const": "latest_date"
+                  },
+                  {
+                    "const": "date_range"
+                  },
+                  {
+                    "const": "checked"
+                  },
+                  {
+                    "const": "unchecked"
+                  },
+                  {
+                    "const": "percent_checked"
+                  },
+                  {
+                    "const": "percent_unchecked"
+                  },
+                  {
+                    "const": "count_per_group"
+                  },
+                  {
+                    "const": "percent_per_group"
+                  },
+                  {
+                    "const": "show_original"
+                  }
+                ]
               }
             },
             "required": [
@@ -1597,83 +1772,6 @@
           "name"
         ],
         "title": "데이터베이스 집계 속성"
-      },
-      "INotion.RollupFunction": {
-        "oneOf": [
-          {
-            "const": "count"
-          },
-          {
-            "const": "count_values"
-          },
-          {
-            "const": "empty"
-          },
-          {
-            "const": "not_empty"
-          },
-          {
-            "const": "unique"
-          },
-          {
-            "const": "show_unique"
-          },
-          {
-            "const": "percent_empty"
-          },
-          {
-            "const": "percent_not_empty"
-          },
-          {
-            "const": "sum"
-          },
-          {
-            "const": "average"
-          },
-          {
-            "const": "median"
-          },
-          {
-            "const": "min"
-          },
-          {
-            "const": "max"
-          },
-          {
-            "const": "range"
-          },
-          {
-            "const": "earliest_date"
-          },
-          {
-            "const": "latest_date"
-          },
-          {
-            "const": "date_range"
-          },
-          {
-            "const": "checked"
-          },
-          {
-            "const": "unchecked"
-          },
-          {
-            "const": "percent_checked"
-          },
-          {
-            "const": "percent_unchecked"
-          },
-          {
-            "const": "count_per_group"
-          },
-          {
-            "const": "percent_per_group"
-          },
-          {
-            "const": "show_original"
-          }
-        ],
-        "title": "집계 함수"
       },
       "INotion.TitleDatabaseProperty": {
         "type": "object",
@@ -1988,44 +2086,6 @@
         ],
         "title": "데이터베이스 수정 시간 속성"
       },
-      "INotion.ICreateDatabaseItemInput": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "title": "속성 값",
-            "description": "데이터베이스 속성에 추가할 값"
-          },
-          "content": {
-            "type": "string",
-            "title": "페이지에 넣을 내용",
-            "description": "생성할 데이터베이스 아이템 페이지에 넣을 내용"
-          },
-          "contentType": {
-            "oneOf": [
-              {
-                "const": "plainText"
-              },
-              {
-                "const": "markdown"
-              }
-            ],
-            "title": "페이지 내용의 유형",
-            "description": "생성할 데이터베이스 아이템 페이지 내용 유형"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "데이터베이스에 아이템을 추가할 때 필요한 정보",
-        "additionalProperties": {}
-      },
       "INotion.IDatabaseItemOutput": {
         "type": "object",
         "properties": {
@@ -2055,7 +2115,29 @@
             "description": "데이터베이스 아이템 속성"
           },
           "object": {
-            "$ref": "#/components/schemas/INotion.NotionObject",
+            "oneOf": [
+              {
+                "const": "user"
+              },
+              {
+                "const": "page"
+              },
+              {
+                "const": "list"
+              },
+              {
+                "const": "database"
+              },
+              {
+                "const": "block"
+              },
+              {
+                "const": "property_item"
+              },
+              {
+                "const": "comment"
+              }
+            ],
             "title": "개체 유형",
             "description": "페이지 객체의 유형"
           },
@@ -2073,7 +2155,29 @@
             "type": "object",
             "properties": {
               "object": {
-                "$ref": "#/components/schemas/INotion.NotionObject",
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "page"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
+                    "const": "database"
+                  },
+                  {
+                    "const": "block"
+                  },
+                  {
+                    "const": "property_item"
+                  },
+                  {
+                    "const": "comment"
+                  }
+                ],
                 "title": "개체 유형",
                 "description": "페이지를 생성한 사람 객체의 유형"
               },
@@ -2094,7 +2198,29 @@
             "type": "object",
             "properties": {
               "object": {
-                "$ref": "#/components/schemas/INotion.NotionObject",
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "page"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
+                    "const": "database"
+                  },
+                  {
+                    "const": "block"
+                  },
+                  {
+                    "const": "property_item"
+                  },
+                  {
+                    "const": "comment"
+                  }
+                ],
                 "title": "개체 유형",
                 "description": "페이지를 마지막으로 수정한 사람 객체의 유형"
               },
@@ -2182,33 +2308,6 @@
         ],
         "title": "데이터베이스 아이템 생성 결과"
       },
-      "INotion.NotionObject": {
-        "oneOf": [
-          {
-            "const": "database"
-          },
-          {
-            "const": "page"
-          },
-          {
-            "const": "user"
-          },
-          {
-            "const": "block"
-          },
-          {
-            "const": "property_item"
-          },
-          {
-            "const": "list"
-          },
-          {
-            "const": "comment"
-          }
-        ],
-        "title": "노션 개체 유형",
-        "description": "- database: 데이터베이스\n- page: 페이지\n- user: 사람\n- block: 블럭\n- property_item: 속성 아이템\n- list: 목록\n- comment: 댓글"
-      },
       "INotion.IPageCover": {
         "type": "object",
         "properties": {
@@ -2248,7 +2347,17 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/INotion.IconType",
+            "oneOf": [
+              {
+                "const": "file"
+              },
+              {
+                "const": "emoji"
+              },
+              {
+                "const": "external"
+              }
+            ],
             "title": "유형",
             "description": "아이콘 유형"
           },
@@ -2304,20 +2413,43 @@
         ],
         "title": "페이지 아이콘 정보"
       },
-      "INotion.IconType": {
-        "oneOf": [
-          {
-            "const": "emoji"
+      "INotion.ICreateDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "속성 값",
+            "description": "데이터베이스 속성에 추가할 값"
           },
-          {
-            "const": "external"
+          "content": {
+            "type": "string",
+            "title": "페이지에 넣을 내용",
+            "description": "생성할 데이터베이스 아이템 페이지에 넣을 내용"
           },
-          {
-            "const": "file"
+          "contentType": {
+            "oneOf": [
+              {
+                "const": "plainText"
+              },
+              {
+                "const": "markdown"
+              }
+            ],
+            "title": "페이지 내용의 유형",
+            "description": "생성할 데이터베이스 아이템 페이지 내용 유형"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
+        },
+        "required": [
+          "secretKey"
         ],
-        "title": "노션 페이지 아이콘의 유형",
-        "description": "- emoji: 이모지\n- external: 외부 이미지\n- file: 이미지 파일"
+        "title": "데이터베이스에 아이템을 추가할 때 필요한 정보",
+        "additionalProperties": {}
       },
       "INotion.IUpdateDatabaseItemInput": {
         "type": "object",
@@ -2356,27 +2488,6 @@
         "title": "데이터베이스에 존재하는 아이템을 수정할 때 필요한 정보",
         "additionalProperties": {}
       },
-      "INotion.IFindPageOrDatabaseItemInput": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "제목",
-            "description": "페이지 제목"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "title",
-          "secretKey"
-        ],
-        "title": "페이지 검색에 필요한 정보"
-      },
       "INotion.IFindPageByTitleOutput": {
         "type": "object",
         "properties": {
@@ -2407,7 +2518,29 @@
             "description": "페이지 속성 정보"
           },
           "object": {
-            "$ref": "#/components/schemas/INotion.NotionObject",
+            "oneOf": [
+              {
+                "const": "user"
+              },
+              {
+                "const": "page"
+              },
+              {
+                "const": "list"
+              },
+              {
+                "const": "database"
+              },
+              {
+                "const": "block"
+              },
+              {
+                "const": "property_item"
+              },
+              {
+                "const": "comment"
+              }
+            ],
             "title": "개체 유형",
             "description": "페이지 객체의 유형"
           },
@@ -2425,7 +2558,29 @@
             "type": "object",
             "properties": {
               "object": {
-                "$ref": "#/components/schemas/INotion.NotionObject",
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "page"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
+                    "const": "database"
+                  },
+                  {
+                    "const": "block"
+                  },
+                  {
+                    "const": "property_item"
+                  },
+                  {
+                    "const": "comment"
+                  }
+                ],
                 "title": "개체 유형",
                 "description": "페이지를 생성한 사람 객체의 유형"
               },
@@ -2446,7 +2601,29 @@
             "type": "object",
             "properties": {
               "object": {
-                "$ref": "#/components/schemas/INotion.NotionObject",
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "page"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
+                    "const": "database"
+                  },
+                  {
+                    "const": "block"
+                  },
+                  {
+                    "const": "property_item"
+                  },
+                  {
+                    "const": "comment"
+                  }
+                ],
                 "title": "개체 유형",
                 "description": "페이지를 마지막으로 수정한 사람 객체의 유형"
               },
@@ -2689,6 +2866,27 @@
           "color"
         ],
         "title": "페이지 제목 부가 정보"
+      },
+      "INotion.IFindPageOrDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "페이지 제목"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "secretKey"
+        ],
+        "title": "페이지 검색에 필요한 정보"
       },
       "INotion.IFindDatabaseItemInput": {
         "type": "object",

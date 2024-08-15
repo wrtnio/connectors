@@ -17,7 +17,7 @@
   "info": {
     "title": "내파일 기반 생활기록부 일괄 작성",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/student-report-generator": {
       "post": {
+        "summary": "학생 생활 기록부 생성",
+        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -50,13 +52,13 @@
             }
           }
         },
-        "summary": "학생 생활 기록부 생성",
-        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg"
       }
     },
     "/connector/student-report-generator/row": {
       "post": {
+        "summary": "학생 생활 기록부 생성",
+        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -82,14 +84,35 @@
             }
           }
         },
-        "summary": "학생 생활 기록부 생성",
-        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg"
       }
     }
   },
   "components": {
     "schemas": {
+      "IStudentReportGeneratorResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ITableRowData"
+            },
+            "title": "생성된 생기부 데이터.",
+            "description": "생성된 생기부 데이터입니다."
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ITableRowData": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
       "IStudentReportGeneratorRequest": {
         "type": "object",
         "properties": {
@@ -146,21 +169,11 @@
           "example"
         ]
       },
-      "ITableRowData": {
-        "type": "object",
-        "properties": {},
-        "additionalProperties": {
-          "type": "string"
-        }
-      },
-      "IStudentReportGeneratorResponse": {
+      "IStudentReportRowGeneratorResponse": {
         "type": "object",
         "properties": {
           "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ITableRowData"
-            },
+            "$ref": "#/components/schemas/ITableRowData",
             "title": "생성된 생기부 데이터.",
             "description": "생성된 생기부 데이터입니다."
           }
@@ -192,19 +205,6 @@
           "consideration",
           "output_structure",
           "reference_data"
-        ]
-      },
-      "IStudentReportRowGeneratorResponse": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/ITableRowData",
-            "title": "생성된 생기부 데이터.",
-            "description": "생성된 생기부 데이터입니다."
-          }
-        },
-        "required": [
-          "data"
         ]
       }
     }

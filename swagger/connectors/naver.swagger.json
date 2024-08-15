@@ -18,7 +18,7 @@
     "title": "네이버 포털 정보 검색",
     "summary": "네이버의 블로그와 카페 정보를 한눈에 볼 수 있어요.",
     "description": "네이버의 블로그와 카페에서 필요한 정보를 빠르게 검색할 수 있어요. 블로그 검색을 통해 다양한 주제의 포스트를 찾아볼 수 있고, 카페 검색으로 특정 관심사를 공유하는 커뮤니티의 게시글을 확인할 수 있어요. 최신 트렌드, 상품 리뷰, 여행 후기, 요리 레시피 등 다양한 정보를 얻을 수 있어요. 검색 필터를 사용해 원하는 기간, 정확도, 최신순 등으로 결과를 정렬할 수 있어 더욱 효율적인 정보 탐색이 가능해요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/naver/cafe": {
       "post": {
+        "summary": "네이버 카페 검색",
+        "description": "네이버 카페 컨텐츠를 검색합니다.",
         "tags": [
           "Naver",
           "네이버",
@@ -50,7 +52,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,14 +61,14 @@
             }
           }
         },
-        "summary": "네이버 카페 검색",
-        "description": "네이버 카페 컨텐츠를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/naver/blog": {
       "post": {
+        "summary": "네이버 블로그 검색",
+        "description": "네이버 블로그 컨텐츠를 검색합니다.",
         "tags": [
           "Naver",
           "네이버",
@@ -88,7 +89,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -98,8 +98,6 @@
             }
           }
         },
-        "summary": "네이버 블로그 검색",
-        "description": "네이버 블로그 컨텐츠를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg",
         "x-wrtn-standalone": true
       }
@@ -107,56 +105,6 @@
   },
   "components": {
     "schemas": {
-      "INaver.INaverKeywordInput": {
-        "type": "object",
-        "properties": {
-          "andKeywords": {
-            "type": "string",
-            "x-wrtn-placeholder": "뤼튼",
-            "title": "꼭 들어가야하는 키워드",
-            "description": "검색 결과에 반드시 포함되어야 하는 키워드입니다."
-          },
-          "orKeywords": {
-            "type": "string",
-            "x-wrtn-placeholder": "스튜디오",
-            "title": "들어가면 좋은 키워드",
-            "description": "검색 결과에 포함되면 좋겠는 키워드입니다."
-          },
-          "notKeywords": {
-            "type": "string",
-            "x-wrtn-placeholder": "폭력",
-            "title": "들어가면 안되는 키워드",
-            "description": "검색 결과에 포함되면 안되는 키워드입니다."
-          },
-          "display": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 100,
-            "default": 10,
-            "x-wrtn-placeholder": "10",
-            "title": "검색할 개수",
-            "description": "검색 결과를 몇 개 받아올 것인지 설정합니다.\n최소 1개, 최대 100개, 기본 10개입니다."
-          },
-          "sort": {
-            "oneOf": [
-              {
-                "const": "sim",
-                "x-wrtn-placeholder": "sim"
-              },
-              {
-                "const": "date",
-                "x-wrtn-placeholder": "sim"
-              }
-            ],
-            "title": "검색 결과 정렬 방법",
-            "description": "검색 결과를 어떤 기준으로 정렬할 것인지 설정합니다."
-          }
-        },
-        "required": [
-          "andKeywords"
-        ],
-        "title": "검색 조건"
-      },
       "INaver.ICafeNaverOutput": {
         "type": "object",
         "properties": {
@@ -245,6 +193,56 @@
           "cafeurl"
         ],
         "title": "네이버 카페 검색 데이터"
+      },
+      "INaver.INaverKeywordInput": {
+        "type": "object",
+        "properties": {
+          "andKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "뤼튼",
+            "title": "꼭 들어가야하는 키워드",
+            "description": "검색 결과에 반드시 포함되어야 하는 키워드입니다."
+          },
+          "orKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "스튜디오",
+            "title": "들어가면 좋은 키워드",
+            "description": "검색 결과에 포함되면 좋겠는 키워드입니다."
+          },
+          "notKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "폭력",
+            "title": "들어가면 안되는 키워드",
+            "description": "검색 결과에 포함되면 안되는 키워드입니다."
+          },
+          "display": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10,
+            "x-wrtn-placeholder": "10",
+            "title": "검색할 개수",
+            "description": "검색 결과를 몇 개 받아올 것인지 설정합니다.\n최소 1개, 최대 100개, 기본 10개입니다."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "date",
+                "x-wrtn-placeholder": "sim"
+              },
+              {
+                "const": "sim",
+                "x-wrtn-placeholder": "sim"
+              }
+            ],
+            "title": "검색 결과 정렬 방법",
+            "description": "검색 결과를 어떤 기준으로 정렬할 것인지 설정합니다."
+          }
+        },
+        "required": [
+          "andKeywords"
+        ],
+        "title": "검색 조건"
       },
       "INaver.IBlogNaverOutput": {
         "type": "object",

@@ -18,7 +18,7 @@
     "title": "구글 스프레드시트 데이터 관리",
     "summary": "구글 스프레드시트로 데이터를 쉽게 관리해요.",
     "description": "구글 스프레드시트를 사용해 다양한 데이터 관리 작업을 할 수 있어요. 스프레드시트의 헤더 정보를 가져오거나, 특정 사용자에게 접근 권한을 부여할 수 있어요. 새로운 헤더를 추가하거나, 워크시트 목록을 확인할 수 있고, 특정 행(Row)의 정보를 가져올 수도 있어요. 원하는 셀에 새로운 내용을 추가하거나 기존 내용을 수정할 수도 있어요. 이를 통해 예산 관리, 프로젝트 추적, 데이터 분석 등 다양한 작업을 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 팀 단위의 데이터 관리에도 매우 유용해요. 주의할 점은 구글 시트를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-sheet": {
       "post": {
+        "summary": "구글 시트 헤더 정보 가져오기.",
+        "description": "구글 시트의 헤더 정보를 가져옵니다.",
         "tags": [
           "Google-Sheet",
           "구글",
@@ -97,14 +99,14 @@
             }
           }
         },
-        "summary": "구글 시트 헤더 정보 가져오기.",
-        "description": "구글 시트의 헤더 정보를 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/permission": {
       "post": {
+        "summary": "구글 시트 권한 부여.",
+        "description": "구글 시트에 권한을 부여합니다.",
         "tags": [
           "Google-Sheet",
           "구글",
@@ -166,17 +168,19 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 시트 권한 부여.",
-        "description": "구글 시트에 권한을 부여합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/header": {
       "post": {
+        "summary": "구글 시트 헤더 추가.",
+        "description": "구글 시트에 헤더를 추가합니다.",
         "tags": [
           "Google-Sheet",
           "구글",
@@ -238,17 +242,19 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 시트 헤더 추가.",
-        "description": "구글 시트에 헤더를 추가합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/worksheet": {
       "post": {
+        "summary": "구글 시트 워크시트 목록 가져오기.",
+        "description": "구글 워크시트 목록을 가져옵니다.",
         "tags": [
           "Google-Sheet",
           "구글",
@@ -310,7 +316,6 @@
         },
         "responses": {
           "201": {
-            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -320,14 +325,14 @@
             }
           }
         },
-        "summary": "구글 시트 워크시트 목록 가져오기.",
-        "description": "구글 워크시트 목록을 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-sheet/get-rows": {
       "post": {
+        "summary": "구글 시트 Row 정보 가져오기.",
+        "description": "구글 시트의 Row 정보를 가져옵니다.",
         "tags": [
           "Google-Sheet",
           "구글",
@@ -398,15 +403,44 @@
             }
           }
         },
-        "summary": "구글 시트 Row 정보 가져오기.",
-        "description": "구글 시트의 Row 정보를 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/internal/google": {
+      "get": {
+        "description": "구글 access token 재발급 요청",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "IGoogleSheet.IReadGoogleSheetOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "시트 데이터.",
+            "description": "읽어온 시트의 데이터입니다."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "구글 시트 읽기 결과"
+      },
       "IGoogleSheet.IReadGoogleSheetHeadersInput": {
         "type": "object",
         "properties": {
@@ -437,19 +471,6 @@
         ],
         "title": "구글 시트 헤더 읽기에 필요한 정보"
       },
-      "IGoogleSheet.IReadGoogleSheetOutput": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "title": "시트 데이터.",
-            "description": "읽어온 시트의 데이터입니다."
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "title": "구글 시트 읽기 결과"
-      },
       "IGoogleSheet.IPermissionInput": {
         "type": "object",
         "properties": {
@@ -462,7 +483,7 @@
           "permissions": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IPermission"
+              "$ref": "#/components/schemas/IPermission.o1"
             },
             "title": "접근 가능하게 할 이메일과 부여할 권한 리스트.",
             "description": "접근 가능하게 할 이메일과 부여할 권한 리스트 입니다."
@@ -485,7 +506,7 @@
         ],
         "title": "구글 시트 권한 부여에 필요한 정보"
       },
-      "IPermission": {
+      "IPermission.o1": {
         "type": "object",
         "properties": {
           "email": {
@@ -558,6 +579,23 @@
         ],
         "title": "구글 시트 헤더 추가에 필요한 정보"
       },
+      "IGoogleSheet.IGetWorkSheetOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "워크시트 제목 리스트.",
+            "description": "읽어온 시트의 제목 리스트 입니다."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "워크시트 조회 결과"
+      },
       "IGoogleSheet.IGetWorkSheetInput": {
         "type": "object",
         "properties": {
@@ -583,22 +621,28 @@
         ],
         "title": "워크시트 조회에 필요한 정보"
       },
-      "IGoogleSheet.IGetWorkSheetOutput": {
+      "IGoogleSheet.IReadGoogleSheetRowsOutput": {
         "type": "object",
         "properties": {
           "data": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowData"
             },
-            "title": "워크시트 제목 리스트.",
-            "description": "읽어온 시트의 제목 리스트 입니다."
+            "title": "읽어온 구글 시트 행 데이터.",
+            "description": "읽어온 구글 시트 행 데이터입니다."
           }
         },
         "required": [
           "data"
         ],
-        "title": "워크시트 조회 결과"
+        "title": "구글 시트 행 읽기 결과"
+      },
+      "IGoogleSheet.IReadGoogleSheetRowData": {
+        "type": "object",
+        "properties": {},
+        "title": "구글 시트 행 데이터 정보",
+        "additionalProperties": {}
       },
       "IGoogleSheet.IReadGoogleSheetRowsInput": {
         "type": "object",
@@ -630,29 +674,6 @@
           "secretKey"
         ],
         "title": "구글 시트 행 읽기에 필요한 정보"
-      },
-      "IGoogleSheet.IReadGoogleSheetRowsOutput": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowData"
-            },
-            "title": "읽어온 구글 시트 행 데이터.",
-            "description": "읽어온 구글 시트 행 데이터입니다."
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "title": "구글 시트 행 읽기 결과"
-      },
-      "IGoogleSheet.IReadGoogleSheetRowData": {
-        "type": "object",
-        "properties": {},
-        "title": "구글 시트 행 데이터 정보",
-        "additionalProperties": {}
       }
     }
   },

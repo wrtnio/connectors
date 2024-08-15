@@ -17,7 +17,7 @@
   "info": {
     "title": "조건 정렬",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/rank/rank": {
       "post": {
+        "summary": "조건 정렬",
+        "description": "주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.",
         "deprecated": true,
         "tags": [
           "Sort"
@@ -53,14 +55,29 @@
             }
           }
         },
-        "summary": "조건 정렬",
-        "description": "주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Sort.svg"
       }
     }
   },
   "components": {
     "schemas": {
+      "IRanker.IRankOutput": {
+        "type": "object",
+        "properties": {
+          "rankedIndices": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "title": "정렬된 아이템의 인덱스 배열",
+            "description": "정렬된 아이템의 인덱스 배열"
+          }
+        },
+        "required": [
+          "rankedIndices"
+        ],
+        "title": "정렬된 결과"
+      },
       "IRanker.IRankInput": {
         "type": "object",
         "properties": {
@@ -91,23 +108,6 @@
           "score"
         ],
         "title": "정렬할 아이템"
-      },
-      "IRanker.IRankOutput": {
-        "type": "object",
-        "properties": {
-          "rankedIndices": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "title": "정렬된 아이템의 인덱스 배열",
-            "description": "정렬된 아이템의 인덱스 배열"
-          }
-        },
-        "required": [
-          "rankedIndices"
-        ],
-        "title": "정렬된 결과"
       }
     }
   },

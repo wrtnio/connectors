@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/gmail/send": {
       "post": {
+        "summary": "GMAIL 전송",
+        "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -83,14 +85,14 @@
             }
           }
         },
-        "summary": "GMAIL 전송",
-        "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/draft": {
       "post": {
+        "summary": "GMAIL 초안 생성",
+        "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -138,17 +140,19 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "GMAIL 초안 생성",
-        "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/reply/{id}": {
       "post": {
+        "summary": "GMAIL 답장",
+        "description": "수신된 메일에 답장을 보냅니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -194,9 +198,7 @@
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
             },
-            "required": true,
-            "title": "답장할 메일",
-            "description": "답장할 메일을 선택해주세요."
+            "required": true
           }
         ],
         "requestBody": {
@@ -212,16 +214,18 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "GMAIL 답장",
-        "description": "수신된 메일에 답장을 보냅니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
     "/connector/gmail/get/{id}": {
       "post": {
+        "summary": "GMAIL 정보 가져오기",
+        "description": "메일의 정보를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -268,8 +272,8 @@
               }
             },
             "required": true,
-            "title": "가져올 메일",
-            "description": "가져올 메일을 선택해주세요."
+            "title": "해당 메일의 고유 ID",
+            "description": " 해당 메일의 고유 ID."
           }
         ],
         "requestBody": {
@@ -294,13 +298,13 @@
             }
           }
         },
-        "summary": "GMAIL 정보 가져오기",
-        "description": "메일의 정보를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
     "/connector/gmail/read-list": {
       "post": {
+        "summary": "GMAIL 리스트 가져오기",
+        "description": "메일 리스트를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -358,14 +362,14 @@
             }
           }
         },
-        "summary": "GMAIL 리스트 가져오기",
-        "description": "메일 리스트를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/{id}": {
       "delete": {
+        "summary": "GMAIL 삭제",
+        "description": "메일을 삭제합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -412,8 +416,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 메일",
-            "description": "삭제할 메일을 선택해주세요."
+            "title": "삭제할 메일의 고유 ID",
+            "description": " 삭제할 메일의 고유 ID."
           }
         ],
         "requestBody": {
@@ -428,16 +432,18 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "GMAIL 삭제",
-        "description": "메일을 삭제합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       }
     },
     "/connector/gmail/label": {
       "post": {
+        "summary": "GMAIL 라벨 생성",
+        "description": "라벨을 생성합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -495,14 +501,14 @@
             }
           }
         },
-        "summary": "GMAIL 라벨 생성",
-        "description": "라벨을 생성합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/gmail/label/{mailId}": {
       "post": {
+        "summary": "GMAIL 라벨 부여",
+        "description": "메일에 라벨을 부여합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -549,8 +555,8 @@
               }
             },
             "required": true,
-            "title": "라벨을 부여할 메일",
-            "description": "라벨을 부여할 메일을 선택해주세요."
+            "title": "라벨을 부여할 메일의 고유 ID",
+            "description": " 라벨을 부여할 메일의 고유 ID."
           }
         ],
         "requestBody": {
@@ -566,14 +572,16 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "GMAIL 라벨 부여",
-        "description": "메일에 라벨을 부여합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
       },
       "delete": {
+        "summary": "GMAIL 라벨 제거",
+        "description": "메일에 부여된 라벨을 제거합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "tags": [
           "Gmail",
           "지메일",
@@ -620,8 +628,8 @@
               }
             },
             "required": true,
-            "title": "라벨을 제거할 메일",
-            "description": "라벨을 제거할 메일을 선택해주세요."
+            "title": "라벨을 제거할 메일의 고유 ID",
+            "description": " 라벨을 제거할 메일의 고유 ID."
           }
         ],
         "requestBody": {
@@ -637,17 +645,49 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "GMAIL 라벨 제거",
-        "description": "메일에 부여된 라벨을 제거합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg"
+      }
+    },
+    "/internal/google": {
+      "get": {
+        "description": "구글 access token 재발급 요청",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "IGmail.ISendMailOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "보낸 메일의 id.",
+            "description": "보낸 메일의 id."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "메일 전송 결과"
+      },
       "IGmail.ICreateMailInput": {
         "type": "object",
         "properties": {
@@ -703,20 +743,6 @@
         ],
         "title": "메일을 보내기 위해 필요한 정보"
       },
-      "IGmail.ISendMailOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "보낸 메일의 id.",
-            "description": "보낸 메일의 id."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "메일 전송 결과"
-      },
       "IGmail.IReplyInput": {
         "type": "object",
         "properties": {
@@ -740,24 +766,6 @@
           "secretKey"
         ],
         "title": "메일 답장에 필요한 정보"
-      },
-      "IGmail.ISecret": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://mail.google.com/"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "인증 정보"
       },
       "IGmail.IFindGmailOutput": {
         "type": "object",
@@ -972,6 +980,41 @@
         },
         "title": "첨부파일 body 정보"
       },
+      "IGmail.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://mail.google.com/"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "인증 정보"
+      },
+      "IGmail.IFindGmailListOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGmail.IFindGmailOutput"
+            },
+            "title": "gmail 검색 데이터 정보.",
+            "description": "검색된 gmail 데이터 정보."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "이메일 리스트 검색 결과"
+      },
       "IGmail.IFindEmailListInput": {
         "type": "object",
         "properties": {
@@ -1035,22 +1078,19 @@
         ],
         "title": "이메일 리스트 검색에 필요한 정보"
       },
-      "IGmail.IFindGmailListOutput": {
+      "IGmail.ILabelOutput": {
         "type": "object",
         "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGmail.IFindGmailOutput"
-            },
-            "title": "gmail 검색 데이터 정보.",
-            "description": "검색된 gmail 데이터 정보."
+          "id": {
+            "type": "string",
+            "title": "생성된 라벨 id.",
+            "description": "생성된 라벨의 id."
           }
         },
         "required": [
-          "data"
+          "id"
         ],
-        "title": "이메일 리스트 검색 결과"
+        "title": "라벨 생성 결과"
       },
       "IGmail.ILabelInput": {
         "type": "object",
@@ -1127,20 +1167,6 @@
           "backgroundColor"
         ],
         "title": "라벨 색상"
-      },
-      "IGmail.ILabelOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "생성된 라벨 id.",
-            "description": "생성된 라벨의 id."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "라벨 생성 결과"
       },
       "IGmail.IMailLabelOperationInput": {
         "type": "object",

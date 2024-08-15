@@ -18,7 +18,7 @@
     "title": "통합 채용정보 검색",
     "summary": "다양한 채용 사이트의 공고를 한 번에 검색해요.",
     "description": "원티드, 인크루트, 사람인, 점핏, 커리어리 등 다양한 채용 사이트의 공고를 검색할 수 있어요. 직무, 지역, 경력 등으로 검색 조건을 설정할 수 있고, 각 사이트별로 제공하는 상세 정보(연봉, 기업 규모, 복지 등)를 비교해볼 수 있어요. 관심 있는 공고를 저장하거나 지원 현황을 관리할 수 있고, 유사한 공고 추천 기능도 활용할 수 있어요. 이를 통해 취업 준비나 이직을 고려 중인 사용자들이 효율적으로 채용 정보를 탐색하고 관리할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-search/wanted": {
       "post": {
+        "summary": "원티드 채용 공고 검색",
+        "description": "원티드에서 채용 공고를 검색합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -54,14 +56,14 @@
             }
           }
         },
-        "summary": "원티드 채용 공고 검색",
-        "description": "원티드에서 채용 공고를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/wanted.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-search/incruit": {
       "post": {
+        "summary": "인크루트 채용 공고 검색",
+        "description": "인크루트에서 채용 공고를 검색합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -90,14 +92,14 @@
             }
           }
         },
-        "summary": "인크루트 채용 공고 검색",
-        "description": "인크루트에서 채용 공고를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Incruit.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-search/saramin": {
       "post": {
+        "summary": "사람인 채용 공고 검색",
+        "description": "사람인에서 채용 공고를 검색합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -126,14 +128,14 @@
             }
           }
         },
-        "summary": "사람인 채용 공고 검색",
-        "description": "사람인에서 채용 공고를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/saramin.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-search/jumpit": {
       "post": {
+        "summary": "점핏 채용 공고 검색",
+        "description": "점핏에서 채용 공고를 검색합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -162,14 +164,14 @@
             }
           }
         },
-        "summary": "점핏 채용 공고 검색",
-        "description": "점핏에서 채용 공고를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/jumpit.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-search/careerly": {
       "post": {
+        "summary": "커리어리 검색",
+        "description": "커리어리에서 게시물을 검색합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -198,8 +200,6 @@
             }
           }
         },
-        "summary": "커리어리 검색",
-        "description": "커리어리에서 게시물을 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/careerly.svg",
         "x-wrtn-standalone": true
       }
@@ -207,6 +207,36 @@
   },
   "components": {
     "schemas": {
+      "IGoogleSearch.IResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "검색 결과 제목"
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "title": "검색 결과 링크"
+          },
+          "snippet": {
+            "type": "string",
+            "title": "검색 결과 요약"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "image/*",
+            "title": "검색 결과 thumbnail"
+          }
+        },
+        "required": [
+          "title",
+          "link",
+          "snippet"
+        ],
+        "title": "검색 결과"
+      },
       "IGoogleSearch.IRequest": {
         "type": "object",
         "properties": {
@@ -248,36 +278,6 @@
           "max_results"
         ],
         "title": "검색하기 위한 조건"
-      },
-      "IGoogleSearch.IResponse": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "검색 결과 제목"
-          },
-          "link": {
-            "type": "string",
-            "format": "uri",
-            "title": "검색 결과 링크"
-          },
-          "snippet": {
-            "type": "string",
-            "title": "검색 결과 요약"
-          },
-          "thumbnail": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "image/*",
-            "title": "검색 결과 thumbnail"
-          }
-        },
-        "required": [
-          "title",
-          "link",
-          "snippet"
-        ],
-        "title": "검색 결과"
       }
     }
   },

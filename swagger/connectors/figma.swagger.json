@@ -18,7 +18,7 @@
     "title": "피그마 디자인 협업 플랫폼",
     "summary": "피그마 파일을 쉽게 관리하고 협업할 수 있어요.",
     "description": "피그마 파일에 접근하고, 댓글을 가져오거나 추가할 수 있어요. 디자인 작업과 팀 협업을 효율적으로 진행할 수 있어요. 프로젝트의 진행 상황을 확인하고, 팀원들의 피드백을 실시간으로 주고받을 수 있어요. 디자인 에셋을 관리하고, 버전 히스토리를 추적할 수 있어요. UI/UX 디자인, 프로토타이핑, 그래픽 디자인 등 다양한 디자인 작업을 수행하고 관리할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/figma/get-files": {
       "post": {
+        "summary": "피그마 파일 가져오기.",
+        "description": "피그마 파일들을 가져옵니다.",
         "tags": [
           "figma"
         ],
@@ -53,13 +55,13 @@
             }
           }
         },
-        "summary": "피그마 파일 가져오기.",
-        "description": "피그마 파일들을 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
     "/connector/figma/comments": {
       "post": {
+        "summary": "캔버스 내 댓글 작성하기.",
+        "description": "댓글을 작성합니다.",
         "tags": [
           "figma"
         ],
@@ -87,13 +89,13 @@
             }
           }
         },
-        "summary": "캔버스 내 댓글 작성하기.",
-        "description": "댓글을 작성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
     "/connector/figma/get-comments": {
       "post": {
+        "summary": "피그마 댓글 가져오기.",
+        "description": "피그마 댓글들을 가져옵니다.",
         "tags": [
           "figma"
         ],
@@ -121,13 +123,13 @@
             }
           }
         },
-        "summary": "피그마 댓글 가져오기.",
-        "description": "피그마 댓글들을 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
     "/connector/figma/projects/{id}/get-canvas": {
       "post": {
+        "summary": "팀 내 캔버스 조회",
+        "description": "특정 프로젝트의 모든 캔버스를 가져옵니다.\n캔버스는 특정 팀에서 관리하고 있는 피그마 파일들을 의미합니다.\n이 커넥터를 통해 사용자는 자신의 피그마 팀 내에 어떤 캔버스들이 관리되고 있는지 캔버스의 이름과 섬네일 링크를 받아 볼 수 있습니다.",
         "tags": [
           "figma"
         ],
@@ -170,13 +172,13 @@
             }
           }
         },
-        "summary": "팀 내 캔버스 조회",
-        "description": "특정 프로젝트의 모든 캔버스를 가져옵니다.\n캔버스는 특정 팀에서 관리하고 있는 피그마 파일들을 의미합니다.\n이 커넥터를 통해 사용자는 자신의 피그마 팀 내에 어떤 캔버스들이 관리되고 있는지 캔버스의 이름과 섬네일 링크를 받아 볼 수 있습니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg"
       }
     },
     "/connector/figma/get-statistics": {
       "post": {
+        "summary": "팀 단위 피그마 통계 조회",
+        "description": "팀 단위의 통계를 조회합니다.",
         "tags": [
           "figma"
         ],
@@ -207,14 +209,14 @@
             }
           }
         },
-        "summary": "팀 단위 피그마 통계 조회",
-        "description": "팀 단위의 통계를 조회합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/figma/get-projects": {
       "post": {
+        "summary": "팀 내 프로젝트 조회",
+        "description": "팀 내의 프로젝트를 조회합니다.\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
         "tags": [
           "figma"
         ],
@@ -242,8 +244,6 @@
             }
           }
         },
-        "summary": "팀 내 프로젝트 조회",
-        "description": "팀 내의 프로젝트를 조회합니다.\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
         "x-wrtn-standalone": true
       }
@@ -251,68 +251,6 @@
   },
   "components": {
     "schemas": {
-      "IFigma.IReadFileInput": {
-        "type": "object",
-        "properties": {
-          "fileKey": {
-            "type": "string",
-            "title": "피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값.",
-            "description": "파일의 키를 의미합니다.\n\n여기서의 파일 키는 피그마 프레임을 의미합니다."
-          },
-          "version": {
-            "type": "string",
-            "title": "가져올 특정 버전의 ID.",
-            "description": "가져올 특정 버전 ID입니다. 이를 생략하면 파일의 현재 버전을 가져옵니다."
-          },
-          "ids": {
-            "type": "string",
-            "title": "문서에서 관심 있는 노드들의 쉼표로 구분된 목록.",
-            "description": "문서에서 관심 있는 노드들의 쉼표로 구분된 목록입니다. 지정된 경우에는 해당하는 노드, 그 자식들 및 루트 노드와 나열된 노드 사이의 모든 부분 집합만 반환됩니다.\n\n참고: 원하는 노드의 조상 체인 외부에 포함된 다른 노드들이 반환된 JSON에 포함될 수 있습니다. 응답에는 또한 노드의 하위 트리에 있는 것들의 종속성도 포함될 수 있습니다. 예를 들어, 노드 하위 트리에 해당 파일의 다른 곳에 위치한 로컬 컴포넌트의 인스턴스가 포함되어 있는 경우 해당 컴포넌트와 해당 조상 체인도 포함됩니다.\n\n역사적인 이유로 최상위 캔버스 노드는 항상 반환되며 `ids` 매개변수에 나열되어 있는지 여부에 관계없이 반환됩니다. 이러한 특이점은 향후 API 버전에서 제거될 수 있습니다."
-          },
-          "depth": {
-            "type": "integer",
-            "title": "문서 트리를 얼마나 깊이 탐색할지를 나타내는 양의 정수.",
-            "description": "문서 트리를 얼마나 깊이 탐색할지를 나타내는 양의 정수입니다. 예를 들어, 이를 1로 설정하면 페이지만 반환하고, 2로 설정하면 각 페이지의 페이지와 모든 최상위 개체를 반환합니다. 이 매개변수를 설정하지 않으면 모든 노드가 반환됩니다."
-          },
-          "geometry": {
-            "type": "string",
-            "title": "내보낼 벡터 데이터.",
-            "description": "벡터 데이터를 내보낼 때 \"paths\"로 설정합니다."
-          },
-          "plugin_data": {
-            "type": "string",
-            "title": "플러그인 ID 및/또는 문자열 \"shared\"의 쉼표로 구분된 목록.",
-            "description": "플러그인 ID 및/또는 문자열 \"shared\"의 쉼표로 구분된 목록입니다. 해당 플러그인이 작성한 문서에 있는 모든 데이터는 결과의 `pluginData` 및 `sharedPluginData` 속성에 포함됩니다."
-          },
-          "branch_data": {
-            "type": "boolean",
-            "default": false,
-            "title": "요청한 파일에 대한 브랜치 메타데이터를 반환할지 여부를 의미.",
-            "description": "요청한 파일에 대한 브랜치 메타데이터를 반환합니다. 파일이 브랜치이면 반환된 응답에는 메인 파일의 키도 포함됩니다. 파일에 브랜치가 있으면 해당 메타데이터도 반환됩니다. 기본값: false."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "figma",
-            "x-wrtn-secret-scopes": [
-              "files:read",
-              "file_variables:read",
-              "file_variables:write",
-              "file_comments:write",
-              "file_dev_resources:read",
-              "file_dev_resources:write",
-              "library_analytics:read",
-              "webhooks:write"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "fileKey",
-          "secretKey"
-        ],
-        "description": "피그마 특정 프레임으로부터 파일을 조회하는 DTO.\n\n한 번에 하나의 프레임으로부터 파일을 읽을 수 있다."
-      },
       "IFigma.IReadFileOutput": {
         "type": "object",
         "properties": {
@@ -559,7 +497,20 @@
             "description": "Whether this style is a remote style that doesn't live in this file"
           },
           "styleType": {
-            "$ref": "#/components/schemas/StyleType"
+            "oneOf": [
+              {
+                "const": "FILL"
+              },
+              {
+                "const": "TEXT"
+              },
+              {
+                "const": "EFFECT"
+              },
+              {
+                "const": "GRID"
+              }
+            ]
           }
         },
         "required": [
@@ -571,30 +522,44 @@
         ],
         "description": "A set of properties that can be applied to nodes and published. Styles for a property can be\ncreated in the corresponding property's panel while editing a file."
       },
-      "StyleType": {
-        "oneOf": [
-          {
-            "const": "FILL"
-          },
-          {
-            "const": "TEXT"
-          },
-          {
-            "const": "EFFECT"
-          },
-          {
-            "const": "GRID"
-          }
-        ],
-        "description": "The type of style"
-      },
-      "IFigma.IAddCommentInput": {
+      "IFigma.IReadFileInput": {
         "type": "object",
         "properties": {
           "fileKey": {
             "type": "string",
             "title": "피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값.",
-            "description": "파일의 키를 의미합니다."
+            "description": "파일의 키를 의미합니다.\n\n여기서의 파일 키는 피그마 프레임을 의미합니다."
+          },
+          "version": {
+            "type": "string",
+            "title": "가져올 특정 버전의 ID.",
+            "description": "가져올 특정 버전 ID입니다. 이를 생략하면 파일의 현재 버전을 가져옵니다."
+          },
+          "ids": {
+            "type": "string",
+            "title": "문서에서 관심 있는 노드들의 쉼표로 구분된 목록.",
+            "description": "문서에서 관심 있는 노드들의 쉼표로 구분된 목록입니다. 지정된 경우에는 해당하는 노드, 그 자식들 및 루트 노드와 나열된 노드 사이의 모든 부분 집합만 반환됩니다.\n\n참고: 원하는 노드의 조상 체인 외부에 포함된 다른 노드들이 반환된 JSON에 포함될 수 있습니다. 응답에는 또한 노드의 하위 트리에 있는 것들의 종속성도 포함될 수 있습니다. 예를 들어, 노드 하위 트리에 해당 파일의 다른 곳에 위치한 로컬 컴포넌트의 인스턴스가 포함되어 있는 경우 해당 컴포넌트와 해당 조상 체인도 포함됩니다.\n\n역사적인 이유로 최상위 캔버스 노드는 항상 반환되며 `ids` 매개변수에 나열되어 있는지 여부에 관계없이 반환됩니다. 이러한 특이점은 향후 API 버전에서 제거될 수 있습니다."
+          },
+          "depth": {
+            "type": "integer",
+            "title": "문서 트리를 얼마나 깊이 탐색할지를 나타내는 양의 정수.",
+            "description": "문서 트리를 얼마나 깊이 탐색할지를 나타내는 양의 정수입니다. 예를 들어, 이를 1로 설정하면 페이지만 반환하고, 2로 설정하면 각 페이지의 페이지와 모든 최상위 개체를 반환합니다. 이 매개변수를 설정하지 않으면 모든 노드가 반환됩니다."
+          },
+          "geometry": {
+            "type": "string",
+            "title": "내보낼 벡터 데이터.",
+            "description": "벡터 데이터를 내보낼 때 \"paths\"로 설정합니다."
+          },
+          "plugin_data": {
+            "type": "string",
+            "title": "플러그인 ID 및/또는 문자열 \"shared\"의 쉼표로 구분된 목록.",
+            "description": "플러그인 ID 및/또는 문자열 \"shared\"의 쉼표로 구분된 목록입니다. 해당 플러그인이 작성한 문서에 있는 모든 데이터는 결과의 `pluginData` 및 `sharedPluginData` 속성에 포함됩니다."
+          },
+          "branch_data": {
+            "type": "boolean",
+            "default": false,
+            "title": "요청한 파일에 대한 브랜치 메타데이터를 반환할지 여부를 의미.",
+            "description": "요청한 파일에 대한 브랜치 메타데이터를 반환합니다. 파일이 브랜치이면 반환된 응답에는 메인 파일의 키도 포함됩니다. 파일에 브랜치가 있으면 해당 메타데이터도 반환됩니다. 기본값: false."
           },
           "secretKey": {
             "type": "string",
@@ -611,15 +576,21 @@
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
-          },
-          "message": {
+          }
+        },
+        "required": [
+          "fileKey",
+          "secretKey"
+        ],
+        "description": "피그마 특정 프레임으로부터 파일을 조회하는 DTO.\n\n한 번에 하나의 프레임으로부터 파일을 읽을 수 있다."
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string",
-            "title": "The text contents of the comment to post",
-            "description": "The text contents of the comment to post."
-          },
-          "comment_id": {
-            "type": "string",
-            "description": "The ID of the comment to reply to, if any. This must be a root comment. You cannot reply to other\nreplies (a comment that has a parent_id)."
+            "title": "Unique identifier for comment",
+            "description": "Unique identifier for comment."
           },
           "client_meta": {
             "oneOf": [
@@ -636,16 +607,61 @@
                 "$ref": "#/components/schemas/FrameOffsetRegion"
               }
             ],
-            "title": "The position where to place the comment",
-            "description": "The position where to place the comment."
+            "description": "Positioning information of the comment. Includes information on the location of the comment pin,\nwhich is either the absolute coordinates on the canvas or a relative offset within a frame. If\nthe comment is a region, it will also contain the region height, width, and position of the\nanchor in regards to the region."
+          },
+          "file_key": {
+            "type": "string",
+            "description": "The file in which the comment lives"
+          },
+          "parent_id": {
+            "type": "string",
+            "description": "If present, the id of the comment to which this is the reply"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User",
+            "description": "The user who left the comment"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The UTC ISO 8601 time at which the comment was left"
+          },
+          "resolved_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "If set, the UTC ISO 8601 time the comment was resolved"
+          },
+          "message": {
+            "type": "string",
+            "description": "The content of the comment"
+          },
+          "order_id": {
+            "type": "string",
+            "description": "Only set for top level comments. The number displayed with the comment in the UI"
+          },
+          "reactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Reaction"
+            },
+            "description": "An array of reactions to the comment"
           }
         },
         "required": [
-          "fileKey",
-          "secretKey",
-          "message"
+          "id",
+          "client_meta",
+          "file_key",
+          "user",
+          "created_at",
+          "message",
+          "reactions"
         ],
-        "description": "특정 영역에 댓글을 추가하기 위한 DTO.\n\n한 번의 하나의 댓글을 작성할 수 있으며, 좌표 값이나 노드, 또는 부모 댓글(root comment) 이용해 댓글을 작성할 수 있다."
+        "description": "A comment or reply left by a user."
       },
       "Vector": {
         "type": "object",
@@ -787,85 +803,6 @@
         ],
         "description": "Position of a region comment relative to the frame to which it is attached."
       },
-      "Comment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Unique identifier for comment",
-            "description": "Unique identifier for comment."
-          },
-          "client_meta": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Vector"
-              },
-              {
-                "$ref": "#/components/schemas/FrameOffset"
-              },
-              {
-                "$ref": "#/components/schemas/Region"
-              },
-              {
-                "$ref": "#/components/schemas/FrameOffsetRegion"
-              }
-            ],
-            "description": "Positioning information of the comment. Includes information on the location of the comment pin,\nwhich is either the absolute coordinates on the canvas or a relative offset within a frame. If\nthe comment is a region, it will also contain the region height, width, and position of the\nanchor in regards to the region."
-          },
-          "file_key": {
-            "type": "string",
-            "description": "The file in which the comment lives"
-          },
-          "parent_id": {
-            "type": "string",
-            "description": "If present, the id of the comment to which this is the reply"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User",
-            "description": "The user who left the comment"
-          },
-          "created_at": {
-            "type": "string",
-            "description": "The UTC ISO 8601 time at which the comment was left"
-          },
-          "resolved_at": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "description": "If set, the UTC ISO 8601 time the comment was resolved"
-          },
-          "message": {
-            "type": "string",
-            "description": "The content of the comment"
-          },
-          "order_id": {
-            "type": "string",
-            "description": "Only set for top level comments. The number displayed with the comment in the UI"
-          },
-          "reactions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Reaction"
-            },
-            "description": "An array of reactions to the comment"
-          }
-        },
-        "required": [
-          "id",
-          "client_meta",
-          "file_key",
-          "user",
-          "created_at",
-          "message",
-          "reactions"
-        ],
-        "description": "A comment or reply left by a user."
-      },
       "User": {
         "type": "object",
         "properties": {
@@ -916,6 +853,82 @@
         ],
         "description": "A reaction left by a user."
       },
+      "IFigma.IAddCommentInput": {
+        "type": "object",
+        "properties": {
+          "fileKey": {
+            "type": "string",
+            "title": "피그마 각 파일 혹은 컴포넌트가 가지는 고유한 키 값.",
+            "description": "파일의 키를 의미합니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "figma",
+            "x-wrtn-secret-scopes": [
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "message": {
+            "type": "string",
+            "title": "The text contents of the comment to post",
+            "description": "The text contents of the comment to post."
+          },
+          "comment_id": {
+            "type": "string",
+            "description": "The ID of the comment to reply to, if any. This must be a root comment. You cannot reply to other\nreplies (a comment that has a parent_id)."
+          },
+          "client_meta": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Vector"
+              },
+              {
+                "$ref": "#/components/schemas/FrameOffset"
+              },
+              {
+                "$ref": "#/components/schemas/Region"
+              },
+              {
+                "$ref": "#/components/schemas/FrameOffsetRegion"
+              }
+            ],
+            "title": "The position where to place the comment",
+            "description": "The position where to place the comment."
+          }
+        },
+        "required": [
+          "fileKey",
+          "secretKey",
+          "message"
+        ],
+        "description": "특정 영역에 댓글을 추가하기 위한 DTO.\n\n한 번의 하나의 댓글을 작성할 수 있으며, 좌표 값이나 노드, 또는 부모 댓글(root comment) 이용해 댓글을 작성할 수 있다."
+      },
+      "GetCommentsResponse": {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            },
+            "title": "An array of comments",
+            "description": "An array of comments."
+          }
+        },
+        "required": [
+          "comments"
+        ],
+        "description": "Response from the GET /v1/files/{file_key}/comments endpoint."
+      },
       "IFigma.IReadCommentInput": {
         "type": "object",
         "properties": {
@@ -948,47 +961,6 @@
         },
         "required": [
           "fileKey",
-          "secretKey"
-        ]
-      },
-      "GetCommentsResponse": {
-        "type": "object",
-        "properties": {
-          "comments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Comment"
-            },
-            "title": "An array of comments",
-            "description": "An array of comments."
-          }
-        },
-        "required": [
-          "comments"
-        ],
-        "description": "Response from the GET /v1/files/{file_key}/comments endpoint."
-      },
-      "IFigma.Secret": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "figma",
-            "x-wrtn-secret-scopes": [
-              "files:read",
-              "file_variables:read",
-              "file_variables:write",
-              "file_comments:write",
-              "file_dev_resources:read",
-              "file_dev_resources:write",
-              "library_analytics:read",
-              "webhooks:write"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
           "secretKey"
         ]
       },
@@ -1047,7 +1019,7 @@
           "last_modified"
         ]
       },
-      "IFigma.IGetProjectStatisticsInput": {
+      "IFigma.Secret": {
         "type": "object",
         "properties": {
           "secretKey": {
@@ -1065,20 +1037,10 @@
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
-          },
-          "as_md": {
-            "type": "boolean",
-            "title": "If enabled, will return comments as their markdown equivalents when applicable",
-            "description": "If enabled, will return comments as their markdown equivalents when applicable."
-          },
-          "teamId": {
-            "type": "string",
-            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
           }
         },
         "required": [
-          "secretKey",
-          "teamId"
+          "secretKey"
         ]
       },
       "IFigma.IGetStatisticsOutput": {
@@ -1178,13 +1140,9 @@
           "type": "number"
         }
       },
-      "IFigma.IGetProjectInput": {
+      "IFigma.IGetProjectStatisticsInput": {
         "type": "object",
         "properties": {
-          "teamId": {
-            "type": "string",
-            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "figma",
@@ -1200,13 +1158,21 @@
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
+          },
+          "as_md": {
+            "type": "boolean",
+            "title": "If enabled, will return comments as their markdown equivalents when applicable",
+            "description": "If enabled, will return comments as their markdown equivalents when applicable."
+          },
+          "teamId": {
+            "type": "string",
+            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
           }
         },
         "required": [
-          "teamId",
-          "secretKey"
-        ],
-        "title": "프로젝트 조회 조건"
+          "secretKey",
+          "teamId"
+        ]
       },
       "IFigma.IGetProejctOutput": {
         "type": "object",
@@ -1244,6 +1210,36 @@
           "id",
           "name"
         ]
+      },
+      "IFigma.IGetProjectInput": {
+        "type": "object",
+        "properties": {
+          "teamId": {
+            "type": "string",
+            "title": "팀 아이디\n\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 붙어 있는 문자열을 의미한다.\n\n팀 아이디는 숫자 형식이며, 팀 안에 여러 개의 프로젝트들이 존재할 수 있다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "figma",
+            "x-wrtn-secret-scopes": [
+              "files:read",
+              "file_variables:read",
+              "file_variables:write",
+              "file_comments:write",
+              "file_dev_resources:read",
+              "file_dev_resources:write",
+              "library_analytics:read",
+              "webhooks:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "teamId",
+          "secretKey"
+        ],
+        "title": "프로젝트 조회 조건"
       }
     }
   },

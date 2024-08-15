@@ -18,7 +18,7 @@
     "title": "쿠팡 상품 검색",
     "summary": "쿠팡 쇼핑몰의 상품을 한 번에 검색해요.",
     "description": "알라딘 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격, 을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-shopping/coupang": {
       "post": {
+        "summary": "쿠팡 검색",
+        "description": "상품을 쿠팡에서 검색합니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -54,8 +56,6 @@
             }
           }
         },
-        "summary": "쿠팡 검색",
-        "description": "상품을 쿠팡에서 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/coupang.svg",
         "x-wrtn-standalone": true
       }
@@ -63,26 +63,6 @@
   },
   "components": {
     "schemas": {
-      "IGoogleShopping.IRequestStandAlone": {
-        "type": "object",
-        "properties": {
-          "keyword": {
-            "type": "string",
-            "title": "검색어",
-            "description": "검색할 키워드를 입력하세요."
-          },
-          "max_results": {
-            "type": "integer",
-            "title": "검색 결과 개수",
-            "description": "검색 결과의 개수를 설정합니다."
-          }
-        },
-        "required": [
-          "keyword",
-          "max_results"
-        ],
-        "title": "상품 검색 조건"
-      },
       "IGoogleShopping.IResponse": {
         "type": "object",
         "properties": {
@@ -130,6 +110,26 @@
           "thumbnail"
         ],
         "title": "상품 검색 결과"
+      },
+      "IGoogleShopping.IRequestStandAlone": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "검색어",
+            "description": "검색할 키워드를 입력하세요."
+          },
+          "max_results": {
+            "type": "integer",
+            "title": "검색 결과 개수",
+            "description": "검색 결과의 개수를 설정합니다."
+          }
+        },
+        "required": [
+          "keyword",
+          "max_results"
+        ],
+        "title": "상품 검색 조건"
       }
     }
   },

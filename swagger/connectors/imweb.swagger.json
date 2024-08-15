@@ -18,7 +18,7 @@
     "title": "아임웹 상품 정보 관리",
     "summary": "아임웹으로 상품 정보를 효과적으로 관리해요.",
     "description": "아임웹에서 상품 리스트를 조회회할 수 있어요. 판매자 인증을 통해 API 토큰을 발급받아 더 많은 기능을 활용할 수 있어요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/imweb/get-products": {
       "post": {
+        "summary": "Get my sales product from `Imweb`",
+        "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -54,18 +56,52 @@
             }
           }
         },
-        "summary": "Get my sales product from `Imweb`",
-        "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
         "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg"
+      }
+    },
+    "/connector/imweb/auth": {
+      "post": {
+        "summary": "아임웹 액세스 토큰 발급",
+        "description": "아임웹 액세스 토큰 발급.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "액세스 토큰 발급을 위한 요청 DTO.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IImweb.Credential"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "액세스 토큰을 담은 응답 DTO.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IImweb.IGetAccessTokenOutput"
+                }
+              }
+            }
+          }
+        },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg"
       }
     }
   },
   "components": {
     "schemas": {
-      "IImweb.IGetProductInput": {
+      "IImweb.Product": {
         "type": "object",
         "properties": {
+          "no": {
+            "type": "number",
+            "title": "Product number"
+          },
           "prod_status": {
             "oneOf": [
               {
@@ -81,36 +117,6 @@
                 "title": "숨김"
               }
             ],
-            "title": "the sales status of a product\n\nYou can deliver the value when you want to inquire based on the sales status of the product.\nYou can select 'sale', 'soldout', 'nosale'."
-          },
-          "category": {
-            "type": "string",
-            "title": "product category code\n\nYou can also search with the product's category code,\nbut this code is randomly determined by `Imweb`, so it's currently unavailable.\nIf you don't know the exact category code, it's better not to use it."
-          },
-          "key": {
-            "type": "string",
-            "title": "API Key\n\nThis can be found in the configuration settings on the `Imweb`."
-          },
-          "secret": {
-            "type": "string",
-            "title": "API Secret Key\n\nThis can be found in the configuration settings on the `Imweb`."
-          }
-        },
-        "required": [
-          "key",
-          "secret"
-        ],
-        "title": "상품 조회 요청 DTO."
-      },
-      "IImweb.Product": {
-        "type": "object",
-        "properties": {
-          "no": {
-            "type": "number",
-            "title": "Product number"
-          },
-          "prod_status": {
-            "$ref": "#/components/schemas/IImweb.ProductStatus",
             "title": "Status of product"
           },
           "categories": {
@@ -176,13 +182,16 @@
           "prod_type": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constantnormal__type"
+                "const": "normal",
+                "title": "일반 상품"
               },
               {
-                "$ref": "#/components/schemas/Constantdigital__type"
+                "const": "digital",
+                "title": "디지털 상품"
               },
               {
-                "$ref": "#/components/schemas/Constantsubscribe__type"
+                "const": "subscribe",
+                "title": "회원그룹 이용권"
               }
             ],
             "title": "Setting the sales method\n\nIt will be 'normal', 'digital' and 'subscribe' product."
@@ -238,13 +247,16 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/Constantcoupon__type"
+                  "const": "coupon",
+                  "title": "Coupon"
                 },
                 {
-                  "$ref": "#/components/schemas/Constantpoint__type"
+                  "const": "point",
+                  "title": "Points"
                 },
                 {
-                  "$ref": "#/components/schemas/Constantshopping_group_dc__type"
+                  "const": "shopping_group_dc",
+                  "title": "Shopping Group Discount"
                 }
               ]
             },
@@ -290,10 +302,12 @@
           "is_exist_options": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ConstantY__type.o1"
+                "const": "Y",
+                "title": "Options Exist"
               },
               {
-                "$ref": "#/components/schemas/ConstantN__type.o1"
+                "const": "N",
+                "title": "Single Product"
               }
             ],
             "title": "Existence of Product Options"
@@ -301,10 +315,12 @@
           "is_mix": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ConstantY__type.o2"
+                "const": "Y",
+                "title": "Combination Option"
               },
               {
-                "$ref": "#/components/schemas/ConstantN__type.o2"
+                "const": "N",
+                "title": "Single Option"
               }
             ],
             "title": "Combination Option for Product"
@@ -352,43 +368,6 @@
           "edit_time"
         ]
       },
-      "IImweb.ProductStatus": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/Constantsale__type"
-          },
-          {
-            "$ref": "#/components/schemas/Constantsoldout__type"
-          },
-          {
-            "$ref": "#/components/schemas/Constantnosale__type"
-          }
-        ]
-      },
-      "Constantsale__type": {
-        "const": "sale",
-        "title": "판매중"
-      },
-      "Constantsoldout__type": {
-        "const": "soldout",
-        "title": "품절"
-      },
-      "Constantnosale__type": {
-        "const": "nosale",
-        "title": "숨김"
-      },
-      "Constantnormal__type": {
-        "const": "normal",
-        "title": "일반 상품"
-      },
-      "Constantdigital__type": {
-        "const": "digital",
-        "title": "디지털 상품"
-      },
-      "Constantsubscribe__type": {
-        "const": "subscribe",
-        "title": "회원그룹 이용권"
-      },
       "IImweb.ProdTypeData.DigitalData": {
         "type": "object",
         "properties": {
@@ -434,10 +413,12 @@
           "type": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constantcommon__type"
+                "const": "common",
+                "title": "Default Settings"
               },
               {
-                "$ref": "#/components/schemas/Constantindividual__type"
+                "const": "individual",
+                "title": "Individual Point Settings"
               }
             ],
             "title": "Point Configuration Type"
@@ -445,10 +426,12 @@
           "value_type": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constantpercent__type"
+                "const": "percent",
+                "title": "Percentage"
               },
               {
-                "$ref": "#/components/schemas/Constantprice__type"
+                "const": "price",
+                "title": "Currency Unit"
               }
             ],
             "title": "Point Accumulation Unit"
@@ -463,34 +446,6 @@
           "type"
         ],
         "title": "Point Configuration Data Structure"
-      },
-      "Constantcommon__type": {
-        "const": "common",
-        "title": "Default Settings"
-      },
-      "Constantindividual__type": {
-        "const": "individual",
-        "title": "Individual Point Settings"
-      },
-      "Constantpercent__type": {
-        "const": "percent",
-        "title": "Percentage"
-      },
-      "Constantprice__type": {
-        "const": "price",
-        "title": "Currency Unit"
-      },
-      "Constantcoupon__type": {
-        "const": "coupon",
-        "title": "Coupon"
-      },
-      "Constantpoint__type": {
-        "const": "point",
-        "title": "Points"
-      },
-      "Constantshopping_group_dc__type": {
-        "const": "shopping_group_dc",
-        "title": "Shopping Group Discount"
       },
       "IImweb.ProdStockConfigData": {
         "type": "object",
@@ -580,25 +535,32 @@
           "product_flag": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constant소매__type"
+                "const": "소매",
+                "title": "Retail"
               },
               {
-                "$ref": "#/components/schemas/Constant도매__type"
+                "const": "도매",
+                "title": "Wholesale"
               },
               {
-                "$ref": "#/components/schemas/Constant렌탈__type"
+                "const": "렌탈",
+                "title": "Rental"
               },
               {
-                "$ref": "#/components/schemas/Constant대여__type"
+                "const": "대여",
+                "title": "Lease"
               },
               {
-                "$ref": "#/components/schemas/Constant할부__type"
+                "const": "할부",
+                "title": "Installment"
               },
               {
-                "$ref": "#/components/schemas/Constant예약판매__type"
+                "const": "예약판매",
+                "title": "Pre-order"
               },
               {
-                "$ref": "#/components/schemas/Constant구매대행__type"
+                "const": "구매대행",
+                "title": "Buying Agent"
               }
             ],
             "title": "Naver Shopping Sales Method"
@@ -606,22 +568,28 @@
           "product_condition": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constant신상품__type"
+                "const": "신상품",
+                "title": "New"
               },
               {
-                "$ref": "#/components/schemas/Constant중고__type"
+                "const": "중고",
+                "title": "Used"
               },
               {
-                "$ref": "#/components/schemas/Constant리퍼__type"
+                "const": "리퍼",
+                "title": "Refurbished"
               },
               {
-                "$ref": "#/components/schemas/Constant전시__type"
+                "const": "전시",
+                "title": "Exhibition"
               },
               {
-                "$ref": "#/components/schemas/Constant반품__type"
+                "const": "반품",
+                "title": "Returned"
               },
               {
-                "$ref": "#/components/schemas/Constant스크래치__type"
+                "const": "스크래치",
+                "title": "Scratch"
               }
             ],
             "title": "Naver Shopping Product Condition"
@@ -656,58 +624,6 @@
         ],
         "title": "External Integration Information Data Structure"
       },
-      "Constant소매__type": {
-        "const": "소매",
-        "title": "Retail"
-      },
-      "Constant도매__type": {
-        "const": "도매",
-        "title": "Wholesale"
-      },
-      "Constant렌탈__type": {
-        "const": "렌탈",
-        "title": "Rental"
-      },
-      "Constant대여__type": {
-        "const": "대여",
-        "title": "Lease"
-      },
-      "Constant할부__type": {
-        "const": "할부",
-        "title": "Installment"
-      },
-      "Constant예약판매__type": {
-        "const": "예약판매",
-        "title": "Pre-order"
-      },
-      "Constant구매대행__type": {
-        "const": "구매대행",
-        "title": "Buying Agent"
-      },
-      "Constant신상품__type": {
-        "const": "신상품",
-        "title": "New"
-      },
-      "Constant중고__type": {
-        "const": "중고",
-        "title": "Used"
-      },
-      "Constant리퍼__type": {
-        "const": "리퍼",
-        "title": "Refurbished"
-      },
-      "Constant전시__type": {
-        "const": "전시",
-        "title": "Exhibition"
-      },
-      "Constant반품__type": {
-        "const": "반품",
-        "title": "Returned"
-      },
-      "Constant스크래치__type": {
-        "const": "스크래치",
-        "title": "Scratch"
-      },
       "IImweb.ProdEtcData": {
         "type": "object",
         "properties": {
@@ -726,13 +642,16 @@
           "optional_limit_type": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constantrelative__type"
+                "const": "relative",
+                "title": "Can Purchase as Much as the Main Product"
               },
               {
-                "$ref": "#/components/schemas/Constantlimit__type"
+                "const": "limit",
+                "title": "Maximum Purchase Quantity Limit"
               },
               {
-                "$ref": "#/components/schemas/Constantunique__type"
+                "const": "unique",
+                "title": "Can Purchase Only One"
               }
             ],
             "title": "Maximum Purchase Quantity Limit Type for Free Options"
@@ -744,13 +663,17 @@
           "use_unipass_number": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Constantdefault__type"
+                "const": "default",
+                "title": "Follow Default Method",
+                "description": "May vary depending on shopping environment settings"
               },
               {
-                "$ref": "#/components/schemas/ConstantY__type"
+                "const": "Y",
+                "title": "Use"
               },
               {
-                "$ref": "#/components/schemas/ConstantN__type"
+                "const": "N",
+                "title": "Do Not Use"
               }
             ]
           },
@@ -769,46 +692,90 @@
         ],
         "title": "Miscellaneous Settings Data Structure"
       },
-      "Constantrelative__type": {
-        "const": "relative",
-        "title": "Can Purchase as Much as the Main Product"
+      "IImweb.IGetProductInput": {
+        "type": "object",
+        "properties": {
+          "prod_status": {
+            "oneOf": [
+              {
+                "const": "sale",
+                "title": "판매중"
+              },
+              {
+                "const": "soldout",
+                "title": "품절"
+              },
+              {
+                "const": "nosale",
+                "title": "숨김"
+              }
+            ],
+            "title": "the sales status of a product\n\nYou can deliver the value when you want to inquire based on the sales status of the product.\nYou can select 'sale', 'soldout', 'nosale'."
+          },
+          "category": {
+            "type": "string",
+            "title": "product category code\n\nYou can also search with the product's category code,\nbut this code is randomly determined by `Imweb`, so it's currently unavailable.\nIf you don't know the exact category code, it's better not to use it."
+          },
+          "key": {
+            "type": "string",
+            "title": "API Key\n\nThis can be found in the configuration settings on the `Imweb`."
+          },
+          "secret": {
+            "type": "string",
+            "title": "API Secret Key\n\nThis can be found in the configuration settings on the `Imweb`."
+          }
+        },
+        "required": [
+          "key",
+          "secret"
+        ],
+        "title": "상품 조회 요청 DTO."
       },
-      "Constantlimit__type": {
-        "const": "limit",
-        "title": "Maximum Purchase Quantity Limit"
+      "IImweb.IGetAccessTokenOutput": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "const": "SUCCESS",
+            "title": "Response Message"
+          },
+          "code": {
+            "const": 200,
+            "title": "IMWEB Custom Code"
+          },
+          "http_code": {
+            "const": 200,
+            "title": "HTTP Status Code"
+          },
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          }
+        },
+        "required": [
+          "msg",
+          "code",
+          "http_code",
+          "access_token"
+        ],
+        "title": "Imweb Token Issuance Request Response DTO"
       },
-      "Constantunique__type": {
-        "const": "unique",
-        "title": "Can Purchase Only One"
-      },
-      "Constantdefault__type": {
-        "const": "default",
-        "title": "Follow Default Method",
-        "description": "May vary depending on shopping environment settings"
-      },
-      "ConstantY__type": {
-        "const": "Y",
-        "title": "Use"
-      },
-      "ConstantN__type": {
-        "const": "N",
-        "title": "Do Not Use"
-      },
-      "ConstantY__type.o1": {
-        "const": "Y",
-        "title": "Options Exist"
-      },
-      "ConstantN__type.o1": {
-        "const": "N",
-        "title": "Single Product"
-      },
-      "ConstantY__type.o2": {
-        "const": "Y",
-        "title": "Combination Option"
-      },
-      "ConstantN__type.o2": {
-        "const": "N",
-        "title": "Single Option"
+      "IImweb.Credential": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "API Key\n\nThis can be found in the configuration settings on the `Imweb`."
+          },
+          "secret": {
+            "type": "string",
+            "title": "API Secret Key\n\nThis can be found in the configuration settings on the `Imweb`."
+          }
+        },
+        "required": [
+          "key",
+          "secret"
+        ],
+        "title": "Imweb Access Token Request DTO\n\nAn API Key and Secret Key must be issued first to use the Rest API.\nThese keys are generated on a site-by-site basis."
       }
     }
   },

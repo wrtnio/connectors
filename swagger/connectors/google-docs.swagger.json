@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,6 +26,8 @@
   "paths": {
     "/connector/google-docs": {
       "post": {
+        "summary": "구글 docs 생성.",
+        "description": "구글 docs를 생성합니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -82,14 +84,14 @@
             }
           }
         },
-        "summary": "구글 docs 생성.",
-        "description": "구글 docs를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-docs/permission": {
       "post": {
+        "summary": "구글 docs 권한 부여.",
+        "description": "구글 docs에 권한을 부여합니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -136,16 +138,18 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 docs 권한 부여.",
-        "description": "구글 docs에 권한을 부여합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg"
       }
     },
     "/connector/google-docs/get/{id}": {
       "post": {
+        "summary": "구글 docs 읽기.",
+        "description": "구글 docs의 내용을 읽어옵니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -191,8 +195,8 @@
               }
             },
             "required": true,
-            "title": "가져올 docs 파일",
-            "description": "가져올 docs 파일을 선택해 주세요."
+            "title": "구글 docs 고유 ID",
+            "description": " 구글 docs 고유 ID."
           }
         ],
         "requestBody": {
@@ -217,13 +221,13 @@
             }
           }
         },
-        "summary": "구글 docs 읽기.",
-        "description": "구글 docs의 내용을 읽어옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg"
       }
     },
     "/connector/google-docs/template": {
       "post": {
+        "summary": "구글 docs 복사.",
+        "description": "이미 존재하는 구글 docs를 복사하여 새로운 구글 docs를 생성합니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -280,13 +284,13 @@
             }
           }
         },
-        "summary": "구글 docs 복사.",
-        "description": "이미 존재하는 구글 docs를 복사하여 새로운 구글 docs를 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg"
       }
     },
     "/connector/google-docs/{id}": {
       "delete": {
+        "summary": "구글 docs 삭제.",
+        "description": "구글 docs를 삭제합니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -332,8 +336,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 docs 파일",
-            "description": "삭제할 docs 파일을 선택해 주세요."
+            "title": "삭제할 구글 docs 고유 ID",
+            "description": " 삭제할 구글 docs 고유 ID."
           }
         ],
         "requestBody": {
@@ -348,16 +352,18 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 docs 삭제.",
-        "description": "구글 docs를 삭제합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg"
       }
     },
     "/connector/google-docs/get-list": {
       "post": {
+        "summary": "구글 docs 목록 가져오기.",
+        "description": "구글 docs 목록을 가져옵니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -413,14 +419,14 @@
             }
           }
         },
-        "summary": "구글 docs 목록 가져오기.",
-        "description": "구글 docs 목록을 가져옵니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-docs/append": {
       "post": {
+        "summary": "구글 docs 텍스트 추가.",
+        "description": "구글 docs에 텍스트를 추가합니다.",
         "tags": [
           "Google-Docs",
           "구글",
@@ -466,17 +472,49 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "content": {
+              "application/json": {}
+            }
           }
         },
-        "summary": "구글 docs 텍스트 추가.",
-        "description": "구글 docs에 텍스트를 추가합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg"
+      }
+    },
+    "/internal/google": {
+      "get": {
+        "description": "구글 access token 재발급 요청",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "IGoogleDocs.ICreateGoogleDocsOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "생성된 docs id.",
+            "description": "생성된 docs의 id입니다."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "구글 docs 생성 결과"
+      },
       "IGoogleDocs.ICreateGoogleDocsInput": {
         "type": "object",
         "properties": {
@@ -501,20 +539,6 @@
           "secretKey"
         ],
         "title": "구글 docs 생성에 필요한 정보"
-      },
-      "IGoogleDocs.ICreateGoogleDocsOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "생성된 docs id.",
-            "description": "생성된 docs의 id입니다."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "구글 docs 생성 결과"
       },
       "IGoogleDocs.IPermissionGoogleDocsInput": {
         "type": "object",
@@ -614,25 +638,6 @@
         ],
         "title": "권한 부여 정보"
       },
-      "IGoogleDocs.ISecret": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive",
-              "https://www.googleapis.com/auth/documents"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "인증 정보"
-      },
       "IGoogleDocs.IReadGoogleDocsOutput": {
         "type": "object",
         "properties": {
@@ -671,6 +676,39 @@
           }
         }
       },
+      "IGoogleDocs.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "인증 정보"
+      },
+      "IGoogleDocs.ICreateDocByTemplateOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "생성된 docs id.",
+            "description": "복사된 docs의 id입니다."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "구글 docs 복제 결과"
+      },
       "IGoogleDocs.ICreateDocByTemplateInput": {
         "type": "object",
         "properties": {
@@ -706,20 +744,6 @@
           "secretKey"
         ],
         "title": "구글 docs 복제에 필요한 정보"
-      },
-      "IGoogleDocs.ICreateDocByTemplateOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "생성된 docs id.",
-            "description": "복사된 docs의 id입니다."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "구글 docs 복제 결과"
       },
       "IGoogleDocs.IListGoogleDocsOutput": {
         "type": "object",

@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/google-map": {
       "post": {
+        "summary": "구글맵 맛집 검색",
+        "description": "구글맵을 사용하여 맛집을 검색합니다.",
         "tags": [
           "Google map"
         ],
@@ -55,14 +57,14 @@
             }
           }
         },
-        "summary": "구글맵 맛집 검색",
-        "description": "구글맵을 사용하여 맛집을 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_map.svg",
         "x-wrtn-standalone": true
       }
     },
     "/connector/google-map/review": {
       "post": {
+        "summary": "구글맵 맛집 리뷰 검색",
+        "description": "구글맵에서 선택한 맛집 리뷰를 검색합니다.",
         "tags": [
           "Google map"
         ],
@@ -93,8 +95,6 @@
             }
           }
         },
-        "summary": "구글맵 맛집 리뷰 검색",
-        "description": "구글맵에서 선택한 맛집 리뷰를 검색합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_map.svg",
         "x-wrtn-standalone": true
       }
@@ -102,21 +102,6 @@
   },
   "components": {
     "schemas": {
-      "IGoogleMap.IRequest": {
-        "type": "object",
-        "properties": {
-          "keyword": {
-            "type": "string",
-            "x-wrtn-placeholder": "강남역 맛집",
-            "title": "검색어",
-            "description": "검색어를 입력해주세요"
-          }
-        },
-        "required": [
-          "keyword"
-        ],
-        "title": "구글 맵 맛집 검색을 위한 정보"
-      },
       "IGoogleMap.IResponse": {
         "type": "object",
         "properties": {
@@ -216,21 +201,20 @@
         ],
         "title": "구글 맵 맛집 검색 결과"
       },
-      "IGoogleMap.IReviewRequest": {
+      "IGoogleMap.IRequest": {
         "type": "object",
         "properties": {
-          "place_id": {
+          "keyword": {
             "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-map/search",
-              "jmesPath": "[].{value:place_id, label:place_id}"
-            }
+            "x-wrtn-placeholder": "강남역 맛집",
+            "title": "검색어",
+            "description": "검색어를 입력해주세요"
           }
         },
         "required": [
-          "place_id"
-        ]
+          "keyword"
+        ],
+        "title": "구글 맵 맛집 검색을 위한 정보"
       },
       "IGoogleMap.IReviewResponse": {
         "type": "object",
@@ -281,6 +265,22 @@
           "date"
         ],
         "title": "리뷰 조회 결과"
+      },
+      "IGoogleMap.IReviewRequest": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-map/search",
+              "jmesPath": "[].{value:place_id, label:place_id}"
+            }
+          }
+        },
+        "required": [
+          "place_id"
+        ]
       }
     }
   },

@@ -17,7 +17,7 @@
   "info": {
     "title": "Zoom",
     "description": "",
-    "version": "0.1.106",
+    "version": "0.1.107",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,6 +25,8 @@
   "paths": {
     "/connector/zoom/meetings": {
       "post": {
+        "summary": "zoom 미팅 생성.",
+        "description": "zoom 미팅을 생성합니다.",
         "tags": [
           "zoom"
         ],
@@ -52,8 +54,6 @@
             }
           }
         },
-        "summary": "zoom 미팅 생성.",
-        "description": "zoom 미팅을 생성합니다.",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/zoom.svg",
         "x-wrtn-standalone": true
       }
@@ -61,28 +61,6 @@
   },
   "components": {
     "schemas": {
-      "IZoom.ICreateMeetingInput": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "zoom",
-            "x-wrtn-secret-scopes": [
-              "meeting:write:admin",
-              "meeting:write"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "userId",
-          "secretKey"
-        ]
-      },
       "MyPartialIZoom.Meeting": {
         "type": "object",
         "properties": {
@@ -254,10 +232,10 @@
           "status": {
             "oneOf": [
               {
-                "const": "available"
+                "const": "deleted"
               },
               {
-                "const": "deleted"
+                "const": "available"
               }
             ],
             "title": "웨비나 발생의 상태",
@@ -955,11 +933,11 @@
                       "default": "editor"
                     },
                     {
-                      "const": "commenter",
+                      "const": "viewer",
                       "default": "editor"
                     },
                     {
-                      "const": "viewer",
+                      "const": "commenter",
                       "default": "editor"
                     }
                   ],
@@ -1071,6 +1049,28 @@
           "visible"
         ],
         "description": "Information about the meeting's tracking fields."
+      },
+      "IZoom.ICreateMeetingInput": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "zoom",
+            "x-wrtn-secret-scopes": [
+              "meeting:write:admin",
+              "meeting:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "userId",
+          "secretKey"
+        ]
       }
     }
   },
