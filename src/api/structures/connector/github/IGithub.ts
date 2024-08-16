@@ -25,7 +25,22 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
-  export type IGetFollowerOutput = [];
+  export type IGetFolloweeOutput = Pick<
+    User,
+    "id" | "login" | "avatar_url" | "html_url"
+  >[];
+
+  export interface IGetFolloweeInput extends ICommonPaginationInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
+  }
+
+  export type IGetFollowerOutput = Pick<
+    User,
+    "id" | "login" | "avatar_url" | "html_url"
+  >[];
 
   export interface IGetFollowerInput extends ICommonPaginationInput {
     /**
