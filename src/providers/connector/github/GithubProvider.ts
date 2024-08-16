@@ -42,4 +42,14 @@ export class GithubProvider {
     });
     return res.data;
   }
+
+  async getRepositoryBranches(
+    input: IGithub.IGetBranchInput,
+  ): Promise<IGithub.IGetBranchOutput> {
+    const { owner, repo, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.github.com/repos/${owner}/${repo}/branches?${queryParameter}`;
+    const res = await axios.get(url);
+    return res.data;
+  }
 }
