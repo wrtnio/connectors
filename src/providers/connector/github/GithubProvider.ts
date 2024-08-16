@@ -96,4 +96,18 @@ export class GithubProvider {
     });
     return res.data;
   }
+
+  async getFollower(
+    input: IGithub.IGetFollowerInput,
+  ): Promise<IGithub.IGetFollowerOutput> {
+    const { username, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.github.com/users/${username}/following?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
+    return res.data;
+  }
 }

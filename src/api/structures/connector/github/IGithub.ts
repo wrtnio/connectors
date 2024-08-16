@@ -25,6 +25,15 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export type IGetFollowerOutput = [];
+
+  export interface IGetFollowerInput extends ICommonPaginationInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
+  }
+
   export type IGetCommitListOutput = Pick<
     Commit,
     "sha" | "url" | "author" | "committer" | "message"
