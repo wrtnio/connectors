@@ -1,4 +1,6 @@
 import { tags } from "typia";
+import { StrictOmit } from "../../../../utils/strictOmit";
+import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 
 export namespace IGithub {
   export interface ICommonPaginationInput {
@@ -21,6 +23,49 @@ export namespace IGithub {
      * This parameter is ignored unless you provide sort.
      */
     order?: ("desc" | "asc") & tags.Default<"desc">;
+  }
+
+  export type IGetUserRepositoryOutput = IGithub.Repository[];
+
+  export interface IGetUserRepositoryInput
+    extends StrictOmit<ICommonPaginationInput, "order"> {
+    /**
+     * @title username
+     *
+     * This refers to the nickname of the user who will look up the repository.
+     */
+    username: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/get-users";
+        jmesPath: "items[].{value:login, label:login}";
+      }>;
+    /**
+     * @title sorting condition
+     *
+     * The property to sort the results by.
+     */
+    sort?: ("created" | "updated" | "pushed" | "full_name") &
+      tags.Default<"full_name">;
+
+    /**
+     * @title direction
+     * The order to sort by.
+     * Default: asc when using full_name, otherwise desc.
+     */
+    direction?: ICommonPaginationInput["order"];
+
+    /**
+     * @title since
+     * Only show repositories updated after the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
+     */
+    since?: string & tags.Format<"date-time">;
+
+    /**
+     * @title before
+     * Only show repositories updated before the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
+     */
+    before?: string & tags.Format<"date-time">;
   }
 
   export interface IGetUserProfileOutput
@@ -171,6 +216,13 @@ export namespace IGithub {
     avatar_url: string & tags.Format<"uri">;
 
     /**
+     * @title html_url
+     *
+     * If you want to look up your profile, you can access this website.
+     */
+    html_url: string & tags.Format<"uri">;
+
+    /**
      * @title type
      */
     type: "User";
@@ -179,5 +231,231 @@ export namespace IGithub {
      * @title score
      */
     score: 1.0;
+  };
+
+  export type Repository = {
+    /**
+     * @title id
+     */
+    id: number;
+
+    /**
+     * @title name
+     */
+    name: string;
+
+    /**
+     * @title full_name
+     */
+    full_name: string;
+
+    /**
+     * @title owner
+     */
+    owner: Pick<User, "id" | "login" | "avatar_url" | "type" | "html_url">;
+
+    /**
+     * @title private
+     */
+    private: boolean;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"uri">;
+
+    /**
+     * @title description
+     */
+    description: string | null;
+
+    /**
+     * @title fork
+     */
+    fork: boolean;
+
+    /**
+     * @title forks_count
+     */
+    forks_count: number & tags.Type<"uint32">;
+
+    /**
+     * @title stargazers_count
+     */
+    stargazers_count: number & tags.Type<"uint32">;
+
+    /**
+     * @title watchers_count
+     */
+    watchers_count: number & tags.Type<"uint32">;
+
+    /**
+     * @title size
+     */
+    size: number;
+
+    /**
+     * @title default_branch
+     */
+    default_branch: string;
+
+    /**
+     * @title open_issues_count
+     */
+    open_issues_count: number & tags.Type<"uint32">;
+
+    /**
+     * @title is_template
+     */
+    is_template: boolean;
+
+    /**
+     * @title topics
+     */
+    topics: string[];
+
+    /**
+     * @title has_issues
+     */
+    has_issues: boolean;
+
+    /**
+     * @title has_projects
+     */
+    has_projects: boolean;
+
+    /**
+     * @title has_wiki
+     */
+    has_wiki: boolean;
+
+    /**
+     * @title has_pages
+     */
+    has_pages: boolean;
+
+    /**
+     * @title has_downloads
+     */
+    has_downloads: boolean;
+
+    /**
+     * @title archived
+     */
+    archived: boolean;
+
+    /**
+     * @title disabled
+     */
+    disabled: boolean;
+
+    /**
+     * @title visibility
+     */
+    visibility: "public" | "private";
+
+    /**
+     * @title pushed_at
+     */
+    pushed_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title created_at
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
+    updated_at: string & tags.Format<"date-time">;
+
+    permissions: {
+      /**
+       * @title admin
+       */
+      admin: boolean;
+
+      /**
+       * @title push
+       */
+      push: boolean;
+
+      /**
+       * @title pull
+       */
+      pull: boolean;
+    };
+
+    /**
+     * @title allow_rebase_merge
+     */
+    allow_rebase_merge: boolean;
+
+    /**
+     * @title allow_squash_merge
+     */
+    allow_squash_merge: boolean;
+
+    /**
+     * @title allow_auto_merge
+     */
+    allow_auto_merge: boolean;
+
+    /**
+     * @title delete_branch_on_merge
+     */
+    delete_branch_on_merge: boolean;
+
+    /**
+     * @title allow_merge_commit
+     */
+    allow_merge_commit: boolean;
+
+    /**
+     * @title subscribers_count
+     */
+    subscribers_count: number & tags.Type<"uint32">;
+
+    /**
+     * @title network_count
+     */
+    network_count: number & tags.Type<"uint32">;
+
+    license?: {
+      /**
+       * @title key
+       */
+      key: string & Placeholder<"mit">;
+
+      /**
+       * @title name
+       */
+      name: string & Placeholder<"MIT License">;
+
+      /**
+       * @title url
+       */
+      url: string & Placeholder<"https://api.github.com/licenses/mit">;
+
+      /**
+       * @title spdx_id
+       */
+      spdx_id: string & Placeholder<"MIT">;
+    };
+
+    /**
+     * @title forks
+     */
+    forks: number & tags.Type<"uint32">;
+
+    /**
+     * @title open_issues
+     */
+    open_issues: number & tags.Type<"uint32">;
+
+    /**
+     * @title watchers
+     */
+    watchers: number & tags.Type<"uint32">;
   };
 }
