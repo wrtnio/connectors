@@ -1,6 +1,7 @@
 import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -44,7 +45,9 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
-  export interface IGetFolloweeInput extends ICommonPaginationInput {
+  export interface IGetFolloweeInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github", ["user"]> {
     /**
      * @title user's nickname
      */
@@ -58,7 +61,9 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
-  export interface IGetFollowerInput extends ICommonPaginationInput {
+  export interface IGetFollowerInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github", ["user"]> {
     /**
      * @title user's nickname
      */
@@ -75,7 +80,9 @@ export namespace IGithub {
     }[];
   }
 
-  export interface IGetCommitListInput extends ICommonPaginationInput {
+  export interface IGetCommitListInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
      */
@@ -231,7 +238,7 @@ export namespace IGithub {
     }[];
   }
 
-  export interface IGetCommitInput {
+  export interface IGetCommitInput extends ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
      */
@@ -256,7 +263,8 @@ export namespace IGithub {
   }
 
   export interface IGetBranchInput
-    extends StrictOmit<ICommonPaginationInput, "order"> {
+    extends StrictOmit<ICommonPaginationInput, "order">,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
      */
@@ -276,7 +284,8 @@ export namespace IGithub {
   }
 
   export interface IGetUserRepositoryInput
-    extends StrictOmit<ICommonPaginationInput, "order"> {
+    extends StrictOmit<ICommonPaginationInput, "order">,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title username
      *
