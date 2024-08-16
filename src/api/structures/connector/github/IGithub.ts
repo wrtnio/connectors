@@ -25,6 +25,21 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export type IGetBranchOutput = IGithub.Branch[];
+
+  export interface IGetBranchInput
+    extends StrictOmit<ICommonPaginationInput, "order"> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+  }
+
   export type IGetUserRepositoryOutput = IGithub.Repository[];
 
   export interface IGetUserRepositoryInput
@@ -246,6 +261,8 @@ export namespace IGithub {
 
     /**
      * @title full_name
+     *
+     * This is in the form '{username}/{reponame}'.
      */
     full_name: string;
 
@@ -457,5 +474,34 @@ export namespace IGithub {
      * @title watchers
      */
     watchers: number & tags.Type<"uint32">;
+  };
+
+  export type Branch = {
+    /**
+     * @title name of Branch
+     */
+    name: string;
+
+    /**
+     * @title commit
+     *
+     * In github, branch is just another name for the last node of a commit,
+     * so this property called commit is logically the same as what it means for that branch.
+     */
+    commit: Pick<IGithub.Commit, "sha" | "url">;
+  };
+
+  export type Commit = {
+    /**
+     * @title hash of this commit
+     */
+    sha: string;
+
+    /**
+     * @title uri
+     *
+     * uri to look up details of commitment
+     */
+    url: string & tags.Format<"uri">;
   };
 }
