@@ -49,7 +49,37 @@ export class GithubProvider {
     const { owner, repo, ...rest } = input;
     const queryParameter = createQueryParameter(rest);
     const url = `https://api.github.com/repos/${owner}/${repo}/branches?${queryParameter}`;
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
+    return res.data;
+  }
+
+  async getCommit(
+    input: IGithub.IGetCommitInput,
+  ): Promise<IGithub.IGetCommitOutput> {
+    const { owner, repo, ref } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
+    return res.data;
+  }
+
+  async getCommitDiff(
+    input: IGithub.IGetCommitInput,
+  ): Promise<IGithub.IGetCommitOutput> {
+    const { owner, repo, ref } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+diff",
+      },
+    });
     return res.data;
   }
 }
