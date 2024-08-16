@@ -6,6 +6,9 @@ export namespace IGithub {
   export interface ICommonPaginationOutput {
     /**
      * @title true if there is a next page
+     *
+     * However, since true and false are judged by comparing the number of requested objects with the number of searched objects,
+     * even if true, the next page may be empty.
      */
     nextPage: boolean;
   }
