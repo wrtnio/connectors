@@ -66,7 +66,10 @@ export namespace IGithub {
     /**
      * @title commit list
      */
-    result: Pick<Commit, "sha" | "url" | "author" | "committer" | "message">[];
+    result: {
+      sha: Commit["sha"];
+      commit: Pick<Commit, "url" | "author" | "committer" | "message">;
+    }[];
   }
 
   export interface IGetCommitListInput extends ICommonPaginationInput {
@@ -124,7 +127,14 @@ export namespace IGithub {
   }
 
   export interface IGetCommitOutput {
+    /**
+     * @title hash of this commit
+     */
     sha: string;
+
+    /**
+     * @title commit
+     */
     commit: Commit;
 
     html_url: string & tags.Format<"uri">;
