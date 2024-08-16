@@ -82,4 +82,18 @@ export class GithubProvider {
     });
     return res.data;
   }
+
+  async getCommitList(
+    input: IGithub.IGetCommitListInput,
+  ): Promise<IGithub.IGetCommitListOutput> {
+    const { owner, repo, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
+    return res.data;
+  }
 }

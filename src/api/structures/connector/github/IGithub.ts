@@ -25,39 +25,68 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export type IGetCommitListOutput = Pick<
+    Commit,
+    "sha" | "url" | "author" | "committer" | "message"
+  >[];
+
+  export interface IGetCommitListInput extends ICommonPaginationInput {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title sha
+     *
+     * SHA or branch to start listing commits from. Default: the repository’s default branch (usually main).
+     */
+    sha?: string;
+
+    /**
+     * @title path
+     *
+     * Only commits containing this file path will be returned.
+     */
+    path?: string;
+
+    /**
+     * @title author
+     *
+     * GitHub username or email address to use to filter by commit author.
+     */
+    author?: string;
+
+    /**
+     * @title committer
+     *
+     * GitHub username or email address to use to filter by commit committer.
+     */
+    committer?: string;
+
+    /**
+     * @title since
+     *
+     * Only show results that were last updated after the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Due to limitations of Git, timestamps must be between 1970-01-01 and 2099-12-31 (inclusive) or unexpected results may be returned.
+     */
+    since?: string & tags.Format<"date-time">;
+
+    /**
+     * @title until
+     *
+     * Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Due to limitations of Git, timestamps must be between 1970-01-01 and 2099-12-31 (inclusive) or unexpected results may be returned.
+     */
+    until?: string & tags.Format<"date-time">;
+  }
+
   export interface IGetCommitOutput {
     sha: string;
-    commit: {
-      /**
-       * @title author
-       */
-      author: {
-        name: string;
-        email: string & tags.Format<"email">;
-        date: string & tags.Format<"date-time">;
-      };
-
-      /**
-       * @title committer
-       */
-      committer: {
-        name: string;
-        email: string & tags.Format<"email">;
-        date: string & tags.Format<"date-time">;
-      };
-
-      /**
-       * @title commit message
-       */
-      message: string;
-
-      tree: {
-        sha: string;
-        url: string & tags.Format<"uri">;
-      };
-
-      comment_count: number & tags.Type<"uint32">;
-    };
+    commit: Commit;
 
     html_url: string & tags.Format<"uri">;
 
@@ -645,5 +674,35 @@ export namespace IGithub {
      * uri to look up details of commitment
      */
     url: string & tags.Format<"uri">;
+
+    /**
+     * @title author
+     */
+    author: {
+      name: string;
+      email: string & tags.Format<"email">;
+      date: string & tags.Format<"date-time">;
+    };
+
+    /**
+     * @title committer
+     */
+    committer: {
+      name: string;
+      email: string & tags.Format<"email">;
+      date: string & tags.Format<"date-time">;
+    };
+
+    /**
+     * @title commit message
+     */
+    message: string;
+
+    tree: {
+      sha: string;
+      url: string & tags.Format<"uri">;
+    };
+
+    comment_count: number & tags.Type<"uint32">;
   };
 }
