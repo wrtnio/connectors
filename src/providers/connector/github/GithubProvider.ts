@@ -10,10 +10,7 @@ export class GithubProvider {
   ): Promise<IGithub.ISearchUserOutput> {
     const { ...rest } = input;
     const per_page = input.per_page ?? 30;
-    const queryParameters = this.createQueryParameter({
-      ...rest,
-      per_page: per_page,
-    });
+    const queryParameters = this.createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/search/users?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
@@ -42,10 +39,7 @@ export class GithubProvider {
   ): Promise<IGithub.IGetUserRepositoryOutput> {
     const { username, ...rest } = input;
     const per_page = input.per_page ?? 30;
-    const queryParameter = this.createQueryParameter({
-      ...rest,
-      per_page,
-    });
+    const queryParameter = this.createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/repos?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
@@ -62,10 +56,7 @@ export class GithubProvider {
   ): Promise<IGithub.IGetBranchOutput> {
     const { owner, repo, ...rest } = input;
     const per_page = input.per_page ?? 30;
-    const queryParameter = this.createQueryParameter({
-      ...rest,
-      per_page,
-    });
+    const queryParameter = this.createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/repos/${owner}/${repo}/branches?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
@@ -90,14 +81,12 @@ export class GithubProvider {
     return res.data;
   }
 
-  async getCommitDiff(
-    input: IGithub.IGetCommitInput,
-  ): Promise<IGithub.IGetCommitOutput> {
+  async getCommitDiff(input: IGithub.IGetCommitInput): Promise<string> {
     const { owner, repo, ref } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
     const res = await axios.get(url, {
       headers: {
-        Accept: "application/vnd.github+diff",
+        Accept: "application/vnd.github.diff",
       },
     });
     return res.data;
@@ -108,14 +97,11 @@ export class GithubProvider {
   ): Promise<IGithub.IGetCommitListOutput> {
     const { owner, repo, ...rest } = input;
     const per_page = input.per_page ?? 30;
-    const queryParameter = this.createQueryParameter({
-      ...rest,
-      per_page,
-    });
+    const queryParameter = this.createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/repos/${owner}/${repo}/commits?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
-        Accept: "application/vnd.github+json",
+        Accept: "application/vnd.github.json",
       },
     });
 
@@ -128,10 +114,7 @@ export class GithubProvider {
   ): Promise<IGithub.IGetFollowerOutput> {
     const { username, ...rest } = input;
     const per_page = input.per_page ?? 30;
-    const queryParameter = this.createQueryParameter({
-      ...rest,
-      per_page,
-    });
+    const queryParameter = this.createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/following?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
@@ -148,10 +131,7 @@ export class GithubProvider {
   ): Promise<IGithub.IGetFolloweeOutput> {
     const { username, ...rest } = input;
     const per_page = input.per_page ?? 30;
-    const queryParameter = this.createQueryParameter({
-      ...rest,
-      per_page,
-    });
+    const queryParameter = this.createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/following?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {

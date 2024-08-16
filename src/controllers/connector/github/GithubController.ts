@@ -9,9 +9,11 @@ export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
   /**
-   * @summary
+   * Search for users by keyword in github
+   *
+   * @summary Search for users by keyword in github
    * @param input
-   * @returns
+   * @returns list of user
    */
   @core.TypedRoute.Post("get-users")
   async searchUser(
@@ -21,9 +23,11 @@ export class GithubController {
   }
 
   /**
-   * @summary
+   * Look up the user's detailed profile
+   *
+   * @summary Look up the user's detailed profile
    * @param input
-   * @returns
+   * @returns detailed profile
    */
   @core.TypedRoute.Post("get-user-profile")
   async getUserProfile(
@@ -33,9 +37,11 @@ export class GithubController {
   }
 
   /**
-   * @summary
+   * Inquire the user's repository
+   *
+   * @summary Inquire the user's repository
    * @param input
-   * @returns
+   * @returns repositories
    */
   @core.TypedRoute.Post("get-repositories")
   async getUserRepositories(
@@ -45,7 +51,9 @@ export class GithubController {
   }
 
   /**
-   * @summary
+   * Inquire the user's branch
+   *
+   * @summary Inquire the user's branch
    * @param input
    * @returns
    */
@@ -57,9 +65,12 @@ export class GithubController {
   }
 
   /**
-   * @summary
+   * Inquire the commit details of the user
+   * It contains all the history of how the file changed, so you can see the details of a single commit node.
+   *
+   * @summary Inquire the commit details of the user
    * @param input
-   * @returns
+   * @returns detailed commit history
    */
   @core.TypedRoute.Post("get-commit")
   async getCommit(
@@ -69,34 +80,38 @@ export class GithubController {
   }
 
   /**
-   * @summary
+   * Inquire the commit diff of the user
+   * diff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.
+   *
+   * @summary Inquire the commit diff of the user
    * @param input
-   * @returns
+   * @returns commit diff
    */
   @core.TypedRoute.Post("get-commit-diff")
   async getCommitDiff(
     @TypedBody() input: IGithub.IGetCommitInput,
-  ): Promise<IGithub.IGetCommitOutput> {
+  ): Promise<string> {
     return this.githubProvider.getCommitDiff(input);
   }
 
   /**
-   * @summary
+   * Look up the list of commitments for a specific repo, a specific branch
+   *
+   * @summary Look up the list of commitments for a specific repo, a specific branch
    * @param input
-   * @returns
+   * @returns list of commit
    */
   @core.TypedRoute.Post("get-commit-list")
   async getCommitList(
     @TypedBody() input: IGithub.IGetCommitListInput,
   ): Promise<IGithub.IGetCommitListOutput> {
-    const data = await this.githubProvider.getCommitList(input);
-    console.log(JSON.stringify(typia.misc.validateClone(data), null, 2));
-    console.log(JSON.stringify(data.result[0], null, 2));
-    return data;
+    return this.githubProvider.getCommitList(input);
   }
 
   /**
-   * @summary
+   * Inquire the followers of the user
+   *
+   * @summary Inquire the followers of the user
    * @param input
    * @returns
    */
@@ -108,7 +123,9 @@ export class GithubController {
   }
 
   /**
-   * @summary
+   * Inquire the followees of the user
+   *
+   * @summary Inquire the followees of the user
    * @param input
    * @returns
    */

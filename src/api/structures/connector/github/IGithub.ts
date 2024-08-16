@@ -135,7 +135,7 @@ export namespace IGithub {
     /**
      * @title commit
      */
-    commit: Commit;
+    commit: StrictOmit<Commit, "sha">;
 
     html_url: string & tags.Format<"uri">;
 
