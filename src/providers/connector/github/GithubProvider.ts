@@ -8,7 +8,11 @@ export class GithubProvider {
   async searchUser(
     input: IGithub.ISearchUserInput,
   ): Promise<IGithub.ISearchUserOutput> {
-    const queryParameters = createQueryParameter(input);
+    const { ...rest } = input;
+    const queryParameters = this.createQueryParameter({
+      ...rest,
+      per_page: Number(rest.per_page) ?? 30,
+    });
     const url = `https://api.github.com/search/users?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
