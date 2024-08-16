@@ -89,7 +89,10 @@ export class GithubController {
   async getCommitList(
     @TypedBody() input: IGithub.IGetCommitListInput,
   ): Promise<IGithub.IGetCommitListOutput> {
-    return this.githubProvider.getCommitList(input);
+    const data = await this.githubProvider.getCommitList(input);
+    console.log(JSON.stringify(typia.misc.validateClone(data), null, 2));
+    console.log(JSON.stringify(data.result[0], null, 2));
+    return data;
   }
 
   /**
