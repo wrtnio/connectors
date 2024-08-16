@@ -4,9 +4,27 @@ import axios from "axios";
 
 @Injectable()
 export class GithubProvider {
-  async searchUser(input: IGithub.ISearchUserInput) {
+  async searchUser(
+    input: IGithub.ISearchUserInput,
+  ): Promise<IGithub.ISearchUserOutput> {
     const url = `https://api.github.com/search/users?q=${input.q}`;
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
+    return res.data;
+  }
+
+  async getUserProfile(
+    input: IGithub.IGetUserProfileInput,
+  ): Promise<IGithub.IGetUserProfileOutput> {
+    const url = `https://api.github.com/users/${input.username}`;
+    const res = await axios.get(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    });
     return res.data;
   }
 }
