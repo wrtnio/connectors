@@ -2,6 +2,7 @@ import { Controller } from "@nestjs/common";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import core, { TypedBody } from "@nestia/core";
+import typia from "typia";
 
 @Controller("connector/github")
 export class GithubController {

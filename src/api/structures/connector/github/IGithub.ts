@@ -480,11 +480,6 @@ export namespace IGithub {
     full_name: string;
 
     /**
-     * @title owner
-     */
-    owner: Pick<User, "id" | "login" | "avatar_url" | "type" | "html_url">;
-
-    /**
      * @title private
      */
     private: boolean;
@@ -599,7 +594,7 @@ export namespace IGithub {
      */
     updated_at: string & tags.Format<"date-time">;
 
-    permissions: {
+    permissions?: {
       /**
        * @title admin
        */
@@ -619,39 +614,39 @@ export namespace IGithub {
     /**
      * @title allow_rebase_merge
      */
-    allow_rebase_merge: boolean;
+    allow_rebase_merge?: boolean;
 
     /**
      * @title allow_squash_merge
      */
-    allow_squash_merge: boolean;
+    allow_squash_merge?: boolean;
 
     /**
      * @title allow_auto_merge
      */
-    allow_auto_merge: boolean;
+    allow_auto_merge?: boolean;
 
     /**
      * @title delete_branch_on_merge
      */
-    delete_branch_on_merge: boolean;
+    delete_branch_on_merge?: boolean;
 
     /**
      * @title allow_merge_commit
      */
-    allow_merge_commit: boolean;
+    allow_merge_commit?: boolean;
 
     /**
      * @title subscribers_count
      */
-    subscribers_count: number & tags.Type<"uint32">;
+    subscribers_count?: number & tags.Type<"uint32">;
 
     /**
      * @title network_count
      */
-    network_count: number & tags.Type<"uint32">;
+    network_count?: number & tags.Type<"uint32">;
 
-    license?: {
+    license: null | {
       /**
        * @title key
        */
@@ -665,7 +660,7 @@ export namespace IGithub {
       /**
        * @title url
        */
-      url: string & Placeholder<"https://api.github.com/licenses/mit">;
+      url: (string & Placeholder<"https://api.github.com/licenses/mit">) | null;
 
       /**
        * @title spdx_id
