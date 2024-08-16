@@ -14,13 +14,16 @@ export namespace IGithub {
      * @title per_page
      * The number of results per page (max 100).
      */
-    per_page?: tags.Type<"uint64"> & tags.Default<30> & tags.Maximum<100>;
+    per_page?: number &
+      tags.Type<"uint64"> &
+      tags.Default<30> &
+      tags.Maximum<100>;
 
     /**
      * @title page
      * The page number of the results to fetch.
      */
-    page?: tags.Type<"uint64"> & tags.Default<1>;
+    page?: number & tags.Type<"uint64"> & tags.Default<1>;
 
     /**
      * @title order
@@ -431,7 +434,7 @@ export namespace IGithub {
      *
      * This means the user's ID.
      */
-    id: 55487286;
+    id: number;
 
     /**
      * @title avatar url
@@ -455,7 +458,7 @@ export namespace IGithub {
     /**
      * @title score
      */
-    score: 1.0;
+    score: number;
   };
 
   export type Repository = {
