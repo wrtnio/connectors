@@ -25,6 +25,148 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export interface IGetCommitOutput {
+    sha: string;
+    commit: {
+      /**
+       * @title author
+       */
+      author: {
+        name: string;
+        email: string & tags.Format<"email">;
+        date: string & tags.Format<"date-time">;
+      };
+
+      /**
+       * @title committer
+       */
+      committer: {
+        name: string;
+        email: string & tags.Format<"email">;
+        date: string & tags.Format<"date-time">;
+      };
+
+      /**
+       * @title commit message
+       */
+      message: string;
+
+      tree: {
+        sha: string;
+        url: string & tags.Format<"uri">;
+      };
+
+      comment_count: number & tags.Type<"uint32">;
+    };
+
+    html_url: string & tags.Format<"uri">;
+
+    /**
+     * @title Parents of this commit
+     */
+    parents: Pick<Commit, "sha">[];
+
+    stats: {
+      /**
+       * @title sum of additions and deletions
+       */
+      total: number & tags.Type<"uint32">;
+
+      /**
+       * @title lines of additions
+       */
+      additions: number & tags.Type<"uint32">;
+
+      /**
+       * @title lines of deletions
+       */
+      deletions: number & tags.Type<"uint32">;
+    };
+
+    /**
+     * @title files
+     *
+     * You can see the changes for each file.
+     */
+    files: {
+      /**
+       * @title hash of this file
+       */
+      sha: string;
+
+      /**
+       * @title filename
+       */
+      filename: string;
+
+      /**
+       * @title status of file in this commit
+       */
+      status:
+        | "added"
+        | "removed"
+        | "modified"
+        | "renamed"
+        | "copied"
+        | "changed"
+        | "unchanged";
+
+      /**
+       * @title additions
+       */
+      additions: number & tags.Type<"uint32">;
+
+      /**
+       * @title deletions
+       */
+      deletions: number & tags.Type<"uint32">;
+
+      /**
+       * @title changes
+       */
+      changes: number & tags.Type<"uint32">;
+
+      /**
+       * @title blob_url
+       *
+       * This is the path through which you can view the file through the github website.
+       */
+      blob_url: string & tags.Format<"uri">;
+
+      /**
+       * @title raw_url
+       *
+       * The API path through which the contents of the file can be viewed.
+       */
+      raw_url: string & tags.Format<"uri">;
+
+      /**
+       * @title patch
+       *
+       * It means how much it has changed compared to previous commitments.
+       * It gives you a text form to see what code has actually changed.
+       */
+      patch: string;
+    }[];
+  }
+
+  export interface IGetCommitInput {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title commit hash or branch name
+     */
+    ref: string;
+  }
+
   export type IGetBranchOutput = IGithub.Branch[];
 
   export interface IGetBranchInput
