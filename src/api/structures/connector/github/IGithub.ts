@@ -3,6 +3,12 @@ import { StrictOmit } from "../../../../utils/strictOmit";
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 
 export namespace IGithub {
+  export interface ICommonPaginationOutput {
+    /**
+     * @title true if there is a next page
+     */
+    nextPage: boolean;
+  }
   export interface ICommonPaginationInput {
     /**
      * @title per_page
@@ -25,10 +31,12 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
-  export type IGetFolloweeOutput = Pick<
-    User,
-    "id" | "login" | "avatar_url" | "html_url"
-  >[];
+  export interface IGetFolloweeOutput extends ICommonPaginationOutput {
+    /**
+     * @title followees
+     */
+    result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
+  }
 
   export interface IGetFolloweeInput extends ICommonPaginationInput {
     /**
@@ -37,10 +45,12 @@ export namespace IGithub {
     username: User["login"];
   }
 
-  export type IGetFollowerOutput = Pick<
-    User,
-    "id" | "login" | "avatar_url" | "html_url"
-  >[];
+  export interface IGetFollowerOutput extends ICommonPaginationOutput {
+    /**
+     * @title followers
+     */
+    result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
+  }
 
   export interface IGetFollowerInput extends ICommonPaginationInput {
     /**
@@ -49,10 +59,12 @@ export namespace IGithub {
     username: User["login"];
   }
 
-  export type IGetCommitListOutput = Pick<
-    Commit,
-    "sha" | "url" | "author" | "committer" | "message"
-  >[];
+  export interface IGetCommitListOutput extends ICommonPaginationOutput {
+    /**
+     * @title commit list
+     */
+    result: Pick<Commit, "sha" | "url" | "author" | "committer" | "message">[];
+  }
 
   export interface IGetCommitListInput extends ICommonPaginationInput {
     /**
@@ -220,7 +232,12 @@ export namespace IGithub {
     ref: string;
   }
 
-  export type IGetBranchOutput = IGithub.Branch[];
+  export interface IGetBranchOutput extends ICommonPaginationOutput {
+    /**
+     * @title branches
+     */
+    result: IGithub.Branch[];
+  }
 
   export interface IGetBranchInput
     extends StrictOmit<ICommonPaginationInput, "order"> {
@@ -235,7 +252,12 @@ export namespace IGithub {
     repo: Repository["name"];
   }
 
-  export type IGetUserRepositoryOutput = IGithub.Repository[];
+  export interface IGetUserRepositoryOutput extends ICommonPaginationOutput {
+    /**
+     * @title repositories
+     */
+    result: IGithub.Repository[];
+  }
 
   export interface IGetUserRepositoryInput
     extends StrictOmit<ICommonPaginationInput, "order"> {
@@ -366,20 +388,13 @@ export namespace IGithub {
     username: string;
   }
 
-  export interface ISearchUserOutput {
-    /**
-     * @title total count of users
-     */
-    total_count: number & tags.Type<"uint64">;
-
-    incomplete_results: boolean;
-
+  export interface ISearchUserOutput extends ICommonPaginationOutput {
     /**
      * @title User Search Result Item
      *
      * User Search Result Item
      */
-    items: IGithub.User[];
+    result: IGithub.User[];
   }
 
   export interface ISearchUserInput extends ICommonPaginationInput {
