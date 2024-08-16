@@ -1,6 +1,7 @@
+import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
-import { Placeholder, Prerequisite } from "@wrtnio/decorators";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -11,7 +12,54 @@ export namespace IGithub {
      * even if true, the next page may be empty.
      */
     nextPage: boolean;
+
+    /**
+     * @title after
+     *
+     * If this is the response value for cursor-based pagenation, it provides a hash code for the next page.
+     */
+    after?: string;
+
+    /**
+     * @title before
+     *
+     * If this is the response value for cursor-based pagenation, it provides a hash code for the previous page.
+     */
+    before?: string;
+
+    /**
+     * @title prev
+     *
+     * If this is a response by offset-based pagenation, provide metadata for the next page.
+     * This means the previous page.
+     */
+    prev?: number | null;
+
+    /**
+     * @title next
+     *
+     * If this is a response by offset-based pagenation, provide metadata for the next page.
+     * This means the next page.
+     */
+    next?: number | null;
+
+    /**
+     * @title last
+     *
+     * If this is a response by offset-based pagenation, provide metadata for the next page.
+     * This means the last page.
+     */
+    last?: number;
+
+    /**
+     * @title first
+     *
+     * If this is a response by offset-based pagenation, provide metadata for the next page.
+     * This means the first page.
+     */
+    first?: number;
   }
+
   export interface ICommonPaginationInput {
     /**
      * @title per_page
@@ -37,6 +85,78 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export interface IGetRepositoryActivityOutput
+    extends ICommonPaginationOutput {
+    /**
+     * @title result of repository activities
+     */
+    result: Activity[];
+  }
+
+  export interface IGetRepositoryActivityInput
+    extends StrictOmit<ICommonPaginationInput, "order" | "page">,
+      ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title direction
+     * The order to sort by.
+     * Default: asc when using full_name, otherwise desc.
+     */
+    direction?: ICommonPaginationInput["order"];
+
+    /**
+     * @title before
+     *
+     * A cursor, as given in the Link header.
+     * If specified, the query only searches for results before this cursor.
+     */
+    before?: IGetRepositoryActivityOutput["before"];
+
+    /**
+     * @title after
+     *
+     * A cursor, as given in the Link header.
+     * If specified, the query only searches for results after this cursor.
+     */
+    after?: IGetRepositoryActivityOutput["after"];
+
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title ref
+     *
+     * The name of one of the branches of this repository.
+     */
+    ref?: Branch["name"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/get-branches";
+        jmesPath: "result[].{value:name, label:name}";
+      }>;
+
+    /**
+     * @title username
+     */
+    actor?: User["login"];
+
+    /**
+     * @title time_period
+     */
+    time_period?: "day" | "week" | "month" | "quarter" | "year";
+
+    /**
+     * @title activity_type
+     */
+    activity_type?: Activity["activity_type"];
+  }
+
   export interface IGetFolloweeOutput extends ICommonPaginationOutput {
     /**
      * @title followees
@@ -44,7 +164,9 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
-  export interface IGetFolloweeInput extends ICommonPaginationInput {
+  export interface IGetFolloweeInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github", ["user"]> {
     /**
      * @title user's nickname
      */
@@ -58,7 +180,9 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
-  export interface IGetFollowerInput extends ICommonPaginationInput {
+  export interface IGetFollowerInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github", ["user"]> {
     /**
      * @title user's nickname
      */
@@ -75,7 +199,9 @@ export namespace IGithub {
     }[];
   }
 
-  export interface IGetCommitListInput extends ICommonPaginationInput {
+  export interface IGetCommitListInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
      */
@@ -231,7 +357,7 @@ export namespace IGithub {
     }[];
   }
 
-  export interface IGetCommitInput {
+  export interface IGetCommitInput extends ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
      */
@@ -256,7 +382,8 @@ export namespace IGithub {
   }
 
   export interface IGetBranchInput
-    extends StrictOmit<ICommonPaginationInput, "order"> {
+    extends StrictOmit<ICommonPaginationInput, "order">,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
      */
@@ -276,7 +403,8 @@ export namespace IGithub {
   }
 
   export interface IGetUserRepositoryInput
-    extends StrictOmit<ICommonPaginationInput, "order"> {
+    extends StrictOmit<ICommonPaginationInput, "order">,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title username
      *
@@ -397,7 +525,7 @@ export namespace IGithub {
     updated_at: string & tags.Format<"date-time">;
   }
 
-  export interface IGetUserProfileInput {
+  export interface IGetUserProfileInput extends ICommon.ISecret<"github"> {
     /**
      * @title username
      */
@@ -413,7 +541,9 @@ export namespace IGithub {
     result: IGithub.User[];
   }
 
-  export interface ISearchUserInput extends ICommonPaginationInput {
+  export interface ISearchUserInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github"> {
     /**
      * @title keyword
      *
@@ -466,7 +596,7 @@ export namespace IGithub {
     /**
      * @title type
      */
-    type: "User";
+    type: "User" | "Bot";
 
     /**
      * @title score
@@ -754,5 +884,38 @@ export namespace IGithub {
     };
 
     comment_count: number & tags.Type<"uint32">;
+  };
+
+  export type Activity = {
+    /**
+     * @title id
+     */
+    id: number;
+
+    /**
+     * @title ref
+     */
+    ref: string & Placeholder<"refs/heads/main">;
+
+    /**
+     * @title timestamp
+     */
+    timestamp: string & tags.Format<"date-time">;
+
+    /**
+     * @title activity type
+     */
+    activity_type:
+      | tags.Constant<"push", { title: "push" }>
+      | tags.Constant<"force_push", { title: "force_push" }>
+      | tags.Constant<"branch_creation", { title: "branch_creation" }>
+      | tags.Constant<"branch_deletion", { title: "branch_deletion" }>
+      | tags.Constant<"pr_merge", { title: "pr_merge" }>
+      | tags.Constant<"merge_queue_merge", { title: "merge_queue_merge" }>;
+
+    /**
+     * @title actor
+     */
+    actor: Pick<User, "id" | "login" | "avatar_url" | "type">;
   };
 }

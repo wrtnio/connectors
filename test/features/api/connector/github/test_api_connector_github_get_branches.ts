@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export async function test_api_connector_github_get_branches(
   connection: CApi.IConnection,
@@ -10,6 +11,7 @@ export async function test_api_connector_github_get_branches(
       {
         owner: "samchon",
         repo: "nestia",
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
 
