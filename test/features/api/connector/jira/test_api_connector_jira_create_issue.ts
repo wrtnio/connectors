@@ -5,7 +5,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 const Configuration = {
   email: "studio@wrtn.io",
-  apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  token: ConnectorGlobal.env.JIRA_TEST_SECRET,
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
@@ -16,7 +16,7 @@ export const test_api_connector_jira_create_random_issue_code_block = async (
   const case1 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -47,7 +47,7 @@ export const test_api_connector_jira_create_random_issue_code_block = async (
   const case2 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -81,7 +81,7 @@ export const test_api_connector_jira_create_random_issue_code_block = async (
   const case3 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -119,7 +119,7 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   const case1 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -151,7 +151,7 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   const case2 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -183,7 +183,7 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   const case3 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -223,7 +223,7 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   const res = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -248,7 +248,7 @@ export const test_api_connector_jira_create_random_issue_paragraph_2 = async (
   const failedCase = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -294,7 +294,7 @@ export const test_api_connector_jira_create_random_issue_paragraph_3 = async (
   const failedCase = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -356,7 +356,7 @@ export const test_api_connector_jira_create_random_issue_media_single = async (
   const case1 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -395,7 +395,7 @@ export const test_api_connector_jira_create_random_issue_media_single = async (
   const case2 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -434,7 +434,7 @@ export const test_api_connector_jira_create_random_issue_media_single = async (
   const case3 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -473,7 +473,7 @@ export const test_api_connector_jira_create_random_issue_media_single = async (
   const case4 = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -516,7 +516,7 @@ export const test_api_connector_jira_create_random_issue_mention = async (
     await CApi.functional.connector.jira.projects.get_users_assignable.getUsersAssignableInProject(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         project_key: "KAK",
       },
     );
@@ -524,7 +524,7 @@ export const test_api_connector_jira_create_random_issue_mention = async (
   const res = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },
@@ -561,7 +561,7 @@ export const test_api_connector_jira_create_random_issue_blockquote = async (
   const res = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST",
         project: { key: "KAK" },

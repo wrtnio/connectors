@@ -6,7 +6,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 const Configuration = {
   email: "studio@wrtn.io",
-  apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  token: ConnectorGlobal.env.JIRA_TEST_SECRET,
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
@@ -16,7 +16,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
     const issue = await CApi.functional.connector.jira.issues.createIssue(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         fields: {
           summary: "CREATION OF ISSUE",
           project: { key: "KAK" },
@@ -35,7 +35,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
       await CApi.functional.connector.jira.issues.get_comments.getComments(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.id,
         },
       );
@@ -45,7 +45,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
       await CApi.functional.connector.jira.issues.comments.createComment(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.id,
           body: {
             type: "doc",
@@ -70,7 +70,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
       await CApi.functional.connector.jira.issues.get_comments.getComments(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.key, // 이번에는 키를 이용해서 조회해본다.
         },
       );
@@ -98,7 +98,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
     await CApi.functional.connector.jira.issues.comments.updateComment(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         issueIdOrKey: issue.id,
         commentId: comment.id,
         body: {
@@ -113,7 +113,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
       await CApi.functional.connector.jira.issues.get_comments.getComments(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.key,
         },
       );
@@ -129,7 +129,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
     await CApi.functional.connector.jira.issues.comments.deleteComment(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         issueIdOrKey: issue.id,
         commentId: comment.id,
       },
@@ -140,7 +140,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
       await CApi.functional.connector.jira.issues.get_comments.getComments(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.key, // 이번에는 키를 이용해서 조회해본다.
         },
       );
