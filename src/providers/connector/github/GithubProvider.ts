@@ -48,10 +48,11 @@ export class GithubProvider {
   async getUserProfile(
     input: IGithub.IGetUserProfileInput,
   ): Promise<IGithub.IGetUserProfileOutput> {
-    const url = `https://api.github.com/users/${input.username}`;
+    const { secretKey, ...rest } = input;
+    const url = `https://api.github.com/users/${rest.username}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${secretKey}`,
         Accept: "application/vnd.github+json",
       },
     });
