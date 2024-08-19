@@ -353,7 +353,7 @@ export namespace IGithub {
        * It means how much it has changed compared to previous commitments.
        * It gives you a text form to see what code has actually changed.
        */
-      patch: string;
+      patch?: string;
     }[];
   }
 
