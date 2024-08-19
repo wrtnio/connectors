@@ -279,31 +279,35 @@ export class JiraProvider {
   }
 
   async getAuthorizationAndDomain(
-    input:
-      | { secretKey: string }
-      | { domain: string; email: string; apiToken: string },
+    input: { secretKey: string } | IJira.BasicAuthorization,
   ): Promise<{ Authorization: string; domain: string }> {
     const Authorization = await this.getAuthorization(input);
-    if (typia.is<{ secretKey: string }>(input)) {
+    if ("email" in input && "token" in input) {
+      const domain = `${input.domain}/rest/api/3`;
+      return { Authorization, domain };
+    } else {
+      // OAuth
       const accessTokenDto = await this.refresh({ secretKey: input.secretKey });
       const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
       const domain = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3`;
-      return { Authorization, domain };
-    } else {
-      const domain = `${input.domain}/rest/api/3`;
       return { Authorization, domain };
     }
   }
 
   async getAuthorization(
-    input: { secretKey: string } | { email: string; apiToken: string },
+    input:
+      | IJira.IBasicSecret
+      | Pick<IJira.BasicAuthorization, "token" | "email">,
   ) {
-    if ("secretKey" in input) {
+    // secretKey를 가지고 있지만 OAuth가 아닌 경우가 있을 수 있기 때문에 email, token 검증을 먼저 하게 한다. (basic auth 우선)
+    if ("email" in input && "token" in input) {
+      const basicAuth = `${input.email}:${input.token}`;
+      return `Basic ${Buffer.from(basicAuth).toString("base64")}`;
+    } else if ("secretKey" in input) {
       const { access_token } = await this.refresh(input);
       return `Bearer ${access_token}`;
     } else {
-      const basicAuth = `${input.email}:${input.apiToken}`;
-      return `Basic ${Buffer.from(basicAuth).toString("base64")}`;
+      throw new Error("getAuthorization error");
     }
   }
 
@@ -402,7 +406,7 @@ export class JiraProvider {
     try {
       await this.updateIssue(input.issueId, {
         email: input.email,
-        apiToken: input.apiToken,
+        token: input.token,
         domain: input.domain,
         fields: {
           assignee: {
@@ -420,7 +424,7 @@ export class JiraProvider {
     try {
       await this.updateIssue(input.issueId, {
         email: input.email,
-        apiToken: input.apiToken,
+        token: input.token,
         domain: input.domain,
         fields: {
           assignee: {
@@ -556,5 +560,9 @@ export class JiraProvider {
       }
       throw err;
     }
+  }
+
+  parseSecretKey(input: IJira.IBasicSecret): IJira.BasicAuthorization {
+    return typia.json.assertParse<IJira.BasicAuthorization>(input.secretKey);
   }
 }

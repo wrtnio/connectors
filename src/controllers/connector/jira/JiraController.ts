@@ -3,6 +3,7 @@ import { Controller } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import { RouteIcon } from "@wrtnio/decorators";
 import { JiraProvider } from "../../../providers/connector/jira/JiraProvider";
+import { StrictOmit } from "../../../utils/strictOmit";
 
 @Controller("connector/jira")
 export class JiraController {
@@ -29,9 +30,12 @@ export class JiraController {
   )
   @core.TypedRoute.Delete("issues/comments")
   async deleteComment(
-    @TypedBody() input: IJira.IDeleteCommentInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IDeleteCommentInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<void> {
-    return this.jiraProvider.deleteComment(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.deleteComment({ ...input, ...authorization });
   }
 
   /**
@@ -54,9 +58,12 @@ export class JiraController {
   )
   @core.TypedRoute.Put("issues/comments")
   async updateComment(
-    @TypedBody() input: IJira.IUpdateCommentInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IUpdateCommentInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<void> {
-    return this.jiraProvider.updateComment(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.updateComment({ ...input, ...authorization });
   }
 
   /**
@@ -77,9 +84,12 @@ export class JiraController {
   )
   @core.TypedRoute.Post("issues/comments")
   async createComment(
-    @TypedBody() input: IJira.ICreateCommentInput,
+    @TypedBody()
+    input: StrictOmit<IJira.ICreateCommentInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<IJira.ICreateCommentOutput> {
-    return this.jiraProvider.createComment(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.createComment({ ...input, ...authorization });
   }
 
   /**
@@ -105,9 +115,12 @@ export class JiraController {
   )
   @core.TypedRoute.Post("issues/get-comments")
   async getComments(
-    @TypedBody() input: IJira.IGetCommentInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IGetCommentInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetCommentOutput> {
-    return this.jiraProvider.getComments(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getComments({ ...input, ...authorization });
   }
 
   /**
@@ -133,9 +146,12 @@ export class JiraController {
   )
   @core.TypedRoute.Post("issues/get-transitions")
   async getTransitions(
-    @TypedBody() input: IJira.IGetTransitionInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IGetTransitionInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetTransitionOutput> {
-    return this.jiraProvider.getTransitions(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getTransitions({ ...input, ...authorization });
   }
 
   /**
@@ -155,8 +171,13 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
   @core.TypedRoute.Delete("issues/asignee")
-  async unassign(@TypedBody() input: IJira.IUnAssignInput): Promise<void> {
-    return this.jiraProvider.unassign(input);
+  async unassign(
+    @TypedBody()
+    input: StrictOmit<IJira.IUnAssignInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
+  ): Promise<void> {
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.unassign({ ...input, ...authorization });
   }
 
   /**
@@ -176,8 +197,13 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Jira.svg`,
   )
   @core.TypedRoute.Put("issues/asignee")
-  async assign(@TypedBody() input: IJira.IAssignInput): Promise<void> {
-    return this.jiraProvider.assign(input);
+  async assign(
+    @TypedBody()
+    input: StrictOmit<IJira.IAssignInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
+  ): Promise<void> {
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.assign({ ...input, ...authorization });
   }
 
   /**
@@ -201,9 +227,12 @@ export class JiraController {
   )
   @core.TypedRoute.Put("issues/status")
   async updateIssueStatus(
-    @TypedBody() input: IJira.IUpdateStatusInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IUpdateStatusInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<void> {
-    return this.jiraProvider.updateIssueStatus(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.updateIssueStatus({ ...input, ...authorization });
   }
 
   /**
@@ -231,9 +260,12 @@ export class JiraController {
   @core.TypedRoute.Put("issues/:id")
   async updateIssue(
     @TypedParam("id") id: IJira.Issue["id"],
-    @TypedBody() input: IJira.IUpdateIssueInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IUpdateIssueInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<void> {
-    return this.jiraProvider.updateIssue(id, input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.updateIssue(id, { ...input, ...authorization });
   }
 
   /**
@@ -260,9 +292,12 @@ export class JiraController {
   )
   @core.TypedRoute.Post("issues")
   async createIssue(
-    @TypedBody() input: IJira.ICreateIssueInput,
+    @TypedBody()
+    input: StrictOmit<IJira.ICreateIssueInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<IJira.ICreateIssueOutput> {
-    return this.jiraProvider.createIssue(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.createIssue({ ...input, ...authorization });
   }
 
   /**
@@ -288,9 +323,15 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-issue-detail")
   async getIssueDetail(
-    @TypedBody() input: IJira.IGetIssueDetailInput,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetIssueDetailInput,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueDetailOutput> {
-    return this.jiraProvider.getIssueDetail(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getIssueDetail({ ...input, ...authorization });
   }
 
   /**
@@ -313,9 +354,15 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-issues")
   async getIssues(
-    @TypedBody() input: IJira.IGetIssueInputByBasicAuth,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetIssueInputByBasicAuth,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueOutput> {
-    return this.jiraProvider.getIssues(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getIssues({ ...input, ...authorization });
   }
 
   /**
@@ -341,9 +388,15 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-projects")
   async getProjects(
-    @TypedBody() input: IJira.IGetProjectInputByBasicAuth,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetProjectInputByBasicAuth,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetProjectOutput> {
-    return this.jiraProvider.getProjects(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getProjects({ ...input, ...authorization });
   }
 
   /**
@@ -364,9 +417,12 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-issue-labels")
   async getIssueLabels(
-    @TypedBody() input: IJira.IGetIssueLabelInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IGetIssueLabelInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueLabelOutput> {
-    return this.jiraProvider.getIssueLabels(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getIssueLabels({ ...input, ...authorization });
   }
 
   /**
@@ -392,9 +448,12 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-issue-types")
   async getIssueTypes(
-    @TypedBody() input: IJira.IGetIssueTypeInput,
+    @TypedBody()
+    input: StrictOmit<IJira.IGetIssueTypeInput, "domain" | "email" | "token"> &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueTypeOutput> {
-    return this.jiraProvider.getIssueTypes(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getIssueTypes({ ...input, ...authorization });
   }
 
   /**
@@ -415,9 +474,15 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-issue-statuses")
   async getIssueStatus(
-    @TypedBody() input: IJira.IGetIssueStatusInput,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetIssueStatusInput,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueStatusOutput> {
-    return this.jiraProvider.getIssueStatuses(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getIssueStatuses({ ...input, ...authorization });
   }
 
   /**
@@ -441,9 +506,15 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-issue-priorities")
   async getIssuePriorities(
-    @TypedBody() input: IJira.IGetIssuePriorityInput,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetIssuePriorityInput,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssuePriorityOutput> {
-    return this.jiraProvider.getIssuePriorities(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getIssuePriorities({ ...input, ...authorization });
   }
 
   /**
@@ -464,9 +535,18 @@ export class JiraController {
   )
   @core.TypedRoute.Post("issues/get-users-assignable")
   async getUsersAssignableInIssue(
-    @TypedBody() input: IJira.IGetIssueAssignableInput,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetIssueAssignableInput,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueAssignableOutput> {
-    return this.jiraProvider.getUsersAssignableInIssue(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getUsersAssignableInIssue({
+      ...input,
+      ...authorization,
+    });
   }
 
   /**
@@ -487,9 +567,18 @@ export class JiraController {
   )
   @core.TypedRoute.Post("projects/get-users-assignable")
   async getUsersAssignableInProject(
-    @TypedBody() input: IJira.IGetProjectAssignableInput,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetProjectAssignableInput,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetProjectAssignableOutput> {
-    return this.jiraProvider.getUsersAssignableInProject(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getUsersAssignableInProject({
+      ...input,
+      ...authorization,
+    });
   }
 
   /**
@@ -510,8 +599,17 @@ export class JiraController {
   )
   @core.TypedRoute.Post("get-status-categories")
   async getStatusCategories(
-    @TypedBody() input: IJira.IGetStatusCategoryInput,
+    @TypedBody()
+    input: StrictOmit<
+      IJira.IGetStatusCategoryInput,
+      "domain" | "email" | "token"
+    > &
+      IJira.IBasicSecret,
   ): Promise<IJira.IGetStatusCategoryOutput> {
-    return this.jiraProvider.getStatusCategories(input);
+    const authorization = this.jiraProvider.parseSecretKey(input);
+    return this.jiraProvider.getStatusCategories({
+      ...input,
+      ...authorization,
+    });
   }
 }

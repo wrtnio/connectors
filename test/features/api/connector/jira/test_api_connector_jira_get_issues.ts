@@ -4,6 +4,12 @@ import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { test_api_connector_jira_get_projects } from "./test_api_connector_jira_get_projects";
 
+const Configuration = {
+  email: "studio@wrtn.io",
+  token: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  domain: "https://wrtn-ecosystem.atlassian.net",
+} as const;
+
 export const test_api_connector_jira_get_issues_without_paramter = async (
   connection: CApi.IConnection,
 ) => {
@@ -14,9 +20,7 @@ export const test_api_connector_jira_get_issues_without_paramter = async (
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: project.key,
       },
     );
@@ -36,9 +40,7 @@ export const test_api_connector_jira_get_issues_with_issue_type = async (
       await CApi.functional.connector.jira.get_issue_types.getIssueTypes(
         connection,
         {
-          email: "studio@wrtn.io",
-          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-          domain: "https://wrtn-ecosystem.atlassian.net",
+          secretKey: JSON.stringify(Configuration),
           projectId: project.id,
         },
       );
@@ -46,9 +48,7 @@ export const test_api_connector_jira_get_issues_with_issue_type = async (
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: project.key,
         issuetype: issuetypes[0].id,
       },
@@ -69,9 +69,7 @@ export const test_api_connector_jira_get_issues_with_status = async (
       await CApi.functional.connector.jira.get_issue_statuses.getIssueStatus(
         connection,
         {
-          email: "studio@wrtn.io",
-          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-          domain: "https://wrtn-ecosystem.atlassian.net",
+          secretKey: JSON.stringify(Configuration),
           projectId: project.id,
         },
       );
@@ -79,9 +77,7 @@ export const test_api_connector_jira_get_issues_with_status = async (
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: project.key,
         status: statuses[0].untranslatedName as any,
       },
@@ -102,9 +98,7 @@ export const test_api_connector_jira_get_issues_with_assignees = async (
       await CApi.functional.connector.jira.projects.get_users_assignable.getUsersAssignableInProject(
         connection,
         {
-          email: "studio@wrtn.io",
-          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-          domain: "https://wrtn-ecosystem.atlassian.net",
+          secretKey: JSON.stringify(Configuration),
           project_key: project.key,
         },
       );
@@ -112,9 +106,7 @@ export const test_api_connector_jira_get_issues_with_assignees = async (
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: project.key,
         assignee: user.displayName,
       },
@@ -133,9 +125,7 @@ export const test_api_connector_jira_get_issues_with_created_start_date =
       const res = await CApi.functional.connector.jira.get_issues.getIssues(
         connection,
         {
-          email: "studio@wrtn.io",
-          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-          domain: "https://wrtn-ecosystem.atlassian.net",
+          secretKey: JSON.stringify(Configuration),
           project_key: project.key,
           created_start_date: "2024-08-07",
         },
@@ -155,9 +145,7 @@ export const test_api_connector_jira_get_issues_with_created_end_date = async (
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: project.key,
         created_end_date: "2024-08-07",
       },
@@ -176,9 +164,7 @@ export const test_api_connector_jira_get_users_assignable_in_issue = async (
   const res = await CApi.functional.connector.jira.get_issues.getIssues(
     connection,
     {
-      email: "studio@wrtn.io",
-      apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-      domain: "https://wrtn-ecosystem.atlassian.net",
+      secretKey: JSON.stringify(Configuration),
       project_key: projects[0].key,
     },
   );
@@ -187,9 +173,7 @@ export const test_api_connector_jira_get_users_assignable_in_issue = async (
     await CApi.functional.connector.jira.issues.get_users_assignable.getUsersAssignableInIssue(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project: projects[0].key,
         issueKey: res.issues[0].key,
       },
@@ -210,9 +194,7 @@ export const test_api_connector_jira_get_issues_with_priority = async (
     await CApi.functional.connector.jira.get_issue_priorities.getIssuePriorities(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
       },
     );
 
@@ -221,9 +203,7 @@ export const test_api_connector_jira_get_issues_with_priority = async (
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: projectKey,
         priority: priority.name,
       },
@@ -245,9 +225,7 @@ export const test_api_connector_jira_get_issues_with_labels = async (
     await CApi.functional.connector.jira.get_issue_labels.getIssueLabels(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
       },
     );
 
@@ -255,9 +233,7 @@ export const test_api_connector_jira_get_issues_with_labels = async (
   const res = await CApi.functional.connector.jira.get_issues.getIssues(
     connection,
     {
-      email: "studio@wrtn.io",
-      apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-      domain: "https://wrtn-ecosystem.atlassian.net",
+      secretKey: JSON.stringify(Configuration),
       project_key: projectKey,
       labels: labels,
     },
@@ -276,9 +252,7 @@ export const test_api_connector_jira_get_issues_with_non_existant_labels =
     const res = await CApi.functional.connector.jira.get_issues.getIssues(
       connection,
       {
-        email: "studio@wrtn.io",
-        apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-        domain: "https://wrtn-ecosystem.atlassian.net",
+        secretKey: JSON.stringify(Configuration),
         project_key: projectKey,
         labels: ["A", "B", "C"],
       },
@@ -297,9 +271,7 @@ export const test_api_connector_jira_get_issues_with_empty_labels = async (
   const res = await CApi.functional.connector.jira.get_issues.getIssues(
     connection,
     {
-      email: "studio@wrtn.io",
-      apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-      domain: "https://wrtn-ecosystem.atlassian.net",
+      secretKey: JSON.stringify(Configuration),
       project_key: projectKey,
       labels: [],
     },
@@ -317,9 +289,7 @@ export const test_api_connector_jira_get_one_detailed_issue = async (
   const res = await CApi.functional.connector.jira.get_issues.getIssues(
     connection,
     {
-      email: "studio@wrtn.io",
-      apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-      domain: "https://wrtn-ecosystem.atlassian.net",
+      secretKey: JSON.stringify(Configuration),
       project_key: projects[0].key,
     },
   );
@@ -331,9 +301,7 @@ export const test_api_connector_jira_get_one_detailed_issue = async (
       await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
         connection,
         {
-          email: "studio@wrtn.io",
-          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-          domain: "https://wrtn-ecosystem.atlassian.net",
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.id,
         },
       );
@@ -344,9 +312,7 @@ export const test_api_connector_jira_get_one_detailed_issue = async (
       await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
         connection,
         {
-          email: "studio@wrtn.io",
-          apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
-          domain: "https://wrtn-ecosystem.atlassian.net",
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.key,
         },
       );

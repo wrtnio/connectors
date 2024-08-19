@@ -11,6 +11,8 @@ export type LookUp<
 > = U["type"] extends T ? U : never;
 
 export namespace IJira {
+  export type IBasicSecret = ICommon.ISecret<"atlassian">;
+
   export type ISecret = ICommon.ISecret<
     "atlassian",
     [
@@ -56,7 +58,7 @@ export namespace IJira {
      * It is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.
      * If the user does not have this token, Jira's API cannot be called.
      */
-    apiToken: string;
+    token: string;
 
     /**
      * @title domain of your workspace site in Jira

@@ -4,7 +4,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 const Configuration = {
   email: "studio@wrtn.io",
-  apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  token: ConnectorGlobal.env.JIRA_TEST_SECRET,
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
@@ -15,7 +15,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
   const issue = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "ASSIGN AND UNASSIGN TEST",
         project: { key: "KAK" },
@@ -34,7 +34,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
     await CApi.functional.connector.jira.issues.get_users_assignable.getUsersAssignableInIssue(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         issueKey: issue["key"],
         project: "KAK",
       },
@@ -44,7 +44,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
     await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         issueIdOrKey: issue.id,
       },
     );
@@ -52,7 +52,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
 
   // 할당
   await CApi.functional.connector.jira.issues.asignee.assign(connection, {
-    ...Configuration,
+    secretKey: JSON.stringify(Configuration),
     issueId: issue.id,
     asigneeId: candidate.accountId,
   });
@@ -61,7 +61,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
     await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         issueIdOrKey: issue.id,
       },
     );
@@ -69,7 +69,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
 
   // 할당 해제
   await CApi.functional.connector.jira.issues.asignee.unassign(connection, {
-    ...Configuration,
+    secretKey: JSON.stringify(Configuration),
     issueId: issue.id,
   });
 
@@ -77,7 +77,7 @@ export const test_api_connector_jira_assign_and_unassign = async (
     await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         issueIdOrKey: issue.id,
       },
     );
