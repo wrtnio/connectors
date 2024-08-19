@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.109",
+    "version": "0.1.110",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10017,7 +10017,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IDeleteCommentInput"
+                "$ref": "#/components/schemas/StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10041,7 +10041,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IUpdateCommentInput"
+                "$ref": "#/components/schemas/StrictOmitIUpdateCommentInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10066,7 +10066,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.ICreateCommentInput"
+                "$ref": "#/components/schemas/StrictOmitICreateCommentInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10097,7 +10097,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetCommentInput"
+                "$ref": "#/components/schemas/StrictOmitIGetCommentInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10128,7 +10128,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetTransitionInput"
+                "$ref": "#/components/schemas/StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10157,7 +10157,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IUnAssignInput"
+                "$ref": "#/components/schemas/StrictOmitIUnAssignInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10181,7 +10181,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IAssignInput"
+                "$ref": "#/components/schemas/StrictOmitIAssignInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10207,7 +10207,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IUpdateStatusInput"
+                "$ref": "#/components/schemas/StrictOmitIUpdateStatusInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10244,7 +10244,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IUpdateIssueInput"
+                "$ref": "#/components/schemas/StrictOmitIUpdateIssueInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10271,7 +10271,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.ICreateIssueInput"
+                "$ref": "#/components/schemas/StrictOmitICreateIssueInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10302,7 +10302,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetIssueDetailInput"
+                "$ref": "#/components/schemas/StrictOmitIGetIssueDetailInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10334,7 +10334,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetIssueInputByBasicAuth"
+                "$ref": "#/components/schemas/StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10366,7 +10366,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetProjectInputByBasicAuth"
+                "$ref": "#/components/schemas/StrictOmitIGetProjectInputByBasicAuthemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10397,7 +10397,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetIssueLabelInput"
+                "$ref": "#/components/schemas/StrictOmitIGetIssueLabelInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10428,7 +10428,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetIssueTypeInput"
+                "$ref": "#/components/schemas/StrictOmitIGetIssueTypeInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10459,7 +10459,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetIssueStatusInput"
+                "$ref": "#/components/schemas/StrictOmitIGetIssueStatusInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10490,7 +10490,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.BasicAuthorization"
+                "$ref": "#/components/schemas/StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10524,7 +10524,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetIssueAssignableInput"
+                "$ref": "#/components/schemas/StrictOmitIGetIssueAssignableInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10558,7 +10558,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.IGetProjectAssignableInput"
+                "$ref": "#/components/schemas/StrictOmitIGetProjectAssignableInputemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -10592,7 +10592,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IJira.BasicAuthorization"
+                "$ref": "#/components/schemas/StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret"
               }
             }
           },
@@ -31021,7 +31021,7 @@
           "id"
         ]
       },
-      "IJira.IDeleteCommentInput": {
+      "StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -31049,56 +31049,22 @@
             "type": "string",
             "title": "ID of comment to delete"
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "issueIdOrKey",
           "commentId",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
-      "IJira.IUpdateCommentInput": {
+      "StrictOmitIUpdateCommentInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "issueIdOrKey": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:id, label:key}"
-                }
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:key, label:key}"
-                }
-              }
-            ],
-            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
-          },
-          "commentId": {
-            "type": "string",
-            "title": "ID of comment to update"
-          },
           "body": {
             "type": "object",
             "properties": {
@@ -31166,27 +31132,43 @@
             ],
             "title": "body of comment to update"
           },
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
           },
-          "apiToken": {
+          "commentId": {
             "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
+            "title": "ID of comment to update"
           },
-          "domain": {
+          "secretKey": {
             "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
+          "body",
           "issueIdOrKey",
           "commentId",
-          "body",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.BlockquoteNode": {
@@ -32702,30 +32684,9 @@
           "id"
         ]
       },
-      "IJira.ICreateCommentInput": {
+      "StrictOmitICreateCommentInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "issueIdOrKey": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:id, label:key}"
-                }
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:key, label:key}"
-                }
-              }
-            ],
-            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
-          },
           "body": {
             "type": "object",
             "properties": {
@@ -32793,26 +32754,38 @@
             ],
             "title": "body of comment"
           },
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
           },
-          "apiToken": {
+          "secretKey": {
             "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "issueIdOrKey",
           "body",
-          "email",
-          "apiToken",
-          "domain"
+          "issueIdOrKey",
+          "secretKey"
         ]
       },
       "IJira.IGetCommentOutput": {
@@ -32975,9 +32948,15 @@
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
-      "IJira.IGetCommentInput": {
+      "StrictOmitIGetCommentInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
           "issueIdOrKey": {
             "oneOf": [
               {
@@ -32999,37 +32978,22 @@
             ],
             "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
           },
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
-          },
           "startAt": {
             "type": "integer",
             "default": 0,
             "title": "page offset",
             "description": "The index of the first item to return in a page of results (page offset)."
           },
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "issueIdOrKey",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.IGetTransitionOutput": {
@@ -33105,7 +33069,7 @@
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
-      "IJira.IGetTransitionInput": {
+      "StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -33129,62 +33093,40 @@
             ],
             "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "issueIdOrKey",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
-      "IJira.IUnAssignInput": {
+      "StrictOmitIUnAssignInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
-          },
           "issueId": {
             "type": "string",
             "title": "ID of issue"
           },
-          "apiToken": {
+          "secretKey": {
             "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "email",
-          "domain",
           "issueId",
-          "apiToken"
+          "secretKey"
         ]
       },
-      "IJira.IAssignInput": {
+      "StrictOmitIAssignInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "issueId": {
-            "type": "string",
-            "title": "ID of issue"
-          },
           "asigneeId": {
             "oneOf": [
               {
@@ -33206,29 +33148,24 @@
             ],
             "title": "accountId of the user you want to designate as the person in charge\n\nIf you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.\nThe person in charge is inevitably one of Jira's users."
           },
-          "email": {
+          "issueId": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
+            "title": "ID of issue"
           },
-          "apiToken": {
+          "secretKey": {
             "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "issueId",
           "asigneeId",
-          "email",
-          "apiToken",
-          "domain"
+          "issueId",
+          "secretKey"
         ]
       },
-      "IJira.IUpdateStatusInput": {
+      "StrictOmitIUpdateStatusInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -33261,56 +33198,37 @@
             },
             "title": "ID of transition"
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "issueIdOrKey",
           "transitionId",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
-      "IJira.IUpdateIssueInput": {
+      "StrictOmitIUpdateIssueInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "fields": {
             "$ref": "#/components/schemas/MyPartial__type",
             "title": "fields to update"
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "fields",
-          "email",
-          "apiToken",
-          "domain"
-        ],
-        "title": "Issue update Conditions"
+          "secretKey"
+        ]
       },
       "MyPartial__type": {
         "type": "object",
@@ -33554,7 +33472,7 @@
         ],
         "title": "output of creation of issue"
       },
-      "IJira.ICreateIssueInput": {
+      "StrictOmitICreateIssueInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "fields": {
@@ -33787,27 +33705,17 @@
             ],
             "title": "fields\n\nIndicates the fields that you need to fill in when you want to create an issue."
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "fields",
-          "email",
-          "apiToken",
-          "domain"
-        ],
-        "title": "Issue Creation Conditions"
+          "secretKey"
+        ]
       },
       "IJira.IGetIssueDetailOutput": {
         "type": "object",
@@ -34236,7 +34144,7 @@
           "fields"
         ]
       },
-      "IJira.IGetIssueDetailInput": {
+      "StrictOmitIGetIssueDetailInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -34260,25 +34168,16 @@
             ],
             "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "issueIdOrKey",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.IGetIssueOutput": {
@@ -34406,33 +34305,33 @@
           "priority"
         ]
       },
-      "IJira.IGetIssueInputByBasicAuth": {
+      "StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "email": {
+          "keyword": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
-          },
-          "startAt": {
-            "type": "integer",
-            "default": 0,
-            "title": "page offset",
-            "description": "The index of the first item to return in a page of results (page offset)."
+            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
           },
           "maxResults": {
             "type": "integer",
             "default": 50,
             "title": "max results",
             "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "status": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-statuses",
+              "jmesPath": "[].{value:id, label:untranslatedName}"
+            },
+            "title": "status"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
           },
           "project_key": {
             "type": "string",
@@ -34452,15 +34351,6 @@
             },
             "title": "issue type"
           },
-          "status": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/jira/get-statuses",
-              "jmesPath": "[].{value:id, label:untranslatedName}"
-            },
-            "title": "status"
-          },
           "assignee": {
             "type": "string",
             "title": "name of assignee"
@@ -34479,10 +34369,6 @@
             "format": "date",
             "title": "Search for issues created after this date"
           },
-          "keyword": {
-            "type": "string",
-            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
-          },
           "priority": {
             "type": "string",
             "x-wrtn-prerequisite": {
@@ -34498,13 +34384,17 @@
               "type": "string"
             },
             "title": "label titles\n\nComplex searches are possible using various labels."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "email",
-          "apiToken",
-          "domain",
-          "project_key"
+          "project_key",
+          "secretKey"
         ]
       },
       "IJira.IGetProjectOutput": {
@@ -34590,9 +34480,15 @@
           "name"
         ]
       },
-      "IJira.IGetProjectInputByBasicAuth": {
+      "StrictOmitIGetProjectInputByBasicAuthemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
           "orderBy": {
             "oneOf": [
               {
@@ -34614,36 +34510,21 @@
             "title": "order by",
             "description": "Order the results by a field.\n\n- issueCount : Sorts by the total number of issues in each project.\n- lastIssueUpdatedTime : Sorts by the last issue update time.\n- name : Sorts by project name."
           },
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
-          },
           "startAt": {
             "type": "integer",
             "default": 0,
             "title": "page offset",
             "description": "The index of the first item to return in a page of results (page offset)."
           },
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.IGetIssueLabelOutput": {
@@ -34682,21 +34563,14 @@
           "total"
         ]
       },
-      "IJira.IGetIssueLabelInput": {
+      "StrictOmitIGetIssueLabelInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
           "startAt": {
             "type": "integer",
@@ -34704,17 +34578,15 @@
             "title": "page offset",
             "description": "The index of the first item to return in a page of results (page offset)."
           },
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.IGetIssueTypeOutput": {
@@ -34760,7 +34632,7 @@
           "subtask"
         ]
       },
-      "IJira.IGetIssueTypeInput": {
+      "StrictOmitIGetIssueTypeInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -34775,25 +34647,16 @@
             },
             "title": "id of project"
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "projectId",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.IGetIssueStatusOutput": {
@@ -34835,7 +34698,7 @@
           "id"
         ]
       },
-      "IJira.IGetIssueStatusInput": {
+      "StrictOmitIGetIssueStatusInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -34850,53 +34713,46 @@
             },
             "title": "id of project\n\nIf the status does not have the project ID,\nit means this status is beyond the scope of the project and can be selected by the entire team.\nIt can also be the default status created from the beginning by Jira."
           },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
-      "IJira.BasicAuthorization": {
+      "StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
-          "email",
-          "apiToken",
-          "domain"
-        ],
-        "title": "BasicAuthorization\n\nTo call the API in Jira, you must have API Token,\nthe domain address that will be the user's Jira workspace,\nand the user's email address that the user is currently using in Jira.\nThis object contains this information.\nIf the user did not provide these values at the time of the connector call,\nyou should ask the user to give them.\nThere is no point in substituting any value here."
+          "secretKey"
+        ]
       },
-      "IJira.IGetIssueAssignableInput": {
+      "StrictOmitIGetIssueAssignableInputemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
           "project": {
             "type": "string",
             "x-wrtn-prerequisite": {
@@ -34915,43 +34771,34 @@
             },
             "title": "key of issue\n\nIt refers to the key of the issue to search for the user to be assigned."
           },
-          "startAt": {
-            "type": "integer",
-            "default": 0,
-            "title": "page offset",
-            "description": "The index of the first item to return in a page of results (page offset)."
-          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "project",
+          "issueKey",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGetProjectAssignableInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
           "maxResults": {
             "type": "integer",
             "default": 50,
             "title": "max results",
             "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
-          "email": {
-            "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
           },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
-          }
-        },
-        "required": [
-          "project",
-          "issueKey",
-          "email",
-          "apiToken",
-          "domain"
-        ]
-      },
-      "IJira.IGetProjectAssignableInput": {
-        "type": "object",
-        "properties": {
           "project_key": {
             "type": "string",
             "x-wrtn-prerequisite": {
@@ -34961,37 +34808,16 @@
             },
             "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
           },
-          "startAt": {
-            "type": "integer",
-            "default": 0,
-            "title": "page offset",
-            "description": "The index of the first item to return in a page of results (page offset)."
-          },
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
-          },
-          "email": {
+          "secretKey": {
             "type": "string",
-            "title": "email in Jira\n\nIndicates the email address that the user is using in the Jira workspace.\nIt must be an email address that Jira is using, not any email address of the user.\nThis email is used for Basic Authentication with API Token."
-          },
-          "apiToken": {
-            "type": "string",
-            "title": "jira api token\n\nUser can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.\n\nThis is the user's API Token.\nIt is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.\nIf the user does not have this token, Jira's API cannot be called."
-          },
-          "domain": {
-            "type": "string",
-            "pattern": "^(https:\\/\\/(.*)\\.atlassian\\.net)$",
-            "title": "domain of your workspace site in Jira\n\nAddress in the form of 'https://*.atlassian.net '.\nIt always starts with https:// and the string in the middle can vary from team to team.\nTherefore, you must receive this address directly from the user.\nAll authentication is available only when you know both the user's email and API token for each workspace URL address."
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
           }
         },
         "required": [
           "project_key",
-          "email",
-          "apiToken",
-          "domain"
+          "secretKey"
         ]
       },
       "IJira.StatusCategory": {
