@@ -1,11 +1,25 @@
-import { Controller } from "@nestjs/common";
-import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
-import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import core, { TypedBody } from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
+import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
 
 @Controller("connector/github")
 export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
+
+  /**
+   * Get repository activities
+   *
+   * @summary Get Repository' activities
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("repositories/get-activities")
+  async getRepositoryActivities(
+    @TypedBody() input: IGithub.IGetRepositoryActivityInput,
+  ): Promise<IGithub.IGetRepositoryActivityOutput> {
+    return this.githubProvider.getRepositoryActivities(input);
+  }
 
   /**
    * Search for users by keyword in github
