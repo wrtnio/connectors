@@ -17,7 +17,7 @@
   "info": {
     "title": "LLM",
     "description": "",
-    "version": "0.1.112",
+    "version": "0.1.113",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -54,7 +54,7 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/LLM(1).svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/LLM_full.svg"
       }
     }
   },

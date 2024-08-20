@@ -17,7 +17,7 @@
   "info": {
     "title": "내파일 기반 생활기록부 일괄 작성",
     "description": "",
-    "version": "0.1.112",
+    "version": "0.1.113",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -52,7 +52,7 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg"
       }
     },
     "/connector/student-report-generator/row": {
@@ -84,7 +84,7 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg"
       }
     }
   },
