@@ -19,7 +19,7 @@ export class PromptController {
    */
   @ApiTags("프롬프트 노드")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/prompt_node.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Prompt_prompt_full.svg",
   )
   @core.TypedRoute.Post("/generate")
   async generate(

@@ -105,7 +105,7 @@ export class GoogleDriveController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("get/folders")
   async folderList(
@@ -209,7 +209,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("get/files")
   async fileList(
@@ -314,7 +314,7 @@ export class GoogleDriveController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("/folder")
   async createFolder(
@@ -417,7 +417,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("/file")
   async createFile(
@@ -518,7 +518,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
@@ -630,7 +630,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
@@ -742,7 +742,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("permission")
   async permission(
@@ -845,7 +845,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
@@ -958,7 +958,7 @@ export class GoogleDriveController {
    * @tag Team Drive
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_drive.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @core.TypedRoute.Post("get/file/:id")
   async readFile(

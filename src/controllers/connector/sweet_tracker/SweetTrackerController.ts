@@ -25,7 +25,7 @@ export class SweetTrackerController {
    * @tag sweet-tracker
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/delivery.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("get-companies/recommended")
@@ -47,7 +47,7 @@ export class SweetTrackerController {
    * @tag sweet-tracker
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/delivery.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("get-companies")
@@ -71,7 +71,7 @@ export class SweetTrackerController {
    * @tag sweet-tracker
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/delivery.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
   @core.TypedRoute.Post("tracking-info")
   async getTrackingInfo(

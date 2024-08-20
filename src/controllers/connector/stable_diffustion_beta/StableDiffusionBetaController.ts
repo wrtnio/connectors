@@ -24,7 +24,7 @@ export class StableDiffusionBetaController {
    */
   @ApiTags("스테이블 디퓨전 이미지 생성기 노드")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/stable_diffusion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("/generate")

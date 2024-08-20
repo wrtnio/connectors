@@ -24,7 +24,7 @@ export class GoogleShoppingOcoController {
   @Standalone()
   @core.TypedRoute.Post("oco")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/oco.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/OCO_full.svg",
   )
   async oco(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

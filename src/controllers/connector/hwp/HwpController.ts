@@ -83,7 +83,7 @@ export class HwpController {
    */
   @core.TypedRoute.Post("/parse")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/hwp.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg",
   )
   async parseHwp(
     @core.TypedBody() input: IHwp.IParseInput,

@@ -29,7 +29,7 @@ export class StudentReportGeneratorController {
    * @returns 생성된 학생 생활 기록부.
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",
   )
   @core.TypedRoute.Post()
   public generate(
@@ -48,7 +48,7 @@ export class StudentReportGeneratorController {
    * @returns 생성된 학생 생활 기록부.
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/StudentReport.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",
   )
   @core.TypedRoute.Post("row")
   public generateRow(

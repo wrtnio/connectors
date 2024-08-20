@@ -24,7 +24,7 @@ export class GoogleShoppingAliexpressController {
   @Standalone()
   @core.TypedRoute.Post("ali-express")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/ali_express.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AliExpress_full.svg",
   )
   async aliExpress(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

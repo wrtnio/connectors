@@ -51,7 +51,7 @@ export class NaverController {
   @Standalone()
   @core.TypedRoute.Post("/cafe")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_cafe.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
   )
   async cafeList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
@@ -111,7 +111,7 @@ export class NaverController {
   @Standalone()
   @core.TypedRoute.Post("/blog")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/naver_blog.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
   )
   async blogList(
     @core.TypedBody() input: INaver.INaverKeywordInput,

@@ -90,7 +90,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post()
   async getHeaders(
@@ -176,7 +176,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/permission")
   async permission(
@@ -262,7 +262,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/header")
   async writeHeaders(
@@ -348,7 +348,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
@@ -436,7 +436,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/get-rows")
   async readRows(

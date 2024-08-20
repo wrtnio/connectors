@@ -23,7 +23,7 @@ export class AirportInformationController {
   @Standalone()
   @core.TypedRoute.Post("search")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/airport_information.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
   )
   async search(
     @core.TypedBody() input: IAirportInformation.IRequest,

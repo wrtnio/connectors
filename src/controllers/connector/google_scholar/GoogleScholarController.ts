@@ -210,7 +210,7 @@ export class GoogleScholarController {
   @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/google_scholar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
   )
   async search(
     @core.TypedBody() input: IGoogleScholar.ISearchInput,

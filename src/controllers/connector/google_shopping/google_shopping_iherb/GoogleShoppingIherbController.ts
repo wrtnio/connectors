@@ -24,7 +24,7 @@ export class GoogleShoppingIherbController {
   @Standalone()
   @core.TypedRoute.Post("iherb")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/iherb.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/iHerb_full.svg",
   )
   async iherb(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

@@ -20,7 +20,7 @@ export class GoogleSearchCareerController {
   @Standalone()
   @core.TypedRoute.Post("wanted")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/wanted.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_wanted_full.svg",
   )
   async searchForWanted(
     @core.TypedBody() input: IGoogleSearch.IRequest,
@@ -40,7 +40,7 @@ export class GoogleSearchCareerController {
   @Standalone()
   @core.TypedRoute.Post("incruit")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Incruit.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Incruit_full.svg",
   )
   async searchForIncruit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
@@ -60,7 +60,7 @@ export class GoogleSearchCareerController {
   @Standalone()
   @core.TypedRoute.Post("saramin")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/saramin.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Saramin_full.svg",
   )
   async searchForSaramin(
     @core.TypedBody() input: IGoogleSearch.IRequest,
@@ -80,7 +80,7 @@ export class GoogleSearchCareerController {
   @Standalone()
   @core.TypedRoute.Post("jumpit")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/jumpit.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/jumpit_full.svg",
   )
   async searchForJumpit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
@@ -100,7 +100,7 @@ export class GoogleSearchCareerController {
   @Standalone()
   @core.TypedRoute.Post("careerly")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/careerly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/careerly_full.svg",
   )
   async searchForCareerly(
     @core.TypedBody() input: IGoogleSearch.IRequest,

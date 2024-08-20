@@ -23,7 +23,7 @@ export class GoogleSearchController {
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSearch_full.svg",
   )
   async search(
     @core.TypedBody() input: IGoogleSearch.IRequest,
