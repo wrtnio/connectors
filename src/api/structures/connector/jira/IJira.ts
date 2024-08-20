@@ -11,6 +11,11 @@ export type LookUp<
 > = U["type"] extends T ? U : never;
 
 export namespace IJira {
+  /**
+   * Atlasian's token is an object with email, token, and domain information converted into a string using JSON.stringify().
+   * The type that parsed this is {@link BasicAuthorization}.
+   * Basic Authorization is a sensitive data that can't just be turned into text, so we're showing a dedicated input window to get it from the user.
+   */
   export type IBasicSecret = ICommon.ISecret<"atlassian">;
 
   export type ISecret = ICommon.ISecret<
