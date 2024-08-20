@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import axios from "axios";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
@@ -224,5 +225,19 @@ export class GithubProvider {
       ...(Number(last) && { last: Number(last) }),
       ...(Number(first) && { first: Number(first) }),
     };
+  }
+
+  private async debugToken(
+    input: ICommon.ISecret<"github">,
+  ): Promise<IGithub.User> {
+    const url = `https://api.github.com/search/user`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${input.secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    return res.data;
   }
 }
