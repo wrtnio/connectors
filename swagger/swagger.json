@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.110",
+    "version": "0.1.111",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10010,7 +10010,7 @@
     "/connector/jira/issues/comments": {
       "delete": {
         "summary": "delete comment",
-        "description": "Delete the comment\n\nDelete the comments on the issue.\nIn order to delete the comments on the issue, you need the issue ID or key and the ID of the comment to be deleted.\nPlease be careful because deleted comments will not be able to be viewed again.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Delete the comment\n\nDelete the comments on the issue.\nIn order to delete the comments on the issue, you need the issue ID or key and the ID of the comment to be deleted.\nPlease be careful because deleted comments will not be able to be viewed again.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10034,7 +10034,7 @@
       },
       "put": {
         "summary": "modify comment body",
-        "description": "modify comment\n\nModify the comment. You can only modify the body of the comment here.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "modify comment\n\nModify the comment. You can only modify the body of the comment here.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10058,7 +10058,7 @@
       },
       "post": {
         "summary": "creates a comment on an issue",
-        "description": "Creates a comment on an issue\nHere, user can write the body of the comment you want to write with the ID or key of the issue.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Creates a comment on an issue\nHere, user can write the body of the comment you want to write with the ID or key of the issue.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10089,7 +10089,7 @@
     "/connector/jira/issues/get-comments": {
       "post": {
         "summary": "get comments by issue id or key",
-        "description": "Get comments by issue id or key\n\nThis connector uses the issue's key or ID value to query the comments written on the issue.\nComments are also visible when looking up issues,\nbut not all comments inside are visible,\nso user have to use this connector to look up them in pagination.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Get comments by issue id or key\n\nThis connector uses the issue's key or ID value to query the comments written on the issue.\nComments are also visible when looking up issues,\nbut not all comments inside are visible,\nso user have to use this connector to look up them in pagination.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10121,7 +10121,7 @@
     "/connector/jira/issues/get-transitions": {
       "post": {
         "summary": "Inquire the transition of an issue",
-        "description": "Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue\nIf the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.\nIn Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.\nWhen designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.\nIn this case, you need to move two edges to turn the backoff issue into 'done'.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue\nIf the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.\nIn Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.\nWhen designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.\nIn this case, you need to move two edges to turn the backoff issue into 'done'.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10150,7 +10150,7 @@
     },
     "/connector/jira/issues/asignee": {
       "delete": {
-        "description": "Unassign the assignee from the Jira issue\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Unassign the assignee from the Jira issue",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10174,7 +10174,7 @@
       },
       "put": {
         "summary": "assign the assignee",
-        "description": "Assign the assignee from the Jira issue\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Assign the assignee from the Jira issue",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10200,7 +10200,7 @@
     "/connector/jira/issues/status": {
       "put": {
         "summary": "change issue status",
-        "description": "Change issue status\n\nChanging the status of an issue must be done after inquiring about changeable Transitions from the current issue.\nThis is forced by the person who designed the workflow in the project, so you must change the status in the order set.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Change issue status\n\nChanging the status of an issue must be done after inquiring about changeable Transitions from the current issue.\nThis is forced by the person who designed the workflow in the project, so you must change the status in the order set.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10226,7 +10226,7 @@
     "/connector/jira/issues/{id}": {
       "put": {
         "summary": "update issue in jira",
-        "description": "Update an issue\n\nYou can modify any element in the field.\nIt can be used to modify the issue type, person in charge, summary, and description.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Update an issue\n\nYou can modify any element in the field.\nIt can be used to modify the issue type, person in charge, summary, and description.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
         "tags": [],
         "parameters": [
           {
@@ -10263,7 +10263,7 @@
     "/connector/jira/issues": {
       "post": {
         "summary": "create issue in jira",
-        "description": "Create an issue\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Create an issue\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10295,7 +10295,7 @@
     "/connector/jira/get-issue-detail": {
       "post": {
         "summary": "get detailed Issue Information",
-        "description": "Get detailed issue information\n\nProvides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Get detailed issue information\n\nProvides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10326,7 +10326,7 @@
     "/connector/jira/get-issues": {
       "post": {
         "summary": "Find The Jira issues.",
-        "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10358,7 +10358,7 @@
     "/connector/jira/get-projects": {
       "post": {
         "summary": "Find the Jira projects.",
-        "description": "Find the Jira projects\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find the Jira projects\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10390,7 +10390,7 @@
     "/connector/jira/get-issue-labels": {
       "post": {
         "summary": "Find issue labels",
-        "description": "Find issue labels\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find issue labels",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10421,7 +10421,7 @@
     "/connector/jira/get-issue-types": {
       "post": {
         "summary": "Find issue types",
-        "description": "Find issue types\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find issue types\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10452,7 +10452,7 @@
     "/connector/jira/get-issue-statuses": {
       "post": {
         "summary": "Find issue statuses",
-        "description": "Find issue statuses for searching issue\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find issue statuses for searching issue",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10483,7 +10483,7 @@
     "/connector/jira/get-issue-priorities": {
       "post": {
         "summary": "Inquire the priority levels that can be assigned to the issue.",
-        "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10517,7 +10517,7 @@
     "/connector/jira/issues/get-users-assignable": {
       "post": {
         "summary": "Find assignable users in issue",
-        "description": "Find a person within the issue who can be assigned as assignee.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find a person within the issue who can be assigned as assignee.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10551,7 +10551,7 @@
     "/connector/jira/projects/get-users-assignable": {
       "post": {
         "summary": "Find assignable users in project",
-        "description": "Find a person within the project who can be assigned as assignee.\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Find a person within the project who can be assigned as assignee.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10585,7 +10585,7 @@
     "/connector/jira/get-status-categories": {
       "post": {
         "summary": "get status categories",
-        "description": "Get status categories\n\nThis always requires the user's email address and api token for authentication.\nUser will also need your domain address and email from Jira.\nDomain means 'http://*.atlassian.net' format.\nUsers may not know that they need to hand over these credentials to use Jira APIs.\nThis information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.",
+        "description": "Get status categories",
         "tags": [],
         "parameters": [],
         "requestBody": {
