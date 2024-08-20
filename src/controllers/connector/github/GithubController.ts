@@ -7,6 +7,20 @@ import { GithubProvider } from "../../../providers/connector/github/GithubProvid
 export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
+  @core.TypedRoute.Post("get-events")
+  async getEvents(
+    input: IGithub.IGetEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    return this.githubProvider.getEvents(input);
+  }
+
+  // @core.TypedRoute.Post("user/get-received-events")
+  // async getUserReceivedEvents(
+  //   input: IGithub.IGetUserReceivedEventInput,
+  // ): Promise<IGithub.IGetReceivedEventOutput> {
+  //   return this.githubProvider.getUserReceivedEvents(input);
+  // }
+
   /**
    * Get repository activities
    *

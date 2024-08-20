@@ -85,7 +85,20 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
-  export interface IGetReceivedEventInput
+  export interface IGetEventOutput extends ICommonPaginationOutput {
+    result: {
+      id: string;
+      type: string | null;
+      actor: Pick<User, "id" | "login">;
+      repo: Pick<Repository, "id" | "name">;
+      org: Pick<Organization, "id" | "display_login" | "login">;
+      payload: {};
+      public: boolean;
+      created_at: (string & tags.Format<"date-time">) | null;
+    }[];
+  }
+
+  export interface IGetEventInput
     extends ICommonPaginationInput,
       ICommon.ISecret<"github"> {}
 
@@ -922,5 +935,22 @@ export namespace IGithub {
      * @title actor
      */
     actor: Pick<User, "id" | "login" | "avatar_url" | "type">;
+  };
+
+  export type Organization = {
+    /**
+     * @title id
+     */
+    id: number;
+
+    /**
+     * @title login
+     */
+    login: string;
+
+    /**
+     * @title display_login
+     */
+    display_login?: string;
   };
 }

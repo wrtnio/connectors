@@ -5,6 +5,28 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class GithubProvider {
+  async getEvents(
+    input: IGithub.IGetEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  // async getUserReceviedEvents(
+  //   input: IGithub.IGetUserReceivedEventInput,
+  // ): Promise<IGithub.IGetReceivedEventOutput> {}
+
   async debugToken(input: IGithub.IGetMyProfileInput): Promise<IGithub.User> {
     const url = `https://api.github.com/search/user`;
     const res = await axios.get(url, {
