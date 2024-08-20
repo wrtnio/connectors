@@ -22,7 +22,7 @@ export class GoogleFlightController {
   @Standalone()
   @core.TypedRoute.Post("/one-way")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
   @ApiTags("Google Flight")
   async oneWay(
@@ -44,7 +44,7 @@ export class GoogleFlightController {
   @Standalone()
   @core.TypedRoute.Post("/round-trip")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_flight.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
   @ApiTags("Google Flight")
   async roundTrip(

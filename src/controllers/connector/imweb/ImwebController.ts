@@ -25,7 +25,7 @@ export class ImwebController {
    * @returns the seller's own goods
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("get-products")
@@ -44,7 +44,7 @@ export class ImwebController {
    * @returns 액세스 토큰을 담은 응답 DTO.
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Imweb.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
   @core.TypedRoute.Post("auth")
   async authorization(

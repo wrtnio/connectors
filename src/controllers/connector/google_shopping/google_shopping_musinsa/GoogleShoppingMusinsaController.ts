@@ -23,7 +23,7 @@ export class GoogleShoppingMusinsaController {
   @Standalone()
   @core.TypedRoute.Post("musinsa")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/musinsa.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Musinsa_full.svg",
   )
   async musinsa(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

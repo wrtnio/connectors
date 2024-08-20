@@ -23,7 +23,7 @@ export class RagController {
    * @tag RAG
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
   @core.TypedRoute.Post("/analyze")
   async analyze(
@@ -62,7 +62,7 @@ export class RagController {
    * @tag RAG
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
   @core.TypedRoute.Post("/generate/:chatId")
   public async generate(

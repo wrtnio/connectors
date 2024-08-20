@@ -18,7 +18,7 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
@@ -45,7 +45,7 @@ export class SlackController {
    * @returns scheduled message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("scheduleMessage/text")
   async sendScheduleMessage(
@@ -66,7 +66,7 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Delete("scheduleMessage")
   async deleteScheduleMessage(
@@ -88,7 +88,7 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("postMessage/text/myself")
   async sendTextToMyself(
@@ -113,7 +113,7 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("postMessage/reply")
   async sendReply(
@@ -133,7 +133,7 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("postMessage/text")
   async sendText(
@@ -182,7 +182,7 @@ export class SlackController {
    * @returns Users
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-users")
   async getUsers(
@@ -204,7 +204,7 @@ export class SlackController {
    * @returns Replies
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-replies")
   async getReplies(
@@ -235,7 +235,7 @@ export class SlackController {
    * @returns channel histories
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-channel-histories")
   async getChannelHistories(
@@ -257,7 +257,7 @@ export class SlackController {
    * @returns private channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
@@ -280,7 +280,7 @@ export class SlackController {
    * @returns public channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
@@ -303,7 +303,7 @@ export class SlackController {
    * @returns im channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-im-channels")
   async getImChannels(

@@ -24,7 +24,7 @@ export class GoogleShoppingYesTwentyFourController {
   @Standalone()
   @core.TypedRoute.Post("yes-twenty-four")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/yes_twentyfour.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
   )
   async yes24(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

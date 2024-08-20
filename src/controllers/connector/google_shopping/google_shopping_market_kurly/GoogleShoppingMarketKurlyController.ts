@@ -24,7 +24,7 @@ export class GoogleShoppingMarketKurlyController {
   @Standalone()
   @core.TypedRoute.Post("market-kurly")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kurly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Kurly_full.svg",
   )
   async marketKurly(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

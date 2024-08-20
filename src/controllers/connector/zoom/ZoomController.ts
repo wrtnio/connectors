@@ -19,7 +19,7 @@ export class ZoomController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/zoom.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Zoom_full.svg",
   )
   @core.TypedRoute.Post("meetings")
   async createMeeting(

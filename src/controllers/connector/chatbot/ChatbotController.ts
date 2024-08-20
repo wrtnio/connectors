@@ -29,7 +29,7 @@ export class ChatBotController {
    * @tag Chatbot
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Studio1.0Chatbot.svg",
+    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/full/_Studio1.0Chatbot_full.svg",
   )
   @core.TypedRoute.Post("generate/easy")
   async generateEasyChatbot(
@@ -56,7 +56,7 @@ export class ChatBotController {
    * @tag Chatbot
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Studio1.0Chatbot.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg",
   )
   @core.TypedRoute.Post("generate/hard")
   async generateHardChatbot(

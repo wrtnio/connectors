@@ -24,7 +24,7 @@ export class GoogleShoppingAladinController {
   @Standalone()
   @core.TypedRoute.Post("aladine")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/aladin.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
   )
   async aladine(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

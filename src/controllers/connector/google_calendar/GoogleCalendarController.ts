@@ -81,7 +81,7 @@ export class GoogleCalendarController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Post("get-list")
   async readCalenders(
@@ -162,7 +162,7 @@ export class GoogleCalendarController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Post("")
   async createCalendar(
@@ -239,7 +239,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
@@ -333,7 +333,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
@@ -424,7 +424,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
@@ -517,7 +517,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
@@ -612,7 +612,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
@@ -717,7 +717,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
@@ -823,7 +823,7 @@ export class GoogleCalendarController {
    * @tag Vacation Schedule
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_calendar.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(

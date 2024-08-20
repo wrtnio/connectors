@@ -23,7 +23,7 @@ export class GoogleHotelController {
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_hotel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleHotel_full.svg",
   )
   @ApiTags("Google Hotel")
   async search(

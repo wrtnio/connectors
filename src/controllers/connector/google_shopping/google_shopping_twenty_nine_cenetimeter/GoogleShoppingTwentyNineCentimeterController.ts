@@ -24,7 +24,7 @@ export class GoogleShoppingTwentyNineCentimeterController {
   @Standalone()
   @core.TypedRoute.Post("twenty-nine-centimeter")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/twentynine_centimeter.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/29cm_full.svg",
   )
   async twentyNineCentimeter(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

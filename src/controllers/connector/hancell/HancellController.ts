@@ -77,7 +77,7 @@ export class HancellController {
   )
   @core.TypedRoute.Post("sheet")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
   async upsertSheet(
     @TypedBody() input: IHancell.IUpsertSheetInput,
@@ -148,7 +148,7 @@ export class HancellController {
   )
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/hancell.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
   @core.TypedRoute.Post("read")
   async read(

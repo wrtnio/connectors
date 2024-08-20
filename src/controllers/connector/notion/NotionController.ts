@@ -59,7 +59,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Post("/page")
   async createPage(
@@ -116,7 +116,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("/get/page")
@@ -174,7 +174,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("get/users")
@@ -234,7 +234,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Post("/page/content/:pageId")
   async appendPageToContent(
@@ -301,7 +301,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("get/database-info")
@@ -361,7 +361,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
@@ -432,7 +432,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
@@ -503,7 +503,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Patch("/database-item/:databaseId")
   async updateDatabaseItem(
@@ -572,7 +572,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("/get-page-by-title")
@@ -632,7 +632,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
@@ -705,7 +705,7 @@ export class NotionController {
    * @tag Document
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/notion.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
