@@ -148,4 +148,18 @@ export class GithubController {
   ): Promise<IGithub.IGetFolloweeOutput> {
     return this.githubProvider.getFollowees(input);
   }
+
+  /**
+   * Get user's profile
+   *
+   * @summary Get my profile
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("get-my-profile")
+  async getMyProfile(
+    @TypedBody() input: IGithub.IGetMyProfileInput,
+  ): Promise<IGithub.User> {
+    return this.githubProvider.debugToken(input);
+  }
 }

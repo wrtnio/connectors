@@ -85,6 +85,10 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export interface IGetReceivedEventInput
+    extends ICommonPaginationInput,
+      ICommon.ISecret<"github"> {}
+
   export interface IGetRepositoryActivityOutput
     extends ICommonPaginationOutput {
     /**
@@ -157,6 +161,7 @@ export namespace IGithub {
     activity_type?: Activity["activity_type"];
   }
 
+  export type IGetMyProfileInput = ICommon.ISecret<"github">;
   export interface IGetFolloweeOutput extends ICommonPaginationOutput {
     /**
      * @title followees
