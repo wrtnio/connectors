@@ -15,12 +15,6 @@ export class JiraController {
    * In order to delete the comments on the issue, you need the issue ID or key and the ID of the comment to be deleted.
    * Please be careful because deleted comments will not be able to be viewed again.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary delete comment
    * @param input
    */
@@ -39,12 +33,6 @@ export class JiraController {
    *
    * Modify the comment. You can only modify the body of the comment here.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary modify comment body
    * @param input
    * @returns
@@ -62,12 +50,6 @@ export class JiraController {
   /**
    * Creates a comment on an issue
    * Here, user can write the body of the comment you want to write with the ID or key of the issue.
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary creates a comment on an issue
    * @param input condition of creation
@@ -90,12 +72,6 @@ export class JiraController {
    * but not all comments inside are visible,
    * so user have to use this connector to look up them in pagination.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary get comments by issue id or key
    * @param input issue id or key
    * @returns comments of this issue
@@ -117,12 +93,6 @@ export class JiraController {
    * When designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.
    * In this case, you need to move two edges to turn the backoff issue into 'done'.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    *
    * @summary Inquire the transition of an issue
    * @param input
@@ -141,12 +111,6 @@ export class JiraController {
   /**
    * Unassign the assignee from the Jira issue
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @symmary Unaasign the assignee
    * @param input
    * @returns
@@ -161,12 +125,6 @@ export class JiraController {
 
   /**
    * Assign the assignee from the Jira issue
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary assign the assignee
    * @param input
@@ -185,12 +143,6 @@ export class JiraController {
    *
    * Changing the status of an issue must be done after inquiring about changeable Transitions from the current issue.
    * This is forced by the person who designed the workflow in the project, so you must change the status in the order set.
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary change issue status
    * @param input
@@ -214,12 +166,6 @@ export class JiraController {
    *
    * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
    * There are pre-designated content types, so please check this type information carefully.
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary update issue in jira
    * @param id issue id to update
@@ -245,12 +191,6 @@ export class JiraController {
    * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
    * There are pre-designated content types, so please check this type information carefully.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary create issue in jira
    * @param input issue information to create
    * @returns id and key of created issue
@@ -273,12 +213,6 @@ export class JiraController {
    * It can be used to look up the issue list first, or if you already know the key or ID of the issue.
    * If you do not know the key or ID, it is recommended to use the issue inquiry connector first.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary get detailed Issue Information
    * @param input
    * @returns Detailed Issue Information
@@ -297,12 +231,6 @@ export class JiraController {
    * Find Jira issues
    *
    * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary Find The Jira issues.
    * @param input condition of request
@@ -326,12 +254,6 @@ export class JiraController {
    *
    * In order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary Find the Jira projects.
    * @param input condition of request
    * @returns paginated list of projects visible to the user
@@ -348,12 +270,6 @@ export class JiraController {
 
   /**
    * Find issue labels
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary Find issue labels
    * @param input
@@ -377,12 +293,6 @@ export class JiraController {
    * it is necessary to first inquire the project and get the correct project ID.
    * The ID of the project is a numeric character type.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary Find issue types
    * @param input
    * @returns issue types
@@ -399,12 +309,6 @@ export class JiraController {
 
   /**
    * Find issue statuses for searching issue
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary Find issue statuses
    * @param input
@@ -426,12 +330,6 @@ export class JiraController {
    * and this API is already deprecated on the Jira REST API document.
    * However, for projects that can already be specified by creating a priority level, this connector is added just in case.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary Inquire the priority levels that can be assigned to the issue.
    * @param input
    * @returns issue priorities
@@ -448,12 +346,6 @@ export class JiraController {
 
   /**
    * Find a person within the issue who can be assigned as assignee.
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary Find assignable users in issue
    * @param input
@@ -472,12 +364,6 @@ export class JiraController {
   /**
    * Find a person within the project who can be assigned as assignee.
    *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
-   *
    * @summary Find assignable users in project
    * @param input
    * @returns assignable users
@@ -494,12 +380,6 @@ export class JiraController {
 
   /**
    * Get status categories
-   *
-   * This always requires the user's email address and api token for authentication.
-   * User will also need your domain address and email from Jira.
-   * Domain means 'http://*.atlassian.net' format.
-   * Users may not know that they need to hand over these credentials to use Jira APIs.
-   * This information cannot be resolved by adding any value, so you should be able to ask directly and get it from the user.
    *
    * @summary get status categories
    * @param input
