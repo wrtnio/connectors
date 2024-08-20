@@ -1372,7 +1372,7 @@ export namespace IJira {
    */
   export type TopLevelBlockNode =
     | BlockquoteNode
-    // | ListNode
+    | ListNode
     | CodeBlockNode
     | HeadingNode
     | MediaGroupNode
