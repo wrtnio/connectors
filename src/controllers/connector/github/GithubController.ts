@@ -2,6 +2,7 @@ import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/github")
 export class GithubController {
@@ -17,6 +18,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("call")
   async call(@TypedBody() input: IGithub.ICallInput): Promise<any> {
     return this.githubProvider.call(input);
@@ -35,6 +39,9 @@ export class GithubController {
    *
    * @returns A list of events from the organizations the authenticated user is a member of.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("organizations/users/get-events")
   async getUserOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationUserEventInput,
@@ -60,6 +67,9 @@ export class GithubController {
    *
    * @summary List public organization events.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("organizations/get-events")
   async getOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationEventInput,
@@ -75,6 +85,9 @@ export class GithubController {
    *
    * @summary List events for the authenticated user.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("repos/get-events")
   async getRepoEvents(
     @TypedBody() input: IGithub.IGetRepoEventInput,
@@ -99,6 +112,9 @@ export class GithubController {
    *
    * @summary List public events for a network of repositories
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("networks/get-events")
   async getNetworkRepoEvents(
     @TypedBody() input: IGithub.IGetRepoEventInput,
@@ -125,6 +141,9 @@ export class GithubController {
    *
    * @summary List events for the authenticated user.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("users/get-events")
   async getUserEvents(
     @TypedBody() input: IGithub.IGetUserEventInput,
@@ -141,6 +160,9 @@ export class GithubController {
    *
    * @summary List public events.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-events")
   async getEvents(
     @TypedBody() input: IGithub.IGetEventInput,
@@ -156,6 +178,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("repositories/get-activities")
   async getRepositoryActivities(
     @TypedBody() input: IGithub.IGetRepositoryActivityInput,
@@ -170,6 +195,9 @@ export class GithubController {
    * @param input
    * @returns list of user
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-users")
   async searchUser(
     @TypedBody() input: IGithub.ISearchUserInput,
@@ -184,6 +212,9 @@ export class GithubController {
    * @param input
    * @returns detailed profile
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-user-profile")
   async getUserProfile(
     @TypedBody() input: IGithub.IGetUserProfileInput,
@@ -198,6 +229,9 @@ export class GithubController {
    * @param input
    * @returns repositories
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-repositories")
   async getUserRepositories(
     @TypedBody() input: IGithub.IGetUserRepositoryInput,
@@ -212,6 +246,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-branches")
   async getRepositoryBranches(
     @TypedBody() input: IGithub.IGetBranchInput,
@@ -229,6 +266,9 @@ export class GithubController {
    * @summary get pull requests associated with a commit
    * @returns pull requests associated with a commit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-pull-requests-associated-with-a-commit")
   async getPullRequestAssociatedWithACommit(
     @TypedBody() input: IGithub.IGetPullRequestInput,
@@ -246,6 +286,9 @@ export class GithubController {
    * @summary Lists all branches that contain the HEAD commit
    * @returns A promise that resolves to an array of branch names that include the specified commit.
    **/
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-commit-heads")
   async getCommitHeads(
     @TypedBody() input: IGithub.IGetCommitHeadInput,
@@ -261,6 +304,9 @@ export class GithubController {
    * @param input
    * @returns detailed commit history
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-commit")
   async getCommit(
     @TypedBody() input: IGithub.IGetCommitInput,
@@ -276,6 +322,9 @@ export class GithubController {
    * @param input
    * @returns commit diff
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-commit-diff")
   async getCommitDiff(
     @TypedBody() input: IGithub.IGetCommitInput,
@@ -290,6 +339,9 @@ export class GithubController {
    * @param input
    * @returns list of commit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-commit-list")
   async getCommitList(
     @TypedBody() input: IGithub.IGetCommitListInput,
@@ -304,6 +356,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-followers")
   async getFollowers(
     @TypedBody() input: IGithub.IGetFollowerInput,
@@ -318,6 +373,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-followees")
   async getFollowees(
     @TypedBody() input: IGithub.IGetFolloweeInput,
@@ -332,6 +390,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("get-my-profile")
   async getMyProfile(
     @TypedBody() input: IGithub.IGetMyProfileInput,
