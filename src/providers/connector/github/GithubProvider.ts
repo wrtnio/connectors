@@ -5,6 +5,60 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class GithubProvider {
+  async getOrganizationEvents(
+    input: IGithub.IGetOrganizationEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { organization, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/orgs/${organization}/events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getRepoEvents(
+    input: IGithub.IGetRepoEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { username, repo, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/repos/${username}/${repo}/events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getUserEvents(
+    input: IGithub.IGetUserEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { username, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/users/${username}/events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getEvents(
     input: IGithub.IGetEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -221,42 +275,58 @@ export class GithubProvider {
       return { nextPage: false };
     }
 
-    const afterRegExp = /(?<=after=)[^&]+(?=((&.+)|>;) rel="next")/g;
-    const after = link.match(afterRegExp)?.[0];
+    const metadata: Omit<IGithub.ICommonPaginationOutput, "nextPage"> = link
+      .split(",")
+      .map((relation) => {
+        const beforeRegExp = /(?<=\?before=)[^&]+(?=((&.+)|>;) rel="prev")/g;
+        const before = relation.match(beforeRegExp)?.[0];
 
-    const beforeRegExp = /(?<=before=)[^&]+(?=((&.+)|>;) rel="prev")/g;
-    const before = link.match(beforeRegExp)?.[0];
+        if (typeof before === "string") {
+          return { before };
+        }
 
-    const prevRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="prev")/g;
-    const prev = link.match(prevRegExp)?.[0];
+        const afterRegExp = /(?<=\?after=)[^&]+(?=((&.+)|>;) rel="next")/g;
+        const after = relation.match(afterRegExp)?.[0];
 
-    const nextRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="next")/g;
-    const next = link.match(nextRegExp)?.[0];
+        if (typeof after === "string") {
+          return { after };
+        }
 
-    const lastRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="last")/g;
-    const last = link.match(lastRegExp)?.[0];
+        const prevRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="prev")/g;
+        const prev = relation.match(prevRegExp)?.[0];
 
-    const firstRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="first")/g;
-    const first = link.match(firstRegExp)?.[0];
+        if (typeof prev === "string") {
+          return { prev: Number(prev) };
+        }
+
+        const nextRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="next")/g;
+        const next = relation.match(nextRegExp)?.[0];
+
+        if (typeof next === "string") {
+          return { next: Number(next) };
+        }
+
+        const lastRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="last")/g;
+        const last = relation.match(lastRegExp)?.[0];
+
+        if (typeof last === "string") {
+          return { last: Number(last) };
+        }
+
+        const firstRegExp = /(?<=\bpage=)\d+(?=((&.+)|>;) rel="first")/g;
+        const first = relation.match(firstRegExp)?.[0];
+
+        if (typeof first === "string") {
+          return { first: Number(first) };
+        }
+
+        return {};
+      })
+      .reduce((acc, cur) => Object.assign(acc, cur), {});
 
     return {
-      nextPage: after || next ? true : false,
-      ...(after && { after }),
-      ...(before && { before }),
-      ...(Number(prev) && {
-        prev: Number(prev),
-        next: Number(last)
-          ? Number(prev) + 2 < Number(last)
-            ? Number(prev) + 2
-            : null
-          : null,
-      }),
-      ...(Number(next) && {
-        next: Number(next),
-        prev: Number(next) - 2 > 0 ? Number(next) - 2 : null,
-      }),
-      ...(Number(last) && { last: Number(last) }),
-      ...(Number(first) && { first: Number(first) }),
+      ...metadata,
+      nextPage: metadata.after || metadata.next ? true : false,
     };
   }
 }

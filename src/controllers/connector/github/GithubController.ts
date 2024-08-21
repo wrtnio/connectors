@@ -7,19 +7,61 @@ import { GithubProvider } from "../../../providers/connector/github/GithubProvid
 export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
-  @core.TypedRoute.Post("get-events")
-  async getEvents(
-    input: IGithub.IGetEventInput,
+  /**
+   * List public organization events.
+   * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+   *
+   * @summary List public organization events.
+   */
+  @core.TypedRoute.Post("orgs/get-events")
+  async getOrganizationEvents(
+    @TypedBody() input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {
-    return this.githubProvider.getEvents(input);
+    const data = await this.githubProvider.getOrganizationEvents(input);
+    return data;
   }
 
-  // @core.TypedRoute.Post("user/get-received-events")
-  // async getUserReceivedEvents(
-  //   input: IGithub.IGetUserReceivedEventInput,
-  // ): Promise<IGithub.IGetReceivedEventOutput> {
-  //   return this.githubProvider.getUserReceivedEvents(input);
-  // }
+  /**
+   * List events for the authenticated user.
+   * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+   *
+   * @summary List events for the authenticated user.
+   */
+  @core.TypedRoute.Post("repos/get-events")
+  async getRepoEvents(
+    @TypedBody() input: IGithub.IGetRepoEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const data = await this.githubProvider.getRepoEvents(input);
+    return data;
+  }
+
+  /**
+   * List events for the authenticated user.
+   * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+   *
+   * @summary List events for the authenticated user.
+   */
+  @core.TypedRoute.Post("users/get-events")
+  async getUserEvents(
+    @TypedBody() input: IGithub.IGetUserEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const data = await this.githubProvider.getUserEvents(input);
+    return data;
+  }
+
+  /**
+   * List public events.
+   * This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
+   *
+   * @summary List public events.
+   */
+  @core.TypedRoute.Post("get-events")
+  async getEvents(
+    @TypedBody() input: IGithub.IGetEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const data = await this.githubProvider.getEvents(input);
+    return data;
+  }
 
   /**
    * Get repository activities

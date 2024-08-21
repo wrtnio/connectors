@@ -91,11 +91,50 @@ export namespace IGithub {
       type: string | null;
       actor: Pick<User, "id" | "login">;
       repo: Pick<Repository, "id" | "name">;
-      org: Pick<Organization, "id" | "display_login" | "login">;
-      payload: {};
+      org?: Pick<Organization, "id" | "display_login" | "login">;
+      payload: {
+        action?: string;
+        issue?: IGithub.Issue;
+        comment?: {
+          id: number & tags.Type<"uint64">;
+          body?: string;
+          user: Pick<IGithub.User, "id" | "login" | "type">;
+          created_at: string & tags.Format<"date-time">;
+          updated_at: string & tags.Format<"date-time">;
+          pages?: {
+            page_name?: string;
+            title?: string;
+            summary?: string | null;
+            action?: string;
+            sha?: string;
+            html_url?: string;
+          }[];
+        };
+      };
       public: boolean;
       created_at: (string & tags.Format<"date-time">) | null;
     }[];
+  }
+
+  export interface IGetOrganizationEventInput extends IGetEventInput {
+    /**
+     * @title user's nickname
+     */
+    organization: Organization["login"];
+  }
+
+  export interface IGetRepoEventInput extends IGetUserEventInput {
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+  }
+
+  export interface IGetUserEventInput extends IGetEventInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
   }
 
   export interface IGetEventInput
@@ -295,17 +334,17 @@ export namespace IGithub {
       /**
        * @title sum of additions and deletions
        */
-      total: number & tags.Type<"uint32">;
+      total: number & tags.Type<"uint64">;
 
       /**
        * @title lines of additions
        */
-      additions: number & tags.Type<"uint32">;
+      additions: number & tags.Type<"uint64">;
 
       /**
        * @title lines of deletions
        */
-      deletions: number & tags.Type<"uint32">;
+      deletions: number & tags.Type<"uint64">;
     };
 
     /**
@@ -339,17 +378,17 @@ export namespace IGithub {
       /**
        * @title additions
        */
-      additions: number & tags.Type<"uint32">;
+      additions: number & tags.Type<"uint64">;
 
       /**
        * @title deletions
        */
-      deletions: number & tags.Type<"uint32">;
+      deletions: number & tags.Type<"uint64">;
 
       /**
        * @title changes
        */
-      changes: number & tags.Type<"uint32">;
+      changes: number & tags.Type<"uint64">;
 
       /**
        * @title blob_url
@@ -515,22 +554,22 @@ export namespace IGithub {
     /**
      * @title count of public repos
      */
-    public_repos: number & tags.Type<"uint32">;
+    public_repos: number & tags.Type<"uint64">;
 
     /**
      * @title count of public gists
      */
-    public_gists: number & tags.Type<"uint32">;
+    public_gists: number & tags.Type<"uint64">;
 
     /**
      * @title count of followers
      */
-    followers: number & tags.Type<"uint32">;
+    followers: number & tags.Type<"uint64">;
 
     /**
      * @title count of follwing
      */
-    following: number & tags.Type<"uint32">;
+    following: number & tags.Type<"uint64">;
 
     /**
      * @title created_at
@@ -663,17 +702,17 @@ export namespace IGithub {
     /**
      * @title forks_count
      */
-    forks_count: number & tags.Type<"uint32">;
+    forks_count: number & tags.Type<"uint64">;
 
     /**
      * @title stargazers_count
      */
-    stargazers_count: number & tags.Type<"uint32">;
+    stargazers_count: number & tags.Type<"uint64">;
 
     /**
      * @title watchers_count
      */
-    watchers_count: number & tags.Type<"uint32">;
+    watchers_count: number & tags.Type<"uint64">;
 
     /**
      * @title size
@@ -688,7 +727,7 @@ export namespace IGithub {
     /**
      * @title open_issues_count
      */
-    open_issues_count: number & tags.Type<"uint32">;
+    open_issues_count: number & tags.Type<"uint64">;
 
     /**
      * @title is_template
@@ -800,12 +839,12 @@ export namespace IGithub {
     /**
      * @title subscribers_count
      */
-    subscribers_count?: number & tags.Type<"uint32">;
+    subscribers_count?: number & tags.Type<"uint64">;
 
     /**
      * @title network_count
      */
-    network_count?: number & tags.Type<"uint32">;
+    network_count?: number & tags.Type<"uint64">;
 
     license: null | {
       /**
@@ -832,17 +871,17 @@ export namespace IGithub {
     /**
      * @title forks
      */
-    forks: number & tags.Type<"uint32">;
+    forks: number & tags.Type<"uint64">;
 
     /**
      * @title open_issues
      */
-    open_issues: number & tags.Type<"uint32">;
+    open_issues: number & tags.Type<"uint64">;
 
     /**
      * @title watchers
      */
-    watchers: number & tags.Type<"uint32">;
+    watchers: number & tags.Type<"uint64">;
   };
 
   export type Branch = {
@@ -901,7 +940,7 @@ export namespace IGithub {
       url: string & tags.Format<"uri">;
     };
 
-    comment_count: number & tags.Type<"uint32">;
+    comment_count: number & tags.Type<"uint64">;
   };
 
   export type Activity = {
@@ -952,5 +991,79 @@ export namespace IGithub {
      * @title display_login
      */
     display_login?: string;
+  };
+
+  export type Issue = {
+    id: number & tags.Type<"uint64">;
+    url: string & tags.Format<"uri">;
+
+    /**
+     * @title issue number
+     *
+     * Number uniquely identifying the issue within its repository
+     */
+    number: number & tags.Type<"uint64">;
+    /**
+     * @title state
+     *
+     * State of the issue; either 'open' or 'closed'
+     */
+    state: string;
+
+    /**
+     * The reason for the current state
+     */
+    state_reason?: "completed" | "reopened" | "not_planned" | null;
+
+    /**
+     * Title of the issue
+     */
+    title: string;
+
+    /**
+     * @title user
+     */
+    user: Pick<IGithub.User, "id" | "login" | "type">;
+
+    /**
+     * Contents of the issue
+     */
+    body?: string | null;
+
+    /**
+     * Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
+     */
+    labels: (
+      | string
+      | {
+          id?: number & tags.Type<"uint64">;
+          url?: string & tags.Format<"uri">;
+          name?: string;
+          description?: string | null;
+          color?: string | null;
+          default?: boolean;
+        }
+    )[];
+
+    assignee: Pick<IGithub.User, "id" | "login" | "type"> | null;
+    assignees?: Pick<IGithub.User, "id" | "login" | "type">[] | null;
+  };
+
+  export type Milestone = {
+    id: number & tags.Type<"uint64">;
+    number: number & tags.Type<"uint64">;
+
+    /**
+     * The title of the milestone.
+     */
+    title: string;
+    description: string | null;
+    creator: Pick<IGithub.User, "id" | "login" | "type">;
+    open_issues: number & tags.Type<"uint64">;
+    closed_issues: number & tags.Type<"uint64">;
+    created_at: string & tags.Format<"date-time">;
+    updated_at: string & tags.Format<"date-time">;
+    closed_at: (string & tags.Format<"date-time">) | null;
+    due_on: (string & tags.Format<"date-time">) | null;
   };
 }
