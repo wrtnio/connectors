@@ -23,12 +23,44 @@ export class GithubController {
   }
 
   /**
-   * List public organization events.
+   * Lists organization events for the authenticated user
+   *
+   * This API endpoint retrieves events that have occurred within the organizations
+   * the authenticated user is a member of. It includes activities such as issues,
+   * pull requests, commits, and other actions taken within the organization's repositories.
+   *
+   * The events cover all repositories within the organization that the user has access to,
+   * making it useful for tracking the organization's activity or monitoring the progress
+   * of projects that the user is involved in within the team.
+   *
+   * @returns A list of events from the organizations the authenticated user is a member of.
+   */
+  @core.TypedRoute.Post("organizations/users/get-events")
+  async getUserOrganizationEvents(
+    @TypedBody() input: IGithub.IGetOrganizationUserEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const data = await this.githubProvider.getUserOrganizationEvents(input);
+    return data;
+  }
+
+  /**
+   * List public organization events
+   *
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+   *
+   * This API endpoint retrieves a stream of public events that have occurred
+   * within a specified organization. These events include activities such as
+   * repository creation, issues, pull requests, and other actions taken by members
+   * of the organization across all its public repositories.
+   *
+   * This is useful for monitoring the public activity within an organization,
+   * providing insights into how the organization is managing its projects,
+   * the work being done by its members, and the overall public engagement with
+   * its repositories.
    *
    * @summary List public organization events.
    */
-  @core.TypedRoute.Post("orgs/get-events")
+  @core.TypedRoute.Post("organizations/get-events")
   async getOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -37,7 +69,8 @@ export class GithubController {
   }
 
   /**
-   * List events for the authenticated user.
+   * List events for the authenticated user
+   *
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
    *
    * @summary List events for the authenticated user.
@@ -51,7 +84,42 @@ export class GithubController {
   }
 
   /**
-   * List events for the authenticated user.
+   * Fetches events across all forks of a specified repository.
+   *
+   * This API endpoint provides a stream of events that occur in any fork
+   * of the specified repository. It includes actions such as commits,
+   * pull requests, issues, and other activity happening in the forked
+   * repositories.
+   *
+   * Use this endpoint when you need to monitor the activity not just
+   * in the original repository, but also in all of its forks. This can
+   * be particularly useful for understanding the broader impact or
+   * activity surrounding a popular project that has been forked multiple
+   * times.
+   *
+   * @summary List public events for a network of repositories
+   */
+  @core.TypedRoute.Post("networks/get-events")
+  async getNetworkRepoEvents(
+    @TypedBody() input: IGithub.IGetRepoEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const data = await this.githubProvider.getNetworkRepoEvents(input);
+    return data;
+  }
+
+  /**
+   * List events for the authenticated user
+   *
+   * This API endpoint retrieves a stream of events related to the authenticated user,
+   * including activities such as issues, pull requests, commits, and repository actions
+   * that the user has participated in or been mentioned in. The events reflect the user's
+   * interactions across all repositories they have access to, both public and private (if
+   * the user has appropriate permissions).
+   *
+   * This is useful for tracking a user's activity on GitHub, allowing you to see a
+   * personalized feed of their involvement in various projects and interactions with
+   * other users.
+   *
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
    * It looks up users' public events. Username should be your own nickname because you can usually only see your own events.
    *
@@ -66,7 +134,8 @@ export class GithubController {
   }
 
   /**
-   * List public events.
+   * List public events
+   *
    * This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
    * When I look up the events, they may not be of much value to the user because they are events that occurred on github.
    *

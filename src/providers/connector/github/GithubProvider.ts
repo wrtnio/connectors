@@ -15,6 +15,26 @@ export class GithubProvider {
     return res.data;
   }
 
+  async getUserOrganizationEvents(
+    input: IGithub.IGetOrganizationUserEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { organization, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const { login } = await this.debugToken(input);
+    const url = `https://api.github.com/users/${login}/events/orgs/${organization}?${queryParameters}`;
+    console.log(url);
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getOrganizationEvents(
     input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -41,6 +61,24 @@ export class GithubProvider {
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/repos/${username}/${repo}/events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getNetworkRepoEvents(
+    input: IGithub.IGetRepoEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { username, repo, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/networks/${username}/${repo}/events?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
@@ -87,12 +125,8 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
-  // async getUserReceviedEvents(
-  //   input: IGithub.IGetUserReceivedEventInput,
-  // ): Promise<IGithub.IGetReceivedEventOutput> {}
-
   async debugToken(input: IGithub.IGetMyProfileInput): Promise<IGithub.User> {
-    const url = `https://api.github.com/search/user`;
+    const url = `https://api.github.com/user`;
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${input.secretKey}`,

@@ -144,6 +144,8 @@ export namespace IGithub {
     }[];
   }
 
+  export type IGetOrganizationUserEventInput = IGetOrganizationEventInput;
+
   export interface IGetOrganizationEventInput extends IGetEventInput {
     /**
      * @title user's nickname
