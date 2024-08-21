@@ -6,12 +6,17 @@ import { IGoogleHotel } from "@wrtn/connector-api/lib/structures/connector/googl
 export const test_api_connector_google_hotel = async (
   connection: CApi.IConnection,
 ) => {
+  const today = new Date();
+  const oneWeekLater = new Date();
+  oneWeekLater.setDate(today.getDate() + 7);
+
+  const formatDate = (date: Date) => date.toISOString().split("T")[0];
   const results = await CApi.functional.connector.google_hotel.search(
     connection,
     {
       keyword: "Tokyo",
-      check_in_date: "2024-08-15",
-      check_out_date: "2024-08-25",
+      check_in_date: formatDate(today),
+      check_out_date: formatDate(oneWeekLater),
       adults: 2,
       children: 0,
       // sort_by: "3",
