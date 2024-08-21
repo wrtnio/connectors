@@ -88,8 +88,7 @@
         },
         "required": [
           "title",
-          "link",
-          "snippet"
+          "link"
         ],
         "title": "검색 결과"
       },
