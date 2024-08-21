@@ -1121,4 +1121,36 @@ export namespace IGithub {
     closed_at: (string & tags.Format<"date-time">) | null;
     due_on: (string & tags.Format<"date-time">) | null;
   };
+
+  export interface PullRequest extends IGithub.Issue {
+    head: {
+      label: string;
+      ref: string;
+      sha: string;
+      user: Pick<IGithub.User, "id" | "login" | "type">;
+    };
+    base: {
+      label: string;
+      ref: string;
+      sha: string;
+      user: Pick<IGithub.User, "id" | "login" | "type">;
+    };
+    merged_at: (string & tags.Format<"date-time">) | null;
+    author_association:
+      | "COLLABORATOR"
+      | "CONTRIBUTOR"
+      | "FIRST_TIMER"
+      | "FIRST_TIME_CONTRIBUTOR"
+      | "MANNEQUIN"
+      | "MEMBER"
+      | "NONE"
+      | "OWNER";
+
+    /**
+     * @title draft
+     *
+     * Indicates whether or not the pull request is a draft.
+     */
+    draft?: boolean;
+  }
 }
