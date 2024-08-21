@@ -239,6 +239,20 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getPullRequestAssociatedWithACommit(
+    input: IGithub.IGetPullRequestInput,
+  ): Promise<IGithub.IGetPullRequestOutput> {
+    const { owner, repo, commit_sha, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${commit_sha}/pulls`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    return res.data;
+  }
+
   async getCommit(
     input: IGithub.IGetCommitInput,
   ): Promise<IGithub.IGetCommitOutput> {
