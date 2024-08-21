@@ -603,3 +603,47 @@ export const test_api_connector_jira_create_random_issue_blockquote = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_jira_create_random_issue_bullet_list = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.jira.issues.createIssue(
+    connection,
+    {
+      secretKey: JSON.stringify(Configuration),
+      fields: {
+        summary: "TEST",
+        project: { key: "KAK" },
+        issuetype: { id: "10005" },
+
+        description: {
+          type: "doc",
+          version: 1,
+          content: [
+            {
+              type: "bulletList",
+              content: [
+                {
+                  type: "listItem",
+                  content: [
+                    {
+                      type: "paragraph",
+                      content: [
+                        {
+                          text: "TEST",
+                          type: "text",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  );
+
+  typia.assertEquals(res);
+};
