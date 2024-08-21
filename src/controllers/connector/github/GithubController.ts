@@ -23,6 +23,23 @@ export class GithubController {
   }
 
   /**
+   * Lists all branches that contain the HEAD commit of a GitHub repository.
+   *
+   * This function utilizes the GitHub API to retrieve a list of branches where the current
+   * HEAD commit (the latest commit on the checked-out branch) is included. This is useful for
+   * determining which branches contain the most recent changes.
+   *
+   * @summary Lists all branches that contain the HEAD commit
+   * @returns A promise that resolves to an array of branch names that include the specified commit.
+   **/
+  @core.TypedRoute.Post("get-commit-heads")
+  async getCommitHeads(
+    @TypedBody() input: IGithub.IGetCommitHeadInput,
+  ): Promise<IGithub.IGetCommitHeadOutput> {
+    return this.githubProvider.getCommitHeads(input);
+  }
+
+  /**
    * Lists organization events for the authenticated user
    *
    * This API endpoint retrieves events that have occurred within the organizations

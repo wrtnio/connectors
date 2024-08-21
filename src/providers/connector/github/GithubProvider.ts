@@ -15,6 +15,19 @@ export class GithubProvider {
     return res.data;
   }
 
+  async getCommitHeads(
+    input: IGithub.IGetCommitHeadInput,
+  ): Promise<IGithub.IGetCommitHeadOutput> {
+    const { owner, repo, commit_sha, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${commit_sha}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+    return res.data;
+  }
+
   async getUserOrganizationEvents(
     input: IGithub.IGetOrganizationUserEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -24,7 +37,6 @@ export class GithubProvider {
 
     const { login } = await this.debugToken(input);
     const url = `https://api.github.com/users/${login}/events/orgs/${organization}?${queryParameters}`;
-    console.log(url);
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${secretKey}`,

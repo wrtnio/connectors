@@ -85,6 +85,31 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export type IGetCommitHeadOutput = {
+    name: Branch["name"];
+    commit: Pick<Commit, "sha" | "url">;
+    protected: boolean;
+  }[];
+
+  export interface IGetCommitHeadInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title commit_sha
+     *
+     * The SHA of the commit.
+     */
+    commit_sha: string;
+  }
+
   export interface ICallInput extends ICommon.ISecret<"github"> {
     /**
      * @title github api endpoint
