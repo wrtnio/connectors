@@ -52,7 +52,7 @@ export namespace IGoogleSearch {
     /**
      * @title 검색 결과 요약
      */
-    snippet: string;
+    snippet?: string;
 
     /**
      * @title 검색 결과 thumbnail
