@@ -85,6 +85,15 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export interface ICallInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title github api endpoint
+     */
+    url: string &
+      tags.Format<"uri"> &
+      tags.Pattern<"^https://api.github.com/(.*)">;
+  }
+
   export interface IGetEventOutput extends ICommonPaginationOutput {
     result: {
       id: string;
@@ -93,8 +102,27 @@ export namespace IGithub {
       repo: Pick<Repository, "id" | "name">;
       org?: Pick<Organization, "id" | "display_login" | "login">;
       payload: {
+        /**
+         * @title action
+         *
+         * It means what this event means.
+         * Although the type of event usually has a resource or the name of the event,
+         * it is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc.
+         */
         action?: string;
+
+        /**
+         * @title issue
+         *
+         * If it is an event for an issue, contain the issue information.
+         */
         issue?: IGithub.Issue;
+
+        /**
+         * @title comment
+         *
+         * If it is an event for an comment, contain the comment information.
+         */
         comment?: {
           id: number & tags.Type<"uint64">;
           body?: string;

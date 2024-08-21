@@ -5,6 +5,16 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class GithubProvider {
+  async call(input: IGithub.ICallInput) {
+    const res = await axios.get(input.url, {
+      headers: {
+        Authorization: `Bearer ${input.secretKey}`,
+      },
+    });
+
+    return res.data;
+  }
+
   async getOrganizationEvents(
     input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {

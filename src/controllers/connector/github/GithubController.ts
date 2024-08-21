@@ -8,6 +8,21 @@ export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
   /**
+   * In GitHub, it is written with RESTful APIs so that each resource can call the next API when querying a resource.
+   * This appears to be a HATEOAS implementation, so logically, when you want to see additional information from a particular resource, you can infer and use the purpose based on the key name of the URL and the type of endpoint.
+   * Therefore, we simply received a link from the user and created this connector to replace the api call.
+   * However, you will only need to request links that begin with the https://api.github.com/ path.
+   *
+   * @summary Call github api on behalf of the user
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("call")
+  async call(@TypedBody() input: IGithub.ICallInput): Promise<any> {
+    return this.githubProvider.call(input);
+  }
+
+  /**
    * List public organization events.
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
    *
@@ -38,6 +53,7 @@ export class GithubController {
   /**
    * List events for the authenticated user.
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+   * It looks up users' public events. Username should be your own nickname because you can usually only see your own events.
    *
    * @summary List events for the authenticated user.
    */
@@ -52,6 +68,7 @@ export class GithubController {
   /**
    * List public events.
    * This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
+   * When I look up the events, they may not be of much value to the user because they are events that occurred on github.
    *
    * @summary List public events.
    */
