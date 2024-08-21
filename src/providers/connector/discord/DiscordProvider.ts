@@ -26,10 +26,9 @@ export class DiscordProvider {
 
   async getCurrentUserGuilds(
     input: IDiscord.ISecret,
-  ): Promise<IDiscord.IGuildResponse[]> {
+  ): Promise<IDiscord.IGuild[]> {
     try {
       const accessToken = await this.refresh(input.secretKey);
-
       const res = await axios.get(
         "https://discord.com/api/v10/users/@me/guilds",
         {
@@ -46,7 +45,7 @@ export class DiscordProvider {
     }
   }
 
-  async LeaveGuild(input: IDiscord.ILeaveGuildRequest): Promise<void> {
+  async leaveGuild(input: IDiscord.ILeaveGuildRequest): Promise<void> {
     try {
       const accessToken = await this.refresh(input.secretKey);
       await axios.delete(
@@ -69,7 +68,7 @@ export class DiscordProvider {
       const res = await axios.post(
         "https://discord.com/api/v10/users/@me/channels",
         {
-          recipient_id: input.recepient_id,
+          recipient_id: input.recipient_id,
         },
         {
           headers: {
@@ -88,7 +87,9 @@ export class DiscordProvider {
   /**
    * Guild
    */
-  async createGuild(input: IDiscord.ICreateGuild): Promise<IDiscord.IGuild> {
+  async createGuild(
+    input: IDiscord.ICreateGuildRequest,
+  ): Promise<IDiscord.IGuild> {
     try {
       const accessToken = await this.refresh(input.secretKey);
       const res = await axios.post(
@@ -110,7 +111,7 @@ export class DiscordProvider {
   }
 
   async modifyGuild(
-    input: IDiscord.IModifyGuildReqeust,
+    input: IDiscord.IModifyGuildRequest,
   ): Promise<IDiscord.IGuild> {
     try {
       const accessToken = await this.refresh(input.secretKey);
@@ -234,32 +235,266 @@ export class DiscordProvider {
   /**
    * Channel
    */
-  async getChannel() {}
+  async modifyChannel(
+    input: IDiscord.IModifyChannelRequest,
+  ): Promise<IDiscord.IChannel> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const res = await axios.patch(
+        `https://discord.com/api/v10/channels/${input.channelId}`,
+        {
+          name: input.name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async modifyChannel() {}
+  async deleteChannel(input: IDiscord.IDeleteChannelRequest): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.delete(
+        `https://discord.com/api/v10/channels/${input.channelId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async deleteChannel() {}
+  async getPinnedMessages(
+    input: IDiscord.IGetPinnedMessagesRequest,
+  ): Promise<IDiscord.IMessage[]> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const res = await axios.get(
+        `https://discord.com/api/v10/channels/${input.channelId}/pins`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async createChannelInvite() {}
+  async pinMessage(input: IDiscord.IPinOrUnpinMessagesRequest): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.put(
+        `https://discord.com/api/v10/channels/${input.channelId}/pins/${input.messageId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async pinMessage() {}
+  async unpinMessage(
+    input: IDiscord.IPinOrUnpinMessagesRequest,
+  ): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.delete(
+        `https://discord.com/api/v10/channels/${input.channelId}/pins/${input.messageId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async unpinMessage() {}
+  async joinThread(input: IDiscord.IJoinOrLeaveThreadRequest): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.put(
+        `https://discord.com/api/v10/channels/${input.channelId}/thread-members/@me`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async leaveThread(input: IDiscord.IJoinOrLeaveThreadRequest): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.delete(
+        `https://discord.com/api/v10/channels/${input.channelId}/thread-members/@me`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
   /**
    * Message
    */
-  async getChannelMessageHistories() {}
+  async getChannelMessageHistories(
+    input: IDiscord.IGetChannelMessageHistoriesRequest,
+  ): Promise<IDiscord.IMessage[]> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const res = await axios.get(
+        `https://discord.com/api/v10/channels/${input.channelId}/messages`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async createMessage() {}
+  async createMessage(
+    input: IDiscord.ICreateMessageRequest,
+  ): Promise<IDiscord.IMessage> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const res = await axios.post(
+        `https://discord.com/api/v10/channels/${input.channelId}/messages`,
+        {
+          content: input.content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async crossPortMessage() {}
+  async crossPostMessage(
+    input: IDiscord.ICrossPostMessageRequest,
+  ): Promise<IDiscord.IMessage> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const res = await axios.post(
+        `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}/crosspost`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async editMessage() {}
+  async editMessage(
+    input: IDiscord.IEditMessageRequest,
+  ): Promise<IDiscord.IMessage> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const res = await axios.patch(
+        `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}`,
+        {
+          content: input.content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async deleteMessage() {}
+  async deleteMessage(input: IDiscord.IDeleteMessageRequest): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.delete(
+        `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
-  async bulkDeleteMessages() {}
+  async bulkDeleteMessages(
+    input: IDiscord.IBulkDeleteMessagesRequest,
+  ): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      await axios.post(
+        `https://discord.com/api/v10/channels/${input.channelId}/messages/bulk-delete`,
+        {
+          messages: input.messages,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
 
   private async refresh(refreshToken: string): Promise<string> {
     const res = await axios.post(

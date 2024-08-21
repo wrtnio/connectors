@@ -105,6 +105,7 @@ export namespace ConnectorGlobal {
     // DISCORD
     DISCORD_CLIENT_ID: string;
     DISCORD_CLIENT_SECRET: string;
+    DISCORD_TEST_SECRET: string;
 
     //----
     // INHOUSE SERVERS
