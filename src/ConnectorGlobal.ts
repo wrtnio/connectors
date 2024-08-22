@@ -26,6 +26,9 @@ export namespace ConnectorGlobal {
     // DAUM
     DAUM_API_KEY: string;
 
+    // GITHUB
+    G_GITHUB_TEST_SECRET: string;
+
     // GOOGLE
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
