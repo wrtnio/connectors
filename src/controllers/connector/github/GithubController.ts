@@ -80,11 +80,28 @@ export class GithubController {
   }
 
   /**
+   * Create file content in github repository
+   *
+   * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
+   *
+   * @summary Create File content
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("repos/contents")
+  async createFileContents(
+    @TypedBody() input: IGithub.ICreateFileContentInput,
+  ): Promise<void> {
+    const data = await this.githubProvider.createFileContents(input);
+    return data;
+  }
+
+  /**
    * List events for the authenticated user
    *
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
    *
-   * @summary List events for the authenticated user.
+   * @summary List events for the authenticated user
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",

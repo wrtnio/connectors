@@ -65,6 +65,26 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async createFileContents(
+    input: IGithub.ICreateFileContentInput,
+  ): Promise<void> {
+    const { owner, repo, path, secretKey, ...rest } = input;
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    await axios.put(
+      url,
+      {
+        ...rest,
+        content: Buffer.from(input.content).toString("base64"),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+        },
+      },
+    );
+  }
+
   async getRepoEvents(
     input: IGithub.IGetRepoEventInput,
   ): Promise<IGithub.IGetEventOutput> {

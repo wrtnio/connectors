@@ -85,6 +85,75 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export interface ICreateFileContentInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    owner: User["login"];
+    repo: Repository["name"];
+
+    /**
+     * @title path parameters
+     *
+     * It refers to the path of the file, and is the path of the file including folders and extensions.
+     * If you want to make index.ts in src, you need to add 'src/index.ts'.
+     */
+    path: string;
+
+    message: Commit["message"];
+    /**
+     * @title the new file content
+     *
+     * Meaning of the file is text and text.
+     * If you want to create code content, you should write code content.
+     */
+    content: string;
+
+    /**
+     * @title branch name
+     */
+    branch?: Branch["name"];
+
+    /**
+     * @title The person that committed the file.
+     * If you don't put anything in, your own information will be injected, so you can leave the value alone.
+     * Since the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.
+     *
+     * Default: the authenticated user.
+     */
+    committer?: {
+      /**
+       * @title The name of the author or committer of the commit
+       */
+      name: string;
+
+      /**
+       * @title The email of the author or committer of the commit
+       */
+      email: string;
+      date: string & tags.Format<"date-time">;
+    };
+
+    /**
+     * @title The author of the file.
+     *
+     * If you don't put anything in, your own information will be injected, so you can leave the value alone.
+     * Since the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.
+     *
+     * Default: The committer or the authenticated user if you omit committer.
+     */
+    author?: {
+      /**
+       * @title The name of the author or committer of the commit
+       */
+      name: string;
+
+      /**
+       * @title The email of the author or committer of the commit
+       */
+      email: string;
+      date: string & tags.Format<"date-time">;
+    };
+  }
+
   export type IGetPullRequestOutput = PullRequest[];
 
   export interface IGetPullRequestInput extends ICommon.ISecret<"github"> {
