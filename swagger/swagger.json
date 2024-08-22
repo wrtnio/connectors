@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.115",
+    "version": "0.1.117",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10725,6 +10725,634 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/github/call": {
+      "post": {
+        "summary": "Call github api on behalf of the user",
+        "description": "In GitHub, it is written with RESTful APIs so that each resource can call the next API when querying a resource.\nThis appears to be a HATEOAS implementation, so logically, when you want to see additional information from a particular resource, you can infer and use the purpose based on the key name of the URL and the type of endpoint.\nTherefore, we simply received a link from the user and created this connector to replace the api call.\nHowever, you will only need to request links that begin with the https://api.github.com/ path.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICallInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/organizations/users/get-events": {
+      "post": {
+        "description": "Lists organization events for the authenticated user\n\nThis API endpoint retrieves events that have occurred within the organizations\nthe authenticated user is a member of. It includes activities such as issues,\npull requests, commits, and other actions taken within the organization's repositories.\n\nThe events cover all repositories within the organization that the user has access to,\nmaking it useful for tracking the organization's activity or monitoring the progress\nof projects that the user is involved in within the team.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetOrganizationEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "A list of events from the organizations the authenticated user is a member of.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetEventOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/organizations/get-events": {
+      "post": {
+        "summary": "List public organization events.",
+        "description": "List public organization events\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\n\nThis API endpoint retrieves a stream of public events that have occurred\nwithin a specified organization. These events include activities such as\nrepository creation, issues, pull requests, and other actions taken by members\nof the organization across all its public repositories.\n\nThis is useful for monitoring the public activity within an organization,\nproviding insights into how the organization is managing its projects,\nthe work being done by its members, and the overall public engagement with\nits repositories.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetOrganizationEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetEventOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repos/get-events": {
+      "post": {
+        "summary": "List events for the authenticated user.",
+        "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetRepoEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetEventOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/networks/get-events": {
+      "post": {
+        "summary": "List public events for a network of repositories",
+        "description": "Fetches events across all forks of a specified repository.\n\nThis API endpoint provides a stream of events that occur in any fork\nof the specified repository. It includes actions such as commits,\npull requests, issues, and other activity happening in the forked\nrepositories.\n\nUse this endpoint when you need to monitor the activity not just\nin the original repository, but also in all of its forks. This can\nbe particularly useful for understanding the broader impact or\nactivity surrounding a popular project that has been forked multiple\ntimes.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetRepoEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetEventOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/users/get-events": {
+      "post": {
+        "summary": "List events for the authenticated user.",
+        "description": "List events for the authenticated user\n\nThis API endpoint retrieves a stream of events related to the authenticated user,\nincluding activities such as issues, pull requests, commits, and repository actions\nthat the user has participated in or been mentioned in. The events reflect the user's\ninteractions across all repositories they have access to, both public and private (if\nthe user has appropriate permissions).\n\nThis is useful for tracking a user's activity on GitHub, allowing you to see a\npersonalized feed of their involvement in various projects and interactions with\nother users.\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nIt looks up users' public events. Username should be your own nickname because you can usually only see your own events.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetUserEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetEventOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-events": {
+      "post": {
+        "summary": "List public events.",
+        "description": "List public events\n\nThis API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.\nWhen I look up the events, they may not be of much value to the user because they are events that occurred on github.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetEventOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/get-activities": {
+      "post": {
+        "summary": "Get Repository' activities",
+        "description": "Get repository activities",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetRepositoryActivityInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetRepositoryActivityOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-users": {
+      "post": {
+        "summary": "Search for users by keyword in github",
+        "description": "Search for users by keyword in github",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ISearchUserInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "list of user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.ISearchUserOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-user-profile": {
+      "post": {
+        "summary": "Look up the user's detailed profile",
+        "description": "Look up the user's detailed profile",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetUserProfileInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "detailed profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetUserProfileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-repositories": {
+      "post": {
+        "summary": "Inquire the user's repository",
+        "description": "Inquire the user's repository",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetUserRepositoryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "repositories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetUserRepositoryOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-branches": {
+      "post": {
+        "summary": "Inquire the user's branch",
+        "description": "Inquire the user's branch",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetBranchInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetBranchOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-pull-requests-associated-with-a-commit": {
+      "post": {
+        "summary": "get pull requests associated with a commit",
+        "description": "List pull requests associated with a commit\n\nFetches the pull requests (PRs) associated with a specific commit in a GitHub repository.\nThis API endpoint retrieves a list of pull requests that include the specified commit.\nThis can be useful for tracking where and how a particular change was merged into a branch.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetPullRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "pull requests associated with a commit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGithub.PullRequest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-commit-heads": {
+      "post": {
+        "summary": "Lists all branches that contain the HEAD commit",
+        "description": "Lists all branches that contain the HEAD commit of a GitHub repository.\n\nThis function utilizes the GitHub API to retrieve a list of branches where the current\nHEAD commit (the latest commit on the checked-out branch) is included. This is useful for\ndetermining which branches contain the most recent changes.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetCommitHeadInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "A promise that resolves to an array of branch names that include the specified commit.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "commit": {
+                        "$ref": "#/components/schemas/PickIGithub.Commiturlsha"
+                      },
+                      "protected": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "commit",
+                      "protected"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-commit": {
+      "post": {
+        "summary": "Inquire the commit details of the user",
+        "description": "Inquire the commit details of the user\nIt contains all the history of how the file changed, so you can see the details of a single commit node.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetCommitInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "detailed commit history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetCommitOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-commit-diff": {
+      "post": {
+        "summary": "Inquire the commit diff of the user",
+        "description": "Inquire the commit diff of the user\ndiff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetCommitInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "commit diff",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-commit-list": {
+      "post": {
+        "summary": "Look up the list of commitments for a specific repo, a specific branch",
+        "description": "Look up the list of commitments for a specific repo, a specific branch",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetCommitListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "list of commit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetCommitListOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-followers": {
+      "post": {
+        "summary": "Inquire the followers of the user",
+        "description": "Inquire the followers of the user",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetFollowerInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetFollowerOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-followees": {
+      "post": {
+        "summary": "Inquire the followees of the user",
+        "description": "Inquire the followees of the user",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetFolloweeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetFolloweeOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/get-my-profile": {
+      "post": {
+        "summary": "Get my profile",
+        "description": "Get user's profile",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetMyProfileInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.User"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/swagger/update": {
@@ -31271,12 +31899,10 @@
             "properties": {
               "language": {
                 "type": "string",
+                "x-wrtn-placeholder": "TypeScript",
                 "title": "programming language name"
               }
             },
-            "required": [
-              "language"
-            ],
             "title": "attrs\n\nIf you do not specify a programming language, this property may not exist."
           },
           "content": {
@@ -34996,6 +35622,2767 @@
         },
         "required": [
           "place_id"
+        ]
+      },
+      "IGithub.ICallInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://api.github.com/(.*)",
+            "title": "github api endpoint"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetEventOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "actor": {
+                  "$ref": "#/components/schemas/PickIGithub.Useridlogin"
+                },
+                "repo": {
+                  "$ref": "#/components/schemas/PickIGithub.Repositorynameid"
+                },
+                "org": {
+                  "$ref": "#/components/schemas/PickIGithub.Organizationidlogindisplay_login"
+                },
+                "payload": {
+                  "$ref": "#/components/schemas/IGithub.Payload"
+                },
+                "public": {
+                  "type": "boolean"
+                },
+                "created_at": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "actor",
+                "repo",
+                "payload",
+                "public",
+                "created_at"
+              ]
+            }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "PickIGithub.Useridlogin": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          }
+        },
+        "required": [
+          "id",
+          "login"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIGithub.Repositorynameid": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "id": {
+            "type": "number",
+            "title": "id"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIGithub.Organizationidlogindisplay_login": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "login": {
+            "type": "string",
+            "title": "login"
+          },
+          "display_login": {
+            "type": "string",
+            "title": "display_login"
+          }
+        },
+        "required": [
+          "id",
+          "login"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.Payload": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "title": "action\n\nIt means what this event means.\nAlthough the type of event usually has a resource or the name of the event,\nit is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc."
+          },
+          "issue": {
+            "$ref": "#/components/schemas/IGithub.Issue",
+            "title": "issue\n\nIf it is an event for an issue, contain the issue information."
+          },
+          "comment": {
+            "$ref": "#/components/schemas/IGithub.Comment",
+            "title": "comment\n\nIf it is an event for an comment, contain the comment information."
+          }
+        }
+      },
+      "IGithub.Issue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "state": {
+            "type": "string",
+            "title": "state\n\nState of the issue; either 'open' or 'closed'"
+          },
+          "state_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "completed"
+              },
+              {
+                "const": "reopened"
+              },
+              {
+                "const": "not_planned"
+              }
+            ],
+            "description": "The reason for the current state"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "title": "user"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Contents of the issue"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "color": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              }
+            ]
+          },
+          "assignees": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "number",
+          "state",
+          "title",
+          "user",
+          "labels",
+          "assignee"
+        ]
+      },
+      "PickIGithub.Usertypeidlogin": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              }
+            ],
+            "title": "type"
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "login"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "body": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Page"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "user",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "IGithub.Page": {
+        "type": "object",
+        "properties": {
+          "page_name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "html_url": {
+            "type": "string"
+          }
+        }
+      },
+      "IGithub.IGetOrganizationEventInput": {
+        "type": "object",
+        "properties": {
+          "organization": {
+            "type": "string",
+            "title": "organization's name\n\nYou can also change it to your nickname."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "organization",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetRepoEventInput": {
+        "type": "object",
+        "properties": {
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "username": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "repo",
+          "username",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetUserEventInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetEventInput": {
+        "type": "object",
+        "properties": {
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetRepositoryActivityOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Activity"
+            },
+            "title": "result of repository activities"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.Activity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "ref": {
+            "type": "string",
+            "x-wrtn-placeholder": "refs/heads/main",
+            "title": "ref"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "timestamp"
+          },
+          "activity_type": {
+            "oneOf": [
+              {
+                "const": "push",
+                "title": "push"
+              },
+              {
+                "const": "force_push",
+                "title": "force_push"
+              },
+              {
+                "const": "branch_creation",
+                "title": "branch_creation"
+              },
+              {
+                "const": "branch_deletion",
+                "title": "branch_deletion"
+              },
+              {
+                "const": "pr_merge",
+                "title": "pr_merge"
+              },
+              {
+                "const": "merge_queue_merge",
+                "title": "merge_queue_merge"
+              }
+            ],
+            "title": "activity type"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginavatar_url",
+            "title": "actor"
+          }
+        },
+        "required": [
+          "id",
+          "ref",
+          "timestamp",
+          "activity_type",
+          "actor"
+        ]
+      },
+      "PickIGithub.Usertypeidloginavatar_url": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              }
+            ],
+            "title": "type"
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "login",
+          "avatar_url"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IGetRepositoryActivityInput": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "direction\nThe order to sort by.\nDefault: asc when using full_name, otherwise desc."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nA cursor, as given in the Link header.\nIf specified, the query only searches for results before this cursor."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nA cursor, as given in the Link header.\nIf specified, the query only searches for results after this cursor."
+          },
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "ref": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/get-branches",
+              "jmesPath": "result[].{value:name, label:name}"
+            },
+            "title": "ref\n\nThe name of one of the branches of this repository."
+          },
+          "actor": {
+            "type": "string",
+            "title": "username"
+          },
+          "time_period": {
+            "oneOf": [
+              {
+                "const": "year"
+              },
+              {
+                "const": "month"
+              },
+              {
+                "const": "day"
+              },
+              {
+                "const": "week"
+              },
+              {
+                "const": "quarter"
+              }
+            ],
+            "title": "time_period"
+          },
+          "activity_type": {
+            "oneOf": [
+              {
+                "const": "push",
+                "title": "push"
+              },
+              {
+                "const": "force_push",
+                "title": "force_push"
+              },
+              {
+                "const": "branch_creation",
+                "title": "branch_creation"
+              },
+              {
+                "const": "branch_deletion",
+                "title": "branch_deletion"
+              },
+              {
+                "const": "pr_merge",
+                "title": "pr_merge"
+              },
+              {
+                "const": "merge_queue_merge",
+                "title": "merge_queue_merge"
+              }
+            ],
+            "title": "activity_type"
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
+      "IGithub.ISearchUserOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.User"
+            },
+            "title": "User Search Result Item\n\nUser Search Result Item"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.User": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              }
+            ],
+            "title": "type"
+          },
+          "score": {
+            "type": "number",
+            "title": "score"
+          }
+        },
+        "required": [
+          "login",
+          "id",
+          "avatar_url",
+          "html_url",
+          "type",
+          "score"
+        ]
+      },
+      "IGithub.ISearchUserInput": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "title": "keyword\n\nThe query contains one or more search keywords and qualifiers.\nQualifiers allow you to limit your search to specific areas of GitHub.\nThe REST API supports the same qualifiers as the web interface for GitHub."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "followers"
+              },
+              {
+                "const": "repositories"
+              },
+              {
+                "const": "joined"
+              }
+            ],
+            "title": "sorting condition\n\nSorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match"
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "q",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetUserProfileOutput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name\nIt means the actual name that the user has written, not the user's nickname."
+          },
+          "company": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "comany name\n\nAs the name of the company,\nit cannot be said to be the exact name listed as the business operator because it was written by the user himself.\nAlso, we cannot guarantee that the user wrote the company name.\nSometimes the user jokingly writes down strange names."
+          },
+          "blog": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": ""
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "blog\n\nIndicates the blog address."
+          },
+          "location": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "location\n\nIt means the location of the user.\nUsually, I write the country down, but the user can jokingly record the strange location."
+          },
+          "email": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "email address"
+          },
+          "bio": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "bio\n\nWrite down what the user wants to say or a history."
+          },
+          "twitter_username": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "twitter_username"
+          },
+          "public_repos": {
+            "type": "integer",
+            "title": "count of public repos"
+          },
+          "public_gists": {
+            "type": "integer",
+            "title": "count of public gists"
+          },
+          "followers": {
+            "type": "integer",
+            "title": "count of followers"
+          },
+          "following": {
+            "type": "integer",
+            "title": "count of follwing"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              }
+            ],
+            "title": "type"
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          }
+        },
+        "required": [
+          "name",
+          "company",
+          "blog",
+          "location",
+          "email",
+          "bio",
+          "twitter_username",
+          "public_repos",
+          "public_gists",
+          "followers",
+          "following",
+          "created_at",
+          "updated_at",
+          "type",
+          "id",
+          "login",
+          "avatar_url"
+        ]
+      },
+      "IGithub.IGetUserProfileInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "username"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetUserRepositoryOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Repository"
+            },
+            "title": "repositories"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.Repository": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "full_name": {
+            "type": "string",
+            "title": "full_name\n\nThis is in the form '{username}/{reponame}'."
+          },
+          "private": {
+            "type": "boolean",
+            "title": "private"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "description"
+          },
+          "fork": {
+            "type": "boolean",
+            "title": "fork"
+          },
+          "forks_count": {
+            "type": "integer",
+            "title": "forks_count"
+          },
+          "stargazers_count": {
+            "type": "integer",
+            "title": "stargazers_count"
+          },
+          "watchers_count": {
+            "type": "integer",
+            "title": "watchers_count"
+          },
+          "size": {
+            "type": "number",
+            "title": "size"
+          },
+          "default_branch": {
+            "type": "string",
+            "title": "default_branch"
+          },
+          "open_issues_count": {
+            "type": "integer",
+            "title": "open_issues_count"
+          },
+          "is_template": {
+            "type": "boolean",
+            "title": "is_template"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "topics"
+          },
+          "has_issues": {
+            "type": "boolean",
+            "title": "has_issues"
+          },
+          "has_projects": {
+            "type": "boolean",
+            "title": "has_projects"
+          },
+          "has_wiki": {
+            "type": "boolean",
+            "title": "has_wiki"
+          },
+          "has_pages": {
+            "type": "boolean",
+            "title": "has_pages"
+          },
+          "has_downloads": {
+            "type": "boolean",
+            "title": "has_downloads"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "archived"
+          },
+          "disabled": {
+            "type": "boolean",
+            "title": "disabled"
+          },
+          "visibility": {
+            "oneOf": [
+              {
+                "const": "public"
+              },
+              {
+                "const": "private"
+              }
+            ],
+            "title": "visibility"
+          },
+          "pushed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "pushed_at"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "permissions": {
+            "type": "object",
+            "properties": {
+              "admin": {
+                "type": "boolean",
+                "title": "admin"
+              },
+              "push": {
+                "type": "boolean",
+                "title": "push"
+              },
+              "pull": {
+                "type": "boolean",
+                "title": "pull"
+              }
+            },
+            "required": [
+              "admin",
+              "push",
+              "pull"
+            ]
+          },
+          "allow_rebase_merge": {
+            "type": "boolean",
+            "title": "allow_rebase_merge"
+          },
+          "allow_squash_merge": {
+            "type": "boolean",
+            "title": "allow_squash_merge"
+          },
+          "allow_auto_merge": {
+            "type": "boolean",
+            "title": "allow_auto_merge"
+          },
+          "delete_branch_on_merge": {
+            "type": "boolean",
+            "title": "delete_branch_on_merge"
+          },
+          "allow_merge_commit": {
+            "type": "boolean",
+            "title": "allow_merge_commit"
+          },
+          "subscribers_count": {
+            "type": "integer",
+            "title": "subscribers_count"
+          },
+          "network_count": {
+            "type": "integer",
+            "title": "network_count"
+          },
+          "license": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "x-wrtn-placeholder": "mit",
+                    "title": "key"
+                  },
+                  "name": {
+                    "type": "string",
+                    "x-wrtn-placeholder": "MIT License",
+                    "title": "name"
+                  },
+                  "url": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "x-wrtn-placeholder": "https://api.github.com/licenses/mit"
+                      }
+                    ],
+                    "title": "url"
+                  },
+                  "spdx_id": {
+                    "type": "string",
+                    "x-wrtn-placeholder": "MIT",
+                    "title": "spdx_id"
+                  }
+                },
+                "required": [
+                  "key",
+                  "name",
+                  "url",
+                  "spdx_id"
+                ]
+              }
+            ]
+          },
+          "forks": {
+            "type": "integer",
+            "title": "forks"
+          },
+          "open_issues": {
+            "type": "integer",
+            "title": "open_issues"
+          },
+          "watchers": {
+            "type": "integer",
+            "title": "watchers"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "full_name",
+          "private",
+          "html_url",
+          "description",
+          "fork",
+          "forks_count",
+          "stargazers_count",
+          "watchers_count",
+          "size",
+          "default_branch",
+          "open_issues_count",
+          "is_template",
+          "topics",
+          "has_issues",
+          "has_projects",
+          "has_wiki",
+          "has_pages",
+          "has_downloads",
+          "archived",
+          "disabled",
+          "visibility",
+          "pushed_at",
+          "created_at",
+          "updated_at",
+          "license",
+          "forks",
+          "open_issues",
+          "watchers"
+        ]
+      },
+      "IGithub.IGetUserRepositoryInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/get-users",
+              "jmesPath": "items[].{value:login, label:login}"
+            },
+            "title": "username\n\nThis refers to the nickname of the user who will look up the repository."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "created",
+                "default": "full_name"
+              },
+              {
+                "const": "updated",
+                "default": "full_name"
+              },
+              {
+                "const": "pushed",
+                "default": "full_name"
+              },
+              {
+                "const": "full_name",
+                "default": "full_name"
+              }
+            ],
+            "title": "sorting condition\n\nThe property to sort the results by."
+          },
+          "direction": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "direction\nThe order to sort by.\nDefault: asc when using full_name, otherwise desc."
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time",
+            "title": "since\nOnly show repositories updated after the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+          },
+          "before": {
+            "type": "string",
+            "format": "date-time",
+            "title": "before\nOnly show repositories updated before the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetBranchOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Branch"
+            },
+            "title": "branches"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.Branch": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name of Branch"
+          },
+          "commit": {
+            "$ref": "#/components/schemas/PickIGithub.Commiturlsha",
+            "title": "commit\n\nIn github, branch is just another name for the last node of a commit,\nso this property called commit is logically the same as what it means for that branch."
+          }
+        },
+        "required": [
+          "name",
+          "commit"
+        ]
+      },
+      "PickIGithub.Commiturlsha": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\n\nuri to look up details of commitment"
+          },
+          "sha": {
+            "type": "string",
+            "title": "hash of this commit"
+          }
+        },
+        "required": [
+          "url",
+          "sha"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IGetBranchInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
+      "IGithub.PullRequest": {
+        "type": "object",
+        "properties": {
+          "head": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "user": {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              }
+            },
+            "required": [
+              "label",
+              "ref",
+              "sha",
+              "user"
+            ]
+          },
+          "base": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "user": {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              }
+            },
+            "required": [
+              "label",
+              "ref",
+              "sha",
+              "user"
+            ]
+          },
+          "merged_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
+          },
+          "author_association": {
+            "oneOf": [
+              {
+                "const": "NONE"
+              },
+              {
+                "const": "COLLABORATOR"
+              },
+              {
+                "const": "CONTRIBUTOR"
+              },
+              {
+                "const": "FIRST_TIMER"
+              },
+              {
+                "const": "FIRST_TIME_CONTRIBUTOR"
+              },
+              {
+                "const": "MANNEQUIN"
+              },
+              {
+                "const": "MEMBER"
+              },
+              {
+                "const": "OWNER"
+              }
+            ]
+          },
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether or not the pull request is a draft."
+          },
+          "id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "state": {
+            "type": "string",
+            "title": "state\n\nState of the issue; either 'open' or 'closed'"
+          },
+          "state_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "completed"
+              },
+              {
+                "const": "reopened"
+              },
+              {
+                "const": "not_planned"
+              }
+            ],
+            "description": "The reason for the current state"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "title": "user"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Contents of the issue"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "color": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              }
+            ]
+          },
+          "assignees": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "head",
+          "base",
+          "merged_at",
+          "author_association",
+          "id",
+          "url",
+          "number",
+          "state",
+          "title",
+          "user",
+          "labels",
+          "assignee"
+        ]
+      },
+      "IGithub.IGetPullRequestInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "commit_sha": {
+            "type": "string",
+            "title": "commit_sha\n\nThe SHA of the commit."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "commit_sha",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetCommitHeadInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "commit_sha": {
+            "type": "string",
+            "title": "commit_sha\n\nThe SHA of the commit."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "commit_sha",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetCommitOutput": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string",
+            "title": "hash of this commit"
+          },
+          "commit": {
+            "$ref": "#/components/schemas/StrictOmitIGithub.Commitsha",
+            "title": "commit"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "parents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIGithub.Commitsha"
+            },
+            "title": "Parents of this commit"
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "sum of additions and deletions"
+              },
+              "additions": {
+                "type": "integer",
+                "title": "lines of additions"
+              },
+              "deletions": {
+                "type": "integer",
+                "title": "lines of deletions"
+              }
+            },
+            "required": [
+              "total",
+              "additions",
+              "deletions"
+            ]
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sha": {
+                  "type": "string",
+                  "title": "hash of this file"
+                },
+                "filename": {
+                  "type": "string",
+                  "title": "filename"
+                },
+                "status": {
+                  "oneOf": [
+                    {
+                      "const": "added"
+                    },
+                    {
+                      "const": "removed"
+                    },
+                    {
+                      "const": "modified"
+                    },
+                    {
+                      "const": "renamed"
+                    },
+                    {
+                      "const": "copied"
+                    },
+                    {
+                      "const": "changed"
+                    },
+                    {
+                      "const": "unchanged"
+                    }
+                  ],
+                  "title": "status of file in this commit"
+                },
+                "additions": {
+                  "type": "integer",
+                  "title": "additions"
+                },
+                "deletions": {
+                  "type": "integer",
+                  "title": "deletions"
+                },
+                "changes": {
+                  "type": "integer",
+                  "title": "changes"
+                },
+                "blob_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "blob_url\n\nThis is the path through which you can view the file through the github website."
+                },
+                "raw_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "raw_url\n\nThe API path through which the contents of the file can be viewed."
+                },
+                "patch": {
+                  "type": "string",
+                  "title": "patch\n\nIt means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
+                }
+              },
+              "required": [
+                "sha",
+                "filename",
+                "status",
+                "additions",
+                "deletions",
+                "changes",
+                "blob_url",
+                "raw_url"
+              ]
+            },
+            "title": "files\n\nYou can see the changes for each file."
+          }
+        },
+        "required": [
+          "sha",
+          "commit",
+          "html_url",
+          "parents",
+          "stats",
+          "files"
+        ]
+      },
+      "StrictOmitIGithub.Commitsha": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "commit message"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\n\nuri to look up details of commitment"
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "author"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "committer"
+          },
+          "tree": {
+            "type": "object",
+            "properties": {
+              "sha": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "sha",
+              "url"
+            ]
+          },
+          "comment_count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "message",
+          "url",
+          "author",
+          "committer",
+          "tree",
+          "comment_count"
+        ]
+      },
+      "PickIGithub.Commitsha": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string",
+            "title": "hash of this commit"
+          }
+        },
+        "required": [
+          "sha"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IGetCommitInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "ref": {
+            "type": "string",
+            "title": "commit hash or branch name"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "ref",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetCommitListOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sha": {
+                  "type": "string"
+                },
+                "commit": {
+                  "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommitter"
+                }
+              },
+              "required": [
+                "sha",
+                "commit"
+              ]
+            },
+            "title": "commit list"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "PickIGithub.Commitmessageurlauthorcommitter": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "commit message"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\n\nuri to look up details of commitment"
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "author"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "committer"
+          }
+        },
+        "required": [
+          "message",
+          "url",
+          "author",
+          "committer"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IGetCommitListInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "sha": {
+            "type": "string",
+            "title": "sha\n\nSHA or branch to start listing commits from. Default: the repository’s default branch (usually main)."
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nOnly commits containing this file path will be returned."
+          },
+          "author": {
+            "type": "string",
+            "title": "author\n\nGitHub username or email address to use to filter by commit author."
+          },
+          "committer": {
+            "type": "string",
+            "title": "committer\n\nGitHub username or email address to use to filter by commit committer."
+          },
+          "since": {
+            "type": "string",
+            "format": "date-time",
+            "title": "since\n\nOnly show results that were last updated after the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Due to limitations of Git, timestamps must be between 1970-01-01 and 2099-12-31 (inclusive) or unexpected results may be returned."
+          },
+          "until": {
+            "type": "string",
+            "format": "date-time",
+            "title": "until\n\nOnly commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Due to limitations of Git, timestamps must be between 1970-01-01 and 2099-12-31 (inclusive) or unexpected results may be returned."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetFollowerOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIGithub.Useridloginavatar_urlhtml_url"
+            },
+            "title": "followers"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "PickIGithub.Useridloginavatar_urlhtml_url": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          }
+        },
+        "required": [
+          "id",
+          "login",
+          "avatar_url",
+          "html_url"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IGetFollowerInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "user"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetFolloweeOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIGithub.Useridloginavatar_urlhtml_url"
+            },
+            "title": "followees"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.IGetFolloweeInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "order": {
+            "oneOf": [
+              {
+                "const": "asc",
+                "default": "desc"
+              },
+              {
+                "const": "desc",
+                "default": "desc"
+              }
+            ],
+            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "user"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetMyProfileInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
         ]
       }
     }
