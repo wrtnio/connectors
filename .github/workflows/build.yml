@@ -38,6 +38,12 @@ jobs:
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: ./bin
+
   test:
     runs-on: ubuntu-latest
     needs: build
@@ -46,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./build
+          path: ./bin
       - name: test
         run: npm run test -- --exclude sweet_tracker korea_exim google_ads kakao jira slack
 
@@ -58,7 +64,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./build
+          path: ./bin
       - name: test
         run: npm run test -- --include kakao
 
@@ -70,7 +76,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./build
+          path: ./bin
       - name: test
         run: npm run test -- --include jira
 
@@ -82,6 +88,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./build
+          path: ./bin
       - name: test
         run: npm run test -- --include slack
