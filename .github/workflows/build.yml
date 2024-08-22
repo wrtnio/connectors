@@ -32,11 +32,13 @@ jobs:
         run: |
           npm run build:sdk
           npm run build:test
-      - name: Upload build artifact
+      - name: Upload build artifact and node_modules
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
 
   test:
     runs-on: ubuntu-latest
@@ -48,7 +50,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -70,7 +74,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -92,7 +98,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -114,7 +122,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -136,7 +146,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -158,7 +170,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -180,7 +194,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -192,28 +208,6 @@ jobs:
       - name: test
         run: npm run test -- --include figma
 
-  test-google:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
-      - name: Download build artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: ./bin
-      - name: install dependencies
-        run: npm install
-      - name: Secrets to Env
-        run: |
-          rm .env
-          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
-        env:
-          SECRETS_CONTEXT: ${{ toJson(secrets) }}
-      - name: test
-        run: npm run test -- --include google
-
   test-discord:
     runs-on: ubuntu-latest
     needs: build
@@ -224,7 +218,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: ./bin
+          path: |
+            ./bin
+            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -235,3 +231,123 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
         run: npm run test -- --include discord
+
+  test-google_ads:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: |
+            ./bin
+            ./node_modules
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include google_ads
+
+  test-google_slides:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: |
+            ./bin
+            ./node_modules
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include google_slides
+
+  test-google_calendar:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: |
+            ./bin
+            ./node_modules
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include google_calendar
+
+  test-google_docs:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: |
+            ./bin
+            ./node_modules
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include google_docs
+
+  test-google_drive:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: |
+            ./bin
+            ./node_modules
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include google_drive
