@@ -90,6 +90,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("repos/contents")
   async createFileContents(
     @TypedBody() input: IGithub.ICreateFileContentInput,
