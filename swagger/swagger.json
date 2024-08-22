@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.117",
+    "version": "0.1.118",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11144,26 +11144,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "commit": {
-                        "$ref": "#/components/schemas/PickIGithub.Commiturlsha"
-                      },
-                      "protected": {
-                        "type": "boolean"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "commit",
-                      "protected"
-                    ]
-                  }
+                  "$ref": "#/components/schemas/IGithub.IGetCommitHeadOutput"
                 }
               }
             }
@@ -11346,7 +11327,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGithub.User"
+                  "$ref": "#/components/schemas/StrictOmitIGithub.Userscore"
                 }
               }
             }
@@ -37629,6 +37610,189 @@
           "secretKey"
         ]
       },
+      "IGithub.IGetCommitHeadOutput": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string"
+          },
+          "commit": {
+            "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommittercomment_counttree"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.File"
+            }
+          }
+        },
+        "required": [
+          "sha",
+          "commit",
+          "files"
+        ]
+      },
+      "PickIGithub.Commitmessageurlauthorcommittercomment_counttree": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "commit message"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\n\nuri to look up details of commitment"
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "author"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "committer"
+          },
+          "comment_count": {
+            "type": "integer"
+          },
+          "tree": {
+            "type": "object",
+            "properties": {
+              "sha": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "sha",
+              "url"
+            ]
+          }
+        },
+        "required": [
+          "message",
+          "url",
+          "author",
+          "committer",
+          "comment_count",
+          "tree"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.File": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string",
+            "title": "hash of this file"
+          },
+          "filename": {
+            "type": "string",
+            "title": "filename"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "added"
+              },
+              {
+                "const": "removed"
+              },
+              {
+                "const": "modified"
+              },
+              {
+                "const": "renamed"
+              },
+              {
+                "const": "copied"
+              },
+              {
+                "const": "changed"
+              },
+              {
+                "const": "unchanged"
+              }
+            ],
+            "title": "status of file in this commit"
+          },
+          "additions": {
+            "type": "integer",
+            "title": "additions"
+          },
+          "deletions": {
+            "type": "integer",
+            "title": "deletions"
+          },
+          "changes": {
+            "type": "integer",
+            "title": "changes"
+          },
+          "blob_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "blob_url\n\nThis is the path through which you can view the file through the github website."
+          },
+          "raw_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "raw_url\n\nThe API path through which the contents of the file can be viewed."
+          },
+          "patch": {
+            "type": "string",
+            "title": "patch\n\nIt means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
+          }
+        },
+        "required": [
+          "sha",
+          "filename",
+          "status",
+          "additions",
+          "deletions",
+          "changes",
+          "blob_url",
+          "raw_url"
+        ]
+      },
       "IGithub.IGetCommitHeadInput": {
         "type": "object",
         "properties": {
@@ -37705,79 +37869,7 @@
           "files": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "sha": {
-                  "type": "string",
-                  "title": "hash of this file"
-                },
-                "filename": {
-                  "type": "string",
-                  "title": "filename"
-                },
-                "status": {
-                  "oneOf": [
-                    {
-                      "const": "added"
-                    },
-                    {
-                      "const": "removed"
-                    },
-                    {
-                      "const": "modified"
-                    },
-                    {
-                      "const": "renamed"
-                    },
-                    {
-                      "const": "copied"
-                    },
-                    {
-                      "const": "changed"
-                    },
-                    {
-                      "const": "unchanged"
-                    }
-                  ],
-                  "title": "status of file in this commit"
-                },
-                "additions": {
-                  "type": "integer",
-                  "title": "additions"
-                },
-                "deletions": {
-                  "type": "integer",
-                  "title": "deletions"
-                },
-                "changes": {
-                  "type": "integer",
-                  "title": "changes"
-                },
-                "blob_url": {
-                  "type": "string",
-                  "format": "uri",
-                  "title": "blob_url\n\nThis is the path through which you can view the file through the github website."
-                },
-                "raw_url": {
-                  "type": "string",
-                  "format": "uri",
-                  "title": "raw_url\n\nThe API path through which the contents of the file can be viewed."
-                },
-                "patch": {
-                  "type": "string",
-                  "title": "patch\n\nIt means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
-                }
-              },
-              "required": [
-                "sha",
-                "filename",
-                "status",
-                "additions",
-                "deletions",
-                "changes",
-                "blob_url",
-                "raw_url"
-              ]
+              "$ref": "#/components/schemas/IGithub.File"
             },
             "title": "files\n\nYou can see the changes for each file."
           }
@@ -37847,6 +37939,9 @@
             ],
             "title": "committer"
           },
+          "comment_count": {
+            "type": "integer"
+          },
           "tree": {
             "type": "object",
             "properties": {
@@ -37862,9 +37957,6 @@
               "sha",
               "url"
             ]
-          },
-          "comment_count": {
-            "type": "integer"
           }
         },
         "required": [
@@ -37872,8 +37964,8 @@
           "url",
           "author",
           "committer",
-          "tree",
-          "comment_count"
+          "comment_count",
+          "tree"
         ]
       },
       "PickIGithub.Commitsha": {
@@ -38369,6 +38461,47 @@
         "required": [
           "username",
           "secretKey"
+        ]
+      },
+      "StrictOmitIGithub.Userscore": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              }
+            ],
+            "title": "type"
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "login",
+          "avatar_url",
+          "html_url"
         ]
       },
       "IGithub.IGetMyProfileInput": {
