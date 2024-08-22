@@ -157,7 +157,7 @@ export namespace AwsProvider {
       }
 
       const bucket = match[1];
-      const key = match[3];
+      const key = decodeURIComponent(match[3]);
 
       return { bucket, key };
     } catch (error) {
