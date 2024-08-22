@@ -785,7 +785,7 @@ export namespace IJira {
       /**
        * @title programming language name
        */
-      language: string;
+      language?: string & Placeholder<"TypeScript">;
     };
 
     /**
