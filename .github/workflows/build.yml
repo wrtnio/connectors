@@ -5,6 +5,7 @@ on:
       - "src/**"
       - "test/**"
       - "package.json"
+      - ".github/workflows/build.yml"
   # pull_request_target:
   #   paths:
   #     - "src/**"
