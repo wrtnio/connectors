@@ -83,8 +83,10 @@ export class GithubController {
    * Create file content in github repository
    *
    * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
+   * Creating file content is the same as creating a single commit.
+   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
    *
-   * @summary Create File content
+   * @summary Create File content and commit
    * @param input
    * @returns
    */
