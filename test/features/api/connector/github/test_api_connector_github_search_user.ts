@@ -1,6 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import assert from "assert";
 import typia from "typia";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export async function test_api_connector_github_search_user(
   connection: CApi.IConnection,
@@ -9,6 +10,7 @@ export async function test_api_connector_github_search_user(
     connection,
     {
       q: "kakasoo",
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
     },
   );
 
@@ -30,6 +32,7 @@ export async function test_api_connector_github_search_user_with_options(
       per_page: 1,
       order: "desc",
       sort: "followers",
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
     },
   );
 
