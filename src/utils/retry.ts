@@ -5,8 +5,8 @@ import { TypedSplit } from "./TypedSplit";
 
 const TIMEOUT = "TIMEOUT" as const;
 
-function backoff(attempt: number): Promise<void> {
-  const baseDelay = 2 * attempt * 1000; // 지수적으로 증가하는 대기 시간 (밀리초)
+function backoff(attempt: number, delayMs = 1000): Promise<void> {
+  const baseDelay = 2 * attempt * delayMs; // 지수적으로 증가하는 대기 시간 (밀리초)
   const jitter = Math.random() * baseDelay;
   const delay = baseDelay + jitter;
   return new Promise((resolve) => setTimeout(resolve, delay));
@@ -15,7 +15,10 @@ function backoff(attempt: number): Promise<void> {
 export function retry<T extends any[], ReturnType>(
   fn: (...args: T) => ReturnType,
   count: number = 5, // default로 5번까지는 재실행되게 한다.
-  timeLimit?: number,
+  options?: {
+    timeLimit?: number; // 이 시간이 지날 경우 실패한 것으로 간주함
+    delayMs?: number; // 이 시간 값은 backoff에 영향을 주는 값
+  },
 ) {
   return async function (...args: T): Promise<Awaited<ReturnType>> {
     let attempts = 0;
@@ -24,10 +27,13 @@ export function retry<T extends any[], ReturnType>(
       try {
         const response = await Promise.race([
           fn(...args),
-          ...(timeLimit
+          ...(options?.timeLimit
             ? [
                 new Promise<typeof TIMEOUT>((resolve) => {
-                  timeoutId = setTimeout(() => resolve(TIMEOUT), timeLimit);
+                  timeoutId = setTimeout(
+                    () => resolve(TIMEOUT),
+                    options.timeLimit,
+                  );
                 }),
               ]
             : []),
@@ -80,7 +86,7 @@ export function retry<T extends any[], ReturnType>(
           }
         }
 
-        await backoff(attempts);
+        await backoff(attempts, options?.delayMs);
         console.log(attempts, JSON.stringify(error));
       }
     }
