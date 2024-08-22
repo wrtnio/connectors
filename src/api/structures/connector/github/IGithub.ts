@@ -87,7 +87,19 @@ export namespace IGithub {
 
   export interface ICreateFileContentInput
     extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
     owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
     repo: Repository["name"];
 
     /**
@@ -104,6 +116,7 @@ export namespace IGithub {
      *
      * Meaning of the file is text and text.
      * If you want to create code content, you should write code content.
+     * Since it encodes with base64 internally, we need to deliver text here before encoding.
      */
     content: string;
 
