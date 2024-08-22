@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.120",
+    "version": "0.1.121",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10817,8 +10817,8 @@
     },
     "/connector/github/repos/contents": {
       "post": {
-        "summary": "Create File content",
-        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.",
+        "summary": "Create File content and commit",
+        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10837,7 +10837,8 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/repos/get-events": {
@@ -34410,7 +34411,14 @@
             ]
           },
           "statuscategorychangedate": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "statuscategorychangedate\n\nThe date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
           },
           "reporter": {
@@ -34797,7 +34805,14 @@
         "type": "object",
         "properties": {
           "statuscategorychangedate": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "statuscategorychangedate\n\nThe date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
           },
           "reporter": {
@@ -36112,10 +36127,12 @@
         "type": "object",
         "properties": {
           "owner": {
-            "type": "string"
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
-            "type": "string"
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
           },
           "path": {
             "type": "string",
@@ -36126,7 +36143,7 @@
           },
           "content": {
             "type": "string",
-            "title": "the new file content\n\nMeaning of the file is text and text.\nIf you want to create code content, you should write code content."
+            "title": "the new file content\n\nMeaning of the file is text and text.\nIf you want to create code content, you should write code content.\nSince it encodes with base64 internally, we need to deliver text here before encoding."
           },
           "branch": {
             "type": "string",
