@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.119",
+    "version": "0.1.120",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10815,9 +10815,34 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repos/contents": {
+      "post": {
+        "summary": "Create File content",
+        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICreateFileContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
     "/connector/github/repos/get-events": {
       "post": {
-        "summary": "List events for the authenticated user.",
+        "summary": "List events for the authenticated user",
         "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.",
         "tags": [],
         "parameters": [],
@@ -36080,6 +36105,95 @@
         },
         "required": [
           "organization",
+          "secretKey"
+        ]
+      },
+      "IGithub.ICreateFileContentInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+          },
+          "message": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+            "title": "the new file content\n\nMeaning of the file is text and text.\nIf you want to create code content, you should write code content."
+          },
+          "branch": {
+            "type": "string",
+            "title": "branch name"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "The name of the author or committer of the commit"
+              },
+              "email": {
+                "type": "string",
+                "title": "The email of the author or committer of the commit"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "The person that committed the file.\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "The name of the author or committer of the commit"
+              },
+              "email": {
+                "type": "string",
+                "title": "The email of the author or committer of the commit"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "path",
+          "message",
+          "content",
           "secretKey"
         ]
       },
