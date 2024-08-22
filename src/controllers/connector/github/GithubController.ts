@@ -1,8 +1,9 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
-import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
 import { RouteIcon } from "@wrtnio/decorators";
+import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
+import { StrictOmit } from "../../../utils/strictOmit";
 
 @Controller("connector/github")
 export class GithubController {
@@ -396,7 +397,7 @@ export class GithubController {
   @core.TypedRoute.Post("get-my-profile")
   async getMyProfile(
     @TypedBody() input: IGithub.IGetMyProfileInput,
-  ): Promise<IGithub.User> {
+  ): Promise<StrictOmit<IGithub.User, "score">> {
     return this.githubProvider.debugToken(input);
   }
 }
