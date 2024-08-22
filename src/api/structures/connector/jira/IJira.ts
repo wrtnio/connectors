@@ -1728,7 +1728,7 @@ export namespace IJira {
      * - "In Progress": The issue is currently being worked on.
      * - "Done": The issue has been completed.
      */
-    statuscategorychangedate?: string;
+    statuscategorychangedate?: string | null;
 
     /**
      * @title reporter
