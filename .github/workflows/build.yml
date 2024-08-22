@@ -42,23 +42,46 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: ./build
       - name: test
         run: npm run test -- --exclude sweet_tracker korea_exim google_ads kakao jira slack
+
   test-kakao:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: ./build
       - name: test
         run: npm run test -- --include kakao
+
   test-jira:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: ./build
       - name: test
         run: npm run test -- --include jira
+
   test-slack:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: ./build
       - name: test
         run: npm run test -- --include slack
