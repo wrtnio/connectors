@@ -154,7 +154,9 @@ export class OpenDataController {
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
-    return retry(() => OpenDataProvider.getBuildingInfo(input), 20, 3000)();
+    return retry(() => OpenDataProvider.getBuildingInfo(input), 20, {
+      timeLimit: 3000,
+    })();
   }
 
   /**
@@ -271,7 +273,10 @@ export class OpenDataController {
     @TypedBody()
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IKoreaMeteorologicalAdministration.IGetForecastOutput[]> {
-    return retry(() => OpenDataProvider.getShortTermForecast(input), 20)();
+    return retry(() => OpenDataProvider.getShortTermForecast(input), 20, {
+      timeLimit: 3000,
+      delayMs: 100,
+    })();
   }
 
   /**
