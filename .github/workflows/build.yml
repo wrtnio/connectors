@@ -32,13 +32,12 @@ jobs:
         run: |
           npm run build:sdk
           npm run build:test
-      - name: Upload build artifact and node_modules
+      - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: |
             ./bin
-            ./node_modules
 
   test:
     runs-on: ubuntu-latest
@@ -52,7 +51,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -76,7 +74,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -100,7 +97,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -124,7 +120,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -148,7 +143,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -172,7 +166,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -196,7 +189,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -220,7 +212,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -244,7 +235,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -268,7 +258,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -292,7 +281,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
@@ -316,7 +304,6 @@ jobs:
           name: build
           path: |
             ./bin
-            ./node_modules
       - name: install dependencies
         run: npm install
       - name: Secrets to Env
