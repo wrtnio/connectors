@@ -147,44 +147,7 @@ export namespace IGithub {
       actor: Pick<User, "id" | "login">;
       repo: Pick<Repository, "id" | "name">;
       org?: Pick<Organization, "id" | "display_login" | "login">;
-      payload: {
-        /**
-         * @title action
-         *
-         * It means what this event means.
-         * Although the type of event usually has a resource or the name of the event,
-         * it is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc.
-         */
-        action?: string;
-
-        /**
-         * @title issue
-         *
-         * If it is an event for an issue, contain the issue information.
-         */
-        issue?: IGithub.Issue;
-
-        /**
-         * @title comment
-         *
-         * If it is an event for an comment, contain the comment information.
-         */
-        comment?: {
-          id: number & tags.Type<"uint64">;
-          body?: string;
-          user: Pick<IGithub.User, "id" | "login" | "type">;
-          created_at: string & tags.Format<"date-time">;
-          updated_at: string & tags.Format<"date-time">;
-          pages?: {
-            page_name?: string;
-            title?: string;
-            summary?: string | null;
-            action?: string;
-            sha?: string;
-            html_url?: string;
-          }[];
-        };
-      };
+      payload: IGithub.Payload;
       public: boolean;
       created_at: (string & tags.Format<"date-time">) | null;
     }[];
@@ -194,7 +157,9 @@ export namespace IGithub {
 
   export interface IGetOrganizationEventInput extends IGetEventInput {
     /**
-     * @title user's nickname
+     * @title organization's name
+     *
+     * You can also change it to your nickname.
      */
     organization: Organization["login"];
   }
@@ -1173,5 +1138,48 @@ export namespace IGithub {
      * Indicates whether or not the pull request is a draft.
      */
     draft?: boolean;
+  }
+
+  export interface Payload {
+    /**
+     * @title action
+     *
+     * It means what this event means.
+     * Although the type of event usually has a resource or the name of the event,
+     * it is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc.
+     */
+    action?: string;
+
+    /**
+     * @title issue
+     *
+     * If it is an event for an issue, contain the issue information.
+     */
+    issue?: IGithub.Issue;
+
+    /**
+     * @title comment
+     *
+     * If it is an event for an comment, contain the comment information.
+     */
+    comment?: IGithub.Comment;
+  }
+
+  export interface Comment {
+    id: number & tags.Type<"uint64">;
+    body?: string;
+    user: Pick<IGithub.User, "id" | "login" | "type">;
+    created_at: string & tags.Format<"date-time">;
+    updated_at: string & tags.Format<"date-time">;
+    pages?: IGithub.Page[];
+  }
+
+  export interface Page {
+    page_name?: string;
+    title?: string;
+    summary?: string | null;
+    action?: string;
+    sha?: string;
+    html_url?: string;
   }
 }
