@@ -107,10 +107,13 @@ export namespace IGithub {
   }
 
   export type IGetCommitHeadOutput = {
-    name: Branch["name"];
-    commit: Pick<Commit, "sha" | "url">;
-    protected: boolean;
-  }[];
+    sha: Commit["sha"];
+    commit: Pick<
+      Commit,
+      "author" | "committer" | "comment_count" | "message" | "tree" | "url"
+    >;
+    files: IGithub.File[];
+  };
 
   export interface IGetCommitHeadInput extends ICommon.ISecret<"github"> {
     /**
@@ -393,66 +396,7 @@ export namespace IGithub {
      *
      * You can see the changes for each file.
      */
-    files: {
-      /**
-       * @title hash of this file
-       */
-      sha: string;
-
-      /**
-       * @title filename
-       */
-      filename: string;
-
-      /**
-       * @title status of file in this commit
-       */
-      status:
-        | "added"
-        | "removed"
-        | "modified"
-        | "renamed"
-        | "copied"
-        | "changed"
-        | "unchanged";
-
-      /**
-       * @title additions
-       */
-      additions: number & tags.Type<"uint64">;
-
-      /**
-       * @title deletions
-       */
-      deletions: number & tags.Type<"uint64">;
-
-      /**
-       * @title changes
-       */
-      changes: number & tags.Type<"uint64">;
-
-      /**
-       * @title blob_url
-       *
-       * This is the path through which you can view the file through the github website.
-       */
-      blob_url: string & tags.Format<"uri">;
-
-      /**
-       * @title raw_url
-       *
-       * The API path through which the contents of the file can be viewed.
-       */
-      raw_url: string & tags.Format<"uri">;
-
-      /**
-       * @title patch
-       *
-       * It means how much it has changed compared to previous commitments.
-       * It gives you a text form to see what code has actually changed.
-       */
-      patch?: string;
-    }[];
+    files: IGithub.File[];
   }
 
   export interface IGetCommitInput extends ICommon.ISecret<"github", ["repo"]> {
@@ -1181,5 +1125,66 @@ export namespace IGithub {
     action?: string;
     sha?: string;
     html_url?: string;
+  }
+
+  export interface File {
+    /**
+     * @title hash of this file
+     */
+    sha: string;
+
+    /**
+     * @title filename
+     */
+    filename: string;
+
+    /**
+     * @title status of file in this commit
+     */
+    status:
+      | "added"
+      | "removed"
+      | "modified"
+      | "renamed"
+      | "copied"
+      | "changed"
+      | "unchanged";
+
+    /**
+     * @title additions
+     */
+    additions: number & tags.Type<"uint64">;
+
+    /**
+     * @title deletions
+     */
+    deletions: number & tags.Type<"uint64">;
+
+    /**
+     * @title changes
+     */
+    changes: number & tags.Type<"uint64">;
+
+    /**
+     * @title blob_url
+     *
+     * This is the path through which you can view the file through the github website.
+     */
+    blob_url: string & tags.Format<"uri">;
+
+    /**
+     * @title raw_url
+     *
+     * The API path through which the contents of the file can be viewed.
+     */
+    raw_url: string & tags.Format<"uri">;
+
+    /**
+     * @title patch
+     *
+     * It means how much it has changed compared to previous commitments.
+     * It gives you a text form to see what code has actually changed.
+     */
+    patch?: string;
   }
 }
