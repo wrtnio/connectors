@@ -104,11 +104,37 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @core.TypedRoute.Post("repos/get-folders")
+  async getRepositoryStructures(
+    @TypedBody() input: IGithub.IGetRepositoryStructureInput,
+  ) {
+    const data = await this.githubProvider.getRepositoryStructures({
+      ...input,
+      path: "",
+    });
+
+    console.log(JSON.stringify(data, null, 2));
+    return data;
+  }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("repos/get-contents")
   async getFileContents(
     @TypedBody() input: IGithub.IGetFileContentInput,
   ): Promise<IGithub.IGetFileContentOutput> {
-    return await this.githubProvider.getFileContents(input);
+    return this.githubProvider.getFileContents(input);
+  }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repos/get-readme")
+  async getReadmeFile(
+    @TypedBody() input: IGithub.IGetReadmeFileContentInput,
+  ): Promise<IGithub.IGetReadmeFileContentOutput> {
+    return this.githubProvider.getReadmeFile(input);
   }
 
   /**

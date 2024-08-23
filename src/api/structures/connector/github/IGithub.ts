@@ -85,7 +85,22 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
-  export interface IGetFileContentOutput {
+  export type IGetRepositoryStructureInput = Pick<
+    IGithub.IGetFileContentInput,
+    "secretKey" | "owner" | "repo"
+  >;
+
+  export type IGetFileContentOutput = {
+    type: "file" | "dir";
+    encoding: string & Placeholder<"base64">;
+    size: number;
+    name: File["filename"];
+    path: string;
+    content: string;
+    sha: string;
+  }[];
+
+  export interface IGetReadmeFileContentOutput {
     type: "file" | "dir";
     encoding: string & Placeholder<"base64">;
     size: number;
@@ -94,6 +109,11 @@ export namespace IGithub {
     content: string;
     sha: string;
   }
+
+  export type IGetReadmeFileContentInput = Pick<
+    IGithub.IGetFileContentInput,
+    "secretKey" | "owner" | "repo"
+  >;
 
   export interface IGetFileContentInput extends ICommon.ISecret<"github"> {
     /**

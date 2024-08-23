@@ -85,6 +85,17 @@ export class GithubProvider {
     );
   }
 
+  async getRepositoryStructures(
+    input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput> {
+    const rootFiles = await this.getFileContents({
+      ...input,
+      path: input.path,
+    });
+
+    return this.getRepositoryFolders(input, rootFiles);
+  }
+
   async getFileContents(
     input: IGithub.IGetFileContentInput,
   ): Promise<IGithub.IGetFileContentOutput> {
@@ -100,9 +111,34 @@ export class GithubProvider {
       },
     });
 
+    const files: any[] = res.data;
+    return files.map((file) => {
+      return {
+        ...file,
+        ...(file.content && {
+          content: Buffer.from(file.content, "base64").toString("utf-8"),
+        }),
+      };
+    });
+  }
+
+  async getReadmeFile(
+    input: IGithub.IGetReadmeFileContentInput,
+  ): Promise<IGithub.IGetReadmeFileContentOutput> {
+    const { owner, repo, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/readme`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/vnd.github.object+json",
+      },
+    });
+
     return {
       ...res.data,
-      content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+      ...(res.data.content && {
+        content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+      }),
     };
   }
 
@@ -439,5 +475,26 @@ export class GithubProvider {
       ...metadata,
       nextPage: metadata.after || metadata.next ? true : false,
     };
+  }
+
+  private async getRepositoryFolders(
+    input: Pick<IGithub.IGetFileContentInput, "owner" | "repo" | "secretKey">,
+    files: IGithub.IGetFileContentOutput,
+  ): Promise<
+    (IGithub.IGetReadmeFileContentOutput & { children: any[] | null })[]
+  > {
+    const response = await Promise.all(
+      files.map(async (file) => {
+        if (file.type === "dir") {
+          const children = await this.getRepositoryFolders(input, [file]);
+
+          return { ...file, children };
+        }
+
+        return { ...file, children: null };
+      }),
+    );
+
+    return response;
   }
 }
