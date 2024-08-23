@@ -85,6 +85,46 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export interface IGetFileContentOutput {
+    type: "file" | "dir";
+    encoding: string & Placeholder<"base64">;
+    size: number;
+    name: File["filename"];
+    path: string;
+    content: string;
+    sha: string;
+  }
+
+  export interface IGetFileContentInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title path parameters
+     *
+     * It refers to the path of the file, and is the path of the file including folders and extensions.
+     * If you want to make index.ts in src, you need to add 'src/index.ts'.
+     */
+    path: string;
+
+    /**
+     * @title branch name
+     */
+    branch?: Branch["name"];
+  }
+
   export interface ICreateFileContentInput
     extends ICommon.ISecret<"github", ["repo"]> {
     /**

@@ -85,6 +85,27 @@ export class GithubProvider {
     );
   }
 
+  async getFileContents(
+    input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput> {
+    const { owner, repo, path, secretKey, branch } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const res = await axios.get(url, {
+      params: {
+        ref: branch,
+      },
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/vnd.github.object+json",
+      },
+    });
+
+    return {
+      ...res.data,
+      content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+    };
+  }
+
   async getRepoEvents(
     input: IGithub.IGetRepoEventInput,
   ): Promise<IGithub.IGetEventOutput> {

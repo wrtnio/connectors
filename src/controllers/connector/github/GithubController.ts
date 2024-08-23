@@ -101,6 +101,16 @@ export class GithubController {
     return data;
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repos/get-contents")
+  async getFileContents(
+    @TypedBody() input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput> {
+    return await this.githubProvider.getFileContents(input);
+  }
+
   /**
    * List events for the authenticated user
    *
