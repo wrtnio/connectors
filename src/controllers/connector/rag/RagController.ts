@@ -1,11 +1,10 @@
 import core from "@nestia/core";
-import { Body, Controller, Post, Res } from "@nestjs/common";
-import { Response } from "express";
+import { Controller } from "@nestjs/common";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
-import { RagProvider } from "../../../providers/connector/rag/RagProvider";
 import { RouteIcon } from "@wrtnio/decorators";
+import { RagProvider } from "../../../providers/connector/rag/RagProvider";
 
 @Controller("/connector/rag")
 export class RagController {
