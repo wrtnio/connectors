@@ -19,7 +19,7 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     connection,
     analyzeInput,
   );
-  typia.assertEquals<IRag.IAnalysisOutput>(analyzeOutput);
+  typia.assertEquals(analyzeOutput);
 
   const generateInput: IRag.IGenerateInput = {
     query:
@@ -32,5 +32,5 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     chatId,
   );
 
-  typia.assertEquals<IRag.IGenerateOutput>(generateOutput);
+  typia.assertEquals(generateOutput);
 };

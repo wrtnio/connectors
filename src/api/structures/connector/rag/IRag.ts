@@ -46,25 +46,6 @@ export namespace IRag {
   }
 
   /**
-   * @title 이전 발화 내역
-   */
-  interface IHistory {
-    /**
-     * 발화자의 역할입니다.
-     *
-     * @title 발화자 역할.
-     */
-    role: "user" | "assistant";
-
-    /**
-     * 발화 내용입니다.
-     *
-     * @title 발화 내용.
-     */
-    text: string;
-  }
-
-  /**
    * @title RAG를 통한 채팅을 위해 필요한 정보
    */
   export interface IGenerateInput {
@@ -74,13 +55,6 @@ export namespace IRag {
      * @title 유저 발화.
      */
     query: string;
-
-    /**
-     * 이전 발화 내역입니다.
-     *
-     * @title 이전 발화 내역.
-     */
-    histories?: IHistory[];
   }
 
   /**

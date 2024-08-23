@@ -10,14 +10,14 @@ import axios, { AxiosError } from "axios";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { AwsProvider } from "../aws/AwsProvider";
-import { v4 } from "uuid";
 import { tags } from "typia";
+import { v4 } from "uuid";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import {
   getJsonObject,
   getStreamHandler,
 } from "../../../utils/handle-stream-data-util";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class RagProvider {
@@ -127,12 +127,15 @@ export class RagProvider {
       };
 
       try {
+        // https://rag-api.dev.wrtn.club/file-chat/v1/file
         const res = await axios.post(requestUrl, requestBody, {
           headers: {
             "x-service-id": "eco_file_chat",
           },
         });
         const jobId = res.data.job_id;
+
+        console.log(requestUrl, requestBody, res.data.job_id);
 
         /**
          * 파일 분석 진행
@@ -188,13 +191,14 @@ export class RagProvider {
           }, 2000);
         });
       } catch (err) {
+        this.logger.error(err);
         if (
           err instanceof AxiosError &&
           err.response &&
           (err.response.status === 400 || err.response.status === 404)
         ) {
           this.logger.error(
-            `File upload Failed: fileId: ${fileId}, msg: ${err.response.data.detail.message}`,
+            `File upload Failed: fileId: ${fileId}, msg: ${err.response.data.detail?.message}`,
           );
           throw new BadRequestException(`File upload failed`);
         } else if (
@@ -242,8 +246,8 @@ export class RagProvider {
     const requestUrl = `${this.ragServer}/file-chat/v1/chat/stream`;
     const requestBody = {
       text: input.query,
-      chat_history: input.histories,
     };
+
     const response = await axios.post(requestUrl, requestBody, {
       responseType: "stream",
       params: {
