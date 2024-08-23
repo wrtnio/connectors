@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.121",
+    "version": "0.1.122",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -208,47 +208,12 @@
             "type": "string",
             "title": "유저 발화.",
             "description": "유저의 발화입니다."
-          },
-          "histories": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IRag.IHistory"
-            },
-            "title": "이전 발화 내역.",
-            "description": "이전 발화 내역입니다."
           }
         },
         "required": [
           "query"
         ],
         "title": "RAG를 통한 채팅을 위해 필요한 정보"
-      },
-      "IRag.IHistory": {
-        "type": "object",
-        "properties": {
-          "role": {
-            "oneOf": [
-              {
-                "const": "user"
-              },
-              {
-                "const": "assistant"
-              }
-            ],
-            "title": "발화자 역할.",
-            "description": "발화자의 역할입니다."
-          },
-          "text": {
-            "type": "string",
-            "title": "발화 내용.",
-            "description": "발화 내용입니다."
-          }
-        },
-        "required": [
-          "role",
-          "text"
-        ],
-        "title": "이전 발화 내역"
       }
     }
   },
