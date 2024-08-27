@@ -48,7 +48,7 @@ export class GithubProvider {
         const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
         child.content = content;
 
-        if (4.8 * 1024 * 1024 * 1024 < traverseOption.currentSize + file.size) {
+        if (4.8 * 1024 * 1024 < traverseOption.currentSize + file.size) {
           traverseOption.currentSize = 0;
           traverseOption.currentIndex += 1;
         }
@@ -82,7 +82,7 @@ export class GithubProvider {
     //     .map((key) => this.awsProvider.getFileUrl(key));
     // }
 
-    const MAX_SIZE = 4.8 * 1024 * 1024 * 1024;
+    const MAX_SIZE = 4.8 * 1024 * 1024;
     const MAX_DEPTH = 100;
 
     // 전체 폴더 구조 가져오기
