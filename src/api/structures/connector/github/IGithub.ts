@@ -1122,7 +1122,7 @@ export namespace IGithub {
      * In github, branch is just another name for the last node of a commit,
      * so this property called commit is logically the same as what it means for that branch.
      */
-    commit: Pick<IGithub.Commit, "sha" | "url">;
+    commit: StrictOmit<IGithub.Commit, "sha">;
   };
 
   export type Commit = {

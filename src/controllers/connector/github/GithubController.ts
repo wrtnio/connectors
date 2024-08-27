@@ -347,6 +347,9 @@ export class GithubController {
 
   /**
    * Inquire the user's branch
+   * You can look up a list of branches in a specific repository.
+   * Because it says what the last commit is, and when and to whom it was made,
+   * you can see which of the branches is the latest and managed.
    *
    * @summary Inquire the user's branch
    * @param input

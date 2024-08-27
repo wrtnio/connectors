@@ -304,6 +304,21 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getDetailedBranchInfo(
+    input: IGithub.IGetBranchInput & { name: string },
+  ): Promise<{ commit: { commit: IGithub.Commit } }> {
+    const { owner, repo, name, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/branches/${name}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    return res.data;
+  }
+
   async getRepositoryBranches(
     input: IGithub.IGetBranchInput,
   ): Promise<IGithub.IGetBranchOutput> {
@@ -319,7 +334,18 @@ export class GithubProvider {
     });
 
     const link = res.headers["link"];
-    return { result: res.data, ...this.getCursors(link) };
+    const branches: IGithub.IGetBranchOutput["result"] = res.data;
+    return {
+      result: await Promise.all(
+        branches.map(async (branch) => {
+          const name = branch.name;
+          const detail = await this.getDetailedBranchInfo({ ...input, name });
+          const lastCommit = detail.commit.commit;
+          return { ...branch, commit: lastCommit };
+        }),
+      ),
+      ...this.getCursors(link),
+    };
   }
 
   async getPullRequestAssociatedWithACommit(
