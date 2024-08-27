@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.127",
+    "version": "0.1.128",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10753,34 +10753,6 @@
             }
           }
         }
-      }
-    },
-    "/connector/github/call": {
-      "post": {
-        "summary": "Call github api on behalf of the user",
-        "description": "In GitHub, it is written with RESTful APIs so that each resource can call the next API when querying a resource.\nThis appears to be a HATEOAS implementation, so logically, when you want to see additional information from a particular resource, you can infer and use the purpose based on the key name of the URL and the type of endpoint.\nTherefore, we simply received a link from the user and created this connector to replace the api call.\nHowever, you will only need to request links that begin with the https://api.github.com/ path.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGithub.ICallInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/organizations/users/get-events": {
@@ -35793,27 +35765,6 @@
           "repo"
         ]
       },
-      "IGithub.ICallInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https://api.github.com/(.*)",
-            "title": "github api endpoint"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "github",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "url",
-          "secretKey"
-        ]
-      },
       "IGithub.IGetEventOutput": {
         "type": "object",
         "properties": {
@@ -37687,7 +37638,7 @@
                 "default": "full_name"
               }
             ],
-            "title": "sorting condition\n\nThe property to sort the results by."
+            "title": "sorting condition\n\nThe property to sort the results by.\nIt must be one of: \"created\" | \"updated\" | \"pushed\" | \"full_name\""
           },
           "direction": {
             "oneOf": [
