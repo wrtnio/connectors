@@ -15,6 +15,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("analyze")
   async analyze(
     @TypedBody() input: IGithub.IAnalyzeInput,
@@ -124,6 +127,30 @@ export class GithubController {
     });
 
     return data;
+  }
+
+  /**
+   * Look up repository files(bulk)
+   *
+   * If the file you want to inquire is a folder, internal files are provided in an array,
+   * and if it is a file, it inquires about the encoding method of the file and the body content of the file.
+   * Since there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.
+   * In this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.
+   * You can pass multiple file paths to view multiple files at the same time.
+   * There is no limit to the number of files.
+   *
+   * @summary Look up repository files(bulk)
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repos/get-contents/bulk")
+  async getBulkFileContents(
+    @TypedBody() input: IGithub.IGetBulkFileContentInput,
+  ): Promise<IGithub.IGetBulkFileContentOutput> {
+    return this.githubProvider.getBulkFileContents(input);
   }
 
   /**

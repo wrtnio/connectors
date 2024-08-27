@@ -199,6 +199,38 @@ export namespace IGithub {
 
   export type IGetReadmeFileContentOutput = RepositoryFile;
 
+  export type IGetBulkFileContentOutput = IGetFileContentOutput[];
+
+  export interface IGetBulkFileContentInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title path parameters
+     *
+     * It refers to the path of the file, and is the path of the file including folders and extensions.
+     * If you want to make index.ts in src, you need to add 'src/index.ts'.
+     */
+    paths?: string[];
+
+    /**
+     * @title branch name
+     */
+    branch?: Branch["name"];
+  }
+
   export type IGetReadmeFileContentInput = Pick<
     IGithub.IGetFileContentInput,
     "secretKey" | "owner" | "repo"
