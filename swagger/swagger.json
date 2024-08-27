@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.130",
+    "version": "0.1.131",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -30621,6 +30621,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -30707,6 +30708,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -30774,6 +30776,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -30817,6 +30820,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -30888,6 +30892,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -30950,6 +30955,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -31063,6 +31069,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -31188,6 +31195,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -31377,6 +31385,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -31587,6 +31596,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
@@ -31668,6 +31678,7 @@
               "channels:history",
               "users.profile:read",
               "im:read",
+              "groups:history",
               "groups:read",
               "chat:write",
               "users:read"
