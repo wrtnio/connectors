@@ -901,6 +901,7 @@ export namespace IGithub {
      * @title sorting condition
      *
      * Sorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match
+     * It must be one of this: "followers" | "repositories" | "joined"
      */
     sort?: "followers" | "repositories" | "joined";
   }
