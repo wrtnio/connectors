@@ -249,16 +249,13 @@ export class GoogleFlightProvider {
 
   private async getShortLink(url: string): Promise<string> {
     try {
-      const res = await axios.get(
-        `https://openapi.naver.com/v1/util/shorturl?url=${url}`,
+      const res = await axios.post(
+        `${ConnectorGlobal.env.GH_DEVS_BE_SERVER_URL}/url/shorten`,
         {
-          headers: {
-            "X-Naver-Client-Id": ConnectorGlobal.env.NAVER_CLIENT_ID,
-            "X-Naver-Client-Secret": ConnectorGlobal.env.NAVER_CLIENT_SECRET,
-          },
+          originalUrl: url,
         },
       );
-      return res.data.result.url;
+      return `${ConnectorGlobal.env.SHORT_LINK_RETURN_URL}/url/${res.data.code}`;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

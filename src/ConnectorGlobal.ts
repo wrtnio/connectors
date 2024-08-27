@@ -117,6 +117,10 @@ export namespace ConnectorGlobal {
     HAMLET_HEADER_KEY_VALUE: string;
     HAMLET_PROMPT_NODE_MODEL_NAME: string;
     HAMLET_PROMPT_NODE_REQUEST_ENDPOINT: string;
+
+    // GH DEVS BE
+    GH_DEVS_BE_SERVER_URL: string & tags.Format<"uri">;
+    SHORT_LINK_RETURN_URL: string & tags.Format<"uri">;
   }
 }
 
