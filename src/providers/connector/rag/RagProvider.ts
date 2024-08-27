@@ -135,8 +135,6 @@ export class RagProvider {
         });
         const jobId = res.data.job_id;
 
-        console.log(requestUrl, requestBody, res.data.job_id);
-
         /**
          * 파일 분석 진행
          * 2초마다 상태 조회
