@@ -107,7 +107,7 @@ export namespace IGithub {
      * The path delivered is treated like a Root folder and continues the navigation from this folder.
      * Browse by this folder, and it must be a folder, not a file.
      */
-    path: string & tags.Default<"">;
+    path?: string & tags.Default<"">;
   }
 
   export type IGetFileContentOutput =

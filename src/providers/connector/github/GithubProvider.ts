@@ -87,12 +87,9 @@ export class GithubProvider {
   }
 
   async getRepositoryFolderStructures(
-    input: IGithub.IGetRepositoryFolderStructureInput,
+    input: Required<IGithub.IGetRepositoryFolderStructureInput>,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
-    const rootFiles = await this.getFileContents({
-      ...input,
-      path: input.path,
-    });
+    const rootFiles = await this.getFileContents(input);
 
     return this.getRepositoryFolders(input, rootFiles);
   }
@@ -506,19 +503,27 @@ export class GithubProvider {
     };
   }
 
+  /**
+   * 폴더 내부를 조회한다.
+   *
+   * @param input
+   * @param files
+   * @param depth root files 이후의 조회를 시작하기 때문에 2면 최대 children이 2단계 Depth까지, 즉 폴더의 폴더의 파일들까지 조회하게 된다.
+   * @returns
+   */
   private async getRepositoryFolders(
     input: Pick<IGithub.IGetFileContentInput, "owner" | "repo" | "secretKey">,
     files: IGithub.IGetFileContentOutput,
-    depth: number = 0,
+    depth: number = 2,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const response: IGithub.IGetRepositoryFolderStructureOutput = [];
     if (files instanceof Array) {
       for await (const file of files) {
         // 2단계 depth까지의 폴더만 순회하도록 하기
         if (file.type === "dir") {
-          if (depth < (2 as const)) {
+          if (0 < depth) {
             const path = file.path;
-            const next = depth + 1;
+            const next = depth - 1;
             const inners = await this.getFileContents({ ...input, path });
             const scanned = await this.getRepositoryFolders(
               input,

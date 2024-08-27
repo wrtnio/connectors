@@ -125,7 +125,7 @@ export class GithubController {
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const data = await this.githubProvider.getRepositoryFolderStructures({
       ...input,
-      path: "",
+      path: input.path ?? "",
     });
 
     return data;
