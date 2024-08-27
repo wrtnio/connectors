@@ -6,6 +6,7 @@ import { String } from "aws-sdk/clients/acm";
 import axios from "axios";
 import typia from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { StrictOmit } from "../../../utils/strictOmit";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 
@@ -92,7 +93,10 @@ export class GithubProvider {
 
     // 전체 순회하며 파일인 경우 content를 가져오게 하기
     const traverseOption = {
-      result: [[], [], [], [], []] as any[][],
+      result: [[], [], [], [], []] as StrictOmit<
+        IGithub.RepositoryFile,
+        "encoding"
+      >[][],
       currentIndex: 0,
       currentSize: 0,
     };
@@ -106,7 +110,6 @@ export class GithubProvider {
         } else {
           const detailed = await this.getFileContents({ ...input, path });
           const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
-          (file as any).content = content;
 
           if (MAX_SIZE < traverseOption.currentSize + file.size) {
             traverseOption.currentSize = 0; // 사이즈 초기화
@@ -118,7 +121,10 @@ export class GithubProvider {
           }
 
           traverseOption.currentSize += file.size;
-          traverseOption.result[traverseOption.currentIndex].push(file);
+          traverseOption.result[traverseOption.currentIndex].push({
+            ...file,
+            content,
+          });
         }
       }
     }
@@ -129,7 +135,12 @@ export class GithubProvider {
       let FILE_NUM = 0;
       for await (const analyzedFile of analyzedFiles) {
         const key = `${AWS_KEY}/${FILE_NUM}.txt`;
-        const buffer = Buffer.from(JSON.stringify(analyzedFile), "utf-8");
+        const buffer = Buffer.from(
+          JSON.stringify(
+            analyzedFile.map((el) => ({ path: el.path, content: el.content })),
+          ),
+          "utf-8",
+        );
         const link = await this.awsProvider.uploadObject({
           contentType: "text/plain",
           data: buffer,

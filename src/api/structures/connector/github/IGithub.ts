@@ -731,6 +731,7 @@ export namespace IGithub {
      * @title sorting condition
      *
      * The property to sort the results by.
+     * It must be one of: "created" | "updated" | "pushed" | "full_name"
      */
     sort?: ("created" | "updated" | "pushed" | "full_name") &
       tags.Default<"full_name">;
