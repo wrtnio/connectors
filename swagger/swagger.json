@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.129",
+    "version": "0.1.130",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11123,7 +11123,7 @@
     "/connector/github/get-events": {
       "post": {
         "summary": "List public events.",
-        "description": "List public events\n\nThis API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.\nWhen I look up the events, they may not be of much value to the user because they are events that occurred on github.",
+        "description": "List public events\n\nThis API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.\nWhen I look up the events, they may not be of much value to the user because they are events that occurred on github.\n\nIt's looking up public events, and it's looking at events that occur on github regardless of the specific user.\nTherefore, it may not be of much use unless it is a special case.\nIf you want to get your information, it would be more advantageous to use the 'user/get-events' connector.",
         "tags": [],
         "parameters": [],
         "requestBody": {
