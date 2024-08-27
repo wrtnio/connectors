@@ -11,7 +11,7 @@ export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
   /**
-   *
+   * @summary 레포 분석 봇 생성
    * @param input
    * @returns
    */
