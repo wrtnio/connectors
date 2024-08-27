@@ -263,6 +263,20 @@ export class GithubProvider {
     return this.getRepositoryFolders(input, rootFiles, depth);
   }
 
+  async getBulkFileContents(
+    input: IGithub.IGetBulkFileContentInput,
+  ): Promise<IGithub.IGetBulkFileContentOutput> {
+    if (!input.paths?.length) {
+      return [];
+    }
+
+    return await Promise.all(
+      input.paths?.map(async (path) => {
+        return await this.getFileContents({ ...input, path });
+      }),
+    );
+  }
+
   async getFileContents(
     input: IGithub.IGetFileContentInput,
   ): Promise<IGithub.IGetFileContentOutput> {
