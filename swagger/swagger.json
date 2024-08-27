@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.126",
+    "version": "0.1.127",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10725,6 +10725,34 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/github/analyze": {
+      "post": {
+        "summary": "레포 분석 봇 생성",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IAnalyzeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IRag.IAnalysisOutput"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/connector/github/call": {
@@ -35741,6 +35769,30 @@
           "place_id"
         ]
       },
+      "IGithub.IAnalyzeInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          }
+        },
+        "required": [
+          "secretKey",
+          "owner",
+          "repo"
+        ]
+      },
       "IGithub.ICallInput": {
         "type": "object",
         "properties": {
@@ -36363,6 +36415,10 @@
             "type": "string",
             "title": "name of this file"
           },
+          "url": {
+            "type": "string",
+            "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
+          },
           "type": {
             "const": "file"
           },
@@ -36381,6 +36437,7 @@
         },
         "required": [
           "name",
+          "url",
           "type",
           "path",
           "size",
@@ -36393,7 +36450,7 @@
           "path": {
             "type": "string",
             "default": "",
-            "title": "folder name\n\nThe path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file."
+            "title": "folder name\n\nThe path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file.\nIf omitted, start the circuit based on the top Root folder."
           },
           "secretKey": {
             "type": "string",
@@ -36411,7 +36468,6 @@
           }
         },
         "required": [
-          "path",
           "secretKey",
           "owner",
           "repo"
@@ -36478,6 +36534,10 @@
           "sha": {
             "type": "string",
             "title": "sha"
+          },
+          "url": {
+            "type": "string",
+            "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
           }
         },
         "required": [
@@ -36487,7 +36547,8 @@
           "name",
           "path",
           "content",
-          "sha"
+          "sha",
+          "url"
         ]
       },
       "IGithub.IGetFileContentInput": {
@@ -36519,7 +36580,6 @@
         "required": [
           "owner",
           "repo",
-          "path",
           "secretKey"
         ]
       },
@@ -37130,11 +37190,7 @@
                 "type": "null"
               },
               {
-                "const": ""
-              },
-              {
-                "type": "string",
-                "format": "uri"
+                "type": "string"
               }
             ],
             "title": "blog\n\nIndicates the blog address."
