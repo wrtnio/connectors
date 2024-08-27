@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.128",
+    "version": "0.1.129",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10752,7 +10752,8 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/organizations/users/get-events": {
@@ -10879,6 +10880,63 @@
                         "file": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
                       }
                     }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repos/get-contents/bulk": {
+      "post": {
+        "summary": "Look up repository files(bulk)",
+        "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetBulkFileContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "$ref": "#/components/schemas/IGithub.RepositoryFolder"
+                            },
+                            {
+                              "$ref": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
+                            }
+                          ],
+                          "discriminator": {
+                            "propertyName": "type",
+                            "mapping": {
+                              "dir": "#/components/schemas/IGithub.RepositoryFolder",
+                              "file": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/IGithub.RepositoryFile"
+                      }
+                    ]
                   }
                 }
               }
@@ -36502,6 +36560,41 @@
           "url"
         ]
       },
+      "IGithub.IGetBulkFileContentInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+          },
+          "branch": {
+            "type": "string",
+            "title": "branch name"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
       "IGithub.IGetFileContentInput": {
         "type": "object",
         "properties": {
@@ -37079,7 +37172,7 @@
                 "const": "joined"
               }
             ],
-            "title": "sorting condition\n\nSorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match"
+            "title": "sorting condition\n\nSorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match\nIt must be one of this: \"followers\" | \"repositories\" | \"joined\""
           },
           "per_page": {
             "type": "integer",
