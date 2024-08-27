@@ -277,6 +277,10 @@ export class GithubController {
    * This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
    * When I look up the events, they may not be of much value to the user because they are events that occurred on github.
    *
+   * It's looking up public events, and it's looking at events that occur on github regardless of the specific user.
+   * Therefore, it may not be of much use unless it is a special case.
+   * If you want to get your information, it would be more advantageous to use the 'user/get-events' connector.
+   *
    * @summary List public events.
    */
   @RouteIcon(
