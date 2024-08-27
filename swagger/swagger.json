@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.124",
+    "version": "0.1.126",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10841,10 +10841,141 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repos/get-folder-structures": {
+      "post": {
+        "summary": "Review Repository Folder Structure",
+        "description": "Review Repository Folder Structure\n\nIt allows you to know the overall folder structure by traversing files in the repository.\nThis feature is intended to navigate like a DFS based on folders.\nIf this function is so vast that you cannot see the entire folder, you can pass the `path` again to inquire.\nThe `path` delivered is treated like a Root folder and continues the navigation from this folder.\nThis feature is designed to navigate to the inside two more times, up to steps 0, 1 at a time, based on the root folder.\n\nIf you want to know the details of the file, it is recommended to use the get-contents connector.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetRepositoryFolderStructureInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/RepositoryFolderchildrenany"
+                      },
+                      {
+                        "$ref": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
+                      }
+                    ],
+                    "discriminator": {
+                      "propertyName": "type",
+                      "mapping": {
+                        "dir": "#/components/schemas/RepositoryFolderchildrenany",
+                        "file": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repos/get-contents": {
+      "post": {
+        "summary": "Look up repository files",
+        "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetFileContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/IGithub.RepositoryFolder"
+                          },
+                          {
+                            "$ref": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
+                          }
+                        ],
+                        "discriminator": {
+                          "propertyName": "type",
+                          "mapping": {
+                            "dir": "#/components/schemas/IGithub.RepositoryFolder",
+                            "file": "#/components/schemas/StrictOmitIGithub.RepositoryFilecontentencoding"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/IGithub.RepositoryFile"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repos/get-readme": {
+      "post": {
+        "summary": "Read the README file",
+        "description": "Read the README file in the repository\n\nREADME is one of the initial settings of the project and usually records a description of this repository,\nso it's useful if you want to see a rough description of the repository.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetReadmeFileContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.RepositoryFile"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/repos/get-events": {
       "post": {
         "summary": "List events for the authenticated user",
-        "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.",
+        "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nYou can check all events surrounding the repository, such as who inquired and who forked.\nIt is used in conjunction with a connector that inquires the activity details and is suitable for checking how active the repository is.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10964,7 +11095,7 @@
     "/connector/github/repositories/get-activities": {
       "post": {
         "summary": "Get Repository' activities",
-        "description": "Get repository activities",
+        "description": "Get repository activities\n\nYou can use it to see how active your contribution is to the repository\nbecause it looks up all the activities that have occurred in the repository.\n\nThe types of activities that can be viewed here are as follows, and you can also find out by which user it was operated.\npush, force_push, branch_creation, branch_deletion, pr_merge, merge_queue_merge",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11056,7 +11187,7 @@
     "/connector/github/get-repositories": {
       "post": {
         "summary": "Inquire the user's repository",
-        "description": "Inquire the user's repository",
+        "description": "Inquire the user's repository\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11087,7 +11218,7 @@
     "/connector/github/get-branches": {
       "post": {
         "summary": "Inquire the user's branch",
-        "description": "Inquire the user's branch",
+        "description": "Inquire the user's branch\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -35640,7 +35771,8 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "id"
                 },
                 "type": {
                   "oneOf": [
@@ -35650,22 +35782,28 @@
                     {
                       "type": "string"
                     }
-                  ]
+                  ],
+                  "title": "event type\nThere are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`."
                 },
                 "actor": {
-                  "$ref": "#/components/schemas/PickIGithub.Useridlogin"
+                  "$ref": "#/components/schemas/PickIGithub.Useridlogin",
+                  "title": "user"
                 },
                 "repo": {
-                  "$ref": "#/components/schemas/PickIGithub.Repositorynameid"
+                  "$ref": "#/components/schemas/PickIGithub.Repositorynameid",
+                  "title": "repo"
                 },
                 "org": {
-                  "$ref": "#/components/schemas/PickIGithub.Organizationidlogindisplay_login"
+                  "$ref": "#/components/schemas/PickIGithub.Organizationidlogindisplay_login",
+                  "title": "org"
                 },
                 "payload": {
-                  "$ref": "#/components/schemas/IGithub.Payload"
+                  "$ref": "#/components/schemas/IGithub.Payload",
+                  "title": "payload"
                 },
                 "public": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "title": "whather is public"
                 },
                 "created_at": {
                   "oneOf": [
@@ -35676,7 +35814,8 @@
                       "type": "string",
                       "format": "date-time"
                     }
-                  ]
+                  ],
+                  "title": "created_at"
                 }
               },
               "required": [
@@ -36177,6 +36316,235 @@
           "message",
           "content",
           "secretKey"
+        ]
+      },
+      "RepositoryFolderchildrenany": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "dir",
+            "title": "type"
+          },
+          "size": {
+            "const": 0,
+            "title": "Indicates the file size in bytes."
+          },
+          "name": {
+            "type": "string",
+            "title": "name of this folder"
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
+          },
+          "sha": {
+            "type": "string",
+            "title": "sha"
+          },
+          "children": {
+            "type": "array",
+            "items": {},
+            "title": "children\n\nFor folders, you may have other files or folders inside.\nThis should also be a folder or file type object,\nbut here, we specify it as any type to prevent it because it can be recursively infinitely large."
+          }
+        },
+        "required": [
+          "type",
+          "size",
+          "name",
+          "path",
+          "sha",
+          "children"
+        ]
+      },
+      "StrictOmitIGithub.RepositoryFilecontentencoding": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name of this file"
+          },
+          "type": {
+            "const": "file"
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
+          },
+          "size": {
+            "type": "number",
+            "title": "Indicates the file size in bytes."
+          },
+          "sha": {
+            "type": "string",
+            "title": "sha"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "path",
+          "size",
+          "sha"
+        ]
+      },
+      "IGithub.IGetRepositoryFolderStructureInput": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "default": "",
+            "title": "folder name\n\nThe path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          }
+        },
+        "required": [
+          "path",
+          "secretKey",
+          "owner",
+          "repo"
+        ]
+      },
+      "IGithub.RepositoryFolder": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "dir",
+            "title": "type"
+          },
+          "size": {
+            "const": 0,
+            "title": "Indicates the file size in bytes."
+          },
+          "name": {
+            "type": "string",
+            "title": "name of this folder"
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
+          },
+          "sha": {
+            "type": "string",
+            "title": "sha"
+          }
+        },
+        "required": [
+          "type",
+          "size",
+          "name",
+          "path",
+          "sha"
+        ]
+      },
+      "IGithub.RepositoryFile": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "file"
+          },
+          "encoding": {
+            "type": "string",
+            "x-wrtn-placeholder": "base64"
+          },
+          "size": {
+            "type": "number",
+            "title": "Indicates the file size in bytes."
+          },
+          "name": {
+            "type": "string",
+            "title": "name of this file"
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
+          },
+          "content": {
+            "type": "string",
+            "title": "content"
+          },
+          "sha": {
+            "type": "string",
+            "title": "sha"
+          }
+        },
+        "required": [
+          "type",
+          "encoding",
+          "size",
+          "name",
+          "path",
+          "content",
+          "sha"
+        ]
+      },
+      "IGithub.IGetFileContentInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "path": {
+            "type": "string",
+            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+          },
+          "branch": {
+            "type": "string",
+            "title": "branch name"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "path",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetReadmeFileContentInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          }
+        },
+        "required": [
+          "secretKey",
+          "owner",
+          "repo"
         ]
       },
       "IGithub.IGetRepoEventInput": {
@@ -37380,7 +37748,7 @@
             "title": "name of Branch"
           },
           "commit": {
-            "$ref": "#/components/schemas/PickIGithub.Commiturlsha",
+            "$ref": "#/components/schemas/StrictOmitIGithub.Commitsha",
             "title": "commit\n\nIn github, branch is just another name for the last node of a commit,\nso this property called commit is logically the same as what it means for that branch."
           }
         },
@@ -37389,24 +37757,90 @@
           "commit"
         ]
       },
-      "PickIGithub.Commiturlsha": {
+      "StrictOmitIGithub.Commitsha": {
         "type": "object",
         "properties": {
+          "message": {
+            "type": "string",
+            "title": "commit message"
+          },
           "url": {
             "type": "string",
             "format": "uri",
             "title": "uri\n\nuri to look up details of commitment"
           },
-          "sha": {
-            "type": "string",
-            "title": "hash of this commit"
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "author"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "committer"
+          },
+          "tree": {
+            "type": "object",
+            "properties": {
+              "sha": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "sha",
+              "url"
+            ]
+          },
+          "comment_count": {
+            "type": "integer"
           }
         },
         "required": [
+          "message",
           "url",
-          "sha"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+          "author",
+          "committer",
+          "tree",
+          "comment_count"
+        ]
       },
       "IGithub.IGetBranchInput": {
         "type": "object",
@@ -37713,7 +38147,7 @@
             "type": "string"
           },
           "commit": {
-            "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommittercomment_counttree"
+            "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommittertreecomment_count"
           },
           "files": {
             "type": "array",
@@ -37728,7 +38162,7 @@
           "files"
         ]
       },
-      "PickIGithub.Commitmessageurlauthorcommittercomment_counttree": {
+      "PickIGithub.Commitmessageurlauthorcommittertreecomment_count": {
         "type": "object",
         "properties": {
           "message": {
@@ -37784,9 +38218,6 @@
             ],
             "title": "committer"
           },
-          "comment_count": {
-            "type": "integer"
-          },
           "tree": {
             "type": "object",
             "properties": {
@@ -37802,6 +38233,9 @@
               "sha",
               "url"
             ]
+          },
+          "comment_count": {
+            "type": "integer"
           }
         },
         "required": [
@@ -37809,8 +38243,8 @@
           "url",
           "author",
           "committer",
-          "comment_count",
-          "tree"
+          "tree",
+          "comment_count"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
@@ -37977,91 +38411,6 @@
           "parents",
           "stats",
           "files"
-        ]
-      },
-      "StrictOmitIGithub.Commitsha": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "title": "commit message"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "title": "uri\n\nuri to look up details of commitment"
-          },
-          "author": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string",
-                "format": "email"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": [
-              "name",
-              "email",
-              "date"
-            ],
-            "title": "author"
-          },
-          "committer": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string",
-                "format": "email"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": [
-              "name",
-              "email",
-              "date"
-            ],
-            "title": "committer"
-          },
-          "comment_count": {
-            "type": "integer"
-          },
-          "tree": {
-            "type": "object",
-            "properties": {
-              "sha": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "sha",
-              "url"
-            ]
-          }
-        },
-        "required": [
-          "message",
-          "url",
-          "author",
-          "committer",
-          "comment_count",
-          "tree"
         ]
       },
       "PickIGithub.Commitsha": {
