@@ -85,6 +85,20 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
+  export type __IAnalyzeInput = (
+    | (RepositoryFolder & {
+        /**
+         * @title children
+         *
+         * For folders, you may have other files or folders inside.
+         * This should also be a folder or file type object,
+         * but here, we specify it as any type to prevent it because it can be recursively infinitely large.
+         */
+        children: any[];
+      })
+    | StrictOmit<IGithub.RepositoryFile, "encoding" | "content">
+  )[];
+
   export type IGetRepositoryFolderStructureOutput = (
     | (RepositoryFolder & {
         /**
@@ -106,8 +120,9 @@ export namespace IGithub {
      *
      * The path delivered is treated like a Root folder and continues the navigation from this folder.
      * Browse by this folder, and it must be a folder, not a file.
+     * If omitted, start the circuit based on the top Root folder.
      */
-    path: string & tags.Default<"">;
+    path?: string & tags.Default<"">;
   }
 
   export type IGetFileContentOutput =
@@ -173,6 +188,13 @@ export namespace IGithub {
      * @title sha
      */
     sha: string;
+
+    /**
+     * @title url
+     *
+     * A link that allows you to view the contents of the file as an Url value for viewing the details of the file.
+     */
+    url: string;
   };
 
   export type IGetReadmeFileContentOutput = RepositoryFile;
@@ -204,7 +226,7 @@ export namespace IGithub {
      * It refers to the path of the file, and is the path of the file including folders and extensions.
      * If you want to make index.ts in src, you need to add 'src/index.ts'.
      */
-    path: string;
+    path?: string;
 
     /**
      * @title branch name
@@ -314,6 +336,12 @@ export namespace IGithub {
      */
     commit_sha: string;
   }
+  export type IAnalyzeOutput = string[];
+
+  export type IAnalyzeInput = StrictOmit<
+    IGetRepositoryFolderStructureInput,
+    "path"
+  >;
 
   export type IGetCommitHeadOutput = {
     sha: Commit["sha"];
@@ -750,7 +778,7 @@ export namespace IGithub {
      *
      * Indicates the blog address.
      */
-    blog: (string & tags.Format<"uri">) | "" | null;
+    blog: string | null;
 
     /**
      * @title location

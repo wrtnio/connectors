@@ -1,6 +1,7 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
+import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
 import { StrictOmit } from "../../../utils/strictOmit";
@@ -8,6 +9,18 @@ import { StrictOmit } from "../../../utils/strictOmit";
 @Controller("connector/github")
 export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
+
+  /**
+   * @summary 레포 분석 봇 생성
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("analyze")
+  async analyze(
+    @TypedBody() input: IGithub.IAnalyzeInput,
+  ): Promise<IRag.IAnalysisOutput> {
+    return this.githubProvider.analyze(input);
+  }
 
   /**
    * In GitHub, it is written with RESTful APIs so that each resource can call the next API when querying a resource.
@@ -125,7 +138,7 @@ export class GithubController {
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const data = await this.githubProvider.getRepositoryFolderStructures({
       ...input,
-      path: "",
+      path: input.path ?? "",
     });
 
     return data;
