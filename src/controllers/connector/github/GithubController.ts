@@ -23,24 +23,6 @@ export class GithubController {
   }
 
   /**
-   * In GitHub, it is written with RESTful APIs so that each resource can call the next API when querying a resource.
-   * This appears to be a HATEOAS implementation, so logically, when you want to see additional information from a particular resource, you can infer and use the purpose based on the key name of the URL and the type of endpoint.
-   * Therefore, we simply received a link from the user and created this connector to replace the api call.
-   * However, you will only need to request links that begin with the https://api.github.com/ path.
-   *
-   * @summary Call github api on behalf of the user
-   * @param input
-   * @returns
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
-  )
-  @core.TypedRoute.Post("call")
-  async call(@TypedBody() input: IGithub.ICallInput): Promise<any> {
-    return this.githubProvider.call(input);
-  }
-
-  /**
    * Lists organization events for the authenticated user
    *
    * This API endpoint retrieves events that have occurred within the organizations
