@@ -102,9 +102,83 @@ export class GithubController {
   }
 
   /**
+   * Review Repository Folder Structure
+   *
+   * It allows you to know the overall folder structure by traversing files in the repository.
+   * This feature is intended to navigate like a DFS based on folders.
+   * If this function is so vast that you cannot see the entire folder, you can pass the `path` again to inquire.
+   * The `path` delivered is treated like a Root folder and continues the navigation from this folder.
+   * This feature is designed to navigate to the inside two more times, up to steps 0, 1 at a time, based on the root folder.
+   *
+   * If you want to know the details of the file, it is recommended to use the get-contents connector.
+   *
+   * @summary Review Repository Folder Structure
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repos/get-folder-structures")
+  async getRepositoryFolderStructures(
+    @TypedBody() input: IGithub.IGetRepositoryFolderStructureInput,
+  ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
+    const data = await this.githubProvider.getRepositoryFolderStructures({
+      ...input,
+      path: "",
+    });
+
+    return data;
+  }
+
+  /**
+   * Look up repository files
+   *
+   * If the file you want to inquire is a folder, internal files are provided in an array,
+   * and if it is a file, it inquires about the encoding method of the file and the body content of the file.
+   * Since there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.
+   * In this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.
+   *
+   * @summary Look up repository files
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repos/get-contents")
+  async getFileContents(
+    @TypedBody() input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput> {
+    return this.githubProvider.getFileContents(input);
+  }
+
+  /**
+   * Read the README file in the repository
+   *
+   * README is one of the initial settings of the project and usually records a description of this repository,
+   * so it's useful if you want to see a rough description of the repository.
+   *
+   * @summary Read the README file
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repos/get-readme")
+  async getReadmeFile(
+    @TypedBody() input: IGithub.IGetReadmeFileContentInput,
+  ): Promise<IGithub.IGetReadmeFileContentOutput> {
+    return this.githubProvider.getReadmeFile(input);
+  }
+
+  /**
    * List events for the authenticated user
    *
    * If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.
+   * You can check all events surrounding the repository, such as who inquired and who forked.
+   * It is used in conjunction with a connector that inquires the activity details and is suitable for checking how active the repository is.
    *
    * @summary List events for the authenticated user
    */
@@ -197,6 +271,12 @@ export class GithubController {
   /**
    * Get repository activities
    *
+   * You can use it to see how active your contribution is to the repository
+   * because it looks up all the activities that have occurred in the repository.
+   *
+   * The types of activities that can be viewed here are as follows, and you can also find out by which user it was operated.
+   * push, force_push, branch_creation, branch_deletion, pr_merge, merge_queue_merge
+   *
    * @summary Get Repository' activities
    * @param input
    * @returns
@@ -248,6 +328,9 @@ export class GithubController {
   /**
    * Inquire the user's repository
    *
+   * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.
+   * It is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.
+   *
    * @summary Inquire the user's repository
    * @param input
    * @returns repositories
@@ -264,6 +347,9 @@ export class GithubController {
 
   /**
    * Inquire the user's branch
+   * You can look up a list of branches in a specific repository.
+   * Because it says what the last commit is, and when and to whom it was made,
+   * you can see which of the branches is the latest and managed.
    *
    * @summary Inquire the user's branch
    * @param input

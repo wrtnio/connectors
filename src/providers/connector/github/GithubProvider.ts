@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import axios from "axios";
+import typia from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
@@ -83,6 +84,68 @@ export class GithubProvider {
         },
       },
     );
+  }
+
+  async getRepositoryFolderStructures(
+    input: IGithub.IGetRepositoryFolderStructureInput,
+  ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
+    const rootFiles = await this.getFileContents({
+      ...input,
+      path: input.path,
+    });
+
+    return this.getRepositoryFolders(input, rootFiles);
+  }
+
+  async getFileContents(
+    input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput> {
+    const { owner, repo, path, secretKey, branch } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const res = await axios.get(url, {
+      params: {
+        ref: branch,
+      },
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/vnd.github.object+json",
+      },
+    });
+
+    if (res.data instanceof Array) {
+      // 폴더를 조회한 경우 폴더 내부의 파일 목록이 조회된다.
+      return res.data;
+    } else {
+      // 파일인 경우 상세 내용이 조회된다.
+      return {
+        ...res.data,
+        ...(res.data.content && {
+          content: Buffer.from(res.data.content, res.data.encoding).toString(
+            "utf-8",
+          ),
+        }),
+      };
+    }
+  }
+
+  async getReadmeFile(
+    input: IGithub.IGetReadmeFileContentInput,
+  ): Promise<IGithub.IGetReadmeFileContentOutput> {
+    const { owner, repo, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/readme`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/vnd.github.object+json",
+      },
+    });
+
+    return {
+      ...res.data,
+      ...(res.data.content && {
+        content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+      }),
+    };
   }
 
   async getRepoEvents(
@@ -241,6 +304,21 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getDetailedBranchInfo(
+    input: IGithub.IGetBranchInput & { name: string },
+  ): Promise<{ commit: { commit: IGithub.Commit } }> {
+    const { owner, repo, name, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/branches/${name}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    return res.data;
+  }
+
   async getRepositoryBranches(
     input: IGithub.IGetBranchInput,
   ): Promise<IGithub.IGetBranchOutput> {
@@ -256,7 +334,18 @@ export class GithubProvider {
     });
 
     const link = res.headers["link"];
-    return { result: res.data, ...this.getCursors(link) };
+    const branches: IGithub.IGetBranchOutput["result"] = res.data;
+    return {
+      result: await Promise.all(
+        branches.map(async (branch) => {
+          const name = branch.name;
+          const detail = await this.getDetailedBranchInfo({ ...input, name });
+          const lastCommit = detail.commit.commit;
+          return { ...branch, commit: lastCommit };
+        }),
+      ),
+      ...this.getCursors(link),
+    };
   }
 
   async getPullRequestAssociatedWithACommit(
@@ -332,9 +421,6 @@ export class GithubProvider {
     });
 
     const link = res.headers["link"];
-    console.log();
-    console.log(link);
-    console.log();
     return { result: res.data, ...this.getCursors(link) };
   }
 
@@ -418,5 +504,39 @@ export class GithubProvider {
       ...metadata,
       nextPage: metadata.after || metadata.next ? true : false,
     };
+  }
+
+  private async getRepositoryFolders(
+    input: Pick<IGithub.IGetFileContentInput, "owner" | "repo" | "secretKey">,
+    files: IGithub.IGetFileContentOutput,
+    depth: number = 0,
+  ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
+    const response: IGithub.IGetRepositoryFolderStructureOutput = [];
+    if (files instanceof Array) {
+      for await (const file of files) {
+        // 2단계 depth까지의 폴더만 순회하도록 하기
+        if (file.type === "dir") {
+          if (depth < (2 as const)) {
+            const path = file.path;
+            const next = depth + 1;
+            const inners = await this.getFileContents({ ...input, path });
+            const scanned = await this.getRepositoryFolders(
+              input,
+              inners,
+              next,
+            );
+            const children = scanned.map((el) => typia.misc.assertClone(el));
+
+            response.push({ ...file, children });
+          } else {
+            // 탐색 범위를 넘어서는 폴더기 때문에 children을 빈배열로 담는다.
+            response.push({ ...file, children: [] });
+          }
+        } else {
+          response.push(file);
+        }
+      }
+    }
+    return response;
   }
 }
