@@ -4,6 +4,7 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import { RouteIcon } from "@wrtnio/decorators";
 import typia from "typia";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/slack")
 export class SlackController {
@@ -22,7 +23,7 @@ export class SlackController {
   )
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
-    return this.slackProvider.mark(input);
+    return retry(() => this.slackProvider.mark(input))();
   }
 
   /**
@@ -51,7 +52,7 @@ export class SlackController {
   async sendScheduleMessage(
     @TypedBody() input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
-    return this.slackProvider.sendScheduleMessage(input);
+    return retry(() => this.slackProvider.sendScheduleMessage(input))();
   }
 
   /**
@@ -72,7 +73,7 @@ export class SlackController {
   async deleteScheduleMessage(
     @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
   ): Promise<void> {
-    return this.slackProvider.deleteScheduleMessage(input);
+    return retry(() => this.slackProvider.deleteScheduleMessage(input))();
   }
 
   /**
@@ -94,7 +95,7 @@ export class SlackController {
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendTextToMyself(input);
+    return retry(() => this.slackProvider.sendTextToMyself(input))();
   }
 
   /**
@@ -120,7 +121,7 @@ export class SlackController {
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const response = await this.slackProvider.sendReply(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -140,7 +141,7 @@ export class SlackController {
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const response = await this.slackProvider.sendText(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -162,7 +163,7 @@ export class SlackController {
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
     const response = await this.slackProvider.getScheduledMessages(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -189,7 +190,7 @@ export class SlackController {
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
     const response = await this.slackProvider.getUsers(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -210,7 +211,7 @@ export class SlackController {
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
-    return this.slackProvider.getReplies(input);
+    return retry(() => this.slackProvider.getReplies(input))();
   }
 
   /**
@@ -241,7 +242,7 @@ export class SlackController {
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    return this.slackProvider.getChannelHistories(input);
+    return retry(() => this.slackProvider.getChannelHistories(input))();
   }
 
   /**
@@ -263,7 +264,7 @@ export class SlackController {
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return this.slackProvider.getPrivateChannels(input);
+    return retry(() => this.slackProvider.getPrivateChannels(input))();
   }
 
   /**
@@ -286,7 +287,7 @@ export class SlackController {
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
-    return this.slackProvider.getPublicChannels(input);
+    return retry(() => this.slackProvider.getPublicChannels(input))();
   }
 
   /**
@@ -309,6 +310,6 @@ export class SlackController {
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
-    return this.slackProvider.getImChannels(input);
+    return retry(() => this.slackProvider.getImChannels(input))();
   }
 }
