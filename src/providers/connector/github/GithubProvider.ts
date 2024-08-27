@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import axios from "axios";
+import typia from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
@@ -85,9 +86,9 @@ export class GithubProvider {
     );
   }
 
-  async getRepositoryStructures(
-    input: IGithub.IGetFileContentInput,
-  ): Promise<IGithub.IGetFileContentOutput> {
+  async getRepositoryFolderStructures(
+    input: IGithub.IGetRepositoryFolderStructureInput,
+  ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const rootFiles = await this.getFileContents({
       ...input,
       path: input.path,
@@ -111,15 +112,20 @@ export class GithubProvider {
       },
     });
 
-    const files: any[] = res.data;
-    return files.map((file) => {
+    if (res.data instanceof Array) {
+      // 폴더를 조회한 경우 폴더 내부의 파일 목록이 조회된다.
+      return res.data;
+    } else {
+      // 파일인 경우 상세 내용이 조회된다.
       return {
-        ...file,
-        ...(file.content && {
-          content: Buffer.from(file.content, "base64").toString("utf-8"),
+        ...res.data,
+        ...(res.data.content && {
+          content: Buffer.from(res.data.content, res.data.encoding).toString(
+            "utf-8",
+          ),
         }),
       };
-    });
+    }
   }
 
   async getReadmeFile(
@@ -389,9 +395,6 @@ export class GithubProvider {
     });
 
     const link = res.headers["link"];
-    console.log();
-    console.log(link);
-    console.log();
     return { result: res.data, ...this.getCursors(link) };
   }
 
@@ -480,21 +483,34 @@ export class GithubProvider {
   private async getRepositoryFolders(
     input: Pick<IGithub.IGetFileContentInput, "owner" | "repo" | "secretKey">,
     files: IGithub.IGetFileContentOutput,
-  ): Promise<
-    (IGithub.IGetReadmeFileContentOutput & { children: any[] | null })[]
-  > {
-    const response = await Promise.all(
-      files.map(async (file) => {
+    depth: number = 0,
+  ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
+    const response: IGithub.IGetRepositoryFolderStructureOutput = [];
+    if (files instanceof Array) {
+      for await (const file of files) {
+        // 2단계 depth까지의 폴더만 순회하도록 하기
         if (file.type === "dir") {
-          const children = await this.getRepositoryFolders(input, [file]);
+          if (depth < (2 as const)) {
+            const path = file.path;
+            const next = depth + 1;
+            const inners = await this.getFileContents({ ...input, path });
+            const scanned = await this.getRepositoryFolders(
+              input,
+              inners,
+              next,
+            );
+            const children = scanned.map((el) => typia.misc.assertClone(el));
 
-          return { ...file, children };
+            response.push({ ...file, children });
+          } else {
+            // 탐색 범위를 넘어서는 폴더기 때문에 children을 빈배열로 담는다.
+            response.push({ ...file, children: [] });
+          }
+        } else {
+          response.push(file);
         }
-
-        return { ...file, children: null };
-      }),
-    );
-
+      }
+    }
     return response;
   }
 }

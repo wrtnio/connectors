@@ -85,30 +85,97 @@ export namespace IGithub {
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
 
-  export type IGetRepositoryStructureInput = Pick<
-    IGithub.IGetFileContentInput,
-    "secretKey" | "owner" | "repo"
-  >;
+  export type IGetRepositoryFolderStructureOutput = (
+    | (RepositoryFolder & {
+        /**
+         * @title children
+         *
+         * For folders, you may have other files or folders inside.
+         * This should also be a folder or file type object,
+         * but here, we specify it as any type to prevent it because it can be recursively infinitely large.
+         */
+        children: any[];
+      })
+    | StrictOmit<IGithub.RepositoryFile, "encoding" | "content">
+  )[];
 
-  export type IGetFileContentOutput = {
-    type: "file" | "dir";
-    encoding: string & Placeholder<"base64">;
-    size: number;
-    name: File["filename"];
-    path: string;
-    content: string;
-    sha: string;
-  }[];
-
-  export interface IGetReadmeFileContentOutput {
-    type: "file" | "dir";
-    encoding: string & Placeholder<"base64">;
-    size: number;
-    name: File["filename"];
-    path: string;
-    content: string;
-    sha: string;
+  export interface IGetRepositoryFolderStructureInput
+    extends Pick<IGithub.IGetFileContentInput, "secretKey" | "owner" | "repo"> {
+    /**
+     * @title folder name
+     *
+     * The path delivered is treated like a Root folder and continues the navigation from this folder.
+     * Browse by this folder, and it must be a folder, not a file.
+     */
+    path: string & tags.Default<"">;
   }
+
+  export type IGetFileContentOutput =
+    | (StrictOmit<RepositoryFile, "encoding" | "content"> | RepositoryFolder)[]
+    | RepositoryFile;
+
+  export type RepositoryFolder = {
+    /**
+     * @title type
+     */
+    type: "dir";
+
+    /**
+     * @title Indicates the file size in bytes.
+     */
+    size: 0;
+
+    /**
+     * @title name of this folder
+     */
+    name: File["filename"];
+
+    /**
+     * @title path
+     *
+     * It must be unique as a path for identifying that file in the root folder.
+     */
+    path: string;
+
+    /**
+     * @title sha
+     */
+    sha: string;
+  };
+
+  export type RepositoryFile = {
+    type: "file";
+    encoding: string & Placeholder<"base64">;
+
+    /**
+     * @title Indicates the file size in bytes.
+     */
+    size: number;
+
+    /**
+     * @title name of this file
+     */
+    name: File["filename"];
+
+    /**
+     * @title path
+     *
+     * It must be unique as a path for identifying that file in the root folder.
+     */
+    path: string;
+
+    /**
+     * @title content
+     */
+    content: string;
+
+    /**
+     * @title sha
+     */
+    sha: string;
+  };
+
+  export type IGetReadmeFileContentOutput = RepositoryFile;
 
   export type IGetReadmeFileContentInput = Pick<
     IGithub.IGetFileContentInput,
@@ -287,13 +354,45 @@ export namespace IGithub {
 
   export interface IGetEventOutput extends ICommonPaginationOutput {
     result: {
+      /**
+       * @title id
+       */
       id: string;
+
+      /**
+       * @title event type
+       * There are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`.
+       */
       type: string | null;
+
+      /**
+       * @title user
+       */
       actor: Pick<User, "id" | "login">;
+
+      /**
+       * @title repo
+       */
       repo: Pick<Repository, "id" | "name">;
+
+      /**
+       * @title org
+       */
       org?: Pick<Organization, "id" | "display_login" | "login">;
+
+      /**
+       * @@title payload
+       */
       payload: IGithub.Payload;
+
+      /**
+       * @title whather is public
+       */
       public: boolean;
+
+      /**
+       * @title created_at
+       */
       created_at: (string & tags.Format<"date-time">) | null;
     }[];
   }
