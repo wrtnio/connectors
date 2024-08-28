@@ -15,12 +15,16 @@ export namespace IGoogleHotel {
     /**
      * 체크인 날짜를 설정하세요.
      *
+     * 오늘 날짜 이후의 날짜를 입력해주세요.
+     *
      * @title 체크인 날짜
      */
     check_in_date: string & tags.Format<"date">;
 
     /**
      * 체크아웃 날짜를 설정하세요.
+     *
+     * 오늘 날짜 이후의 날짜를 입력해주세요.
      *
      * @title 체크아웃 날짜
      */
