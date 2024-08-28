@@ -53,8 +53,6 @@ export async function test_api_connector_github_get_file_contents_3(
       },
     );
 
-  console.log(res);
-
   typia.assert(res);
 }
 
