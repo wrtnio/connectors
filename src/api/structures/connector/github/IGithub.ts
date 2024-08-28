@@ -264,8 +264,10 @@ export namespace IGithub {
      *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * If it is an organization's repository, it can also be the name of the organization.
      */
-    owner: User["login"];
+    owner: User["login"] | Organization["login"];
 
     /**
      * @title repository name

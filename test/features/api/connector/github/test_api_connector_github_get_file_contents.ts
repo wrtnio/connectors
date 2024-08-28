@@ -87,3 +87,20 @@ export async function test_api_connector_github_get_repo_get_contents_bulk(
 
   typia.assert(res);
 }
+
+export async function test_api_connector_github_get_organization_repo_get_contents_bulk(
+  connection: CApi.IConnection,
+) {
+  const res =
+    await CApi.functional.connector.github.repos.get_contents.bulk.getBulkFileContents(
+      connection,
+      {
+        owner: "wrtnio",
+        repo: "connectors",
+        paths: ["README.md", ".gitignore"],
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  typia.assert(res);
+}
