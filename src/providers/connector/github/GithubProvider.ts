@@ -84,6 +84,7 @@ export class GithubProvider {
     const rootFiles = await this.getRepositoryFolderStructures(
       input,
       MAX_DEPTH,
+      false, // 파일을 모두 복사하여 RAG할 때에는 미디어 파일까지 가져올 필요가 없다.
     );
 
     // 전체 순회하며 파일인 경우 content를 가져오게 하기
@@ -328,10 +329,11 @@ export class GithubProvider {
   async getRepositoryFolderStructures(
     input: IGithub.IGetRepositoryFolderStructureInput,
     depth: number = 2,
+    includeMediaFile: boolean = true,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const rootFiles = await this.getFileContents(input);
 
-    return this.getRepositoryFolders(input, rootFiles, depth);
+    return this.getRepositoryFolders(input, rootFiles, depth, includeMediaFile);
   }
 
   async getBulkFileContents(
@@ -826,11 +828,23 @@ export class GithubProvider {
   private async getRepositoryFolders(
     input: Pick<IGithub.IGetFileContentInput, "owner" | "repo" | "secretKey">,
     files: IGithub.IGetFileContentOutput,
-    depth: number = 2,
+    depth: number,
+    includeMediaFile: boolean,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const response: IGithub.IGetRepositoryFolderStructureOutput = [];
     if (files instanceof Array) {
-      for await (const file of files) {
+      const isNotSourceFolders = ["test", "benchmark", "yarn", "pnp"] as const;
+      const targets = includeMediaFile
+        ? files
+        : files
+            .filter((file) => {
+              return isNotSourceFolders.every((el) => !file.path.includes(el));
+            })
+            .filter((file) => {
+              return !this.isMediaFile(file);
+            });
+
+      for await (const file of targets) {
         // 2단계 depth까지의 폴더만 순회하도록 하기
         if (file.type === "dir") {
           if (0 < depth) {
@@ -841,6 +855,7 @@ export class GithubProvider {
               input,
               inners,
               next,
+              includeMediaFile,
             );
             const children = scanned.map((el) => typia.misc.assertClone(el));
             response.push({ ...file, children });
