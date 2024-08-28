@@ -887,6 +887,23 @@ export namespace IGithub {
     repo: Repository["name"];
   }
 
+  export interface IGetOrganizationRepositoryOutput
+    extends ICommonPaginationOutput {
+    /**
+     * @title repositories
+     */
+    result: IGithub.Repository[];
+  }
+
+  export interface IGetOrganizationRepositoryInput extends IGetRepositoryInput {
+    /**
+     * @title organization
+     *
+     * This refers to the name of the organization who will look up the repository.
+     */
+    organization: string;
+  }
+
   export interface IGetUserRepositoryOutput extends ICommonPaginationOutput {
     /**
      * @title repositories
@@ -894,9 +911,7 @@ export namespace IGithub {
     result: IGithub.Repository[];
   }
 
-  export interface IGetUserRepositoryInput
-    extends StrictOmit<ICommonPaginationInput, "order">,
-      ICommon.ISecret<"github", ["repo"]> {
+  export interface IGetUserRepositoryInput extends IGetRepositoryInput {
     /**
      * @title username
      *
@@ -908,6 +923,11 @@ export namespace IGithub {
         path: "/connector/github/get-users";
         jmesPath: "items[].{value:login, label:login}";
       }>;
+  }
+
+  export interface IGetRepositoryInput
+    extends StrictOmit<ICommonPaginationInput, "order">,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title sorting condition
      *

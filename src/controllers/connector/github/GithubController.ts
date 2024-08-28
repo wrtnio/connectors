@@ -58,6 +58,7 @@ export class GithubController {
    * making it useful for tracking the organization's activity or monitoring the progress
    * of projects that the user is involved in within the team.
    *
+   * @summary Lists organization events for the authenticated user
    * @returns A list of events from the organizations the authenticated user is a member of.
    */
   @RouteIcon(
@@ -69,6 +70,26 @@ export class GithubController {
   ): Promise<IGithub.IGetEventOutput> {
     const data = await this.githubProvider.getUserOrganizationEvents(input);
     return data;
+  }
+
+  /**
+   * List organization repositories
+   *
+   * This endpoint allows you to list all repositories that belong to a specified organization on GitHub.
+   * It's useful for viewing all the repositories under an organization’s account, including both public and private repositories, depending on your access level.
+   *
+   * @summary List organization repositories
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("organizations/get-repositories")
+  async getOrganizationRepositories(
+    @TypedBody() input: IGithub.IGetOrganizationEventInput,
+  ): Promise<IGithub.IGetOrganizationRepositoryOutput> {
+    return this.githubProvider.getOrganizationRepositories(input);
   }
 
   /**
