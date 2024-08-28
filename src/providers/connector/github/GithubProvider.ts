@@ -57,6 +57,23 @@ export class GithubProvider {
     private readonly ragProvider: RagProvider,
   ) {}
 
+  async getUserOrganizations(
+    input: IGithub.IGetUserOrganizationInput,
+  ): Promise<IGithub.IGetUserOrganizationOutput> {
+    const { username, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/users/${username}/orgs?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getAuthenticatedUserOrganizations(
     input: IGithub.IGetAuthenticatedUserOrganizationInput,
   ): Promise<IGithub.IGetAuthenticatedUserOrganizationOutput> {

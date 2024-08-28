@@ -99,6 +99,19 @@ export namespace IGithub {
     | StrictOmit<IGithub.RepositoryFile, "encoding" | "content">
   )[];
 
+  export interface IGetUserOrganizationOutput
+    extends IGithub.ICommonPaginationOutput {
+    result: Organization[];
+  }
+
+  export interface IGetUserOrganizationInput
+    extends IGetAuthenticatedUserOrganizationInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
+  }
+
   export interface IGetAuthenticatedUserOrganizationOutput
     extends IGithub.ICommonPaginationOutput {
     result: Organization[];

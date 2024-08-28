@@ -272,6 +272,26 @@ export class GithubController {
   }
 
   /**
+   * List organizations for a user
+   *
+   * Look up the user's organization list, but since you can't look up the user's private organization here,
+   * you can't really conclude that there isn't an empty array.
+   *
+   * @summary List organizations for a user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-organizations")
+  async getUserOrganizations(
+    @TypedBody() input: IGithub.IGetUserOrganizationInput,
+  ): Promise<IGithub.IGetUserOrganizationOutput> {
+    return this.githubProvider.getUserOrganizations(input);
+  }
+
+  /**
    * List public events
    *
    * This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
@@ -376,6 +396,8 @@ export class GithubController {
    *
    * Inquire the user's repository.
    * Here, the user is an authenticated user, which means a user of that token.
+   * If a user does not select an organization at login or ask the organization's admin to link it,
+   * the resource might not be viewed even if the token scope has permissions.
    *
    * @summary List organizations for the authenticated user
    * @param input
