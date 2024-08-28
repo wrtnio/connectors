@@ -113,7 +113,7 @@ export class GoogleSlidesProvider {
 
     // if there are s3 buckets urls, get presigned url
     const matches = JSON.stringify(input).match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-_]+)/gu,
     );
 
     if (!matches) {

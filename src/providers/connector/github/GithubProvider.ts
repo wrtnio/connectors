@@ -37,32 +37,45 @@ export class GithubProvider {
       throw new Error("파일은 순회할 수 없습니다.");
     }
 
-    for await (const child of folder.children) {
-      type E = ElementOf<IGithub.IGetRepositoryFolderStructureOutput>;
-      const file = child as E;
+    await Promise.allSettled(
+      folder.children
+        .filter(
+          (child) =>
+            !child.path.includes("test") &&
+            !child.path.includes("benchmark") &&
+            !child.path.includes("yarn") &&
+            !child.path.includes("pnp"),
+        )
+        .map(async (child) => {
+          if (traverseOption.currentIndex === 5) {
+            return;
+          }
 
-      const path = file.path;
+          type E = ElementOf<IGithub.IGetRepositoryFolderStructureOutput>;
+          const file = child as E;
 
-      if (child.type === "dir") {
-        await this.traverseTree(input, child, traverseOption);
-      } else {
-        const detailed = await this.getFileContents({ ...input, path });
-        const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
-        child.content = content;
+          const path = file.path;
+          if (child.type === "dir") {
+            await this.traverseTree(input, child, traverseOption);
+          } else {
+            const detailed = await this.getFileContents({ ...input, path });
+            const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
+            child.content = content;
 
-        if (4.8 * 1024 * 1024 < traverseOption.currentSize + file.size) {
-          traverseOption.currentSize = 0;
-          traverseOption.currentIndex += 1;
-        }
+            if (3 * 1024 * 1024 < traverseOption.currentSize + file.size) {
+              traverseOption.currentSize = 0;
+              traverseOption.currentIndex += 1;
+            }
 
-        if (traverseOption.currentIndex === 5) {
-          break;
-        }
+            if (traverseOption.currentIndex === 5) {
+              return;
+            }
 
-        traverseOption.currentSize += file.size;
-        traverseOption.result[traverseOption.currentIndex].push(child);
-      }
-    }
+            traverseOption.currentSize += file.size;
+            traverseOption.result[traverseOption.currentIndex].push(child);
+          }
+        }),
+    );
   }
 
   async copyAllFiles(
@@ -84,7 +97,7 @@ export class GithubProvider {
     //     .map((key) => this.awsProvider.getFileUrl(key));
     // }
 
-    const MAX_SIZE = 4.8 * 1024 * 1024;
+    const MAX_SIZE = 3 * 1024 * 1024;
     const MAX_DEPTH = 100;
 
     // 전체 폴더 구조 가져오기
@@ -103,32 +116,46 @@ export class GithubProvider {
       currentSize: 0,
     };
 
-    // 한 파일 당 4.8MB 씩 5개의 파일이 되게끔 담기
     if (rootFiles instanceof Array) {
-      for await (const file of rootFiles) {
-        const path = file.path;
-        if (file.type === "dir") {
-          await this.traverseTree(input, file, traverseOption);
-        } else {
-          const detailed = await this.getFileContents({ ...input, path });
-          const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
+      await Promise.allSettled(
+        rootFiles
+          .filter(
+            (file) =>
+              !file.path.includes("test") &&
+              !file.path.includes("benchmark") &&
+              !file.path.includes("yarn") &&
+              !file.path.includes("pnp"),
+          )
+          .map(async (file) => {
+            if (traverseOption.currentIndex === 5) {
+              return;
+            }
 
-          if (MAX_SIZE < traverseOption.currentSize + file.size) {
-            traverseOption.currentSize = 0; // 사이즈 초기화
-            traverseOption.currentIndex += 1; // 다음 파일 인덱스로 이전
-          }
+            const path = file.path;
+            if (file.type === "dir") {
+              await this.traverseTree(input, file, traverseOption);
+            } else {
+              const detailed = await this.getFileContents({ ...input, path });
+              const { content } =
+                typia.assert<IGithub.RepositoryFile>(detailed);
 
-          if (traverseOption.currentIndex === 5) {
-            break;
-          }
+              if (MAX_SIZE < traverseOption.currentSize + file.size) {
+                traverseOption.currentSize = 0; // 사이즈 초기화
+                traverseOption.currentIndex += 1; // 다음 파일 인덱스로 이전
+              }
 
-          traverseOption.currentSize += file.size;
-          traverseOption.result[traverseOption.currentIndex].push({
-            ...file,
-            content,
-          });
-        }
-      }
+              if (traverseOption.currentIndex === 5) {
+                return;
+              }
+
+              traverseOption.currentSize += file.size;
+              traverseOption.result[traverseOption.currentIndex].push({
+                ...file,
+                content,
+              });
+            }
+          }),
+      );
     }
 
     const analyzedFiles = traverseOption.result.filter((el) => el.length);
