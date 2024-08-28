@@ -959,6 +959,31 @@ export namespace IGithub {
     before?: string & tags.Format<"date-time">;
   }
 
+  export interface IGetRepositoryIssueOutput extends ICommonPaginationOutput {
+    result: IGithub.Issue[];
+  }
+
+  export interface IGetRepositoryIssueInput
+    extends StrictOmit<
+      IGetAuthenticatedUserIssueInput,
+      "filter" | "owned" | "pulls"
+    > {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+  }
+
   export interface IGetOrganizationAuthenticationUserIssueOutput
     extends ICommonPaginationOutput {
     result: IGithub.Issue[];
@@ -979,7 +1004,7 @@ export namespace IGithub {
   }
 
   export interface IGetAuthenticatedUserIssueInput
-    extends ICommon.ISecret<"github">,
+    extends ICommon.ISecret<"github", ["issues"]>,
       Pick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * @title direction

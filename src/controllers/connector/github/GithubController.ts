@@ -421,6 +421,25 @@ export class GithubController {
   }
 
   /**
+   * List repository issues
+   *
+   * List issues in a repository. Only open issues will be listed.
+   *
+   * @summary List repository issues
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/get-issues")
+  async getRepositoryIssues(
+    @TypedBody() input: IGithub.IGetRepositoryIssueInput,
+  ): Promise<IGithub.IGetRepositoryIssueOutput> {
+    return this.githubProvider.getRepositoryIssues(input);
+  }
+
+  /**
    * Search for users by keyword in github
    *
    * @summary Search for users by keyword in github
