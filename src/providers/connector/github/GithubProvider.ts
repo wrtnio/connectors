@@ -12,42 +12,55 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 
+const docsExtensions = [
+  "pdf",
+  "docx",
+  "xlsx",
+  "pptx",
+  "bin",
+  "zip",
+  "tar",
+  "gz",
+  "sqlite",
+  "db",
+];
+
 const imageExtensions = [
-  ".jpg",
-  ".jpeg",
-  ".png",
-  ".gif",
-  ".bmp",
-  ".tiff",
-  ".tif",
-  ".webp",
-  ".heif",
-  ".heic",
-  ".svg",
-  ".ico",
-  ".raw",
-  ".cr2",
-  ".nef",
-  ".arw",
-  ".dng",
-  ".orf",
-  ".rw2",
-  ".ico",
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "bmp",
+  "tiff",
+  "tif",
+  "webp",
+  "heif",
+  "heic",
+  "svg",
+  "ico",
+  "raw",
+  "cr2",
+  "nef",
+  "arw",
+  "dng",
+  "orf",
+  "rw2",
+  "ico",
 ];
 
 const videoExtensions = [
-  ".mp4",
-  ".avi",
-  ".mov",
-  ".wmv",
-  ".mkv",
-  ".flv",
-  ".webm",
-  ".mpeg",
-  ".mpg",
-  ".3gp",
-  ".m4v",
-  ".ogv",
+  "mp4",
+  "avi",
+  "mov",
+  "wmv",
+  "mkv",
+  "flv",
+  "webm",
+  "mpeg",
+  "mpg",
+  "3gp",
+  "m4v",
+  "ogv",
 ];
 
 @Injectable()
@@ -138,8 +151,7 @@ export class GithubProvider {
               !file.path.includes("benchmark") &&
               !file.path.includes("yarn") &&
               !file.path.includes("pnp") &&
-              imageExtensions.every((el) => !file.path.endsWith(el)) &&
-              videoExtensions.every((el) => !file.path.endsWith(el)),
+              this.isMediaFile(file) === false,
           )
           .map(async (file) => {
             if (traverseOption.currentIndex === 5) {
@@ -403,10 +415,15 @@ export class GithubProvider {
       return res.data;
     } else {
       // 파일인 경우 상세 내용이 조회된다.
+      const file: IGithub.RepositoryFile = res.data;
+      const isMediaFile = this.isMediaFile(file);
+
       return {
-        ...res.data,
-        ...(res.data.content && {
-          content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+        ...file,
+        ...(file.content && {
+          content: isMediaFile
+            ? file.content
+            : Buffer.from(file.content, "base64").toString("utf-8"),
         }),
       };
     }
@@ -920,8 +937,7 @@ export class GithubProvider {
             !file.path.includes("benchmark") &&
             !file.path.includes("yarn") &&
             !file.path.includes("pnp") &&
-            imageExtensions.every((el) => !file.path.endsWith(el)) &&
-            videoExtensions.every((el) => !file.path.endsWith(el)),
+            this.isMediaFile(file) === false,
         )
         .map(async (child) => {
           if (traverseOption.currentIndex === 5) {
@@ -953,6 +969,17 @@ export class GithubProvider {
             traverseOption.result[traverseOption.currentIndex].push(child);
           }
         }),
+    );
+  }
+
+  private isMediaFile(
+    file: Pick<IGithub.RepositoryFile | IGithub.RepositoryFolder, "path">,
+  ) {
+    const extension = file.path.split(".")[1];
+    return (
+      imageExtensions.some((el) => el === extension) ||
+      videoExtensions.some((el) => el === extension) ||
+      docsExtensions.some((el) => el === extension)
     );
   }
 }

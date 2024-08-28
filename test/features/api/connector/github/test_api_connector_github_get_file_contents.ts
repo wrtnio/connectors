@@ -38,6 +38,26 @@ export async function test_api_connector_github_get_file_contents_2(
   typia.assert(res);
 }
 
+// 파일을 조회하는 경우, 그러나 파일이 이미지나 PDF 등인 경우
+export async function test_api_connector_github_get_file_contents_3(
+  connection: CApi.IConnection,
+) {
+  const res =
+    await CApi.functional.connector.github.repos.get_contents.getFileContents(
+      connection,
+      {
+        owner: "samchon",
+        repo: "nestia",
+        path: "website/public/images/benchmark-dark.png",
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  console.log(res);
+
+  typia.assert(res);
+}
+
 export async function test_api_connector_github_get_readme_file(
   connection: CApi.IConnection,
 ) {
