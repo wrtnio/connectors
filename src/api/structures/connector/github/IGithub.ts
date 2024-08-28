@@ -217,6 +217,13 @@ export namespace IGithub {
      * A link that allows you to view the contents of the file as an Url value for viewing the details of the file.
      */
     url: string;
+
+    /**
+     * @title download_url
+     *
+     * The url that allows you to download a file, which is useful if it is a media file containing an image.
+     */
+    download_url: string;
   };
 
   export type IGetReadmeFileContentOutput = RepositoryFile;
