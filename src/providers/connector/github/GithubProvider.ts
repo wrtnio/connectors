@@ -245,6 +245,24 @@ export class GithubProvider {
     return res.data;
   }
 
+  async getReceivedEvents(
+    input: IGithub.IGetReceivedEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { username, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/users/${username}/received_events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getUserOrganizationEvents(
     input: IGithub.IGetOrganizationUserEventInput,
   ): Promise<IGithub.IGetEventOutput> {

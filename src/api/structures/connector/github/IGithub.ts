@@ -370,6 +370,13 @@ export namespace IGithub {
     };
   }
 
+  export interface IGetReceivedEventInput extends IGetEventInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
+  }
+
   export type IGetPullRequestOutput = PullRequest[];
 
   export interface IGetPullRequestInput extends ICommon.ISecret<"github"> {
@@ -445,7 +452,127 @@ export namespace IGithub {
        * @title event type
        * There are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`.
        */
-      type: string | null;
+      type:
+        | tags.Constant<
+            "CommitCommentEvent",
+            {
+              title: "CommitCommentEvent";
+              description: "Triggered when a comment is added to a commit.";
+            }
+          >
+        | tags.Constant<
+            "CreateEvent",
+            {
+              title: "CreateEvent";
+              description: "Triggered when a new branch, tag, or repository is created.";
+            }
+          >
+        | tags.Constant<
+            "DeleteEvent",
+            {
+              title: "DeleteEvent";
+              description: "Triggered when a branch or tag is deleted.";
+            }
+          >
+        | tags.Constant<
+            "ForkEvent",
+            {
+              title: "ForkEvent";
+              description: "Triggered when a user forks a repository.";
+            }
+          >
+        | tags.Constant<
+            "GollumEvent",
+            {
+              title: "GollumEvent";
+              description: "Triggered when a Wiki page is created or updated.";
+            }
+          >
+        | tags.Constant<
+            "IssueCommentEvent",
+            {
+              title: "IssueCommentEvent";
+              description: "Triggered when a comment is added to an issue.";
+            }
+          >
+        | tags.Constant<
+            "IssuesEvent",
+            {
+              title: "IssuesEvent";
+              description: "Triggered when an issue is opened, edited, or closed.";
+            }
+          >
+        | tags.Constant<
+            "MemberEvent",
+            {
+              title: "MemberEvent";
+              description: "Triggered when a user is added as a collaborator to a repository.";
+            }
+          >
+        | tags.Constant<
+            "PublicEvent",
+            {
+              title: "PublicEvent";
+              description: "Triggered when a private repository is made public.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestEvent",
+            {
+              title: "PullRequestEvent";
+              description: "Triggered when a pull request is opened, edited, merged, or closed.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestReviewEvent",
+            {
+              title: "PullRequestReviewEvent";
+              description: "Triggered when a review is submitted for a pull request.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestReviewCommentEvent",
+            {
+              title: "PullRequestReviewCommentEvent";
+              description: "Triggered when a comment is added to a pull request's review.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestReviewThreadEvent",
+            {
+              title: "PullRequestReviewThreadEvent";
+              description: "Triggered when a review thread in a pull request has a change.";
+            }
+          >
+        | tags.Constant<
+            "PushEvent",
+            {
+              title: "PushEvent";
+              description: "Triggered when commits are pushed to a repository.";
+            }
+          >
+        | tags.Constant<
+            "ReleaseEvent",
+            {
+              title: "ReleaseEvent";
+              description: "Triggered when a release is published.";
+            }
+          >
+        | tags.Constant<
+            "SponsorshipEvent",
+            {
+              title: "SponsorshipEvent";
+              description: "Triggered when a sponsorship is started or modified.";
+            }
+          >
+        | tags.Constant<
+            "WatchEvent",
+            {
+              title: "WatchEvent";
+              description: "Triggered when a user stars a repository.";
+            }
+          >
+        | null;
 
       /**
        * @title user
@@ -505,7 +632,7 @@ export namespace IGithub {
   }
 
   export interface IGetEventInput
-    extends ICommonPaginationInput,
+    extends StrictOmit<ICommonPaginationInput, "order">,
       ICommon.ISecret<"github"> {}
 
   export interface IGetRepositoryActivityOutput

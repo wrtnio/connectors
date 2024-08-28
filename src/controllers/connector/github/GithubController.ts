@@ -26,6 +26,28 @@ export class GithubController {
   }
 
   /**
+   * List events received by the authenticated user
+   *
+   * These are events that you've received by watching repositories and following users.
+   * If you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.
+   * In this case, the "received" event includes the repository that the user is interested in or the activity of the user who is following,
+   * for example, if the user has pushed to the repository, or if an issue has been created from the repository that the user is interested in.
+   *
+   * @summary List events received by the authenticated user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-received-events")
+  async getReceivedEvents(
+    @TypedBody() input: IGithub.IGetReceivedEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    return this.githubProvider.getReceivedEvents(input);
+  }
+
+  /**
    * Lists organization events for the authenticated user
    *
    * This API endpoint retrieves events that have occurred within the organizations
