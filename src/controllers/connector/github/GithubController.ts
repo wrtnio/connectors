@@ -372,6 +372,26 @@ export class GithubController {
   }
 
   /**
+   * List organizations for the authenticated user
+   *
+   * Inquire the user's repository.
+   * Here, the user is an authenticated user, which means a user of that token.
+   *
+   * @summary List organizations for the authenticated user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("get-organizations")
+  async getAuthenticatedUserOrganizations(
+    @TypedBody() input: IGithub.IGetAuthenticatedUserOrganizationInput,
+  ): Promise<IGithub.IGetAuthenticatedUserOrganizationOutput> {
+    return this.githubProvider.getAuthenticatedUserOrganizations(input);
+  }
+
+  /**
    * Inquire the user's branch
    * You can look up a list of branches in a specific repository.
    * Because it says what the last commit is, and when and to whom it was made,

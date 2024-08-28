@@ -99,6 +99,15 @@ export namespace IGithub {
     | StrictOmit<IGithub.RepositoryFile, "encoding" | "content">
   )[];
 
+  export interface IGetAuthenticatedUserOrganizationOutput
+    extends IGithub.ICommonPaginationOutput {
+    result: Organization[];
+  }
+
+  export interface IGetAuthenticatedUserOrganizationInput
+    extends ICommon.ISecret<"github", ["user"]>,
+      Pick<IGithub.ICommonPaginationInput, "page" | "per_page"> {}
+
   export type IGetRepositoryFolderStructureOutput = (
     | (RepositoryFolder & {
         /**
@@ -1279,6 +1288,11 @@ export namespace IGithub {
      * @title display_login
      */
     display_login?: string;
+
+    /**
+     * @title description
+     */
+    description?: string;
   };
 
   export type Issue = {
