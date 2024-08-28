@@ -4,6 +4,8 @@ import axios from "axios";
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class TypeformProvider {
@@ -362,8 +364,13 @@ export class TypeformProvider {
     return fieldInfoList;
   }
 
-  private async refresh(refreshToken: string): Promise<string> {
+  private async refresh(secretValue: string): Promise<string> {
     try {
+      const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+      const refreshToken =
+        typeof secret === "string"
+          ? secret
+          : (secret as IOAuthSecret.ISecretValue).value;
       const res = await axios.post(
         "https://api.typeform.com/oauth/token",
         {
@@ -379,6 +386,15 @@ export class TypeformProvider {
         },
       );
 
+      /**
+       * Refresh Token이 일회용이므로 값 업데이트
+       */
+      await OAuthSecretProvider.updateSecretValue(
+        (secret as IOAuthSecret.ISecretValue).id,
+        {
+          value: res.data.refresh_token,
+        },
+      );
       return res.data.access_token;
     } catch (err) {
       console.error(JSON.stringify(err));
