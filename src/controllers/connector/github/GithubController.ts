@@ -48,6 +48,26 @@ export class GithubController {
   }
 
   /**
+   * Inquire the user's repository
+   *
+   * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.
+   * It is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.
+   *
+   * @summary Inquire the user's repository
+   * @param input
+   * @returns repositories
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-repositories")
+  async getUserRepositories(
+    @TypedBody() input: IGithub.IGetUserRepositoryInput,
+  ): Promise<IGithub.IGetUserRepositoryOutput> {
+    return this.githubProvider.getUserRepositories(input);
+  }
+
+  /**
    * Lists organization events for the authenticated user
    *
    * This API endpoint retrieves events that have occurred within the organizations
@@ -415,23 +435,24 @@ export class GithubController {
   }
 
   /**
-   * Inquire the user's repository
+   * List issues assigned to the authenticated user
    *
-   * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.
-   * It is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.
+   * List issues assigned to the authenticated user across all visible repositories
+   * including owned repositories, member repositories, and organization repositories.
+   * You can use the filter query parameter to fetch issues that are not necessarily assigned to you.
    *
-   * @summary Inquire the user's repository
+   * @summary List issues assigned to the authenticated user
    * @param input
-   * @returns repositories
+   * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("get-repositories")
-  async getUserRepositories(
-    @TypedBody() input: IGithub.IGetUserRepositoryInput,
-  ): Promise<IGithub.IGetUserRepositoryOutput> {
-    return this.githubProvider.getUserRepositories(input);
+  @core.TypedRoute.Post("get-issues")
+  async getIssues(
+    @TypedBody() input: IGithub.IGetAuthenticatedUserIssueInput,
+  ): Promise<IGithub.IGetAuthenticatedUserIssueOutput> {
+    return this.githubProvider.getIssues(input);
   }
 
   /**

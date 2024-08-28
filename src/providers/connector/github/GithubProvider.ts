@@ -187,7 +187,7 @@ export class GithubProvider {
           "utf-8",
         );
         const link = await this.awsProvider.uploadObject({
-          contentType: "text/plain",
+          contentType: "text/plain; charset=utf-8;",
           data: buffer,
           key,
         });
@@ -370,9 +370,7 @@ export class GithubProvider {
       return {
         ...res.data,
         ...(res.data.content && {
-          content: Buffer.from(res.data.content, res.data.encoding).toString(
-            "utf-8",
-          ),
+          content: Buffer.from(res.data.content, "base64").toString("utf-8"),
         }),
       };
     }
@@ -543,6 +541,24 @@ export class GithubProvider {
       },
     });
     return res.data;
+  }
+
+  async getIssues(
+    input: IGithub.IGetAuthenticatedUserIssueInput,
+  ): Promise<IGithub.IGetAuthenticatedUserIssueOutput> {
+    const { secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/issues?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
   }
 
   async getOrganizationRepositories(

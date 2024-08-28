@@ -959,6 +959,121 @@ export namespace IGithub {
     before?: string & tags.Format<"date-time">;
   }
 
+  export interface IGetAuthenticatedUserIssueOutput
+    extends ICommonPaginationOutput {
+    result: IGithub.Issue[];
+  }
+
+  export interface IGetAuthenticatedUserIssueInput
+    extends ICommon.ISecret<"github">,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title direction
+     * The order to sort by.
+     * Default: asc when using full_name, otherwise desc.
+     */
+    direction?: ICommonPaginationInput["order"];
+
+    /**
+     * @title filter
+     *
+     * It must be one of: "assigned", "created", "mentioned", "subscribed", "repos", "all"
+     *
+     * Indicates which sorts of issues to return.
+     * assigned means issues assigned to you.
+     * created means issues created by you.
+     * mentioned means issues mentioning you.
+     * subscribed means issues you're subscribed to updates for.
+     * all or repos means all issues you can see, regardless of participation or creation.
+     */
+    filter?: (
+      | tags.Constant<
+          "assigned",
+          {
+            title: "assigned";
+            description: "Indicates which sorts of issues to return.";
+          }
+        >
+      | tags.Constant<
+          "created",
+          {
+            title: "created";
+            description: "assigned means issues assigned to you.";
+          }
+        >
+      | tags.Constant<
+          "mentioned",
+          {
+            title: "mentioned";
+            description: "created means issues created by you.";
+          }
+        >
+      | tags.Constant<
+          "subscribed",
+          {
+            title: "subscribed";
+            description: "mentioned means issues mentioning you.";
+          }
+        >
+      | tags.Constant<
+          "repos",
+          {
+            title: "repos";
+            description: "subscribed means issues you're subscribed to updates for.";
+          }
+        >
+      | tags.Constant<
+          "all",
+          {
+            title: "all";
+            description: "all or repos means all issues you can see, regardless of participation or creation.";
+          }
+        >
+    ) &
+      tags.Default<"assigned">;
+
+    /**
+     * @title state
+     *
+     * Indicates the state of the issues to return.
+     * It must be one of: 'open', 'closed', 'all'
+     */
+    state?: (
+      | tags.Constant<"open", { title: "open" }>
+      | tags.Constant<"closed", { title: "closed" }>
+      | tags.Constant<"all", { title: "all" }>
+    ) &
+      tags.Default<"open">;
+
+    /**
+     * @title label
+     *
+     * A list of comma separated label names. Example: `bug,ui,@high`
+     */
+    labels?: string;
+
+    /**
+     * @title sort
+     * It must be 'created', 'updated', 'comments'
+     */
+    sort?: (
+      | tags.Constant<"created", { title: "created" }>
+      | tags.Constant<"updated", { title: "updated" }>
+      | tags.Constant<"comments", { title: "comments" }>
+    ) &
+      tags.Default<"created">;
+
+    /**
+     * @title owned
+     */
+    owned?: boolean;
+
+    /**
+     * @title pulls
+     */
+    pulls?: boolean;
+  }
+
   export interface IGetUserProfileOutput
     extends Pick<User, "id" | "login" | "avatar_url" | "type"> {
     /**
