@@ -1004,7 +1004,7 @@ export namespace IGithub {
   }
 
   export interface IGetAuthenticatedUserIssueInput
-    extends ICommon.ISecret<"github", ["issues"]>,
+    extends ICommon.ISecret<"github">,
       Pick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * @title direction
