@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.132",
+    "version": "0.1.133",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -227,6 +227,7 @@
               "type": "string",
               "x-wrtn-placeholder": "뤼튼"
             },
+            "minItems": 1,
             "title": "반드시 포함되어야 하는 키워드",
             "description": "검색 결과에 포함되어야 하는 키워드입니다."
           },
