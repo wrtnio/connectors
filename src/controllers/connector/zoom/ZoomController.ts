@@ -4,8 +4,8 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
-import { ZoomProvider } from "../../../providers/zoom/ZoomProvider";
 import { retry } from "../../../utils/retry";
+import { ZoomProvider } from "../../../providers/connector/zoom/ZoomProvider";
 
 @Controller("connector/zoom")
 export class ZoomController {
@@ -16,6 +16,8 @@ export class ZoomController {
    * @returns 생성된 zoom 미팅 정보 DTO.
    * @param input 미팅을 생성하고자 하는 유저 정보 및 조건에 대한 DTO.
    * @tag zoom
+   *
+   * @internal
    */
   @Standalone()
   @RouteIcon(

@@ -3,6 +3,8 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import axios from "axios";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { ElementOf } from "../../../utils/types/ElementOf";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class SlackProvider {
@@ -12,6 +14,7 @@ export class SlackProvider {
     try {
       const url = `https://slack.com/api/chat.deleteScheduledMessage`;
       const { secretKey, ...rest } = input;
+      const token = await this.getToken(secretKey);
 
       await axios.post(
         url,
@@ -20,7 +23,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${secretKey}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json; charset=utf-8;",
           },
         },
@@ -38,12 +41,14 @@ export class SlackProvider {
     try {
       const { secretKey, ...rest } = input;
       const queryParameter = createQueryParameter(rest);
+      const token = await this.getToken(secretKey);
+
       const res = await axios.post(
         `${url}?${queryParameter}`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${secretKey}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json; charset=utf-8;",
           },
         },
@@ -82,6 +87,8 @@ export class SlackProvider {
     input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
     const url = `https://slack.com/api/chat.scheduleMessage`;
+    const token = await this.getToken(input.secretKey);
+
     try {
       const res = await axios.post(
         url,
@@ -93,7 +100,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -107,6 +114,8 @@ export class SlackProvider {
 
   async mark(input: ISlack.IMarkInput): Promise<void> {
     const url = `https://slack.com/api/conversations.mark`;
+    const token = await this.getToken(input.secretKey);
+
     try {
       await axios.post(
         url,
@@ -116,7 +125,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -130,6 +139,8 @@ export class SlackProvider {
     input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
+    const token = await this.getToken(input.secretKey);
+
     try {
       const res = await axios.post(
         url,
@@ -140,7 +151,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -159,9 +170,11 @@ export class SlackProvider {
     const queryParameter = createQueryParameter(rest);
 
     const url = `https://slack.com/api/conversations.replies?pretty=1`;
+    const token = await this.getToken(secretKey);
+
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -213,9 +226,10 @@ export class SlackProvider {
     const queryParameter = createQueryParameter(rest);
 
     const url = `https://slack.com/api/users.list?pretty=1`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -241,6 +255,7 @@ export class SlackProvider {
     input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
+    const token = await this.getToken(input.secretKey);
     try {
       const { channels } = await this.getImChannels(input);
       const auth = await this.authTest(input);
@@ -253,7 +268,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -268,9 +283,10 @@ export class SlackProvider {
   async authTest(input: {
     secretKey: string;
   }): Promise<ISlack.IAuthTestOutput> {
+    const token = await this.getToken(input.secretKey);
     const res = await axios.get("https://slack.com/api/auth.test", {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -281,6 +297,7 @@ export class SlackProvider {
     input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
+    const token = await this.getToken(input.secretKey);
     try {
       const res = await axios.post(
         url,
@@ -290,7 +307,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -316,10 +333,10 @@ export class SlackProvider {
         ? this.transformTimestampToTs(input.oldestTimestamp)
         : input.oldest,
     });
-
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -371,9 +388,11 @@ export class SlackProvider {
       types: "private_channel",
     });
 
+    const token = await this.getToken(secretKey);
+
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -398,9 +417,10 @@ export class SlackProvider {
       types: "public_channel",
     });
 
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -425,9 +445,10 @@ export class SlackProvider {
       types: "im",
     });
 
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -446,5 +467,15 @@ export class SlackProvider {
 
   private transformTimestampToTs(timestamp: number) {
     return String(timestamp).split("").slice(0, -3).join("");
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+
+    return token;
   }
 }
