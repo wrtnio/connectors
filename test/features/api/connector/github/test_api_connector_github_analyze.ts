@@ -6,8 +6,8 @@ export async function test_api_connector_github_analyze(
   connection: CApi.IConnection,
 ) {
   const res = await CApi.functional.connector.github.analyze(connection, {
-    owner: "kimulchan",
-    repo: "scissors_rock_paper",
+    owner: "jeongshin",
+    repo: "react-native-global-components",
     secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
   });
 

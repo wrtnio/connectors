@@ -12,6 +12,44 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 
+const imageExtensions = [
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".bmp",
+  ".tiff",
+  ".tif",
+  ".webp",
+  ".heif",
+  ".heic",
+  ".svg",
+  ".ico",
+  ".raw",
+  ".cr2",
+  ".nef",
+  ".arw",
+  ".dng",
+  ".orf",
+  ".rw2",
+  ".ico",
+];
+
+const videoExtensions = [
+  ".mp4",
+  ".avi",
+  ".mov",
+  ".wmv",
+  ".mkv",
+  ".flv",
+  ".webm",
+  ".mpeg",
+  ".mpg",
+  ".3gp",
+  ".m4v",
+  ".ogv",
+];
+
 @Injectable()
 export class GithubProvider {
   constructor(
@@ -26,7 +64,6 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameters = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/user/orgs?${queryParameters}`;
-    console.log(url);
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${secretKey}`,
@@ -83,7 +120,9 @@ export class GithubProvider {
               !file.path.includes("test") &&
               !file.path.includes("benchmark") &&
               !file.path.includes("yarn") &&
-              !file.path.includes("pnp"),
+              !file.path.includes("pnp") &&
+              imageExtensions.every((el) => !file.path.endsWith(el)) &&
+              videoExtensions.every((el) => !file.path.endsWith(el)),
           )
           .map(async (file) => {
             if (traverseOption.currentIndex === 5) {
@@ -101,6 +140,7 @@ export class GithubProvider {
               if (MAX_SIZE < traverseOption.currentSize + file.size) {
                 traverseOption.currentSize = 0; // 사이즈 초기화
                 traverseOption.currentIndex += 1; // 다음 파일 인덱스로 이전
+                console.log(`${file.path} 파일을 만나서 파일 인덱스 증가 연산`);
               }
 
               if (traverseOption.currentIndex === 5) {
@@ -770,11 +810,13 @@ export class GithubProvider {
     await Promise.allSettled(
       folder.children
         .filter(
-          (child) =>
-            !child.path.includes("test") &&
-            !child.path.includes("benchmark") &&
-            !child.path.includes("yarn") &&
-            !child.path.includes("pnp"),
+          (file) =>
+            !file.path.includes("test") &&
+            !file.path.includes("benchmark") &&
+            !file.path.includes("yarn") &&
+            !file.path.includes("pnp") &&
+            imageExtensions.every((el) => !file.path.endsWith(el)) &&
+            videoExtensions.every((el) => !file.path.endsWith(el)),
         )
         .map(async (child) => {
           if (traverseOption.currentIndex === 5) {
@@ -795,6 +837,7 @@ export class GithubProvider {
             if (3 * 1024 * 1024 < traverseOption.currentSize + file.size) {
               traverseOption.currentSize = 0;
               traverseOption.currentIndex += 1;
+              console.log(`${file.path} 파일을 만나서 파일 인덱스 증가 연산`);
             }
 
             if (traverseOption.currentIndex === 5) {
