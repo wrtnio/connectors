@@ -11,57 +11,11 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
-
-const docsExtensions = [
-  "pdf",
-  "docx",
-  "xlsx",
-  "pptx",
-  "bin",
-  "zip",
-  "tar",
-  "gz",
-  "sqlite",
-  "db",
-];
-
-const imageExtensions = [
-  "jpg",
-  "jpeg",
-  "png",
-  "gif",
-  "bmp",
-  "tiff",
-  "tif",
-  "webp",
-  "heif",
-  "heic",
-  "svg",
-  "ico",
-  "raw",
-  "cr2",
-  "nef",
-  "arw",
-  "dng",
-  "orf",
-  "rw2",
-  "ico",
-];
-
-const videoExtensions = [
-  "mp4",
-  "avi",
-  "mov",
-  "wmv",
-  "mkv",
-  "flv",
-  "webm",
-  "mpeg",
-  "mpg",
-  "3gp",
-  "m4v",
-  "ogv",
-];
+import {
+  imageExtensions,
+  videoExtensions,
+  docsExtensions,
+} from "../../../utils/constants/extensions";
 
 @Injectable()
 export class GithubProvider {
