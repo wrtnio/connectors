@@ -959,6 +959,20 @@ export namespace IGithub {
     before?: string & tags.Format<"date-time">;
   }
 
+  export interface IGetOrganizationAuthenticationUserIssueOutput
+    extends ICommonPaginationOutput {
+    result: IGithub.Issue[];
+  }
+
+  export interface IGetOrganizationAuthenticationUserIssueInput
+    extends IGetAuthenticatedUserIssueInput {
+    /**
+     * @title organization
+     * The organization name. The name is not case sensitive.
+     */
+    organization: string;
+  }
+
   export interface IGetAuthenticatedUserIssueOutput
     extends ICommonPaginationOutput {
     result: IGithub.Issue[];

@@ -93,6 +93,26 @@ export class GithubController {
   }
 
   /**
+   * List organization issues assigned to the authenticated user
+   *
+   * Similar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.
+   * Naturally, the user will have to be a member of that organization.
+   *
+   * @summary List organization issues assigned to the authenticated user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("organizations/get-issues")
+  async getOrganizationIssues(
+    @TypedBody() input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
+  ): Promise<IGithub.IGetOrganizationAuthenticationUserIssueOutput> {
+    return this.githubProvider.getOrganizationIssues(input);
+  }
+
+  /**
    * List organization repositories
    *
    * This endpoint allows you to list all repositories that belong to a specified organization on GitHub.

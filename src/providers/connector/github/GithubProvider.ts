@@ -283,6 +283,24 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getOrganizationIssues(
+    input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
+  ): Promise<IGithub.IGetOrganizationAuthenticationUserIssueOutput> {
+    const { secretKey, organization, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/orgs/${organization}/issues?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getOrganizationEvents(
     input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {
