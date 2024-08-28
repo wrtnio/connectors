@@ -11,7 +11,7 @@ export namespace IYoutubeSearch {
      *
      * @title 반드시 포함되어야 하는 키워드
      */
-    and_keywords: Array<string & Placeholder<"뤼튼">>;
+    and_keywords: Array<string & Placeholder<"뤼튼">> & tags.MinItems<1>;
 
     /**
      * 검색 결과에 포함되면 좋겠는 키워드입니다.

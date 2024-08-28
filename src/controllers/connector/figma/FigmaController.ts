@@ -4,7 +4,7 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
-import { FigmaProvider } from "../../../providers/figma/FigmaProvider";
+import { FigmaProvider } from "../../../providers/connector/figma/FigmaProvider";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/figma")

@@ -8,6 +8,8 @@ import { google } from "googleapis";
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GoogleSheetProvider {
@@ -22,8 +24,8 @@ export class GoogleSheetProvider {
     try {
       const { url, index = 0, secretKey } = input;
       const id = this.getSpreadSheetId(url);
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -53,7 +55,8 @@ export class GoogleSheetProvider {
   async permission(input: IGoogleSheet.IPermissionInput): Promise<void> {
     const { url, permissions, secretKey } = input;
     const id = this.getSpreadSheetId(url);
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
+    const token = await this.getToken(secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -83,8 +86,8 @@ export class GoogleSheetProvider {
   ): Promise<void> {
     try {
       const { url, headerNames, index = 0, secretKey } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -118,8 +121,8 @@ export class GoogleSheetProvider {
     try {
       const { url, secretKey } = input;
       const id = this.getSpreadSheetId(url);
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -143,8 +146,8 @@ export class GoogleSheetProvider {
     try {
       const { url, workSheetTitle, secretKey } = input;
       const id = this.getSpreadSheetId(url);
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -178,5 +181,14 @@ export class GoogleSheetProvider {
   getSpreadSheetId(url: string): string {
     const match = url.match(/\/d\/(.+?)\/edit/);
     return match ? match[1] : "";
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }

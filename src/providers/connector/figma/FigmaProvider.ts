@@ -2,7 +2,9 @@ import { Injectable } from "@nestjs/common";
 import axios from "axios";
 
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
-import { ConnectorGlobal } from "../../ConnectorGlobal";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class FigmaProvider {
@@ -160,7 +162,13 @@ export class FigmaProvider {
     return res.data;
   }
 
-  private async refresh(refreshToken: string): Promise<string> {
+  private async refresh(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const refreshToken =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+
     const url = `https://www.figma.com/api/oauth/refresh`;
     const res = await axios.post(
       url,

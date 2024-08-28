@@ -4,6 +4,8 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 export namespace KakaoTalkProvider {
   export async function getFriends(
@@ -123,12 +125,19 @@ export namespace KakaoTalkProvider {
     input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
     try {
+      const secret = await OAuthSecretProvider.getSecretValue(
+        input.refresh_token,
+      );
+      const token =
+        typeof secret === "string"
+          ? secret
+          : (secret as IOAuthSecret.ISecretValue).value;
       const res = await axios.post(
         "https://kauth.kakao.com/oauth/token",
         {
           grant_type: "refresh_token",
           client_id: ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID,
-          refresh_token: input.refresh_token,
+          refresh_token: token,
           client_secret: ConnectorGlobal.env.KAKAO_TALK_CLIENT_SECRET,
         },
         {

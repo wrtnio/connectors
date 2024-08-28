@@ -9,6 +9,8 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { StrictOmit } from "../../../utils/strictOmit";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GithubProvider {
@@ -165,19 +167,21 @@ export class GithubProvider {
     repo: string;
     secretKey: string;
   }): Promise<{ default_branch: String }> {
+    const token = await this.getToken(input.secretKey);
     const url = `https://api.github.com/repos/${input.owner}/${input.repo}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data;
   }
 
   async call(input: IGithub.ICallInput) {
+    const token = await this.getToken(input.secretKey);
     const res = await axios.get(input.url, {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -188,10 +192,11 @@ export class GithubProvider {
     input: IGithub.IGetCommitHeadInput,
   ): Promise<IGithub.IGetCommitHeadOutput> {
     const { owner, repo, commit_sha, secretKey } = input;
+    const token = await this.getToken(secretKey);
     const url = `https://api.github.com/repos/${owner}/${repo}/commits/${commit_sha}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data;
@@ -201,6 +206,7 @@ export class GithubProvider {
     input: IGithub.IGetOrganizationUserEventInput,
   ): Promise<IGithub.IGetEventOutput> {
     const { organization, secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
@@ -208,7 +214,7 @@ export class GithubProvider {
     const url = `https://api.github.com/users/${login}/events/orgs/${organization}?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -224,9 +230,10 @@ export class GithubProvider {
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/orgs/${organization}/events?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -240,6 +247,7 @@ export class GithubProvider {
     const { owner, repo, path, secretKey, ...rest } = input;
 
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const token = await this.getToken(secretKey);
     await axios.put(
       url,
       {
@@ -248,7 +256,7 @@ export class GithubProvider {
       },
       {
         headers: {
-          Authorization: `Bearer ${secretKey}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -281,13 +289,14 @@ export class GithubProvider {
     input: IGithub.IGetFileContentInput,
   ): Promise<IGithub.IGetFileContentOutput> {
     const { owner, repo, path, secretKey, branch } = input;
+    const token = await this.getToken(secretKey);
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path ? path : ""}`;
     const res = await axios.get(url, {
       params: {
         ref: branch,
       },
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/vnd.github.object+json",
       },
     });
@@ -313,9 +322,10 @@ export class GithubProvider {
   ): Promise<IGithub.IGetReadmeFileContentOutput> {
     const { owner, repo, secretKey } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/readme`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/vnd.github.object+json",
       },
     });
@@ -336,9 +346,10 @@ export class GithubProvider {
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/repos/${username}/${repo}/events?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -354,9 +365,10 @@ export class GithubProvider {
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/networks/${username}/${repo}/events?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -372,9 +384,10 @@ export class GithubProvider {
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/users/${username}/events?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -390,9 +403,10 @@ export class GithubProvider {
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/events?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -402,9 +416,10 @@ export class GithubProvider {
 
   async debugToken(input: IGithub.IGetMyProfileInput): Promise<IGithub.User> {
     const url = `https://api.github.com/user`;
+    const token = await this.getToken(input.secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -424,9 +439,10 @@ export class GithubProvider {
     });
 
     const url = `https://api.github.com/repos/${owner}/${repo}/activity?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -441,9 +457,10 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameters = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/search/users?${queryParameters}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -457,9 +474,10 @@ export class GithubProvider {
   ): Promise<IGithub.IGetUserProfileOutput> {
     const { secretKey, ...rest } = input;
     const url = `https://api.github.com/users/${rest.username}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -473,9 +491,10 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/repos?${queryParameter}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -489,9 +508,10 @@ export class GithubProvider {
   ): Promise<{ commit: { commit: IGithub.Commit } }> {
     const { owner, repo, name, secretKey } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/branches/${name}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -506,9 +526,10 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/repos/${owner}/${repo}/branches?${queryParameter}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -533,9 +554,10 @@ export class GithubProvider {
   ): Promise<IGithub.IGetPullRequestOutput> {
     const { owner, repo, commit_sha, secretKey } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/commits/${commit_sha}/pulls`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -547,9 +569,10 @@ export class GithubProvider {
   ): Promise<IGithub.IGetCommitOutput> {
     const { owner, repo, ref, secretKey } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -559,9 +582,10 @@ export class GithubProvider {
   async getCommitDiff(input: IGithub.IGetCommitInput): Promise<string> {
     const { owner, repo, ref, secretKey } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github.diff",
       },
     });
@@ -575,9 +599,10 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/repos/${owner}/${repo}/commits?${queryParameter}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github.json",
       },
     });
@@ -593,9 +618,10 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/followers?${queryParameter}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -611,9 +637,10 @@ export class GithubProvider {
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/following?${queryParameter}`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -725,5 +752,14 @@ export class GithubProvider {
       }
     }
     return response;
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }
