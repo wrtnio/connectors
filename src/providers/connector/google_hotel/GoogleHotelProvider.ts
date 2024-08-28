@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGoogleHotel } from "@wrtn/connector-api/lib/structures/connector/google_hotel/IGoogleHotel";
 import { getJson } from "serpapi";
 
@@ -26,6 +26,31 @@ export class GoogleHotelProvider {
 
       if (input.type && input.type.length > 0) {
         type = input.type.join(",");
+      }
+
+      if (input.check_in_date || input.check_out_date) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (input.check_in_date) {
+          const checkInDate = new Date(input.check_in_date);
+          checkInDate.setHours(0, 0, 0, 0);
+          if (checkInDate < today) {
+            throw new BadRequestException(
+              "Check In Date cannot be in the past",
+            );
+          }
+        }
+
+        if (input.check_out_date) {
+          const checkOutDate = new Date(input.check_out_date);
+          checkOutDate.setHours(0, 0, 0, 0);
+          if (checkOutDate < today) {
+            throw new BadRequestException(
+              "Check Out Date cannot be in the past",
+            );
+          }
+        }
       }
 
       let params: any = {
