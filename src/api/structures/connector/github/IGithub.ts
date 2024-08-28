@@ -99,6 +99,28 @@ export namespace IGithub {
     | StrictOmit<IGithub.RepositoryFile, "encoding" | "content">
   )[];
 
+  export interface IGetUserOrganizationOutput
+    extends IGithub.ICommonPaginationOutput {
+    result: Organization[];
+  }
+
+  export interface IGetUserOrganizationInput
+    extends IGetAuthenticatedUserOrganizationInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
+  }
+
+  export interface IGetAuthenticatedUserOrganizationOutput
+    extends IGithub.ICommonPaginationOutput {
+    result: Organization[];
+  }
+
+  export interface IGetAuthenticatedUserOrganizationInput
+    extends ICommon.ISecret<"github", ["user"]>,
+      Pick<IGithub.ICommonPaginationInput, "page" | "per_page"> {}
+
   export type IGetRepositoryFolderStructureOutput = (
     | (RepositoryFolder & {
         /**
@@ -242,8 +264,10 @@ export namespace IGithub {
      *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * If it is an organization's repository, it can also be the name of the organization.
      */
-    owner: User["login"];
+    owner: User["login"] | Organization["login"];
 
     /**
      * @title repository name
@@ -348,6 +372,13 @@ export namespace IGithub {
     };
   }
 
+  export interface IGetReceivedEventInput extends IGetEventInput {
+    /**
+     * @title user's nickname
+     */
+    username: User["login"];
+  }
+
   export type IGetPullRequestOutput = PullRequest[];
 
   export interface IGetPullRequestInput extends ICommon.ISecret<"github"> {
@@ -423,7 +454,127 @@ export namespace IGithub {
        * @title event type
        * There are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`.
        */
-      type: string | null;
+      type:
+        | tags.Constant<
+            "CommitCommentEvent",
+            {
+              title: "CommitCommentEvent";
+              description: "Triggered when a comment is added to a commit.";
+            }
+          >
+        | tags.Constant<
+            "CreateEvent",
+            {
+              title: "CreateEvent";
+              description: "Triggered when a new branch, tag, or repository is created.";
+            }
+          >
+        | tags.Constant<
+            "DeleteEvent",
+            {
+              title: "DeleteEvent";
+              description: "Triggered when a branch or tag is deleted.";
+            }
+          >
+        | tags.Constant<
+            "ForkEvent",
+            {
+              title: "ForkEvent";
+              description: "Triggered when a user forks a repository.";
+            }
+          >
+        | tags.Constant<
+            "GollumEvent",
+            {
+              title: "GollumEvent";
+              description: "Triggered when a Wiki page is created or updated.";
+            }
+          >
+        | tags.Constant<
+            "IssueCommentEvent",
+            {
+              title: "IssueCommentEvent";
+              description: "Triggered when a comment is added to an issue.";
+            }
+          >
+        | tags.Constant<
+            "IssuesEvent",
+            {
+              title: "IssuesEvent";
+              description: "Triggered when an issue is opened, edited, or closed.";
+            }
+          >
+        | tags.Constant<
+            "MemberEvent",
+            {
+              title: "MemberEvent";
+              description: "Triggered when a user is added as a collaborator to a repository.";
+            }
+          >
+        | tags.Constant<
+            "PublicEvent",
+            {
+              title: "PublicEvent";
+              description: "Triggered when a private repository is made public.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestEvent",
+            {
+              title: "PullRequestEvent";
+              description: "Triggered when a pull request is opened, edited, merged, or closed.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestReviewEvent",
+            {
+              title: "PullRequestReviewEvent";
+              description: "Triggered when a review is submitted for a pull request.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestReviewCommentEvent",
+            {
+              title: "PullRequestReviewCommentEvent";
+              description: "Triggered when a comment is added to a pull request's review.";
+            }
+          >
+        | tags.Constant<
+            "PullRequestReviewThreadEvent",
+            {
+              title: "PullRequestReviewThreadEvent";
+              description: "Triggered when a review thread in a pull request has a change.";
+            }
+          >
+        | tags.Constant<
+            "PushEvent",
+            {
+              title: "PushEvent";
+              description: "Triggered when commits are pushed to a repository.";
+            }
+          >
+        | tags.Constant<
+            "ReleaseEvent",
+            {
+              title: "ReleaseEvent";
+              description: "Triggered when a release is published.";
+            }
+          >
+        | tags.Constant<
+            "SponsorshipEvent",
+            {
+              title: "SponsorshipEvent";
+              description: "Triggered when a sponsorship is started or modified.";
+            }
+          >
+        | tags.Constant<
+            "WatchEvent",
+            {
+              title: "WatchEvent";
+              description: "Triggered when a user stars a repository.";
+            }
+          >
+        | null;
 
       /**
        * @title user
@@ -483,7 +634,7 @@ export namespace IGithub {
   }
 
   export interface IGetEventInput
-    extends ICommonPaginationInput,
+    extends StrictOmit<ICommonPaginationInput, "order">,
       ICommon.ISecret<"github"> {}
 
   export interface IGetRepositoryActivityOutput
@@ -738,6 +889,23 @@ export namespace IGithub {
     repo: Repository["name"];
   }
 
+  export interface IGetOrganizationRepositoryOutput
+    extends ICommonPaginationOutput {
+    /**
+     * @title repositories
+     */
+    result: IGithub.Repository[];
+  }
+
+  export interface IGetOrganizationRepositoryInput extends IGetRepositoryInput {
+    /**
+     * @title organization
+     *
+     * This refers to the name of the organization who will look up the repository.
+     */
+    organization: string;
+  }
+
   export interface IGetUserRepositoryOutput extends ICommonPaginationOutput {
     /**
      * @title repositories
@@ -745,9 +913,7 @@ export namespace IGithub {
     result: IGithub.Repository[];
   }
 
-  export interface IGetUserRepositoryInput
-    extends StrictOmit<ICommonPaginationInput, "order">,
-      ICommon.ISecret<"github", ["repo"]> {
+  export interface IGetUserRepositoryInput extends IGetRepositoryInput {
     /**
      * @title username
      *
@@ -759,6 +925,11 @@ export namespace IGithub {
         path: "/connector/github/get-users";
         jmesPath: "items[].{value:login, label:login}";
       }>;
+  }
+
+  export interface IGetRepositoryInput
+    extends StrictOmit<ICommonPaginationInput, "order">,
+      ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title sorting condition
      *
@@ -786,6 +957,160 @@ export namespace IGithub {
      * Only show repositories updated before the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.
      */
     before?: string & tags.Format<"date-time">;
+  }
+
+  export interface IGetRepositoryIssueOutput extends ICommonPaginationOutput {
+    result: IGithub.Issue[];
+  }
+
+  export interface IGetRepositoryIssueInput
+    extends StrictOmit<
+      IGetAuthenticatedUserIssueInput,
+      "filter" | "owned" | "pulls"
+    > {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+  }
+
+  export interface IGetOrganizationAuthenticationUserIssueOutput
+    extends ICommonPaginationOutput {
+    result: IGithub.Issue[];
+  }
+
+  export interface IGetOrganizationAuthenticationUserIssueInput
+    extends IGetAuthenticatedUserIssueInput {
+    /**
+     * @title organization
+     * The organization name. The name is not case sensitive.
+     */
+    organization: string;
+  }
+
+  export interface IGetAuthenticatedUserIssueOutput
+    extends ICommonPaginationOutput {
+    result: IGithub.Issue[];
+  }
+
+  export interface IGetAuthenticatedUserIssueInput
+    extends ICommon.ISecret<"github", ["issues"]>,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title direction
+     * The order to sort by.
+     * Default: asc when using full_name, otherwise desc.
+     */
+    direction?: ICommonPaginationInput["order"];
+
+    /**
+     * @title filter
+     *
+     * It must be one of: "assigned", "created", "mentioned", "subscribed", "repos", "all"
+     *
+     * Indicates which sorts of issues to return.
+     * assigned means issues assigned to you.
+     * created means issues created by you.
+     * mentioned means issues mentioning you.
+     * subscribed means issues you're subscribed to updates for.
+     * all or repos means all issues you can see, regardless of participation or creation.
+     */
+    filter?: (
+      | tags.Constant<
+          "assigned",
+          {
+            title: "assigned";
+            description: "Indicates which sorts of issues to return.";
+          }
+        >
+      | tags.Constant<
+          "created",
+          {
+            title: "created";
+            description: "assigned means issues assigned to you.";
+          }
+        >
+      | tags.Constant<
+          "mentioned",
+          {
+            title: "mentioned";
+            description: "created means issues created by you.";
+          }
+        >
+      | tags.Constant<
+          "subscribed",
+          {
+            title: "subscribed";
+            description: "mentioned means issues mentioning you.";
+          }
+        >
+      | tags.Constant<
+          "repos",
+          {
+            title: "repos";
+            description: "subscribed means issues you're subscribed to updates for.";
+          }
+        >
+      | tags.Constant<
+          "all",
+          {
+            title: "all";
+            description: "all or repos means all issues you can see, regardless of participation or creation.";
+          }
+        >
+    ) &
+      tags.Default<"assigned">;
+
+    /**
+     * @title state
+     *
+     * Indicates the state of the issues to return.
+     * It must be one of: 'open', 'closed', 'all'
+     */
+    state?: (
+      | tags.Constant<"open", { title: "open" }>
+      | tags.Constant<"closed", { title: "closed" }>
+      | tags.Constant<"all", { title: "all" }>
+    ) &
+      tags.Default<"open">;
+
+    /**
+     * @title label
+     *
+     * A list of comma separated label names. Example: `bug,ui,@high`
+     */
+    labels?: string;
+
+    /**
+     * @title sort
+     * It must be 'created', 'updated', 'comments'
+     */
+    sort?: (
+      | tags.Constant<"created", { title: "created" }>
+      | tags.Constant<"updated", { title: "updated" }>
+      | tags.Constant<"comments", { title: "comments" }>
+    ) &
+      tags.Default<"created">;
+
+    /**
+     * @title owned
+     */
+    owned?: boolean;
+
+    /**
+     * @title pulls
+     */
+    pulls?: boolean;
   }
 
   export interface IGetUserProfileOutput
@@ -1279,6 +1604,11 @@ export namespace IGithub {
      * @title display_login
      */
     display_login?: string;
+
+    /**
+     * @title description
+     */
+    description?: string;
   };
 
   export type Issue = {

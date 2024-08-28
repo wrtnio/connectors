@@ -26,6 +26,48 @@ export class GithubController {
   }
 
   /**
+   * List events received by the authenticated user
+   *
+   * These are events that you've received by watching repositories and following users.
+   * If you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.
+   * In this case, the "received" event includes the repository that the user is interested in or the activity of the user who is following,
+   * for example, if the user has pushed to the repository, or if an issue has been created from the repository that the user is interested in.
+   *
+   * @summary List events received by the authenticated user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-received-events")
+  async getReceivedEvents(
+    @TypedBody() input: IGithub.IGetReceivedEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    return this.githubProvider.getReceivedEvents(input);
+  }
+
+  /**
+   * Inquire the user's repository
+   *
+   * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.
+   * It is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.
+   *
+   * @summary Inquire the user's repository
+   * @param input
+   * @returns repositories
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-repositories")
+  async getUserRepositories(
+    @TypedBody() input: IGithub.IGetUserRepositoryInput,
+  ): Promise<IGithub.IGetUserRepositoryOutput> {
+    return this.githubProvider.getUserRepositories(input);
+  }
+
+  /**
    * Lists organization events for the authenticated user
    *
    * This API endpoint retrieves events that have occurred within the organizations
@@ -36,6 +78,7 @@ export class GithubController {
    * making it useful for tracking the organization's activity or monitoring the progress
    * of projects that the user is involved in within the team.
    *
+   * @summary Lists organization events for the authenticated user
    * @returns A list of events from the organizations the authenticated user is a member of.
    */
   @RouteIcon(
@@ -47,6 +90,46 @@ export class GithubController {
   ): Promise<IGithub.IGetEventOutput> {
     const data = await this.githubProvider.getUserOrganizationEvents(input);
     return data;
+  }
+
+  /**
+   * List organization issues assigned to the authenticated user
+   *
+   * Similar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.
+   * Naturally, the user will have to be a member of that organization.
+   *
+   * @summary List organization issues assigned to the authenticated user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("organizations/get-issues")
+  async getOrganizationIssues(
+    @TypedBody() input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
+  ): Promise<IGithub.IGetOrganizationAuthenticationUserIssueOutput> {
+    return this.githubProvider.getOrganizationIssues(input);
+  }
+
+  /**
+   * List organization repositories
+   *
+   * This endpoint allows you to list all repositories that belong to a specified organization on GitHub.
+   * It's useful for viewing all the repositories under an organization’s account, including both public and private repositories, depending on your access level.
+   *
+   * @summary List organization repositories
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("organizations/get-repositories")
+  async getOrganizationRepositories(
+    @TypedBody() input: IGithub.IGetOrganizationEventInput,
+  ): Promise<IGithub.IGetOrganizationRepositoryOutput> {
+    return this.githubProvider.getOrganizationRepositories(input);
   }
 
   /**
@@ -272,6 +355,26 @@ export class GithubController {
   }
 
   /**
+   * List organizations for a user
+   *
+   * Look up the user's organization list, but since you can't look up the user's private organization here,
+   * you can't really conclude that there isn't an empty array.
+   *
+   * @summary List organizations for a user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-organizations")
+  async getUserOrganizations(
+    @TypedBody() input: IGithub.IGetUserOrganizationInput,
+  ): Promise<IGithub.IGetUserOrganizationOutput> {
+    return this.githubProvider.getUserOrganizations(input);
+  }
+
+  /**
    * List public events
    *
    * This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
@@ -318,6 +421,25 @@ export class GithubController {
   }
 
   /**
+   * List repository issues
+   *
+   * List issues in a repository. Only open issues will be listed.
+   *
+   * @summary List repository issues
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/get-issues")
+  async getRepositoryIssues(
+    @TypedBody() input: IGithub.IGetRepositoryIssueInput,
+  ): Promise<IGithub.IGetRepositoryIssueOutput> {
+    return this.githubProvider.getRepositoryIssues(input);
+  }
+
+  /**
    * Search for users by keyword in github
    *
    * @summary Search for users by keyword in github
@@ -352,23 +474,46 @@ export class GithubController {
   }
 
   /**
-   * Inquire the user's repository
+   * List issues assigned to the authenticated user
    *
-   * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.
-   * It is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.
+   * List issues assigned to the authenticated user across all visible repositories
+   * including owned repositories, member repositories, and organization repositories.
+   * You can use the filter query parameter to fetch issues that are not necessarily assigned to you.
    *
-   * @summary Inquire the user's repository
+   * @summary List issues assigned to the authenticated user
    * @param input
-   * @returns repositories
+   * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("get-repositories")
-  async getUserRepositories(
-    @TypedBody() input: IGithub.IGetUserRepositoryInput,
-  ): Promise<IGithub.IGetUserRepositoryOutput> {
-    return this.githubProvider.getUserRepositories(input);
+  @core.TypedRoute.Post("get-issues")
+  async getIssues(
+    @TypedBody() input: IGithub.IGetAuthenticatedUserIssueInput,
+  ): Promise<IGithub.IGetAuthenticatedUserIssueOutput> {
+    return this.githubProvider.getIssues(input);
+  }
+
+  /**
+   * List organizations for the authenticated user
+   *
+   * Inquire the user's repository.
+   * Here, the user is an authenticated user, which means a user of that token.
+   * If a user does not select an organization at login or ask the organization's admin to link it,
+   * the resource might not be viewed even if the token scope has permissions.
+   *
+   * @summary List organizations for the authenticated user
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("get-organizations")
+  async getAuthenticatedUserOrganizations(
+    @TypedBody() input: IGithub.IGetAuthenticatedUserOrganizationInput,
+  ): Promise<IGithub.IGetAuthenticatedUserOrganizationOutput> {
+    return this.githubProvider.getAuthenticatedUserOrganizations(input);
   }
 
   /**

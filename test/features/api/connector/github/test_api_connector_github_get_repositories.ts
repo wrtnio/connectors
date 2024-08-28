@@ -10,7 +10,7 @@ export async function test_api_connector_github_get_repositories(
   const user = userList.result.at(0);
 
   const res =
-    await CApi.functional.connector.github.get_repositories.getUserRepositories(
+    await CApi.functional.connector.github.users.get_repositories.getUserRepositories(
       connection,
       {
         username: user?.login as string,

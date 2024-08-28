@@ -7,10 +7,48 @@ import axios from "axios";
 import typia from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { StrictOmit } from "../../../utils/strictOmit";
-import { AwsProvider } from "../aws/AwsProvider";
-import { RagProvider } from "../rag/RagProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { AwsProvider } from "../aws/AwsProvider";
+import { RagProvider } from "../rag/RagProvider";
+
+const imageExtensions = [
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".bmp",
+  ".tiff",
+  ".tif",
+  ".webp",
+  ".heif",
+  ".heic",
+  ".svg",
+  ".ico",
+  ".raw",
+  ".cr2",
+  ".nef",
+  ".arw",
+  ".dng",
+  ".orf",
+  ".rw2",
+  ".ico",
+];
+
+const videoExtensions = [
+  ".mp4",
+  ".avi",
+  ".mov",
+  ".wmv",
+  ".mkv",
+  ".flv",
+  ".webm",
+  ".mpeg",
+  ".mpg",
+  ".3gp",
+  ".m4v",
+  ".ogv",
+];
 
 @Injectable()
 export class GithubProvider {
@@ -19,50 +57,38 @@ export class GithubProvider {
     private readonly ragProvider: RagProvider,
   ) {}
 
-  async traverseTree(
-    input: IGithub.IAnalyzeInput,
-    folder: ElementOf<IGithub.IGetRepositoryFolderStructureOutput>,
-    traverseOption: {
-      result: any[][];
-      currentIndex: number;
-      currentSize: number;
-    },
-  ): Promise<void> {
-    // 더 이상 담을 수 없는 케이스
-    if (traverseOption.currentIndex === 5) {
-      return;
-    }
+  async getUserOrganizations(
+    input: IGithub.IGetUserOrganizationInput,
+  ): Promise<IGithub.IGetUserOrganizationOutput> {
+    const { username, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/users/${username}/orgs?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
 
-    if (folder.type !== "dir") {
-      throw new Error("파일은 순회할 수 없습니다.");
-    }
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
 
-    for await (const child of folder.children) {
-      type E = ElementOf<IGithub.IGetRepositoryFolderStructureOutput>;
-      const file = child as E;
+  async getAuthenticatedUserOrganizations(
+    input: IGithub.IGetAuthenticatedUserOrganizationInput,
+  ): Promise<IGithub.IGetAuthenticatedUserOrganizationOutput> {
+    const { secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/user/orgs?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
 
-      const path = file.path;
-
-      if (child.type === "dir") {
-        await this.traverseTree(input, child, traverseOption);
-      } else {
-        const detailed = await this.getFileContents({ ...input, path });
-        const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
-        child.content = content;
-
-        if (4.8 * 1024 * 1024 < traverseOption.currentSize + file.size) {
-          traverseOption.currentSize = 0;
-          traverseOption.currentIndex += 1;
-        }
-
-        if (traverseOption.currentIndex === 5) {
-          break;
-        }
-
-        traverseOption.currentSize += file.size;
-        traverseOption.result[traverseOption.currentIndex].push(child);
-      }
-    }
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
   }
 
   async copyAllFiles(
@@ -84,7 +110,7 @@ export class GithubProvider {
     //     .map((key) => this.awsProvider.getFileUrl(key));
     // }
 
-    const MAX_SIZE = 4.8 * 1024 * 1024;
+    const MAX_SIZE = 3 * 1024 * 1024;
     const MAX_DEPTH = 100;
 
     // 전체 폴더 구조 가져오기
@@ -103,32 +129,49 @@ export class GithubProvider {
       currentSize: 0,
     };
 
-    // 한 파일 당 4.8MB 씩 5개의 파일이 되게끔 담기
     if (rootFiles instanceof Array) {
-      for await (const file of rootFiles) {
-        const path = file.path;
-        if (file.type === "dir") {
-          await this.traverseTree(input, file, traverseOption);
-        } else {
-          const detailed = await this.getFileContents({ ...input, path });
-          const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
+      await Promise.allSettled(
+        rootFiles
+          .filter(
+            (file) =>
+              !file.path.includes("test") &&
+              !file.path.includes("benchmark") &&
+              !file.path.includes("yarn") &&
+              !file.path.includes("pnp") &&
+              imageExtensions.every((el) => !file.path.endsWith(el)) &&
+              videoExtensions.every((el) => !file.path.endsWith(el)),
+          )
+          .map(async (file) => {
+            if (traverseOption.currentIndex === 5) {
+              return;
+            }
 
-          if (MAX_SIZE < traverseOption.currentSize + file.size) {
-            traverseOption.currentSize = 0; // 사이즈 초기화
-            traverseOption.currentIndex += 1; // 다음 파일 인덱스로 이전
-          }
+            const path = file.path;
+            if (file.type === "dir") {
+              await this.traverseTree(input, file, traverseOption);
+            } else {
+              const detailed = await this.getFileContents({ ...input, path });
+              const { content } =
+                typia.assert<IGithub.RepositoryFile>(detailed);
 
-          if (traverseOption.currentIndex === 5) {
-            break;
-          }
+              if (MAX_SIZE < traverseOption.currentSize + file.size) {
+                traverseOption.currentSize = 0; // 사이즈 초기화
+                traverseOption.currentIndex += 1; // 다음 파일 인덱스로 이전
+                console.log(`${file.path} 파일을 만나서 파일 인덱스 증가 연산`);
+              }
 
-          traverseOption.currentSize += file.size;
-          traverseOption.result[traverseOption.currentIndex].push({
-            ...file,
-            content,
-          });
-        }
-      }
+              if (traverseOption.currentIndex === 5) {
+                return;
+              }
+
+              traverseOption.currentSize += file.size;
+              traverseOption.result[traverseOption.currentIndex].push({
+                ...file,
+                content,
+              });
+            }
+          }),
+      );
     }
 
     const analyzedFiles = traverseOption.result.filter((el) => el.length);
@@ -144,7 +187,7 @@ export class GithubProvider {
           "utf-8",
         );
         const link = await this.awsProvider.uploadObject({
-          contentType: "text/plain",
+          contentType: "text/plain; charset=utf-8;",
           data: buffer,
           key,
         });
@@ -202,6 +245,24 @@ export class GithubProvider {
     return res.data;
   }
 
+  async getReceivedEvents(
+    input: IGithub.IGetReceivedEventInput,
+  ): Promise<IGithub.IGetEventOutput> {
+    const { username, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameters = createQueryParameter({ ...rest, per_page });
+
+    const url = `https://api.github.com/users/${username}/received_events?${queryParameters}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getUserOrganizationEvents(
     input: IGithub.IGetOrganizationUserEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -215,6 +276,42 @@ export class GithubProvider {
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getRepositoryIssues(
+    input: IGithub.IGetRepositoryIssueInput,
+  ): Promise<IGithub.IGetRepositoryIssueOutput> {
+    const { secretKey, owner, repo, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getOrganizationIssues(
+    input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
+  ): Promise<IGithub.IGetOrganizationAuthenticationUserIssueOutput> {
+    const { secretKey, organization, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/orgs/${organization}/issues?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
       },
     });
 
@@ -309,9 +406,7 @@ export class GithubProvider {
       return {
         ...res.data,
         ...(res.data.content && {
-          content: Buffer.from(res.data.content, res.data.encoding).toString(
-            "utf-8",
-          ),
+          content: Buffer.from(res.data.content, "base64").toString("utf-8"),
         }),
       };
     }
@@ -482,6 +577,42 @@ export class GithubProvider {
       },
     });
     return res.data;
+  }
+
+  async getIssues(
+    input: IGithub.IGetAuthenticatedUserIssueInput,
+  ): Promise<IGithub.IGetAuthenticatedUserIssueOutput> {
+    const { secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/issues?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getOrganizationRepositories(
+    input: IGithub.IGetOrganizationRepositoryInput,
+  ): Promise<IGithub.IGetOrganizationRepositoryOutput> {
+    const { secretKey, organization, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const url = `https://api.github.com/orgs/${organization}/repos?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
   }
 
   async getUserRepositories(
@@ -761,5 +892,67 @@ export class GithubProvider {
         ? secret
         : (secret as IOAuthSecret.ISecretValue).value;
     return token;
+  }
+
+  private async traverseTree(
+    input: IGithub.IAnalyzeInput,
+    folder: ElementOf<IGithub.IGetRepositoryFolderStructureOutput>,
+    traverseOption: {
+      result: any[][];
+      currentIndex: number;
+      currentSize: number;
+    },
+  ): Promise<void> {
+    // 더 이상 담을 수 없는 케이스
+    if (traverseOption.currentIndex === 5) {
+      return;
+    }
+
+    if (folder.type !== "dir") {
+      throw new Error("파일은 순회할 수 없습니다.");
+    }
+
+    await Promise.allSettled(
+      folder.children
+        .filter(
+          (file) =>
+            !file.path.includes("test") &&
+            !file.path.includes("benchmark") &&
+            !file.path.includes("yarn") &&
+            !file.path.includes("pnp") &&
+            imageExtensions.every((el) => !file.path.endsWith(el)) &&
+            videoExtensions.every((el) => !file.path.endsWith(el)),
+        )
+        .map(async (child) => {
+          if (traverseOption.currentIndex === 5) {
+            return;
+          }
+
+          type E = ElementOf<IGithub.IGetRepositoryFolderStructureOutput>;
+          const file = child as E;
+
+          const path = file.path;
+          if (child.type === "dir") {
+            await this.traverseTree(input, child, traverseOption);
+          } else {
+            const detailed = await this.getFileContents({ ...input, path });
+            const { content } = typia.assert<IGithub.RepositoryFile>(detailed);
+            child.content = content;
+
+            if (3 * 1024 * 1024 < traverseOption.currentSize + file.size) {
+              traverseOption.currentSize = 0;
+              traverseOption.currentIndex += 1;
+              console.log(`${file.path} 파일을 만나서 파일 인덱스 증가 연산`);
+            }
+
+            if (traverseOption.currentIndex === 5) {
+              return;
+            }
+
+            traverseOption.currentSize += file.size;
+            traverseOption.result[traverseOption.currentIndex].push(child);
+          }
+        }),
+    );
   }
 }

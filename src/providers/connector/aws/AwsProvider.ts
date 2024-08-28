@@ -113,8 +113,9 @@ export class AwsProvider {
   }
 
   async getFileSize(fileUrl: string): Promise<number> {
-    const matches = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/u,
+    const [url] = fileUrl.split("?"); // 쿼리파라미터 부분 제거
+    const matches = url.match(
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.\-_]+)/u,
     );
 
     if (!matches) {
@@ -123,6 +124,8 @@ export class AwsProvider {
 
     const bucket = matches[1];
     const key = matches[3];
+
+    console.log(fileUrl, url, bucket, key);
 
     try {
       const command = new HeadObjectCommand({
