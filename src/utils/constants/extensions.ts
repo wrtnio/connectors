@@ -1,4 +1,5 @@
 export const docsExtensions = [
+  "hwp",
   "pdf",
   "docx",
   "xlsx",

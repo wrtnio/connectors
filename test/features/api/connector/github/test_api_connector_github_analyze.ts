@@ -6,8 +6,8 @@ export async function test_api_connector_github_analyze(
   connection: CApi.IConnection,
 ) {
   const res = await CApi.functional.connector.github.analyze(connection, {
-    owner: "samchon",
-    repo: "typia",
+    owner: "wrtnio",
+    repo: "connectors",
     secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
   });
 

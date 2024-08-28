@@ -944,7 +944,8 @@ export class GithubProvider {
   private isMediaFile(
     file: Pick<IGithub.RepositoryFile | IGithub.RepositoryFolder, "path">,
   ) {
-    const extension = file.path.split(".")[1];
+    const splited = file.path.split(".");
+    const extension = splited[splited.length - 1];
     return (
       imageExtensions.some((el) => el === extension) ||
       videoExtensions.some((el) => el === extension) ||
