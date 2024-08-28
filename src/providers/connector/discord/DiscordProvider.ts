@@ -2,6 +2,9 @@ import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import qs from "qs";
 
 @Injectable()
 export class DiscordProvider {
@@ -496,21 +499,42 @@ export class DiscordProvider {
     }
   }
 
-  private async refresh(refreshToken: string): Promise<string> {
-    const res = await axios.post(
-      "https://discord.com/api/v10/oauth2/token",
-      {
-        client_id: ConnectorGlobal.env.DISCORD_CLIENT_ID,
-        client_secret: ConnectorGlobal.env.DISCORD_CLIENT_SECRET,
-        refresh_token: refreshToken,
-      },
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+  private async refresh(secretValue: string): Promise<string> {
+    try {
+      const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+      const refreshToken =
+        typeof secret === "string"
+          ? secret
+          : (secret as IOAuthSecret.ISecretValue).value;
+      const res = await axios.post(
+        "https://discord.com/api/v10/oauth2/token",
+        qs.stringify({
+          client_id: ConnectorGlobal.env.DISCORD_CLIENT_ID,
+          client_secret: ConnectorGlobal.env.DISCORD_CLIENT_SECRET,
+          refresh_token: refreshToken,
+          grant_type: "refresh_token",
+        }),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         },
-      },
-    );
+      );
 
-    return res.data.access_token;
+      /**
+       * Refresh Token이 일회용이므로 값 업데이트
+       */
+      await OAuthSecretProvider.updateSecretValue(
+        (secret as IOAuthSecret.ISecretValue).id,
+        {
+          value: res.data.refresh_token,
+        },
+      );
+
+      return res.data.access_token;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }
