@@ -951,13 +951,36 @@ export class GithubProvider {
     secretKey: string;
   }): Promise<IGithub.ProfileRepository> {
     try {
-      const res = await this.getUserRepositories({
-        username: input.username,
-        secretKey: input.secretKey,
-        per_page: 100,
-      });
+      let page = 1;
+      let repo: IGithub.Repository | null = null;
+      while (true) {
+        if (page === 10) {
+          break;
+        }
 
-      const repo = res.result.find((el) => el.name === input.username) ?? null;
+        const res = await this.getUserRepositories({
+          username: input.username,
+          secretKey: input.secretKey,
+          per_page: 100,
+          page,
+        });
+
+        repo = res.result.find((el) => el.name === input.username) ?? null;
+        if (repo) {
+          break;
+        }
+
+        if (res.nextPage === false) {
+          break;
+        }
+
+        if (typeof res.next !== "number") {
+          break;
+        }
+
+        page++;
+      }
+
       if (repo) {
         const readme = await this.getReadmeFile({
           owner: input.username,
