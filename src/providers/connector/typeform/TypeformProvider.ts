@@ -6,6 +6,7 @@ import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import qs from "qs";
 
 @Injectable()
 export class TypeformProvider {
@@ -373,12 +374,14 @@ export class TypeformProvider {
           : (secret as IOAuthSecret.ISecretValue).value;
       const res = await axios.post(
         "https://api.typeform.com/oauth/token",
-        {
+        qs.stringify({
           grant_type: "refresh_token",
           refresh_token: refreshToken,
           client_id: ConnectorGlobal.env.TYPEFORM_CLIENT_ID,
           client_secret: ConnectorGlobal.env.TYPEFORM_CLIENT_SECRET,
-        },
+          scope:
+            "accounts:read forms:read forms:write images:read images:write responses:read responses:write themes:read themes:write workspaces:read workspaces:write",
+        }),
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
