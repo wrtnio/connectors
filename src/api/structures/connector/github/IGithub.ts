@@ -946,12 +946,15 @@ export namespace IGithub {
       ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title per_page
-     * The number of results per page (max 30).
+     * The number of results per page (max 10).
+     *
+     * The response capacity may be very large because it even comes out with the reedy of the repository.
+     * Therefore, it is recommended to check by cutting up to 10 pieces.
      */
     per_page?: number &
       tags.Type<"uint64"> &
-      tags.Default<30> &
-      tags.Maximum<30>;
+      tags.Default<10> &
+      tags.Maximum<10>;
 
     /**
      * @title sorting condition
