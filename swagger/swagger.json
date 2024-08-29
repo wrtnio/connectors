@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.140",
+    "version": "0.1.141",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11440,7 +11440,7 @@
     "/connector/github/get-issues": {
       "post": {
         "summary": "List issues assigned to the authenticated user",
-        "description": "List issues assigned to the authenticated user\n\nList issues assigned to the authenticated user across all visible repositories\nincluding owned repositories, member repositories, and organization repositories.\nYou can use the filter query parameter to fetch issues that are not necessarily assigned to you.\nThis connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.",
+        "description": "List issues assigned to the authenticated user\n\nList issues assigned to the authenticated user across all visible repositories\nincluding owned repositories, member repositories, and organization repositories.\nYou can use the filter query parameter to fetch issues that are not necessarily assigned to you.\nThis connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.\n\nIt is generally difficult to use because only issues related to me come out.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -37058,9 +37058,9 @@
           },
           "per_page": {
             "type": "integer",
-            "default": 30,
-            "maximum": 30,
-            "title": "per_page\nThe number of results per page (max 30)."
+            "default": 10,
+            "maximum": 10,
+            "title": "per_page\nThe number of results per page (max 10).\n\nThe response capacity may be very large because it even comes out with the reedy of the repository.\nTherefore, it is recommended to check by cutting up to 10 pieces."
           },
           "sort": {
             "oneOf": [
