@@ -226,7 +226,7 @@ export namespace IGithub {
     download_url: string;
   };
 
-  export type IGetReadmeFileContentOutput = RepositoryFile;
+  export type IGetReadmeFileContentOutput = RepositoryFile | null;
 
   export type IGetBulkFileContentOutput = IGetFileContentOutput[];
 
@@ -917,7 +917,14 @@ export namespace IGithub {
     /**
      * @title repositories
      */
-    result: IGithub.Repository[];
+    result: IGithub.RepositoryWithReadmeFile[];
+  }
+
+  export interface RepositoryWithReadmeFile extends Repository {
+    /**
+     * @title readme
+     */
+    readme: IGetReadmeFileContentOutput | null;
   }
 
   export interface IGetUserRepositoryInput extends IGetRepositoryInput {
@@ -1199,6 +1206,11 @@ export namespace IGithub {
      * @title updated_at
      */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title profile_repo
+     */
+    profile_repository: IGithub.ProfileRepository | null;
   }
 
   export interface IGetUserProfileInput extends ICommon.ISecret<"github"> {
@@ -1827,4 +1839,13 @@ export namespace IGithub {
      */
     patch?: string;
   }
+
+  export interface UploadFileInput {
+    files: Pick<IGithub.RepositoryFile, "path" | "content">[];
+    key: string;
+  }
+
+  export type ProfileRepository =
+    | (IGithub.Repository & { readme: IGithub.IGetReadmeFileContentOutput })
+    | null;
 }

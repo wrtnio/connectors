@@ -668,6 +668,9 @@ export class GithubController {
   /**
    * Get user's profile
    *
+   * 유저의 토큰을 쓰지 말고, 그냥 get-user-profile connector로 조회하는 것이 더 빠를 것이기 때문에 아래 로직은 Depreacted로 변경한다.
+   *
+   * @deprecated
    * @summary Get my profile
    * @param input
    * @returns
@@ -680,5 +683,13 @@ export class GithubController {
     @TypedBody() input: IGithub.IGetMyProfileInput,
   ): Promise<StrictOmit<IGithub.User, "score">> {
     return this.githubProvider.debugToken(input);
+  }
+
+  /**
+   * @internal
+   */
+  @core.TypedRoute.Post("upload")
+  async upload(@TypedBody() input: IGithub.UploadFileInput): Promise<string> {
+    return await this.githubProvider.upload(input.files, input.key);
   }
 }
