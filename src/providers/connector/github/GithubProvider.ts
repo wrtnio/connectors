@@ -27,12 +27,13 @@ export class GithubProvider {
     input: IGithub.IGetUserOrganizationInput,
   ): Promise<IGithub.IGetUserOrganizationOutput> {
     const { username, secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameters = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/users/${username}/orgs?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -44,12 +45,13 @@ export class GithubProvider {
     input: IGithub.IGetAuthenticatedUserOrganizationInput,
   ): Promise<IGithub.IGetAuthenticatedUserOrganizationOutput> {
     const { secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameters = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/user/orgs?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -219,13 +221,14 @@ export class GithubProvider {
     input: IGithub.IGetReceivedEventInput,
   ): Promise<IGithub.IGetEventOutput> {
     const { username, secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameters = createQueryParameter({ ...rest, per_page });
 
     const url = `https://api.github.com/users/${username}/received_events?${queryParameters}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -257,12 +260,13 @@ export class GithubProvider {
     input: IGithub.IGetRepositoryIssueInput,
   ): Promise<IGithub.IGetRepositoryIssueOutput> {
     const { secretKey, owner, repo, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/repos/${owner}/${repo}/issues?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -275,12 +279,13 @@ export class GithubProvider {
     input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
   ): Promise<IGithub.IGetOrganizationAuthenticationUserIssueOutput> {
     const { secretKey, organization, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/orgs/${organization}/issues?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -565,12 +570,13 @@ export class GithubProvider {
     input: IGithub.IGetAuthenticatedUserIssueInput,
   ): Promise<IGithub.IGetAuthenticatedUserIssueOutput> {
     const { secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/issues?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
@@ -583,12 +589,13 @@ export class GithubProvider {
     input: IGithub.IGetOrganizationRepositoryInput,
   ): Promise<IGithub.IGetOrganizationRepositoryOutput> {
     const { secretKey, organization, ...rest } = input;
+    const token = await this.getToken(secretKey);
     const per_page = input.per_page ?? 30;
     const queryParameter = createQueryParameter({ ...rest, per_page });
     const url = `https://api.github.com/orgs/${organization}/repos?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
       },
     });
