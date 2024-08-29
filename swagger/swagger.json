@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.138",
+    "version": "0.1.139",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -37056,6 +37056,12 @@
             },
             "title": "username\n\nThis refers to the nickname of the user who will look up the repository."
           },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 30,
+            "title": "per_page\nThe number of results per page (max 30)."
+          },
           "sort": {
             "oneOf": [
               {
@@ -37104,12 +37110,6 @@
             "type": "integer",
             "default": 1,
             "title": "page\nThe page number of the results to fetch."
-          },
-          "per_page": {
-            "type": "integer",
-            "default": 30,
-            "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
