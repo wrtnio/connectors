@@ -4,6 +4,8 @@ import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class JiraProvider {
@@ -564,5 +566,15 @@ export class JiraProvider {
 
   parseSecretKey(input: IJira.IBasicSecret): IJira.BasicAuthorization {
     return typia.json.assertParse<IJira.BasicAuthorization>(input.secretKey);
+  }
+
+  async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+
+    return token;
   }
 }
