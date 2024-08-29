@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.135",
+    "version": "0.1.136",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11335,7 +11335,7 @@
     "/connector/github/repositories/get-issues": {
       "post": {
         "summary": "List repository issues",
-        "description": "List repository issues\n\nList issues in a repository. Only open issues will be listed.",
+        "description": "List repository issues\n\nList issues in a repository. Only open issues will be listed.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11427,7 +11427,7 @@
     "/connector/github/get-issues": {
       "post": {
         "summary": "List issues assigned to the authenticated user",
-        "description": "List issues assigned to the authenticated user\n\nList issues assigned to the authenticated user across all visible repositories\nincluding owned repositories, member repositories, and organization repositories.\nYou can use the filter query parameter to fetch issues that are not necessarily assigned to you.",
+        "description": "List issues assigned to the authenticated user\n\nList issues assigned to the authenticated user across all visible repositories\nincluding owned repositories, member repositories, and organization repositories.\nYou can use the filter query parameter to fetch issues that are not necessarily assigned to you.\nThis connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -37451,6 +37451,10 @@
           "sha": {
             "type": "string",
             "title": "sha"
+          },
+          "download_url": {
+            "type": "string",
+            "title": "download_url\n\nThe url that allows you to download a file, which is useful if it is a media file containing an image."
           }
         },
         "required": [
@@ -37459,7 +37463,8 @@
           "type",
           "path",
           "size",
-          "sha"
+          "sha",
+          "download_url"
         ]
       },
       "IGithub.IGetRepositoryFolderStructureInput": {
@@ -37556,6 +37561,10 @@
           "url": {
             "type": "string",
             "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
+          },
+          "download_url": {
+            "type": "string",
+            "title": "download_url\n\nThe url that allows you to download a file, which is useful if it is a media file containing an image."
           }
         },
         "required": [
@@ -37566,7 +37575,8 @@
           "path",
           "content",
           "sha",
-          "url"
+          "url",
+          "download_url"
         ]
       },
       "IGithub.IGetBulkFileContentInput": {
