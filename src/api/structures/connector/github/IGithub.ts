@@ -1199,6 +1199,11 @@ export namespace IGithub {
      * @title updated_at
      */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title profile_repo
+     */
+    profile_repository: IGithub.ProfileRepository | null;
   }
 
   export interface IGetUserProfileInput extends ICommon.ISecret<"github"> {
@@ -1827,4 +1832,13 @@ export namespace IGithub {
      */
     patch?: string;
   }
+
+  export interface UploadFileInput {
+    files: Pick<IGithub.RepositoryFile, "path" | "content">[];
+    key: string;
+  }
+
+  export type ProfileRepository =
+    | (IGithub.Repository & { readme: IGithub.IGetReadmeFileContentOutput })
+    | null;
 }

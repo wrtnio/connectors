@@ -2,20 +2,19 @@ import { Injectable } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { ElementOf } from "@wrtnio/decorators";
-import { String } from "aws-sdk/clients/acm";
 import axios from "axios";
 import typia from "typia";
+import {
+  docsExtensions,
+  imageExtensions,
+  videoExtensions,
+} from "../../../utils/constants/extensions";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { StrictOmit } from "../../../utils/strictOmit";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
-import {
-  imageExtensions,
-  videoExtensions,
-  docsExtensions,
-} from "../../../utils/constants/extensions";
 
 @Injectable()
 export class GithubProvider {
@@ -147,24 +146,28 @@ export class GithubProvider {
       let FILE_NUM = 0;
       for await (const analyzedFile of analyzedFiles) {
         const key = `${AWS_KEY}/${FILE_NUM}.txt`;
-        const buffer = Buffer.from(
-          JSON.stringify(
-            analyzedFile.map((el) => ({ path: el.path, content: el.content })),
-          ),
-          "utf-8",
-        );
-        const link = await this.awsProvider.uploadObject({
-          contentType: "text/plain; charset=utf-8;",
-          data: buffer,
-          key,
-        });
+        const link = await this.upload(analyzedFile, key);
         links.push(link);
-
         FILE_NUM++;
       }
     }
 
     return links;
+  }
+
+  async upload(
+    files: Pick<IGithub.RepositoryFile, "path" | "content">[],
+    key: string,
+  ) {
+    const stringified = files.map(({ path, content }) => ({ path, content }));
+    const buffer = Buffer.from(JSON.stringify(stringified), "utf-8");
+    const link = await this.awsProvider.uploadObject({
+      contentType: "text/plain; charset=utf-8;",
+      data: buffer,
+      key,
+    });
+
+    return link;
   }
 
   async analyze(input: IGithub.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
@@ -176,7 +179,7 @@ export class GithubProvider {
     owner: string;
     repo: string;
     secretKey: string;
-  }): Promise<{ default_branch: String }> {
+  }): Promise<{ default_branch: string }> {
     const token = await this.getToken(input.secretKey);
     const url = `https://api.github.com/repos/${input.owner}/${input.repo}`;
     const res = await axios.get(url, {
@@ -549,7 +552,9 @@ export class GithubProvider {
         Accept: "application/vnd.github+json",
       },
     });
-    return res.data;
+
+    const profile_repository = await this.getProfileRepository(input);
+    return { ...res.data, profile_repository };
   }
 
   async getIssues(
@@ -939,6 +944,36 @@ export class GithubProvider {
           }
         }),
     );
+  }
+
+  private async getProfileRepository(input: {
+    username: string;
+    secretKey: string;
+  }): Promise<IGithub.ProfileRepository> {
+    try {
+      const res = await this.getUserRepositories({
+        username: input.username,
+        secretKey: input.secretKey,
+        per_page: 100,
+      });
+
+      const repo = res.result.find((el) => el.name === input.username) ?? null;
+      if (repo) {
+        const readme = await this.getReadmeFile({
+          owner: input.username,
+          repo: input.username,
+          secretKey: input.secretKey,
+        });
+
+        console.log(readme, "readme");
+
+        return { ...repo, readme };
+      }
+
+      return null;
+    } catch (err) {
+      return null;
+    }
   }
 
   private isMediaFile(

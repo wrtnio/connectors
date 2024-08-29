@@ -681,4 +681,12 @@ export class GithubController {
   ): Promise<StrictOmit<IGithub.User, "score">> {
     return this.githubProvider.debugToken(input);
   }
+
+  /**
+   * @internal
+   */
+  @core.TypedRoute.Post("upload")
+  async upload(@TypedBody() input: IGithub.UploadFileInput): Promise<string> {
+    return await this.githubProvider.upload(input.files, input.key);
+  }
 }
