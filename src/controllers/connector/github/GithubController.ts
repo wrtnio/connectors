@@ -424,6 +424,7 @@ export class GithubController {
    * List repository issues
    *
    * List issues in a repository. Only open issues will be listed.
+   * This connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.
    *
    * @summary List repository issues
    * @param input
@@ -479,6 +480,7 @@ export class GithubController {
    * List issues assigned to the authenticated user across all visible repositories
    * including owned repositories, member repositories, and organization repositories.
    * You can use the filter query parameter to fetch issues that are not necessarily assigned to you.
+   * This connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.
    *
    * @summary List issues assigned to the authenticated user
    * @param input

@@ -11,44 +11,11 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
-
-const imageExtensions = [
-  ".jpg",
-  ".jpeg",
-  ".png",
-  ".gif",
-  ".bmp",
-  ".tiff",
-  ".tif",
-  ".webp",
-  ".heif",
-  ".heic",
-  ".svg",
-  ".ico",
-  ".raw",
-  ".cr2",
-  ".nef",
-  ".arw",
-  ".dng",
-  ".orf",
-  ".rw2",
-  ".ico",
-];
-
-const videoExtensions = [
-  ".mp4",
-  ".avi",
-  ".mov",
-  ".wmv",
-  ".mkv",
-  ".flv",
-  ".webm",
-  ".mpeg",
-  ".mpg",
-  ".3gp",
-  ".m4v",
-  ".ogv",
-];
+import {
+  imageExtensions,
+  videoExtensions,
+  docsExtensions,
+} from "../../../utils/constants/extensions";
 
 @Injectable()
 export class GithubProvider {
@@ -117,6 +84,7 @@ export class GithubProvider {
     const rootFiles = await this.getRepositoryFolderStructures(
       input,
       MAX_DEPTH,
+      false, // 파일을 모두 복사하여 RAG할 때에는 미디어 파일까지 가져올 필요가 없다.
     );
 
     // 전체 순회하며 파일인 경우 content를 가져오게 하기
@@ -138,8 +106,7 @@ export class GithubProvider {
               !file.path.includes("benchmark") &&
               !file.path.includes("yarn") &&
               !file.path.includes("pnp") &&
-              imageExtensions.every((el) => !file.path.endsWith(el)) &&
-              videoExtensions.every((el) => !file.path.endsWith(el)),
+              this.isMediaFile(file) === false,
           )
           .map(async (file) => {
             if (traverseOption.currentIndex === 5) {
@@ -362,10 +329,11 @@ export class GithubProvider {
   async getRepositoryFolderStructures(
     input: IGithub.IGetRepositoryFolderStructureInput,
     depth: number = 2,
+    includeMediaFile: boolean = true,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const rootFiles = await this.getFileContents(input);
 
-    return this.getRepositoryFolders(input, rootFiles, depth);
+    return this.getRepositoryFolders(input, rootFiles, depth, includeMediaFile);
   }
 
   async getBulkFileContents(
@@ -403,10 +371,15 @@ export class GithubProvider {
       return res.data;
     } else {
       // 파일인 경우 상세 내용이 조회된다.
+      const file: IGithub.RepositoryFile = res.data;
+      const isMediaFile = this.isMediaFile(file);
+
       return {
-        ...res.data,
-        ...(res.data.content && {
-          content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+        ...file,
+        ...(file.content && {
+          content: isMediaFile
+            ? file.content
+            : Buffer.from(file.content, "base64").toString("utf-8"),
         }),
       };
     }
@@ -855,11 +828,23 @@ export class GithubProvider {
   private async getRepositoryFolders(
     input: Pick<IGithub.IGetFileContentInput, "owner" | "repo" | "secretKey">,
     files: IGithub.IGetFileContentOutput,
-    depth: number = 2,
+    depth: number,
+    includeMediaFile: boolean,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
     const response: IGithub.IGetRepositoryFolderStructureOutput = [];
     if (files instanceof Array) {
-      for await (const file of files) {
+      const isNotSourceFolders = ["test", "benchmark", "yarn", "pnp"] as const;
+      const targets = includeMediaFile
+        ? files
+        : files
+            .filter((file) => {
+              return isNotSourceFolders.every((el) => !file.path.includes(el));
+            })
+            .filter((file) => {
+              return !this.isMediaFile(file);
+            });
+
+      for await (const file of targets) {
         // 2단계 depth까지의 폴더만 순회하도록 하기
         if (file.type === "dir") {
           if (0 < depth) {
@@ -870,6 +855,7 @@ export class GithubProvider {
               input,
               inners,
               next,
+              includeMediaFile,
             );
             const children = scanned.map((el) => typia.misc.assertClone(el));
             response.push({ ...file, children });
@@ -920,8 +906,7 @@ export class GithubProvider {
             !file.path.includes("benchmark") &&
             !file.path.includes("yarn") &&
             !file.path.includes("pnp") &&
-            imageExtensions.every((el) => !file.path.endsWith(el)) &&
-            videoExtensions.every((el) => !file.path.endsWith(el)),
+            this.isMediaFile(file) === false,
         )
         .map(async (child) => {
           if (traverseOption.currentIndex === 5) {
@@ -953,6 +938,18 @@ export class GithubProvider {
             traverseOption.result[traverseOption.currentIndex].push(child);
           }
         }),
+    );
+  }
+
+  private isMediaFile(
+    file: Pick<IGithub.RepositoryFile | IGithub.RepositoryFolder, "path">,
+  ) {
+    const splited = file.path.split(".");
+    const extension = splited[splited.length - 1];
+    return (
+      imageExtensions.some((el) => el === extension) ||
+      videoExtensions.some((el) => el === extension) ||
+      docsExtensions.some((el) => el === extension)
     );
   }
 }
