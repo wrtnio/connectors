@@ -391,22 +391,26 @@ export class GithubProvider {
   async getReadmeFile(
     input: IGithub.IGetReadmeFileContentInput,
   ): Promise<IGithub.IGetReadmeFileContentOutput> {
-    const { owner, repo, secretKey } = input;
-    const url = `https://api.github.com/repos/${owner}/${repo}/readme`;
-    const token = await this.getToken(secretKey);
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/vnd.github.object+json",
-      },
-    });
+    try {
+      const { owner, repo, secretKey } = input;
+      const url = `https://api.github.com/repos/${owner}/${repo}/readme`;
+      const token = await this.getToken(secretKey);
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/vnd.github.object+json",
+        },
+      });
 
-    return {
-      ...res.data,
-      ...(res.data.content && {
-        content: Buffer.from(res.data.content, "base64").toString("utf-8"),
-      }),
-    };
+      return {
+        ...res.data,
+        ...(res.data.content && {
+          content: Buffer.from(res.data.content, "base64").toString("utf-8"),
+        }),
+      };
+    } catch (err) {
+      return null;
+    }
   }
 
   async getRepoEvents(
@@ -608,8 +612,19 @@ export class GithubProvider {
       },
     });
 
+    const repsotories: IGithub.RepositoryWithReadmeFile[] = await Promise.all(
+      res.data.map(async (repository: IGithub.Repository) => {
+        const readme = await this.getReadmeFile({
+          owner: username,
+          repo: repository.name,
+          secretKey: String(secretKey),
+        });
+
+        return { ...repository, readme };
+      }),
+    );
     const link = res.headers["link"];
-    return { result: res.data, ...this.getCursors(link) };
+    return { result: repsotories, ...this.getCursors(link) };
   }
 
   async getDetailedBranchInfo(

@@ -226,7 +226,7 @@ export namespace IGithub {
     download_url: string;
   };
 
-  export type IGetReadmeFileContentOutput = RepositoryFile;
+  export type IGetReadmeFileContentOutput = RepositoryFile | null;
 
   export type IGetBulkFileContentOutput = IGetFileContentOutput[];
 
@@ -917,7 +917,14 @@ export namespace IGithub {
     /**
      * @title repositories
      */
-    result: IGithub.Repository[];
+    result: IGithub.RepositoryWithReadmeFile[];
+  }
+
+  export interface RepositoryWithReadmeFile extends Repository {
+    /**
+     * @title readme
+     */
+    readme: IGetReadmeFileContentOutput | null;
   }
 
   export interface IGetUserRepositoryInput extends IGetRepositoryInput {
