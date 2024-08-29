@@ -6,9 +6,9 @@ import { v4 } from "uuid";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
-import { AwsProvider } from "../aws/AwsProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class GoogleSlidesProvider {
@@ -113,7 +113,7 @@ export class GoogleSlidesProvider {
 
     // if there are s3 buckets urls, get presigned url
     const matches = JSON.stringify(input).match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.\-_]+)/gu,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
     );
 
     if (!matches) {

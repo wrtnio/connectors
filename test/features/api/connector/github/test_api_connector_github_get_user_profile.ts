@@ -19,6 +19,5 @@ export async function test_api_connector_github_get_user_profile(
       },
     );
 
-  console.log(res);
   typia.assert(res);
 }

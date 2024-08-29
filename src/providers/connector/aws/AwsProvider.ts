@@ -37,15 +37,26 @@ export class AwsProvider {
   }
 
   async uploadObject(input: IAws.IUploadObjectInput): Promise<string> {
-    const { key, data, contentType } = input;
+    const { data, contentType } = input;
+    const encodedKey = input.key
+      .split("/")
+      .map((token) => {
+        const unsafeCharactersRegex = /[^a-zA-Z0-9._\-\/]/g;
+        if (unsafeCharactersRegex.test(token)) {
+          return encodeURIComponent(token);
+        }
+        return token;
+      })
+      .join("/");
+
     const putObjectConfig = new PutObjectCommand({
       Bucket: this.fileBucket,
-      Key: key,
+      Key: encodedKey,
       Body: data,
       ContentType: contentType,
     });
     await this.s3.send(putObjectConfig);
-    return `https://${this.fileBucket}.s3.amazonaws.com/${key}`;
+    return `https://${this.fileBucket}.s3.amazonaws.com/${encodedKey}`;
   }
 
   async getPutObjectUrl(
@@ -115,7 +126,7 @@ export class AwsProvider {
   async getFileSize(fileUrl: string): Promise<number> {
     const [url] = fileUrl.split("?"); // 쿼리파라미터 부분 제거
     const matches = url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.\-_]+)/u,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/u,
     );
 
     if (!matches) {
@@ -124,8 +135,6 @@ export class AwsProvider {
 
     const bucket = matches[1];
     const key = matches[3];
-
-    console.log(fileUrl, url, bucket, key);
 
     try {
       const command = new HeadObjectCommand({
