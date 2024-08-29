@@ -942,8 +942,17 @@ export namespace IGithub {
   }
 
   export interface IGetRepositoryInput
-    extends StrictOmit<ICommonPaginationInput, "order">,
+    extends StrictOmit<ICommonPaginationInput, "order" | "per_page">,
       ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title per_page
+     * The number of results per page (max 30).
+     */
+    per_page?: number &
+      tags.Type<"uint64"> &
+      tags.Default<30> &
+      tags.Maximum<30>;
+
     /**
      * @title sorting condition
      *
