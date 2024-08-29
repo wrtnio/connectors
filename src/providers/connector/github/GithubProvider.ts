@@ -965,8 +965,6 @@ export class GithubProvider {
           secretKey: input.secretKey,
         });
 
-        console.log(readme, "readme");
-
         return { ...repo, readme };
       }
 

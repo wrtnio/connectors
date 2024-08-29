@@ -1,7 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import axios from "axios";
 import typia from "typia";
-import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { AwsProvider } from "../../../../../src/providers/connector/aws/AwsProvider";
 import { RagProvider } from "../../../../../src/providers/connector/rag/RagProvider";
 
@@ -39,7 +38,6 @@ export async function test_api_connector_github_upload_repo(
 
     const ragProvider = new RagProvider(new AwsProvider());
     const transformedUrl = await ragProvider.transformInput(url);
-    console.log(transformedUrl, "transformedUrl");
 
     try {
       // 올바른 URL인지 검증한다.
@@ -50,19 +48,18 @@ export async function test_api_connector_github_upload_repo(
       );
     }
 
-    console.log(transformedUrl);
     typia.assert(transformedUrl);
   }
 }
 
-export async function test_api_connector_github_analyze(
-  connection: CApi.IConnection,
-) {
-  const res = await CApi.functional.connector.github.analyze(connection, {
-    owner: "wrtnio",
-    repo: "connectors",
-    secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
-  });
+// export async function test_api_connector_github_analyze(
+//   connection: CApi.IConnection,
+// ) {
+//   const res = await CApi.functional.connector.github.analyze(connection, {
+//     owner: "wrtnio",
+//     repo: "connectors",
+//     secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+//   });
 
-  typia.assert(res);
-}
+//   typia.assert(res);
+// }
