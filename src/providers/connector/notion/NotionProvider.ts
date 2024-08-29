@@ -17,7 +17,7 @@ export namespace NotionProvider {
     input: INotion.ICreatePageInput,
   ): Promise<INotion.ICreatePageOutput> {
     try {
-      const notion = createClient(input.secretKey);
+      const notion = await createClient(input.secretKey);
       const res = await notion.pages.create({
         parent: {
           type: "page_id",
@@ -115,7 +115,7 @@ export namespace NotionProvider {
     input: INotion.IAppendPageToContentInput,
   ): Promise<void> {
     try {
-      const notion = createClient(input.secretKey);
+      const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
         children: [
@@ -174,7 +174,7 @@ export namespace NotionProvider {
     input: INotion.ISecret,
   ): Promise<INotion.IDatabaseInfo[]> {
     try {
-      const notion = createClient(input.secretKey);
+      const notion = await createClient(input.secretKey);
       const searchResult = await notion.search({});
       const databaseIds = searchResult.results
         .filter((result) => result.object === "database")
@@ -522,8 +522,13 @@ export namespace NotionProvider {
     return properties;
   }
 
-  function createClient(accessToken: string) {
-    return new Client({ auth: accessToken });
+  async function createClient(accessToken: string) {
+    const secret = await OAuthSecretProvider.getSecretValue(accessToken);
+    const refreshToken =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return new Client({ auth: refreshToken });
   }
 
   async function getHeaders(accessToken: string) {
