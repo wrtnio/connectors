@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.139",
+    "version": "0.1.140",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -37329,9 +37329,6 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
-            "x-wrtn-secret-scopes": [
-              "issue"
-            ],
             "title": "인증 정보 선택",
             "description": "secret key."
           },
@@ -38571,9 +38568,6 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
-            "x-wrtn-secret-scopes": [
-              "issue"
-            ],
             "title": "인증 정보 선택",
             "description": "secret key."
           },
@@ -39418,9 +39412,6 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
-            "x-wrtn-secret-scopes": [
-              "issue"
-            ],
             "title": "인증 정보 선택",
             "description": "secret key."
           },
