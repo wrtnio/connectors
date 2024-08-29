@@ -482,6 +482,8 @@ export class GithubController {
    * You can use the filter query parameter to fetch issues that are not necessarily assigned to you.
    * This connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.
    *
+   * It is generally difficult to use because only issues related to me come out.
+   *
    * @summary List issues assigned to the authenticated user
    * @param input
    * @returns
