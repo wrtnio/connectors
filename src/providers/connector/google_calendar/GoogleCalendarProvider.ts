@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { google } from "googleapis";
 
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
@@ -277,27 +277,31 @@ export class GoogleCalendarProvider {
   }
 
   parseEventInfo(event: any): IGoogleCalendar.IGoogleCalendarEvent {
+    if (!event || !event.data) {
+      throw new InternalServerErrorException("Event data is invalid");
+    }
+
     return {
-      id: event.data.id,
-      htmlLink: event.data.htmlLink,
-      color: event.data.colorId,
-      createdDate: event.data.created,
-      updatedDate: event.data.updated,
-      title: event.data.summary,
-      description: event.data.description,
-      location: event.data.location,
-      organizer: event.data.organizer,
-      creator: event.data.creator,
-      startDate: event.data.start,
-      endDate: event.data.end,
-      recurrence: event.data.recurrence,
-      guestsCanModify: event.data.guestsCanModify,
-      transparency: event.data.transparency,
-      attendees: event.data.attendees,
-      reminders: event.data.reminders,
-      attachments: event.data.attachments,
-      hangoutLink: event.data.hangoutLink,
-      visibility: event.data.visibility,
+      id: event.data.id || null,
+      htmlLink: event.data.htmlLink || null,
+      color: event.data.colorId || null,
+      createdDate: event.data.created || null,
+      updatedDate: event.data.updated || null,
+      title: event.data.summary || null,
+      description: event.data.description || null,
+      location: event.data.location || null,
+      organizer: event.data.organizer || null,
+      creator: event.data.creator || null,
+      startDate: event.data.start || null,
+      endDate: event.data.end || null,
+      recurrence: event.data.recurrence || null,
+      guestsCanModify: event.data.guestsCanModify || null,
+      transparency: event.data.transparency || null,
+      attendees: event.data.attendees || null,
+      reminders: event.data.reminders || null,
+      attachments: event.data.attachments || null,
+      hangoutLink: event.data.hangoutLink || null,
+      visibility: event.data.visibility || null,
     };
   }
 
