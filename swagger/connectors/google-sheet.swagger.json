@@ -18,7 +18,7 @@
     "title": "구글 스프레드시트 데이터 관리",
     "summary": "구글 스프레드시트로 데이터를 쉽게 관리해요.",
     "description": "구글 스프레드시트를 사용해 다양한 데이터 관리 작업을 할 수 있어요. 스프레드시트의 헤더 정보를 가져오거나, 특정 사용자에게 접근 권한을 부여할 수 있어요. 새로운 헤더를 추가하거나, 워크시트 목록을 확인할 수 있고, 특정 행(Row)의 정보를 가져올 수도 있어요. 원하는 셀에 새로운 내용을 추가하거나 기존 내용을 수정할 수도 있어요. 이를 통해 예산 관리, 프로젝트 추적, 데이터 분석 등 다양한 작업을 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 팀 단위의 데이터 관리에도 매우 유용해요. 주의할 점은 구글 시트를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.144",
+    "version": "0.1.145",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -94,6 +94,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/create": {
+      "post": {
+        "summary": "구글 시트 생성하기",
+        "description": "구글 시트를 생성합니다.\n\n생성된 시트는 구글 드라이브 루트 경로에 생성됩니다.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "생성할 시트 제목",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.ICreateGoogleSheetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 시트 id와 Url",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSheet.ICreateGoogleSheetOutput"
                 }
               }
             }
@@ -470,6 +503,51 @@
           "secretKey"
         ],
         "title": "구글 시트 헤더 읽기에 필요한 정보"
+      },
+      "IGoogleSheet.ICreateGoogleSheetOutput": {
+        "type": "object",
+        "properties": {
+          "spreadsheetId": {
+            "type": "string",
+            "title": "시트 ID",
+            "description": "생성된 구글 스프레드 시트의 ID입니다."
+          },
+          "spreadsheetUrl": {
+            "type": "string",
+            "title": "시트 URL",
+            "description": "생성된 구글 스프레드 시트의 URL입니다."
+          }
+        },
+        "required": [
+          "spreadsheetId",
+          "spreadsheetUrl"
+        ],
+        "title": "구글 스프레드 시트 생성 결과"
+      },
+      "IGoogleSheet.ICreateGoogleSheetInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "시트 제목",
+            "description": "생성할 구글 스프레드 시트 제목을 입력해주세요."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "secretKey"
+        ],
+        "title": "구글 스프레드 시트 생성에 필요한 정보"
       },
       "IGoogleSheet.IPermissionInput": {
         "type": "object",
