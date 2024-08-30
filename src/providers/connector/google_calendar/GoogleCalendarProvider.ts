@@ -277,31 +277,27 @@ export class GoogleCalendarProvider {
   }
 
   parseEventInfo(event: any): IGoogleCalendar.IGoogleCalendarEvent {
-    if (!event || !event.data) {
-      throw new InternalServerErrorException("Event data is invalid");
-    }
-
     return {
-      id: event.data.id || null,
-      htmlLink: event.data.htmlLink || null,
-      color: event.data.colorId || null,
-      createdDate: event.data.created || null,
-      updatedDate: event.data.updated || null,
-      title: event.data.summary || null,
-      description: event.data.description || null,
-      location: event.data.location || null,
-      organizer: event.data.organizer || null,
-      creator: event.data.creator || null,
-      startDate: event.data.start || null,
-      endDate: event.data.end || null,
-      recurrence: event.data.recurrence || null,
-      guestsCanModify: event.data.guestsCanModify || null,
-      transparency: event.data.transparency || null,
-      attendees: event.data.attendees || null,
-      reminders: event.data.reminders || null,
-      attachments: event.data.attachments || null,
-      hangoutLink: event.data.hangoutLink || null,
-      visibility: event.data.visibility || null,
+      id: event.id || null,
+      htmlLink: event.htmlLink || null,
+      color: event.colorId || null,
+      createdDate: event.created || null,
+      updatedDate: event.updated || null,
+      title: event.summary || null,
+      description: event.description || null,
+      location: event.location || null,
+      organizer: event.organizer || null,
+      creator: event.creator || null,
+      startDate: event.start || null,
+      endDate: event.end || null,
+      recurrence: event.recurrence || null,
+      guestsCanModify: event.guestsCanModify || null,
+      transparency: event.transparency || null,
+      attendees: event.attendees || null,
+      reminders: event.reminders || null,
+      attachments: event.attachments || null,
+      hangoutLink: event.hangoutLink || null,
+      visibility: event.visibility || null,
     };
   }
 
