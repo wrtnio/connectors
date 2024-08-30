@@ -141,6 +141,23 @@ export class GmailController {
     return retry(() => this.gmailProvider.findEmails(input))();
   }
 
+  /**
+   * 메일을 삭제합니다
+   *
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * 이 기능은 메일을 휴지통으로 옮기는 게 아니라 영구히 삭제하는 기능이기 때문에 각별히 주의가 필요합니다.
+   * 대부분의 유저는 이미 휴지통에 있는 것들을 삭제하고자 할 것입니다.
+   * 따라서 유저가 삭제를 희망하는 경우 가급적 휴지통으로 메일을 옮기는 것으로 유도하되, 그럼에도 삭제하고자 한다면 휴지통에 있는 것을 대상으로 하는 것이 옳습니다.
+   *
+   * @summary 메일을 삭제합니다.
+   * @param id
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+  )
   @core.TypedRoute.Delete(":id/hardDelete")
   async hardDelete(
     /**
@@ -160,7 +177,7 @@ export class GmailController {
   }
 
   /**
-   * 메일을 삭제합니다
+   * 메일을 휴지통으로 옮깁니다
    *
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
