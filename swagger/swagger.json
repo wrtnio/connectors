@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.146",
+    "version": "0.1.147",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10514,7 +10514,8 @@
     },
     "/connector/github/analyze": {
       "post": {
-        "summary": "레포 분석 봇 생성",
+        "summary": "Analysis for a github repository",
+        "description": "\nRAG analysis for a particular repo\n\nThis RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.\nThis will be useful when users want to analyze the repository.",
         "tags": [],
         "parameters": [],
         "requestBody": {
