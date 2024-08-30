@@ -10,17 +10,35 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 @Injectable()
 export class GmailProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  async hardDelete(id: string, input: IGmail.ISecret): Promise<void> {
+    try {
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
+      await gmail.users.messages.delete({
+        userId: "me",
+        id,
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   async sendEmail(
     input: IGmail.ICreateMailInput,
   ): Promise<IGmail.ISendMailOutput> {
     try {
       const token = await this.getToken(input.secretKey);
-
       const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
-
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
       const emailLines = [
