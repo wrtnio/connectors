@@ -275,4 +275,42 @@ export namespace IGoogleSheet {
      */
     data: IReadGoogleSheetRowData[];
   }
+
+  /**
+   * @title 구글 스프레드 시트 생성에 필요한 정보
+   */
+  export interface ICreateGoogleSheetInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
+    /**
+     * 생성할 구글 스프레드 시트 제목을 입력해주세요.
+     *
+     * @title 시트 제목
+     */
+    title: string;
+  }
+
+  /**
+   * @title 구글 스프레드 시트 생성 결과
+   */
+  export interface ICreateGoogleSheetOutput {
+    /**
+     * 생성된 구글 스프레드 시트의 ID입니다.
+     *
+     * @title 시트 ID
+     */
+    spreadsheetId: string;
+
+    /**
+     * 생성된 구글 스프레드 시트의 URL입니다.
+     *
+     * @title 시트 URL
+     */
+    spreadsheetUrl: string;
+  }
 }

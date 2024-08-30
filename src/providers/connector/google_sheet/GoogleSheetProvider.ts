@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import {
   GoogleSpreadsheet,
   GoogleSpreadsheetWorksheet,
@@ -14,6 +14,47 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 @Injectable()
 export class GoogleSheetProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
+  /**
+   * Create Google Sheet
+   */
+  async createSpreadsheet(
+    input: IGoogleSheet.ICreateGoogleSheetInput,
+  ): Promise<IGoogleSheet.ICreateGoogleSheetOutput> {
+    try {
+      const { title, secretKey } = input;
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+
+      const sheets = google.sheets({ version: "v4", auth: authClient });
+
+      const response = await sheets.spreadsheets.create({
+        requestBody: {
+          properties: {
+            title: title,
+          },
+        },
+      });
+
+      const spreadsheetId = response.data.spreadsheetId;
+      const spreadsheetUrl = response.data.spreadsheetUrl;
+
+      if (!spreadsheetId || !spreadsheetUrl) {
+        throw new InternalServerErrorException("Failed to create spreadsheet");
+      }
+
+      return {
+        spreadsheetId,
+        spreadsheetUrl,
+      };
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   /**
    * Read Google Sheet Headers
    * @param input Google Sheet Url and index number(default 0)
