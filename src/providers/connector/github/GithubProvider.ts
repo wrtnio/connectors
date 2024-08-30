@@ -1024,6 +1024,12 @@ export class GithubProvider {
   ) {
     const splited = file.path.split(".");
     const extension = splited[splited.length - 1];
+
+    if (file.path.endsWith("package.json")) {
+      // package.json만 허용한다.
+      return false;
+    }
+
     return (
       imageExtensions.some((el) => el === extension) ||
       videoExtensions.some((el) => el === extension) ||

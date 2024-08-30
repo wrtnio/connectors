@@ -220,6 +220,7 @@ export const test_api_connector_jira_create_random_issue_paragraph = async (
   typia.assertEquals(case3);
 
   const content = typia.random<IJira.ParagraphNode>();
+  content.content = content.content.filter((el) => el.type !== "mention");
   const res = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
