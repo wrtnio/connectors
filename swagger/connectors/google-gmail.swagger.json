@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.145",
+    "version": "0.1.146",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,39 +28,7 @@
       "post": {
         "summary": "GMAIL 전송",
         "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "메일을 보내기 위해 필요한 정보.",
@@ -93,39 +61,7 @@
       "post": {
         "summary": "GMAIL 초안 생성",
         "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "메일 초안을 생성하기 위한 정보.",
@@ -153,39 +89,7 @@
       "post": {
         "summary": "GMAIL 답장",
         "description": "수신된 메일에 답장을 보냅니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -226,39 +130,7 @@
       "post": {
         "summary": "GMAIL 정보 가져오기",
         "description": "메일의 정보를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -305,39 +177,7 @@
       "post": {
         "summary": "GMAIL 리스트 가져오기",
         "description": "메일 리스트를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "메일 리스트를 가져오기 위한 정보.",
@@ -366,43 +206,51 @@
         "x-wrtn-standalone": true
       }
     },
+    "/connector/gmail/{id}/hardDelete": {
+      "delete": {
+        "summary": "메일을 삭제합니다.",
+        "description": "메일을 삭제합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 기능은 메일을 휴지통으로 옮기는 게 아니라 영구히 삭제하는 기능이기 때문에 각별히 주의가 필요합니다.\n대부분의 유저는 이미 휴지통에 있는 것들을 삭제하고자 할 것입니다.\n따라서 유저가 삭제를 희망하는 경우 가급적 휴지통으로 메일을 옮기는 것으로 유도하되, 그럼에도 삭제하고자 한다면 휴지통에 있는 것을 대상으로 하는 것이 옳습니다.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/gmail/read-list",
+                "jmesPath": "data[].{value: id, label: subject || ''}"
+              }
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGmail.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg"
+      }
+    },
     "/connector/gmail/{id}": {
       "delete": {
         "summary": "GMAIL 삭제",
-        "description": "메일을 삭제합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "description": "메일을 휴지통으로 옮깁니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -444,39 +292,7 @@
       "post": {
         "summary": "GMAIL 라벨 생성",
         "description": "라벨을 생성합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "라벨 생성을 위한 정보.",
@@ -509,39 +325,7 @@
       "post": {
         "summary": "GMAIL 라벨 부여",
         "description": "메일에 라벨을 부여합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "mailId",
@@ -582,39 +366,7 @@
       "delete": {
         "summary": "GMAIL 라벨 제거",
         "description": "메일에 부여된 라벨을 제거합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
-        "tags": [
-          "Gmail",
-          "지메일",
-          "이메일",
-          "메일",
-          "스팸",
-          "첨부파일",
-          "필터",
-          "자동",
-          "답장",
-          "중요",
-          "구글",
-          "메일함",
-          "일정",
-          "비즈니스",
-          "Email",
-          "Mail",
-          "Send",
-          "Check",
-          "Manage",
-          "Search",
-          "Attachment",
-          "Set",
-          "Auto",
-          "Reply",
-          "Archive",
-          "Mark",
-          "Delete",
-          "Google",
-          "Mailbox",
-          "Schedule",
-          "Business"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "mailId",
@@ -1197,124 +949,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Gmail"
-    },
-    {
-      "name": "지메일"
-    },
-    {
-      "name": "이메일",
-      "description": "보내기"
-    },
-    {
-      "name": "메일",
-      "description": "관리"
-    },
-    {
-      "name": "스팸",
-      "description": "메일 관리"
-    },
-    {
-      "name": "첨부파일"
-    },
-    {
-      "name": "필터",
-      "description": "설정"
-    },
-    {
-      "name": "자동",
-      "description": "회신"
-    },
-    {
-      "name": "답장"
-    },
-    {
-      "name": "중요",
-      "description": "표시"
-    },
-    {
-      "name": "구글",
-      "description": "메일"
-    },
-    {
-      "name": "메일함",
-      "description": "용량"
-    },
-    {
-      "name": "일정",
-      "description": "예약"
-    },
-    {
-      "name": "비즈니스",
-      "description": "이메일"
-    },
-    {
-      "name": "Email",
-      "description": "Notification"
-    },
-    {
-      "name": "Mail"
-    },
-    {
-      "name": "Send",
-      "description": "Email"
-    },
-    {
-      "name": "Check",
-      "description": "Email"
-    },
-    {
-      "name": "Manage",
-      "description": "Mail"
-    },
-    {
-      "name": "Search",
-      "description": "Email"
-    },
-    {
-      "name": "Attachment"
-    },
-    {
-      "name": "Set",
-      "description": "Filter"
-    },
-    {
-      "name": "Auto",
-      "description": "Reply"
-    },
-    {
-      "name": "Reply"
-    },
-    {
-      "name": "Archive",
-      "description": "Email"
-    },
-    {
-      "name": "Mark",
-      "description": "as Important"
-    },
-    {
-      "name": "Delete",
-      "description": "Email"
-    },
-    {
-      "name": "Google",
-      "description": "Mail"
-    },
-    {
-      "name": "Mailbox",
-      "description": "Storage"
-    },
-    {
-      "name": "Schedule",
-      "description": "Email Sending"
-    },
-    {
-      "name": "Business",
-      "description": "Email"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }
