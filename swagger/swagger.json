@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.143",
+    "version": "0.1.144",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -14304,7 +14304,7 @@
               ]
             },
             "title": "가져올 데이터 (필드) 정보.",
-            "description": "캘린더 데이터에서 가져올 데이터 정보입니다."
+            "description": "캘린더 데이터에서 가져올 데이터 정보입니다.\n\n가능한 값으로는 \"summary\", \"description\", \"htmlLink\", \"created\", \"updated\", \"location\", \"organizer\", \"creator\", \"start\", \"end\", \"attendees\", \"reminders\", \"attachments\" 11가지만 가능합니다."
           },
           "time_max": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
