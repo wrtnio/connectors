@@ -10,6 +10,8 @@ export const docsExtensions = [
   "gz",
   "sqlite",
   "db",
+  "json",
+  "csv",
 ] as const;
 
 export const imageExtensions = [
