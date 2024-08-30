@@ -79,6 +79,8 @@ export namespace IGoogleCalendar {
     /**
      * 캘린더 데이터에서 가져올 데이터 정보입니다.
      *
+     * 가능한 값으로는 "summary", "description", "htmlLink", "created", "updated", "location", "organizer", "creator", "start", "end", "attendees", "reminders", "attachments" 11가지만 가능합니다.
+     *
      * @title 가져올 데이터 (필드) 정보.
      */
     extract_fields: ExtractFields[];
