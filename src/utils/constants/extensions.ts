@@ -12,6 +12,7 @@ export const docsExtensions = [
   "db",
   "json",
   "csv",
+  "ttf",
 ] as const;
 
 export const imageExtensions = [
