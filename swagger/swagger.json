@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.148",
+    "version": "0.1.150",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -19202,8 +19202,16 @@
             "title": "Nickname"
           },
           "profile_thumbnail_image": {
-            "type": "string",
-            "format": "uri",
+            "oneOf": [
+              {
+                "const": "",
+                "title": "NO_PROFILE_IMAGE"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
             "title": "Thumbnail"
           }
         },
@@ -19703,7 +19711,7 @@
             "type": "string",
             "format": "url",
             "contentMediaType": "image/*",
-            "title": "Profile image URL of the subscribed calendar"
+            "title": "Profile image URL of the subscribed calendar\n\nIf an empty string appears, it means there is no image."
           },
           "thumbnail_url": {
             "type": "string",
