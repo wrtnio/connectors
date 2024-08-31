@@ -130,7 +130,9 @@ export namespace IKakaoTalk {
     /**
      * @title Thumbnail
      */
-    profile_thumbnail_image?: string & tags.Format<"uri">;
+    profile_thumbnail_image?:
+      | (string & tags.Format<"uri">)
+      | tags.Constant<"", { title: "NO_PROFILE_IMAGE" }>;
   }
 
   /**
@@ -504,10 +506,12 @@ export namespace IKakaoTalk {
 
     /**
      * @title Profile image URL of the subscribed calendar
+     *
+     * If an empty string appears, it means there is no image.
      */
-    profile_image_url?: string &
-      tags.Format<"url"> &
-      ContentMediaType<"image/*">;
+    profile_image_url?:
+      | (string & tags.Format<"url"> & ContentMediaType<"image/*">)
+      | tags.Constant<"", { title: "NO_PROFILE_IMAGE" }>;
 
     /**
      * @title Thumbnail URL of the subscribed calendar's speech bubble
