@@ -18135,13 +18135,13 @@
           "content": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/titlestringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
               },
               {
-                "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum...)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum...)undefinedlinkButtonLink"
               },
               {
-                "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
               }
             ],
             "title": "Message Content"
@@ -18335,7 +18335,7 @@
         ],
         "title": "iOS App Link"
       },
-      "titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink": {
+      "titlestringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink": {
         "type": "object",
         "properties": {
           "title": {
@@ -18377,7 +18377,7 @@
           "link"
         ]
       },
-      "image_urlstringFormaturlimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum...)undefinedlinkButtonLink": {
+      "image_urlstringFormaturlimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum...)undefinedlinkButtonLink": {
         "type": "object",
         "properties": {
           "image_url": {
@@ -18421,7 +18421,7 @@
           "link"
         ]
       },
-      "descriptionstringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink": {
+      "descriptionstringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink": {
         "type": "object",
         "properties": {
           "description": {
@@ -18521,13 +18521,13 @@
           "content": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/titlestringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
               },
               {
-                "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum...)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum...)undefinedlinkButtonLink"
               },
               {
-                "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
               }
             ],
             "title": "Message Content"
@@ -18631,13 +18631,13 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                  "$ref": "#/components/schemas/titlestringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
                 },
                 {
-                  "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum...)undefinedlinkButtonLink"
+                  "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum...)undefinedlinkButtonLink"
                 },
                 {
-                  "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                  "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
                 }
               ]
             },
@@ -18719,13 +18719,13 @@
           "content": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/titlestringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/titlestringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
               },
               {
-                "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum...)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/image_urlstringFormaturlimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum...)undefinedlinkButtonLink"
               },
               {
-                "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeint32Minimum200)undefinedimage_height(numberTypeint32Minimum200)undefinedlinkButtonLink"
+                "$ref": "#/components/schemas/descriptionstringimage_width(numberTypeuint64Minimum200)undefinedimage_height(numberTypeuint64Minimum200)undefinedlinkButtonLink"
               }
             ],
             "title": "Message Content"
