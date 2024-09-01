@@ -11,6 +11,7 @@ import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExce
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
+import axios from "axios";
 
 export namespace ExcelProvider {
   export const region = "ap-northeast-2";
@@ -144,8 +145,8 @@ export namespace ExcelProvider {
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
     try {
-      const { sheetName, data } = input;
-      const workbook = new Excel.Workbook();
+      const { sheetName, data, fileUrl } = input;
+      const workbook = await getExcelFile({ fileUrl });
       workbook.addWorksheet(sheetName ?? "Sheet1");
 
       const sheet = workbook.getWorksheet(sheetName ?? 1);
@@ -168,31 +169,33 @@ export namespace ExcelProvider {
       });
 
       const modifiedBuffer = await workbook.xlsx.writeBuffer();
-
+      const buffer = Buffer.from(modifiedBuffer);
       const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
 
-      const uploadCommand = new PutObjectCommand({
-        Bucket: ExcelProvider.bucket,
-        Key: key,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        Body: modifiedBuffer,
-        ContentType:
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
-      });
-
-      await ExcelProvider.s3.send(uploadCommand);
-
-      return {
-        fileUrl: `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`,
-      };
+      return await upsertFile({ Key: key, Body: buffer });
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
     }
   }
 
-  export async function createSheets(input: IExcel.ICreateSheetInput) {
+  export async function getExcelFile(input: {
+    fileUrl?: string;
+  }): Promise<Excel.Workbook> {
+    if (input.fileUrl) {
+      const response = await axios.get(input.fileUrl, {
+        responseType: "arraybuffer",
+      });
+
+      // 워크북 로드
+      return new Excel.Workbook().xlsx.load(response.data);
+    }
+    return new Excel.Workbook();
+  }
+
+  export async function createSheets(
+    input: IExcel.ICreateSheetInput,
+  ): Promise<IExcel.IExportExcelFileOutput> {
     const workbook = new Excel.Workbook();
     workbook.addWorksheet(input.sheetName ?? "Sheet1");
 
@@ -200,16 +203,23 @@ export namespace ExcelProvider {
     const buffer = Buffer.from(modifiedBuffer);
     const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
 
+    return await upsertFile({ Key: key, Body: buffer });
+  }
+
+  export async function upsertFile(input: {
+    Key: string;
+    Body: Buffer;
+  }): Promise<IExcel.IExportExcelFileOutput> {
     const ContentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     const uploadCommand = new PutObjectCommand({
       Bucket: ExcelProvider.bucket,
-      Key: key,
-      Body: buffer,
+      Key: input.Key,
+      Body: input.Body,
       ContentType,
     });
 
     await ExcelProvider.s3.send(uploadCommand);
-    const fileUrl = `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`;
+    const fileUrl = `https://${ExcelProvider.bucket}.s3.amazonaws.com/${input.Key}`;
     return { fileUrl };
   }
 }

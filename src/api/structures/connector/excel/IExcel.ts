@@ -94,9 +94,9 @@ export namespace IExcel {
      *
      * @title 엑셀 파일
      */
-    //fileUrl: string &
-    //tags.Format<"uri"> &
-    //ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
+    fileUrl?: string &
+      tags.Format<"uri"> &
+      ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
      * key가 header 이름이고 value가 해당 행의 값인 객체의 배열

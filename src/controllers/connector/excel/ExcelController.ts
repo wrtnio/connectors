@@ -43,11 +43,16 @@ export class ExcelController {
   }
 
   /**
-   * 데이터를 엑셀시트에 추가합니다.
+   * 데이터를 엑셀 시트에 추가합니다.
    *
    * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
+   * Therefore, this feature can also be used for sheet creation.
    * If you want to create a sheet only and create an empty file without any data,
    * you just need to specify the name of the sheet without any data.
+   *
+   * When adding rows to an already existing sheet,
+   * it is supposed to be added to the lower line, so it is recommended to check the data before adding it.
+   * If you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.
    *
    * @summary 액셀 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
