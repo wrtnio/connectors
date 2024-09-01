@@ -142,7 +142,7 @@ export namespace ExcelProvider {
 
   export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
-  ): Promise<IExcel.IInsertExcelRowOutput> {
+  ): Promise<IExcel.IExportExcelFileOutput> {
     try {
       const { sheetName, data } = input;
       const workbook = new Excel.Workbook();
@@ -192,7 +192,7 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function create(input: IExcel.ICreateSheetInput) {
+  export async function createSheets(input: IExcel.ICreateSheetInput) {
     const workbook = new Excel.Workbook();
     workbook.addWorksheet(input.sheetName ?? "Sheet1");
 

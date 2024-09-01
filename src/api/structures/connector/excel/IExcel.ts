@@ -21,7 +21,7 @@ export namespace IExcel {
      *
      * @title sheet 이름
      */
-    sheetName?: (string & Placeholder<"sheet1">) | null;
+    sheetName?: (string & Placeholder<"Sheet1">) | null;
   }
 
   /**
@@ -113,13 +113,13 @@ export namespace IExcel {
      *
      * @title 엑셀 시트 이름
      */
-    sheetName?: (string & Placeholder<"sheet1">) | null;
+    sheetName?: (string & Placeholder<"Sheet1">) | null;
   }
 
   /**
    * @title 엑셀 행 추가 결과
    */
-  export interface IInsertExcelRowOutput {
+  export interface IExportExcelFileOutput {
     /**
      * @title 생성된 엑셀 파일 url
      */

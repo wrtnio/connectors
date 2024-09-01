@@ -58,19 +58,18 @@ export class ExcelController {
   )
   async insertRows(
     @core.TypedBody() input: IExcel.IInsertExcelRowInput,
-  ): Promise<IExcel.IInsertExcelRowOutput> {
+  ): Promise<IExcel.IExportExcelFileOutput> {
     return retry(() => ExcelProvider.insertRows(input))();
   }
 
   /**
-   * 데이터를 엑셀시트에 추가합니다.
+   * Add Excel files and sheet
    *
-   * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
-   * If you want to create a sheet only and create an empty file without any data,
-   * you just need to specify the name of the sheet without any data.
+   * Create an Excel file and get the link back.
+   * You can also forward this link to the following connector to reflect further modifications.
+   * When creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.
    *
-   * @summary 액셀 데이터 추가
-   * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
+   * @summary Add Excel files and sheetㄴ
    */
   @core.TypedRoute.Post()
   @RouteIcon(
@@ -78,7 +77,7 @@ export class ExcelController {
   )
   async createSheets(
     @core.TypedBody() input: IExcel.ICreateSheetInput,
-  ): Promise<IExcel.IInsertExcelRowOutput> {
-    return retry(() => ExcelProvider.create(input))();
+  ): Promise<IExcel.IExportExcelFileOutput> {
+    return retry(() => ExcelProvider.createSheets(input))();
   }
 }
