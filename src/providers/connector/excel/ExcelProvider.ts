@@ -191,4 +191,25 @@ export namespace ExcelProvider {
       throw error;
     }
   }
+
+  export async function create(input: IExcel.ICreateSheetInput) {
+    const workbook = new Excel.Workbook();
+    workbook.addWorksheet(input.sheetName ?? "Sheet1");
+
+    const modifiedBuffer: ArrayBuffer = await workbook.xlsx.writeBuffer();
+    const buffer = Buffer.from(modifiedBuffer);
+    const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
+
+    const ContentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+    const uploadCommand = new PutObjectCommand({
+      Bucket: ExcelProvider.bucket,
+      Key: key,
+      Body: buffer,
+      ContentType,
+    });
+
+    await ExcelProvider.s3.send(uploadCommand);
+    const fileUrl = `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`;
+    return { fileUrl };
+  }
 }

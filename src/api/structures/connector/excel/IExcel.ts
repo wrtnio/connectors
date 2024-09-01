@@ -87,7 +87,7 @@ export namespace IExcel {
   /**
    * @title 데이터 추가를 위한 정보
    */
-  export interface IInsertExcelRowInput {
+  export interface IInsertExcelRowInput extends ICreateSheetInput {
     // TODO: 당장은 flow 상 새로운 파일을 제공하여 유저가 다운로드 받는 flow만 서포트.
     /**
      * 엑셀 행을 추가할 파일.
@@ -99,19 +99,21 @@ export namespace IExcel {
     //ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
+     * key가 header 이름이고 value가 해당 행의 값인 객체의 배열
+     *
+     * @title 추가할 엑셀 행 데이터
+     */
+    data: Record<string, any>[];
+  }
+
+  export interface ICreateSheetInput {
+    /**
      * 엑셀 행을 추가할 시트 이름
      * 입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다.
      *
      * @title 엑셀 시트 이름
      */
     sheetName?: (string & Placeholder<"sheet1">) | null;
-
-    /**
-     * key가 header 이름이고 value가 해당 행의 값인 객체의 배열
-     *
-     * @title 추가할 엑셀 행 데이터
-     */
-    data: Record<string, any>[];
   }
 
   /**
