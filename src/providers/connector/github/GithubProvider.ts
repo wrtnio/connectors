@@ -803,6 +803,25 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getLabels(
+    input: IGithub.IGetLabelInput,
+  ): Promise<IGithub.IGetLabelOutput> {
+    const { owner, repo, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/labels?${queryParameter}`;
+
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   /**
    * @param link res.headers['link']에 해당하는 문자열
    * @returns

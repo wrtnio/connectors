@@ -674,6 +674,28 @@ export class GithubController {
   }
 
   /**
+   * List labels for a repository
+   *
+   * View a list of issues created and used in that repository.
+   * Each issue will only have labels that are already registered in this repository.
+   * Of course, it doesn't necessarily mean that you have to use only the labels here when creating issues,
+   * but it would be beneficial to assign them by referring to the labels here.
+   *
+   * @summary List labels for a repository
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("get-labels")
+  async getLabels(
+    @TypedBody() input: IGithub.IGetLabelInput,
+  ): Promise<IGithub.IGetLabelOutput> {
+    return this.githubProvider.getLabels(input);
+  }
+
+  /**
    * Get user's profile
    *
    * 유저의 토큰을 쓰지 말고, 그냥 get-user-profile connector로 조회하는 것이 더 빠를 것이기 때문에 아래 로직은 Depreacted로 변경한다.
@@ -699,6 +721,8 @@ export class GithubController {
    * Create an issue, where you can enter labels and assignes together.
    * The information you must enter is who will create the issue in the owner's repository and under what title.
    * The information in the text should follow the markdown grammar allowed by github.
+   *
+   * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
    *
    * @summary Create an issue
    * @param input

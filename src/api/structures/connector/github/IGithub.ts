@@ -772,6 +772,48 @@ export namespace IGithub {
     username: User["login"];
   }
 
+  export interface IGetLabelOutput extends ICommonPaginationOutput {
+    result: IGithub.Label[];
+  }
+
+  export type Label = {
+    /**
+     * @title label name
+     */
+    name: string;
+
+    /**
+     * @title color
+     */
+    color: string;
+
+    /**
+     * @title default
+     *
+     * True if it is not created by the user but automatically created from the beginning.
+     */
+    default: boolean;
+
+    /**
+     * @title description
+     */
+    description: string;
+  };
+
+  export interface IGetLabelInput
+    extends Pick<ICommonPaginationInput, "per_page" | "page">,
+      ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+  }
+
   export interface IGetFollowerOutput extends ICommonPaginationOutput {
     /**
      * @title followers
