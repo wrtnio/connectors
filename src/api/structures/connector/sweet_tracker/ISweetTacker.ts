@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 export namespace ISweetTracker {
@@ -36,10 +37,23 @@ export namespace ISweetTracker {
 
     /**
      * 택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다
+     * 택배사의 이름이 아닌 임의의 코드 값임에 주의해야 한다
      *
      * @title 택배사 코드
      */
-    t_code: string;
+    t_code: string &
+      (
+        | Prerequisite<{
+            path: "/connector/sweet-tracker/get-companies";
+            method: "post";
+            jmesPath: "Company[].{value:Code, label:Name}";
+          }>
+        | Prerequisite<{
+            path: "/connector/sweet-tracker/get-companies/recommended";
+            method: "post";
+            jmesPath: "Recommend[].{value:Code, label:Name}";
+          }>
+      );
   }
 
   export interface IGetTrackingInfoOutput {
@@ -51,7 +65,7 @@ export namespace ISweetTracker {
     /**
      * @title 받는 사람 주소
      */
-    receiverAddr: string;
+    receiverAddr?: string;
 
     /**
      * 경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다
@@ -73,7 +87,7 @@ export namespace ISweetTracker {
      *
      * @title 배송 예정 시간
      */
-    estimate: string;
+    estimate: string | null;
 
     /**
      * @title 상품 이미지 URL
