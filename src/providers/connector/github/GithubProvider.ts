@@ -507,6 +507,29 @@ export class GithubProvider {
     return res.data;
   }
 
+  async createIssue(
+    input: IGithub.ICreateIssueInput,
+  ): Promise<IGithub.ICreateIssueOutput> {
+    const { owner, repo } = input;
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues`;
+    const res = await axios.post(
+      url,
+      {
+        title: input.title,
+        body: input.body,
+        assignees: input.assignees,
+        labels: input.labels,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
+  }
+
   async getRepositoryActivities(
     input: IGithub.IGetRepositoryActivityInput,
   ): Promise<IGithub.IGetRepositoryActivityOutput> {

@@ -694,6 +694,24 @@ export class GithubController {
   }
 
   /**
+   * Leave an issue in the repository
+   *
+   * Create an issue, where you can enter labels and assignes together.
+   * The information you must enter is who will create the issue in the owner's repository and under what title.
+   * The information in the text should follow the markdown grammar allowed by github.
+   *
+   * @summary Create an issue
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("issue")
+  async createIssue(
+    @TypedBody() input: IGithub.ICreateIssueInput,
+  ): Promise<IGithub.ICreateIssueOutput> {
+    return this.githubProvider.createIssue(input);
+  }
+
+  /**
    * @internal
    */
   @core.TypedRoute.Post("upload")

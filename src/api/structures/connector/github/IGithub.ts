@@ -724,6 +724,45 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
+  export type ICreateIssueOutput = IGithub.Issue;
+
+  export interface ICreateIssueInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title tite of this issue
+     */
+    title: string;
+
+    /**
+     * @title bodt of this issue
+     *
+     * It can be markdown format
+     */
+    body?: string;
+
+    /**
+     * @title assignees
+     *
+     * Deliver the user nickname to be designated as the person in charge in the array.
+     */
+    assignees?: User["login"][];
+
+    /**
+     * @title labels
+     */
+    labels: string[];
+  }
+
   export interface IGetFolloweeInput
     extends ICommonPaginationInput,
       ICommon.ISecret<"github", ["user"]> {
