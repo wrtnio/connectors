@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.150",
+    "version": "0.1.151",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -17758,7 +17758,6 @@
           }
         },
         "required": [
-          "senderName",
           "receiverAddr",
           "firstDetail",
           "level",
