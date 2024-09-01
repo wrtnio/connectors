@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.153",
+    "version": "0.1.154",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -1191,7 +1191,7 @@
     },
     "/connector/excel": {
       "post": {
-        "summary": "Add Excel files and sheetㄴ",
+        "summary": "Add Excel files and sheet",
         "description": "Add Excel files and sheet\n\nCreate an Excel file and get the link back.\nYou can also forward this link to the following connector to reflect further modifications.\nWhen creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.",
         "tags": [],
         "parameters": [],
@@ -19243,7 +19243,7 @@
                 "default": "favorite"
               }
             ],
-            "title": "Sort criteria of the friends list"
+            "title": "Sort criteria of the friends list\n\nIt must be one of: 'favorite', 'nickname'.\nDefault value is 'favorite'."
           },
           "secretKey": {
             "type": "string",
