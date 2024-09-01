@@ -46,7 +46,7 @@ export namespace ISweetTracker {
     /**
      * @title 보내는 사람 이름
      */
-    senderName: string;
+    senderName?: string;
 
     /**
      * @title 받는 사람 주소
