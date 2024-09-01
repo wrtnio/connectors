@@ -724,6 +724,45 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
+  export type ICreateIssueOutput = IGithub.Issue;
+
+  export interface ICreateIssueInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title tite of this issue
+     */
+    title: string;
+
+    /**
+     * @title bodt of this issue
+     *
+     * It can be markdown format
+     */
+    body?: string;
+
+    /**
+     * @title assignees
+     *
+     * Deliver the user nickname to be designated as the person in charge in the array.
+     */
+    assignees?: User["login"][];
+
+    /**
+     * @title labels
+     */
+    labels: string[];
+  }
+
   export interface IGetFolloweeInput
     extends ICommonPaginationInput,
       ICommon.ISecret<"github", ["user"]> {
@@ -731,6 +770,48 @@ export namespace IGithub {
      * @title user's nickname
      */
     username: User["login"];
+  }
+
+  export interface IGetLabelOutput extends ICommonPaginationOutput {
+    result: IGithub.Label[];
+  }
+
+  export type Label = {
+    /**
+     * @title label name
+     */
+    name: string;
+
+    /**
+     * @title color
+     */
+    color: string;
+
+    /**
+     * @title default
+     *
+     * True if it is not created by the user but automatically created from the beginning.
+     */
+    default: boolean;
+
+    /**
+     * @title description
+     */
+    description: string;
+  };
+
+  export interface IGetLabelInput
+    extends Pick<ICommonPaginationInput, "per_page" | "page">,
+      ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
   }
 
   export interface IGetFollowerOutput extends ICommonPaginationOutput {
@@ -1644,7 +1725,15 @@ export namespace IGithub {
 
   export type Issue = {
     id: number & tags.Type<"uint64">;
-    url: string & tags.Format<"uri">;
+
+    /**
+     * @title html_url
+     *
+     * If you want to see the issue or pull_request on the web, you can go to this link.
+     * If pull is included on this link path, it is pull_request, and if issue is included, it is issue.
+     * In essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path.
+     */
+    html_url: string & tags.Format<"uri">;
 
     /**
      * @title issue number
@@ -1652,6 +1741,7 @@ export namespace IGithub {
      * Number uniquely identifying the issue within its repository
      */
     number: number & tags.Type<"uint64">;
+
     /**
      * @title state
      *
@@ -1675,11 +1765,17 @@ export namespace IGithub {
     user: Pick<IGithub.User, "id" | "login" | "type">;
 
     /**
+     * @title body
+     *
      * Contents of the issue
+     *
+     * You can also render this content because it is in a markdown format.
      */
     body?: string | null;
 
     /**
+     * @title labels
+     *
      * Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository
      */
     labels: (
@@ -1694,7 +1790,16 @@ export namespace IGithub {
         }
     )[];
 
+    /**
+     * @title assignee
+     */
     assignee: Pick<IGithub.User, "id" | "login" | "type"> | null;
+
+    /**
+     * @title assignees
+     *
+     * If there are many people in charge, you can be included in the array.
+     */
     assignees?: Pick<IGithub.User, "id" | "login" | "type">[] | null;
   };
 

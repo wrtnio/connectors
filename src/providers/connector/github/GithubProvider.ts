@@ -507,6 +507,29 @@ export class GithubProvider {
     return res.data;
   }
 
+  async createIssue(
+    input: IGithub.ICreateIssueInput,
+  ): Promise<IGithub.ICreateIssueOutput> {
+    const { owner, repo } = input;
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues`;
+    const res = await axios.post(
+      url,
+      {
+        title: input.title,
+        body: input.body,
+        assignees: input.assignees,
+        labels: input.labels,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
+  }
+
   async getRepositoryActivities(
     input: IGithub.IGetRepositoryActivityInput,
   ): Promise<IGithub.IGetRepositoryActivityOutput> {
@@ -773,6 +796,25 @@ export class GithubProvider {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async getLabels(
+    input: IGithub.IGetLabelInput,
+  ): Promise<IGithub.IGetLabelOutput> {
+    const { owner, repo, secretKey, ...rest } = input;
+    const per_page = input.per_page ?? 30;
+    const queryParameter = createQueryParameter({ ...rest, per_page });
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/labels?${queryParameter}`;
+
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
 

@@ -76,7 +76,7 @@ export const test_api_connector_excel_insert_rows_with_file_url = async (
 };
 
 // 이전 실패 케이스에 대한 테스트 코드 추가
-export const test_api_connector_excel_insert_row_fail_case = async (
+export const test_api_connector_excel_insert_row_fail_case_1 = async (
   connection: CApi.IConnection,
 ) => {
   const file = await CApi.functional.connector.excel.createSheets(connection, {
@@ -98,6 +98,57 @@ export const test_api_connector_excel_insert_row_fail_case = async (
       fileUrl: file.fileUrl,
       sheetName: "TEST",
       data,
+    },
+  );
+
+  typia.assert(res);
+};
+
+// 이전 실패 케이스에 대한 테스트 코드 추가
+export const test_api_connector_excel_insert_row_fail_case_2 = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      sheetName: "Sheet1",
+      data: [
+        {
+          AirlineName: "Air Mock",
+          FlightNumber: "AM1234",
+          DepartureTime: "08:00",
+          ArrivalTime: "10:00",
+          Status: "On Time",
+        },
+        {
+          AirlineName: "Sky High",
+          FlightNumber: "SH5678",
+          DepartureTime: "09:30",
+          ArrivalTime: "11:30",
+          Status: "Delayed",
+        },
+        {
+          AirlineName: "Cloud Airlines",
+          FlightNumber: "CA9101",
+          DepartureTime: "12:00",
+          ArrivalTime: "14:00",
+          Status: "Cancelled",
+        },
+        {
+          AirlineName: "Jet Setters",
+          FlightNumber: "JS2345",
+          DepartureTime: "15:15",
+          ArrivalTime: "17:15",
+          Status: "On Time",
+        },
+        {
+          AirlineName: "Fly Fast",
+          FlightNumber: "FF6789",
+          DepartureTime: "18:45",
+          ArrivalTime: "20:45",
+          Status: "On Time",
+        },
+      ],
     },
   );
 
