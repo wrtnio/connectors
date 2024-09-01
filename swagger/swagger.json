@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.152",
+    "version": "0.1.153",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -17627,7 +17627,14 @@
             "description": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다"
           },
           "estimate": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "배송 예정 시간",
             "description": "'15시~17시' 형식의 텍스트"
           },
@@ -17717,7 +17724,6 @@
           }
         },
         "required": [
-          "receiverAddr",
           "firstDetail",
           "level",
           "lastDetail",
@@ -17852,9 +17858,26 @@
             "title": "송장번호"
           },
           "t_code": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "path": "/connector/sweet-tracker/get-companies",
+                  "method": "post",
+                  "jmesPath": "Company[].{value:Code, label:Name}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "path": "/connector/sweet-tracker/get-companies/recommended",
+                  "method": "post",
+                  "jmesPath": "Recommend[].{value:Code, label:Name}"
+                }
+              }
+            ],
             "title": "택배사 코드",
-            "description": "택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다"
+            "description": "택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다\n택배사의 이름이 아닌 임의의 코드 값임에 주의해야 한다"
           }
         },
         "required": [
