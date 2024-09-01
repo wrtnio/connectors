@@ -5,18 +5,84 @@ import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExce
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
+export const test_api_connector_excel_create_file_witnout_sheet_name = async (
+  connection: CApi.IConnection,
+) => {
+  const file = await CApi.functional.connector.excel.createSheets(connection, {
+    sheetName: "TEST",
+  });
+
+  typia.assertEquals(file);
+};
+
+export const test_api_connector_excel_create_file_with_sheet_name = async (
+  connection: CApi.IConnection,
+) => {
+  const file = await CApi.functional.connector.excel.createSheets(
+    connection,
+    {},
+  );
+
+  typia.assertEquals(file);
+};
+
+export const test_api_connector_excel_insert_rows_without_file_url = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * insert rows
+   */
+  const data = {
+    Identifier: random<string>(),
+    "First name": random<string>(),
+    "Last name": random<string>(),
+  };
+
+  const res = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      data: [data],
+    },
+  );
+
+  typia.assertEquals(res);
+};
+
+export const test_api_connector_excel_insert_rows_with_file_url = async (
+  connection: CApi.IConnection,
+) => {
+  const file = await CApi.functional.connector.excel.createSheets(connection, {
+    sheetName: "TEST",
+  });
+
+  /**
+   * insert rows
+   */
+  const data = {
+    Identifier: random<string>(),
+    "First name": random<string>(),
+    "Last name": random<string>(),
+  };
+
+  const res = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      fileUrl: file.fileUrl,
+      data: [data],
+    },
+  );
+
+  typia.assert(res);
+};
+
+/**
+ * 기존 테스트 코드
+ *
+ * @param connection
+ */
 export const test_api_connector_excel = async (
   connection: CApi.IConnection,
 ) => {
-  // /**
-  //  * create new file
-  //  */
-  // const createExcelInput = {
-  //   name: 'connector-test-test-test'
-  // }
-  // const createExcelOutput = await CApi.functional.connector.excel.create(connection, createExcelInput);
-  // typia.assertEquals<IExcel.ICreateExcelOutput>(createExcelOutput);
-
   /**
    * read worksheet list
    */
