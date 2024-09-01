@@ -88,9 +88,12 @@ export namespace IExcel {
    * @title 데이터 추가를 위한 정보
    */
   export interface IInsertExcelRowInput extends ICreateSheetInput {
-    // TODO: 당장은 flow 상 새로운 파일을 제공하여 유저가 다운로드 받는 flow만 서포트.
     /**
-     * 엑셀 행을 추가할 파일.
+     * 엑셀 행을 추가할 파일
+     *
+     * If you have this address, take an Excel file from that path and modify it.
+     * The modified file is saved as a new link and does not modify the original file in this path.
+     * If this address does not exist, create a new file immediately.
      *
      * @title 엑셀 파일
      */
