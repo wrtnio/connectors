@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.151",
+    "version": "0.1.152",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -1099,39 +1099,7 @@
       "post": {
         "summary": "엑셀 파일 안의 내용 가져오기",
         "description": "입력된 파일 정보를 바탕으로 해당 엑셀 파일의 내용을 가져옵니다.",
-        "tags": [
-          "Excel",
-          "엑셀",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터",
-          "텍스트",
-          "대량",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save",
-          "Load",
-          "Data",
-          "Database",
-          "Import",
-          "Convert",
-          "Text",
-          "Large",
-          "Edit",
-          "Split",
-          "Integrate",
-          "Create",
-          "Open",
-          "Filter",
-          "Merge"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "내용을 가져올 엑셀 파일 정보",
@@ -1162,39 +1130,7 @@
       "post": {
         "summary": "액셀 워크 시트 목록 가져오기",
         "description": "입력된 파일 url에 존재하는 엑셀 워크 시트 목록을 가져옵니다.",
-        "tags": [
-          "Excel",
-          "엑셀",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터",
-          "텍스트",
-          "대량",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save",
-          "Load",
-          "Data",
-          "Database",
-          "Import",
-          "Convert",
-          "Text",
-          "Large",
-          "Edit",
-          "Split",
-          "Integrate",
-          "Create",
-          "Open",
-          "Filter",
-          "Merge"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "워크 시트 목록을 가져올 엑셀 파일 url",
@@ -1225,40 +1161,8 @@
     "/connector/excel/rows": {
       "post": {
         "summary": "액셀 데이터 추가",
-        "description": "데이터를 엑셀시트에 추가합니다.",
-        "tags": [
-          "Excel",
-          "엑셀",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터",
-          "텍스트",
-          "대량",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save",
-          "Load",
-          "Data",
-          "Database",
-          "Import",
-          "Convert",
-          "Text",
-          "Large",
-          "Edit",
-          "Split",
-          "Integrate",
-          "Create",
-          "Open",
-          "Filter",
-          "Merge"
-        ],
+        "description": "데이터를 엑셀 시트에 추가합니다.\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "엑셀 파일에 새로운 데이터를 추가 하기 위한 정보",
@@ -1276,7 +1180,37 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IExcel.IInsertExcelRowOutput"
+                  "$ref": "#/components/schemas/IExcel.IExportExcelFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/excel": {
+      "post": {
+        "summary": "Add Excel files and sheetㄴ",
+        "description": "Add Excel files and sheet\n\nCreate an Excel file and get the link back.\nYou can also forward this link to the following connector to reflect further modifications.\nWhen creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.ICreateSheetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IExcel.IExportExcelFileOutput"
                 }
               }
             }
@@ -12671,7 +12605,7 @@
               },
               {
                 "type": "string",
-                "x-wrtn-placeholder": "sheet1"
+                "x-wrtn-placeholder": "Sheet1"
               }
             ],
             "title": "sheet 이름",
@@ -12731,7 +12665,7 @@
         ],
         "title": "파일 정보"
       },
-      "IExcel.IInsertExcelRowOutput": {
+      "IExcel.IExportExcelFileOutput": {
         "type": "object",
         "properties": {
           "fileUrl": {
@@ -12749,18 +12683,12 @@
       "IExcel.IInsertExcelRowInput": {
         "type": "object",
         "properties": {
-          "sheetName": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "x-wrtn-placeholder": "sheet1"
-              }
-            ],
-            "title": "엑셀 시트 이름",
-            "description": "엑셀 행을 추가할 시트 이름\n입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다."
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "엑셀 파일",
+            "description": "엑셀 행을 추가할 파일."
           },
           "data": {
             "type": "array",
@@ -12769,6 +12697,19 @@
             },
             "title": "추가할 엑셀 행 데이터",
             "description": "key가 header 이름이고 value가 해당 행의 값인 객체의 배열"
+          },
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "엑셀 시트 이름",
+            "description": "엑셀 행을 추가할 시트 이름\n입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다."
           }
         },
         "required": [
@@ -12781,6 +12722,24 @@
         "properties": {},
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {}
+      },
+      "IExcel.ICreateSheetInput": {
+        "type": "object",
+        "properties": {
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "엑셀 시트 이름",
+            "description": "엑셀 행을 추가할 시트 이름\n입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다."
+          }
+        }
       },
       "IGoogleDocs.ICreateGoogleDocsOutput": {
         "type": "object",
@@ -40977,91 +40936,6 @@
       "description": "Document"
     },
     {
-      "name": "Excel",
-      "description": "엑셀 파일"
-    },
-    {
-      "name": "엑셀",
-      "description": "변환"
-    },
-    {
-      "name": "내보내기"
-    },
-    {
-      "name": "다운로드"
-    },
-    {
-      "name": "추출"
-    },
-    {
-      "name": "추출하기"
-    },
-    {
-      "name": "스프레드시트"
-    },
-    {
-      "name": "데이터",
-      "description": "저장"
-    },
-    {
-      "name": "대량",
-      "description": "데이터"
-    },
-    {
-      "name": "Export",
-      "description": "Data"
-    },
-    {
-      "name": "Download",
-      "description": "Document"
-    },
-    {
-      "name": "Extract",
-      "description": "Data"
-    },
-    {
-      "name": "Spreadsheet"
-    },
-    {
-      "name": "Load",
-      "description": "Data"
-    },
-    {
-      "name": "Data",
-      "description": "Analysis"
-    },
-    {
-      "name": "Database"
-    },
-    {
-      "name": "Import",
-      "description": "Data"
-    },
-    {
-      "name": "Text",
-      "description": "File"
-    },
-    {
-      "name": "Large",
-      "description": "Data"
-    },
-    {
-      "name": "Edit",
-      "description": "Data"
-    },
-    {
-      "name": "Split",
-      "description": "File"
-    },
-    {
-      "name": "Integrate",
-      "description": "Data"
-    },
-    {
-      "name": "Filter",
-      "description": "Data"
-    },
-    {
       "name": "Google-Docs"
     },
     {
@@ -41103,7 +40977,23 @@
       "description": "Document"
     },
     {
+      "name": "Text",
+      "description": "Format"
+    },
+    {
+      "name": "Download",
+      "description": "Document"
+    },
+    {
       "name": "Upload",
+      "description": "Document"
+    },
+    {
+      "name": "Edit",
+      "description": "Document"
+    },
+    {
+      "name": "Export",
       "description": "Document"
     },
     {
@@ -41120,6 +41010,14 @@
     {
       "name": "스프레드",
       "description": "시트"
+    },
+    {
+      "name": "엑셀",
+      "description": "파일"
+    },
+    {
+      "name": "데이터",
+      "description": "입력"
     },
     {
       "name": "함수",
@@ -41157,12 +41055,23 @@
       "description": "복제"
     },
     {
+      "name": "Spreadsheet"
+    },
+    {
+      "name": "Excel",
+      "description": "File"
+    },
+    {
       "name": "Analyze",
       "description": "Data"
     },
     {
       "name": "Cell",
       "description": "Format"
+    },
+    {
+      "name": "Filter",
+      "description": "Data"
     },
     {
       "name": "Pivot",
@@ -41175,6 +41084,14 @@
     {
       "name": "Conditional",
       "description": "Formatting"
+    },
+    {
+      "name": "Import",
+      "description": "File"
+    },
+    {
+      "name": "Load",
+      "description": "CSV"
     },
     {
       "name": "Clean",
@@ -41209,6 +41126,10 @@
     {
       "name": "Lock",
       "description": "Sheet"
+    },
+    {
+      "name": "Extract",
+      "description": "Data"
     },
     {
       "name": "Add",
@@ -41417,6 +41338,21 @@
       "name": "Hancell 엑셀 파일"
     },
     {
+      "name": "내보내기"
+    },
+    {
+      "name": "다운로드"
+    },
+    {
+      "name": "추출"
+    },
+    {
+      "name": "추출하기"
+    },
+    {
+      "name": "스프레드시트"
+    },
+    {
       "name": "데이터 저장"
     },
     {
@@ -41481,6 +41417,9 @@
     },
     {
       "name": "Data Analysis"
+    },
+    {
+      "name": "Database"
     },
     {
       "name": "Export Data"
@@ -42278,6 +42217,26 @@
     },
     {
       "name": "Google-Scholar"
+    },
+    {
+      "name": "대량",
+      "description": "데이터"
+    },
+    {
+      "name": "Data",
+      "description": "Analysis"
+    },
+    {
+      "name": "Large",
+      "description": "Data"
+    },
+    {
+      "name": "Split",
+      "description": "File"
+    },
+    {
+      "name": "Integrate",
+      "description": "Data"
     },
     {
       "name": "Notion"
