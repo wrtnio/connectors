@@ -74,7 +74,7 @@ export class ExcelController {
    * You can also forward this link to the following connector to reflect further modifications.
    * When creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.
    *
-   * @summary Add Excel files and sheetㄴ
+   * @summary Add Excel files and sheet
    */
   @core.TypedRoute.Post()
   @RouteIcon(
