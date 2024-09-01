@@ -81,7 +81,7 @@ export class SweetTrackerController {
     const data = await SweetTrackerProvider.getTrackingInfo(input);
 
     // 안정화되기 전까지 typia.validateEquals 에러를 무조건 찍게 한다.
-    console.log(JSON.stringify(typia.validateEquals(data)));
+    console.log(JSON.stringify(typia.validate(data)));
     return data;
   }
 }
