@@ -54,7 +54,7 @@ export class ExcelController {
    * it is supposed to be added to the lower line, so it is recommended to check the data before adding it.
    * If you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.
    *
-   * @summary 액셀 데이터 추가
+   * @summary 액셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
    */
   @core.TypedRoute.Post("/rows")
