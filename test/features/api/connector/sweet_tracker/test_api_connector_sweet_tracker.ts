@@ -52,3 +52,18 @@ export const test_api_connector_sweet_tracker_get_tracking_info = async (
   typia.assertEquals(res);
   return res;
 };
+
+export const test_api_connector_sweet_tracker_get_tracking_info_2 = async (
+  connection: CApi.IConnection,
+) => {
+  const res =
+    await CApi.functional.connector.sweet_tacker.tracking_info.getTrackingInfo(
+      connection,
+      {
+        t_invoice: "52429929001",
+        t_code: "17",
+      },
+    );
+
+  return res;
+};

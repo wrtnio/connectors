@@ -6,6 +6,7 @@ import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/swee
 
 import { SweetTrackerProvider } from "../../../providers/connector/sweet_tracker/SweetTrackerProvider";
 import { retry } from "../../../utils/retry";
+import typia from "typia";
 
 @Controller("connector/sweet-tacker")
 export class SweetTrackerController {
@@ -77,6 +78,10 @@ export class SweetTrackerController {
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,
   ): Promise<ISweetTracker.IGetTrackingInfoOutput> {
-    return retry(() => SweetTrackerProvider.getTrackingInfo(input))();
+    const data = await SweetTrackerProvider.getTrackingInfo(input);
+
+    // 안정화되기 전까지 typia.validateEquals 에러를 무조건 찍게 한다.
+    console.log(JSON.stringify(typia.validateEquals(data)));
+    return data;
   }
 }
