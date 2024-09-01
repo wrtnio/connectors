@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.154",
+    "version": "0.1.155",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -1160,7 +1160,7 @@
     },
     "/connector/excel/rows": {
       "post": {
-        "summary": "액셀 데이터 추가",
+        "summary": "액셀 생성 및 데이터 추가",
         "description": "데이터를 엑셀 시트에 추가합니다.\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.",
         "tags": [],
         "parameters": [],
@@ -12688,7 +12688,7 @@
             "format": "uri",
             "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             "title": "엑셀 파일",
-            "description": "엑셀 행을 추가할 파일."
+            "description": "엑셀 행을 추가할 파일\n\nIf you have this address, take an Excel file from that path and modify it.\nThe modified file is saved as a new link and does not modify the original file in this path.\nIf this address does not exist, create a new file immediately."
           },
           "data": {
             "type": "array",
