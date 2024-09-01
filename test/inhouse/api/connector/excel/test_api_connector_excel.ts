@@ -75,6 +75,35 @@ export const test_api_connector_excel_insert_rows_with_file_url = async (
   typia.assert(res);
 };
 
+// 이전 실패 케이스에 대한 테스트 코드 추가
+export const test_api_connector_excel_insert_row_fail_case = async (
+  connection: CApi.IConnection,
+) => {
+  const file = await CApi.functional.connector.excel.createSheets(connection, {
+    sheetName: "TEST",
+  });
+
+  const data = [
+    {
+      이름: "홍길동",
+      나이: 25,
+      직업: "엔지니어",
+      이메일: "hong@example.com",
+    },
+  ];
+
+  const res = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      fileUrl: file.fileUrl,
+      sheetName: "TEST",
+      data,
+    },
+  );
+
+  typia.assert(res);
+};
+
 /**
  * 기존 테스트 코드
  *
