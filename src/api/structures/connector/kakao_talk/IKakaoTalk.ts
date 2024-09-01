@@ -87,6 +87,9 @@ export namespace IKakaoTalk {
 
     /**
      * @title Sort criteria of the friends list
+     *
+     * It must be one of: 'favorite', 'nickname'.
+     * Default value is 'favorite'.
      */
     friend_order?: (
       | tags.Constant<"favorite", { title: "Sort by favorite" }>
