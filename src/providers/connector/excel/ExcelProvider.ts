@@ -147,9 +147,16 @@ export namespace ExcelProvider {
     try {
       const { sheetName, data, fileUrl } = input;
       const workbook = await getExcelFile({ fileUrl });
-      workbook.addWorksheet(sheetName ?? "Sheet1");
+      if (
+        workbook.worksheets.every((worksheet) => worksheet.name !== sheetName)
+      ) {
+        // 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
+        workbook.addWorksheet(sheetName ?? "Sheet1");
+      }
 
-      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      // 0번 인덱스는 우리가 생성한 적 없는 시트이므로 패스한다.
+      const CREATED_SHEET = 1 as const;
+      const sheet = workbook.getWorksheet(sheetName ?? CREATED_SHEET);
       if (!sheet) {
         throw new NotFoundException("Not existing sheet");
       }
@@ -160,7 +167,7 @@ export namespace ExcelProvider {
       );
       sheet.addRow(headers);
 
-      data.forEach((rowData: any) => {
+      data.forEach((rowData: Record<string, any>) => {
         const data: string[] = [];
         headers.forEach((header: string) => {
           data.push(rowData[header] ?? "");

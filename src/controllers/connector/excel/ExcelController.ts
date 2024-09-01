@@ -64,7 +64,7 @@ export class ExcelController {
   async insertRows(
     @core.TypedBody() input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
-    return retry(() => ExcelProvider.insertRows(input))();
+    return ExcelProvider.insertRows(input);
   }
 
   /**
