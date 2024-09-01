@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.156",
+    "version": "0.1.157",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -4468,58 +4468,7 @@
       "post": {
         "summary": "한셀 수정",
         "description": "한셀 시트를 수정합니다.\n\n만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.",
-        "tags": [
-          "Hancell 엑셀 파일",
-          "엑셀",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터 저장",
-          "데이터 불러오기",
-          "데이터 분석",
-          "데이터 베이스",
-          "데이터 내보내기",
-          "데이터 가져오기",
-          "엑셀 변환",
-          "텍스트 파일",
-          "데이터 처리",
-          "대량 데이터",
-          "데이터 편집",
-          "파일 분할",
-          "데이터 통합",
-          "엑셀 만들기",
-          "엑셀 파일 열기",
-          "데이터 추출",
-          "데이터 필터링",
-          "데이터 병합",
-          "Hancell",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save Data",
-          "Load Data",
-          "Data Analysis",
-          "Database",
-          "Export Data",
-          "Import Data",
-          "Convert to Hancell",
-          "Text File",
-          "Data Processing",
-          "Large Data",
-          "Edit Data",
-          "Split File",
-          "Integrate Data",
-          "Create Hancell",
-          "Open Hancell File",
-          "Extract Data",
-          "Filter Data",
-          "Merge Data"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "수정할 한셀 정보",
@@ -4551,58 +4500,7 @@
       "post": {
         "summary": "한셀 파일 읽기",
         "description": "한셀 파일을 읽습니다.",
-        "tags": [
-          "Hancell 엑셀 파일",
-          "엑셀",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터 저장",
-          "데이터 불러오기",
-          "데이터 분석",
-          "데이터 베이스",
-          "데이터 내보내기",
-          "데이터 가져오기",
-          "엑셀 변환",
-          "텍스트 파일",
-          "데이터 처리",
-          "대량 데이터",
-          "데이터 편집",
-          "파일 분할",
-          "데이터 통합",
-          "엑셀 만들기",
-          "엑셀 파일 열기",
-          "데이터 추출",
-          "데이터 필터링",
-          "데이터 병합",
-          "Hancell",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save Data",
-          "Load Data",
-          "Data Analysis",
-          "Database",
-          "Export Data",
-          "Import Data",
-          "Convert to Hancell",
-          "Text File",
-          "Data Processing",
-          "Large Data",
-          "Edit Data",
-          "Split File",
-          "Integrate Data",
-          "Create Hancell",
-          "Open Hancell File",
-          "Extract Data",
-          "Filter Data",
-          "Merge Data"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "읽을 한셀 파일 정보",
@@ -11465,6 +11363,36 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/get-labels": {
+      "post": {
+        "summary": "List labels for a repository",
+        "description": "List labels for a repository\n\nView a list of issues created and used in that repository.\nEach issue will only have labels that are already registered in this repository.\nOf course, it doesn't necessarily mean that you have to use only the labels here when creating issues,\nbut it would be beneficial to assign them by referring to the labels here.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetLabelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetLabelOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/get-my-profile": {
       "post": {
         "summary": "Get my profile",
@@ -11488,6 +11416,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StrictOmitIGithub.Userscore"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/issue": {
+      "post": {
+        "summary": "Create an issue",
+        "description": "Leave an issue in the repository\n\nCreate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICreateIssueInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.Issue"
                 }
               }
             }
@@ -36212,9 +36170,10 @@
           "id": {
             "type": "integer"
           },
-          "url": {
+          "html_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "number": {
             "type": "integer",
@@ -36258,7 +36217,7 @@
                 "type": "string"
               }
             ],
-            "description": "Contents of the issue"
+            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
           "labels": {
             "type": "array",
@@ -36307,7 +36266,7 @@
                 }
               ]
             },
-            "description": "Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
+            "title": "labels\n\nLabels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
           },
           "assignee": {
             "oneOf": [
@@ -36317,7 +36276,8 @@
               {
                 "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
               }
-            ]
+            ],
+            "title": "assignee"
           },
           "assignees": {
             "oneOf": [
@@ -36330,12 +36290,13 @@
                   "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
                 }
               }
-            ]
+            ],
+            "title": "assignees\n\nIf there are many people in charge, you can be included in the array."
           }
         },
         "required": [
           "id",
-          "url",
+          "html_url",
           "number",
           "state",
           "title",
@@ -39641,9 +39602,10 @@
           "id": {
             "type": "integer"
           },
-          "url": {
+          "html_url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "number": {
             "type": "integer",
@@ -39687,7 +39649,7 @@
                 "type": "string"
               }
             ],
-            "description": "Contents of the issue"
+            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
           "labels": {
             "type": "array",
@@ -39736,7 +39698,7 @@
                 }
               ]
             },
-            "description": "Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
+            "title": "labels\n\nLabels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
           },
           "assignee": {
             "oneOf": [
@@ -39746,7 +39708,8 @@
               {
                 "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
               }
-            ]
+            ],
+            "title": "assignee"
           },
           "assignees": {
             "oneOf": [
@@ -39759,7 +39722,8 @@
                   "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
                 }
               }
-            ]
+            ],
+            "title": "assignees\n\nIf there are many people in charge, you can be included in the array."
           }
         },
         "required": [
@@ -39768,7 +39732,7 @@
           "merged_at",
           "author_association",
           "id",
-          "url",
+          "html_url",
           "number",
           "state",
           "title",
@@ -40574,6 +40538,128 @@
           "secretKey"
         ]
       },
+      "IGithub.IGetLabelOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Label"
+            }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.Label": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "label name"
+          },
+          "color": {
+            "type": "string",
+            "title": "color"
+          },
+          "default": {
+            "type": "boolean",
+            "title": "default\n\nTrue if it is not created by the user but automatically created from the beginning."
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          }
+        },
+        "required": [
+          "name",
+          "color",
+          "default",
+          "description"
+        ]
+      },
+      "IGithub.IGetLabelInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
       "StrictOmitIGithub.Userscore": {
         "type": "object",
         "properties": {
@@ -40626,6 +40712,57 @@
           }
         },
         "required": [
+          "secretKey"
+        ]
+      },
+      "IGithub.ICreateIssueInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "title": {
+            "type": "string",
+            "title": "tite of this issue"
+          },
+          "body": {
+            "type": "string",
+            "title": "bodt of this issue\n\nIt can be markdown format"
+          },
+          "assignees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "assignees\n\nDeliver the user nickname to be designated as the person in charge in the array."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "title",
+          "labels",
           "secretKey"
         ]
       },
@@ -41356,135 +41493,6 @@
     },
     {
       "name": "sweet-tracker"
-    },
-    {
-      "name": "Hancell 엑셀 파일"
-    },
-    {
-      "name": "내보내기"
-    },
-    {
-      "name": "다운로드"
-    },
-    {
-      "name": "추출"
-    },
-    {
-      "name": "추출하기"
-    },
-    {
-      "name": "스프레드시트"
-    },
-    {
-      "name": "데이터 저장"
-    },
-    {
-      "name": "데이터 불러오기"
-    },
-    {
-      "name": "데이터 분석"
-    },
-    {
-      "name": "데이터 베이스"
-    },
-    {
-      "name": "데이터 내보내기"
-    },
-    {
-      "name": "데이터 가져오기"
-    },
-    {
-      "name": "엑셀 변환"
-    },
-    {
-      "name": "텍스트 파일"
-    },
-    {
-      "name": "데이터 처리"
-    },
-    {
-      "name": "대량 데이터"
-    },
-    {
-      "name": "데이터 편집"
-    },
-    {
-      "name": "파일 분할"
-    },
-    {
-      "name": "데이터 통합"
-    },
-    {
-      "name": "엑셀 만들기"
-    },
-    {
-      "name": "엑셀 파일 열기"
-    },
-    {
-      "name": "데이터 추출"
-    },
-    {
-      "name": "데이터 필터링"
-    },
-    {
-      "name": "데이터 병합"
-    },
-    {
-      "name": "Hancell"
-    },
-    {
-      "name": "Save Data"
-    },
-    {
-      "name": "Load Data"
-    },
-    {
-      "name": "Data Analysis"
-    },
-    {
-      "name": "Database"
-    },
-    {
-      "name": "Export Data"
-    },
-    {
-      "name": "Import Data"
-    },
-    {
-      "name": "Convert to Hancell"
-    },
-    {
-      "name": "Text File"
-    },
-    {
-      "name": "Data Processing"
-    },
-    {
-      "name": "Large Data"
-    },
-    {
-      "name": "Edit Data"
-    },
-    {
-      "name": "Split File"
-    },
-    {
-      "name": "Integrate Data"
-    },
-    {
-      "name": "Create Hancell"
-    },
-    {
-      "name": "Open Hancell File"
-    },
-    {
-      "name": "Extract Data"
-    },
-    {
-      "name": "Filter Data"
-    },
-    {
-      "name": "Merge Data"
     },
     {
       "name": "KakaoTalk(카카오톡)"
@@ -42242,12 +42250,30 @@
       "name": "Google-Scholar"
     },
     {
+      "name": "내보내기"
+    },
+    {
+      "name": "다운로드"
+    },
+    {
+      "name": "추출"
+    },
+    {
+      "name": "추출하기"
+    },
+    {
+      "name": "스프레드시트"
+    },
+    {
       "name": "대량",
       "description": "데이터"
     },
     {
       "name": "Data",
       "description": "Analysis"
+    },
+    {
+      "name": "Database"
     },
     {
       "name": "Large",
