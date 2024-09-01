@@ -78,7 +78,7 @@ export class GoogleDocsController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Post()
   async createDocs(
@@ -152,7 +152,7 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Post("/permission")
   async permission(
@@ -230,7 +230,7 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Post("get/:id")
   async readDocs(
@@ -317,7 +317,7 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Post("/template")
   async createDocByTemplate(
@@ -391,7 +391,7 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Delete(":id")
   async deleteById(
@@ -477,7 +477,7 @@ export class GoogleDocsController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Post("get-list")
   async list(
@@ -550,7 +550,7 @@ export class GoogleDocsController {
    * @tag Insert Table
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_docs.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @core.TypedRoute.Post("/append")
   async append(

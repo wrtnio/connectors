@@ -61,6 +61,8 @@ export namespace IGoogleFlight {
     /**
      * 가는 날짜를 입력해주세요.
      *
+     * 오늘 날짜 이후의 날짜를 입력해주세요.
+     *
      * @title 가는 날짜
      */
     outbound_date: string & tags.Format<"date">;
@@ -71,6 +73,8 @@ export namespace IGoogleFlight {
      * type이 "1" 이면 필수로 넣어줘야 합니다.
      *
      * type이 "2" 이면 넣어주지 않아야 합니다.
+     *
+     * 오늘 날짜 이후의 날짜를 입력해주세요.
      *
      * @title 오는 날짜
      */

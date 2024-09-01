@@ -11,6 +11,8 @@ import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { ImageProvider } from "../../internal/ImageProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -982,7 +984,13 @@ export class GoogleAdsProvider {
 
   private async getHeaders() {
     const secret = ConnectorGlobal.env.GOOGLE_ADS_PARENT_SECRET; // refresh token of parent account.
-    const accessToken = await this.googleProvider.refreshAccessToken(secret);
+    const secretValue = await OAuthSecretProvider.getSecretValue(secret);
+    const refreshToken =
+      typeof secretValue === "string"
+        ? secretValue
+        : (secretValue as IOAuthSecret.ISecretValue).value;
+    const accessToken =
+      await this.googleProvider.refreshAccessToken(refreshToken);
 
     return {
       "Content-Type": "application/json",

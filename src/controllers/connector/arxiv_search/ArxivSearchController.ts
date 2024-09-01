@@ -212,7 +212,7 @@ export class ArxivSearchController {
   @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/arxiv.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Arxiv_full.svg",
   )
   async search(
     @core.TypedBody() input: IConnector.ISearchInput,

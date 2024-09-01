@@ -21,68 +21,12 @@ export class GmailController {
    * 경우에 따라 html 형식을 사용할 수도 있습니다.
    *
    * @summary GMAIL 전송
-   *
    * @param input 메일을 보내기 위해 필요한 정보.
-   *
    * @returns 전송된 메일의 ID.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("send")
   async send(
@@ -102,66 +46,11 @@ export class GmailController {
    * 경우에 따라 html 형식을 사용할 수도 있습니다.
    *
    * @summary GMAIL 초안 생성
-   *
    * @param input 메일 초안을 생성하기 위한 정보.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
@@ -179,65 +68,10 @@ export class GmailController {
    * 경우에 따라 html 형식을 사용할 수도 있습니다.
    *
    * @summary GMAIL 답장
-   *
    * @param input 메일 답장에 필요한 정보.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("reply/:id")
   async reply(
@@ -263,67 +97,11 @@ export class GmailController {
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
    * @summary GMAIL 정보 가져오기
-   *
    * @param id 해당 메일의 고유 ID.
-   *
    * @returns 해당 메일의 정보.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("get/:id")
   async findEmail(
@@ -349,68 +127,12 @@ export class GmailController {
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
    * @summary GMAIL 리스트 가져오기
-   *
    * @param input 메일 리스트를 가져오기 위한 정보.
-   *
    * @returns 메일 리스트.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("read-list")
   async findEmails(
@@ -424,66 +146,46 @@ export class GmailController {
    *
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
-   * @summary GMAIL 삭제
+   * 이 기능은 메일을 휴지통으로 옮기는 게 아니라 영구히 삭제하는 기능이기 때문에 각별히 주의가 필요합니다.
+   * 대부분의 유저는 이미 휴지통에 있는 것들을 삭제하고자 할 것입니다.
+   * 따라서 유저가 삭제를 희망하는 경우 가급적 휴지통으로 메일을 옮기는 것으로 유도하되, 그럼에도 삭제하고자 한다면 휴지통에 있는 것을 대상으로 하는 것이 옳습니다.
    *
-   * @param id 삭제할 메일의 고유 ID.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
+   * @summary 메일을 삭제합니다.
+   * @param id
+   * @param input
+   * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+  )
+  @core.TypedRoute.Delete(":id/hardDelete")
+  async hardDelete(
+    /**
+     * @title 삭제할 메일
+     * @description 삭제할 메일을 선택해주세요.
+     */
+    @Prerequisite({
+      neighbor: () => GmailController.prototype.findEmails,
+      jmesPath: "data[].{value: id, label: subject || ''}",
+    })
+    @core.TypedParam("id")
+    id: string,
+    @core.TypedBody()
+    input: IGmail.ISecret,
+  ): Promise<void> {
+    return retry(() => this.gmailProvider.hardDelete(id, input))();
+  }
+
+  /**
+   * 메일을 휴지통으로 옮깁니다
+   *
+   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   *
+   * @summary GMAIL 삭제
+   * @param id 삭제할 메일의 고유 ID.
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Delete(":id")
   async removeMail(
@@ -509,68 +211,12 @@ export class GmailController {
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
    * @summary GMAIL 라벨 생성
-   *
    * @param input 라벨 생성을 위한 정보.
-   *
    * @returns 생성된 라벨의 고유 ID.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("label")
   async createLabel(
@@ -585,67 +231,11 @@ export class GmailController {
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
    * @summary GMAIL 라벨 부여
-   *
    * @param mailId 라벨을 부여할 메일의 고유 ID.
-   *
    * @param input 부여할 라벨의 고유 ID 목록.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
@@ -670,67 +260,11 @@ export class GmailController {
    * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
    *
    * @summary GMAIL 라벨 제거
-   *
    * @param mailId 라벨을 제거할 메일의 고유 ID.
-   *
    * @param input 제거할 라벨의 고유 ID 목록.
-   *
-   * @tag Gmail
-   * @tag 지메일
-   * @tag 이메일
-   * @tag 메일
-   * @tag 이메일 보내기
-   * @tag 이메일 확인
-   * @tag 메일 관리
-   * @tag 스팸 메일 관리
-   * @tag 이메일 검색
-   * @tag 첨부파일
-   * @tag 필터 설정
-   * @tag 이메일 관리
-   * @tag 이메일 알림
-   * @tag 자동 회신
-   * @tag 답장
-   * @tag 이메일 아카이브
-   * @tag 이메일 스레드
-   * @tag 중요 표시
-   * @tag 이메일 삭제
-   * @tag 구글 메일
-   * @tag 이메일 주소
-   * @tag 메일함 용량
-   * @tag 메일 전송 예약
-   * @tag 메일 읽음 확인
-   * @tag 중요 메일 표시
-   * @tag 일정 예약
-   * @tag 비즈니스 이메일
-   * @tag Gmail
-   * @tag Email
-   * @tag Mail
-   * @tag Send Email
-   * @tag Check Email
-   * @tag Manage Mail
-   * @tag Manage Spam Mail
-   * @tag Search Email
-   * @tag Attachment
-   * @tag Set Filter
-   * @tag Manage Email
-   * @tag Email Notification
-   * @tag Auto Reply
-   * @tag Reply
-   * @tag Archive Email
-   * @tag Email Thread
-   * @tag Mark as Important
-   * @tag Delete Email
-   * @tag Google Mail
-   * @tag Email Address
-   * @tag Mailbox Storage
-   * @tag Schedule Email Sending
-   * @tag Email Read Receipt
-   * @tag Mark Important Emails
-   * @tag Schedule Appointments
-   * @tag Business Email
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/gmail.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(

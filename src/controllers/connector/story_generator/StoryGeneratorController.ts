@@ -37,7 +37,7 @@ export class StoryGeneratorController {
    * @tag Llm 스토리 생성
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Marketing.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",
   )
   @core.TypedRoute.Post()
   public generate(

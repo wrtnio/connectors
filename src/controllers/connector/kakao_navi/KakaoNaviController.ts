@@ -18,7 +18,7 @@ export class KakaoNaviController {
    * @returns 길 찾기 결과
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/KakaoNavi.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoNavi_full.svg",
   )
   @Standalone()
   @core.TypedRoute.Post("get-future-directions")

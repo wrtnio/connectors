@@ -4,7 +4,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 const Configuration = {
   email: "studio@wrtn.io",
-  apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  token: ConnectorGlobal.env.JIRA_TEST_SECRET,
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
@@ -15,7 +15,7 @@ export const test_api_connector_jira_get_status_categories = async (
     await CApi.functional.connector.jira.get_status_categories.getStatusCategories(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
       },
     );
 

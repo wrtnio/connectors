@@ -73,7 +73,7 @@ export class CsvController {
    */
   @core.TypedRoute.Post("read")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
   async read(
     @core.TypedBody() input: ICsv.IReadInput,
@@ -143,7 +143,7 @@ export class CsvController {
   @Standalone()
   @core.TypedRoute.Post("write")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
   async write(
     @core.TypedBody() input: ICsv.IWriteInput,
@@ -214,7 +214,7 @@ export class CsvController {
    */
   @core.TypedRoute.Post("csv-to-excel")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/csv.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
   async csvToExcel(
     @core.TypedBody() input: ICsv.ICsvToExcelInput,

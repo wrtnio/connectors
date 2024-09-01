@@ -11,6 +11,13 @@ export type LookUp<
 > = U["type"] extends T ? U : never;
 
 export namespace IJira {
+  /**
+   * Atlasian's token is an object with email, token, and domain information converted into a string using JSON.stringify().
+   * The type that parsed this is {@link BasicAuthorization}.
+   * Basic Authorization is a sensitive data that can't just be turned into text, so we're showing a dedicated input window to get it from the user.
+   */
+  export type IBasicSecret = ICommon.ISecret<"atlassian">;
+
   export type ISecret = ICommon.ISecret<
     "atlassian",
     [
@@ -56,7 +63,7 @@ export namespace IJira {
      * It is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.
      * If the user does not have this token, Jira's API cannot be called.
      */
-    apiToken: string;
+    token: string;
 
     /**
      * @title domain of your workspace site in Jira
@@ -778,7 +785,7 @@ export namespace IJira {
       /**
        * @title programming language name
        */
-      language: string;
+      language?: string & Placeholder<"TypeScript">;
     };
 
     /**
@@ -1365,7 +1372,7 @@ export namespace IJira {
    */
   export type TopLevelBlockNode =
     | BlockquoteNode
-    // | ListNode
+    | ListNode
     | CodeBlockNode
     | HeadingNode
     | MediaGroupNode
@@ -1721,7 +1728,7 @@ export namespace IJira {
      * - "In Progress": The issue is currently being worked on.
      * - "Done": The issue has been completed.
      */
-    statuscategorychangedate?: string;
+    statuscategorychangedate?: string | null;
 
     /**
      * @title reporter

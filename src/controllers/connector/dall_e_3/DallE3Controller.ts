@@ -24,7 +24,7 @@ export class DallE3Controller {
   @Standalone()
   @core.TypedRoute.Post("/generate")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/dall_e3.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg",
   )
   async generateImage(
     @core.TypedBody() input: IDallE3.IRequest,

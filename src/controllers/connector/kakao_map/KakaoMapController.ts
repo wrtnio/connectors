@@ -19,7 +19,7 @@ export class KakaoMapController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakao-map.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoMap_full.svg",
   )
   @TypedRoute.Post("search")
   async search(

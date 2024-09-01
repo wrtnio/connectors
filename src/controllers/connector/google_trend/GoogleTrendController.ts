@@ -21,7 +21,7 @@ export class GoogleTrendController {
   @Standalone()
   @core.TypedRoute.Post("daily")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_trend.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleTrend_full.svg",
   )
   async daily(
     @core.TypedBody() input: IGoogleTrend.IRequest,

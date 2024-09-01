@@ -4,6 +4,7 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import { RouteIcon } from "@wrtnio/decorators";
 import typia from "typia";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/slack")
 export class SlackController {
@@ -18,11 +19,11 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
-    return this.slackProvider.mark(input);
+    return retry(() => this.slackProvider.mark(input))();
   }
 
   /**
@@ -45,13 +46,13 @@ export class SlackController {
    * @returns scheduled message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("scheduleMessage/text")
   async sendScheduleMessage(
     @TypedBody() input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
-    return this.slackProvider.sendScheduleMessage(input);
+    return retry(() => this.slackProvider.sendScheduleMessage(input))();
   }
 
   /**
@@ -66,13 +67,13 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Delete("scheduleMessage")
   async deleteScheduleMessage(
     @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
   ): Promise<void> {
-    return this.slackProvider.deleteScheduleMessage(input);
+    return retry(() => this.slackProvider.deleteScheduleMessage(input))();
   }
 
   /**
@@ -88,13 +89,13 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("postMessage/text/myself")
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendTextToMyself(input);
+    return retry(() => this.slackProvider.sendTextToMyself(input))();
   }
 
   /**
@@ -113,14 +114,14 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("postMessage/reply")
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const response = await this.slackProvider.sendReply(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -133,14 +134,14 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("postMessage/text")
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const response = await this.slackProvider.sendText(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -162,7 +163,7 @@ export class SlackController {
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
     const response = await this.slackProvider.getScheduledMessages(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -182,14 +183,14 @@ export class SlackController {
    * @returns Users
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-users")
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
     const response = await this.slackProvider.getUsers(input);
-    return typia.misc.assertClone(response);
+    return retry(() => typia.misc.assertClone(response))();
   }
 
   /**
@@ -204,13 +205,13 @@ export class SlackController {
    * @returns Replies
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-replies")
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
-    return this.slackProvider.getReplies(input);
+    return retry(() => this.slackProvider.getReplies(input))();
   }
 
   /**
@@ -235,13 +236,13 @@ export class SlackController {
    * @returns channel histories
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-channel-histories")
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    return this.slackProvider.getChannelHistories(input);
+    return retry(() => this.slackProvider.getChannelHistories(input))();
   }
 
   /**
@@ -257,13 +258,13 @@ export class SlackController {
    * @returns private channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return this.slackProvider.getPrivateChannels(input);
+    return retry(() => this.slackProvider.getPrivateChannels(input))();
   }
 
   /**
@@ -280,13 +281,13 @@ export class SlackController {
    * @returns public channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
-    return this.slackProvider.getPublicChannels(input);
+    return retry(() => this.slackProvider.getPublicChannels(input))();
   }
 
   /**
@@ -303,12 +304,12 @@ export class SlackController {
    * @returns im channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/slack.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @TypedRoute.Post("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
-    return this.slackProvider.getImChannels(input);
+    return retry(() => this.slackProvider.getImChannels(input))();
   }
 }

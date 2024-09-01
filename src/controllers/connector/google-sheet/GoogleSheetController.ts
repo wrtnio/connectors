@@ -10,7 +10,6 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/google-sheet")
 export class GoogleSheetController {
   constructor(private readonly googleSheetProvider: GoogleSheetProvider) {}
-
   /**
    * 구글 시트의 헤더 정보를 가져옵니다.
    *
@@ -90,13 +89,35 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
     return retry(() => this.googleSheetProvider.readHeaders(input))();
+  }
+
+  /**
+   * 구글 시트를 생성합니다.
+   *
+   * 생성된 시트는 구글 드라이브 루트 경로에 생성됩니다.
+   *
+   * @summary 구글 시트 생성하기
+   *
+   * @param input 생성할 시트 제목
+   *
+   * @returns 생성된 시트 id와 Url
+   */
+  @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+  )
+  @core.TypedRoute.Post("create")
+  async createGoogleSheet(
+    @core.TypedBody() input: IGoogleSheet.ICreateGoogleSheetInput,
+  ): Promise<IGoogleSheet.ICreateGoogleSheetOutput> {
+    return retry(() => this.googleSheetProvider.createSpreadsheet(input))();
   }
 
   /**
@@ -176,7 +197,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/permission")
   async permission(
@@ -262,7 +283,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/header")
   async writeHeaders(
@@ -348,7 +369,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
@@ -436,7 +457,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_sheet.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @core.TypedRoute.Post("/get-rows")
   async readRows(

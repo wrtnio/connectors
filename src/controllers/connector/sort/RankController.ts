@@ -24,7 +24,7 @@ export class RankController {
    * @tag Sort Rank Ranking 정렬 순위 순서 랭킹 랭크
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/Sort.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg",
   )
   @core.TypedRoute.Post("rank")
   async rank(

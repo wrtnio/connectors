@@ -5,7 +5,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 const Configuration = {
   email: "studio@wrtn.io",
-  apiToken: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  token: ConnectorGlobal.env.JIRA_TEST_SECRET,
   domain: "https://wrtn-ecosystem.atlassian.net",
 } as const;
 
@@ -15,7 +15,7 @@ export const test_api_connector_jira_update_issue_summary_and_description =
     const target = await CApi.functional.connector.jira.issues.createIssue(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         fields: {
           summary: "TEST FOR UPDATE",
           project: { key: "KAK" },
@@ -45,7 +45,7 @@ export const test_api_connector_jira_update_issue_summary_and_description =
         connection,
         target.id,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           fields: {
             summary: "TEST_FOR_UPDATE", // summary 수정 테스트
           },
@@ -59,7 +59,7 @@ export const test_api_connector_jira_update_issue_summary_and_description =
         connection,
         target.id,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           fields: {
             description: {
               type: "doc",
@@ -93,7 +93,7 @@ export const test_api_connector_jira_update_issue_assignee = async (
   const target = await CApi.functional.connector.jira.issues.createIssue(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       fields: {
         summary: "TEST FOR UPDATE",
         project: { key: "KAK" },
@@ -121,7 +121,7 @@ export const test_api_connector_jira_update_issue_assignee = async (
     await CApi.functional.connector.jira.projects.get_users_assignable.getUsersAssignableInProject(
       connection,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         project_key: "KAK",
       },
     );
@@ -131,7 +131,7 @@ export const test_api_connector_jira_update_issue_assignee = async (
       connection,
       target.id,
       {
-        ...Configuration,
+        secretKey: JSON.stringify(Configuration),
         fields: {
           assignee: {
             id: response[0].accountId,
@@ -149,7 +149,7 @@ export const test_api_connector_jira_update_issue_status = async (
   const { issues } = await CApi.functional.connector.jira.get_issues.getIssues(
     connection,
     {
-      ...Configuration,
+      secretKey: JSON.stringify(Configuration),
       project_key: "KAK",
       maxResults: 200,
       status: "Backlog",
@@ -161,7 +161,7 @@ export const test_api_connector_jira_update_issue_status = async (
       await CApi.functional.connector.jira.issues.get_transitions.getTransitions(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.id,
         },
       );
@@ -175,7 +175,7 @@ export const test_api_connector_jira_update_issue_status = async (
       await CApi.functional.connector.jira.issues.status.updateIssueStatus(
         connection,
         {
-          ...Configuration,
+          secretKey: JSON.stringify(Configuration),
           issueIdOrKey: issue.id,
           transitionId: transition?.id as any,
         },

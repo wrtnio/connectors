@@ -59,7 +59,7 @@ export class DaumController {
   @Standalone()
   @core.TypedRoute.Post("blog")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
   )
   async searchBlog(
     @core.TypedBody() input: IDaum.ISearchDaumInput,
@@ -109,7 +109,7 @@ export class DaumController {
   @Standalone()
   @core.TypedRoute.Post("cafe")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/daum.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",
   )
   async searchCafe(
     @core.TypedBody() input: IDaum.ISearchDaumInput,

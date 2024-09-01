@@ -25,7 +25,7 @@ export class LlmController {
    * @tag Llm selection 선택 추출
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/LLM(1).svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/LLM_full.svg",
   )
   @core.TypedRoute.Post("/selector-llm")
   async selectorLlm(

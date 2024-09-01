@@ -4,6 +4,8 @@ import { google } from "googleapis";
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GoogleDocsProvider {
@@ -12,10 +14,8 @@ export class GoogleDocsProvider {
     input: IGoogleDocs.ICreateGoogleDocsInput,
   ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -45,10 +45,8 @@ export class GoogleDocsProvider {
   ): Promise<void> {
     try {
       const { documentId, permissions } = input;
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -76,10 +74,8 @@ export class GoogleDocsProvider {
     input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -159,10 +155,8 @@ export class GoogleDocsProvider {
   ): Promise<IGoogleDocs.ICreateDocByTemplateOutput> {
     try {
       const { title, templateId } = input;
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -194,10 +188,8 @@ export class GoogleDocsProvider {
 
   async deleteById(id: string, input: IGoogleDocs.ISecret): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -219,10 +211,8 @@ export class GoogleDocsProvider {
     input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -262,10 +252,8 @@ export class GoogleDocsProvider {
   async append(input: IGoogleDocs.IAppendTextGoogleDocsInput) {
     try {
       const { documentId, text } = input;
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -293,5 +281,14 @@ export class GoogleDocsProvider {
       console.error(JSON.stringify(error));
       throw error;
     }
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }

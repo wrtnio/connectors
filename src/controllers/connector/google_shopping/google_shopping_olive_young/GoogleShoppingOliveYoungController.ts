@@ -24,7 +24,7 @@ export class GoogleShoppingOliveYoungController {
   @Standalone()
   @core.TypedRoute.Post("olive-young")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/olive_young.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/oliveYoung_full.svg",
   )
   async oliveYoung(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

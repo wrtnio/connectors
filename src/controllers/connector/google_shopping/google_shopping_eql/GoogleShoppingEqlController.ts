@@ -24,7 +24,7 @@ export class GoogleShoppingEqlController {
   @Standalone()
   @core.TypedRoute.Post("eql")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/eql.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ECL_full.svg",
   )
   async hansumEQL(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

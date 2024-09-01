@@ -3,6 +3,8 @@ import { Client } from "@notionhq/client";
 import axios from "axios";
 
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 /**
  * notion-sdk-js 링크: https://github.com/makenotion/notion-sdk-js
@@ -15,7 +17,7 @@ export namespace NotionProvider {
     input: INotion.ICreatePageInput,
   ): Promise<INotion.ICreatePageOutput> {
     try {
-      const notion = createClient(input.secretKey);
+      const notion = await createClient(input.secretKey);
       const res = await notion.pages.create({
         parent: {
           type: "page_id",
@@ -71,7 +73,7 @@ export namespace NotionProvider {
     input: INotion.ISecret,
   ): Promise<INotion.IReadPageOutput[]> {
     try {
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
       const res = await axios.post(
         `https://api.notion.com/v1/search`,
         {
@@ -113,7 +115,7 @@ export namespace NotionProvider {
     input: INotion.IAppendPageToContentInput,
   ): Promise<void> {
     try {
-      const notion = createClient(input.secretKey);
+      const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
         children: [
@@ -148,7 +150,7 @@ export namespace NotionProvider {
        * notion sdk의 database.retrieve method를 사용하여 properties의 정보를 받아올 수 있지만
        * database의 title을 가져올 수 없음.
        */
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
       const res = await axios.get(
         `https://api.notion.com/v1/databases/${databaseId}`,
         {
@@ -172,7 +174,7 @@ export namespace NotionProvider {
     input: INotion.ISecret,
   ): Promise<INotion.IDatabaseInfo[]> {
     try {
-      const notion = createClient(input.secretKey);
+      const notion = await createClient(input.secretKey);
       const searchResult = await notion.search({});
       const databaseIds = searchResult.results
         .filter((result) => result.object === "database")
@@ -210,7 +212,7 @@ export namespace NotionProvider {
         databaseInfo.properties,
       );
 
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
 
       /**
        * 데이터베이스에 페이지 생성
@@ -265,7 +267,7 @@ export namespace NotionProvider {
         databaseInfo.properties,
       );
 
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
       /**
        *
        * 데이터베이스 아이템 업데이트
@@ -320,7 +322,7 @@ export namespace NotionProvider {
     input: INotion.ISecret,
   ): Promise<INotion.IUserOutput[]> {
     try {
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
       const people = await axios.get(`https://api.notion.com/v1/users`, {
         headers: headers,
       });
@@ -345,7 +347,7 @@ export namespace NotionProvider {
   export async function findPageByTitle(
     input: INotion.IFindPageOrDatabaseItemInput,
   ): Promise<INotion.IFindPageByTitleOutput> {
-    const headers = getHeaders(input.secretKey);
+    const headers = await getHeaders(input.secretKey);
     const res = await axios.post(
       `https://api.notion.com/v1/search`,
       {
@@ -374,7 +376,7 @@ export namespace NotionProvider {
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput[]> {
     try {
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
       const res = await axios.post(
         `https://api.notion.com/v1/databases/${databaseId}/query`,
         {},
@@ -426,7 +428,7 @@ export namespace NotionProvider {
           }
         }
       }
-      const headers = getHeaders(input.secretKey);
+      const headers = await getHeaders(input.secretKey);
 
       const res = await axios.post(
         `https://api.notion.com/v1/databases/${databaseId}/query`,
@@ -520,14 +522,24 @@ export namespace NotionProvider {
     return properties;
   }
 
-  function createClient(accessToken: string) {
-    return new Client({ auth: accessToken });
+  async function createClient(accessToken: string) {
+    const secret = await OAuthSecretProvider.getSecretValue(accessToken);
+    const refreshToken =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return new Client({ auth: refreshToken });
   }
 
-  function getHeaders(accessToken: string) {
+  async function getHeaders(accessToken: string) {
+    const secret = await OAuthSecretProvider.getSecretValue(accessToken);
+    const refreshToken =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
     return {
       "content-type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${refreshToken}`,
       "Notion-Version": "2022-06-28",
       accept: "application/json",
     };

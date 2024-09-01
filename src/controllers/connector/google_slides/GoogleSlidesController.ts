@@ -57,7 +57,7 @@ export class GoogleSlidesController {
     "슬라이드 제목",
   )
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @core.TypedRoute.Post("presentations/:id/export/hanshow")
   async hanshow(
@@ -118,7 +118,7 @@ export class GoogleSlidesController {
     "슬라이드 제목",
   )
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @core.TypedRoute.Post("presentations/:id/export/power-point")
   async powerPoint(
@@ -176,7 +176,7 @@ export class GoogleSlidesController {
     "슬라이드 제목",
   )
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @core.TypedRoute.Post("get-presentations")
   async getPresentation(
@@ -200,7 +200,7 @@ export class GoogleSlidesController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
@@ -264,7 +264,7 @@ export class GoogleSlidesController {
     "슬라이드 제목",
   )
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_slides.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @core.TypedRoute.Post("presentations")
   async createPresentation(

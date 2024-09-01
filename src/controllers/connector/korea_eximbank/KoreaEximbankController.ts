@@ -17,7 +17,7 @@ export class KoreaEximbankController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/korea-government.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ExchangeRate_full.svg",
   )
   @core.TypedRoute.Get("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {

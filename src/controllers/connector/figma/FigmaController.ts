@@ -4,7 +4,7 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigma";
 
-import { FigmaProvider } from "../../../providers/figma/FigmaProvider";
+import { FigmaProvider } from "../../../providers/connector/figma/FigmaProvider";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/figma")
@@ -23,7 +23,7 @@ export class FigmaController {
    * @tag figma
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @core.TypedRoute.Post("get-files")
   async readFiles(
@@ -44,7 +44,7 @@ export class FigmaController {
    * @tag figma
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @core.TypedRoute.Post("comments")
   async addComment(
@@ -65,7 +65,7 @@ export class FigmaController {
    * @tag figma
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @core.TypedRoute.Post("get-comments")
   async readComments(
@@ -86,7 +86,7 @@ export class FigmaController {
    * @returns 프로젝트의 모든 파일
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @core.TypedRoute.Post("projects/:id/get-canvas")
   async getProjectCanvas(
@@ -113,7 +113,7 @@ export class FigmaController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @core.TypedRoute.Post("get-statistics")
   async getStatistics(
@@ -138,7 +138,7 @@ export class FigmaController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/figma.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @core.TypedRoute.Post("get-projects")
   async getProjects(

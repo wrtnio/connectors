@@ -1,6 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
+import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { GoogleProvider } from "../../../../providers/internal/google/GoogleProvider";
 
 @Controller("internal/google")
@@ -16,7 +17,7 @@ export class GoogleController {
   @core.TypedRoute.Get()
   async refreshAccessToken() {
     return await this.googleProvider.refreshAccessToken(
-      "1%2F%2F0ettrBo9BQWP1CgYIARAAGA4SNwF-L9IrcSzkQWMaUw3_VNb5eqcaRAKPwPnEsBqkpdtfOzsjww0ItMxdPn_vC4nKs71XkCiv2OI",
+      ConnectorGlobal.env.GOOGLE_TEST_SECRET,
     );
   }
 }

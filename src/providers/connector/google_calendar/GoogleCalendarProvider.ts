@@ -1,9 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { google } from "googleapis";
 
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GoogleCalendarProvider {
@@ -12,10 +14,8 @@ export class GoogleCalendarProvider {
     input: IGoogleCalendar.ISecret,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput[]> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -45,10 +45,8 @@ export class GoogleCalendarProvider {
     input: IGoogleCalendar.ICreateCalendarInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -78,10 +76,8 @@ export class GoogleCalendarProvider {
     input: IGoogleCalendar.ISecret,
   ): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -99,10 +95,8 @@ export class GoogleCalendarProvider {
     input: IGoogleCalendar.IReadGoogleCalendarEventInput,
   ): Promise<IGoogleCalendar.IReadGoogleCalendarEventOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -150,10 +144,8 @@ export class GoogleCalendarProvider {
     input: IGoogleCalendar.ICreateQuickEventInput,
   ): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -172,10 +164,8 @@ export class GoogleCalendarProvider {
     input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -200,8 +190,8 @@ export class GoogleCalendarProvider {
     eventId: string,
     input: IGoogleCalendar.IEventRequestBodyInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -228,8 +218,8 @@ export class GoogleCalendarProvider {
     eventId: string,
     input: IGoogleCalendar.IAddAttendeesToEventInput,
   ): Promise<IGoogleCalendar.IGoogleCalendarEvent> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -268,8 +258,8 @@ export class GoogleCalendarProvider {
     eventId: string,
     input: IGoogleCalendar.ISecret,
   ): Promise<void> {
-    const secretKey = input.secretKey;
-    const accessToken = await this.googleProvider.refreshAccessToken(secretKey);
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -288,26 +278,26 @@ export class GoogleCalendarProvider {
 
   parseEventInfo(event: any): IGoogleCalendar.IGoogleCalendarEvent {
     return {
-      id: event.data.id,
-      htmlLink: event.data.htmlLink,
-      color: event.data.colorId,
-      createdDate: event.data.created,
-      updatedDate: event.data.updated,
-      title: event.data.summary,
-      description: event.data.description,
-      location: event.data.location,
-      organizer: event.data.organizer,
-      creator: event.data.creator,
-      startDate: event.data.start,
-      endDate: event.data.end,
-      recurrence: event.data.recurrence,
-      guestsCanModify: event.data.guestsCanModify,
-      transparency: event.data.transparency,
-      attendees: event.data.attendees,
-      reminders: event.data.reminders,
-      attachments: event.data.attachments,
-      hangoutLink: event.data.hangoutLink,
-      visibility: event.data.visibility,
+      id: event.id || null,
+      htmlLink: event.htmlLink || null,
+      color: event.colorId || null,
+      createdDate: event.created || null,
+      updatedDate: event.updated || null,
+      title: event.summary || null,
+      description: event.description || null,
+      location: event.location || null,
+      organizer: event.organizer || null,
+      creator: event.creator || null,
+      startDate: event.start || null,
+      endDate: event.end || null,
+      recurrence: event.recurrence || null,
+      guestsCanModify: event.guestsCanModify || null,
+      transparency: event.transparency || null,
+      attendees: event.attendees || null,
+      reminders: event.reminders || null,
+      attachments: event.attachments || null,
+      hangoutLink: event.hangoutLink || null,
+      visibility: event.visibility || null,
     };
   }
 
@@ -360,16 +350,16 @@ export class GoogleCalendarProvider {
             useDefault: isUseDefaultReminder,
           }
         : remindersType && minutesBeforeReminders
-        ? {
-            useDefault: false,
-            overrides: [
-              {
-                method: remindersType,
-                minutes: minutesBeforeReminders,
-              },
-            ],
-          }
-        : undefined,
+          ? {
+              useDefault: false,
+              overrides: [
+                {
+                  method: remindersType,
+                  minutes: minutesBeforeReminders,
+                },
+              ],
+            }
+          : undefined,
     };
 
     /**
@@ -417,5 +407,14 @@ export class GoogleCalendarProvider {
     }
 
     return [`RRULE:${recurrenceFields.join(";")}`];
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }

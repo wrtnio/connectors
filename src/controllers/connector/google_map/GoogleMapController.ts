@@ -22,7 +22,7 @@ export class GoogleMapController {
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_map.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
   @ApiTags("Google map")
   async search(
@@ -42,7 +42,7 @@ export class GoogleMapController {
   @Standalone()
   @core.TypedRoute.Post("review")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/google_map.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
   @ApiTags("Google map")
   async review(

@@ -4,22 +4,41 @@ import { gmail_v1, google } from "googleapis";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GmailProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  async hardDelete(id: string, input: IGmail.ISecret): Promise<void> {
+    try {
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
+      await gmail.users.messages.delete({
+        userId: "me",
+        id,
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   async sendEmail(
     input: IGmail.ICreateMailInput,
   ): Promise<IGmail.ISendMailOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
-
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
       const emailLines = [
@@ -62,10 +81,8 @@ export class GmailProvider {
 
   async createDraft(input: IGmail.ICreateMailInput): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -109,10 +126,8 @@ export class GmailProvider {
 
   async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -167,10 +182,8 @@ export class GmailProvider {
 
   async createLabel(input: IGmail.ILabelInput): Promise<IGmail.ILabelOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -202,10 +215,8 @@ export class GmailProvider {
     input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -230,10 +241,8 @@ export class GmailProvider {
     input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -258,10 +267,8 @@ export class GmailProvider {
     input: IGmail.ISecret,
   ): Promise<IGmail.IFindGmailOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -283,10 +290,8 @@ export class GmailProvider {
     input: IGmail.IFindEmailListInput,
   ): Promise<IGmail.IFindGmailListOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -331,10 +336,8 @@ export class GmailProvider {
 
   async removeEmail(id: string, input: IGmail.ISecret): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -438,5 +441,14 @@ export class GmailProvider {
     }
 
     return query.trim();
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }

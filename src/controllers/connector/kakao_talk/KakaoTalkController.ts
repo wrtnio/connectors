@@ -22,7 +22,7 @@ export class KakaoTalkController {
    * @tag KakaoTalk(카카오톡)
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("message/text")
   async send(
@@ -46,7 +46,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("memo/commerce")
   async commerceMemo(
@@ -70,7 +70,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("memo/location")
   async locationMemo(
@@ -94,7 +94,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("memo/list")
   async listMemo(
@@ -118,7 +118,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("memo/feed")
   async feedMemo(
@@ -142,7 +142,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("memo/text")
   async textMemo(
@@ -165,7 +165,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("calendars/events")
   async createEvent(
@@ -187,7 +187,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("get-friends")
   async getFriends(
@@ -216,7 +216,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("get-events")
   async getEvents(
@@ -242,7 +242,7 @@ export class KakaoTalkController {
    */
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
@@ -273,7 +273,7 @@ export class KakaoTalkController {
    * @param input Request DTO for refresh.
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/kakaoTalk.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @core.TypedRoute.Post("refresh")
   async refresh(

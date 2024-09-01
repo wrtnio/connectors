@@ -69,12 +69,12 @@ export namespace IKakaoTalk {
     /**
      * @title Starting point of the friends list
      */
-    offset?: number & tags.Type<"int32"> & tags.Default<0>;
+    offset?: number & tags.Type<"uint64"> & tags.Default<0>;
 
     /**
      * @title Number of friends per page
      */
-    limit?: number & tags.Type<"int32">;
+    limit?: number & tags.Type<"uint64">;
 
     /**
      * @title Sort order of the friends list
@@ -107,7 +107,7 @@ export namespace IKakaoTalk {
      *
      * @title Member number
      */
-    id: number & tags.Type<"int32">;
+    id: number & tags.Type<"uint64">;
 
     /**
      * Friend code used when sending KakaoTalk messages. Used for actions such as sending KakaoTalk messages later.
@@ -130,7 +130,9 @@ export namespace IKakaoTalk {
     /**
      * @title Thumbnail
      */
-    profile_thumbnail_image?: string & tags.Format<"uri">;
+    profile_thumbnail_image?:
+      | (string & tags.Format<"uri">)
+      | tags.Constant<"", { title: "NO_PROFILE_IMAGE" }>;
   }
 
   /**
@@ -145,7 +147,7 @@ export namespace IKakaoTalk {
     /**
      * @title Total number of friends
      */
-    total_count: number & tags.Type<"int32">;
+    total_count: number & tags.Type<"uint64">;
 
     /**
      * @title Next page URL of the friends list
@@ -160,7 +162,7 @@ export namespace IKakaoTalk {
     /**
      * @title Number of favorite friends
      */
-    favorite_count?: number & tags.Type<"int32">;
+    favorite_count?: number & tags.Type<"uint64">;
   }
 
   /**
@@ -504,10 +506,12 @@ export namespace IKakaoTalk {
 
     /**
      * @title Profile image URL of the subscribed calendar
+     *
+     * If an empty string appears, it means there is no image.
      */
-    profile_image_url?: string &
-      tags.Format<"url"> &
-      ContentMediaType<"image/*">;
+    profile_image_url?:
+      | (string & tags.Format<"url"> & ContentMediaType<"image/*">)
+      | tags.Constant<"", { title: "NO_PROFILE_IMAGE" }>;
 
     /**
      * @title Thumbnail URL of the subscribed calendar's speech bubble
@@ -1046,13 +1050,13 @@ export namespace IKakaoTalk {
      * @title Image Width
      * @description In pixels.
      */
-    image_width?: number & tags.Type<"int32"> & tags.Minimum<200>;
+    image_width?: number & tags.Type<"uint64"> & tags.Minimum<200>;
 
     /**
      * @title Image Height
      * @description In pixels.
      */
-    image_height?: number & tags.Type<"int32"> & tags.Minimum<200>;
+    image_height?: number & tags.Type<"uint64"> & tags.Minimum<200>;
 
     /**
      * @title Link Information for Redirection

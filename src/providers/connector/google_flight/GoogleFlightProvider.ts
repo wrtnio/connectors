@@ -1,8 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
-import axios from "axios";
 import { getJson } from "serpapi";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { ShortLinkProvider } from "../short_link/ShortLinkProvider";
 
 const defaultParams = {
   engine: "google_flights",
@@ -14,10 +13,19 @@ const defaultParams = {
 
 @Injectable()
 export class GoogleFlightProvider {
+  constructor(private readonly shortLinkProvider: ShortLinkProvider) {}
   async searchOneWay(
     input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {
     try {
+      if (input.outbound_date) {
+        const outboundDate = new Date(input.outbound_date);
+        const today = new Date();
+
+        if (outboundDate.setHours(0, 0, 0, 0) < today.setHours(0, 0, 0, 0)) {
+          throw new BadRequestException("Outbound date cannot be in the past");
+        }
+      }
       const params: any = {
         ...defaultParams,
         type: "2",
@@ -57,6 +65,28 @@ export class GoogleFlightProvider {
     input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {
     try {
+      if (input.outbound_date || input.return_date) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (input.outbound_date) {
+          const outboundDate = new Date(input.outbound_date);
+          outboundDate.setHours(0, 0, 0, 0);
+          if (outboundDate < today) {
+            throw new BadRequestException(
+              "Outbound date cannot be in the past",
+            );
+          }
+        }
+
+        if (input.return_date) {
+          const returnDate = new Date(input.return_date);
+          returnDate.setHours(0, 0, 0, 0);
+          if (returnDate < today) {
+            throw new BadRequestException("Return date cannot be in the past");
+          }
+        }
+      }
       const initialParams: any = {
         ...defaultParams,
         type: "1",
@@ -248,20 +278,7 @@ export class GoogleFlightProvider {
   }
 
   private async getShortLink(url: string): Promise<string> {
-    try {
-      const res = await axios.get(
-        `https://openapi.naver.com/v1/util/shorturl?url=${url}`,
-        {
-          headers: {
-            "X-Naver-Client-Id": ConnectorGlobal.env.NAVER_CLIENT_ID,
-            "X-Naver-Client-Secret": ConnectorGlobal.env.NAVER_CLIENT_SECRET,
-          },
-        },
-      );
-      return res.data.result.url;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
+    const res = await this.shortLinkProvider.createShortLink({ url: url });
+    return res.shortUrl;
   }
 }

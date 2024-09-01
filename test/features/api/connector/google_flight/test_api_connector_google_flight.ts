@@ -6,11 +6,16 @@ import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/goog
 export const test_api_connector_google_flight = async (
   connection: CApi.IConnection,
 ) => {
+  const today = new Date();
+  const oneWeekLater = new Date();
+  oneWeekLater.setDate(today.getDate() + 7);
+
+  const formatDate = (date: Date) => date.toISOString().split("T")[0];
   const params: IGoogleFlight.IRequest = {
     departure_id: "ICN",
     arrival_id: "KIX",
     type: "1",
-    outbound_date: "2024-09-07",
+    outbound_date: formatDate(today),
     travel_class: "1",
     adults: 1,
     children: 0,
@@ -29,7 +34,7 @@ export const test_api_connector_google_flight = async (
       connection,
       {
         ...params,
-        return_date: "2024-09-10",
+        return_date: formatDate(oneWeekLater),
       },
     );
   typia.assert<IGoogleFlight.IFinalResponse>(roundTripResult);

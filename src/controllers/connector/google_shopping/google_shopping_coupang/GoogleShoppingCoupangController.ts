@@ -24,7 +24,7 @@ export class GoogleShoppingCoupangController {
   @Standalone()
   @core.TypedRoute.Post("coupang")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/coupang.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Coupang_full.svg",
   )
   async coupang(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,

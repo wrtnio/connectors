@@ -1,11 +1,10 @@
 import core from "@nestia/core";
-import { Body, Controller, Post, Res } from "@nestjs/common";
-import { Response } from "express";
+import { Controller } from "@nestjs/common";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
-import { RagProvider } from "../../../providers/connector/rag/RagProvider";
 import { RouteIcon } from "@wrtnio/decorators";
+import { RagProvider } from "../../../providers/connector/rag/RagProvider";
 
 @Controller("/connector/rag")
 export class RagController {
@@ -23,7 +22,7 @@ export class RagController {
    * @tag RAG
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
   @core.TypedRoute.Post("/analyze")
   async analyze(
@@ -62,7 +61,7 @@ export class RagController {
    * @tag RAG
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/rag.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
   @core.TypedRoute.Post("/generate/:chatId")
   public async generate(
