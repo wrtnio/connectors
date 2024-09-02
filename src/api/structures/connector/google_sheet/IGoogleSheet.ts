@@ -1,6 +1,7 @@
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 
 /**
  * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
@@ -312,5 +313,45 @@ export namespace IGoogleSheet {
      * @title 시트 URL
      */
     spreadsheetUrl: string;
+  }
+
+  export interface IAppendToSheetInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
+    /**
+     * 내용을 추가할 시트입니다.
+     *
+     * @title 추가할 시트
+     */
+    spreadSheetId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-sheet/create";
+        jmesPath: JMESPath<
+          ICreateGoogleSheetOutput,
+          "[].{value:spreadsheetId, label:spreadsheetUrl}"
+        >;
+      }>;
+
+    /**
+     * 추가할 범위입니다.
+     *
+     * A1 notation 형식으로 입력해주세요.
+     *
+     * @title 추가할 범위
+     */
+    range: string;
+
+    /**
+     * 추가할 값들입니다.
+     *
+     * @title 추가할 값들
+     */
+    values: any[][];
   }
 }
