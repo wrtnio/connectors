@@ -6,13 +6,471 @@ import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INo
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
-/**
- * notion-sdk-js 링크: https://github.com/makenotion/notion-sdk-js
- * notion에서 제공하는 sdk(라이브러리)를 통해 구현할 수 없는 function들은 axios 사용해서 구현
- * 구현할 수 없는 이유는 sdk의 response type으로 접근 불가능한 필드들이 너무 많음
- * ex) response field에는 id, object만 주는데 우리는 properties에 접근할 수 있어야 함.
- */
 export namespace NotionProvider {
+  export async function createFile(
+    input: INotion.ICreateChildContentTypeFileInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createEmbed(
+    input: INotion.ICreateChildContentTypeEmbedInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createBookmark(
+    input: INotion.ICreateChildContentTypeBookmarkInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createImage(
+    input: INotion.ICreateChildContentTypeImageInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createVideo(
+    input: INotion.ICreateChildContentTypeVideoInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createPdf(
+    input: INotion.ICreateChildContentTypePdfInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createAudio(
+    input: INotion.ICreateChildContentTypeAudioInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createCode(
+    input: INotion.ICreateChildContentTypeCodeInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createEquation(
+    input: INotion.ICreateChildContentTypeEquationInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createDivider(
+    input: INotion.ICreateChildContentTypeDividerInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createBreadcrumb(
+    input: INotion.ICreateChildContentTypeBreadcrumbInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createTableOfContents(
+    input: INotion.ICreateChildContentTypeTableOfContentsInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createLinkToPage(
+    input: INotion.ICreateChildContentTypeLinkToPageInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createTableRow(
+    input: INotion.ICreateChildContentTypeTableRowInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createTable(
+    input: INotion.ICreateChildContentTypeTableInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createColumnList(
+    input: INotion.ICreateChildContentTypeColumnListInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createColumn(
+    input: INotion.ICreateChildContentTypeColumnInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createHeading_1(
+    input: INotion.ICreateChildContentTypeHeading_1Input,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createHeading_2(
+    input: INotion.ICreateChildContentTypeHeading_2Input,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createHeading_3(
+    input: INotion.ICreateChildContentTypeHeading_3Input,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createParagraph(
+    input: INotion.ICreateChildContentTypeParagraphInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createBulletedListItem(
+    input: INotion.ICreateChildContentTypeBulletedListItemInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createNumberedListItem(
+    input: INotion.ICreateChildContentTypeNumberedListItemInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createQuote(
+    input: INotion.ICreateChildContentTypeQuoteInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createToDo(
+    input: INotion.ICreateChildContentTypeToDoInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createToggle(
+    input: INotion.ICreateChildContentTypeToggleInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createTemplate(
+    input: INotion.ICreateChildContentTypeTemplateInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createCallout(
+    input: INotion.ICreateChildContentTypeCalloutInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createSyncedBlock(
+    input: INotion.ICreateChildContentTypeSyncedBlockInput,
+  ): Promise<void> {
+    try {
+      const { pageId, ...rest } = input;
+      const notion = await createClient(input.secretKey);
+      await notion.blocks.children.append({
+        block_id: pageId,
+        children: [rest],
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   export async function createPage(
     input: INotion.ICreatePageInput,
   ): Promise<INotion.ICreatePageOutput> {

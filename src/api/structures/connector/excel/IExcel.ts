@@ -41,6 +41,11 @@ export namespace IExcel {
    */
   export interface IReadExcelOutput {
     /**
+     * @title headers of this sheet
+     */
+    headers: string[];
+
+    /**
      * @title 엑셀 시트 데이터
      */
     data: IReadExcelRowData[];

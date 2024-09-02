@@ -3,6 +3,7 @@ import typia, { random } from "typia";
 import CApi from "@wrtn/connector-api/lib/index";
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
+import { deepStrictEqual } from "assert";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_excel_create_file_witnout_sheet_name = async (
@@ -153,6 +154,77 @@ export const test_api_connector_excel_insert_row_fail_case_2 = async (
   );
 
   typia.assert(res);
+};
+
+// 이전 실패 케이스에 대한 테스트 코드 추가, 2번에 나눠서 저장한 경우 누적이 잘 되는지를 검증
+export const test_api_connector_excel_insert_row_fail_case_3 = async (
+  connection: CApi.IConnection,
+) => {
+  const first = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      sheetName: "Sheet1",
+      data: [
+        {
+          AirlineName: "Air Mock",
+          FlightNumber: "AM1234",
+          DepartureTime: "08:00",
+          ArrivalTime: "10:00",
+          Status: "On Time",
+        },
+      ],
+    },
+  );
+
+  const second = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      fileUrl: first.fileUrl,
+      sheetName: "Sheet1",
+      data: [
+        {
+          AirlineName: "Sky High",
+          FlightNumber: "SH5678",
+          DepartureTime: "09:30",
+          ArrivalTime: "11:30",
+          Status: "Delayed",
+        },
+      ],
+    },
+  );
+
+  const res = await CApi.functional.connector.excel.read(connection, {
+    fileUrl: second.fileUrl,
+    sheetName: "Sheet1",
+  });
+
+  const answer = {
+    headers: [
+      "AirlineName",
+      "FlightNumber",
+      "DepartureTime",
+      "ArrivalTime",
+      "Status",
+    ],
+    data: [
+      {
+        AirlineName: "Air Mock",
+        FlightNumber: "AM1234",
+        DepartureTime: "08:00",
+        ArrivalTime: "10:00",
+        Status: "On Time",
+      },
+      {
+        AirlineName: "Sky High",
+        FlightNumber: "SH5678",
+        DepartureTime: "09:30",
+        ArrivalTime: "11:30",
+        Status: "Delayed",
+      },
+    ],
+  };
+
+  deepStrictEqual(JSON.stringify(res), JSON.stringify(answer));
 };
 
 /**

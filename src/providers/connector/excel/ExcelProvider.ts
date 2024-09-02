@@ -9,9 +9,9 @@ import { v4 } from "uuid";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
+import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
-import axios from "axios";
 
 export namespace ExcelProvider {
   export const region = "ap-northeast-2";
@@ -75,35 +75,12 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function getExcelData(
-    input: IExcel.IReadExcelInput,
-  ): Promise<IExcel.IReadExcelOutput> {
+  export async function getExcelData(input: {
+    workbook: Excel.Workbook;
+    sheetName?: string | null;
+  }): Promise<IExcel.IReadExcelOutput> {
     try {
-      const { fileUrl, sheetName } = input;
-      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-      const command = new GetObjectCommand({
-        Bucket: bucket,
-        Key: key,
-      });
-
-      const { Body } = await ExcelProvider.s3.send(command);
-
-      if (!Body) {
-        throw new NotFoundException("Not existing excel file");
-      }
-
-      const chunks = [];
-
-      for await (const chunk of Body) {
-        chunks.push(chunk);
-      }
-
-      const buffer = Buffer.concat(chunks);
-
-      const workbook = new Excel.Workbook();
-      await workbook.xlsx.load(buffer);
-
-      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      const sheet = input.workbook.getWorksheet(input.sheetName ?? 1);
       if (!sheet) {
         throw new NotFoundException("Not existing sheet");
       }
@@ -134,7 +111,7 @@ export namespace ExcelProvider {
         },
       );
 
-      return { data: result };
+      return { headers, data: result };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -161,11 +138,14 @@ export namespace ExcelProvider {
         throw new NotFoundException("Not existing sheet");
       }
 
-      // 모든 데이터의 key를 추출하여 header로 사용합니다.
       const headers = Object.keys(
-        data.reduce((curr, acc) => ({ ...acc, ...curr })),
+        data.reduce((acc, cur) => ({ ...acc, ...cur })),
       );
-      sheet.addRow(headers);
+
+      if (!fileUrl) {
+        // 수정이 아닌 경우에만 저장하게끔 수정
+        sheet.addRow(headers);
+      }
 
       data.forEach((rowData: Record<string, any>) => {
         const data: string[] = [];

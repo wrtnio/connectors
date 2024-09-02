@@ -22,7 +22,9 @@ export class ExcelController {
   async read(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
-    return retry(() => ExcelProvider.getExcelData(input))();
+    const workbook = await ExcelProvider.getExcelFile(input);
+    const option = { workbook, sheetName: input.sheetName };
+    return retry(() => ExcelProvider.getExcelData(option))();
   }
 
   /**

@@ -54,12 +54,12 @@ export class GithubController {
   }
 
   /**
-   * Inquire the user's repository
+   * Inquire the user's repositories
    *
    * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.
    * It is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.
    *
-   * @summary Inquire the user's repository
+   * @summary Inquire the user's repositories
    * @param input
    * @returns repositories
    */
