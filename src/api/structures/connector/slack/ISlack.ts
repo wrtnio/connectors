@@ -401,6 +401,22 @@ export namespace ISlack {
      * If it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together.
      */
     oldestTimestamp?: number;
+
+    /**
+     * @title latestDateTime
+     *
+     * Only messages before this date-time will be included in results. Default is the current time.
+     * It is a value that takes precedence over 'latest', 'latestTimestamp'.
+     */
+    latestDateTime?: string & tags.Format<"date-time">;
+
+    /**
+     * @title oldestDateTime
+     *
+     * Only messages after this date-time will be included in results.
+     * It is a value that takes precedence over 'oldest', 'oldestTimestamp'.
+     */
+    oldestDateTime?: string & tags.Format<"date-time">;
   }
 
   /**

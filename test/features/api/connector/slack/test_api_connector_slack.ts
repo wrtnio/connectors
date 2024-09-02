@@ -67,6 +67,26 @@ export const test_api_connector_slack_get_channel_histories = async (
   return messages;
 };
 
+export const test_api_connector_slack_get_channel_histories_with_date_time =
+  async (connection: CApi.IConnection) => {
+    const channels =
+      await test_api_connector_slack_get_public_channels(connection);
+
+    const messages =
+      await CApi.functional.connector.slack.get_channel_histories.getChannelHistories(
+        connection,
+        {
+          channel: channels[0].id as any,
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+          oldestDateTime: new Date("2024-08-30").toISOString(),
+          latestDateTime: new Date("2024-08-31").toISOString(),
+        },
+      );
+
+    typia.assertEquals(messages);
+    return messages;
+  };
+
 export const test_api_connector_slack_send_text_message_to_public = async (
   connection: CApi.IConnection,
 ) => {
