@@ -9,9 +9,9 @@ import { v4 } from "uuid";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
+import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
-import axios from "axios";
 
 export namespace ExcelProvider {
   export const region = "ap-northeast-2";
@@ -75,35 +75,12 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function getExcelData(
-    input: IExcel.IReadExcelInput,
-  ): Promise<IExcel.IReadExcelOutput> {
+  export async function getExcelData(input: {
+    workbook: Excel.Workbook;
+    sheetName?: string | null;
+  }): Promise<IExcel.IReadExcelOutput> {
     try {
-      const { fileUrl, sheetName } = input;
-      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-      const command = new GetObjectCommand({
-        Bucket: bucket,
-        Key: key,
-      });
-
-      const { Body } = await ExcelProvider.s3.send(command);
-
-      if (!Body) {
-        throw new NotFoundException("Not existing excel file");
-      }
-
-      const chunks = [];
-
-      for await (const chunk of Body) {
-        chunks.push(chunk);
-      }
-
-      const buffer = Buffer.concat(chunks);
-
-      const workbook = new Excel.Workbook();
-      await workbook.xlsx.load(buffer);
-
-      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      const sheet = input.workbook.getWorksheet(input.sheetName ?? 1);
       if (!sheet) {
         throw new NotFoundException("Not existing sheet");
       }
@@ -134,7 +111,7 @@ export namespace ExcelProvider {
         },
       );
 
-      return { data: result };
+      return { headers, data: result };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -154,6 +131,9 @@ export namespace ExcelProvider {
         workbook.addWorksheet(sheetName ?? "Sheet1");
       }
 
+      // 원래 파일이 존재할 경우 원래 파일의 헤더를 다시 넣을 필요가 없기 때문
+      const originalData = await getExcelData({ workbook, sheetName });
+
       // 0번 인덱스는 우리가 생성한 적 없는 시트이므로 패스한다.
       const CREATED_SHEET = 1 as const;
       const sheet = workbook.getWorksheet(sheetName ?? CREATED_SHEET);
@@ -161,9 +141,11 @@ export namespace ExcelProvider {
         throw new NotFoundException("Not existing sheet");
       }
 
-      // 모든 데이터의 key를 추출하여 header로 사용합니다.
-      const headers = Object.keys(
-        data.reduce((curr, acc) => ({ ...acc, ...curr })),
+      const newHeaders = Object.keys(
+        data.reduce((acc, cur) => ({ ...acc, ...cur })),
+      );
+      const headers = Array.from(
+        new Set([...originalData.headers, ...newHeaders]),
       );
       sheet.addRow(headers);
 
