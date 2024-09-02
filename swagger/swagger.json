@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.158",
+    "version": "0.1.159",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9503,7 +9503,7 @@
     "/connector/slack/get-channel-histories": {
       "post": {
         "summary": "get channel histories in slack",
-        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.",
+        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\n\nIf you want to filter by date, prioritize using the datetime format.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11118,7 +11118,7 @@
     "/connector/github/get-branches": {
       "post": {
         "summary": "Inquire the user's branch",
-        "description": "Inquire the user's branch\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.",
+        "description": "Inquire the user's branch\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.\n\nYou shouldn't call the main branch arbitrarily because there may be people who use the master branch.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11213,7 +11213,7 @@
     "/connector/github/get-commit": {
       "post": {
         "summary": "Inquire the commit details of the user",
-        "description": "Inquire the commit details of the user\nIt contains all the history of how the file changed, so you can see the details of a single commit node.",
+        "description": "Inquire the commit details of the user\nIt contains all the history of how the file changed, so you can see the details of a single commit node.\nIf you do not deliver ref, look up based on default_branch.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11244,7 +11244,7 @@
     "/connector/github/get-commit-diff": {
       "post": {
         "summary": "Inquire the commit diff of the user",
-        "description": "Inquire the commit diff of the user\ndiff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.",
+        "description": "Inquire the commit diff of the user\ndiff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.\nIf you do not deliver ref, look up based on default_branch.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -31354,24 +31354,15 @@
             ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
-          "latest": {
-            "type": "number",
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
+          "latestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "latestDateTime\n\nOnly messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
           },
-          "oldest": {
-            "type": "number",
-            "default": 0,
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
-          },
-          "latestTimestamp": {
-            "type": "number",
-            "title": "latestTimestamp\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `lastest` property is present together."
-          },
-          "oldestTimestamp": {
-            "type": "number",
-            "title": "oldestTimestamp\n\nOnly messages after this Unix timestamp will be included in results.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together."
+          "oldestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "oldestDateTime\n\nOnly messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
           },
           "secretKey": {
             "type": "string",
@@ -31565,24 +31556,15 @@
             ],
             "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
-          "latest": {
-            "type": "number",
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "lastest\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
+          "latestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "latestDateTime\n\nOnly messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
           },
-          "oldest": {
-            "type": "number",
-            "default": 0,
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "oldest\n\nOnly messages after this Unix timestamp will be included in results.\nSlack's own timestamp format.\nfor example, '1234567890.123456'"
-          },
-          "latestTimestamp": {
-            "type": "number",
-            "title": "latestTimestamp\n\nOnly messages before this Unix timestamp will be included in results. Default is the current time.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `lastest` property is present together."
-          },
-          "oldestTimestamp": {
-            "type": "number",
-            "title": "oldestTimestamp\n\nOnly messages after this Unix timestamp will be included in results.\nIt can be obtained through `Date.getTime()` as a commonly thought timestamp value.\nIf it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together."
+          "oldestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "oldestDateTime\n\nOnly messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
           },
           "secretKey": {
             "type": "string",
@@ -39904,6 +39886,11 @@
           },
           "commit_sha": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/get-commit-list",
+              "jmesPath": "result[].{value:sha, label:comment.message}"
+            },
             "title": "commit_sha\n\nThe SHA of the commit."
           },
           "secretKey": {
@@ -40007,6 +39994,11 @@
           },
           "ref": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/get-branches",
+              "jmesPath": "result[].{value:name, label:name}"
+            },
             "title": "commit hash or branch name"
           },
           "secretKey": {
@@ -40022,7 +40014,6 @@
         "required": [
           "owner",
           "repo",
-          "ref",
           "secretKey"
         ]
       },
