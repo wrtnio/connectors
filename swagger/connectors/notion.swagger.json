@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.161",
+    "version": "0.1.162",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -30,13 +30,24 @@
         "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeFileInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/embed": {
@@ -45,13 +56,24 @@
         "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeEmbedInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/bookmark": {
@@ -60,13 +82,24 @@
         "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeBookmarkInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/image": {
@@ -75,13 +108,24 @@
         "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeImageInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/video": {
@@ -90,13 +134,24 @@
         "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeVideoInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/pdf": {
@@ -105,13 +160,24 @@
         "description": "Append an pdf type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `pdf`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypePdfInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/audio": {
@@ -120,13 +186,24 @@
         "description": "Append an audio type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `audio`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeAudioInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/code": {
@@ -135,13 +212,24 @@
         "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeCodeInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/equation": {
@@ -150,13 +238,24 @@
         "description": "Append an equation type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `equation`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeEquationInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/divider": {
@@ -165,13 +264,24 @@
         "description": "Append an divider type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `divider`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeDividerInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/breadcrumb": {
@@ -180,13 +290,24 @@
         "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeBreadcrumbInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/table_of_contents": {
@@ -195,13 +316,24 @@
         "description": "Append an table_of_contents type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_of_contents`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeTableOfContentsInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/link_to_page": {
@@ -210,73 +342,24 @@
         "description": "Append an link_to_page type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `link_to_page`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeLinkToPageInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/connector/notion/page/table_row": {
-      "post": {
-        "summary": "Append an table_row type child node",
-        "description": "Append an table_row type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_row`.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/connector/notion/page/table": {
-      "post": {
-        "summary": "Append an table type child node",
-        "description": "Append an table type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table`.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/connector/notion/page/column_list": {
-      "post": {
-        "summary": "Append an column_list type child node",
-        "description": "Append an column_list type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `column_list`.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/connector/notion/page/column": {
-      "post": {
-        "summary": "Append an column type child node",
-        "description": "Append an column type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `column`.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/heading_1": {
@@ -285,13 +368,24 @@
         "description": "Append an heading_1 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_1`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeHeading_1Input"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/heading_2": {
@@ -300,13 +394,24 @@
         "description": "Append an heading_2 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_2`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeHeading_2Input"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/heading_3": {
@@ -315,13 +420,24 @@
         "description": "Append an heading_3 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_3`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeHeading_3Input"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/paragraph": {
@@ -330,13 +446,24 @@
         "description": "Append an paragraph type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `paragraph`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeParagraphInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/bulleted_list_item": {
@@ -345,13 +472,24 @@
         "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeBulletedListItemInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/numbered_list_item": {
@@ -360,13 +498,24 @@
         "description": "Append an numbered_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `numbered_list_item`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeNumberedListItemInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/quote": {
@@ -375,13 +524,24 @@
         "description": "Append an quote type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `quote`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeQuoteInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/to_do": {
@@ -390,13 +550,24 @@
         "description": "Append an to_do type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `to_do`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeToDoInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/toggle": {
@@ -405,60 +576,30 @@
         "description": "Append an toggle type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `toggle`.",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeToggleInput"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "content": {
               "application/json": {}
             }
           }
-        }
-      }
-    },
-    "/connector/notion/page/template": {
-      "post": {
-        "summary": "Append an template type child node",
-        "description": "Append an template type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `template`.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/connector/notion/page/callout": {
-      "post": {
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/connector/notion/page/synced_block": {
-      "post": {
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page": {
       "post": {
         "summary": "페이지 생성",
-        "description": "노션 페이지를 생성합니다.",
+        "description": "노션 페이지를 생성합니다.\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -904,6 +1045,1901 @@
   },
   "components": {
     "schemas": {
+      "INotion.ICreateChildContentTypeFileInput": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "object",
+            "properties": {
+              "external": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            },
+            "required": [
+              "external"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "file",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeEmbedInput": {
+        "type": "object",
+        "properties": {
+          "embed": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "url"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "embed",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeBookmarkInput": {
+        "type": "object",
+        "properties": {
+          "bookmark": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "url"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "bookmark",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeImageInput": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "object",
+            "properties": {
+              "external": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            },
+            "required": [
+              "external"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "image",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeVideoInput": {
+        "type": "object",
+        "properties": {
+          "video": {
+            "type": "object",
+            "properties": {
+              "external": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            },
+            "required": [
+              "external"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "video",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypePdfInput": {
+        "type": "object",
+        "properties": {
+          "pdf": {
+            "type": "object",
+            "properties": {
+              "external": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            },
+            "required": [
+              "external"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "pdf",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeAudioInput": {
+        "type": "object",
+        "properties": {
+          "audio": {
+            "type": "object",
+            "properties": {
+              "external": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            },
+            "required": [
+              "external"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "audio",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeCodeInput": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "object",
+            "properties": {
+              "language": {
+                "oneOf": [
+                  {
+                    "const": "c"
+                  },
+                  {
+                    "const": "json"
+                  },
+                  {
+                    "const": "r"
+                  },
+                  {
+                    "const": "html"
+                  },
+                  {
+                    "const": "abap"
+                  },
+                  {
+                    "const": "agda"
+                  },
+                  {
+                    "const": "arduino"
+                  },
+                  {
+                    "const": "assembly"
+                  },
+                  {
+                    "const": "bash"
+                  },
+                  {
+                    "const": "basic"
+                  },
+                  {
+                    "const": "bnf"
+                  },
+                  {
+                    "const": "c#"
+                  },
+                  {
+                    "const": "c++"
+                  },
+                  {
+                    "const": "clojure"
+                  },
+                  {
+                    "const": "coffeescript"
+                  },
+                  {
+                    "const": "coq"
+                  },
+                  {
+                    "const": "css"
+                  },
+                  {
+                    "const": "dart"
+                  },
+                  {
+                    "const": "dhall"
+                  },
+                  {
+                    "const": "diff"
+                  },
+                  {
+                    "const": "docker"
+                  },
+                  {
+                    "const": "ebnf"
+                  },
+                  {
+                    "const": "elixir"
+                  },
+                  {
+                    "const": "elm"
+                  },
+                  {
+                    "const": "erlang"
+                  },
+                  {
+                    "const": "f#"
+                  },
+                  {
+                    "const": "flow"
+                  },
+                  {
+                    "const": "fortran"
+                  },
+                  {
+                    "const": "gherkin"
+                  },
+                  {
+                    "const": "glsl"
+                  },
+                  {
+                    "const": "go"
+                  },
+                  {
+                    "const": "graphql"
+                  },
+                  {
+                    "const": "groovy"
+                  },
+                  {
+                    "const": "haskell"
+                  },
+                  {
+                    "const": "idris"
+                  },
+                  {
+                    "const": "java"
+                  },
+                  {
+                    "const": "javascript"
+                  },
+                  {
+                    "const": "julia"
+                  },
+                  {
+                    "const": "kotlin"
+                  },
+                  {
+                    "const": "latex"
+                  },
+                  {
+                    "const": "less"
+                  },
+                  {
+                    "const": "lisp"
+                  },
+                  {
+                    "const": "livescript"
+                  },
+                  {
+                    "const": "llvm ir"
+                  },
+                  {
+                    "const": "lua"
+                  },
+                  {
+                    "const": "makefile"
+                  },
+                  {
+                    "const": "markdown"
+                  },
+                  {
+                    "const": "markup"
+                  },
+                  {
+                    "const": "matlab"
+                  },
+                  {
+                    "const": "mathematica"
+                  },
+                  {
+                    "const": "mermaid"
+                  },
+                  {
+                    "const": "nix"
+                  },
+                  {
+                    "const": "notion formula"
+                  },
+                  {
+                    "const": "objective-c"
+                  },
+                  {
+                    "const": "ocaml"
+                  },
+                  {
+                    "const": "pascal"
+                  },
+                  {
+                    "const": "perl"
+                  },
+                  {
+                    "const": "php"
+                  },
+                  {
+                    "const": "plain text"
+                  },
+                  {
+                    "const": "powershell"
+                  },
+                  {
+                    "const": "prolog"
+                  },
+                  {
+                    "const": "protobuf"
+                  },
+                  {
+                    "const": "purescript"
+                  },
+                  {
+                    "const": "python"
+                  },
+                  {
+                    "const": "racket"
+                  },
+                  {
+                    "const": "reason"
+                  },
+                  {
+                    "const": "ruby"
+                  },
+                  {
+                    "const": "rust"
+                  },
+                  {
+                    "const": "sass"
+                  },
+                  {
+                    "const": "scala"
+                  },
+                  {
+                    "const": "scheme"
+                  },
+                  {
+                    "const": "scss"
+                  },
+                  {
+                    "const": "shell"
+                  },
+                  {
+                    "const": "solidity"
+                  },
+                  {
+                    "const": "sql"
+                  },
+                  {
+                    "const": "swift"
+                  },
+                  {
+                    "const": "toml"
+                  },
+                  {
+                    "const": "typescript"
+                  },
+                  {
+                    "const": "vb.net"
+                  },
+                  {
+                    "const": "verilog"
+                  },
+                  {
+                    "const": "vhdl"
+                  },
+                  {
+                    "const": "visual basic"
+                  },
+                  {
+                    "const": "webassembly"
+                  },
+                  {
+                    "const": "xml"
+                  },
+                  {
+                    "const": "yaml"
+                  },
+                  {
+                    "const": "java/c/c++/c#"
+                  }
+                ]
+              },
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "language",
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "code",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeEquationInput": {
+        "type": "object",
+        "properties": {
+          "equation": {
+            "type": "object",
+            "properties": {
+              "expression": {
+                "const": "y = 2x",
+                "title": "expression\n\nan equation in mathematics"
+              }
+            },
+            "required": [
+              "expression"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "equation",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeDividerInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          },
+          "divider": {
+            "$ref": "#/components/schemas/EmptyObject"
+          }
+        },
+        "required": [
+          "secretKey",
+          "pageId",
+          "divider"
+        ]
+      },
+      "EmptyObject": {
+        "type": "object",
+        "properties": {}
+      },
+      "INotion.ICreateChildContentTypeBreadcrumbInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          },
+          "breadcrumb": {
+            "$ref": "#/components/schemas/EmptyObject"
+          }
+        },
+        "required": [
+          "secretKey",
+          "pageId",
+          "breadcrumb"
+        ]
+      },
+      "INotion.ICreateChildContentTypeTableOfContentsInput": {
+        "type": "object",
+        "properties": {
+          "table_of_contents": {
+            "type": "object",
+            "properties": {
+              "color": {
+                "oneOf": [
+                  {
+                    "const": "default"
+                  },
+                  {
+                    "const": "gray"
+                  },
+                  {
+                    "const": "brown"
+                  },
+                  {
+                    "const": "orange"
+                  },
+                  {
+                    "const": "yellow"
+                  },
+                  {
+                    "const": "green"
+                  },
+                  {
+                    "const": "blue"
+                  },
+                  {
+                    "const": "purple"
+                  },
+                  {
+                    "const": "pink"
+                  },
+                  {
+                    "const": "red"
+                  },
+                  {
+                    "const": "gray_background"
+                  },
+                  {
+                    "const": "brown_background"
+                  },
+                  {
+                    "const": "orange_background"
+                  },
+                  {
+                    "const": "yellow_background"
+                  },
+                  {
+                    "const": "green_background"
+                  },
+                  {
+                    "const": "blue_background"
+                  },
+                  {
+                    "const": "purple_background"
+                  },
+                  {
+                    "const": "pink_background"
+                  },
+                  {
+                    "const": "red_background"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "color"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "table_of_contents",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeLinkToPageInput": {
+        "type": "object",
+        "properties": {
+          "link_to_page": {
+            "type": "object",
+            "properties": {
+              "page_id": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/notion/get/page",
+                      "jmesPath": "[].{value:pageId, label:title}"
+                    }
+                  },
+                  {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/notion/page",
+                      "jmesPath": "[].{value:id, label:id}"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "page_id"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "link_to_page",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeHeading_1Input": {
+        "type": "object",
+        "properties": {
+          "heading_1": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "heading_1",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeHeading_2Input": {
+        "type": "object",
+        "properties": {
+          "heading_2": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "heading_2",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeHeading_3Input": {
+        "type": "object",
+        "properties": {
+          "heading_3": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "heading_3",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeParagraphInput": {
+        "type": "object",
+        "properties": {
+          "paragraph": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "paragraph",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeBulletedListItemInput": {
+        "type": "object",
+        "properties": {
+          "bulleted_list_item": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "bulleted_list_item",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeNumberedListItemInput": {
+        "type": "object",
+        "properties": {
+          "numbered_list_item": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "numbered_list_item",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeQuoteInput": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "quote",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeToDoInput": {
+        "type": "object",
+        "properties": {
+          "to_do": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              },
+              "checked": {
+                "type": "boolean"
+              },
+              "color": {
+                "oneOf": [
+                  {
+                    "const": "default"
+                  },
+                  {
+                    "const": "gray"
+                  },
+                  {
+                    "const": "brown"
+                  },
+                  {
+                    "const": "orange"
+                  },
+                  {
+                    "const": "yellow"
+                  },
+                  {
+                    "const": "green"
+                  },
+                  {
+                    "const": "blue"
+                  },
+                  {
+                    "const": "purple"
+                  },
+                  {
+                    "const": "pink"
+                  },
+                  {
+                    "const": "red"
+                  },
+                  {
+                    "const": "gray_background"
+                  },
+                  {
+                    "const": "brown_background"
+                  },
+                  {
+                    "const": "orange_background"
+                  },
+                  {
+                    "const": "yellow_background"
+                  },
+                  {
+                    "const": "green_background"
+                  },
+                  {
+                    "const": "blue_background"
+                  },
+                  {
+                    "const": "purple_background"
+                  },
+                  {
+                    "const": "pink_background"
+                  },
+                  {
+                    "const": "red_background"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "to_do",
+          "secretKey",
+          "pageId"
+        ]
+      },
+      "INotion.ICreateChildContentTypeToggleInput": {
+        "type": "object",
+        "properties": {
+          "toggle": {
+            "type": "object",
+            "properties": {
+              "rich_text": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false
+              },
+              "color": {
+                "oneOf": [
+                  {
+                    "const": "default"
+                  },
+                  {
+                    "const": "gray"
+                  },
+                  {
+                    "const": "brown"
+                  },
+                  {
+                    "const": "orange"
+                  },
+                  {
+                    "const": "yellow"
+                  },
+                  {
+                    "const": "green"
+                  },
+                  {
+                    "const": "blue"
+                  },
+                  {
+                    "const": "purple"
+                  },
+                  {
+                    "const": "pink"
+                  },
+                  {
+                    "const": "red"
+                  },
+                  {
+                    "const": "gray_background"
+                  },
+                  {
+                    "const": "brown_background"
+                  },
+                  {
+                    "const": "orange_background"
+                  },
+                  {
+                    "const": "yellow_background"
+                  },
+                  {
+                    "const": "green_background"
+                  },
+                  {
+                    "const": "blue_background"
+                  },
+                  {
+                    "const": "purple_background"
+                  },
+                  {
+                    "const": "pink_background"
+                  },
+                  {
+                    "const": "red_background"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rich_text"
+            ]
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                }
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+          }
+        },
+        "required": [
+          "toggle",
+          "secretKey",
+          "pageId"
+        ]
+      },
       "INotion.ICreatePageOutput": {
         "type": "object",
         "properties": {
@@ -911,10 +2947,15 @@
             "type": "string",
             "title": "페이지 id",
             "description": "생성된 페이지의 고유 id"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\n방금 생성한 문서의 제목"
           }
         },
         "required": [
-          "id"
+          "id",
+          "title"
         ],
         "title": "페이지 생성 결과"
       },
@@ -954,7 +2995,6 @@
         "required": [
           "parentPageId",
           "title",
-          "content",
           "secretKey"
         ],
         "title": "페이지 생성에 필요한 조건"
@@ -2329,6 +4369,10 @@
             "type": "string",
             "title": "페이지 id",
             "description": "생성된 페이지의 고유 id"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\n방금 생성한 문서의 제목"
           }
         },
         "required": [
@@ -2344,7 +4388,8 @@
           "archived",
           "url",
           "public_url",
-          "id"
+          "id",
+          "title"
         ],
         "title": "데이터베이스 아이템 생성 결과"
       },
@@ -2469,10 +4514,10 @@
           "contentType": {
             "oneOf": [
               {
-                "const": "plainText"
+                "const": "markdown"
               },
               {
-                "const": "markdown"
+                "const": "plainText"
               }
             ],
             "title": "페이지 내용의 유형",
@@ -2732,6 +4777,10 @@
             "type": "string",
             "title": "페이지 id",
             "description": "생성된 페이지의 고유 id"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\n방금 생성한 문서의 제목"
           }
         },
         "required": [
@@ -2747,7 +4796,8 @@
           "archived",
           "url",
           "public_url",
-          "id"
+          "id",
+          "title"
         ]
       },
       "INotion.IFindPageProperty": {
