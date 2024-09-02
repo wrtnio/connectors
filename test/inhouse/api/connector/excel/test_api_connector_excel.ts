@@ -215,13 +215,6 @@ export const test_api_connector_excel_insert_row_fail_case_3 = async (
         Status: "On Time",
       },
       {
-        AirlineName: "AirlineName",
-        FlightNumber: "FlightNumber",
-        DepartureTime: "DepartureTime",
-        ArrivalTime: "ArrivalTime",
-        Status: "Status",
-      },
-      {
         AirlineName: "Sky High",
         FlightNumber: "SH5678",
         DepartureTime: "09:30",

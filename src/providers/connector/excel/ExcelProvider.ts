@@ -131,9 +131,6 @@ export namespace ExcelProvider {
         workbook.addWorksheet(sheetName ?? "Sheet1");
       }
 
-      // 원래 파일이 존재할 경우 원래 파일의 헤더를 다시 넣을 필요가 없기 때문
-      const originalData = await getExcelData({ workbook, sheetName });
-
       // 0번 인덱스는 우리가 생성한 적 없는 시트이므로 패스한다.
       const CREATED_SHEET = 1 as const;
       const sheet = workbook.getWorksheet(sheetName ?? CREATED_SHEET);
@@ -141,13 +138,14 @@ export namespace ExcelProvider {
         throw new NotFoundException("Not existing sheet");
       }
 
-      const newHeaders = Object.keys(
+      const headers = Object.keys(
         data.reduce((acc, cur) => ({ ...acc, ...cur })),
       );
-      const headers = Array.from(
-        new Set([...originalData.headers, ...newHeaders]),
-      );
-      sheet.addRow(headers);
+
+      if (!fileUrl) {
+        // 수정이 아닌 경우에만 저장하게끔 수정
+        sheet.addRow(headers);
+      }
 
       data.forEach((rowData: Record<string, any>) => {
         const data: string[] = [];
