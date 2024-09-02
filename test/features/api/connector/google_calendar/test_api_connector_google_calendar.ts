@@ -90,23 +90,16 @@ export const test_api_connector_google_calendar = async (
       "primary",
       {
         secretKey,
-        extract_fields: [
-          "summary",
-          "description",
-          "htmlLink",
-          "attachments",
-          "creator",
-        ],
         time_min: {
           year: 2024,
-          month: 1,
-          date: 25,
+          month: 8,
+          date: 1,
           hour: 9,
         },
         time_max: {
           year: 2024,
-          month: 1,
-          date: 25,
+          month: 8,
+          date: 31,
           hour: 9,
         },
       },

@@ -39,26 +39,6 @@ export namespace IGoogleCalendar {
   }
 
   /**
-   * 제목, 설명, 링크, 이벤트 생성 날짜, 이벤트 업데이트 날짜, 위치, 주최자, 생성한 사람, 이벤트 시작일, 이벤트 종료일, 참석자 정보, 알림 정보, 첨부파일 정보
-   *
-   * @title 가져올 데이터 목록.
-   */
-  export type ExtractFields =
-    | tags.Constant<"summary", { title: "제목" }>
-    | tags.Constant<"description", { title: "설명" }>
-    | tags.Constant<"htmlLink", { title: "링크" }>
-    | tags.Constant<"created", { title: "이벤트 생성 날짜" }>
-    | tags.Constant<"updated", { title: "이벤트 업데이트 날짜" }>
-    | tags.Constant<"location", { title: "위치" }>
-    | tags.Constant<"organizer", { title: "주최자" }>
-    | tags.Constant<"creator", { title: "생성한 사람" }>
-    | tags.Constant<"start", { title: "이벤트 시작일" }>
-    | tags.Constant<"end", { title: "이벤트 종료일" }>
-    | tags.Constant<"attendees", { title: "참석자 정보" }>
-    | tags.Constant<"reminders", { title: "알림 정보" }>
-    | tags.Constant<"attachments", { title: "첨부파일 정보" }>;
-
-  /**
    * - startTime: 이벤트 시작 시간.
    * - updated: 이벤트 업데이트 날짜.
    *
@@ -76,15 +56,6 @@ export namespace IGoogleCalendar {
       "google",
       ["https://www.googleapis.com/auth/calendar"]
     > {
-    /**
-     * 캘린더 데이터에서 가져올 데이터 정보입니다.
-     *
-     * 가능한 값으로는 "summary", "description", "htmlLink", "created", "updated", "location", "organizer", "creator", "start", "end", "attendees", "reminders", "attachments" 11가지만 가능합니다.
-     *
-     * @title 가져올 데이터 (필드) 정보.
-     */
-    extract_fields: ExtractFields[];
-
     /**
      * 해당 날짜 이후의 이벤트는 가져오지 않습니다.
      *

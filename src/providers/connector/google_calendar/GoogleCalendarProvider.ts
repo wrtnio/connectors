@@ -102,7 +102,6 @@ export class GoogleCalendarProvider {
       authClient.setCredentials({ access_token: accessToken });
 
       const calendar = google.calendar({ version: "v3", auth: authClient });
-      const extract_fields = input.extract_fields?.join(",");
       const response = await calendar.events.list({
         calendarId: calendarId,
         timeMin: input.time_min ? this.makeDateForKST(input.time_min) : "",
@@ -111,7 +110,6 @@ export class GoogleCalendarProvider {
         q: input.query,
         singleEvents: true,
         orderBy: input.orderBy,
-        fields: `items(${extract_fields})`,
       });
       const events = response.data.items;
 
@@ -177,8 +175,7 @@ export class GoogleCalendarProvider {
         conferenceDataVersion: input.isConferencing === true ? 1 : 0,
         requestBody: this.makeEventRequestBody(input),
       });
-
-      return this.parseEventInfo(event);
+      return this.parseEventInfo(event.data);
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
