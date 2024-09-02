@@ -11,7 +11,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeFileInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -27,7 +27,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeEmbedInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -43,7 +43,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeBookmarkInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -59,7 +59,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeImageInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -75,7 +75,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeVideoInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -91,7 +91,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypePdfInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -107,7 +107,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeAudioInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -123,7 +123,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeCodeInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -139,7 +139,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeEquationInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -155,7 +155,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeDividerInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -171,7 +171,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeBreadcrumbInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -187,7 +187,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeTableOfContentsInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -203,7 +203,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeLinkToPageInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -219,7 +219,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeTableRowInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -235,7 +235,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeTableInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -251,7 +251,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeColumnListInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -267,7 +267,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeColumnInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -283,7 +283,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeHeading_1Input,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -299,7 +299,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeHeading_2Input,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -315,7 +315,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeHeading_3Input,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -331,7 +331,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeParagraphInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -347,7 +347,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeBulletedListItemInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -363,7 +363,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeNumberedListItemInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -379,7 +379,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeQuoteInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -395,7 +395,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeToDoInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -411,7 +411,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeToggleInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -427,7 +427,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeTemplateInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -443,7 +443,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeCalloutInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
@@ -459,7 +459,7 @@ export namespace NotionProvider {
     input: INotion.ICreateChildContentTypeSyncedBlockInput,
   ): Promise<void> {
     try {
-      const { pageId, ...rest } = input;
+      const { pageId, secretKey, ...rest } = input;
       const notion = await createClient(input.secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
