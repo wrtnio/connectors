@@ -1,6 +1,10 @@
 import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
+import {
+  BlockObjectRequest,
+  CreatePageParameters,
+} from "@notionhq/client/build/src/api-endpoints";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {
@@ -422,6 +426,276 @@ export namespace INotion {
      * @title 내용
      */
     content: string & Placeholder<"테스트 페이지를 생성했습니다.">;
+  }
+
+  export interface ICreatePageContentInput
+    extends Pick<CreatePageParameters, "children"> {
+    children: BlockObjectRequest[];
+  }
+
+  export type LookUp<U extends { type?: string }, T> = U extends { type?: T }
+    ? U
+    : never;
+
+  export interface ICreateChildContentTypeFileInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `file`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeEmbedInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `embed`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeBookmarkInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `bookmark`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeImageInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `image`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeVideoInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `video`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypePdfInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `pdf`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeAudioInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `audio`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeCodeInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `code`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeEquationInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `equation`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeDividerInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `divider`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeBreadcrumbInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `breadcrumb`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeTableOfContentsInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `table_of_contents`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeLinkToPageInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `link_to_page`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeTableRowInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `table_row`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeTableInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `table`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeColumnListInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `column_list`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeColumnInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `column`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeHeading_1Input
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `heading_1`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeHeading_2Input
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `heading_2`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeHeading_3Input
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `heading_3`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeParagraphInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `paragraph`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeBulletedListItemInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `bulleted_list_item`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeNumberedListItemInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `numbered_list_item`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeQuoteInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `quote`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeToDoInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `to_do`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeToggleInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `toggle`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeTemplateInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `template`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeCalloutInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `callout`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
+  }
+
+  export interface ICreateChildContentTypeSyncedBlockInput
+    extends ICommon.ISecret<"notion">,
+      LookUp<BlockObjectRequest, `synced_block`> {
+    /**
+     * @title pageId
+     */
+    pageId: string;
   }
 
   /**

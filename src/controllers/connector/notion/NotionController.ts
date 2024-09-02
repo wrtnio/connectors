@@ -10,53 +10,512 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/notion")
 export class NotionController {
   /**
+   * Append an file type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `file`.
+   *
+   * @summary Append an file type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/file")
+  async createFile(
+    input: INotion.ICreateChildContentTypeFileInput,
+  ): Promise<void> {
+    return NotionProvider.createFile(input);
+  }
+
+  /**
+   * Append an embed type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `embed`.
+   *
+   * @summary Append an embed type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/embed")
+  async createEmbed(
+    input: INotion.ICreateChildContentTypeEmbedInput,
+  ): Promise<void> {
+    return NotionProvider.createEmbed(input);
+  }
+
+  /**
+   * Append an bookmark type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `bookmark`.
+   *
+   * @summary Append an bookmark type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/bookmark")
+  async createBookmark(
+    input: INotion.ICreateChildContentTypeBookmarkInput,
+  ): Promise<void> {
+    return NotionProvider.createBookmark(input);
+  }
+
+  /**
+   * Append an image type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `image`.
+   *
+   * @summary Append an image type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/image")
+  async createImage(
+    input: INotion.ICreateChildContentTypeImageInput,
+  ): Promise<void> {
+    return NotionProvider.createImage(input);
+  }
+
+  /**
+   * Append an video type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `video`.
+   *
+   * @summary Append an video type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/video")
+  async createVideo(
+    input: INotion.ICreateChildContentTypeVideoInput,
+  ): Promise<void> {
+    return NotionProvider.createVideo(input);
+  }
+
+  /**
+   * Append an pdf type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `pdf`.
+   *
+   * @summary Append an pdf type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/pdf")
+  async createPdf(
+    input: INotion.ICreateChildContentTypePdfInput,
+  ): Promise<void> {
+    return NotionProvider.createPdf(input);
+  }
+
+  /**
+   * Append an audio type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `audio`.
+   *
+   * @summary Append an audio type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/audio")
+  async createAudio(
+    input: INotion.ICreateChildContentTypeAudioInput,
+  ): Promise<void> {
+    return NotionProvider.createAudio(input);
+  }
+
+  /**
+   * Append an code type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `code`.
+   *
+   * @summary Append an code type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/code")
+  async createCode(
+    input: INotion.ICreateChildContentTypeCodeInput,
+  ): Promise<void> {
+    return NotionProvider.createCode(input);
+  }
+
+  /**
+   * Append an equation type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `equation`.
+   *
+   * @summary Append an equation type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/equation")
+  async createEquation(
+    input: INotion.ICreateChildContentTypeEquationInput,
+  ): Promise<void> {
+    return NotionProvider.createEquation(input);
+  }
+
+  /**
+   * Append an divider type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `divider`.
+   *
+   * @summary Append an divider type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/divider")
+  async createDivider(
+    input: INotion.ICreateChildContentTypeDividerInput,
+  ): Promise<void> {
+    return NotionProvider.createDivider(input);
+  }
+
+  /**
+   * Append an breadcrumb type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `breadcrumb`.
+   *
+   * @summary Append an breadcrumb type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/breadcrumb")
+  async createBreadcrumb(
+    input: INotion.ICreateChildContentTypeBreadcrumbInput,
+  ): Promise<void> {
+    return NotionProvider.createBreadcrumb(input);
+  }
+
+  /**
+   * Append an table_of_contents type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `table_of_contents`.
+   *
+   * @summary Append an table_of_contents type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/table_of_contents")
+  async createTableOfContents(
+    input: INotion.ICreateChildContentTypeTableOfContentsInput,
+  ): Promise<void> {
+    return NotionProvider.createTableOfContents(input);
+  }
+
+  /**
+   * Append an link_to_page type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `link_to_page`.
+   *
+   * @summary Append an link_to_page type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/link_to_page")
+  async createLinkToPage(
+    input: INotion.ICreateChildContentTypeLinkToPageInput,
+  ): Promise<void> {
+    return NotionProvider.createLinkToPage(input);
+  }
+
+  /**
+   * Append an table_row type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `table_row`.
+   *
+   * @summary Append an table_row type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/table_row")
+  async createTableRow(
+    input: INotion.ICreateChildContentTypeTableRowInput,
+  ): Promise<void> {
+    return NotionProvider.createTableRow(input);
+  }
+
+  /**
+   * Append an table type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `table`.
+   *
+   * @summary Append an table type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/table")
+  async createTable(
+    input: INotion.ICreateChildContentTypeTableInput,
+  ): Promise<void> {
+    return NotionProvider.createTable(input);
+  }
+
+  /**
+   * Append an column_list type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `column_list`.
+   *
+   * @summary Append an column_list type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/column_list")
+  async createColumnList(
+    input: INotion.ICreateChildContentTypeColumnListInput,
+  ): Promise<void> {
+    return NotionProvider.createColumnList(input);
+  }
+
+  /**
+   * Append an column type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `column`.
+   *
+   * @summary Append an column type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/column")
+  async createColumn(
+    input: INotion.ICreateChildContentTypeColumnInput,
+  ): Promise<void> {
+    return NotionProvider.createColumn(input);
+  }
+
+  /**
+   * Append an heading_1 type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `heading_1`.
+   *
+   * @summary Append an heading_1 type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/heading_1")
+  async createHeading_1(
+    input: INotion.ICreateChildContentTypeHeading_1Input,
+  ): Promise<void> {
+    return NotionProvider.createHeading_1(input);
+  }
+
+  /**
+   * Append an heading_2 type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `heading_2`.
+   *
+   * @summary Append an heading_2 type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/heading_2")
+  async createHeading_2(
+    input: INotion.ICreateChildContentTypeHeading_2Input,
+  ): Promise<void> {
+    return NotionProvider.createHeading_2(input);
+  }
+
+  /**
+   * Append an heading_3 type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `heading_3`.
+   *
+   * @summary Append an heading_3 type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/heading_3")
+  async createHeading_3(
+    input: INotion.ICreateChildContentTypeHeading_3Input,
+  ): Promise<void> {
+    return NotionProvider.createHeading_3(input);
+  }
+
+  /**
+   * Append an paragraph type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `paragraph`.
+   *
+   * @summary Append an paragraph type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/paragraph")
+  async createParagraph(
+    input: INotion.ICreateChildContentTypeParagraphInput,
+  ): Promise<void> {
+    return NotionProvider.createParagraph(input);
+  }
+
+  /**
+   * Append an bulleted_list_item type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `bulleted_list_item`.
+   *
+   * @summary Append an bulleted_list_item type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/bulleted_list_item")
+  async createBulletedListItem(
+    input: INotion.ICreateChildContentTypeBulletedListItemInput,
+  ): Promise<void> {
+    return NotionProvider.createBulletedListItem(input);
+  }
+
+  /**
+   * Append an numbered_list_item type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `numbered_list_item`.
+   *
+   * @summary Append an numbered_list_item type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/numbered_list_item")
+  async createNumberedListItem(
+    input: INotion.ICreateChildContentTypeNumberedListItemInput,
+  ): Promise<void> {
+    return NotionProvider.createNumberedListItem(input);
+  }
+
+  /**
+   * Append an quote type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `quote`.
+   *
+   * @summary Append an quote type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/quote")
+  async createQuote(
+    input: INotion.ICreateChildContentTypeQuoteInput,
+  ): Promise<void> {
+    return NotionProvider.createQuote(input);
+  }
+
+  /**
+   * Append an to_do type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `to_do`.
+   *
+   * @summary Append an to_do type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/to_do")
+  async createToDo(
+    input: INotion.ICreateChildContentTypeToDoInput,
+  ): Promise<void> {
+    return NotionProvider.createToDo(input);
+  }
+
+  /**
+   * Append an toggle type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `toggle`.
+   *
+   * @summary Append an toggle type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/toggle")
+  async createToggle(
+    input: INotion.ICreateChildContentTypeToggleInput,
+  ): Promise<void> {
+    return NotionProvider.createToggle(input);
+  }
+
+  /**
+   * Append an template type child node
+   *
+   * Notion is a very complex type, so you have to create a page in a block coding manner.
+   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+   * The type of block you can put in here is `template`.
+   *
+   * @summary Append an template type child node
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("page/template")
+  async createTemplate(
+    input: INotion.ICreateChildContentTypeTemplateInput,
+  ): Promise<void> {
+    return NotionProvider.createTemplate(input);
+  }
+
+  @core.TypedRoute.Post("page/callout")
+  async createCallout(
+    input: INotion.ICreateChildContentTypeCalloutInput,
+  ): Promise<void> {
+    return NotionProvider.createCallout(input);
+  }
+
+  @core.TypedRoute.Post("page/synced_block")
+  async createSyncedBlock(
+    input: INotion.ICreateChildContentTypeSyncedBlockInput,
+  ): Promise<void> {
+    return NotionProvider.createSyncedBlock(input);
+  }
+
+  /**
    * 노션 페이지를 생성합니다.
    *
    * @summary 페이지 생성
    *
    * @param input 페이지 생성에 필요한 정보
-   *
    * @returns 생성된 페이지 고유 id
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -72,48 +531,7 @@ export class NotionController {
    * 노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.
    *
    * @summary 페이지 목록 조회
-   *
    * @returns 페이지 정보들
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -130,48 +548,7 @@ export class NotionController {
    * 워크스페이스에 있는 유저 목록을 조회합니다.
    *
    * @summary 유저 목록 조회
-   *
    * @returns 유저 정보들
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -190,48 +567,7 @@ export class NotionController {
    * @summary 페이지에 내용 추가
    *
    * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
-   *
    * @returns void
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -257,48 +593,7 @@ export class NotionController {
    * 데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.
    *
    * @summary 데이터베이스 목록 조회
-   *
    * @returns 데이터베이스 정보 목록
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -317,48 +612,7 @@ export class NotionController {
    * @summary 데이터베이스 정보 조회
    *
    * @param databaseId 데이터베이스 고유 id
-   *
    * @returns 데이터베이스 정보
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -388,48 +642,7 @@ export class NotionController {
    * @param input 데이터베이스 아이템 생성에 필요한 정보
    *
    * @param databaseId 아이템을 생성할 데이터베이스 고유 id
-   *
    * @returns 생성된 데이터베이스 아이템 정보
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -459,48 +672,7 @@ export class NotionController {
    * @param input 수정할 데이터베이스 아이템 정보
    *
    * @param databaseId 수정할 데이터베이스 고유 id
-   *
    * @returns 수정된 데이터베이스 아이템 정보
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -528,48 +700,7 @@ export class NotionController {
    * @summary 제목으로 페이지 검색
    *
    * @param input 페이지 제목
-   *
    * @returns 검색된 페이지 정보
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -588,48 +719,7 @@ export class NotionController {
    * @summary 데이터베이스 아이템 목록 조회
    *
    * @param databaseId 데이터베이스 고유 id
-   *
    * @returns 조회된 데이터베이스 아이템 목록 정보
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
@@ -661,48 +751,7 @@ export class NotionController {
    * @param input 데이터베이스 아이템 조회에 필요한 정보
    *
    * @param databaseId 데이터베이스 고유 id
-   *
    * @returns 조회된 데이터베이스 아이템 정보
-   *
-   * @tag Notion
-   * @tag 노션
-   * @tag 노트
-   * @tag 메모
-   * @tag 작업 관리
-   * @tag 프로젝트 관리
-   * @tag 할 일 목록
-   * @tag 일정 관리
-   * @tag 문서 작성
-   * @tag 회의록 작성
-   * @tag 체크리스트
-   * @tag 아이디어 정리
-   * @tag 업무 기록
-   * @tag 학습 노트
-   * @tag 스터디 플래너
-   * @tag 제품기획
-   * @tag 이력서
-   * @tag 포트폴리오
-   * @tag 협업
-   * @tag 문서
-   * @tag Notion
-   * @tag Note
-   * @tag Memo
-   * @tag Task Management
-   * @tag Project Management
-   * @tag To do list
-   * @tag Schedule Management
-   * @tag Document Creation
-   * @tag Meeting Notes
-   * @tag Checklist
-   * @tag Idea Organization
-   * @tag Work Logging
-   * @tag Study Notes
-   * @tag Study Planner
-   * @tag Product Management
-   * @tag Resume
-   * @tag Portfolio
-   * @tag Collaboration
-   * @tag Document
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
