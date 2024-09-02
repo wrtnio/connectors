@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.159",
+    "version": "0.1.160",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -1770,6 +1770,33 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/append": {
+      "post": {
+        "summary": "구글 시트에 내용 추가하기",
+        "description": "구글 시트에 내용을 추가합니다.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "내용을 추가하기 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IAppendToSheetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg"
       }
     },
     "/connector/google-sheet/create": {
@@ -13064,6 +13091,51 @@
           "secretKey"
         ],
         "title": "구글 시트 헤더 읽기에 필요한 정보"
+      },
+      "IGoogleSheet.IAppendToSheetInput": {
+        "type": "object",
+        "properties": {
+          "spreadSheetId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-sheet/create",
+              "jmesPath": "[].{value:spreadsheetId, label:spreadsheetUrl}"
+            },
+            "title": "추가할 시트",
+            "description": "내용을 추가할 시트입니다."
+          },
+          "range": {
+            "type": "string",
+            "title": "추가할 범위",
+            "description": "추가할 범위입니다.\n\nA1 notation 형식으로 입력해주세요."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {}
+            },
+            "title": "추가할 값들",
+            "description": "추가할 값들입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "spreadSheetId",
+          "range",
+          "values",
+          "secretKey"
+        ]
       },
       "IGoogleSheet.ICreateGoogleSheetOutput": {
         "type": "object",
@@ -28566,6 +28638,9 @@
               "function": {
                 "oneOf": [
                   {
+                    "const": "range"
+                  },
+                  {
                     "const": "average"
                   },
                   {
@@ -28603,9 +28678,6 @@
                   },
                   {
                     "const": "max"
-                  },
-                  {
-                    "const": "range"
                   },
                   {
                     "const": "earliest_date"

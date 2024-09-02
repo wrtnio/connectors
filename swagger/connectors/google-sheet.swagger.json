@@ -18,7 +18,7 @@
     "title": "구글 스프레드시트 데이터 관리",
     "summary": "구글 스프레드시트로 데이터를 쉽게 관리해요.",
     "description": "구글 스프레드시트를 사용해 다양한 데이터 관리 작업을 할 수 있어요. 스프레드시트의 헤더 정보를 가져오거나, 특정 사용자에게 접근 권한을 부여할 수 있어요. 새로운 헤더를 추가하거나, 워크시트 목록을 확인할 수 있고, 특정 행(Row)의 정보를 가져올 수도 있어요. 원하는 셀에 새로운 내용을 추가하거나 기존 내용을 수정할 수도 있어요. 이를 통해 예산 관리, 프로젝트 추적, 데이터 분석 등 다양한 작업을 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 팀 단위의 데이터 관리에도 매우 유용해요. 주의할 점은 구글 시트를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.159",
+    "version": "0.1.160",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -101,6 +101,33 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-sheet/append": {
+      "post": {
+        "summary": "구글 시트에 내용 추가하기",
+        "description": "구글 시트에 내용을 추가합니다.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "내용을 추가하기 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSheet.IAppendToSheetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg"
       }
     },
     "/connector/google-sheet/create": {
@@ -503,6 +530,51 @@
           "secretKey"
         ],
         "title": "구글 시트 헤더 읽기에 필요한 정보"
+      },
+      "IGoogleSheet.IAppendToSheetInput": {
+        "type": "object",
+        "properties": {
+          "spreadSheetId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-sheet/create",
+              "jmesPath": "[].{value:spreadsheetId, label:spreadsheetUrl}"
+            },
+            "title": "추가할 시트",
+            "description": "내용을 추가할 시트입니다."
+          },
+          "range": {
+            "type": "string",
+            "title": "추가할 범위",
+            "description": "추가할 범위입니다.\n\nA1 notation 형식으로 입력해주세요."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {}
+            },
+            "title": "추가할 값들",
+            "description": "추가할 값들입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "spreadSheetId",
+          "range",
+          "values",
+          "secretKey"
+        ]
       },
       "IGoogleSheet.ICreateGoogleSheetOutput": {
         "type": "object",
