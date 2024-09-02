@@ -599,8 +599,10 @@ export class NotionController {
   /**
    * 노션 페이지를 생성합니다.
    *
-   * @summary 페이지 생성
+   * Since a parent ID is required, when a user gives you a link to the page,
+   * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
    *
+   * @summary 페이지 생성
    * @param input 페이지 생성에 필요한 정보
    * @returns 생성된 페이지 고유 id
    */

@@ -5,6 +5,7 @@ import {
   BlockObjectRequest,
   CreatePageParameters,
 } from "@notionhq/client/build/src/api-endpoints";
+import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {
@@ -425,7 +426,7 @@ export namespace INotion {
      *
      * @title 내용
      */
-    content: string & Placeholder<"테스트 페이지를 생성했습니다.">;
+    content?: string & Placeholder<"테스트 페이지를 생성했습니다.">;
   }
 
   export interface ICreatePageContentInput
@@ -439,763 +440,323 @@ export namespace INotion {
 
   export interface ICreateChildContentTypeFileInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `file`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `file`>, "type" | "object"> {
+    file: {
+      external: {
+        url: string & tags.Format<"uri">;
+      };
+    };
   }
 
   export interface ICreateChildContentTypeEmbedInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `embed`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `embed`>, "type" | "object"> {
+    embed: {
+      url: string & tags.Format<"uri">;
+    };
   }
 
   export interface ICreateChildContentTypeBookmarkInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `bookmark`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `bookmark`>, "type" | "object"> {
+    bookmark: {
+      url: string & tags.Format<"uri">;
+    };
   }
 
   export interface ICreateChildContentTypeImageInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `image`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `image`>, "type" | "object"> {
+    image: {
+      external: {
+        url: string & tags.Format<"uri">;
+      };
+    };
   }
 
   export interface ICreateChildContentTypeVideoInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `video`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `video`>, "type" | "object"> {
+    video: {
+      external: {
+        url: string & tags.Format<"uri">;
+      };
+    };
   }
 
   export interface ICreateChildContentTypePdfInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `pdf`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `pdf`>, "type" | "object"> {
+    pdf: {
+      external: {
+        url: string & tags.Format<"uri">;
+      };
+    };
   }
 
   export interface ICreateChildContentTypeAudioInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `audio`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `audio`>, "type" | "object"> {
+    audio: {
+      external: {
+        url: string & tags.Format<"uri">;
+      };
+    };
   }
 
   export interface ICreateChildContentTypeCodeInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `code`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `code`>,
+        | "code" // 코드를 완전히 새로 구현하기 위함
+        | "type"
+        | "object"
+      > {
+    code: {
+      language:
+        | "abap"
+        | "agda"
+        | "arduino"
+        | "assembly"
+        | "bash"
+        | "basic"
+        | "bnf"
+        | "c"
+        | "c#"
+        | "c++"
+        | "clojure"
+        | "coffeescript"
+        | "coq"
+        | "css"
+        | "dart"
+        | "dhall"
+        | "diff"
+        | "docker"
+        | "ebnf"
+        | "elixir"
+        | "elm"
+        | "erlang"
+        | "f#"
+        | "flow"
+        | "fortran"
+        | "gherkin"
+        | "glsl"
+        | "go"
+        | "graphql"
+        | "groovy"
+        | "haskell"
+        | "html"
+        | "idris"
+        | "java"
+        | "javascript"
+        | "json"
+        | "julia"
+        | "kotlin"
+        | "latex"
+        | "less"
+        | "lisp"
+        | "livescript"
+        | "llvm ir"
+        | "lua"
+        | "makefile"
+        | "markdown"
+        | "markup"
+        | "matlab"
+        | "mathematica"
+        | "mermaid"
+        | "nix"
+        | "notion formula"
+        | "objective-c"
+        | "ocaml"
+        | "pascal"
+        | "perl"
+        | "php"
+        | "plain text"
+        | "powershell"
+        | "prolog"
+        | "protobuf"
+        | "purescript"
+        | "python"
+        | "r"
+        | "racket"
+        | "reason"
+        | "ruby"
+        | "rust"
+        | "sass"
+        | "scala"
+        | "scheme"
+        | "scss"
+        | "shell"
+        | "solidity"
+        | "sql"
+        | "swift"
+        | "toml"
+        | "typescript"
+        | "vb.net"
+        | "verilog"
+        | "vhdl"
+        | "visual basic"
+        | "webassembly"
+        | "xml"
+        | "yaml"
+        | "java/c/c++/c#";
+
+      rich_text: [
+        {
+          text: {
+            /**
+             * @title content
+             *
+             * This means a code box, so feel free to write down the code.
+             */
+            content: string;
+          };
+        },
+      ];
+    };
   }
 
   export interface ICreateChildContentTypeEquationInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `equation`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `equation`>, "type" | "object"> {
+    equation: {
+      /**
+       * @title expression
+       *
+       * an equation in mathematics
+       */
+      expression: "y = 2x";
+    };
   }
 
   export interface ICreateChildContentTypeDividerInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `divider`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `divider`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeBreadcrumbInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `breadcrumb`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `breadcrumb`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeTableOfContentsInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `table_of_contents`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `table_of_contents`>,
+        "type" | "object"
+      > {}
 
   export interface ICreateChildContentTypeLinkToPageInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `link_to_page`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `link_to_page`>,
+        "type" | "object"
+      > {}
 
   export interface ICreateChildContentTypeTableRowInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `table_row`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `table_row`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeTableInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `table`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `table`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeColumnListInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `column_list`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `column_list`>,
+        "type" | "object"
+      > {}
 
   export interface ICreateChildContentTypeColumnInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `column`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `column`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeHeading_1Input
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `heading_1`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `heading_1`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeHeading_2Input
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `heading_2`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `heading_2`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeHeading_3Input
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `heading_3`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `heading_3`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeParagraphInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `paragraph`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `paragraph`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeBulletedListItemInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `bulleted_list_item`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `bulleted_list_item`>,
+        "type" | "object"
+      > {}
 
   export interface ICreateChildContentTypeNumberedListItemInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `numbered_list_item`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `numbered_list_item`>,
+        "type" | "object"
+      > {}
 
   export interface ICreateChildContentTypeQuoteInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `quote`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `quote`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeToDoInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `to_do`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `to_do`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeToggleInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `toggle`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `toggle`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeTemplateInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `template`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `template`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeCalloutInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `callout`> {
-    /**
-     * @title pageId
-     *
-     * Indicates the page on which you want to add a block.
-     * At the bottom of this page, a block is added to match the requested object here.
-     */
-    pageId: string &
-      (
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/get/page";
-            jmesPath: JMESPath<
-              IReadPageOutput[],
-              "[].{value:pageId, label:title}"
-            >;
-          }>
-        | Prerequisite<{
-            method: "post";
-            path: "/connector/notion/page";
-            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
-          }>
-      );
-  }
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `callout`>, "type" | "object"> {}
 
   export interface ICreateChildContentTypeSyncedBlockInput
     extends ICommon.ISecret<"notion">,
-      LookUp<BlockObjectRequest, `synced_block`> {
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `synced_block`>,
+        "type" | "object"
+      > {}
+
+  export interface PageIdInput {
     /**
      * @title pageId
      *

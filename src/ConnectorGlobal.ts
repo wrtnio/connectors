@@ -48,6 +48,8 @@ export namespace ConnectorGlobal {
     NAVER_CLIENT_ID: string;
     NAVER_CLIENT_SECRET: string;
 
+    NOTION_TEST_SECRET: string;
+
     // OPENAI
     OPENAI_API_KEY: string;
 
