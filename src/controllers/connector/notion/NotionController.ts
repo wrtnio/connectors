@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -20,9 +20,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/file")
   async createFile(
-    input: INotion.ICreateChildContentTypeFileInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeFileInput,
   ): Promise<void> {
     return NotionProvider.createFile(input);
   }
@@ -38,9 +41,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/embed")
   async createEmbed(
-    input: INotion.ICreateChildContentTypeEmbedInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeEmbedInput,
   ): Promise<void> {
     return NotionProvider.createEmbed(input);
   }
@@ -56,9 +62,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/bookmark")
   async createBookmark(
-    input: INotion.ICreateChildContentTypeBookmarkInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeBookmarkInput,
   ): Promise<void> {
     return NotionProvider.createBookmark(input);
   }
@@ -74,9 +83,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/image")
   async createImage(
-    input: INotion.ICreateChildContentTypeImageInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeImageInput,
   ): Promise<void> {
     return NotionProvider.createImage(input);
   }
@@ -92,9 +104,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/video")
   async createVideo(
-    input: INotion.ICreateChildContentTypeVideoInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeVideoInput,
   ): Promise<void> {
     return NotionProvider.createVideo(input);
   }
@@ -110,9 +125,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/pdf")
   async createPdf(
-    input: INotion.ICreateChildContentTypePdfInput,
+    @TypedBody() input: INotion.ICreateChildContentTypePdfInput,
   ): Promise<void> {
     return NotionProvider.createPdf(input);
   }
@@ -128,9 +146,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/audio")
   async createAudio(
-    input: INotion.ICreateChildContentTypeAudioInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeAudioInput,
   ): Promise<void> {
     return NotionProvider.createAudio(input);
   }
@@ -146,9 +167,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/code")
   async createCode(
-    input: INotion.ICreateChildContentTypeCodeInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeCodeInput,
   ): Promise<void> {
     return NotionProvider.createCode(input);
   }
@@ -164,9 +188,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/equation")
   async createEquation(
-    input: INotion.ICreateChildContentTypeEquationInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeEquationInput,
   ): Promise<void> {
     return NotionProvider.createEquation(input);
   }
@@ -182,9 +209,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/divider")
   async createDivider(
-    input: INotion.ICreateChildContentTypeDividerInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeDividerInput,
   ): Promise<void> {
     return NotionProvider.createDivider(input);
   }
@@ -200,9 +230,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/breadcrumb")
   async createBreadcrumb(
-    input: INotion.ICreateChildContentTypeBreadcrumbInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeBreadcrumbInput,
   ): Promise<void> {
     return NotionProvider.createBreadcrumb(input);
   }
@@ -218,9 +251,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/table_of_contents")
   async createTableOfContents(
-    input: INotion.ICreateChildContentTypeTableOfContentsInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeTableOfContentsInput,
   ): Promise<void> {
     return NotionProvider.createTableOfContents(input);
   }
@@ -236,9 +272,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/link_to_page")
   async createLinkToPage(
-    input: INotion.ICreateChildContentTypeLinkToPageInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeLinkToPageInput,
   ): Promise<void> {
     return NotionProvider.createLinkToPage(input);
   }
@@ -254,9 +293,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/table_row")
   async createTableRow(
-    input: INotion.ICreateChildContentTypeTableRowInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeTableRowInput,
   ): Promise<void> {
     return NotionProvider.createTableRow(input);
   }
@@ -272,9 +314,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/table")
   async createTable(
-    input: INotion.ICreateChildContentTypeTableInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeTableInput,
   ): Promise<void> {
     return NotionProvider.createTable(input);
   }
@@ -290,9 +335,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/column_list")
   async createColumnList(
-    input: INotion.ICreateChildContentTypeColumnListInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeColumnListInput,
   ): Promise<void> {
     return NotionProvider.createColumnList(input);
   }
@@ -308,9 +356,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/column")
   async createColumn(
-    input: INotion.ICreateChildContentTypeColumnInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeColumnInput,
   ): Promise<void> {
     return NotionProvider.createColumn(input);
   }
@@ -326,9 +377,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/heading_1")
   async createHeading_1(
-    input: INotion.ICreateChildContentTypeHeading_1Input,
+    @TypedBody() input: INotion.ICreateChildContentTypeHeading_1Input,
   ): Promise<void> {
     return NotionProvider.createHeading_1(input);
   }
@@ -344,9 +398,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/heading_2")
   async createHeading_2(
-    input: INotion.ICreateChildContentTypeHeading_2Input,
+    @TypedBody() input: INotion.ICreateChildContentTypeHeading_2Input,
   ): Promise<void> {
     return NotionProvider.createHeading_2(input);
   }
@@ -362,9 +419,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/heading_3")
   async createHeading_3(
-    input: INotion.ICreateChildContentTypeHeading_3Input,
+    @TypedBody() input: INotion.ICreateChildContentTypeHeading_3Input,
   ): Promise<void> {
     return NotionProvider.createHeading_3(input);
   }
@@ -380,9 +440,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/paragraph")
   async createParagraph(
-    input: INotion.ICreateChildContentTypeParagraphInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeParagraphInput,
   ): Promise<void> {
     return NotionProvider.createParagraph(input);
   }
@@ -398,9 +461,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/bulleted_list_item")
   async createBulletedListItem(
-    input: INotion.ICreateChildContentTypeBulletedListItemInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeBulletedListItemInput,
   ): Promise<void> {
     return NotionProvider.createBulletedListItem(input);
   }
@@ -416,9 +482,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/numbered_list_item")
   async createNumberedListItem(
-    input: INotion.ICreateChildContentTypeNumberedListItemInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeNumberedListItemInput,
   ): Promise<void> {
     return NotionProvider.createNumberedListItem(input);
   }
@@ -434,9 +503,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/quote")
   async createQuote(
-    input: INotion.ICreateChildContentTypeQuoteInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeQuoteInput,
   ): Promise<void> {
     return NotionProvider.createQuote(input);
   }
@@ -452,9 +524,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/to_do")
   async createToDo(
-    input: INotion.ICreateChildContentTypeToDoInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeToDoInput,
   ): Promise<void> {
     return NotionProvider.createToDo(input);
   }
@@ -470,9 +545,12 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/toggle")
   async createToggle(
-    input: INotion.ICreateChildContentTypeToggleInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeToggleInput,
   ): Promise<void> {
     return NotionProvider.createToggle(input);
   }
@@ -488,23 +566,32 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/template")
   async createTemplate(
-    input: INotion.ICreateChildContentTypeTemplateInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeTemplateInput,
   ): Promise<void> {
     return NotionProvider.createTemplate(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/callout")
   async createCallout(
-    input: INotion.ICreateChildContentTypeCalloutInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeCalloutInput,
   ): Promise<void> {
     return NotionProvider.createCallout(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Post("page/synced_block")
   async createSyncedBlock(
-    input: INotion.ICreateChildContentTypeSyncedBlockInput,
+    @TypedBody() input: INotion.ICreateChildContentTypeSyncedBlockInput,
   ): Promise<void> {
     return NotionProvider.createSyncedBlock(input);
   }

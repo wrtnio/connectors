@@ -520,7 +520,7 @@ export namespace NotionProvider {
           HttpStatus.INTERNAL_SERVER_ERROR,
         );
       }
-      return { id: pageId };
+      return { id: pageId, title: input.title };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
