@@ -329,16 +329,12 @@ export class SlackProvider {
       channel: rest.channel,
       cursor: rest.cursor,
       limit: rest.limit,
-      latest: input.latestDateTime
-        ? this.transformDateTimeToTs(input.latestDateTime)
-        : input.latestTimestamp
-          ? this.transformTimestampToTs(input.latestTimestamp)
-          : input.latest,
-      oldest: input.oldestDateTime
-        ? this.transformDateTimeToTs(input.oldestDateTime)
-        : input.oldestTimestamp
-          ? this.transformTimestampToTs(input.oldestTimestamp)
-          : input.oldest,
+      ...(input.latestDateTime && {
+        latest: this.transformDateTimeToTs(input.latestDateTime),
+      }),
+      ...(input.oldestDateTime && {
+        oldest: this.transformDateTimeToTs(input.oldestDateTime),
+      }),
     });
 
     const token = await this.getToken(secretKey);
