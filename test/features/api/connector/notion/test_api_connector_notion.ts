@@ -2,6 +2,8 @@ import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import { randomUUID } from "crypto";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_notion = async (
   connection: CApi.IConnection,
@@ -189,4 +191,307 @@ export const test_api_connector_notion = async (
       databaseId,
     );
   typia.assertEquals<INotion.IDatabaseItemOutput>(databaseItem);
+};
+
+export const test_api_connector_notion_create_page = async (
+  connection: CApi.IConnection,
+) => {
+  const page = await CApi.functional.connector.notion.page.createPage(
+    connection,
+    {
+      parentPageId: "8693f8ad2ac14eef8a3503f88df17480",
+      title: randomUUID(),
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.file.createFile(connection, {
+    file: {
+      external: {
+        url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+      },
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+
+  await CApi.functional.connector.notion.page.embed.createEmbed(connection, {
+    embed: {
+      url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+
+  await CApi.functional.connector.notion.page.bookmark.createBookmark(
+    connection,
+    {
+      bookmark: {
+        url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.image.createImage(connection, {
+    image: {
+      external: {
+        url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+      },
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+
+  await CApi.functional.connector.notion.page.video.createVideo(connection, {
+    video: {
+      external: {
+        url: "https://www.youtube.com/watch?v=55V-DiFVbJE&list=PL5S9DUu9MPplAmM_bZ4fIsdpYeK92fdUX",
+      },
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+
+  await CApi.functional.connector.notion.page.pdf.createPdf(connection, {
+    pdf: {
+      external: {
+        url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/11.%E1%84%92%E1%85%A1%E1%86%AB%E1%84%80%E1%85%AE%E1%86%A8%E1%84%8B%E1%85%A5%E1%84%92%E1%85%A1%E1%86%A8%E1%84%80%E1%85%AA.pdf`,
+      },
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+
+  // await CApi.functional.connector.notion.page.audio.createAudio(connection, {
+  //   audio: {
+  //     external: {
+  //       url: "https://www.youtube.com/watch?v=55V-DiFVbJE&list=PL5S9DUu9MPplAmM_bZ4fIsdpYeK92fdUX",
+  //     },
+  //   },
+  //   pageId: page.id,
+  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  // });
+
+  await CApi.functional.connector.notion.page.code.createCode(connection, {
+    code: {
+      language: "typescript",
+      rich_text: [
+        {
+          text: {
+            content: "console.log(1);\nconsole.log(2);",
+          },
+        },
+      ],
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+
+  await CApi.functional.connector.notion.page.equation.createEquation(
+    connection,
+    {
+      equation: {
+        expression: "y = 2x",
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.divider.createDivider(
+    connection,
+    {
+      divider: {},
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.breadcrumb.createBreadcrumb(
+    connection,
+    {
+      breadcrumb: {},
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.table_of_contents.createTableOfContents(
+    connection,
+    {
+      table_of_contents: {
+        color: "blue",
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.link_to_page.createLinkToPage(
+    connection,
+    {
+      link_to_page: {
+        page_id: page.id,
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  // await CApi.functional.connector.notion.page.table_row.createTableRow(
+  //   connection,
+  //   {
+  //     table_row: {
+  //       cells: [[]],
+  //     },
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.table.createTable(connection, {
+  //   ...typia.random<INotion.ICreateChildContentTypeTableInput>(),
+  //   pageId: page.id,
+  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  // });
+
+  // await CApi.functional.connector.notion.page.column_list.createColumnList(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeColumnListInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.column.createColumn(connection, {
+  //   ...typia.random<INotion.ICreateChildContentTypeColumnInput>(),
+  //   pageId: page.id,
+  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  // });
+
+  await CApi.functional.connector.notion.page.heading_1.createHeading_1(
+    connection,
+    {
+      heading_1: {
+        rich_text: [
+          {
+            text: {
+              content: "hello world!",
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.heading_2.createHeading_2(
+    connection,
+    {
+      heading_2: {
+        rich_text: [
+          {
+            text: {
+              content: "hello world!",
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  await CApi.functional.connector.notion.page.heading_3.createHeading_3(
+    connection,
+    {
+      heading_3: {
+        rich_text: [
+          {
+            text: {
+              content: "hello world!",
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
+
+  // await CApi.functional.connector.notion.page.paragraph.createParagraph(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeParagraphInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.bulleted_list_item.createBulletedListItem(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeBulletedListItemInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.numbered_list_item.createNumberedListItem(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeNumberedListItemInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.quote.createQuote(connection, {
+  //   ...typia.random<INotion.ICreateChildContentTypeQuoteInput>(),
+  //   pageId: page.id,
+  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  // });
+
+  // await CApi.functional.connector.notion.page.to_do.createToDo(connection, {
+  //   ...typia.random<INotion.ICreateChildContentTypeToDoInput>(),
+  //   pageId: page.id,
+  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  // });
+
+  // await CApi.functional.connector.notion.page.toggle.createToggle(connection, {
+  //   ...typia.random<INotion.ICreateChildContentTypeToggleInput>(),
+  //   pageId: page.id,
+  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  // });
+
+  // await CApi.functional.connector.notion.page.template.createTemplate(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeTemplateInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.callout.createCallout(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeCalloutInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
+
+  // await CApi.functional.connector.notion.page.synced_block.createSyncedBlock(
+  //   connection,
+  //   {
+  //     ...typia.random<INotion.ICreateChildContentTypeSyncedBlockInput>(),
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
 };

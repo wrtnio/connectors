@@ -661,7 +661,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
-  @core.TypedRoute.Post("/page/content`/:pageId")
+  @core.TypedRoute.Post("/page/content/:pageId")
   async appendPageToContent(
     /**
      * @title 내용을 추가할 페이지
