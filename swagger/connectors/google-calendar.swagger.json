@@ -18,7 +18,7 @@
     "title": "구글 일정 관리자",
     "summary": "구글 캘린더로 일정을 손쉽게 관리해요.",
     "description": "구글 캘린더를 통해 개인 및 팀의 일정을 효과적으로 관리할 수 있어요. 캘린더 목록을 가져오고, 새로운 캘린더를 만들거나 불필요한 캘린더를 삭제할 수 있어요. 특정 캘린더의 이벤트 목록을 조회하고, 새로운 이벤트를 빠르게 추가할 수 있어요. 기존 이벤트를 수정하거나 삭제할 수도 있고, 이벤트에 참석자를 추가할 수도 있어요. 이를 통해 개인 일정 관리는 물론, 팀 미팅 조율, 프로젝트 일정 관리, 중요 기념일 알림 등 다양한 목적으로 활용할 수 있어요. 여러 기기 간 동기화가 자동으로 이루어져 언제 어디서든 일정을 확인하고 관리할 수 있어요.",
-    "version": "0.1.157",
+    "version": "0.1.158",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1532,67 +1532,6 @@
       "IGoogleCalendar.IReadGoogleCalendarEventInput": {
         "type": "object",
         "properties": {
-          "extract_fields": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "summary",
-                  "title": "제목"
-                },
-                {
-                  "const": "description",
-                  "title": "설명"
-                },
-                {
-                  "const": "htmlLink",
-                  "title": "링크"
-                },
-                {
-                  "const": "created",
-                  "title": "이벤트 생성 날짜"
-                },
-                {
-                  "const": "updated",
-                  "title": "이벤트 업데이트 날짜"
-                },
-                {
-                  "const": "location",
-                  "title": "위치"
-                },
-                {
-                  "const": "organizer",
-                  "title": "주최자"
-                },
-                {
-                  "const": "creator",
-                  "title": "생성한 사람"
-                },
-                {
-                  "const": "start",
-                  "title": "이벤트 시작일"
-                },
-                {
-                  "const": "end",
-                  "title": "이벤트 종료일"
-                },
-                {
-                  "const": "attendees",
-                  "title": "참석자 정보"
-                },
-                {
-                  "const": "reminders",
-                  "title": "알림 정보"
-                },
-                {
-                  "const": "attachments",
-                  "title": "첨부파일 정보"
-                }
-              ]
-            },
-            "title": "가져올 데이터 (필드) 정보.",
-            "description": "캘린더 데이터에서 가져올 데이터 정보입니다.\n\n가능한 값으로는 \"summary\", \"description\", \"htmlLink\", \"created\", \"updated\", \"location\", \"organizer\", \"creator\", \"start\", \"end\", \"attendees\", \"reminders\", \"attachments\" 11가지만 가능합니다."
-          },
           "time_max": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
             "title": "이벤트를 가져올 마지막 날짜 정보.",
@@ -1638,7 +1577,6 @@
           }
         },
         "required": [
-          "extract_fields",
           "time_max",
           "time_min",
           "secretKey"

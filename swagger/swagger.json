@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.157",
+    "version": "0.1.158",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -13993,67 +13993,6 @@
       "IGoogleCalendar.IReadGoogleCalendarEventInput": {
         "type": "object",
         "properties": {
-          "extract_fields": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "summary",
-                  "title": "제목"
-                },
-                {
-                  "const": "description",
-                  "title": "설명"
-                },
-                {
-                  "const": "htmlLink",
-                  "title": "링크"
-                },
-                {
-                  "const": "created",
-                  "title": "이벤트 생성 날짜"
-                },
-                {
-                  "const": "updated",
-                  "title": "이벤트 업데이트 날짜"
-                },
-                {
-                  "const": "location",
-                  "title": "위치"
-                },
-                {
-                  "const": "organizer",
-                  "title": "주최자"
-                },
-                {
-                  "const": "creator",
-                  "title": "생성한 사람"
-                },
-                {
-                  "const": "start",
-                  "title": "이벤트 시작일"
-                },
-                {
-                  "const": "end",
-                  "title": "이벤트 종료일"
-                },
-                {
-                  "const": "attendees",
-                  "title": "참석자 정보"
-                },
-                {
-                  "const": "reminders",
-                  "title": "알림 정보"
-                },
-                {
-                  "const": "attachments",
-                  "title": "첨부파일 정보"
-                }
-              ]
-            },
-            "title": "가져올 데이터 (필드) 정보.",
-            "description": "캘린더 데이터에서 가져올 데이터 정보입니다.\n\n가능한 값으로는 \"summary\", \"description\", \"htmlLink\", \"created\", \"updated\", \"location\", \"organizer\", \"creator\", \"start\", \"end\", \"attendees\", \"reminders\", \"attachments\" 11가지만 가능합니다."
-          },
           "time_max": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
             "title": "이벤트를 가져올 마지막 날짜 정보.",
@@ -14099,7 +14038,6 @@
           }
         },
         "required": [
-          "extract_fields",
           "time_max",
           "time_min",
           "secretKey"
@@ -33627,7 +33565,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.CommentidbodycreatedupdatedauthorupdateAuthor"
+              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor"
             },
             "title": "comments"
           },
@@ -33657,7 +33595,7 @@
           "total"
         ]
       },
-      "PickIJira.CommentidbodycreatedupdatedauthorupdateAuthor": {
+      "PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
@@ -33720,10 +33658,6 @@
             ],
             "title": "body of comment"
           },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
           "updated": {
             "type": "string",
             "title": "updated time of this comment"
@@ -33731,6 +33665,10 @@
           "author": {
             "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
           },
           "updateAuthor": {
             "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
@@ -33740,9 +33678,9 @@
         "required": [
           "id",
           "body",
-          "created",
           "updated",
           "author",
+          "created",
           "updateAuthor"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
@@ -36846,11 +36784,11 @@
           "sort": {
             "oneOf": [
               {
-                "const": "created",
+                "const": "updated",
                 "default": "full_name"
               },
               {
-                "const": "updated",
+                "const": "created",
                 "default": "full_name"
               },
               {
