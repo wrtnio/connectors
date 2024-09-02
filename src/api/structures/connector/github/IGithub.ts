@@ -438,7 +438,12 @@ export namespace IGithub {
      *
      * The SHA of the commit.
      */
-    commit_sha: string;
+    commit_sha: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/get-commit-list";
+        jmesPath: "result[].{value:sha, label:comment.message}";
+      }>;
   }
 
   export interface ICallInput extends ICommon.ISecret<"github"> {
@@ -953,7 +958,12 @@ export namespace IGithub {
     /**
      * @title commit hash or branch name
      */
-    ref: string;
+    ref?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/get-branches";
+        jmesPath: "result[].{value:name, label:name}";
+      }>;
   }
 
   export interface IGetBranchOutput extends ICommonPaginationOutput {
