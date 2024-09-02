@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
+import { tags } from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { ElementOf } from "../../../utils/types/ElementOf";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
@@ -325,14 +326,17 @@ export class SlackProvider {
     const url = `https://slack.com/api/conversations.history?&pretty=1`;
     const { secretKey, ...rest } = input;
     const queryParameter = createQueryParameter({
-      ...rest,
-      latest: input.latestTimestamp
-        ? this.transformTimestampToTs(input.latestTimestamp)
-        : input.latest,
-      oldest: input.oldestTimestamp
-        ? this.transformTimestampToTs(input.oldestTimestamp)
-        : input.oldest,
+      channel: rest.channel,
+      cursor: rest.cursor,
+      limit: rest.limit,
+      ...(input.latestDateTime && {
+        latest: this.transformDateTimeToTs(input.latestDateTime),
+      }),
+      ...(input.oldestDateTime && {
+        oldest: this.transformDateTimeToTs(input.oldestDateTime),
+      }),
     });
+
     const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
@@ -463,6 +467,11 @@ export class SlackProvider {
     const timestampString = ts.split(".").at(0) + "000";
     const timestamp = Number(timestampString);
     return timestamp;
+  }
+
+  private transformDateTimeToTs(dateTime: string & tags.Format<"date-time">) {
+    const timestamp = new Date(dateTime).getTime();
+    return this.transformTimestampToTs(timestamp);
   }
 
   private transformTimestampToTs(timestamp: number) {

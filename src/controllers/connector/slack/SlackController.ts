@@ -2,7 +2,6 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { RouteIcon } from "@wrtnio/decorators";
-import typia from "typia";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 import { retry } from "../../../utils/retry";
 
@@ -120,8 +119,7 @@ export class SlackController {
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const response = await this.slackProvider.sendReply(input);
-    return retry(() => typia.misc.assertClone(response))();
+    return this.slackProvider.sendReply(input);
   }
 
   /**
@@ -140,8 +138,7 @@ export class SlackController {
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const response = await this.slackProvider.sendText(input);
-    return retry(() => typia.misc.assertClone(response))();
+    return this.slackProvider.sendText(input);
   }
 
   /**
@@ -162,8 +159,7 @@ export class SlackController {
   async getScheduledMessages(
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
-    const response = await this.slackProvider.getScheduledMessages(input);
-    return retry(() => typia.misc.assertClone(response))();
+    return this.slackProvider.getScheduledMessages(input);
   }
 
   /**
@@ -189,8 +185,7 @@ export class SlackController {
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
-    const response = await this.slackProvider.getUsers(input);
-    return retry(() => typia.misc.assertClone(response))();
+    return this.slackProvider.getUsers(input);
   }
 
   /**
@@ -230,6 +225,8 @@ export class SlackController {
    * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
    *
    * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
+   *
+   * If you want to filter by date, prioritize using the datetime format.
    *
    * @summary get channel histories in slack
    * @param input

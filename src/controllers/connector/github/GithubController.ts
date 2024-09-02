@@ -532,6 +532,8 @@ export class GithubController {
    * Because it says what the last commit is, and when and to whom it was made,
    * you can see which of the branches is the latest and managed.
    *
+   * You shouldn't call the main branch arbitrarily because there may be people who use the master branch.
+   *
    * @summary Inquire the user's branch
    * @param input
    * @returns
@@ -589,6 +591,7 @@ export class GithubController {
   /**
    * Inquire the commit details of the user
    * It contains all the history of how the file changed, so you can see the details of a single commit node.
+   * If you do not deliver ref, look up based on default_branch.
    *
    * @summary Inquire the commit details of the user
    * @param input
@@ -607,6 +610,7 @@ export class GithubController {
   /**
    * Inquire the commit diff of the user
    * diff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.
+   * If you do not deliver ref, look up based on default_branch.
    *
    * @summary Inquire the commit diff of the user
    * @param input

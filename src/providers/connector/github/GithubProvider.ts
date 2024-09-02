@@ -207,6 +207,7 @@ export class GithubProvider {
     input: IGithub.IGetCommitHeadInput,
   ): Promise<IGithub.IGetCommitHeadOutput> {
     const { owner, repo, commit_sha, secretKey } = input;
+
     const token = await this.getToken(secretKey);
     const url = `https://api.github.com/repos/${owner}/${repo}/commits/${commit_sha}`;
     const res = await axios.get(url, {
@@ -722,7 +723,14 @@ export class GithubProvider {
     input: IGithub.IGetCommitInput,
   ): Promise<IGithub.IGetCommitOutput> {
     const { owner, repo, ref, secretKey } = input;
-    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
+
+    let branch = ref;
+    if (!branch) {
+      const { default_branch } = await this.getRepository(input);
+      branch = default_branch;
+    }
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${branch}`;
     const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {
@@ -735,7 +743,14 @@ export class GithubProvider {
 
   async getCommitDiff(input: IGithub.IGetCommitInput): Promise<string> {
     const { owner, repo, ref, secretKey } = input;
-    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${ref}`;
+
+    let branch = ref;
+    if (!branch) {
+      const { default_branch } = await this.getRepository(input);
+      branch = default_branch;
+    }
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits/${branch}`;
     const token = await this.getToken(secretKey);
     const res = await axios.get(url, {
       headers: {

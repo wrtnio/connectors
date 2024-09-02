@@ -37,6 +37,21 @@ export async function test_api_connector_github_get_commit(
   return res;
 }
 
+export async function test_api_connector_github_get_commit_without_ref(
+  connection: CApi.IConnection,
+) {
+  const res = await CApi.functional.connector.github.get_commit.getCommit(
+    connection,
+    {
+      owner: "samchon",
+      repo: "nestia",
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+    },
+  );
+  typia.assertEquals(res);
+  return res;
+}
+
 export async function test_api_connector_github_get_commit_diff(
   connection: CApi.IConnection,
 ) {
