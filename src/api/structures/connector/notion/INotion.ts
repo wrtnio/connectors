@@ -441,7 +441,10 @@ export namespace INotion {
   export interface ICreateChildContentTypeFileInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `file`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `file`>,
+        "type" | "object" | "file"
+      > {
     file: {
       external: {
         url: string & tags.Format<"uri">;
@@ -452,7 +455,10 @@ export namespace INotion {
   export interface ICreateChildContentTypeEmbedInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `embed`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `embed`>,
+        "type" | "object" | "embed"
+      > {
     embed: {
       url: string & tags.Format<"uri">;
     };
@@ -461,7 +467,10 @@ export namespace INotion {
   export interface ICreateChildContentTypeBookmarkInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `bookmark`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `bookmark`>,
+        "type" | "object" | "bookmark"
+      > {
     bookmark: {
       url: string & tags.Format<"uri">;
     };
@@ -470,7 +479,10 @@ export namespace INotion {
   export interface ICreateChildContentTypeImageInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `image`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `image`>,
+        "type" | "object" | "image"
+      > {
     image: {
       external: {
         url: string & tags.Format<"uri">;
@@ -481,7 +493,10 @@ export namespace INotion {
   export interface ICreateChildContentTypeVideoInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `video`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `video`>,
+        "type" | "object" | "video"
+      > {
     video: {
       external: {
         url: string & tags.Format<"uri">;
@@ -492,7 +507,7 @@ export namespace INotion {
   export interface ICreateChildContentTypePdfInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `pdf`>, "type" | "object"> {
+      StrictOmit<LookUp<BlockObjectRequest, `pdf`>, "type" | "object" | "pdf"> {
     pdf: {
       external: {
         url: string & tags.Format<"uri">;
@@ -503,7 +518,10 @@ export namespace INotion {
   export interface ICreateChildContentTypeAudioInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `audio`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `audio`>,
+        "type" | "object" | "audio"
+      > {
     audio: {
       external: {
         url: string & tags.Format<"uri">;
@@ -609,25 +627,17 @@ export namespace INotion {
         | "yaml"
         | "java/c/c++/c#";
 
-      rich_text: [
-        {
-          text: {
-            /**
-             * @title content
-             *
-             * This means a code box, so feel free to write down the code.
-             */
-            content: string;
-          };
-        },
-      ];
+      rich_text: INotion.OnlyOneTextLine;
     };
   }
 
   export interface ICreateChildContentTypeEquationInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `equation`>, "type" | "object"> {
+      StrictOmit<
+        LookUp<BlockObjectRequest, `equation`>,
+        "type" | "object" | "equation"
+      > {
     equation: {
       /**
        * @title expression
@@ -653,16 +663,43 @@ export namespace INotion {
       PageIdInput,
       StrictOmit<
         LookUp<BlockObjectRequest, `table_of_contents`>,
-        "type" | "object"
-      > {}
+        "type" | "object" | "table_of_contents"
+      > {
+    table_of_contents: {
+      color:
+        | "default"
+        | "gray"
+        | "brown"
+        | "orange"
+        | "yellow"
+        | "green"
+        | "blue"
+        | "purple"
+        | "pink"
+        | "red"
+        | "gray_background"
+        | "brown_background"
+        | "orange_background"
+        | "yellow_background"
+        | "green_background"
+        | "blue_background"
+        | "purple_background"
+        | "pink_background"
+        | "red_background";
+    };
+  }
 
   export interface ICreateChildContentTypeLinkToPageInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
       StrictOmit<
         LookUp<BlockObjectRequest, `link_to_page`>,
-        "type" | "object"
-      > {}
+        "type" | "object" | "link_to_page"
+      > {
+    link_to_page: {
+      page_id: string & PageIdInput["pageId"];
+    };
+  }
 
   export interface ICreateChildContentTypeTableRowInput
     extends ICommon.ISecret<"notion">,
@@ -690,58 +727,170 @@ export namespace INotion {
   export interface ICreateChildContentTypeHeading_1Input
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `heading_1`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `heading_1`>,
+        "type" | "object" | "heading_1"
+      > {
+    heading_1: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeHeading_2Input
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `heading_2`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `heading_2`>,
+        "type" | "object" | "heading_2"
+      > {
+    heading_2: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeHeading_3Input
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `heading_3`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `heading_3`>,
+        "type" | "object" | "heading_3"
+      > {
+    heading_3: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeParagraphInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `paragraph`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `paragraph`>,
+        "type" | "object" | "paragraph"
+      > {
+    paragraph: {
+      rich_text: [
+        {
+          text: {
+            content: string;
+            link?: { url: string & tags.Format<"uri"> };
+          };
+        },
+      ];
+    };
+  }
 
   export interface ICreateChildContentTypeBulletedListItemInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
       StrictOmit<
         LookUp<BlockObjectRequest, `bulleted_list_item`>,
-        "type" | "object"
-      > {}
+        "type" | "object" | "bulleted_list_item"
+      > {
+    bulleted_list_item: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeNumberedListItemInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
       StrictOmit<
         LookUp<BlockObjectRequest, `numbered_list_item`>,
-        "type" | "object"
-      > {}
+        "type" | "object" | "numbered_list_item"
+      > {
+    numbered_list_item: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeQuoteInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `quote`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `quote`>,
+        "type" | "object" | "quote"
+      > {
+    quote: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeToDoInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `to_do`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `to_do`>,
+        "type" | "object" | "to_do"
+      > {
+    to_do: {
+      rich_text: INotion.OnlyOneTextLine;
+      checked?: boolean;
+      color?:
+        | "default"
+        | "gray"
+        | "brown"
+        | "orange"
+        | "yellow"
+        | "green"
+        | "blue"
+        | "purple"
+        | "pink"
+        | "red"
+        | "gray_background"
+        | "brown_background"
+        | "orange_background"
+        | "yellow_background"
+        | "green_background"
+        | "blue_background"
+        | "purple_background"
+        | "pink_background"
+        | "red_background";
+    };
+  }
 
   export interface ICreateChildContentTypeToggleInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `toggle`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `toggle`>,
+        "type" | "object" | "toggle"
+      > {
+    toggle: {
+      rich_text: INotion.OnlyOneTextLine;
+      color?:
+        | "default"
+        | "gray"
+        | "brown"
+        | "orange"
+        | "yellow"
+        | "green"
+        | "blue"
+        | "purple"
+        | "pink"
+        | "red"
+        | "gray_background"
+        | "brown_background"
+        | "orange_background"
+        | "yellow_background"
+        | "green_background"
+        | "blue_background"
+        | "purple_background"
+        | "pink_background"
+        | "red_background";
+    };
+  }
 
   export interface ICreateChildContentTypeTemplateInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `template`>, "type" | "object"> {}
+      StrictOmit<
+        LookUp<BlockObjectRequest, `template`>,
+        "type" | "object" | "template"
+      > {
+    template: {
+      rich_text: INotion.OnlyOneTextLine;
+    };
+  }
 
   export interface ICreateChildContentTypeCalloutInput
     extends ICommon.ISecret<"notion">,
@@ -1537,4 +1686,13 @@ export namespace INotion {
   }
 
   export type ISecret = ICommon.ISecret<"notion">;
+
+  export type OnlyOneTextLine = [
+    {
+      text: {
+        content: string;
+        link?: { url: string & tags.Format<"uri"> };
+      };
+    },
+  ];
 }

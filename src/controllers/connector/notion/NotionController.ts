@@ -293,15 +293,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/table_row")
-  async createTableRow(
-    @TypedBody() input: INotion.ICreateChildContentTypeTableRowInput,
-  ): Promise<void> {
-    return NotionProvider.createTableRow(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/table_row")
+  // async createTableRow(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeTableRowInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createTableRow(input);
+  // }
 
   /**
    * Append an table type child node
@@ -314,15 +314,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/table")
-  async createTable(
-    @TypedBody() input: INotion.ICreateChildContentTypeTableInput,
-  ): Promise<void> {
-    return NotionProvider.createTable(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/table")
+  // async createTable(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeTableInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createTable(input);
+  // }
 
   /**
    * Append an column_list type child node
@@ -335,15 +335,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/column_list")
-  async createColumnList(
-    @TypedBody() input: INotion.ICreateChildContentTypeColumnListInput,
-  ): Promise<void> {
-    return NotionProvider.createColumnList(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/column_list")
+  // async createColumnList(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeColumnListInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createColumnList(input);
+  // }
 
   /**
    * Append an column type child node
@@ -356,15 +356,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/column")
-  async createColumn(
-    @TypedBody() input: INotion.ICreateChildContentTypeColumnInput,
-  ): Promise<void> {
-    return NotionProvider.createColumn(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/column")
+  // async createColumn(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeColumnInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createColumn(input);
+  // }
 
   /**
    * Append an heading_1 type child node
@@ -566,35 +566,35 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/template")
-  async createTemplate(
-    @TypedBody() input: INotion.ICreateChildContentTypeTemplateInput,
-  ): Promise<void> {
-    return NotionProvider.createTemplate(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/template")
+  // async createTemplate(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeTemplateInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createTemplate(input);
+  // }
 
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/callout")
-  async createCallout(
-    @TypedBody() input: INotion.ICreateChildContentTypeCalloutInput,
-  ): Promise<void> {
-    return NotionProvider.createCallout(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/callout")
+  // async createCallout(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeCalloutInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createCallout(input);
+  // }
 
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/synced_block")
-  async createSyncedBlock(
-    @TypedBody() input: INotion.ICreateChildContentTypeSyncedBlockInput,
-  ): Promise<void> {
-    return NotionProvider.createSyncedBlock(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/synced_block")
+  // async createSyncedBlock(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeSyncedBlockInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createSyncedBlock(input);
+  // }
 
   /**
    * 노션 페이지를 생성합니다.

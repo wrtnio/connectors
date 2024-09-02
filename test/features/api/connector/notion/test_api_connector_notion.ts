@@ -344,7 +344,7 @@ export const test_api_connector_notion_create_page = async (
   //   connection,
   //   {
   //     table_row: {
-  //       cells: [[]],
+  //       cells: [[{}]],
   //     },
   //     pageId: page.id,
   //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -423,55 +423,115 @@ export const test_api_connector_notion_create_page = async (
     },
   );
 
-  // await CApi.functional.connector.notion.page.paragraph.createParagraph(
-  //   connection,
-  //   {
-  //     ...typia.random<INotion.ICreateChildContentTypeParagraphInput>(),
-  //     pageId: page.id,
-  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  //   },
-  // );
+  await CApi.functional.connector.notion.page.paragraph.createParagraph(
+    connection,
+    {
+      paragraph: {
+        rich_text: [
+          {
+            text: {
+              content: "hello paragraph",
+              link: {
+                url: "https://wrtn.ai",
+              },
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
 
-  // await CApi.functional.connector.notion.page.bulleted_list_item.createBulletedListItem(
-  //   connection,
-  //   {
-  //     ...typia.random<INotion.ICreateChildContentTypeBulletedListItemInput>(),
-  //     pageId: page.id,
-  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  //   },
-  // );
+  await CApi.functional.connector.notion.page.bulleted_list_item.createBulletedListItem(
+    connection,
+    {
+      bulleted_list_item: {
+        rich_text: [
+          {
+            text: {
+              content: "hello, bulleted list item",
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
 
-  // await CApi.functional.connector.notion.page.numbered_list_item.createNumberedListItem(
-  //   connection,
-  //   {
-  //     ...typia.random<INotion.ICreateChildContentTypeNumberedListItemInput>(),
-  //     pageId: page.id,
-  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  //   },
-  // );
+  await CApi.functional.connector.notion.page.numbered_list_item.createNumberedListItem(
+    connection,
+    {
+      numbered_list_item: {
+        rich_text: [
+          {
+            text: {
+              content: "hello, numbered_list_item",
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
 
-  // await CApi.functional.connector.notion.page.quote.createQuote(connection, {
-  //   ...typia.random<INotion.ICreateChildContentTypeQuoteInput>(),
-  //   pageId: page.id,
-  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  // });
+  await CApi.functional.connector.notion.page.quote.createQuote(connection, {
+    quote: {
+      rich_text: [
+        {
+          text: {
+            content: "hello, quote",
+          },
+        },
+      ],
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
 
-  // await CApi.functional.connector.notion.page.to_do.createToDo(connection, {
-  //   ...typia.random<INotion.ICreateChildContentTypeToDoInput>(),
-  //   pageId: page.id,
-  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  // });
+  await CApi.functional.connector.notion.page.to_do.createToDo(connection, {
+    to_do: {
+      rich_text: [
+        {
+          text: {
+            content: "hello, quote",
+          },
+        },
+      ],
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
 
-  // await CApi.functional.connector.notion.page.toggle.createToggle(connection, {
-  //   ...typia.random<INotion.ICreateChildContentTypeToggleInput>(),
-  //   pageId: page.id,
-  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  // });
+  await CApi.functional.connector.notion.page.toggle.createToggle(connection, {
+    toggle: {
+      rich_text: [
+        {
+          text: {
+            content: "hello, quote",
+          },
+        },
+      ],
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
 
+  // Cannot create a template block using the public API.
   // await CApi.functional.connector.notion.page.template.createTemplate(
   //   connection,
   //   {
-  //     ...typia.random<INotion.ICreateChildContentTypeTemplateInput>(),
+  //     template: {
+  //       rich_text: [
+  //         {
+  //           text: {
+  //             content: "hello, template",
+  //           },
+  //         },
+  //       ],
+  //     },
   //     pageId: page.id,
   //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
   //   },
@@ -480,7 +540,9 @@ export const test_api_connector_notion_create_page = async (
   // await CApi.functional.connector.notion.page.callout.createCallout(
   //   connection,
   //   {
-  //     ...typia.random<INotion.ICreateChildContentTypeCalloutInput>(),
+  //     callout: {
+  //       icon: EmojiRequest
+  //     },
   //     pageId: page.id,
   //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
   //   },
