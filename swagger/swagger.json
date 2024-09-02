@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.160",
+    "version": "0.1.161",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8277,47 +8277,442 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg"
       }
     },
+    "/connector/notion/page/file": {
+      "post": {
+        "summary": "Append an file type child node",
+        "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/embed": {
+      "post": {
+        "summary": "Append an embed type child node",
+        "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/bookmark": {
+      "post": {
+        "summary": "Append an bookmark type child node",
+        "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/image": {
+      "post": {
+        "summary": "Append an image type child node",
+        "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/video": {
+      "post": {
+        "summary": "Append an video type child node",
+        "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/pdf": {
+      "post": {
+        "summary": "Append an pdf type child node",
+        "description": "Append an pdf type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `pdf`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/audio": {
+      "post": {
+        "summary": "Append an audio type child node",
+        "description": "Append an audio type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `audio`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/code": {
+      "post": {
+        "summary": "Append an code type child node",
+        "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/equation": {
+      "post": {
+        "summary": "Append an equation type child node",
+        "description": "Append an equation type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `equation`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/divider": {
+      "post": {
+        "summary": "Append an divider type child node",
+        "description": "Append an divider type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `divider`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/breadcrumb": {
+      "post": {
+        "summary": "Append an breadcrumb type child node",
+        "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/table_of_contents": {
+      "post": {
+        "summary": "Append an table_of_contents type child node",
+        "description": "Append an table_of_contents type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_of_contents`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/link_to_page": {
+      "post": {
+        "summary": "Append an link_to_page type child node",
+        "description": "Append an link_to_page type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `link_to_page`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/table_row": {
+      "post": {
+        "summary": "Append an table_row type child node",
+        "description": "Append an table_row type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_row`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/table": {
+      "post": {
+        "summary": "Append an table type child node",
+        "description": "Append an table type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/column_list": {
+      "post": {
+        "summary": "Append an column_list type child node",
+        "description": "Append an column_list type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `column_list`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/column": {
+      "post": {
+        "summary": "Append an column type child node",
+        "description": "Append an column type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `column`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/heading_1": {
+      "post": {
+        "summary": "Append an heading_1 type child node",
+        "description": "Append an heading_1 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_1`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/heading_2": {
+      "post": {
+        "summary": "Append an heading_2 type child node",
+        "description": "Append an heading_2 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_2`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/heading_3": {
+      "post": {
+        "summary": "Append an heading_3 type child node",
+        "description": "Append an heading_3 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_3`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/paragraph": {
+      "post": {
+        "summary": "Append an paragraph type child node",
+        "description": "Append an paragraph type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `paragraph`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/bulleted_list_item": {
+      "post": {
+        "summary": "Append an bulleted_list_item type child node",
+        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/numbered_list_item": {
+      "post": {
+        "summary": "Append an numbered_list_item type child node",
+        "description": "Append an numbered_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `numbered_list_item`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/quote": {
+      "post": {
+        "summary": "Append an quote type child node",
+        "description": "Append an quote type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `quote`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/to_do": {
+      "post": {
+        "summary": "Append an to_do type child node",
+        "description": "Append an to_do type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `to_do`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/toggle": {
+      "post": {
+        "summary": "Append an toggle type child node",
+        "description": "Append an toggle type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `toggle`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/template": {
+      "post": {
+        "summary": "Append an template type child node",
+        "description": "Append an template type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `template`.",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/callout": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/connector/notion/page/synced_block": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
     "/connector/notion/page": {
       "post": {
         "summary": "페이지 생성",
         "description": "노션 페이지를 생성합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "페이지 생성에 필요한 정보",
@@ -8349,43 +8744,7 @@
       "post": {
         "summary": "페이지 목록 조회",
         "description": "노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8420,43 +8779,7 @@
       "post": {
         "summary": "유저 목록 조회",
         "description": "워크스페이스에 있는 유저 목록을 조회합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8491,43 +8814,7 @@
       "post": {
         "summary": "페이지에 내용 추가",
         "description": "페이지 끝에 내용을 추가합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "pageId",
@@ -8569,43 +8856,7 @@
       "post": {
         "summary": "데이터베이스 목록 조회",
         "description": "데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8640,43 +8891,7 @@
       "post": {
         "summary": "데이터베이스 정보 조회",
         "description": "데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "databaseId",
@@ -8722,43 +8937,7 @@
       "post": {
         "summary": "데이터베이스 아이템 생성",
         "description": "노션 테이블 데이터베이스에 아이템을 생성합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "databaseId",
@@ -8803,43 +8982,7 @@
       "patch": {
         "summary": "데이터베이스 아이템 수정",
         "description": "데이터베이스에 있는 아이템 정보를 수정합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "databaseId",
@@ -8886,43 +9029,7 @@
       "post": {
         "summary": "제목으로 페이지 검색",
         "description": "제목으로 페이지를 검색합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "페이지 제목",
@@ -8955,43 +9062,7 @@
       "post": {
         "summary": "데이터베이스 아이템 목록 조회",
         "description": "테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "databaseId",
@@ -9040,43 +9111,7 @@
       "post": {
         "summary": "데이터베이스 아이템 조회",
         "description": "테이블 데이터베이스에 존재하는 아이템을 조회합니다.",
-        "tags": [
-          "Notion",
-          "노션",
-          "노트",
-          "메모",
-          "작업",
-          "프로젝트",
-          "할",
-          "일정",
-          "문서",
-          "회의록",
-          "체크리스트",
-          "아이디어",
-          "업무",
-          "학습",
-          "스터디",
-          "제품기획",
-          "이력서",
-          "포트폴리오",
-          "협업",
-          "Note",
-          "Memo",
-          "Task",
-          "Project",
-          "To",
-          "Schedule",
-          "Document",
-          "Meeting",
-          "Checklist",
-          "Idea",
-          "Work",
-          "Study",
-          "Product",
-          "Resume",
-          "Portfolio",
-          "Collaboration"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "databaseId",
@@ -10433,8 +10468,8 @@
     },
     "/connector/github/users/get-repositories": {
       "post": {
-        "summary": "Inquire the user's repository",
-        "description": "Inquire the user's repository\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.",
+        "summary": "Inquire the user's repositories",
+        "description": "Inquire the user's repositories\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12554,6 +12589,13 @@
       "IExcel.IReadExcelOutput": {
         "type": "object",
         "properties": {
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "headers of this sheet"
+          },
           "data": {
             "type": "array",
             "items": {
@@ -12563,6 +12605,7 @@
           }
         },
         "required": [
+          "headers",
           "data"
         ],
         "title": "엑셀 파일 읽기 결과"
@@ -27891,7 +27934,12 @@
         "properties": {
           "pageId": {
             "type": "string",
-            "title": "id",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/page",
+              "jmesPath": "[].{value:pageId, label:title}"
+            },
+            "title": "id\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.",
             "description": "페이지 고유 id"
           },
           "title": {
@@ -42287,101 +42335,6 @@
     {
       "name": "Integrate",
       "description": "Data"
-    },
-    {
-      "name": "Notion"
-    },
-    {
-      "name": "노션"
-    },
-    {
-      "name": "노트"
-    },
-    {
-      "name": "메모"
-    },
-    {
-      "name": "작업",
-      "description": "관리"
-    },
-    {
-      "name": "프로젝트",
-      "description": "관리"
-    },
-    {
-      "name": "할",
-      "description": "일 목록"
-    },
-    {
-      "name": "회의록",
-      "description": "작성"
-    },
-    {
-      "name": "체크리스트"
-    },
-    {
-      "name": "아이디어",
-      "description": "정리"
-    },
-    {
-      "name": "학습",
-      "description": "노트"
-    },
-    {
-      "name": "스터디",
-      "description": "플래너"
-    },
-    {
-      "name": "제품기획"
-    },
-    {
-      "name": "이력서"
-    },
-    {
-      "name": "포트폴리오"
-    },
-    {
-      "name": "Note"
-    },
-    {
-      "name": "Memo"
-    },
-    {
-      "name": "Task",
-      "description": "Management"
-    },
-    {
-      "name": "Project",
-      "description": "Management"
-    },
-    {
-      "name": "To",
-      "description": "do list"
-    },
-    {
-      "name": "Meeting",
-      "description": "Notes"
-    },
-    {
-      "name": "Checklist"
-    },
-    {
-      "name": "Idea",
-      "description": "Organization"
-    },
-    {
-      "name": "Study",
-      "description": "Notes"
-    },
-    {
-      "name": "Product",
-      "description": "Management"
-    },
-    {
-      "name": "Resume"
-    },
-    {
-      "name": "Portfolio"
     },
     {
       "name": "Google Hotel"
