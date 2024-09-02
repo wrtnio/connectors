@@ -99,6 +99,25 @@ export class GoogleSheetController {
   }
 
   /**
+   * 구글 시트에 내용을 추가합니다.
+   *
+   * @summary 구글 시트에 내용 추가하기
+   *
+   * @param input 내용을 추가하기 위한 정보
+   *
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+  )
+  @core.TypedRoute.Post("append")
+  async appendGoogleSheet(
+    @core.TypedBody() input: IGoogleSheet.IAppendToSheetInput,
+  ): Promise<void> {
+    return retry(() => this.googleSheetProvider.appendToSheet(input))();
+  }
+
+  /**
    * 구글 시트를 생성합니다.
    *
    * 생성된 시트는 구글 드라이브 루트 경로에 생성됩니다.

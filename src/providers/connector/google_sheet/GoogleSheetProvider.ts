@@ -56,6 +56,32 @@ export class GoogleSheetProvider {
   }
 
   /**
+   * Append To Sheet
+   */
+  async appendToSheet(input: IGoogleSheet.IAppendToSheetInput): Promise<void> {
+    try {
+      const { values, secretKey, spreadSheetId, range } = input;
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+      const sheets = google.sheets({ version: "v4", auth: authClient });
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: spreadSheetId,
+        range: range,
+        valueInputOption: "RAW",
+        requestBody: {
+          values: values,
+        },
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  /**
    * Read Google Sheet Headers
    * @param input Google Sheet Url and index number(default 0)
    */
