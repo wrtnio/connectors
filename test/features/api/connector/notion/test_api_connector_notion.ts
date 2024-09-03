@@ -620,3 +620,60 @@ export const test_api_connector_notion_create_paragraph_with_children = async (
     },
   );
 };
+
+export const test_api_connector_notion_create_toggle_with_children = async (
+  connection: CApi.IConnection,
+) => {
+  const page = await CApi.functional.connector.notion.page.createPage(
+    connection,
+    {
+      parentPageId: "350633865fff4049a38a2ae7e9a04407",
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+      title: "TEST",
+    },
+  );
+
+  await CApi.functional.connector.notion.page.toggle.createToggle(connection, {
+    toggle: {
+      rich_text: [
+        {
+          text: {
+            content: "hello toggle",
+            link: {
+              url: "https://wrtn.ai",
+            },
+          },
+        },
+      ],
+      children: [
+        {
+          toggle: {
+            rich_text: [
+              {
+                text: {
+                  content: "hello, children!",
+                },
+              },
+            ],
+            children: [
+              {
+                toggle: {
+                  rich_text: [
+                    {
+                      text: {
+                        content: "hello, children's children",
+                      },
+                    },
+                  ],
+                  children: [],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    pageId: page.id,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
+};
