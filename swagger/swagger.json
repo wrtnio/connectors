@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.164",
+    "version": "0.1.165",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -28016,40 +28016,39 @@
               },
               "caption": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 1,
                 "title": "caption for this file"
               }
             },
@@ -28107,40 +28106,39 @@
               },
               "caption": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 1,
                 "title": "caption of this embed"
               }
             },
@@ -28198,40 +28196,39 @@
               },
               "caption": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 1,
                 "title": "caption of this bookmark"
               }
             },
@@ -28299,40 +28296,39 @@
               },
               "caption": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 1,
                 "title": "caption of this image"
               }
             },
@@ -28398,40 +28394,39 @@
               },
               "caption": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 1,
                 "title": "caption of this embed"
               }
             },
@@ -28498,40 +28493,39 @@
               },
               "caption": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 1,
                 "title": "caption of this pdf"
               }
             },
@@ -28847,40 +28841,38 @@
               },
               "rich_text": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "maxItems": 1,
                 "title": "rich text for this codebox"
               }
             },
@@ -29257,40 +29249,38 @@
             "properties": {
               "rich_text": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "maxItems": 1,
                 "title": "rich_text"
               }
             },
@@ -29343,40 +29333,38 @@
             "properties": {
               "rich_text": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "maxItems": 1,
                 "title": "rich_text"
               }
             },
@@ -29429,40 +29417,38 @@
             "properties": {
               "rich_text": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string"
                         },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
+                        "link": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "maxItems": 1,
                 "title": "rich_text"
               }
             },
@@ -29540,7 +29526,7 @@
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "paragraph": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraph...Record...))",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(paragraphrich_textMultipleTextLineRecordparagraphRecordchildren(paragraph...Record...))",
             "title": "paragraph"
           }
         },
@@ -29550,51 +29536,49 @@
           "paragraph"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraph...Record...))": {
+      "rich_textMultipleTextLineRecordchildren(paragraphrich_textMultipleTextLineRecordparagraphRecordchildren(paragraph...Record...))": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecord...)"
+              "$ref": "#/components/schemas/paragraphrich_textMultipleTextLineRecordparagraphRecordchildren(paragraphrich_textMultipleTextLineRecordparagraphRecord...)"
             }
           }
         },
@@ -29603,11 +29587,11 @@
           "children"
         ]
       },
-      "paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecord...)": {
+      "paragraphrich_textMultipleTextLineRecordparagraphRecordchildren(paragraphrich_textMultipleTextLineRecordparagraphRecord...)": {
         "type": "object",
         "properties": {
           "paragraph": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraph...)",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(paragraphrich_textMultipleTextLineRecordparagraphRecordchildrenparagraph...)",
             "title": "paragraph"
           }
         },
@@ -29615,51 +29599,49 @@
           "paragraph"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraph...)": {
+      "rich_textMultipleTextLineRecordchildren(paragraphrich_textMultipleTextLineRecordparagraphRecordchildrenparagraph...)": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraphrich_textOnlyOneTextLine"
+              "$ref": "#/components/schemas/paragraphrich_textMultipleTextLineRecordparagraphRecordchildrenparagraphrich_textMultipleTextLine"
             }
           }
         },
@@ -29668,11 +29650,11 @@
           "children"
         ]
       },
-      "paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraphrich_textOnlyOneTextLine": {
+      "paragraphrich_textMultipleTextLineRecordparagraphRecordchildrenparagraphrich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "paragraph": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrenparagraphrich_textOnlyOneTextLine",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildrenparagraphrich_textMultipleTextLine",
             "title": "paragraph"
           }
         },
@@ -29680,45 +29662,43 @@
           "paragraph"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildrenparagraphrich_textOnlyOneTextLine": {
+      "rich_textMultipleTextLineRecordchildrenparagraphrich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
@@ -29731,40 +29711,38 @@
                   "properties": {
                     "rich_text": {
                       "type": "array",
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "url": {
-                                      "type": "string",
-                                      "format": "uri"
-                                    }
-                                  },
-                                  "required": [
-                                    "url"
-                                  ]
-                                }
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
                               },
-                              "required": [
-                                "content"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        }
-                      ],
-                      "additionalItems": false,
+                              "link": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  }
+                                },
+                                "required": [
+                                  "url"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "content"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      "maxItems": 1,
                       "title": "rich_text"
                     }
                   },
@@ -29818,7 +29796,7 @@
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "bulleted_list_item": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(...Record...))",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildren(...Record...))",
             "title": "bulleted_list_item"
           }
         },
@@ -29828,51 +29806,49 @@
           "bulleted_list_item"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(...Record...))": {
+      "rich_textMultipleTextLineRecordchildren(bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildren(...Record...))": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecord...)"
+              "$ref": "#/components/schemas/bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildren(bulleted_list_itemrich_textMultipleTextLineRecord...)"
             }
           }
         },
@@ -29881,11 +29857,11 @@
           "children"
         ]
       },
-      "bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecord...)": {
+      "bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildren(bulleted_list_itemrich_textMultipleTextLineRecord...)": {
         "type": "object",
         "properties": {
           "bulleted_list_item": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren...)",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildren...)",
             "title": "bulleted_list_item"
           }
         },
@@ -29893,51 +29869,49 @@
           "bulleted_list_item"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren...)": {
+      "rich_textMultipleTextLineRecordchildren(bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildren...)": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine"
+              "$ref": "#/components/schemas/bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildrenbulleted_list_itemrich_textMultipleTextLine"
             }
           }
         },
@@ -29946,11 +29920,11 @@
           "children"
         ]
       },
-      "bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine": {
+      "bulleted_list_itemrich_textMultipleTextLineRecordbulleted_list_itemRecordchildrenbulleted_list_itemrich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "bulleted_list_item": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildrenbulleted_list_itemrich_textMultipleTextLine",
             "title": "bulleted_list_item"
           }
         },
@@ -29958,45 +29932,43 @@
           "bulleted_list_item"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine": {
+      "rich_textMultipleTextLineRecordchildrenbulleted_list_itemrich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
@@ -30009,40 +29981,38 @@
                   "properties": {
                     "rich_text": {
                       "type": "array",
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "url": {
-                                      "type": "string",
-                                      "format": "uri"
-                                    }
-                                  },
-                                  "required": [
-                                    "url"
-                                  ]
-                                }
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
                               },
-                              "required": [
-                                "content"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        }
-                      ],
-                      "additionalItems": false,
+                              "link": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  }
+                                },
+                                "required": [
+                                  "url"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "content"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      "maxItems": 1,
                       "title": "rich_text"
                     }
                   },
@@ -30096,7 +30066,7 @@
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "numbered_list_item": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(...Record...))",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildren(...Record...))",
             "title": "numbered_list_item"
           }
         },
@@ -30106,51 +30076,49 @@
           "numbered_list_item"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(...Record...))": {
+      "rich_textMultipleTextLineRecordchildren(numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildren(...Record...))": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecord...)"
+              "$ref": "#/components/schemas/numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildren(numbered_list_itemrich_textMultipleTextLineRecord...)"
             }
           }
         },
@@ -30159,11 +30127,11 @@
           "children"
         ]
       },
-      "numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecord...)": {
+      "numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildren(numbered_list_itemrich_textMultipleTextLineRecord...)": {
         "type": "object",
         "properties": {
           "numbered_list_item": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren...)",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildren...)",
             "title": "numbered_list_item"
           }
         },
@@ -30171,51 +30139,49 @@
           "numbered_list_item"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren...)": {
+      "rich_textMultipleTextLineRecordchildren(numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildren...)": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildrennumbered_list_itemrich_textOnlyOneTextLine"
+              "$ref": "#/components/schemas/numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildrennumbered_list_itemrich_textMultipleTextLine"
             }
           }
         },
@@ -30224,11 +30190,11 @@
           "children"
         ]
       },
-      "numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildrennumbered_list_itemrich_textOnlyOneTextLine": {
+      "numbered_list_itemrich_textMultipleTextLineRecordnumbered_list_itemRecordchildrennumbered_list_itemrich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "numbered_list_item": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrennumbered_list_itemrich_textOnlyOneTextLine",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildrennumbered_list_itemrich_textMultipleTextLine",
             "title": "numbered_list_item"
           }
         },
@@ -30236,45 +30202,43 @@
           "numbered_list_item"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildrennumbered_list_itemrich_textOnlyOneTextLine": {
+      "rich_textMultipleTextLineRecordchildrennumbered_list_itemrich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
@@ -30287,40 +30251,38 @@
                   "properties": {
                     "rich_text": {
                       "type": "array",
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "url": {
-                                      "type": "string",
-                                      "format": "uri"
-                                    }
-                                  },
-                                  "required": [
-                                    "url"
-                                  ]
-                                }
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
                               },
-                              "required": [
-                                "content"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        }
-                      ],
-                      "additionalItems": false,
+                              "link": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  }
+                                },
+                                "required": [
+                                  "url"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "content"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      "maxItems": 1,
                       "title": "rich_text"
                     }
                   },
@@ -30374,7 +30336,7 @@
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "quote": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecord...))",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(quoterich_textMultipleTextLineRecordquoteRecordchildren(quoterich_textMultipleTextLineRecord...))",
             "title": "quote"
           }
         },
@@ -30384,51 +30346,49 @@
           "quote"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecord...))": {
+      "rich_textMultipleTextLineRecordchildren(quoterich_textMultipleTextLineRecordquoteRecordchildren(quoterich_textMultipleTextLineRecord...))": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren...)"
+              "$ref": "#/components/schemas/quoterich_textMultipleTextLineRecordquoteRecordchildren(quoterich_textMultipleTextLineRecordquoteRecordchildren...)"
             }
           }
         },
@@ -30437,11 +30397,11 @@
           "children"
         ]
       },
-      "quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren...)": {
+      "quoterich_textMultipleTextLineRecordquoteRecordchildren(quoterich_textMultipleTextLineRecordquoteRecordchildren...)": {
         "type": "object",
         "properties": {
           "quote": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine)",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildren(quoterich_textMultipleTextLineRecordquoteRecordchildrenquoterich_textMultipleTextLine)",
             "title": "quote"
           }
         },
@@ -30449,51 +30409,49 @@
           "quote"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine)": {
+      "rich_textMultipleTextLineRecordchildren(quoterich_textMultipleTextLineRecordquoteRecordchildrenquoterich_textMultipleTextLine)": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine"
+              "$ref": "#/components/schemas/quoterich_textMultipleTextLineRecordquoteRecordchildrenquoterich_textMultipleTextLine"
             }
           }
         },
@@ -30502,11 +30460,11 @@
           "children"
         ]
       },
-      "quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine": {
+      "quoterich_textMultipleTextLineRecordquoteRecordchildrenquoterich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "quote": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrenquoterich_textOnlyOneTextLine",
+            "$ref": "#/components/schemas/rich_textMultipleTextLineRecordchildrenquoterich_textMultipleTextLine",
             "title": "quote"
           }
         },
@@ -30514,45 +30472,43 @@
           "quote"
         ]
       },
-      "rich_textOnlyOneTextLineRecordchildrenquoterich_textOnlyOneTextLine": {
+      "rich_textMultipleTextLineRecordchildrenquoterich_textMultipleTextLine": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "children": {
@@ -30565,40 +30521,38 @@
                   "properties": {
                     "rich_text": {
                       "type": "array",
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "url": {
-                                      "type": "string",
-                                      "format": "uri"
-                                    }
-                                  },
-                                  "required": [
-                                    "url"
-                                  ]
-                                }
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
                               },
-                              "required": [
-                                "content"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        }
-                      ],
-                      "additionalItems": false,
+                              "link": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  }
+                                },
+                                "required": [
+                                  "url"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "content"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      "maxItems": 1,
                       "title": "rich_text"
                     }
                   },
@@ -30652,7 +30606,7 @@
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "to_do": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)",
+            "$ref": "#/components/schemas/rich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)",
             "title": "to_do"
           }
         },
@@ -30662,45 +30616,43 @@
           "to_do"
         ]
       },
-      "rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)": {
+      "rich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "checked": {
@@ -30772,7 +30724,7 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)"
+              "$ref": "#/components/schemas/to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildren(to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)"
             }
           }
         },
@@ -30781,11 +30733,11 @@
           "children"
         ]
       },
-      "to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)": {
+      "to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildren(to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)": {
         "type": "object",
         "properties": {
           "to_do": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...).o1",
+            "$ref": "#/components/schemas/rich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...).o1",
             "title": "to_do"
           }
         },
@@ -30793,45 +30745,43 @@
           "to_do"
         ]
       },
-      "rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...).o1": {
+      "rich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...).o1": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "checked": {
@@ -30903,7 +30853,7 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined"
+              "$ref": "#/components/schemas/to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildrento_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefined"
             }
           }
         },
@@ -30912,11 +30862,11 @@
           "children"
         ]
       },
-      "to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined": {
+      "to_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildrento_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefined": {
         "type": "object",
         "properties": {
           "to_do": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined",
+            "$ref": "#/components/schemas/rich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildrento_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefined",
             "title": "to_do"
           }
         },
@@ -30924,45 +30874,43 @@
           "to_do"
         ]
       },
-      "rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined": {
+      "rich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildrento_dorich_textMultipleTextLinecheckedbooleanundefinedcolorApiColorundefined": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "checked": {
@@ -31041,40 +30989,38 @@
                   "properties": {
                     "rich_text": {
                       "type": "array",
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "url": {
-                                      "type": "string",
-                                      "format": "uri"
-                                    }
-                                  },
-                                  "required": [
-                                    "url"
-                                  ]
-                                }
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
                               },
-                              "required": [
-                                "content"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        }
-                      ],
-                      "additionalItems": false,
+                              "link": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  }
+                                },
+                                "required": [
+                                  "url"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "content"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      "maxItems": 1,
                       "title": "rich_text"
                     },
                     "checked": {
@@ -31194,7 +31140,7 @@
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "toggle": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)",
+            "$ref": "#/components/schemas/rich_textMultipleTextLinecolorApiColorundefinedRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...)",
             "title": "toggle"
           }
         },
@@ -31204,45 +31150,43 @@
           "toggle"
         ]
       },
-      "rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)": {
+      "rich_textMultipleTextLinecolorApiColorundefinedRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...)": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "color": {
@@ -31310,7 +31254,7 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)"
+              "$ref": "#/components/schemas/togglerich_textMultipleTextLinecolorApiColorundefinedRecordtoggleRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...)"
             }
           }
         },
@@ -31319,11 +31263,11 @@
           "children"
         ]
       },
-      "togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)": {
+      "togglerich_textMultipleTextLinecolorApiColorundefinedRecordtoggleRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...)": {
         "type": "object",
         "properties": {
           "toggle": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...).o1",
+            "$ref": "#/components/schemas/rich_textMultipleTextLinecolorApiColorundefinedRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...).o1",
             "title": "toggle"
           }
         },
@@ -31331,45 +31275,43 @@
           "toggle"
         ]
       },
-      "rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...).o1": {
+      "rich_textMultipleTextLinecolorApiColorundefinedRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...).o1": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "color": {
@@ -31437,7 +31379,7 @@
           "children": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined"
+              "$ref": "#/components/schemas/togglerich_textMultipleTextLinecolorApiColorundefinedRecordtoggleRecordchildrentogglerich_textMultipleTextLinecolorApiColorundefined"
             }
           }
         },
@@ -31446,11 +31388,11 @@
           "children"
         ]
       },
-      "togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined": {
+      "togglerich_textMultipleTextLinecolorApiColorundefinedRecordtoggleRecordchildrentogglerich_textMultipleTextLinecolorApiColorundefined": {
         "type": "object",
         "properties": {
           "toggle": {
-            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined",
+            "$ref": "#/components/schemas/rich_textMultipleTextLinecolorApiColorundefinedRecordchildrentogglerich_textMultipleTextLinecolorApiColorundefined",
             "title": "toggle"
           }
         },
@@ -31458,45 +31400,43 @@
           "toggle"
         ]
       },
-      "rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined": {
+      "rich_textMultipleTextLinecolorApiColorundefinedRecordchildrentogglerich_textMultipleTextLinecolorApiColorundefined": {
         "type": "object",
         "properties": {
           "rich_text": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "object",
-                    "properties": {
-                      "content": {
-                        "type": "string"
-                      },
-                      "link": {
-                        "type": "object",
-                        "properties": {
-                          "url": {
-                            "type": "string",
-                            "format": "uri"
-                          }
-                        },
-                        "required": [
-                          "url"
-                        ]
-                      }
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string"
                     },
-                    "required": [
-                      "content"
-                    ]
-                  }
-                },
-                "required": [
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "link": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ]
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "maxItems": 1,
             "title": "rich_text"
           },
           "color": {
@@ -31571,40 +31511,38 @@
                   "properties": {
                     "rich_text": {
                       "type": "array",
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "url": {
-                                      "type": "string",
-                                      "format": "uri"
-                                    }
-                                  },
-                                  "required": [
-                                    "url"
-                                  ]
-                                }
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "object",
+                            "properties": {
+                              "content": {
+                                "type": "string"
                               },
-                              "required": [
-                                "content"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        }
-                      ],
-                      "additionalItems": false,
+                              "link": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri"
+                                  }
+                                },
+                                "required": [
+                                  "url"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "content"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ]
+                      },
+                      "maxItems": 1,
                       "title": "rich_text"
                     },
                     "color": {
