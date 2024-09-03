@@ -15,7 +15,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -31,7 +31,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -47,7 +47,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -63,7 +63,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -79,7 +79,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -95,7 +95,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -111,7 +111,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -143,7 +143,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -159,7 +159,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -175,7 +175,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -191,7 +191,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -207,7 +207,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -223,7 +223,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -239,7 +239,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -255,7 +255,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -271,7 +271,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -287,7 +287,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -303,7 +303,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -319,7 +319,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -335,7 +335,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -351,7 +351,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -367,7 +367,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -383,7 +383,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -399,7 +399,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -415,7 +415,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -431,7 +431,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -447,7 +447,7 @@ export namespace NotionProvider {
       const notion = await createClient(secretKey);
       await notion.blocks.children.append({
         block_id: pageId,
-        children: [rest],
+        children: [removeChildren(rest)],
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -461,42 +461,8 @@ export namespace NotionProvider {
     try {
       const notion = await createClient(input.secretKey);
       const res = await notion.pages.create({
-        parent: {
-          type: "page_id",
-          page_id: input.parentPageId,
-        },
-        properties: {
-          title: {
-            title: [
-              {
-                text: {
-                  content: input.title,
-                },
-              },
-            ],
-          },
-        },
-        /**
-         * 해당 children을 만드는 형태를 동일하게 여러 군데 사용을 하는데 하나의 함수로 만들어서 재사용 하고자 했으나, notion-sdk에서 제공하는 BlockObject type을 꺼내올 수 없어서 그대로 사용
-         */
-        ...(input?.content && {
-          children: [
-            {
-              object: "block",
-              type: "paragraph",
-              paragraph: {
-                rich_text: [
-                  {
-                    type: "text",
-                    text: {
-                      content: input.content,
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        }),
+        parent: { type: "page_id", page_id: input.parentPageId },
+        properties: { title: { title: [{ text: { content: input.title } }] } },
       });
       const pageId = res.id;
 
@@ -506,6 +472,7 @@ export namespace NotionProvider {
           HttpStatus.INTERNAL_SERVER_ERROR,
         );
       }
+
       return { id: pageId, title: input.title };
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -987,5 +954,27 @@ export namespace NotionProvider {
       "Notion-Version": "2022-06-28",
       accept: "application/json",
     };
+  }
+
+  export function removeChildren<T extends object | object[]>(target: T): T {
+    if (target instanceof Array) {
+      target.forEach((el) => removeChildren(el));
+    } else {
+      Object.entries(target).forEach(([key, value]) => {
+        if (key === "children") {
+          if ((value as any[]).length === 0) {
+            delete (target as any)["children"];
+          }
+
+          removeChildren(value);
+        } else {
+          if (typeof value === "object" && value !== null) {
+            removeChildren(value);
+          }
+        }
+      });
+    }
+
+    return target;
   }
 }
