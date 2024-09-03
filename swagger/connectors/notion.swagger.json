@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.163",
+    "version": "0.1.164",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/notion/page/file": {
       "post": {
         "summary": "Append an file type child node",
-        "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.\n\nUploading a file exposes it to the Notion page as an icon in the file format, but there is no Preview.\nIf you want the internal elements to be seen as soon as you enter the page, it is better to create the image, pdf format for each format, and consider embed for other formats.",
+        "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.\n\nUploading a file exposes it to the Notion page as an icon in the file format, but there is no Preview.\nIf you want the internal elements to be seen as soon as you enter the page, it is better to create the image, pdf format for each format, and consider embed for other formats.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -53,7 +53,7 @@
     "/connector/notion/page/embed": {
       "post": {
         "summary": "Append an embed type child node",
-        "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.\n\nThis is suitable when you want an internal element to be rendered immediately, such as an imprame within a page.",
+        "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.\n\nThis is suitable when you want an internal element to be rendered immediately, such as an imprame within a page.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -79,7 +79,7 @@
     "/connector/notion/page/bookmark": {
       "post": {
         "summary": "Append an bookmark type child node",
-        "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.\n\nBookmarks are visually better and more organized because they have previews, images, and explanations than just saving url as text.",
+        "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.\n\nBookmarks are visually better and more organized because they have previews, images, and explanations than just saving url as text.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -105,7 +105,7 @@
     "/connector/notion/page/image": {
       "post": {
         "summary": "Append an image type child node",
-        "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.",
+        "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -131,7 +131,7 @@
     "/connector/notion/page/video": {
       "post": {
         "summary": "Append an video type child node",
-        "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]",
+        "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -157,7 +157,7 @@
     "/connector/notion/page/pdf": {
       "post": {
         "summary": "Append an pdf type child node",
-        "description": "Append an pdf type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `pdf`.",
+        "description": "Append an pdf type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `pdf`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -183,7 +183,7 @@
     "/connector/notion/page/code": {
       "post": {
         "summary": "Append an code type child node",
-        "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.",
+        "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -209,7 +209,7 @@
     "/connector/notion/page/equation": {
       "post": {
         "summary": "Append an equation type child node",
-        "description": "Append an equation type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `equation`.",
+        "description": "Append an equation type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `equation`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -235,7 +235,7 @@
     "/connector/notion/page/divider": {
       "post": {
         "summary": "Append an divider type child node",
-        "description": "Append an divider type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `divider`.",
+        "description": "Append an divider type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `divider`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -261,7 +261,7 @@
     "/connector/notion/page/breadcrumb": {
       "post": {
         "summary": "Append an breadcrumb type child node",
-        "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.",
+        "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -287,7 +287,7 @@
     "/connector/notion/page/table_of_contents": {
       "post": {
         "summary": "Append an table_of_contents type child node",
-        "description": "Append an table_of_contents type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_of_contents`.",
+        "description": "Append an table_of_contents type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_of_contents`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -313,7 +313,7 @@
     "/connector/notion/page/link_to_page": {
       "post": {
         "summary": "Append an link_to_page type child node",
-        "description": "Append an link_to_page type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `link_to_page`.",
+        "description": "Append an link_to_page type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `link_to_page`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -339,7 +339,7 @@
     "/connector/notion/page/heading_1": {
       "post": {
         "summary": "Append an heading_1 type child node",
-        "description": "Append an heading_1 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_1`.",
+        "description": "Append an heading_1 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_1`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -365,7 +365,7 @@
     "/connector/notion/page/heading_2": {
       "post": {
         "summary": "Append an heading_2 type child node",
-        "description": "Append an heading_2 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_2`.",
+        "description": "Append an heading_2 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_2`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -391,7 +391,7 @@
     "/connector/notion/page/heading_3": {
       "post": {
         "summary": "Append an heading_3 type child node",
-        "description": "Append an heading_3 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_3`.",
+        "description": "Append an heading_3 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_3`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -417,7 +417,7 @@
     "/connector/notion/page/paragraph": {
       "post": {
         "summary": "Append an paragraph type child node",
-        "description": "Append an paragraph type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `paragraph`.",
+        "description": "Append an paragraph type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `paragraph`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -443,7 +443,7 @@
     "/connector/notion/page/bulleted_list_item": {
       "post": {
         "summary": "Append an bulleted_list_item type child node",
-        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.",
+        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -469,7 +469,7 @@
     "/connector/notion/page/numbered_list_item": {
       "post": {
         "summary": "Append an numbered_list_item type child node",
-        "description": "Append an numbered_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `numbered_list_item`.",
+        "description": "Append an numbered_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `numbered_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -495,7 +495,7 @@
     "/connector/notion/page/quote": {
       "post": {
         "summary": "Append an quote type child node",
-        "description": "Append an quote type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `quote`.",
+        "description": "Append an quote type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `quote`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -521,7 +521,7 @@
     "/connector/notion/page/to_do": {
       "post": {
         "summary": "Append an to_do type child node",
-        "description": "Append an to_do type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `to_do`.",
+        "description": "Append an to_do type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `to_do`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -547,7 +547,7 @@
     "/connector/notion/page/toggle": {
       "post": {
         "summary": "Append an toggle type child node",
-        "description": "Append an toggle type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `toggle`.",
+        "description": "Append an toggle type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `toggle`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -1039,6 +1039,48 @@
                   "url"
                 ],
                 "title": "external"
+              },
+              "name": {
+                "type": "string",
+                "title": "filename"
+              },
+              "caption": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false,
+                "title": "caption for this file"
               }
             },
             "required": [
@@ -1060,7 +1102,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1068,10 +1111,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1090,6 +1134,44 @@
                 "type": "string",
                 "format": "uri",
                 "title": "url\n\nYou can enter the path of the file you want to embed."
+              },
+              "caption": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false,
+                "title": "caption of this embed"
               }
             },
             "required": [
@@ -1111,7 +1193,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1119,10 +1202,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1141,6 +1225,44 @@
                 "type": "string",
                 "format": "uri",
                 "title": "url\n\nYou can enter the path of the file you want to bookmark."
+              },
+              "caption": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false,
+                "title": "caption of this bookmark"
               }
             },
             "required": [
@@ -1162,7 +1284,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1170,10 +1293,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1202,6 +1326,44 @@
                   "url"
                 ],
                 "title": "external"
+              },
+              "caption": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false,
+                "title": "caption of this image"
               }
             },
             "required": [
@@ -1223,7 +1385,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1231,10 +1394,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1261,6 +1425,44 @@
                 "required": [
                   "url"
                 ]
+              },
+              "caption": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false,
+                "title": "caption of this embed"
               }
             },
             "required": [
@@ -1281,7 +1483,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1289,10 +1492,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1321,6 +1525,44 @@
                   "url"
                 ],
                 "title": "external"
+              },
+              "caption": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string",
+                                "format": "uri"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                ],
+                "additionalItems": false,
+                "title": "caption of this pdf"
               }
             },
             "required": [
@@ -1342,7 +1584,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1350,10 +1593,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1628,7 +1872,8 @@
                   {
                     "const": "java/c/c++/c#"
                   }
-                ]
+                ],
+                "title": "programming language name"
               },
               "rich_text": {
                 "type": "array",
@@ -1665,7 +1910,8 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich text for this codebox"
               }
             },
             "required": [
@@ -1687,7 +1933,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1695,10 +1942,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1720,7 +1968,8 @@
             },
             "required": [
               "expression"
-            ]
+            ],
+            "title": "equation"
           },
           "secretKey": {
             "type": "string",
@@ -1736,7 +1985,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1744,10 +1994,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1759,6 +2010,10 @@
       "INotion.ICreateChildContentTypeDividerInput": {
         "type": "object",
         "properties": {
+          "divider": {
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "divider"
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -1773,7 +2028,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1781,24 +2037,23 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
-          },
-          "divider": {
-            "$ref": "#/components/schemas/EmptyObject"
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
+          "divider",
           "secretKey",
-          "pageId",
-          "divider"
+          "pageId"
         ]
       },
-      "EmptyObject": {
+      "Recordstringnever": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T"
       },
       "INotion.ICreateChildContentTypeBreadcrumbInput": {
         "type": "object",
@@ -1821,7 +2076,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1829,10 +2085,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1840,11 +2097,6 @@
           "secretKey",
           "pageId"
         ]
-      },
-      "Recordstringnever": {
-        "type": "object",
-        "properties": {},
-        "description": "Construct a type with a set of properties K of type T"
       },
       "INotion.ICreateChildContentTypeTableOfContentsInput": {
         "type": "object",
@@ -1934,7 +2186,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -1942,10 +2195,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1968,7 +2222,8 @@
                       "method": "post",
                       "path": "/connector/notion/get/page",
                       "jmesPath": "[].{value:pageId, label:title}"
-                    }
+                    },
+                    "x-wrtn-placeholder": "부모 페이지를 선택하세요."
                   },
                   {
                     "type": "string",
@@ -1976,7 +2231,8 @@
                       "method": "post",
                       "path": "/connector/notion/page",
                       "jmesPath": "[].{value:id, label:id}"
-                    }
+                    },
+                    "x-wrtn-placeholder": "부모 페이지를 선택하세요."
                   }
                 ],
                 "title": "page_id\n\nYou can look up the page by passing the page ID as a parameter at the end of the notion link.\nFor example, in the format 'https://www.notion.so/ :pageId'."
@@ -2001,7 +2257,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2009,10 +2266,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2085,7 +2343,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2093,10 +2352,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2169,7 +2429,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2177,10 +2438,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2253,7 +2515,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2261,10 +2524,11 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2276,53 +2540,6 @@
       "INotion.ICreateChildContentTypeParagraphInput": {
         "type": "object",
         "properties": {
-          "paragraph": {
-            "type": "object",
-            "properties": {
-              "rich_text": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
-                "title": "rich_text"
-              }
-            },
-            "required": [
-              "rich_text"
-            ],
-            "title": "heading_3"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -2337,7 +2554,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2345,68 +2563,261 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "paragraph": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraph...Record...))",
+            "title": "paragraph"
           }
         },
         "required": [
-          "paragraph",
           "secretKey",
-          "pageId"
+          "pageId",
+          "paragraph"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraph...Record...))": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecord...)"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecord...)": {
+        "type": "object",
+        "properties": {
+          "paragraph": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraph...)",
+            "title": "paragraph"
+          }
+        },
+        "required": [
+          "paragraph"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraph...)": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraphrich_textOnlyOneTextLine"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "paragraphrich_textOnlyOneTextLineRecordparagraphRecordchildrenparagraphrich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "paragraph": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrenparagraphrich_textOnlyOneTextLine",
+            "title": "paragraph"
+          }
+        },
+        "required": [
+          "paragraph"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildrenparagraphrich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "paragraph": {
+                  "type": "object",
+                  "properties": {
+                    "rich_text": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "text"
+                          ]
+                        }
+                      ],
+                      "additionalItems": false,
+                      "title": "rich_text"
+                    }
+                  },
+                  "required": [
+                    "rich_text"
+                  ],
+                  "title": "paragraph"
+                }
+              },
+              "required": [
+                "paragraph"
+              ]
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
         ]
       },
       "INotion.ICreateChildContentTypeBulletedListItemInput": {
         "type": "object",
         "properties": {
-          "bulleted_list_item": {
-            "type": "object",
-            "properties": {
-              "rich_text": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
-                "title": "rich_text"
-              }
-            },
-            "required": [
-              "rich_text"
-            ],
-            "title": "bulleted_list_item"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -2421,7 +2832,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2429,68 +2841,261 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "bulleted_list_item": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(...Record...))",
+            "title": "bulleted_list_item"
           }
         },
         "required": [
-          "bulleted_list_item",
           "secretKey",
-          "pageId"
+          "pageId",
+          "bulleted_list_item"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(...Record...))": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecord...)"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecord...)": {
+        "type": "object",
+        "properties": {
+          "bulleted_list_item": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren...)",
+            "title": "bulleted_list_item"
+          }
+        },
+        "required": [
+          "bulleted_list_item"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildren...)": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "bulleted_list_itemrich_textOnlyOneTextLineRecordbulleted_list_itemRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "bulleted_list_item": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine",
+            "title": "bulleted_list_item"
+          }
+        },
+        "required": [
+          "bulleted_list_item"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildrenbulleted_list_itemrich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bulleted_list_item": {
+                  "type": "object",
+                  "properties": {
+                    "rich_text": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "text"
+                          ]
+                        }
+                      ],
+                      "additionalItems": false,
+                      "title": "rich_text"
+                    }
+                  },
+                  "required": [
+                    "rich_text"
+                  ],
+                  "title": "bulleted_list_item"
+                }
+              },
+              "required": [
+                "bulleted_list_item"
+              ]
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
         ]
       },
       "INotion.ICreateChildContentTypeNumberedListItemInput": {
         "type": "object",
         "properties": {
-          "numbered_list_item": {
-            "type": "object",
-            "properties": {
-              "rich_text": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
-                "title": "rich_text"
-              }
-            },
-            "required": [
-              "rich_text"
-            ],
-            "title": "numbered_list_item"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -2505,7 +3110,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2513,68 +3119,261 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "numbered_list_item": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(...Record...))",
+            "title": "numbered_list_item"
           }
         },
         "required": [
-          "numbered_list_item",
           "secretKey",
-          "pageId"
+          "pageId",
+          "numbered_list_item"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(...Record...))": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecord...)"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecord...)": {
+        "type": "object",
+        "properties": {
+          "numbered_list_item": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren...)",
+            "title": "numbered_list_item"
+          }
+        },
+        "required": [
+          "numbered_list_item"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildren...)": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildrennumbered_list_itemrich_textOnlyOneTextLine"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "numbered_list_itemrich_textOnlyOneTextLineRecordnumbered_list_itemRecordchildrennumbered_list_itemrich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "numbered_list_item": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrennumbered_list_itemrich_textOnlyOneTextLine",
+            "title": "numbered_list_item"
+          }
+        },
+        "required": [
+          "numbered_list_item"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildrennumbered_list_itemrich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "numbered_list_item": {
+                  "type": "object",
+                  "properties": {
+                    "rich_text": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "text"
+                          ]
+                        }
+                      ],
+                      "additionalItems": false,
+                      "title": "rich_text"
+                    }
+                  },
+                  "required": [
+                    "rich_text"
+                  ],
+                  "title": "numbered_list_item"
+                }
+              },
+              "required": [
+                "numbered_list_item"
+              ]
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
         ]
       },
       "INotion.ICreateChildContentTypeQuoteInput": {
         "type": "object",
         "properties": {
-          "quote": {
-            "type": "object",
-            "properties": {
-              "rich_text": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
-                "title": "rich_text"
-              }
-            },
-            "required": [
-              "rich_text"
-            ],
-            "title": "quote"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -2589,7 +3388,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2597,134 +3397,261 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "quote": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecord...))",
+            "title": "quote"
           }
         },
         "required": [
-          "quote",
           "secretKey",
-          "pageId"
+          "pageId",
+          "quote"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecord...))": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren...)"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "quoterich_textOnlyOneTextLineRecordquoteRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildren...)": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine)",
+            "title": "quote"
+          }
+        },
+        "required": [
+          "quote"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildren(quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine)": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "quoterich_textOnlyOneTextLineRecordquoteRecordchildrenquoterich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLineRecordchildrenquoterich_textOnlyOneTextLine",
+            "title": "quote"
+          }
+        },
+        "required": [
+          "quote"
+        ]
+      },
+      "rich_textOnlyOneTextLineRecordchildrenquoterich_textOnlyOneTextLine": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "quote": {
+                  "type": "object",
+                  "properties": {
+                    "rich_text": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "text"
+                          ]
+                        }
+                      ],
+                      "additionalItems": false,
+                      "title": "rich_text"
+                    }
+                  },
+                  "required": [
+                    "rich_text"
+                  ],
+                  "title": "quote"
+                }
+              },
+              "required": [
+                "quote"
+              ]
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
         ]
       },
       "INotion.ICreateChildContentTypeToDoInput": {
         "type": "object",
         "properties": {
-          "to_do": {
-            "type": "object",
-            "properties": {
-              "rich_text": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
-                "title": "rich_text"
-              },
-              "checked": {
-                "type": "boolean",
-                "title": "checked"
-              },
-              "color": {
-                "oneOf": [
-                  {
-                    "const": "default"
-                  },
-                  {
-                    "const": "gray"
-                  },
-                  {
-                    "const": "brown"
-                  },
-                  {
-                    "const": "orange"
-                  },
-                  {
-                    "const": "yellow"
-                  },
-                  {
-                    "const": "green"
-                  },
-                  {
-                    "const": "blue"
-                  },
-                  {
-                    "const": "purple"
-                  },
-                  {
-                    "const": "pink"
-                  },
-                  {
-                    "const": "red"
-                  },
-                  {
-                    "const": "gray_background"
-                  },
-                  {
-                    "const": "brown_background"
-                  },
-                  {
-                    "const": "orange_background"
-                  },
-                  {
-                    "const": "yellow_background"
-                  },
-                  {
-                    "const": "green_background"
-                  },
-                  {
-                    "const": "blue_background"
-                  },
-                  {
-                    "const": "purple_background"
-                  },
-                  {
-                    "const": "pink_background"
-                  },
-                  {
-                    "const": "red_background"
-                  }
-                ],
-                "title": "color"
-              }
-            },
-            "required": [
-              "rich_text"
-            ],
-            "title": "to_do"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -2739,7 +3666,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2747,130 +3675,525 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "to_do": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)",
+            "title": "to_do"
           }
         },
         "required": [
-          "to_do",
           "secretKey",
-          "pageId"
+          "pageId",
+          "to_do"
+        ]
+      },
+      "rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "checked": {
+            "type": "boolean",
+            "title": "checked"
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "default"
+              },
+              {
+                "const": "gray"
+              },
+              {
+                "const": "brown"
+              },
+              {
+                "const": "orange"
+              },
+              {
+                "const": "yellow"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
+                "const": "purple"
+              },
+              {
+                "const": "pink"
+              },
+              {
+                "const": "red"
+              },
+              {
+                "const": "gray_background"
+              },
+              {
+                "const": "brown_background"
+              },
+              {
+                "const": "orange_background"
+              },
+              {
+                "const": "yellow_background"
+              },
+              {
+                "const": "green_background"
+              },
+              {
+                "const": "blue_background"
+              },
+              {
+                "const": "purple_background"
+              },
+              {
+                "const": "pink_background"
+              },
+              {
+                "const": "red_background"
+              }
+            ],
+            "title": "color"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...)": {
+        "type": "object",
+        "properties": {
+          "to_do": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...).o1",
+            "title": "to_do"
+          }
+        },
+        "required": [
+          "to_do"
+        ]
+      },
+      "rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildren(to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecord...).o1": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "checked": {
+            "type": "boolean",
+            "title": "checked"
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "default"
+              },
+              {
+                "const": "gray"
+              },
+              {
+                "const": "brown"
+              },
+              {
+                "const": "orange"
+              },
+              {
+                "const": "yellow"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
+                "const": "purple"
+              },
+              {
+                "const": "pink"
+              },
+              {
+                "const": "red"
+              },
+              {
+                "const": "gray_background"
+              },
+              {
+                "const": "brown_background"
+              },
+              {
+                "const": "orange_background"
+              },
+              {
+                "const": "yellow_background"
+              },
+              {
+                "const": "green_background"
+              },
+              {
+                "const": "blue_background"
+              },
+              {
+                "const": "purple_background"
+              },
+              {
+                "const": "pink_background"
+              },
+              {
+                "const": "red_background"
+              }
+            ],
+            "title": "color"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "to_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordto_doRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined": {
+        "type": "object",
+        "properties": {
+          "to_do": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined",
+            "title": "to_do"
+          }
+        },
+        "required": [
+          "to_do"
+        ]
+      },
+      "rich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefinedRecordchildrento_dorich_textOnlyOneTextLinecheckedbooleanundefinedcolorApiColorundefined": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "checked": {
+            "type": "boolean",
+            "title": "checked"
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "default"
+              },
+              {
+                "const": "gray"
+              },
+              {
+                "const": "brown"
+              },
+              {
+                "const": "orange"
+              },
+              {
+                "const": "yellow"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
+                "const": "purple"
+              },
+              {
+                "const": "pink"
+              },
+              {
+                "const": "red"
+              },
+              {
+                "const": "gray_background"
+              },
+              {
+                "const": "brown_background"
+              },
+              {
+                "const": "orange_background"
+              },
+              {
+                "const": "yellow_background"
+              },
+              {
+                "const": "green_background"
+              },
+              {
+                "const": "blue_background"
+              },
+              {
+                "const": "purple_background"
+              },
+              {
+                "const": "pink_background"
+              },
+              {
+                "const": "red_background"
+              }
+            ],
+            "title": "color"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "to_do": {
+                  "type": "object",
+                  "properties": {
+                    "rich_text": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "text"
+                          ]
+                        }
+                      ],
+                      "additionalItems": false,
+                      "title": "rich_text"
+                    },
+                    "checked": {
+                      "type": "boolean",
+                      "title": "checked"
+                    },
+                    "color": {
+                      "oneOf": [
+                        {
+                          "const": "default"
+                        },
+                        {
+                          "const": "gray"
+                        },
+                        {
+                          "const": "brown"
+                        },
+                        {
+                          "const": "orange"
+                        },
+                        {
+                          "const": "yellow"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
+                          "const": "purple"
+                        },
+                        {
+                          "const": "pink"
+                        },
+                        {
+                          "const": "red"
+                        },
+                        {
+                          "const": "gray_background"
+                        },
+                        {
+                          "const": "brown_background"
+                        },
+                        {
+                          "const": "orange_background"
+                        },
+                        {
+                          "const": "yellow_background"
+                        },
+                        {
+                          "const": "green_background"
+                        },
+                        {
+                          "const": "blue_background"
+                        },
+                        {
+                          "const": "purple_background"
+                        },
+                        {
+                          "const": "pink_background"
+                        },
+                        {
+                          "const": "red_background"
+                        }
+                      ],
+                      "title": "color"
+                    }
+                  },
+                  "required": [
+                    "rich_text"
+                  ],
+                  "title": "to_do"
+                }
+              },
+              "required": [
+                "to_do"
+              ]
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
         ]
       },
       "INotion.ICreateChildContentTypeToggleInput": {
         "type": "object",
         "properties": {
-          "toggle": {
-            "type": "object",
-            "properties": {
-              "rich_text": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "text": {
-                        "type": "object",
-                        "properties": {
-                          "content": {
-                            "type": "string"
-                          },
-                          "link": {
-                            "type": "object",
-                            "properties": {
-                              "url": {
-                                "type": "string",
-                                "format": "uri"
-                              }
-                            },
-                            "required": [
-                              "url"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "content"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "text"
-                    ]
-                  }
-                ],
-                "additionalItems": false,
-                "title": "rich_text"
-              },
-              "color": {
-                "oneOf": [
-                  {
-                    "const": "default"
-                  },
-                  {
-                    "const": "gray"
-                  },
-                  {
-                    "const": "brown"
-                  },
-                  {
-                    "const": "orange"
-                  },
-                  {
-                    "const": "yellow"
-                  },
-                  {
-                    "const": "green"
-                  },
-                  {
-                    "const": "blue"
-                  },
-                  {
-                    "const": "purple"
-                  },
-                  {
-                    "const": "pink"
-                  },
-                  {
-                    "const": "red"
-                  },
-                  {
-                    "const": "gray_background"
-                  },
-                  {
-                    "const": "brown_background"
-                  },
-                  {
-                    "const": "orange_background"
-                  },
-                  {
-                    "const": "yellow_background"
-                  },
-                  {
-                    "const": "green_background"
-                  },
-                  {
-                    "const": "blue_background"
-                  },
-                  {
-                    "const": "purple_background"
-                  },
-                  {
-                    "const": "pink_background"
-                  },
-                  {
-                    "const": "red_background"
-                  }
-                ],
-                "title": "color"
-              }
-            },
-            "required": [
-              "rich_text"
-            ],
-            "title": "toggle"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -2885,7 +4208,8 @@
                   "method": "post",
                   "path": "/connector/notion/get/page",
                   "jmesPath": "[].{value:pageId, label:title}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               },
               {
                 "type": "string",
@@ -2893,16 +4217,504 @@
                   "method": "post",
                   "path": "/connector/notion/page",
                   "jmesPath": "[].{value:id, label:id}"
-                }
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "toggle": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)",
+            "title": "toggle"
           }
         },
         "required": [
-          "toggle",
           "secretKey",
-          "pageId"
+          "pageId",
+          "toggle"
+        ]
+      },
+      "rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "default"
+              },
+              {
+                "const": "gray"
+              },
+              {
+                "const": "brown"
+              },
+              {
+                "const": "orange"
+              },
+              {
+                "const": "yellow"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
+                "const": "purple"
+              },
+              {
+                "const": "pink"
+              },
+              {
+                "const": "red"
+              },
+              {
+                "const": "gray_background"
+              },
+              {
+                "const": "brown_background"
+              },
+              {
+                "const": "orange_background"
+              },
+              {
+                "const": "yellow_background"
+              },
+              {
+                "const": "green_background"
+              },
+              {
+                "const": "blue_background"
+              },
+              {
+                "const": "purple_background"
+              },
+              {
+                "const": "pink_background"
+              },
+              {
+                "const": "red_background"
+              }
+            ],
+            "title": "color"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...)": {
+        "type": "object",
+        "properties": {
+          "toggle": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...).o1",
+            "title": "toggle"
+          }
+        },
+        "required": [
+          "toggle"
+        ]
+      },
+      "rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildren(togglerich_textOnlyOneTextLinecolorApiColorundefinedRecord...).o1": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "default"
+              },
+              {
+                "const": "gray"
+              },
+              {
+                "const": "brown"
+              },
+              {
+                "const": "orange"
+              },
+              {
+                "const": "yellow"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
+                "const": "purple"
+              },
+              {
+                "const": "pink"
+              },
+              {
+                "const": "red"
+              },
+              {
+                "const": "gray_background"
+              },
+              {
+                "const": "brown_background"
+              },
+              {
+                "const": "orange_background"
+              },
+              {
+                "const": "yellow_background"
+              },
+              {
+                "const": "green_background"
+              },
+              {
+                "const": "blue_background"
+              },
+              {
+                "const": "purple_background"
+              },
+              {
+                "const": "pink_background"
+              },
+              {
+                "const": "red_background"
+              }
+            ],
+            "title": "color"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined"
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
+        ]
+      },
+      "togglerich_textOnlyOneTextLinecolorApiColorundefinedRecordtoggleRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined": {
+        "type": "object",
+        "properties": {
+          "toggle": {
+            "$ref": "#/components/schemas/rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined",
+            "title": "toggle"
+          }
+        },
+        "required": [
+          "toggle"
+        ]
+      },
+      "rich_textOnlyOneTextLinecolorApiColorundefinedRecordchildrentogglerich_textOnlyOneTextLinecolorApiColorundefined": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ]
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "rich_text"
+          },
+          "color": {
+            "oneOf": [
+              {
+                "const": "default"
+              },
+              {
+                "const": "gray"
+              },
+              {
+                "const": "brown"
+              },
+              {
+                "const": "orange"
+              },
+              {
+                "const": "yellow"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
+                "const": "purple"
+              },
+              {
+                "const": "pink"
+              },
+              {
+                "const": "red"
+              },
+              {
+                "const": "gray_background"
+              },
+              {
+                "const": "brown_background"
+              },
+              {
+                "const": "orange_background"
+              },
+              {
+                "const": "yellow_background"
+              },
+              {
+                "const": "green_background"
+              },
+              {
+                "const": "blue_background"
+              },
+              {
+                "const": "purple_background"
+              },
+              {
+                "const": "pink_background"
+              },
+              {
+                "const": "red_background"
+              }
+            ],
+            "title": "color"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "toggle": {
+                  "type": "object",
+                  "properties": {
+                    "rich_text": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string"
+                                },
+                                "link": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string",
+                                      "format": "uri"
+                                    }
+                                  },
+                                  "required": [
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "text"
+                          ]
+                        }
+                      ],
+                      "additionalItems": false,
+                      "title": "rich_text"
+                    },
+                    "color": {
+                      "oneOf": [
+                        {
+                          "const": "default"
+                        },
+                        {
+                          "const": "gray"
+                        },
+                        {
+                          "const": "brown"
+                        },
+                        {
+                          "const": "orange"
+                        },
+                        {
+                          "const": "yellow"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
+                          "const": "purple"
+                        },
+                        {
+                          "const": "pink"
+                        },
+                        {
+                          "const": "red"
+                        },
+                        {
+                          "const": "gray_background"
+                        },
+                        {
+                          "const": "brown_background"
+                        },
+                        {
+                          "const": "orange_background"
+                        },
+                        {
+                          "const": "yellow_background"
+                        },
+                        {
+                          "const": "green_background"
+                        },
+                        {
+                          "const": "blue_background"
+                        },
+                        {
+                          "const": "purple_background"
+                        },
+                        {
+                          "const": "pink_background"
+                        },
+                        {
+                          "const": "red_background"
+                        }
+                      ],
+                      "title": "color"
+                    }
+                  },
+                  "required": [
+                    "rich_text"
+                  ],
+                  "title": "toggle"
+                }
+              },
+              "required": [
+                "toggle"
+              ]
+            }
+          }
+        },
+        "required": [
+          "rich_text",
+          "children"
         ]
       },
       "INotion.ICreatePageOutput": {
@@ -2928,13 +4740,26 @@
         "type": "object",
         "properties": {
           "parentPageId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/notion/get/page",
-              "jmesPath": "[].{value:pageId, label:title}"
-            },
-            "x-wrtn-placeholder": "부모 페이지를 선택하세요.",
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
             "title": "부모 페이지",
             "description": "새로 생성할 페이지의 부모 페이지"
           },
@@ -2943,12 +4768,6 @@
             "x-wrtn-placeholder": "테스트 페이지.",
             "title": "페이지 제목",
             "description": "새로 생성할 페이지 제목"
-          },
-          "content": {
-            "type": "string",
-            "x-wrtn-placeholder": "테스트 페이지를 생성했습니다.",
-            "title": "내용",
-            "description": "페이지에 생성할 내용"
           },
           "secretKey": {
             "type": "string",
