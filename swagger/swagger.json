@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.162",
+    "version": "0.1.163",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8280,7 +8280,7 @@
     "/connector/notion/page/file": {
       "post": {
         "summary": "Append an file type child node",
-        "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.",
+        "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.\n\nUploading a file exposes it to the Notion page as an icon in the file format, but there is no Preview.\nIf you want the internal elements to be seen as soon as you enter the page, it is better to create the image, pdf format for each format, and consider embed for other formats.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8306,7 +8306,7 @@
     "/connector/notion/page/embed": {
       "post": {
         "summary": "Append an embed type child node",
-        "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.",
+        "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.\n\nThis is suitable when you want an internal element to be rendered immediately, such as an imprame within a page.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8332,7 +8332,7 @@
     "/connector/notion/page/bookmark": {
       "post": {
         "summary": "Append an bookmark type child node",
-        "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.",
+        "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.\n\nBookmarks are visually better and more organized because they have previews, images, and explanations than just saving url as text.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8358,7 +8358,7 @@
     "/connector/notion/page/image": {
       "post": {
         "summary": "Append an image type child node",
-        "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.",
+        "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8384,7 +8384,7 @@
     "/connector/notion/page/video": {
       "post": {
         "summary": "Append an video type child node",
-        "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.",
+        "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8418,32 +8418,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/INotion.ICreateChildContentTypePdfInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      }
-    },
-    "/connector/notion/page/audio": {
-      "post": {
-        "summary": "Append an audio type child node",
-        "description": "Append an audio type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `audio`.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeAudioInput"
               }
             }
           },
@@ -8955,6 +8929,7 @@
       "post": {
         "summary": "페이지에 내용 추가",
         "description": "페이지 끝에 내용을 추가합니다.",
+        "deprecated": true,
         "tags": [],
         "parameters": [
           {
@@ -28026,17 +28001,20 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "title": "url\n\nYou can enter the path of the file you want to upload."
                   }
                 },
                 "required": [
                   "url"
-                ]
+                ],
+                "title": "external"
               }
             },
             "required": [
               "external"
-            ]
+            ],
+            "title": "file"
           },
           "secretKey": {
             "type": "string",
@@ -28080,12 +28058,14 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "title": "url\n\nYou can enter the path of the file you want to embed."
               }
             },
             "required": [
               "url"
-            ]
+            ],
+            "title": "embed"
           },
           "secretKey": {
             "type": "string",
@@ -28129,12 +28109,14 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "title": "url\n\nYou can enter the path of the file you want to bookmark."
               }
             },
             "required": [
               "url"
-            ]
+            ],
+            "title": "bookmark"
           },
           "secretKey": {
             "type": "string",
@@ -28181,17 +28163,21 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "pattern": ".*\\.(bmp|gif|heic|jpe?g|png|svg|tiff?)(\\?.*)?",
+                    "title": "url\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'."
                   }
                 },
                 "required": [
                   "url"
-                ]
+                ],
+                "title": "external"
               }
             },
             "required": [
               "external"
-            ]
+            ],
+            "title": "image"
           },
           "secretKey": {
             "type": "string",
@@ -28238,7 +28224,8 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "title": "url\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]"
                   }
                 },
                 "required": [
@@ -28295,17 +28282,21 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "pattern": ".*\\.(pdf)(\\?.*)?",
+                    "title": "url"
                   }
                 },
                 "required": [
                   "url"
-                ]
+                ],
+                "title": "external"
               }
             },
             "required": [
               "external"
-            ]
+            ],
+            "title": "pdf"
           },
           "secretKey": {
             "type": "string",
@@ -28337,63 +28328,6 @@
         },
         "required": [
           "pdf",
-          "secretKey",
-          "pageId"
-        ]
-      },
-      "INotion.ICreateChildContentTypeAudioInput": {
-        "type": "object",
-        "properties": {
-          "audio": {
-            "type": "object",
-            "properties": {
-              "external": {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                },
-                "required": [
-                  "url"
-                ]
-              }
-            },
-            "required": [
-              "external"
-            ]
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          },
-          "pageId": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/get/page",
-                  "jmesPath": "[].{value:pageId, label:title}"
-                }
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/page",
-                  "jmesPath": "[].{value:id, label:id}"
-                }
-              }
-            ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
-          }
-        },
-        "required": [
-          "audio",
           "secretKey",
           "pageId"
         ]
@@ -28839,6 +28773,10 @@
       "INotion.ICreateChildContentTypeBreadcrumbInput": {
         "type": "object",
         "properties": {
+          "breadcrumb": {
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "breadcrumb\n\nYou only need to match the key name correctly, so you just need to pass on an empty object."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -28865,16 +28803,18 @@
               }
             ],
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
-          },
-          "breadcrumb": {
-            "$ref": "#/components/schemas/EmptyObject"
           }
         },
         "required": [
+          "breadcrumb",
           "secretKey",
-          "pageId",
-          "breadcrumb"
+          "pageId"
         ]
+      },
+      "Recordstringnever": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T"
       },
       "INotion.ICreateChildContentTypeTableOfContentsInput": {
         "type": "object",
@@ -28941,12 +28881,14 @@
                   {
                     "const": "red_background"
                   }
-                ]
+                ],
+                "title": "color\n\nIt must be one of :\n\"default\", \"gray\", \"brown\", \"orange\", \"yellow\", \"green\", \"blue\", \"purple\", \"pink\", \"red\", \"gray_background\", \"brown_background\", \"orange_background\", \"yellow_background\", \"green_background\", \"blue_background\", \"purple_background\", \"pink_background\", \"red_background\""
               }
             },
             "required": [
               "color"
-            ]
+            ],
+            "title": "table_of_contents"
           },
           "secretKey": {
             "type": "string",
@@ -29006,12 +28948,14 @@
                       "jmesPath": "[].{value:id, label:id}"
                     }
                   }
-                ]
+                ],
+                "title": "page_id\n\nYou can look up the page by passing the page ID as a parameter at the end of the notion link.\nFor example, in the format 'https://www.notion.so/ :pageId'."
               }
             },
             "required": [
               "page_id"
-            ]
+            ],
+            "title": "link_to_page"
           },
           "secretKey": {
             "type": "string",
@@ -29088,12 +29032,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "heading_1"
           },
           "secretKey": {
             "type": "string",
@@ -29170,12 +29116,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "heading_2"
           },
           "secretKey": {
             "type": "string",
@@ -29252,12 +29200,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "heading_3"
           },
           "secretKey": {
             "type": "string",
@@ -29334,12 +29284,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "heading_3"
           },
           "secretKey": {
             "type": "string",
@@ -29416,12 +29368,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "bulleted_list_item"
           },
           "secretKey": {
             "type": "string",
@@ -29498,12 +29452,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "numbered_list_item"
           },
           "secretKey": {
             "type": "string",
@@ -29580,12 +29536,14 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "quote"
           },
           "secretKey": {
             "type": "string",
@@ -29662,10 +29620,12 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               },
               "checked": {
-                "type": "boolean"
+                "type": "boolean",
+                "title": "checked"
               },
               "color": {
                 "oneOf": [
@@ -29726,12 +29686,14 @@
                   {
                     "const": "red_background"
                   }
-                ]
+                ],
+                "title": "color"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "to_do"
           },
           "secretKey": {
             "type": "string",
@@ -29808,7 +29770,8 @@
                     ]
                   }
                 ],
-                "additionalItems": false
+                "additionalItems": false,
+                "title": "rich_text"
               },
               "color": {
                 "oneOf": [
@@ -29869,12 +29832,14 @@
                   {
                     "const": "red_background"
                   }
-                ]
+                ],
+                "title": "color"
               }
             },
             "required": [
               "rich_text"
-            ]
+            ],
+            "title": "toggle"
           },
           "secretKey": {
             "type": "string",
@@ -30846,11 +30811,6 @@
           "name"
         ],
         "title": "데이터베이스 제목 속성"
-      },
-      "Recordstringnever": {
-        "type": "object",
-        "properties": {},
-        "description": "Construct a type with a set of properties K of type T"
       },
       "INotion.RichTextDatabaseProperty": {
         "type": "object",
