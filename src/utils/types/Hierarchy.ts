@@ -5,8 +5,6 @@ import { StringToDeepObject } from "./StringToDeepObject";
 export type Sub<A extends number, B extends number> =
   NTpule<A> extends [...NTpule<B>, ...infer R] ? R["length"] : never;
 
-export type ToOptional<T, P extends boolean> = P extends true ? Partial<T> : T;
-
 export type ToPlural<T, P extends boolean> = P extends true ? T[] : T;
 
 export type Hierarchy<

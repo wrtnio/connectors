@@ -452,6 +452,7 @@ export const test_api_connector_notion_create_page = async (
             },
           },
         ],
+        children: [],
       },
       pageId: page.id,
       secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -469,6 +470,7 @@ export const test_api_connector_notion_create_page = async (
             },
           },
         ],
+        children: [],
       },
       pageId: page.id,
       secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -484,6 +486,7 @@ export const test_api_connector_notion_create_page = async (
           },
         },
       ],
+      children: [],
     },
     pageId: page.id,
     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -498,6 +501,7 @@ export const test_api_connector_notion_create_page = async (
           },
         },
       ],
+      children: [],
     },
     pageId: page.id,
     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -512,6 +516,7 @@ export const test_api_connector_notion_create_page = async (
           },
         },
       ],
+      children: [],
     },
     pageId: page.id,
     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -585,11 +590,24 @@ export const test_api_connector_notion_create_paragraph_with_children = async (
         children: [
           {
             paragraph: {
-              children: [],
               rich_text: [
                 {
                   text: {
                     content: "hello, children!",
+                  },
+                },
+              ],
+              children: [
+                {
+                  paragraph: {
+                    rich_text: [
+                      {
+                        text: {
+                          content: "hello, children's children",
+                        },
+                      },
+                    ],
+                    children: [],
                   },
                 },
               ],

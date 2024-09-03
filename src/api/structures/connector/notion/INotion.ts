@@ -448,6 +448,16 @@ export namespace INotion {
          */
         url: string & tags.Format<"uri">;
       };
+
+      /**
+       * @title filename
+       */
+      name?: string;
+
+      /**
+       * @title caption for this file
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -468,6 +478,11 @@ export namespace INotion {
        * You can enter the path of the file you want to embed.
        */
       url: string & tags.Format<"uri">;
+
+      /**
+       * @title caption of this embed
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -488,6 +503,11 @@ export namespace INotion {
        * You can enter the path of the file you want to bookmark.
        */
       url: string & tags.Format<"uri">;
+
+      /**
+       * @title caption of this bookmark
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -515,6 +535,11 @@ export namespace INotion {
           tags.Format<"uri"> &
           tags.Pattern<".*\\.(bmp|gif|heic|jpe?g|png|svg|tiff?)(\\?.*)?">;
       };
+
+      /**
+       * @title caption of this image
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -537,6 +562,11 @@ export namespace INotion {
          */
         url: string & tags.Format<"uri">;
       };
+
+      /**
+       * @title caption of this embed
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -557,6 +587,11 @@ export namespace INotion {
          */
         url: string & tags.Format<"uri"> & tags.Pattern<".*\\.(pdf)(\\?.*)?">;
       };
+
+      /**
+       * @title caption of this pdf
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -568,9 +603,20 @@ export namespace INotion {
         "type" | "object" | "audio"
       > {
     audio: {
+      /**
+       * @title external
+       */
       external: {
+        /**
+         * @title url
+         */
         url: string & tags.Format<"uri">;
       };
+
+      /**
+       * @title caption of this embed
+       */
+      caption?: INotion.OnlyOneTextLine;
     };
   }
 
@@ -584,6 +630,9 @@ export namespace INotion {
         | "object"
       > {
     code: {
+      /**
+       * @title programming language name
+       */
       language:
         | "abap"
         | "agda"
@@ -672,6 +721,9 @@ export namespace INotion {
         | "yaml"
         | "java/c/c++/c#";
 
+      /**
+       * @title rich text for this codebox
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -683,6 +735,9 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `equation`>,
         "type" | "object" | "equation"
       > {
+    /**
+     * @title equation
+     */
     equation: {
       /**
        * @title expression
@@ -696,7 +751,12 @@ export namespace INotion {
   export interface ICreateChildContentTypeDividerInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `divider`>, "type" | "object"> {}
+      StrictOmit<LookUp<BlockObjectRequest, `divider`>, "type" | "object"> {
+    /**
+     * @title divider
+     */
+    divider: Record<string, never>;
+  }
 
   export interface ICreateChildContentTypeBreadcrumbInput
     extends ICommon.ISecret<"notion">,
@@ -839,7 +899,7 @@ export namespace INotion {
       WithChilden<
         {
           /**
-           * @title heading_3
+           * @title paragraph
            */
           paragraph: {
             /**
@@ -857,17 +917,21 @@ export namespace INotion {
       StrictOmit<
         LookUp<BlockObjectRequest, `bulleted_list_item`>,
         "type" | "object" | "bulleted_list_item"
-      > {
-    /**
-     * @title bulleted_list_item
-     */
-    bulleted_list_item: {
-      /**
-       * @title rich_text
-       */
-      rich_text: INotion.OnlyOneTextLine;
-    };
-  }
+      >,
+      WithChilden<
+        {
+          /**
+           * @title bulleted_list_item
+           */
+          bulleted_list_item: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.OnlyOneTextLine;
+          };
+        },
+        "bulleted_list_item"
+      > {}
 
   export interface ICreateChildContentTypeNumberedListItemInput
     extends ICommon.ISecret<"notion">,
@@ -875,17 +939,21 @@ export namespace INotion {
       StrictOmit<
         LookUp<BlockObjectRequest, `numbered_list_item`>,
         "type" | "object" | "numbered_list_item"
-      > {
-    /**
-     * @title numbered_list_item
-     */
-    numbered_list_item: {
-      /**
-       * @title rich_text
-       */
-      rich_text: INotion.OnlyOneTextLine;
-    };
-  }
+      >,
+      WithChilden<
+        {
+          /**
+           * @title numbered_list_item
+           */
+          numbered_list_item: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.OnlyOneTextLine;
+          };
+        },
+        "numbered_list_item"
+      > {}
 
   export interface ICreateChildContentTypeQuoteInput
     extends ICommon.ISecret<"notion">,
@@ -893,17 +961,21 @@ export namespace INotion {
       StrictOmit<
         LookUp<BlockObjectRequest, `quote`>,
         "type" | "object" | "quote"
-      > {
-    /**
-     * @title quote
-     */
-    quote: {
-      /**
-       * @title rich_text
-       */
-      rich_text: INotion.OnlyOneTextLine;
-    };
-  }
+      >,
+      WithChilden<
+        {
+          /**
+           * @title quote
+           */
+          quote: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.OnlyOneTextLine;
+          };
+        },
+        "quote"
+      > {}
 
   export interface ICreateChildContentTypeToDoInput
     extends ICommon.ISecret<"notion">,
@@ -911,27 +983,31 @@ export namespace INotion {
       StrictOmit<
         LookUp<BlockObjectRequest, `to_do`>,
         "type" | "object" | "to_do"
-      > {
-    /**
-     * @title to_do
-     */
-    to_do: {
-      /**
-       * @title rich_text
-       */
-      rich_text: INotion.OnlyOneTextLine;
+      >,
+      WithChilden<
+        {
+          /**
+           * @title to_do
+           */
+          to_do: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.OnlyOneTextLine;
 
-      /**
-       * @title checked
-       */
-      checked?: boolean;
+            /**
+             * @title checked
+             */
+            checked?: boolean;
 
-      /**
-       * @title color
-       */
-      color?: ApiColor;
-    };
-  }
+            /**
+             * @title color
+             */
+            color?: ApiColor;
+          };
+        },
+        "to_do"
+      > {}
 
   export interface ICreateChildContentTypeToggleInput
     extends ICommon.ISecret<"notion">,
@@ -939,22 +1015,26 @@ export namespace INotion {
       StrictOmit<
         LookUp<BlockObjectRequest, `toggle`>,
         "type" | "object" | "toggle"
-      > {
-    /**
-     * @title toggle
-     */
-    toggle: {
-      /**
-       * @title rich_text
-       */
-      rich_text: INotion.OnlyOneTextLine;
+      >,
+      WithChilden<
+        {
+          /**
+           * @title toggle
+           */
+          toggle: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.OnlyOneTextLine;
 
-      /**
-       * @title color
-       */
-      color?: ApiColor;
-    };
-  }
+            /**
+             * @title color
+             */
+            color?: ApiColor;
+          };
+        },
+        "toggle"
+      > {}
 
   export interface ICreateChildContentTypeCalloutInput
     extends ICommon.ISecret<"notion">,
@@ -1800,7 +1880,7 @@ export namespace INotion {
   export type WithChilden<T extends object, P extends string> = Hierarchy<
     T,
     `${P}.children`,
-    2,
+    3,
     true
   >;
 }
