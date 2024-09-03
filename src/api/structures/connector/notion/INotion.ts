@@ -724,7 +724,7 @@ export namespace INotion {
       /**
        * @title rich text for this codebox
        */
-      rich_text: INotion.OnlyOneTextLine;
+      rich_text: INotion.MultipleTextLine;
     };
   }
 
@@ -849,7 +849,7 @@ export namespace INotion {
       /**
        * @title rich_text
        */
-      rich_text: INotion.OnlyOneTextLine;
+      rich_text: INotion.MultipleTextLine;
     };
   }
 
@@ -867,7 +867,7 @@ export namespace INotion {
       /**
        * @title rich_text
        */
-      rich_text: INotion.OnlyOneTextLine;
+      rich_text: INotion.MultipleTextLine;
     };
   }
 
@@ -885,7 +885,7 @@ export namespace INotion {
       /**
        * @title rich_text
        */
-      rich_text: INotion.OnlyOneTextLine;
+      rich_text: INotion.MultipleTextLine;
     };
   }
 
@@ -905,7 +905,7 @@ export namespace INotion {
             /**
              * @title rich_text
              */
-            rich_text: INotion.OnlyOneTextLine;
+            rich_text: INotion.MultipleTextLine;
           };
         },
         "paragraph"
@@ -927,7 +927,7 @@ export namespace INotion {
             /**
              * @title rich_text
              */
-            rich_text: INotion.OnlyOneTextLine;
+            rich_text: INotion.MultipleTextLine;
           };
         },
         "bulleted_list_item"
@@ -949,7 +949,7 @@ export namespace INotion {
             /**
              * @title rich_text
              */
-            rich_text: INotion.OnlyOneTextLine;
+            rich_text: INotion.MultipleTextLine;
           };
         },
         "numbered_list_item"
@@ -971,7 +971,7 @@ export namespace INotion {
             /**
              * @title rich_text
              */
-            rich_text: INotion.OnlyOneTextLine;
+            rich_text: INotion.MultipleTextLine;
           };
         },
         "quote"
@@ -993,7 +993,7 @@ export namespace INotion {
             /**
              * @title rich_text
              */
-            rich_text: INotion.OnlyOneTextLine;
+            rich_text: INotion.MultipleTextLine;
 
             /**
              * @title checked
@@ -1025,7 +1025,7 @@ export namespace INotion {
             /**
              * @title rich_text
              */
-            rich_text: INotion.OnlyOneTextLine;
+            rich_text: INotion.MultipleTextLine;
 
             /**
              * @title color
@@ -1835,21 +1835,27 @@ export namespace INotion {
 
   export type ISecret = ICommon.ISecret<"notion">;
 
-  export type OnlyOneTextLine = [
-    {
-      text: {
-        content: string;
-        link?: { url: string & tags.Format<"uri"> };
-      };
-    },
-  ];
+  /**
+   * @title OnlyOneTextLine
+   *
+   * Tuple length is 1
+   */
+  export type OnlyOneTextLine = {
+    text: {
+      content: string;
+      link?: { url: string & tags.Format<"uri"> };
+    };
+  }[] &
+    tags.MinItems<1> &
+    tags.MaxItems<1>;
 
   export type MultipleTextLine = {
     text: {
       content: string;
       link?: { url: string & tags.Format<"uri"> };
     };
-  }[];
+  }[] &
+    tags.MaxItems<1>;
 
   export type ApiColor =
     | "default"
