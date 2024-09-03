@@ -423,22 +423,6 @@ export namespace NotionProvider {
     }
   }
 
-  export async function createTemplate(
-    input: INotion.ICreateChildContentTypeTemplateInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [rest],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
-
   export async function createCallout(
     input: INotion.ICreateChildContentTypeCalloutInput,
   ): Promise<void> {

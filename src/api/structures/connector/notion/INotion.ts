@@ -445,8 +445,19 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `file`>,
         "type" | "object" | "file"
       > {
+    /**
+     * @title file
+     */
     file: {
+      /**
+       * @title external
+       */
       external: {
+        /**
+         * @title url
+         *
+         * You can enter the path of the file you want to upload.
+         */
         url: string & tags.Format<"uri">;
       };
     };
@@ -459,7 +470,15 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `embed`>,
         "type" | "object" | "embed"
       > {
+    /**
+     * @title embed
+     */
     embed: {
+      /**
+       * @title url
+       *
+       * You can enter the path of the file you want to embed.
+       */
       url: string & tags.Format<"uri">;
     };
   }
@@ -471,7 +490,15 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `bookmark`>,
         "type" | "object" | "bookmark"
       > {
+    /**
+     * @title bookmark
+     */
     bookmark: {
+      /**
+       * @title url
+       *
+       * You can enter the path of the file you want to bookmark.
+       */
       url: string & tags.Format<"uri">;
     };
   }
@@ -483,9 +510,22 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `image`>,
         "type" | "object" | "image"
       > {
+    /**
+     * @title image
+     */
     image: {
+      /**
+       * @title external
+       */
       external: {
-        url: string & tags.Format<"uri">;
+        /**
+         * @title url
+         *
+         * image file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.
+         */
+        url: string &
+          tags.Format<"uri"> &
+          tags.Pattern<".*\\.(bmp|gif|heic|jpe?g|png|svg|tiff?)(\\?.*)?">;
       };
     };
   }
@@ -499,6 +539,14 @@ export namespace INotion {
       > {
     video: {
       external: {
+        /**
+         * @title url
+         *
+         * video file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'
+         * OR
+         * YouTube video links that include embed or watch.
+         * E.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]
+         */
         url: string & tags.Format<"uri">;
       };
     };
@@ -508,9 +556,18 @@ export namespace INotion {
     extends ICommon.ISecret<"notion">,
       PageIdInput,
       StrictOmit<LookUp<BlockObjectRequest, `pdf`>, "type" | "object" | "pdf"> {
+    /**
+     * @title pdf
+     */
     pdf: {
+      /**
+       * @title external
+       */
       external: {
-        url: string & tags.Format<"uri">;
+        /**
+         * @title url
+         */
+        url: string & tags.Format<"uri"> & tags.Pattern<".*\\.(pdf)(\\?.*)?">;
       };
     };
   }
@@ -656,7 +713,14 @@ export namespace INotion {
   export interface ICreateChildContentTypeBreadcrumbInput
     extends ICommon.ISecret<"notion">,
       PageIdInput,
-      StrictOmit<LookUp<BlockObjectRequest, `breadcrumb`>, "type" | "object"> {}
+      StrictOmit<LookUp<BlockObjectRequest, `breadcrumb`>, "type" | "object"> {
+    /**
+     * @title breadcrumb
+     *
+     * You only need to match the key name correctly, so you just need to pass on an empty object.
+     */
+    breadcrumb: Record<string, never>;
+  }
 
   export interface ICreateChildContentTypeTableOfContentsInput
     extends ICommon.ISecret<"notion">,
@@ -665,27 +729,17 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `table_of_contents`>,
         "type" | "object" | "table_of_contents"
       > {
+    /**
+     * @title table_of_contents
+     */
     table_of_contents: {
-      color:
-        | "default"
-        | "gray"
-        | "brown"
-        | "orange"
-        | "yellow"
-        | "green"
-        | "blue"
-        | "purple"
-        | "pink"
-        | "red"
-        | "gray_background"
-        | "brown_background"
-        | "orange_background"
-        | "yellow_background"
-        | "green_background"
-        | "blue_background"
-        | "purple_background"
-        | "pink_background"
-        | "red_background";
+      /**
+       * @title color
+       *
+       * It must be one of :
+       * "default", "gray", "brown", "orange", "yellow", "green", "blue", "purple", "pink", "red", "gray_background", "brown_background", "orange_background", "yellow_background", "green_background", "blue_background", "purple_background", "pink_background", "red_background"
+       */
+      color: ApiColor;
     };
   }
 
@@ -696,7 +750,16 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `link_to_page`>,
         "type" | "object" | "link_to_page"
       > {
+    /**
+     * @title link_to_page
+     */
     link_to_page: {
+      /**
+       * @title page_id
+       *
+       * You can look up the page by passing the page ID as a parameter at the end of the notion link.
+       * For example, in the format 'https://www.notion.so/ :pageId'.
+       */
       page_id: string & PageIdInput["pageId"];
     };
   }
@@ -731,7 +794,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `heading_1`>,
         "type" | "object" | "heading_1"
       > {
+    /**
+     * @title heading_1
+     */
     heading_1: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -743,7 +812,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `heading_2`>,
         "type" | "object" | "heading_2"
       > {
+    /**
+     * @title heading_2
+     */
     heading_2: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -755,7 +830,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `heading_3`>,
         "type" | "object" | "heading_3"
       > {
+    /**
+     * @title heading_3
+     */
     heading_3: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -767,15 +848,14 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `paragraph`>,
         "type" | "object" | "paragraph"
       > {
+    /**
+     * @title heading_3
+     */
     paragraph: {
-      rich_text: [
-        {
-          text: {
-            content: string;
-            link?: { url: string & tags.Format<"uri"> };
-          };
-        },
-      ];
+      /**
+       * @title rich_text
+       */
+      rich_text: INotion.OnlyOneTextLine;
     };
   }
 
@@ -786,7 +866,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `bulleted_list_item`>,
         "type" | "object" | "bulleted_list_item"
       > {
+    /**
+     * @title bulleted_list_item
+     */
     bulleted_list_item: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -798,7 +884,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `numbered_list_item`>,
         "type" | "object" | "numbered_list_item"
       > {
+    /**
+     * @title numbered_list_item
+     */
     numbered_list_item: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -810,7 +902,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `quote`>,
         "type" | "object" | "quote"
       > {
+    /**
+     * @title quote
+     */
     quote: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
     };
   }
@@ -822,29 +920,24 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `to_do`>,
         "type" | "object" | "to_do"
       > {
+    /**
+     * @title to_do
+     */
     to_do: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
+
+      /**
+       * @title checked
+       */
       checked?: boolean;
-      color?:
-        | "default"
-        | "gray"
-        | "brown"
-        | "orange"
-        | "yellow"
-        | "green"
-        | "blue"
-        | "purple"
-        | "pink"
-        | "red"
-        | "gray_background"
-        | "brown_background"
-        | "orange_background"
-        | "yellow_background"
-        | "green_background"
-        | "blue_background"
-        | "purple_background"
-        | "pink_background"
-        | "red_background";
+
+      /**
+       * @title color
+       */
+      color?: ApiColor;
     };
   }
 
@@ -855,40 +948,19 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `toggle`>,
         "type" | "object" | "toggle"
       > {
+    /**
+     * @title toggle
+     */
     toggle: {
+      /**
+       * @title rich_text
+       */
       rich_text: INotion.OnlyOneTextLine;
-      color?:
-        | "default"
-        | "gray"
-        | "brown"
-        | "orange"
-        | "yellow"
-        | "green"
-        | "blue"
-        | "purple"
-        | "pink"
-        | "red"
-        | "gray_background"
-        | "brown_background"
-        | "orange_background"
-        | "yellow_background"
-        | "green_background"
-        | "blue_background"
-        | "purple_background"
-        | "pink_background"
-        | "red_background";
-    };
-  }
 
-  export interface ICreateChildContentTypeTemplateInput
-    extends ICommon.ISecret<"notion">,
-      PageIdInput,
-      StrictOmit<
-        LookUp<BlockObjectRequest, `template`>,
-        "type" | "object" | "template"
-      > {
-    template: {
-      rich_text: INotion.OnlyOneTextLine;
+      /**
+       * @title color
+       */
+      color?: ApiColor;
     };
   }
 
@@ -1695,4 +1767,32 @@ export namespace INotion {
       };
     },
   ];
+
+  export type MultipleTextLine = {
+    text: {
+      content: string;
+      link?: { url: string & tags.Format<"uri"> };
+    };
+  }[];
+
+  export type ApiColor =
+    | "default"
+    | "gray"
+    | "brown"
+    | "orange"
+    | "yellow"
+    | "green"
+    | "blue"
+    | "purple"
+    | "pink"
+    | "red"
+    | "gray_background"
+    | "brown_background"
+    | "orange_background"
+    | "yellow_background"
+    | "green_background"
+    | "blue_background"
+    | "purple_background"
+    | "pink_background"
+    | "red_background";
 }

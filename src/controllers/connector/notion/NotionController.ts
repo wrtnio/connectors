@@ -16,6 +16,9 @@ export class NotionController {
    * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
    * The type of block you can put in here is `file`.
    *
+   * Uploading a file exposes it to the Notion page as an icon in the file format, but there is no Preview.
+   * If you want the internal elements to be seen as soon as you enter the page, it is better to create the image, pdf format for each format, and consider embed for other formats.
+   *
    * @summary Append an file type child node
    * @param input
    * @returns
@@ -36,6 +39,8 @@ export class NotionController {
    * Notion is a very complex type, so you have to create a page in a block coding manner.
    * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
    * The type of block you can put in here is `embed`.
+   *
+   * This is suitable when you want an internal element to be rendered immediately, such as an imprame within a page.
    *
    * @summary Append an embed type child node
    * @param input
@@ -58,6 +63,8 @@ export class NotionController {
    * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
    * The type of block you can put in here is `bookmark`.
    *
+   * Bookmarks are visually better and more organized because they have previews, images, and explanations than just saving url as text.
+   *
    * @summary Append an bookmark type child node
    * @param input
    * @returns
@@ -79,6 +86,8 @@ export class NotionController {
    * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
    * The type of block you can put in here is `image`.
    *
+   * image file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.
+   *
    * @summary Append an image type child node
    * @param input
    * @returns
@@ -99,6 +108,11 @@ export class NotionController {
    * Notion is a very complex type, so you have to create a page in a block coding manner.
    * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
    * The type of block you can put in here is `video`.
+   *
+   * video file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'
+   * OR
+   * YouTube video links that include embed or watch.
+   * E.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]
    *
    * @summary Append an video type child node
    * @param input
@@ -146,15 +160,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/audio")
-  async createAudio(
-    @TypedBody() input: INotion.ICreateChildContentTypeAudioInput,
-  ): Promise<void> {
-    return NotionProvider.createAudio(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/audio")
+  // async createAudio(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeAudioInput,
+  // ): Promise<void> {
+  //   return NotionProvider.createAudio(input);
+  // }
 
   /**
    * Append an code type child node
@@ -555,27 +569,6 @@ export class NotionController {
     return NotionProvider.createToggle(input);
   }
 
-  /**
-   * Append an template type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `template`.
-   *
-   * @summary Append an template type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/template")
-  // async createTemplate(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeTemplateInput,
-  // ): Promise<void> {
-  //   return NotionProvider.createTemplate(input);
-  // }
-
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   // )
@@ -653,8 +646,8 @@ export class NotionController {
   /**
    * 페이지 끝에 내용을 추가합니다.
    *
+   * @deprecated
    * @summary 페이지에 내용 추가
-   *
    * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
    * @returns void
    */
