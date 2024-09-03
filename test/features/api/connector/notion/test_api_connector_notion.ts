@@ -196,7 +196,7 @@ export const test_api_connector_notion_create_page = async (
   const page = await CApi.functional.connector.notion.page.createPage(
     connection,
     {
-      parentPageId: "8693f8ad2ac14eef8a3503f88df17480",
+      parentPageId: "804989a1bb91410db6539034b212ebf5",
       title: randomUUID(),
       secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
     },
@@ -434,6 +434,7 @@ export const test_api_connector_notion_create_page = async (
             },
           },
         ],
+        children: [],
       },
       pageId: page.id,
       secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -553,4 +554,51 @@ export const test_api_connector_notion_create_page = async (
   //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
   //   },
   // );
+};
+
+export const test_api_connector_notion_create_paragraph_with_children = async (
+  connection: CApi.IConnection,
+) => {
+  const page = await CApi.functional.connector.notion.page.createPage(
+    connection,
+    {
+      parentPageId: "350633865fff4049a38a2ae7e9a04407",
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+      title: "TEST",
+    },
+  );
+
+  await CApi.functional.connector.notion.page.paragraph.createParagraph(
+    connection,
+    {
+      paragraph: {
+        rich_text: [
+          {
+            text: {
+              content: "hello paragraph",
+              link: {
+                url: "https://wrtn.ai",
+              },
+            },
+          },
+        ],
+        children: [
+          {
+            paragraph: {
+              children: [],
+              rich_text: [
+                {
+                  text: {
+                    content: "hello, children!",
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+      pageId: page.id,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    },
+  );
 };

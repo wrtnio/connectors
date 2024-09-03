@@ -6,6 +6,7 @@ import {
   CreatePageParameters,
 } from "@notionhq/client/build/src/api-endpoints";
 import { StrictOmit } from "../../../../utils/strictOmit";
+import { Hierarchy } from "../../../../utils/types/Hierarchy";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {
@@ -834,17 +835,21 @@ export namespace INotion {
       StrictOmit<
         LookUp<BlockObjectRequest, `paragraph`>,
         "type" | "object" | "paragraph"
-      > {
-    /**
-     * @title heading_3
-     */
-    paragraph: {
-      /**
-       * @title rich_text
-       */
-      rich_text: INotion.OnlyOneTextLine;
-    };
-  }
+      >,
+      WithChilden<
+        {
+          /**
+           * @title heading_3
+           */
+          paragraph: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.OnlyOneTextLine;
+          };
+        },
+        "paragraph"
+      > {}
 
   export interface ICreateChildContentTypeBulletedListItemInput
     extends ICommon.ISecret<"notion">,
@@ -1786,4 +1791,16 @@ export namespace INotion {
     | "purple_background"
     | "pink_background"
     | "red_background";
+
+  /**
+   * @title WithChildren
+   *
+   * A type that matches the same type as T received as an argument into an array T[] within its own property, children.
+   */
+  export type WithChilden<T extends object, P extends string> = Hierarchy<
+    T,
+    `${P}.children`,
+    2,
+    true
+  >;
 }
