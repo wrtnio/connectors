@@ -406,13 +406,7 @@ export namespace INotion {
      *
      * @title 부모 페이지
      */
-    parentPageId: string &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/notion/get/page";
-        jmesPath: JMESPath<IReadPageOutput[], "[].{value:pageId, label:title}">;
-      }> &
-      Placeholder<"부모 페이지를 선택하세요.">;
+    parentPageId: PageIdInput["pageId"];
 
     /**
      * 새로 생성할 페이지 제목
@@ -420,13 +414,6 @@ export namespace INotion {
      * @title 페이지 제목
      */
     title: string & Placeholder<"테스트 페이지.">;
-
-    /**
-     * 페이지에 생성할 내용
-     *
-     * @title 내용
-     */
-    content?: string & Placeholder<"테스트 페이지를 생성했습니다.">;
   }
 
   export interface ICreatePageContentInput
@@ -983,6 +970,9 @@ export namespace INotion {
      *
      * Indicates the page on which you want to add a block.
      * At the bottom of this page, a block is added to match the requested object here.
+     * Calling this connector requires the correct page ID,
+     * so it should only be called if you have previously created a page to obtain that ID, viewed the page,
+     * or obtained a link or page ID from the user in advance.
      */
     pageId: string &
       (
@@ -999,7 +989,8 @@ export namespace INotion {
             path: "/connector/notion/page";
             jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
           }>
-      );
+      ) &
+      Placeholder<"부모 페이지를 선택하세요.">;
   }
 
   /**
