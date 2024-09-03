@@ -208,7 +208,7 @@ export const test_api_connector_notion_create_page = async (
   await CApi.functional.connector.notion.page.file.createFile(connection, {
     file: {
       external: {
-        url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+        url: "https://fe-web-assets.wow.wrtn.ai/og-image.png",
       },
     },
     pageId: page.id,
@@ -217,7 +217,7 @@ export const test_api_connector_notion_create_page = async (
 
   await CApi.functional.connector.notion.page.embed.createEmbed(connection, {
     embed: {
-      url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+      url: "https://fe-web-assets.wow.wrtn.ai/og-image.png",
     },
     pageId: page.id,
     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -227,7 +227,7 @@ export const test_api_connector_notion_create_page = async (
     connection,
     {
       bookmark: {
-        url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+        url: "https://fe-web-assets.wow.wrtn.ai/og-image.png",
       },
       pageId: page.id,
       secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
@@ -237,7 +237,7 @@ export const test_api_connector_notion_create_page = async (
   await CApi.functional.connector.notion.page.image.createImage(connection, {
     image: {
       external: {
-        url: "https://wrtn.io/wp-content/themes/wrtn-ko/images/ogimage.jpg",
+        url: "https://velog.velcdn.com/images/bryant/post/4615e070-ebc7-4e2c-93e6-f915ba0f54c8/image.png",
       },
     },
     pageId: page.id,
