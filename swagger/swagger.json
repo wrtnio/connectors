@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.165",
+    "version": "0.1.166",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8922,49 +8922,6 @@
           }
         },
         "x-wrtn-standalone": true,
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      }
-    },
-    "/connector/notion/page/content/{pageId}": {
-      "post": {
-        "summary": "페이지에 내용 추가",
-        "description": "페이지 끝에 내용을 추가합니다.",
-        "deprecated": true,
-        "tags": [],
-        "parameters": [
-          {
-            "name": "pageId",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/notion/get/page",
-                "jmesPath": "[].{value:pageId, label:title || ''}"
-              }
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "description": "페이지에 추가할 내용 및 추가할 페이지 정보",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.IAppendPageToContentInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "void",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -31749,28 +31706,6 @@
           "name"
         ],
         "title": "유저 목록 조회 결과"
-      },
-      "INotion.IAppendPageToContentInput": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "string",
-            "x-wrtn-placeholder": "뤼튼 스튜디오",
-            "title": "내용",
-            "description": "페이지에 추가할 내용"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "content",
-          "secretKey"
-        ],
-        "title": "페이지에 내용을 추가할 때 필요한 정보"
       },
       "INotion.IDatabaseInfo": {
         "type": "object",
