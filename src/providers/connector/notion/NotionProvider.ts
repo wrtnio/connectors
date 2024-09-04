@@ -3,6 +3,7 @@ import { Client } from "@notionhq/client";
 import axios from "axios";
 
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import { MarkdownElement, parseMarkdown } from "../../../utils/ParseMarkdown";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -976,5 +977,11 @@ export namespace NotionProvider {
     }
 
     return target;
+  }
+
+  export async function transform(
+    input: INotion.ITransformInput,
+  ): Promise<MarkdownElement[]> {
+    return parseMarkdown(input.markdown);
   }
 }

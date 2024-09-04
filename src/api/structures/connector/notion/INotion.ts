@@ -1838,7 +1838,7 @@ export namespace INotion {
   /**
    * @title OnlyOneTextLine
    *
-   * Tuple length is 1
+   * Tuple that Length is 1
    */
   export type OnlyOneTextLine = {
     text: {
@@ -1889,4 +1889,15 @@ export namespace INotion {
     3,
     true
   >;
+
+  export interface ITransformOutput extends INotion.ICreatePageOutput {}
+
+  export interface ITransformInput extends INotion.ICreatePageInput {
+    /**
+     * @title markdown
+     *
+     *
+     */
+    markdown: string;
+  }
 }

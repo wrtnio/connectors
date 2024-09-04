@@ -112,6 +112,7 @@
     "google-spreadsheet": "^4.1.1",
     "googleapis": "^129.0.0",
     "json-schema-faker": "^0.5.5",
+    "mdast-util-from-markdown": "^2.0.1",
     "nestjs-pino": "^4.0.0",
     "openai": "^4.24.1",
     "pino-pretty": "^10.3.1",

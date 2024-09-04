@@ -906,4 +906,11 @@ export class NotionController {
   ): Promise<INotion.IDatabaseItemOutput> {
     return retry(() => NotionProvider.findDatabaseItem(input, databaseId))();
   }
+
+  @core.TypedRoute.Post("markdown")
+  async transform(
+    @core.TypedBody() input: INotion.ITransformInput,
+  ): Promise<INotion.ITransformOutput> {
+    return NotionProvider.transform(input);
+  }
 }
