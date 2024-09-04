@@ -1890,13 +1890,18 @@ export namespace INotion {
     true
   >;
 
-  export interface ITransformOutput extends INotion.ICreatePageOutput {}
-
-  export interface ITransformInput extends INotion.ICreatePageInput {
+  export interface IAppendPageByMarkdownInput
+    extends PageIdInput,
+      ICommon.ISecret<"notion"> {
     /**
      * @title markdown
-     *
-     *
+     */
+    markdown: string;
+  }
+
+  export interface ICreatePageByMarkdownInput extends INotion.ICreatePageInput {
+    /**
+     * @title markdown
      */
     markdown: string;
   }
