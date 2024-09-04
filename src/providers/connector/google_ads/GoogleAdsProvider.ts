@@ -11,6 +11,8 @@ import { Camelize } from "../../../utils/types/SnakeToCamelCaseObject";
 import { StringToDeepObject } from "../../../utils/types/StringToDeepObject";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { ImageProvider } from "../../internal/ImageProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GoogleAdsProvider {
@@ -863,9 +865,16 @@ export class GoogleAdsProvider {
   ): Promise<IGoogleAds.IGetlistAccessibleCustomersOutput> {
     const url = `${this.baseUrl}/customers:listAccessibleCustomers`;
     const developerToken = (await this.getHeaders())["developer-token"];
-    const accessToken = await this.googleProvider.refreshAccessToken(
+    const secretValue = await OAuthSecretProvider.getSecretValue(
       input.secretKey,
     );
+    const refreshToken =
+      typeof secretValue === "string"
+        ? secretValue
+        : (secretValue as IOAuthSecret.ISecretValue).value;
+
+    const accessToken =
+      await this.googleProvider.refreshAccessToken(refreshToken);
 
     const res = await axios.get(url, {
       headers: {
