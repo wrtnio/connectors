@@ -988,7 +988,7 @@ export namespace NotionProvider {
 
       await notion.blocks.children.append({
         block_id: input.pageId,
-        children: blocks,
+        children: blocks as any,
       });
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -1006,7 +1006,7 @@ export namespace NotionProvider {
 
       await notion.blocks.children.append({
         block_id: page.id,
-        children: blocks,
+        children: blocks as any,
       });
 
       return { id: page.id, title: input.title };
