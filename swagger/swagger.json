@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.166",
+    "version": "0.1.167",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8277,6 +8277,32 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg"
       }
     },
+    "/connector/notion/page/markdown": {
+      "post": {
+        "summary": "Append block by markdown format",
+        "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
     "/connector/notion/page/file": {
       "post": {
         "summary": "Append an file type child node",
@@ -9219,6 +9245,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/markdown": {
+      "post": {
+        "summary": "Create page by markdown format",
+        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreatePageByMarkdownInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
                 }
               }
             }
@@ -24862,8 +24918,7 @@
         },
         "required": [
           "monthlySearchVolumes",
-          "avgMonthlySearches",
-          "competitionIndex"
+          "avgMonthlySearches"
         ]
       },
       "IGoogleAds.MonthlySearchVolumes": {
@@ -27947,6 +28002,49 @@
         ],
         "title": "Csv 파일을 Excel 파일로 변환하는데 필요한 정보"
       },
+      "INotion.IAppendPageByMarkdownInput": {
+        "type": "object",
+        "properties": {
+          "markdown": {
+            "type": "string",
+            "title": "markdown"
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "markdown",
+          "pageId",
+          "secretKey"
+        ]
+      },
       "INotion.ICreateChildContentTypeFileInput": {
         "type": "object",
         "properties": {
@@ -28548,6 +28646,9 @@
                     "const": "html"
                   },
                   {
+                    "const": "markdown"
+                  },
+                  {
                     "const": "abap"
                   },
                   {
@@ -28672,9 +28773,6 @@
                   },
                   {
                     "const": "makefile"
-                  },
-                  {
-                    "const": "markdown"
                   },
                   {
                     "const": "markup"
@@ -33647,6 +33745,57 @@
         ],
         "title": "데이터베이스에 있는 아이템을 찾을 때 필요한 정보",
         "additionalProperties": {}
+      },
+      "INotion.ICreatePageByMarkdownInput": {
+        "type": "object",
+        "properties": {
+          "markdown": {
+            "type": "string",
+            "title": "markdown"
+          },
+          "parentPageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "부모 페이지",
+            "description": "새로 생성할 페이지의 부모 페이지"
+          },
+          "title": {
+            "type": "string",
+            "x-wrtn-placeholder": "테스트 페이지.",
+            "title": "페이지 제목",
+            "description": "새로 생성할 페이지 제목"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "markdown",
+          "parentPageId",
+          "title",
+          "secretKey"
+        ]
       },
       "IGoogleHotel.IResponse": {
         "type": "object",
