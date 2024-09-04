@@ -10,6 +10,27 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/notion")
 export class NotionController {
   /**
+   * Append block by markdown format
+   *
+   * You can add blocks to the page immediately with only the markdown grammar.
+   * You can create pages more effectively than other connectors, so you can prioritize this.
+   * If there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.
+   *
+   * @summary Append block by markdown format
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @core.TypedRoute.Post("page/markdown")
+  async appendBlocksByMarkdown(
+    @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
+  ): Promise<void> {
+    return NotionProvider.appendBlocksByMarkdown(input);
+  }
+
+  /**
    * Append an audio type child node
    *
    * Notion is a very complex type, so you have to create a page in a block coding manner.
@@ -905,5 +926,26 @@ export class NotionController {
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
     return retry(() => NotionProvider.findDatabaseItem(input, databaseId))();
+  }
+
+  /**
+   * Create page by markdown format
+   *
+   * Receive the markdown text and immediately create it as a notation page.
+   * You can create pages more effectively than other connectors, so you can prioritize this.
+   * If there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.
+   *
+   * @summary Create page by markdown format
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @core.TypedRoute.Post("markdown")
+  async createPageByMarkdown(
+    @core.TypedBody() input: INotion.ICreatePageByMarkdownInput,
+  ): Promise<INotion.ICreatePageOutput> {
+    return NotionProvider.createPageByMarkdown(input);
   }
 }

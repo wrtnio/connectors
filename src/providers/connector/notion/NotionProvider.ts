@@ -2,6 +2,7 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
+import { markdownToBlocks } from "@tryfabric/martian";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -215,69 +216,69 @@ export namespace NotionProvider {
     }
   }
 
-  export async function createTableRow(
-    input: INotion.ICreateChildContentTypeTableRowInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [removeChildren(rest)],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  // export async function createTableRow(
+  //   input: INotion.ICreateChildContentTypeTableRowInput,
+  // ): Promise<void> {
+  //   try {
+  //     const { pageId, secretKey, ...rest } = input;
+  //     const notion = await createClient(secretKey);
+  //     await notion.blocks.children.append({
+  //       block_id: pageId,
+  //       children: [removeChildren(rest)],
+  //     });
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
-  export async function createTable(
-    input: INotion.ICreateChildContentTypeTableInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [removeChildren(rest)],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  // export async function createTable(
+  //   input: INotion.ICreateChildContentTypeTableInput,
+  // ): Promise<void> {
+  //   try {
+  //     const { pageId, secretKey, ...rest } = input;
+  //     const notion = await createClient(secretKey);
+  //     await notion.blocks.children.append({
+  //       block_id: pageId,
+  //       children: [removeChildren(rest)],
+  //     });
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
-  export async function createColumnList(
-    input: INotion.ICreateChildContentTypeColumnListInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [removeChildren(rest)],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  // export async function createColumnList(
+  //   input: INotion.ICreateChildContentTypeColumnListInput,
+  // ): Promise<void> {
+  //   try {
+  //     const { pageId, secretKey, ...rest } = input;
+  //     const notion = await createClient(secretKey);
+  //     await notion.blocks.children.append({
+  //       block_id: pageId,
+  //       children: [removeChildren(rest)],
+  //     });
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
-  export async function createColumn(
-    input: INotion.ICreateChildContentTypeColumnInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [removeChildren(rest)],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  // export async function createColumn(
+  //   input: INotion.ICreateChildContentTypeColumnInput,
+  // ): Promise<void> {
+  //   try {
+  //     const { pageId, secretKey, ...rest } = input;
+  //     const notion = await createClient(secretKey);
+  //     await notion.blocks.children.append({
+  //       block_id: pageId,
+  //       children: [removeChildren(rest)],
+  //     });
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
   export async function createHeading_1(
     input: INotion.ICreateChildContentTypeHeading_1Input,
@@ -423,37 +424,37 @@ export namespace NotionProvider {
     }
   }
 
-  export async function createCallout(
-    input: INotion.ICreateChildContentTypeCalloutInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [removeChildren(rest)],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  // export async function createCallout(
+  //   input: INotion.ICreateChildContentTypeCalloutInput,
+  // ): Promise<void> {
+  //   try {
+  //     const { pageId, secretKey, ...rest } = input;
+  //     const notion = await createClient(secretKey);
+  //     await notion.blocks.children.append({
+  //       block_id: pageId,
+  //       children: [removeChildren(rest)],
+  //     });
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
-  export async function createSyncedBlock(
-    input: INotion.ICreateChildContentTypeSyncedBlockInput,
-  ): Promise<void> {
-    try {
-      const { pageId, secretKey, ...rest } = input;
-      const notion = await createClient(secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [removeChildren(rest)],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  // export async function createSyncedBlock(
+  //   input: INotion.ICreateChildContentTypeSyncedBlockInput,
+  // ): Promise<void> {
+  //   try {
+  //     const { pageId, secretKey, ...rest } = input;
+  //     const notion = await createClient(secretKey);
+  //     await notion.blocks.children.append({
+  //       block_id: pageId,
+  //       children: [removeChildren(rest)],
+  //     });
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
   export async function createPage(
     input: INotion.ICreatePageInput,
@@ -976,5 +977,42 @@ export namespace NotionProvider {
     }
 
     return target;
+  }
+
+  export async function appendBlocksByMarkdown(
+    input: INotion.IAppendPageByMarkdownInput,
+  ): Promise<void> {
+    try {
+      const blocks = markdownToBlocks(input.markdown);
+      const notion = await createClient(input.secretKey);
+
+      await notion.blocks.children.append({
+        block_id: input.pageId,
+        children: blocks as any,
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  export async function createPageByMarkdown(
+    input: INotion.ICreatePageByMarkdownInput,
+  ): Promise<INotion.ICreatePageOutput> {
+    try {
+      const blocks = markdownToBlocks(input.markdown);
+      const notion = await createClient(input.secretKey);
+      const page = await createPage(input);
+
+      await notion.blocks.children.append({
+        block_id: page.id,
+        children: blocks as any,
+      });
+
+      return { id: page.id, title: input.title };
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
   }
 }
