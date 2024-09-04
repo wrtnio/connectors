@@ -23,7 +23,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
-  @core.TypedRoute.Post("markdown")
+  @core.TypedRoute.Post("page/markdown")
   async appendBlocksByMarkdown(
     @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
   ): Promise<void> {
