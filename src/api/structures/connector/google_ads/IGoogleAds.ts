@@ -1113,7 +1113,7 @@ export namespace IGoogleAds {
     /**
      * @title 경쟁 지수
      */
-    competitionIndex: `${number &
+    competitionIndex?: `${number &
       tags.Type<"int64"> &
       tags.Minimum<0> &
       tags.Maximum<100>}`;
