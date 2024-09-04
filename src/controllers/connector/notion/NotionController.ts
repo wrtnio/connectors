@@ -703,25 +703,25 @@ export class NotionController {
    * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
    * @returns void
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("/page/content/:pageId")
-  async appendPageToContent(
-    /**
-     * @title 내용을 추가할 페이지
-     * @description 내용을 추가할 페이지를 선택해 주세요.
-     */
-    @Prerequisite({
-      neighbor: () => NotionController.prototype.readPageList,
-      jmesPath: "[].{value:pageId, label:title || ''}",
-    })
-    @core.TypedParam("pageId")
-    pageId: string,
-    @core.TypedBody() input: INotion.IAppendPageToContentInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.appendPageToContent(pageId, input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("/page/content/:pageId")
+  // async appendPageToContent(
+  //   /**
+  //    * @title 내용을 추가할 페이지
+  //    * @description 내용을 추가할 페이지를 선택해 주세요.
+  //    */
+  //   @Prerequisite({
+  //     neighbor: () => NotionController.prototype.readPageList,
+  //     jmesPath: "[].{value:pageId, label:title || ''}",
+  //   })
+  //   @core.TypedParam("pageId")
+  //   pageId: string,
+  //   @core.TypedBody() input: INotion.IAppendPageToContentInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.appendPageToContent(pageId, input))();
+  // }
 
   /**
    * 데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.
