@@ -16,6 +16,9 @@ export class NotionController {
    * You can create pages more effectively than other connectors, so you can prioritize this.
    * If there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.
    *
+   * Since users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.
+   * Markdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.
+   *
    * @summary Append block by markdown format
    * @param input
    * @returns
@@ -915,6 +918,9 @@ export class NotionController {
    * Receive the markdown text and immediately create it as a notation page.
    * You can create pages more effectively than other connectors, so you can prioritize this.
    * If there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.
+   *
+   * Since users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.
+   * Markdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.
    *
    * @summary Create page by markdown format
    * @param input
