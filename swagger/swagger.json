@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.175",
+    "version": "0.1.176",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -24135,8 +24135,7 @@
           "basDt": {
             "type": "string",
             "x-wrtn-placeholder": "20220919",
-            "title": "Base date",
-            "description": "Searches for data matching the search value and base date"
+            "title": "Base date\nSearches for data matching the search value and base date\nYYYYMMDD format date string."
           }
         }
       },
@@ -24162,14 +24161,12 @@
           "beginBasDt": {
             "type": "string",
             "x-wrtn-placeholder": "20220919",
-            "title": "Start date (inclusive)",
-            "description": "Searches for data where the base date is greater than or equal to the search value"
+            "title": "Start date (inclusive)\nSearches for data where the base date is greater than or equal to the search value\nYYYYMMDD format date string."
           },
           "endBasDt": {
             "type": "string",
             "x-wrtn-placeholder": "20220919",
-            "title": "End date (exclusive)",
-            "description": "Searches for data where the base date is less than the search value"
+            "title": "End date (exclusive)\nSearches for data where the base date is less than the search value\nYYYYMMDD format date string."
           }
         }
       },
