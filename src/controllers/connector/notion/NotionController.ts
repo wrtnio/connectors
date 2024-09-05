@@ -326,6 +326,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an code type child node
    * @param input
    * @returns
@@ -464,6 +465,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an heading_1 type child node
    * @param input
    * @returns
@@ -487,6 +489,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an heading_2 type child node
    * @param input
    * @returns
@@ -510,6 +513,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an heading_3 type child node
    * @param input
    * @returns
@@ -533,6 +537,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an paragraph type child node
    * @param input
    * @returns
@@ -554,8 +559,9 @@ export class NotionController {
    * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
    * The type of block you can put in here is `bulleted_list_item`.
    *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
+   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an bulleted_list_item type child node
    * @param input
    * @returns
@@ -579,6 +585,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an numbered_list_item type child node
    * @param input
    * @returns
@@ -602,6 +609,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an quote type child node
    * @param input
    * @returns
@@ -625,6 +633,7 @@ export class NotionController {
    *
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
+   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
    * @summary Append an to_do type child node
    * @param input
    * @returns
@@ -715,34 +724,6 @@ export class NotionController {
   ): Promise<INotion.IUserOutput[]> {
     return retry(() => NotionProvider.getUsers(input))();
   }
-
-  /**
-   * 페이지 끝에 내용을 추가합니다.
-   *
-   * @deprecated
-   * @summary 페이지에 내용 추가
-   * @param input 페이지에 추가할 내용 및 추가할 페이지 정보
-   * @returns void
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("/page/content/:pageId")
-  // async appendPageToContent(
-  //   /**
-  //    * @title 내용을 추가할 페이지
-  //    * @description 내용을 추가할 페이지를 선택해 주세요.
-  //    */
-  //   @Prerequisite({
-  //     neighbor: () => NotionController.prototype.readPageList,
-  //     jmesPath: "[].{value:pageId, label:title || ''}",
-  //   })
-  //   @core.TypedParam("pageId")
-  //   pageId: string,
-  //   @core.TypedBody() input: INotion.IAppendPageToContentInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.appendPageToContent(pageId, input))();
-  // }
 
   /**
    * 데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.
