@@ -252,6 +252,8 @@ export class SlackController {
    * The channel ID is required to look up the conversation history within the channel later.
    * `private` channel is a locked channel that can only be viewed by those invited to the channel.
    *
+   * If you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.
+   *
    * @summary get private channels in slack
    * @param input
    * @returns private channels
