@@ -11,11 +11,22 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
+import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @TypedRoute.Post("getAddress")
+  async getAddress(
+    @TypedBody() input: IMSIT.IGetAddressInput,
+  ): Promise<IMSIT.IGetAddressOutput> {
+    return retry(() => OpenDataProvider.getAddress(input), 20)();
+  }
+
   /**
    * [Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.
    *
@@ -202,8 +213,8 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * Since this is Korean public data, most searches may have to be done in Korean.
-   * Please be aware of this.
+   * Since this is Korean public data, most searches may have to be done in Korean. for example "삼성전자".
+   * Also, since this is based on the closing of the stock market, you can only look up from about two months ago (59 days ago) to yesterday from today's date.
    *
    * @summary Retrieve market capitalization and stock information
    *
