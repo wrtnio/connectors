@@ -25,6 +25,9 @@ export class OpenDataController {
    * You need to look up the city, county, and district code first.
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve multi-family lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
@@ -47,6 +50,9 @@ export class OpenDataController {
    *
    * You need to look up the city, county, and district code first.
    * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve officetel lease and rental information
    * @param input Query conditions
@@ -71,6 +77,9 @@ export class OpenDataController {
    * You need to look up the city, county, and district code first.
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve apartment lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
@@ -91,6 +100,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve LH rental housing information
    * @param input Conditions for querying rental housing
@@ -113,6 +125,9 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve parking lot information
    * @param input Conditions for querying parking lots
    * @returns Parking lot information
@@ -133,6 +148,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve building registration information
    * @param input Conditions for querying building information
@@ -159,6 +177,9 @@ export class OpenDataController {
    * may all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).
    * In this case, this connector call must be preceded.
    *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve administrative standard codes
    * @param input Conditions for querying regions
    * @returns Region codes
@@ -180,6 +201,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve market capitalization and stock information
    *
@@ -237,6 +261,9 @@ export class OpenDataController {
    * If the latitude hardness value is delivered,
    * it is converted to grid coordinate value from the inside and used.
    *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve today's weather from the Korea Meteorological Administration
    *
    * @param input DTO for weather query location
@@ -262,6 +289,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary [Copyright Registration Information Service (New)]
    * @param input Conditions for querying copyright
