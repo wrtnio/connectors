@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.168",
+    "version": "0.1.170",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8227,7 +8227,7 @@
     "/connector/notion/page/markdown": {
       "post": {
         "summary": "Append block by markdown format",
-        "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.",
+        "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8410,6 +8410,7 @@
       "post": {
         "summary": "Append an code type child node",
         "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8566,6 +8567,7 @@
       "post": {
         "summary": "Append an heading_1 type child node",
         "description": "Append an heading_1 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_1`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8592,6 +8594,7 @@
       "post": {
         "summary": "Append an heading_2 type child node",
         "description": "Append an heading_2 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_2`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8618,6 +8621,7 @@
       "post": {
         "summary": "Append an heading_3 type child node",
         "description": "Append an heading_3 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_3`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8644,6 +8648,7 @@
       "post": {
         "summary": "Append an paragraph type child node",
         "description": "Append an paragraph type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `paragraph`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8669,7 +8674,8 @@
     "/connector/notion/page/bulleted_list_item": {
       "post": {
         "summary": "Append an bulleted_list_item type child node",
-        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8696,6 +8702,7 @@
       "post": {
         "summary": "Append an numbered_list_item type child node",
         "description": "Append an numbered_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `numbered_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8722,6 +8729,7 @@
       "post": {
         "summary": "Append an quote type child node",
         "description": "Append an quote type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `quote`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8748,6 +8756,7 @@
       "post": {
         "summary": "Append an to_do type child node",
         "description": "Append an to_do type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `to_do`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9203,7 +9212,7 @@
     "/connector/notion/markdown": {
       "post": {
         "summary": "Create page by markdown format",
-        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.",
+        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9641,7 +9650,7 @@
     "/connector/slack/get-channel-histories": {
       "post": {
         "summary": "get channel histories in slack",
-        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <USERNAME>.\n\nIf you want to filter by date, prioritize using the datetime format.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -35415,6 +35424,11 @@
               "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           }
         },
         "required": [
@@ -35425,7 +35439,8 @@
           "ts",
           "ts_date",
           "reply_count",
-          "reply_users_count"
+          "reply_users_count",
+          "link"
         ]
       },
       "PickISlack.IGetUserOutputiddisplay_name": {
@@ -36759,7 +36774,7 @@
                       "properties": {
                         "color": {
                           "type": "string",
-                          "pattern": "^(#(.*))",
+                          "pattern": "^#([0-9A-Fa-f]{6})$",
                           "title": "color\n\nColor can be expressed using symbols('#') and RGB values."
                         }
                       },

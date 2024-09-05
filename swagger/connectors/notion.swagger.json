@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.168",
+    "version": "0.1.170",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/notion/page/markdown": {
       "post": {
         "summary": "Append block by markdown format",
-        "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.",
+        "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -210,6 +210,7 @@
       "post": {
         "summary": "Append an code type child node",
         "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -366,6 +367,7 @@
       "post": {
         "summary": "Append an heading_1 type child node",
         "description": "Append an heading_1 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_1`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -392,6 +394,7 @@
       "post": {
         "summary": "Append an heading_2 type child node",
         "description": "Append an heading_2 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_2`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -418,6 +421,7 @@
       "post": {
         "summary": "Append an heading_3 type child node",
         "description": "Append an heading_3 type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `heading_3`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -444,6 +448,7 @@
       "post": {
         "summary": "Append an paragraph type child node",
         "description": "Append an paragraph type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `paragraph`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -469,7 +474,8 @@
     "/connector/notion/page/bulleted_list_item": {
       "post": {
         "summary": "Append an bulleted_list_item type child node",
-        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "description": "Append an bulleted_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bulleted_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -496,6 +502,7 @@
       "post": {
         "summary": "Append an numbered_list_item type child node",
         "description": "Append an numbered_list_item type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `numbered_list_item`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -522,6 +529,7 @@
       "post": {
         "summary": "Append an quote type child node",
         "description": "Append an quote type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `quote`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -548,6 +556,7 @@
       "post": {
         "summary": "Append an to_do type child node",
         "description": "Append an to_do type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `to_do`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -1003,7 +1012,7 @@
     "/connector/notion/markdown": {
       "post": {
         "summary": "Create page by markdown format",
-        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.",
+        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
         "tags": [],
         "parameters": [],
         "requestBody": {
