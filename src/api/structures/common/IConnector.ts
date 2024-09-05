@@ -26,7 +26,7 @@ export namespace IConnector {
     /**
      * 비디오, 이미지, 뉴스기사, 논문.
      *
-     * 가능한 값: video, image, news_article, research_paper
+     * It must be one of: video, image, news_article, research_paper
      *
      * @title 산출물 타입
      */
@@ -35,7 +35,7 @@ export namespace IConnector {
     /**
      * 유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스
      *
-     * 가능한 값: youtube, facebook, instagram, google_search, arxiv, google_news
+     * It must be one of: youtube, facebook, instagram, google_search, arxiv, google_news
      *
      * @title 산출물의 출처
      */
@@ -73,15 +73,15 @@ export namespace IConnector {
   }
 
   /**
-   * 비디오, 이미지, 뉴스기사, 논문..
+   * 비디오, 이미지, 뉴스기사, 논문.
    *
    * @title Connector 산출물 타입
    */
   export type ReferenceType =
-    | "video"
-    | "image"
-    | "news_article"
-    | "research_paper";
+    | tags.Constant<"video", { title: "video" }>
+    | tags.Constant<"image", { title: "image" }>
+    | tags.Constant<"news_article", { title: "news_article" }>
+    | tags.Constant<"research_paper", { title: "research_paper" }>;
 
   /**
    * 산출물의 출처입니다.
@@ -89,12 +89,12 @@ export namespace IConnector {
    * @title Connector 산출물 출처
    */
   export type ContentProvider =
-    | "youtube"
-    | "facebook"
-    | "instagram"
-    | "google_search"
-    | "arxiv"
-    | "google_news";
+    | tags.Constant<"youtube", { title: "youtube" }>
+    | tags.Constant<"facebook", { title: "facebook" }>
+    | tags.Constant<"instagram", { title: "instagram" }>
+    | tags.Constant<"google_search", { title: "google_search" }>
+    | tags.Constant<"arxiv", { title: "arxiv" }>
+    | tags.Constant<"google_news", { title: "google_news" }>;
 
   /**
    * 조회수, 좋아요 수, 랭킹
