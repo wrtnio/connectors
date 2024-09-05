@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.167",
+    "version": "0.1.168",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,14 +27,8 @@
     "/connector/open-data/getRTMSDataSvcSHRent": {
       "post": {
         "summary": "Retrieve multi-family lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Housing",
-          "Single-Family Homes",
-          "Multi-Family Homes",
-          "Rent",
-          "Lease"
-        ],
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -65,13 +59,8 @@
     "/connector/open-data/getRTMSDataSvcOffiRent": {
       "post": {
         "summary": "Retrieve officetel lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Housing",
-          "Officetel",
-          "Rent",
-          "Lease"
-        ],
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -102,14 +91,8 @@
     "/connector/open-data/getRTMSDataSvcAptRent": {
       "post": {
         "summary": "Retrieve apartment lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Public Data",
-          "Housing",
-          "Apartment",
-          "Rent",
-          "Lease"
-        ],
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -142,13 +125,7 @@
       "post": {
         "summary": "Retrieve LH rental housing information",
         "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Public Data",
-          "LH",
-          "Housing",
-          "Rental Housing",
-          "Happy Housing"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying rental housing",
@@ -181,11 +158,7 @@
       "post": {
         "summary": "Retrieve parking lot information",
         "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Public Data",
-          "Parking Lot",
-          "Parking"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying parking lots",
@@ -225,12 +198,7 @@
       "post": {
         "summary": "Retrieve building registration information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Public Data",
-          "Building",
-          "Building Information",
-          "Earthquake Design"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying building information",
@@ -261,15 +229,8 @@
     "/connector/open-data/getStandardRegionCodeList": {
       "post": {
         "summary": "Retrieve administrative standard codes",
-        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Public Data",
-          "Administrative District",
-          "Region Code",
-          "Township",
-          "City",
-          "County"
-        ],
+        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying regions",
@@ -302,13 +263,7 @@
       "post": {
         "summary": "Retrieve market capitalization and stock information",
         "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Public Data",
-          "Stock",
-          "Market Capitalization",
-          "Company",
-          "Capital"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying market capitalization",
@@ -348,13 +303,7 @@
       "post": {
         "summary": "Retrieve today's weather from the Korea Meteorological Administration",
         "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.",
-        "tags": [
-          "Public Data",
-          "Weather",
-          "KMA",
-          "Today’s Weather",
-          "Climate"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "DTO for weather query location",
@@ -390,9 +339,7 @@
       "post": {
         "summary": "[Copyright Registration Information Service (New)]",
         "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
-        "tags": [
-          "Copyright"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying copyright",
@@ -2528,97 +2475,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Housing"
-    },
-    {
-      "name": "Single-Family Homes"
-    },
-    {
-      "name": "Multi-Family Homes"
-    },
-    {
-      "name": "Rent"
-    },
-    {
-      "name": "Lease"
-    },
-    {
-      "name": "Officetel"
-    },
-    {
-      "name": "Public Data"
-    },
-    {
-      "name": "Apartment"
-    },
-    {
-      "name": "LH"
-    },
-    {
-      "name": "Rental Housing"
-    },
-    {
-      "name": "Happy Housing"
-    },
-    {
-      "name": "Parking Lot"
-    },
-    {
-      "name": "Parking"
-    },
-    {
-      "name": "Building"
-    },
-    {
-      "name": "Building Information"
-    },
-    {
-      "name": "Earthquake Design"
-    },
-    {
-      "name": "Administrative District"
-    },
-    {
-      "name": "Region Code"
-    },
-    {
-      "name": "Township"
-    },
-    {
-      "name": "City"
-    },
-    {
-      "name": "County"
-    },
-    {
-      "name": "Stock"
-    },
-    {
-      "name": "Market Capitalization"
-    },
-    {
-      "name": "Company"
-    },
-    {
-      "name": "Capital"
-    },
-    {
-      "name": "Weather"
-    },
-    {
-      "name": "KMA"
-    },
-    {
-      "name": "Today’s Weather"
-    },
-    {
-      "name": "Climate"
-    },
-    {
-      "name": "Copyright"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

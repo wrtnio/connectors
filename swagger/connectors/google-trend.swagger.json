@@ -17,7 +17,7 @@
   "info": {
     "title": "Google Trend",
     "description": "오늘의 트렌드를 검색해봐요",
-    "version": "0.1.167",
+    "version": "0.1.168",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -105,7 +105,7 @@
             "type": "string",
             "format": "date",
             "title": "날짜",
-            "description": "데일리 트렌드를 조회할 날짜 입니다.\n\n입력되지 않으면 오늘 날짜를 기준으로 조회합니다."
+            "description": "데일리 트렌드를 조회할 날짜 입니다.\n\n입력되지 않으면 오늘 날짜를 기준으로 조회합니다.\nyear-month-day 형식의 date 타입 문자열을 제공해주어야 한다."
           }
         },
         "title": "구글 데일리 트렌드 조회를 위한 정보",
