@@ -24,7 +24,7 @@ export namespace IConnector {
     title: string;
 
     /**
-     * 비디오, 이미지, 뉴스기사, 논문..
+     * 비디오, 이미지, 뉴스기사, 논문.
      *
      * 가능한 값: video, image, news_article, research_paper
      *
