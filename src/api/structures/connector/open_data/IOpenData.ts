@@ -148,6 +148,10 @@ export namespace IOpenData {
     export type IGetStockPriceInfoInput = ICommon.IPaginationInput & {
       /**
        * @title Keyword for stock name search
+       *
+       * Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.
+       * Since it is a Korean company, most of it will be in Korean.
+       * Please give Korean company name.
        */
       likeItmsNm?: string &
         tags.MaxLength<120> &
