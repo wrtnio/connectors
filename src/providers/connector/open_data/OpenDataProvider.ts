@@ -420,12 +420,14 @@ export namespace OpenDataProvider {
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
 
       const decoded = decodeURIComponent(serviceKey);
-      const queryString = Object.entries({
-        ...input,
+      const queryString = createQueryParameter({
         serviceKey: decoded,
-      })
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+        "cond[AUTHOR_NAME::LIKE]": input.AUTHOR_NAME,
+        "cond[CONT_TITLE::LIKE]": input.CONT_TITLE,
+        "cond[REG_ID::EQ]": input.REG_ID,
+        page: input.page,
+        perPage: input.perPage,
+      });
 
       const res = await axios.get(`${baseUrl}?${queryString}`, {
         headers: {

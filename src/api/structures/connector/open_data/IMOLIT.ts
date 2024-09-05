@@ -642,6 +642,8 @@ export namespace IMOLIT {
 
     /**
      * @title 보증금액
+     *
+     * 한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것
      */
     depositAmount: string | number;
 
@@ -659,6 +661,8 @@ export namespace IMOLIT {
 
     /**
      * @title 월세금액
+     *
+     * 한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것
      */
     monthlyRentAmount: string | (number & tags.Type<"int32">);
 
