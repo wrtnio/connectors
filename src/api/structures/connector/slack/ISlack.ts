@@ -215,11 +215,22 @@ export namespace ISlack {
 
   export interface IAuthTestOutput {
     ok: boolean;
-    url: "https://kakasootest.slack.com/";
+
+    /**
+     * @title Slack workspace uri
+     */
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://kakasootest.slack.com/">;
+
     team: string;
+
     user: string;
+
     team_id: string;
+
     user_id: string;
+
     is_enterprise_install: boolean;
   }
 
@@ -536,7 +547,13 @@ export namespace ISlack {
   export interface ScheduledMessage
     extends StrictOmit<
       Message,
-      "ts" | "type" | "user" | "reply_count" | "reply_users_count" | "ts_date"
+      | "ts"
+      | "type"
+      | "user"
+      | "reply_count"
+      | "reply_users_count"
+      | "ts_date"
+      | "link"
     > {
     /**
      * @title timestamp
@@ -615,6 +632,14 @@ export namespace ISlack {
      * It is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up.
      */
     attachments?: Pick<ISlack.Attachment, "id" | "title">[];
+
+    /**
+     * @title shortcut link
+     *
+     * Link to view the conversation history immediately.
+     * We can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times.
+     */
+    link: string & tags.Format<"uri">;
   }
 
   export interface Attachment {
