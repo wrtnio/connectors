@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.172",
+    "version": "0.1.173",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -5429,6 +5429,34 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg"
       }
     },
+    "/connector/open-data/getAddress": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMSIT.IGetAddressInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMSIT.IGetAddressOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
+      }
+    },
     "/connector/open-data/getRTMSDataSvcSHRent": {
       "post": {
         "summary": "Retrieve multi-family lease and rental information",
@@ -5667,7 +5695,7 @@
     "/connector/open-data/getStockPriceInfo": {
       "post": {
         "summary": "Retrieve market capitalization and stock information",
-        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (59 days ago) to yesterday from today's date.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -22227,6 +22255,55 @@
           "secret"
         ],
         "title": "Imweb Access Token Request DTO\n\nAn API Key and Secret Key must be issued first to use the Rest API.\nThese keys are generated on a site-by-site basis."
+      },
+      "IMSIT.IGetAddressOutput": {
+        "type": "object",
+        "properties": {}
+      },
+      "IMSIT.IGetAddressInput": {
+        "type": "object",
+        "properties": {
+          "searchSe": {
+            "oneOf": [
+              {
+                "const": "dong",
+                "title": "동 주소",
+                "description": "한국의 주소 체계 중 `동`을 의미한다",
+                "default": "road"
+              },
+              {
+                "const": "road",
+                "title": "도로명 주소",
+                "description": "한국의 주소 체계 중 `도로명 주소`를 의미한다.",
+                "default": "road"
+              },
+              {
+                "const": "post",
+                "title": "우편 주소",
+                "description": "한국의 주소 체계 중 `우편 주소`를 의미한다.",
+                "default": "road"
+              }
+            ],
+            "title": "구분\n\nIt must be one of: 'dong', 'road', 'post' but default value is 'road'."
+          },
+          "srchwrd": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "title": "검색어"
+          },
+          "countPerPage": {
+            "type": "integer",
+            "title": "페이지 당 출력 개수"
+          },
+          "currentPage": {
+            "type": "integer",
+            "title": "출력될 페이지 번호"
+          }
+        },
+        "required": [
+          "srchwrd"
+        ]
       },
       "IMOLIT.IgetRTMSDataSvcSHRentOutput": {
         "type": "object",
