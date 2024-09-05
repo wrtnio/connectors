@@ -4,10 +4,20 @@ import axios from "axios";
 
 import { markdownToBlocks } from "@tryfabric/martian";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 export namespace NotionProvider {
+  export async function getPageById(input: { secretKey: string }) {
+    const notion = await createClient(input.secretKey);
+    const page = await notion.pages.retrieve({
+      page_id: "011ff941f052423f8a203d8a84e4e71f",
+    });
+
+    return page;
+  }
+
   export async function createFile(
     input: INotion.ICreateChildContentTypeFileInput,
   ): Promise<void> {
@@ -1016,3 +1026,7 @@ export namespace NotionProvider {
     }
   }
 }
+
+NotionProvider.getPageById({
+  secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+});
