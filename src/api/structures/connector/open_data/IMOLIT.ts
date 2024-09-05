@@ -8,7 +8,35 @@ import { IOpenData } from "./IOpenData";
  * @title 국토교통부 타입
  */
 export namespace IMOLIT {
-  export interface IGetRTMSDataSvcAptRentInput {
+  export interface ICommonPaginationOutput {
+    /**
+     * @title nextPage
+     *
+     * 다음 페이지 존재 여부를 의미
+     */
+    nextPage: boolean;
+  }
+
+  export interface ICommonPaginationInput {
+    /**
+     * @title page
+     */
+    page: number & tags.Type<"uint64">;
+
+    /**
+     * @title limit
+     */
+    limit: number & tags.Type<"uint64"> & tags.Minimum<1> & tags.Maximum<20>;
+  }
+
+  export interface ICommonPaginationOutput {
+    /**
+     * @title nextPage
+     */
+    nextPage: boolean;
+  }
+
+  export interface IGetRTMSDataSvcAptRentInput extends ICommonPaginationInput {
     /**
      * @title 시군구 코드
      */
@@ -28,12 +56,13 @@ export namespace IMOLIT {
     DEAL_YMD: string & Placeholder<"202201">;
   }
 
-  export interface IGetRTMSDataSvcAptRentOutput {
+  export interface IGetRTMSDataSvcAptRentOutput
+    extends ICommonPaginationOutput {
     data: BuildingLentInfo[];
   }
 
   export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
-  export interface IgetRTMSDataSvcSHRentOutput {
+  export interface IgetRTMSDataSvcSHRentOutput extends ICommonPaginationOutput {
     data: StrictOmit<
       BuildingLentInfo,
       "apartment" | "exclusiveArea" | "lotNumber" | "floor"
@@ -42,7 +71,8 @@ export namespace IMOLIT {
 
   export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;
 
-  export interface IGetRTMSDataSvcOffiRentOutput {
+  export interface IGetRTMSDataSvcOffiRentOutput
+    extends ICommonPaginationOutput {
     data: StrictOmit<
       BuildingLentInfo,
       "depositAmount" | "monthlyRentAmount" | "apartment" | "yearOfConstruction"
