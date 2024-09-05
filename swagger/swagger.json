@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.171",
+    "version": "0.1.172",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -5432,7 +5432,7 @@
     "/connector/open-data/getRTMSDataSvcSHRent": {
       "post": {
         "summary": "Retrieve multi-family lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5464,7 +5464,7 @@
     "/connector/open-data/getRTMSDataSvcOffiRent": {
       "post": {
         "summary": "Retrieve officetel lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5496,7 +5496,7 @@
     "/connector/open-data/getRTMSDataSvcAptRent": {
       "post": {
         "summary": "Retrieve apartment lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5529,7 +5529,7 @@
     "/connector/open-data/getLHLeaseInfo": {
       "post": {
         "summary": "Retrieve LH rental housing information",
-        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
+        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5562,7 +5562,7 @@
     "/connector/open-data/getParkingLot": {
       "post": {
         "summary": "Retrieve parking lot information",
-        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
+        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5602,7 +5602,7 @@
     "/connector/open-data/getBuildingInfo": {
       "post": {
         "summary": "Retrieve building registration information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5634,7 +5634,7 @@
     "/connector/open-data/getStandardRegionCodeList": {
       "post": {
         "summary": "Retrieve administrative standard codes",
-        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.",
+        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5667,7 +5667,7 @@
     "/connector/open-data/getStockPriceInfo": {
       "post": {
         "summary": "Retrieve market capitalization and stock information",
-        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
+        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5707,7 +5707,7 @@
     "/connector/open-data/getShortTermForecast": {
       "post": {
         "summary": "Retrieve today's weather from the Korea Meteorological Administration",
-        "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.",
+        "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5743,7 +5743,7 @@
     "/connector/open-data/getCopyRight": {
       "post": {
         "summary": "[Copyright Registration Information Service (New)]",
-        "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.",
+        "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -22236,10 +22236,15 @@
             "items": {
               "$ref": "#/components/schemas/StrictOmitIMOLIT.BuildingLentInfoapartmentexclusiveArealotNumberfloor"
             }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "nextPage\n\n다음 페이지 존재 여부를 의미"
           }
         },
         "required": [
-          "data"
+          "data",
+          "nextPage"
         ]
       },
       "StrictOmitIMOLIT.BuildingLentInfoapartmentexclusiveArealotNumberfloor": {
@@ -22396,11 +22401,23 @@
             "type": "string",
             "x-wrtn-placeholder": "202201",
             "title": "실거래 자료의 계약년월(6자리)"
+          },
+          "page": {
+            "type": "integer",
+            "title": "page"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "title": "limit"
           }
         },
         "required": [
           "LAWD_CD",
-          "DEAL_YMD"
+          "DEAL_YMD",
+          "page",
+          "limit"
         ]
       },
       "IMOLIT.IGetRTMSDataSvcOffiRentOutput": {
@@ -22411,10 +22428,15 @@
             "items": {
               "$ref": "#/components/schemas/StrictOmitIMOLIT.BuildingLentInfoapartmentyearOfConstructiondepositAmountmonthlyRentAmount"
             }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "nextPage\n\n다음 페이지 존재 여부를 의미"
           }
         },
         "required": [
-          "data"
+          "data",
+          "nextPage"
         ]
       },
       "StrictOmitIMOLIT.BuildingLentInfoapartmentyearOfConstructiondepositAmountmonthlyRentAmount": {
@@ -22564,10 +22586,15 @@
             "items": {
               "$ref": "#/components/schemas/IMOLIT.BuildingLentInfo"
             }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "nextPage\n\n다음 페이지 존재 여부를 의미"
           }
         },
         "required": [
-          "data"
+          "data",
+          "nextPage"
         ]
       },
       "IMOLIT.BuildingLentInfo": {
