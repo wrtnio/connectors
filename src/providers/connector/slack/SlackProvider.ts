@@ -345,18 +345,25 @@ export class SlackProvider {
       },
     });
 
+    const allMembers = await this.getAllUsers(input);
+
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.Message[] = res.data.messages.map(
       (message: ISlack.Message): ISlack.Message => {
         const timestamp = this.transformTsToTimestamp(message.ts);
+        const text = message.text
+          .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
+          .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
+          .replaceAll(/\n/gs, " ")
+          .replace(/@(\w+)/g, (_, id) => {
+            const member = allMembers.find((member) => member.id === id);
+            return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
+          });
 
         return {
           type: message.type,
           user: message.user ?? null,
-          text: message.text
-            .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
-            .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
-            .replaceAll(/\n/gs, " "),
+          text: text,
           ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
@@ -367,7 +374,6 @@ export class SlackProvider {
       },
     );
 
-    const allMembers = await this.getAllUsers(input);
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
