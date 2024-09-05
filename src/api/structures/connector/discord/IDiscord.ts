@@ -4,12 +4,6 @@ import { Prerequisite } from "@wrtnio/decorators";
 
 export namespace IDiscord {
   export type ISecret = ICommon.ISecret<"discord", ["bot"]>;
-  /**
-   * @title snowflake id 형식
-   */
-  export type SNOWFLAKEID = string &
-    tags.Pattern<"^[0-9]{19}$"> &
-    tags.MaxLength<19>;
 
   /**
    * @title 서버 정보
@@ -20,7 +14,7 @@ export namespace IDiscord {
      *
      * @title 서버 고유 id
      */
-    id: SNOWFLAKEID;
+    id: string;
 
     /**
      * 서버 이름 입니다.
@@ -51,10 +45,10 @@ export namespace IDiscord {
      *
      * @title 서버 소유자 고유 id
      */
-    owner_id: SNOWFLAKEID;
+    owner_id?: string;
     permissions?: string;
     // region?: string | null;
-    // afk_channel_id: SNOWFLAKEID | null;
+    // afk_channel_id: string | null;
     // afk_timeout: number;
     // widget_enabled?: boolean;
     // widget_channel_id?: string | null;
@@ -65,10 +59,10 @@ export namespace IDiscord {
     emojis: IEmoji[];
     features: Array<IGuildFeature>;
     // mfa_level: number;
-    // application_id: SNOWFLAKEID | null;
-    // system_channel_id: SNOWFLAKEID | null;
+    // application_id: string | null;
+    // system_channel_id: string | null;
     // system_channel_flags: number;
-    // rules_channel_id: SNOWFLAKEID | null;
+    // rules_channel_id: string | null;
     // max_presences?: number | null;
     // max_members?: number;
     // vanity_url_code: string | null;
@@ -77,7 +71,7 @@ export namespace IDiscord {
     // premium_tier: number;
     // premium_subscription_count?: number;
     // preferred_locale: string;
-    // public_updates_channel_id: SNOWFLAKEID | null;
+    // public_updates_channel_id: string | null;
     // max_video_channel_users?: number;
     // max_stage_video_channel_users?: number;
     // approximate_member_count?: number;
@@ -86,11 +80,11 @@ export namespace IDiscord {
     // nsfw_level: number;
     // stickers?: ISticker[];
     // premium_progress_bar_enabled: boolean;
-    // safety_alerts_channel_id: SNOWFLAKEID | null;
+    // safety_alerts_channel_id: string | null;
   }
 
   export interface IRole {
-    id: SNOWFLAKEID;
+    id: string;
     name: string;
     color: number;
     hoist: boolean;
@@ -114,7 +108,7 @@ export namespace IDiscord {
   }
 
   export interface IEmoji {
-    id: SNOWFLAKEID | null;
+    id: string | null;
     name: string | null;
     roles?: string[];
     user?: IUser;
@@ -133,7 +127,7 @@ export namespace IDiscord {
      *
      * @title 유저 고유 id
      */
-    id: SNOWFLAKEID;
+    id: string | string;
 
     /**
      * 유저 이름입니다.
@@ -183,7 +177,7 @@ export namespace IDiscord {
 
   // export interface IAvatarDecorationData {
   //   asset: string;
-  //   sku_id: SNOWFLAKEID;
+  //   sku_id: string;
   // }
 
   /**
@@ -224,14 +218,14 @@ export namespace IDiscord {
   // }
 
   // export interface IWelcomeChannel {
-  //   channel_id: SNOWFLAKEID;
+  //   channel_id: string;
   //   description: string;
-  //   emoji_id: SNOWFLAKEID | null;
+  //   emoji_id: string | null;
   //   emoji_name: string | null;
   // }
 
   // export interface ISticker {
-  //   id: SNOWFLAKEID;
+  //   id: string;
   //   pack_id?: string;
   //   name: string;
   //   description: string | null;
@@ -246,23 +240,6 @@ export namespace IDiscord {
   // }
 
   /**
-   * @title 서버에서 나가기 위해 필요한 정보
-   */
-  export interface ILeaveGuildRequest extends ISecret {
-    /**
-     * 나가려는 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
-  }
-
-  /**
    * @title DM을 보내기 위해 필요한 정보
    */
   export interface ICreateDMRequest extends ISecret {
@@ -271,7 +248,7 @@ export namespace IDiscord {
      *
      * @title 상대방
      */
-    recipient_id: SNOWFLAKEID &
+    recipient_id: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-list-guild-members";
@@ -283,11 +260,11 @@ export namespace IDiscord {
    * @title 채널 정보
    */
   export interface IChannel {
-    id: SNOWFLAKEID;
+    id: string;
     type: number;
     guild_id?: string;
-    position: number;
-    permission_overwrites: IOverwrite[];
+    position?: number;
+    permission_overwrites?: IOverwrite[];
     name?: string | null;
     topic?: string | null;
     // nsfw?: boolean;
@@ -321,7 +298,7 @@ export namespace IDiscord {
   }
 
   export interface IOverwrite {
-    id: SNOWFLAKEID;
+    id: string;
     type: number;
     allow: string;
     deny: string;
@@ -345,13 +322,13 @@ export namespace IDiscord {
   }
 
   export interface ITag extends IDefaultReaction {
-    id: SNOWFLAKEID;
+    id: string;
     name: string;
     moderated: boolean;
   }
 
   export interface IDefaultReaction {
-    emoji_id: SNOWFLAKEID | null;
+    emoji_id: string | null;
     emoji_name: string | null;
   }
 
@@ -376,13 +353,13 @@ export namespace IDiscord {
 
   export interface IAvatarDecorationData {
     asset: string;
-    sku_id: SNOWFLAKEID;
+    sku_id: string;
   }
 
   /**
    * @title 서버를 생성하기 위해 필요한 정보
    */
-  export interface ICreateGuildRequest extends ISecret {
+  export interface ICreateGuildRequest {
     /**
      * 서버 이름을 입력해주세요.
      *
@@ -396,40 +373,40 @@ export namespace IDiscord {
    *
    */
   export interface IGuild {
-    id: SNOWFLAKEID;
+    id: string;
     name: string;
     // icon: string | null;
     // icon_hash?: string | null;
     // splash: string | null;
     // discovery_splash: string | null;
     owner?: boolean;
-    owner_id: SNOWFLAKEID;
+    owner_id?: string;
     // permissions?: string;
     // region?: string | null;
-    // afk_channel_id: SNOWFLAKEID | null;
+    // afk_channel_id: string | null;
     // afk_timeout: number;
     // widget_enabled?: boolean;
     // widget_channel_id?: string | null;
     // verification_level: number;
     // default_message_notifications: number;
     // explicit_content_filter: number;
-    roles: IRole[];
+    roles?: IRole[];
     // emojis: IEmoji[];
     features: Array<IGuildFeature>;
     // mfa_level: number;
-    // application_id: SNOWFLAKEID | null;
-    // system_channel_id: SNOWFLAKEID | null;
+    // application_id: string | null;
+    // system_channel_id: string | null;
     // system_channel_flags: number;
-    // rules_channel_id: SNOWFLAKEID | null;
+    // rules_channel_id: string | null;
     // max_presences?: number | null;
     // max_members?: number;
     // vanity_url_code: string | null;
-    description: string | null;
+    description?: string | null;
     // banner: string | null;
     // premium_tier: number;
     // premium_subscription_count?: number;
     // preferred_locale: string;
-    // public_updates_channel_id: SNOWFLAKEID | null;
+    // public_updates_channel_id: string | null;
     // max_video_channel_users?: number;
     // max_stage_video_channel_users?: number;
     // approximate_member_count?: number;
@@ -438,7 +415,7 @@ export namespace IDiscord {
     // nsfw_level: number;
     // stickers?: ISticker[];
     // premium_progress_bar_enabled: boolean;
-    // safety_alerts_channel_id: SNOWFLAKEID | null;
+    // safety_alerts_channel_id: string | null;
   }
 
   /**
@@ -451,70 +428,12 @@ export namespace IDiscord {
      * @title 수정할 이름
      */
     name: string;
-
-    /**
-     * 수정할 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
-  }
-
-  /**
-   * @title 서버를 삭제하기 위해 필요한 정보
-   */
-  export interface IDeleteGuildRequest extends ISecret {
-    /**
-     * 삭제할 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
-  }
-
-  /**
-   * @title 서버에 존재하는 채널 정보를 받아오기 위해 필요한 정보
-   */
-  export interface IGetGuildChannelsRequest extends ISecret {
-    /**
-     * 채널 정보를 받아올 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
   }
 
   /**
    * @title 채널을 생성하기 위해 필요한 정보
    */
   export interface ICreateGuildChannelRequest extends ISecret {
-    /**
-     * 채널을 생성할 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
-
     /**
      * 생성할 서버 이름을 입력해주세요.
      *
@@ -545,44 +464,15 @@ export namespace IDiscord {
     | tags.Constant<1, { title: "DM 채널" }>;
 
   /**
-   * @title 서버에 존재하는 멤버 정보를 받아오기 위해 필요한 정보
-   */
-  export interface IGetListGuildMembersRequest extends ISecret {
-    /**
-     * 멤버 정보를 받아오기 위한 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
-  }
-
-  /**
    * @title 멤버를 차단 하기 위해 필요한 정보
    */
   export interface IRemoveGuildMember extends ISecret {
-    /**
-     * 멤버를 차단할 서버를 선택해주세요.
-     *
-     * @title 서버
-     */
-    guildId: SNOWFLAKEID &
-      Prerequisite<{
-        method: "post";
-        path: "connector/discord/get-current-user-guilds";
-        jmesPath: "[].{value:id, label:name}";
-      }>;
-
     /**
      * 차단할 멤버를 선택해주세요.
      *
      * @title 멤버
      */
-    userId: SNOWFLAKEID &
+    userId: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-list-guild-members";
@@ -593,7 +483,7 @@ export namespace IDiscord {
   /**
    * @title 채널을 수정하기 위해 필요한 정보
    */
-  export interface IModifyChannelRequest extends ISecret {
+  export interface IModifyChannelRequest {
     /**
      * 수정할 채널 이름을 입력해주세요.
      *
@@ -606,7 +496,7 @@ export namespace IDiscord {
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-guild-channels";
@@ -617,13 +507,13 @@ export namespace IDiscord {
   /**
    * @title 채널을 삭제하기 위해 필요한 정보
    */
-  export interface IDeleteChannelRequest extends ISecret {
+  export interface IDeleteChannelRequest {
     /**
      * 삭제할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-guild-channels";
@@ -635,8 +525,8 @@ export namespace IDiscord {
    * @title 메세지 정보
    */
   export interface IMessage {
-    id: SNOWFLAKEID;
-    channel_id: SNOWFLAKEID;
+    id: string;
+    channel_id: string;
     author: IUser;
     content: string;
     timestamp: string & tags.Format<"date-time">;
@@ -673,14 +563,14 @@ export namespace IDiscord {
   }
 
   export interface IChannelMention {
-    id: SNOWFLAKEID;
-    guild_id: SNOWFLAKEID;
+    id: string;
+    guild_id: string;
     type: Channel;
     name: string;
   }
 
   export interface IAttachment {
-    id: SNOWFLAKEID;
+    id: string;
     filename: string;
     title?: string;
     description?: string;
@@ -780,7 +670,7 @@ export namespace IDiscord {
   }
 
   // export interface IMessageApplication {
-  //   id: SNOWFLAKEID;
+  //   id: string;
   //   name: string;
   //   icon: string | null;
   //   description: string;
@@ -811,15 +701,15 @@ export namespace IDiscord {
 
   // export interface ITeam {
   //   icon: string | null;
-  //   id: SNOWFLAKEID;
+  //   id: string;
   //   members: ITeamMember[];
   //   name: string;
-  //   owner_user_id: SNOWFLAKEID;
+  //   owner_user_id: string;
   // }
 
   // export interface ITeamMember {
   //   membership_state: number;
-  //   team_id: SNOWFLAKEID;
+  //   team_id: string;
   //   user: Partial<IUser>;
   //   role: string;
   // }
@@ -831,7 +721,7 @@ export namespace IDiscord {
 
   // export interface IMessageReference {
   //   type?: number;
-  //   message_id: SNOWFLAKEID;
+  //   message_id: string;
   //   channel_id?: string;
   //   guild_id?: string;
   //   fail_if_not_exists?: boolean;
@@ -842,7 +732,7 @@ export namespace IDiscord {
   // }
 
   // export interface IInteractionMetadata {
-  //   id: SNOWFLAKEID;
+  //   id: string;
   //   type:
   //     | tags.Constant<1, { title: "PING" }>
   //     | tags.Constant<2, { title: "APPLICATION_COMMAND" }>
@@ -868,13 +758,13 @@ export namespace IDiscord {
   //   | tags.Constant<8, { title: "Channel Select" }>;
 
   // export interface IMessageStickerItem {
-  //   id: SNOWFLAKEID;
+  //   id: string;
   //   name: string;
   //   format_type: number;
   // }
 
   // export interface IRoleSubscriptionData {
-  //   role_subscription_listing_id: SNOWFLAKEID;
+  //   role_subscription_listing_id: string;
   //   tier_name: string;
   //   total_months_subscribed: number;
   //   is_renewal: boolean;
@@ -927,13 +817,13 @@ export namespace IDiscord {
   /**
    * @title 고정된 메세지를 가져오기 위해 필요한 정보
    */
-  export interface IGetPinnedMessagesRequest extends ISecret {
+  export interface IGetPinnedMessagesRequest {
     /**
      * 고정된 메세지를 가져올 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-guild-channels";
@@ -944,13 +834,13 @@ export namespace IDiscord {
   /**
    * @title 메세지를 고정 또는 고정 해제하기 위해 필요한 정보
    */
-  export interface IPinOrUnpinMessagesRequest extends ISecret {
+  export interface IPinOrUnpinMessagesRequest {
     /**
      * 메세지를 고정 또는 고정 해제할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-guild-channels";
@@ -962,7 +852,7 @@ export namespace IDiscord {
      *
      * @title 메세지
      */
-    messageId: SNOWFLAKEID &
+    messageId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-channel-message-histories";
@@ -973,13 +863,13 @@ export namespace IDiscord {
   /**
    * @title 스레드에 참여하거나 나가기 위해 필요한 정보
    */
-  export interface IJoinOrLeaveThreadRequest extends ISecret {
+  export interface IJoinOrLeaveThreadRequest {
     /**
      * 스레드에 참여하거나 나가기 위한 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "connector/discord/get-guild-channels";
@@ -990,13 +880,13 @@ export namespace IDiscord {
   /**
    * @title 채널의 메세지 목록을 가져오기 위해 필요한 정보
    */
-  export interface IGetChannelMessageHistoriesRequest extends ISecret {
+  export interface IGetChannelMessageHistoriesRequest {
     /**
      * 메세지 목록을 가져올 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-guild-channels";
@@ -1007,13 +897,13 @@ export namespace IDiscord {
   /**
    * @title 메세지를 생성하기 위해 필요한 정보
    */
-  export interface ICreateMessageRequest extends ISecret {
+  export interface ICreateMessageRequest {
     /**
      * 메세지를 생성할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-guild-channels";
@@ -1031,13 +921,13 @@ export namespace IDiscord {
   /**
    * @title 공지 채널에서 다음 채널로 메세지를 교차 게시하기 위해 필요한 정보
    */
-  export interface ICrossPostMessageRequest extends ISecret {
+  export interface ICrossPostMessageRequest {
     /**
      * 메세지를 교차 게시할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-guild-channels";
@@ -1049,7 +939,7 @@ export namespace IDiscord {
      *
      * @title 교차 게시할 메세지
      */
-    messageId: SNOWFLAKEID &
+    messageId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-channel-message-histories";
@@ -1060,13 +950,13 @@ export namespace IDiscord {
   /**
    * @title 메세지 수정하기 위해 필요한 정보
    */
-  export interface IEditMessageRequest extends ISecret {
+  export interface IEditMessageRequest {
     /**
      * 메세지를 수정할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-guild-channels";
@@ -1078,7 +968,7 @@ export namespace IDiscord {
      *
      * @title 수정할 메세지
      */
-    messageId: SNOWFLAKEID &
+    messageId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-channel-message-histories";
@@ -1096,13 +986,13 @@ export namespace IDiscord {
   /**
    * @title 메세지 삭제하기 위해 필요한 정보
    */
-  export interface IDeleteMessageRequest extends ISecret {
+  export interface IDeleteMessageRequest {
     /**
      * 메세지를 삭제할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-guild-channels";
@@ -1114,7 +1004,7 @@ export namespace IDiscord {
      *
      * @title 삭제할 메세지
      */
-    messageId: SNOWFLAKEID &
+    messageId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-channel-message-histories";
@@ -1125,13 +1015,13 @@ export namespace IDiscord {
   /**
    * @title 여러 개의 메세지를 한꺼번에 삭제하기 위해 필요한 정보
    */
-  export interface IBulkDeleteMessagesRequest extends ISecret {
+  export interface IBulkDeleteMessagesRequest {
     /**
      * 메세지를 삭제할 채널을 선택해주세요.
      *
      * @title 채널
      */
-    channelId: SNOWFLAKEID &
+    channelId: string &
       Prerequisite<{
         method: "post";
         path: "/connector/discord/get-guild-channels";

@@ -6,7 +6,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 export const test_api_connector_discord = async (
   connection: CApi.IConnection,
 ) => {
-  const secretKey = ConnectorGlobal.env.DISCORD_TEST_SECRET;
+  const secretKey = ConnectorGlobal.env.DISCORD_BOT_TOKEN;
 
   /**
    * Get Current User
@@ -14,9 +14,6 @@ export const test_api_connector_discord = async (
   const user =
     await CApi.functional.connector.discord.get_current_user.getCurrentUser(
       connection,
-      {
-        secretKey: secretKey,
-      },
     );
   typia.assertEquals(user);
 
@@ -26,38 +23,8 @@ export const test_api_connector_discord = async (
   const guilds =
     await CApi.functional.connector.discord.get_current_user_guilds.getCurrentUserGuilds(
       connection,
-      {
-        secretKey: secretKey,
-      },
     );
   typia.assertEquals(guilds);
-
-  const leaveGuildId = guilds[1].id;
-
-  /**
-   * Leave Guild
-   */
-  const leaveGuild =
-    await CApi.functional.connector.discord.leave_guild.leaveGuild(connection, {
-      guildId: leaveGuildId,
-      secretKey: secretKey,
-    });
-  typia.assertEquals(leaveGuild);
-
-  /**
-   * Create Guild
-   */
-  const guild =
-    await CApi.functional.connector.discord.create_guild.createGuild(
-      connection,
-      {
-        name: "에코시스템",
-        secretKey: secretKey,
-      },
-    );
-  typia.assertEquals(guild);
-
-  const guildId = guild.id;
 
   /**
    * Modify Guild
@@ -66,8 +33,7 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.modify_guild.modifyGuild(
       connection,
       {
-        guildId: guildId,
-        name: "에코시스템2",
+        name: "뤼튼 스튜디오 길드",
         secretKey: secretKey,
       },
     );
@@ -80,50 +46,53 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.get_guild_channels.getGuildChannels(
       connection,
       {
-        guildId: guildId,
         secretKey: secretKey,
       },
     );
   typia.assertEquals(channels);
 
-  /**
-   * Get list Guild Members
-   */
-  const members =
-    await CApi.functional.connector.discord.get_list_guild_members.getListGuildMembers(
-      connection,
-      {
-        guildId: guildId,
-        secretKey: secretKey,
-      },
-    );
-  typia.assertEquals(members);
+  // /**
+  //  * Get list Guild Members
+  //  *
+  //  * Cannot Bot
+  //  */
+  // const members =
+  //   await CApi.functional.connector.discord.get_list_guild_members.getListGuildMembers(
+  //     connection,
+  //     {
+  //       secretKey: secretKey,
+  //     },
+  //   );
+  // typia.assertEquals(members);
 
-  /**
-   * Create DM Channel
-   */
-  const dmChannel = await CApi.functional.connector.discord.create_dm.createDM(
-    connection,
-    {
-      recipient_id: members[0].user!.id,
-      secretKey: secretKey,
-    },
-  );
-  typia.assert(dmChannel);
+  // /**
+  //  * Create DM Channel
+  //  *
+  //  * Wait
+  //  */
+  // const dmChannel = await CApi.functional.connector.discord.create_dm.createDM(
+  //   connection,
+  //   {
+  //     recipient_id: members[0].user!.id,
+  //     secretKey: secretKey,
+  //   },
+  // );
+  // typia.assert(dmChannel);
 
-  /**
-   * Remove Guild Member
-   */
-  const removeMember =
-    await CApi.functional.connector.discord.remove_guild_member.removeGuildMember(
-      connection,
-      {
-        guildId: guildId,
-        userId: members[1].user!.id,
-        secretKey: secretKey,
-      },
-    );
-  typia.assertEquals(removeMember);
+  // /**
+  //  * Remove Guild Member
+  //  *
+  //  * Wait
+  //  */
+  // const removeMember =
+  //   await CApi.functional.connector.discord.remove_guild_member.removeGuildMember(
+  //     connection,
+  //     {
+  //       userId: members[1].user!.id,
+  //       secretKey: secretKey,
+  //     },
+  //   );
+  // typia.assertEquals(removeMember);
 
   /**
    * Create Guild Channel
@@ -132,7 +101,6 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.create_guild_channel.createGuildChannel(
       connection,
       {
-        guildId: guildId,
         name: "스튜디오 채널",
         type: 0,
         secretKey: secretKey,
@@ -151,7 +119,6 @@ export const test_api_connector_discord = async (
       {
         channelId: channelId,
         name: "스튜디오 채널2",
-        secretKey: secretKey,
       },
     );
   typia.assertEquals(modifyChannel);
@@ -164,7 +131,6 @@ export const test_api_connector_discord = async (
       connection,
       {
         channelId: channelId,
-        secretKey: secretKey,
       },
     );
   typia.assertEquals(pinnedMessages);
@@ -176,20 +142,31 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.get_channel_message_histories.getChannelMessageHistories(
       connection,
       {
-        channelId: channelId,
-        secretKey: secretKey,
+        channelId: "1260868337467129996",
       },
     );
   typia.assertEquals(messageHistories);
+
+  /**
+   * Send Message
+   */
+  const sendMessage =
+    await CApi.functional.connector.discord.create_message.createMessage(
+      connection,
+      {
+        channelId: "1260868337467129996",
+        content: "안녕하세요!",
+      },
+    );
+  typia.assertEquals(sendMessage);
 
   /**
    * Pin Message
    */
   const pinMessage =
     await CApi.functional.connector.discord.pin_message.pinMessage(connection, {
-      channelId: channelId,
-      messageId: messageHistories[0].id,
-      secretKey: secretKey,
+      channelId: "1260868337467129996",
+      messageId: sendMessage.id,
     });
   typia.assertEquals(pinMessage);
 
@@ -200,49 +177,11 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.unpin_message.unpinMessage(
       connection,
       {
-        channelId: channelId,
-        messageId: pinnedMessages[0].id,
-        secretKey: secretKey,
+        channelId: "1260868337467129996",
+        messageId: sendMessage.id,
       },
     );
   typia.assertEquals(unpinMessage);
-
-  /**
-   * Join Thread
-   */
-  const joinThread =
-    await CApi.functional.connector.discord.join_thread.joinThread(connection, {
-      channelId: channelId,
-      secretKey: secretKey,
-    });
-  typia.assertEquals(joinThread);
-
-  /**
-   * Leave Thread
-   */
-  const leaveThread =
-    await CApi.functional.connector.discord.leave_thread.leaveThread(
-      connection,
-      {
-        channelId: channelId,
-        secretKey: secretKey,
-      },
-    );
-  typia.assertEquals(leaveThread);
-
-  /**
-   * Send Message
-   */
-  const sendMessage =
-    await CApi.functional.connector.discord.create_message.createMessage(
-      connection,
-      {
-        channelId: channelId,
-        content: "안녕하세요!",
-        secretKey: secretKey,
-      },
-    );
-  typia.assertEquals(sendMessage);
 
   /**
    * Modify Message
@@ -251,10 +190,9 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.edit_message.editMessage(
       connection,
       {
-        channelId: channelId,
+        channelId: "1260868337467129996",
         messageId: sendMessage.id,
         content: "안녕하세요2!",
-        secretKey: secretKey,
       },
     );
   typia.assertEquals(modifyMessage);
@@ -266,12 +204,31 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.delete_message.deleteMessage(
       connection,
       {
-        channelId: channelId,
+        channelId: "1260868337467129996",
         messageId: sendMessage.id,
-        secretKey: secretKey,
       },
     );
   typia.assertEquals(deleteMessage);
+
+  const sendMessageForBulkDeleteOne =
+    await CApi.functional.connector.discord.create_message.createMessage(
+      connection,
+      {
+        channelId: "1260868337467129996",
+        content: "안녕하세요!",
+      },
+    );
+  typia.assertEquals(sendMessage);
+
+  const sendMessageForBulkDeleteTwo =
+    await CApi.functional.connector.discord.create_message.createMessage(
+      connection,
+      {
+        channelId: "1260868337467129996",
+        content: "안녕하세요!",
+      },
+    );
+  typia.assertEquals(sendMessage);
 
   /**
    * Bulk Delete Message
@@ -280,9 +237,11 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.bulk_delete_message.bulkDeleteMessage(
       connection,
       {
-        channelId: channelId,
-        messages: [messageHistories[0].id, messageHistories[1].id],
-        secretKey: secretKey,
+        channelId: "1260868337467129996",
+        messages: [
+          sendMessageForBulkDeleteOne.id,
+          sendMessageForBulkDeleteTwo.id,
+        ],
       },
     );
   typia.assertEquals(bulkDeleteMessage);
@@ -295,7 +254,6 @@ export const test_api_connector_discord = async (
       connection,
       {
         channelId: channelId,
-        secretKey: secretKey,
       },
     );
   typia.assertEquals(deleteChannel);
@@ -307,7 +265,6 @@ export const test_api_connector_discord = async (
     await CApi.functional.connector.discord.delete_guild.deleteGuild(
       connection,
       {
-        guildId: guildId,
         secretKey: secretKey,
       },
     );

@@ -1,22 +1,17 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import qs from "qs";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class DiscordProvider {
-  /**
-   * User
-   */
-  async getCurrentUser(input: IDiscord.ISecret): Promise<IDiscord.IUser> {
+  async getCurrentUser(): Promise<IDiscord.IUser> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.get("https://discord.com/api/v10/users/@me", {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
         },
       });
 
@@ -27,20 +22,16 @@ export class DiscordProvider {
     }
   }
 
-  async getCurrentUserGuilds(
-    input: IDiscord.ISecret,
-  ): Promise<IDiscord.IGuild[]> {
+  async getCurrentUserGuilds(): Promise<IDiscord.IGuild[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.get(
         "https://discord.com/api/v10/users/@me/guilds",
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
-
       return res.data;
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -48,17 +39,37 @@ export class DiscordProvider {
     }
   }
 
-  async leaveGuild(input: IDiscord.ILeaveGuildRequest): Promise<void> {
+  // async leaveGuild(input: IDiscord.ISecret): Promise<void> {
+  //   try {
+  //     const guildId = await this.getGuildInfo(input.secretKey);
+  //     await axios.delete(
+  //       `https://discord.com/api/v10/users/@me/guilds/1281201809578528811`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
+  //         },
+  //       },
+  //     );
+  //   } catch (err) {
+  //     console.error(JSON.stringify(err));
+  //     throw err;
+  //   }
+  // }
+
+  async getListGuildMembers(
+    input: IDiscord.ISecret,
+  ): Promise<IDiscord.IGuildMember[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
-      await axios.delete(
-        `https://discord.com/api/v10/users/@me/guilds/${input.guildId}`,
+      const guildId = await this.getGuildInfo(input.secretKey);
+      const res = await axios.get(
+        `https://discord.com/api/v10/guilds/${guildId}/members`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
+      return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -67,7 +78,6 @@ export class DiscordProvider {
 
   async createDM(input: IDiscord.ICreateDMRequest): Promise<IDiscord.IChannel> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.post(
         "https://discord.com/api/v10/users/@me/channels",
         {
@@ -75,37 +85,11 @@ export class DiscordProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
 
-      return res.data;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  /**
-   * Guild
-   */
-  async createGuild(
-    input: IDiscord.ICreateGuildRequest,
-  ): Promise<IDiscord.IGuild> {
-    try {
-      const accessToken = await this.refresh(input.secretKey);
-      const res = await axios.post(
-        "https://discord.com/api/v10/guilds",
-        {
-          name: input.name,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
       return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -117,15 +101,15 @@ export class DiscordProvider {
     input: IDiscord.IModifyGuildRequest,
   ): Promise<IDiscord.IGuild> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const guildId = await this.getGuildInfo(input.secretKey);
       const res = await axios.patch(
-        `https://discord.com/api/v10/guilds/${input.guildId}`,
+        `https://discord.com/api/v10/guilds/${guildId}`,
         {
           name: input.name,
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -136,14 +120,14 @@ export class DiscordProvider {
     }
   }
 
-  async deleteGuild(input: IDiscord.IDeleteGuildRequest): Promise<void> {
+  async deleteGuild(input: IDiscord.ISecret): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const guildId = await this.getGuildInfo(input.secretKey);
       await axios.delete(
-        `https://discord.com/api/v10/guilds/${input.guildId}`,
+        `https://discord.com/api/v10/guilds/1275707378272047104`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -154,15 +138,15 @@ export class DiscordProvider {
   }
 
   async getGuildChannels(
-    input: IDiscord.IGetGuildChannelsRequest,
+    input: IDiscord.ISecret,
   ): Promise<IDiscord.IChannel[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const guildId = await this.getGuildInfo(input.secretKey);
       const res = await axios.get(
-        `https://discord.com/api/v10/guilds/${input.guildId}/channels`,
+        `https://discord.com/api/v10/guilds/${guildId}/channels`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -177,9 +161,9 @@ export class DiscordProvider {
     input: IDiscord.ICreateGuildChannelRequest,
   ): Promise<IDiscord.IChannel> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const guildId = await this.getGuildInfo(input.secretKey);
       const res = await axios.post(
-        `https://discord.com/api/v10/guilds/${input.guildId}/channels`,
+        `https://discord.com/api/v10/guilds/${guildId}/channels`,
         {
           name: input.name,
           type: input.type,
@@ -187,27 +171,7 @@ export class DiscordProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-      return res.data;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async getListGuildMembers(
-    input: IDiscord.IGetListGuildMembersRequest,
-  ): Promise<IDiscord.IGuildMember[]> {
-    try {
-      const accessToken = await this.refresh(input.secretKey);
-      const res = await axios.get(
-        `https://discord.com/api/v10/guilds/${input.guildId}/members`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -220,12 +184,12 @@ export class DiscordProvider {
 
   async removeGuildMember(input: IDiscord.IRemoveGuildMember): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const guildId = await this.getGuildInfo(input.secretKey);
       await axios.delete(
-        `https://discord.com/api/v10/guilds/${input.guildId}/members/${input.userId}`,
+        `https://discord.com/api/v10/guilds/${guildId}/members/${input.userId}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -242,7 +206,6 @@ export class DiscordProvider {
     input: IDiscord.IModifyChannelRequest,
   ): Promise<IDiscord.IChannel> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.patch(
         `https://discord.com/api/v10/channels/${input.channelId}`,
         {
@@ -250,7 +213,7 @@ export class DiscordProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -263,12 +226,11 @@ export class DiscordProvider {
 
   async deleteChannel(input: IDiscord.IDeleteChannelRequest): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       await axios.delete(
         `https://discord.com/api/v10/channels/${input.channelId}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -282,12 +244,11 @@ export class DiscordProvider {
     input: IDiscord.IGetPinnedMessagesRequest,
   ): Promise<IDiscord.IMessage[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.get(
         `https://discord.com/api/v10/channels/${input.channelId}/pins`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -300,13 +261,12 @@ export class DiscordProvider {
 
   async pinMessage(input: IDiscord.IPinOrUnpinMessagesRequest): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       await axios.put(
         `https://discord.com/api/v10/channels/${input.channelId}/pins/${input.messageId}`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -320,47 +280,11 @@ export class DiscordProvider {
     input: IDiscord.IPinOrUnpinMessagesRequest,
   ): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       await axios.delete(
         `https://discord.com/api/v10/channels/${input.channelId}/pins/${input.messageId}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async joinThread(input: IDiscord.IJoinOrLeaveThreadRequest): Promise<void> {
-    try {
-      const accessToken = await this.refresh(input.secretKey);
-      await axios.put(
-        `https://discord.com/api/v10/channels/${input.channelId}/thread-members/@me`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async leaveThread(input: IDiscord.IJoinOrLeaveThreadRequest): Promise<void> {
-    try {
-      const accessToken = await this.refresh(input.secretKey);
-      await axios.delete(
-        `https://discord.com/api/v10/channels/${input.channelId}/thread-members/@me`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -377,12 +301,11 @@ export class DiscordProvider {
     input: IDiscord.IGetChannelMessageHistoriesRequest,
   ): Promise<IDiscord.IMessage[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.get(
-        `https://discord.com/api/v10/channels/${input.channelId}/messages`,
+        `https://discord.com/api/v10/channels/1260868337467129996/messages`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -397,7 +320,6 @@ export class DiscordProvider {
     input: IDiscord.ICreateMessageRequest,
   ): Promise<IDiscord.IMessage> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.post(
         `https://discord.com/api/v10/channels/${input.channelId}/messages`,
         {
@@ -405,7 +327,7 @@ export class DiscordProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -420,13 +342,12 @@ export class DiscordProvider {
     input: IDiscord.ICrossPostMessageRequest,
   ): Promise<IDiscord.IMessage> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.post(
         `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}/crosspost`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -441,7 +362,6 @@ export class DiscordProvider {
     input: IDiscord.IEditMessageRequest,
   ): Promise<IDiscord.IMessage> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       const res = await axios.patch(
         `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}`,
         {
@@ -449,7 +369,7 @@ export class DiscordProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -462,12 +382,11 @@ export class DiscordProvider {
 
   async deleteMessage(input: IDiscord.IDeleteMessageRequest): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       await axios.delete(
         `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -481,7 +400,6 @@ export class DiscordProvider {
     input: IDiscord.IBulkDeleteMessagesRequest,
   ): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
       await axios.post(
         `https://discord.com/api/v10/channels/${input.channelId}/messages/bulk-delete`,
         {
@@ -489,7 +407,7 @@ export class DiscordProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
           },
         },
       );
@@ -499,39 +417,18 @@ export class DiscordProvider {
     }
   }
 
-  private async refresh(secretValue: string): Promise<string> {
+  /**
+   * Discord's OAuth Bot user 사용.
+   * guild 정보를 secret으로 받아옴.
+   */
+  private async getGuildInfo(secretValue: string): Promise<string> {
     try {
       const secret = await OAuthSecretProvider.getSecretValue(secretValue);
-      const refreshToken =
+      const guildId =
         typeof secret === "string"
           ? secret
           : (secret as IOAuthSecret.ISecretValue).value;
-      const res = await axios.post(
-        "https://discord.com/api/v10/oauth2/token",
-        qs.stringify({
-          client_id: ConnectorGlobal.env.DISCORD_CLIENT_ID,
-          client_secret: ConnectorGlobal.env.DISCORD_CLIENT_SECRET,
-          refresh_token: refreshToken,
-          grant_type: "refresh_token",
-        }),
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        },
-      );
-
-      /**
-       * Refresh Token이 일회용이므로 값 업데이트
-       */
-      await OAuthSecretProvider.updateSecretValue(
-        (secret as IOAuthSecret.ISecretValue).id,
-        {
-          value: res.data.refresh_token,
-        },
-      );
-
-      return res.data.access_token;
+      return "1260868337467129989";
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
