@@ -11,6 +11,25 @@ export namespace ILH {
     extends IOpenData.ICommon.IPaginationInput {
     /**
      * @title 지역 코드
+     *
+     * It can be one of this numbers:
+     * - 11: 서울특별시
+     * - 26: 부산광역시
+     * - 27: 대구광역시
+     * - 28: 인천광역시
+     * - 29: 광주광역시
+     * - 30: 대전광역시
+     * - 31: 울산광역시
+     * - 36110: 세종특별자치시
+     * - 41: 경기도
+     * - 42: 강원도
+     * - 43: 충청북도
+     * - 44: 충청남도
+     * - 45: 전라북도
+     * - 46: 전라남도
+     * - 47: 경상북도
+     * - 48: 경상남도
+     * - 50: 제주특별자치도
      */
     CNP_CD:
       | tags.Constant<11, { title: "서울특별시" }>
@@ -33,6 +52,15 @@ export namespace ILH {
 
     /**
      * @title 공급유형코드
+     *
+     * It can be one of this numbers:
+     * - 07: 국민임대
+     * - 08: 공공임대
+     * - 09: 영구임대
+     * - 10: 행복주택
+     * - 11: 장기전세
+     * - 13: 매입임대
+     * - 17: 전세임대
      */
     SPL_TP_CD?:
       | tags.Constant<"07", { title: "국민임대" }>

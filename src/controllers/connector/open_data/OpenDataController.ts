@@ -113,7 +113,8 @@ export class OpenDataController {
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
-   * Please be aware of this.
+   * The types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.
+   * In addition, you can inquire by city, county, and region(=시도군)
    *
    * @summary Retrieve LH rental housing information
    * @param input Conditions for querying rental housing
