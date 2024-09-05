@@ -749,9 +749,10 @@ export namespace IGithub {
     title: string;
 
     /**
-     * @title bodt of this issue
+     * @title body of this issue
      *
      * It can be markdown format
+     * If you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is.
      */
     body?: string;
 

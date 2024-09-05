@@ -1,6 +1,5 @@
 import core, { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
@@ -23,19 +22,15 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * You need to look up the city, county, and district code first.
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
    * @summary Retrieve multi-family lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
-  )
-  @ApiTags(
-    "Housing",
-    "Single-Family Homes",
-    "Multi-Family Homes",
-    "Rent",
-    "Lease",
   )
   @TypedRoute.Post("getRTMSDataSvcSHRent")
   async getRTMSDataSvcSHRent(
@@ -50,6 +45,9 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * You need to look up the city, county, and district code first.
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
    * @summary Retrieve officetel lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
@@ -57,7 +55,6 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("Housing", "Officetel", "Rent", "Lease")
   @TypedRoute.Post("getRTMSDataSvcOffiRent")
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
@@ -71,6 +68,9 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * You need to look up the city, county, and district code first.
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
    * @summary Retrieve apartment lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
@@ -79,7 +79,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "Housing", "Apartment", "Rent", "Lease")
   @TypedRoute.Post("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
@@ -101,7 +100,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "LH", "Housing", "Rental Housing", "Happy Housing")
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
@@ -123,7 +121,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "Parking Lot", "Parking")
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
@@ -144,12 +141,6 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags(
-    "Public Data",
-    "Building",
-    "Building Information",
-    "Earthquake Design",
-  )
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
@@ -164,6 +155,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   * Public data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,
+   * may all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).
+   * In this case, this connector call must be preceded.
    *
    * @summary Retrieve administrative standard codes
    * @param input Conditions for querying regions
@@ -173,14 +167,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags(
-    "Public Data",
-    "Administrative District",
-    "Region Code",
-    "Township",
-    "City",
-    "County",
-  )
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
     @TypedBody()
@@ -204,13 +190,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags(
-    "Public Data",
-    "Stock",
-    "Market Capitalization",
-    "Company",
-    "Capital",
-  )
   @TypedRoute.Post("getStockPriceInfo")
   async getStockPriceInfo(
     @TypedBody()
@@ -267,7 +246,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "Weather", "KMA", "Today’s Weather", "Climate")
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()
@@ -293,7 +271,6 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Copyright")
   @core.TypedRoute.Post("getCopyRight")
   async getCopyRight(
     @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
