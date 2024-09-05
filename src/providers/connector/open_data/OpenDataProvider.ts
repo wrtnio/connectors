@@ -9,7 +9,9 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
+import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { getOffset } from "../../../utils/getOffset";
 import type { Rename } from "../../../utils/types/Rename";
 
@@ -28,6 +30,16 @@ export namespace OpenDataProvider {
     }
 
     return { response, nextPage };
+  }
+
+  export async function getAddress(
+    input: IMSIT.IGetAddressInput,
+  ): Promise<any> {
+    const baseUrl = `http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdService/retrieveNewAdressAreaCdService/getNewAddressListAreaCd`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+    const queryString = createQueryParameter({ ...input, serviceKey });
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    return res.data;
   }
 
   export async function getRTMSDataSvcSHRent(
