@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.170",
+    "version": "0.1.171",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9650,7 +9650,7 @@
     "/connector/slack/get-channel-histories": {
       "post": {
         "summary": "get channel histories in slack",
-        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <USERNAME>.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -24026,7 +24026,7 @@
             "type": "string",
             "maxLength": 120,
             "x-wrtn-placeholder": "Samsung Electronics",
-            "title": "Keyword for stock name search"
+            "title": "Keyword for stock name search\n\nSearch is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
           },
           "basDt": {
             "type": "string",
@@ -24053,7 +24053,7 @@
             "type": "string",
             "maxLength": 120,
             "x-wrtn-placeholder": "Samsung Electronics",
-            "title": "Keyword for stock name search"
+            "title": "Keyword for stock name search\n\nSearch is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
           },
           "beginBasDt": {
             "type": "string",
