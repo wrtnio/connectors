@@ -10,6 +10,7 @@ import {
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
 import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
+import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { getOffset } from "../../../utils/getOffset";
@@ -342,13 +343,21 @@ export namespace OpenDataProvider {
       const baseUrl = `https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
 
-      const queryString = Object.entries({
-        ...input,
+      // 형식에 안맞는 date format일 경우 공공 데이터 포맷에 맞게 변형
+      const is = typia.createIs<string & tags.Format<"date">>();
+
+      const transformedInput = Object.entries(input)
+        .map((el) => (is(el) ? el.replaceAll("-", "") : el))
+        .reduce((acc, [key, value]) => {
+          acc = Object.assign({ [key]: value });
+          return acc;
+        }, {});
+
+      const queryString = createQueryParameter({
+        ...transformedInput,
         serviceKey,
         resultType: "json",
-      })
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+      });
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
       return res.data;

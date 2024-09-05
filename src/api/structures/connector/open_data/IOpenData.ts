@@ -160,20 +160,23 @@ export namespace IOpenData {
         | {
             /**
              * @title Base date
-             * @description Searches for data matching the search value and base date
+             * Searches for data matching the search value and base date
+             * YYYYMMDD format date string.
              */
             basDt?: string & Placeholder<"20220919">;
           }
         | {
             /**
              * @title Start date (inclusive)
-             * @description Searches for data where the base date is greater than or equal to the search value
+             * Searches for data where the base date is greater than or equal to the search value
+             * YYYYMMDD format date string.
              */
             beginBasDt?: string & Placeholder<"20220919">;
 
             /**
              * @title End date (exclusive)
-             * @description Searches for data where the base date is less than the search value
+             * Searches for data where the base date is less than the search value
+             * YYYYMMDD format date string.
              */
             endBasDt?: string & Placeholder<"20220919">;
           }
