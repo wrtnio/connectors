@@ -55,6 +55,7 @@ export class SlackProvider {
         },
       );
 
+      const { url: workspaceUrl } = await this.authTest(input);
       const next_cursor = res.data.response_metadata?.next_cursor;
       const scheduled_messages = res.data.scheduled_messages.map(
         (
@@ -338,6 +339,8 @@ export class SlackProvider {
     });
 
     const token = await this.getToken(secretKey);
+
+    const { url: workspaceUrl } = await this.authTest(input);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -345,29 +348,36 @@ export class SlackProvider {
       },
     });
 
+    const allMembers = await this.getAllUsers(input);
+
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.Message[] = res.data.messages.map(
       (message: ISlack.Message): ISlack.Message => {
         const timestamp = this.transformTsToTimestamp(message.ts);
+        const text = message.text
+          .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
+          .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
+          .replaceAll(/\n/gs, " ")
+          .replace(/@(\w+)/g, (_, id) => {
+            const member = allMembers.find((member) => member.id === id);
+            return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
+          });
 
         return {
           type: message.type,
           user: message.user ?? null,
-          text: message.text
-            .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
-            .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
-            .replaceAll(/\n/gs, " "),
+          text: text,
           ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
           reply_users_count: message?.reply_users_count ?? 0,
           ts_date: new Date(timestamp).toISOString(),
+          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
           ...(message.attachments && { attachments: message.attachments }),
         };
       },
     );
 
-    const allMembers = await this.getAllUsers(input);
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
@@ -379,7 +389,11 @@ export class SlackProvider {
       })
       .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
 
-    return { messages, next_cursor: next_cursor ? next_cursor : null, members }; // next_cursor가 빈 문자인 경우 대비
+    return {
+      messages,
+      next_cursor: next_cursor ? next_cursor : null,
+      members,
+    }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getPrivateChannels(

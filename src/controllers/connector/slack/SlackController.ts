@@ -225,6 +225,7 @@ export class SlackController {
    * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
    *
    * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
+   * For users, it is replaced by a user name, Like <USERNAME>.
    *
    * If you want to filter by date, prioritize using the datetime format.
    *

@@ -1955,7 +1955,7 @@ export namespace IJira {
            *
            * Color can be expressed using symbols('#') and RGB values.
            */
-          color: `#${string}`;
+          color: string & tags.Pattern<"^#([0-9A-Fa-f]{6})$">;
         };
       }
     | {
