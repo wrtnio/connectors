@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.174",
+    "version": "0.1.175",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9709,7 +9709,7 @@
     "/connector/slack/get-private-channels": {
       "post": {
         "summary": "get private channels in slack",
-        "description": "get private channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.",
+        "description": "get private channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.\n\nIf you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -22374,7 +22374,7 @@
                 "type": "number"
               }
             ],
-            "title": "보증금액"
+            "title": "보증금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
           },
           "month": {
             "oneOf": [
@@ -22398,7 +22398,7 @@
                 "type": "integer"
               }
             ],
-            "title": "월세금액"
+            "title": "월세금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
           },
           "day": {
             "oneOf": [
@@ -22724,7 +22724,7 @@
                 "type": "number"
               }
             ],
-            "title": "보증금액"
+            "title": "보증금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
           },
           "apartment": {
             "type": "string",
@@ -22752,7 +22752,7 @@
                 "type": "integer"
               }
             ],
-            "title": "월세금액"
+            "title": "월세금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
           },
           "day": {
             "oneOf": [
