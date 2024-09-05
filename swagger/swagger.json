@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.173",
+    "version": "0.1.174",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -5557,7 +5557,7 @@
     "/connector/open-data/getLHLeaseInfo": {
       "post": {
         "summary": "Retrieve LH rental housing information",
-        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -23017,7 +23017,7 @@
                 "title": "세종특별자치시"
               }
             ],
-            "title": "지역 코드"
+            "title": "지역 코드\n\nIt can be one of this numbers:\n- 11: 서울특별시\n- 26: 부산광역시\n- 27: 대구광역시\n- 28: 인천광역시\n- 29: 광주광역시\n- 30: 대전광역시\n- 31: 울산광역시\n- 36110: 세종특별자치시\n- 41: 경기도\n- 42: 강원도\n- 43: 충청북도\n- 44: 충청남도\n- 45: 전라북도\n- 46: 전라남도\n- 47: 경상북도\n- 48: 경상남도\n- 50: 제주특별자치도"
           },
           "SPL_TP_CD": {
             "oneOf": [
@@ -23050,7 +23050,7 @@
                 "title": "전세임대"
               }
             ],
-            "title": "공급유형코드"
+            "title": "공급유형코드\n\nIt can be one of this numbers:\n- 07: 국민임대\n- 08: 공공임대\n- 09: 영구임대\n- 10: 행복주택\n- 11: 장기전세\n- 13: 매입임대\n- 17: 전세임대"
           },
           "numOfRows": {
             "type": "integer",
