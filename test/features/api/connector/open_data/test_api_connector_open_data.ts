@@ -364,6 +364,34 @@ export const test_api_connector_open_data_get_copy_right = async (
   typia.assertEquals(res);
 };
 
+export const test_api_connector_open_data_get_copy_right_with_author_name_1 =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getCopyRight(
+      connection,
+      {
+        AUTHOR_NAME: "이지은",
+        page: 1,
+        perPage: 100,
+      },
+    );
+
+    typia.assertEquals(res);
+  };
+
+export const test_api_connector_open_data_get_copy_right_with_author_name_2 =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getCopyRight(
+      connection,
+      {
+        AUTHOR_NAME: "이지은",
+        page: 2,
+        perPage: 100,
+      },
+    );
+
+    typia.assertEquals(res);
+  };
+
 export const test_api_connector_open_data_get_RTMS_Data_svc_sh_rent = async (
   connection: CApi.IConnection,
 ) => {
