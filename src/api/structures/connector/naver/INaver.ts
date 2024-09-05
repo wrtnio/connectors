@@ -1,14 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 
-/**
- * - sim: 정확도순 내림차수 정렬 (default).
- * - date: 날짜순 내림차수 정렬.
- *
- * @title 정렬 기준
- */
-type Sort = "sim" | "date";
-
 export namespace INaver {
   /**
    * @title 검색 조건
@@ -48,11 +40,24 @@ export namespace INaver {
       Placeholder<"10">;
 
     /**
-     * 검색 결과를 어떤 기준으로 정렬할 것인지 설정합니다.
+     * 어떤 방법으로 정렬할지를 의미합니다.
      *
-     * @title 검색 결과 정렬 방법
+     * - sim: 정확도순 내림차수 정렬 (default).
+     * - date: 날짜순 내림차수 정렬.
+     *
+     * @title 정렬 기준
      */
-    sort?: Sort & Placeholder<"sim">;
+    sort?: (
+      | tags.Constant<
+          "sim",
+          { title: "sim"; description: "정확도 순 내림착순 정렬" }
+        >
+      | tags.Constant<
+          "date",
+          { title: "date"; description: "날짜순 내림차수 정렬" }
+        >
+    ) &
+      Placeholder<"sim">;
   }
 
   /**
