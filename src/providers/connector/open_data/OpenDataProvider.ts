@@ -39,6 +39,7 @@ export namespace OpenDataProvider {
     const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
     const queryString = createQueryParameter({ ...input, serviceKey });
     const res = await axios.get(`${baseUrl}?${queryString}`);
+    console.log(res.data);
     return res.data;
   }
 

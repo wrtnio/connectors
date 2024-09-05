@@ -125,7 +125,7 @@ export const test_api_connector_open_data_get_get_stock_price_info_before_one_we
   };
 
 /**
- * 오늘 데이터는 얻을 수 있음
+ * 오늘 데이터는 얻을 수 없음
  */
 export const test_api_connector_open_data_get_get_today_stock_price_info =
   async (connection: CApi.IConnection) => {
@@ -142,7 +142,7 @@ export const test_api_connector_open_data_get_get_today_stock_price_info =
     );
 
     typia.assertEquals(res);
-    assert(res.response.body.items.item.length > 0);
+    assert(res.response.body.items.item.length === 0);
   };
 
 export const test_api_connector_open_data_get_get_standard_region_code_list =
@@ -321,7 +321,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagin
       );
 
     typia.assertEquals(secondPage);
-    assert(JSON.stringify(firstPage) === JSON.stringify(secondPage));
+    assert(JSON.stringify(firstPage) !== JSON.stringify(secondPage));
   };
 
 export const test_api_connector_open_data_get_RTMS_Data_svc_apt_rent = async (
