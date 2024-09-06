@@ -27,11 +27,15 @@ export namespace KoreaCopyrightCommission {
 
     /**
      * @title 제호(명칭)
+     *
+     * 제호란 저작물의 명칭을 의미하는 말입니다.
      */
     CONT_TITLE?: string & Placeholder<"제호 (명칭)">;
 
     /**
-     * @title 저작권 이름
+     * @title 저작권자 이름
+     *
+     * 이는 저작권자의 이름을 의미합니다. 사람의 이름일 수도 있고 기업이나 특정 단체의 이름일 수도 있습니다.
      */
     AUTHOR_NAME?: string & Placeholder<"저작자 이름">;
   }

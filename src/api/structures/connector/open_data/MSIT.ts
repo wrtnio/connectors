@@ -32,29 +32,29 @@ export namespace IMSIT {
          */
         errMsg?: string;
       };
+
+      /**
+       * @title 주소 데이터
+       *
+       * 데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다.
+       */
+      newAddressListAreaCd?: {
+        /**
+         * @title 우편 주소
+         */
+        zipNo: string;
+
+        /**
+         * @title 지번 주소
+         */
+        lnmAdres: string;
+
+        /**
+         * @title 도로명 주소
+         */
+        rnAdres: string;
+      }[];
     };
-
-    /**
-     * @title 주소 데이터
-     *
-     * 데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다.
-     */
-    newAddressListAreaCd?: {
-      /**
-       * @title 우편 주소
-       */
-      zipNo: string;
-
-      /**
-       * @title 지번 주소
-       */
-      lnmAdres: string;
-
-      /**
-       * @title 도로명 주소
-       */
-      rnAdres: string;
-    }[];
   }
 
   export interface IGetAddressInput {

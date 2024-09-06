@@ -42,7 +42,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * You need to look up the city, county, and district code first.
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
@@ -68,7 +68,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * You need to look up the city, county, and district code first.
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
@@ -94,7 +94,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * You need to look up the city, county, and district code first.
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
@@ -124,6 +124,8 @@ export class OpenDataController {
    * Since this is Korean public data, most searches may have to be done in Korean.
    * The types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.
    * In addition, you can inquire by city, county, and region(=시도군)
+   *
+   * In the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.
    *
    * @summary Retrieve LH rental housing information
    * @param input Conditions for querying rental housing
@@ -169,6 +171,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
    * Please be aware of this.
@@ -308,6 +313,8 @@ export class OpenDataController {
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
    * Please be aware of this.
+   *
+   * - 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.
    *
    * @summary [Copyright Registration Information Service (New)]
    * @param input Conditions for querying copyright
