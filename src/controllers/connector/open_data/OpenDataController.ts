@@ -17,6 +17,15 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/open-data")
 export class OpenDataController {
+  /**
+   * 대한민국 주소 체계를 조회합니다
+   *
+   * - 우편주소를 넣을 경우 지번 주소와 도로명 주소로 변환할 수 있습니다.
+   *
+   * @summary 대한민국 주소 체계를 조회합니다
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -24,7 +33,7 @@ export class OpenDataController {
   async getAddress(
     @TypedBody() input: IMSIT.IGetAddressInput,
   ): Promise<IMSIT.IGetAddressOutput> {
-    return retry(() => OpenDataProvider.getAddress(input), 20)();
+    return retry(() => OpenDataProvider.getAddress(input))();
   }
 
   /**
@@ -50,7 +59,7 @@ export class OpenDataController {
   async getRTMSDataSvcSHRent(
     @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
   ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
-    return retry(() => OpenDataProvider.getRTMSDataSvcSHRent(input), 20)();
+    return retry(() => OpenDataProvider.getRTMSDataSvcSHRent(input))();
   }
 
   /**
@@ -76,7 +85,7 @@ export class OpenDataController {
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
-    return retry(() => OpenDataProvider.getRTMSDataSvcOffiRent(input), 20)();
+    return retry(() => OpenDataProvider.getRTMSDataSvcOffiRent(input))();
   }
 
   /**
@@ -103,7 +112,7 @@ export class OpenDataController {
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
-    return retry(() => OpenDataProvider.getRTMSDataSvcAptRent(input), 20)();
+    return retry(() => OpenDataProvider.getRTMSDataSvcAptRent(input))();
   }
 
   /**
@@ -128,7 +137,7 @@ export class OpenDataController {
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
   ): Promise<ILH.IGetLHLeaseInfoOutput> {
-    return retry(() => OpenDataProvider.getLHLeaseInfo(input), 20)();
+    return retry(() => OpenDataProvider.getLHLeaseInfo(input))();
   }
 
   /**
@@ -152,7 +161,7 @@ export class OpenDataController {
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
   ): Promise<INIA.IGetParkingLotOutput> {
-    return retry(() => OpenDataProvider.getParkingLot(input), 20)();
+    return retry(() => OpenDataProvider.getParkingLot(input))();
   }
 
   /**
@@ -175,9 +184,7 @@ export class OpenDataController {
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
-    return retry(() => OpenDataProvider.getBuildingInfo(input), 20, {
-      timeLimit: 3000,
-    })();
+    return retry(() => OpenDataProvider.getBuildingInfo(input))();
   }
 
   /**
@@ -205,7 +212,7 @@ export class OpenDataController {
     @TypedBody()
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
   ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {
-    return retry(() => OpenDataProvider.getStandardRegionCodeList(input), 20)();
+    return retry(() => OpenDataProvider.getStandardRegionCodeList(input))();
   }
 
   /**
@@ -215,7 +222,7 @@ export class OpenDataController {
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
    * Since this is Korean public data, most searches may have to be done in Korean. for example "삼성전자".
-   * Also, since this is based on the closing of the stock market, you can only look up from about two months ago (59 days ago) to yesterday from today's date.
+   * Also, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.
    *
    * @summary Retrieve market capitalization and stock information
    *
@@ -231,7 +238,7 @@ export class OpenDataController {
     @TypedBody()
     input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
   ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
-    return retry(() => OpenDataProvider.getStockPriceInfo(input), 20)();
+    return retry(() => OpenDataProvider.getStockPriceInfo(input))();
   }
 
   /**
@@ -290,10 +297,7 @@ export class OpenDataController {
     @TypedBody()
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IKoreaMeteorologicalAdministration.IGetForecastOutput[]> {
-    return retry(() => OpenDataProvider.getShortTermForecast(input), 20, {
-      timeLimit: 3000,
-      delayMs: 100,
-    })();
+    return retry(() => OpenDataProvider.getShortTermForecast(input))();
   }
 
   /**
@@ -317,6 +321,6 @@ export class OpenDataController {
   async getCopyRight(
     @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
   ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
-    return retry(() => OpenDataProvider.getCopyRight(input), 20)();
+    return retry(() => OpenDataProvider.getCopyRight(input))();
   }
 }
