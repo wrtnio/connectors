@@ -66,6 +66,7 @@ import { GoogleShoppingMusinsaModule } from "./google_shopping/google_shopping_m
 import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GithubModule } from "./github/GithubModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
+import { DiscordModule } from "./discord/DiscordModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -136,6 +137,7 @@ import { ShortLinkModule } from "./short_link/ShortLinkModule";
     GoogleMapModule,
     GithubModule,
     ShortLinkModule,
+    DiscordModule,
   ],
   controllers: [TypeformController],
 })

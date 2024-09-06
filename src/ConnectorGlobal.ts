@@ -102,6 +102,9 @@ export namespace ConnectorGlobal {
     SLACK_CLIENT_SECRET: string;
     SLACK_TEST_SECRET: string;
 
+    // DISCORD
+    DISCORD_BOT_TOKEN: string;
+
     //----
     // INHOUSE SERVERS
     //----
