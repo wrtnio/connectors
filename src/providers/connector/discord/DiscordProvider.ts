@@ -7,38 +7,6 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class DiscordProvider {
-  async getCurrentUser(): Promise<IDiscord.IUser> {
-    try {
-      const res = await axios.get("https://discord.com/api/v10/users/@me", {
-        headers: {
-          Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
-        },
-      });
-
-      return res.data;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  async getCurrentUserGuilds(): Promise<IDiscord.IGuild[]> {
-    try {
-      const res = await axios.get(
-        "https://discord.com/api/v10/users/@me/guilds",
-        {
-          headers: {
-            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
-          },
-        },
-      );
-      return res.data;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
-
   async getListGuildMembers(
     input: IDiscord.ISecret,
   ): Promise<IDiscord.IGuildMember[]> {
@@ -265,17 +233,38 @@ export class DiscordProvider {
    */
   async getChannelMessageHistories(
     input: IDiscord.IGetChannelMessageHistoriesRequest,
+    limit: number = 100,
+    before?: string,
   ): Promise<IDiscord.IMessage[]> {
+    const messages: IDiscord.IMessage[] = [];
+    let hasMoreMessages = true;
+    let lastMessageId = before;
+
     try {
-      const res = await axios.get(
-        `https://discord.com/api/v10/channels/${input.channelId}/messages`,
-        {
-          headers: {
-            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
+      while (hasMoreMessages) {
+        const res = await axios.get(
+          `https://discord.com/api/v10/channels/${input.channelId}/messages`,
+          {
+            headers: {
+              Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
+            },
+            params: {
+              limit,
+              before: lastMessageId,
+            },
           },
-        },
-      );
-      return res.data;
+        );
+
+        const fetchedMessages = res.data;
+        if (fetchedMessages.length === 0) {
+          hasMoreMessages = false; // 더 이상 메시지가 없을 경우 종료
+        } else {
+          messages.push(...fetchedMessages);
+          lastMessageId = fetchedMessages[fetchedMessages.length - 1].id; // 가장 마지막 메시지의 ID 저장
+        }
+      }
+
+      return messages;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

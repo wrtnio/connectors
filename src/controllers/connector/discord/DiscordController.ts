@@ -9,54 +9,6 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/discord")
 export class DiscordController {
   constructor(private readonly discordProvider: DiscordProvider) {}
-
-  /**
-   * 현재 유저의 정보를 받아옵니다.
-   *
-   * @summary 유저 정보 받아오기
-   *
-   * @param input
-   * @returns 유저 정보
-   */
-  @core.TypedRoute.Post("get-current-user")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  )
-  async getCurrentUser(): Promise<IDiscord.IUser> {
-    return retry(() => this.discordProvider.getCurrentUser())();
-  }
-
-  /**
-   * 현재 유저의 정보를 받아옵니다.
-   *
-   * @summary 유저 정보 받아오기
-   *
-   * @param input
-   * @returns 유저 정보
-   */
-  @core.TypedRoute.Post("get-current-user-guilds")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  )
-  async getCurrentUserGuilds(): Promise<IDiscord.IGuild[]> {
-    return retry(() => this.discordProvider.getCurrentUserGuilds())();
-  }
-
-  // /**
-  //  * 선택한 서버에서 나갑니다.
-  //  *
-  //  * @summary 서버 나가기
-  //  * @param input
-  //  * @returns
-  //  */
-  // @core.TypedRoute.Post("leave-guild")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  // )
-  // async leaveGuild(@core.TypedBody() input: IDiscord.ISecret): Promise<void> {
-  //   return retry(() => this.discordProvider.leaveGuild(input))();
-  // }
-
   /**
    * 새로운 DM 채널을 만듭니다.
    *
@@ -74,24 +26,6 @@ export class DiscordController {
   ): Promise<IDiscord.IChannel> {
     return retry(() => this.discordProvider.createDM(input))();
   }
-
-  // /**
-  //  * 새로운 서버를 생성합니다.
-  //  *
-  //  * @summary 서버 생성하기
-  //  *
-  //  * @param input
-  //  * @returns 서버 정보
-  //  */
-  // @core.TypedRoute.Post("create-guild")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  // )
-  // async createGuild(
-  //   @core.TypedBody() input: IDiscord.ICreateGuildRequest,
-  // ): Promise<IDiscord.IGuild> {
-  //   return this.discordProvider.createGuild(input);
-  // }
 
   /**
    * 서버 정보를 수정합니다.
@@ -274,42 +208,6 @@ export class DiscordController {
   ): Promise<void> {
     return retry(() => this.discordProvider.unpinMessage(input))();
   }
-
-  // /**
-  //  * 스레드에 조인합니다.
-  //  *
-  //  * @summary 스레드 조인하기
-  //  *
-  //  * @param input
-  //  * @returns
-  //  */
-  // @core.TypedRoute.Post("join-thread")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  // )
-  // async joinThread(
-  //   @core.TypedBody() input: IDiscord.IJoinOrLeaveThreadRequest,
-  // ): Promise<void> {
-  //   return retry(() => this.discordProvider.joinThread(input))();
-  // }
-
-  // /**
-  //  * 스레드에서 나갑니다.
-  //  *
-  //  * @summary 스레드 나가기
-  //  *
-  //  * @param input
-  //  * @returns
-  //  */
-  // @core.TypedRoute.Post("leave-thread")
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  // )
-  // async leaveThread(
-  //   @core.TypedBody() input: IDiscord.IJoinOrLeaveThreadRequest,
-  // ): Promise<void> {
-  //   return retry(() => this.discordProvider.leaveThread(input))();
-  // }
 
   /**
    * 채널에 존재하는 메세지들을 가져옵니다.

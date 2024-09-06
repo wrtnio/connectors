@@ -6,25 +6,6 @@ export const test_api_connector_discord = async (
   connection: CApi.IConnection,
 ) => {
   const secretKey = "1260868337467129989";
-
-  /**
-   * Get Current User
-   */
-  const user =
-    await CApi.functional.connector.discord.get_current_user.getCurrentUser(
-      connection,
-    );
-  typia.assertEquals(user);
-
-  /**
-   * Get Current User Guilds
-   */
-  const guilds =
-    await CApi.functional.connector.discord.get_current_user_guilds.getCurrentUserGuilds(
-      connection,
-    );
-  typia.assertEquals(guilds);
-
   /**
    * Modify Guild
    */
