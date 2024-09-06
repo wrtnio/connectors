@@ -5,6 +5,11 @@ import { tags } from "typia";
  */
 export namespace IMSIT {
   export interface IGetAddressOutput {
+    /**
+     * @title NewAddressListResponse
+     *
+     * 응답 결과에 대한 헤더 정보가 담기는 구간
+     */
     NewAddressListResponse: {
       cmmMsgHeader: {
         /**
@@ -30,7 +35,7 @@ export namespace IMSIT {
     };
 
     /**
-     * @title response data
+     * @title 주소 데이터
      *
      * 데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다.
      */
