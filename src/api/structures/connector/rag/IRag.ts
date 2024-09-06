@@ -2,7 +2,7 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title RAG 분석을 위해 필요한 정보
+   * @title 파일 업로드
    */
   export interface IAnalyzeInput {
     /**
