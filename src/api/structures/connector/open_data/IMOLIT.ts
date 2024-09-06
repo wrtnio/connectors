@@ -300,7 +300,7 @@ export namespace IMOLIT {
     /**
      * @title 친환경건축물등급
      */
-    gnBldGrade?: string;
+    gnBldGrade?: string | number;
 
     /**
      * @title 친환경건축물인증점수
