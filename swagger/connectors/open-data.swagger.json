@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.182",
+    "version": "0.1.183",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -188,7 +188,7 @@
     "/connector/open-data/getParkingLot": {
       "post": {
         "summary": "Retrieve parking lot information",
-        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nIf you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.\nLook up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -1303,11 +1303,21 @@
           },
           "rdnmadr": {
             "type": "string",
-            "title": "소재지도로명주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
+            },
+            "title": "도로명 주소 (read name address)"
           },
           "lnmadr": {
             "type": "string",
-            "title": "소재지지번주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:address_name, label:address_name}"
+            },
+            "title": "소재지지번주소 (lot number address)"
           },
           "prkcmprt": {
             "type": "string",
@@ -1438,7 +1448,12 @@
           },
           "rdnmadr": {
             "type": "string",
-            "title": "소재지도로명주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
+            },
+            "title": "도로명 주소 (read name address)"
           }
         }
       },
@@ -1457,7 +1472,12 @@
           },
           "lnmadr": {
             "type": "string",
-            "title": "소재지지번주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:address_name, label:address_name}"
+            },
+            "title": "소재지지번주소 (lot number address)"
           }
         }
       },

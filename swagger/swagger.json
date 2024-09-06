@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.182",
+    "version": "0.1.183",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -5041,7 +5041,7 @@
     "/connector/kakao-map/search": {
       "post": {
         "summary": "카카오 맵 검색",
-        "description": "카카오맵으로 검색합니다",
+        "description": "카카오맵으로 검색합니다\n\nIn addition to the place name company, category, and phone number,\nit also provides lot number and road name addresses in the Korean address system.\nIt can be used with public data or other address-based connectors.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5662,7 +5662,7 @@
     "/connector/open-data/getParkingLot": {
       "post": {
         "summary": "Retrieve parking lot information",
-        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nIf you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.\nLook up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -23824,11 +23824,21 @@
           },
           "rdnmadr": {
             "type": "string",
-            "title": "소재지도로명주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
+            },
+            "title": "도로명 주소 (read name address)"
           },
           "lnmadr": {
             "type": "string",
-            "title": "소재지지번주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:address_name, label:address_name}"
+            },
+            "title": "소재지지번주소 (lot number address)"
           },
           "prkcmprt": {
             "type": "string",
@@ -23959,7 +23969,12 @@
           },
           "rdnmadr": {
             "type": "string",
-            "title": "소재지도로명주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
+            },
+            "title": "도로명 주소 (read name address)"
           }
         }
       },
@@ -23978,7 +23993,12 @@
           },
           "lnmadr": {
             "type": "string",
-            "title": "소재지지번주소"
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:address_name, label:address_name}"
+            },
+            "title": "소재지지번주소 (lot number address)"
           }
         }
       },
