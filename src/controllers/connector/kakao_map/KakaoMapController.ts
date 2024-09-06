@@ -12,6 +12,10 @@ export class KakaoMapController {
   /**
    * 카카오맵으로 검색합니다
    *
+   * In addition to the place name company, category, and phone number,
+   * it also provides lot number and road name addresses in the Korean address system.
+   * It can be used with public data or other address-based connectors.
+   *
    * @summary 카카오 맵 검색
    *
    * @param input 검색 조건

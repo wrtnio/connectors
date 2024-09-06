@@ -147,6 +147,8 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   * If you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.
+   * Look up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
    * Please be aware of this.
