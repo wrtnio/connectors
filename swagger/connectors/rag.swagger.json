@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.181",
+    "version": "0.1.182",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -36,10 +36,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/IRag.IAnalyzeInput"
-                }
+                "$ref": "#/components/schemas/IRag.IAnalyzeInput"
               }
             }
           },
@@ -154,17 +151,20 @@
         "type": "object",
         "properties": {
           "url": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html",
-            "title": "파일 또는 링크",
-            "description": "분석할 파일 또는 링크"
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html"
+            },
+            "title": "챗봇이 답변에 사용할 지식",
+            "description": "챗봇이 답변에 사용할 지식"
           }
         },
         "required": [
           "url"
         ],
-        "title": "파일 업로드"
+        "title": "챗봇이 답변에 사용할 지식"
       },
       "IRag.IStatusOutput": {
         "type": "object",
