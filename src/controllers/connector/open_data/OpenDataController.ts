@@ -42,7 +42,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * You need to look up the city, county, and district code first.
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
@@ -68,7 +68,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * You need to look up the city, county, and district code first.
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
@@ -94,7 +94,7 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
-   * You need to look up the city, county, and district code first.
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
    * A connector that looks up the distirct code already exists, so call the preceding connector.
    *
    * Since this is Korean public data, most searches may have to be done in Korean.
