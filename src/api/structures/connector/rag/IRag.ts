@@ -2,17 +2,19 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title 파일 업로드
+   * @title 챗봇이 답변에 사용할 지식
    */
   export interface IAnalyzeInput {
     /**
-     * 분석할 파일 또는 링크
+     * 챗봇이 답변에 사용할 지식
      *
-     * @title 파일 또는 링크
+     * @title 챗봇이 답변에 사용할 지식
      */
-    url: string &
-      tags.Format<"uri"> &
-      tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">;
+    url: Array<
+      string &
+        tags.Format<"uri"> &
+        tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">
+    >;
   }
 
   /**

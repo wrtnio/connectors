@@ -91,11 +91,11 @@ export class RagProvider {
    * 파일 마다 고유 fileId 생성
    * 여러 개의 파일을 분석 시키고 해당 분석 결과에 대해서 채팅을 하기 위해서 chatId는 같은 것을 사용
    */
-  async analyze(input: IRag.IAnalyzeInput[]): Promise<IRag.IAnalysisOutput> {
+  async analyze(input: IRag.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
     const chatId = v4();
 
-    if (input.length > 5) {
+    if (input.url.length > 5) {
       throw new BadRequestException(
         "파일 및 링크는 최대 5개까지 분석할 수 있습니다.",
       );
@@ -104,13 +104,13 @@ export class RagProvider {
     /**
      * 여러 개의 파일 중 하나라도 업로드 및 분석 실패시 실패 처리
      */
-    const uploadPromises = input.map(async (file) => {
-      let url = file.url;
-      const fileType = this.inferFileType(file.url);
+    const uploadPromises = input.url.map(async (file) => {
+      let url = file;
+      const fileType = this.inferFileType(file);
 
       // web url일 때 s3 upload 및 파일 크기 제한 X
       if (fileType !== "html") {
-        url = await this.transformInput(file.url);
+        url = await this.transformInput(file);
         //파일 크기 5MB 이하로 제한
         const fileSize = await this.awsProvider.getFileSize(url);
         if (fileSize > 5 * 1024 * 1024) {
