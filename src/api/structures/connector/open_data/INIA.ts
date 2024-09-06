@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { IOpenData } from "./IOpenData";
 
 /**
@@ -35,12 +36,22 @@ export namespace INIA {
     /**
      * @title 도로명 주소 (read name address)
      */
-    rdnmadr?: string;
+    rdnmadr?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-map/search";
+        jmesPath: "documents[].{value:road_address_name, label:road_address_name}";
+      }>;
 
     /**
      * @title 소재지지번주소 (lot number address)
      */
-    lnmadr?: string;
+    lnmadr?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-map/search";
+        jmesPath: "documents[].{value:address_name, label:address_name}";
+      }>;
 
     /**
      * @title 주차구획수
