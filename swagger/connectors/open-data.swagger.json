@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.180",
+    "version": "0.1.181",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -58,7 +58,7 @@
     "/connector/open-data/getRTMSDataSvcSHRent": {
       "post": {
         "summary": "Retrieve multi-family lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -90,7 +90,7 @@
     "/connector/open-data/getRTMSDataSvcOffiRent": {
       "post": {
         "summary": "Retrieve officetel lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -122,7 +122,7 @@
     "/connector/open-data/getRTMSDataSvcAptRent": {
       "post": {
         "summary": "Retrieve apartment lease and rental information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first.\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -155,7 +155,7 @@
     "/connector/open-data/getLHLeaseInfo": {
       "post": {
         "summary": "Retrieve LH rental housing information",
-        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)",
+        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)\n\nIn the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -228,7 +228,7 @@
     "/connector/open-data/getBuildingInfo": {
       "post": {
         "summary": "Retrieve building registration information",
-        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -369,7 +369,7 @@
     "/connector/open-data/getCopyRight": {
       "post": {
         "summary": "[Copyright Registration Information Service (New)]",
-        "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\n- 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -428,38 +428,38 @@
                     "title": "error message"
                   }
                 }
+              },
+              "newAddressListAreaCd": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "zipNo": {
+                      "type": "string",
+                      "title": "우편 주소"
+                    },
+                    "lnmAdres": {
+                      "type": "string",
+                      "title": "지번 주소"
+                    },
+                    "rnAdres": {
+                      "type": "string",
+                      "title": "도로명 주소"
+                    }
+                  },
+                  "required": [
+                    "zipNo",
+                    "lnmAdres",
+                    "rnAdres"
+                  ]
+                },
+                "title": "주소 데이터\n\n데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다."
               }
             },
             "required": [
               "cmmMsgHeader"
             ],
             "title": "NewAddressListResponse\n\n응답 결과에 대한 헤더 정보가 담기는 구간"
-          },
-          "newAddressListAreaCd": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "zipNo": {
-                  "type": "string",
-                  "title": "우편 주소"
-                },
-                "lnmAdres": {
-                  "type": "string",
-                  "title": "지번 주소"
-                },
-                "rnAdres": {
-                  "type": "string",
-                  "title": "도로명 주소"
-                }
-              },
-              "required": [
-                "zipNo",
-                "lnmAdres",
-                "rnAdres"
-              ]
-            },
-            "title": "주소 데이터\n\n데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다."
           }
         },
         "required": [
@@ -1685,7 +1685,14 @@
             "title": "EPI점수"
           },
           "gnBldGrade": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "친환경건축물등급"
           },
           "gnBldCert": {
@@ -2566,12 +2573,12 @@
           "CONT_TITLE": {
             "type": "string",
             "x-wrtn-placeholder": "제호 (명칭)",
-            "title": "제호(명칭)"
+            "title": "제호(명칭)\n\n제호란 저작물의 명칭을 의미하는 말입니다."
           },
           "AUTHOR_NAME": {
             "type": "string",
             "x-wrtn-placeholder": "저작자 이름",
-            "title": "저작권 이름"
+            "title": "저작권자 이름\n\n이는 저작권자의 이름을 의미합니다. 사람의 이름일 수도 있고 기업이나 특정 단체의 이름일 수도 있습니다."
           },
           "REG_DATE": {
             "type": "string",
@@ -2604,12 +2611,12 @@
           "CONT_TITLE": {
             "type": "string",
             "x-wrtn-placeholder": "제호 (명칭)",
-            "title": "제호(명칭)"
+            "title": "제호(명칭)\n\n제호란 저작물의 명칭을 의미하는 말입니다."
           },
           "AUTHOR_NAME": {
             "type": "string",
             "x-wrtn-placeholder": "저작자 이름",
-            "title": "저작권 이름"
+            "title": "저작권자 이름\n\n이는 저작권자의 이름을 의미합니다. 사람의 이름일 수도 있고 기업이나 특정 단체의 이름일 수도 있습니다."
           }
         },
         "title": "저작권 조회 조건"
