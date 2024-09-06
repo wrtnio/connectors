@@ -1,12 +1,11 @@
 import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
-import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_discord = async (
   connection: CApi.IConnection,
 ) => {
-  const secretKey = ConnectorGlobal.env.DISCORD_BOT_TOKEN;
+  const secretKey = "1260868337467129989";
 
   /**
    * Get Current User
@@ -257,16 +256,4 @@ export const test_api_connector_discord = async (
       },
     );
   typia.assertEquals(deleteChannel);
-
-  /**
-   * Delete Guild
-   */
-  const deleteGuild =
-    await CApi.functional.connector.discord.delete_guild.deleteGuild(
-      connection,
-      {
-        secretKey: secretKey,
-      },
-    );
-  typia.assertEquals(deleteGuild);
 };

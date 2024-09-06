@@ -112,22 +112,6 @@ export class DiscordController {
   }
 
   /**
-   * 선택한 서버를 삭제합니다.
-   *
-   * @summary 서버 삭제하기
-   *
-   * @param input
-   * @returns
-   */
-  @core.TypedRoute.Post("delete-guild")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  )
-  async deleteGuild(@core.TypedBody() input: IDiscord.ISecret): Promise<void> {
-    return retry(() => this.discordProvider.deleteGuild(input))();
-  }
-
-  /**
    * 서버에 있는 채널 목록을 가져옵니다.
    *
    * @summary 채널 목록 가져오기
@@ -363,26 +347,6 @@ export class DiscordController {
     @core.TypedBody() input: IDiscord.ICreateMessageRequest,
   ): Promise<IDiscord.IMessage> {
     return retry(() => this.discordProvider.createMessage(input))();
-  }
-
-  /**
-   * 공지 채널에 있는 메세지를 선택한 채널에 교차 게시합니다.
-   *
-   * @summary 메세지에 교차 게시하기
-   *
-   * @param input
-   * @returns 교차 게시된 메세지
-   *
-   * @internal
-   */
-  @core.TypedRoute.Post("crosspost-message")
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
-  )
-  async crossPostMessage(
-    @core.TypedBody() input: IDiscord.ICrossPostMessageRequest,
-  ): Promise<IDiscord.IMessage> {
-    return retry(() => this.discordProvider.crossPostMessage(input))();
   }
 
   /**

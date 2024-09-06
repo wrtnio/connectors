@@ -29,9 +29,6 @@ export namespace IDiscord {
      * @title 서버 아이콘
      */
     icon: string | null;
-    // icon_hash?: string | null;
-    // splash: string | null;
-    // discovery_splash: string | null;
 
     /**
      * 서버 소유자 여부 입니다.
@@ -47,40 +44,10 @@ export namespace IDiscord {
      */
     owner_id?: string;
     permissions?: string;
-    // region?: string | null;
-    // afk_channel_id: string | null;
-    // afk_timeout: number;
-    // widget_enabled?: boolean;
-    // widget_channel_id?: string | null;
-    // verification_level: number;
-    // default_message_notifications: number;
-    // explicit_content_filter: number;
     roles: IRole[];
     emojis: IEmoji[];
     features: Array<IGuildFeature>;
-    // mfa_level: number;
-    // application_id: string | null;
-    // system_channel_id: string | null;
-    // system_channel_flags: number;
-    // rules_channel_id: string | null;
-    // max_presences?: number | null;
-    // max_members?: number;
-    // vanity_url_code: string | null;
     description: string | null;
-    // banner: string | null;
-    // premium_tier: number;
-    // premium_subscription_count?: number;
-    // preferred_locale: string;
-    // public_updates_channel_id: string | null;
-    // max_video_channel_users?: number;
-    // max_stage_video_channel_users?: number;
-    // approximate_member_count?: number;
-    // approximate_presence_count?: number;
-    // welcome_screen?: IWelcomeScreen;
-    // nsfw_level: number;
-    // stickers?: ISticker[];
-    // premium_progress_bar_enabled: boolean;
-    // safety_alerts_channel_id: string | null;
   }
 
   export interface IRole {
@@ -157,28 +124,14 @@ export namespace IDiscord {
      * @title 봇 유저 여부
      */
     bot?: boolean;
-    // system?: boolean;
-    // mfa_enabled?: boolean;
-    // banner?: string | null;
-    // accent_color?: number | null;
-    // locale?: string;
-    // verified?: boolean;
+
     /**
      * 유저 이메일입니다.
      *
      * @title 이메일
      */
     email?: string | null;
-    // flags?: number;
-    // premium_type?: number;
-    // public_flags?: number;
-    // avatar_decoration_data?: IAvatarDecorationData | null;
   }
-
-  // export interface IAvatarDecorationData {
-  //   asset: string;
-  //   sku_id: string;
-  // }
 
   /**
    * @title 서버에서 가능한 기능
@@ -212,33 +165,6 @@ export namespace IDiscord {
     | "VIP_REGIONS"
     | "WELCOME_SCREEN_ENABLED";
 
-  // export interface IWelcomeScreen {
-  //   description: string | null;
-  //   welcome_channels: IWelcomeChannel[];
-  // }
-
-  // export interface IWelcomeChannel {
-  //   channel_id: string;
-  //   description: string;
-  //   emoji_id: string | null;
-  //   emoji_name: string | null;
-  // }
-
-  // export interface ISticker {
-  //   id: string;
-  //   pack_id?: string;
-  //   name: string;
-  //   description: string | null;
-  //   tags: string;
-  //   asset?: string;
-  //   type: number;
-  //   format_type: number;
-  //   available?: boolean;
-  //   guild_id?: string;
-  //   user?: IUser;
-  //   sort_value?: number;
-  // }
-
   /**
    * @title DM을 보내기 위해 필요한 정보
    */
@@ -267,11 +193,6 @@ export namespace IDiscord {
     permission_overwrites?: IOverwrite[];
     name?: string | null;
     topic?: string | null;
-    // nsfw?: boolean;
-    // last_message_id?: string | null;
-    // bitrate?: number;
-    // user_limit?: number;
-    // rate_limit_per_user?: number;
     recipients?: IUser[];
     icon?: string | null;
     owner_id?: string;
@@ -375,47 +296,11 @@ export namespace IDiscord {
   export interface IGuild {
     id: string;
     name: string;
-    // icon: string | null;
-    // icon_hash?: string | null;
-    // splash: string | null;
-    // discovery_splash: string | null;
     owner?: boolean;
     owner_id?: string;
-    // permissions?: string;
-    // region?: string | null;
-    // afk_channel_id: string | null;
-    // afk_timeout: number;
-    // widget_enabled?: boolean;
-    // widget_channel_id?: string | null;
-    // verification_level: number;
-    // default_message_notifications: number;
-    // explicit_content_filter: number;
     roles?: IRole[];
-    // emojis: IEmoji[];
     features: Array<IGuildFeature>;
-    // mfa_level: number;
-    // application_id: string | null;
-    // system_channel_id: string | null;
-    // system_channel_flags: number;
-    // rules_channel_id: string | null;
-    // max_presences?: number | null;
-    // max_members?: number;
-    // vanity_url_code: string | null;
     description?: string | null;
-    // banner: string | null;
-    // premium_tier: number;
-    // premium_subscription_count?: number;
-    // preferred_locale: string;
-    // public_updates_channel_id: string | null;
-    // max_video_channel_users?: number;
-    // max_stage_video_channel_users?: number;
-    // approximate_member_count?: number;
-    // approximate_presence_count?: number;
-    // welcome_screen?: IWelcomeScreen;
-    // nsfw_level: number;
-    // stickers?: ISticker[];
-    // premium_progress_bar_enabled: boolean;
-    // safety_alerts_channel_id: string | null;
   }
 
   /**
@@ -534,32 +419,13 @@ export namespace IDiscord {
     tts: boolean;
     mention_everyone: boolean;
     mentions: IUser[];
-    // mention_roles: IRole[];
     mention_channels?: IChannelMention[];
     attachments: IAttachment[];
     embeds: IEmbed[];
     reactions?: IReaction[];
-    // nonce?: string | number;
     pinned: boolean;
-    // webhook_id?: string;
     type: number & tags.Minimum<0> & tags.Maximum<45> & tags.Type<"int32">;
-    // activity?: IMessageActivity;
-    // application?: IMessageApplication;
-    // application_id?: string;
-    // flags?: number;
-    // message_reference?: IMessageReference;
-    // message_snapshots?: IMessageSnapshot[];
-    // referenced_message?: IMessage | null;
-    // interaction_metadata?: IInteractionMetadata;
     thread?: IChannel;
-    // components?: Array<IMessageComponent>;
-    // sticker_items?: IMessageStickerItem[];
-    // stickers?: ISticker[];
-    // position?: number;
-    // role_subscription_data?: IRoleSubscriptionData;
-    // resolved?: IResolvedData;
-    // poll?: IPoll;
-    // call?: IMessageCall;
   }
 
   export interface IChannelMention {
@@ -668,151 +534,6 @@ export namespace IDiscord {
       | tags.Constant<5, { title: "JOIN_REQUEST" }>;
     party_id?: string;
   }
-
-  // export interface IMessageApplication {
-  //   id: string;
-  //   name: string;
-  //   icon: string | null;
-  //   description: string;
-  //   rpc_origins?: string[];
-  //   bot_public: boolean;
-  //   bot_require_code_grant: boolean;
-  //   bot?: Partial<IUser>;
-  //   terms_of_service_url?: string;
-  //   privacy_policy_url?: string;
-  //   owner?: Partial<IUser>;
-  //   verify_key: string;
-  //   team: ITeam | null;
-  //   guild_id?: string;
-  //   guild?: Partial<IGuild>;
-  //   primary_sku_id?: string;
-  //   slug?: string;
-  //   cover_image?: string;
-  //   flags: number;
-  //   approximate_guild_count?: number;
-  //   approximate_user_install_count?: number;
-  //   redirect_urls?: string[];
-  //   interaction_endpoint_url?: string;
-  //   role_connections_verification_url?: string;
-  //   tags?: string[];
-  //   install_params?: IInstallParams;
-  //   custom_install_url?: string;
-  // }
-
-  // export interface ITeam {
-  //   icon: string | null;
-  //   id: string;
-  //   members: ITeamMember[];
-  //   name: string;
-  //   owner_user_id: string;
-  // }
-
-  // export interface ITeamMember {
-  //   membership_state: number;
-  //   team_id: string;
-  //   user: Partial<IUser>;
-  //   role: string;
-  // }
-
-  // export interface IInstallParams {
-  //   scopes: string[];
-  //   permissions: string;
-  // }
-
-  // export interface IMessageReference {
-  //   type?: number;
-  //   message_id: string;
-  //   channel_id?: string;
-  //   guild_id?: string;
-  //   fail_if_not_exists?: boolean;
-  // }
-
-  // export interface IMessageSnapshot {
-  //   message: Partial<IMessage>;
-  // }
-
-  // export interface IInteractionMetadata {
-  //   id: string;
-  //   type:
-  //     | tags.Constant<1, { title: "PING" }>
-  //     | tags.Constant<2, { title: "APPLICATION_COMMAND" }>
-  //     | tags.Constant<3, { title: "MESSAGE_COMPONENT" }>
-  //     | tags.Constant<4, { title: "APPLICATION_COMMAND_AUTOCOMPLETE" }>
-  //     | tags.Constant<5, { title: "MODAL_SUBMIT" }>;
-  //   user: IUser;
-  //   authorizing_integration_owners: IApplicationIntegration;
-  // }
-
-  // export interface IApplicationIntegration {
-  //   [key: string]: string;
-  // }
-
-  // export type IMessageComponent =
-  //   | tags.Constant<1, { title: "Action Row" }>
-  //   | tags.Constant<2, { title: "Button" }>
-  //   | tags.Constant<3, { title: "String Select" }>
-  //   | tags.Constant<4, { title: "Text Input" }>
-  //   | tags.Constant<5, { title: "User Select" }>
-  //   | tags.Constant<6, { title: "Role Select" }>
-  //   | tags.Constant<7, { title: "Mentionable Select" }>
-  //   | tags.Constant<8, { title: "Channel Select" }>;
-
-  // export interface IMessageStickerItem {
-  //   id: string;
-  //   name: string;
-  //   format_type: number;
-  // }
-
-  // export interface IRoleSubscriptionData {
-  //   role_subscription_listing_id: string;
-  //   tier_name: string;
-  //   total_months_subscribed: number;
-  //   is_renewal: boolean;
-  // }
-
-  // export interface IResolvedData {
-  //   users?: Map<string, IUser>; // TODO: Object.entires()로 변환 or Record type ?
-  //   members?: Map<string, Partial<IGuildMember>>;
-  //   roles?: Map<string, IRole>;
-  //   channels?: Map<string, Partial<IChannel>>;
-  //   messages: Map<string, Partial<IMessage>>;
-  //   attachments?: Map<string, IAttachment>;
-  // }
-
-  // export interface IPoll {
-  //   question: IPollMedia;
-  //   answers: IPollAnswer[];
-  //   expiry: (string & tags.Format<"date-time">) | null;
-  //   allow_multiselect: boolean;
-  //   layout_type: number;
-  //   results?: IPollResults;
-  // }
-
-  // export interface IPollMedia {
-  //   text?: string;
-  //   emoji?: Partial<IEmoji>;
-  // }
-
-  // export interface IPollAnswer {
-  //   answer_id: number;
-  //   poll_media: IPollMedia;
-  // }
-
-  // export interface IPollResults {
-  //   is_finalized: boolean;
-  //   answer_counts: IPollAnswerCount[];
-  // }
-
-  // export interface IPollAnswerCount {
-  //   id: number;
-  //   count: number;
-  //   me_voted: boolean;
-  // }
-
-  // export interface IMessageCall {
-  //   participants: string[];
-  //   ended_timestamp: (string & tags.Format<"date-time">) | null;
-  // }
 
   /**
    * @title 고정된 메세지를 가져오기 위해 필요한 정보

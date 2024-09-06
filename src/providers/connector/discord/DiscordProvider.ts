@@ -39,23 +39,6 @@ export class DiscordProvider {
     }
   }
 
-  // async leaveGuild(input: IDiscord.ISecret): Promise<void> {
-  //   try {
-  //     const guildId = await this.getGuildInfo(input.secretKey);
-  //     await axios.delete(
-  //       `https://discord.com/api/v10/users/@me/guilds/1281201809578528811`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
-  //         },
-  //       },
-  //     );
-  //   } catch (err) {
-  //     console.error(JSON.stringify(err));
-  //     throw err;
-  //   }
-  // }
-
   async getListGuildMembers(
     input: IDiscord.ISecret,
   ): Promise<IDiscord.IGuildMember[]> {
@@ -114,23 +97,6 @@ export class DiscordProvider {
         },
       );
       return res.data;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async deleteGuild(input: IDiscord.ISecret): Promise<void> {
-    try {
-      const guildId = await this.getGuildInfo(input.secretKey);
-      await axios.delete(
-        `https://discord.com/api/v10/guilds/1275707378272047104`,
-        {
-          headers: {
-            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
-          },
-        },
-      );
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -302,7 +268,7 @@ export class DiscordProvider {
   ): Promise<IDiscord.IMessage[]> {
     try {
       const res = await axios.get(
-        `https://discord.com/api/v10/channels/1260868337467129996/messages`,
+        `https://discord.com/api/v10/channels/${input.channelId}/messages`,
         {
           headers: {
             Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
@@ -325,26 +291,6 @@ export class DiscordProvider {
         {
           content: input.content,
         },
-        {
-          headers: {
-            Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
-          },
-        },
-      );
-      return res.data;
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
-
-  async crossPostMessage(
-    input: IDiscord.ICrossPostMessageRequest,
-  ): Promise<IDiscord.IMessage> {
-    try {
-      const res = await axios.post(
-        `https://discord.com/api/v10/channels/${input.channelId}/messages/${input.messageId}/crosspost`,
-        {},
         {
           headers: {
             Authorization: `Bot ${ConnectorGlobal.env.DISCORD_BOT_TOKEN}`,
@@ -428,7 +374,7 @@ export class DiscordProvider {
         typeof secret === "string"
           ? secret
           : (secret as IOAuthSecret.ISecretValue).value;
-      return "1260868337467129989";
+      return guildId;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
