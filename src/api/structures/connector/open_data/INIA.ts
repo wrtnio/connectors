@@ -33,12 +33,12 @@ export namespace INIA {
     prkplceType?: string;
 
     /**
-     * @title 소재지도로명주소
+     * @title 도로명 주소 (read name address)
      */
     rdnmadr?: string;
 
     /**
-     * @title 소재지지번주소
+     * @title 소재지지번주소 (lot number address)
      */
     lnmadr?: string;
 
