@@ -1,4 +1,5 @@
 import CApi from "@wrtn/connector-api/lib/index";
+import assert from "assert";
 import typia from "typia";
 
 export const test_api_connector_open_data_get_address = async (
@@ -9,4 +10,5 @@ export const test_api_connector_open_data_get_address = async (
   });
 
   typia.assertEquals(res);
+  assert(!!res.NewAddressListResponse.newAddressListAreaCd);
 };
