@@ -174,7 +174,7 @@ export class GithubProvider {
 
   async analyze(input: IGithub.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
     const urls = await this.copyAllFiles(input);
-    return await this.ragProvider.analyze(urls.map((url) => ({ url })));
+    return await this.ragProvider.analyze({ url: urls });
   }
 
   async getRepository(input: {

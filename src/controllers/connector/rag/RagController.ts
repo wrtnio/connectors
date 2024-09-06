@@ -26,7 +26,7 @@ export class RagController {
   )
   @core.TypedRoute.Post("/analyze")
   async analyze(
-    @core.TypedBody() input: IRag.IAnalyzeInput[],
+    @core.TypedBody() input: IRag.IAnalyzeInput,
   ): Promise<IRag.IAnalysisOutput> {
     return await this.ragService.analyze(input);
   }

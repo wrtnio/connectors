@@ -4,17 +4,14 @@ import CApi from "@wrtn/connector-api/lib/index";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 export const test_api_connector_rag = async (connection: CApi.IConnection) => {
-  const analyzeInput: IRag.IAnalyzeInput[] = [
-    {
-      url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
-    },
-    {
-      url: `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-hwp-test.hwp`,
-    },
-    {
-      url: "https://namu.wiki/w/%EC%98%AC%EB%A6%BC%ED%94%BD",
-    },
-  ];
+  const analyzeInput: IRag.IAnalyzeInput = {
+    url: [
+      `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
+      `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-hwp-test.hwp`,
+      "https://namu.wiki/w/%EC%98%AC%EB%A6%BC%ED%94%BD",
+    ],
+  };
+
   const analyzeOutput = await CApi.functional.connector.rag.analyze(
     connection,
     analyzeInput,
