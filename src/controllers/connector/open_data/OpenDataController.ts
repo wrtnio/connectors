@@ -314,6 +314,8 @@ export class OpenDataController {
    * Since this is Korean public data, most searches may have to be done in Korean.
    * Please be aware of this.
    *
+   * - 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.
+   *
    * @summary [Copyright Registration Information Service (New)]
    * @param input Conditions for querying copyright
    * @returns Copyright information
