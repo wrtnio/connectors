@@ -35,10 +35,14 @@ export namespace OpenDataProvider {
 
   export async function getAddress(
     input: IMSIT.IGetAddressInput,
-  ): Promise<any> {
+  ): Promise<IMSIT.IGetAddressOutput> {
     const baseUrl = `http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdService/retrieveNewAdressAreaCdService/getNewAddressListAreaCd`;
     const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
-    const queryString = createQueryParameter({ ...input, serviceKey });
+    const queryString = createQueryParameter({
+      ...input,
+      searchSe: "post",
+      serviceKey,
+    });
     const res = await axios.get(`${baseUrl}?${queryString}`);
     return res.data;
   }

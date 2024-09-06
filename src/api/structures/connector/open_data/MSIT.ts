@@ -4,39 +4,60 @@ import { tags } from "typia";
  * MSIT : 과학기술정보통신부
  */
 export namespace IMSIT {
-  export interface IGetAddressOutput {}
+  export interface IGetAddressOutput {
+    /**
+     * @title NewAddressListResponse
+     *
+     * 응답 결과에 대한 헤더 정보가 담기는 구간
+     */
+    NewAddressListResponse: {
+      cmmMsgHeader: {
+        /**
+         * @title totalCount
+         */
+        totalCount?: number & tags.Type<"uint64">;
+
+        /**
+         * @title countPerPage
+         */
+        countPerPage?: number & tags.Type<"uint64">;
+
+        /**
+         * @title totalPage
+         */
+        totalPage?: number & tags.Type<"uint64">;
+
+        /**
+         * @title error message
+         */
+        errMsg?: string;
+      };
+    };
+
+    /**
+     * @title 주소 데이터
+     *
+     * 데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다.
+     */
+    newAddressListAreaCd?: {
+      /**
+       * @title 우편 주소
+       */
+      zipNo: string;
+
+      /**
+       * @title 지번 주소
+       */
+      lnmAdres: string;
+
+      /**
+       * @title 도로명 주소
+       */
+      rnAdres: string;
+    }[];
+  }
 
   export interface IGetAddressInput {
-    /**
-     * @title 구분
-     *
-     * It must be one of: 'dong', 'road', 'post' but default value is 'road'.
-     */
-    searchSe?: (
-      | tags.Constant<
-          "dong",
-          {
-            title: "동 주소";
-            description: "한국의 주소 체계 중 `동`을 의미한다";
-          }
-        >
-      | tags.Constant<
-          "road",
-          {
-            title: "도로명 주소";
-            description: "한국의 주소 체계 중 `도로명 주소`를 의미한다.";
-          }
-        >
-      | tags.Constant<
-          "post",
-          {
-            title: "우편 주소";
-            description: "한국의 주소 체계 중 `우편 주소`를 의미한다.";
-          }
-        >
-    ) &
-      tags.Default<"road">;
-
     /**
      * @title 검색어
      */
