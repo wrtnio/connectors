@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.177",
+    "version": "0.1.178",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -13103,7 +13103,7 @@
         "required": [
           "url"
         ],
-        "title": "RAG 분석을 위해 필요한 정보"
+        "title": "파일 업로드"
       },
       "IRag.IStatusOutput": {
         "type": "object",
