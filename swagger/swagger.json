@@ -5431,6 +5431,8 @@
     },
     "/connector/open-data/getAddress": {
       "post": {
+        "summary": "대한민국 주소 체계를 조회합니다",
+        "description": "대한민국 주소 체계를 조회합니다\n\n- 우편주소를 넣을 경우 지번 주소와 도로명 주소로 변환할 수 있습니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5695,7 +5697,7 @@
     "/connector/open-data/getStockPriceInfo": {
       "post": {
         "summary": "Retrieve market capitalization and stock information",
-        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (59 days ago) to yesterday from today's date.",
+        "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -22736,34 +22738,71 @@
       },
       "IMSIT.IGetAddressOutput": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "NewAddressListResponse": {
+            "type": "object",
+            "properties": {
+              "cmmMsgHeader": {
+                "type": "object",
+                "properties": {
+                  "totalCount": {
+                    "type": "integer",
+                    "title": "totalCount"
+                  },
+                  "countPerPage": {
+                    "type": "integer",
+                    "title": "countPerPage"
+                  },
+                  "totalPage": {
+                    "type": "integer",
+                    "title": "totalPage"
+                  },
+                  "errMsg": {
+                    "type": "string",
+                    "title": "error message"
+                  }
+                }
+              }
+            },
+            "required": [
+              "cmmMsgHeader"
+            ],
+            "title": "NewAddressListResponse\n\n응답 결과에 대한 헤더 정보가 담기는 구간"
+          },
+          "newAddressListAreaCd": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zipNo": {
+                  "type": "string",
+                  "title": "우편 주소"
+                },
+                "lnmAdres": {
+                  "type": "string",
+                  "title": "지번 주소"
+                },
+                "rnAdres": {
+                  "type": "string",
+                  "title": "도로명 주소"
+                }
+              },
+              "required": [
+                "zipNo",
+                "lnmAdres",
+                "rnAdres"
+              ]
+            },
+            "title": "주소 데이터\n\n데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다."
+          }
+        },
+        "required": [
+          "NewAddressListResponse"
+        ]
       },
       "IMSIT.IGetAddressInput": {
         "type": "object",
         "properties": {
-          "searchSe": {
-            "oneOf": [
-              {
-                "const": "dong",
-                "title": "동 주소",
-                "description": "한국의 주소 체계 중 `동`을 의미한다",
-                "default": "road"
-              },
-              {
-                "const": "road",
-                "title": "도로명 주소",
-                "description": "한국의 주소 체계 중 `도로명 주소`를 의미한다.",
-                "default": "road"
-              },
-              {
-                "const": "post",
-                "title": "우편 주소",
-                "description": "한국의 주소 체계 중 `우편 주소`를 의미한다.",
-                "default": "road"
-              }
-            ],
-            "title": "구분\n\nIt must be one of: 'dong', 'road', 'post' but default value is 'road'."
-          },
           "srchwrd": {
             "type": "string",
             "minLength": 1,
