@@ -15,7 +15,7 @@ export class ExcelController {
    * @summary 엑셀 파일 안의 내용 가져오기
    * @param input 내용을 가져올 엑셀 파일 정보
    */
-  @core.TypedRoute.Post("/read")
+  @core.TypedRoute.Post("read")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
@@ -34,7 +34,7 @@ export class ExcelController {
    * @param input 워크 시트 목록을 가져올 엑셀 파일 url
    * @returns 엑셀 워크 시트 목록.
    */
-  @core.TypedRoute.Post("/worksheet")
+  @core.TypedRoute.Post("worksheet")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
@@ -59,7 +59,7 @@ export class ExcelController {
    * @summary 액셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
    */
-  @core.TypedRoute.Post("/rows")
+  @core.TypedRoute.Post("rows")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
@@ -76,6 +76,7 @@ export class ExcelController {
    * You can also forward this link to the following connector to reflect further modifications.
    * When creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.
    *
+   * @deprecated
    * @summary Add Excel files and sheet
    */
   @core.TypedRoute.Post()
