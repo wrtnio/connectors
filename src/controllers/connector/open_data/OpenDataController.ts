@@ -125,6 +125,8 @@ export class OpenDataController {
    * The types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.
    * In addition, you can inquire by city, county, and region(=시도군)
    *
+   * In the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.
+   *
    * @summary Retrieve LH rental housing information
    * @param input Conditions for querying rental housing
    * @returns LH rental housing information
