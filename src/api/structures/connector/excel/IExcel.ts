@@ -92,7 +92,7 @@ export namespace IExcel {
   /**
    * @title 데이터 추가를 위한 정보
    */
-  export interface IInsertExcelRowInput extends ICreateSheetInput {
+  export interface IInsertExcelRowByUploadInput extends ICreateSheetInput {
     /**
      * 엑셀 행을 추가할 파일
      *
@@ -105,6 +105,29 @@ export namespace IExcel {
     fileUrl?: string &
       tags.Format<"uri"> &
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
+
+    /**
+     * key가 header 이름이고 value가 해당 행의 값인 객체의 배열
+     *
+     * @title 추가할 엑셀 행 데이터
+     */
+    data: Record<string, any>[];
+  }
+
+  /**
+   * @title 데이터 추가를 위한 정보
+   */
+  export interface IInsertExcelRowInput extends ICreateSheetInput {
+    /**
+     * 엑셀 행을 추가할 파일
+     *
+     * If you have this address, take an Excel file from that path and modify it.
+     * The modified file is saved as a new link and does not modify the original file in this path.
+     * If this address does not exist, create a new file immediately.
+     *
+     * @title 엑셀 파일
+     */
+    fileUrl?: string & tags.Format<"uri">;
 
     /**
      * key가 header 이름이고 value가 해당 행의 값인 객체의 배열

@@ -56,6 +56,35 @@ export class ExcelController {
    * it is supposed to be added to the lower line, so it is recommended to check the data before adding it.
    * If you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.
    *
+   * It is a connector that allows users to upload files by drag and drop.
+   *
+   * @summary 액셀 생성 및 데이터 추가
+   * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
+   */
+  @core.TypedRoute.Post("rows/upload")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+  )
+  async insertRowsByUpload(
+    @core.TypedBody() input: IExcel.IInsertExcelRowByUploadInput,
+  ): Promise<IExcel.IExportExcelFileOutput> {
+    return ExcelProvider.insertRows(input);
+  }
+
+  /**
+   * 데이터를 엑셀 시트에 추가합니다.
+   *
+   * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
+   * Therefore, this feature can also be used for sheet creation.
+   * If you want to create a sheet only and create an empty file without any data,
+   * you just need to specify the name of the sheet without any data.
+   *
+   * When adding rows to an already existing sheet,
+   * it is supposed to be added to the lower line, so it is recommended to check the data before adding it.
+   * If you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.
+   *
+   * A connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.
+   *
    * @summary 액셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
    */
