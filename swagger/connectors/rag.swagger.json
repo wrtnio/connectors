@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.178",
+    "version": "0.1.180",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -47,6 +47,7 @@
         },
         "responses": {
           "201": {
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -78,6 +79,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -118,6 +120,7 @@
         },
         "responses": {
           "201": {
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
