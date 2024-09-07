@@ -23,6 +23,11 @@ export namespace ConnectorGlobal {
     AWS_S3_BUCKET: string;
     FAKE_S3_PORT: `${number}`;
 
+    // CALENDLY
+    CALENDLY_TEST_CLIENT_ID: string;
+    CALENDLY_TEST_CLIENT_SECRET: string;
+    CALENDLY_TEST_SECRET: string;
+
     // DAUM
     DAUM_API_KEY: string;
 
