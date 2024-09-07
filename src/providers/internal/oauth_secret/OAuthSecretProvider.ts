@@ -9,7 +9,7 @@ export namespace OAuthSecretProvider {
    */
   export async function getSecretValue(
     secretValue: (string & tags.Format<"uuid">) | string,
-  ): Promise<IOAuthSecret.ISecretValue | string> {
+  ): Promise<string> {
     try {
       const isUuid = typia.createIs<string & tags.Format<"uuid">>();
 
@@ -17,7 +17,7 @@ export namespace OAuthSecretProvider {
         const res = await axios.get(
           `${ConnectorGlobal.env.GH_DEVS_BE_SERVER_URL}/studio/customers/accounts/secrets/values/sandboxes/${secretValue}`,
         );
-        return res.data;
+        return (res.data as IOAuthSecret.ISecretValue).value;
       } else {
         return secretValue;
       }
