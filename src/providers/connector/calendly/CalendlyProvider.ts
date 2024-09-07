@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import axios from "axios";
+import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class CalendlyProvider {
@@ -14,9 +16,14 @@ export class CalendlyProvider {
    * Endpoint: /event_types
    * 기능: 사용자 또는 조직의 일정 유형을 나열합니다. 이 API는 어떤 유형의 미팅을 제공하는지 사용자에게 보여주기 위해 사용합니다.
    */
-  async getEventTypes(input: { secretKey: string }) {
-    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
-    const res = await axios.get("https://api.calendly.com/event_types", {
+  async getEventTypes(
+    input: ICalendly.IGetEventTypeInput,
+  ): Promise<ICalendly.IGetEventTypeOutput> {
+    const { secretKey, ...rest } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.calendly.com/event_types?${queryParameter}`;
+    const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

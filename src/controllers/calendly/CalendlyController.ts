@@ -1,5 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { CalendlyProvider } from "../../providers/connector/calendly/CalendlyProvider";
+import core, { TypedBody } from "@nestia/core";
+import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
 
 @Controller("connector/calendly")
 export class CalendlyController {
@@ -15,7 +17,12 @@ export class CalendlyController {
    * Endpoint: /event_types
    * 기능: 사용자 또는 조직의 일정 유형을 나열합니다. 이 API는 어떤 유형의 미팅을 제공하는지 사용자에게 보여주기 위해 사용합니다.
    */
-  async getEventTypes() {}
+  @core.TypedRoute.Post("get-event-types")
+  async getEventTypes(
+    @TypedBody() input: ICalendly.IGetEventTypeInput,
+  ): Promise<ICalendly.IGetEventTypeOutput> {
+    return this.calendlyProvider.getEventTypes(input);
+  }
 
   /**
    * Endpoint: /scheduled_events
