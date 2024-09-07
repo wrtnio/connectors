@@ -24,8 +24,8 @@ export namespace ConnectorGlobal {
     FAKE_S3_PORT: `${number}`;
 
     // CALENDLY
-    CALENDLY_TEST_CLIENT_ID: string;
-    CALENDLY_TEST_CLIENT_SECRET: string;
+    CALENDLY_CLIENT_ID: string;
+    CALENDLY_CLIENT_SECRET: string;
     CALENDLY_TEST_SECRET: string;
 
     // DAUM
