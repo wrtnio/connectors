@@ -29,7 +29,7 @@ export namespace ICalendly {
     };
   }
 
-  export interface CreateSchedulingLinkInput {
+  export interface CreateSchedulingLinkInput extends Secret {
     owner: EventType["uri"];
   }
 

@@ -10,7 +10,28 @@ export class CalendlyProvider {
    * Endpoint: /scheduling_links
    * 기능: 사용자 또는 조직의 일정 유형을 나열합니다. 이 API는 어떤 유형의 미팅을 제공하는지 사용자에게 보여주기 위해 사용합니다.
    */
-  async createSchedulingLink() {}
+  async createSchedulingLink(
+    input: ICalendly.CreateSchedulingLinkInput,
+  ): Promise<ICalendly.CreateSchedulingLinkOutput> {
+    const { secretKey, owner } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const url = `https://api.calendly.com/scheduling_links`;
+    const res = await axios.post(
+      url,
+      {
+        max_event_count: 1 as const,
+        owner,
+        owner_type: "EventType" as const,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
 
   /**
    * Endpoint: /event_types
