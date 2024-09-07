@@ -3,6 +3,83 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
+  export interface IGetScheduledEventInput extends Secret {
+    /**
+     * @title count
+     * The number of rows to return.
+     */
+    count?: number &
+      tags.Type<"uint32"> &
+      tags.Minimum<1> &
+      tags.Maximum<100> &
+      tags.Default<20>;
+
+    /**
+     * @title group
+     * Return events that are scheduled with the group associated with this URI.
+     */
+    group?: string & tags.Format<"uri">;
+
+    /**
+     * @title invitee_email
+     * Return events that are scheduled with the invitee associated with this email address.
+     * @format email
+     * @example alice@example.com
+     */
+    invitee_email?: string & tags.Format<"email">;
+
+    /**
+     * @title max_start_time
+     * Include events with start times prior to this time. This time should use the UTC timezone.
+     * @example "2020-01-02T12:30:00.000000Z"
+     */
+    max_start_time?: string & tags.Format<"date-time">;
+
+    /**
+     * @title min_start_time
+     * Include events with start times after this time. This time should use the UTC timezone.
+     * @example "2020-01-02T12:30:00.000000Z"
+     */
+    min_start_time?: string & tags.Format<"date-time">;
+
+    /**
+     * @title organization
+     * Return events that are scheduled with the organization associated with this URI.
+     * @example "https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ"
+     */
+    organization?: string & tags.Format<"uri">;
+
+    /**
+     * @title page_token
+     * The token to pass to get the next or previous portion of the collection.
+     */
+    page_token?: string;
+
+    /**
+     * @title sort
+     * Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.
+     * Supported fields are: start_time. Sort direction is specified as: asc, desc.
+     * @example "start_time:asc"
+     */
+    sort?:
+      | tags.Constant<"start_time:asc", { title: "시작 시간 정순 정렬" }>
+      | tags.Constant<"start_time:desc", { title: "시작 시간 역순 정렬" }>;
+
+    /**
+     * @title status
+     * Whether the scheduled event is active or canceled.
+     * Allowed values: active, canceled.
+     */
+    status?: "active" | "canceled";
+
+    /**
+     * @title user
+     * Return events that are scheduled with the user associated with this URI.
+     * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
+     */
+    user?: string & tags.Format<"uri">;
+  }
+
   export interface IGetEventTypeOutput {
     collection: EventType[];
     pagination: Pagination;
