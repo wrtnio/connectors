@@ -11,7 +11,11 @@ export class CalendlyController {
    * Endpoint: /scheduling_links
    * 기능: 사용자 또는 조직의 일정 유형을 나열합니다. 이 API는 어떤 유형의 미팅을 제공하는지 사용자에게 보여주기 위해 사용합니다.
    */
-  async createSchedulingLink() {}
+  async createSchedulingLink(
+    input: ICalendly.CreateSchedulingLinkInput,
+  ): Promise<ICalendly.CreateSchedulingLinkOutput> {
+    return null!;
+  }
 
   /**
    * Endpoint: /event_types

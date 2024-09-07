@@ -4,8 +4,33 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
   export interface IGetEventTypeOutput {
-    collection: Collection[];
+    collection: EventType[];
     pagination: Pagination;
+  }
+
+  export interface CreateSchedulingLinkOutput {
+    resource: {
+      /**
+       * @title Scheduling link url
+       */
+      booking_url: string & tags.Format<"uri">;
+
+      /**
+       * @title owner
+       * A link to the resource that owns this Scheduling Link (currently, this is always an Event Type)
+       */
+      owner: string & tags.Format<"uri">;
+
+      /**
+       * @title owner_type
+       * Resource type (currently, this is always EventType)
+       */
+      owner_type: "EventType";
+    };
+  }
+
+  export interface CreateSchedulingLinkInput {
+    owner: EventType["uri"];
   }
 
   export interface IGetEventTypeInput extends Secret {
@@ -73,7 +98,7 @@ export namespace ICalendly {
 
   type Secret = ICommon.ISecret<"calendly">;
 
-  type Collection = {
+  type EventType = {
     /**
      * @title uri
      * Canonical reference (unique identifier) for the event type.
