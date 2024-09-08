@@ -8,7 +8,7 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 export class CalendlyProvider {
   /**
    * Endpoint: /scheduling_links
-   * 기능: 사용자 또는 조직의 일정 유형을 나열합니다. 이 API는 어떤 유형의 미팅을 제공하는지 사용자에게 보여주기 위해 사용합니다.
+   * 기능: 미리 정의된 유형의 미팅을 위해 사용 가능한 예약 링크를 생성할 수 있습니다. 이 링크를 통해 사용자는 일정 예약 페이지로 이동할 수 있습니다.
    */
   async createSchedulingLink(
     input: ICalendly.CreateSchedulingLinkInput,
@@ -92,12 +92,6 @@ export class CalendlyProvider {
 
     return res.data;
   }
-
-  /**
-   * Endpoint: /availability
-   * 기능: 특정 날짜 또는 시간에 사용자의 일정 가능 여부를 조회할 수 있습니다. 미팅 예약을 위해 사용자의 가능 일정을 확인하는 데 유용합니다.
-   */
-  async getAvailability() {}
 
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees
