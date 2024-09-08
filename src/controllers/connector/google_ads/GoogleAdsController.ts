@@ -25,7 +25,7 @@ export class GoogleAdsController {
    *
    * 이 커넥터는 성인 광고를 위한 키워드를 제외하며, 언어적 조건은 한국어, 지리적 조건은 한국(South Korea)으로 설정되어 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 키워드와 URL을 통한 키워드 생성
    * @param input URL을 담은 객체
@@ -64,7 +64,7 @@ export class GoogleAdsController {
    *
    * 이 커넥터는 성인 광고를 위한 키워드를 제외하며, 언어적 조건은 한국어, 지리적 조건은 한국(South Korea)으로 설정되어 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 키워드를 통한 키워드 생성
    * @param input URL을 담은 객체
@@ -103,7 +103,7 @@ export class GoogleAdsController {
    *
    * 이 커넥터는 성인 광고를 위한 키워드를 제외하며, 언어적 조건은 한국어, 지리적 조건은 한국(South Korea)으로 설정되어 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary URL을 통한 키워드 생성
    * @param input URL을 담은 객체
@@ -141,7 +141,7 @@ export class GoogleAdsController {
    * 이 관리자 지정은 키워드 추천 등 `customerId`를 인자로 받지 않는 커넥터들을 제외한 모든 Google Ads 커넥터 호출에 선행되어야 합니다.
    * 하지만 이 커넥터를 호출했다고 하더라도 유저의 승인 없이 `Wrtn`이 관리자로 지정되는 일은 없으니 걱정할 필요는 없습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 뤼튼을 관리자로 등록하기
    * @param input 고객 정보
@@ -168,7 +168,7 @@ export class GoogleAdsController {
    * Google Ads 커넥터를 통해 광고를 생성할 때 각 계정의 통화 단위에 따라 예산 설정에 휴먼 에러가 발생할 수도 있기 때문입니다.
    * 예컨대 통화 단위가 `USD`인 계정을 `KRW`인 계정처럼 예산을 등록할 경우 그 환율만큼의 예산 차이가 발생할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고 계정을 조회합니다
    * @param input 고객 정보
@@ -196,7 +196,7 @@ export class GoogleAdsController {
    * 만약 캠페인이 검색 광고라면 광고 그룹과 광고 역시 검색 광고만 존재합니다.
    * 유저는 이 커넥터를 통해 자신이 가진 캠페인과 캠페인의 상태를 조회하고, 원하는 캠페인에 광고 그룹을 생성하는 등 이후 액션에 활용할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 캠페인 목록을 조회합니다
    * @param input 고객 정보
@@ -225,7 +225,7 @@ export class GoogleAdsController {
    * 해당 광고 그룹에 속한 광고의 목록 및 현재 상태, 간단한 정보들을 담고 있습니다.
    * 또한 광고 그룹에 연결되어 있는 키워드들의 정보 또한 담겨 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고 그룹 목록을 조회합니다.
    * @param input 광고 그룹 목록 조회 조건
@@ -262,7 +262,7 @@ export class GoogleAdsController {
    *
    * 광고 상태 변경은 `PATCH connector/google-ads/campaigns/ads/status`에서 변경할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 캠페인 광고 목록을 조회합니다
    * @param input 광고 목록 조회 조건
@@ -295,7 +295,7 @@ export class GoogleAdsController {
    *
    * 유저는 이 커넥터를 통해 자신의 광고가 비용과 성과 측면에서 효율적으로 집행되고 있는지를 확인할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고 그룹의 성과(metrics)를 조회합니다
    * @param input 광고 지표 조회 조건
@@ -329,7 +329,7 @@ export class GoogleAdsController {
    * 이 커넥터는 고객 계정에 대한 인증으로서 광고 계정을 유저에게 인자로 전달받지만 이 또한 선택적입니다.
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    * 
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고에 키워드를 추가해요
    * @param input 키워드 추가 조건
@@ -364,7 +364,7 @@ export class GoogleAdsController {
    * 만약 캠페인, 광고 그룹, 광고 등의 삭제를 원하는 유저가 있다면 해당 노드의 모든 자식 광고들을 `PAUSED` 상태로 변경하는 것을 추천합니다.
    * 광고의 삭제는 이전 성과와 지표를 조회할 수 있는 수단을 잃는 것이기 떄문에 광고 삭제 대신 광고를 종료하는 것이 추후 광고 재집행에도 유리합니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고의 상태를 변경해요
    * @param input 변경할 광고의 상태
@@ -390,7 +390,7 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고에 키워드를 삭제해요
    * @param input 키워드 삭제 조건
@@ -416,7 +416,7 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고에 키워드를 추가해요
    * @param input 키워드 추가 조건
@@ -445,7 +445,7 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고 상세 조회
    * @param input 광고 상세 조회 조건
@@ -479,7 +479,7 @@ export class GoogleAdsController {
    * 따라서 광고의 검토가 끝나더라도 광고는 집행되지 않으며 성과와 지출 역시 발생하지 않습니다.
    * 광고가 올바른지 체크하였다면, 유저는 `광고 수정 커넥터`를 이용하여 광고의 상태(status)를 `ENABLED` 값으로 변경할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
    *
    * @summary 광고를 생성해요
    * @param input 광고 생성 조건
@@ -512,7 +512,9 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
+   *
+   * 원래라면 금액 제한이 없으나 만일의 사태를 대비하여 현재는 캠페인 당 10만원까지만 가능하도록 기능 제한합니다.
    *
    * @summary 캠페인을 수정해요
    * @param input 캠페인 수정 조건
@@ -543,7 +545,9 @@ export class GoogleAdsController {
    *
    * 만약 `customerId`를 전달하지 않을 경우에는 해당 유저에게서 `Wrtn`이 접근 가능한 광고 계정이 단 1개인 경우에 한하여 자동으로 선택합니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
+   *
+   * 원래라면 금액 제한이 없으나 만일의 사태를 대비하여 현재는 캠페인 당 10만원까지만 가능하도록 기능 제한합니다.
    *
    * @summary 캠페인을 생성합니다
    * @param input 캠페인 생성 조건
@@ -562,7 +566,7 @@ export class GoogleAdsController {
   }
 
   /**
-   * 구글 고객 계정에 광고를 한 번에 만들어요
+   * 구글 고객 계정에 검색 광고를 한 번에 만들어요
    *
    * 구글 광고를 한 번에 생성하는 것은 Google Ads 트리 구조 상 존재하는 캠페인, 광고 그룹, 광고를 한꺼번에 생성하는 것을 의미합니다.
    * 이 경우, 어떤 캠페인에 대해서 광고를 생성할 것인지 지정하지 않아도 됩니다.
@@ -583,7 +587,9 @@ export class GoogleAdsController {
    * 따라서 광고의 검토가 끝나더라도 광고는 집행되지 않으며 성과와 지출 역시 발생하지 않습니다.
    * 광고가 올바른지 체크하였다면, 유저는 `광고 수정 커넥터`를 이용하여 광고의 상태(status)를 `ENABLED` 값으로 변경할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
+   *
+   * 원래라면 금액 제한이 없으나 만일의 사태를 대비하여 현재는 캠페인 당 10만원까지만 가능하도록 기능 제한합니다.
    *
    * @summary 구글 고객 계정에 반응형 검색 광고를 한 번에 만들어요
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
@@ -617,7 +623,7 @@ export class GoogleAdsController {
   }
 
   /**
-   * 구글 고객 계정에 광고를 한 번에 만들어요
+   * 구글 고객 계정에 디스플레이 광고를 한 번에 만들어요
    *
    * 구글 광고를 한 번에 생성하는 것은 Google Ads 트리 구조 상 존재하는 캠페인, 광고 그룹, 광고를 한꺼번에 생성하는 것을 의미합니다.
    * 이 경우, 어떤 캠페인에 대해서 광고를 생성할 것인지 지정하지 않아도 됩니다.
@@ -638,7 +644,9 @@ export class GoogleAdsController {
    * 따라서 광고의 검토가 끝나더라도 광고는 집행되지 않으며 성과와 지출 역시 발생하지 않습니다.
    * 광고가 올바른지 체크하였다면, 유저는 `광고 수정 커넥터`를 이용하여 광고의 상태(status)를 `ENABLED` 값으로 변경할 수 있습니다.
    *
-   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 한다.
+   * 기능을 호출하기 전 유저에게 `customerId`를 물어봐야 하며 따라서 `customerId`를 확인할 수 있는 커넥터를 제안해야 합니다.
+   *
+   * 원래라면 금액 제한이 없으나 만일의 사태를 대비하여 현재는 캠페인 당 10만원까지만 가능하도록 기능 제한합니다.
    *
    * @summary 구글 계정 광고에 반응형 디스플레이 광고를 한 번에 만들어요
    * @param input 캠페인부터 광고까지 한 번에 생성하는 조건
