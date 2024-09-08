@@ -396,6 +396,25 @@ export class SlackProvider {
     }; // next_cursor가 빈 문자인 경우 대비
   }
 
+  async getAllPrivateChannels(input: { secretKey: string }) {
+    let nextCursor: string | null = null;
+    let response: Awaited<
+      ReturnType<typeof this.getPrivateChannels>
+    >["channels"] = [];
+    do {
+      const { next_cursor, channels } = await this.getPrivateChannels({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(channels);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
+  }
+
   async getPrivateChannels(
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput> {
@@ -425,6 +444,25 @@ export class SlackProvider {
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
+  async getAllPublicChannels(input: { secretKey: string }) {
+    let nextCursor: string | null = null;
+    let response: Awaited<
+      ReturnType<typeof this.getPublicChannels>
+    >["channels"] = [];
+    do {
+      const { next_cursor, channels } = await this.getPublicChannels({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(channels);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
+  }
+
   async getPublicChannels(
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
@@ -451,6 +489,24 @@ export class SlackProvider {
       };
     });
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  async getAllImChannels(input: { secretKey: string }) {
+    let nextCursor: string | null = null;
+    let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
+      [];
+    do {
+      const { next_cursor, channels } = await this.getImChannels({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(channels);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
   }
 
   async getImChannels(

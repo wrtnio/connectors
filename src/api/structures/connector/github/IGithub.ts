@@ -1005,6 +1005,13 @@ export namespace IGithub {
     organization: string;
   }
 
+  export type IGetUserPinnedRepositoryOutput = Repository["name"][];
+
+  export type IGetUserPinnedRepositoryInput = Pick<
+    IGetUserRepositoryInput,
+    "username" | "secretKey"
+  >;
+
   export interface IGetUserRepositoryOutput extends ICommonPaginationOutput {
     /**
      * @title repositories

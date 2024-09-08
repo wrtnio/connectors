@@ -126,6 +126,8 @@ export class SlackController {
    * send message to channel
    *
    * Here, you can send a message as long as you have the message and channel information you want to send.
+   * Slack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.
+   * You must send the contents after receiving confirmation from the user.
    *
    * @summary post text message in slack
    * @param input
@@ -264,8 +266,8 @@ export class SlackController {
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return retry(() => this.slackProvider.getPrivateChannels(input))();
+  ): Promise<ISlack.IGetPrivateChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllPrivateChannels(input))();
   }
 
   /**
@@ -287,8 +289,8 @@ export class SlackController {
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetPublicChannelOutput> {
-    return retry(() => this.slackProvider.getPublicChannels(input))();
+  ): Promise<ISlack.IGetPublicChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllPublicChannels(input))();
   }
 
   /**
@@ -310,7 +312,7 @@ export class SlackController {
   @TypedRoute.Post("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetImChannelOutput> {
-    return retry(() => this.slackProvider.getImChannels(input))();
+  ): Promise<ISlack.IGetImChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllImChannels(input))();
   }
 }

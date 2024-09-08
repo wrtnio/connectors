@@ -174,6 +174,22 @@ export const test_api_connector_open_data_get_get_building_info = async (
   typia.assertEquals(res);
 };
 
+export const test_api_connector_open_data_get_get_building_info_2 = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getBuildingInfo(
+    connection,
+    {
+      sigunguCd: "11680",
+      bjdongCd: "1168010300",
+      pageNo: 1,
+      numOfRows: 100,
+    },
+  );
+
+  typia.assertEquals(res);
+};
+
 export const test_api_connector_open_data_get_get_parking_lot = async (
   connection: CApi.IConnection,
 ) => {

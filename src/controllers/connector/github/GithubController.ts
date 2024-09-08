@@ -54,6 +54,27 @@ export class GithubController {
   }
 
   /**
+   * Inquire the user's pinned repositories
+   *
+   * Inquire up to 6 repositories where the user has pinned.
+   * Here, only the name of the repository is searched, so if necessary, find detailed information about the repository by pageing the user's repository list.
+   * Placing a pin in a repository is most likely a repository that users are most confident in.
+   *
+   * @summary Inquire the user's pinned repository names
+   * @param input
+   * @returns repositories
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("users/get-pinned-repositories")
+  async getUserPinnedRepositories(
+    @TypedBody() input: IGithub.IGetUserPinnedRepositoryInput,
+  ): Promise<IGithub.IGetUserPinnedRepositoryOutput> {
+    return this.githubProvider.getUserPinnedRepository(input);
+  }
+
+  /**
    * Inquire the user's repositories
    *
    * Since it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.

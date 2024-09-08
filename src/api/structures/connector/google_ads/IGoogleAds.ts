@@ -742,8 +742,10 @@ export namespace IGoogleAds {
     /**
      * @title 광고 예산
      * @description 한국 통화 단위로써, 원화 단위
+     *
+     * 원래라면 금액 제한이 없으나 만일의 사태를 대비하여 현재는 캠페인 당 10만원까지만 가능하도록 기능 제한
      */
-    campaignBudget: number;
+    campaignBudget: number & tags.Maximum<100000>;
   }
 
   /**
