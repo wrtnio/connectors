@@ -93,7 +93,29 @@ export class CalendlyProvider {
     return res.data;
   }
 
-  async createOneOffEventType() {}
+  /**
+   * {@link docs https://developer.calendly.com/api-docs/v1yuxil3cpmxq-create-one-off-event-type}
+   */
+  async createOneOffEventType(
+    input: ICalendly.ICreateOneOffEventTypeInput,
+  ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
+    const { secretKey, ...rest } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const url = `https://api.calendly.com/one_off_event_types`;
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
 
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees

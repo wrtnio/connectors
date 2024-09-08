@@ -51,8 +51,16 @@ export class CalendlyController {
     return this.calendlyProvider.getInvitees(input);
   }
 
+  /**
+   * Endpoint: /one_off_event_types
+   * 기능: 사용자가 특정 상황이나 단발성 이벤트를 위해 이벤트 유형을 생성할 수 있게 해줍니다.
+   */
   @core.TypedRoute.Post("one-off-event-types")
-  async createOneOffEventType() {}
+  async createOneOffEventType(
+    @TypedBody() input: ICalendly.ICreateOneOffEventTypeInput,
+  ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
+    return this.calendlyProvider.createOneOffEventType(input);
+  }
 
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees

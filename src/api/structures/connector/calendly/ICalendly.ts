@@ -3,6 +3,14 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
+  export interface ICreateOneOffEventTypeOutput {
+    /**
+     * @title EventType
+     * A configuration for an Event
+     */
+    resource: EventType;
+  }
+
   export interface ICreateOneOffEventTypeInput extends Secret {
     /**
      * @title name
