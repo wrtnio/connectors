@@ -60,7 +60,7 @@ export class GithubController {
    * Here, only the name of the repository is searched, so if necessary, find detailed information about the repository by pageing the user's repository list.
    * Placing a pin in a repository is most likely a repository that users are most confident in.
    *
-   * @summary Inquire the user's repositories
+   * @summary Inquire the user's pinned repository names
    * @param input
    * @returns repositories
    */
