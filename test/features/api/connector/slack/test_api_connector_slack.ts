@@ -15,7 +15,7 @@ export const test_api_connector_slack_get_private_channels = async (
     );
 
   typia.assertEquals(res);
-  return res.channels;
+  return res;
 };
 
 export const test_api_connector_slack_get_public_channels = async (
@@ -30,7 +30,7 @@ export const test_api_connector_slack_get_public_channels = async (
     );
 
   typia.assertEquals(res);
-  return res.channels;
+  return res;
 };
 
 export const test_api_connector_slack_get_im_channels = async (
@@ -45,7 +45,7 @@ export const test_api_connector_slack_get_im_channels = async (
     );
 
   typia.assertEquals(res);
-  return res.channels;
+  return res;
 };
 
 export const test_api_connector_slack_get_channel_histories = async (
