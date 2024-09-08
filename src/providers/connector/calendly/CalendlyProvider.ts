@@ -57,7 +57,21 @@ export class CalendlyProvider {
    * Endpoint: /scheduled_events
    * 기능: 예약된 모든 이벤트(미팅)를 조회하고 세부 정보를 가져오는 데 사용됩니다. 예를 들어, 특정 기간 동안 예약된 미팅을 조회할 때 유용합니다.
    */
-  async getScheduledEvents() {}
+  async getScheduledEvents(
+    input: ICalendly.IGetScheduledEventInput,
+  ): Promise<ICalendly.IGetScheduledEventOutput> {
+    const { secretKey, ...rest } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.calendly.com/scheduled_events?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  }
 
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees

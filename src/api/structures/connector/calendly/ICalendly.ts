@@ -3,6 +3,10 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
+  export interface IGetScheduledEventOutput {
+    collection: Event[];
+    pagination: Pagination;
+  }
   export interface IGetScheduledEventInput extends Secret {
     /**
      * @title count
