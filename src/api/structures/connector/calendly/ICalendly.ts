@@ -851,7 +851,28 @@ export namespace ICalendly {
      * @title Invitee payment
      */
     payment: Payment | null;
+
+    /**
+     * @title no_show
+     * Provides data pertaining to the associated no show for the Invitee
+     */
+    no_show: NoShow | null;
   }
+
+  type NoShow = {
+    /**
+     * @title url
+     * Canonical reference (unique identifier) for the no show
+     */
+    url: string & tags.Format<"uri">;
+
+    /**
+     * @title created_at
+     * The moment when the no show was created
+     * @example 2019-01-02T03:04:05.678123Z
+     */
+    created_at: string & tags.Format<"date-time">;
+  };
 
   type Payment = {
     /**
