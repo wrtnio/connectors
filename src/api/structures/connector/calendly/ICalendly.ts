@@ -3,6 +3,52 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
+  export interface IGetScheduledEventInviteeInput {
+    /**
+     * @title count
+     * The number of rows to return (1 to 100)
+     * @default 20
+     * @minimum 1
+     * @maximum 100
+     */
+    count?: number & tags.Minimum<1> & tags.Maximum<100> & tags.Default<20>;
+
+    /**
+     * @title email
+     * Filter results by email address (optional)
+     * @example "bob@example.com"
+     */
+    email?: string & tags.Format<"email">;
+
+    /**
+     * @title page_token
+     * The token to pass for pagination to get the next or previous portion of the collection
+     */
+    page_token?: string;
+
+    /**
+     * @title sort
+     * Order results by the `created_at` field and direction.
+     * Allowed values: "asc" for ascending, "desc" for descending.
+     * @default "created_at:asc"
+     */
+    sort?:
+      | (
+          | tags.Constant<"created_at:asc", { title: "created_at:asc" }>
+          | tags.Constant<'"created_at:desc"', { title: '"created_at:desc"' }>
+        )
+      | tags.Default<"created_at:asc">;
+
+    /**
+     * @title status
+     * Filter by invitee status (either "active" or "canceled").
+     * @enum ["active", "canceled"]
+     */
+    status?:
+      | tags.Constant<"active", { title: "active" }>
+      | tags.Constant<"canceled", { title: "canceled" }>;
+  }
+
   export interface IGetScheduledEventOutput {
     collection: Event[];
     pagination: Pagination;
@@ -610,35 +656,37 @@ export namespace ICalendly {
      * @title cancellation
      * Information about the calendar event from the calendar provider.
      */
-    cancellation?: {
-      /**
-       * @title canceled_by
-       * Name of the person whom canceled
-       */
-      canceled_by: string;
-
-      /**
-       * @title reason
-       * Reason that the cancellation occurred
-       */
-      reason: string | null;
-
-      /**
-       * @title canceler_type
-       * @enum ["host", "invitee"]
-       */
-      canceler_type:
-        | tags.Constant<"host", { title: "host" }>
-        | tags.Constant<"invitee", { title: "invitee" }>;
-
-      /**
-       * @title created_at
-       * The moment when the cancellation was created
-       * @example "2019-01-02T03:04:05.678123Z"
-       */
-      created_at: string & tags.Format<"date-time">;
-    };
+    cancellation?: Cancellation;
   }
+
+  type Cancellation = {
+    /**
+     * @title canceled_by
+     * Name of the person whom canceled
+     */
+    canceled_by: string;
+
+    /**
+     * @title reason
+     * Reason that the cancellation occurred
+     */
+    reason: string | null;
+
+    /**
+     * @title canceler_type
+     * @enum ["host", "invitee"]
+     */
+    canceler_type:
+      | tags.Constant<"host", { title: "host" }>
+      | tags.Constant<"invitee", { title: "invitee" }>;
+
+    /**
+     * @title created_at
+     * The moment when the cancellation was created
+     * @example "2019-01-02T03:04:05.678123Z"
+     */
+    created_at: string & tags.Format<"date-time">;
+  };
 
   type Pagination = {
     /**
