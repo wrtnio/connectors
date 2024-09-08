@@ -84,5 +84,10 @@ export class CalendlyController {
    * Endpoint: /users/me
    * 기능: 현재 인증된 사용자 정보를 가져옵니다. 이벤트 생성 시 사용자 정보를 확인하거나 관련 정보를 표시할 때 사용할 수 있습니다.
    */
-  async getUserInfo() {}
+  @core.TypedRoute.Post("users/get-me")
+  async getUserInfo(
+    @TypedBody() input: ICalendly.IGetUserInfoInput,
+  ): Promise<ICalendly.IGetUserInfoOutput> {
+    return this.calendlyProvider.getUserInfo(input);
+  }
 }

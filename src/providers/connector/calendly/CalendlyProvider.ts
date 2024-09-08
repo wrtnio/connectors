@@ -139,5 +139,18 @@ export class CalendlyProvider {
    * Endpoint: /users/me
    * 기능: 현재 인증된 사용자 정보를 가져옵니다. 이벤트 생성 시 사용자 정보를 확인하거나 관련 정보를 표시할 때 사용할 수 있습니다.
    */
-  async getUserInfo() {}
+  async getUserInfo(
+    input: ICalendly.IGetUserInfoInput,
+  ): Promise<ICalendly.IGetUserInfoOutput> {
+    const { secretKey } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const url = `https://api.calendly.com/users/me`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  }
 }

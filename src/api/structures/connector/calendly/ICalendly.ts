@@ -3,6 +3,12 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
+  export type IGetUserInfoOutput = {
+    resource: User;
+  };
+
+  export type IGetUserInfoInput = Secret;
+
   export interface ICreateOneOffEventTypeOutput {
     /**
      * @title EventType
@@ -1118,5 +1124,88 @@ export namespace ICalendly {
      * Token to return the previous page of an ordered list ("null" indicates no additional results are available)
      */
     previous_page_token: (string & tags.Format<"uri">) | null;
+  };
+
+  /**
+   * @title user
+   * Information about the user.
+   */
+  type User = {
+    /**
+     * @title uri
+     * Canonical reference (unique identifier) for the user
+     * @example "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+     */
+    uri: string & tags.Format<"uri">;
+
+    /**
+     * @title name
+     * The user's name (human-readable format)
+     * @example "John Doe"
+     */
+    name: string;
+
+    /**
+     * @title slug
+     * The portion of URL for the user's scheduling page (where invitees book sessions)
+     * @example "acmesales"
+     */
+    slug: string;
+
+    /**
+     * @title email
+     * The user's email address
+     * @example "test@example.com"
+     */
+    email: string & tags.Format<"email">;
+
+    /**
+     * @title scheduling_url
+     * The URL of the user's Calendly landing page (that lists all the user's event types)
+     * @example "https://calendly.com/acmesales"
+     */
+    scheduling_url: string & tags.Format<"uri">;
+
+    /**
+     * @title timezone
+     * The time zone to use when presenting time to the user
+     * @example "America/New_York"
+     */
+    timezone: string;
+
+    /**
+     * @title avatar_url
+     * The URL of the user's avatar (image). Can be null.
+     * @example "https://01234567890.cloudfront.net/uploads/user/avatar/0123456/a1b2c3d4.png"
+     */
+    avatar_url: (string & tags.Format<"uri">) | null;
+
+    /**
+     * @title created_at
+     * The moment when the user's record was created
+     * @example "2019-01-02T03:04:05.678123Z"
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     * The moment when the user's record was last updated
+     * @example "2019-08-07T06:05:04.321123Z"
+     */
+    updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title current_organization
+     * A unique reference to the user's current organization
+     * @example "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA"
+     */
+    current_organization: string & tags.Format<"uri">;
+
+    /**
+     * @title resource_type
+     * Resource type to support polymorphic associations
+     * @example "User"
+     */
+    resource_type: string;
   };
 }
