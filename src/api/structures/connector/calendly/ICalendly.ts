@@ -3,6 +3,85 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
+  export interface ICreateOneOffEventTypeInput extends Secret {
+    /**
+     * @title name
+     * Event type name
+     * @example "My Meeting"
+     */
+    name: string & tags.MaxLength<55> & Placeholder<"My Meeting">;
+
+    /**
+     * @title host
+     * Host user uri
+     * @example "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
+     */
+    host: string & tags.Format<"uri">;
+
+    /**
+     * @title co_hosts
+     * Collection of meeting co-host(s) user URIs
+     */
+    co_host?: (string & tags.Format<"uri">)[] & tags.MaxItems<9>;
+
+    /**
+     * @title duration
+     * Duration of meeting in minutes
+     */
+    duration: number &
+      tags.Type<"uint32"> &
+      tags.Minimum<1> &
+      tags.Maximum<720>;
+
+    /**
+     * @title timezone
+     * Time zone used for meeting. Defaults to host's time zone.
+     * @example "America/New_York"
+     */
+    timezone?: string & Placeholder<"America/New_York">;
+
+    /**
+     * @title date_setting
+     * Only allow scheduling within a specified date range
+     */
+    date_setting: {
+      /**
+       * @title type
+       * @enum ["date_range"]
+       */
+      type: tags.Constant<"date_range", { title: "date_range" }>;
+
+      /**
+       * @title start_date
+       * Availability start - Must be before end_date. Format: YYYY-MM-DD
+       */
+      start_date: string & tags.Format<"date">;
+
+      /**
+       * @title end_date
+       * Availability end - Must be a date in the future and less than 365 days in the future from start_date. Format: YYYY-MM-DD
+       */
+      end_date: string & tags.Format<"date">;
+    };
+
+    /**
+     * @title location
+     * Information for a Custom Location
+     */
+    location: {
+      /**
+       * @title kind
+       * @enum ["custom"]
+       */
+      kind: tags.Constant<"custom", { title: "custom" }>;
+
+      /**
+       * @title location
+       */
+      location: string;
+    };
+  }
+
   export interface IGetScheduledEventInviteeOutput {
     collection: Invitee[];
     pagination: Pagination;

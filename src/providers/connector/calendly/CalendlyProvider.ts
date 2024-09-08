@@ -93,6 +93,8 @@ export class CalendlyProvider {
     return res.data;
   }
 
+  async createOneOffEventType() {}
+
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees
    * 기능: 특정 이벤트에 초대자를 생성(추가)할 수 있습니다. 초대 메일을 발송하거나, 새로운 초대자를 이벤트에 등록하는 경우에 사용됩니다.
