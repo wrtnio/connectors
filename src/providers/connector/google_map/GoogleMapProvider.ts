@@ -67,7 +67,7 @@ export class GoogleMapProvider {
           rating: result.rating,
           description: result.description,
           link: result.link,
-          images: result.images.map((image: any) => image.thumbnail),
+          images: result.images?.map((image: any) => image.thumbnail) ?? [],
           date: result.date,
         };
         output.push(data);
