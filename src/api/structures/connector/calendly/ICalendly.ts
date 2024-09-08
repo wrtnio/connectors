@@ -416,6 +416,226 @@ export namespace ICalendly {
     include_other: boolean;
   };
 
+  export interface Event {
+    /**
+     * @title uri
+     * Canonical reference (unique identifier) for the resource
+     * @example "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2"
+     */
+    uri: string & tags.Format<"uri">;
+
+    /**
+     * @title name
+     * The event name
+     * @example "15 Minute Meeting"
+     */
+    name: (string | null) & Placeholder<"15 Minute Meeting">;
+
+    /**
+     * @title meeting_notes_plain
+     * The internal meeting notes (in non formatted text)
+     * @example "15 Minute Meeting"
+     */
+    meeting_notes_plain: (string | null) & Placeholder<"15 Minute Meeting">;
+
+    /**
+     * @title meeting_notes_html
+     * The internal meeting notes (formatted with HTML)
+     * @example "<p>15 Minute Meeting</p>"
+     */
+    meeting_notes_html: string;
+
+    /**
+     * @title status
+     * Indicates if the event is "active" or "canceled"
+     * @enum ["active", "canceled"]
+     */
+    status:
+      | tags.Constant<"active", { title: "active" }>
+      | tags.Constant<"canceled", { title: "canceled" }>;
+
+    /**
+     * @title start_time
+     * The moment the event was scheduled to start in UTC time
+     * @example "2020-01-02T03:04:05.678123Z"
+     */
+    start_time: string & tags.Format<"date-time">;
+
+    /**
+     * @title end_time
+     * The moment the event was scheduled to end in UTC time
+     * @example "2020-01-02T03:04:05.678123Z"
+     */
+    end_time: string & tags.Format<"date-time">;
+
+    /**
+     * @title event_type
+     * 이벤트 타입 URI
+     * @example "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
+     */
+    event_type: string & tags.Format<"uri">;
+
+    /**
+     * @title location
+     * The event type associated with this event
+     * @enum ["In-Person Meeting"]
+     */
+    location: {
+      /**
+       * @title type
+       * Indicates that the event will be an in-person meeting.
+       */
+      type: "physical";
+
+      /**
+       * @title location
+       * The physical location specified by the event host (publisher)
+       * @example Calendly Office
+       */
+      location: string;
+
+      /**
+       * @title additional_info
+       * 추가 정보
+       * @example "Please check in at the main lobby."
+       */
+      additional_info: string;
+    };
+
+    /**
+     * @title invitees_counter
+     * 초대 인원 카운터
+     */
+    invitees_counter: {
+      /**
+       * @title total
+       * Total invitees for an event, including invitees that have canceled
+       */
+      total: number & tags.Type<"uint32">;
+
+      /**
+       * @title active
+       * Total invitees for an event that have not canceled
+       */
+      active: number & tags.Type<"uint32">;
+
+      /**
+       * @title limit
+       * Maximum number of active invitees that can book the event
+       */
+      limit: number & tags.Type<"uint32">;
+    };
+
+    /**
+     * @title created_at
+     * The moment when the event was created
+     * @example "2019-01-02T03:04:05.678123Z"
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     * The moment when the event was last updated
+     * @example "2019-01-02T03:04:05.678123Z"
+     */
+    updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title event_memberships
+     * 이벤트 멤버십 목록
+     */
+    event_memberships: {
+      /**
+       * @title user
+       * Canonical reference (unique identifier) for the user
+       * @example "https://api.calendly.com/users/GBGBDCAADAEDCRZ2"
+       */
+      user: string & tags.Format<"uri">;
+
+      /**
+       * @title user_email
+       * The user's email
+       * @example "user@example.com"
+       */
+      user_email: string & tags.Format<"email">;
+
+      /**
+       * @title user_name
+       * The user's name
+       * @example "John Smith"
+       */
+      user_name: string & Placeholder<"John Smith">;
+
+      /**
+       * @title buffered_start_time
+       * The moment the membership's time buffer starts for the event in UTC time
+       * @example "2020-01-02T03:04:05.678123Z"
+       */
+      buffered_start_time: string & tags.Format<"date-time">;
+
+      /**
+       * @title buffered_end_time
+       * The moment the membership's time buffer ends for the event in UTC time
+       * @example "2020-01-02T03:04:05.678123Z"
+       */
+      buffered_end_time: string & tags.Format<"date-time">;
+    }[];
+
+    /**
+     * @title event_guests
+     * Additional people added to an event by an invitee
+     */
+    event_guests: {
+      /**
+       * @title email
+       */
+      email: string & tags.Format<"email">;
+
+      /**
+       * @title created_at
+       */
+      created_at: string & tags.Format<"date-time">;
+
+      /**
+       * @title updated_at
+       */
+      updated_at: string & tags.Format<"date-time">;
+    }[];
+
+    /**
+     * @title cancellation
+     * Information about the calendar event from the calendar provider.
+     */
+    cancellation?: {
+      /**
+       * @title canceled_by
+       * Name of the person whom canceled
+       */
+      canceled_by: string;
+
+      /**
+       * @title reason
+       * Reason that the cancellation occurred
+       */
+      reason: string | null;
+
+      /**
+       * @title canceler_type
+       * @enum ["host", "invitee"]
+       */
+      canceler_type:
+        | tags.Constant<"host", { title: "host" }>
+        | tags.Constant<"invitee", { title: "invitee" }>;
+
+      /**
+       * @title created_at
+       * The moment when the cancellation was created
+       * @example "2019-01-02T03:04:05.678123Z"
+       */
+      created_at: string & tags.Format<"date-time">;
+    };
+  }
+
   type Pagination = {
     /**
      * @title count
