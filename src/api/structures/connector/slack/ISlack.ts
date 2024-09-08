@@ -427,9 +427,23 @@ export namespace ISlack {
   /**
    * @title request condition
    */
-  export interface IGetChannelInput
-    extends ISlack.ISecret,
-      ISlack.ICommonPaginationInput {}
+  export interface IGetChannelInput extends ISlack.ISecret {
+    /**
+     * @title limit
+     * @deprecated
+     */
+    limit?: number &
+      tags.Type<"int32"> &
+      tags.Minimum<1> &
+      tags.Maximum<1000> &
+      Placeholder<"200">;
+
+    /**
+     * @title cursor
+     * @deprecated
+     */
+    cursor?: string;
+  }
 
   export interface ImChannel extends Channel {
     /**

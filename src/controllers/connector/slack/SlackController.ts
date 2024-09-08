@@ -264,8 +264,8 @@ export class SlackController {
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return retry(() => this.slackProvider.getPrivateChannels(input))();
+  ): Promise<ISlack.IGetPrivateChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllPrivateChannels(input))();
   }
 
   /**
@@ -287,8 +287,8 @@ export class SlackController {
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetPublicChannelOutput> {
-    return retry(() => this.slackProvider.getPublicChannels(input))();
+  ): Promise<ISlack.IGetPublicChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllPublicChannels(input))();
   }
 
   /**
@@ -310,7 +310,7 @@ export class SlackController {
   @TypedRoute.Post("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetImChannelOutput> {
-    return retry(() => this.slackProvider.getImChannels(input))();
+  ): Promise<ISlack.IGetImChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllImChannels(input))();
   }
 }
