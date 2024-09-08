@@ -191,6 +191,17 @@ export class OpenDataController {
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
+    /**
+     * 법정동 코드는 원래 `${시군구코드}${number}` 형태로, 시군구코드 5자리, 그 외 5자리 숫자로 이루어져 있다.
+     * 여기서는 시군구 코드를 제외한 나머지 5자리를 알아야 사용이 가능한데, 간헐적으로 10자리 숫자를 대입하는 문제가 발생하니 커넥터 단에서 처리한다.
+     */
+
+    if (
+      input.bjdongCd.length === 10 &&
+      input.bjdongCd.startsWith(input.sigunguCd)
+    ) {
+      input.bjdongCd = input.bjdongCd.replace(input.sigunguCd, "");
+    }
     return retry(() => OpenDataProvider.getBuildingInfo(input))();
   }
 
