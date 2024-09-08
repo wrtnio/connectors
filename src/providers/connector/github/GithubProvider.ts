@@ -628,6 +628,39 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getUserPinnedRepository(
+    input: IGithub.IGetUserPinnedRepositoryInput,
+  ): Promise<IGithub.IGetUserPinnedRepositoryOutput> {
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/graphql`;
+    const res = await axios.post(
+      url,
+      {
+        query: `
+        {
+          user(login: "${input.username}") {
+            pinnedItems(first: 6, types: REPOSITORY) {
+              nodes {
+                ... on Repository {
+                  name
+                }
+              }
+            }
+          }
+        }`,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data.data.user.pinnedItems.nodes.map(
+      (el: { name: string }) => el.name,
+    );
+  }
+
   async getUserRepositories(
     input: IGithub.IGetUserRepositoryInput,
   ): Promise<IGithub.IGetUserRepositoryOutput> {
