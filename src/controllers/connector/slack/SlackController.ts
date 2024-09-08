@@ -126,6 +126,8 @@ export class SlackController {
    * send message to channel
    *
    * Here, you can send a message as long as you have the message and channel information you want to send.
+   * Slack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.
+   * You must send the contents after receiving confirmation from the user.
    *
    * @summary post text message in slack
    * @param input
