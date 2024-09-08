@@ -857,7 +857,45 @@ export namespace ICalendly {
      * Provides data pertaining to the associated no show for the Invitee
      */
     no_show: NoShow | null;
+
+    /**
+     * @title reconfirmation
+     * Assuming reconfirmation is enabled for the event type, when reconfirmation is requested this object is present with a created_at that reflects when the reconfirmation notification was sent. Once the invitee has reconfirmed
+     */
+    reconfirmation: Reconfirmation | null;
+
+    /**
+     * @title scheduling_method
+     * The method used to schedule the event
+     * @enum ["instant_book"]
+     */
+    scheduling_method: tags.Constant<
+      "instant_book",
+      { title: "instant_book" }
+    > | null;
+
+    /**
+     * @title invitee_scheduled_by
+     * Reference to user URI who scheduled the event
+     */
+    invitee_scheduled_by: (string & tags.Format<"uri">) | null;
   }
+
+  type Reconfirmation = {
+    /**
+     * @title created_at
+     * When the reconfirmation was created.
+     * @example 2020-11-23T17:51:18.341657Z
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title confirmed_at
+     * When the Invitee confirmed their attendance.
+     * @example 2020-11-23T17:51:18.341657Z
+     */
+    confirmed_at: (string & tags.Format<"date-time">) | null;
+  };
 
   type NoShow = {
     /**
