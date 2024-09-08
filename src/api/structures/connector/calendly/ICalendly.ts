@@ -3,7 +3,17 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
-  export interface IGetScheduledEventInviteeInput {
+  export interface IGetScheduledEventInviteeOutput {
+    collection: Invitee[];
+    pagination: Pagination;
+  }
+
+  export interface IGetScheduledEventInviteeInput extends Secret {
+    /**
+     * @title scheduled_event_uuid
+     */
+    scheduled_event_uuid: string;
+
     /**
      * @title count
      * The number of rows to return (1 to 100)

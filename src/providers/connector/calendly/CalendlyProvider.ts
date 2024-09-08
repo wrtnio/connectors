@@ -77,7 +77,21 @@ export class CalendlyProvider {
    * Endpoint: /scheduled_events/{event_uuid}/invitees
    * 기능: 예약된 이벤트에 초대된 사람들의 정보를 가져옵니다. 이 정보를 활용하여 미팅 참석자를 관리할 수 있습니다.
    */
-  async getInvitees() {}
+  async getInvitees(
+    input: ICalendly.IGetScheduledEventInviteeInput,
+  ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
+    const { scheduled_event_uuid, secretKey, ...rest } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.calendly.com/scheduled_events/${scheduled_event_uuid}/invitees?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  }
 
   /**
    * Endpoint: /availability

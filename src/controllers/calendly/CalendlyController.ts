@@ -44,7 +44,12 @@ export class CalendlyController {
    * Endpoint: /scheduled_events/{event_uuid}/invitees
    * 기능: 예약된 이벤트에 초대된 사람들의 정보를 가져옵니다. 이 정보를 활용하여 미팅 참석자를 관리할 수 있습니다.
    */
-  async getInvitees() {}
+  @core.TypedRoute.Post("scheduled-events/get-invitees")
+  async getInvitees(
+    @TypedBody() input: ICalendly.IGetScheduledEventInviteeInput,
+  ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
+    return this.calendlyProvider.getInvitees(input);
+  }
 
   /**
    * Endpoint: /availability
