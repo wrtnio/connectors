@@ -659,6 +659,246 @@ export namespace ICalendly {
     cancellation?: Cancellation;
   }
 
+  interface Invitee {
+    /**
+     * @title uri
+     * Canonical reference (unique identifier) for the invitee
+     * @example "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA"
+     */
+    uri: string & tags.Format<"uri">;
+
+    /**
+     * @title email
+     * The invitee’s email address
+     * @example "test@example.com"
+     */
+    email: string & tags.Format<"email">;
+
+    /**
+     * @title first_name
+     * The first name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name.
+     * @example "John"
+     */
+    first_name: string | null;
+
+    /**
+     * @title last_name
+     * The last name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name.
+     * @example "Doe"
+     */
+    last_name: string | null;
+
+    /**
+     * @title name
+     * The invitee’s name (in human-readable format)
+     * @example "John Doe"
+     */
+    name: string;
+
+    /**
+     * @title status
+     * Indicates if the invitee is "active" or "canceled"
+     * @example "active"
+     */
+    status:
+      | tags.Constant<"active", { title: "active" }>
+      | tags.Constant<"canceled", { title: "canceled" }>;
+
+    /**
+     * @title questions_and_answers
+     * A collection of the invitee's responses to questions on the event booking confirmation form
+     */
+    questions_and_answers: Array<{
+      /**
+       * @title question
+       * A question on the invitee's booking form
+       */
+      question: string;
+
+      /**
+       * @title answer
+       * The invitee's answer to the question
+       */
+      answer: string;
+
+      /**
+       * @title position
+       * The position of the question in relation to others on the booking form
+       */
+      position: number;
+    }>;
+
+    /**
+     * @title timezone
+     * Time zone to use when displaying time to the invitee
+     */
+    timezone: string | null;
+
+    /**
+     * @title event
+     * A reference to the event
+     * @example "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA"
+     */
+    event: string & tags.Format<"uri">;
+
+    /**
+     * @title created_at
+     * The moment when the event was created
+     * @example "2019-01-02T03:04:05.678123Z"
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     * The moment when the event was last updated
+     * @example "2019-08-07T06:05:04.321123Z"
+     */
+    updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title tracking
+     * The UTM and Salesforce tracking parameters associated with an invitee
+     */
+    tracking: {
+      /**
+       * @title utm_campaign
+       * The UTM parameter used to track a campaign
+       */
+      utm_campaign: string | null;
+
+      /**
+       * @title utm_source
+       * The UTM parameter that identifies the source (platform where the traffic originates)
+       */
+      utm_source: string | null;
+
+      /**
+       * @title utm_medium
+       * The UTM parameter that identifies the type of input (e.g. CPC, social media, etc.)
+       */
+      utm_medium: string | null;
+
+      /**
+       * @title utm_content
+       * UTM content tracking parameter
+       */
+      utm_content: string | null;
+
+      /**
+       * @title utm_term
+       * The UTM parameter used to track keywords
+       */
+      utm_term: string | null;
+
+      /**
+       * @title salesforce_uuid
+       * The Salesforce record unique identifier
+       */
+      salesforce_uuid: string | null;
+    };
+
+    /**
+     * @title text_reminder_number
+     * The phone number to use when sending text (SMS) reminders
+     * @example "+1 404-555-1234"
+     */
+    text_reminder_number: string | null;
+
+    /**
+     * @title rescheduled
+     * Indicates if this invitee has rescheduled
+     */
+    rescheduled: boolean;
+
+    /**
+     * @title old_invitee
+     * Reference to old Invitee instance that got rescheduled
+     */
+    old_invitee: (string & tags.Format<"uri">) | null;
+
+    /**
+     * @title new_invitee
+     * Link to new invitee after reschedule
+     */
+    new_invitee: (string & tags.Format<"uri">) | null;
+
+    /**
+     * @title cancel_url
+     * Link to cancelling the event for the invitee
+     */
+    cancel_url: string & tags.Format<"uri">;
+
+    /**
+     * @title reschedule_url
+     * Link to rescheduling the event for the invitee
+     */
+    reschedule_url: string & tags.Format<"uri">;
+
+    /**
+     * @title routing_form_submission
+     * Reference to a routing form submission that redirected the invitee to a booking page.
+     * @example https://api.calendly.com/routing_form_submissions/AAAAAAAAAAAAAAAA
+     */
+    routing_form_submission: (string & tags.Format<"uri">) | null;
+
+    /**
+     * @title cancellation
+     * Provides data pertaining to the cancellation of the Event or the Invitee
+     */
+    cancellation?: Cancellation;
+
+    /**
+     * @title Invitee payment
+     */
+    payment: Payment | null;
+  }
+
+  type Payment = {
+    /**
+     * @title external_id
+     * Unique identifier for the payment
+     */
+    external_id: string;
+
+    /**
+     * @title provider
+     * Payment provider
+     * @enum ["stripe", "paypal"]
+     * @example "stripe"
+     */
+    provider: string;
+
+    /**
+     * @title amount
+     * The amount of the payment
+     */
+    amount: number & tags.Type<"float">;
+
+    /**
+     * @title currency
+     * The currency format that the payment is in.
+     */
+    currency:
+      | tags.Constant<"AUD", { title: "AUD" }>
+      | tags.Constant<"CAD", { title: "CAD" }>
+      | tags.Constant<"EUR", { title: "EUR" }>
+      | tags.Constant<"GBP", { title: "GBP" }>
+      | tags.Constant<"USD", { title: "USD" }>;
+
+    /**
+     * @title terms
+     * Terms of the payment
+     * @example sample terms of payment (up to 1,024 characters)
+     */
+    terms: string | null;
+
+    /**
+     * @title successful
+     * Indicates whether the payment was successfully processed
+     */
+    successful: boolean;
+  };
+
   type Cancellation = {
     /**
      * @title canceled_by
