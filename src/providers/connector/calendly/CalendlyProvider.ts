@@ -70,7 +70,13 @@ export class CalendlyProvider {
       },
     });
 
-    return res.data;
+    const data = res.data as ICalendly.IGetScheduledEventOutput;
+    const collection = data.collection.map((el) => {
+      const prefix = "https://api.calendly.com/scheduled_events/";
+      const uuid = el.uri.replace(prefix, "");
+      return { ...el, uuid };
+    });
+    return { collection, pagination: data.pagination };
   }
 
   /**

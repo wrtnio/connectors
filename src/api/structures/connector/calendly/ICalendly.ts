@@ -152,6 +152,13 @@ export namespace ICalendly {
       | tags.Constant<"canceled", { title: "canceled" }>;
   }
 
+  export interface IGetOneScheduledEventInput extends Secret {
+    /**
+     * @title uuid
+     */
+    uuid: string;
+  }
+
   export interface IGetScheduledEventOutput {
     collection: Event[];
     pagination: Pagination;
@@ -570,6 +577,12 @@ export namespace ICalendly {
   };
 
   export interface Event {
+    /**
+     * @title uuid
+     * uuid from url (ex. "https://api.calendly.com/scheduled_events/:uuid" )
+     */
+    uuid: string;
+
     /**
      * @title uri
      * Canonical reference (unique identifier) for the resource
