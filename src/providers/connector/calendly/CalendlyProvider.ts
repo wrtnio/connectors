@@ -53,6 +53,26 @@ export class CalendlyProvider {
     return res.data;
   }
 
+  async getOneScheduledEvent(
+    scheduledEventId: ICalendly.Event["uuid"],
+    input: ICalendly.IGetOneScheduledEventInput,
+  ): Promise<ICalendly.IGetOneScheduledEventOutput> {
+    const { secretKey } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+
+    const url = `https://api.calendly.com/scheduled_events/${scheduledEventId}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = res.data as ICalendly.IGetOneScheduledEventOutput;
+    const prefix = "https://api.calendly.com/scheduled_events/";
+    data.resource.uuid = data.resource.uri.replace(prefix, "");
+    return data;
+  }
+
   /**
    * Endpoint: /scheduled_events
    * 기능: 예약된 모든 이벤트(미팅)를 조회하고 세부 정보를 가져오는 데 사용됩니다. 예를 들어, 특정 기간 동안 예약된 미팅을 조회할 때 유용합니다.
@@ -71,6 +91,7 @@ export class CalendlyProvider {
     });
 
     const data = res.data as ICalendly.IGetScheduledEventOutput;
+
     const collection = data.collection.map((el) => {
       const prefix = "https://api.calendly.com/scheduled_events/";
       const uuid = el.uri.replace(prefix, "");

@@ -1,6 +1,6 @@
 import { Controller } from "@nestjs/common";
 import { CalendlyProvider } from "../../providers/connector/calendly/CalendlyProvider";
-import core, { TypedBody } from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
 
 @Controller("connector/calendly")
@@ -27,6 +27,18 @@ export class CalendlyController {
     @TypedBody() input: ICalendly.IGetEventTypeInput,
   ): Promise<ICalendly.IGetEventTypeOutput> {
     return this.calendlyProvider.getEventTypes(input);
+  }
+
+  /**
+   * Endpoint: /scheduled_events/{uuid}
+   * 기능: 예약된 이벤트 한 개를 조회라여 세부 정보를 가져옵니다.
+   */
+  @core.TypedRoute.Post("get-scheduled-events/:uuid")
+  async getOneScheduledEvent(
+    @TypedParam("uuid") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
+  ): Promise<ICalendly.IGetOneScheduledEventOutput> {
+    return this.calendlyProvider.getOneScheduledEvent(scheduledEventId, input);
   }
 
   /**

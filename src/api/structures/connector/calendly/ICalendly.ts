@@ -152,12 +152,14 @@ export namespace ICalendly {
       | tags.Constant<"canceled", { title: "canceled" }>;
   }
 
-  export interface IGetOneScheduledEventInput extends Secret {
+  export interface IGetOneScheduledEventOutput {
     /**
-     * @title uuid
+     * @title event
      */
-    uuid: string;
+    resource: ICalendly.Event;
   }
+
+  export type IGetOneScheduledEventInput = Secret;
 
   export interface IGetScheduledEventOutput {
     collection: Event[];
