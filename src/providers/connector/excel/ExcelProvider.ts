@@ -75,10 +75,10 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function getExcelData(input: {
+  export function getExcelData(input: {
     workbook: Excel.Workbook;
     sheetName?: string | null;
-  }): Promise<IExcel.IReadExcelOutput> {
+  }): IExcel.IReadExcelOutput {
     try {
       const sheet = input.workbook.getWorksheet(input.sheetName ?? 1);
       if (!sheet) {
@@ -145,6 +145,12 @@ export namespace ExcelProvider {
       if (!fileUrl) {
         // 수정이 아닌 경우에만 저장하게끔 수정
         sheet.addRow(headers);
+      } else {
+        // 수정인 경우, 하지만 빈 엑셀 파일인 경우
+        const originalData = getExcelData({ sheetName, workbook });
+        if (originalData.data.length === 0) {
+          sheet.addRow(headers);
+        }
       }
 
       data.forEach((rowData: Record<string, any>) => {
