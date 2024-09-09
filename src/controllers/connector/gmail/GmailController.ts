@@ -20,6 +20,9 @@ export class GmailController {
    * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
    * 경우에 따라 html 형식을 사용할 수도 있습니다.
    *
+   * If you want to attach a file, you must specify the name of the file and the address at which it is stored.
+   * The saved file is read as a GET request inside the function, encoded, and processed.
+   *
    * @summary GMAIL 전송
    * @param input 메일을 보내기 위해 필요한 정보.
    * @returns 전송된 메일의 ID.
@@ -44,6 +47,9 @@ export class GmailController {
    * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
    * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
    * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   *
+   * If you want to attach a file, you must specify the name of the file and the address at which it is stored.
+   * The saved file is read as a GET request inside the function, encoded, and processed.
    *
    * @summary GMAIL 초안 생성
    * @param input 메일 초안을 생성하기 위한 정보.
