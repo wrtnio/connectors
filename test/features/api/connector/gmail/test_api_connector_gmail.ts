@@ -19,11 +19,6 @@ export const test_api_connector_gmail = async (
   };
 
   /**
-   * Create Draft
-   */
-  await CApi.functional.connector.gmail.draft(connection, createMailInput);
-
-  /**
    * Send Email
    */
   const sendEmailOutput: IGmail.ISendMailOutput =
