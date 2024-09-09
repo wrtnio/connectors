@@ -586,8 +586,9 @@ export class GithubProvider {
       },
     });
 
+    const pinned_repositoies = await this.getUserPinnedRepository(input);
     const profile_repository = await this.getProfileRepository(input);
-    return { ...res.data, profile_repository };
+    return { ...res.data, profile_repository, pinned_repositoies };
   }
 
   async getIssues(
