@@ -100,6 +100,41 @@ export class CalendlyProvider {
     return { collection, pagination: data.pagination };
   }
 
+  async cancel(
+    scheduledEventId: ICalendly.Event["uuid"],
+    inviteeId: ICalendly.Invitee["uuid"],
+    input: ICalendly.IGetOneScheduledEventInput,
+  ): Promise<
+    ICalendly.IGetOneScheduledEventInviteeOutput["resource"]["cancel_url"]
+  > {
+    const invitee = await this.getOneInvitee(
+      scheduledEventId,
+      inviteeId,
+      input,
+    );
+    return invitee.resource.cancel_url;
+  }
+
+  async getOneInvitee(
+    scheduledEventId: ICalendly.Event["uuid"],
+    inviteeId: ICalendly.Invitee["uuid"],
+    input: ICalendly.IGetOneScheduledEventInput,
+  ): Promise<ICalendly.IGetOneScheduledEventInviteeOutput> {
+    const { secretKey } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const url = `https://api.calendly.com/scheduled_events/${scheduledEventId}/invitees/${inviteeId}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = res.data as ICalendly.IGetOneScheduledEventInviteeOutput;
+    const prefix = `https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/`;
+    data.resource.uuid = data.resource.uri.replace(prefix, "");
+    return data;
+  }
+
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees
    * 기능: 예약된 이벤트에 초대된 사람들의 정보를 가져옵니다. 이 정보를 활용하여 미팅 참석자를 관리할 수 있습니다.
@@ -117,7 +152,13 @@ export class CalendlyProvider {
       },
     });
 
-    return res.data;
+    const data = res.data as ICalendly.IGetScheduledEventInviteeOutput;
+    const collection = data.collection.map((el) => {
+      const prefix = `https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/`;
+      const uuid = el.uri.replace(prefix, "");
+      return { ...el, uuid };
+    });
+    return { collection, pagination: data.pagination };
   }
 
   /**
@@ -143,18 +184,6 @@ export class CalendlyProvider {
 
     return res.data;
   }
-
-  /**
-   * Endpoint: /scheduled_events/{event_uuid}/invitees
-   * 기능: 특정 이벤트에 초대자를 생성(추가)할 수 있습니다. 초대 메일을 발송하거나, 새로운 초대자를 이벤트에 등록하는 경우에 사용됩니다.
-   */
-  async invite() {}
-
-  /**
-   * Endpoint: /scheduled_events/{event_uuid}/cancellation
-   * 기능: 예약된 이벤트를 취소할 수 있는 API입니다. 사용자가 일정 취소 요청을 할 때 필요합니다.
-   */
-  async cancel() {}
 
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees/{invitee_uuid}/no_show

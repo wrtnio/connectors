@@ -96,6 +96,12 @@ export namespace ICalendly {
     };
   }
 
+  export interface IGetOneScheduledEventInviteeOutput {
+    resource: Invitee;
+  }
+
+  export type IGetOneScheduledEventInviteeInput = Secret;
+
   export interface IGetScheduledEventInviteeOutput {
     collection: Invitee[];
     pagination: Pagination;
@@ -258,7 +264,7 @@ export namespace ICalendly {
        * @title owner
        * A link to the resource that owns this Scheduling Link (currently, this is always an Event Type)
        */
-      owner: string & tags.Format<"uri">;
+      owner: EventType["uri"];
 
       /**
        * @title owner_type
@@ -777,7 +783,13 @@ export namespace ICalendly {
     cancellation?: Cancellation;
   }
 
-  interface Invitee {
+  export interface Invitee {
+    /**
+     * @title uuid
+     * uuid from "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/:uuid"
+     */
+    uuid: string;
+
     /**
      * @title uri
      * Canonical reference (unique identifier) for the invitee

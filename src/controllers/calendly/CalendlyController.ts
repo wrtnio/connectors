@@ -29,13 +29,32 @@ export class CalendlyController {
     return this.calendlyProvider.getEventTypes(input);
   }
 
+  @core.TypedRoute.Post(
+    "scheduled_events/:scheduled_event_id/invitees/:invitee_id/get-cancel-link",
+  )
+  async cancel(
+    @TypedParam("scheduled_event_id") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedParam("invitee_id") inviteeId: ICalendly.Invitee["uuid"],
+    @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
+  ): Promise<
+    ICalendly.IGetOneScheduledEventInviteeOutput["resource"]["cancel_url"]
+  > {
+    const invitee = await this.calendlyProvider.getOneInvitee(
+      scheduledEventId,
+      inviteeId,
+      input,
+    );
+
+    return invitee.resource.cancel_url;
+  }
+
   /**
    * Endpoint: /scheduled_events/{uuid}
    * 기능: 예약된 이벤트 한 개를 조회라여 세부 정보를 가져옵니다.
    */
-  @core.TypedRoute.Post("get-scheduled-events/:uuid")
+  @core.TypedRoute.Post("get-scheduled-events/:scheduled_event_id")
   async getOneScheduledEvent(
-    @TypedParam("uuid") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedParam("scheduled_event_id") scheduledEventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
   ): Promise<ICalendly.IGetOneScheduledEventOutput> {
     return this.calendlyProvider.getOneScheduledEvent(scheduledEventId, input);
@@ -73,18 +92,6 @@ export class CalendlyController {
   ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
     return this.calendlyProvider.createOneOffEventType(input);
   }
-
-  /**
-   * Endpoint: /scheduled_events/{event_uuid}/invitees
-   * 기능: 특정 이벤트에 초대자를 생성(추가)할 수 있습니다. 초대 메일을 발송하거나, 새로운 초대자를 이벤트에 등록하는 경우에 사용됩니다.
-   */
-  async invite() {}
-
-  /**
-   * Endpoint: /scheduled_events/{event_uuid}/cancellation
-   * 기능: 예약된 이벤트를 취소할 수 있는 API입니다. 사용자가 일정 취소 요청을 할 때 필요합니다.
-   */
-  async cancel() {}
 
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees/{invitee_uuid}/no_show
