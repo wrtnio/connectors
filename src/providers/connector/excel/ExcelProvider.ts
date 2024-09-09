@@ -118,6 +118,30 @@ export namespace ExcelProvider {
     }
   }
 
+  export async function readHeaders(
+    input: IExcel.IReadExcelInput,
+  ): Promise<string[]> {
+    const { fileUrl, sheetName } = input;
+    const workbook = await getExcelFile({ fileUrl });
+    return readExcelHeaders(workbook, sheetName);
+  }
+
+  export function readExcelHeaders(
+    workbook: Excel.Workbook,
+    sheetName?: string | null,
+  ): string[] {
+    const worksheet = workbook.getWorksheet(sheetName ?? 1);
+    const headerRow = worksheet?.getRow(1); // 첫 번째 행이 헤더라고 가정
+
+    // 헤더 데이터를 배열로 추출
+    const headers: string[] = [];
+    headerRow?.eachCell((cell) => {
+      headers.push(cell.value as string); // 각 셀의 값을 문자열로 변환하여 배열에 추가
+    });
+
+    return headers;
+  }
+
   export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {

@@ -193,7 +193,7 @@ export const test_api_connector_excel_insert_row_fail_case_3 = async (
     },
   );
 
-  const res = await CApi.functional.connector.excel.read(connection, {
+  const res = await CApi.functional.connector.excel.read.read(connection, {
     fileUrl: second.fileUrl,
     sheetName: "Sheet1",
   });
@@ -303,7 +303,7 @@ export const test_api_connector_excel = async (
     fileUrl: `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/connector-test.xlsx`,
     sheetName: worksheetListOutput.data[0].sheetName,
   };
-  const readExcelOutput = await CApi.functional.connector.excel.read(
+  const readExcelOutput = await CApi.functional.connector.excel.read.read(
     connection,
     readExcelInput,
   );
