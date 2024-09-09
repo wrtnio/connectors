@@ -43,8 +43,28 @@ export namespace IOpenData {
       extends ICommon.IPaginationInput {
       /**
        * @title Region address name
+       * @enum ["서울특별시","부산광역시","대구광역시","인천광역시","광주광역시","대전광역시","울산광역시","세종특별자치시","경기도","충청북도","충청남도","경상북도","경상남도","전라남도","제주특별자치도","강원특별자치도","전북특별자치도"]
        */
-      locatadd_nm: string & Placeholder<"Seoul Special City">;
+      locatadd_nm: (
+        | tags.Constant<"서울특별시", { title: "서울특별시" }>
+        | tags.Constant<"부산광역시", { title: "부산광역시" }>
+        | tags.Constant<"대구광역시", { title: "대구광역시" }>
+        | tags.Constant<"인천광역시", { title: "인천광역시" }>
+        | tags.Constant<"광주광역시", { title: "광주광역시" }>
+        | tags.Constant<"대전광역시", { title: "대전광역시" }>
+        | tags.Constant<"울산광역시", { title: "울산광역시" }>
+        | tags.Constant<"세종특별자치시", { title: "세종특별자치시" }>
+        | tags.Constant<"경기도", { title: "경기도" }>
+        | tags.Constant<"충청북도", { title: "충청북도" }>
+        | tags.Constant<"충청남도", { title: "충청남도" }>
+        | tags.Constant<"경상북도", { title: "경상북도" }>
+        | tags.Constant<"경상남도", { title: "경상남도" }>
+        | tags.Constant<"전라남도", { title: "전라남도" }>
+        | tags.Constant<"제주특별자치도", { title: "제주특별자치도" }>
+        | tags.Constant<"강원특별자치도", { title: "강원특별자치도" }>
+        | tags.Constant<"전북특별자치도", { title: "전북특별자치도" }>
+      ) &
+        Placeholder<"서울특별시">;
     }
 
     /**
