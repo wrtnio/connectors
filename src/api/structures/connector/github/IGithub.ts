@@ -1244,7 +1244,7 @@ export namespace IGithub {
      * @title name
      * It means the actual name that the user has written, not the user's nickname.
      */
-    name: string;
+    name?: string | null;
 
     /**
      * @title comany name
@@ -1254,14 +1254,14 @@ export namespace IGithub {
      * Also, we cannot guarantee that the user wrote the company name.
      * Sometimes the user jokingly writes down strange names.
      */
-    company: string | null;
+    company?: string | null;
 
     /**
      * @title blog
      *
      * Indicates the blog address.
      */
-    blog: string | null;
+    blog?: string | null;
 
     /**
      * @title location
@@ -1269,24 +1269,24 @@ export namespace IGithub {
      * It means the location of the user.
      * Usually, I write the country down, but the user can jokingly record the strange location.
      */
-    location: string | null;
+    location?: string | null;
 
     /**
      * @title email address
      */
-    email: string | null;
+    email?: string | null;
 
     /**
      * @title bio
      *
      * Write down what the user wants to say or a history.
      */
-    bio: string | null;
+    bio?: string | null;
 
     /**
      * @title twitter_username
      */
-    twitter_username: string | null;
+    twitter_username?: string | null;
 
     /**
      * @title count of public repos
