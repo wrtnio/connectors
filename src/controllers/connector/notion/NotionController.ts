@@ -30,7 +30,7 @@ export class NotionController {
   async appendBlocksByMarkdown(
     @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
   ): Promise<void> {
-    return NotionProvider.appendBlocksByMarkdown(input);
+    return retry(() => NotionProvider.appendBlocksByMarkdown(input))();
   }
 
   /**
@@ -53,7 +53,7 @@ export class NotionController {
   // async createAudio(
   //   @TypedBody() input: INotion.ICreateChildContentTypeAudioInput,
   // ): Promise<void> {
-  //   return NotionProvider.createAudio(input);
+  //   return retry(() => NotionProvider.createAudio(input))();
   // }
 
   /**
@@ -76,7 +76,7 @@ export class NotionController {
   // async createTableRow(
   //   @TypedBody() input: INotion.ICreateChildContentTypeTableRowInput,
   // ): Promise<void> {
-  //   return NotionProvider.createTableRow(input);
+  //   return retry(() => NotionProvider.createTableRow(input))();
   // }
 
   /**
@@ -99,7 +99,7 @@ export class NotionController {
   // async createTable(
   //   @TypedBody() input: INotion.ICreateChildContentTypeTableInput,
   // ): Promise<void> {
-  //   return NotionProvider.createTable(input);
+  //   return retry(() => NotionProvider.createTable(input))();
   // }
 
   /**
@@ -122,7 +122,7 @@ export class NotionController {
   // async createColumnList(
   //   @TypedBody() input: INotion.ICreateChildContentTypeColumnListInput,
   // ): Promise<void> {
-  //   return NotionProvider.createColumnList(input);
+  //   return retry(() => NotionProvider.createColumnList(input))();
   // }
 
   /**
@@ -145,7 +145,7 @@ export class NotionController {
   // async createColumn(
   //   @TypedBody() input: INotion.ICreateChildContentTypeColumnInput,
   // ): Promise<void> {
-  //   return NotionProvider.createColumn(input);
+  //   return retry(() => NotionProvider.createColumn(input))();
   // }
 
   // @RouteIcon(
@@ -155,7 +155,7 @@ export class NotionController {
   // async createCallout(
   //   @TypedBody() input: INotion.ICreateChildContentTypeCalloutInput,
   // ): Promise<void> {
-  //   return NotionProvider.createCallout(input);
+  //   return retry(() => NotionProvider.createCallout(input))();
   // }
 
   // @RouteIcon(
@@ -165,7 +165,7 @@ export class NotionController {
   // async createSyncedBlock(
   //   @TypedBody() input: INotion.ICreateChildContentTypeSyncedBlockInput,
   // ): Promise<void> {
-  //   return NotionProvider.createSyncedBlock(input);
+  //   return retry(() => NotionProvider.createSyncedBlock(input))();
   // }
 
   /**
@@ -191,7 +191,7 @@ export class NotionController {
   async createFile(
     @TypedBody() input: INotion.ICreateChildContentTypeFileInput,
   ): Promise<void> {
-    return NotionProvider.createFile(input);
+    return retry(() => NotionProvider.createFile(input))();
   }
 
   /**
@@ -216,7 +216,7 @@ export class NotionController {
   async createEmbed(
     @TypedBody() input: INotion.ICreateChildContentTypeEmbedInput,
   ): Promise<void> {
-    return NotionProvider.createEmbed(input);
+    return retry(() => NotionProvider.createEmbed(input))();
   }
 
   /**
@@ -241,7 +241,7 @@ export class NotionController {
   async createBookmark(
     @TypedBody() input: INotion.ICreateChildContentTypeBookmarkInput,
   ): Promise<void> {
-    return NotionProvider.createBookmark(input);
+    return retry(() => NotionProvider.createBookmark(input))();
   }
 
   /**
@@ -266,7 +266,7 @@ export class NotionController {
   async createImage(
     @TypedBody() input: INotion.ICreateChildContentTypeImageInput,
   ): Promise<void> {
-    return NotionProvider.createImage(input);
+    return retry(() => NotionProvider.createImage(input))();
   }
 
   /**
@@ -294,7 +294,7 @@ export class NotionController {
   async createVideo(
     @TypedBody() input: INotion.ICreateChildContentTypeVideoInput,
   ): Promise<void> {
-    return NotionProvider.createVideo(input);
+    return retry(() => NotionProvider.createVideo(input))();
   }
 
   /**
@@ -317,7 +317,7 @@ export class NotionController {
   async createPdf(
     @TypedBody() input: INotion.ICreateChildContentTypePdfInput,
   ): Promise<void> {
-    return NotionProvider.createPdf(input);
+    return retry(() => NotionProvider.createPdf(input))();
   }
 
   /**
@@ -341,7 +341,7 @@ export class NotionController {
   async createCode(
     @TypedBody() input: INotion.ICreateChildContentTypeCodeInput,
   ): Promise<void> {
-    return NotionProvider.createCode(input);
+    return retry(() => NotionProvider.createCode(input))();
   }
 
   /**
@@ -364,7 +364,7 @@ export class NotionController {
   async createEquation(
     @TypedBody() input: INotion.ICreateChildContentTypeEquationInput,
   ): Promise<void> {
-    return NotionProvider.createEquation(input);
+    return retry(() => NotionProvider.createEquation(input))();
   }
 
   /**
@@ -387,7 +387,7 @@ export class NotionController {
   async createDivider(
     @TypedBody() input: INotion.ICreateChildContentTypeDividerInput,
   ): Promise<void> {
-    return NotionProvider.createDivider(input);
+    return retry(() => NotionProvider.createDivider(input))();
   }
 
   /**
@@ -410,7 +410,7 @@ export class NotionController {
   async createBreadcrumb(
     @TypedBody() input: INotion.ICreateChildContentTypeBreadcrumbInput,
   ): Promise<void> {
-    return NotionProvider.createBreadcrumb(input);
+    return retry(() => NotionProvider.createBreadcrumb(input))();
   }
 
   /**
@@ -433,7 +433,7 @@ export class NotionController {
   async createTableOfContents(
     @TypedBody() input: INotion.ICreateChildContentTypeTableOfContentsInput,
   ): Promise<void> {
-    return NotionProvider.createTableOfContents(input);
+    return retry(() => NotionProvider.createTableOfContents(input))();
   }
 
   /**
@@ -456,7 +456,7 @@ export class NotionController {
   async createLinkToPage(
     @TypedBody() input: INotion.ICreateChildContentTypeLinkToPageInput,
   ): Promise<void> {
-    return NotionProvider.createLinkToPage(input);
+    return retry(() => NotionProvider.createLinkToPage(input))();
   }
 
   /**
@@ -480,7 +480,7 @@ export class NotionController {
   async createHeading_1(
     @TypedBody() input: INotion.ICreateChildContentTypeHeading_1Input,
   ): Promise<void> {
-    return NotionProvider.createHeading_1(input);
+    return retry(() => NotionProvider.createHeading_1(input))();
   }
 
   /**
@@ -504,7 +504,7 @@ export class NotionController {
   async createHeading_2(
     @TypedBody() input: INotion.ICreateChildContentTypeHeading_2Input,
   ): Promise<void> {
-    return NotionProvider.createHeading_2(input);
+    return retry(() => NotionProvider.createHeading_2(input))();
   }
 
   /**
@@ -528,7 +528,7 @@ export class NotionController {
   async createHeading_3(
     @TypedBody() input: INotion.ICreateChildContentTypeHeading_3Input,
   ): Promise<void> {
-    return NotionProvider.createHeading_3(input);
+    return retry(() => NotionProvider.createHeading_3(input))();
   }
 
   /**
@@ -552,7 +552,7 @@ export class NotionController {
   async createParagraph(
     @TypedBody() input: INotion.ICreateChildContentTypeParagraphInput,
   ): Promise<void> {
-    return NotionProvider.createParagraph(input);
+    return retry(() => NotionProvider.createParagraph(input))();
   }
 
   /**
@@ -576,7 +576,7 @@ export class NotionController {
   async createBulletedListItem(
     @TypedBody() input: INotion.ICreateChildContentTypeBulletedListItemInput,
   ): Promise<void> {
-    return NotionProvider.createBulletedListItem(input);
+    return retry(() => NotionProvider.createBulletedListItem(input))();
   }
 
   /**
@@ -600,7 +600,7 @@ export class NotionController {
   async createNumberedListItem(
     @TypedBody() input: INotion.ICreateChildContentTypeNumberedListItemInput,
   ): Promise<void> {
-    return NotionProvider.createNumberedListItem(input);
+    return retry(() => NotionProvider.createNumberedListItem(input))();
   }
 
   /**
@@ -624,7 +624,7 @@ export class NotionController {
   async createQuote(
     @TypedBody() input: INotion.ICreateChildContentTypeQuoteInput,
   ): Promise<void> {
-    return NotionProvider.createQuote(input);
+    return retry(() => NotionProvider.createQuote(input))();
   }
 
   /**
@@ -648,7 +648,7 @@ export class NotionController {
   async createToDo(
     @TypedBody() input: INotion.ICreateChildContentTypeToDoInput,
   ): Promise<void> {
-    return NotionProvider.createToDo(input);
+    return retry(() => NotionProvider.createToDo(input))();
   }
 
   /**
@@ -671,7 +671,7 @@ export class NotionController {
   async createToggle(
     @TypedBody() input: INotion.ICreateChildContentTypeToggleInput,
   ): Promise<void> {
-    return NotionProvider.createToggle(input);
+    return retry(() => NotionProvider.createToggle(input))();
   }
 
   /**
@@ -691,7 +691,7 @@ export class NotionController {
   async createPage(
     @core.TypedBody() input: INotion.ICreatePageInput,
   ): Promise<INotion.ICreatePageOutput> {
-    return NotionProvider.createPage(input);
+    return retry(() => NotionProvider.createPage(input))();
   }
 
   /**
@@ -800,7 +800,7 @@ export class NotionController {
     @core.TypedParam("databaseId")
     databaseId: string,
   ): Promise<INotion.IDatabaseItemOutput> {
-    return NotionProvider.createDatabaseItem(input, databaseId);
+    return retry(() => NotionProvider.createDatabaseItem(input, databaseId))();
   }
 
   /**
@@ -933,6 +933,6 @@ export class NotionController {
   async createPageByMarkdown(
     @core.TypedBody() input: INotion.ICreatePageByMarkdownInput,
   ): Promise<INotion.ICreatePageOutput> {
-    return NotionProvider.createPageByMarkdown(input);
+    return retry(() => NotionProvider.createPageByMarkdown(input))();
   }
 }
