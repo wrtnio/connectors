@@ -45,7 +45,7 @@ export class ExcelController {
   }
 
   /**
-   * 데이터를 엑셀 시트에 추가합니다.
+   * 엑셀 파일을 업로드하여 파일에 데이터를 추가합니다
    *
    * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
    * Therefore, this feature can also be used for sheet creation.
@@ -58,7 +58,7 @@ export class ExcelController {
    *
    * It is a connector that allows users to upload files by drag and drop.
    *
-   * @summary 액셀 생성 및 데이터 추가
+   * @summary 엑셀 파일 업로드를 통한 엑셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
    */
   @core.TypedRoute.Post("rows/upload")
@@ -72,7 +72,7 @@ export class ExcelController {
   }
 
   /**
-   * 데이터를 엑셀 시트에 추가합니다.
+   * 엑셀 파일 링크를 가지고 엑셀 파일에 데이터를 추가합니다
    *
    * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
    * Therefore, this feature can also be used for sheet creation.
@@ -85,7 +85,9 @@ export class ExcelController {
    *
    * A connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.
    *
-   * @summary 액셀 생성 및 데이터 추가
+   * Since a link to the Excel file generated immediately after the Excel file is generated, calling this connector is more advantageous in terms of user experience than adding data through upload.
+   *
+   * @summary 엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
    */
   @core.TypedRoute.Post("rows")
