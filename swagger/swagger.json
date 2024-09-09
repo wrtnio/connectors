@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.188",
+    "version": "0.1.189",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -43406,7 +43406,14 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "name\nIt means the actual name that the user has written, not the user's nickname."
           },
           "company": {
@@ -43545,13 +43552,6 @@
           }
         },
         "required": [
-          "name",
-          "company",
-          "blog",
-          "location",
-          "email",
-          "bio",
-          "twitter_username",
           "public_repos",
           "public_gists",
           "followers",
