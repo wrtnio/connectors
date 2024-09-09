@@ -50,7 +50,7 @@ export namespace IGmail {
     Bcc?: string[];
 
     /**
-     * @title fileUrls
+     * @title files
      */
     files?: {
       /**
