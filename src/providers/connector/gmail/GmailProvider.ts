@@ -3,6 +3,7 @@ import { gmail_v1, google } from "googleapis";
 
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
+import axios from "axios";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -41,13 +42,38 @@ export class GmailProvider {
       authClient.setCredentials({ access_token: accessToken });
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
+      // 파일이 존재할 경우에는 Content-Type을 multipart/mixed가 되게 수정
+      const boundary = "__my_boundary__";
       const emailLines = [
         `To: ${input.to.join(",")}`,
         `From: me`,
-        "Content-Type: text/html; charset=utf-8",
         "MIME-Version: 1.0",
         this.encodeHeaderFieldForKorean("Subject", input.subject),
+        `Content-Type: multipart/mixed; boundary="${boundary}"`, // 파일이 들어갈지도 모르기 때문에 multipart/mixed로 수정, 바운더리 기호 명시
+        "",
+        `--${boundary}`,
+        `Content-Type: text/html; charset=utf-8`,
       ];
+
+      if (input.files?.length) {
+        for await (const { filename, fileUrl } of input.files) {
+          const res = await axios.get(fileUrl, { responseType: "arraybuffer" });
+          const base64Buffer = Buffer.from(res.data).toString("base64");
+
+          const filePart = [
+            `--${boundary}`,
+            `Content-Type: application/octet-stream; name="${filename}"`,
+            `Content-Disposition: attachment; filename="${filename}"`,
+            `Content-Transfer-Encoding: base64`,
+            "",
+            base64Buffer,
+            "",
+          ] as const;
+
+          emailLines.push(...filePart);
+        }
+        emailLines.push(`--${boundary}--`); // 모든 파일이 입력된 후 바운더리를 추가로 입력하여 바운더리 사이에 파일이 위치하도록 한다.
+      }
 
       /**
        * 참조 대상 있는 경우 헤더에 추가
@@ -403,7 +429,7 @@ export class GmailProvider {
    * gmail 메일 헤더 및 본문 base64 인코딩
    */
   makeEmailContent(headers: string[], body: string) {
-    const emailLines = [...headers, "", body];
+    const emailLines = [...headers, "", body, ""];
 
     const email = emailLines.join("\r\n");
     return Buffer.from(email)

@@ -48,6 +48,21 @@ export namespace IGmail {
      * @title 숨은참조할 사람 이메일.
      */
     Bcc?: string[];
+
+    /**
+     * @title fileUrls
+     */
+    files?: {
+      /**
+       * @title filename
+       */
+      filename: string;
+
+      /**
+       * @title file uri
+       */
+      fileUrl: string & tags.Format<"uri">;
+    }[];
   }
 
   /**
