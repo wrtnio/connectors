@@ -29,16 +29,12 @@ export class CalendlyController {
     return this.calendlyProvider.getEventTypes(input);
   }
 
-  @core.TypedRoute.Post(
-    "scheduled_events/:scheduled_event_id/invitees/:invitee_id/get-cancel-link",
-  )
+  @core.TypedRoute.Post("events/:evnetId/invitees/:inviteId/get-cancel-link")
   async cancel(
-    @TypedParam("scheduled_event_id") scheduledEventId: ICalendly.Event["uuid"],
-    @TypedParam("invitee_id") inviteeId: ICalendly.Invitee["uuid"],
-    @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
-  ): Promise<
-    ICalendly.IGetOneScheduledEventInviteeOutput["resource"]["cancel_url"]
-  > {
+    @TypedParam("evnetId") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedParam("inviteId") inviteeId: ICalendly.Invitee["uuid"],
+    @TypedBody() input: ICalendly.ICancelInput,
+  ): Promise<ICalendly.ICacnelOutput> {
     const invitee = await this.calendlyProvider.getOneInvitee(
       scheduledEventId,
       inviteeId,
@@ -52,9 +48,9 @@ export class CalendlyController {
    * Endpoint: /scheduled_events/{uuid}
    * 기능: 예약된 이벤트 한 개를 조회라여 세부 정보를 가져옵니다.
    */
-  @core.TypedRoute.Post("get-scheduled-events/:scheduled_event_id")
+  @core.TypedRoute.Post("get-events/:evnetId")
   async getOneScheduledEvent(
-    @TypedParam("scheduled_event_id") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedParam("evnetId") scheduledEventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
   ): Promise<ICalendly.IGetOneScheduledEventOutput> {
     return this.calendlyProvider.getOneScheduledEvent(scheduledEventId, input);
@@ -71,11 +67,26 @@ export class CalendlyController {
     return this.calendlyProvider.getScheduledEvents(input);
   }
 
+  @core.TypedRoute.Post("events/:evnetId/get-invitees/:inviteId")
+  async getOneInvite(
+    @TypedParam("evnetId") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedParam("inviteId") inviteeId: ICalendly.Invitee["uuid"],
+    @TypedBody() input: ICalendly.IGetOneInviteInput,
+  ): Promise<ICalendly.IGetOneScheduledEventInviteeOutput> {
+    const invitee = await this.calendlyProvider.getOneInvitee(
+      scheduledEventId,
+      inviteeId,
+      input,
+    );
+
+    return invitee;
+  }
+
   /**
    * Endpoint: /scheduled_events/{event_uuid}/invitees
    * 기능: 예약된 이벤트에 초대된 사람들의 정보를 가져옵니다. 이 정보를 활용하여 미팅 참석자를 관리할 수 있습니다.
    */
-  @core.TypedRoute.Post("scheduled-events/get-invitees")
+  @core.TypedRoute.Post("events/get-invitees")
   async getInvitees(
     @TypedBody() input: ICalendly.IGetScheduledEventInviteeInput,
   ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {

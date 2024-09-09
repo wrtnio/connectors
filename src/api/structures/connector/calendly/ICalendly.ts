@@ -158,6 +158,13 @@ export namespace ICalendly {
       | tags.Constant<"canceled", { title: "canceled" }>;
   }
 
+  export type IGetOneInviteInput = Secret;
+
+  export type ICacnelOutput =
+    ICalendly.IGetOneScheduledEventInviteeOutput["resource"]["cancel_url"];
+
+  export type ICancelInput = Secret;
+
   export interface IGetOneScheduledEventOutput {
     /**
      * @title event
