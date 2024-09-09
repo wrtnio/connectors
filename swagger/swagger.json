@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.186",
+    "version": "0.1.187",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -1103,6 +1103,40 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg"
       }
     },
+    "/connector/excel/read/headers": {
+      "post": {
+        "summary": "엑셀 파일 안의 헤더 가져오기",
+        "description": "입력된 파일 정보를 바탕으로 해당 엑셀 파일의 헤더들을 조회합니다.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.IReadExcelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
     "/connector/excel/read": {
       "post": {
         "summary": "엑셀 파일 안의 내용 가져오기",
@@ -1169,8 +1203,8 @@
     },
     "/connector/excel/rows/upload": {
       "post": {
-        "summary": "액셀 생성 및 데이터 추가",
-        "description": "데이터를 엑셀 시트에 추가합니다.\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nIt is a connector that allows users to upload files by drag and drop.",
+        "summary": "엑셀 파일 업로드를 통한 엑셀 생성 및 데이터 추가",
+        "description": "엑셀 파일을 업로드하여 파일에 데이터를 추가합니다\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nIt is a connector that allows users to upload files by drag and drop.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -1201,8 +1235,8 @@
     },
     "/connector/excel/rows": {
       "post": {
-        "summary": "액셀 생성 및 데이터 추가",
-        "description": "데이터를 엑셀 시트에 추가합니다.\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nA connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.",
+        "summary": "엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가",
+        "description": "엑셀 파일 링크를 가지고 엑셀 파일에 데이터를 추가합니다\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nA connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.\n\nSince a link to the Excel file generated immediately after the Excel file is generated, calling this connector is more advantageous in terms of user experience than adding data through upload.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -5734,7 +5768,7 @@
     "/connector/open-data/getStandardRegionCodeList": {
       "post": {
         "summary": "Retrieve administrative standard codes",
-        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\nFor the search, you should use the exact name that means the administrative district, just like the \"서울특별시\", not \"서울\".",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -13383,6 +13417,35 @@
         ],
         "title": "hwp 파일 파싱을 위한 정보"
       },
+      "IExcel.IReadExcelInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "엑셀 파일",
+            "description": "읽어올 엑셀 파일"
+          },
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "sheet 이름",
+            "description": "읽어올 sheet 이름"
+          }
+        },
+        "required": [
+          "fileUrl"
+        ],
+        "title": "파일 정보"
+      },
       "IExcel.IReadExcelOutput": {
         "type": "object",
         "properties": {
@@ -13412,35 +13475,6 @@
         "properties": {},
         "title": "읽어온 엑셀 행 데이터",
         "additionalProperties": {}
-      },
-      "IExcel.IReadExcelInput": {
-        "type": "object",
-        "properties": {
-          "fileUrl": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "title": "엑셀 파일",
-            "description": "읽어올 엑셀 파일"
-          },
-          "sheetName": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "x-wrtn-placeholder": "Sheet1"
-              }
-            ],
-            "title": "sheet 이름",
-            "description": "읽어올 sheet 이름"
-          }
-        },
-        "required": [
-          "fileUrl"
-        ],
-        "title": "파일 정보"
       },
       "IExcel.IWorksheetListOutput": {
         "type": "object",
@@ -24793,7 +24827,7 @@
                 "x-wrtn-placeholder": "서울특별시"
               }
             ],
-            "title": "Region address name"
+            "title": "Region address name\nIt must be one of: \"서울특별시\",\"부산광역시\",\"대구광역시\",\"인천광역시\",\"광주광역시\",\"대전광역시\",\"울산광역시\",\"세종특별자치시\",\"경기도\",\"충청북도\",\"충청남도\",\"경상북도\",\"경상남도\",\"전라남도\",\"제주특별자치도\",\"강원특별자치도\",\"전북특별자치도\""
           },
           "numOfRows": {
             "type": "integer",

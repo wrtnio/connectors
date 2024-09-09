@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.186",
+    "version": "0.1.187",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -260,7 +260,7 @@
     "/connector/open-data/getStandardRegionCodeList": {
       "post": {
         "summary": "Retrieve administrative standard codes",
-        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\nFor the search, you should use the exact name that means the administrative district, just like the \"서울특별시\", not \"서울\".",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -2229,7 +2229,7 @@
                 "x-wrtn-placeholder": "서울특별시"
               }
             ],
-            "title": "Region address name"
+            "title": "Region address name\nIt must be one of: \"서울특별시\",\"부산광역시\",\"대구광역시\",\"인천광역시\",\"광주광역시\",\"대전광역시\",\"울산광역시\",\"세종특별자치시\",\"경기도\",\"충청북도\",\"충청남도\",\"경상북도\",\"경상남도\",\"전라남도\",\"제주특별자치도\",\"강원특별자치도\",\"전북특별자치도\""
           },
           "numOfRows": {
             "type": "integer",
