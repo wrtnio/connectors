@@ -217,6 +217,8 @@ export class OpenDataController {
    * Since this is Korean public data, most searches may have to be done in Korean.
    * Please be aware of this.
    *
+   * For the search, you should use the exact name that means the administrative district, just like the "서울특별시", not "서울".
+   *
    * @summary Retrieve administrative standard codes
    * @param input Conditions for querying regions
    * @returns Region codes

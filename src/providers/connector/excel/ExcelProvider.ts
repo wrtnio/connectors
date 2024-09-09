@@ -75,10 +75,10 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function getExcelData(input: {
+  export function getExcelData(input: {
     workbook: Excel.Workbook;
     sheetName?: string | null;
-  }): Promise<IExcel.IReadExcelOutput> {
+  }): IExcel.IReadExcelOutput {
     try {
       const sheet = input.workbook.getWorksheet(input.sheetName ?? 1);
       if (!sheet) {
@@ -118,6 +118,30 @@ export namespace ExcelProvider {
     }
   }
 
+  export async function readHeaders(
+    input: IExcel.IReadExcelInput,
+  ): Promise<string[]> {
+    const { fileUrl, sheetName } = input;
+    const workbook = await getExcelFile({ fileUrl });
+    return readExcelHeaders(workbook, sheetName);
+  }
+
+  export function readExcelHeaders(
+    workbook: Excel.Workbook,
+    sheetName?: string | null,
+  ): string[] {
+    const worksheet = workbook.getWorksheet(sheetName ?? 1);
+    const headerRow = worksheet?.getRow(1); // 첫 번째 행이 헤더라고 가정
+
+    // 헤더 데이터를 배열로 추출
+    const headers: string[] = [];
+    headerRow?.eachCell((cell) => {
+      headers.push(cell.value as string); // 각 셀의 값을 문자열로 변환하여 배열에 추가
+    });
+
+    return headers;
+  }
+
   export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
@@ -145,6 +169,12 @@ export namespace ExcelProvider {
       if (!fileUrl) {
         // 수정이 아닌 경우에만 저장하게끔 수정
         sheet.addRow(headers);
+      } else {
+        // 수정인 경우, 하지만 빈 엑셀 파일인 경우
+        const originalData = getExcelData({ sheetName, workbook });
+        if (originalData.data.length === 0) {
+          sheet.addRow(headers);
+        }
       }
 
       data.forEach((rowData: Record<string, any>) => {
