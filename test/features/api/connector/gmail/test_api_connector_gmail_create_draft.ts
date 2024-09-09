@@ -1,9 +1,23 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
-import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_connector_gmail_send_mail_with_files = async (
+export const test_api_connector_gmail_create_draft_without_files = async (
+  connection: CApi.IConnection,
+) => {
+  const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
+  const createMailInput: IGmail.ICreateMailInput = {
+    to: ["store@wrtn.io"],
+    subject: "안녕하세요",
+    body: "Gmail Connector 테스트 입니다.",
+    cc: ["store@wrtn.io"],
+    secretKey,
+  };
+
+  await CApi.functional.connector.gmail.draft(connection, createMailInput);
+};
+
+export const test_api_connector_gmail_create_draft_with_files = async (
   connection: CApi.IConnection,
 ) => {
   const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
@@ -25,10 +39,5 @@ export const test_api_connector_gmail_send_mail_with_files = async (
     secretKey,
   };
 
-  const res = await CApi.functional.connector.gmail.send(
-    connection,
-    createMailInput,
-  );
-
-  typia.assertEquals(res);
+  await CApi.functional.connector.gmail.draft(connection, createMailInput);
 };
