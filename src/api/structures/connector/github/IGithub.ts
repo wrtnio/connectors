@@ -1322,6 +1322,12 @@ export namespace IGithub {
      * @title profile_repo
      */
     profile_repository: IGithub.ProfileRepository | null;
+
+    /**
+     * @title pinned_repositories
+     * It is a repository where the user puts a pin on his profile, which is usually used to display his or her proud history.
+     */
+    pinned_repositories: IGithub.IGetUserPinnedRepositoryOutput;
   }
 
   export interface IGetUserProfileInput extends ICommon.ISecret<"github"> {
