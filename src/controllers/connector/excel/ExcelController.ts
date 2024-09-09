@@ -10,6 +10,22 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/excel")
 export class ExcelController {
   /**
+   * 입력된 파일 정보를 바탕으로 해당 엑셀 파일의 헤더들을 조회합니다.
+   *
+   * @summary 엑셀 파일 안의 헤더 가져오기
+   * @param {string[]} input
+   */
+  @core.TypedRoute.Post("read/headers")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+  )
+  async readHeaders(
+    @core.TypedBody() input: IExcel.IReadExcelInput,
+  ): Promise<string[]> {
+    return retry(() => ExcelProvider.readHeaders(input))();
+  }
+
+  /**
    * 입력된 파일 정보를 바탕으로 해당 엑셀 파일의 내용을 가져옵니다.
    *
    * @summary 엑셀 파일 안의 내용 가져오기
