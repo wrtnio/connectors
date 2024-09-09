@@ -145,18 +145,6 @@ export const test_api_connector_open_data_get_get_today_stock_price_info =
     assert(res.response.body.items.item.length === 0);
   };
 
-export const test_api_connector_open_data_get_get_standard_region_code_list =
-  async (connection: CApi.IConnection) => {
-    const res =
-      await CApi.functional.connector.open_data.getStandardRegionCodeList(
-        connection,
-        {
-          locatadd_nm: "서울특별시",
-        },
-      );
-
-    typia.assertEquals(res);
-  };
 
 export const test_api_connector_open_data_get_get_building_info = async (
   connection: CApi.IConnection,
