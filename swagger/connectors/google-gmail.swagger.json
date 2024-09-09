@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.187",
+    "version": "0.1.188",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/gmail/send": {
       "post": {
         "summary": "GMAIL 전송",
-        "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
+        "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -60,7 +60,7 @@
     "/connector/gmail/draft": {
       "post": {
         "summary": "GMAIL 초안 생성",
-        "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
+        "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -483,6 +483,28 @@
             },
             "title": "숨은참조할 사람 이메일.",
             "description": "숨은참조할 사람 이메일 주소."
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "title": "filename"
+                },
+                "fileUrl": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "file uri"
+                }
+              },
+              "required": [
+                "filename",
+                "fileUrl"
+              ]
+            },
+            "title": "files"
           },
           "secretKey": {
             "type": "string",
