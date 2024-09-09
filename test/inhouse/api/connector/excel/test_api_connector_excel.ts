@@ -227,6 +227,36 @@ export const test_api_connector_excel_insert_row_fail_case_3 = async (
   deepStrictEqual(JSON.stringify(res), JSON.stringify(answer));
 };
 
+// 빈 엑셀 파일에 데이터를 넣을 때에는 헤더가 추가되어야 한다.
+export const test_api_connector_excel_insert_row_to_empty_excel_file = async (
+  connection: CApi.IConnection,
+) => {
+  const file = await CApi.functional.connector.excel.createSheets(connection, {
+    sheetName: "TEST",
+  });
+
+  const data = [
+    {
+      이름: "홍길동",
+      나이: 25,
+      직업: "엔지니어",
+      이메일: "hong@example.com",
+    },
+  ];
+
+  const res = await CApi.functional.connector.excel.rows.insertRows(
+    connection,
+    {
+      fileUrl: file.fileUrl,
+      sheetName: "TEST",
+      data,
+    },
+  );
+
+  console.log(JSON.stringify(res, null, 2));
+  typia.assert(res);
+};
+
 /**
  * 기존 테스트 코드
  *
