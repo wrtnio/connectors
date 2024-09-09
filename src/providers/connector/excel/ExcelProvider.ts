@@ -149,6 +149,7 @@ export namespace ExcelProvider {
       const { sheetName, data, fileUrl } = input;
       const workbook = await getExcelFile({ fileUrl });
       if (
+        typeof sheetName === "string" &&
         workbook.worksheets.every((worksheet) => worksheet.name !== sheetName)
       ) {
         // 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
