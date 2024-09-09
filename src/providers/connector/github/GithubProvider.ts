@@ -642,6 +642,9 @@ export class GithubProvider {
             pinnedItems(first: 6, types: REPOSITORY) {
               nodes {
                 ... on Repository {
+                  owner {
+                    login
+                  },
                   name
                 }
               }
@@ -657,7 +660,7 @@ export class GithubProvider {
     );
 
     return res.data.data.user.pinnedItems.nodes.map(
-      (el: { name: string }) => el.name,
+      (el: any) => `${el.owner.login}/${el.name}`,
     );
   }
 
