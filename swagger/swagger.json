@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.185",
+    "version": "0.1.186",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -24706,8 +24706,93 @@
         "type": "object",
         "properties": {
           "locatadd_nm": {
-            "type": "string",
-            "x-wrtn-placeholder": "Seoul Special City",
+            "oneOf": [
+              {
+                "const": "서울특별시",
+                "title": "서울특별시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "부산광역시",
+                "title": "부산광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "대구광역시",
+                "title": "대구광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "인천광역시",
+                "title": "인천광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "광주광역시",
+                "title": "광주광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "대전광역시",
+                "title": "대전광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "울산광역시",
+                "title": "울산광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "세종특별자치시",
+                "title": "세종특별자치시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "경기도",
+                "title": "경기도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "충청북도",
+                "title": "충청북도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "충청남도",
+                "title": "충청남도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "경상북도",
+                "title": "경상북도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "경상남도",
+                "title": "경상남도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "전라남도",
+                "title": "전라남도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "제주특별자치도",
+                "title": "제주특별자치도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "강원특별자치도",
+                "title": "강원특별자치도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "전북특별자치도",
+                "title": "전북특별자치도",
+                "x-wrtn-placeholder": "서울특별시"
+              }
+            ],
             "title": "Region address name"
           },
           "numOfRows": {
@@ -43371,6 +43456,13 @@
             ],
             "title": "profile_repo"
           },
+          "pinned_repositories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "pinned_repositories\nIt is a repository where the user puts a pin on his profile, which is usually used to display his or her proud history."
+          },
           "type": {
             "oneOf": [
               {
@@ -43411,6 +43503,7 @@
           "created_at",
           "updated_at",
           "profile_repository",
+          "pinned_repositories",
           "type",
           "id",
           "login",

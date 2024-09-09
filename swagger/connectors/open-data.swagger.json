@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.185",
+    "version": "0.1.186",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2142,8 +2142,93 @@
         "type": "object",
         "properties": {
           "locatadd_nm": {
-            "type": "string",
-            "x-wrtn-placeholder": "Seoul Special City",
+            "oneOf": [
+              {
+                "const": "서울특별시",
+                "title": "서울특별시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "부산광역시",
+                "title": "부산광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "대구광역시",
+                "title": "대구광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "인천광역시",
+                "title": "인천광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "광주광역시",
+                "title": "광주광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "대전광역시",
+                "title": "대전광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "울산광역시",
+                "title": "울산광역시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "세종특별자치시",
+                "title": "세종특별자치시",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "경기도",
+                "title": "경기도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "충청북도",
+                "title": "충청북도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "충청남도",
+                "title": "충청남도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "경상북도",
+                "title": "경상북도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "경상남도",
+                "title": "경상남도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "전라남도",
+                "title": "전라남도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "제주특별자치도",
+                "title": "제주특별자치도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "강원특별자치도",
+                "title": "강원특별자치도",
+                "x-wrtn-placeholder": "서울특별시"
+              },
+              {
+                "const": "전북특별자치도",
+                "title": "전북특별자치도",
+                "x-wrtn-placeholder": "서울특별시"
+              }
+            ],
             "title": "Region address name"
           },
           "numOfRows": {
