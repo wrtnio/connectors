@@ -42,52 +42,7 @@ export class GmailProvider {
       authClient.setCredentials({ access_token: accessToken });
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
-      // 파일이 존재할 경우에는 Content-Type을 multipart/mixed가 되게 수정
-      const boundary = "__my_boundary__";
-      const emailLines = [
-        `To: ${input.to.join(",")}`,
-        `From: me`,
-        "MIME-Version: 1.0",
-        this.encodeHeaderFieldForKorean("Subject", input.subject),
-        `Content-Type: multipart/mixed; boundary="${boundary}"`, // 파일이 들어갈지도 모르기 때문에 multipart/mixed로 수정, 바운더리 기호 명시
-        "",
-        `--${boundary}`,
-        `Content-Type: text/html; charset=utf-8`,
-      ];
-
-      if (input.files?.length) {
-        for await (const { filename, fileUrl } of input.files) {
-          const res = await axios.get(fileUrl, { responseType: "arraybuffer" });
-          const base64Buffer = Buffer.from(res.data).toString("base64");
-
-          const filePart = [
-            `--${boundary}`,
-            `Content-Type: application/octet-stream; name="${filename}"`,
-            `Content-Disposition: attachment; filename="${filename}"`,
-            `Content-Transfer-Encoding: base64`,
-            "",
-            base64Buffer,
-            "",
-          ] as const;
-
-          emailLines.push(...filePart);
-        }
-        emailLines.push(`--${boundary}--`); // 모든 파일이 입력된 후 바운더리를 추가로 입력하여 바운더리 사이에 파일이 위치하도록 한다.
-      }
-
-      /**
-       * 참조 대상 있는 경우 헤더에 추가
-       */
-      if (input.cc) {
-        emailLines.push(`Cc: ${input.cc.join(",")}`);
-      }
-
-      if (input.Bcc) {
-        emailLines.push(`Bcc: ${input.Bcc.join(",")}`);
-      }
-
-      const raw = this.makeEmailContent(emailLines, input.body);
-
+      const raw = await this.makeConpleteContents(input);
       const res = await gmail.users.messages.send({
         userId: "me",
         requestBody: {
@@ -115,27 +70,7 @@ export class GmailProvider {
 
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
-      const emailLines = [
-        `To: ${input.to.join(",")}`,
-        `From: me`,
-        "Content-Type: text/html; charset=utf-8",
-        "MIME-Version: 1.0",
-        this.encodeHeaderFieldForKorean("Subject", input.subject),
-      ];
-
-      /**
-       * 참조 대상 있는 경우 헤더에 추가
-       */
-      if (input.cc) {
-        emailLines.push(`Cc: ${input.cc.join(",")}`);
-      }
-
-      if (input.Bcc) {
-        emailLines.push(`Bcc: ${input.Bcc.join(",")}`);
-      }
-
-      const raw = this.makeEmailContent(emailLines, input.body);
-
+      const raw = await this.makeConpleteContents(input);
       await gmail.users.drafts.create({
         userId: "me",
         requestBody: {
@@ -414,6 +349,55 @@ export class GmailProvider {
     );
 
     return { id, labelIds, from, subject, body, attachments };
+  }
+
+  async makeConpleteContents(input: IGmail.ICreateMailInput): Promise<string> {
+    // 파일이 존재할 경우에는 Content-Type을 multipart/mixed가 되게 수정
+    const boundary = "__my_boundary__";
+    const emailLines = [
+      `To: ${input.to.join(",")}`,
+      `From: me`,
+      "MIME-Version: 1.0",
+      this.encodeHeaderFieldForKorean("Subject", input.subject),
+      `Content-Type: multipart/mixed; boundary="${boundary}"`, // 파일이 들어갈지도 모르기 때문에 multipart/mixed로 수정, 바운더리 기호 명시
+      "",
+      `--${boundary}`,
+      `Content-Type: text/html; charset=utf-8`,
+    ];
+
+    if (input.files?.length) {
+      for await (const { filename, fileUrl } of input.files) {
+        const res = await axios.get(fileUrl, { responseType: "arraybuffer" });
+        const base64Buffer = Buffer.from(res.data).toString("base64");
+
+        const filePart = [
+          `--${boundary}`,
+          `Content-Type: application/octet-stream; name="${filename}"`,
+          `Content-Disposition: attachment; filename="${filename}"`,
+          `Content-Transfer-Encoding: base64`,
+          "",
+          base64Buffer,
+          "",
+        ] as const;
+
+        emailLines.push(...filePart);
+      }
+      emailLines.push(`--${boundary}--`); // 모든 파일이 입력된 후 바운더리를 추가로 입력하여 바운더리 사이에 파일이 위치하도록 한다.
+    }
+
+    /**
+     * 참조 대상 있는 경우 헤더에 추가
+     */
+    if (input.cc) {
+      emailLines.push(`Cc: ${input.cc.join(",")}`);
+    }
+
+    if (input.Bcc) {
+      emailLines.push(`Bcc: ${input.Bcc.join(",")}`);
+    }
+
+    const raw = this.makeEmailContent(emailLines, input.body);
+    return raw;
   }
 
   /**
