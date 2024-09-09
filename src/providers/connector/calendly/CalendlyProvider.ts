@@ -189,7 +189,29 @@ export class CalendlyProvider {
    * Endpoint: /scheduled_events/{event_uuid}/invitees/{invitee_uuid}/no_show
    * 기능: 초대받은 사람이 참석하지 않았음을 표시할 수 있는 기능입니다. 참석 여부를 관리할 때 유용합니다.
    */
-  async checkNoShow() {}
+  async checkNoShow(
+    eventId: ICalendly.Event["uuid"],
+    inviteeId: ICalendly.Invitee["uuid"],
+    input: ICalendly.IGetOneInviteInput,
+  ): Promise<ICalendly.ICheckNoShowOutput> {
+    const { secretKey } = input;
+    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const url = `https://api.calendly.com/invitee_no_shows`;
+    const invitee = `https://api.calendly.com/scheduled_events/${eventId}/invitees/${inviteeId}`;
+    const res = await axios.post(
+      url,
+      {
+        invitee,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
 
   /**
    * Endpoint: /users/me

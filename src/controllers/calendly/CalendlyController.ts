@@ -29,14 +29,14 @@ export class CalendlyController {
     return this.calendlyProvider.getEventTypes(input);
   }
 
-  @core.TypedRoute.Post("events/:evnetId/invitees/:inviteId/get-cancel-link")
+  @core.TypedRoute.Post("events/:evnetId/invitees/:inviteeId/get-cancel-link")
   async cancel(
-    @TypedParam("evnetId") scheduledEventId: ICalendly.Event["uuid"],
-    @TypedParam("inviteId") inviteeId: ICalendly.Invitee["uuid"],
+    @TypedParam("evnetId") eventId: ICalendly.Event["uuid"],
+    @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
     @TypedBody() input: ICalendly.ICancelInput,
   ): Promise<ICalendly.ICacnelOutput> {
     const invitee = await this.calendlyProvider.getOneInvitee(
-      scheduledEventId,
+      eventId,
       inviteeId,
       input,
     );
@@ -50,10 +50,10 @@ export class CalendlyController {
    */
   @core.TypedRoute.Post("get-events/:evnetId")
   async getOneScheduledEvent(
-    @TypedParam("evnetId") scheduledEventId: ICalendly.Event["uuid"],
+    @TypedParam("evnetId") eventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
   ): Promise<ICalendly.IGetOneScheduledEventOutput> {
-    return this.calendlyProvider.getOneScheduledEvent(scheduledEventId, input);
+    return this.calendlyProvider.getOneScheduledEvent(eventId, input);
   }
 
   /**
@@ -67,14 +67,27 @@ export class CalendlyController {
     return this.calendlyProvider.getScheduledEvents(input);
   }
 
-  @core.TypedRoute.Post("events/:evnetId/get-invitees/:inviteId")
+  /**
+   * Endpoint: /scheduled_events/{event_uuid}/invitees/{invitee_uuid}/no_show
+   * 기능: 초대받은 사람이 참석하지 않았음을 표시할 수 있는 기능입니다. 참석 여부를 관리할 때 유용합니다.
+   */
+  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/no-show")
+  async checkNoShow(
+    @TypedParam("evnetId") eventId: ICalendly.Event["uuid"],
+    @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
+    @TypedBody() input: ICalendly.ICheckNoShowInput,
+  ): Promise<ICalendly.ICheckNoShowOutput> {
+    return this.calendlyProvider.checkNoShow(eventId, inviteeId, input);
+  }
+
+  @core.TypedRoute.Post("events/:evnetId/get-invitees/:inviteeId")
   async getOneInvite(
-    @TypedParam("evnetId") scheduledEventId: ICalendly.Event["uuid"],
-    @TypedParam("inviteId") inviteeId: ICalendly.Invitee["uuid"],
+    @TypedParam("evnetId") eventId: ICalendly.Event["uuid"],
+    @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
     @TypedBody() input: ICalendly.IGetOneInviteInput,
   ): Promise<ICalendly.IGetOneScheduledEventInviteeOutput> {
     const invitee = await this.calendlyProvider.getOneInvitee(
-      scheduledEventId,
+      eventId,
       inviteeId,
       input,
     );
@@ -103,12 +116,6 @@ export class CalendlyController {
   ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
     return this.calendlyProvider.createOneOffEventType(input);
   }
-
-  /**
-   * Endpoint: /scheduled_events/{event_uuid}/invitees/{invitee_uuid}/no_show
-   * 기능: 초대받은 사람이 참석하지 않았음을 표시할 수 있는 기능입니다. 참석 여부를 관리할 때 유용합니다.
-   */
-  async checkNoShow() {}
 
   /**
    * Endpoint: /users/me

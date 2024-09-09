@@ -158,6 +158,12 @@ export namespace ICalendly {
       | tags.Constant<"canceled", { title: "canceled" }>;
   }
 
+  export interface ICheckNoShowOutput {
+    resource: ICalendly.NoShow;
+  }
+
+  export type ICheckNoShowInput = Secret;
+
   export type IGetOneInviteInput = Secret;
 
   export type ICacnelOutput =
@@ -1034,7 +1040,7 @@ export namespace ICalendly {
     confirmed_at: (string & tags.Format<"date-time">) | null;
   };
 
-  type NoShow = {
+  export type NoShow = {
     /**
      * @title url
      * Canonical reference (unique identifier) for the no show
