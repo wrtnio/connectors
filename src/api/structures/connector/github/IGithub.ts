@@ -223,7 +223,7 @@ export namespace IGithub {
      *
      * The url that allows you to download a file, which is useful if it is a media file containing an image.
      */
-    download_url: string;
+    download_url?: string | null;
   };
 
   export type IGetReadmeFileContentOutput = RepositoryFile | null;
