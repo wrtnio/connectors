@@ -3,6 +3,7 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import axios from "axios";
 import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class CalendlyProvider {
@@ -14,7 +15,7 @@ export class CalendlyProvider {
     input: ICalendly.CreateSchedulingLinkInput,
   ): Promise<ICalendly.CreateSchedulingLinkOutput> {
     const { secretKey, owner } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const url = `https://api.calendly.com/scheduling_links`;
     const res = await axios.post(
       url,
@@ -41,7 +42,8 @@ export class CalendlyProvider {
     input: ICalendly.IGetEventTypeInput,
   ): Promise<ICalendly.IGetEventTypeOutput> {
     const { secretKey, ...rest } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
+    console.log(token);
     const queryParameter = createQueryParameter(rest);
     const url = `https://api.calendly.com/event_types?${queryParameter}`;
     const res = await axios.get(url, {
@@ -57,8 +59,7 @@ export class CalendlyProvider {
     scheduledEventId: ICalendly.Event["uuid"],
     input: ICalendly.IGetOneScheduledEventInput,
   ): Promise<ICalendly.IGetOneScheduledEventOutput> {
-    const { secretKey } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
 
     const url = `https://api.calendly.com/scheduled_events/${scheduledEventId}`;
     const res = await axios.get(url, {
@@ -81,7 +82,7 @@ export class CalendlyProvider {
     input: ICalendly.IGetScheduledEventInput,
   ): Promise<ICalendly.IGetScheduledEventOutput> {
     const { secretKey, ...rest } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const queryParameter = createQueryParameter(rest);
     const url = `https://api.calendly.com/scheduled_events?${queryParameter}`;
     const res = await axios.get(url, {
@@ -120,8 +121,7 @@ export class CalendlyProvider {
     inviteeId: ICalendly.Invitee["uuid"],
     input: ICalendly.IGetOneScheduledEventInput,
   ): Promise<ICalendly.IGetOneScheduledEventInviteeOutput> {
-    const { secretKey } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const url = `https://api.calendly.com/scheduled_events/${scheduledEventId}/invitees/${inviteeId}`;
     const res = await axios.get(url, {
       headers: {
@@ -143,7 +143,7 @@ export class CalendlyProvider {
     input: ICalendly.IGetScheduledEventInviteeInput,
   ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
     const { scheduled_event_uuid, secretKey, ...rest } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const queryParameter = createQueryParameter(rest);
     const url = `https://api.calendly.com/scheduled_events/${scheduled_event_uuid}/invitees?${queryParameter}`;
     const res = await axios.get(url, {
@@ -168,7 +168,7 @@ export class CalendlyProvider {
     input: ICalendly.ICreateOneOffEventTypeInput,
   ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
     const { secretKey, ...rest } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const url = `https://api.calendly.com/one_off_event_types`;
     const res = await axios.post(
       url,
@@ -194,8 +194,7 @@ export class CalendlyProvider {
     inviteeId: ICalendly.Invitee["uuid"],
     input: ICalendly.IGetOneInviteInput,
   ): Promise<ICalendly.ICheckNoShowOutput> {
-    const { secretKey } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const url = `https://api.calendly.com/invitee_no_shows`;
     const invitee = `https://api.calendly.com/scheduled_events/${eventId}/invitees/${inviteeId}`;
     const res = await axios.post(
@@ -220,8 +219,7 @@ export class CalendlyProvider {
   async getUserInfo(
     input: ICalendly.IGetUserInfoInput,
   ): Promise<ICalendly.IGetUserInfoOutput> {
-    const { secretKey } = input;
-    const token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const token = await this.refresh(input);
     const url = `https://api.calendly.com/users/me`;
     const res = await axios.get(url, {
       headers: {
@@ -230,5 +228,39 @@ export class CalendlyProvider {
     });
 
     return res.data;
+  }
+
+  async refresh({ secretKey }: ICalendly.Secret) {
+    const refreshToken = await OAuthSecretProvider.getSecretValue(secretKey);
+    try {
+      const res = await axios.post(
+        "https://auth.calendly.com/oauth/token",
+        {
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: this.getBasicAuthorization(),
+          },
+        },
+      );
+      return res.data.access_token;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+    }
+  }
+
+  getBasicAuthorization() {
+    const clientId = ConnectorGlobal.env.CALENDLY_CLIENT_ID;
+    const clientSecret = ConnectorGlobal.env.CALENDLY_CLIENT_SECRET;
+
+    // client_id:client_secret 형식으로 문자열 생성
+    const credentials = clientId + ":" + clientSecret;
+
+    // Base64 인코딩
+    const encodedCredentials = btoa(credentials);
+    return "Basic " + encodedCredentials;
   }
 }
