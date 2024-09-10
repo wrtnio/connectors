@@ -204,7 +204,6 @@ export namespace ICalendly {
     /**
      * @title invitee_email
      * Return events that are scheduled with the invitee associated with this email address.
-     * @format email
      * @example alice@example.com
      */
     invitee_email?: string & tags.Format<"email">;
@@ -251,7 +250,9 @@ export namespace ICalendly {
      * Whether the scheduled event is active or canceled.
      * Allowed values: active, canceled.
      */
-    status?: "active" | "canceled";
+    status?:
+      | tags.Constant<"active", { title: "active" }>
+      | tags.Constant<"canceled", { title: "canceled" }>;
 
     /**
      * @title user
@@ -354,9 +355,9 @@ export namespace ICalendly {
       | tags.Constant<"updated_at:desc", { title: "수정일자 역순 정렬" }>;
   }
 
-  type Secret = ICommon.ISecret<"calendly">;
+  export type Secret = ICommon.ISecret<"calendly">;
 
-  type EventType = {
+  export type EventType = {
     /**
      * @title uri
      * Canonical reference (unique identifier) for the event type.
@@ -508,7 +509,7 @@ export namespace ICalendly {
     position: number;
   };
 
-  type Profile = {
+  export type Profile = {
     /**
      * @title type
      * Indicates if the profile belongs to a "user" (individual) or "team"
@@ -532,7 +533,7 @@ export namespace ICalendly {
       Placeholder<"https://api.calendly.com/users/AAAAAAAAAAAAAAAA">;
   };
 
-  type Location = {
+  export type Location = {
     /**
      * @title kind
      */
@@ -549,7 +550,7 @@ export namespace ICalendly {
     additional_info: string;
   };
 
-  type CustomQuestion = {
+  export type CustomQuestion = {
     /**
      * @title name
      * The custom question that the host created for the event type.
@@ -1024,7 +1025,7 @@ export namespace ICalendly {
     invitee_scheduled_by: (string & tags.Format<"uri">) | null;
   }
 
-  type Reconfirmation = {
+  export type Reconfirmation = {
     /**
      * @title created_at
      * When the reconfirmation was created.
@@ -1055,7 +1056,7 @@ export namespace ICalendly {
     created_at: string & tags.Format<"date-time">;
   };
 
-  type Payment = {
+  export type Payment = {
     /**
      * @title external_id
      * Unique identifier for the payment
@@ -1101,7 +1102,7 @@ export namespace ICalendly {
     successful: boolean;
   };
 
-  type Cancellation = {
+  export type Cancellation = {
     /**
      * @title canceled_by
      * Name of the person whom canceled
@@ -1130,7 +1131,7 @@ export namespace ICalendly {
     created_at: string & tags.Format<"date-time">;
   };
 
-  type Pagination = {
+  export type Pagination = {
     /**
      * @title count
      * The number of rows to return
@@ -1170,7 +1171,7 @@ export namespace ICalendly {
    * @title user
    * Information about the user.
    */
-  type User = {
+  export type User = {
     /**
      * @title uri
      * Canonical reference (unique identifier) for the user
