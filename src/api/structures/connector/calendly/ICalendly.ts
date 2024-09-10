@@ -1,4 +1,4 @@
-import { Placeholder } from "@wrtnio/decorators";
+import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
@@ -302,14 +302,21 @@ export namespace ICalendly {
     /**
      * @title organization
      * View available personal, team, and organization event types associated with the organization's URI.
+     * user or organization must be filled.
      */
     organization?: string & tags.Format<"uri">;
 
     /**
      * @title user
      * View available personal, team, and organization event types associated with the user's URI.
+     * user or organization must be filled.
      */
-    user?: string & tags.Format<"uri">;
+    user?: User["uri"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/calendly/users/get-me";
+        jmesPath: "resource.{value:url, label:name}";
+      }>;
 
     /**
      * @title user_availability_schedule

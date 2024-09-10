@@ -43,7 +43,6 @@ export class CalendlyProvider {
   ): Promise<ICalendly.IGetEventTypeOutput> {
     const { secretKey, ...rest } = input;
     const token = await this.refresh(input);
-    console.log(token);
     const queryParameter = createQueryParameter(rest);
     const url = `https://api.calendly.com/event_types?${queryParameter}`;
     const res = await axios.get(url, {
