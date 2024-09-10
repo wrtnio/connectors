@@ -5,10 +5,9 @@ import { MyPartial } from "../../../../utils/types/MyPartial";
 import type { ICommon } from "../common/ISecretValue";
 import type { ListNode } from "./ListNode";
 
-export type LookUp<
-  U extends { type: string },
-  T extends U["type"],
-> = U["type"] extends T ? U : never;
+export type LookUp<U extends { type: string }, T> = U extends { type: T }
+  ? U
+  : never;
 
 export namespace IJira {
   /**
