@@ -242,6 +242,36 @@ export class JiraController {
   }
 
   /**
+   * Create an issue by markdown
+   *
+   * Issue type, project, and summary are essential properties.
+   * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
+   *
+   * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
+   * There are pre-designated content types, so please check this type information carefully.
+   *
+   * @summary create issue by markdown in jira
+   * @param input issue information to create
+   * @returns id and key of created issue
+   */
+  @RouteIcon(
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+  )
+  @core.TypedRoute.Post("issues/markdown")
+  async createIssueByMarkdown(
+    @TypedBody() input: IJira.ICreateIssueByMarkdownInput,
+  ): Promise<IJira.ICreateIssueOutput> {
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
+    return this.jiraProvider.createIssueByMarkdown({
+      ...input,
+      ...authorization,
+    });
+  }
+
+  /**
    * Create an issue
    *
    * Issue type, project, and summary are essential properties.
@@ -259,9 +289,7 @@ export class JiraController {
   )
   @core.TypedRoute.Post("issues")
   async createIssue(
-    @TypedBody()
-    input: StrictOmit<IJira.ICreateIssueInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.ICreateIssueInputWithBasicAuth,
   ): Promise<IJira.ICreateIssueOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({

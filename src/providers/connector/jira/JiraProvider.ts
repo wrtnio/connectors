@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { markdownToJiraBlock } from "../../../utils/markdownToJiraBlock";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -531,6 +532,41 @@ export class JiraProvider {
     } catch (err) {
       console.log((err as any)?.response.data);
       console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createIssueByMarkdown(
+    input: IJira.ICreateIssueByMarkdownInput,
+  ): Promise<{ id: string; key: string }> {
+    try {
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (input.fields.description) {
+        const content = markdownToJiraBlock(input.fields.description.content);
+        copiedInput.fields.description.content = content;
+      }
+
+      const config = await this.getAuthorizationAndDomain(copiedInput);
+      const res = await axios.post(
+        `${config.domain}/issue`,
+        {
+          fields: copiedInput.fields,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.log("data : ", JSON.stringify(err.response?.data));
+      }
       throw err;
     }
   }
