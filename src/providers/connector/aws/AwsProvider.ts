@@ -36,26 +36,7 @@ export class AwsProvider {
   }
 
   async uploadObject(input: IAws.IUploadObjectInput): Promise<string> {
-    const { data, contentType } = input;
-    const encodedKey = input.key
-      .split("/")
-      .map((token) => {
-        const unsafeCharactersRegex = /[^a-zA-Z0-9._\-\/]/g;
-        if (unsafeCharactersRegex.test(token)) {
-          return encodeURIComponent(token);
-        }
-        return token;
-      })
-      .join("/");
-
-    const putObjectConfig = new PutObjectCommand({
-      Bucket: this.fileBucket,
-      Key: encodedKey,
-      Body: data,
-      ContentType: contentType,
-    });
-    await this.s3.send(putObjectConfig);
-    return `https://${this.fileBucket}.s3.amazonaws.com/${encodedKey}`;
+    return AwsProvider.uploadObject(input);
   }
 
   async getPutObjectUrl(
