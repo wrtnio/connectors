@@ -6,23 +6,41 @@ import typia, { tags } from "typia";
 import { AwsProvider } from "./providers/connector/aws/AwsProvider";
 
 export class ConnectorGlobal {
-  public static async rewrite(env: Record<string, string>) {
-    const data = Buffer.from(JSON.stringify(env), "utf-8");
-    const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
-    await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
+  public static async write(env: Record<string, string>) {
+    if (process.env.NODE_ENV !== "prod") {
+      const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+      const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+      const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
+      const res = await axios.get(url);
+      const parsed = res.data;
+
+      Object.entries({ ...parsed, ...env }).forEach(([key, value]) => {
+        if (Object.keys(ConnectorGlobal.env).includes(key)) {
+          parsed[key] = value as any;
+        }
+      });
+
+      const data = Buffer.from(JSON.stringify(parsed), "utf-8");
+      await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
+    }
 
     return await this.reload();
   }
 
   public static async reload() {
-    const path = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
-    const res = await axios.get(path);
+    if (process.env.NODE_ENV !== "prod") {
+      const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+      const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+      const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
+      const res = await axios.get(url);
+      const parsed = res.data;
 
-    Object.entries(res.data).forEach(([key, value]) => {
-      if (typia.is<keyof typeof ConnectorGlobal.env>(key)) {
-        ConnectorGlobal.env[key] = value as any;
-      }
-    });
+      Object.entries(parsed).forEach(([key, value]) => {
+        if (Object.keys(ConnectorGlobal.env).includes(key)) {
+          (ConnectorGlobal.env as any)[key] = value as any;
+        }
+      });
+    }
 
     return ConnectorGlobal;
   }

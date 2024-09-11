@@ -245,7 +245,11 @@ export class CalendlyProvider {
           },
         },
       );
-      return res.data.access_token;
+
+      const { access_token, refresh_token: newRefreshToken } = res.data;
+      await ConnectorGlobal.write({ CALENDLY_TEST_SECRET: newRefreshToken });
+
+      return access_token;
     } catch (err) {
       console.error(JSON.stringify(err));
     }

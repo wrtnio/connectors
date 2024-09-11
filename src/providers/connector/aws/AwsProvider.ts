@@ -16,14 +16,6 @@ import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
-const s3 = new S3Client({
-  region: "ap-northeast-2",
-  maxAttempts: 3,
-  credentials: {
-    accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
 @Injectable()
 export class AwsProvider {
   private readonly s3: S3Client;
@@ -32,7 +24,14 @@ export class AwsProvider {
   private readonly EXPIRATION_IN_MINUTES = 3;
 
   constructor() {
-    this.s3 = s3;
+    this.s3 = new S3Client({
+      region: "ap-northeast-2",
+      maxAttempts: 3,
+      credentials: {
+        accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
   }
 
   async uploadObject(input: IAws.IUploadObjectInput): Promise<string> {
@@ -161,6 +160,15 @@ export namespace AwsProvider {
   export async function uploadObject(
     input: IAws.IUploadObjectInput,
   ): Promise<string> {
+    const s3 = new S3Client({
+      region: "ap-northeast-2",
+      maxAttempts: 3,
+      credentials: {
+        accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
+
     const { data, contentType } = input;
     const encodedKey = input.key
       .split("/")
