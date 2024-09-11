@@ -16,24 +16,23 @@ import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
+const s3 = new S3Client({
+  region: "ap-northeast-2",
+  maxAttempts: 3,
+  credentials: {
+    accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 @Injectable()
 export class AwsProvider {
   private readonly s3: S3Client;
   private readonly region = "ap-northeast-2";
-  private readonly accessKeyId = ConnectorGlobal.env.AWS_ACCESS_KEY_ID;
-  private readonly secretAccessKey = ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY;
   private readonly fileBucket = ConnectorGlobal.env.AWS_S3_BUCKET;
   private readonly EXPIRATION_IN_MINUTES = 3;
 
   constructor() {
-    this.s3 = new S3Client({
-      region: this.region,
-      maxAttempts: 3,
-      credentials: {
-        accessKeyId: this.accessKeyId,
-        secretAccessKey: this.secretAccessKey,
-      },
-    });
+    this.s3 = s3;
   }
 
   async uploadObject(input: IAws.IUploadObjectInput): Promise<string> {
@@ -176,5 +175,30 @@ export namespace AwsProvider {
       console.error("Invalid URL:", error);
       throw new BadRequestException("Invalid S3 URL");
     }
+  }
+
+  export async function uploadObject(
+    input: IAws.IUploadObjectInput,
+  ): Promise<string> {
+    const { data, contentType } = input;
+    const encodedKey = input.key
+      .split("/")
+      .map((token) => {
+        const unsafeCharactersRegex = /[^a-zA-Z0-9._\-\/]/g;
+        if (unsafeCharactersRegex.test(token)) {
+          return encodeURIComponent(token);
+        }
+        return token;
+      })
+      .join("/");
+
+    const putObjectConfig = new PutObjectCommand({
+      Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
+      Key: encodedKey,
+      Body: data,
+      ContentType: contentType,
+    });
+    await s3.send(putObjectConfig);
+    return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.amazonaws.com/${encodedKey}`;
   }
 }
