@@ -1435,7 +1435,7 @@ export namespace IJira {
   };
 
   export type TableCellNode = {
-    type: "tabelCell";
+    type: "tableCell";
     content: (
       | BlockquoteNode
       | ListNode

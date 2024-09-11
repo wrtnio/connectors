@@ -1,6 +1,6 @@
 import { lexer, MarkedToken, Token } from "marked";
 import typia from "typia";
-import { IJira, LookUp } from "../api/structures/connector/jira/IJira";
+import { IJira } from "../api/structures/connector/jira/IJira";
 import {
   ListItemNode_1,
   ListNode,
@@ -11,35 +11,48 @@ type JiraContentNode =
   | IJira.InlineNode
   | ListItemNode_1;
 
-function arrayTransform(tokens: Token[]): JiraContentNode[] {
-  return tokens?.map(transform).filter((el) => el !== null) ?? [];
+export function arrayTransform(options: {
+  tokens: Token[];
+  convertParagraph?: boolean;
+}): JiraContentNode[] {
+  return options.tokens
+    ?.map((token) =>
+      transform({ token, convertParagraph: options.convertParagraph }),
+    )
+    .filter((el) => el !== null);
 }
 
 const is = typia.createIs<MarkedToken>();
-function transform(token: Token): JiraContentNode | null {
-  const target = is(token) ? token : null;
+function transform(options: {
+  token: Token;
+  convertParagraph?: boolean;
+}): JiraContentNode | null {
+  const target = is(options.token) ? options.token : null;
   if (target === null) {
     return null;
   }
 
   const targetMarkedToken = target as MarkedToken;
   if (targetMarkedToken.type === "blockquote") {
-    return {
-      // 인용구를 의미한다.
-      type: "blockquote",
-      content: arrayTransform(targetMarkedToken.tokens),
-    } as IJira.BlockquoteNode;
-  }
-  if (targetMarkedToken.type === "br") {
-    return {
-      // 줄바꿈을 의미한다.
-      type: "hardBreak",
-      attrs: {
-        text: "\n",
-      },
-    } as IJira.HardBreakNode;
-  }
-  if (targetMarkedToken.type === "code") {
+    const transformed = arrayTransform({ tokens: targetMarkedToken.tokens });
+    if (typia.is<IJira.BlockquoteNode["content"]>(transformed)) {
+      return {
+        type: "blockquote",
+        content: transformed,
+      } satisfies IJira.BlockquoteNode;
+    } else {
+      console.warn(
+        JSON.stringify({
+          message: "blockquote build failed.",
+          targetMarkedToken,
+          transformed,
+        }),
+      );
+      return null;
+    }
+  } else if (targetMarkedToken.type === "br") {
+    return null;
+  } else if (targetMarkedToken.type === "code") {
     // 코드박스를 의미한다
     return {
       type: "codeBlock",
@@ -52,9 +65,8 @@ function transform(token: Token): JiraContentNode | null {
       attrs: {
         language: targetMarkedToken.lang,
       },
-    } as IJira.CodeBlockNode;
-  }
-  if (targetMarkedToken.type === "codespan") {
+    } satisfies IJira.CodeBlockNode;
+  } else if (targetMarkedToken.type === "codespan") {
     // 백틱에 둘러쌓인, 강조된 문자열을 의미한다.
     return {
       type: "text",
@@ -64,13 +76,11 @@ function transform(token: Token): JiraContentNode | null {
           type: "code",
         },
       ],
-    } as IJira.TextContent;
-  }
-  if (targetMarkedToken.type === "def") {
+    } satisfies IJira.TextContent;
+  } else if (targetMarkedToken.type === "def") {
     // 링크 정의에 해당하나 각 링크 별로 흩어지는 게 맞는 듯 하다.
     return null;
-  }
-  if (targetMarkedToken.type === "del") {
+  } else if (targetMarkedToken.type === "del") {
     return {
       type: "text",
       text: targetMarkedToken.text,
@@ -79,9 +89,8 @@ function transform(token: Token): JiraContentNode | null {
           type: "strike",
         },
       ],
-    } as IJira.TextContent;
-  }
-  if (targetMarkedToken.type === "em") {
+    } satisfies IJira.TextContent;
+  } else if (targetMarkedToken.type === "em") {
     return {
       type: "text",
       text: targetMarkedToken.text,
@@ -90,32 +99,41 @@ function transform(token: Token): JiraContentNode | null {
           type: "em",
         },
       ],
-    } as IJira.TextContent;
-  }
-  if (targetMarkedToken.type === "escape") {
+    } satisfies IJira.TextContent;
+  } else if (targetMarkedToken.type === "escape") {
     return null;
-  }
-  if (targetMarkedToken.type === "heading") {
-    return {
-      type: "heading",
-      content: arrayTransform(targetMarkedToken.tokens),
-      attrs: {
-        level: targetMarkedToken.depth <= 3 ? targetMarkedToken.depth : 3,
-      },
-    } as IJira.HeadingNode;
-  }
-  if (targetMarkedToken.type === "hr") {
+  } else if (targetMarkedToken.type === "heading") {
+    const transformed = arrayTransform({ tokens: targetMarkedToken.tokens });
+    if (typia.is<IJira.InlineNode[]>(transformed)) {
+      return {
+        type: "heading",
+        content: transformed,
+        attrs: {
+          level: (targetMarkedToken.depth <= 3
+            ? targetMarkedToken.depth
+            : 3) as 1 | 2 | 3,
+        },
+      } satisfies IJira.HeadingNode;
+    } else {
+      console.warn(
+        JSON.stringify({
+          message: "heading build failed.",
+          targetMarkedToken,
+          transformed,
+        }),
+      );
+      return null;
+    }
+  } else if (targetMarkedToken.type === "hr") {
     return {
       type: "rule",
-    } as IJira.RuleNode;
-  }
-  if (targetMarkedToken.type === "html") {
+    } satisfies IJira.RuleNode;
+  } else if (targetMarkedToken.type === "html") {
     return {
       type: "text",
       text: targetMarkedToken.text,
-    } as IJira.TextContent;
-  }
-  if (targetMarkedToken.type === "image") {
+    } satisfies IJira.TextContent;
+  } else if (targetMarkedToken.type === "image") {
     return {
       type: "mediaSingle",
       content: [
@@ -128,64 +146,90 @@ function transform(token: Token): JiraContentNode | null {
             },
           },
           attrs: {
-            type: "external",
-            url: targetMarkedToken.href,
+            type: "link",
           },
         },
       ],
       attrs: {
         layout: "center",
       },
-    } as IJira.MediaSingleNode;
-  }
-  if (targetMarkedToken.type === "link") {
+    } satisfies IJira.MediaSingleNode;
+  } else if (targetMarkedToken.type === "link") {
     return {
-      text: targetMarkedToken.text,
+      text: targetMarkedToken.title ?? targetMarkedToken.text,
       type: "text",
       marks: [
         {
           type: "link",
+          attrs: {
+            href: targetMarkedToken.href,
+          },
         },
       ],
-    } as IJira.TextContent;
-  }
-  if (targetMarkedToken.type === "list") {
+    } satisfies IJira.TextContent;
+  } else if (targetMarkedToken.type === "list") {
     return {
-      type: "bulletList",
-      content: arrayTransform(targetMarkedToken.items),
-    } as LookUp<ListNode, "bulletList">;
-  }
-  if (targetMarkedToken.type === "list_item") {
-    return {
-      type: "listItem",
-      content: arrayTransform(targetMarkedToken.tokens),
-    } as ListItemNode_1;
-  }
-  if (targetMarkedToken.type === "paragraph") {
+      type: targetMarkedToken.ordered ? "orderedList" : "bulletList",
+      content: targetMarkedToken.items
+        .map((item) => {
+          const transformed = arrayTransform({
+            tokens: item.tokens,
+            convertParagraph: true,
+          });
+          if (typia.is<ListItemNode_1["content"]>(transformed)) {
+            return {
+              type: "listItem",
+              content: transformed,
+            } satisfies ListItemNode_1;
+          } else {
+            return null;
+          }
+        })
+        .filter((el) => el !== null),
+    } satisfies ListNode;
+  } else if (targetMarkedToken.type === "paragraph") {
+    const transformed = arrayTransform({ tokens: targetMarkedToken.tokens });
+    if (transformed.length === 1 && transformed[0].type === "mediaSingle") {
+      return transformed[0];
+    } else if (typia.is<IJira.InlineNode[]>(transformed)) {
+      return {
+        type: "paragraph",
+        content: transformed,
+      } satisfies IJira.ParagraphNode;
+    } else {
+      console.warn(
+        JSON.stringify({
+          message: "paragraph build failed.",
+          targetMarkedToken,
+          transformed,
+        }),
+      );
+      return null;
+    }
+  } else if (targetMarkedToken.type === "space") {
     return {
       type: "paragraph",
-      content: arrayTransform(targetMarkedToken.tokens),
-    } as IJira.ParagraphNode;
-  }
-  if (targetMarkedToken.type === "space") {
-    return {
-      type: "hardBreak",
-      attrs: {
-        text: "\n",
-      },
-    } as IJira.HardBreakNode;
-  }
-  if (targetMarkedToken.type === "strong") {
+      content: [
+        {
+          // 줄바꿈을 의미한다.
+          type: "hardBreak",
+          attrs: {
+            text: "\n",
+          },
+        },
+      ],
+    } satisfies IJira.ParagraphNode;
+  } else if (targetMarkedToken.type === "strong") {
     return {
       type: "text",
+      text: targetMarkedToken.text,
       marks: [
         {
           type: "strong",
         },
       ],
-    } as IJira.TextContent;
-  }
-  if (targetMarkedToken.type === "table") {
+    } satisfies IJira.TextContent;
+  } else if (targetMarkedToken.type === "table") {
     return {
       type: "table",
       content: [
@@ -194,39 +238,77 @@ function transform(token: Token): JiraContentNode | null {
           content: [
             {
               type: "tableHeader",
-              content: (targetMarkedToken.header
-                ?.map((cell) => {
+              content: targetMarkedToken.header?.map((cell) => {
+                const transformed = arrayTransform({
+                  tokens: cell.tokens,
+                  convertParagraph: true,
+                });
+                if (typia.is<IJira.TableCellNode["content"]>(transformed)) {
                   return {
-                    type: "tabelCell",
-                    content: arrayTransform(cell.tokens),
-                  } as IJira.TableCellNode;
-                })
-                .filter((el: any) => el !== null) ?? []) as any,
+                    type: "tableCell",
+                    content: transformed,
+                  } satisfies IJira.TableCellNode;
+                } else {
+                  console.warn(
+                    JSON.stringify({
+                      message: "tableHeader, tableCell build failed.",
+                      cell,
+                      transformed,
+                    }),
+                  );
+
+                  return null;
+                }
+              }) as any[],
             },
           ],
-        } as IJira.TableRowNode,
+        } satisfies IJira.TableRowNode,
         ...targetMarkedToken.rows.map((cells): IJira.TableRowNode => {
           return {
             type: "tableRow",
-            content: cells.map((el) => {
-              return {
-                type: "tabelCell",
-                content:
-                  el.tokens.map(transform).filter((el: any) => el !== null) ??
-                  [],
-              } as IJira.TableCellNode;
-            }),
+            content: cells.map((cell) => {
+              const transformed = arrayTransform({
+                tokens: cell.tokens,
+                convertParagraph: true,
+              });
+              if (typia.is<IJira.TableCellNode["content"]>(transformed)) {
+                return {
+                  type: "tableCell",
+                  content: transformed,
+                } satisfies IJira.TableCellNode;
+              } else {
+                console.warn(
+                  JSON.stringify({
+                    message: "tableRow, tableCell build failed.",
+                    cell,
+                    transformed,
+                  }),
+                );
+
+                return null;
+              }
+            }) as any[],
           };
         }),
       ],
-    } as IJira.TableNode;
-  }
-
-  if (targetMarkedToken.type === "text") {
-    return {
-      type: "text",
-      text: targetMarkedToken.raw,
-    } as IJira.TextContent;
+    } satisfies IJira.TableNode;
+  } else if (targetMarkedToken.type === "text") {
+    if (options.convertParagraph) {
+      return {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: targetMarkedToken.text,
+          },
+        ],
+      } satisfies IJira.ParagraphNode;
+    } else {
+      return {
+        type: "text",
+        text: targetMarkedToken.raw,
+      } satisfies IJira.TextContent;
+    }
   }
 
   return null;
@@ -234,5 +316,5 @@ function transform(token: Token): JiraContentNode | null {
 
 export function markdownToJiraBlock(markdown: string): JiraContentNode[] {
   const tokensList = lexer(markdown);
-  return arrayTransform(tokensList);
+  return arrayTransform({ tokens: tokensList });
 }
