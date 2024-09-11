@@ -1,9 +1,32 @@
+import axios from "axios";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia, { tags } from "typia";
+import { AwsProvider } from "./providers/connector/aws/AwsProvider";
 
 export class ConnectorGlobal {
+  public static async rewrite(env: Record<string, string>) {
+    const data = Buffer.from(JSON.stringify(env), "utf-8");
+    const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+    await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
+
+    return await this.reload();
+  }
+
+  public static async reload() {
+    const path = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+    const res = await axios.get(path);
+
+    Object.entries(res.data).forEach(([key, value]) => {
+      if (typia.is<keyof typeof ConnectorGlobal.env>(key)) {
+        ConnectorGlobal.env[key] = value as any;
+      }
+    });
+
+    return ConnectorGlobal;
+  }
+
   public static get env(): ConnectorGlobal.IEnvironments {
     return environments.get();
   }
@@ -131,6 +154,9 @@ export namespace ConnectorGlobal {
     // GH DEVS BE
     GH_DEVS_BE_SERVER_URL: string & tags.Format<"uri">;
     SHORT_LINK_RETURN_URL: string & tags.Format<"uri">;
+
+    // ROTATION_REFRESH_TOKEN_PATH
+    ROTATION_REFRESH_TOKEN_PATH: string;
   }
 }
 
