@@ -11,6 +11,10 @@ type JiraContentNode =
   | IJira.InlineNode
   | ListItemNode_1;
 
+function arrayTransform(tokens: Token[]): JiraContentNode[] {
+  return tokens?.map(transform).filter((el) => el !== null) ?? [];
+}
+
 const is = typia.createIs<MarkedToken>();
 function transform(token: Token): JiraContentNode | null {
   const target = is(token) ? token : null;
@@ -23,9 +27,7 @@ function transform(token: Token): JiraContentNode | null {
     return {
       // 인용구를 의미한다.
       type: "blockquote",
-      content:
-        targetMarkedToken.tokens?.map(transform).filter((el) => el !== null) ??
-        [],
+      content: arrayTransform(targetMarkedToken.tokens),
     } as IJira.BlockquoteNode;
   }
   if (targetMarkedToken.type === "br") {
@@ -91,14 +93,12 @@ function transform(token: Token): JiraContentNode | null {
     } as IJira.TextContent;
   }
   if (targetMarkedToken.type === "escape") {
-    return {} as IJira.HardBreakNode;
+    return null;
   }
   if (targetMarkedToken.type === "heading") {
     return {
       type: "heading",
-      content:
-        targetMarkedToken.tokens?.map(transform).filter((el) => el !== null) ??
-        [],
+      content: arrayTransform(targetMarkedToken.tokens),
       attrs: {
         level: targetMarkedToken.depth <= 3 ? targetMarkedToken.depth : 3,
       },
@@ -152,25 +152,19 @@ function transform(token: Token): JiraContentNode | null {
   if (targetMarkedToken.type === "list") {
     return {
       type: "bulletList",
-      content:
-        targetMarkedToken.items?.map(transform).filter((el) => el !== null) ??
-        [],
+      content: arrayTransform(targetMarkedToken.items),
     } as LookUp<ListNode, "bulletList">;
   }
   if (targetMarkedToken.type === "list_item") {
     return {
       type: "listItem",
-      content:
-        targetMarkedToken.tokens?.map(transform).filter((el) => el !== null) ??
-        [],
+      content: arrayTransform(targetMarkedToken.tokens),
     } as ListItemNode_1;
   }
   if (targetMarkedToken.type === "paragraph") {
     return {
       type: "paragraph",
-      content:
-        targetMarkedToken.tokens?.map(transform).filter((el) => el !== null) ??
-        [],
+      content: arrayTransform(targetMarkedToken.tokens),
     } as IJira.ParagraphNode;
   }
   if (targetMarkedToken.type === "space") {
@@ -204,9 +198,7 @@ function transform(token: Token): JiraContentNode | null {
                 ?.map((cell) => {
                   return {
                     type: "tabelCell",
-                    content:
-                      cell.tokens?.map(transform).filter((el) => el !== null) ??
-                      [],
+                    content: arrayTransform(cell.tokens),
                   } as IJira.TableCellNode;
                 })
                 .filter((el: any) => el !== null) ?? []) as any,
@@ -242,6 +234,5 @@ function transform(token: Token): JiraContentNode | null {
 
 export function markdownToJiraBlock(markdown: string): JiraContentNode[] {
   const tokensList = lexer(markdown);
-
-  return tokensList.map(transform).filter((el) => el !== null);
+  return arrayTransform(tokensList);
 }
