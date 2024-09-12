@@ -1,6 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
-import { OpenApiTypeChecker } from "@samchon/openapi/lib/internal/OpenApiTypeChecker";
-import cp from "child_process";
+import { OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
 import fs from "fs";
 
 import { MapUtil } from "../api/utils/MapUtil";

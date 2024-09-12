@@ -223,7 +223,7 @@ export namespace IGithub {
      *
      * The url that allows you to download a file, which is useful if it is a media file containing an image.
      */
-    download_url: string;
+    download_url?: string | null;
   };
 
   export type IGetReadmeFileContentOutput = RepositoryFile | null;
@@ -803,7 +803,7 @@ export namespace IGithub {
     /**
      * @title description
      */
-    description: string;
+    description: string | null;
   };
 
   export interface IGetLabelInput
@@ -1666,7 +1666,7 @@ export namespace IGithub {
      */
     author: {
       name: string;
-      email: string & tags.Format<"email">;
+      email: string;
       date: string & tags.Format<"date-time">;
     };
 
@@ -1675,7 +1675,7 @@ export namespace IGithub {
      */
     committer: {
       name: string;
-      email: string & tags.Format<"email">;
+      email: string;
       date: string & tags.Format<"date-time">;
     };
 
