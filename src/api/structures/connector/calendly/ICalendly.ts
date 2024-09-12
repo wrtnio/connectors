@@ -184,6 +184,10 @@ export namespace ICalendly {
     collection: Event[];
     pagination: Pagination;
   }
+
+  /**
+   * @title Conditions for querying scheduled events
+   */
   export interface IGetScheduledEventInput extends Secret {
     /**
      * @title count
@@ -196,10 +200,64 @@ export namespace ICalendly {
       tags.Default<20>;
 
     /**
-     * @title group
-     * Return events that are scheduled with the group associated with this URI.
+     * @title Whose event is it?
+     *
+     * - If you are an administrator/owner of an organization, you can use both and to get a list of events for a specific user within an organization user.
+     * - If you are the administrator/owner of an organization, you can use both and to get a list of events for a specific group within an organization group.
+     * - User Only available for requesting private events; events within all organizations that are currently or previously affiliated are returned.
      */
-    group?: string & tags.Format<"uri">;
+    who:
+      | {
+          /**
+           * @title user
+           * Return events that are scheduled with the user associated with this URI.
+           * There must be either a user or a group.
+           *
+           * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
+           */
+          user: string & tags.Format<"uri">;
+
+          /**
+           * @title group
+           * Return events that are scheduled with the group associated with this URI.
+           * There must be either a user or a group.
+           */
+          group: string & tags.Format<"uri">;
+        }
+      | {
+          /**
+           * @title user
+           * Return events that are scheduled with the user associated with this URI.
+           * There must be either a user or a group.
+           *
+           * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
+           */
+          user: string & tags.Format<"uri">;
+
+          /**
+           * @title group
+           * Return events that are scheduled with the group associated with this URI.
+           * There must be either a user or a group.
+           */
+          group: string & tags.Format<"uri">;
+        }
+      | {
+          /**
+           * @title user
+           * Return events that are scheduled with the user associated with this URI.
+           * There must be either a user or a group.
+           *
+           * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
+           */
+          user: string & tags.Format<"uri">;
+        };
+
+    /**
+     * @title organization
+     * Return events that are scheduled with the organization associated with this URI.
+     * @example "https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ"
+     */
+    organization?: string & tags.Format<"uri">;
 
     /**
      * @title invitee_email
@@ -221,13 +279,6 @@ export namespace ICalendly {
      * @example "2020-01-02T12:30:00.000000Z"
      */
     min_start_time?: string & tags.Format<"date-time">;
-
-    /**
-     * @title organization
-     * Return events that are scheduled with the organization associated with this URI.
-     * @example "https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ"
-     */
-    organization?: string & tags.Format<"uri">;
 
     /**
      * @title page_token
@@ -253,13 +304,6 @@ export namespace ICalendly {
     status?:
       | tags.Constant<"active", { title: "active" }>
       | tags.Constant<"canceled", { title: "canceled" }>;
-
-    /**
-     * @title user
-     * Return events that are scheduled with the user associated with this URI.
-     * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
-     */
-    user?: string & tags.Format<"uri">;
   }
 
   export interface IGetEventTypeOutput {

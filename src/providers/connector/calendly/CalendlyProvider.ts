@@ -81,24 +81,29 @@ export class CalendlyProvider {
   async getScheduledEvents(
     input: ICalendly.IGetScheduledEventInput,
   ): Promise<ICalendly.IGetScheduledEventOutput> {
-    const { secretKey, ...rest } = input;
-    const token = await this.refresh(input);
-    const queryParameter = createQueryParameter(rest);
-    const url = `https://api.calendly.com/scheduled_events?${queryParameter}`;
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const { secretKey, who, ...rest } = input;
+      const token = await this.refresh(input);
+      const queryParameter = createQueryParameter({ ...rest, ...who });
+      const url = `https://api.calendly.com/scheduled_events?${queryParameter}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const data = res.data as ICalendly.IGetScheduledEventOutput;
+      const data = res.data as ICalendly.IGetScheduledEventOutput;
 
-    const collection = data.collection.map((el) => {
-      const prefix = "https://api.calendly.com/scheduled_events/";
-      const uuid = el.uri.replace(prefix, "");
-      return { ...el, uuid };
-    });
-    return { collection, pagination: data.pagination };
+      const collection = data.collection.map((el) => {
+        const prefix = "https://api.calendly.com/scheduled_events/";
+        const uuid = el.uri.replace(prefix, "");
+        return { ...el, uuid };
+      });
+      return { collection, pagination: data.pagination };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async cancel(
