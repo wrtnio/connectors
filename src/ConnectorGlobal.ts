@@ -6,41 +6,49 @@ import typia, { tags } from "typia";
 import { AwsProvider } from "./providers/connector/aws/AwsProvider";
 
 export class ConnectorGlobal {
+  /**
+   * 테스트 환경에서 사용하기 위해 만든 것으로, 평소에는 사용하지 않는다.
+   *
+   * @param env
+   * @returns
+   */
   public static async write(env: Record<string, string>) {
-    if (process.env.NODE_ENV !== "prod") {
-      const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
-      const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
-      const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
-      const res = await axios.get(url);
-      const parsed = res.data;
+    const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+    const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+    const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
+    const res = await axios.get(url);
+    const parsed = res.data;
 
-      Object.entries({ ...parsed, ...env }).forEach(([key, value]) => {
-        if (Object.keys(ConnectorGlobal.env).includes(key)) {
-          parsed[key] = value as any;
-        }
-      });
+    Object.entries({ ...parsed, ...env }).forEach(([key, value]) => {
+      if (Object.keys(ConnectorGlobal.env).includes(key)) {
+        parsed[key] = value as any;
+      }
+    });
 
-      const data = Buffer.from(JSON.stringify(parsed), "utf-8");
-      await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
-    }
+    const data = Buffer.from(JSON.stringify(parsed), "utf-8");
+    await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
 
     return await this.reload();
   }
 
+  /**
+   * 테스트 환경에서 사용하기 위해 만든 것으로, 평소에는 사용하지 않는다.
+   *
+   * @param env
+   * @returns
+   */
   public static async reload() {
-    if (process.env.NODE_ENV !== "prod") {
-      const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
-      const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
-      const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
-      const res = await axios.get(url);
-      const parsed = res.data;
+    const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+    const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+    const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
+    const res = await axios.get(url);
+    const parsed = res.data;
 
-      Object.entries(parsed).forEach(([key, value]) => {
-        if (Object.keys(ConnectorGlobal.env).includes(key)) {
-          (ConnectorGlobal.env as any)[key] = value as any;
-        }
-      });
-    }
+    Object.entries(parsed).forEach(([key, value]) => {
+      if (Object.keys(ConnectorGlobal.env).includes(key)) {
+        (ConnectorGlobal.env as any)[key] = value as any;
+      }
+    });
 
     return ConnectorGlobal;
   }

@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import axios from "axios";
 import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
-import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import axios from "axios";
+import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
 @Injectable()
 export class CalendlyProvider {
@@ -247,7 +248,13 @@ export class CalendlyProvider {
       );
 
       const { access_token, refresh_token: newRefreshToken } = res.data;
-      await ConnectorGlobal.write({ CALENDLY_TEST_SECRET: newRefreshToken });
+      if (typia.is<string & tags.Format<"uuid">>(secretKey)) {
+        await OAuthSecretProvider.updateSecretValue(secretKey, newRefreshToken);
+      }
+
+      if (process.env.NODE_ENV === "test") {
+        await ConnectorGlobal.write({ CALENDLY_TEST_SECRET: newRefreshToken });
+      }
 
       return access_token;
     } catch (err) {
