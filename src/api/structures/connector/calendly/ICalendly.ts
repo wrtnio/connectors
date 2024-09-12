@@ -690,7 +690,7 @@ export namespace ICalendly {
      * The internal meeting notes (formatted with HTML)
      * @example "<p>15 Minute Meeting</p>"
      */
-    meeting_notes_html: string;
+    meeting_notes_html: string | null;
 
     /**
      * @title status
@@ -732,7 +732,7 @@ export namespace ICalendly {
        * @title type
        * Indicates that the event will be an in-person meeting.
        */
-      type: "physical";
+      type: "physical" | "custom";
 
       /**
        * @title location
@@ -746,7 +746,7 @@ export namespace ICalendly {
        * 추가 정보
        * @example "Please check in at the main lobby."
        */
-      additional_info: string;
+      additional_info?: string;
     };
 
     /**

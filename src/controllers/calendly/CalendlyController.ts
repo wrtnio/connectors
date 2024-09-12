@@ -21,7 +21,7 @@ export class CalendlyController {
     const data = await this.calendlyProvider.createSchedulingLink(input);
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -39,7 +39,7 @@ export class CalendlyController {
     const data = await this.calendlyProvider.getEventTypes(input);
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -66,7 +66,7 @@ export class CalendlyController {
     const data = await invitee.resource.cancel_url;
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -89,7 +89,7 @@ export class CalendlyController {
     );
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -107,7 +107,7 @@ export class CalendlyController {
     const data = await this.calendlyProvider.getScheduledEvents(input);
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -133,7 +133,7 @@ export class CalendlyController {
     );
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -160,7 +160,7 @@ export class CalendlyController {
     const data = await invitee;
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -178,7 +178,7 @@ export class CalendlyController {
     const data = await this.calendlyProvider.getInvitees(input);
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -196,7 +196,7 @@ export class CalendlyController {
     const data = await this.calendlyProvider.createOneOffEventType(input);
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
@@ -214,7 +214,7 @@ export class CalendlyController {
     const data = await this.calendlyProvider.getUserInfo(input);
     const validated = typia.misc.validateClone(data);
     if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors), null, 2);
+      console.error(JSON.stringify(validated.errors, null, 2));
     }
     return data;
   }
