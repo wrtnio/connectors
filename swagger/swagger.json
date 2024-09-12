@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.192",
+    "version": "0.1.193",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -41754,7 +41754,14 @@
             "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
           },
           "download_url": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "download_url\n\nThe url that allows you to download a file, which is useful if it is a media file containing an image."
           }
         },
@@ -41766,8 +41773,7 @@
           "path",
           "content",
           "sha",
-          "url",
-          "download_url"
+          "url"
         ]
       },
       "IGithub.IGetUserRepositoryInput": {
@@ -42562,7 +42568,14 @@
             "title": "sha"
           },
           "download_url": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "download_url\n\nThe url that allows you to download a file, which is useful if it is a media file containing an image."
           }
         },
@@ -42572,8 +42585,7 @@
           "type",
           "path",
           "size",
-          "sha",
-          "download_url"
+          "sha"
         ]
       },
       "IGithub.IGetRepositoryFolderStructureInput": {
@@ -44356,8 +44368,7 @@
                 "type": "string"
               },
               "email": {
-                "type": "string",
-                "format": "email"
+                "type": "string"
               },
               "date": {
                 "type": "string",
@@ -44378,8 +44389,7 @@
                 "type": "string"
               },
               "email": {
-                "type": "string",
-                "format": "email"
+                "type": "string"
               },
               "date": {
                 "type": "string",
@@ -44764,8 +44774,7 @@
                 "type": "string"
               },
               "email": {
-                "type": "string",
-                "format": "email"
+                "type": "string"
               },
               "date": {
                 "type": "string",
@@ -44786,8 +44795,7 @@
                 "type": "string"
               },
               "email": {
-                "type": "string",
-                "format": "email"
+                "type": "string"
               },
               "date": {
                 "type": "string",
@@ -45139,8 +45147,7 @@
                 "type": "string"
               },
               "email": {
-                "type": "string",
-                "format": "email"
+                "type": "string"
               },
               "date": {
                 "type": "string",
@@ -45161,8 +45168,7 @@
                 "type": "string"
               },
               "email": {
-                "type": "string",
-                "format": "email"
+                "type": "string"
               },
               "date": {
                 "type": "string",
@@ -45573,7 +45579,14 @@
             "title": "default\n\nTrue if it is not created by the user but automatically created from the beginning."
           },
           "description": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "description"
           }
         },
