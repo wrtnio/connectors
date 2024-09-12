@@ -1271,7 +1271,7 @@ export namespace ICalendly {
      * The time zone to use when presenting time to the user
      * @example "America/New_York"
      */
-    timezone: string;
+    timezone: string & Placeholder<"Asia/Tokyo">;
 
     /**
      * @title avatar_url
