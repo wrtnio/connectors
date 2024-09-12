@@ -240,7 +240,7 @@ export namespace INaver {
      *
      * @title 검색 결과를 생성한 시간.
      */
-    lastBuildDate: string & tags.Format<"date-time">;
+    lastBuildDate: string;
 
     /**
      * 검색 결과의 총 개수입니다.
