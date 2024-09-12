@@ -233,4 +233,81 @@ export namespace INaver {
      */
     items: IBlogNaverItemOutput[];
   }
+
+  export interface INewsNaverOutput {
+    /**
+     * 검색 결과를 생성한 시간입니다.
+     *
+     * @title 검색 결과를 생성한 시간.
+     */
+    lastBuildDate: string & tags.Format<"date-time">;
+
+    /**
+     * 검색 결과의 총 개수입니다.
+     *
+     * @title 총 검색 결과 개수.
+     */
+    total: number;
+
+    /**
+     * 검색 결과의 시작 위치입니다.
+     *
+     * @title 검색 시작 위치.
+     */
+    start: number;
+
+    /**
+     * 한 번에 표시할 검색 결과의 개수입니다.
+     *
+     * @title 한 번에 표시할 검색 결과 개수.
+     */
+    display: number;
+
+    /**
+     * 개별 검색 결과입니다.
+     *
+     * @title 개별 검색 결과.
+     */
+    items: INewsNaverItemOutput[];
+  }
+
+  /**
+   * @title 네이버 뉴스 검색 데이터
+   */
+  export interface INewsNaverItemOutput {
+    /**
+     * 뉴스 제목.
+     *
+     * @title 제목
+     */
+    title: string;
+
+    /**
+     * 네이버 뉴스 URL.
+     *
+     * @title 네이버 뉴스 URL
+     */
+    link: string & tags.Format<"uri">;
+
+    /**
+     * 뉴스 기사 원문 URL.
+     *
+     * @title 원문 URL
+     */
+    originallink: string & tags.Format<"uri">;
+
+    /**
+     * 검색어와 일치하는 부분은 <b> 태그로 감싸져 있습니다.
+     *
+     * @title 뉴스 기사의 내용 요약
+     */
+    description: string;
+
+    /**
+     * 뉴스 기사가 네이버에 제공된 시간.
+     *
+     * @title 뉴스 기사 발행 시간
+     */
+    pubDate: string & tags.Format<"date-time">;
+  }
 }

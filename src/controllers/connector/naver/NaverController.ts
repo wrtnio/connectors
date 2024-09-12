@@ -118,4 +118,22 @@ export class NaverController {
   ): Promise<INaver.IBlogNaverOutput> {
     return retry(() => NaverProvider.getBlog(input))();
   }
+
+  /**
+   * 네이버 뉴스를 검색합니다.
+   *
+   * @summary 네이버 뉴스 검색
+   *
+   * @param input 네이버 뉴스 검색을 위한 조건
+   * @returns
+   */
+  @core.TypedRoute.Post("/news")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg",
+  )
+  async newsList(
+    @core.TypedBody() input: INaver.INaverKeywordInput,
+  ): Promise<INaver.INewsNaverOutput> {
+    return retry(() => NaverProvider.getNews(input))();
+  }
 }
