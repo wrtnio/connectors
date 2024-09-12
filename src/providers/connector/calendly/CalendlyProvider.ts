@@ -135,7 +135,9 @@ export class CalendlyProvider {
     });
 
     const data = res.data as ICalendly.IGetOneScheduledEventInviteeOutput;
-    const prefix = `https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/`;
+    const prefix = new RegExp(
+      `https:\/\/api\.calendly\.com\/scheduled_events\/.+\/invitees\/`,
+    );
     data.resource.uuid = data.resource.uri.replace(prefix, "");
     return data;
   }
