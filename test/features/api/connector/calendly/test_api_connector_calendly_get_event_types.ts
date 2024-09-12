@@ -19,4 +19,5 @@ export const test_api_connector_calendly_get_event_types = async (
     );
 
   typia.assert(res);
+  return res;
 };
