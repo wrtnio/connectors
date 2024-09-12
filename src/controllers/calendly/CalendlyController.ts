@@ -1,6 +1,7 @@
 import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
+import { Prerequisite } from "@wrtnio/decorators";
 import typia from "typia";
 import { CalendlyProvider } from "../../providers/connector/calendly/CalendlyProvider";
 
@@ -54,8 +55,18 @@ export class CalendlyController {
    */
   @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/get-cancel-link")
   async cancel(
-    @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
-    @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
+    @Prerequisite({
+      neighbor: () => CalendlyController.prototype.getScheduledEvents,
+      jmesPath: "collection[].{value:uuid, label:name}",
+    })
+    @TypedParam("eventId")
+    eventId: ICalendly.Event["uuid"],
+    @Prerequisite({
+      neighbor: () => CalendlyController.prototype.getScheduledEvents,
+      jmesPath: "collection[].{value:uuid, label:name}",
+    })
+    @TypedParam("inviteeId")
+    inviteeId: ICalendly.Invitee["uuid"],
     @TypedBody() input: ICalendly.ICancelInput,
   ): Promise<ICalendly.ICacnelOutput> {
     const invitee = await this.calendlyProvider.getOneInvitee(
