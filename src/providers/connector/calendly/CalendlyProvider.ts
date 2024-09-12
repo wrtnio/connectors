@@ -159,7 +159,9 @@ export class CalendlyProvider {
 
     const data = res.data as ICalendly.IGetScheduledEventInviteeOutput;
     const collection = data.collection.map((el) => {
-      const prefix = `https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/`;
+      const prefix = new RegExp(
+        `https:\/\/api\.calendly\.com\/scheduled_events\/.+\/invitees\/`,
+      );
       const uuid = el.uri.replace(prefix, "");
       return { ...el, uuid };
     });
