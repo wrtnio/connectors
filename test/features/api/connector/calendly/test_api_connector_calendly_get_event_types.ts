@@ -7,6 +7,7 @@ import { test_api_connector_calendly_users_get_me } from "./test_api_connector_c
 export const test_api_connector_calendly_get_event_types = async (
   connection: CApi.IConnection,
 ) => {
+  await ConnectorGlobal.reload();
   const user = await test_api_connector_calendly_users_get_me(connection);
   const res =
     await CApi.functional.connector.calendly.get_event_types.getEventTypes(
@@ -19,3 +20,4 @@ export const test_api_connector_calendly_get_event_types = async (
 
   typia.assert(res);
 };
+0;

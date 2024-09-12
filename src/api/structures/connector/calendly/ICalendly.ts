@@ -434,7 +434,9 @@ export namespace ICalendly {
      * @title color
      * The hexadecimal color value of the event type's scheduling page
      */
-    color: string & tags.Pattern<"^#[a-fd]{6}$"> & Placeholder<"#fff200">;
+    color: string &
+      tags.Pattern<"^#([0-9A-Fa-f]{6})$"> &
+      Placeholder<"#fff200">;
 
     /**
      * @title created_at
