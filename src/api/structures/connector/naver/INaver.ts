@@ -240,7 +240,7 @@ export namespace INaver {
      *
      * @title 검색 결과를 생성한 시간.
      */
-    lastBuildDate: string;
+    lastBuildDate: string & tags.Format<"date-time">;
 
     /**
      * 검색 결과의 총 개수입니다.
@@ -287,14 +287,14 @@ export namespace INaver {
      *
      * @title 네이버 뉴스 URL
      */
-    link: string;
+    link: string & tags.Format<"uri">;
 
     /**
      * 뉴스 기사 원문 URL.
      *
      * @title 원문 URL
      */
-    originallink: string;
+    originallink: string & tags.Format<"uri">;
 
     /**
      * 검색어와 일치하는 부분은 <b> 태그로 감싸져 있습니다.
