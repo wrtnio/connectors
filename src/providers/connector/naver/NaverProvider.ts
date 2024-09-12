@@ -70,6 +70,35 @@ export namespace NaverProvider {
     }
   }
 
+  export async function getNews(
+    input: INaver.INaverKeywordInput,
+  ): Promise<INaver.INewsNaverOutput> {
+    try {
+      const {
+        andKeywords,
+        orKeywords,
+        notKeywords,
+        display = 100,
+        sort = "date",
+      } = input;
+      const query = makeQuery(
+        andKeywords.split(","),
+        orKeywords?.split(",") ?? [],
+        notKeywords?.split(",") ?? [],
+      );
+      const res = await axios.get(
+        `https://openapi.naver.com/v1/search/news.json?query=${query}&sort=${sort}&display=${display}`,
+        {
+          headers: headers(),
+        },
+      );
+      return res.data;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   function makeQuery(
     andKeywords: string[],
     orKeywords: string[],
