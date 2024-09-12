@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.191",
+    "version": "0.1.192",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -7944,6 +7944,38 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/naver/news": {
+      "post": {
+        "summary": "네이버 뉴스 검색",
+        "description": "네이버 뉴스를 검색합니다.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "네이버 뉴스 검색을 위한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INaver.INaverKeywordInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INaver.INewsNaverOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg"
       }
     },
     "/connector/youtube-search": {
@@ -28634,6 +28666,88 @@
           "postdate"
         ],
         "title": "네이버 블로그 검색 데이터"
+      },
+      "INaver.INewsNaverOutput": {
+        "type": "object",
+        "properties": {
+          "lastBuildDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "검색 결과를 생성한 시간.",
+            "description": "검색 결과를 생성한 시간입니다."
+          },
+          "total": {
+            "type": "number",
+            "title": "총 검색 결과 개수.",
+            "description": "검색 결과의 총 개수입니다."
+          },
+          "start": {
+            "type": "number",
+            "title": "검색 시작 위치.",
+            "description": "검색 결과의 시작 위치입니다."
+          },
+          "display": {
+            "type": "number",
+            "title": "한 번에 표시할 검색 결과 개수.",
+            "description": "한 번에 표시할 검색 결과의 개수입니다."
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INaver.INewsNaverItemOutput"
+            },
+            "title": "개별 검색 결과.",
+            "description": "개별 검색 결과입니다."
+          }
+        },
+        "required": [
+          "lastBuildDate",
+          "total",
+          "start",
+          "display",
+          "items"
+        ]
+      },
+      "INaver.INewsNaverItemOutput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "제목",
+            "description": "뉴스 제목."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "title": "네이버 뉴스 URL",
+            "description": "네이버 뉴스 URL."
+          },
+          "originallink": {
+            "type": "string",
+            "format": "uri",
+            "title": "원문 URL",
+            "description": "뉴스 기사 원문 URL."
+          },
+          "description": {
+            "type": "string",
+            "title": "뉴스 기사의 내용 요약",
+            "description": "검색어와 일치하는 부분은 <b> 태그로 감싸져 있습니다."
+          },
+          "pubDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "뉴스 기사 발행 시간",
+            "description": "뉴스 기사가 네이버에 제공된 시간."
+          }
+        },
+        "required": [
+          "title",
+          "link",
+          "originallink",
+          "description",
+          "pubDate"
+        ],
+        "title": "네이버 뉴스 검색 데이터"
       },
       "IYoutubeSearch.ISearchInput": {
         "type": "object",
