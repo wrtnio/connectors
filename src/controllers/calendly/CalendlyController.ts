@@ -146,7 +146,7 @@ export class CalendlyController {
    * @param input Additional input for invitee retrieval.
    * @returns The details of the invitee.
    */
-  @core.TypedRoute.Post("events/:eventId/get-invitees/:inviteeId")
+  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId")
   async getOneInvite(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
