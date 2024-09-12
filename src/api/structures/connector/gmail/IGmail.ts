@@ -31,6 +31,8 @@ export namespace IGmail {
      *
      * html 길이가 너무 길지 않게 작성해주세요. 길이가 너무 길면 전송이 되지 않을 수 있습니다.
      *
+     * link 또는 url이 있는 경우 html <a> 태그의 title 속성을 꼭 사용하여 링크를 제공해주세요.
+     *
      * @title 이메일 본문.
      */
     body: string;
