@@ -40,7 +40,6 @@ export const test_api_connector_calendly_users_create_scheduling_links_with_one_
         },
       );
 
-    console.log(JSON.stringify(res, null, 2));
     typia.assert(res);
     return res;
   };
