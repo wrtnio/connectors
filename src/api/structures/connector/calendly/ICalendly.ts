@@ -30,7 +30,13 @@ export namespace ICalendly {
      * Host user uri
      * @example "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
      */
-    host: string & tags.Format<"uri">;
+    host: string &
+      tags.Format<"uri"> &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/calendly/users/get-me";
+        jmesPath: "resource.{value:url, label:name}";
+      }>;
 
     /**
      * @title co_hosts
