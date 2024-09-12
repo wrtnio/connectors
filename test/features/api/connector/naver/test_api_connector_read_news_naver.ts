@@ -13,7 +13,5 @@ export const test_api_connector_read_news_naver = async (
     input,
   );
   typia.assertEquals(result);
-  console.log(result);
-
   return result;
 };

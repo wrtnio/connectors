@@ -92,8 +92,6 @@ export namespace NaverProvider {
           headers: headers(),
         },
       );
-      console.log("data", res.data);
-
       return res.data;
     } catch (error) {
       console.error(JSON.stringify(error));
