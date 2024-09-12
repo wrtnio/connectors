@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.193",
+    "version": "0.1.194",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -7870,16 +7870,7 @@
       "post": {
         "summary": "네이버 카페 검색",
         "description": "네이버 카페 컨텐츠를 검색합니다.",
-        "tags": [
-          "Naver",
-          "네이버",
-          "카페",
-          "블로그",
-          "포스트",
-          "Cafe",
-          "Blog",
-          "Post"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "네이버 카페 검색을 위한 조건",
@@ -7912,12 +7903,7 @@
       "post": {
         "summary": "네이버 블로그 검색",
         "description": "네이버 블로그 컨텐츠를 검색합니다.",
-        "tags": [
-          "Naver",
-          "네이버",
-          "블로그",
-          "Blog"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "네이버 블로그 검색을 위한 조건",
@@ -28672,7 +28658,6 @@
         "properties": {
           "lastBuildDate": {
             "type": "string",
-            "format": "date-time",
             "title": "검색 결과를 생성한 시간.",
             "description": "검색 결과를 생성한 시간입니다."
           },
@@ -28735,7 +28720,6 @@
           },
           "pubDate": {
             "type": "string",
-            "format": "date-time",
             "title": "뉴스 기사 발행 시간",
             "description": "뉴스 기사가 네이버에 제공된 시간."
           }
@@ -48517,14 +48501,6 @@
     {
       "name": "Post",
       "description": "Writing"
-    },
-    {
-      "name": "Naver",
-      "description": "네이버 포털 사이트"
-    },
-    {
-      "name": "네이버",
-      "description": "카페"
     },
     {
       "name": "Youtube",

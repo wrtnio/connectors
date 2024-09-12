@@ -18,7 +18,7 @@
     "title": "네이버 포털 정보 검색",
     "summary": "네이버의 블로그와 카페 정보를 한눈에 볼 수 있어요.",
     "description": "네이버의 블로그와 카페에서 필요한 정보를 빠르게 검색할 수 있어요. 블로그 검색을 통해 다양한 주제의 포스트를 찾아볼 수 있고, 카페 검색으로 특정 관심사를 공유하는 커뮤니티의 게시글을 확인할 수 있어요. 최신 트렌드, 상품 리뷰, 여행 후기, 요리 레시피 등 다양한 정보를 얻을 수 있어요. 검색 필터를 사용해 원하는 기간, 정확도, 최신순 등으로 결과를 정렬할 수 있어 더욱 효율적인 정보 탐색이 가능해요.",
-    "version": "0.1.193",
+    "version": "0.1.194",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,16 +28,7 @@
       "post": {
         "summary": "네이버 카페 검색",
         "description": "네이버 카페 컨텐츠를 검색합니다.",
-        "tags": [
-          "Naver",
-          "네이버",
-          "카페",
-          "블로그",
-          "포스트",
-          "Cafe",
-          "Blog",
-          "Post"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "네이버 카페 검색을 위한 조건",
@@ -70,12 +61,7 @@
       "post": {
         "summary": "네이버 블로그 검색",
         "description": "네이버 블로그 컨텐츠를 검색합니다.",
-        "tags": [
-          "Naver",
-          "네이버",
-          "블로그",
-          "Blog"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "네이버 블로그 검색을 위한 조건",
@@ -372,7 +358,6 @@
         "properties": {
           "lastBuildDate": {
             "type": "string",
-            "format": "date-time",
             "title": "검색 결과를 생성한 시간.",
             "description": "검색 결과를 생성한 시간입니다."
           },
@@ -435,7 +420,6 @@
           },
           "pubDate": {
             "type": "string",
-            "format": "date-time",
             "title": "뉴스 기사 발행 시간",
             "description": "뉴스 기사가 네이버에 제공된 시간."
           }
@@ -451,39 +435,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Naver",
-      "description": "네이버 포털 사이트"
-    },
-    {
-      "name": "네이버",
-      "description": "카페"
-    },
-    {
-      "name": "카페",
-      "description": "멤버"
-    },
-    {
-      "name": "블로그",
-      "description": "포스트"
-    },
-    {
-      "name": "포스트",
-      "description": "작성"
-    },
-    {
-      "name": "Cafe",
-      "description": "Members"
-    },
-    {
-      "name": "Blog",
-      "description": "Post"
-    },
-    {
-      "name": "Post",
-      "description": "Writing"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }
