@@ -249,16 +249,10 @@ export class GoogleFlightProvider {
 
         let bookLink: string;
         if (togetherBookingRequest) {
-          bookLink = await this.getShortLink(
-            `${togetherBookingRequest.url}?${togetherBookingRequest.post_data}`,
-          );
+          bookLink = `${togetherBookingRequest.url}?${togetherBookingRequest.post_data}`;
         } else if (departingBookingRequest && returningBookingRequest) {
-          const departingLink = await this.getShortLink(
-            `${departingBookingRequest.url}?${departingBookingRequest.post_data}`,
-          );
-          const returningLink = await this.getShortLink(
-            `${returningBookingRequest.url}?${returningBookingRequest.post_data}`,
-          );
+          const departingLink = `${departingBookingRequest.url}?${departingBookingRequest.post_data}`;
+          const returningLink = `${returningBookingRequest.url}?${returningBookingRequest.post_data}`;
           bookLink = `출발 항공편 예약 링크: ${departingLink} / 도착 항공편 예약 링크: ${returningLink}`;
         } else {
           bookLink = "예약 링크가 없습니다.";
@@ -275,10 +269,5 @@ export class GoogleFlightProvider {
       }),
     );
     return transformedOptions;
-  }
-
-  private async getShortLink(url: string): Promise<string> {
-    const res = await this.shortLinkProvider.createShortLink({ url: url });
-    return res.shortUrl;
   }
 }
