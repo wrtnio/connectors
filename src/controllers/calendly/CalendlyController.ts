@@ -1,7 +1,8 @@
-import { Controller } from "@nestjs/common";
-import { CalendlyProvider } from "../../providers/connector/calendly/CalendlyProvider";
 import core, { TypedBody, TypedParam } from "@nestia/core";
+import { Controller } from "@nestjs/common";
 import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
+import typia from "typia";
+import { CalendlyProvider } from "../../providers/connector/calendly/CalendlyProvider";
 
 @Controller("connector/calendly")
 export class CalendlyController {
@@ -17,7 +18,12 @@ export class CalendlyController {
   async createSchedulingLink(
     @TypedBody() input: ICalendly.CreateSchedulingLinkInput,
   ): Promise<ICalendly.CreateSchedulingLinkOutput> {
-    return this.calendlyProvider.createSchedulingLink(input);
+    const data = await this.calendlyProvider.createSchedulingLink(input);
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -30,7 +36,12 @@ export class CalendlyController {
   async getEventTypes(
     @TypedBody() input: ICalendly.IGetEventTypeInput,
   ): Promise<ICalendly.IGetEventTypeOutput> {
-    return this.calendlyProvider.getEventTypes(input);
+    const data = await this.calendlyProvider.getEventTypes(input);
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -52,7 +63,12 @@ export class CalendlyController {
       inviteeId,
       input,
     );
-    return invitee.resource.cancel_url;
+    const data = await invitee.resource.cancel_url;
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -67,7 +83,15 @@ export class CalendlyController {
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
   ): Promise<ICalendly.IGetOneScheduledEventOutput> {
-    return this.calendlyProvider.getOneScheduledEvent(eventId, input);
+    const data = await this.calendlyProvider.getOneScheduledEvent(
+      eventId,
+      input,
+    );
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -80,7 +104,12 @@ export class CalendlyController {
   async getScheduledEvents(
     @TypedBody() input: ICalendly.IGetScheduledEventInput,
   ): Promise<ICalendly.IGetScheduledEventOutput> {
-    return this.calendlyProvider.getScheduledEvents(input);
+    const data = await this.calendlyProvider.getScheduledEvents(input);
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -97,7 +126,16 @@ export class CalendlyController {
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
     @TypedBody() input: ICalendly.ICheckNoShowInput,
   ): Promise<ICalendly.ICheckNoShowOutput> {
-    return this.calendlyProvider.checkNoShow(eventId, inviteeId, input);
+    const data = await this.calendlyProvider.checkNoShow(
+      eventId,
+      inviteeId,
+      input,
+    );
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -119,7 +157,12 @@ export class CalendlyController {
       inviteeId,
       input,
     );
-    return invitee;
+    const data = await invitee;
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -132,7 +175,12 @@ export class CalendlyController {
   async getInvitees(
     @TypedBody() input: ICalendly.IGetScheduledEventInviteeInput,
   ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
-    return this.calendlyProvider.getInvitees(input);
+    const data = await this.calendlyProvider.getInvitees(input);
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -145,7 +193,12 @@ export class CalendlyController {
   async createOneOffEventType(
     @TypedBody() input: ICalendly.ICreateOneOffEventTypeInput,
   ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
-    return this.calendlyProvider.createOneOffEventType(input);
+    const data = await this.calendlyProvider.createOneOffEventType(input);
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 
   /**
@@ -158,6 +211,11 @@ export class CalendlyController {
   async getUserInfo(
     @TypedBody() input: ICalendly.IGetUserInfoInput,
   ): Promise<ICalendly.IGetUserInfoOutput> {
-    return this.calendlyProvider.getUserInfo(input);
+    const data = await this.calendlyProvider.getUserInfo(input);
+    const validated = typia.misc.validateClone(data);
+    if (validated.success === false) {
+      console.error(JSON.stringify(validated.errors), null, 2);
+    }
+    return data;
   }
 }

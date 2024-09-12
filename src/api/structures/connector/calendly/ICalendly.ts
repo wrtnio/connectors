@@ -376,7 +376,7 @@ export namespace ICalendly {
      * @title name
      * The event type name (in human-readable format)
      */
-    name: (string | null) & Placeholder<"15 Minute Meeting">;
+    name: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
      * @title active
@@ -388,7 +388,7 @@ export namespace ICalendly {
      * @title slug
      * The portion of the event type's URL that identifies a specific web page (in a human-readable format)
      */
-    slug: (string | null) & Placeholder<"acmesales">;
+    slug: (string & Placeholder<"acmesales">) | null;
 
     /**
      * @title schduling_url
@@ -460,13 +460,13 @@ export namespace ICalendly {
      * @title description_plain
      * The event type's description (in non formatted text)
      */
-    description_plain: (string | null) & Placeholder<"15 Minute Meeting">;
+    description_plain: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
      * @title description_html
      * The event type's description (formatted with HTML)
      */
-    description_html: (string | null) & Placeholder<"<p>15 Minute Meeting</p>">;
+    description_html: (string & Placeholder<"<p>15 Minute Meeting</p>">) | null;
 
     /**
      * @title profile
@@ -551,12 +551,12 @@ export namespace ICalendly {
     /**
      * @title phone_number
      */
-    phone_number: number | string;
+    phone_number?: number | string;
 
     /**
      * @title additional_info
      */
-    additional_info: string;
+    additional_info?: string;
   };
 
   export type CustomQuestion = {
@@ -626,14 +626,14 @@ export namespace ICalendly {
      * The event name
      * @example "15 Minute Meeting"
      */
-    name: (string | null) & Placeholder<"15 Minute Meeting">;
+    name: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
      * @title meeting_notes_plain
      * The internal meeting notes (in non formatted text)
      * @example "15 Minute Meeting"
      */
-    meeting_notes_plain: (string | null) & Placeholder<"15 Minute Meeting">;
+    meeting_notes_plain: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
      * @title meeting_notes_html
