@@ -308,6 +308,6 @@ export namespace INaver {
      *
      * @title 뉴스 기사 발행 시간
      */
-    pubDate: string & tags.Format<"date-time">;
+    pubDate: string;
   }
 }
