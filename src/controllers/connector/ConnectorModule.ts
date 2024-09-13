@@ -67,6 +67,7 @@ import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GithubModule } from "./github/GithubModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { DiscordModule } from "./discord/DiscordModule";
+import { CalendlyModule } from "../calendly/CalendlyModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -138,6 +139,7 @@ import { DiscordModule } from "./discord/DiscordModule";
     GithubModule,
     ShortLinkModule,
     DiscordModule,
+    CalendlyModule,
   ],
   controllers: [TypeformController],
 })
