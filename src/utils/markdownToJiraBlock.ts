@@ -139,14 +139,9 @@ function transform(options: {
       content: [
         {
           type: "media",
-          marks: {
-            type: "link",
-            attrs: {
-              href: targetMarkedToken.href,
-            },
-          },
           attrs: {
-            type: "link",
+            type: "external",
+            url: targetMarkedToken.href,
           },
         },
       ],
@@ -235,33 +230,16 @@ function transform(options: {
       content: [
         {
           type: "tableRow",
-          content: [
-            {
+          content: targetMarkedToken.header.map((cell) => {
+            const content = arrayTransform({
+              tokens: cell.tokens,
+              convertParagraph: true,
+            });
+            return {
               type: "tableHeader",
-              content: targetMarkedToken.header?.map((cell) => {
-                const transformed = arrayTransform({
-                  tokens: cell.tokens,
-                  convertParagraph: true,
-                });
-                if (typia.is<IJira.TableCellNode["content"]>(transformed)) {
-                  return {
-                    type: "tableCell",
-                    content: transformed,
-                  } satisfies IJira.TableCellNode;
-                } else {
-                  console.warn(
-                    JSON.stringify({
-                      message: "tableHeader, tableCell build failed.",
-                      cell,
-                      transformed,
-                    }),
-                  );
-
-                  return null;
-                }
-              }) as any[],
-            },
-          ],
+              content,
+            } as any;
+          }),
         } satisfies IJira.TableRowNode,
         ...targetMarkedToken.rows.map((cells): IJira.TableRowNode => {
           return {
