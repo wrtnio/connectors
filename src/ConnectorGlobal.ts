@@ -183,6 +183,9 @@ export namespace ConnectorGlobal {
 
     // ROTATION_REFRESH_TOKEN_PATH
     ROTATION_REFRESH_TOKEN_PATH: string;
+
+    // BROWSING AGENT PLAYGROUND
+    BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"uri">;
   }
 }
 
