@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.194",
+    "version": "0.1.195",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -12403,6 +12403,391 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+      }
+    },
+    "/connector/calendly/scheduling_links": {
+      "post": {
+        "summary": "Create a new scheduling link",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "The necessary details to create the scheduling link.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.CreateSchedulingLinkInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The created scheduling link details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.CreateSchedulingLinkOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/get-event-types": {
+      "post": {
+        "summary": "List all event types",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "The input required to retrieve event types.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.IGetEventTypeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The list of event types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.IGetEventTypeOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/events/{eventId}/invitees/{inviteeId}/get-cancel-link": {
+      "post": {
+        "summary": "Get cancel link for invitee",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/calendly/get-scheduled-events",
+                "jmesPath": "collection[].{value:uuid, label:name}"
+              }
+            },
+            "required": true,
+            "title": "The ID of the event",
+            "description": " The ID of the event."
+          },
+          {
+            "name": "inviteeId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/calendly/get-scheduled-events",
+                "jmesPath": "collection[].{value:uuid, label:name}"
+              }
+            },
+            "required": true,
+            "title": "The ID of the invitee",
+            "description": " The ID of the invitee."
+          }
+        ],
+        "requestBody": {
+          "description": "Additional input for cancel link retrieval.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.Secret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The cancel link for the invitee.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/get-events/{eventId}": {
+      "post": {
+        "summary": "Get details of a scheduled event",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "The UUID of the event",
+            "description": " The UUID of the event."
+          }
+        ],
+        "requestBody": {
+          "description": "Additional input for event retrieval.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.Secret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The detailed information of the scheduled event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.IGetOneScheduledEventOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/get-scheduled-events": {
+      "post": {
+        "summary": "Get all scheduled events",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "The input to filter scheduled events.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.IGetScheduledEventInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The list of scheduled events.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.IGetScheduledEventOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/events/{eventId}/invitees/{inviteeId}/no-show": {
+      "post": {
+        "summary": "Mark an invitee as no-show",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "The UUID of the event",
+            "description": " The UUID of the event."
+          },
+          {
+            "name": "inviteeId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "The UUID of the invitee",
+            "description": " The UUID of the invitee."
+          }
+        ],
+        "requestBody": {
+          "description": "Additional input for no-show marking.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.Secret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The result of the no-show marking.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.ICheckNoShowOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/events/{eventId}/invitees/{inviteeId}": {
+      "post": {
+        "summary": "Get invitee details",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "The UUID of the event",
+            "description": " The UUID of the event."
+          },
+          {
+            "name": "inviteeId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "title": "The UUID of the invitee",
+            "description": " The UUID of the invitee."
+          }
+        ],
+        "requestBody": {
+          "description": "Additional input for invitee retrieval.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.Secret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The details of the invitee.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.IGetOneScheduledEventInviteeOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/events/get-invitees": {
+      "post": {
+        "summary": "Get all invitees for a scheduled event",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "The input to filter invitees.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.IGetScheduledEventInviteeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The list of invitees for the event.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.IGetScheduledEventInviteeOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/one-off-event-types": {
+      "post": {
+        "summary": "Create a one-off event type",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "The details needed to create a one-off event type.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.ICreateOneOffEventTypeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The created one-off event type details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.ICreateOneOffEventTypeOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/calendly/users/get-me": {
+      "post": {
+        "summary": "Get authenticated user details",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "The input required to get the user details.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICalendly.Secret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The authenticated user's details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICalendly.IGetUserInfoOutput"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/swagger/update": {
@@ -47314,6 +47699,1903 @@
           "messages"
         ],
         "title": "여러 개의 메세지를 한꺼번에 삭제하기 위해 필요한 정보"
+      },
+      "ICalendly.CreateSchedulingLinkOutput": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "object",
+            "properties": {
+              "booking_url": {
+                "type": "string",
+                "format": "uri",
+                "title": "Scheduling link url"
+              },
+              "owner": {
+                "type": "string",
+                "format": "uri",
+                "title": "owner\nA link to the resource that owns this Scheduling Link (currently, this is always an Event Type)"
+              },
+              "owner_type": {
+                "const": "EventType",
+                "title": "owner_type\nResource type (currently, this is always EventType)"
+              }
+            },
+            "required": [
+              "booking_url",
+              "owner",
+              "owner_type"
+            ]
+          }
+        },
+        "required": [
+          "resource"
+        ]
+      },
+      "ICalendly.CreateSchedulingLinkInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "format": "uri"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "calendly",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "secretKey"
+        ]
+      },
+      "ICalendly.IGetEventTypeOutput": {
+        "type": "object",
+        "properties": {
+          "collection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICalendly.EventType"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/ICalendly.Pagination"
+          }
+        },
+        "required": [
+          "collection",
+          "pagination"
+        ]
+      },
+      "ICalendly.EventType": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\nCanonical reference (unique identifier) for the event type.\nFor example, 'https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA'"
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "15 Minute Meeting"
+              }
+            ],
+            "title": "name\nThe event type name (in human-readable format)"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "active\nIndicates if the event is active or not."
+          },
+          "slug": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "acmesales"
+              }
+            ],
+            "title": "slug\nThe portion of the event type's URL that identifies a specific web page (in a human-readable format)"
+          },
+          "scheduling_url": {
+            "type": "string",
+            "format": "uri",
+            "x-wrtn-placeholder": "https://calendly.com/acmesales",
+            "title": "schduling_url\nThe URL of the user’s scheduling site where invitees book this event type"
+          },
+          "duration": {
+            "type": "integer",
+            "x-wrtn-placeholder": "30",
+            "title": "duration\nThe length of sessions booked with this event type"
+          },
+          "kind": {
+            "oneOf": [
+              {
+                "const": "solo",
+                "title": "solo"
+              },
+              {
+                "const": "group",
+                "title": "group"
+              }
+            ],
+            "title": "kind\nIndicates if the event type is \"solo\" (belongs to an individual user) or \"group\""
+          },
+          "pooling_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "round_robin",
+                "title": "round_robin"
+              },
+              {
+                "const": "collective",
+                "title": "collective"
+              },
+              {
+                "const": "multi_pool",
+                "title": "multi_pool"
+              }
+            ],
+            "title": "pooling_type\nIndicates if the event type is \"round robin\" (alternates between hosts) or \"collective\" (invitees pick a time when all participants are available) or “multi-pool” (considers availability delineated by pools of participants) or \"null\" (the event type doesn’t consider the availability of a group participants)"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "StandardEventType",
+                "title": "StandardEventType"
+              },
+              {
+                "const": "AdhocEventType",
+                "title": "AdhocEventType"
+              }
+            ],
+            "title": "type\nIndicates if the event type is \"AdhocEventType\" (ad hoc event) or \"StandardEventType\" (standard event type)"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#([0-9A-Fa-f]{6})$",
+            "x-wrtn-placeholder": "#fff200",
+            "title": "color\nThe hexadecimal color value of the event type's scheduling page"
+          },
+          "created_at": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/Formatdate-time"
+              }
+            ],
+            "title": "created_at\nThe moment the event type was created (e.g. \"2020-01-02T03:04:05.678123Z\")"
+          },
+          "updated_at": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/Formatdate-time"
+              }
+            ],
+            "title": "updated_at\nThe moment the event type was last updated (e.g. \"2020-01-02T03:04:05.678123Z\")"
+          },
+          "internal_note": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "internal_note\nContents of a note that may be associated with the event type"
+          },
+          "description_plain": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "15 Minute Meeting"
+              }
+            ],
+            "title": "description_plain\nThe event type's description (in non formatted text)"
+          },
+          "description_html": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "<p>15 Minute Meeting</p>"
+              }
+            ],
+            "title": "description_html\nThe event type's description (formatted with HTML)"
+          },
+          "profile": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ICalendly.Profile"
+              }
+            ],
+            "title": "profile\nThe publicly visible profile of a User or a Team that's associated with the Event Type (note: some Event Types don't have profiles)"
+          },
+          "secret": {
+            "type": "boolean",
+            "title": "secret\nIndicates if the event type is hidden on the owner's main scheduling page"
+          },
+          "booking_method": {
+            "oneOf": [
+              {
+                "const": "instant",
+                "title": "instant"
+              },
+              {
+                "const": "poll",
+                "title": "poll"
+              }
+            ],
+            "title": "booking_method\nIndicates if the event type is for a poll or an instant booking"
+          },
+          "custom_questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICalendly.CustomQuestion"
+            },
+            "title": "custom_questions"
+          },
+          "deleted_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "deleted_at\nThe moment the event type was deleted (e.g. \"2020-01-02T03:04:05.678123Z\"). Since event types can be deleted but their scheduled events remain it's useful to fetch a deleted event type when you still require event type data for a scheduled event."
+          },
+          "admin_managed": {
+            "type": "boolean",
+            "title": "admin_managed\nIndicates if this event type is managed by an organization admin"
+          },
+          "locations": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ICalendly.Location"
+                }
+              }
+            ],
+            "title": "locations\nConfiguration information for each possible location for this Event Type"
+          },
+          "position": {
+            "type": "number",
+            "title": "position\nPosition order of Event Type, starting with 0 (for display purposes)"
+          }
+        },
+        "required": [
+          "uri",
+          "name",
+          "active",
+          "slug",
+          "scheduling_url",
+          "duration",
+          "kind",
+          "pooling_type",
+          "type",
+          "color",
+          "created_at",
+          "updated_at",
+          "internal_note",
+          "description_plain",
+          "description_html",
+          "profile",
+          "secret",
+          "booking_method",
+          "custom_questions",
+          "deleted_at",
+          "admin_managed",
+          "locations",
+          "position"
+        ]
+      },
+      "Formatdate-time": {
+        "type": "object",
+        "properties": {
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "const": "string"
+              },
+              "kind": {
+                "const": "format"
+              },
+              "value": {
+                "const": "date-time"
+              },
+              "validate": {
+                "const": "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test($input)"
+              },
+              "exclusive": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "const": "format"
+                  },
+                  {
+                    "const": "pattern"
+                  }
+                ],
+                "additionalItems": false
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "format": {
+                    "const": "date-time"
+                  }
+                },
+                "required": [
+                  "format"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "validate",
+              "exclusive",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        }
+      },
+      "ICalendly.Profile": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "User",
+                "title": "User"
+              },
+              {
+                "const": "Team",
+                "title": "Team"
+              }
+            ],
+            "title": "type\nIndicates if the profile belongs to a \"user\" (individual) or \"team\""
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "Tamara Jones",
+            "title": "name\nHuman-readable name for the profile of the user that's associated with the event type"
+          },
+          "owner": {
+            "type": "string",
+            "format": "uri",
+            "x-wrtn-placeholder": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
+            "title": "owner\nThe unique reference to the user associated with the profile"
+          }
+        },
+        "required": [
+          "type",
+          "name",
+          "owner"
+        ]
+      },
+      "ICalendly.CustomQuestion": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name\nThe custom question that the host created for the event type."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "text",
+                "title": "text"
+              },
+              {
+                "const": "phone_number",
+                "title": "phone_number"
+              },
+              {
+                "const": "single_select",
+                "title": "single_select"
+              },
+              {
+                "const": "multi_select",
+                "title": "multi_select"
+              }
+            ],
+            "title": "type\nThe type of response that the invitee provides to the custom question; can be one or multiple lines of text, a phone number, or single- or multiple-select."
+          },
+          "position": {
+            "type": "number",
+            "title": "position\nThe numerical position of the question on the event booking page after the name and email address fields."
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "enabled\ntrue if the question created by the host is turned ON and visible on the event booking page; false if turned OFF and invisible on the event booking page."
+          },
+          "required": {
+            "type": "boolean",
+            "title": "required\ntrue if a response to the question created by the host is required for invitees to book the event type; false if not required."
+          },
+          "answer_choices": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "answer_choices\nThe invitee’s option(s) for single_select or multi_select type of responses."
+          },
+          "include_other": {
+            "type": "boolean",
+            "title": "include_other\ntrue if the custom question lets invitees record a written response in addition to single-select or multiple-select type of responses; false if it doesn’t."
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "position",
+          "enabled",
+          "required",
+          "answer_choices",
+          "include_other"
+        ]
+      },
+      "ICalendly.Location": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "title": "kind"
+          },
+          "phone_number": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "phone_number"
+          },
+          "additional_info": {
+            "type": "string",
+            "title": "additional_info"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "ICalendly.Pagination": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "x-wrtn-placeholder": "20",
+            "title": "count\nThe number of rows to return"
+          },
+          "next_page": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "next_page\nURI to return the next page of an ordered list (\"null\" indicates no additional results are available)"
+          },
+          "previous_page": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "previous_page\nURI to return the previous page of an ordered list (\"null\" indicates no additional results are available)"
+          },
+          "next_page_token": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "next_page_token\nToken to return the next page of an ordered list (\"null\" indicates no additional results are available)"
+          },
+          "previous_page_token": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "previous_page_token\nToken to return the previous page of an ordered list (\"null\" indicates no additional results are available)"
+          }
+        },
+        "required": [
+          "count",
+          "next_page",
+          "previous_page",
+          "next_page_token",
+          "previous_page_token"
+        ]
+      },
+      "ICalendly.IGetEventTypeInput": {
+        "type": "object",
+        "properties": {
+          "admin_managed": {
+            "type": "boolean",
+            "title": "admin_managed\nReturn only admin managed event types if true, exclude admin managed event types if false, or include all event types if this parameter is omitted."
+          },
+          "organization": {
+            "type": "string",
+            "format": "uri",
+            "title": "organization\nView available personal, team, and organization event types associated with the organization's URI.\nuser or organization must be filled."
+          },
+          "user": {
+            "type": "string",
+            "format": "uri",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/calendly/users/get-me",
+              "jmesPath": "resource.{value:url, label:name}"
+            },
+            "title": "user\nView available personal, team, and organization event types associated with the user's URI.\nuser or organization must be filled."
+          },
+          "user_availability_schedule": {
+            "type": "string",
+            "format": "uri",
+            "title": "user_availability_schedule"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "active\nReturn only active event types if true, only inactive if false, or all event types if this parameter is omitted."
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "title": "count\nThe number of rows to return"
+          },
+          "page_token": {
+            "type": "string",
+            "title": "page_token\nThe token to pass to get the next or previous portion of the collection."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "name:asc",
+                "title": "이름 정순 정렬"
+              },
+              {
+                "const": "name:desc",
+                "title": "이름 역순 정렬"
+              },
+              {
+                "const": "position:asc",
+                "title": "위치 정순 정렬"
+              },
+              {
+                "const": "position:desc",
+                "title": "위치 역순 정렬"
+              },
+              {
+                "const": "created_at:asc",
+                "title": "생성일자 정순 정렬"
+              },
+              {
+                "const": "created_at:desc",
+                "title": "생성일자 역순 정렬"
+              },
+              {
+                "const": "updated_at:asc",
+                "title": "수정일자 정순 정렬"
+              },
+              {
+                "const": "updated_at:desc",
+                "title": "수정일자 역순 정렬"
+              }
+            ],
+            "title": "sort\nOrder results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.\nSupported fields are: name, position, created_at, updated_at. Sort direction is specified as: asc, desc.\nIt must be one of: 'name:asc', 'name:desc', 'position:asc', 'position:desc', 'created_at:asc', 'created_at:desc', 'updated_at:asc', 'updated_at:desc'."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "calendly",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ICalendly.Secret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "calendly",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ICalendly.IGetOneScheduledEventOutput": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/ICalendly.Event",
+            "title": "event"
+          }
+        },
+        "required": [
+          "resource"
+        ]
+      },
+      "ICalendly.Event": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "title": "uuid\nuuid from url (ex. \"https://api.calendly.com/scheduled_events/:uuid\" )"
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\nCanonical reference (unique identifier) for the resource"
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "15 Minute Meeting"
+              }
+            ],
+            "title": "name\nThe event name"
+          },
+          "meeting_notes_plain": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "15 Minute Meeting"
+              }
+            ],
+            "title": "meeting_notes_plain\nThe internal meeting notes (in non formatted text)"
+          },
+          "meeting_notes_html": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "meeting_notes_html\nThe internal meeting notes (formatted with HTML)"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "active",
+                "title": "active"
+              },
+              {
+                "const": "canceled",
+                "title": "canceled"
+              }
+            ],
+            "title": "status\nIndicates if the event is \"active\" or \"canceled\""
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "start_time\nThe moment the event was scheduled to start in UTC time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "end_time\nThe moment the event was scheduled to end in UTC time"
+          },
+          "event_type": {
+            "type": "string",
+            "format": "uri",
+            "title": "event_type\n이벤트 타입 URI"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "oneOf": [
+                  {
+                    "const": "physical"
+                  },
+                  {
+                    "const": "custom"
+                  }
+                ],
+                "title": "type\nIndicates that the event will be an in-person meeting."
+              },
+              "location": {
+                "type": "string",
+                "title": "location\nThe physical location specified by the event host (publisher)"
+              },
+              "additional_info": {
+                "type": "string",
+                "title": "additional_info\n추가 정보"
+              }
+            },
+            "required": [
+              "type",
+              "location"
+            ],
+            "title": "location\nThe event type associated with this event"
+          },
+          "invitees_counter": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "total\nTotal invitees for an event, including invitees that have canceled"
+              },
+              "active": {
+                "type": "integer",
+                "title": "active\nTotal invitees for an event that have not canceled"
+              },
+              "limit": {
+                "type": "integer",
+                "title": "limit\nMaximum number of active invitees that can book the event"
+              }
+            },
+            "required": [
+              "total",
+              "active",
+              "limit"
+            ],
+            "title": "invitees_counter\n초대 인원 카운터"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at\nThe moment when the event was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at\nThe moment when the event was last updated"
+          },
+          "event_memberships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "user\nCanonical reference (unique identifier) for the user"
+                },
+                "user_email": {
+                  "type": "string",
+                  "format": "email",
+                  "title": "user_email\nThe user's email"
+                },
+                "user_name": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "John Smith",
+                  "title": "user_name\nThe user's name"
+                },
+                "buffered_start_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "buffered_start_time\nThe moment the membership's time buffer starts for the event in UTC time"
+                },
+                "buffered_end_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "buffered_end_time\nThe moment the membership's time buffer ends for the event in UTC time"
+                }
+              },
+              "required": [
+                "user",
+                "user_email",
+                "user_name",
+                "buffered_start_time",
+                "buffered_end_time"
+              ]
+            },
+            "title": "event_memberships\n이벤트 멤버십 목록"
+          },
+          "event_guests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "title": "email"
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "created_at"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "updated_at"
+                }
+              },
+              "required": [
+                "email",
+                "created_at",
+                "updated_at"
+              ]
+            },
+            "title": "event_guests\nAdditional people added to an event by an invitee"
+          },
+          "cancellation": {
+            "$ref": "#/components/schemas/ICalendly.Cancellation",
+            "title": "cancellation\nInformation about the calendar event from the calendar provider."
+          }
+        },
+        "required": [
+          "uuid",
+          "uri",
+          "name",
+          "meeting_notes_plain",
+          "meeting_notes_html",
+          "status",
+          "start_time",
+          "end_time",
+          "event_type",
+          "location",
+          "invitees_counter",
+          "created_at",
+          "updated_at",
+          "event_memberships",
+          "event_guests"
+        ]
+      },
+      "ICalendly.Cancellation": {
+        "type": "object",
+        "properties": {
+          "canceled_by": {
+            "type": "string",
+            "title": "canceled_by\nName of the person whom canceled"
+          },
+          "reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "reason\nReason that the cancellation occurred"
+          },
+          "canceler_type": {
+            "oneOf": [
+              {
+                "const": "host",
+                "title": "host"
+              },
+              {
+                "const": "invitee",
+                "title": "invitee"
+              }
+            ],
+            "title": "canceler_type"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at\nThe moment when the cancellation was created"
+          }
+        },
+        "required": [
+          "canceled_by",
+          "reason",
+          "canceler_type",
+          "created_at"
+        ]
+      },
+      "ICalendly.IGetScheduledEventOutput": {
+        "type": "object",
+        "properties": {
+          "collection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICalendly.Event"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/ICalendly.Pagination"
+          }
+        },
+        "required": [
+          "collection",
+          "pagination"
+        ]
+      },
+      "ICalendly.IGetScheduledEventInput": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "title": "count\nThe number of rows to return."
+          },
+          "who": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
+                  },
+                  "group": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "group\nReturn events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
+                  }
+                },
+                "required": [
+                  "user",
+                  "group"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
+                  },
+                  "group": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "group\nReturn events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
+                  }
+                },
+                "required": [
+                  "user",
+                  "group"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
+                  }
+                },
+                "required": [
+                  "user"
+                ]
+              }
+            ],
+            "title": "Whose event is it?\n\n- If you are an administrator/owner of an organization, you can use both and to get a list of events for a specific user within an organization user.\n- If you are the administrator/owner of an organization, you can use both and to get a list of events for a specific group within an organization group.\n- User Only available for requesting private events; events within all organizations that are currently or previously affiliated are returned."
+          },
+          "organization": {
+            "type": "string",
+            "format": "uri",
+            "title": "organization\nReturn events that are scheduled with the organization associated with this URI."
+          },
+          "invitee_email": {
+            "type": "string",
+            "format": "email",
+            "title": "invitee_email\nReturn events that are scheduled with the invitee associated with this email address."
+          },
+          "max_start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "max_start_time\nInclude events with start times prior to this time. This time should use the UTC timezone."
+          },
+          "min_start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "min_start_time\nInclude events with start times after this time. This time should use the UTC timezone."
+          },
+          "page_token": {
+            "type": "string",
+            "title": "page_token\nThe token to pass to get the next or previous portion of the collection."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "start_time:asc",
+                "title": "시작 시간 정순 정렬"
+              },
+              {
+                "const": "start_time:desc",
+                "title": "시작 시간 역순 정렬"
+              }
+            ],
+            "title": "sort\nOrder results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.\nSupported fields are: start_time. Sort direction is specified as: asc, desc."
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "active",
+                "title": "active"
+              },
+              {
+                "const": "canceled",
+                "title": "canceled"
+              }
+            ],
+            "title": "status\nWhether the scheduled event is active or canceled.\nAllowed values: active, canceled."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "calendly",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "who",
+          "secretKey"
+        ],
+        "title": "Conditions for querying scheduled events"
+      },
+      "ICalendly.ICheckNoShowOutput": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/ICalendly.NoShow"
+          }
+        },
+        "required": [
+          "resource"
+        ]
+      },
+      "ICalendly.NoShow": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "url\nCanonical reference (unique identifier) for the no show"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at\nThe moment when the no show was created"
+          }
+        },
+        "required": [
+          "url",
+          "created_at"
+        ]
+      },
+      "ICalendly.IGetOneScheduledEventInviteeOutput": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/ICalendly.Invitee"
+          }
+        },
+        "required": [
+          "resource"
+        ]
+      },
+      "ICalendly.Invitee": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "title": "uuid\nuuid from \"https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/:uuid\""
+          },
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\nCanonical reference (unique identifier) for the invitee"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "email\nThe invitee’s email address"
+          },
+          "first_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "first_name\nThe first name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name."
+          },
+          "last_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "last_name\nThe last name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name."
+          },
+          "name": {
+            "type": "string",
+            "title": "name\nThe invitee’s name (in human-readable format)"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "active",
+                "title": "active"
+              },
+              {
+                "const": "canceled",
+                "title": "canceled"
+              }
+            ],
+            "title": "status\nIndicates if the invitee is \"active\" or \"canceled\""
+          },
+          "questions_and_answers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string",
+                  "title": "question\nA question on the invitee's booking form"
+                },
+                "answer": {
+                  "type": "string",
+                  "title": "answer\nThe invitee's answer to the question"
+                },
+                "position": {
+                  "type": "number",
+                  "title": "position\nThe position of the question in relation to others on the booking form"
+                }
+              },
+              "required": [
+                "question",
+                "answer",
+                "position"
+              ]
+            },
+            "title": "questions_and_answers\nA collection of the invitee's responses to questions on the event booking confirmation form"
+          },
+          "timezone": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "timezone\nTime zone to use when displaying time to the invitee"
+          },
+          "event": {
+            "type": "string",
+            "format": "uri",
+            "title": "event\nA reference to the event"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at\nThe moment when the event was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at\nThe moment when the event was last updated"
+          },
+          "tracking": {
+            "type": "object",
+            "properties": {
+              "utm_campaign": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "utm_campaign\nThe UTM parameter used to track a campaign"
+              },
+              "utm_source": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "utm_source\nThe UTM parameter that identifies the source (platform where the traffic originates)"
+              },
+              "utm_medium": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "utm_medium\nThe UTM parameter that identifies the type of input (e.g. CPC, social media, etc.)"
+              },
+              "utm_content": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "utm_content\nUTM content tracking parameter"
+              },
+              "utm_term": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "utm_term\nThe UTM parameter used to track keywords"
+              },
+              "salesforce_uuid": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "salesforce_uuid\nThe Salesforce record unique identifier"
+              }
+            },
+            "required": [
+              "utm_campaign",
+              "utm_source",
+              "utm_medium",
+              "utm_content",
+              "utm_term",
+              "salesforce_uuid"
+            ],
+            "title": "tracking\nThe UTM and Salesforce tracking parameters associated with an invitee"
+          },
+          "text_reminder_number": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "text_reminder_number\nThe phone number to use when sending text (SMS) reminders"
+          },
+          "rescheduled": {
+            "type": "boolean",
+            "title": "rescheduled\nIndicates if this invitee has rescheduled"
+          },
+          "old_invitee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "old_invitee\nReference to old Invitee instance that got rescheduled"
+          },
+          "new_invitee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "new_invitee\nLink to new invitee after reschedule"
+          },
+          "cancel_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "cancel_url\nLink to cancelling the event for the invitee"
+          },
+          "reschedule_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "reschedule_url\nLink to rescheduling the event for the invitee"
+          },
+          "routing_form_submission": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "routing_form_submission\nReference to a routing form submission that redirected the invitee to a booking page."
+          },
+          "cancellation": {
+            "$ref": "#/components/schemas/ICalendly.Cancellation",
+            "title": "cancellation\nProvides data pertaining to the cancellation of the Event or the Invitee"
+          },
+          "payment": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ICalendly.Payment"
+              }
+            ],
+            "title": "Invitee payment"
+          },
+          "no_show": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ICalendly.NoShow"
+              }
+            ],
+            "title": "no_show\nProvides data pertaining to the associated no show for the Invitee"
+          },
+          "reconfirmation": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ICalendly.Reconfirmation"
+              }
+            ],
+            "title": "reconfirmation\nAssuming reconfirmation is enabled for the event type, when reconfirmation is requested this object is present with a created_at that reflects when the reconfirmation notification was sent. Once the invitee has reconfirmed"
+          },
+          "scheduling_method": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "instant_book",
+                "title": "instant_book"
+              }
+            ],
+            "title": "scheduling_method\nThe method used to schedule the event"
+          },
+          "invitee_scheduled_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "invitee_scheduled_by\nReference to user URI who scheduled the event"
+          }
+        },
+        "required": [
+          "uuid",
+          "uri",
+          "email",
+          "first_name",
+          "last_name",
+          "name",
+          "status",
+          "questions_and_answers",
+          "timezone",
+          "event",
+          "created_at",
+          "updated_at",
+          "tracking",
+          "text_reminder_number",
+          "rescheduled",
+          "old_invitee",
+          "new_invitee",
+          "cancel_url",
+          "reschedule_url",
+          "routing_form_submission",
+          "payment",
+          "no_show",
+          "reconfirmation",
+          "scheduling_method",
+          "invitee_scheduled_by"
+        ]
+      },
+      "ICalendly.Payment": {
+        "type": "object",
+        "properties": {
+          "external_id": {
+            "type": "string",
+            "title": "external_id\nUnique identifier for the payment"
+          },
+          "provider": {
+            "type": "string",
+            "title": "provider\nPayment provider"
+          },
+          "amount": {
+            "type": "number",
+            "title": "amount\nThe amount of the payment"
+          },
+          "currency": {
+            "oneOf": [
+              {
+                "const": "AUD",
+                "title": "AUD"
+              },
+              {
+                "const": "CAD",
+                "title": "CAD"
+              },
+              {
+                "const": "EUR",
+                "title": "EUR"
+              },
+              {
+                "const": "GBP",
+                "title": "GBP"
+              },
+              {
+                "const": "USD",
+                "title": "USD"
+              }
+            ],
+            "title": "currency\nThe currency format that the payment is in."
+          },
+          "terms": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "terms\nTerms of the payment"
+          },
+          "successful": {
+            "type": "boolean",
+            "title": "successful\nIndicates whether the payment was successfully processed"
+          }
+        },
+        "required": [
+          "external_id",
+          "provider",
+          "amount",
+          "currency",
+          "terms",
+          "successful"
+        ]
+      },
+      "ICalendly.Reconfirmation": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at\nWhen the reconfirmation was created."
+          },
+          "confirmed_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "confirmed_at\nWhen the Invitee confirmed their attendance."
+          }
+        },
+        "required": [
+          "created_at",
+          "confirmed_at"
+        ]
+      },
+      "ICalendly.IGetScheduledEventInviteeOutput": {
+        "type": "object",
+        "properties": {
+          "collection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ICalendly.Invitee"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/ICalendly.Pagination"
+          }
+        },
+        "required": [
+          "collection",
+          "pagination"
+        ]
+      },
+      "ICalendly.IGetScheduledEventInviteeInput": {
+        "type": "object",
+        "properties": {
+          "scheduled_event_uuid": {
+            "type": "string",
+            "title": "scheduled_event_uuid"
+          },
+          "count": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "title": "count\nThe number of rows to return (1 to 100)"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "email\nFilter results by email address (optional)"
+          },
+          "page_token": {
+            "type": "string",
+            "title": "page_token\nThe token to pass for pagination to get the next or previous portion of the collection"
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "created_at:asc",
+                "title": "created_at:asc"
+              },
+              {
+                "const": "\"created_at:desc\"",
+                "title": "\"created_at:desc\""
+              },
+              {
+                "$ref": "#/components/schemas/Defaultcreated_atasc"
+              }
+            ],
+            "title": "sort\nOrder results by the `created_at` field and direction.\nAllowed values: \"asc\" for ascending, \"desc\" for descending."
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "active",
+                "title": "active"
+              },
+              {
+                "const": "canceled",
+                "title": "canceled"
+              }
+            ],
+            "title": "status\nFilter by invitee status (either \"active\" or \"canceled\")."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "calendly",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "scheduled_event_uuid",
+          "secretKey"
+        ]
+      },
+      "Defaultcreated_atasc": {
+        "type": "object",
+        "properties": {
+          "typia.tag": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "const": "string"
+              },
+              "kind": {
+                "const": "default"
+              },
+              "value": {
+                "const": "created_at:asc"
+              },
+              "exclusive": {
+                "const": true
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "default": {
+                    "const": "created_at:asc"
+                  }
+                },
+                "required": [
+                  "default"
+                ]
+              }
+            },
+            "required": [
+              "target",
+              "kind",
+              "value",
+              "exclusive",
+              "schema"
+            ],
+            "title": "This is a dummy property for compilation",
+            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+          }
+        }
+      },
+      "ICalendly.ICreateOneOffEventTypeOutput": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/ICalendly.EventType",
+            "title": "EventType\nA configuration for an Event"
+          }
+        },
+        "required": [
+          "resource"
+        ]
+      },
+      "ICalendly.ICreateOneOffEventTypeInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 55,
+            "x-wrtn-placeholder": "My Meeting",
+            "title": "name\nEvent type name"
+          },
+          "host": {
+            "type": "string",
+            "format": "uri",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/calendly/users/get-me",
+              "jmesPath": "resource.{value:url, label:name}"
+            },
+            "title": "host\nHost user uri"
+          },
+          "co_host": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "maxItems": 9,
+            "title": "co_hosts\nCollection of meeting co-host(s) user URIs"
+          },
+          "duration": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 720,
+            "title": "duration\nDuration of meeting in minutes"
+          },
+          "timezone": {
+            "type": "string",
+            "x-wrtn-placeholder": "America/New_York",
+            "title": "timezone\nTime zone used for meeting. Defaults to host's time zone."
+          },
+          "date_setting": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "date_range",
+                "title": "type"
+              },
+              "start_date": {
+                "type": "string",
+                "format": "date",
+                "title": "start_date\nAvailability start - Must be before end_date. Format: YYYY-MM-DD"
+              },
+              "end_date": {
+                "type": "string",
+                "format": "date",
+                "title": "end_date\nAvailability end - Must be a date in the future and less than 365 days in the future from start_date. Format: YYYY-MM-DD"
+              }
+            },
+            "required": [
+              "type",
+              "start_date",
+              "end_date"
+            ],
+            "title": "date_setting\nOnly allow scheduling within a specified date range"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "custom",
+                "title": "kind"
+              },
+              "location": {
+                "type": "string",
+                "title": "location"
+              }
+            },
+            "required": [
+              "kind",
+              "location"
+            ],
+            "title": "location\nInformation for a Custom Location"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "calendly",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "host",
+          "duration",
+          "date_setting",
+          "location",
+          "secretKey"
+        ]
+      },
+      "ICalendly.IGetUserInfoOutput": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/components/schemas/ICalendly.User"
+          }
+        },
+        "required": [
+          "resource"
+        ]
+      },
+      "ICalendly.User": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\nCanonical reference (unique identifier) for the user"
+          },
+          "name": {
+            "type": "string",
+            "title": "name\nThe user's name (human-readable format)"
+          },
+          "slug": {
+            "type": "string",
+            "title": "slug\nThe portion of URL for the user's scheduling page (where invitees book sessions)"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "email\nThe user's email address"
+          },
+          "scheduling_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "scheduling_url\nThe URL of the user's Calendly landing page (that lists all the user's event types)"
+          },
+          "timezone": {
+            "type": "string",
+            "x-wrtn-placeholder": "Asia/Tokyo",
+            "title": "timezone\nThe time zone to use when presenting time to the user"
+          },
+          "avatar_url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ],
+            "title": "avatar_url\nThe URL of the user's avatar (image). Can be null."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at\nThe moment when the user's record was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at\nThe moment when the user's record was last updated"
+          },
+          "current_organization": {
+            "type": "string",
+            "format": "uri",
+            "title": "current_organization\nA unique reference to the user's current organization"
+          },
+          "resource_type": {
+            "type": "string",
+            "title": "resource_type\nResource type to support polymorphic associations"
+          }
+        },
+        "required": [
+          "uri",
+          "name",
+          "slug",
+          "email",
+          "scheduling_url",
+          "timezone",
+          "avatar_url",
+          "created_at",
+          "updated_at",
+          "current_organization",
+          "resource_type"
+        ],
+        "title": "user\nInformation about the user."
       }
     }
   },
