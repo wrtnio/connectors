@@ -12,22 +12,23 @@ export const test_api_connector_jira_assign_and_unassign = async (
   connection: CApi.IConnection,
 ) => {
   // 담당자 지정 및 해제를 테스트할 이슈를 생성한다.
-  const issue = await CApi.functional.connector.jira.issues.createIssue(
-    connection,
-    {
-      secretKey: JSON.stringify(Configuration),
-      fields: {
-        summary: "ASSIGN AND UNASSIGN TEST",
-        project: { key: "KAK" },
-        issuetype: { id: "10005" },
-        description: {
-          type: "doc",
-          version: 1,
-          content: [],
+  const issue =
+    await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
+      connection,
+      {
+        secretKey: JSON.stringify(Configuration),
+        fields: {
+          summary: "ASSIGN AND UNASSIGN TEST",
+          project: { key: "KAK" },
+          issuetype: { id: "10005" },
+          description: {
+            type: "doc",
+            version: 1,
+            content: "",
+          },
         },
       },
-    },
-  );
+    );
 
   // 담당자로 지정할만한 사람을 찾는다.
   const [candidate] =

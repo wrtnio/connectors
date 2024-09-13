@@ -47,11 +47,9 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
-  @core.TypedRoute.Put("issues/comments")
+  @core.TypedRoute.Put("issues/comments/markdown")
   async updateComment(
-    @TypedBody()
-    input: StrictOmit<IJira.IUpdateCommentInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IUpdateCommentByMarkdownInput,
   ): Promise<void> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -70,11 +68,10 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
-  @core.TypedRoute.Post("issues/comments")
+  @core.TypedRoute.Post("issues/comments/markdown")
   async createComment(
     @TypedBody()
-    input: StrictOmit<IJira.ICreateCommentInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    input: IJira.ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -271,32 +268,32 @@ export class JiraController {
     });
   }
 
-  /**
-   * Create an issue
-   *
-   * Issue type, project, and summary are essential properties.
-   * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
-   *
-   * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
-   * There are pre-designated content types, so please check this type information carefully.
-   *
-   * @summary create issue in jira
-   * @param input issue information to create
-   * @returns id and key of created issue
-   */
-  @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
-  )
-  @core.TypedRoute.Post("issues")
-  async createIssue(
-    @TypedBody() input: IJira.ICreateIssueInputWithBasicAuth,
-  ): Promise<IJira.ICreateIssueOutput> {
-    const secretValue = await this.jiraProvider.getToken(input.secretKey);
-    const authorization = this.jiraProvider.parseSecretKey({
-      secretKey: secretValue,
-    });
-    return this.jiraProvider.createIssue({ ...input, ...authorization });
-  }
+  // /**
+  //  * Create an issue
+  //  *
+  //  * Issue type, project, and summary are essential properties.
+  //  * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
+  //  *
+  //  * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
+  //  * There are pre-designated content types, so please check this type information carefully.
+  //  *
+  //  * @summary create issue in jira
+  //  * @param input issue information to create
+  //  * @returns id and key of created issue
+  //  */
+  // @RouteIcon(
+  //   `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+  // )
+  // @core.TypedRoute.Post("issues")
+  // async createIssue(
+  //   @TypedBody() input: IJira.ICreateIssueInputWithBasicAuth,
+  // ): Promise<IJira.ICreateIssueOutput> {
+  //   const secretValue = await this.jiraProvider.getToken(input.secretKey);
+  //   const authorization = this.jiraProvider.parseSecretKey({
+  //     secretKey: secretValue,
+  //   });
+  //   return this.jiraProvider.createIssue({ ...input, ...authorization });
+  // }
 
   /**
    * Get detailed issue information

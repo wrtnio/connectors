@@ -1,5 +1,4 @@
 import CApi from "@wrtn/connector-api/lib/index";
-import { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
@@ -12,33 +11,24 @@ const Configuration = {
 export const test_api_connector_jira_update_issue_summary_and_description =
   async (connection: CApi.IConnection) => {
     // 업데이트 테스트 용으로 이슈 생성
-    const target = await CApi.functional.connector.jira.issues.createIssue(
-      connection,
-      {
-        secretKey: JSON.stringify(Configuration),
-        fields: {
-          summary: "TEST FOR UPDATE",
-          project: { key: "KAK" },
-          issuetype: { id: "10005" },
+    const target =
+      await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
+        connection,
+        {
+          secretKey: JSON.stringify(Configuration),
+          fields: {
+            summary: "TEST FOR UPDATE",
+            project: { key: "KAK" },
+            issuetype: { id: "10005" },
 
-          description: {
-            type: "doc",
-            version: 1,
-            content: [
-              {
-                type: "codeBlock",
-                content: [
-                  {
-                    type: "text",
-                    text: "console.log(123); // code box test",
-                  },
-                ],
-              } as IJira.CodeBlockNode as IJira.TopLevelBlockNode,
-            ],
+            description: {
+              type: "doc",
+              version: 1,
+              content: "```typescript\nconsole.log(123); // code box test\n```",
+            },
           },
         },
-      },
-    );
+      );
 
     const updateSummary =
       await CApi.functional.connector.jira.issues.updateIssue(
@@ -90,33 +80,25 @@ export const test_api_connector_jira_update_issue_assignee = async (
   connection: CApi.IConnection,
 ) => {
   // 업데이트 테스트 용으로 이슈 생성
-  const target = await CApi.functional.connector.jira.issues.createIssue(
-    connection,
-    {
-      secretKey: JSON.stringify(Configuration),
-      fields: {
-        summary: "TEST FOR UPDATE",
-        project: { key: "KAK" },
-        issuetype: { id: "10005" },
+  const target =
+    await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
+      connection,
+      {
+        secretKey: JSON.stringify(Configuration),
+        fields: {
+          summary: "TEST FOR UPDATE",
+          project: { key: "KAK" },
+          issuetype: { id: "10005" },
 
-        description: {
-          type: "doc",
-          version: 1,
-          content: [
-            {
-              type: "codeBlock",
-              content: [
-                {
-                  type: "text",
-                  text: "console.log(123); // code box test",
-                },
-              ],
-            } as IJira.CodeBlockNode as IJira.TopLevelBlockNode,
-          ],
+          description: {
+            type: "doc",
+            version: 1,
+            content: "```typescript\nconsole.log(123); // code box test\n```",
+          },
         },
       },
-    },
-  );
+    );
+
   const response =
     await CApi.functional.connector.jira.projects.get_users_assignable.getUsersAssignableInProject(
       connection,

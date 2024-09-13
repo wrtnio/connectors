@@ -215,6 +215,28 @@ export namespace IJira {
     id: string;
   }
 
+  export interface ICreateCommentByMarkdownInput
+    extends StrictOmit<
+        ICreateCommentInput,
+        "body" | "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {
+    /**
+     * @title body of comment
+     */
+    body: StrictOmit<Comment["body"], "content"> & {
+      /**
+       * @title contents of description
+       *
+       * You must use markdown format string.
+       *
+       * It is recommended to contain as much detail as possible on the issue raised by the user,
+       * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       */
+      content: string;
+    };
+  }
+
   export interface ICreateCommentInput extends BasicAuthorization {
     /**
      * @title issue id or key
@@ -358,6 +380,28 @@ export namespace IJira {
             jmesPath: "[].{value:accountId, label:displayName}";
           }>
       );
+  }
+
+  export interface IUpdateCommentByMarkdownInput
+    extends StrictOmit<
+        IUpdateCommentInput,
+        "body" | "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {
+    /**
+     * @title body of comment
+     */
+    body: StrictOmit<Comment["body"], "content"> & {
+      /**
+       * @title contents of description
+       *
+       * You must use markdown format string.
+       *
+       * It is recommended to contain as much detail as possible on the issue raised by the user,
+       * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       */
+      content: string;
+    };
   }
 
   export interface IUpdateCommentInput
@@ -1457,7 +1501,7 @@ export namespace IJira {
        * @title colspan
        * colspan defines the number of columns the cell spans.
        */
-      colspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
       /**
        * defines the width of the column or,
@@ -1466,7 +1510,7 @@ export namespace IJira {
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
        */
-      colwidth: [
+      colwidth?: [
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
@@ -1476,7 +1520,7 @@ export namespace IJira {
        * @title rowspan
        * rowspan defines the number of rows a cell spans.
        */
-      rowspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
   };
 
@@ -1503,7 +1547,7 @@ export namespace IJira {
        * @title colspan
        * colspan defines the number of columns the cell spans.
        */
-      colspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
       /**
        * defines the width of the column or,
@@ -1512,7 +1556,7 @@ export namespace IJira {
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
        */
-      colwidth: [
+      colwidth?: [
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
@@ -1522,7 +1566,7 @@ export namespace IJira {
        * @title rowspan
        * rowspan defines the number of rows a cell spans.
        */
-      rowspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
   };
 

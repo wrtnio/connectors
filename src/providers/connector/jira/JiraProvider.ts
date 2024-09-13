@@ -358,14 +358,20 @@ export class JiraProvider {
   }
 
   async createComment(
-    input: IJira.ICreateCommentInput,
+    input: IJira.ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (input.body.content) {
+        const content = markdownToJiraBlock(input.body.content);
+        copiedInput.body.content = content;
+      }
+
       const res = await axios.post(
         `${config.domain}/issue/${input.issueIdOrKey}/comment`,
         {
-          body: input.body,
+          body: copiedInput.body,
         },
         {
           headers: {
@@ -488,9 +494,17 @@ export class JiraProvider {
     }
   }
 
-  async updateComment(input: IJira.IUpdateCommentInput): Promise<void> {
+  async updateComment(
+    input: IJira.IUpdateCommentByMarkdownInput,
+  ): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (input.body.content) {
+        const content = markdownToJiraBlock(input.body.content);
+        copiedInput.fields.description.content = content;
+      }
+
       await axios.put(
         `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
         {
@@ -541,7 +555,7 @@ export class JiraProvider {
   ): Promise<{ id: string; key: string }> {
     try {
       const copiedInput = JSON.parse(JSON.stringify(input));
-      if (input.fields.description) {
+      if (input.fields.description?.content) {
         const content = markdownToJiraBlock(input.fields.description.content);
         copiedInput.fields.description.content = content;
       }

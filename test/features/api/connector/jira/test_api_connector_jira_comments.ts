@@ -13,22 +13,24 @@ const Configuration = {
 export const test_api_connector_jira_create_and_update_and_delete_comment =
   async (connection: CApi.IConnection) => {
     // 댓글을 작성할 이슈를 생성한다.
-    const issue = await CApi.functional.connector.jira.issues.createIssue(
-      connection,
-      {
-        secretKey: JSON.stringify(Configuration),
-        fields: {
-          summary: "CREATION OF ISSUE",
-          project: { key: "KAK" },
-          issuetype: { id: "10005" },
-          description: {
-            type: "doc",
-            version: 1,
-            content: [],
+    const issue =
+      await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
+        connection,
+        {
+          secretKey: JSON.stringify(Configuration),
+          fields: {
+            summary: "CREATION OF ISSUE",
+            project: { key: "KAK" },
+            issuetype: { id: "10005" },
+            description: {
+              type: "doc",
+              version: 1,
+              content:
+                "# test_api_connector_jira_create_and_update_and_delete_comment",
+            },
           },
         },
-      },
-    );
+      );
 
     // 댓글을 작성하기 전을 조회한다.
     const before =
@@ -42,7 +44,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
 
     // 댓글을 작성한다
     const comment =
-      await CApi.functional.connector.jira.issues.comments.createComment(
+      await CApi.functional.connector.jira.issues.comments.markdown.createComment(
         connection,
         {
           secretKey: JSON.stringify(Configuration),
@@ -50,17 +52,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
           body: {
             type: "doc",
             version: 1,
-            content: [
-              {
-                type: "paragraph",
-                content: [
-                  {
-                    type: "text",
-                    text: "CREATE COMMENT TEST",
-                  },
-                ],
-              },
-            ],
+            content: "CREATE COMMENT TEST",
           },
         },
       );
@@ -82,20 +74,8 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
     // 댓글이 1개 늘어난 걸 검증한다.
     assert(before.comments.length + 1 === after.comments.length);
 
-    // 댓글을 수정한다.
-    const contentToUpdate = [
-      {
-        type: "paragraph",
-        content: [
-          {
-            type: "text",
-            text: "UPDATED COMMENT!",
-          },
-        ],
-      },
-    ] satisfies IJira.TopLevelBlockNode[];
-
-    await CApi.functional.connector.jira.issues.comments.updateComment(
+    console.log("HERE?");
+    await CApi.functional.connector.jira.issues.comments.markdown.updateComment(
       connection,
       {
         secretKey: JSON.stringify(Configuration),
@@ -104,7 +84,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
         body: {
           type: "doc",
           version: 1,
-          content: contentToUpdate,
+          content: "UPDATED COMMENT!",
         },
       },
     );
@@ -121,6 +101,19 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
     const updatedContent = afterUpdate.comments.find(
       (el) => el.id === comment.id,
     )?.body.content;
+
+    // 댓글을 수정한다.
+    const contentToUpdate = [
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "UPDATED COMMENT!",
+          },
+        ],
+      },
+    ] satisfies IJira.TopLevelBlockNode[];
 
     // 수정한 것과 수정 전에 수정하고자 했던 내역이 일치하는지 확인하여 수정 여부를 확인한다.
     deepStrictEqual(updatedContent, contentToUpdate);

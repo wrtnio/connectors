@@ -21,10 +21,7 @@ export const test_api_connector_jira_create_table_issue_by_markdown = async (
 `;
 
   const blocks = markdownToJiraBlock(markdown);
-  console.log(JSON.stringify(blocks, null, 2));
   typia.assert<(IJira.TopLevelBlockNode | IJira.TableNode)[]>(blocks);
-
-  console.log("PASS!");
 
   const res =
     await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
@@ -136,10 +133,7 @@ export class AuthService {
 `;
 
   const blocks = markdownToJiraBlock(markdown);
-  console.log(JSON.stringify(blocks, null, 2));
   typia.assert<(IJira.TopLevelBlockNode | IJira.TableNode)[]>(blocks);
-
-  console.log("PASS!");
 
   const res =
     await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
