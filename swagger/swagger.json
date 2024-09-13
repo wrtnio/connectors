@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.195",
+    "version": "0.1.196",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -12784,6 +12784,35 @@
                 "schema": {
                   "$ref": "#/components/schemas/ICalendly.IGetUserInfoOutput"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/ai-search": {
+      "post": {
+        "summary": "AI 검색",
+        "description": "AI 검색을 통해 검색 결과를 반환합니다.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "검색에 필요한 조건",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IAISearch.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           }
@@ -49596,6 +49625,21 @@
           "resource_type"
         ],
         "title": "user\nInformation about the user."
+      },
+      "IAISearch.IRequest": {
+        "type": "object",
+        "properties": {
+          "search_query": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "검색어",
+            "description": "검색어를 입력해주세요."
+          }
+        },
+        "required": [
+          "search_query"
+        ],
+        "title": "검색에 필요한 조건"
       }
     }
   },
