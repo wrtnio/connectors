@@ -13,6 +13,6 @@ export class AISearchController {
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   // )
   async search(@core.TypedBody() input: IAISearch.IRequest): Promise<any> {
-    return this.aiSearchProvider.search(input);
+    return retry(() => this.aiSearchProvider.search(input))();
   }
 }
