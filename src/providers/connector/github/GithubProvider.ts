@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { ElementOf } from "@wrtnio/decorators";
@@ -317,22 +317,40 @@ export class GithubProvider {
   async createFileContents(
     input: IGithub.ICreateFileContentInput,
   ): Promise<void> {
-    const { owner, repo, path, secretKey, ...rest } = input;
+    try {
+      const { owner, repo, path, secretKey, ...rest } = input;
+      const file = await this.getFileContentsOrNull({
+        owner: owner,
+        repo: repo,
+        path: path,
+        branch: input.branch,
+        secretKey: secretKey as string,
+      });
 
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-    const token = await this.getToken(secretKey);
-    await axios.put(
-      url,
-      {
-        ...rest,
-        content: Buffer.from(input.content).toString("base64"),
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      if (file !== null) {
+        throw new BadRequestException(
+          "이미 해당 경로에 생성된 파일이 존재합니다.",
+        );
+      }
+
+      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+      const token = await this.getToken(secretKey);
+      await axios.put(
+        url,
+        {
+          ...rest,
+          content: Buffer.from(input.content).toString("base64"),
         },
-      },
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getRepositoryFolderStructures(
@@ -357,6 +375,17 @@ export class GithubProvider {
         return await this.getFileContents({ ...input, path });
       }),
     );
+  }
+
+  async getFileContentsOrNull(
+    input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput | null> {
+    try {
+      const data = await this.getFileContents(input);
+      return data;
+    } catch (err) {
+      return null;
+    }
   }
 
   async getFileContents(
