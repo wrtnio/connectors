@@ -188,6 +188,31 @@ export class GithubController {
   }
 
   /**
+   * Update file content in github repository
+   *
+   * Updating file content is the same as creating a single commit.
+   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+   * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+   *
+   *
+   * @summary Update File content and commit
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Put("repos/commits/contents")
+  async updateFileContents(
+    @TypedBody() input: IGithub.IUpdateFileContentInput,
+  ): Promise<IGithub.IUpsertFileContentOutput> {
+    const data = await this.githubProvider.updateFileContents(input);
+    return data;
+  }
+
+  /**
    * Create file content in github repository
    *
    * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
@@ -204,7 +229,7 @@ export class GithubController {
   @core.TypedRoute.Post("repos/commits/contents")
   async createFileContents(
     @TypedBody() input: IGithub.ICreateFileContentInput,
-  ): Promise<void> {
+  ): Promise<IGithub.IUpsertFileContentOutput> {
     const data = await this.githubProvider.createFileContents(input);
     return data;
   }

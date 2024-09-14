@@ -298,7 +298,55 @@ export namespace IGithub {
   }
 
   export interface IUpdateFileContentInput extends ICreateFileContentInput {
-    sha: string;
+    /**
+     * @title sha of file content
+     *
+     * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+     * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+     */
+    sha: IUpsertFileContentOutput["content"]["sha"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repos/get-contents";
+        jmesPath: "[].{value:sha, label:path} || {value:sha, label:path}";
+      }>;
+  }
+
+  export interface IUpsertFileContentOutput {
+    /**
+     * @title content
+     */
+    content: {
+      /**
+       * @title file or folder name
+       */
+      name: string;
+
+      /**
+       * @title file or folder path
+       */
+      path: string;
+
+      /**
+       * @title sha
+       */
+      sha: string;
+
+      /**
+       * @title size
+       */
+      size: number;
+    };
+
+    /**
+     * @title commit
+     */
+    commit: {
+      /**
+       * @title sha
+       */
+      sha: string;
+    };
   }
 
   export interface ICreateFileContentInput

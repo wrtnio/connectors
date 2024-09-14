@@ -315,17 +315,22 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async updateFileContents(
+    input: IGithub.IUpdateFileContentInput,
+  ): Promise<IGithub.IUpsertFileContentOutput> {
+    return await this.upsertFileContent(input);
+  }
+
   async createFileContents(
     input: IGithub.ICreateFileContentInput,
-  ): Promise<void> {
+  ): Promise<IGithub.IUpsertFileContentOutput> {
     try {
-      const { owner, repo, path, secretKey, ...rest } = input;
       const file = await this.getFileContentsOrNull({
-        owner: owner,
-        repo: repo,
-        path: path,
+        owner: input.owner,
+        repo: input.repo,
+        path: input.path,
         branch: input.branch,
-        secretKey: secretKey as string,
+        secretKey: input.secretKey as string,
       });
 
       if (file !== null) {
@@ -334,7 +339,7 @@ export class GithubProvider {
         );
       }
 
-      await this.upsertFileContent(input);
+      return await this.upsertFileContent(input);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -343,11 +348,11 @@ export class GithubProvider {
 
   async upsertFileContent(
     input: PickPartial<IGithub.IUpdateFileContentInput, "sha">,
-  ) {
+  ): Promise<IGithub.IUpsertFileContentOutput> {
     const { owner, repo, path, secretKey, ...rest } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     const token = await this.getToken(secretKey);
-    await axios.put(
+    const res = await axios.put(
       url,
       {
         ...rest,
@@ -359,6 +364,8 @@ export class GithubProvider {
         },
       },
     );
+
+    return res.data;
   }
 
   async getRepositoryFolderStructures(
