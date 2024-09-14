@@ -536,6 +536,7 @@ export class GithubController {
    *
    * It is generally difficult to use because only issues related to me come out.
    *
+   * @deprecated Because it's useful to see issues at the repo or organizational level, looking at the user's entire issue history changes to a deprecated state
    * @summary List issues assigned to the authenticated user
    * @param input
    * @returns
