@@ -10,8 +10,6 @@ export async function test_api_connector_github_update_issue(
   const created = await test_api_connector_github_create_issue(connection);
   const randomString = randomUUID();
 
-  console.log(created);
-
   /**
    * @title 변경점 없는 이슈 변경 요청
    */

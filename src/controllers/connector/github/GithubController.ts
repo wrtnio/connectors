@@ -597,6 +597,13 @@ export class GithubController {
     return this.githubProvider.getRepositoryBranches(input);
   }
 
+  @core.TypedRoute.Post("branches")
+  async createBranches(
+    @TypedBody() input: IGithub.ICreateBranchInput,
+  ): Promise<IGithub.ICreateBranchOutput> {
+    return this.githubProvider.createBranches(input);
+  }
+
   /**
    * List pull requests associated with a commit
    *

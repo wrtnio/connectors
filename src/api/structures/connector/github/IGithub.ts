@@ -1066,6 +1066,47 @@ export namespace IGithub {
     repo: Repository["name"];
   }
 
+  export interface ICreateBranchOutput {
+    /**
+     * @title ref
+     */
+    ref: string & Placeholder<"refs/heads/featureA">;
+    object: {
+      type: "commit";
+      sha: Commit["sha"];
+    };
+  }
+
+  export interface ICreateBranchInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title ref
+     * The name of the fully qualified reference (ie: refs/heads/master). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.
+     */
+    ref: string;
+
+    /**
+     * @title sha
+     * The SHA1 value for this reference.
+     */
+    sha: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/get-commit-list";
+        jmesPath: "result[].{value:sha, label: commit.message}";
+      }>;
+  }
+
   export interface IGetOrganizationRepositoryOutput
     extends ICommonPaginationOutput {
     /**

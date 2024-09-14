@@ -905,6 +905,27 @@ export class GithubProvider {
     };
   }
 
+  async createBranches(
+    input: IGithub.ICreateBranchInput,
+  ): Promise<IGithub.ICreateBranchOutput> {
+    const { owner, repo, ref, sha, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/git/refs`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.post(
+      url,
+      {
+        ref,
+        sha,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
+  }
+
   async getPullRequestAssociatedWithACommit(
     input: IGithub.IGetPullRequestInput,
   ): Promise<IGithub.IGetPullRequestOutput> {
