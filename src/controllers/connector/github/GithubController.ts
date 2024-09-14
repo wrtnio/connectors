@@ -766,6 +766,29 @@ export class GithubController {
   }
 
   /**
+   * Update an issue in the repository
+   *
+   * Update an issue, where you can enter labels and assignes together.
+   * The information you must enter is who will create the issue in the owner's repository and under what title.
+   * The information in the text should follow the markdown grammar allowed by github.
+   *
+   * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   *
+   * @summary Update an issue
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Patch("issues")
+  async updateIssue(
+    @TypedBody() input: IGithub.IUpdateIssueInput,
+  ): Promise<IGithub.IUpdateIssueOutput> {
+    return this.githubProvider.updateIssue(input);
+  }
+
+  /**
    * Leave an issue in the repository
    *
    * Create an issue, where you can enter labels and assignes together.
@@ -781,7 +804,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("issue")
+  @core.TypedRoute.Post("issues")
   async createIssue(
     @TypedBody() input: IGithub.ICreateIssueInput,
   ): Promise<IGithub.ICreateIssueOutput> {

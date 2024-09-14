@@ -2,6 +2,7 @@ import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
+import { PickPartial } from "../../../../utils/types/PickPartial";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -781,6 +782,30 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
+  export type IUpdateIssueOutput = IGithub.Issue;
+
+  export interface IUpdateIssueInput
+    extends PickPartial<ICreateIssueInput, "title"> {
+    /**
+     * @title issue number to update
+     */
+    issue_number: number &
+      tags.Type<"uint64"> &
+      tags.Minimum<1> &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/github/issues";
+            jmesPath: "{label:number, value:title}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/github/issues";
+            jmesPath: "result[].{label:number, value:title}";
+          }>
+      );
+  }
+
   export type ICreateIssueOutput = IGithub.Issue;
 
   export interface ICreateIssueInput
@@ -818,7 +843,7 @@ export namespace IGithub {
     /**
      * @title labels
      */
-    labels: string[];
+    labels?: string[];
   }
 
   export interface IGetFolloweeInput

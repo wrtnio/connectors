@@ -552,6 +552,29 @@ export class GithubProvider {
     return res.data;
   }
 
+  async updateIssue(
+    input: IGithub.IUpdateIssueInput,
+  ): Promise<IGithub.IUpdateIssueOutput> {
+    const { owner, repo, issue_number, ...rest } = input;
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`;
+    const res = await axios.patch(
+      url,
+      {
+        title: input.title,
+        body: input.body,
+        assignees: input.assignees,
+        labels: input.labels,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
+  }
+
   async createIssue(
     input: IGithub.ICreateIssueInput,
   ): Promise<IGithub.ICreateIssueOutput> {
