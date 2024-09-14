@@ -297,6 +297,10 @@ export namespace IGithub {
     branch?: Branch["name"];
   }
 
+  export interface IUpdateFileContentInput extends ICreateFileContentInput {
+    sha: string;
+  }
+
   export interface ICreateFileContentInput
     extends ICommon.ISecret<"github", ["repo"]> {
     /**

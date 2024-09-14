@@ -15,6 +15,7 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
+import { PickPartial } from "../../../utils/types/PickPartial";
 
 @Injectable()
 export class GithubProvider {
@@ -333,24 +334,31 @@ export class GithubProvider {
         );
       }
 
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-      const token = await this.getToken(secretKey);
-      await axios.put(
-        url,
-        {
-          ...rest,
-          content: Buffer.from(input.content).toString("base64"),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      await this.upsertFileContent(input);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  async upsertFileContent(
+    input: PickPartial<IGithub.IUpdateFileContentInput, "sha">,
+  ) {
+    const { owner, repo, path, secretKey, ...rest } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const token = await this.getToken(secretKey);
+    await axios.put(
+      url,
+      {
+        ...rest,
+        content: Buffer.from(input.content).toString("base64"),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
   }
 
   async getRepositoryFolderStructures(
