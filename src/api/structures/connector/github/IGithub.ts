@@ -1191,23 +1191,68 @@ export namespace IGithub {
 
   export interface FetchedIssue
     extends Pick<Issue, "number" | "title" | "body"> {
+    /**
+     * @title issue id
+     */
     id: string;
+
+    /**
+     * @title issue state
+     */
     state: IFetchRepositoryInput["state"];
+
+    /**
+     * @title reason of state
+     */
     stateReason?: string | null;
+
+    /**
+     * @title comments
+     */
     comments: {
+      /**
+       * @title total count of comments
+       */
       totalCount: number & tags.Minimum<0>;
     };
+
+    /**
+     * @title reactions
+     */
     reactions: {
+      /**
+       * @title total count of reactions
+       */
       totalCount: number & tags.Minimum<0>;
     };
+
+    /**
+     * @title labels
+     */
     labels: {
       nodes: Pick<Label, "name" | "description">[];
     };
+
+    /**
+     * @title assignees
+     */
     assignees: {
       nodes: Pick<User, "login">[];
     };
+
+    /**
+     * @title author
+     */
     author: Pick<User, "login">;
+
+    /**
+     * @title createdAt
+     */
     createdAt: string & tags.Format<"date-time">;
+
+    /**
+     * @title updatedAt
+     */
     updatedAt: string & tags.Format<"date-time">;
   }
 
@@ -1227,11 +1272,33 @@ export namespace IGithub {
 
     per_page: ICommonPaginationInput["per_page"];
 
-    state?: "OPEN" | "CLOSED";
+    /**
+     * @title state
+     *
+     * If you don't want to filter, you don't put anything in.
+     * It must be one of: "OPEN", "CLOSED".
+     */
+    state?:
+      | tags.Constant<"OPEN", { title: "OPEN" }>
+      | tags.Constant<"CLOSED", { title: "CLOSED" }>;
 
-    direction: "ASC" | "DESC";
+    /**
+     * @title direction
+     * It must be one of: "ASC", "DESC".
+     */
+    direction:
+      | tags.Constant<"ASC", { title: "ASC" }>
+      | tags.Constant<"DESC", { title: "DESC" }>;
 
-    sort: "CREATED_AT" | "UPDATED_AT" | "COMMENTS" | "REACTIONS";
+    /**
+     * @title condition of direction
+     * It must be one of: "CREATED_AT", "UPDATED_AT", "COMMENTS", "REACTIONS".
+     */
+    sort:
+      | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
+      | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>
+      | tags.Constant<"COMMENTS", { title: "COMMENTS" }>
+      | tags.Constant<"REACTIONS", { title: "REACTIONS" }>;
 
     /**
      * @title owner's name
