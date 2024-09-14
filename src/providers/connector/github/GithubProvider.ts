@@ -16,6 +16,7 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { PickPartial } from "../../../utils/types/PickPartial";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -256,6 +257,102 @@ export class GithubProvider {
 
     const link = res.headers["link"];
     return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async fetchRepositoryIssues(
+    input: IGithub.IFetchRepositoryInput,
+  ): Promise<IGithub.IFetchRepositoryOutput> {
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/graphql`;
+
+    const query = `
+    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [IssueState!], $labels: [String!], $sort: IssueOrderField!, $direction: OrderDirection!) {
+      repository(owner: $owner, name: $repo) {
+        id
+        name
+        issues(
+          after: $after,
+          states: $state,
+          labels: $labels,
+          first: $perPage
+          orderBy: {
+            field: $sort,
+            direction: $direction
+          }
+        ) {
+          edges {
+            node {
+              id
+              url
+              number
+              state
+              stateReason
+              title
+              body
+              createdAt
+              updatedAt
+              comments {
+                totalCount
+              }
+              reactions {
+                totalCount
+              }
+              labels (first:10) {
+                nodes {
+                  name
+                  description
+                }
+              }
+              assignees (first:10) {
+                nodes {
+                  login
+                }
+              }
+              author {
+                login
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    }
+    `;
+
+    const variables = {
+      owner: input.owner,
+      repo: input.repo,
+      perPage: input.per_page,
+      after: input.after,
+      sort: "created_at".toUpperCase(),
+      direction: input.direction?.toUpperCase(),
+      ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
+      ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
+    };
+
+    const res = await axios.post(
+      url,
+      {
+        query,
+        variables,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const issues = res.data.data?.repository?.issues;
+    const pageInfo = issues?.pageInfo;
+    const fetchedIssues: IGithub.FetchedIssue[] = issues.edges?.map(
+      ({ node }: { node: IGithub.FetchedIssue }) => node,
+    );
+
+    return { fetchedIssues, pageInfo };
   }
 
   async getRepositoryIssues(

@@ -3,6 +3,7 @@ import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 import { PickPartial } from "../../../../utils/types/PickPartial";
+import { Camelize } from "../../../../utils/types/SnakeToCamelCaseObject";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -1165,6 +1166,89 @@ export namespace IGithub {
     result: IGithub.Issue[];
   }
 
+  export interface IFetchRepositoryOutput {
+    /**
+     * @title issues
+     */
+    fetchedIssues: FetchedIssue[];
+
+    /**
+     * @title page info
+     */
+    pageInfo: {
+      /**
+       * @title Cursor to be used to look up the next page
+       */
+      endCursor: string;
+      /**
+       * @title hasNextPage
+       *
+       * true if there is a next page
+       */
+      hasNextPage: boolean;
+    };
+  }
+
+  export interface FetchedIssue
+    extends Pick<Issue, "number" | "title" | "body"> {
+    id: string;
+    state: IFetchRepositoryInput["state"];
+    stateReason?: string | null;
+    comments: {
+      totalCount: number & tags.Minimum<0>;
+    };
+    reactions: {
+      totalCount: number & tags.Minimum<0>;
+    };
+    labels: {
+      nodes: Pick<Label, "name" | "description">[];
+    };
+    assignees: {
+      nodes: Pick<User, "login">[];
+    };
+    author: Pick<User, "login">;
+    createdAt: string & tags.Format<"date-time">;
+    updatedAt: string & tags.Format<"date-time">;
+  }
+
+  export interface IFetchRepositoryInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title after
+     * cursor of next page
+     */
+    after?: string;
+
+    /**
+     * @title labels
+     * If you want to filter the issue by label, pass the string.
+     * If it is an empty array, it is ignored.
+     */
+    labels?: Label["name"][];
+
+    per_page: ICommonPaginationInput["per_page"];
+
+    state?: "OPEN" | "CLOSED";
+
+    direction: "ASC" | "DESC";
+
+    sort: "CREATED_AT" | "UPDATED_AT" | "COMMENTS" | "REACTIONS";
+
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+  }
+
   export interface IGetRepositoryIssueInput
     extends StrictOmit<
       IGetAuthenticatedUserIssueInput,
@@ -1894,14 +1978,14 @@ export namespace IGithub {
     /**
      * @title assignee
      */
-    assignee: Pick<IGithub.User, "id" | "login" | "type"> | null;
+    assignee: Pick<IGithub.User, "login"> | null;
 
     /**
      * @title assignees
      *
      * If there are many people in charge, you can be included in the array.
      */
-    assignees?: Pick<IGithub.User, "id" | "login" | "type">[] | null;
+    assignees?: Pick<IGithub.User, "login">[] | null;
   };
 
   export type Milestone = {

@@ -125,6 +125,8 @@ export class GithubController {
    * Similar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.
    * Naturally, the user will have to be a member of that organization.
    *
+   * Here, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.
+   *
    * @summary List organization issues assigned to the authenticated user
    * @param input
    * @returns
@@ -487,9 +489,9 @@ export class GithubController {
   )
   @core.TypedRoute.Post("repositories/get-issues")
   async getRepositoryIssues(
-    @TypedBody() input: IGithub.IGetRepositoryIssueInput,
-  ): Promise<IGithub.IGetRepositoryIssueOutput> {
-    return this.githubProvider.getRepositoryIssues(input);
+    @TypedBody() input: IGithub.IFetchRepositoryInput,
+  ): Promise<IGithub.IFetchRepositoryOutput> {
+    return this.githubProvider.fetchRepositoryIssues(input);
   }
 
   /**
