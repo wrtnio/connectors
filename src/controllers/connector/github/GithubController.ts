@@ -125,6 +125,8 @@ export class GithubController {
    * Similar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.
    * Naturally, the user will have to be a member of that organization.
    *
+   * Here, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.
+   *
    * @summary List organization issues assigned to the authenticated user
    * @param input
    * @returns
@@ -188,6 +190,31 @@ export class GithubController {
   }
 
   /**
+   * Update file content in github repository
+   *
+   * Updating file content is the same as creating a single commit.
+   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+   * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+   *
+   *
+   * @summary Update File content and commit
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Put("repos/commits/contents")
+  async updateFileContents(
+    @TypedBody() input: IGithub.IUpdateFileContentInput,
+  ): Promise<IGithub.IUpsertFileContentOutput> {
+    const data = await this.githubProvider.updateFileContents(input);
+    return data;
+  }
+
+  /**
    * Create file content in github repository
    *
    * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
@@ -201,10 +228,10 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("repos/contents")
+  @core.TypedRoute.Post("repos/commits/contents")
   async createFileContents(
     @TypedBody() input: IGithub.ICreateFileContentInput,
-  ): Promise<void> {
+  ): Promise<IGithub.IUpsertFileContentOutput> {
     const data = await this.githubProvider.createFileContents(input);
     return data;
   }
@@ -462,9 +489,9 @@ export class GithubController {
   )
   @core.TypedRoute.Post("repositories/get-issues")
   async getRepositoryIssues(
-    @TypedBody() input: IGithub.IGetRepositoryIssueInput,
-  ): Promise<IGithub.IGetRepositoryIssueOutput> {
-    return this.githubProvider.getRepositoryIssues(input);
+    @TypedBody() input: IGithub.IFetchRepositoryInput,
+  ): Promise<IGithub.IFetchRepositoryOutput> {
+    return this.githubProvider.fetchRepositoryIssues(input);
   }
 
   /**
@@ -511,6 +538,7 @@ export class GithubController {
    *
    * It is generally difficult to use because only issues related to me come out.
    *
+   * @deprecated Because it's useful to see issues at the repo or organizational level, looking at the user's entire issue history changes to a deprecated state
    * @summary List issues assigned to the authenticated user
    * @param input
    * @returns
@@ -567,6 +595,24 @@ export class GithubController {
     @TypedBody() input: IGithub.IGetBranchInput,
   ): Promise<IGithub.IGetBranchOutput> {
     return this.githubProvider.getRepositoryBranches(input);
+  }
+
+  /**
+   * Create branch
+   *
+   * Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
+   * You need to know the sha of the commit, so if you want to create a branch, you should first call another connector that looks up the commit list or header commitments to find out the sha value.
+   * If you want to copy the branch, you should also look up the commit history of the branch and then retrieve the sha value from the branch's HEAD commit.
+   *
+   * @summary Create branch
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("branches")
+  async createBranches(
+    @TypedBody() input: IGithub.ICreateBranchInput,
+  ): Promise<IGithub.ICreateBranchOutput> {
+    return this.githubProvider.createBranches(input);
   }
 
   /**
@@ -741,6 +787,29 @@ export class GithubController {
   }
 
   /**
+   * Update an issue in the repository
+   *
+   * Update an issue, where you can enter labels and assignes together.
+   * The information you must enter is who will create the issue in the owner's repository and under what title.
+   * The information in the text should follow the markdown grammar allowed by github.
+   *
+   * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   *
+   * @summary Update an issue
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Patch("issues")
+  async updateIssue(
+    @TypedBody() input: IGithub.IUpdateIssueInput,
+  ): Promise<IGithub.IUpdateIssueOutput> {
+    return this.githubProvider.updateIssue(input);
+  }
+
+  /**
    * Leave an issue in the repository
    *
    * Create an issue, where you can enter labels and assignes together.
@@ -756,7 +825,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("issue")
+  @core.TypedRoute.Post("issues")
   async createIssue(
     @TypedBody() input: IGithub.ICreateIssueInput,
   ): Promise<IGithub.ICreateIssueOutput> {

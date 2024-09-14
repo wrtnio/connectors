@@ -2,6 +2,8 @@ import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
+import { PickPartial } from "../../../../utils/types/PickPartial";
+import { Camelize } from "../../../../utils/types/SnakeToCamelCaseObject";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -295,6 +297,58 @@ export namespace IGithub {
      * @title branch name
      */
     branch?: Branch["name"];
+  }
+
+  export interface IUpdateFileContentInput extends ICreateFileContentInput {
+    /**
+     * @title sha of file content
+     *
+     * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+     * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+     */
+    sha: IUpsertFileContentOutput["content"]["sha"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repos/get-contents";
+        jmesPath: "[].{value:sha, label:path} || {value:sha, label:path}";
+      }>;
+  }
+
+  export interface IUpsertFileContentOutput {
+    /**
+     * @title content
+     */
+    content: {
+      /**
+       * @title file or folder name
+       */
+      name: string;
+
+      /**
+       * @title file or folder path
+       */
+      path: string;
+
+      /**
+       * @title sha
+       */
+      sha: string;
+
+      /**
+       * @title size
+       */
+      size: number;
+    };
+
+    /**
+     * @title commit
+     */
+    commit: {
+      /**
+       * @title sha
+       */
+      sha: string;
+    };
   }
 
   export interface ICreateFileContentInput
@@ -729,6 +783,30 @@ export namespace IGithub {
     result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
+  export type IUpdateIssueOutput = IGithub.Issue;
+
+  export interface IUpdateIssueInput
+    extends PickPartial<ICreateIssueInput, "title"> {
+    /**
+     * @title issue number to update
+     */
+    issue_number: number &
+      tags.Type<"uint64"> &
+      tags.Minimum<1> &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/github/issues";
+            jmesPath: "{label:number, value:title}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/github/issues";
+            jmesPath: "result[].{label:number, value:title}";
+          }>
+      );
+  }
+
   export type ICreateIssueOutput = IGithub.Issue;
 
   export interface ICreateIssueInput
@@ -766,7 +844,7 @@ export namespace IGithub {
     /**
      * @title labels
      */
-    labels: string[];
+    labels?: string[];
   }
 
   export interface IGetFolloweeInput
@@ -988,6 +1066,47 @@ export namespace IGithub {
     repo: Repository["name"];
   }
 
+  export interface ICreateBranchOutput {
+    /**
+     * @title ref
+     */
+    ref: string & Placeholder<"refs/heads/featureA">;
+    object: {
+      type: "commit";
+      sha: Commit["sha"];
+    };
+  }
+
+  export interface ICreateBranchInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title user's nickname
+     */
+    owner: User["login"];
+
+    /**
+     * @title The name of the repository
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title ref
+     * The name of the fully qualified reference (ie: refs/heads/master). If it doesn't start with 'refs' and have at least two slashes, it will be rejected.
+     */
+    ref: string;
+
+    /**
+     * @title sha
+     * The SHA1 value for this reference.
+     */
+    sha: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/get-commit-list";
+        jmesPath: "result[].{value:sha, label: commit.message}";
+      }>;
+  }
+
   export interface IGetOrganizationRepositoryOutput
     extends ICommonPaginationOutput {
     /**
@@ -1086,6 +1205,156 @@ export namespace IGithub {
 
   export interface IGetRepositoryIssueOutput extends ICommonPaginationOutput {
     result: IGithub.Issue[];
+  }
+
+  export interface IFetchRepositoryOutput {
+    /**
+     * @title issues
+     */
+    fetchedIssues: FetchedIssue[];
+
+    /**
+     * @title page info
+     */
+    pageInfo: {
+      /**
+       * @title Cursor to be used to look up the next page
+       */
+      endCursor: string;
+      /**
+       * @title hasNextPage
+       *
+       * true if there is a next page
+       */
+      hasNextPage: boolean;
+    };
+  }
+
+  export interface FetchedIssue
+    extends Pick<Issue, "number" | "title" | "body"> {
+    /**
+     * @title issue id
+     */
+    id: string;
+
+    /**
+     * @title issue state
+     */
+    state: IFetchRepositoryInput["state"];
+
+    /**
+     * @title reason of state
+     */
+    stateReason?: string | null;
+
+    /**
+     * @title comments
+     */
+    comments: {
+      /**
+       * @title total count of comments
+       */
+      totalCount: number & tags.Minimum<0>;
+    };
+
+    /**
+     * @title reactions
+     */
+    reactions: {
+      /**
+       * @title total count of reactions
+       */
+      totalCount: number & tags.Minimum<0>;
+    };
+
+    /**
+     * @title labels
+     */
+    labels: {
+      nodes: Pick<Label, "name" | "description">[];
+    };
+
+    /**
+     * @title assignees
+     */
+    assignees: {
+      nodes: Pick<User, "login">[];
+    };
+
+    /**
+     * @title author
+     */
+    author: Pick<User, "login">;
+
+    /**
+     * @title createdAt
+     */
+    createdAt: string & tags.Format<"date-time">;
+
+    /**
+     * @title updatedAt
+     */
+    updatedAt: string & tags.Format<"date-time">;
+  }
+
+  export interface IFetchRepositoryInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title after
+     * cursor of next page
+     */
+    after?: string;
+
+    /**
+     * @title labels
+     * If you want to filter the issue by label, pass the string.
+     * If it is an empty array, it is ignored.
+     */
+    labels?: Label["name"][];
+
+    per_page: ICommonPaginationInput["per_page"];
+
+    /**
+     * @title state
+     *
+     * If you don't want to filter, you don't put anything in.
+     * It must be one of: "OPEN", "CLOSED".
+     */
+    state?:
+      | tags.Constant<"OPEN", { title: "OPEN" }>
+      | tags.Constant<"CLOSED", { title: "CLOSED" }>;
+
+    /**
+     * @title direction
+     * It must be one of: "ASC", "DESC".
+     */
+    direction:
+      | tags.Constant<"ASC", { title: "ASC" }>
+      | tags.Constant<"DESC", { title: "DESC" }>;
+
+    /**
+     * @title condition of direction
+     * It must be one of: "CREATED_AT", "UPDATED_AT", "COMMENTS", "REACTIONS".
+     */
+    sort:
+      | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
+      | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>
+      | tags.Constant<"COMMENTS", { title: "COMMENTS" }>
+      | tags.Constant<"REACTIONS", { title: "REACTIONS" }>;
+
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
   }
 
   export interface IGetRepositoryIssueInput
@@ -1817,14 +2086,14 @@ export namespace IGithub {
     /**
      * @title assignee
      */
-    assignee: Pick<IGithub.User, "id" | "login" | "type"> | null;
+    assignee: Pick<IGithub.User, "login"> | null;
 
     /**
      * @title assignees
      *
      * If there are many people in charge, you can be included in the array.
      */
-    assignees?: Pick<IGithub.User, "id" | "login" | "type">[] | null;
+    assignees?: Pick<IGithub.User, "login">[] | null;
   };
 
   export type Milestone = {

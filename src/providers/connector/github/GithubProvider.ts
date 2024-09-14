@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { ElementOf } from "@wrtnio/decorators";
@@ -15,6 +15,8 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
+import { PickPartial } from "../../../utils/types/PickPartial";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -257,6 +259,102 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async fetchRepositoryIssues(
+    input: IGithub.IFetchRepositoryInput,
+  ): Promise<IGithub.IFetchRepositoryOutput> {
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/graphql`;
+
+    const query = `
+    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [IssueState!], $labels: [String!], $sort: IssueOrderField!, $direction: OrderDirection!) {
+      repository(owner: $owner, name: $repo) {
+        id
+        name
+        issues(
+          after: $after,
+          states: $state,
+          labels: $labels,
+          first: $perPage
+          orderBy: {
+            field: $sort,
+            direction: $direction
+          }
+        ) {
+          edges {
+            node {
+              id
+              url
+              number
+              state
+              stateReason
+              title
+              body
+              createdAt
+              updatedAt
+              comments {
+                totalCount
+              }
+              reactions {
+                totalCount
+              }
+              labels (first:10) {
+                nodes {
+                  name
+                  description
+                }
+              }
+              assignees (first:10) {
+                nodes {
+                  login
+                }
+              }
+              author {
+                login
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    }
+    `;
+
+    const variables = {
+      owner: input.owner,
+      repo: input.repo,
+      perPage: input.per_page,
+      after: input.after,
+      sort: "created_at".toUpperCase(),
+      direction: input.direction?.toUpperCase(),
+      ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
+      ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
+    };
+
+    const res = await axios.post(
+      url,
+      {
+        query,
+        variables,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const issues = res.data.data?.repository?.issues;
+    const pageInfo = issues?.pageInfo;
+    const fetchedIssues: IGithub.FetchedIssue[] = issues.edges?.map(
+      ({ node }: { node: IGithub.FetchedIssue }) => node,
+    );
+
+    return { fetchedIssues, pageInfo };
+  }
+
   async getRepositoryIssues(
     input: IGithub.IGetRepositoryIssueInput,
   ): Promise<IGithub.IGetRepositoryIssueOutput> {
@@ -314,14 +412,44 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async updateFileContents(
+    input: IGithub.IUpdateFileContentInput,
+  ): Promise<IGithub.IUpsertFileContentOutput> {
+    return await this.upsertFileContent(input);
+  }
+
   async createFileContents(
     input: IGithub.ICreateFileContentInput,
-  ): Promise<void> {
-    const { owner, repo, path, secretKey, ...rest } = input;
+  ): Promise<IGithub.IUpsertFileContentOutput> {
+    try {
+      const file = await this.getFileContentsOrNull({
+        owner: input.owner,
+        repo: input.repo,
+        path: input.path,
+        branch: input.branch,
+        secretKey: input.secretKey as string,
+      });
 
+      if (file !== null) {
+        throw new BadRequestException(
+          "이미 해당 경로에 생성된 파일이 존재합니다.",
+        );
+      }
+
+      return await this.upsertFileContent(input);
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async upsertFileContent(
+    input: PickPartial<IGithub.IUpdateFileContentInput, "sha">,
+  ): Promise<IGithub.IUpsertFileContentOutput> {
+    const { owner, repo, path, secretKey, ...rest } = input;
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     const token = await this.getToken(secretKey);
-    await axios.put(
+    const res = await axios.put(
       url,
       {
         ...rest,
@@ -333,6 +461,8 @@ export class GithubProvider {
         },
       },
     );
+
+    return res.data;
   }
 
   async getRepositoryFolderStructures(
@@ -357,6 +487,17 @@ export class GithubProvider {
         return await this.getFileContents({ ...input, path });
       }),
     );
+  }
+
+  async getFileContentsOrNull(
+    input: IGithub.IGetFileContentInput,
+  ): Promise<IGithub.IGetFileContentOutput | null> {
+    try {
+      const data = await this.getFileContents(input);
+      return data;
+    } catch (err) {
+      return null;
+    }
   }
 
   async getFileContents(
@@ -505,6 +646,29 @@ export class GithubProvider {
       },
     });
 
+    return res.data;
+  }
+
+  async updateIssue(
+    input: IGithub.IUpdateIssueInput,
+  ): Promise<IGithub.IUpdateIssueOutput> {
+    const { owner, repo, issue_number, ...rest } = input;
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`;
+    const res = await axios.patch(
+      url,
+      {
+        title: input.title,
+        body: input.body,
+        assignees: input.assignees,
+        labels: input.labels,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
     return res.data;
   }
 
@@ -739,6 +903,27 @@ export class GithubProvider {
       ),
       ...this.getCursors(link),
     };
+  }
+
+  async createBranches(
+    input: IGithub.ICreateBranchInput,
+  ): Promise<IGithub.ICreateBranchOutput> {
+    const { owner, repo, ref, sha, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/git/refs`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.post(
+      url,
+      {
+        ref,
+        sha,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return res.data;
   }
 
   async getPullRequestAssociatedWithACommit(

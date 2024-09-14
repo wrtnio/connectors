@@ -7,7 +7,7 @@ export async function test_api_connector_github_create_issue(
   connection: CApi.IConnection,
 ) {
   const randomString = randomUUID();
-  const res = await CApi.functional.connector.github.issue.createIssue(
+  const res = await CApi.functional.connector.github.issues.createIssue(
     connection,
     {
       title: randomString,
@@ -20,4 +20,5 @@ export async function test_api_connector_github_create_issue(
   );
 
   typia.assert(res);
+  return res;
 }
