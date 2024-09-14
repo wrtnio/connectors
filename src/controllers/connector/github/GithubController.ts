@@ -597,6 +597,17 @@ export class GithubController {
     return this.githubProvider.getRepositoryBranches(input);
   }
 
+  /**
+   * Create branch
+   *
+   * Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
+   * You need to know the sha of the commit, so if you want to create a branch, you should first call another connector that looks up the commit list or header commitments to find out the sha value.
+   * If you want to copy the branch, you should also look up the commit history of the branch and then retrieve the sha value from the branch's HEAD commit.
+   *
+   * @summary Create branch
+   * @param input
+   * @returns
+   */
   @core.TypedRoute.Post("branches")
   async createBranches(
     @TypedBody() input: IGithub.ICreateBranchInput,
