@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.196",
+    "version": "0.1.197",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10857,7 +10857,7 @@
     "/connector/github/organizations/get-issues": {
       "post": {
         "summary": "List organization issues assigned to the authenticated user",
-        "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.",
+        "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10947,7 +10947,36 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/repos/contents": {
+    "/connector/github/repos/commits/contents": {
+      "put": {
+        "summary": "Update File content and commit",
+        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IUpdateFileContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IUpsertFileContentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      },
       "post": {
         "summary": "Create File content and commit",
         "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.",
@@ -10967,7 +10996,11 @@
           "201": {
             "description": "",
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IUpsertFileContentOutput"
+                }
+              }
             }
           }
         },
@@ -11375,7 +11408,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGithub.IGetRepositoryIssueInput"
+                "$ref": "#/components/schemas/IGithub.IFetchRepositoryInput"
               }
             }
           },
@@ -11387,7 +11420,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGithub.IGetRepositoryIssueOutput"
+                  "$ref": "#/components/schemas/IGithub.IFetchRepositoryOutput"
                 }
               }
             }
@@ -11462,6 +11495,7 @@
       "post": {
         "summary": "List issues assigned to the authenticated user",
         "description": "List issues assigned to the authenticated user\n\nList issues assigned to the authenticated user across all visible repositories\nincluding owned repositories, member repositories, and organization repositories.\nYou can use the filter query parameter to fetch issues that are not necessarily assigned to you.\nThis connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.\n\nIt is generally difficult to use because only issues related to me come out.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11549,6 +11583,36 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/branches": {
+      "post": {
+        "summary": "Create branch",
+        "description": "Create branch\n\nCreates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.\nYou need to know the sha of the commit, so if you want to create a branch, you should first call another connector that looks up the commit list or header commitments to find out the sha value.\nIf you want to copy the branch, you should also look up the commit history of the branch and then retrieve the sha value from the branch's HEAD commit.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICreateBranchInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.ICreateBranchOutput"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/connector/github/get-pull-requests-associated-with-a-commit": {
@@ -11834,7 +11898,36 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/issue": {
+    "/connector/github/issues": {
+      "patch": {
+        "summary": "Update an issue",
+        "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IUpdateIssueInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.Issue"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      },
       "post": {
         "summary": "Create an issue",
         "description": "Leave an issue in the repository\n\nCreate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.",
@@ -41590,7 +41683,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/PickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -41603,7 +41696,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
                 }
               }
             ],
@@ -41647,6 +41740,19 @@
         "required": [
           "type",
           "id",
+          "login"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIGithub.Userlogin": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          }
+        },
+        "required": [
           "login"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
@@ -42810,6 +42916,157 @@
           "watchers"
         ]
       },
+      "IGithub.IUpsertFileContentOutput": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "file or folder name"
+              },
+              "path": {
+                "type": "string",
+                "title": "file or folder path"
+              },
+              "sha": {
+                "type": "string",
+                "title": "sha"
+              },
+              "size": {
+                "type": "number",
+                "title": "size"
+              }
+            },
+            "required": [
+              "name",
+              "path",
+              "sha",
+              "size"
+            ],
+            "title": "content"
+          },
+          "commit": {
+            "type": "object",
+            "properties": {
+              "sha": {
+                "type": "string",
+                "title": "sha"
+              }
+            },
+            "required": [
+              "sha"
+            ],
+            "title": "commit"
+          }
+        },
+        "required": [
+          "content",
+          "commit"
+        ]
+      },
+      "IGithub.IUpdateFileContentInput": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repos/get-contents",
+              "jmesPath": "[].{value:sha, label:path} || {value:sha, label:path}"
+            },
+            "title": "sha of file content\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "path": {
+            "type": "string",
+            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+          },
+          "message": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+            "title": "the new file content\n\nMeaning of the file is text and text.\nIf you want to create code content, you should write code content.\nSince it encodes with base64 internally, we need to deliver text here before encoding."
+          },
+          "branch": {
+            "type": "string",
+            "title": "branch name"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "The name of the author or committer of the commit"
+              },
+              "email": {
+                "type": "string",
+                "title": "The email of the author or committer of the commit"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "The person that committed the file.\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "The name of the author or committer of the commit"
+              },
+              "email": {
+                "type": "string",
+                "title": "The email of the author or committer of the commit"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "sha",
+          "owner",
+          "repo",
+          "path",
+          "message",
+          "content",
+          "secretKey"
+        ]
+      },
       "IGithub.ICreateFileContentInput": {
         "type": "object",
         "properties": {
@@ -43612,66 +43869,267 @@
           "secretKey"
         ]
       },
-      "IGithub.IGetRepositoryIssueOutput": {
+      "IGithub.IFetchRepositoryOutput": {
         "type": "object",
         "properties": {
-          "result": {
+          "fetchedIssues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IGithub.Issue"
-            }
+              "$ref": "#/components/schemas/IGithub.FetchedIssue"
+            },
+            "title": "issues"
           },
-          "nextPage": {
-            "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
-          },
-          "after": {
-            "type": "string",
-            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
-          },
-          "before": {
-            "type": "string",
-            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
-          },
-          "prev": {
-            "oneOf": [
-              {
-                "type": "null"
+          "pageInfo": {
+            "type": "object",
+            "properties": {
+              "endCursor": {
+                "type": "string",
+                "title": "Cursor to be used to look up the next page"
               },
-              {
-                "type": "number"
+              "hasNextPage": {
+                "type": "boolean",
+                "title": "hasNextPage\n\ntrue if there is a next page"
               }
+            },
+            "required": [
+              "endCursor",
+              "hasNextPage"
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
-          },
-          "next": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
-          },
-          "last": {
-            "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
-          },
-          "first": {
-            "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "page info"
           }
         },
         "required": [
-          "result",
-          "nextPage"
+          "fetchedIssues",
+          "pageInfo"
         ]
       },
-      "IGithub.IGetRepositoryIssueInput": {
+      "IGithub.FetchedIssue": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "title": "issue id"
+          },
+          "state": {
+            "oneOf": [
+              {
+                "const": "OPEN",
+                "title": "OPEN"
+              },
+              {
+                "const": "CLOSED",
+                "title": "CLOSED"
+              }
+            ],
+            "title": "issue state"
+          },
+          "stateReason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "reason of state"
+          },
+          "comments": {
+            "type": "object",
+            "properties": {
+              "totalCount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "total count of comments"
+              }
+            },
+            "required": [
+              "totalCount"
+            ],
+            "title": "comments"
+          },
+          "reactions": {
+            "type": "object",
+            "properties": {
+              "totalCount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "total count of reactions"
+              }
+            },
+            "required": [
+              "totalCount"
+            ],
+            "title": "reactions"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                }
+              }
+            },
+            "required": [
+              "nodes"
+            ],
+            "title": "labels"
+          },
+          "assignees": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                }
+              }
+            },
+            "required": [
+              "nodes"
+            ],
+            "title": "assignees"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "title": "author"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "createdAt"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updatedAt"
+          },
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+          }
+        },
+        "required": [
+          "id",
+          "comments",
+          "reactions",
+          "labels",
+          "assignees",
+          "author",
+          "createdAt",
+          "updatedAt",
+          "number",
+          "title"
+        ]
+      },
+      "PickIGithub.Labeldescriptionname": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "description"
+          },
+          "name": {
+            "type": "string",
+            "title": "label name"
+          }
+        },
+        "required": [
+          "description",
+          "name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IFetchRepositoryInput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "type": "string",
+            "title": "after\ncursor of next page"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels\nIf you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100
+          },
+          "state": {
+            "oneOf": [
+              {
+                "const": "OPEN",
+                "title": "OPEN"
+              },
+              {
+                "const": "CLOSED",
+                "title": "CLOSED"
+              }
+            ],
+            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\"."
+          },
+          "direction": {
+            "oneOf": [
+              {
+                "const": "ASC",
+                "title": "ASC"
+              },
+              {
+                "const": "DESC",
+                "title": "DESC"
+              }
+            ],
+            "title": "direction\nIt must be one of: \"ASC\", \"DESC\"."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "CREATED_AT",
+                "title": "CREATED_AT"
+              },
+              {
+                "const": "UPDATED_AT",
+                "title": "UPDATED_AT"
+              },
+              {
+                "const": "COMMENTS",
+                "title": "COMMENTS"
+              },
+              {
+                "const": "REACTIONS",
+                "title": "REACTIONS"
+              }
+            ],
+            "title": "condition of direction\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\", \"COMMENTS\", \"REACTIONS\"."
+          },
           "owner": {
             "type": "string",
             "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
@@ -43680,86 +44138,16 @@
             "type": "string",
             "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
           },
-          "sort": {
-            "oneOf": [
-              {
-                "const": "created",
-                "title": "created",
-                "default": "created"
-              },
-              {
-                "const": "updated",
-                "title": "updated",
-                "default": "created"
-              },
-              {
-                "const": "comments",
-                "title": "comments",
-                "default": "created"
-              }
-            ],
-            "title": "sort\nIt must be 'created', 'updated', 'comments'"
-          },
-          "page": {
-            "type": "integer",
-            "default": 1,
-            "title": "page\nThe page number of the results to fetch."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
-            "x-wrtn-secret-scopes": [
-              "user",
-              "repo"
-            ],
             "title": "인증 정보 선택",
             "description": "secret key."
-          },
-          "labels": {
-            "type": "string",
-            "title": "label\n\nA list of comma separated label names. Example: `bug,ui,@high`"
-          },
-          "per_page": {
-            "type": "integer",
-            "default": 30,
-            "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
-          },
-          "direction": {
-            "oneOf": [
-              {
-                "const": "asc",
-                "default": "desc"
-              },
-              {
-                "const": "desc",
-                "default": "desc"
-              }
-            ],
-            "title": "direction\nThe order to sort by.\nDefault: asc when using full_name, otherwise desc."
-          },
-          "state": {
-            "oneOf": [
-              {
-                "const": "open",
-                "title": "open",
-                "default": "open"
-              },
-              {
-                "const": "closed",
-                "title": "closed",
-                "default": "open"
-              },
-              {
-                "const": "all",
-                "title": "all",
-                "default": "open"
-              }
-            ],
-            "title": "state\n\nIndicates the state of the issues to return.\nIt must be one of: 'open', 'closed', 'all'"
           }
         },
         "required": [
+          "direction",
+          "sort",
           "owner",
           "repo",
           "secretKey"
@@ -44868,6 +45256,77 @@
           "secretKey"
         ]
       },
+      "IGithub.ICreateBranchOutput": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string",
+            "x-wrtn-placeholder": "refs/heads/featureA",
+            "title": "ref"
+          },
+          "object": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "commit"
+              },
+              "sha": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "sha"
+            ]
+          }
+        },
+        "required": [
+          "ref",
+          "object"
+        ]
+      },
+      "IGithub.ICreateBranchInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "ref": {
+            "type": "string",
+            "title": "ref\nThe name of the fully qualified reference (ie: refs/heads/master). If it doesn't start with 'refs' and have at least two slashes, it will be rejected."
+          },
+          "sha": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/get-commit-list",
+              "jmesPath": "result[].{value:sha, label: commit.message}"
+            },
+            "title": "sha\nThe SHA1 value for this reference."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "ref",
+          "sha",
+          "secretKey"
+        ]
+      },
       "IGithub.PullRequest": {
         "type": "object",
         "properties": {
@@ -45067,7 +45526,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/PickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -45080,7 +45539,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
                 }
               }
             ],
@@ -46088,6 +46547,79 @@
           "secretKey"
         ]
       },
+      "IGithub.IUpdateIssueInput": {
+        "type": "object",
+        "properties": {
+          "issue_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/github/issues",
+                  "jmesPath": "{label:number, value:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/github/issues",
+                  "jmesPath": "result[].{label:number, value:title}"
+                }
+              }
+            ],
+            "title": "issue number to update"
+          },
+          "title": {
+            "type": "string",
+            "title": "tite of this issue"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
+          "body": {
+            "type": "string",
+            "title": "body of this issue\n\nIt can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels"
+          },
+          "repo": {
+            "type": "string",
+            "title": "The name of the repository"
+          },
+          "assignees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "assignees\n\nDeliver the user nickname to be designated as the person in charge in the array."
+          }
+        },
+        "required": [
+          "issue_number",
+          "secretKey",
+          "owner",
+          "repo"
+        ]
+      },
       "IGithub.ICreateIssueInput": {
         "type": "object",
         "properties": {
@@ -46135,7 +46667,6 @@
           "owner",
           "repo",
           "title",
-          "labels",
           "secretKey"
         ]
       },
