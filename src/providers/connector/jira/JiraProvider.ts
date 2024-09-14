@@ -502,13 +502,14 @@ export class JiraProvider {
       const copiedInput = JSON.parse(JSON.stringify(input));
       if (input.body.content) {
         const content = markdownToJiraBlock(input.body.content);
-        copiedInput.fields.description.content = content;
+        copiedInput.body.content = content;
       }
 
+      const { commentId, issueIdOrKey, body } = input;
       await axios.put(
-        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        `${config.domain}/issue/${issueIdOrKey}/comment/${commentId}`,
         {
-          body: input.body,
+          body: body,
         },
         {
           headers: {

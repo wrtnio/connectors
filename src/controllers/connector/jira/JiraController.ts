@@ -39,6 +39,7 @@ export class JiraController {
    * modify comment
    *
    * Modify the comment. You can only modify the body of the comment here.
+   * To create comment in issue, Just write markdown string format contents.
    *
    * @summary modify comment body
    * @param input

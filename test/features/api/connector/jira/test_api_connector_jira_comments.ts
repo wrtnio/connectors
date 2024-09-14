@@ -74,7 +74,6 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
     // 댓글이 1개 늘어난 걸 검증한다.
     assert(before.comments.length + 1 === after.comments.length);
 
-    console.log("HERE?");
     await CApi.functional.connector.jira.issues.comments.markdown.updateComment(
       connection,
       {
