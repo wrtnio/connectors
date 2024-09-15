@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.197",
+    "version": "0.1.198",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9992,17 +9992,19 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
-      },
+      }
+    },
+    "/connector/jira/issues/comments/markdown": {
       "put": {
         "summary": "modify comment body",
-        "description": "modify comment\n\nModify the comment. You can only modify the body of the comment here.",
+        "description": "modify comment\n\nModify the comment. You can only modify the body of the comment here.\nTo create comment in issue, Just write markdown string format contents.",
         "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIUpdateCommentInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IUpdateCommentByMarkdownInput"
               }
             }
           },
@@ -10028,7 +10030,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitICreateCommentInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.ICreateCommentByMarkdownInput"
               }
             }
           },
@@ -10228,10 +10230,10 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
-    "/connector/jira/issues": {
+    "/connector/jira/issues/markdown": {
       "post": {
-        "summary": "create issue in jira",
-        "description": "Create an issue\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
+        "summary": "create issue by markdown in jira",
+        "description": "Create an issue by markdown\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10239,7 +10241,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitICreateIssueInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.ICreateIssueByMarkdownInput"
               }
             }
           },
@@ -37328,9 +37330,188 @@
           "secretKey"
         ]
       },
-      "StrictOmitIUpdateCommentInputemaildomaintokenIBasicSecret": {
+      "IJira.IUpdateCommentByMarkdownInput": {
         "type": "object",
         "properties": {
+          "body": {
+            "$ref": "#/components/schemas/StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring",
+            "title": "body of comment"
+          },
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "commentId": {
+            "type": "string",
+            "title": "ID of comment to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "body",
+          "issueIdOrKey",
+          "commentId",
+          "secretKey"
+        ]
+      },
+      "StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "type": {
+            "const": "doc"
+          },
+          "content": {
+            "type": "string",
+            "title": "contents of description\n\nYou must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+          }
+        },
+        "required": [
+          "version",
+          "type",
+          "content"
+        ]
+      },
+      "IJira.ICreateCommentOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID of comment"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "IJira.ICreateCommentByMarkdownInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/components/schemas/StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring.o1",
+            "title": "body of comment"
+          },
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "body",
+          "issueIdOrKey",
+          "secretKey"
+        ]
+      },
+      "StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring.o1": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "type": {
+            "const": "doc"
+          },
+          "content": {
+            "type": "string",
+            "title": "contents of description\n\nYou must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+          }
+        },
+        "required": [
+          "version",
+          "type",
+          "content"
+        ]
+      },
+      "IJira.IGetCommentOutput": {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor"
+            },
+            "title": "comments"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "comments",
+          "total"
+        ]
+      },
+      "PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id of comment"
+          },
           "body": {
             "type": "object",
             "properties": {
@@ -37385,46 +37566,34 @@
               "version",
               "content"
             ],
-            "title": "body of comment to update"
+            "title": "body of comment"
           },
-          "issueIdOrKey": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:id, label:key}"
-                }
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:key, label:key}"
-                }
-              }
-            ],
-            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
-          },
-          "commentId": {
+          "updated": {
             "type": "string",
-            "title": "ID of comment to update"
+            "title": "updated time of this comment"
           },
-          "secretKey": {
+          "author": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "author of this comment"
+          },
+          "created": {
             "type": "string",
-            "x-wrtn-secret-key": "atlassian",
-            "title": "인증 정보 선택",
-            "description": "secret key."
+            "title": "created time of this comment"
+          },
+          "updateAuthor": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "who updates this comment"
           }
         },
         "required": [
+          "id",
           "body",
-          "issueIdOrKey",
-          "commentId",
-          "secretKey"
-        ]
+          "updated",
+          "author",
+          "created",
+          "updateAuthor"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IJira.BlockquoteNode": {
         "type": "object",
@@ -37681,11 +37850,38 @@
                           "type"
                         ],
                         "title": "Attributes"
+                      },
+                      "marks": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "link"
+                          },
+                          "attrs": {
+                            "type": "object",
+                            "properties": {
+                              "href": {
+                                "type": "string",
+                                "format": "uri",
+                                "title": "link"
+                              }
+                            },
+                            "required": [
+                              "href"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "attrs"
+                        ],
+                        "title": "marks"
                       }
                     },
                     "required": [
                       "type",
-                      "attrs"
+                      "attrs",
+                      "marks"
                     ]
                   },
                   {
@@ -38620,7 +38816,7 @@
                 "propertyName": "type",
                 "mapping": {
                   "tableHeader": "#/components/schemas/IJira.TableHeaderNode",
-                  "tabelCell": "#/components/schemas/IJira.TableCellNode"
+                  "tableCell": "#/components/schemas/IJira.TableCellNode"
                 }
               }
             },
@@ -38704,12 +38900,7 @@
                 "default": 1,
                 "title": "rowspan\nrowspan defines the number of rows a cell spans."
               }
-            },
-            "required": [
-              "colspan",
-              "colwidth",
-              "rowspan"
-            ]
+            }
           }
         },
         "required": [
@@ -38767,11 +38958,38 @@
                         "type"
                       ],
                       "title": "Attributes"
+                    },
+                    "marks": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "link"
+                        },
+                        "attrs": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "uri",
+                              "title": "link"
+                            }
+                          },
+                          "required": [
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "attrs"
+                      ],
+                      "title": "marks"
                     }
                   },
                   "required": [
                     "type",
-                    "attrs"
+                    "attrs",
+                    "marks"
                   ]
                 },
                 {
@@ -38846,7 +39064,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "tabelCell"
+            "const": "tableCell"
           },
           "content": {
             "type": "array",
@@ -38912,249 +39130,13 @@
                 "default": 1,
                 "title": "rowspan\nrowspan defines the number of rows a cell spans."
               }
-            },
-            "required": [
-              "colspan",
-              "colwidth",
-              "rowspan"
-            ]
+            }
           }
         },
         "required": [
           "type",
           "content"
         ]
-      },
-      "IJira.ICreateCommentOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "ID of comment"
-          }
-        },
-        "required": [
-          "id"
-        ]
-      },
-      "StrictOmitICreateCommentInputemaildomaintokenIBasicSecret": {
-        "type": "object",
-        "properties": {
-          "body": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "const": "doc"
-              },
-              "version": {
-                "const": 1
-              },
-              "content": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ListNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.HeadingNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.PanelNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.ParagraphNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.TableNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.RuleNode"
-                    }
-                  ]
-                },
-                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
-                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
-              }
-            },
-            "required": [
-              "type",
-              "version",
-              "content"
-            ],
-            "title": "body of comment"
-          },
-          "issueIdOrKey": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:id, label:key}"
-                }
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issues",
-                  "jmesPath": "issues[].{value:key, label:key}"
-                }
-              }
-            ],
-            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "atlassian",
-            "title": "인증 정보 선택",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "body",
-          "issueIdOrKey",
-          "secretKey"
-        ]
-      },
-      "IJira.IGetCommentOutput": {
-        "type": "object",
-        "properties": {
-          "comments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor"
-            },
-            "title": "comments"
-          },
-          "isLast": {
-            "type": "boolean",
-            "title": "Wheather is last page"
-          },
-          "total": {
-            "type": "integer",
-            "title": "total count"
-          },
-          "startAt": {
-            "type": "integer",
-            "default": 0,
-            "title": "page offset",
-            "description": "The index of the first item to return in a page of results (page offset)."
-          },
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
-          }
-        },
-        "required": [
-          "comments",
-          "total"
-        ]
-      },
-      "PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id of comment"
-          },
-          "body": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "const": "doc"
-              },
-              "version": {
-                "const": 1
-              },
-              "content": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ListNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.HeadingNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.PanelNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.ParagraphNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.TableNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.RuleNode"
-                    }
-                  ]
-                },
-                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
-                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
-              }
-            },
-            "required": [
-              "type",
-              "version",
-              "content"
-            ],
-            "title": "body of comment"
-          },
-          "updated": {
-            "type": "string",
-            "title": "updated time of this comment"
-          },
-          "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
-            "title": "author of this comment"
-          },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
-          "updateAuthor": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
-            "title": "who updates this comment"
-          }
-        },
-        "required": [
-          "id",
-          "body",
-          "updated",
-          "author",
-          "created",
-          "updateAuthor"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "PickIJira.UseractiveaccountIddisplayName": {
         "type": "object",
@@ -39692,7 +39674,7 @@
         ],
         "title": "output of creation of issue"
       },
-      "StrictOmitICreateIssueInputemaildomaintokenIBasicSecret": {
+      "IJira.ICreateIssueByMarkdownInput": {
         "type": "object",
         "properties": {
           "fields": {
@@ -39743,42 +39725,8 @@
                     "title": "version"
                   },
                   "content": {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/ListNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.HeadingNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.PanelNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.ParagraphNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.TableNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.RuleNode"
-                        }
-                      ]
-                    },
-                    "title": "contents of description\n\nYou must use node types that are configured with TopLevelBlockNodes.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+                    "type": "string",
+                    "title": "contents of description\n\nYou must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
                   }
                 },
                 "required": [
