@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.198",
+    "version": "0.1.199",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -10702,6 +10702,7 @@
       "post": {
         "summary": "Analysis for a github repository",
         "description": "\nRAG analysis for a particular repo\n\nThis RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.\nThis will be useful when users want to analyze the repository.",
+        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10859,7 +10860,7 @@
     "/connector/github/organizations/get-issues": {
       "post": {
         "summary": "List organization issues assigned to the authenticated user",
-        "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.",
+        "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.\nIf you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10952,7 +10953,7 @@
     "/connector/github/repos/commits/contents": {
       "put": {
         "summary": "Update File content and commit",
-        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.",
+        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -10981,7 +10982,7 @@
       },
       "post": {
         "summary": "Create File content and commit",
-        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.",
+        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nIf someone says they want to add a file to the repo it's like they want to commit.\nHowever, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.\nUsers value branches that reflect their commitments.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11400,10 +11401,101 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repositories/pull-requests": {
+      "put": {
+        "description": "Update pull request\n\nUse to change the title or body of a PR, or draft status or open-close status.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Update pull request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IUpdatePullRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IUpdatePullRequestOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      },
+      "post": {
+        "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Create pull request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICreatePullRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.ICreatePullRequestOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/get-pull-requests": {
+      "post": {
+        "summary": "Get Repository' pull request",
+        "description": "List repository issues\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetchRepositoryPullRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetchRepositoryPullRequestOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/repositories/get-issues": {
       "post": {
         "summary": "List repository issues",
-        "description": "List repository issues\n\nList issues in a repository. Only open issues will be listed.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.",
+        "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11778,7 +11870,7 @@
     "/connector/github/get-followers": {
       "post": {
         "summary": "Inquire the followers of the user",
-        "description": "Inquire the followers of the user",
+        "description": "Inquire the followers of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11809,7 +11901,7 @@
     "/connector/github/get-followees": {
       "post": {
         "summary": "Inquire the followees of the user",
-        "description": "Inquire the followees of the user",
+        "description": "Inquire the followees of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -43817,6 +43909,468 @@
           "secretKey"
         ]
       },
+      "IGithub.IUpdatePullRequestOutput": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "number",
+          "title",
+          "id"
+        ]
+      },
+      "IGithub.IUpdatePullRequestInput": {
+        "type": "object",
+        "properties": {
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "state": {
+            "oneOf": [
+              {
+                "const": "open",
+                "title": "open"
+              },
+              {
+                "const": "closed",
+                "title": "closed"
+              }
+            ],
+            "title": "state\n\nState of this Pull Request. Either open or closed.\nCan be one of: open, closed"
+          },
+          "base": {
+            "type": "string",
+            "title": "base\n\nThe name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository."
+          },
+          "head": {
+            "type": "string",
+            "title": "head\n\nThe name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace head with a user like this: username:branch."
+          },
+          "title": {
+            "type": "string",
+            "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "body": {
+            "type": "string",
+            "title": "body\n\nThe contents of the pull request."
+          },
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether the pull request is a draft. See \"Draft Pull Requests\" in the GitHub Help documentation to learn more."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "head_repo": {
+            "type": "string",
+            "title": "head_repo\n\nThe name of the repository where the changes in the pull request were made. This field is required for cross-repository pull requests if both repositories are owned by the same organization."
+          },
+          "maintainer_can_modify": {
+            "type": "boolean",
+            "title": "maintainer_can_modify\n\nIndicates whether maintainers can modify the pull request."
+          },
+          "issue": {
+            "type": "number",
+            "title": "issue\n\nAn issue in the repository to convert to a pull request. The issue title, body, and comments will become the title, body, and comments on the new pull request. Required unless title is specified."
+          }
+        },
+        "required": [
+          "pull_number",
+          "secretKey",
+          "owner",
+          "repo"
+        ]
+      },
+      "IGithub.ICreatePullRequestOutput": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "number",
+          "title",
+          "id"
+        ]
+      },
+      "IGithub.ICreatePullRequestInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "title": {
+            "type": "string",
+            "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
+          },
+          "head": {
+            "type": "string",
+            "title": "head\n\nThe name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace head with a user like this: username:branch."
+          },
+          "head_repo": {
+            "type": "string",
+            "title": "head_repo\n\nThe name of the repository where the changes in the pull request were made. This field is required for cross-repository pull requests if both repositories are owned by the same organization."
+          },
+          "base": {
+            "type": "string",
+            "title": "base\n\nThe name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository."
+          },
+          "body": {
+            "type": "string",
+            "title": "body\n\nThe contents of the pull request."
+          },
+          "maintainer_can_modify": {
+            "type": "boolean",
+            "title": "maintainer_can_modify\n\nIndicates whether maintainers can modify the pull request."
+          },
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether the pull request is a draft. See \"Draft Pull Requests\" in the GitHub Help documentation to learn more."
+          },
+          "issue": {
+            "type": "number",
+            "title": "issue\n\nAn issue in the repository to convert to a pull request. The issue title, body, and comments will become the title, body, and comments on the new pull request. Required unless title is specified."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "head",
+          "base",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetchRepositoryPullRequestOutput": {
+        "type": "object",
+        "properties": {
+          "pullRequests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.FetchedPullRequest"
+            }
+          },
+          "pageInfo": {
+            "type": "object",
+            "properties": {
+              "endCursor": {
+                "type": "string",
+                "title": "Cursor to be used to look up the next page"
+              },
+              "hasNextPage": {
+                "type": "boolean",
+                "title": "hasNextPage\n\ntrue if there is a next page"
+              }
+            },
+            "required": [
+              "endCursor",
+              "hasNextPage"
+            ],
+            "title": "page info"
+          }
+        },
+        "required": [
+          "pullRequests",
+          "pageInfo"
+        ]
+      },
+      "IGithub.FetchedPullRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "issue id"
+          },
+          "state": {
+            "oneOf": [
+              {
+                "const": "OPEN",
+                "title": "OPEN"
+              },
+              {
+                "const": "CLOSED",
+                "title": "CLOSED"
+              }
+            ],
+            "title": "issue state"
+          },
+          "title": {
+            "type": "string",
+            "title": "Pull request title"
+          },
+          "comments": {
+            "type": "object",
+            "properties": {
+              "totalCount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "total count of comments"
+              }
+            },
+            "required": [
+              "totalCount"
+            ],
+            "title": "comments"
+          },
+          "reviews": {
+            "type": "object",
+            "properties": {
+              "totalCount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "total counr of reviews"
+              }
+            },
+            "required": [
+              "totalCount"
+            ],
+            "title": "reviews"
+          },
+          "reactions": {
+            "type": "object",
+            "properties": {
+              "totalCount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "total count of reactions"
+              }
+            },
+            "required": [
+              "totalCount"
+            ],
+            "title": "reactions"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                }
+              }
+            },
+            "required": [
+              "nodes"
+            ],
+            "title": "labels"
+          },
+          "assignees": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                }
+              }
+            },
+            "required": [
+              "nodes"
+            ],
+            "title": "assignees"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "title": "author"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "createdAt"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updatedAt"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "comments",
+          "reviews",
+          "reactions",
+          "labels",
+          "assignees",
+          "author",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PickIGithub.Labeldescriptionname": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "description"
+          },
+          "name": {
+            "type": "string",
+            "title": "label name"
+          }
+        },
+        "required": [
+          "description",
+          "name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IGithub.IGetchRepositoryPullRequestInput": {
+        "type": "object",
+        "properties": {
+          "sort": {
+            "oneOf": [
+              {
+                "const": "CREATED_AT",
+                "title": "CREATED_AT"
+              },
+              {
+                "const": "UPDATED_AT",
+                "title": "UPDATED_AT"
+              }
+            ],
+            "title": "sort"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels\nIf you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string",
+            "title": "after\ncursor of next page"
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "state": {
+            "oneOf": [
+              {
+                "const": "OPEN",
+                "title": "OPEN"
+              },
+              {
+                "const": "CLOSED",
+                "title": "CLOSED"
+              }
+            ],
+            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\"."
+          },
+          "direction": {
+            "oneOf": [
+              {
+                "const": "ASC",
+                "title": "ASC"
+              },
+              {
+                "const": "DESC",
+                "title": "DESC"
+              }
+            ],
+            "title": "direction\nIt must be one of: \"ASC\", \"DESC\"."
+          }
+        },
+        "required": [
+          "sort",
+          "secretKey",
+          "owner",
+          "repo",
+          "direction"
+        ]
+      },
       "IGithub.IFetchRepositoryOutput": {
         "type": "object",
         "properties": {
@@ -43881,6 +44435,10 @@
               }
             ],
             "title": "reason of state"
+          },
+          "title": {
+            "type": "string",
+            "title": "issue title"
           },
           "comments": {
             "type": "object",
@@ -43958,10 +44516,6 @@
             "type": "integer",
             "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
           },
-          "title": {
-            "type": "string",
-            "description": "Title of the issue"
-          },
           "body": {
             "oneOf": [
               {
@@ -43976,6 +44530,7 @@
         },
         "required": [
           "id",
+          "title",
           "comments",
           "reactions",
           "labels",
@@ -43983,34 +44538,8 @@
           "author",
           "createdAt",
           "updatedAt",
-          "number",
-          "title"
+          "number"
         ]
-      },
-      "PickIGithub.Labeldescriptionname": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "description"
-          },
-          "name": {
-            "type": "string",
-            "title": "label name"
-          }
-        },
-        "required": [
-          "description",
-          "name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IGithub.IFetchRepositoryInput": {
         "type": "object",
@@ -44070,13 +44599,9 @@
               {
                 "const": "COMMENTS",
                 "title": "COMMENTS"
-              },
-              {
-                "const": "REACTIONS",
-                "title": "REACTIONS"
               }
             ],
-            "title": "condition of direction\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\", \"COMMENTS\", \"REACTIONS\"."
+            "title": "condition of direction\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\", \"COMMENTS\"."
           },
           "owner": {
             "type": "string",
