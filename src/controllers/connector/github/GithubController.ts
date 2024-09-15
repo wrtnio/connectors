@@ -198,6 +198,10 @@ export class GithubController {
    * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
    * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
    *
+   * If you modify a file, it's not like appending the code to the file, it's like overwriting the file.
+   * Generally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,
+   * so it's right to check the existing code and then change some of the contents to the original to reflect it.
+   * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * @summary Update File content and commit
    * @param input
@@ -220,6 +224,11 @@ export class GithubController {
    * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
    * Creating file content is the same as creating a single commit.
    * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * If someone says they want to add a file to the repo it's like they want to commit.
+   * However, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.
+   * Users value branches that reflect their commitments.
+   * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * @summary Create File content and commit
    * @param input
@@ -477,8 +486,12 @@ export class GithubController {
   /**
    * List repository issues
    *
-   * List issues in a repository. Only open issues will be listed.
+   * List issues in a repository.
    * This connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.
+   * Information on the issue comes out, but only 10 people and labels attached to the issue are provided.
+   * Therefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.
+   * When looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.
+   * For more information, you should check the properties part of the request type.
    *
    * @summary List repository issues
    * @param input
@@ -713,6 +726,9 @@ export class GithubController {
   /**
    * Inquire the followers of the user
    *
+   * This value can be viewed by about 100 people at a time because it is a page-nated result.
+   * If you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.
+   *
    * @summary Inquire the followers of the user
    * @param input
    * @returns
@@ -729,6 +745,9 @@ export class GithubController {
 
   /**
    * Inquire the followees of the user
+   *
+   * This value can be viewed by about 100 people at a time because it is a page-nated result.
+   * If you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.
    *
    * @summary Inquire the followees of the user
    * @param input
