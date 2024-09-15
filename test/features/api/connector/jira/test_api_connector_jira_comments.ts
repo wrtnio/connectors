@@ -136,7 +136,27 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
           issueIdOrKey: issue.key, // 이번에는 키를 이용해서 조회해본다.
         },
       );
-
     typia.assertEquals(afterDelete);
     assert(afterDelete.comments.length === 0);
+  };
+
+// 실제 케이스 중 실패한 경우만 따로 가져온 케이스
+export const test_api_connector_jira_create_and_update_and_delete_comment_2 =
+  async (connection: CApi.IConnection) => {
+    const res =
+      await CApi.functional.connector.jira.issues.comments.markdown.updateComment(
+        connection,
+        {
+          commentId: "10523",
+          secretKey: JSON.stringify(Configuration),
+          issueIdOrKey: "20279",
+          body: {
+            type: "doc",
+            version: 1,
+            content: "# CREATE COMMENT TEST",
+          },
+        },
+      );
+
+    typia.assert(res);
   };

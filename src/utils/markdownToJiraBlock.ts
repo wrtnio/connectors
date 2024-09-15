@@ -292,7 +292,13 @@ function transform(options: {
   return null;
 }
 
-export function markdownToJiraBlock(markdown: string): JiraContentNode[] {
+export function markdownToJiraBlock(
+  markdown: string,
+): IJira.TopLevelBlockNode[] {
+  if (markdown === "") {
+    return [];
+  }
+
   const tokensList = lexer(markdown);
-  return arrayTransform({ tokens: tokensList });
+  return arrayTransform({ tokens: tokensList }) as IJira.TopLevelBlockNode[];
 }

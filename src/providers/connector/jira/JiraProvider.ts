@@ -362,8 +362,11 @@ export class JiraProvider {
   ): Promise<IJira.ICreateCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      const copiedInput = JSON.parse(JSON.stringify(input));
-      if (input.body.content) {
+      const copiedInput: Pick<IJira.ICreateCommentInput, "body"> = JSON.parse(
+        JSON.stringify(input),
+      );
+
+      if (typeof input.body.content === "string") {
         const content = markdownToJiraBlock(input.body.content);
         copiedInput.body.content = content;
       }
@@ -500,16 +503,16 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const copiedInput = JSON.parse(JSON.stringify(input));
-      if (input.body.content) {
+      if (typeof input.body.content === "string") {
         const content = markdownToJiraBlock(input.body.content);
         copiedInput.body.content = content;
       }
 
-      const { commentId, issueIdOrKey, body } = input;
+      const { commentId, issueIdOrKey } = input;
       await axios.put(
         `${config.domain}/issue/${issueIdOrKey}/comment/${commentId}`,
         {
-          body: body,
+          body: copiedInput.body,
         },
         {
           headers: {
@@ -545,7 +548,6 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.log((err as any)?.response.data);
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -556,7 +558,7 @@ export class JiraProvider {
   ): Promise<{ id: string; key: string }> {
     try {
       const copiedInput = JSON.parse(JSON.stringify(input));
-      if (input.fields.description?.content) {
+      if (typeof input.fields.description?.content === "string") {
         const content = markdownToJiraBlock(input.fields.description.content);
         copiedInput.fields.description.content = content;
       }
@@ -579,9 +581,6 @@ export class JiraProvider {
       return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
-      if (err instanceof AxiosError) {
-        console.log("data : ", JSON.stringify(err.response?.data));
-      }
       throw err;
     }
   }
@@ -608,9 +607,6 @@ export class JiraProvider {
       return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
-      if (err instanceof AxiosError) {
-        console.log("data : ", JSON.stringify(err.response?.data));
-      }
       throw err;
     }
   }
