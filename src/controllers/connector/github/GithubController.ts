@@ -488,6 +488,27 @@ export class GithubController {
   /**
    * List repository issues
    *
+   * Query pool requests to specific repositories.
+   * Here, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.
+   * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   *
+   * @summary Get Repository' pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/get-pull-request")
+  async getRepositoryPullRequest(
+    @TypedBody() input: IGithub.IGetchRepositoryPullRequestInput,
+  ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
+    return this.githubProvider.getRepositoryPullRequest(input);
+  }
+
+  /**
+   * List repository issues
+   *
    * List issues in a repository.
    * This connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.
    * Information on the issue comes out, but only 10 people and labels attached to the issue are provided.

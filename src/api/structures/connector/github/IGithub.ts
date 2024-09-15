@@ -1248,6 +1248,11 @@ export namespace IGithub {
     stateReason?: string | null;
 
     /**
+     * @title issue title
+     */
+    title: string;
+
+    /**
      * @title comments
      */
     comments: {
@@ -1295,6 +1300,122 @@ export namespace IGithub {
      * @title updatedAt
      */
     updatedAt: string & tags.Format<"date-time">;
+  }
+
+  export interface IGetchRepositoryPullRequestOutput {
+    pullRequests: FetchedPullRequest[];
+
+    /**
+     * @title page info
+     */
+    pageInfo: {
+      /**
+       * @title Cursor to be used to look up the next page
+       */
+      endCursor: string;
+      /**
+       * @title hasNextPage
+       *
+       * true if there is a next page
+       */
+      hasNextPage: boolean;
+    };
+  }
+
+  export interface FetchedPullRequest {
+    /**
+     * @title issue id
+     */
+    id: string;
+
+    /**
+     * @title issue state
+     */
+    state: IFetchRepositoryInput["state"];
+
+    /**
+     * @title Pull request title
+     */
+    title: string;
+
+    /**
+     * @title comments
+     */
+    comments: {
+      /**
+       * @title total count of comments
+       */
+      totalCount: number & tags.Minimum<0>;
+    };
+
+    /**
+     * @title reviews
+     */
+    reviews: {
+      /**
+       * @title total counr of reviews
+       */
+      totalCount: number & tags.Minimum<0>;
+    };
+
+    /**
+     * @title reactions
+     */
+    reactions: {
+      /**
+       * @title total count of reactions
+       */
+      totalCount: number & tags.Minimum<0>;
+    };
+
+    /**
+     * @title labels
+     */
+    labels: {
+      nodes: Pick<Label, "name" | "description">[];
+    };
+
+    /**
+     * @title assignees
+     */
+    assignees: {
+      nodes: Pick<User, "login">[];
+    };
+
+    /**
+     * @title author
+     */
+    author: Pick<User, "login">;
+
+    /**
+     * @title createdAt
+     */
+    createdAt: string & tags.Format<"date-time">;
+
+    /**
+     * @title updatedAt
+     */
+    updatedAt: string & tags.Format<"date-time">;
+  }
+
+  export interface IGetchRepositoryPullRequestInput
+    extends Pick<
+      IFetchRepositoryInput,
+      | "secretKey"
+      | "owner"
+      | "repo"
+      | "per_page"
+      | "after"
+      | "state"
+      | "labels"
+      | "direction"
+    > {
+    /**
+     * @title sort
+     */
+    sort:
+      | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
+      | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>;
   }
 
   export interface IFetchRepositoryInput extends ICommon.ISecret<"github"> {

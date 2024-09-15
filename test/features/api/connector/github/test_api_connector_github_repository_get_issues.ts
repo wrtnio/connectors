@@ -1,7 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { deepStrictEqual } from "assert";
+import assert, { deepStrictEqual } from "assert";
 
 export async function test_api_connector_github_repositories_get_issues_desc(
   connection: CApi.IConnection,
@@ -27,6 +27,8 @@ export async function test_api_connector_github_repositories_get_issues_desc(
     counts,
     counts.sort((a, b) => a - b),
   );
+
+  assert(res.fetchedIssues.every((issue) => typeof issue.title === "string"));
 }
 
 export async function test_api_connector_github_repositories_get_issues_asc(

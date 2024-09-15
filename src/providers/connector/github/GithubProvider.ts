@@ -258,6 +258,106 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getRepositoryPullRequest(
+    input: IGithub.IGetchRepositoryPullRequestInput,
+  ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/graphql`;
+
+    const query = `
+    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [PullRequestState!], $labels: [String!], $direction: OrderDirection!) {
+      repository(owner: $owner, name: $repo) {
+        id
+        name
+        pullRequests(
+          after: $after,
+          states: $state,
+          labels: $labels,
+          first: $perPage
+          orderBy: {
+            field: ${input.sort},
+            direction: $direction
+          }
+        ) {
+          edges {
+            node {
+              id
+              url
+              number
+              state
+              title
+              createdAt
+              updatedAt
+              comments {
+                totalCount
+              }
+              reviews {
+                totalCount
+              }
+              reactions {
+                totalCount
+              }
+              labels (first:10) {
+                nodes {
+                  name
+                  description
+                }
+              }
+              assignees (first:10) {
+                nodes {
+                  login
+                }
+              }
+              author {
+                login
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    }
+    `;
+
+    const variables = {
+      owner: input.owner,
+      repo: input.repo,
+      perPage: input.per_page,
+      after: input.after,
+      sort: input.sort,
+      direction: input.direction?.toUpperCase(),
+      ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
+      ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
+    };
+
+    console.log(variables);
+
+    const res = await axios.post(
+      url,
+      {
+        query,
+        variables,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    console.log(JSON.stringify(res.data, null, 2));
+    const response = res.data.data?.repository?.pullRequests;
+    const pageInfo = response?.pageInfo;
+    const pullRequests: IGithub.FetchedPullRequest[] = response.edges?.map(
+      ({ node }: { node: IGithub.FetchedPullRequest }) => node,
+    );
+
+    return { pullRequests, pageInfo };
+  }
+
   async fetchRepositoryIssues(
     input: IGithub.IFetchRepositoryInput,
   ): Promise<IGithub.IFetchRepositoryOutput> {
@@ -287,7 +387,6 @@ export class GithubProvider {
               state
               stateReason
               title
-              body
               createdAt
               updatedAt
               comments {
@@ -326,7 +425,7 @@ export class GithubProvider {
       repo: input.repo,
       perPage: input.per_page,
       after: input.after,
-      sort: "created_at".toUpperCase(),
+      sort: input.sort,
       direction: input.direction?.toUpperCase(),
       ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
       ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
