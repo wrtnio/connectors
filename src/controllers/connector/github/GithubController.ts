@@ -17,6 +17,7 @@ export class GithubController {
    * This RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.
    * This will be useful when users want to analyze the repository.
    *
+   * @deprecated The RAG part will add a function so that chatbots can do it themselves
    * @summary Analysis for a github repository
    * @param input
    * @returns
@@ -126,6 +127,7 @@ export class GithubController {
    * Naturally, the user will have to be a member of that organization.
    *
    * Here, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.
+   * If you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization.
    *
    * @summary List organization issues assigned to the authenticated user
    * @param input
@@ -198,6 +200,10 @@ export class GithubController {
    * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
    * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
    *
+   * If you modify a file, it's not like appending the code to the file, it's like overwriting the file.
+   * Generally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,
+   * so it's right to check the existing code and then change some of the contents to the original to reflect it.
+   * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * @summary Update File content and commit
    * @param input
@@ -220,6 +226,11 @@ export class GithubController {
    * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
    * Creating file content is the same as creating a single commit.
    * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * If someone says they want to add a file to the repo it's like they want to commit.
+   * However, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.
+   * Users value branches that reflect their commitments.
+   * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * @summary Create File content and commit
    * @param input
@@ -475,10 +486,78 @@ export class GithubController {
   }
 
   /**
+   * Update pull request
+   *
+   * Use to change the title or body of a PR, or draft status or open-close status.
+   *
+   * @param input Update pull request
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Put("repositories/pull-requests")
+  async updatePullRequest(
+    @TypedBody() input: IGithub.IUpdatePullRequestInput,
+  ): Promise<IGithub.IUpdatePullRequestOutput> {
+    return this.githubProvider.updatePullRequest(input);
+  }
+
+  /**
+   * Create pull request
+   *
+   * Creates a pull request from a branch to a particular branch.
+   * If the branch has already generated a pull request to the base branch, an error of 422 may occur.
+   * This error indicates a collision because only one pull request from branch to another branch can exist open at the same time.
+   *
+   * When creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.
+   * You can also create a pull request in draft state if necessary.
+   *
+   * @param input Create pull request
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests")
+  async createPullRequest(
+    @TypedBody() input: IGithub.ICreatePullRequestInput,
+  ): Promise<IGithub.ICreatePullRequestOutput> {
+    return this.githubProvider.createPullRequest(input);
+  }
+
+  /**
    * List repository issues
    *
-   * List issues in a repository. Only open issues will be listed.
+   * Query pool requests to specific repositories.
+   * Here, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.
+   * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   *
+   * @summary Get Repository' pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/get-pull-requests")
+  async getRepositoryPullRequest(
+    @TypedBody() input: IGithub.IGetchRepositoryPullRequestInput,
+  ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
+    return this.githubProvider.getRepositoryPullRequest(input);
+  }
+
+  /**
+   * List repository issues
+   *
+   * List issues in a repository.
    * This connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.
+   * Information on the issue comes out, but only 10 people and labels attached to the issue are provided.
+   * Therefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.
+   * When looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.
+   * For more information, you should check the properties part of the request type.
+   *
+   * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
    *
    * @summary List repository issues
    * @param input
@@ -713,6 +792,9 @@ export class GithubController {
   /**
    * Inquire the followers of the user
    *
+   * This value can be viewed by about 100 people at a time because it is a page-nated result.
+   * If you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.
+   *
    * @summary Inquire the followers of the user
    * @param input
    * @returns
@@ -729,6 +811,9 @@ export class GithubController {
 
   /**
    * Inquire the followees of the user
+   *
+   * This value can be viewed by about 100 people at a time because it is a page-nated result.
+   * If you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.
    *
    * @summary Inquire the followees of the user
    * @param input

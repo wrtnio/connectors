@@ -16,7 +16,6 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { PickPartial } from "../../../utils/types/PickPartial";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -259,6 +258,103 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getRepositoryPullRequest(
+    input: IGithub.IGetchRepositoryPullRequestInput,
+  ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
+    const token = await this.getToken(input.secretKey);
+    const url = `https://api.github.com/graphql`;
+
+    const query = `
+    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [PullRequestState!], $labels: [String!], $direction: OrderDirection!) {
+      repository(owner: $owner, name: $repo) {
+        id
+        name
+        pullRequests(
+          after: $after,
+          states: $state,
+          labels: $labels,
+          first: $perPage
+          orderBy: {
+            field: ${input.sort},
+            direction: $direction
+          }
+        ) {
+          edges {
+            node {
+              id
+              url
+              number
+              state
+              title
+              createdAt
+              updatedAt
+              comments {
+                totalCount
+              }
+              reviews {
+                totalCount
+              }
+              reactions {
+                totalCount
+              }
+              labels (first:10) {
+                nodes {
+                  name
+                  description
+                }
+              }
+              assignees (first:10) {
+                nodes {
+                  login
+                }
+              }
+              author {
+                login
+              }
+            }
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    }
+    `;
+
+    const variables = {
+      owner: input.owner,
+      repo: input.repo,
+      perPage: input.per_page,
+      after: input.after,
+      sort: input.sort,
+      direction: input.direction?.toUpperCase(),
+      ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
+      ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
+    };
+
+    const res = await axios.post(
+      url,
+      {
+        query,
+        variables,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const response = res.data.data?.repository?.pullRequests;
+    const pageInfo = response?.pageInfo;
+    const pullRequests: IGithub.FetchedPullRequest[] = response.edges?.map(
+      ({ node }: { node: IGithub.FetchedPullRequest }) => node,
+    );
+
+    return { pullRequests, pageInfo };
+  }
+
   async fetchRepositoryIssues(
     input: IGithub.IFetchRepositoryInput,
   ): Promise<IGithub.IFetchRepositoryOutput> {
@@ -266,7 +362,7 @@ export class GithubProvider {
     const url = `https://api.github.com/graphql`;
 
     const query = `
-    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [IssueState!], $labels: [String!], $sort: IssueOrderField!, $direction: OrderDirection!) {
+    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [IssueState!], $labels: [String!]) {
       repository(owner: $owner, name: $repo) {
         id
         name
@@ -276,8 +372,8 @@ export class GithubProvider {
           labels: $labels,
           first: $perPage
           orderBy: {
-            field: $sort,
-            direction: $direction
+            field: ${input.sort},
+            direction: ${input.direction}
           }
         ) {
           edges {
@@ -288,7 +384,6 @@ export class GithubProvider {
               state
               stateReason
               title
-              body
               createdAt
               updatedAt
               comments {
@@ -327,7 +422,6 @@ export class GithubProvider {
       repo: input.repo,
       perPage: input.per_page,
       after: input.after,
-      sort: "created_at".toUpperCase(),
       direction: input.direction?.toUpperCase(),
       ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
       ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
@@ -716,6 +810,58 @@ export class GithubProvider {
 
     const link = res.headers["link"];
     return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async updatePullRequest(
+    input: IGithub.IUpdatePullRequestInput,
+  ): Promise<IGithub.IUpdatePullRequestOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return {
+      id: res.data.id,
+      number: res.data.number,
+      title: res.data.title,
+    };
+  }
+
+  async createPullRequest(
+    input: IGithub.ICreatePullRequestInput,
+  ): Promise<IGithub.ICreatePullRequestOutput> {
+    const { owner, repo, secretKey, ...rest } = input;
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return {
+      id: res.data.id,
+      number: res.data.number,
+      title: res.data.title,
+    };
   }
 
   async searchUser(
