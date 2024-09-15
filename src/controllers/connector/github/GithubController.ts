@@ -516,6 +516,8 @@ export class GithubController {
    * When looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.
    * For more information, you should check the properties part of the request type.
    *
+   * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   *
    * @summary List repository issues
    * @param input
    * @returns
