@@ -1207,6 +1207,122 @@ export namespace IGithub {
     result: IGithub.Issue[];
   }
 
+  export type IUpdatePullRequestOutput = Pick<
+    PullRequest,
+    "title" | "number" | "id"
+  >;
+
+  export interface IUpdatePullRequestInput
+    extends PickPartial<ICreatePullRequestInput, "head" | "base"> {
+    /**
+     * @title pull request number to update
+     */
+    pull_number: number &
+      tags.Type<"uint64"> &
+      tags.Minimum<1> &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/repositories/get-pull-requests";
+            jmesPath: "pullRequests[].{value:number, label:title}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/repositories/pull-requests";
+            jmesPath: "pullRequests[].{value:number, label:number}";
+          }>
+      );
+
+    /**
+     * @title state
+     *
+     * State of this Pull Request. Either open or closed.
+     * Can be one of: open, closed
+     */
+    state?:
+      | tags.Constant<"open", { title: "open" }>
+      | tags.Constant<"closed", { title: "closed" }>;
+  }
+
+  export type ICreatePullRequestOutput = Pick<
+    PullRequest,
+    "title" | "number" | "id"
+  >;
+
+  export interface ICreatePullRequestInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title title
+     *
+     * The title of the new pull request. Required unless issue is specified.
+     */
+    title?: string;
+
+    /**
+     * @title head
+     *
+     * The name of the branch where your changes are implemented. For cross-repository pull requests in the same network, namespace head with a user like this: username:branch.
+     */
+    head: string;
+
+    /**
+     * @title head_repo
+     *
+     * The name of the repository where the changes in the pull request were made. This field is required for cross-repository pull requests if both repositories are owned by the same organization.
+     */
+    head_repo?: string;
+
+    /**
+     * @title base
+     *
+     * The name of the branch you want the changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repository that requests a merge to a base of another repository.
+     */
+    base: string;
+
+    /**
+     * @title body
+     *
+     * The contents of the pull request.
+     */
+    body?: string;
+
+    /**
+     * @title maintainer_can_modify
+     *
+     * Indicates whether maintainers can modify the pull request.
+     */
+    maintainer_can_modify?: boolean;
+
+    /**
+     * @title draft
+     *
+     * Indicates whether the pull request is a draft. See "Draft Pull Requests" in the GitHub Help documentation to learn more.
+     */
+    draft?: boolean;
+
+    /**
+     * @title issue
+     *
+     * An issue in the repository to convert to a pull request. The issue title, body, and comments will become the title, body, and comments on the new pull request. Required unless title is specified.
+     */
+    issue?: number;
+  }
+
   export interface IFetchRepositoryOutput {
     /**
      * @title issues

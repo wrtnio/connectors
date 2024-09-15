@@ -7,7 +7,7 @@ export async function test_api_connector_github_repository_get_pull_requests(
   connection: CApi.IConnection,
 ) {
   const res1 =
-    await CApi.functional.connector.github.repositories.get_pull_request.getRepositoryPullRequest(
+    await CApi.functional.connector.github.repositories.get_pull_requests.getRepositoryPullRequest(
       connection,
       {
         owner: "samchon",
@@ -23,7 +23,7 @@ export async function test_api_connector_github_repository_get_pull_requests(
   typia.assert(res1);
 
   const res2 =
-    await CApi.functional.connector.github.repositories.get_pull_request.getRepositoryPullRequest(
+    await CApi.functional.connector.github.repositories.get_pull_requests.getRepositoryPullRequest(
       connection,
       {
         owner: "samchon",
@@ -39,7 +39,7 @@ export async function test_api_connector_github_repository_get_pull_requests(
   typia.assert(res2);
 
   const res3 =
-    await CApi.functional.connector.github.repositories.get_pull_request.getRepositoryPullRequest(
+    await CApi.functional.connector.github.repositories.get_pull_requests.getRepositoryPullRequest(
       connection,
       {
         owner: "samchon",
@@ -55,7 +55,7 @@ export async function test_api_connector_github_repository_get_pull_requests(
   typia.assert(res3);
 
   const res4 =
-    await CApi.functional.connector.github.repositories.get_pull_request.getRepositoryPullRequest(
+    await CApi.functional.connector.github.repositories.get_pull_requests.getRepositoryPullRequest(
       connection,
       {
         owner: "samchon",
@@ -71,7 +71,7 @@ export async function test_api_connector_github_repository_get_pull_requests(
   typia.assert(res4);
 
   const res5 =
-    await CApi.functional.connector.github.repositories.get_pull_request.getRepositoryPullRequest(
+    await CApi.functional.connector.github.repositories.get_pull_requests.getRepositoryPullRequest(
       connection,
       {
         owner: "samchon",

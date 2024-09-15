@@ -816,6 +816,58 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async updatePullRequest(
+    input: IGithub.IUpdatePullRequestInput,
+  ): Promise<IGithub.IUpdatePullRequestOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return {
+      id: res.data.id,
+      number: res.data.number,
+      title: res.data.title,
+    };
+  }
+
+  async createPullRequest(
+    input: IGithub.ICreatePullRequestInput,
+  ): Promise<IGithub.ICreatePullRequestOutput> {
+    const { owner, repo, secretKey, ...rest } = input;
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return {
+      id: res.data.id,
+      number: res.data.number,
+      title: res.data.title,
+    };
+  }
+
   async searchUser(
     input: IGithub.ISearchUserInput,
   ): Promise<IGithub.ISearchUserOutput> {

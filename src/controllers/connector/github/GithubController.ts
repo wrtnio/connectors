@@ -486,6 +486,47 @@ export class GithubController {
   }
 
   /**
+   * Update pull request
+   *
+   * Use to change the title or body of a PR, or draft status or open-close status.
+   *
+   * @param input Update pull request
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Put("repositories/pull-requests")
+  async updatePullRequest(
+    @TypedBody() input: IGithub.IUpdatePullRequestInput,
+  ): Promise<IGithub.IUpdatePullRequestOutput> {
+    return this.githubProvider.updatePullRequest(input);
+  }
+
+  /**
+   * Create pull request
+   *
+   * Creates a pull request from a branch to a particular branch.
+   * If the branch has already generated a pull request to the base branch, an error of 422 may occur.
+   * This error indicates a collision because only one pull request from branch to another branch can exist open at the same time.
+   *
+   * When creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.
+   * You can also create a pull request in draft state if necessary.
+   *
+   * @param input Create pull request
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests")
+  async createPullRequest(
+    @TypedBody() input: IGithub.ICreatePullRequestInput,
+  ): Promise<IGithub.ICreatePullRequestOutput> {
+    return this.githubProvider.createPullRequest(input);
+  }
+
+  /**
    * List repository issues
    *
    * Query pool requests to specific repositories.
@@ -499,7 +540,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("repositories/get-pull-request")
+  @core.TypedRoute.Post("repositories/get-pull-requests")
   async getRepositoryPullRequest(
     @TypedBody() input: IGithub.IGetchRepositoryPullRequestInput,
   ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
