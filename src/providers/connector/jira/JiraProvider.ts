@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { markdownToJiraBlock } from "../../../utils/markdownToJiraBlock";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -357,14 +358,23 @@ export class JiraProvider {
   }
 
   async createComment(
-    input: IJira.ICreateCommentInput,
+    input: IJira.ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
+      const copiedInput: Pick<IJira.ICreateCommentInput, "body"> = JSON.parse(
+        JSON.stringify(input),
+      );
+
+      if (typeof input.body.content === "string") {
+        const content = markdownToJiraBlock(input.body.content);
+        copiedInput.body.content = content;
+      }
+
       const res = await axios.post(
         `${config.domain}/issue/${input.issueIdOrKey}/comment`,
         {
-          body: input.body,
+          body: copiedInput.body,
         },
         {
           headers: {
@@ -487,13 +497,22 @@ export class JiraProvider {
     }
   }
 
-  async updateComment(input: IJira.IUpdateCommentInput): Promise<void> {
+  async updateComment(
+    input: IJira.IUpdateCommentByMarkdownInput,
+  ): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (typeof input.body.content === "string") {
+        const content = markdownToJiraBlock(input.body.content);
+        copiedInput.body.content = content;
+      }
+
+      const { commentId, issueIdOrKey } = input;
       await axios.put(
-        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        `${config.domain}/issue/${issueIdOrKey}/comment/${commentId}`,
         {
-          body: input.body,
+          body: copiedInput.body,
         },
         {
           headers: {
@@ -529,7 +548,38 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.log((err as any)?.response.data);
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createIssueByMarkdown(
+    input: IJira.ICreateIssueByMarkdownInput,
+  ): Promise<{ id: string; key: string }> {
+    try {
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (typeof input.fields.description?.content === "string") {
+        const content = markdownToJiraBlock(input.fields.description.content);
+        copiedInput.fields.description.content = content;
+      }
+
+      const config = await this.getAuthorizationAndDomain(copiedInput);
+      const res = await axios.post(
+        `${config.domain}/issue`,
+        {
+          fields: copiedInput.fields,
+        },
+        {
+          headers: {
+            Authorization: config.Authorization,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      return res.data;
+    } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -557,9 +607,6 @@ export class JiraProvider {
       return res.data;
     } catch (err) {
       console.error(JSON.stringify(err));
-      if (err instanceof AxiosError) {
-        console.log("data : ", JSON.stringify(err.response?.data));
-      }
       throw err;
     }
   }
