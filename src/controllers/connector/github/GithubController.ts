@@ -17,6 +17,7 @@ export class GithubController {
    * This RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.
    * This will be useful when users want to analyze the repository.
    *
+   * @deprecated The RAG part will add a function so that chatbots can do it themselves
    * @summary Analysis for a github repository
    * @param input
    * @returns
