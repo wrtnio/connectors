@@ -127,6 +127,7 @@ export class GithubController {
    * Naturally, the user will have to be a member of that organization.
    *
    * Here, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.
+   * If you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization.
    *
    * @summary List organization issues assigned to the authenticated user
    * @param input

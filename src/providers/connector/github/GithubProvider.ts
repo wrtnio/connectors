@@ -16,7 +16,6 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { PickPartial } from "../../../utils/types/PickPartial";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
