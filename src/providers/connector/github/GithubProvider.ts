@@ -333,8 +333,6 @@ export class GithubProvider {
       ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열
     };
 
-    console.log(variables);
-
     const res = await axios.post(
       url,
       {
@@ -348,7 +346,6 @@ export class GithubProvider {
       },
     );
 
-    console.log(JSON.stringify(res.data, null, 2));
     const response = res.data.data?.repository?.pullRequests;
     const pageInfo = response?.pageInfo;
     const pullRequests: IGithub.FetchedPullRequest[] = response.edges?.map(
@@ -365,7 +362,7 @@ export class GithubProvider {
     const url = `https://api.github.com/graphql`;
 
     const query = `
-    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [IssueState!], $labels: [String!], $sort: IssueOrderField!, $direction: OrderDirection!) {
+    query($owner: String!, $repo: String!, $perPage: Int!, $after: String, $state: [IssueState!], $labels: [String!]) {
       repository(owner: $owner, name: $repo) {
         id
         name
@@ -375,8 +372,8 @@ export class GithubProvider {
           labels: $labels,
           first: $perPage
           orderBy: {
-            field: $sort,
-            direction: $direction
+            field: ${input.sort},
+            direction: ${input.direction}
           }
         ) {
           edges {
@@ -425,7 +422,6 @@ export class GithubProvider {
       repo: input.repo,
       perPage: input.per_page,
       after: input.after,
-      sort: input.sort,
       direction: input.direction?.toUpperCase(),
       ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달
       ...(input.labels?.length && { labels: input.labels }), // labels가 있으면 배열로, 없으면 빈 배열

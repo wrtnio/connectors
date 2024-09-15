@@ -1570,13 +1570,12 @@ export namespace IGithub {
 
     /**
      * @title condition of direction
-     * It must be one of: "CREATED_AT", "UPDATED_AT", "COMMENTS", "REACTIONS".
+     * It must be one of: "CREATED_AT", "UPDATED_AT", "COMMENTS".
      */
     sort:
       | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
       | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>
-      | tags.Constant<"COMMENTS", { title: "COMMENTS" }>
-      | tags.Constant<"REACTIONS", { title: "REACTIONS" }>;
+      | tags.Constant<"COMMENTS", { title: "COMMENTS" }>;
 
     /**
      * @title owner's name
