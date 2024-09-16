@@ -1625,11 +1625,12 @@ export namespace IGithub {
      * @title state
      *
      * If you don't want to filter, you don't put anything in.
-     * It must be one of: "OPEN", "CLOSED".
+     * It must be one of: "OPEN", "CLOSED", "MERGED".
      */
     state?:
       | tags.Constant<"OPEN", { title: "OPEN" }>
-      | tags.Constant<"CLOSED", { title: "CLOSED" }>;
+      | tags.Constant<"CLOSED", { title: "CLOSED" }>
+      | tags.Constant<"MERGED", { title: "MERGED" }>;
 
     /**
      * @title direction
@@ -2479,12 +2480,12 @@ export namespace IGithub {
     /**
      * @title mergeable
      */
-    mergeable: boolean;
+    mergeable: boolean | null;
 
     /**
      * @title rebaseable
      */
-    rebaseable: boolean;
+    rebaseable: boolean | null;
 
     /**
      * @title mergeable_state
