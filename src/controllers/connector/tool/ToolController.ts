@@ -23,8 +23,6 @@ export class ToolController {
    *
    * @param id
    * @param input
-   *
-   * @tag Tool
    */
   @RouteIcon(
     "htthttps://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Tool_full.svg",

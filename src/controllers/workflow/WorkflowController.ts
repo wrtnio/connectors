@@ -20,8 +20,6 @@ export class WorkflowController {
   /**
    * Run workflow
    *
-   * @tag Workflow
-   *
    * @internal
    */
   @core.TypedRoute.Post("run")
@@ -34,8 +32,6 @@ export class WorkflowController {
   /**
    * Return status of one workflow run
    *
-   * @tag Workflow
-   *
    * @internal
    */
   @core.TypedRoute.Get("run/:workflowRunId")
@@ -47,8 +43,6 @@ export class WorkflowController {
 
   /**
    * Return all workflow run information
-   *
-   * @tag Workflow
    *
    * @internal
    */

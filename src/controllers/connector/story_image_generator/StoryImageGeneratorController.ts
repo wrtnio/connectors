@@ -23,8 +23,6 @@ export class StoryImageGeneratorController {
    * @param input 이미지 생성을 위한 입력
    *
    * @returns 생성된 이미지
-   *
-   * @tag 스토리 이미지 생성
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/image.svg",

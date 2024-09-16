@@ -18,8 +18,6 @@ export class MarketingCopyController {
    * @param input 마케팅 카피 생성을 위한 입력
    *
    * @returns 생성된 마케팅 카피
-   *
-   * @tag Llm 마케팅 카피 텍스트 생성
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",
@@ -40,8 +38,6 @@ export class MarketingCopyController {
    * @param input 마케팅 카피 이미지 생성을 위한 입력
    *
    * @returns 생성된 마케팅 카피 이미지
-   *
-   * @tag Llm 마케팅 카피 이미지 생성
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",

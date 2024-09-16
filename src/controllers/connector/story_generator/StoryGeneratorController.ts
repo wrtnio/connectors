@@ -33,8 +33,6 @@ export class StoryGeneratorController {
    * @param input 스토리 생성을 위한 입력
    *
    * @returns 생성된 스토리 혹은 추가 정보 요청
-   *
-   * @tag Llm 스토리 생성
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",

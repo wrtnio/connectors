@@ -23,7 +23,6 @@ export class SweetTrackerController {
    * @summary 송장 번호에 매칭되는 택배사 목록 조회
    * @returns 택배사 목록
    * @param input 택배사 조회를 위한 조건
-   * @tag sweet-tracker
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
@@ -45,7 +44,6 @@ export class SweetTrackerController {
    *
    * @summary 택배사 목록 조회
    * @returns 택배사 목록
-   * @tag sweet-tracker
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
@@ -69,7 +67,6 @@ export class SweetTrackerController {
    * @summary 송장 조회
    * @param input 송장 번호를 조회하기 위한 조건
    * @returns 택배의 이동 경로
-   * @tag sweet-tracker
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",

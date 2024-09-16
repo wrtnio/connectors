@@ -18,8 +18,6 @@ export class RagController {
    * @summary RAG 분석 요청.
    *
    * @param input 분석할 파일 정보.
-   *
-   * @tag RAG
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
@@ -38,8 +36,6 @@ export class RagController {
    *
    * @param docId 분석 진행 상태를 조회할 문서 ID.
    *
-   * @tag RAG
-   *
    * @internal
    */
   @core.TypedRoute.Get("/:jobId/status")
@@ -57,8 +53,6 @@ export class RagController {
    * @summary RAG 기반 결과물 생성
    *
    * @param input
-   *
-   * @tag RAG
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",

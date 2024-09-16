@@ -20,8 +20,6 @@ export class RankController {
    * @param input 정렬할 후보 정보
    *
    * @returns 정렬된 후보의 인덱스 배열
-   *
-   * @tag Sort Rank Ranking 정렬 순위 순서 랭킹 랭크
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg",
