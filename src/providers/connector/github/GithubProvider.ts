@@ -993,6 +993,22 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async getIssueDetail(
+    input: IGithub.IGetIssueDetailInput,
+  ): Promise<IGithub.IGetIssueDetailOutput> {
+    const { owner, repo, issue_number, secretKey } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+
+    return res.data;
+  }
+
   async getOrganizationRepositories(
     input: IGithub.IGetOrganizationRepositoryInput,
   ): Promise<IGithub.IGetOrganizationRepositoryOutput> {

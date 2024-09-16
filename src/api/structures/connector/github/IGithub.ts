@@ -1414,7 +1414,7 @@ export namespace IGithub {
     /**
      * @title issues
      */
-    fetchedIssues: FetchedIssue[];
+    fetchedIssues: StrictOmit<FetchedIssue, "body">[];
 
     /**
      * @title page info
@@ -1625,6 +1625,35 @@ export namespace IGithub {
     sort:
       | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
       | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>;
+  }
+
+  export type IGetIssueDetailOutput = Issue;
+
+  export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title issue number to get detailed info
+     */
+    issue_number: Issue["number"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repositories/get-issues";
+        jmesPath: "fetchedIssues[].{value:number, label:title}";
+      }>;
+
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
   }
 
   export interface IFetchRepositoryInput extends ICommon.ISecret<"github"> {
