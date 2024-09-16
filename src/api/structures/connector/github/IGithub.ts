@@ -115,6 +115,8 @@ export namespace IGithub {
     due_on: string & tags.Format<"date-time">;
   };
 
+  export type IReadPullRequestFileOutput = File[];
+  export type IReadPullRequestCommitOutput = Commit[];
   export type IReadPullRequestDetailOutput = PullRequest;
 
   export interface IReadPullRequestDetailInput

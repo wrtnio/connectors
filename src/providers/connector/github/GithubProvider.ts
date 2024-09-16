@@ -261,7 +261,7 @@ export class GithubProvider {
 
   async readPullRequestFiles(
     input: IGithub.IReadPullRequestDetailInput,
-  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+  ): Promise<IGithub.IReadPullRequestFileOutput> {
     const { owner, repo, pull_number, secretKey } = input;
     const token = await this.getToken(secretKey);
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/files`;
@@ -276,7 +276,7 @@ export class GithubProvider {
 
   async readPullRequestCommits(
     input: IGithub.IReadPullRequestDetailInput,
-  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+  ): Promise<IGithub.IReadPullRequestCommitOutput> {
     const { owner, repo, pull_number, secretKey } = input;
     const token = await this.getToken(secretKey);
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/commits`;
