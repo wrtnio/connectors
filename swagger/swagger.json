@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.203",
+    "version": "0.1.204",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11461,7 +11461,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/repositories/pull-requests/files": {
+    "/connector/github/repositories/pull-requests/get-files": {
       "post": {
         "summary": "List pull requests files",
         "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
@@ -11492,7 +11492,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/repositories/pull-requests/commits": {
+    "/connector/github/repositories/pull-requests/get-commits": {
       "post": {
         "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [],
@@ -11522,7 +11522,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/repositories/pull-requests/diff": {
+    "/connector/github/repositories/pull-requests/get-diff": {
       "post": {
         "summary": "Get a diff of pull request",
         "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
@@ -11553,7 +11553,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/repositories/pull-requests/detail": {
+    "/connector/github/repositories/pull-requests/get-detail": {
       "post": {
         "summary": "Get a pull request",
         "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
@@ -11607,6 +11607,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGithub.IFetchRepositoryPullRequestOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/issues/get-detail": {
+      "post": {
+        "summary": "Get a pull request",
+        "description": "Get a deatiled pull-request info\nUnlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.\nHowever, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetIssueDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.DetailedIssue"
                 }
               }
             }
@@ -45505,13 +45536,265 @@
           "direction"
         ]
       },
+      "IGithub.DetailedIssue": {
+        "type": "object",
+        "properties": {
+          "milestone": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IGithub.MileStone"
+              }
+            ],
+            "title": "milestone"
+          },
+          "reactions": {
+            "type": "object",
+            "properties": {
+              "total_count": {
+                "type": "integer",
+                "title": "total_count"
+              },
+              "+1": {
+                "type": "integer",
+                "title": "\"+1\""
+              },
+              "-1": {
+                "type": "integer",
+                "title": "\"-1\""
+              },
+              "laugh": {
+                "type": "integer",
+                "title": "laugh"
+              },
+              "hooray": {
+                "type": "integer",
+                "title": "hooray"
+              },
+              "confused": {
+                "type": "integer",
+                "title": "confused"
+              },
+              "heart": {
+                "type": "integer",
+                "title": "heart"
+              },
+              "rocket": {
+                "type": "integer",
+                "title": "rocket"
+              },
+              "eyes": {
+                "type": "integer",
+                "title": "eyes"
+              }
+            },
+            "required": [
+              "total_count",
+              "+1",
+              "-1",
+              "laugh",
+              "hooray",
+              "confused",
+              "heart",
+              "rocket",
+              "eyes"
+            ],
+            "title": "reactions"
+          },
+          "closed_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              }
+            ],
+            "title": "closed_by"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+          },
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "state": {
+            "type": "string",
+            "title": "state\n\nState of the issue; either 'open' or 'closed'"
+          },
+          "state_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "completed"
+              },
+              {
+                "const": "reopened"
+              },
+              {
+                "const": "not_planned"
+              }
+            ],
+            "description": "The reason for the current state"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "title": "user"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "color": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              ]
+            },
+            "title": "labels\n\nLabels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+              }
+            ],
+            "title": "assignee"
+          },
+          "assignees": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                }
+              }
+            ],
+            "title": "assignees\n\nIf there are many people in charge, you can be included in the array."
+          }
+        },
+        "required": [
+          "milestone",
+          "reactions",
+          "id",
+          "html_url",
+          "number",
+          "state",
+          "title",
+          "user",
+          "labels",
+          "assignee"
+        ]
+      },
+      "IGithub.IGetIssueDetailInput": {
+        "type": "object",
+        "properties": {
+          "issue_number": {
+            "type": "integer",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repositories/get-issues",
+              "jmesPath": "fetchedIssues[].{value:number, label:title}"
+            },
+            "title": "issue number to get detailed info"
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issue_number",
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
       "IGithub.IFetchRepositoryOutput": {
         "type": "object",
         "properties": {
           "fetchedIssues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IGithub.FetchedIssue"
+              "$ref": "#/components/schemas/StrictOmitIGithub.FetchedIssuebody"
             },
             "title": "issues"
           },
@@ -45539,12 +45822,53 @@
           "pageInfo"
         ]
       },
-      "IGithub.FetchedIssue": {
+      "StrictOmitIGithub.FetchedIssuebody": {
         "type": "object",
         "properties": {
+          "number": {
+            "type": "integer",
+            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+          },
+          "title": {
+            "type": "string",
+            "title": "issue title"
+          },
           "id": {
             "type": "string",
             "title": "issue id"
+          },
+          "comments": {
+            "type": "object",
+            "properties": {
+              "totalCount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "total count of comments"
+              }
+            },
+            "required": [
+              "totalCount"
+            ],
+            "title": "comments"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                }
+              }
+            },
+            "required": [
+              "nodes"
+            ],
+            "title": "labels"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "title": "author"
           },
           "state": {
             "oneOf": [
@@ -45574,24 +45898,6 @@
             ],
             "title": "reason of state"
           },
-          "title": {
-            "type": "string",
-            "title": "issue title"
-          },
-          "comments": {
-            "type": "object",
-            "properties": {
-              "totalCount": {
-                "type": "number",
-                "minimum": 0,
-                "title": "total count of comments"
-              }
-            },
-            "required": [
-              "totalCount"
-            ],
-            "title": "comments"
-          },
           "reactions": {
             "type": "object",
             "properties": {
@@ -45605,21 +45911,6 @@
               "totalCount"
             ],
             "title": "reactions"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "nodes": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
-                }
-              }
-            },
-            "required": [
-              "nodes"
-            ],
-            "title": "labels"
           },
           "assignees": {
             "type": "object",
@@ -45636,10 +45927,6 @@
             ],
             "title": "assignees"
           },
-          "author": {
-            "$ref": "#/components/schemas/PickIGithub.Userlogin",
-            "title": "author"
-          },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -45649,34 +45936,19 @@
             "type": "string",
             "format": "date-time",
             "title": "updatedAt"
-          },
-          "number": {
-            "type": "integer",
-            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
-          },
-          "body": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
           }
         },
         "required": [
-          "id",
+          "number",
           "title",
+          "id",
           "comments",
-          "reactions",
           "labels",
-          "assignees",
           "author",
+          "reactions",
+          "assignees",
           "createdAt",
-          "updatedAt",
-          "number"
+          "updatedAt"
         ]
       },
       "IGithub.IFetchRepositoryInput": {
