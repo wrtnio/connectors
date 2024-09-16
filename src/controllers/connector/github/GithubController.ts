@@ -526,6 +526,16 @@ export class GithubController {
     return this.githubProvider.createPullRequest(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/detail")
+  async readPullRequestDetail(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    return this.githubProvider.readPullRequestDetail(input);
+  }
+
   /**
    * List repository issues
    *

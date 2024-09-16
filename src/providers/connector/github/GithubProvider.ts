@@ -258,6 +258,21 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async readPullRequestDetail(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    const { owner, repo, pull_number, secretKey } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  }
+
   async getRepositoryPullRequest(
     input: IGithub.IGetchRepositoryPullRequestInput,
   ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
