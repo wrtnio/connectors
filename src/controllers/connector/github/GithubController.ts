@@ -526,6 +526,17 @@ export class GithubController {
     return this.githubProvider.createPullRequest(input);
   }
 
+  /**
+   * Get a deatiled pull-request info
+   *
+   * You can view detailed PR information using the PR number.
+   * Here, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.
+   * However, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.
+   *
+   * @summary Get a pull request
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )

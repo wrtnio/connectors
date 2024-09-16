@@ -2423,23 +2423,79 @@ export namespace IGithub {
   };
 
   export interface PullRequest extends IGithub.Issue {
+    /**
+     * @title number of this pull request
+     */
     number: number & tags.Type<"uint64">;
+
+    /**
+     * @title milestone
+     */
     milestone: MileStone | null;
+
+    /**
+     * @title head branch info
+     */
     head: {
+      /**
+       * @title label
+       */
       label: string;
+
+      /**
+       * @title ref
+       */
       ref: string;
+
+      /**
+       * @title sha
+       */
       sha: string;
+
+      /**
+       * @title user
+       */
       user: Pick<IGithub.User, "id" | "login" | "type">;
-      repo: Pick<Repository, "full_name"> | null;
-    };
-    base: {
-      label: string;
-      ref: string;
-      sha: string;
-      user: Pick<IGithub.User, "id" | "login" | "type">;
+
+      /**
+       * @title repo
+       */
       repo: Pick<Repository, "full_name"> | null;
     };
 
+    /**
+     * @title base branch info
+     */
+    base: {
+      /**
+       * @title label
+       */
+      label: string;
+
+      /**
+       * @title ref
+       */
+      ref: string;
+
+      /**
+       * @title sha
+       */
+      sha: string;
+
+      /**
+       * @title user
+       */
+      user: Pick<IGithub.User, "id" | "login" | "type">;
+
+      /**
+       * @title repo
+       */
+      repo: Pick<Repository, "full_name"> | null;
+    };
+
+    /**
+     * @title author_association
+     */
     author_association:
       | "COLLABORATOR"
       | "CONTRIBUTOR"
@@ -2560,12 +2616,39 @@ export namespace IGithub {
 
   // 타입이 정확히 뭐인지 파악이 안 된 상태
   export type Team = {
+    /**
+     * @title id
+     */
     id: number;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title slug
+     */
     slug: string;
+
+    /**
+     * @title description
+     */
     description: string;
+
+    /**
+     * @title privacy
+     */
     privacy: "open" | "closed";
+
+    /**
+     * @title notification_setting
+     */
     notification_setting: string;
+
+    /**
+     * @title permission
+     */
     permission: string;
   };
 
