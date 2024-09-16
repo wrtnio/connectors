@@ -287,6 +287,9 @@ export class GithubController {
    * You can pass multiple file paths to view multiple files at the same time.
    * There is no limit to the number of files.
    *
+   * This is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.
+   * There are connectors that view the list of files changed in PR, or see the changes.
+   *
    * @summary Look up repository files(bulk)
    * @param input
    * @returns
@@ -308,6 +311,9 @@ export class GithubController {
    * and if it is a file, it inquires about the encoding method of the file and the body content of the file.
    * Since there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.
    * In this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.
+   *
+   * This is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.
+   * There are connectors that view the list of files changed in PR, or see the changes.
    *
    * @summary Look up repository files
    * @param input
@@ -510,6 +516,8 @@ export class GithubController {
    * If the branch has already generated a pull request to the base branch, an error of 422 may occur.
    * This error indicates a collision because only one pull request from branch to another branch can exist open at the same time.
    *
+   * If the user wants to see each PR unit, this connector will be suitable.
+   *
    * When creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.
    * You can also create a pull request in draft state if necessary.
    *
@@ -533,6 +541,8 @@ export class GithubController {
    * Each file's patch contains the entire format of the file.
    * However, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.
    *
+   * If the user wants to see each PR unit, this connector will be suitable.
+   *
    * @summary List pull requests files
    * @param input
    * @returns
@@ -552,6 +562,8 @@ export class GithubController {
    *
    * Lists a maximum of 250 commits for a pull request.
    * To receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.
+   *
+   * If the user wants to see each PR unit, this connector will be suitable.
    *
    * @sumary List commits on a pull request
    * @param input
@@ -574,6 +586,8 @@ export class GithubController {
    * but the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,
    * and in github, this is called the application/vnd.github.diff format.
    * This helps you see at a glance what codes have disappeared and been added in a form suitable for code review.
+   *
+   * If the user wants to see each PR unit, this connector will be suitable.
    *
    * If there are too many changes, the connector can export a 406 error.
    * In this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.
@@ -598,6 +612,8 @@ export class GithubController {
    * You can view detailed PR information using the PR number.
    * Here, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.
    * However, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.
+   *
+   * If the user wants to see each PR unit, this connector will be suitable.
    *
    * @summary Get a pull request
    * @param input
@@ -861,6 +877,9 @@ export class GithubController {
 
   /**
    * Look up the list of commitments for a specific repo, a specific branch
+   *
+   * This function can be used in general because it sees the commit list in units of branches, but if the user wants to see it in units of PR, it is better to use another connector.
+   * If the user specifies to view in PR units, use other connectors because there are connectors for viewing files, commit lists, and changes in PR units elsewhere.
    *
    * @summary Look up the list of commitments for a specific repo, a specific branch
    * @param input
