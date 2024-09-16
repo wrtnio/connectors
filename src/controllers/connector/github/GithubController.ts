@@ -629,8 +629,8 @@ export class GithubController {
   )
   @core.TypedRoute.Post("repositories/get-pull-requests")
   async getRepositoryPullRequest(
-    @TypedBody() input: IGithub.IGetchRepositoryPullRequestInput,
-  ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
+    @TypedBody() input: IGithub.IFetchRepositoryPullRequestInput,
+  ): Promise<IGithub.IFetchRepositoryPullRequestOutput> {
     return this.githubProvider.getRepositoryPullRequest(input);
   }
 

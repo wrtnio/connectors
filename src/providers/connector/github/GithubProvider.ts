@@ -330,9 +330,10 @@ export class GithubProvider {
   }
 
   async getRepositoryPullRequest(
-    input: IGithub.IGetchRepositoryPullRequestInput,
-  ): Promise<IGithub.IGetchRepositoryPullRequestOutput> {
+    input: IGithub.IFetchRepositoryPullRequestInput,
+  ): Promise<IGithub.IFetchRepositoryPullRequestOutput> {
     const token = await this.getToken(input.secretKey);
+    const per_page = input.per_page ?? 30;
     const url = `https://api.github.com/graphql`;
 
     const query = `
@@ -396,7 +397,7 @@ export class GithubProvider {
     const variables = {
       owner: input.owner,
       repo: input.repo,
-      perPage: input.per_page,
+      perPage: per_page,
       after: input.after,
       sort: input.sort,
       direction: input.direction?.toUpperCase(),
@@ -430,6 +431,7 @@ export class GithubProvider {
     input: IGithub.IFetchRepositoryInput,
   ): Promise<IGithub.IFetchRepositoryOutput> {
     const token = await this.getToken(input.secretKey);
+    const per_page = input.per_page ?? 30;
     const url = `https://api.github.com/graphql`;
 
     const query = `
@@ -491,7 +493,7 @@ export class GithubProvider {
     const variables = {
       owner: input.owner,
       repo: input.repo,
-      perPage: input.per_page,
+      perPage: per_page,
       after: input.after,
       direction: input.direction?.toUpperCase(),
       ...(input.state && { state: [input.state?.toUpperCase()] }), // 배열로 전달

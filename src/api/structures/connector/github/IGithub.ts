@@ -1505,7 +1505,7 @@ export namespace IGithub {
     updatedAt: string & tags.Format<"date-time">;
   }
 
-  export interface IGetchRepositoryPullRequestOutput {
+  export interface IFetchRepositoryPullRequestOutput {
     pullRequests: FetchedPullRequest[];
 
     /**
@@ -1606,7 +1606,7 @@ export namespace IGithub {
     updatedAt: string & tags.Format<"date-time">;
   }
 
-  export interface IGetchRepositoryPullRequestInput
+  export interface IFetchRepositoryPullRequestInput
     extends Pick<
       IFetchRepositoryInput,
       | "secretKey"

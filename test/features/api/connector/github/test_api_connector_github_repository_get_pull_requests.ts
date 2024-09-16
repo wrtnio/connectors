@@ -87,3 +87,23 @@ export async function test_api_connector_github_repository_get_pull_requests(
   typia.assert(res5);
   assert(res5.pullRequests.every((el) => el.state === "CLOSED"));
 }
+
+export async function test_api_connector_github_repository_get_pull_requests_2(
+  connection: CApi.IConnection,
+) {
+  const res =
+    await CApi.functional.connector.github.repositories.get_pull_requests.getRepositoryPullRequest(
+      connection,
+      {
+        owner: "wrtnio",
+        repo: "connectors",
+        direction: "ASC",
+        sort: "CREATED_AT",
+        per_page: 10,
+        state: "OPEN",
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  typia.assert(res);
+}
