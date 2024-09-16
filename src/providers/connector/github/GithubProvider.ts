@@ -262,31 +262,36 @@ export class GithubProvider {
   async readPullRequestFiles(
     input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestFileOutput> {
-    const { owner, repo, pull_number, secretKey } = input;
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
     const token = await this.getToken(secretKey);
-    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/files`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/files?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    return res.data;
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
   }
 
   async readPullRequestCommits(
     input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestCommitOutput> {
-    const { owner, repo, pull_number, secretKey } = input;
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
     const token = await this.getToken(secretKey);
-    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/commits`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/commits?${queryParameter}`;
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    return res.data;
+    const link = res.headers["link"];
+    const commits = res.data.map((el: any) => el.commit);
+    return { result: commits, ...this.getCursors(link) };
   }
 
   async readPullRequestDetail(

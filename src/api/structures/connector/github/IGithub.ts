@@ -115,8 +115,27 @@ export namespace IGithub {
     due_on: string & tags.Format<"date-time">;
   };
 
-  export type IReadPullRequestFileOutput = File[];
-  export type IReadPullRequestCommitOutput = Commit[];
+  export interface IReadPullRequestFileOutput
+    extends IGithub.ICommonPaginationOutput {
+    result: File[];
+  }
+
+  export interface IReadPullRequestFileInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export interface IReadPullRequestCommitOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title commit list of this pull request
+     */
+    result: StrictOmit<Commit, "sha">[];
+  }
+
+  export interface IReadPullRequestCommitInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
   export type IReadPullRequestDetailOutput = PullRequest;
 
   export interface IReadPullRequestDetailInput

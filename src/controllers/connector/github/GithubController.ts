@@ -531,7 +531,7 @@ export class GithubController {
   )
   @core.TypedRoute.Post("repositories/pull-requests/files")
   async readPullRequestFiles(
-    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+    @TypedBody() input: IGithub.IReadPullRequestFileInput,
   ): Promise<IGithub.IReadPullRequestFileOutput> {
     return this.githubProvider.readPullRequestFiles(input);
   }
@@ -541,7 +541,7 @@ export class GithubController {
   )
   @core.TypedRoute.Post("repositories/pull-requests/commits")
   async readPullRequestCommits(
-    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+    @TypedBody() input: IGithub.IReadPullRequestCommitInput,
   ): Promise<IGithub.IReadPullRequestCommitOutput> {
     return this.githubProvider.readPullRequestCommits(input);
   }
