@@ -1505,7 +1505,7 @@ export namespace IGithub {
     updatedAt: string & tags.Format<"date-time">;
   }
 
-  export interface IGetchRepositoryPullRequestOutput {
+  export interface IFetchRepositoryPullRequestOutput {
     pullRequests: FetchedPullRequest[];
 
     /**
@@ -1606,7 +1606,7 @@ export namespace IGithub {
     updatedAt: string & tags.Format<"date-time">;
   }
 
-  export interface IGetchRepositoryPullRequestInput
+  export interface IFetchRepositoryPullRequestInput
     extends Pick<
       IFetchRepositoryInput,
       | "secretKey"
@@ -1620,6 +1620,7 @@ export namespace IGithub {
     > {
     /**
      * @title sort
+     * It must be one of: "CREATED_AT", "UPDATED_AT".
      */
     sort:
       | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
