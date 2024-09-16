@@ -652,6 +652,8 @@ export class GithubController {
 
   /**
    * Get a deatiled pull-request info
+   * Unlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.
+   * However, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.
    *
    * @summary Get a pull request
    * @param input

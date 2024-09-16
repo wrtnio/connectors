@@ -1627,7 +1627,69 @@ export namespace IGithub {
       | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>;
   }
 
-  export type IGetIssueDetailOutput = Issue;
+  export type IGetIssueDetailOutput = DetailedIssue;
+
+  export interface DetailedIssue extends IGithub.Issue {
+    /**
+     * @title milestone
+     */
+    milestone: MileStone | null;
+
+    /**
+     * @title reactions
+     */
+    reactions: {
+      /**
+       * @title total_count
+       */
+      total_count: number & tags.Type<"uint64">;
+
+      /**
+       * @title "+1"
+       */
+      "+1": number & tags.Type<"uint64">;
+
+      /**
+       * @title "-1"
+       */
+      "-1": number & tags.Type<"uint64">;
+
+      /**
+       * @title laugh
+       */
+      laugh: number & tags.Type<"uint64">;
+
+      /**
+       * @title hooray
+       */
+      hooray: number & tags.Type<"uint64">;
+
+      /**
+       * @title confused
+       */
+      confused: number & tags.Type<"uint64">;
+
+      /**
+       * @title heart
+       */
+      heart: number & tags.Type<"uint64">;
+
+      /**
+       * @title rocket
+       */
+      rocket: number & tags.Type<"uint64">;
+
+      /**
+       * @title eyes
+       */
+      eyes: number & tags.Type<"uint64">;
+    };
+
+    /**
+     * @title closed_by
+     */
+    closed_by?: Pick<User, "id" | "login" | "type"> | null;
+  }
 
   export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
     /**
