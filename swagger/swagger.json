@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.199",
+    "version": "0.1.200",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11461,6 +11461,129 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repositories/pull-requests/files": {
+      "post": {
+        "summary": "List pull requests files",
+        "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReadPullRequestFileInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IReadPullRequestFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/commits": {
+      "post": {
+        "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReadPullRequestCommitInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IReadPullRequestCommitOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/diff": {
+      "post": {
+        "summary": "Get a diff of pull request",
+        "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReadPullRequestDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/detail": {
+      "post": {
+        "summary": "Get a pull request",
+        "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReadPullRequestDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.PullRequest"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/repositories/get-pull-requests": {
       "post": {
         "summary": "Get Repository' pull request",
@@ -11733,7 +11856,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/IGithub.PullRequest"
+                    "$ref": "#/components/schemas/StrictOmitIGithub.PullRequestcommentsmaintainer_can_modifymergeablerebaseablemergeable_statemerged_byreview_commentscommitsadditionsdeletionschanged_files"
                   }
                 }
               }
@@ -41764,6 +41887,9 @@
               },
               {
                 "const": "Bot"
+              },
+              {
+                "const": "Organization"
               }
             ],
             "title": "type"
@@ -43767,6 +43893,9 @@
               },
               {
                 "const": "Bot"
+              },
+              {
+                "const": "Organization"
               }
             ],
             "title": "type"
@@ -43914,7 +44043,7 @@
         "properties": {
           "number": {
             "type": "integer",
-            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+            "title": "number of this pull request"
           },
           "title": {
             "type": "string",
@@ -44031,7 +44160,7 @@
         "properties": {
           "number": {
             "type": "integer",
-            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
+            "title": "number of this pull request"
           },
           "title": {
             "type": "string",
@@ -44108,6 +44237,994 @@
           "secretKey"
         ]
       },
+      "IGithub.IReadPullRequestFileOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.File"
+            }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.File": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string",
+            "title": "hash of this file"
+          },
+          "filename": {
+            "type": "string",
+            "title": "filename"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "added"
+              },
+              {
+                "const": "removed"
+              },
+              {
+                "const": "modified"
+              },
+              {
+                "const": "renamed"
+              },
+              {
+                "const": "copied"
+              },
+              {
+                "const": "changed"
+              },
+              {
+                "const": "unchanged"
+              }
+            ],
+            "title": "status of file in this commit"
+          },
+          "additions": {
+            "type": "integer",
+            "title": "additions"
+          },
+          "deletions": {
+            "type": "integer",
+            "title": "deletions"
+          },
+          "changes": {
+            "type": "integer",
+            "title": "changes"
+          },
+          "blob_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "blob_url\n\nThis is the path through which you can view the file through the github website."
+          },
+          "raw_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "raw_url\n\nThe API path through which the contents of the file can be viewed."
+          },
+          "patch": {
+            "type": "string",
+            "title": "patch\n\nIt means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
+          }
+        },
+        "required": [
+          "sha",
+          "filename",
+          "status",
+          "additions",
+          "deletions",
+          "changes",
+          "blob_url",
+          "raw_url"
+        ]
+      },
+      "IGithub.IReadPullRequestFileInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
+      "IGithub.IReadPullRequestCommitOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGithub.Commitsha"
+            },
+            "title": "commit list of this pull request"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "StrictOmitIGithub.Commitsha": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "commit message"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "uri\n\nuri to look up details of commitment"
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "author"
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "committer"
+          },
+          "tree": {
+            "type": "object",
+            "properties": {
+              "sha": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "sha",
+              "url"
+            ]
+          },
+          "comment_count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "message",
+          "url",
+          "author",
+          "committer",
+          "tree",
+          "comment_count"
+        ]
+      },
+      "IGithub.IReadPullRequestCommitInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
+      "IGithub.IReadPullRequestDetailInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
+      "IGithub.PullRequest": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "title": "number of this pull request"
+          },
+          "milestone": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IGithub.MileStone"
+              }
+            ],
+            "title": "milestone"
+          },
+          "head": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "title": "label"
+              },
+              "ref": {
+                "type": "string",
+                "title": "ref"
+              },
+              "sha": {
+                "type": "string",
+                "title": "sha"
+              },
+              "user": {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "title": "user"
+              },
+              "repo": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                  }
+                ],
+                "title": "repo"
+              }
+            },
+            "required": [
+              "label",
+              "ref",
+              "sha",
+              "user",
+              "repo"
+            ],
+            "title": "head branch info"
+          },
+          "base": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "title": "label"
+              },
+              "ref": {
+                "type": "string",
+                "title": "ref"
+              },
+              "sha": {
+                "type": "string",
+                "title": "sha"
+              },
+              "user": {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "title": "user"
+              },
+              "repo": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                  }
+                ],
+                "title": "repo"
+              }
+            },
+            "required": [
+              "label",
+              "ref",
+              "sha",
+              "user",
+              "repo"
+            ],
+            "title": "base branch info"
+          },
+          "author_association": {
+            "oneOf": [
+              {
+                "const": "NONE"
+              },
+              {
+                "const": "COLLABORATOR"
+              },
+              {
+                "const": "CONTRIBUTOR"
+              },
+              {
+                "const": "FIRST_TIMER"
+              },
+              {
+                "const": "FIRST_TIME_CONTRIBUTOR"
+              },
+              {
+                "const": "MANNEQUIN"
+              },
+              {
+                "const": "MEMBER"
+              },
+              {
+                "const": "OWNER"
+              }
+            ],
+            "title": "author_association"
+          },
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether or not the pull request is a draft."
+          },
+          "requested_reviewers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+            },
+            "title": "requested_reviewers"
+          },
+          "requested_teams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartialIGithub.Team"
+            },
+            "title": "requested_teams"
+          },
+          "auto_merge": {
+            "title": "auto_merge"
+          },
+          "merged": {
+            "type": "boolean",
+            "title": "merged"
+          },
+          "mergeable": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "mergeable"
+          },
+          "rebaseable": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "rebaseable"
+          },
+          "mergeable_state": {
+            "type": "string",
+            "title": "mergeable_state"
+          },
+          "merged_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              }
+            ],
+            "title": "merged_by"
+          },
+          "maintainer_can_modify": {
+            "type": "boolean",
+            "title": "maintainer_can_modify"
+          },
+          "comments": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "comments"
+          },
+          "review_comments": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "review_comments"
+          },
+          "commits": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "commits"
+          },
+          "additions": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "additions"
+          },
+          "deletions": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "deletions"
+          },
+          "changed_files": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "changed_files"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "locked"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "closed_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "closed_at"
+          },
+          "merged_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "merged_at"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+          },
+          "state": {
+            "type": "string",
+            "title": "state\n\nState of the issue; either 'open' or 'closed'"
+          },
+          "state_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "completed"
+              },
+              {
+                "const": "reopened"
+              },
+              {
+                "const": "not_planned"
+              }
+            ],
+            "description": "The reason for the current state"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the issue"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "title": "user"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "color": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              ]
+            },
+            "title": "labels\n\nLabels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+              }
+            ],
+            "title": "assignee"
+          },
+          "assignees": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                }
+              }
+            ],
+            "title": "assignees\n\nIf there are many people in charge, you can be included in the array."
+          }
+        },
+        "required": [
+          "number",
+          "milestone",
+          "head",
+          "base",
+          "author_association",
+          "requested_reviewers",
+          "requested_teams",
+          "auto_merge",
+          "mergeable",
+          "rebaseable",
+          "mergeable_state",
+          "merged_by",
+          "maintainer_can_modify",
+          "comments",
+          "review_comments",
+          "commits",
+          "additions",
+          "deletions",
+          "changed_files",
+          "locked",
+          "created_at",
+          "updated_at",
+          "closed_at",
+          "merged_at",
+          "id",
+          "html_url",
+          "state",
+          "title",
+          "user",
+          "labels",
+          "assignee"
+        ]
+      },
+      "IGithub.MileStone": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "number": {
+            "type": "number"
+          },
+          "state": {
+            "oneOf": [
+              {
+                "const": "open"
+              },
+              {
+                "const": "closed"
+              }
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+          },
+          "open_issues": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "closed_issues": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "closed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "due_on": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "number",
+          "state",
+          "title",
+          "description",
+          "creator",
+          "open_issues",
+          "closed_issues",
+          "created_at",
+          "updated_at",
+          "closed_at",
+          "due_on"
+        ]
+      },
+      "PickIGithub.Repositoryfull_name": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "title": "full_name\n\nThis is in the form '{username}/{reponame}'."
+          }
+        },
+        "required": [
+          "full_name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PartialIGithub.Team": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "slug": {
+            "type": "string",
+            "title": "slug"
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "privacy": {
+            "oneOf": [
+              {
+                "const": "open"
+              },
+              {
+                "const": "closed"
+              }
+            ],
+            "title": "privacy"
+          },
+          "notification_setting": {
+            "type": "string",
+            "title": "notification_setting"
+          },
+          "permission": {
+            "type": "string",
+            "title": "permission"
+          }
+        },
+        "description": "Make all properties in T optional"
+      },
       "IGithub.IGetchRepositoryPullRequestOutput": {
         "type": "object",
         "properties": {
@@ -44157,9 +45274,17 @@
               {
                 "const": "CLOSED",
                 "title": "CLOSED"
+              },
+              {
+                "const": "MERGED",
+                "title": "MERGED"
               }
             ],
             "title": "issue state"
+          },
+          "number": {
+            "type": "integer",
+            "title": "number of pull request"
           },
           "title": {
             "type": "string",
@@ -44254,6 +45379,7 @@
         },
         "required": [
           "id",
+          "number",
           "title",
           "comments",
           "reviews",
@@ -44345,9 +45471,13 @@
               {
                 "const": "CLOSED",
                 "title": "CLOSED"
+              },
+              {
+                "const": "MERGED",
+                "title": "MERGED"
               }
             ],
-            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\"."
+            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
           },
           "direction": {
             "oneOf": [
@@ -44421,6 +45551,10 @@
               {
                 "const": "CLOSED",
                 "title": "CLOSED"
+              },
+              {
+                "const": "MERGED",
+                "title": "MERGED"
               }
             ],
             "title": "issue state"
@@ -44569,9 +45703,13 @@
               {
                 "const": "CLOSED",
                 "title": "CLOSED"
+              },
+              {
+                "const": "MERGED",
+                "title": "MERGED"
               }
             ],
-            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\"."
+            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
           },
           "direction": {
             "oneOf": [
@@ -44712,6 +45850,9 @@
               },
               {
                 "const": "Bot"
+              },
+              {
+                "const": "Organization"
               }
             ],
             "title": "type"
@@ -44918,6 +46059,9 @@
               },
               {
                 "const": "Bot"
+              },
+              {
+                "const": "Organization"
               }
             ],
             "title": "type"
@@ -45608,89 +46752,6 @@
           "commit"
         ]
       },
-      "StrictOmitIGithub.Commitsha": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "title": "commit message"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "title": "uri\n\nuri to look up details of commitment"
-          },
-          "author": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": [
-              "name",
-              "email",
-              "date"
-            ],
-            "title": "author"
-          },
-          "committer": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": [
-              "name",
-              "email",
-              "date"
-            ],
-            "title": "committer"
-          },
-          "tree": {
-            "type": "object",
-            "properties": {
-              "sha": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "sha",
-              "url"
-            ]
-          },
-          "comment_count": {
-            "type": "integer"
-          }
-        },
-        "required": [
-          "message",
-          "url",
-          "author",
-          "committer",
-          "tree",
-          "comment_count"
-        ]
-      },
       "IGithub.IGetBranchInput": {
         "type": "object",
         "properties": {
@@ -45800,138 +46861,103 @@
           "secretKey"
         ]
       },
-      "IGithub.PullRequest": {
+      "StrictOmitIGithub.PullRequestcommentsmaintainer_can_modifymergeablerebaseablemergeable_statemerged_byreview_commentscommitsadditionsdeletionschanged_files": {
         "type": "object",
         "properties": {
-          "head": {
-            "type": "object",
-            "properties": {
-              "label": {
-                "type": "string"
-              },
-              "ref": {
-                "type": "string"
-              },
-              "sha": {
-                "type": "string"
-              },
-              "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
-              }
-            },
-            "required": [
-              "label",
-              "ref",
-              "sha",
-              "user"
-            ]
-          },
-          "base": {
-            "type": "object",
-            "properties": {
-              "label": {
-                "type": "string"
-              },
-              "ref": {
-                "type": "string"
-              },
-              "sha": {
-                "type": "string"
-              },
-              "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
-              }
-            },
-            "required": [
-              "label",
-              "ref",
-              "sha",
-              "user"
-            ]
-          },
-          "merged_at": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "date-time"
-              }
-            ]
-          },
-          "author_association": {
-            "oneOf": [
-              {
-                "const": "NONE"
-              },
-              {
-                "const": "COLLABORATOR"
-              },
-              {
-                "const": "CONTRIBUTOR"
-              },
-              {
-                "const": "FIRST_TIMER"
-              },
-              {
-                "const": "FIRST_TIME_CONTRIBUTOR"
-              },
-              {
-                "const": "MANNEQUIN"
-              },
-              {
-                "const": "MEMBER"
-              },
-              {
-                "const": "OWNER"
-              }
-            ]
-          },
-          "draft": {
-            "type": "boolean",
-            "title": "draft\n\nIndicates whether or not the pull request is a draft."
-          },
-          "id": {
-            "type": "integer"
-          },
-          "html_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
-          },
           "number": {
             "type": "integer",
-            "title": "issue number\n\nNumber uniquely identifying the issue within its repository"
-          },
-          "state": {
-            "type": "string",
-            "title": "state\n\nState of the issue; either 'open' or 'closed'"
-          },
-          "state_reason": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "const": "completed"
-              },
-              {
-                "const": "reopened"
-              },
-              {
-                "const": "not_planned"
-              }
-            ],
-            "description": "The reason for the current state"
+            "title": "number of this pull request"
           },
           "title": {
             "type": "string",
             "description": "Title of the issue"
           },
+          "base": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "title": "label"
+              },
+              "ref": {
+                "type": "string",
+                "title": "ref"
+              },
+              "sha": {
+                "type": "string",
+                "title": "sha"
+              },
+              "user": {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "title": "user"
+              },
+              "repo": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                  }
+                ],
+                "title": "repo"
+              }
+            },
+            "required": [
+              "label",
+              "ref",
+              "sha",
+              "user",
+              "repo"
+            ],
+            "title": "base branch info"
+          },
           "user": {
             "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
             "title": "user"
+          },
+          "head": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "title": "label"
+              },
+              "ref": {
+                "type": "string",
+                "title": "ref"
+              },
+              "sha": {
+                "type": "string",
+                "title": "sha"
+              },
+              "user": {
+                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "title": "user"
+              },
+              "repo": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                  }
+                ],
+                "title": "repo"
+              }
+            },
+            "required": [
+              "label",
+              "ref",
+              "sha",
+              "user",
+              "repo"
+            ],
+            "title": "head branch info"
+          },
+          "id": {
+            "type": "integer"
           },
           "body": {
             "oneOf": [
@@ -45943,6 +46969,26 @@
               }
             ],
             "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+          },
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether or not the pull request is a draft."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+              }
+            ],
+            "title": "assignee"
           },
           "labels": {
             "type": "array",
@@ -45993,16 +47039,9 @@
             },
             "title": "labels\n\nLabels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
           },
-          "assignee": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
-              }
-            ],
-            "title": "assignee"
+          "state": {
+            "type": "string",
+            "title": "state\n\nState of the issue; either 'open' or 'closed'"
           },
           "assignees": {
             "oneOf": [
@@ -46017,21 +47056,145 @@
               }
             ],
             "title": "assignees\n\nIf there are many people in charge, you can be included in the array."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "milestone": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IGithub.MileStone"
+              }
+            ],
+            "title": "milestone"
+          },
+          "author_association": {
+            "oneOf": [
+              {
+                "const": "NONE"
+              },
+              {
+                "const": "COLLABORATOR"
+              },
+              {
+                "const": "CONTRIBUTOR"
+              },
+              {
+                "const": "FIRST_TIMER"
+              },
+              {
+                "const": "FIRST_TIME_CONTRIBUTOR"
+              },
+              {
+                "const": "MANNEQUIN"
+              },
+              {
+                "const": "MEMBER"
+              },
+              {
+                "const": "OWNER"
+              }
+            ],
+            "title": "author_association"
+          },
+          "requested_reviewers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+            },
+            "title": "requested_reviewers"
+          },
+          "requested_teams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartialIGithub.Team"
+            },
+            "title": "requested_teams"
+          },
+          "auto_merge": {
+            "title": "auto_merge"
+          },
+          "merged": {
+            "type": "boolean",
+            "title": "merged"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "locked"
+          },
+          "closed_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "closed_at"
+          },
+          "merged_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "merged_at"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+          },
+          "state_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "completed"
+              },
+              {
+                "const": "reopened"
+              },
+              {
+                "const": "not_planned"
+              }
+            ],
+            "description": "The reason for the current state"
           }
         },
         "required": [
-          "head",
-          "base",
-          "merged_at",
-          "author_association",
-          "id",
-          "html_url",
           "number",
-          "state",
           "title",
+          "base",
           "user",
+          "head",
+          "id",
+          "created_at",
+          "assignee",
           "labels",
-          "assignee"
+          "state",
+          "updated_at",
+          "milestone",
+          "author_association",
+          "requested_reviewers",
+          "requested_teams",
+          "auto_merge",
+          "locked",
+          "closed_at",
+          "merged_at",
+          "html_url"
         ]
       },
       "IGithub.IGetPullRequestInput": {
@@ -46168,81 +47331,6 @@
           "comment_count"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
-      },
-      "IGithub.File": {
-        "type": "object",
-        "properties": {
-          "sha": {
-            "type": "string",
-            "title": "hash of this file"
-          },
-          "filename": {
-            "type": "string",
-            "title": "filename"
-          },
-          "status": {
-            "oneOf": [
-              {
-                "const": "added"
-              },
-              {
-                "const": "removed"
-              },
-              {
-                "const": "modified"
-              },
-              {
-                "const": "renamed"
-              },
-              {
-                "const": "copied"
-              },
-              {
-                "const": "changed"
-              },
-              {
-                "const": "unchanged"
-              }
-            ],
-            "title": "status of file in this commit"
-          },
-          "additions": {
-            "type": "integer",
-            "title": "additions"
-          },
-          "deletions": {
-            "type": "integer",
-            "title": "deletions"
-          },
-          "changes": {
-            "type": "integer",
-            "title": "changes"
-          },
-          "blob_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "blob_url\n\nThis is the path through which you can view the file through the github website."
-          },
-          "raw_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "raw_url\n\nThe API path through which the contents of the file can be viewed."
-          },
-          "patch": {
-            "type": "string",
-            "title": "patch\n\nIt means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
-          }
-        },
-        "required": [
-          "sha",
-          "filename",
-          "status",
-          "additions",
-          "deletions",
-          "changes",
-          "blob_url",
-          "raw_url"
-        ]
       },
       "IGithub.IGetCommitHeadInput": {
         "type": "object",
@@ -46975,6 +48063,9 @@
               },
               {
                 "const": "Bot"
+              },
+              {
+                "const": "Organization"
               }
             ],
             "title": "type"
