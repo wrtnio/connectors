@@ -720,7 +720,7 @@ export class GithubController {
    *
    * It is generally difficult to use because only issues related to me come out.
    *
-   * @deprecated Because it's useful to see issues at the repo or organizational level, looking at the user's entire issue history changes to a deprecated state
+   * @hidden Because it's useful to see issues at the repo or organizational level, looking at the user's entire issue history changes to a deprecated state
    * @summary List issues assigned to the authenticated user
    * @param input
    * @returns
@@ -962,7 +962,7 @@ export class GithubController {
    *
    * 유저의 토큰을 쓰지 말고, 그냥 get-user-profile connector로 조회하는 것이 더 빠를 것이기 때문에 아래 로직은 Depreacted로 변경한다.
    *
-   * @deprecated
+   * @hidden
    * @summary Get my profile
    * @param input
    * @returns

@@ -117,7 +117,9 @@ export namespace IGoogleMap {
      *
      * @title 이미지
      */
-    thumbnail: string & tags.Format<"uri"> & ContentMediaType<"image/*">;
+    thumbnail?:
+      | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+      | null;
   }
 
   export interface IReviewRequest {
