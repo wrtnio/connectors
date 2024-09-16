@@ -1414,7 +1414,7 @@ export namespace IGithub {
     /**
      * @title issues
      */
-    fetchedIssues: FetchedIssue[];
+    fetchedIssues: StrictOmit<FetchedIssue, "body">[];
 
     /**
      * @title page info
@@ -1625,6 +1625,97 @@ export namespace IGithub {
     sort:
       | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
       | tags.Constant<"UPDATED_AT", { title: "UPDATED_AT" }>;
+  }
+
+  export type IGetIssueDetailOutput = DetailedIssue;
+
+  export interface DetailedIssue extends IGithub.Issue {
+    /**
+     * @title milestone
+     */
+    milestone: MileStone | null;
+
+    /**
+     * @title reactions
+     */
+    reactions: {
+      /**
+       * @title total_count
+       */
+      total_count: number & tags.Type<"uint64">;
+
+      /**
+       * @title "+1"
+       */
+      "+1": number & tags.Type<"uint64">;
+
+      /**
+       * @title "-1"
+       */
+      "-1": number & tags.Type<"uint64">;
+
+      /**
+       * @title laugh
+       */
+      laugh: number & tags.Type<"uint64">;
+
+      /**
+       * @title hooray
+       */
+      hooray: number & tags.Type<"uint64">;
+
+      /**
+       * @title confused
+       */
+      confused: number & tags.Type<"uint64">;
+
+      /**
+       * @title heart
+       */
+      heart: number & tags.Type<"uint64">;
+
+      /**
+       * @title rocket
+       */
+      rocket: number & tags.Type<"uint64">;
+
+      /**
+       * @title eyes
+       */
+      eyes: number & tags.Type<"uint64">;
+    };
+
+    /**
+     * @title closed_by
+     */
+    closed_by?: Pick<User, "id" | "login" | "type"> | null;
+  }
+
+  export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
+    /**
+     * @title issue number to get detailed info
+     */
+    issue_number: Issue["number"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repositories/get-issues";
+        jmesPath: "fetchedIssues[].{value:number, label:title}";
+      }>;
+
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
   }
 
   export interface IFetchRepositoryInput extends ICommon.ISecret<"github"> {

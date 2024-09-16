@@ -550,7 +550,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("repositories/pull-requests/files")
+  @core.TypedRoute.Post("repositories/pull-requests/get-files")
   async readPullRequestFiles(
     @TypedBody() input: IGithub.IReadPullRequestFileInput,
   ): Promise<IGithub.IReadPullRequestFileOutput> {
@@ -572,7 +572,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("repositories/pull-requests/commits")
+  @core.TypedRoute.Post("repositories/pull-requests/get-commits")
   async readPullRequestCommits(
     @TypedBody() input: IGithub.IReadPullRequestCommitInput,
   ): Promise<IGithub.IReadPullRequestCommitOutput> {
@@ -599,7 +599,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("repositories/pull-requests/diff")
+  @core.TypedRoute.Post("repositories/pull-requests/get-diff")
   async readPullRequestDiff(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<string> {
@@ -622,7 +622,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
-  @core.TypedRoute.Post("repositories/pull-requests/detail")
+  @core.TypedRoute.Post("repositories/pull-requests/get-detail")
   async readPullRequestDetail(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestDetailOutput> {
@@ -648,6 +648,25 @@ export class GithubController {
     @TypedBody() input: IGithub.IFetchRepositoryPullRequestInput,
   ): Promise<IGithub.IFetchRepositoryPullRequestOutput> {
     return this.githubProvider.getRepositoryPullRequest(input);
+  }
+
+  /**
+   * Get a deatiled pull-request info
+   * Unlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.
+   * However, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.
+   *
+   * @summary Get a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/issues/get-detail")
+  async getIssueDetail(
+    @TypedBody() input: IGithub.IGetIssueDetailInput,
+  ): Promise<IGithub.IGetIssueDetailOutput> {
+    return this.githubProvider.getIssueDetail(input);
   }
 
   /**

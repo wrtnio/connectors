@@ -22,7 +22,7 @@ export async function test_api_connector_github_repository_read_pull_request_dif
 
   for await (const pullRequest of pullRequests) {
     const diff =
-      await CApi.functional.connector.github.repositories.pull_requests.diff.readPullRequestDiff(
+      await CApi.functional.connector.github.repositories.pull_requests.get_diff.readPullRequestDiff(
         connection,
         {
           owner: "samchon",

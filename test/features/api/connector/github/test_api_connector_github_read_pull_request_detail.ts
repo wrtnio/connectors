@@ -2,7 +2,7 @@ import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export async function test_api_connector_github_repository_read_pull_request_commits(
+export async function test_api_connector_github_repository_read_pull_request_detail(
   connection: CApi.IConnection,
 ) {
   const { pullRequests } =
@@ -13,7 +13,7 @@ export async function test_api_connector_github_repository_read_pull_request_com
         repo: "nestia",
         direction: "DESC",
         sort: "CREATED_AT",
-        per_page: 10,
+        per_page: 30,
         secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
@@ -21,8 +21,8 @@ export async function test_api_connector_github_repository_read_pull_request_com
   typia.assert(pullRequests);
 
   for await (const pullRequest of pullRequests) {
-    const commits =
-      await CApi.functional.connector.github.repositories.pull_requests.commits.readPullRequestCommits(
+    const detail =
+      await CApi.functional.connector.github.repositories.pull_requests.get_detail.readPullRequestDetail(
         connection,
         {
           owner: "samchon",
@@ -32,6 +32,6 @@ export async function test_api_connector_github_repository_read_pull_request_com
         },
       );
 
-    typia.assert(commits);
+    typia.assert(detail);
   }
 }
