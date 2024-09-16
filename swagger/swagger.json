@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.200",
+    "version": "0.1.201",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11594,7 +11594,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGithub.IGetchRepositoryPullRequestInput"
+                "$ref": "#/components/schemas/IGithub.IFetchRepositoryPullRequestInput"
               }
             }
           },
@@ -11606,7 +11606,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGithub.IGetchRepositoryPullRequestOutput"
+                  "$ref": "#/components/schemas/IGithub.IFetchRepositoryPullRequestOutput"
                 }
               }
             }
@@ -45225,7 +45225,7 @@
         },
         "description": "Make all properties in T optional"
       },
-      "IGithub.IGetchRepositoryPullRequestOutput": {
+      "IGithub.IFetchRepositoryPullRequestOutput": {
         "type": "object",
         "properties": {
           "pullRequests": {
@@ -45416,7 +45416,7 @@
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
-      "IGithub.IGetchRepositoryPullRequestInput": {
+      "IGithub.IFetchRepositoryPullRequestInput": {
         "type": "object",
         "properties": {
           "sort": {
@@ -45430,7 +45430,7 @@
                 "title": "UPDATED_AT"
               }
             ],
-            "title": "sort"
+            "title": "sort\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\"."
           },
           "secretKey": {
             "type": "string",
