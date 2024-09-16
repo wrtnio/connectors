@@ -1620,6 +1620,7 @@ export namespace IGithub {
     > {
     /**
      * @title sort
+     * It must be one of: "CREATED_AT", "UPDATED_AT".
      */
     sort:
       | tags.Constant<"CREATED_AT", { title: "CREATED_AT" }>
