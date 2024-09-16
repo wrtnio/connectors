@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.202",
+    "version": "0.1.203",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11712,7 +11712,6 @@
       "post": {
         "summary": "List issues assigned to the authenticated user",
         "description": "List issues assigned to the authenticated user\n\nList issues assigned to the authenticated user across all visible repositories\nincluding owned repositories, member repositories, and organization repositories.\nYou can use the filter query parameter to fetch issues that are not necessarily assigned to you.\nThis connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.\n\nIt is generally difficult to use because only issues related to me come out.",
-        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12087,7 +12086,6 @@
       "post": {
         "summary": "Get my profile",
         "description": "Get user's profile\n\n유저의 토큰을 쓰지 말고, 그냥 get-user-profile connector로 조회하는 것이 더 빠를 것이기 때문에 아래 로직은 Depreacted로 변경한다.",
-        "deprecated": true,
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -41343,9 +41341,16 @@
             "description": "맛집 유저 리뷰 입니다."
           },
           "thumbnail": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "image/*",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri",
+                "contentMediaType": "image/*"
+              }
+            ],
             "title": "이미지",
             "description": "맛집 썸네일 이미지 입니다."
           }
@@ -41354,8 +41359,7 @@
           "title",
           "place_id",
           "gps_coordinate",
-          "address",
-          "thumbnail"
+          "address"
         ],
         "title": "구글 맵 맛집 검색 결과"
       },

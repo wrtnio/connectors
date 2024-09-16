@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.202",
+    "version": "0.1.203",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -185,9 +185,16 @@
             "description": "맛집 유저 리뷰 입니다."
           },
           "thumbnail": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "image/*",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uri",
+                "contentMediaType": "image/*"
+              }
+            ],
             "title": "이미지",
             "description": "맛집 썸네일 이미지 입니다."
           }
@@ -196,8 +203,7 @@
           "title",
           "place_id",
           "gps_coordinate",
-          "address",
-          "thumbnail"
+          "address"
         ],
         "title": "구글 맵 맛집 검색 결과"
       },
