@@ -21,7 +21,7 @@ export async function test_api_connector_github_repository_read_pull_request_com
   typia.assert(pullRequests);
 
   for await (const pullRequest of pullRequests) {
-    const detail =
+    const commits =
       await CApi.functional.connector.github.repositories.pull_requests.commits.readPullRequestCommits(
         connection,
         {
@@ -32,6 +32,6 @@ export async function test_api_connector_github_repository_read_pull_request_com
         },
       );
 
-    typia.assert(detail);
+    typia.assert(commits);
   }
 }
