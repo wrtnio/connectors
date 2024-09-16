@@ -16,6 +16,7 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { PickPartial } from "../../../utils/types/PickPartial";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -256,6 +257,36 @@ export class GithubProvider {
 
     const link = res.headers["link"];
     return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async readPullRequestFiles(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    const { owner, repo, pull_number, secretKey } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/files`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  }
+
+  async readPullRequestCommits(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    const { owner, repo, pull_number, secretKey } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/commits`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
   }
 
   async readPullRequestDetail(

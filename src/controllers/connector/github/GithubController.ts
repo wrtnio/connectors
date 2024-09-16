@@ -526,6 +526,26 @@ export class GithubController {
     return this.githubProvider.createPullRequest(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/files")
+  async readPullRequestFiles(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    return this.githubProvider.readPullRequestFiles(input);
+  }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/commits")
+  async readPullRequestCommits(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    return this.githubProvider.readPullRequestCommits(input);
+  }
+
   /**
    * Get a deatiled pull-request info
    *
