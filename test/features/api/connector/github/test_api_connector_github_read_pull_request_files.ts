@@ -2,7 +2,7 @@ import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export async function test_api_connector_github_repository_read_pull_request_commits(
+export async function test_api_connector_github_repository_read_pull_request_files(
   connection: CApi.IConnection,
 ) {
   const { pullRequests } =
@@ -22,7 +22,7 @@ export async function test_api_connector_github_repository_read_pull_request_com
 
   for await (const pullRequest of pullRequests) {
     const detail =
-      await CApi.functional.connector.github.repositories.pull_requests.commits.readPullRequestCommits(
+      await CApi.functional.connector.github.repositories.pull_requests.files.readPullRequestFiles(
         connection,
         {
           owner: "samchon",
