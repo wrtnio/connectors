@@ -1,6 +1,5 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
@@ -22,7 +21,6 @@ export class StableDiffusionBetaController {
    *
    * @returns 생성된 이미지 URL
    */
-  @ApiTags("스테이블 디퓨전 이미지 생성기 노드")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg",
   )

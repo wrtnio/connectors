@@ -1,6 +1,5 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
 import { Standalone, RouteIcon } from "@wrtnio/decorators";
 
 import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
@@ -20,7 +19,6 @@ export class DallE3Controller {
    *
    * @returns 생성된 이미지 URL
    */
-  @ApiTags("dall-e-3 이미지 생성기 노드")
   @Standalone()
   @core.TypedRoute.Post("/generate")
   @RouteIcon(

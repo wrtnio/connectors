@@ -730,31 +730,6 @@ export class GithubController {
   }
 
   /**
-   * List issues assigned to the authenticated user
-   *
-   * List issues assigned to the authenticated user across all visible repositories
-   * including owned repositories, member repositories, and organization repositories.
-   * You can use the filter query parameter to fetch issues that are not necessarily assigned to you.
-   * This connector is not appropriate if you open a repository issue or if you are not a contributor because you can only see the issues assigned to you.
-   *
-   * It is generally difficult to use because only issues related to me come out.
-   *
-   * @hidden Because it's useful to see issues at the repo or organizational level, looking at the user's entire issue history changes to a deprecated state
-   * @summary List issues assigned to the authenticated user
-   * @param input
-   * @returns
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
-  )
-  @core.TypedRoute.Post("get-issues")
-  async getIssues(
-    @TypedBody() input: IGithub.IGetAuthenticatedUserIssueInput,
-  ): Promise<IGithub.IGetAuthenticatedUserIssueOutput> {
-    return this.githubProvider.getIssues(input);
-  }
-
-  /**
    * List organizations for the authenticated user
    *
    * Inquire the user's repository.
@@ -974,26 +949,6 @@ export class GithubController {
     @TypedBody() input: IGithub.IGetLabelInput,
   ): Promise<IGithub.IGetLabelOutput> {
     return this.githubProvider.getLabels(input);
-  }
-
-  /**
-   * Get user's profile
-   *
-   * 유저의 토큰을 쓰지 말고, 그냥 get-user-profile connector로 조회하는 것이 더 빠를 것이기 때문에 아래 로직은 Depreacted로 변경한다.
-   *
-   * @hidden
-   * @summary Get my profile
-   * @param input
-   * @returns
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
-  )
-  @core.TypedRoute.Post("get-my-profile")
-  async getMyProfile(
-    @TypedBody() input: IGithub.IGetMyProfileInput,
-  ): Promise<StrictOmit<IGithub.User, "score">> {
-    return this.githubProvider.debugToken(input);
   }
 
   /**

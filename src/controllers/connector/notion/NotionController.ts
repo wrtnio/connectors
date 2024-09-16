@@ -473,15 +473,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/heading_1")
-  async createHeading_1(
-    @TypedBody() input: INotion.ICreateChildContentTypeHeading_1Input,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createHeading_1(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/heading_1")
+  // async createHeading_1(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeHeading_1Input,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createHeading_1(input))();
+  // }
 
   /**
    * Append an heading_2 type child node
@@ -497,15 +497,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/heading_2")
-  async createHeading_2(
-    @TypedBody() input: INotion.ICreateChildContentTypeHeading_2Input,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createHeading_2(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/heading_2")
+  // async createHeading_2(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeHeading_2Input,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createHeading_2(input))();
+  // }
 
   /**
    * Append an heading_3 type child node
@@ -521,15 +521,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/heading_3")
-  async createHeading_3(
-    @TypedBody() input: INotion.ICreateChildContentTypeHeading_3Input,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createHeading_3(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/heading_3")
+  // async createHeading_3(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeHeading_3Input,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createHeading_3(input))();
+  // }
 
   /**
    * Append an paragraph type child node
@@ -545,15 +545,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/paragraph")
-  async createParagraph(
-    @TypedBody() input: INotion.ICreateChildContentTypeParagraphInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createParagraph(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/paragraph")
+  // async createParagraph(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeParagraphInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createParagraph(input))();
+  // }
 
   /**
    * Append an bulleted_list_item type child node
@@ -569,15 +569,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/bulleted_list_item")
-  async createBulletedListItem(
-    @TypedBody() input: INotion.ICreateChildContentTypeBulletedListItemInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createBulletedListItem(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/bulleted_list_item")
+  // async createBulletedListItem(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeBulletedListItemInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createBulletedListItem(input))();
+  // }
 
   /**
    * Append an numbered_list_item type child node
@@ -593,15 +593,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/numbered_list_item")
-  async createNumberedListItem(
-    @TypedBody() input: INotion.ICreateChildContentTypeNumberedListItemInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createNumberedListItem(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/numbered_list_item")
+  // async createNumberedListItem(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeNumberedListItemInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createNumberedListItem(input))();
+  // }
 
   /**
    * Append an quote type child node
@@ -617,15 +617,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/quote")
-  async createQuote(
-    @TypedBody() input: INotion.ICreateChildContentTypeQuoteInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createQuote(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/quote")
+  // async createQuote(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeQuoteInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createQuote(input))();
+  // }
 
   /**
    * Append an to_do type child node
@@ -641,15 +641,15 @@ export class NotionController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @core.TypedRoute.Post("page/to_do")
-  async createToDo(
-    @TypedBody() input: INotion.ICreateChildContentTypeToDoInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createToDo(input))();
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @core.TypedRoute.Post("page/to_do")
+  // async createToDo(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeToDoInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createToDo(input))();
+  // }
 
   /**
    * Append an toggle type child node

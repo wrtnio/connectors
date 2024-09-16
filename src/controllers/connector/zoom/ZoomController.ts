@@ -15,8 +15,6 @@ export class ZoomController {
    * @summary zoom 미팅 생성.
    * @returns 생성된 zoom 미팅 정보 DTO.
    * @param input 미팅을 생성하고자 하는 유저 정보 및 조건에 대한 DTO.
-   * @tag zoom
-   *
    * @internal
    */
   @Standalone()

@@ -18,8 +18,6 @@ export class KakaoTalkController {
    * @summary Send a message to a KakaoTalk(카카오톡) friend
    * @param input Conditions for sending the message
    * @returns Response and failure information
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
@@ -41,8 +39,6 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -65,8 +61,6 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -89,8 +83,6 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -113,8 +105,6 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -137,8 +127,6 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -160,8 +148,6 @@ export class KakaoTalkController {
    * @param input Input conditions for creating an event
    *
    * @returns Created event ID condition
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -182,8 +168,6 @@ export class KakaoTalkController {
    * @summary Retrieve the list of friends on KakaoTalk(카카오톡)
    * @param input Conditions for retrieving the friend list
    * @returns Retrieved friend list
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -211,8 +195,6 @@ export class KakaoTalkController {
    * @summary Retrieve KakaoTalk(카카오톡) calendar events
    * @param input DTO for event retrieval.
    * @returns DTO containing event information.
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
@@ -237,8 +219,6 @@ export class KakaoTalkController {
    * @summary Retrieve KakaoTalk(카카오톡) calendar lists
    * @param input Request DTO to retrieve calendars.
    * @returns Calendar list object.
-   *
-   * @tag KakaoTalk(카카오톡)
    */
   @Standalone()
   @RouteIcon(
