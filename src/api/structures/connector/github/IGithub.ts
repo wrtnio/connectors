@@ -3,7 +3,6 @@ import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 import { PickPartial } from "../../../../utils/types/PickPartial";
-import { Camelize } from "../../../../utils/types/SnakeToCamelCaseObject";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -100,6 +99,81 @@ export namespace IGithub {
       })
     | StrictOmit<IGithub.RepositoryFile, "encoding" | "content">
   )[];
+
+  export type MileStone = {
+    id: number;
+    number: number;
+    state: "open" | "closed"; // 더 확인이 필요
+    title: string;
+    description: string;
+    creator: Pick<User, "id" | "login" | "type">;
+    open_issues: number & tags.Type<"uint64"> & tags.Minimum<0>;
+    closed_issues: number & tags.Type<"uint64"> & tags.Minimum<0>;
+    created_at: string & tags.Format<"date-time">;
+    updated_at: string & tags.Format<"date-time">;
+    closed_at: string & tags.Format<"date-time">;
+    due_on: string & tags.Format<"date-time">;
+  };
+
+  export interface IReadPullRequestFileOutput
+    extends IGithub.ICommonPaginationOutput {
+    result: File[];
+  }
+
+  export interface IReadPullRequestFileInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export interface IReadPullRequestCommitOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title commit list of this pull request
+     */
+    result: StrictOmit<Commit, "sha">[];
+  }
+
+  export interface IReadPullRequestCommitInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export type IReadPullRequestDetailOutput = PullRequest;
+
+  export interface IReadPullRequestDetailInput
+    extends ICommon.ISecret<"github", ["repo"]> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title pull request number to update
+     */
+    pull_number: number &
+      tags.Type<"uint64"> &
+      tags.Minimum<1> &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/repositories/get-pull-requests";
+            jmesPath: "pullRequests[].{value:number, label:title}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/repositories/pull-requests";
+            jmesPath: "pullRequests[].{value:number, label:number}";
+          }>
+      );
+  }
 
   export interface IGetUserOrganizationOutput
     extends IGithub.ICommonPaginationOutput {
@@ -440,7 +514,20 @@ export namespace IGithub {
     username: User["login"];
   }
 
-  export type IGetPullRequestOutput = PullRequest[];
+  export type IGetPullRequestOutput = StrictOmit<
+    PullRequest,
+    | "mergeable"
+    | "rebaseable"
+    | "mergeable_state"
+    | "merged_by"
+    | "maintainer_can_modify"
+    | "comments"
+    | "review_comments"
+    | "commits"
+    | "additions"
+    | "deletions"
+    | "changed_files"
+  >[];
 
   export interface IGetPullRequestInput extends ICommon.ISecret<"github"> {
     /**
@@ -1450,6 +1537,11 @@ export namespace IGithub {
     state: IFetchRepositoryInput["state"];
 
     /**
+     * @title number of pull request
+     */
+    number: PullRequest["number"];
+
+    /**
      * @title Pull request title
      */
     title: string;
@@ -1554,11 +1646,12 @@ export namespace IGithub {
      * @title state
      *
      * If you don't want to filter, you don't put anything in.
-     * It must be one of: "OPEN", "CLOSED".
+     * It must be one of: "OPEN", "CLOSED", "MERGED".
      */
     state?:
       | tags.Constant<"OPEN", { title: "OPEN" }>
-      | tags.Constant<"CLOSED", { title: "CLOSED" }>;
+      | tags.Constant<"CLOSED", { title: "CLOSED" }>
+      | tags.Constant<"MERGED", { title: "MERGED" }>;
 
     /**
      * @title direction
@@ -1907,7 +2000,7 @@ export namespace IGithub {
     /**
      * @title type
      */
-    type: "User" | "Bot";
+    type: "User" | "Bot" | "Organization";
 
     /**
      * @title score
@@ -2351,19 +2444,79 @@ export namespace IGithub {
   };
 
   export interface PullRequest extends IGithub.Issue {
+    /**
+     * @title number of this pull request
+     */
+    number: number & tags.Type<"uint64">;
+
+    /**
+     * @title milestone
+     */
+    milestone: MileStone | null;
+
+    /**
+     * @title head branch info
+     */
     head: {
+      /**
+       * @title label
+       */
       label: string;
+
+      /**
+       * @title ref
+       */
       ref: string;
+
+      /**
+       * @title sha
+       */
       sha: string;
+
+      /**
+       * @title user
+       */
       user: Pick<IGithub.User, "id" | "login" | "type">;
+
+      /**
+       * @title repo
+       */
+      repo: Pick<Repository, "full_name"> | null;
     };
+
+    /**
+     * @title base branch info
+     */
     base: {
+      /**
+       * @title label
+       */
       label: string;
+
+      /**
+       * @title ref
+       */
       ref: string;
+
+      /**
+       * @title sha
+       */
       sha: string;
+
+      /**
+       * @title user
+       */
       user: Pick<IGithub.User, "id" | "login" | "type">;
+
+      /**
+       * @title repo
+       */
+      repo: Pick<Repository, "full_name"> | null;
     };
-    merged_at: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title author_association
+     */
     author_association:
       | "COLLABORATOR"
       | "CONTRIBUTOR"
@@ -2380,7 +2533,145 @@ export namespace IGithub {
      * Indicates whether or not the pull request is a draft.
      */
     draft?: boolean;
+
+    /**
+     * @title requested_reviewers
+     */
+    requested_reviewers: Pick<User, "login" | "id" | "type">[];
+
+    /**
+     * @title requested_teams
+     */
+    requested_teams: Partial<Team>[]; // 타입이 정확히 뭐인지 파악이 안 된 상태
+
+    /**
+     * @title auto_merge
+     */
+    auto_merge: any;
+
+    /**
+     * @title merged
+     */
+    merged?: boolean;
+
+    /**
+     * @title mergeable
+     */
+    mergeable: boolean | null;
+
+    /**
+     * @title rebaseable
+     */
+    rebaseable: boolean | null;
+
+    /**
+     * @title mergeable_state
+     */
+    mergeable_state: string;
+
+    /**
+     * @title merged_by
+     */
+    merged_by: Pick<User, "login" | "id" | "type"> | null;
+
+    /**
+     * @title maintainer_can_modify
+     */
+    maintainer_can_modify: boolean;
+
+    /**
+     * @title comments
+     */
+    comments: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title review_comments
+     */
+    review_comments: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title commits
+     */
+    commits: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title additions
+     */
+    additions: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title deletions
+     */
+    deletions: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title changed_files
+     */
+    changed_files: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title locked
+     */
+    locked: boolean;
+
+    /**
+     * @title created_at
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
+    updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title closed_at
+     */
+    closed_at: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title merged_at
+     */
+    merged_at: (string & tags.Format<"date-time">) | null;
   }
+
+  // 타입이 정확히 뭐인지 파악이 안 된 상태
+  export type Team = {
+    /**
+     * @title id
+     */
+    id: number;
+
+    /**
+     * @title name
+     */
+    name: string;
+
+    /**
+     * @title slug
+     */
+    slug: string;
+
+    /**
+     * @title description
+     */
+    description: string;
+
+    /**
+     * @title privacy
+     */
+    privacy: "open" | "closed";
+
+    /**
+     * @title notification_setting
+     */
+    notification_setting: string;
+
+    /**
+     * @title permission
+     */
+    permission: string;
+  };
 
   export interface Payload {
     /**

@@ -527,6 +527,93 @@ export class GithubController {
   }
 
   /**
+   * List pull requests files
+   *
+   * This is useful to see what files are contained in that PR.
+   * Each file's patch contains the entire format of the file.
+   * However, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.
+   *
+   * @summary List pull requests files
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/files")
+  async readPullRequestFiles(
+    @TypedBody() input: IGithub.IReadPullRequestFileInput,
+  ): Promise<IGithub.IReadPullRequestFileOutput> {
+    return this.githubProvider.readPullRequestFiles(input);
+  }
+
+  /**
+   * List commits on a pull request
+   *
+   * Lists a maximum of 250 commits for a pull request.
+   * To receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.
+   *
+   * @sumary List commits on a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/commits")
+  async readPullRequestCommits(
+    @TypedBody() input: IGithub.IReadPullRequestCommitInput,
+  ): Promise<IGithub.IReadPullRequestCommitOutput> {
+    return this.githubProvider.readPullRequestCommits(input);
+  }
+
+  /**
+   * Get a diff of pull-request info
+   *
+   * This is the same as PR's ability to query files,
+   * but the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,
+   * and in github, this is called the application/vnd.github.diff format.
+   * This helps you see at a glance what codes have disappeared and been added in a form suitable for code review.
+   *
+   * If there are too many changes, the connector can export a 406 error.
+   * In this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.
+   *
+   * @summary Get a diff of pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/diff")
+  async readPullRequestDiff(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<string> {
+    return this.githubProvider.readPullRequestDiff(input);
+  }
+
+  /**
+   * Get a deatiled pull-request info
+   *
+   * You can view detailed PR information using the PR number.
+   * Here, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.
+   * However, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.
+   *
+   * @summary Get a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/detail")
+  async readPullRequestDetail(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    return this.githubProvider.readPullRequestDetail(input);
+  }
+
+  /**
    * List repository issues
    *
    * Query pool requests to specific repositories.

@@ -16,6 +16,7 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { PickPartial } from "../../../utils/types/PickPartial";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -256,6 +257,76 @@ export class GithubProvider {
 
     const link = res.headers["link"];
     return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async readPullRequestFiles(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestFileOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/files?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async readPullRequestCommits(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestCommitOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/commits?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    const commits = res.data.map((el: any) => el.commit);
+    return { result: commits, ...this.getCursors(link) };
+  }
+
+  async readPullRequestDiff(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<string> {
+    try {
+      const { owner, repo, pull_number, secretKey } = input;
+      const token = await this.getToken(secretKey);
+      const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.diff",
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async readPullRequestDetail(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestDetailOutput> {
+    const { owner, repo, pull_number, secretKey } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
   }
 
   async getRepositoryPullRequest(
