@@ -294,6 +294,26 @@ export class GithubProvider {
     return { result: commits, ...this.getCursors(link) };
   }
 
+  async readPullRequestDiff(
+    input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<string> {
+    try {
+      const { owner, repo, pull_number, secretKey } = input;
+      const token = await this.getToken(secretKey);
+      const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.diff",
+        },
+      });
+
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async readPullRequestDetail(
     input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestDetailOutput> {

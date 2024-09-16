@@ -547,6 +547,25 @@ export class GithubController {
   }
 
   /**
+   *
+   *
+   * If there are too many changes, the connector can export a 406 error.
+   * In this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.
+   *
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/diff")
+  async readPullRequestDiff(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<string> {
+    return this.githubProvider.readPullRequestDiff(input);
+  }
+
+  /**
    * Get a deatiled pull-request info
    *
    * You can view detailed PR information using the PR number.
