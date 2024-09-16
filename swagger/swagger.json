@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.201",
+    "version": "0.1.202",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -11061,7 +11061,7 @@
     "/connector/github/repos/get-contents/bulk": {
       "post": {
         "summary": "Look up repository files(bulk)",
-        "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.",
+        "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11119,7 +11119,7 @@
     "/connector/github/repos/get-contents": {
       "post": {
         "summary": "Look up repository files",
-        "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.",
+        "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11432,7 +11432,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       },
       "post": {
-        "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.",
+        "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11464,7 +11464,7 @@
     "/connector/github/repositories/pull-requests/files": {
       "post": {
         "summary": "List pull requests files",
-        "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.",
+        "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11494,7 +11494,7 @@
     },
     "/connector/github/repositories/pull-requests/commits": {
       "post": {
-        "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.",
+        "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11525,7 +11525,7 @@
     "/connector/github/repositories/pull-requests/diff": {
       "post": {
         "summary": "Get a diff of pull request",
-        "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
+        "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11556,7 +11556,7 @@
     "/connector/github/repositories/pull-requests/detail": {
       "post": {
         "summary": "Get a pull request",
-        "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.",
+        "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -11962,7 +11962,7 @@
     "/connector/github/get-commit-list": {
       "post": {
         "summary": "Look up the list of commitments for a specific repo, a specific branch",
-        "description": "Look up the list of commitments for a specific repo, a specific branch",
+        "description": "Look up the list of commitments for a specific repo, a specific branch\n\nThis function can be used in general because it sees the commit list in units of branches, but if the user wants to see it in units of PR, it is better to use another connector.\nIf the user specifies to view in PR units, use other connectors because there are connectors for viewing files, commit lists, and changes in PR units elsewhere.",
         "tags": [],
         "parameters": [],
         "requestBody": {
