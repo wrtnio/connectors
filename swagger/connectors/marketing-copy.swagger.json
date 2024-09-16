@@ -17,7 +17,7 @@
   "info": {
     "title": "마케팅 카피",
     "description": "마케팅 카피를 생성할 수 있어요",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,9 +27,7 @@
       "post": {
         "summary": "마케팅 카피 생성",
         "description": "주어진 입력으로부터 마케팅 카피를 생성합니다.",
-        "tags": [
-          "Llm"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "마케팅 카피 생성을 위한 입력",
@@ -61,9 +59,7 @@
       "post": {
         "summary": "마케팅 카피 이미지 생성",
         "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다.",
-        "tags": [
-          "Llm"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "마케팅 카피 이미지 생성을 위한 입력",
@@ -95,9 +91,7 @@
       "get": {
         "summary": "파일 업로드 URL 생성",
         "description": "파일 업로드를 하기 위해 필요한 URL을 생성합니다.",
-        "tags": [
-          "AWS"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "extension",
@@ -487,14 +481,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Llm",
-      "description": "마케팅 카피 텍스트 생성"
-    },
-    {
-      "name": "AWS"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

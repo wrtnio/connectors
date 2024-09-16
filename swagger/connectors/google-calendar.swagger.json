@@ -18,7 +18,7 @@
     "title": "구글 일정 관리자",
     "summary": "구글 캘린더로 일정을 손쉽게 관리해요.",
     "description": "구글 캘린더를 통해 개인 및 팀의 일정을 효과적으로 관리할 수 있어요. 캘린더 목록을 가져오고, 새로운 캘린더를 만들거나 불필요한 캘린더를 삭제할 수 있어요. 특정 캘린더의 이벤트 목록을 조회하고, 새로운 이벤트를 빠르게 추가할 수 있어요. 기존 이벤트를 수정하거나 삭제할 수도 있고, 이벤트에 참석자를 추가할 수도 있어요. 이를 통해 개인 일정 관리는 물론, 팀 미팅 조율, 프로젝트 일정 관리, 중요 기념일 알림 등 다양한 목적으로 활용할 수 있어요. 여러 기기 간 동기화가 자동으로 이루어져 언제 어디서든 일정을 확인하고 관리할 수 있어요.",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,49 +28,7 @@
       "post": {
         "summary": "구글 캘린더 목록 가져오기.",
         "description": "구글 캘린더 목록을 가져옵니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -105,49 +63,7 @@
       "post": {
         "summary": "구글 캘린더 생성.",
         "description": "구글 캘린더를 생성합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "생성할 캘린더 제목.",
@@ -180,49 +96,7 @@
       "delete": {
         "summary": "구글 캘린더 삭제.",
         "description": "캘린더를 삭제합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -265,49 +139,7 @@
       "post": {
         "summary": "구글 캘린더 이벤트 목록 가져오기.",
         "description": "구글 캘린더에 있는 이벤트 목록을 가져옵니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -355,49 +187,7 @@
       "post": {
         "summary": "구글 캘린더 빠른 이벤트 추가.",
         "description": "구글 캘린더에 빠른 이벤트를 추가합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -441,49 +231,7 @@
       "post": {
         "summary": "구글 캘린더 이벤트 추가.",
         "description": "구글 캘린더에 이벤트를 추가합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -531,49 +279,7 @@
       "put": {
         "summary": "구글 캘린더 이벤트 수정.",
         "description": "이벤트를 수정합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -634,49 +340,7 @@
       "delete": {
         "summary": "구글 캘린더 이벤트 삭제.",
         "description": "이벤트를 삭제합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -734,49 +398,7 @@
       "put": {
         "summary": "구글 캘린더 이벤트 참석자 추가.",
         "description": "이벤트에 참석자를 추가합니다.",
-        "tags": [
-          "Google-Calendar",
-          "구글",
-          "캘린더",
-          "일정",
-          "회의",
-          "약속",
-          "시간",
-          "달력",
-          "스케줄",
-          "반복",
-          "시간표",
-          "스케줄러",
-          "이번",
-          "다음",
-          "월간",
-          "개인",
-          "팀",
-          "업무",
-          "휴가",
-          "Google",
-          "Calendar",
-          "Manage",
-          "Add",
-          "Create",
-          "Share",
-          "Event",
-          "Time",
-          "Schedule",
-          "Adjust",
-          "Recurring",
-          "Sync",
-          "Invite",
-          "Timetable",
-          "Scheduler",
-          "This",
-          "Next",
-          "Monthly",
-          "Personal",
-          "Team",
-          "Work",
-          "Vacation"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "calendarId",
@@ -1810,164 +1432,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google-Calendar"
-    },
-    {
-      "name": "구글",
-      "description": "캘린더"
-    },
-    {
-      "name": "캘린더",
-      "description": "공유"
-    },
-    {
-      "name": "일정",
-      "description": "관리"
-    },
-    {
-      "name": "회의",
-      "description": "추가"
-    },
-    {
-      "name": "약속",
-      "description": "추가"
-    },
-    {
-      "name": "시간",
-      "description": "관리"
-    },
-    {
-      "name": "달력"
-    },
-    {
-      "name": "스케줄",
-      "description": "관리"
-    },
-    {
-      "name": "반복",
-      "description": "일정"
-    },
-    {
-      "name": "시간표"
-    },
-    {
-      "name": "스케줄러"
-    },
-    {
-      "name": "이번",
-      "description": "주 일정"
-    },
-    {
-      "name": "다음",
-      "description": "주 일정"
-    },
-    {
-      "name": "월간",
-      "description": "일정"
-    },
-    {
-      "name": "개인",
-      "description": "일정"
-    },
-    {
-      "name": "팀",
-      "description": "일정"
-    },
-    {
-      "name": "업무",
-      "description": "캘린더"
-    },
-    {
-      "name": "휴가",
-      "description": "일정"
-    },
-    {
-      "name": "Google",
-      "description": "Calendar"
-    },
-    {
-      "name": "Calendar"
-    },
-    {
-      "name": "Manage",
-      "description": "Schedule"
-    },
-    {
-      "name": "Add",
-      "description": "Event"
-    },
-    {
-      "name": "Create",
-      "description": "Event"
-    },
-    {
-      "name": "Share",
-      "description": "Event"
-    },
-    {
-      "name": "Event",
-      "description": "Reminder"
-    },
-    {
-      "name": "Time",
-      "description": "Management"
-    },
-    {
-      "name": "Schedule",
-      "description": "Management"
-    },
-    {
-      "name": "Adjust",
-      "description": "Schedule"
-    },
-    {
-      "name": "Recurring",
-      "description": "Event"
-    },
-    {
-      "name": "Sync",
-      "description": "Calendar"
-    },
-    {
-      "name": "Invite",
-      "description": "to Event"
-    },
-    {
-      "name": "Timetable"
-    },
-    {
-      "name": "Scheduler"
-    },
-    {
-      "name": "This",
-      "description": "Week's Schedule"
-    },
-    {
-      "name": "Next",
-      "description": "Week's Schedule"
-    },
-    {
-      "name": "Monthly",
-      "description": "Schedule"
-    },
-    {
-      "name": "Personal",
-      "description": "Schedule"
-    },
-    {
-      "name": "Team",
-      "description": "Schedule"
-    },
-    {
-      "name": "Work",
-      "description": "Calendar"
-    },
-    {
-      "name": "Vacation",
-      "description": "Schedule"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

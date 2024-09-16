@@ -17,7 +17,7 @@
   "info": {
     "title": "키워드 추출",
     "description": "",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,10 +26,8 @@
     "/connector/extract/keyword": {
       "post": {
         "summary": "키워드 추출",
-        "description": "주어진 입력과 관련 높은 키워드를 추출합니다.\n\n마케팅 카피를 생성할 때 사용하는 커넥터 입니다.",
-        "tags": [
-          "Llm"
-        ],
+        "description": "주어진 입력과 관련 높은 키워드를 추출합니다\n\n마케팅 카피를 생성할 때 사용하는 커넥터 입니다.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "키워드 추출을 위한 입력",
@@ -197,11 +195,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Llm",
-      "description": "키워드 추출 생성"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

@@ -18,7 +18,7 @@
     "title": "CSV 파일 데이터 처리기",
     "summary": "CSV 파일을 쉽게 다룰 수 있어요.",
     "description": "CSV 파일의 내용을 읽고, 새로운 CSV 파일을 만들 수 있어요. 또한 CSV 파일을 Excel 파일로 변환할 수도 있어요. 데이터 분석, 정보 정리, 대량의 데이터 처리 등 다양한 작업에 활용할 수 있어요.",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,40 +27,8 @@
     "/connector/csv/read": {
       "post": {
         "summary": "CSV 파일 읽기",
-        "description": "CSV 파일 내용을 읽어옵니다.",
-        "tags": [
-          "CSV",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터",
-          "엑셀",
-          "텍스트",
-          "대량",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save",
-          "Load",
-          "Data",
-          "Database",
-          "Import",
-          "Convert",
-          "Text",
-          "Large",
-          "Edit",
-          "Split",
-          "Integrate",
-          "Create",
-          "Open",
-          "Filter",
-          "Merge"
-        ],
+        "description": "CSV 파일 내용을 읽어옵니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "CSV 파일을 읽어 오기 위한 정보",
@@ -91,40 +59,8 @@
     "/connector/csv/write": {
       "post": {
         "summary": "CSV 파일 생성",
-        "description": "CSV 파일을 생성합니다.",
-        "tags": [
-          "CSV",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터",
-          "엑셀",
-          "텍스트",
-          "대량",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save",
-          "Load",
-          "Data",
-          "Database",
-          "Import",
-          "Convert",
-          "Text",
-          "Large",
-          "Edit",
-          "Split",
-          "Integrate",
-          "Create",
-          "Open",
-          "Filter",
-          "Merge"
-        ],
+        "description": "CSV 파일을 생성합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "CSV 파일을 생성하기 위한 정보",
@@ -157,39 +93,7 @@
       "post": {
         "summary": "CSV 파일 Excel 파일 변환",
         "description": "CSV 파일을 엑셀 파일로 변환합니다.",
-        "tags": [
-          "CSV",
-          "파일",
-          "내보내기",
-          "다운로드",
-          "추출",
-          "추출하기",
-          "스프레드시트",
-          "데이터",
-          "엑셀",
-          "텍스트",
-          "대량",
-          "File",
-          "Export",
-          "Download",
-          "Extract",
-          "Spreadsheet",
-          "Save",
-          "Load",
-          "Data",
-          "Database",
-          "Import",
-          "Convert",
-          "Text",
-          "Large",
-          "Edit",
-          "Split",
-          "Integrate",
-          "Create",
-          "Open",
-          "Filter",
-          "Merge"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "CSV 파일을 엑셀 파일로 변환하기 위한 정보",
@@ -356,122 +260,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "CSV",
-      "description": "텍스트 파일 형식"
-    },
-    {
-      "name": "파일",
-      "description": "분할"
-    },
-    {
-      "name": "내보내기"
-    },
-    {
-      "name": "다운로드"
-    },
-    {
-      "name": "추출"
-    },
-    {
-      "name": "추출하기"
-    },
-    {
-      "name": "스프레드시트"
-    },
-    {
-      "name": "데이터",
-      "description": "저장"
-    },
-    {
-      "name": "엑셀",
-      "description": "변환"
-    },
-    {
-      "name": "텍스트",
-      "description": "파일"
-    },
-    {
-      "name": "대량",
-      "description": "데이터"
-    },
-    {
-      "name": "File"
-    },
-    {
-      "name": "Export",
-      "description": "Data"
-    },
-    {
-      "name": "Download"
-    },
-    {
-      "name": "Extract",
-      "description": "Data"
-    },
-    {
-      "name": "Spreadsheet"
-    },
-    {
-      "name": "Save",
-      "description": "Data"
-    },
-    {
-      "name": "Load",
-      "description": "Data"
-    },
-    {
-      "name": "Data",
-      "description": "Analysis"
-    },
-    {
-      "name": "Database"
-    },
-    {
-      "name": "Import",
-      "description": "Data"
-    },
-    {
-      "name": "Convert",
-      "description": "to Excel"
-    },
-    {
-      "name": "Text",
-      "description": "File"
-    },
-    {
-      "name": "Large",
-      "description": "Data"
-    },
-    {
-      "name": "Edit",
-      "description": "Data"
-    },
-    {
-      "name": "Split",
-      "description": "File"
-    },
-    {
-      "name": "Integrate",
-      "description": "Data"
-    },
-    {
-      "name": "Create",
-      "description": "CSV"
-    },
-    {
-      "name": "Open",
-      "description": "CSV File"
-    },
-    {
-      "name": "Filter",
-      "description": "Data"
-    },
-    {
-      "name": "Merge",
-      "description": "Data"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

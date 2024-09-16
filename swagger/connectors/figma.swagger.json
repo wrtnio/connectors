@@ -18,7 +18,7 @@
     "title": "피그마 디자인 협업 플랫폼",
     "summary": "피그마 파일을 쉽게 관리하고 협업할 수 있어요.",
     "description": "피그마 파일에 접근하고, 댓글을 가져오거나 추가할 수 있어요. 디자인 작업과 팀 협업을 효율적으로 진행할 수 있어요. 프로젝트의 진행 상황을 확인하고, 팀원들의 피드백을 실시간으로 주고받을 수 있어요. 디자인 에셋을 관리하고, 버전 히스토리를 추적할 수 있어요. UI/UX 디자인, 프로토타이핑, 그래픽 디자인 등 다양한 디자인 작업을 수행하고 관리할 수 있어요.",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,14 +26,12 @@
   "paths": {
     "/connector/figma/get-files": {
       "post": {
-        "summary": "피그마 파일 가져오기.",
-        "description": "피그마 파일들을 가져옵니다.",
-        "tags": [
-          "figma"
-        ],
+        "summary": "피그마 파일 가져오기",
+        "description": "피그마 파일들을 가져옵니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "파일을 가져오기 위한 조건 값.",
+          "description": "파일을 가져오기 위한 조건 값",
           "content": {
             "application/json": {
               "schema": {
@@ -45,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "피그마 파일 목록.",
+            "description": "피그마 파일 목록",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,14 +58,12 @@
     },
     "/connector/figma/comments": {
       "post": {
-        "summary": "캔버스 내 댓글 작성하기.",
-        "description": "댓글을 작성합니다.",
-        "tags": [
-          "figma"
-        ],
+        "summary": "캔버스 내 댓글 작성하기",
+        "description": "댓글을 작성합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "댓글을 작성하기 위한 조건 값.",
+          "description": "댓글을 작성하기 위한 조건 값",
           "content": {
             "application/json": {
               "schema": {
@@ -79,7 +75,7 @@
         },
         "responses": {
           "201": {
-            "description": "방금 작성된 댓글의 정보.",
+            "description": "방금 작성된 댓글의 정보",
             "content": {
               "application/json": {
                 "schema": {
@@ -94,14 +90,12 @@
     },
     "/connector/figma/get-comments": {
       "post": {
-        "summary": "피그마 댓글 가져오기.",
-        "description": "피그마 댓글들을 가져옵니다.",
-        "tags": [
-          "figma"
-        ],
+        "summary": "피그마 댓글 가져오기",
+        "description": "피그마 댓글들을 가져옵니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "댓글을 가져오기 위한 조건 값.",
+          "description": "댓글을 가져오기 위한 조건 값",
           "content": {
             "application/json": {
               "schema": {
@@ -113,7 +107,7 @@
         },
         "responses": {
           "201": {
-            "description": "피그마 댓글 목록.",
+            "description": "피그마 댓글 목록",
             "content": {
               "application/json": {
                 "schema": {
@@ -129,10 +123,8 @@
     "/connector/figma/projects/{id}/get-canvas": {
       "post": {
         "summary": "팀 내 캔버스 조회",
-        "description": "특정 프로젝트의 모든 캔버스를 가져옵니다.\n캔버스는 특정 팀에서 관리하고 있는 피그마 파일들을 의미합니다.\n이 커넥터를 통해 사용자는 자신의 피그마 팀 내에 어떤 캔버스들이 관리되고 있는지 캔버스의 이름과 섬네일 링크를 받아 볼 수 있습니다.",
-        "tags": [
-          "figma"
-        ],
+        "description": "특정 프로젝트의 모든 캔버스를 가져옵니다\n\n캔버스는 특정 팀에서 관리하고 있는 피그마 파일들을 의미합니다.\n이 커넥터를 통해 사용자는 자신의 피그마 팀 내에 어떤 캔버스들이 관리되고 있는지 캔버스의 이름과 섬네일 링크를 받아 볼 수 있습니다.",
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -178,10 +170,8 @@
     "/connector/figma/get-statistics": {
       "post": {
         "summary": "팀 단위 피그마 통계 조회",
-        "description": "팀 단위의 통계를 조회합니다.",
-        "tags": [
-          "figma"
-        ],
+        "description": "팀 단위의 통계를 조회합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "팀 단위 통계 조회 조건",
@@ -216,10 +206,8 @@
     "/connector/figma/get-projects": {
       "post": {
         "summary": "팀 내 프로젝트 조회",
-        "description": "팀 내의 프로젝트를 조회합니다.\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
-        "tags": [
-          "figma"
-        ],
+        "description": "팀 내의 프로젝트를 조회합니다\n\n인자로는 teamId를 받아야 하는데, 이 프로퍼티는 팀 아이디를 의미하며 figma의 URL 경로를 보고 파악할 수 있습니다.\n`https://www.figma.com/files/team` 링크 접속 시 `team` 키워드 뒤에 자동으로 숫자가 붙게 되는데 이것이 팀의 아이디입니다.\n유저는 여러가지 팀에 속할 수 있으므로, 만일 이 프로젝트들에 대한 조회를 자동화하고 싶지 않다면 다른 팀 아이디를 가져와야 합니다.",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "프로젝트 조회 조건",
@@ -1243,10 +1231,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "figma"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

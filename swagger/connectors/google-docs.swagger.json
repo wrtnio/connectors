@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,43 +26,12 @@
   "paths": {
     "/connector/google-docs": {
       "post": {
-        "summary": "구글 docs 생성.",
-        "description": "구글 docs를 생성합니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "summary": "구글 docs 생성",
+        "description": "구글 docs를 생성합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "생성할 구글 docs 제목.",
+          "description": "생성할 구글 docs 제목",
           "content": {
             "application/json": {
               "schema": {
@@ -74,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 구글 docs 고유 ID.",
+            "description": "생성된 구글 docs 고유 ID",
             "content": {
               "application/json": {
                 "schema": {
@@ -90,43 +59,12 @@
     },
     "/connector/google-docs/permission": {
       "post": {
-        "summary": "구글 docs 권한 부여.",
-        "description": "구글 docs에 권한을 부여합니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "summary": "구글 docs 권한 부여",
+        "description": "구글 docs에 권한을 부여합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 docs 권한 부여를 위한 정보.",
+          "description": "구글 docs 권한 부여를 위한 정보",
           "content": {
             "application/json": {
               "schema": {
@@ -149,40 +87,9 @@
     },
     "/connector/google-docs/get/{id}": {
       "post": {
-        "summary": "구글 docs 읽기.",
-        "description": "구글 docs의 내용을 읽어옵니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "summary": "구글 docs 읽기",
+        "description": "구글 docs의 내용을 읽어옵니다",
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -196,8 +103,7 @@
               }
             },
             "required": true,
-            "title": "구글 docs 고유 ID",
-            "description": " 구글 docs 고유 ID."
+            "description": " 구글 docs 고유 ID"
           }
         ],
         "requestBody": {
@@ -212,7 +118,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 docs 내용.",
+            "description": "구글 docs 내용",
             "content": {
               "application/json": {
                 "schema": {
@@ -227,43 +133,12 @@
     },
     "/connector/google-docs/template": {
       "post": {
-        "summary": "구글 docs 복사.",
-        "description": "이미 존재하는 구글 docs를 복사하여 새로운 구글 docs를 생성합니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "summary": "구글 docs 복사",
+        "description": "이미 존재하는 구글 docs를 복사하여 새로운 구글 docs를 생성합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "복사할 구글 docs 링크와 생성할 구글 docs 제목.",
+          "description": "복사할 구글 docs 링크와 생성할 구글 docs 제목",
           "content": {
             "application/json": {
               "schema": {
@@ -275,7 +150,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 구글 docs 고유 ID.",
+            "description": "생성된 구글 docs 고유 ID",
             "content": {
               "application/json": {
                 "schema": {
@@ -290,40 +165,9 @@
     },
     "/connector/google-docs/{id}": {
       "delete": {
-        "summary": "구글 docs 삭제.",
+        "summary": "구글 docs 삭제",
         "description": "구글 docs를 삭제합니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -337,8 +181,7 @@
               }
             },
             "required": true,
-            "title": "삭제할 구글 docs 고유 ID",
-            "description": " 삭제할 구글 docs 고유 ID."
+            "description": " 삭제할 구글 docs 고유 ID"
           }
         ],
         "requestBody": {
@@ -364,40 +207,9 @@
     },
     "/connector/google-docs/get-list": {
       "post": {
-        "summary": "구글 docs 목록 가져오기.",
-        "description": "구글 docs 목록을 가져옵니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "summary": "구글 docs 목록 가져오기",
+        "description": "구글 docs 목록을 가져옵니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -411,7 +223,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 docs 목록.",
+            "description": "구글 docs 목록",
             "content": {
               "application/json": {
                 "schema": {
@@ -427,40 +239,9 @@
     },
     "/connector/google-docs/append": {
       "post": {
-        "summary": "구글 docs 텍스트 추가.",
-        "description": "구글 docs에 텍스트를 추가합니다.",
-        "tags": [
-          "Google-Docs",
-          "구글",
-          "문서",
-          "협업",
-          "실시간",
-          "클라우드",
-          "텍스트",
-          "파일",
-          "워드파일",
-          "PDF로",
-          "이미지",
-          "차트",
-          "표",
-          "Google",
-          "Collaboration",
-          "Real-time",
-          "Share",
-          "Cloud",
-          "Save",
-          "Document",
-          "Text",
-          "Download",
-          "Upload",
-          "Edit",
-          "File",
-          "Export",
-          "Print",
-          "Open",
-          "Search",
-          "Insert"
-        ],
+        "summary": "구글 docs 텍스트 추가",
+        "description": "구글 docs에 텍스트를 추가합니다",
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -830,124 +611,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google-Docs"
-    },
-    {
-      "name": "구글",
-      "description": "닥스"
-    },
-    {
-      "name": "문서",
-      "description": "편집"
-    },
-    {
-      "name": "협업"
-    },
-    {
-      "name": "실시간",
-      "description": "협업"
-    },
-    {
-      "name": "클라우드",
-      "description": "문서"
-    },
-    {
-      "name": "텍스트",
-      "description": "서식"
-    },
-    {
-      "name": "파일",
-      "description": "변환"
-    },
-    {
-      "name": "워드파일",
-      "description": "열기"
-    },
-    {
-      "name": "PDF로",
-      "description": "저장"
-    },
-    {
-      "name": "이미지",
-      "description": "삽입"
-    },
-    {
-      "name": "차트",
-      "description": "삽입"
-    },
-    {
-      "name": "표",
-      "description": "삽입"
-    },
-    {
-      "name": "Google",
-      "description": "Docs"
-    },
-    {
-      "name": "Collaboration"
-    },
-    {
-      "name": "Real-time",
-      "description": "Collaboration"
-    },
-    {
-      "name": "Share",
-      "description": "Document"
-    },
-    {
-      "name": "Cloud",
-      "description": "Document"
-    },
-    {
-      "name": "Save",
-      "description": "Document"
-    },
-    {
-      "name": "Document",
-      "description": "Template"
-    },
-    {
-      "name": "Text",
-      "description": "Format"
-    },
-    {
-      "name": "Download",
-      "description": "Document"
-    },
-    {
-      "name": "Upload",
-      "description": "Document"
-    },
-    {
-      "name": "Edit",
-      "description": "Document"
-    },
-    {
-      "name": "File",
-      "description": "Conversion"
-    },
-    {
-      "name": "Export",
-      "description": "Document"
-    },
-    {
-      "name": "Print",
-      "description": "Document"
-    },
-    {
-      "name": "Open",
-      "description": "Word File"
-    },
-    {
-      "name": "Search",
-      "description": "in Document"
-    },
-    {
-      "name": "Insert",
-      "description": "Image"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

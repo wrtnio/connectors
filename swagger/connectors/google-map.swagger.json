@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -27,9 +27,7 @@
       "post": {
         "summary": "구글맵 맛집 검색",
         "description": "구글맵을 사용하여 맛집을 검색합니다.",
-        "tags": [
-          "Google map"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "맛집을 검색할 검색어",
@@ -65,9 +63,7 @@
       "post": {
         "summary": "구글맵 맛집 리뷰 검색",
         "description": "구글맵에서 선택한 맛집 리뷰를 검색합니다.",
-        "tags": [
-          "Google map"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "맛집의 고유 id",
@@ -290,10 +286,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google map"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

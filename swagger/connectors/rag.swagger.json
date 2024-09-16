@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,9 +27,7 @@
       "post": {
         "summary": "RAG 분석 요청.",
         "description": "입력된 파일에 대해 RAG 분석을 요청합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 제작할 때 사용될 수 있는 커넥터 입니다.",
-        "tags": [
-          "RAG"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "분석할 파일 정보.",
@@ -61,9 +59,7 @@
       "get": {
         "summary": "RAG 분석 상태 조회.",
         "description": "분석 진행 상태를 조회합니다.",
-        "tags": [
-          "RAG"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "jobId",
@@ -92,9 +88,7 @@
       "post": {
         "summary": "RAG 기반 결과물 생성",
         "description": "RAG 분석을 기반으로 요청받은 결과물을 생성합니다.\n\n여러 개의 연구논문을 비교하는 챗봇을 통해 유저가 질문한 내용에 대한 답변을 생성할 때 사용될 수 있는 커넥터 입니다.",
-        "tags": [
-          "RAG"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "chatId",
@@ -220,10 +214,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "RAG"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

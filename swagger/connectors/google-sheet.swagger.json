@@ -18,7 +18,7 @@
     "title": "구글 스프레드시트 데이터 관리",
     "summary": "구글 스프레드시트로 데이터를 쉽게 관리해요.",
     "description": "구글 스프레드시트를 사용해 다양한 데이터 관리 작업을 할 수 있어요. 스프레드시트의 헤더 정보를 가져오거나, 특정 사용자에게 접근 권한을 부여할 수 있어요. 새로운 헤더를 추가하거나, 워크시트 목록을 확인할 수 있고, 특정 행(Row)의 정보를 가져올 수도 있어요. 원하는 셀에 새로운 내용을 추가하거나 기존 내용을 수정할 수도 있어요. 이를 통해 예산 관리, 프로젝트 추적, 데이터 분석 등 다양한 작업을 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 팀 단위의 데이터 관리에도 매우 유용해요. 주의할 점은 구글 시트를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,53 +28,7 @@
       "post": {
         "summary": "구글 시트 헤더 정보 가져오기.",
         "description": "구글 시트의 헤더 정보를 가져옵니다.",
-        "tags": [
-          "Google-Sheet",
-          "구글",
-          "스프레드",
-          "엑셀",
-          "데이터",
-          "차트",
-          "함수",
-          "셀",
-          "피벗",
-          "조건부",
-          "파일",
-          "CSV",
-          "통계",
-          "매크로",
-          "자동화",
-          "시트",
-          "Google",
-          "Spreadsheet",
-          "Excel",
-          "Enter",
-          "Analyze",
-          "Create",
-          "Cell",
-          "Filter",
-          "Pivot",
-          "Visualize",
-          "Conditional",
-          "Export",
-          "Import",
-          "Load",
-          "Sort",
-          "Clean",
-          "Statistics",
-          "Calculate",
-          "Macro",
-          "Automation",
-          "Duplicate",
-          "Delete",
-          "Rename",
-          "Lock",
-          "Share",
-          "Extract",
-          "Merge",
-          "Add",
-          "Manage"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "구글 시트 URL과 가져올 헤더 index.",
@@ -168,53 +122,7 @@
       "post": {
         "summary": "구글 시트 권한 부여.",
         "description": "구글 시트에 권한을 부여합니다.",
-        "tags": [
-          "Google-Sheet",
-          "구글",
-          "스프레드",
-          "엑셀",
-          "데이터",
-          "차트",
-          "함수",
-          "셀",
-          "피벗",
-          "조건부",
-          "파일",
-          "CSV",
-          "통계",
-          "매크로",
-          "자동화",
-          "시트",
-          "Google",
-          "Spreadsheet",
-          "Excel",
-          "Enter",
-          "Analyze",
-          "Create",
-          "Cell",
-          "Filter",
-          "Pivot",
-          "Visualize",
-          "Conditional",
-          "Export",
-          "Import",
-          "Load",
-          "Sort",
-          "Clean",
-          "Statistics",
-          "Calculate",
-          "Macro",
-          "Automation",
-          "Duplicate",
-          "Delete",
-          "Rename",
-          "Lock",
-          "Share",
-          "Extract",
-          "Merge",
-          "Add",
-          "Manage"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "권한 부여를 위한 정보.",
@@ -243,53 +151,7 @@
       "post": {
         "summary": "구글 시트 헤더 추가.",
         "description": "구글 시트에 헤더를 추가합니다.",
-        "tags": [
-          "Google-Sheet",
-          "구글",
-          "스프레드",
-          "엑셀",
-          "데이터",
-          "차트",
-          "함수",
-          "셀",
-          "피벗",
-          "조건부",
-          "파일",
-          "CSV",
-          "통계",
-          "매크로",
-          "자동화",
-          "시트",
-          "Google",
-          "Spreadsheet",
-          "Excel",
-          "Enter",
-          "Analyze",
-          "Create",
-          "Cell",
-          "Filter",
-          "Pivot",
-          "Visualize",
-          "Conditional",
-          "Export",
-          "Import",
-          "Load",
-          "Sort",
-          "Clean",
-          "Statistics",
-          "Calculate",
-          "Macro",
-          "Automation",
-          "Duplicate",
-          "Delete",
-          "Rename",
-          "Lock",
-          "Share",
-          "Extract",
-          "Merge",
-          "Add",
-          "Manage"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "구글 시트 url과 추가할 헤더 이름.",
@@ -318,53 +180,7 @@
       "post": {
         "summary": "구글 시트 워크시트 목록 가져오기.",
         "description": "구글 워크시트 목록을 가져옵니다.",
-        "tags": [
-          "Google-Sheet",
-          "구글",
-          "스프레드",
-          "엑셀",
-          "데이터",
-          "차트",
-          "함수",
-          "셀",
-          "피벗",
-          "조건부",
-          "파일",
-          "CSV",
-          "통계",
-          "매크로",
-          "자동화",
-          "시트",
-          "Google",
-          "Spreadsheet",
-          "Excel",
-          "Enter",
-          "Analyze",
-          "Create",
-          "Cell",
-          "Filter",
-          "Pivot",
-          "Visualize",
-          "Conditional",
-          "Export",
-          "Import",
-          "Load",
-          "Sort",
-          "Clean",
-          "Statistics",
-          "Calculate",
-          "Macro",
-          "Automation",
-          "Duplicate",
-          "Delete",
-          "Rename",
-          "Lock",
-          "Share",
-          "Extract",
-          "Merge",
-          "Add",
-          "Manage"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "워크시트 목록을 가져올 구글 시트 url.",
@@ -397,53 +213,7 @@
       "post": {
         "summary": "구글 시트 Row 정보 가져오기.",
         "description": "구글 시트의 Row 정보를 가져옵니다.",
-        "tags": [
-          "Google-Sheet",
-          "구글",
-          "스프레드",
-          "엑셀",
-          "데이터",
-          "차트",
-          "함수",
-          "셀",
-          "피벗",
-          "조건부",
-          "파일",
-          "CSV",
-          "통계",
-          "매크로",
-          "자동화",
-          "시트",
-          "Google",
-          "Spreadsheet",
-          "Excel",
-          "Enter",
-          "Analyze",
-          "Create",
-          "Cell",
-          "Filter",
-          "Pivot",
-          "Visualize",
-          "Conditional",
-          "Export",
-          "Import",
-          "Load",
-          "Sort",
-          "Clean",
-          "Statistics",
-          "Calculate",
-          "Macro",
-          "Automation",
-          "Duplicate",
-          "Delete",
-          "Rename",
-          "Lock",
-          "Share",
-          "Extract",
-          "Merge",
-          "Add",
-          "Manage"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -832,182 +602,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google-Sheet"
-    },
-    {
-      "name": "구글",
-      "description": "시트"
-    },
-    {
-      "name": "스프레드",
-      "description": "시트"
-    },
-    {
-      "name": "엑셀",
-      "description": "파일"
-    },
-    {
-      "name": "데이터",
-      "description": "입력"
-    },
-    {
-      "name": "차트",
-      "description": "생성"
-    },
-    {
-      "name": "함수",
-      "description": "생성"
-    },
-    {
-      "name": "셀",
-      "description": "서식"
-    },
-    {
-      "name": "피벗",
-      "description": "테이블"
-    },
-    {
-      "name": "조건부",
-      "description": "서식"
-    },
-    {
-      "name": "파일",
-      "description": "내보내기"
-    },
-    {
-      "name": "CSV",
-      "description": "불러오기"
-    },
-    {
-      "name": "통계",
-      "description": "계산"
-    },
-    {
-      "name": "매크로"
-    },
-    {
-      "name": "자동화",
-      "description": "스크립트"
-    },
-    {
-      "name": "시트",
-      "description": "복제"
-    },
-    {
-      "name": "Google",
-      "description": "Sheets"
-    },
-    {
-      "name": "Spreadsheet"
-    },
-    {
-      "name": "Excel",
-      "description": "File"
-    },
-    {
-      "name": "Enter",
-      "description": "Data"
-    },
-    {
-      "name": "Analyze",
-      "description": "Data"
-    },
-    {
-      "name": "Create",
-      "description": "Chart"
-    },
-    {
-      "name": "Cell",
-      "description": "Format"
-    },
-    {
-      "name": "Filter",
-      "description": "Data"
-    },
-    {
-      "name": "Pivot",
-      "description": "Table"
-    },
-    {
-      "name": "Visualize",
-      "description": "Data"
-    },
-    {
-      "name": "Conditional",
-      "description": "Formatting"
-    },
-    {
-      "name": "Export",
-      "description": "File"
-    },
-    {
-      "name": "Import",
-      "description": "File"
-    },
-    {
-      "name": "Load",
-      "description": "CSV"
-    },
-    {
-      "name": "Sort",
-      "description": "Data"
-    },
-    {
-      "name": "Clean",
-      "description": "Data"
-    },
-    {
-      "name": "Statistics"
-    },
-    {
-      "name": "Calculate",
-      "description": "Statistics"
-    },
-    {
-      "name": "Macro"
-    },
-    {
-      "name": "Automation",
-      "description": "Script"
-    },
-    {
-      "name": "Duplicate",
-      "description": "Sheet"
-    },
-    {
-      "name": "Delete",
-      "description": "Sheet"
-    },
-    {
-      "name": "Rename",
-      "description": "Sheet"
-    },
-    {
-      "name": "Lock",
-      "description": "Sheet"
-    },
-    {
-      "name": "Share",
-      "description": "Sheet"
-    },
-    {
-      "name": "Extract",
-      "description": "Data"
-    },
-    {
-      "name": "Merge",
-      "description": "Sheets"
-    },
-    {
-      "name": "Add",
-      "description": "Data"
-    },
-    {
-      "name": "Manage",
-      "description": "Data"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

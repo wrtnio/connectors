@@ -18,7 +18,7 @@
     "title": "구글 클라우드 스토리지 관리",
     "summary": "구글 드라이브로 파일을 쉽게 저장하고 공유해요.",
     "description": "구글 드라이브를 사용해 파일과 폴더를 효율적으로 관리할 수 있어요. 드라이브 내의 폴더와 파일 목록을 가져오고, 새로운 폴더나 파일을 만들 수 있어요. 불필요한 파일이나 폴더는 삭제할 수 있고, 특정 파일이나 폴더에 대한 접근 권한을 다른 사용자에게 부여할 수도 있어요. 텍스트 파일의 경우 내용을 직접 추가하거나 읽을 수 있어요. 이를 통해 개인 파일 보관, 팀 프로젝트 자료 공유, 대용량 파일 전송 등 다양한 목적으로 활용할 수 있어요. 클라우드 기반이라 어느 기기에서든 접근이 가능하고, 자동 동기화 기능으로 항상 최신 버전의 파일을 유지할 수 있어요.",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,45 +28,7 @@
       "post": {
         "summary": "구글 드라이브 폴더 목록 가져오기.",
         "description": "구글 드라이브에 있는 폴더 목록을 가져옵니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -98,45 +60,7 @@
       "post": {
         "summary": "구글 드라이브 파일 목록 가져오기.",
         "description": "구글 드라이브에 있는 파일 목록을 가져옵니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -167,45 +91,7 @@
       "post": {
         "summary": "구글 드라이브 폴더 생성.",
         "description": "구글 드라이브에 새로운 폴더를 생성합니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "생성할 폴더 이름.",
@@ -238,45 +124,7 @@
       "post": {
         "summary": "구글 드라이브 파일 생성.",
         "description": "구글 드라이브에 새로운 파일을 생성합니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "생성할 파일명과 파일을 생성할 폴더 고유 ID.",
@@ -308,45 +156,7 @@
       "delete": {
         "summary": "구글 드라이브 파일 삭제.",
         "description": "구글 드라이브에 있는 파일을 삭제합니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -389,45 +199,7 @@
       "delete": {
         "summary": "구글 드라이브 폴더 삭제.",
         "description": "구글 드라이브에 있는 폴더를 삭제합니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -470,45 +242,7 @@
       "post": {
         "summary": "구글 드라이브 권한 부여.",
         "description": "파일 또는 폴더에 접근하기 위한 권한을 부여합니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "권한 부여를 위한 정보.",
@@ -536,45 +270,7 @@
       "post": {
         "summary": "구글 드라이브 파일 텍스트 추가.",
         "description": "파일에 텍스트를 추가합니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -618,45 +314,7 @@
       "post": {
         "summary": "구글 드라이브 파일 텍스트 읽기.",
         "description": "파일에서 텍스트를 읽어옵니다.",
-        "tags": [
-          "Google-Drive",
-          "구글",
-          "드라이브",
-          "저장",
-          "파일",
-          "클라우드",
-          "파일명",
-          "폴더",
-          "폴더명",
-          "문서",
-          "사진",
-          "동영상",
-          "협업",
-          "자료",
-          "설문",
-          "팀",
-          "Google",
-          "Drive",
-          "Save",
-          "Share",
-          "Sync",
-          "Update",
-          "Download",
-          "Create",
-          "Rename",
-          "Delete",
-          "Manage",
-          "Add",
-          "Search",
-          "Collaborate",
-          "Set",
-          "Encrypt",
-          "Edit",
-          "Move",
-          "Resources",
-          "Survey",
-          "Team"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -1096,149 +754,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google-Drive"
-    },
-    {
-      "name": "구글",
-      "description": "드라이브"
-    },
-    {
-      "name": "드라이브"
-    },
-    {
-      "name": "저장"
-    },
-    {
-      "name": "파일",
-      "description": "저장"
-    },
-    {
-      "name": "클라우드",
-      "description": "저장"
-    },
-    {
-      "name": "파일명",
-      "description": "수정"
-    },
-    {
-      "name": "폴더",
-      "description": "추가"
-    },
-    {
-      "name": "폴더명",
-      "description": "수정"
-    },
-    {
-      "name": "문서",
-      "description": "작성"
-    },
-    {
-      "name": "사진",
-      "description": "저장"
-    },
-    {
-      "name": "동영상",
-      "description": "저장"
-    },
-    {
-      "name": "협업"
-    },
-    {
-      "name": "자료",
-      "description": "공유"
-    },
-    {
-      "name": "설문",
-      "description": "응답"
-    },
-    {
-      "name": "팀",
-      "description": "드라이브"
-    },
-    {
-      "name": "Google",
-      "description": "Drive"
-    },
-    {
-      "name": "Drive"
-    },
-    {
-      "name": "Save",
-      "description": "File"
-    },
-    {
-      "name": "Share",
-      "description": "File"
-    },
-    {
-      "name": "Sync",
-      "description": "File"
-    },
-    {
-      "name": "Update",
-      "description": "File"
-    },
-    {
-      "name": "Download",
-      "description": "File"
-    },
-    {
-      "name": "Create",
-      "description": "File"
-    },
-    {
-      "name": "Rename",
-      "description": "File"
-    },
-    {
-      "name": "Delete",
-      "description": "File"
-    },
-    {
-      "name": "Manage",
-      "description": "File"
-    },
-    {
-      "name": "Add",
-      "description": "Folder"
-    },
-    {
-      "name": "Search",
-      "description": "File"
-    },
-    {
-      "name": "Collaborate",
-      "description": "on Document"
-    },
-    {
-      "name": "Set",
-      "description": "File Permissions"
-    },
-    {
-      "name": "Encrypt",
-      "description": "File"
-    },
-    {
-      "name": "Edit",
-      "description": "Document"
-    },
-    {
-      "name": "Move",
-      "description": "File"
-    },
-    {
-      "name": "Resources"
-    },
-    {
-      "name": "Survey",
-      "description": "Responses"
-    },
-    {
-      "name": "Team",
-      "description": "Drive"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

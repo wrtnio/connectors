@@ -17,7 +17,7 @@
   "info": {
     "title": "프롬프트",
     "description": "",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,9 +27,7 @@
       "post": {
         "summary": "프롬프트 노드",
         "description": "LLM에게 지시할 요청사항을 입력합니다.",
-        "tags": [
-          "프롬프트 노드"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "유저의 프롬프트 입력",
@@ -94,10 +92,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "프롬프트 노드"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

@@ -17,7 +17,7 @@
   "info": {
     "title": "조건 정렬",
     "description": "",
-    "version": "0.1.204",
+    "version": "0.1.205",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,9 +28,7 @@
         "summary": "조건 정렬",
         "description": "주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.",
         "deprecated": true,
-        "tags": [
-          "Sort"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "정렬할 후보 정보",
@@ -111,11 +109,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Sort",
-      "description": "Rank Ranking 정렬 순위 순서 랭킹 랭크"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }
