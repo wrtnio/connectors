@@ -191,6 +191,17 @@ export class GithubController {
     return data;
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Delete("repos/commits/contents")
+  async deleteFileContents(
+    @TypedBody() input: IGithub.IDeleteFileContentInput,
+  ): Promise<void> {
+    const data = await this.githubProvider.deleteFileContents(input);
+    return data;
+  }
+
   /**
    * Update file content in github repository
    *

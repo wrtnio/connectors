@@ -579,6 +579,20 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async deleteFileContents(
+    input: IGithub.IDeleteFileContentInput,
+  ): Promise<void> {
+    const { owner, repo, path, secretKey, ...rest } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const token = await this.getToken(secretKey);
+    await axios.delete(url, {
+      data: { ...rest },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   async updateFileContents(
     input: IGithub.IUpdateFileContentInput,
   ): Promise<IGithub.IUpsertFileContentOutput> {

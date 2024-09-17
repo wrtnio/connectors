@@ -373,6 +373,11 @@ export namespace IGithub {
     branch?: Branch["name"];
   }
 
+  export type IDeleteFileContentInput = StrictOmit<
+    IUpdateFileContentInput,
+    "content"
+  >;
+
   export interface IUpdateFileContentInput extends ICreateFileContentInput {
     /**
      * @title sha of file content
@@ -462,6 +467,8 @@ export namespace IGithub {
 
     /**
      * @title branch name
+     *
+     * The branch name. Default: the repository’s default branch
      */
     branch?: Branch["name"];
 
