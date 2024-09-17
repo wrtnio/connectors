@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.206",
+    "version": "0.1.207",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8518,7 +8518,62 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repos/get-collaborators": {
+      "post": {
+        "summary": "List repository collaborators",
+        "description": "List repository collaborators\n\nFor organization-owned repositories, the list of collaborators includes outside collaborators,\norganization members that are direct collaborators, organization members with access through team memberships,\norganization members with access through default organization permissions, and organization owners.\nOrganization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.\nTeam members will include the members of child teams.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetCollaboratorInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetCollaboratorOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/connector/github/repos/commits/contents": {
+      "delete": {
+        "summary": "Delete file content and commit",
+        "description": "Delete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IDeleteFileContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      },
       "put": {
         "summary": "Update File content and commit",
         "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.",
@@ -38757,6 +38812,287 @@
           "watchers"
         ]
       },
+      "IGithub.IGetCollaboratorOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Collaborator"
+            }
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.Collaborator": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              },
+              {
+                "const": "Organization"
+              }
+            ],
+            "title": "type"
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "login",
+          "html_url",
+          "avatar_url"
+        ]
+      },
+      "IGithub.IGetCollaboratorInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "affiliation": {
+            "oneOf": [
+              {
+                "const": "outside",
+                "title": "outside",
+                "default": "all"
+              },
+              {
+                "const": "direct",
+                "title": "direct",
+                "default": "all"
+              },
+              {
+                "const": "all",
+                "title": "all",
+                "default": "all"
+              }
+            ],
+            "title": "affiliation\n\nFilter collaborators returned by their affiliation.\noutside means all outside collaborators of an organization-owned repository. direct means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. all means all collaborators the authenticated user can see.\nIt must be one of: \"outside\", \"direct\", \"all\"."
+          },
+          "permission": {
+            "oneOf": [
+              {
+                "const": "pull",
+                "title": "pull"
+              },
+              {
+                "const": "triage",
+                "title": "triage"
+              },
+              {
+                "const": "push",
+                "title": "push"
+              },
+              {
+                "const": "maintain",
+                "title": "maintain"
+              },
+              {
+                "const": "admin",
+                "title": "admin"
+              }
+            ],
+            "title": "permission\n\nFilter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.\nIt must be one of: \"pull\", \"triage\", \"push\", \"maintain\", \"admin\"."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "admin:org",
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
+      "IGithub.IDeleteFileContentInput": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "The name of the author or committer of the commit"
+              },
+              "email": {
+                "type": "string",
+                "title": "The email of the author or committer of the commit"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "sha": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repos/get-contents",
+              "jmesPath": "[].{value:sha, label:path} || {value:sha, label:path}"
+            },
+            "title": "sha of file content\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
+          },
+          "committer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "The name of the author or committer of the commit"
+              },
+              "email": {
+                "type": "string",
+                "title": "The email of the author or committer of the commit"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "date"
+            ],
+            "title": "The person that committed the file.\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+          },
+          "branch": {
+            "type": "string",
+            "title": "branch name\n\nThe branch name. Default: the repository’s default branch"
+          }
+        },
+        "required": [
+          "message",
+          "path",
+          "secretKey",
+          "owner",
+          "repo",
+          "sha"
+        ]
+      },
       "IGithub.IUpsertFileContentOutput": {
         "type": "object",
         "properties": {
@@ -38840,7 +39176,7 @@
           },
           "branch": {
             "type": "string",
-            "title": "branch name"
+            "title": "branch name\n\nThe branch name. Default: the repository’s default branch"
           },
           "committer": {
             "type": "object",
@@ -38932,7 +39268,7 @@
           },
           "branch": {
             "type": "string",
-            "title": "branch name"
+            "title": "branch name\n\nThe branch name. Default: the repository’s default branch"
           },
           "committer": {
             "type": "object",
@@ -42781,6 +43117,11 @@
             ],
             "title": "assignees\n\nIf there are many people in charge, you can be included in the array."
           },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+          },
           "updated_at": {
             "type": "string",
             "format": "date-time",
@@ -42875,11 +43216,6 @@
             ],
             "title": "merged_at"
           },
-          "html_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
-          },
           "state_reason": {
             "oneOf": [
               {
@@ -42909,6 +43245,7 @@
           "assignee",
           "labels",
           "state",
+          "html_url",
           "updated_at",
           "milestone",
           "author_association",
@@ -42917,8 +43254,7 @@
           "auto_merge",
           "locked",
           "closed_at",
-          "merged_at",
-          "html_url"
+          "merged_at"
         ]
       },
       "IGithub.IGetPullRequestInput": {
@@ -43416,7 +43752,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Useridloginavatar_urlhtml_url"
+              "$ref": "#/components/schemas/PickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followers"
           },
@@ -43468,7 +43804,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Useridloginavatar_urlhtml_url": {
+      "PickIGithub.Useridloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
           "id": {
@@ -43479,22 +43815,22 @@
             "type": "string",
             "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           },
-          "avatar_url": {
-            "type": "string",
-            "format": "uri",
-            "title": "avatar url\n\nThis means the user's profile image."
-          },
           "html_url": {
             "type": "string",
             "format": "uri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "id",
           "login",
-          "avatar_url",
-          "html_url"
+          "html_url",
+          "avatar_url"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
@@ -43550,7 +43886,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Useridloginavatar_urlhtml_url"
+              "$ref": "#/components/schemas/PickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followees"
           },
