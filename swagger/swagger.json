@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.207",
+    "version": "0.1.208",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8521,7 +8521,7 @@
     "/connector/github/repos/get-collaborators": {
       "post": {
         "summary": "List repository collaborators",
-        "description": "List repository collaborators\n\nFor organization-owned repositories, the list of collaborators includes outside collaborators,\norganization members that are direct collaborators, organization members with access through team memberships,\norganization members with access through default organization permissions, and organization owners.\nOrganization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.\nTeam members will include the members of child teams.",
+        "description": "List repository collaborators\n\nFor organization-owned repositories, the list of collaborators includes outside collaborators,\norganization members that are direct collaborators, organization members with access through team memberships,\norganization members with access through default organization permissions, and organization owners.\nOrganization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.\nTeam members will include the members of child teams.\n\nYou can refer to it before specifying a person in charge of the issue or a reviewer for PR.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8551,7 +8551,7 @@
     "/connector/github/repos/commits/contents": {
       "delete": {
         "summary": "Delete file content and commit",
-        "description": "Delete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.",
+        "description": "Delete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8576,7 +8576,7 @@
       },
       "put": {
         "summary": "Update File content and commit",
-        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.",
+        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8605,7 +8605,7 @@
       },
       "post": {
         "summary": "Create File content and commit",
-        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nIf someone says they want to add a file to the repo it's like they want to commit.\nHowever, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.\nUsers value branches that reflect their commitments.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.",
+        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nIf someone says they want to add a file to the repo it's like they want to commit.\nHowever, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.\nUsers value branches that reflect their commitments.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9076,6 +9076,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGithub.ICreatePullRequestOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/get-requested-reviewers": {
+      "post": {
+        "summary": "Get all requested reviewers for a pull request",
+        "description": "Get all requested reviewers\n\nGets the users or teams whose review is requested for a pull request.\nOnce a requested reviewer submits a review, they are no longer considered a requested reviewer.\nTheir review will instead be returned by the List reviews for a pull request operation.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReadPullRequestDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IReadPullRequestRequestedReviewerOutput"
                 }
               }
             }
@@ -40248,6 +40279,72 @@
           "secretKey"
         ]
       },
+      "IGithub.IReadPullRequestRequestedReviewerOutput": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Collaborator"
+            },
+            "title": "requested reviewers"
+          }
+        },
+        "required": [
+          "users"
+        ]
+      },
+      "IGithub.IReadPullRequestDetailInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
       "IGithub.IReadPullRequestFileOutput": {
         "type": "object",
         "properties": {
@@ -40636,57 +40733,6 @@
             "default": 30,
             "maximum": 100,
             "title": "per_page\nThe number of results per page (max 100)."
-          }
-        },
-        "required": [
-          "owner",
-          "repo",
-          "pull_number",
-          "secretKey"
-        ]
-      },
-      "IGithub.IReadPullRequestDetailInput": {
-        "type": "object",
-        "properties": {
-          "owner": {
-            "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
-          },
-          "repo": {
-            "type": "string",
-            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
-          },
-          "pull_number": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "minimum": 1,
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/repositories/get-pull-requests",
-                  "jmesPath": "pullRequests[].{value:number, label:title}"
-                }
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/repositories/pull-requests",
-                  "jmesPath": "pullRequests[].{value:number, label:number}"
-                }
-              }
-            ],
-            "title": "pull request number to update"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "github",
-            "x-wrtn-secret-scopes": [
-              "repo"
-            ],
-            "title": "인증 정보 선택",
-            "description": "secret key."
           }
         },
         "required": [
@@ -44174,7 +44220,12 @@
           "assignees": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/github/repos/get-collaborators",
+                "jmesPath": "result[].{value:login, label:login}"
+              }
             },
             "title": "assignees\n\nDeliver the user nickname to be designated as the person in charge in the array."
           }
@@ -44208,7 +44259,12 @@
           "assignees": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/github/repos/get-collaborators",
+                "jmesPath": "result[].{value:login, label:login}"
+              }
             },
             "title": "assignees\n\nDeliver the user nickname to be designated as the person in charge in the array."
           },
