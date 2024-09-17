@@ -1,5 +1,9 @@
 import { SecretKey } from "@wrtn/connector-api/utils/types";
 
+declare namespace tags {
+  export type Format<T> = string;
+}
+
 export namespace ILINE {
   /**
    * Input for sending a message to a LINE chat
