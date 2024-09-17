@@ -220,6 +220,8 @@ export class GithubController {
    * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
    * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
    *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   *
    * @summary Delete file content and commit
    * @param input
    * @returns
@@ -249,6 +251,8 @@ export class GithubController {
    * so it's right to check the existing code and then change some of the contents to the original to reflect it.
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   *
    * @summary Update File content and commit
    * @param input
    * @returns
@@ -275,6 +279,8 @@ export class GithubController {
    * However, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.
    * Users value branches that reflect their commitments.
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
+   *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
    *
    * @summary Create File content and commit
    * @param input
