@@ -200,6 +200,8 @@ export class GithubController {
    * Organization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.
    * Team members will include the members of child teams.
    *
+   * You can refer to it before specifying a person in charge of the issue or a reviewer for PR.
+   *
    * @summary List repository collaborators
    * @param input
    * @returns
