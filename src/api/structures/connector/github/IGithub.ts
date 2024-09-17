@@ -406,12 +406,26 @@ export namespace IGithub {
     repo: Repository["name"];
 
     /**
+     * @title affiliation
+     *
+     * Filter collaborators returned by their affiliation.
+     * outside means all outside collaborators of an organization-owned repository. direct means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. all means all collaborators the authenticated user can see.
+     * It must be one of: "outside", "direct", "all".
+     */
+    affiliation?: (
+      | tags.Constant<"outside", { title: "outside" }>
+      | tags.Constant<"direct", { title: "direct" }>
+      | tags.Constant<"all", { title: "all" }>
+    ) &
+      tags.Default<"all">;
+
+    /**
      * @title permission
      *
      * Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.
      * It must be one of: "pull", "triage", "push", "maintain", "admin".
      */
-    permission:
+    permission?:
       | tags.Constant<"pull", { title: "pull" }>
       | tags.Constant<"triage", { title: "triage" }>
       | tags.Constant<"push", { title: "push" }>

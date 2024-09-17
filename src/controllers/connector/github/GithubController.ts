@@ -191,6 +191,13 @@ export class GithubController {
     return data;
   }
 
+  @core.TypedRoute.Post("repos/get-collaborators")
+  async getCollaborators(
+    @TypedBody() input: IGithub.IGetCollaboratorInput,
+  ): Promise<IGithub.IGetCollaboratorOutput> {
+    return this.githubProvider.getCollaborators(input);
+  }
+
   /**
    * Delete file content in github repository
    *
@@ -213,13 +220,6 @@ export class GithubController {
   ): Promise<void> {
     const data = await this.githubProvider.deleteFileContents(input);
     return data;
-  }
-
-  @core.TypedRoute.Post("repos/get-collaborators")
-  async getCollaborators(
-    @TypedBody() input: IGithub.IGetCollaboratorInput,
-  ): Promise<IGithub.IGetCollaboratorOutput> {
-    return this.githubProvider.getCollaborators(input);
   }
 
   /**
