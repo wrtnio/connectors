@@ -200,6 +200,8 @@ export class GithubController {
    * Organization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.
    * Team members will include the members of child teams.
    *
+   * You can refer to it before specifying a person in charge of the issue or a reviewer for PR.
+   *
    * @summary List repository collaborators
    * @param input
    * @returns
@@ -219,6 +221,8 @@ export class GithubController {
    *
    * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
    * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+   *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
    *
    * @summary Delete file content and commit
    * @param input
@@ -249,6 +253,8 @@ export class GithubController {
    * so it's right to check the existing code and then change some of the contents to the original to reflect it.
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   *
    * @summary Update File content and commit
    * @param input
    * @returns
@@ -275,6 +281,8 @@ export class GithubController {
    * However, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.
    * Users value branches that reflect their commitments.
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
+   *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
    *
    * @summary Create File content and commit
    * @param input
@@ -576,6 +584,27 @@ export class GithubController {
     @TypedBody() input: IGithub.ICreatePullRequestInput,
   ): Promise<IGithub.ICreatePullRequestOutput> {
     return this.githubProvider.createPullRequest(input);
+  }
+
+  /**
+   * Get all requested reviewers
+   *
+   * Gets the users or teams whose review is requested for a pull request.
+   * Once a requested reviewer submits a review, they are no longer considered a requested reviewer.
+   * Their review will instead be returned by the List reviews for a pull request operation.
+   *
+   * @summary Get all requested reviewers for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/get-requested-reviewers")
+  async readPullRequestRequestedReviewers(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestRequestedReviewerOutput> {
+    return this.githubProvider.readPullRequestRequestedReviewers(input);
   }
 
   /**

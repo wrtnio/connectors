@@ -136,6 +136,13 @@ export namespace IGithub {
     extends IReadPullRequestDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}
 
+  export interface IReadPullRequestRequestedReviewerOutput {
+    /**
+     * @title requested reviewers
+     */
+    users: Collaborator[];
+  }
+
   export type IReadPullRequestDetailOutput = PullRequest;
 
   export interface IReadPullRequestDetailInput
@@ -988,7 +995,12 @@ export namespace IGithub {
      *
      * Deliver the user nickname to be designated as the person in charge in the array.
      */
-    assignees?: User["login"][];
+    assignees?: (User["login"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repos/get-collaborators";
+        jmesPath: "result[].{value:login, label:login}";
+      }>)[];
 
     /**
      * @title labels
