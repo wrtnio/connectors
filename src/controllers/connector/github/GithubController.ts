@@ -584,6 +584,13 @@ export class GithubController {
     return this.githubProvider.createPullRequest(input);
   }
 
+  @core.TypedRoute.Post("repositories/pull-requests/get-requested-reviewers")
+  async readPullRequestRequestedReviewers(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestRequestedReviewerOutput> {
+    return this.githubProvider.readPullRequestRequestedReviewers(input);
+  }
+
   /**
    * List pull requests files
    *

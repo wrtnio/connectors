@@ -136,6 +136,13 @@ export namespace IGithub {
     extends IReadPullRequestDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}
 
+  export interface IReadPullRequestRequestedReviewerOutput {
+    /**
+     * @title requested reviewers
+     */
+    users: Collaborator[];
+  }
+
   export type IReadPullRequestDetailOutput = PullRequest;
 
   export interface IReadPullRequestDetailInput
