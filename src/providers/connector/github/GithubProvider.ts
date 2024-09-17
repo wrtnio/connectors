@@ -593,6 +593,22 @@ export class GithubProvider {
     });
   }
 
+  async getCollaborators(
+    input: IGithub.IGetCollaboratorInput,
+  ): Promise<IGithub.IGetCollaboratorOutput> {
+    const { owner, repo, secretKey } = input;
+    const url = `https://api.github.com/repos/${owner}/${repo}/collaborators`;
+    const token = await this.getToken(secretKey);
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async updateFileContents(
     input: IGithub.IUpdateFileContentInput,
   ): Promise<IGithub.IUpsertFileContentOutput> {

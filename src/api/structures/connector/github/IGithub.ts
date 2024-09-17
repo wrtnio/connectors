@@ -378,6 +378,47 @@ export namespace IGithub {
     "content"
   >;
 
+  export interface IGetCollaboratorOutput extends ICommonPaginationOutput {
+    result: IGithub.Collaborator[];
+  }
+
+  export type Collaborator = Pick<
+    IGithub.User,
+    "id" | "login" | "html_url" | "avatar_url" | "type"
+  >;
+
+  export interface IGetCollaboratorInput
+    extends ICommon.ISecret<"github", ["admin:org", "repo"]>,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title permission
+     *
+     * Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.
+     * It must be one of: "pull", "triage", "push", "maintain", "admin".
+     */
+    permission:
+      | tags.Constant<"pull", { title: "pull" }>
+      | tags.Constant<"triage", { title: "triage" }>
+      | tags.Constant<"push", { title: "push" }>
+      | tags.Constant<"maintain", { title: "maintain" }>
+      | tags.Constant<"admin", { title: "admin" }>;
+  }
+
   export interface IUpdateFileContentInput extends ICreateFileContentInput {
     /**
      * @title sha of file content

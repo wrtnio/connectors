@@ -215,6 +215,13 @@ export class GithubController {
     return data;
   }
 
+  @core.TypedRoute.Post("repos/get-collaborators")
+  async getCollaborators(
+    @TypedBody() input: IGithub.IGetCollaboratorInput,
+  ): Promise<IGithub.IGetCollaboratorOutput> {
+    return this.githubProvider.getCollaborators(input);
+  }
+
   /**
    * Update file content in github repository
    *
