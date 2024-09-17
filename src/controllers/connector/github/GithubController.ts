@@ -191,6 +191,19 @@ export class GithubController {
     return data;
   }
 
+  /**
+   * Delete file content in github repository
+   *
+   * To delete file content is the same as creating a single commit.
+   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+   * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+   *
+   * @summary Delete file content and commit
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
