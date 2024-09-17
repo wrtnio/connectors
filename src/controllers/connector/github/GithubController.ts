@@ -192,6 +192,50 @@ export class GithubController {
   }
 
   /**
+   * List repository collaborators
+   *
+   * For organization-owned repositories, the list of collaborators includes outside collaborators,
+   * organization members that are direct collaborators, organization members with access through team memberships,
+   * organization members with access through default organization permissions, and organization owners.
+   * Organization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.
+   * Team members will include the members of child teams.
+   *
+   * @summary List repository collaborators
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("repos/get-collaborators")
+  async getCollaborators(
+    @TypedBody() input: IGithub.IGetCollaboratorInput,
+  ): Promise<IGithub.IGetCollaboratorOutput> {
+    return this.githubProvider.getCollaborators(input);
+  }
+
+  /**
+   * Delete file content in github repository
+   *
+   * To delete file content is the same as creating a single commit.
+   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+   * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+   *
+   * @summary Delete file content and commit
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Delete("repos/commits/contents")
+  async deleteFileContents(
+    @TypedBody() input: IGithub.IDeleteFileContentInput,
+  ): Promise<void> {
+    const data = await this.githubProvider.deleteFileContents(input);
+    return data;
+  }
+
+  /**
    * Update file content in github repository
    *
    * Updating file content is the same as creating a single commit.
