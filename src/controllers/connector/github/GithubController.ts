@@ -584,6 +584,20 @@ export class GithubController {
     return this.githubProvider.createPullRequest(input);
   }
 
+  /**
+   * Get all requested reviewers
+   *
+   * Gets the users or teams whose review is requested for a pull request.
+   * Once a requested reviewer submits a review, they are no longer considered a requested reviewer.
+   * Their review will instead be returned by the List reviews for a pull request operation.
+   *
+   * @summary Get all requested reviewers for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @core.TypedRoute.Post("repositories/pull-requests/get-requested-reviewers")
   async readPullRequestRequestedReviewers(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
