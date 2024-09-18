@@ -253,7 +253,6 @@ export const test_api_connector_excel_insert_row_to_empty_excel_file = async (
     },
   );
 
-  console.log(JSON.stringify(res, null, 2));
   typia.assert(res);
 };
 

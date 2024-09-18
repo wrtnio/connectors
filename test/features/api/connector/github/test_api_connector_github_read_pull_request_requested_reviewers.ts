@@ -32,7 +32,6 @@ export async function test_api_connector_github_repository_read_pull_request_req
         },
       );
 
-    console.log(JSON.stringify(requestedReviewers, null, 2));
     typia.assert(requestedReviewers);
   }
 }

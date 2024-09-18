@@ -141,6 +141,20 @@ export namespace IGithub {
      * @title requested reviewers
      */
     users: Collaborator[];
+
+    /**
+     * @title team
+     */
+    teams: Pick<
+      Team,
+      | "id"
+      | "name"
+      | "description"
+      | "notification_setting"
+      | "permission"
+      | "privacy"
+      | "slug"
+    >[];
   }
 
   export type IReadPullRequestDetailOutput = PullRequest;

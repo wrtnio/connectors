@@ -593,6 +593,11 @@ export class GithubController {
    * Once a requested reviewer submits a review, they are no longer considered a requested reviewer.
    * Their review will instead be returned by the List reviews for a pull request operation.
    *
+   * The requested_reviewers are the ones who have been asked to review, but not yet.
+   * So when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.
+   * Therefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.
+   * Refer to connector `:post /connector/github/repositories/pull-requests/get-reviewers`.
+   *
    * @summary Get all requested reviewers for a pull request
    * @param input
    * @returns
