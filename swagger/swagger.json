@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.209",
+    "version": "0.1.210",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9140,6 +9140,58 @@
                   "$ref": "#/components/schemas/IGithub.IReadPullRequestRequestedReviewerOutput"
                 }
               }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/requested-reviewers": {
+      "delete": {
+        "summary": "Remove requested reviewers from a pull request",
+        "description": "Removes review requests from a pull request for a given set of users and/or teams\n\nYou should check the person who has already been requested as a reviewer, i.e., requested_reviewers, and then send out the delete request.\nEven if you don't do that, there will be no error, but it doesn't mean anything if you delete the person who hasn't been requested as a reviewer.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IRequestReviewerInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      },
+      "post": {
+        "summary": "Request reviewers for a pull request",
+        "description": "Request reviewers for a pull request\n\nRequests reviews for a pull request from a given set of users and/or teams. This endpoint triggers notifications.\nYou can specify a reviewer by the user's name alone, but not by anyone, so use a connector that looks up collaborators first.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IRequestReviewerInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
             }
           }
         },
@@ -40614,7 +40666,7 @@
           "teams": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Teamdescriptionnameidpermissionnotification_settingprivacyslug"
+              "$ref": "#/components/schemas/PickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy"
             },
             "title": "team"
           }
@@ -40624,7 +40676,7 @@
           "teams"
         ]
       },
-      "PickIGithub.Teamdescriptionnameidpermissionnotification_settingprivacyslug": {
+      "PickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy": {
         "type": "object",
         "properties": {
           "description": {
@@ -40643,6 +40695,10 @@
             "type": "string",
             "title": "permission"
           },
+          "slug": {
+            "type": "string",
+            "title": "slug"
+          },
           "notification_setting": {
             "type": "string",
             "title": "notification_setting"
@@ -40657,10 +40713,6 @@
               }
             ],
             "title": "privacy"
-          },
-          "slug": {
-            "type": "string",
-            "title": "slug"
           }
         },
         "required": [
@@ -40668,15 +40720,84 @@
           "name",
           "id",
           "permission",
+          "slug",
           "notification_setting",
-          "privacy",
-          "slug"
+          "privacy"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IGithub.IReadPullRequestDetailInput": {
         "type": "object",
         "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
+      "IGithub.IRequestReviewerInput": {
+        "type": "object",
+        "properties": {
+          "reviewers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/github/repos/get-collaborators",
+                "jmesPath": "result[].{value:login, label:login}"
+              }
+            }
+          },
+          "team_reviewers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "team_reviewers\nAn array of team slugs that will be requested."
+          },
           "owner": {
             "type": "string",
             "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
