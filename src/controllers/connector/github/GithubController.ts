@@ -771,6 +771,17 @@ export class GithubController {
     return this.githubProvider.getIssueDetail(input);
   }
 
+  /**
+   * List issue comments
+   *
+   * You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+   * In any case, you can also view comments with the number on pull request.
+   * Issue comments are ordered by ascending ID.
+   *
+   * @summary List issue comments
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
