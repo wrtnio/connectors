@@ -636,6 +636,16 @@ export class GithubController {
     return this.githubProvider.readPullRequestRequestedReviewers(input);
   }
 
+  /**
+   * Request reviewers for a pull request
+   *
+   * Requests reviews for a pull request from a given set of users and/or teams. This endpoint triggers notifications.
+   * You can specify a reviewer by the user's name alone, but not by anyone, so use a connector that looks up collaborators first.
+   *
+   * @summary Request reviewers for a pull request
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
