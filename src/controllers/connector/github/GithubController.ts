@@ -587,11 +587,40 @@ export class GithubController {
   }
 
   /**
+   * List pull request comments
+   *
+   * You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+   * In any case, you can also view comments with the number on pull request.
+   * Issue comments are ordered by ascending ID.
+   *
+   * This is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.
+   * Comments and reviews on PR are separate, you can only see comments on this connector.
+   *
+   * @summary List pull request comments
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/get-comments")
+  async getPullRequestComments(
+    @TypedBody() input: IGithub.IGetPullRequestCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    return this.githubProvider.getPullRequestComments(input);
+  }
+
+  /**
    * Get all requested reviewers
    *
    * Gets the users or teams whose review is requested for a pull request.
    * Once a requested reviewer submits a review, they are no longer considered a requested reviewer.
    * Their review will instead be returned by the List reviews for a pull request operation.
+   *
+   * The requested_reviewers are the ones who have been asked to review, but not yet.
+   * So when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.
+   * Therefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.
+   * Refer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.
    *
    * @summary Get all requested reviewers for a pull request
    * @param input
@@ -605,6 +634,28 @@ export class GithubController {
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestRequestedReviewerOutput> {
     return this.githubProvider.readPullRequestRequestedReviewers(input);
+  }
+
+  /**
+   * List reviews for a pull request
+   *
+   * Pull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.
+   * Lists all reviews for a specified pull request. The list of reviews returns in chronological order.
+   * Since github distinguishes requested_reviewers from those who have already completed the review,
+   * if you want to see a review for any PR, you should look up both of these connectors.
+   *
+   * @summary List reviews for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/get-reviews")
+  async readReviews(
+    @TypedBody() input: IGithub.IReadPullRequestReviewInput,
+  ): Promise<IGithub.IReadPullRequestReviewOutput> {
+    return this.githubProvider.readReviews(input);
   }
 
   /**
@@ -703,11 +754,12 @@ export class GithubController {
   }
 
   /**
-   * List repository issues
+   * List repository pull requests
    *
    * Query pool requests to specific repositories.
    * Here, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   * If the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.
    *
    * @summary Get Repository' pull request
    * @param input
@@ -724,11 +776,12 @@ export class GithubController {
   }
 
   /**
-   * Get a deatiled pull-request info
+   * Get a deatiled issue info
+   *
    * Unlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.
    * However, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.
    *
-   * @summary Get a pull request
+   * @summary Get a issue
    * @param input
    * @returns
    */
@@ -743,6 +796,27 @@ export class GithubController {
   }
 
   /**
+   * List issue comments
+   *
+   * You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+   * In any case, you can also view comments with the number on pull request.
+   * Issue comments are ordered by ascending ID.
+   *
+   * @summary List issue comments
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/issues/get-comments")
+  async getIssueComments(
+    @TypedBody() input: IGithub.IGetIssueCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    return this.githubProvider.getIssueComments(input);
+  }
+
+  /**
    * List repository issues
    *
    * List issues in a repository.
@@ -753,6 +827,7 @@ export class GithubController {
    * For more information, you should check the properties part of the request type.
    *
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   * If the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.
    *
    * @summary List repository issues
    * @param input

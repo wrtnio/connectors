@@ -141,7 +141,93 @@ export namespace IGithub {
      * @title requested reviewers
      */
     users: Collaborator[];
+
+    /**
+     * @title team
+     */
+    teams: Pick<
+      Team,
+      | "id"
+      | "name"
+      | "description"
+      | "notification_setting"
+      | "permission"
+      | "privacy"
+      | "slug"
+    >[];
   }
+
+  export interface IReadPullRequestReviewOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title commit list of this pull request
+     */
+    result: Review[];
+  }
+
+  export type AuthorAssociation =
+    | "COLLABORATOR"
+    | "CONTRIBUTOR"
+    | "FIRST_TIMER"
+    | "FIRST_TIME_CONTRIBUTOR"
+    | "MANNEQUIN"
+    | "MEMBER"
+    | "NONE"
+    | "OWNER";
+
+  export interface Review {
+    /**
+     * @title id
+     */
+    id: number & tags.Type<"uint32">;
+
+    /**
+     * @title reviewer
+     */
+    user: Collaborator;
+
+    /**
+     * @title body
+     */
+    body: string;
+
+    /**
+     * @title state
+     */
+    state: string & Placeholder<"APPROVED">;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"uri">;
+
+    /**
+     * @title pull_request_url
+     */
+    pull_request_url: string & tags.Format<"uri">;
+
+    /**
+     * @title submitted_at
+     */
+    submitted_at?: string & tags.Format<"date-time">;
+
+    /**
+     * @title commit_id
+     *
+     * A commit SHA for the review.
+     * If the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`.
+     */
+    commit_id: string | null;
+
+    /**
+     * @title author_association
+     */
+    author_association: IGithub.AuthorAssociation;
+  }
+
+  export interface IReadPullRequestReviewInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
 
   export type IReadPullRequestDetailOutput = PullRequest;
 
@@ -1765,6 +1851,34 @@ export namespace IGithub {
     closed_by?: Pick<User, "id" | "login" | "type"> | null;
   }
 
+  export interface IGetIssueCommentsOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title issue comments
+     */
+    result: IssueComment[];
+  }
+
+  export interface IssueComment extends StrictOmit<IGithub.Comment, "pages"> {
+    /**
+     * @title issue_url
+     */
+    issue_url: string & tags.Format<"uri">;
+
+    /**
+     * @title author_association
+     */
+    author_association: AuthorAssociation;
+  }
+
+  export interface IGetPullRequestCommentsInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export interface IGetIssueCommentsInput
+    extends IGetIssueDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
   export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
     /**
      * @title issue number to get detailed info
@@ -2683,15 +2797,7 @@ export namespace IGithub {
     /**
      * @title author_association
      */
-    author_association:
-      | "COLLABORATOR"
-      | "CONTRIBUTOR"
-      | "FIRST_TIMER"
-      | "FIRST_TIME_CONTRIBUTOR"
-      | "MANNEQUIN"
-      | "MEMBER"
-      | "NONE"
-      | "OWNER";
+    author_association: IGithub.AuthorAssociation;
 
     /**
      * @title draft
@@ -2867,7 +2973,10 @@ export namespace IGithub {
   export interface Comment {
     id: number & tags.Type<"uint64">;
     body?: string;
-    user: Pick<IGithub.User, "id" | "login" | "type">;
+    user: Pick<
+      IGithub.User,
+      "id" | "login" | "type" | "avatar_url" | "html_url"
+    >;
     created_at: string & tags.Format<"date-time">;
     updated_at: string & tags.Format<"date-time">;
     pages?: IGithub.Page[];
