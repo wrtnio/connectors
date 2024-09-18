@@ -616,10 +616,10 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @core.TypedRoute.Post("repositories/pull-requests/get-reviews")
-  async readPullRequestReviewers(
+  async readReviews(
     @TypedBody() input: IGithub.IReadPullRequestReviewInput,
   ): Promise<IGithub.IReadPullRequestReviewOutput> {
-    return this.githubProvider.readPullRequestReviewers(input);
+    return this.githubProvider.readReviews(input);
   }
 
   /**

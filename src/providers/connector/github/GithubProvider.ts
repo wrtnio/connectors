@@ -274,7 +274,7 @@ export class GithubProvider {
     return res.data;
   }
 
-  async readPullRequestReviewers(
+  async readReviews(
     input: IGithub.IReadPullRequestReviewInput,
   ): Promise<IGithub.IReadPullRequestReviewOutput> {
     const { owner, repo, pull_number, secretKey, ...rest } = input;
