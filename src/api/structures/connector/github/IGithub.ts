@@ -1871,6 +1871,10 @@ export namespace IGithub {
     author_association: AuthorAssociation;
   }
 
+  export interface IGetPullRequestCommentsInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
   export interface IGetIssueCommentsInput
     extends IGetIssueDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}

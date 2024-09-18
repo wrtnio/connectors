@@ -587,6 +587,29 @@ export class GithubController {
   }
 
   /**
+   * List pull request comments
+   *
+   * You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+   * In any case, you can also view comments with the number on pull request.
+   * Issue comments are ordered by ascending ID.
+   *
+   * This is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.
+   *
+   * @summary List pull request comments
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/get-comments")
+  async getPullRequestComments(
+    @TypedBody() input: IGithub.IGetPullRequestCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    return this.githubProvider.getPullRequestComments(input);
+  }
+
+  /**
    * Get all requested reviewers
    *
    * Gets the users or teams whose review is requested for a pull request.

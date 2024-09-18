@@ -1071,6 +1071,23 @@ export class GithubProvider {
     return res.data;
   }
 
+  async getPullRequestComments(
+    input: IGithub.IGetPullRequestCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${pull_number}/comments?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async getIssueComments(
     input: IGithub.IGetIssueCommentsInput,
   ): Promise<IGithub.IGetIssueCommentsOutput> {
