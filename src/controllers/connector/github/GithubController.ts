@@ -612,6 +612,18 @@ export class GithubController {
     return this.githubProvider.readPullRequestRequestedReviewers(input);
   }
 
+  /**
+   * List reviews for a pull request
+   *
+   * Pull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.
+   * Lists all reviews for a specified pull request. The list of reviews returns in chronological order.
+   * Since github distinguishes requested_reviewers from those who have already completed the review,
+   * if you want to see a review for any PR, you should look up both of these connectors.
+   *
+   * @summary List reviews for a pull request
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
