@@ -1851,6 +1851,30 @@ export namespace IGithub {
     closed_by?: Pick<User, "id" | "login" | "type"> | null;
   }
 
+  export interface IGetIssueCommentsOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title issue comments
+     */
+    result: IssueComment[];
+  }
+
+  export interface IssueComment extends StrictOmit<IGithub.Comment, "pages"> {
+    /**
+     * @title issue_url
+     */
+    issue_url: string & tags.Format<"uri">;
+
+    /**
+     * @title author_association
+     */
+    author_association: AuthorAssociation;
+  }
+
+  export interface IGetIssueCommentsInput
+    extends IGetIssueDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
   export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
     /**
      * @title issue number to get detailed info
@@ -2945,7 +2969,10 @@ export namespace IGithub {
   export interface Comment {
     id: number & tags.Type<"uint64">;
     body?: string;
-    user: Pick<IGithub.User, "id" | "login" | "type">;
+    user: Pick<
+      IGithub.User,
+      "id" | "login" | "type" | "avatar_url" | "html_url"
+    >;
     created_at: string & tags.Format<"date-time">;
     updated_at: string & tags.Format<"date-time">;
     pages?: IGithub.Page[];

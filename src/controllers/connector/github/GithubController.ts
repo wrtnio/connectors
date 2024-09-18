@@ -771,6 +771,16 @@ export class GithubController {
     return this.githubProvider.getIssueDetail(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/issues/get-comments")
+  async getIssueComments(
+    @TypedBody() input: IGithub.IGetIssueCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    return this.githubProvider.getIssueComments(input);
+  }
+
   /**
    * List repository issues
    *
