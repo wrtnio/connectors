@@ -636,6 +636,16 @@ export class GithubController {
     return this.githubProvider.readPullRequestRequestedReviewers(input);
   }
 
+  /**
+   * Removes review requests from a pull request for a given set of users and/or teams
+   *
+   * You should check the person who has already been requested as a reviewer, i.e., requested_reviewers, and then send out the delete request.
+   * Even if you don't do that, there will be no error, but it doesn't mean anything if you delete the person who hasn't been requested as a reviewer.
+   *
+   * @summary Remove requested reviewers from a pull request
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
