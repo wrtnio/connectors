@@ -33,6 +33,20 @@ export async function test_api_connector_github_repository_issues_get_comments(
       );
 
     typia.assert(comment);
+
+    // pull_request의 댓글을 조회하는 커넥터와 issue의 댓글을 보는 커넥터는 사실 같다.
+    const comment_2 =
+      await CApi.functional.connector.github.repositories.pull_requests.get_comments.getPullRequestComments(
+        connection,
+        {
+          owner: "wrtnio",
+          repo: "connectors",
+          pull_number: pullRequest.number as number,
+          secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+        },
+      );
+
+    typia.assert(comment_2);
   }
 
   const { fetchedIssues } =
@@ -61,5 +75,19 @@ export async function test_api_connector_github_repository_issues_get_comments(
       );
 
     typia.assert(comment);
+
+    // pull_request의 댓글을 조회하는 커넥터와 issue의 댓글을 보는 커넥터는 사실 같다.
+    const comment_2 =
+      await CApi.functional.connector.github.repositories.pull_requests.get_comments.getPullRequestComments(
+        connection,
+        {
+          owner: "wrtnio",
+          repo: "connectors",
+          pull_number: issue.number as number,
+          secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+        },
+      );
+
+    typia.assert(comment_2);
   }
 }
