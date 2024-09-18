@@ -636,6 +636,16 @@ export class GithubController {
     return this.githubProvider.readPullRequestRequestedReviewers(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Delete("repositories/pull-requests/requested-reviewers")
+  async removeRequestedReviewers(
+    @TypedBody() input: IGithub.IRequestReviewerInput,
+  ): Promise<void> {
+    return this.githubProvider.removeRequestedReviewers(input);
+  }
+
   /**
    * Request reviewers for a pull request
    *
