@@ -596,7 +596,7 @@ export class GithubController {
    * The requested_reviewers are the ones who have been asked to review, but not yet.
    * So when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.
    * Therefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.
-   * Refer to connector `:post /connector/github/repositories/pull-requests/get-reviewers`.
+   * Refer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.
    *
    * @summary Get all requested reviewers for a pull request
    * @param input
@@ -610,6 +610,16 @@ export class GithubController {
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestRequestedReviewerOutput> {
     return this.githubProvider.readPullRequestRequestedReviewers(input);
+  }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/get-reviews")
+  async readPullRequestReviewers(
+    @TypedBody() input: IGithub.IReadPullRequestReviewInput,
+  ): Promise<IGithub.IReadPullRequestReviewOutput> {
+    return this.githubProvider.readPullRequestReviewers(input);
   }
 
   /**

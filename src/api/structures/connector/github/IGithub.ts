@@ -157,6 +157,78 @@ export namespace IGithub {
     >[];
   }
 
+  export interface IReadPullRequestReviewOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title commit list of this pull request
+     */
+    result: Review[];
+  }
+
+  export type AuthorAssociation =
+    | "COLLABORATOR"
+    | "CONTRIBUTOR"
+    | "FIRST_TIMER"
+    | "FIRST_TIME_CONTRIBUTOR"
+    | "MANNEQUIN"
+    | "MEMBER"
+    | "NONE"
+    | "OWNER";
+
+  export interface Review {
+    /**
+     * @title id
+     */
+    id: number & tags.Type<"uint32">;
+
+    /**
+     * @title reviewer
+     */
+    user: Collaborator;
+
+    /**
+     * @title body
+     */
+    body: string;
+
+    /**
+     * @title state
+     */
+    state: string & Placeholder<"APPROVED">;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"uri">;
+
+    /**
+     * @title pull_request_url
+     */
+    pull_request_url: string & tags.Format<"uri">;
+
+    /**
+     * @title submitted_at
+     */
+    submitted_at?: string & tags.Format<"date-time">;
+
+    /**
+     * @title commit_id
+     *
+     * A commit SHA for the review.
+     * If the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`.
+     */
+    commit_id: string | null;
+
+    /**
+     * @title author_association
+     */
+    author_association: IGithub.AuthorAssociation;
+  }
+
+  export interface IReadPullRequestReviewInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
   export type IReadPullRequestDetailOutput = PullRequest;
 
   export interface IReadPullRequestDetailInput
@@ -2697,15 +2769,7 @@ export namespace IGithub {
     /**
      * @title author_association
      */
-    author_association:
-      | "COLLABORATOR"
-      | "CONTRIBUTOR"
-      | "FIRST_TIMER"
-      | "FIRST_TIME_CONTRIBUTOR"
-      | "MANNEQUIN"
-      | "MEMBER"
-      | "NONE"
-      | "OWNER";
+    author_association: IGithub.AuthorAssociation;
 
     /**
      * @title draft
