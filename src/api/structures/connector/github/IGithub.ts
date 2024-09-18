@@ -229,6 +229,25 @@ export namespace IGithub {
     extends IReadPullRequestDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}
 
+  export interface IRequestReviewerInput extends IReadPullRequestDetailInput {
+    /**
+     * @Title reviewers
+     * An array of user logins that will be requested.
+     */
+    reviewers?: (User["login"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repos/get-collaborators";
+        jmesPath: "result[].{value:login, label:login}";
+      }>)[];
+
+    /**
+     * @title team_reviewers
+     * An array of team slugs that will be requested.
+     */
+    team_reviewers?: Team["slug"][];
+  }
+
   export type IReadPullRequestDetailOutput = PullRequest;
 
   export interface IReadPullRequestDetailInput
