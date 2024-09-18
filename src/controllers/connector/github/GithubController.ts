@@ -752,11 +752,12 @@ export class GithubController {
   }
 
   /**
-   * Get a deatiled pull-request info
+   * Get a deatiled issue info
+   *
    * Unlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.
    * However, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.
    *
-   * @summary Get a pull request
+   * @summary Get a issue
    * @param input
    * @returns
    */
@@ -781,6 +782,7 @@ export class GithubController {
    * For more information, you should check the properties part of the request type.
    *
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   * If the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.
    *
    * @summary List repository issues
    * @param input
