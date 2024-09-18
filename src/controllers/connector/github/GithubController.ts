@@ -594,6 +594,7 @@ export class GithubController {
    * Issue comments are ordered by ascending ID.
    *
    * This is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.
+   * Comments and reviews on PR are separate, you can only see comments on this connector.
    *
    * @summary List pull request comments
    * @param input

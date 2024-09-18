@@ -91,3 +91,21 @@ export async function test_api_connector_github_repository_issues_get_comments(
     typia.assert(comment_2);
   }
 }
+
+// 댓글과 리뷰는 다른지 테스트하였고, 확인 결과 댓글 조회 시 리뷰의 코멘트는 보이지 않는다.
+export async function test_api_connector_github_repository_issues_get_comments_2(
+  connection: CApi.IConnection,
+) {
+  const comment =
+    await CApi.functional.connector.github.repositories.issues.get_comments.getIssueComments(
+      connection,
+      {
+        owner: "wrtnio",
+        repo: "connectors",
+        issue_number: 18 as const,
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  typia.assert(comment);
+}
