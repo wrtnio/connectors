@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.208",
+    "version": "0.1.209",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -9084,10 +9084,41 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repositories/pull-requests/get-comments": {
+      "post": {
+        "summary": "List pull request comments",
+        "description": "List pull request comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.\n\nThis is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.\nComments and reviews on PR are separate, you can only see comments on this connector.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetPullRequestCommentsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetIssueCommentsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/repositories/pull-requests/get-requested-reviewers": {
       "post": {
         "summary": "Get all requested reviewers for a pull request",
-        "description": "Get all requested reviewers\n\nGets the users or teams whose review is requested for a pull request.\nOnce a requested reviewer submits a review, they are no longer considered a requested reviewer.\nTheir review will instead be returned by the List reviews for a pull request operation.",
+        "description": "Get all requested reviewers\n\nGets the users or teams whose review is requested for a pull request.\nOnce a requested reviewer submits a review, they are no longer considered a requested reviewer.\nTheir review will instead be returned by the List reviews for a pull request operation.\n\nThe requested_reviewers are the ones who have been asked to review, but not yet.\nSo when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.\nTherefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.\nRefer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9107,6 +9138,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGithub.IReadPullRequestRequestedReviewerOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/get-reviews": {
+      "post": {
+        "summary": "List reviews for a pull request",
+        "description": "List reviews for a pull request\n\nPull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.\nLists all reviews for a specified pull request. The list of reviews returns in chronological order.\nSince github distinguishes requested_reviewers from those who have already completed the review,\nif you want to see a review for any PR, you should look up both of these connectors.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReadPullRequestReviewInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IReadPullRequestReviewOutput"
                 }
               }
             }
@@ -9241,7 +9303,7 @@
     "/connector/github/repositories/get-pull-requests": {
       "post": {
         "summary": "Get Repository' pull request",
-        "description": "List repository issues\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.",
+        "description": "List repository pull requests\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9271,8 +9333,8 @@
     },
     "/connector/github/repositories/issues/get-detail": {
       "post": {
-        "summary": "Get a pull request",
-        "description": "Get a deatiled pull-request info\nUnlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.\nHowever, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.",
+        "summary": "Get a issue",
+        "description": "Get a deatiled issue info\n\nUnlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.\nHowever, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9300,10 +9362,41 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repositories/issues/get-comments": {
+      "post": {
+        "summary": "List issue comments",
+        "description": "List issue comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetIssueCommentsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetIssueCommentsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/repositories/get-issues": {
       "post": {
         "summary": "List repository issues",
-        "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.",
+        "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -37694,7 +37787,7 @@
             "type": "string"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url"
           },
           "created_at": {
             "type": "string",
@@ -37717,6 +37810,51 @@
           "created_at",
           "updated_at"
         ]
+      },
+      "PickIGithub.Usertypeidloginhtml_urlavatar_url": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "User"
+              },
+              {
+                "const": "Bot"
+              },
+              {
+                "const": "Organization"
+              }
+            ],
+            "title": "type"
+          },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
+          "login": {
+            "type": "string",
+            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "login",
+          "html_url",
+          "avatar_url"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IGithub.Page": {
         "type": "object",
@@ -40279,6 +40417,190 @@
           "secretKey"
         ]
       },
+      "IGithub.IGetIssueCommentsOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.IssueComment"
+            },
+            "title": "issue comments"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.IssueComment": {
+        "type": "object",
+        "properties": {
+          "issue_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "issue_url"
+          },
+          "author_association": {
+            "oneOf": [
+              {
+                "const": "NONE"
+              },
+              {
+                "const": "COLLABORATOR"
+              },
+              {
+                "const": "CONTRIBUTOR"
+              },
+              {
+                "const": "FIRST_TIMER"
+              },
+              {
+                "const": "FIRST_TIME_CONTRIBUTOR"
+              },
+              {
+                "const": "MANNEQUIN"
+              },
+              {
+                "const": "MEMBER"
+              },
+              {
+                "const": "OWNER"
+              }
+            ],
+            "title": "author_association"
+          },
+          "user": {
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "body": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "issue_url",
+          "author_association",
+          "user",
+          "id",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "IGithub.IGetPullRequestCommentsInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
       "IGithub.IReadPullRequestRequestedReviewerOutput": {
         "type": "object",
         "properties": {
@@ -40288,11 +40610,69 @@
               "$ref": "#/components/schemas/IGithub.Collaborator"
             },
             "title": "requested reviewers"
+          },
+          "teams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIGithub.Teamdescriptionnameidpermissionnotification_settingprivacyslug"
+            },
+            "title": "team"
           }
         },
         "required": [
-          "users"
+          "users",
+          "teams"
         ]
+      },
+      "PickIGithub.Teamdescriptionnameidpermissionnotification_settingprivacyslug": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
+          "permission": {
+            "type": "string",
+            "title": "permission"
+          },
+          "notification_setting": {
+            "type": "string",
+            "title": "notification_setting"
+          },
+          "privacy": {
+            "oneOf": [
+              {
+                "const": "open"
+              },
+              {
+                "const": "closed"
+              }
+            ],
+            "title": "privacy"
+          },
+          "slug": {
+            "type": "string",
+            "title": "slug"
+          }
+        },
+        "required": [
+          "description",
+          "name",
+          "id",
+          "permission",
+          "notification_setting",
+          "privacy",
+          "slug"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
       },
       "IGithub.IReadPullRequestDetailInput": {
         "type": "object",
@@ -40336,6 +40716,213 @@
             ],
             "title": "인증 정보 선택",
             "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
+      "IGithub.IReadPullRequestReviewOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.Review"
+            },
+            "title": "commit list of this pull request"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.Review": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "id"
+          },
+          "user": {
+            "$ref": "#/components/schemas/IGithub.Collaborator",
+            "title": "reviewer"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          },
+          "state": {
+            "type": "string",
+            "x-wrtn-placeholder": "APPROVED",
+            "title": "state"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url"
+          },
+          "pull_request_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "pull_request_url"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "submitted_at"
+          },
+          "commit_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "commit_id\n\nA commit SHA for the review.\nIf the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`."
+          },
+          "author_association": {
+            "oneOf": [
+              {
+                "const": "NONE"
+              },
+              {
+                "const": "COLLABORATOR"
+              },
+              {
+                "const": "CONTRIBUTOR"
+              },
+              {
+                "const": "FIRST_TIMER"
+              },
+              {
+                "const": "FIRST_TIME_CONTRIBUTOR"
+              },
+              {
+                "const": "MANNEQUIN"
+              },
+              {
+                "const": "MEMBER"
+              },
+              {
+                "const": "OWNER"
+              }
+            ],
+            "title": "author_association"
+          }
+        },
+        "required": [
+          "id",
+          "user",
+          "body",
+          "state",
+          "html_url",
+          "pull_request_url",
+          "commit_id",
+          "author_association"
+        ]
+      },
+      "IGithub.IReadPullRequestReviewInput": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
           }
         },
         "required": [
@@ -41801,6 +42388,51 @@
             "x-wrtn-secret-key": "github",
             "title": "인증 정보 선택",
             "description": "secret key."
+          }
+        },
+        "required": [
+          "issue_number",
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
+      "IGithub.IGetIssueCommentsInput": {
+        "type": "object",
+        "properties": {
+          "issue_number": {
+            "type": "integer",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repositories/get-issues",
+              "jmesPath": "fetchedIssues[].{value:number, label:title}"
+            },
+            "title": "issue number to get detailed info"
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
           }
         },
         "required": [
