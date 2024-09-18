@@ -730,11 +730,12 @@ export class GithubController {
   }
 
   /**
-   * List repository issues
+   * List repository pull requests
    *
    * Query pool requests to specific repositories.
    * Here, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   * If the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.
    *
    * @summary Get Repository' pull request
    * @param input
