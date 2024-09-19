@@ -123,6 +123,13 @@ export namespace IGithub {
 
     /**
      * @title diff_hunk
+     *
+     * diff_hunk is a form for representing a change in code in github.
+     * It consists of strings, and the first line, based on the new line character,
+     * has meta information about the change point between the symbols @@ and @@.
+     * This meta information includes how many lines were affected based on the file before the change,
+     * and how many lines were affected based on the file after the change.
+     * Like `@@ -45,4 +45,23 @@`
      */
     diff_hunk: string;
 
@@ -133,11 +140,15 @@ export namespace IGithub {
 
     /**
      * @title position
+     *
+     * Position value, which is the number of rows based on diff_hunk.
      */
-    position: number & tags.Type<"uint64">;
+    position: (number & tags.Type<"uint64">) | null;
 
     /**
      * @title original_position
+     *
+     * Original position value, which is the number of rows based on diff_hunk.
      */
     original_position: number & tags.Type<"uint64">;
 
@@ -153,8 +164,10 @@ export namespace IGithub {
 
     /**
      * @title in_reply_to_id
+     *
+     * In_reply_to_id is a field used by GitHub's review or comment API that is used to write a reply to a particular review or comment.
      */
-    in_reply_to_id: number & tags.Type<"uint64">;
+    in_reply_to_id?: number & tags.Type<"uint64">;
 
     /**
      * @title user
@@ -186,7 +199,7 @@ export namespace IGithub {
     /**
      * @title review_id
      */
-    review_id: string &
+    review_id: Review["id"] &
       Prerequisite<{
         method: "post";
         path: "/connector/repositories/pull-requests/get-reviews";
