@@ -28,8 +28,8 @@ export namespace ITypeform {
     formId: string &
       Prerequisite<{
         method: "post";
-        path: "connector/typeform/get-forms";
-        jmesPath: "[].{value:formId, label:name || '폼 이름'}";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
       }>;
   }
   export interface ICreateWorkspaceInput
@@ -158,8 +158,8 @@ export namespace ITypeform {
     formId: string &
       Prerequisite<{
         method: "post";
-        path: "connector/typeform/get-forms";
-        jmesPath: "[].{value:formId, label:name || '폼 이름'}";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
       }>;
 
     /**
@@ -195,8 +195,8 @@ export namespace ITypeform {
     formId: string &
       Prerequisite<{
         method: "post";
-        path: "connector/typeform/get-forms";
-        jmesPath: "[].{value:formId, label:name || '폼 이름'}";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
       }>;
 
     /**
@@ -223,8 +223,8 @@ export namespace ITypeform {
     id: string &
       Prerequisite<{
         method: "post";
-        path: "connector/typeform/forms/get-update-form-fields";
-        jmesPath: "[].{value:id, label:name || '필드 이름'}";
+        path: "/connector/typeform/forms/get-update-form-fields";
+        jmesPath: "[].{value:id, label:name || 'field title'}";
       }>;
 
     /**
@@ -260,8 +260,8 @@ export namespace ITypeform {
     formId: string &
       Prerequisite<{
         method: "post";
-        path: "connector/typeform/get-forms";
-        jmesPath: "[].{value:formId, label:name || '폼 이름'}";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
       }>;
 
     /**
@@ -272,8 +272,8 @@ export namespace ITypeform {
     fieldId: string &
       Prerequisite<{
         method: "post";
-        path: "connector/typeform/forms/get-update-form-fields";
-        jmesPath: "[].{value:id, label:name || '필드 이름'}";
+        path: "/connector/typeform/forms/get-update-form-fields";
+        jmesPath: "[].{value:id, label:name || 'field title'}";
       }>;
 
     /**
