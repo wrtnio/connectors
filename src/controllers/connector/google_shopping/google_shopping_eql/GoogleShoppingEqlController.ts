@@ -13,13 +13,13 @@ export class GoogleShoppingEqlController {
   ) {}
 
   /**
-   * 상품을 EQL에서 검색합니다.
+   * Search for products in EQL.
    *
-   * @summary EQL 검색
+   * @summary EQL search
    *
-   * @param input  검색 조건
+   * @param input search conditions
    *
-   * @returns  검색 결과
+   * @returns search results
    */
   @Standalone()
   @core.TypedRoute.Post("eql")

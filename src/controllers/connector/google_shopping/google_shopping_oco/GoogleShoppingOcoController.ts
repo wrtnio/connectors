@@ -13,13 +13,13 @@ export class GoogleShoppingOcoController {
   ) {}
 
   /**
-   * 상품을 OCO에서 검색합니다.
+   * Search for products in OCO.
    *
-   * @summary OCO 검색
+   * @summary OCO search
    *
-   * @param input  검색 조건
+   * @param input Search conditions
    *
-   * @returns  검색 결과
+   * @returns Search results
    */
   @Standalone()
   @core.TypedRoute.Post("oco")

@@ -12,13 +12,13 @@ export class HwpController {
   constructor(private readonly hwpProvider: HwpProvider) {}
 
   /**
-   * hwp 파일을 파싱합니다.
+   * Parse the hwp file.
    *
-   * @summary Hwp 파일 파싱
+   * @summary Parse the Hwp file
    *
-   * @param input 파싱할 hwp 파일
+   * @param input The hwp file to parse
    *
-   * @returns 파싱된 hwp 파일 텍스트 데이터.
+   * @returns The parsed hwp file text data.
    */
   @core.TypedRoute.Post("/parse")
   @RouteIcon(

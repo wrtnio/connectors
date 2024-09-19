@@ -10,12 +10,12 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/kakao-navi")
 export class KakaoNaviController {
   /**
-   * 카카오 네비로 길을 찾습니다.
+   * Finding directions with Kakao Navi
    *
-   * @summary 카카오 네비 길찾기
+   * @summary Kakao Navi Directions
    *
-   * @param input 요청 조건
-   * @returns 길 찾기 결과
+   * @param input Request conditions
+   * @returns Directions results
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoNavi_full.svg",

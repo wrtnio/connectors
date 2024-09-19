@@ -9,11 +9,11 @@ import { IAISearch } from "@wrtn/connector-api/lib/structures/connector/ai_searc
 export class AISearchController {
   constructor(private readonly aiSearchProvider: AISearchProvider) {}
   /**
-   * AI 검색을 통해 검색 결과를 반환합니다.
+   * Returns search results via AI search.
    *
-   * @summary AI 검색
+   * @summary AI search
    *
-   * @param input 검색에 필요한 조건
+   * @param input Conditions required for search
    * @returns
    */
   @core.TypedRoute.Post("")

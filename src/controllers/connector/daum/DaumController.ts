@@ -10,10 +10,10 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/daum")
 export class DaumController {
   /**
-   * 다음 블로그 컨텐츠를 검색합니다.
+   * Search the following blog content.
    *
-   * @summary 다음 블로그 검색
-   * @param input 다음 블로그 검색을 위한 조건
+   * @summary Search the following blog
+   * @param input Conditions for searching the following blog
    */
   @Standalone()
   @core.TypedRoute.Post("blog")
@@ -27,10 +27,10 @@ export class DaumController {
   }
 
   /**
-   * 다음 카페 컨텐츠를 검색합니다.
+   * Search for the following cafe content.
    *
-   * @summary 다음 카페 검색
-   * @param input 다음 카페 검색을 위한 조건
+   * @summary Search for the following cafe
+   * @param input Conditions for searching the following cafe
    */
   @Standalone()
   @core.TypedRoute.Post("cafe")

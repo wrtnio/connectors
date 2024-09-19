@@ -1,27 +1,27 @@
 /**
- * @title  이미지 생성을 위한 입력.
+ * @title Input for image generation.
  */
 export interface IGenerateStoryImageInput {
   /**
-   * 이미지를 생성할 스토리.
+   * The story to create the image for.
    *
-   * @title 이미지를 생성할 스토리.
+   * @title The story to create the image for.
    */
   storyLine: string;
 
   /**
-   * 이전에 있었던 스토리들.
+   * Previous stories.
    *
-   * @title 이전 스토리들.
+   * @title Previous stories.
    */
   previousStories: string[];
 }
 
 export interface IStoryImage {
   /**
-   * 생성된 이미지 URL입니다.
+   * Generated image URL.
    *
-   * @title 이미지 URL.
+   * @title Image URL.
    */
   imageUrl: string;
 }

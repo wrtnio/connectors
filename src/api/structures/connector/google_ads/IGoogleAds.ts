@@ -7,7 +7,7 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IGoogleAds {
   export interface IGetMetricInput extends IGoogleAds.ISecret {
     /**
-     * @title 통계 조회 날짜
+     * @title Statistics query date
      */
     date: string & tags.Format<"date">;
   }
@@ -15,48 +15,48 @@ export namespace IGoogleAds {
   export interface IGetMetricOutputResult {
     metrics: {
       /**
-       * @title 노출 수
+       * @title Number of exposures
        */
       impressions: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 클릭 수
+       * @title Clicks
        */
       clicks: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 광고 지출 (마이크로 단위)
-       * @description 1,000,000분의 1로 원화 가치 표시
+       * @title Advertising Spend (in micro units)
+       * @description KRW value expressed in 1/1,000,000
        */
       costMicros: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 비디오 뷰
+       * @title Video View
        */
       videoViews: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 평균 페이지 뷰
+       * @title Average Page Views
        */
       averagePageViews?: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 동영상을 25% 본 수
+       * @title 25% of the videos were viewed
        */
       videoQuartileP25Rate?: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 동영상을 50% 본 수
+       * @title 50% of the video was viewed
        */
       videoQuartileP50Rate?: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 동영상을 75% 본 수
+       * @title 75% of the videos were viewed
        */
       videoQuartileP75Rate?: `${number & tags.Type<"int64">}`;
 
       /**
-       * @title 동영상을 100% 본 수
+       * @title 100% of the video has been viewed
        */
       videoQuartileP100Rate?: `${number & tags.Type<"int64">}`;
     };
@@ -66,7 +66,7 @@ export namespace IGoogleAds {
 
   export interface IGetAdGroupAdInput extends IGoogleAds.ISecret {
     /**
-     * @title 광고 그룹 광고의 리소스 명
+     * @title Resource name of the ad group ad
      */
     adGroupAdResourceName?: IGoogleAds.AdGroupAd["resourceName"] &
       Prerequisite<{
@@ -86,7 +86,7 @@ export namespace IGoogleAds {
 
   export interface IGetAdGroupAdDetailInput extends IGoogleAds.ISecret {
     /**
-     * @title 광고 그룹 광고의 리소스 명
+     * @title Resource name of the ad group ad
      */
     adGroupAdResourceName: IGoogleAds.AdGroupAd["resourceName"] &
       Prerequisite<{
@@ -107,26 +107,26 @@ export namespace IGoogleAds {
 
   export interface IGetAdGroupAdDetailOutput {
     /**
-     * @title 광고 그룹 광고의 리소스 명
+     * @title Resource name of the ad group ad
      */
     resourceName: AdGroupAd["resourceName"];
 
     /**
-     * @title 광고의 현재 상태
+     * @title Current status of advertising
      */
     status: Ad["status"];
 
     /**
-     * @title 조회한 광고 내역
+     * @title Viewed Ad History
      */
     ad: {
       /**
-       * @title 광고의 리소스 명
+       * @title Resource name of the advertisement
        */
       resourceName: Ad["resourceName"];
 
       /**
-       * @title 광고 소재 정보
+       * @title Advertising material information
        */
       detail: ResponsiveSearchAd | ResponsiveDisplayAd;
     };
@@ -134,21 +134,21 @@ export namespace IGoogleAds {
 
   export interface ResponsiveSearchAd {
     /**
-     * @title 설명 목록
+     * @title Description List
      */
     descriptions: {
       /**
-       * @title 등록된 설명
+       * @title Registered description
        */
       text: string;
     }[];
 
     /**
-     * @title 제목 목록
+     * @title List of titles
      */
     headlines: {
       /**
-       * @title 등록된 제목
+       * @title Registered title
        */
       text: string;
     }[];
@@ -156,12 +156,12 @@ export namespace IGoogleAds {
 
   export interface ResponsiveDisplayAd extends ResponsiveSearchAd {
     /**
-     * @title 긴 제목
+     * @title long title
      */
     longHeadline: any;
 
     /**
-     * @title 브랜드 이름
+     * @title Brand Name
      */
     businessName: any;
 
@@ -171,7 +171,7 @@ export namespace IGoogleAds {
   }
   export interface IUpdateSearchAdInput {
     /**
-     * @title 광고 그룹 광고의 리소스 명
+     * @title Resource name of the ad group ad
      */
     adGroupAdResourceName: IGoogleAds.AdGroupAd["resourceName"] &
       Prerequisite<{
@@ -186,7 +186,7 @@ export namespace IGoogleAds {
 
   export interface ISetOnOffInput extends IGoogleAds.ISecret {
     /**
-     * @title 광고 그룹 광고의 리소스 명
+     * @title Resource name of the ad group ad
      */
     adGroupAdResourceName: AdGroupAd["resourceName"] &
       Prerequisite<{
@@ -199,7 +199,7 @@ export namespace IGoogleAds {
       }>;
 
     /**
-     * @title 광고 상태
+     * @title Ad Status
      */
     status:
       | tags.Constant<"ENABLED", { title: "ENABLED" }>
@@ -207,11 +207,11 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 키워드 삭제 조건
+   * @title Keyword deletion condition
    */
   export interface IDeleteAdGroupCriteriaInput extends IGoogleAds.ISecret {
     /**
-     * @title 삭제할 키워드의 아이디
+     * @title ID of the keyword to be deleted
      */
     resourceNames: (AdGroupCriterion["resourceName"] &
       Prerequisite<{
@@ -225,7 +225,7 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 키워드 생성 결과
+   * @title Keyword generation result
    */
   export type ICreateAdGroupCriteriaOutput = Array<
     IGoogleAds.AdGroupCriterion["resourceName"]
@@ -235,7 +235,7 @@ export namespace IGoogleAds {
     extends Omit<ICreateKeywordInput, "customerId">,
       IGoogleAds.ISecret {
     /**
-     * @title 키워드를 추가할 광고 그룹의 리소스 네임
+     * @title Resource name of the ad group to which you want to add the keyword.
      */
     adGroupResourceName: AdGroup["resourceName"] &
       Prerequisite<{
@@ -250,12 +250,12 @@ export namespace IGoogleAds {
 
   export interface Keyword {
     /**
-     * @title 키워드 텍스트
+     * @title Keyword Text
      */
     text: string;
 
     /**
-     * @title 키워드 일치 타입
+     * @title Keyword Match Type
      */
     matchType:
       | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>
@@ -267,31 +267,31 @@ export namespace IGoogleAds {
 
   export type AdGroupCriterion = {
     /**
-     * @title 광고 그룹 표준 리소스 이름
+     * @title Ad Group Standard Resource Name
      *
-     * `customers/${number}/adGroupCriteria/number~${number}` 형식
+     * Format: `customers/${number}/adGroupCriteria/number~${number}`
      */
     resourceName: string &
       tags.Pattern<"(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"customers/1/adGroupCriteria/1">;
 
     /**
-     * @title 타입
+     * @title type
      */
     type: "KEYWORD";
 
     /**
-     * @title 광고 그룹 표준 아이디
+     * @title Ad Group Standard ID
      */
     criterionId: `${number}`;
 
     /**
-     * @title 키워드
+     * @title keyword
      */
     keyword: Keyword;
 
     /**
-     * @title 광고 그룹 표준 상태
+     * @title Ad Group Standard Status
      */
     status: IGoogleAds.Status;
   };
@@ -310,16 +310,16 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 키워드 조회 결과
+   * @title Keyword search results
    */
   export type IGetKeywordsOutput = IGetKeywordsOutputResult[];
 
   /**
-   * @title 키워드 조회 조건
+   * @title Keyword search conditions
    */
   export interface IGetKeywordsInput extends IGoogleAds.ISecret {
     /**
-     * @title 광고 그룹 리소스 명
+     * @title Ad Group Resource Name
      */
     adGroupResourceName: AdGroup["resourceName"] &
       Prerequisite<{
@@ -333,38 +333,38 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 키워드 생성 조건
+   * @title Keyword creation conditions
    */
   export interface ICreateKeywordInput
     extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
-     * @title 생성할 키워드
+     * @title Keyword to generate
      */
     keywords: string[];
   }
 
   export interface AdGroup {
     /**
-     * @title 광고 그룹의 아이디
+     * @title ID of the advertising group
      */
     id: `${number}`;
 
     /**
-     * `customers/${number}/adGroups/${number}` 형식
+     * `customers/${number}/adGroups/${number}` format
      *
-     * @title 광고 그룹 리소스 명
+     * @title Ad Group Resource Name
      */
     resourceName: string &
       tags.Pattern<"(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"customers/1/adGroups/1">;
 
     /**
-     * @title 광고 그룹 이름
+     * @title Ad group name
      */
     name: string;
 
     /**
-     * @title 광고 그룹의 타입
+     * @title Type of ad group
      */
     type:
       | tags.Constant<"SEARCH_STANDARD", { title: "검색 광고" }>
@@ -375,8 +375,8 @@ export namespace IGoogleAds {
     extends Pick<IGoogleAds.ISecret, "customerId">,
       Pick<IGoogleAds.ISecret, "secretKey"> {
     /**
-     * @title 부모 캠페인의 아이디
-     * @description 해당 캠페인의 아이디만 검색하고 싶을 경우
+     * @title ID of the parent campaign
+     * @description If you only want to search for the ID of the campaign
      */
     campaignId?: Campaign["id"] &
       Prerequisite<{
@@ -389,8 +389,8 @@ export namespace IGoogleAds {
       }>;
 
     /**
-     * @title 광고 그룹의 리소스 명
-     * @description 해당 광고 그룹 리소스 명으로만 검색하고 싶을 경우
+     * @title Resource name of the ad group
+     * @description If you want to search only by the ad group resource name
      */
     adGroupResourceName?: AdGroup["resourceName"];
   }
@@ -407,21 +407,21 @@ export namespace IGoogleAds {
 
   export interface AdGroupAd {
     /**
-     * `customers/${number}/adGroupAds/${number}~${number}` 형식
+     * `customers/${number}/adGroupAds/${number}~${number}` format
      *
-     * @title 광고 그룹 광고의 리소스 명
+     * @title Resource name of the ad group ad
      */
     resourceName: string &
       tags.Pattern<"(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"customers/1/adGroupAds/1~1">;
 
     /**
-     * @title 광고 심사 및 정책에 대한 평가 내역
+     * @title Evaluation of advertising review and policies
      */
     policySummary: {
       /**
-       * @title 광고의 승인 여부
-       * @description 구글에서 해당 광고가 송출되어도 무방한지 판단한 내용입니다.
+       * @title Ad approval status
+       * @description This is Google's decision on whether or not the ad can be sent.
        */
       approvalStatus:
         | tags.Constant<"APPROVED", { title: "승인됨" }>
@@ -435,8 +435,8 @@ export namespace IGoogleAds {
         | tags.Constant<"UNSPECIFIED", { title: "명시되지 않음" }>;
 
       /**
-       * @title 광고의 검토 상태
-       * @description 검토가 완료된 광고만이 승인, 비승인 여부를 알 수 있습니다.
+       * @title Ad Review Status
+       * @description Only ads that have been reviewed can see whether they have been approved or disapproved.
        */
       reviewStatus:
         | tags.Constant<"ELIGIBLE_MAY_SERVE", { title: "자격을 갖춤" }>
@@ -448,25 +448,25 @@ export namespace IGoogleAds {
     };
 
     /**
-     * @title 광고의 상태
+     * @title Status of the ad
      */
     status: IGoogleAds.Status;
   }
 
   /**
-   * @title 광고 그룹 생성 조건
+   * @title Conditions for creating an ad group
    */
   export type ICreateAdGroupInput =
     | ICreateSearchAdGroupInput
     | ICreateDisplayAdGroupInput;
 
   /**
-   * @title 광고 그룹 생성 공통
+   * @title Create ad group common
    */
   export interface ICreateAdGroupCommon
     extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
-     * @title 캠페인 리소스 이름
+     * @title Campaign Resource Name
      */
     campaignResourceName: Campaign["resourceName"] &
       Prerequisite<{
@@ -480,21 +480,21 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 검색 광고 그룹 생성 조건
+   * @title Search Ad Group Creation Conditions
    */
   export interface ICreateSearchAdGroupInput extends ICreateAdGroupCommon {
     /**
-     * @title 광고 그룹 타입
+     * @title Ad Group Type
      */
     type: Extract<AdGroup["type"], "SEARCH_STANDARD">;
   }
 
   /**
-   * @title 디스플레이 광고 그룹 생성 조건
+   * @title Conditions for creating a display ad group
    */
   export interface ICreateDisplayAdGroupInput extends ICreateAdGroupCommon {
     /**
-     * @title 광고 그룹 타입
+     * @title Ad Group Type
      */
     type: Extract<AdGroup["type"], "DISPLAY_STANDARD">;
   }
@@ -505,19 +505,19 @@ export namespace IGoogleAds {
 
   export interface ICreateAdGroupSearchAdAtOnceInputCommon {
     /**
-     * @title 캠페인 생성 조건
+     * @title Campaign Creation Conditions
      */
     campaign: Omit<ICreateCampaignInput, "customerId" | "type" | "secretKey">;
   }
 
   /**
-   * @title 구글 검색 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   * @title Request conditions for creating Google search campaigns and ads all at once
    */
   export interface ICreateAdGroupSearchAdAtOnceInput
     extends ICreateAdGroupSearchAdAtOnceInputCommon,
       IGoogleAds.ISecret {
     /**
-     * @title 광고 생성 조건
+     * @title Ad Creation Conditions
      */
     ad: Omit<
       ICreateAdGroupSearchAdInput,
@@ -526,13 +526,13 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 구글 디스플레이 캠페인부터 광고까지 한 번에 만드는 요청 조건
+   * @title Request conditions for creating ads from Google display campaigns at once
    */
   export interface ICreateAdGroupDisplayAdAtOnceInput
     extends ICreateAdGroupSearchAdAtOnceInputCommon,
       IGoogleAds.ISecret {
     /**
-     * @title 광고 생성 조건
+     * @title Ad Creation Conditions
      */
     ad: Omit<
       ICreateAdGroupDisplayAdInput,
@@ -541,16 +541,16 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 광고 정보
+   * @title Advertisement Information
    */
   export interface AdWrapper {
     /**
-     * @title 광고 정보
+     * @title Advertisement Information
      */
     ad: IGoogleAds.IGetAdGroupsOutputResult;
   }
   /**
-   * @title 캠페인부터 광고까지 한 번에 만드는 요청에 대한 결과
+   * @title Results for requests to create everything from campaigns to ads at once
    */
   export type ICreateAdGroupAdAtOnceOutput = DeepStrictMerge<
     IGoogleAds.ICreateCampaignsOutput,
@@ -558,7 +558,7 @@ export namespace IGoogleAds {
   >;
 
   /**
-   * @title 광고 생성 조건
+   * @title Ad Creation Conditions
    */
   export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
     ICreateAdGroupAdInputCommon;
@@ -570,33 +570,33 @@ export namespace IGoogleAds {
     ICreateAdGroupAdInputCommon;
 
   /**
-   * @title 광고 생성 조건
+   * @title Ad Creation Conditions
    */
   export type ICreateAdGroupAdInputCommon =
     | ICreateAdGroupSearchAdInput
     | ICreateAdGroupDisplayAdInput;
 
   /**
-   * @title 검색 광고 생성 조건
+   * @title Search Ad Creation Conditions
    */
   export interface ICreateAdGroupSearchAdInput
     extends Required<Pick<IGoogleAds.ISecret, "customerId">>,
       ICreateSearchAdGroupInput,
       ICreateKeywordInput {
     /**
-     * @title 광고의 대상이 되는 홈페이지
+     * @title Homepage that is the target of the advertisement
      */
     finalUrl: string & tags.Format<"uri">;
 
     /**
-     * @title 제목 리스트
+     * @title title list
      */
     headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
       tags.MinItems<1> &
       tags.MaxItems<15>;
 
     /**
-     * @title 설명 리스트
+     * @title Description List
      */
     descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
       tags.MinItems<1> &
@@ -604,44 +604,44 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 디스플레이 광고 생성 조건
+   * @title Conditions for creating display ads
    */
   export interface ICreateAdGroupDisplayAdInput
     extends Required<Pick<IGoogleAds.ISecret, "customerId">>,
       ICreateDisplayAdGroupInput,
       ICreateKeywordInput {
     /**
-     * @title 광고의 대상이 되는 홈페이지
+     * @title Homepage that is the target of the advertisement
      */
     finalUrl: string & tags.Format<"uri">;
 
     /**
-     * @title 짧은 제목 리스트
+     * @title List of short titles
      */
     headlines: (string & tags.MinLength<1> & tags.MaxLength<30>)[] &
       tags.MinItems<1> &
       tags.MaxItems<5>;
 
     /**
-     * @title 긴 제목
+     * @title long title
      */
     longHeadline: string & tags.MinLength<1> & tags.MaxLength<90>;
 
     /**
-     * @title 설명 리스트
+     * @title Description List
      */
     descriptions: (string & tags.MinLength<1> & tags.MaxLength<90>)[] &
       tags.MinItems<1> &
       tags.MaxItems<5>;
 
     /**
-     * @title 비즈니스 및 브랜드 이름
+     * @title Business and Brand Name
      */
     businessName: string & tags.MinLength<1> & tags.MaxLength<25>;
 
     /**
-     * @title 가로형 이미지
-     * @description 1.91:1의 가로형 이미지이며 권장은 5장
+     * @title Landscape image
+     * @description Landscape image with 1.91:1 resolution, recommended 5 frames
      */
     landscapeImages: (string &
       tags.Format<"uri"> &
@@ -650,8 +650,8 @@ export namespace IGoogleAds {
       tags.MaxItems<15>;
 
     /**
-     * @title 로고 이미지
-     * @description 정방형 이미지로 최소 크기는 128x128px, 권장은 1200x1200px
+     * @title Logo image
+     * @description Square image, minimum size 128x128px, recommended 1200x1200px
      */
     logoImages: (string &
       tags.Format<"uri"> &
@@ -660,8 +660,8 @@ export namespace IGoogleAds {
       tags.MaxItems<5>;
 
     /**
-     * @title 정방형 이미지
-     * @description 1.91:1의 가로형 이미지이며 최소 크기는 300x300px, 권장은 600x600px
+     * @title Square image
+     * @description A landscape image with a 1.91:1 aspect ratio, with a minimum size of 300x300px, and a recommended size of 600x600px.
      */
     squareImages: (string &
       tags.Format<"uri"> &
@@ -671,7 +671,7 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 캠페인 수정 조건
+   * @title Campaign Modification Conditions
    */
   export interface IUpdateCampaignInput
     extends MyPartial<
@@ -683,7 +683,7 @@ export namespace IGoogleAds {
       Pick<IGoogleAds.ISecret, "secretKey">,
       IGoogleAds.ISecret {
     /**
-     * @title 수정할 캠페인의 리소스 아이디
+     * @title Resource ID of the campaign to be modified
      */
     campaignResourceName: Campaign["resourceName"] &
       Prerequisite<{
@@ -700,7 +700,7 @@ export namespace IGoogleAds {
     extends Omit<ICreateCampaignBudgetInput, "customerId">,
       IGoogleAds.ISecret {
     /**
-     * @title 캠페인 타입
+     * @title Campaign Type
      */
     advertisingChannelType:
       | tags.Constant<
@@ -720,19 +720,19 @@ export namespace IGoogleAds {
           tags.Default<"SEARCH">);
 
     /**
-     * @title 캠페인 이름
+     * @title Campaign Name
      *
-     * 이름이 비어있을 경우 무작위 이름이 생성됩니다. 이름은 기존에 생성된 캠페인과 중복되서는 안 됩니다.
+     * If the name is left blank, a random name will be generated. The name must not be the same as a previously created campaign.
      */
     campaignName?: string;
 
     /**
-     * @title 캠페인 시작 시간
+     * @title Campaign start time
      */
     startDate?: string & tags.Format<"date">;
 
     /**
-     * @title 캠페인 종료 시간
+     * @title Campaign End Time
      */
     endDate?: string & tags.Format<"date">;
   }
@@ -740,16 +740,16 @@ export namespace IGoogleAds {
   export interface ICreateCampaignBudgetInput
     extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
     /**
-     * @title 광고 예산
-     * @description 한국 통화 단위로써, 원화 단위
+     * @title Advertising Budget
+     * @description Korean currency unit, Won
      *
-     * 원래라면 금액 제한이 없으나 만일의 사태를 대비하여 현재는 캠페인 당 10만원까지만 가능하도록 기능 제한
+     * Originally, there is no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.
      */
     campaignBudget: number & tags.Maximum<100000>;
   }
 
   /**
-   * @title 구글 리소스 상태
+   * @title Google Resource Status
    */
   export type Status =
     | tags.Constant<"ENABLED", { title: "ENABLED" }>
@@ -759,23 +759,23 @@ export namespace IGoogleAds {
     | tags.Constant<"UNSPECIFIED", { title: "UNSPECIFIED" }>;
 
   /**
-   * @title 구글 광고 캠페인
+   * @title Google Ads Campaign
    */
   export interface Campaign {
     /**
-     * @title 캠페인 리소스 명
+     * @title Campaign Resource Name
      */
     resourceName: string &
       tags.Pattern<"(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"customers/1/campaigns/1">;
 
     /**
-     * @title 캠페인 상태
+     * @title Campaign Status
      */
     status: Status;
 
     /**
-     * @title 캠페인 광고 채널
+     * @title Campaign Advertising Channel
      */
     advertisingChannelType:
       | tags.Constant<"DEMAND_GEN", { title: "DEMAND_GEN" }>
@@ -794,88 +794,88 @@ export namespace IGoogleAds {
       | tags.Constant<"VIDEO", { title: "VIDEO" }>;
 
     /**
-     * @title 캠페인 이름
+     * @title Campaign Name
      */
     name: string;
 
     /**
-     * @title 캠페인 아이디
+     * @title Campaign ID
      */
     id: string &
       tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"1">;
 
     /**
-     * @title 캠페인 시작 일자
+     * @title Campaign start date
      */
     startDate: string & tags.Format<"date">;
 
     /**
-     * @title 캠페인 종료 일자
+     * @title Campaign End Date
      */
     endDate: string & tags.Format<"date">;
   }
 
   export interface CampaignBudget {
     /**
-     * @title 캠페인 예산 리소스 명
+     * @title Campaign Budget Resource Name
      */
     resourceName: `customers/${number}/campaignBudgets/${number}`;
 
     /**
-     * @title 예산 (마이크로 단위)
+     * @title Budget (micro units)
      */
     amountMicros: `${number}`;
   }
 
   /**
-   * @title 캠페인 생성 결과
+   * @title Campaign Creation Results
    */
   export type ICreateCampaignsOutput = IGetCampaignsOutputResult;
 
   /**
-   * @title 캠페인 조회 결과
+   * @title Campaign search results
    */
   export type IGetCampaignsOutput = IGetCampaignsOutputResult[];
 
   /**
-   * @title 캠페인 정보
+   * @title Campaign Information
    */
   export interface IGetCampaignsOutputResult {
     /**
-     * @title 캠페인 정보
+     * @title Campaign Information
      */
     campaign: Campaign;
 
     /**
-     * @title 캠페인 예산 정보
+     * @title Campaign Budget Information
      */
     campaignBudget: CampaignBudget;
   }
 
   /**
-   * @title 광고 그룹 광고의 조회 결과
+   * @title Ad group ad view results
    */
   export type IGetAdGroupOutput = IGetAdGroupsOutputResult[];
 
   export interface IGetAdGroupsOutputResult {
     /**
-     * @title 캠페인
+     * @title campaign
      */
     campaign: Pick<IGoogleAds.Campaign, "resourceName" | "id" | "status">;
 
     /**
-     * @title 광고 그룹
+     * @title Ad Group
      */
     adGroup: Pick<AdGroup, "id" | "resourceName" | "type">;
 
     /**
-     * @title 광고 그룹 광고의 목록
+     * @title List of ads in ad group
      */
     adGroupAds: Pick<AdGroupAd, "resourceName" | "policySummary">[];
 
     /**
-     * @title 키워드 목록
+     * @title Keyword List
      */
     keywords: DeepStrictMerge<
       Keyword,
@@ -884,12 +884,12 @@ export namespace IGoogleAds {
   }
 
   /**
-   * @title 캠페인 조회 조건
+   * @title Campaign View Conditions
    */
   export type IGetCampaignsInput = IGoogleAds.ISecret;
 
   /**
-   * @title 클라이언트 초대
+   * @title Invite Client
    */
   export interface ICreateClientLinkOutput {
     result: {
@@ -899,7 +899,7 @@ export namespace IGoogleAds {
 
   /**
    * @title Google Ads Error Object
-   * @description 에러를 판별하기 위한 최소한의 객체 구조
+   * @description The minimum object structure for determining errors.
    */
   export interface GoogleAdsError {
     error: {
@@ -911,7 +911,7 @@ export namespace IGoogleAds {
         requestId: string;
         errors: {
           /**
-           * 아래와 같이 에러 이름과 에러의 메시지가 담긴 객체
+           * An object containing the error name and error message, as follows:
            *
            * @example
            * { managerLinkError: "ALREADY_INVITED_BY_THIS_MANAGER" }
@@ -944,17 +944,17 @@ export namespace IGoogleAds {
       ["https://www.googleapis.com/auth/adwords"]
     > {
     /**
-     * 고객의 리소스 아이디이다.
+     * This is the customer's resource ID.
      *
-     * `customers/${number}` 형식에서 'custmers/'을 제거한 나머지 숫자 형식을 의미한다.
+     * It means the remaining number format after removing 'customers/' from the `customers/${number}` format.
      *
-     * `Wrtn`의 `google ads` 관련 커넥터들은 해당 고객이 가지고 있는 광고 계정, 즉 customer 중 어떤 광고 계정을 사용할 것인지를 `customerId` 라는 프로퍼티로 받아야 하는데,
+     * `Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.
      *
-     * 이 때 대부분의 유저들은 광고 계정이 1개이기 때문에 `customerId`를 인자로 주지 않으면 무조건 0번쨰로 조회되는 광고 계정을 사용한다.
+     * Since most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.
      *
-     * 만약 광고 계정이 2개 이상인 유저가 `customerId`를 주지 않을 경우에는 무조건 실패로 간주한다.
+     * If a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure.
      *
-     * @title 고객 리소스 아이디
+     * @title Customer Resource ID
      */
     customerId?: CustomerClient["id"] &
       Prerequisite<{
@@ -972,45 +972,45 @@ export namespace IGoogleAds {
 
   export interface CustomerClient {
     /**
-     * @title 고객 아이디
-     * @description 고객마다 고유한 값을 가지고 있다.
+     * @title Customer ID
+     * @description Each customer has a unique value.
      */
     id: string &
       tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"1">;
 
     /**
-     * @title 고객 리소스 명
+     * @title Customer Resource Name
      */
     resourceName: `customers/${number}/customerClients/${number}`;
 
     /**
-     * @title 지정된 이름
+     * @title Specified name
      */
     descriptiveName?: string;
 
     /**
-     * @title 통화 단위, 통화 코드
-     * @description 'USD', 'EUR', 'KRW' 등을 의미
+     * @title Currency unit, currency code
+     * @description Means 'USD', 'EUR', 'KRW', etc.
      */
     currencyCode: string;
   }
 
   /**
-   * @title 고객 조회 결과
+   * @title Customer Inquiry Results
    */
   export type IGetCustomerOutput = CustomerClient[];
 
   export interface IGetlistAccessibleCustomersOutput {
     /**
-     * @title 접근 가능한 계정의 리소스 이름
+     * @title Resource name of the account to which access is granted
      */
     resourceNames: `customers/${number}`[];
   }
 
   export interface ICommonInput {
     /**
-     * @title 한 페이지 당 결과의 수
+     * @title Number of results per page
      */
     pageSize?: number &
       tags.Type<"int32"> &
@@ -1018,8 +1018,8 @@ export namespace IGoogleAds {
       tags.Maximum<10000>;
 
     /**
-     * @title 다음 페이지 토큰
-     * @description 이전 요청으로부터 받을 수 있는 페이지 토큰을 사용한다.
+     * @title Next Page Token
+     * @description Use the page token that can be received from the previous request.
      */
     pageToken?: string;
   }
@@ -1031,7 +1031,7 @@ export namespace IGoogleAds {
     extends ICommonInput,
       IGoogleAds.ISecret {
     /**
-     * @title 키워드 생성을 위한 검색 키워드
+     * @title Search keywords for keyword generation
      */
     keywords: string[] & tags.MinItems<1>;
   }
@@ -1040,44 +1040,44 @@ export namespace IGoogleAds {
     extends ICommonInput,
       IGoogleAds.ISecret {
     /**
-     * @title 광고 키워드 아이디어 생성에 참조할 URL.
+     * @title URL to reference when generating advertising keyword ideas.
      */
     url: string;
   }
 
   export interface IGenerateKeywordIdeaOutput {
     /**
-     * @title 결과 목록
+     * @title Results List
      */
     results: GeneratedKeyword[];
 
     /**
-     * @title 전체 결과 수
+     * @title Total number of results
      */
     totalSize: `${number}`;
 
     /**
-     * @title 다음 페이지를 조회할 때 사용할 수 있는 토큰
-     * @description 다음 페이지가 없을 경우에는 조회 불가능
+     * @title Token that can be used when viewing the next page
+     * @description If there is no next page, viewing is not possible
      */
     nextPageToken?: string | null;
   }
 
   export interface GeneratedKeyword {
     /**
-     * @title 키워드에 대한 지표
+     * @title Keyword metrics
      */
     keywordIdeaMetrics: KeywordIdeaMetrics;
 
     /**
-     * @title 키워드
+     * @title keyword
      */
     text: string;
   }
 
   export interface KeywordIdeaMetrics {
     /**
-     * @title 검색어에 대한 경쟁 수준
+     * @title Competition level for search terms
      */
     competition?:
       | tags.Constant<
@@ -1103,17 +1103,17 @@ export namespace IGoogleAds {
         >;
 
     /**
-     * @title 지난 12개월 동안 이 검색어가 실행된 대략적인 검색 횟수
+     * @title Approximate number of searches this search term has been run on in the last 12 months
      */
     monthlySearchVolumes: MonthlySearchVolumes[];
 
     /**
-     * @title 지난 12개월 간의 이 검색어에 대한 대략적인 월별 검색 수
+     * @title Approximate monthly searches for this search term over the past 12 months
      */
     avgMonthlySearches: `${number & tags.Type<"int64"> & tags.Minimum<0>}`;
 
     /**
-     * @title 경쟁 지수
+     * @title Competition Index
      */
     competitionIndex?: `${number &
       tags.Type<"int64"> &
@@ -1121,30 +1121,30 @@ export namespace IGoogleAds {
       tags.Maximum<100>}`;
 
     /**
-     * @title 키워드의 마이크로 단위 페이지 상단 입찰가 하위 범위 (20번째 백분위수)
+     * @title Keyword Micro Top Page Bid Subrange (20th Percentile)
      */
     lowTopOfPageBidMicros?: `${number & tags.Type<"int64"> & tags.Minimum<0>}`;
 
     /**
-     * @title 키워드의 상세 페이지 상단 입찰가 (80번째 백분위수)
+     * @title keyword detail page top bid (80th percentile)
      */
     highTopOfPageBidMicros?: `${number & tags.Type<"int64"> & tags.Minimum<0>}`;
   }
 
   export interface MonthlySearchVolumes {
     /**
-     * @title 검색량이 발생한 달
+     * @title The month in which the search volume occurred
      */
     month: Month;
 
     /**
-     * @title 검색량이 발생한 연도
+     * @title Year in which search volume occurred
      */
     year: string;
 
     /**
-     * @title 해당 달의 대략적인 검색 수
-     * @description null 값은 해당 월에 대한 검색량을 확인할 수 없음을 나타냅니다.
+     * @title Approximate number of searches for the month
+     * @description A null value indicates that search volume for the month is not available.
      */
     monthlySearches: `${number & tags.Type<"int64"> & tags.Minimum<0>}` | null;
   }

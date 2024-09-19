@@ -9,10 +9,9 @@ export class GoogleController {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
   /**
-   * 구글 access token 재발급 요청
+   * Request to reissue Google access token
    *
    * @internal
-   *
    */
   @core.TypedRoute.Get()
   async refreshAccessToken() {

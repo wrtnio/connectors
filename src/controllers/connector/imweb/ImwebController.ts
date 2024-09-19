@@ -36,12 +36,12 @@ export class ImwebController {
   }
 
   /**
-   * 아임웹 액세스 토큰 발급.
+   * Issue Aimweb Access Token.
    *
    * @internal
    *
-   * @param input 액세스 토큰 발급을 위한 요청 DTO.
-   * @returns 액세스 토큰을 담은 응답 DTO.
+   * @param input Request DTO for access token issuance.
+   * @returns Response DTO containing access token.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",

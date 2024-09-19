@@ -13,13 +13,13 @@ export class GoogleShoppingCoupangController {
   ) {}
 
   /**
-   * 상품을 쿠팡에서 검색합니다.
+   * Search for products on Coupang.
    *
-   * @summary 쿠팡 검색
+   * @summary Coupang Search
    *
-   * @param input  검색 조건
+   * @param input Search conditions
    *
-   * @returns  검색 결과
+   * @returns Search results
    */
   @Standalone()
   @core.TypedRoute.Post("coupang")

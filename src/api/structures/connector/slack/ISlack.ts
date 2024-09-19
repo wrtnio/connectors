@@ -574,7 +574,6 @@ export namespace ISlack {
      *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
-     *
      */
     post_at: string & Placeholder<"1234567890.123456">;
 
@@ -612,7 +611,6 @@ export namespace ISlack {
      *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
-     *
      */
     ts: string & Placeholder<"1234567890.123456">;
 
@@ -669,7 +667,7 @@ export namespace ISlack {
     /**
      * @title fallback
      *
-     * 	A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
+     * A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
      */
     fallback?: string;
 

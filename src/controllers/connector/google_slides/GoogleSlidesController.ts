@@ -12,13 +12,13 @@ export class GoogleSlidesController {
   constructor(private readonly googleSlideProvider: GoogleSlidesProvider) {}
 
   /**
-   * 구글 슬라이드 프레젠테이션을 한쇼 형식으로 내보내요!
+   * Export Google Slides presentations to Hanshow format!
    *
-   * @summary 프레젠테이션을 한쇼 파일로 내보내기
+   * @summary Export presentations to Hanshow files
    *
-   * @param presentationId 변환할 프레젠테이션 아이디
-   * @param input 인증 정보
-   * @returns 한쇼 파일을 다운로드 가능한 링크
+   * @param presentationId Presentation ID to convert
+   * @param input Authentication information
+   * @returns Link to download Hanshow files
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
@@ -36,15 +36,15 @@ export class GoogleSlidesController {
   }
 
   /**
-   * 구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!
+   * Export Google Slides presentations to PowerPoint format!
    *
-   * 이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.
+   * A connector that can be used when creating stories or picture books.
    *
-   * @summary 프레젠테이션을 PPT 파일로 내보내기
+   * @summary Export presentations to PPT files
    *
-   * @param presentationId 변환할 프레젠테이션 아이디
-   * @param input 인증 정보
-   * @returns 파워포인트 파일을 다운로드 가능한 링크
+   * @param presentationId Presentation ID to convert
+   * @param input Authentication information
+   * @returns Link to download PowerPoint files
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
@@ -62,12 +62,12 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Google Slides 프레젠테이션을 조회합니다.
+   * Retrieve a Google Slides presentation.
    *
-   * @summary Google Slides 프레젠테이션 조회.
+   * @summary Retrieve a Google Slides presentation.
    *
-   * @param input 프레젠테이션을 조회하기 위한 조건 DTO.
-   * @returns 조회된 프레젠테이션 정보 DTO.
+   * @param input Condition DTO for retrieving a presentation.
+   * @returns Retrieve presentation information DTO.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
@@ -80,17 +80,17 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Google Slides 프레젠테이션에 슬라이드를 추가합니다.
+   * Add slides to a Google Slides presentation.
    *
-   * 이야기 또는 그림책을 생성할 때 connector/google-slides/createPresentation 커넥터와 함께 사용해주세요.
+   * Use this connector with connector/google-slides/createPresentation when creating a story or picture book.
    *
-   * 이야기 또는 그림책을 생성할 때 connector/google-slides/createPresentation 커넥터로 부터 생성된 프레젠테이션에 이 커넥터를 사용해서 생성된 이야기와 그림을 넣어주세요.
+   * When creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/createPresentation connector.
    *
-   * 이야기 또는 그림책을 생성할 때 해당 커넥터를 사용하지 않으면 빈 그림책이 될 수 있으니 조심해주세요.
+   * Be careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.
    *
-   * @summary Google Slides 프레젠테이션에 이미지 및 텍스트 슬라이드를 추가합니다.
-   * @param presentationId 슬라이드를 추가할 프레젠테이션 id
-   * @param input 추가할 템플릿
+   * @summary Add image and text slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
    * @returns
    */
   @RouteIcon(
@@ -107,20 +107,20 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Google Slides 프레젠테이션을 생성합니다.
+   * Create a Google Slides presentation.
    *
-   * 이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.
+   * This connector can be used when creating a story or picture book.
    *
-   * 이야기 또는 그림책을 생성할 때 connector/google-slides/appendImageSlide 커넥터와 함께 사용해주세요.
+   * Please use it with the connector/google-slides/appendImageSlide connector when creating a story or picture book.
    *
-   * 이야기 또는 그림책을 생성할 때 이 커넥터로 새로운 프레젠테이션을 생성하고 connector/google-slides/appendImageSlide 커넥터를 사용해서 생성된 이야기와 그림을 슬라이드에 넣어주세요.
+   * When creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/appendImageSlide connector.
    *
-   * 이야기 또는 그림책을 생성할 때 connector/google-slides/appendImageSlide 커넥터와 같이 사용하지 않으면 빈 그림책이 될 수 있으니 조심해주세요.
+   * When creating a story or picture book, be careful not to use it with the connector/google-slides/appendImageSlide connector, as it may result in an empty picture book.
    *
-   * @summary Google Slides 프레젠테이션 생성.
+   * @summary Create a Google Slides presentation.
    *
-   * @param input 프레젠테이션을 만들기 위한 조건 DTO.
-   * @returns 생성된 프레젠테이션 정보 DTO.
+   * @param input Condition DTO for creating a presentation.
+   * @returns Generated presentation information DTO.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",

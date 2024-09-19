@@ -17,3 +17,4 @@ hancell_test_file.cell
 .idea
 
 src/api/functional
+src/executable/migrations

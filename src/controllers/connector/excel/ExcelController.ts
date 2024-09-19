@@ -10,9 +10,9 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/excel")
 export class ExcelController {
   /**
-   * 입력된 파일 정보를 바탕으로 해당 엑셀 파일의 헤더들을 조회합니다.
+   * Based on the input file information, the headers of the corresponding Excel file are retrieved.
    *
-   * @summary 엑셀 파일 안의 헤더 가져오기
+   * @summary Get the headers in the Excel file
    * @param {string[]} input
    */
   @core.TypedRoute.Post("read/headers")
@@ -26,10 +26,10 @@ export class ExcelController {
   }
 
   /**
-   * 입력된 파일 정보를 바탕으로 해당 엑셀 파일의 내용을 가져옵니다.
+   * Get the contents of the corresponding Excel file based on the input file information.
    *
-   * @summary 엑셀 파일 안의 내용 가져오기
-   * @param input 내용을 가져올 엑셀 파일 정보
+   * @summary Get the contents of the Excel file
+   * @param input Information on the Excel file to get the contents
    */
   @core.TypedRoute.Post("read")
   @RouteIcon(
@@ -44,11 +44,11 @@ export class ExcelController {
   }
 
   /**
-   * 입력된 파일 url에 존재하는 엑셀 워크 시트 목록을 가져옵니다.
+   * Get a list of Excel worksheets that exist in the input file url.
    *
-   * @summary 액셀 워크 시트 목록 가져오기
-   * @param input 워크 시트 목록을 가져올 엑셀 파일 url
-   * @returns 엑셀 워크 시트 목록.
+   * @summary Get a list of Excel worksheets
+   * @param input The url of the Excel file from which to get the list of worksheets
+   * @returns A list of Excel worksheets.
    */
   @core.TypedRoute.Post("worksheet")
   @RouteIcon(

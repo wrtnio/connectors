@@ -12,13 +12,13 @@ export class GoogleShoppingMusinsaController {
   ) {}
 
   /**
-   * 상품을 무신사에서 검색합니다.
+   * Search for products in Musinsa.
    *
-   * @summary 무신사 검색
+   * @summary Musinsa Search
    *
-   * @param input  검색 조건
+   * @param input Search conditions
    *
-   * @returns  검색 결과
+   * @returns Search results
    */
   @Standalone()
   @core.TypedRoute.Post("musinsa")

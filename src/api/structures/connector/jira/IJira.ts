@@ -1452,12 +1452,12 @@ export namespace IJira {
        *
        * - Minimum width
        *
-       *   - 1 column table = 48px
-       *   - 2 column table = 96px
-       *   - 3 column table = 144px
-       *   - > 3 column table = 144px
+       * - 1 column table = 48px
+       * - 2 column table = 96px
+       * - 3 column table = 144px
+       * - > 3 column table = 144px
        * - Maximum width
-       *   - 1800
+       * - 1800
        */
       width?: number & tags.Minimum<0>;
 
@@ -1465,7 +1465,7 @@ export namespace IJira {
        * layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.
        * The layout values are mapped as follows:
        * - 'center' : will align the table to the center of page, its width can be larger than the line length
-       *  - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
+       * - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
        */
       layout?: "center" | "align-start";
 

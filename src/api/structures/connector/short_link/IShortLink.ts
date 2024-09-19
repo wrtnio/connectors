@@ -10,7 +10,7 @@ export namespace IShortLink {
 
   export interface IResponse {
     /**
-     * 단축 URL
+     * Short URL
      *
      * @internal
      */

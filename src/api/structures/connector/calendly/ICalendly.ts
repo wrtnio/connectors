@@ -717,7 +717,7 @@ export namespace ICalendly {
 
     /**
      * @title event_type
-     * 이벤트 타입 URI
+     * Event Type URI
      * @example "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
      */
     event_type: string & tags.Format<"uri">;
@@ -751,7 +751,7 @@ export namespace ICalendly {
 
     /**
      * @title invitees_counter
-     * 초대 인원 카운터
+     * Invitees counter
      */
     invitees_counter: {
       /**
@@ -789,7 +789,7 @@ export namespace ICalendly {
 
     /**
      * @title event_memberships
-     * 이벤트 멤버십 목록
+     * Event Membership List
      */
     event_memberships: {
       /**

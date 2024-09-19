@@ -18,11 +18,11 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
-   * 대한민국 주소 체계를 조회합니다
+   * Search for the address system of the Republic of Korea
    *
-   * - 우편주소를 넣을 경우 지번 주소와 도로명 주소로 변환할 수 있습니다.
+   * - If you enter a postal address, you can convert it to a street address and a road name address.
    *
-   * @summary 대한민국 주소 체계를 조회합니다
+   * @summary Search for the address system of the Republic of Korea
    * @param input
    * @returns
    */
@@ -192,8 +192,7 @@ export class OpenDataController {
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
     /**
-     * 법정동 코드는 원래 `${시군구코드}${number}` 형태로, 시군구코드 5자리, 그 외 5자리 숫자로 이루어져 있다.
-     * 여기서는 시군구 코드를 제외한 나머지 5자리를 알아야 사용이 가능한데, 간헐적으로 10자리 숫자를 대입하는 문제가 발생하니 커넥터 단에서 처리한다.
+     * The legal dong code is originally in the form of `${city/county code}${number}`, consisting of a 5-digit city/county code and 5 other digits. Here, you need to know the remaining 5 digits excluding the city/county code to use it, but since there is an intermittent problem of entering a 10-digit number, it is handled at the connector level.
      */
 
     if (

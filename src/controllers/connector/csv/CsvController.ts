@@ -10,11 +10,11 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/csv")
 export class CsvController {
   /**
-   * CSV 파일 내용을 읽어옵니다
+   * Read CSV file contents
    *
-   * @summary CSV 파일 읽기
-   * @param input CSV 파일을 읽어 오기 위한 정보
-   * @returns CSV 파일 내용.
+   * @summary Read CSV file
+   * @param input Information for reading CSV file
+   * @returns CSV file contents.
    */
   @core.TypedRoute.Post("read")
   @RouteIcon(
@@ -27,10 +27,10 @@ export class CsvController {
   }
 
   /**
-   * CSV 파일을 생성합니다
+   * Create a CSV file
    *
-   * @summary CSV 파일 생성
-   * @param input CSV 파일을 생성하기 위한 정보
+   * @summary Create a CSV file
+   * @param input Information to create a CSV file
    */
   @Standalone()
   @core.TypedRoute.Post("write")
@@ -44,10 +44,10 @@ export class CsvController {
   }
 
   /**
-   * CSV 파일을 엑셀 파일로 변환합니다.
+   * Convert CSV file to Excel file.
    *
-   * @summary CSV 파일 Excel 파일 변환
-   * @param input CSV 파일을 엑셀 파일로 변환하기 위한 정보
+   * @summary Convert CSV file to Excel file
+   * @param input Information to convert CSV file to Excel file
    * @returns excel file url
    */
   @core.TypedRoute.Post("csv-to-excel")

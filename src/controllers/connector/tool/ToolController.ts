@@ -11,15 +11,15 @@ export class ToolController {
   constructor(private readonly toolProvider: ToolProvider) {}
 
   /**
-   * 툴을 사용합니다.
+   * Use tool.
    *
-   * 이 커넥터는 특수 목적으로 제작된 커넥터로써, 일반적인 상황에는 사용되지 않습니다.
+   * This connector is a special purpose connector and is not used in general situations.
    *
-   * 스튜디오 1.0에서 마이그레이션된 툴을 사용할 때만 사용되는 커넥터 입니다.
+   * This connector is only used when using tools migrated from Studio 1.0.
    *
-   * 일반 워크플로우를 만들 때 사용되지 않는 커넥터입니다.
+   * This connector is not used when creating general workflows.
    *
-   * @summary 툴 사용
+   * @summary Use tool
    *
    * @param id
    * @param input

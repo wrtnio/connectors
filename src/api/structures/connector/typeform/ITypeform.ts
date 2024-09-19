@@ -21,9 +21,9 @@ export namespace ITypeform {
 
   export interface IGetFieldForUpdateFieldValueInput extends ISecret {
     /**
-     * 값을 업데이트 할 필드의 id.
+     * The id of the field whose value you want to update.
      *
-     * @title 필드 id.
+     * @title field id.
      */
     formId: string &
       Prerequisite<{
@@ -50,54 +50,54 @@ export namespace ITypeform {
       ]
     > {
     /**
-     * 생성할 워크스페이스 이름입니다.
+     * The name of the workspace to be created.
      *
-     * @title 워크스페이스 이름.
+     * @title Workspace name.
      */
     name: string;
   }
 
   export interface ICreateWorkspaceOutput {
     /**
-     * 생성된 워크스페이스 id입니다.
+     * The generated workspace id.
      *
-     * @title 워크스페이스 id.
+     * @title Workspace id.
      */
     id: string;
 
     /**
-     * 생성된 워크스페이스 이름입니다.
+     * The name of the generated workspace.
      *
-     * @title 워크스페이스 이름.
+     * @title Workspace name.
      */
     name: string;
 
     /**
-     * 생성된 워크스페이스 링크입니다.
+     * Here is the generated workspace link.
      *
-     * @title 워크스페이스 링크.
+     * @title Workspace Link.
      */
     link: string;
   }
   export interface IFindWorkspaceOutput {
     /**
-     * 읽어온 워크스페이스의 id 입니다.
+     * The id of the workspace that was read.
      *
-     * @title 워크스페이스 id.
+     * @title Workspace id.
      */
     workspace_id: string;
 
     /**
-     * 읽어온 워크스페이스의 이름입니다.
+     * The name of the workspace you're reading from.
      *
-     * @title 워크스페이스 이름.
+     * @title Workspace name.
      */
     name: string;
 
     /**
-     * 읽어온 워크스페이스의 링크입니다.
+     * Here is a link to the workspace you've read.
      *
-     * @title 워크스페이스 링크.
+     * @title Workspace Link.
      */
     link: string;
   }
@@ -120,40 +120,40 @@ export namespace ITypeform {
       ]
     > {
     /**
-     * 생성할 폼의 제목입니다.
+     * The title of the form to be created.
      *
-     * @title 폼 제목.
+     * @title Form title.
      */
     name: string;
   }
 
   export interface ICreateFormOutput {
     /**
-     * 생성된 폼의 id입니다.
+     * The id of the generated form.
      *
-     * @title 폼 id.
+     * @title form id.
      */
     id: string;
 
     /**
-     * 생성된 폼의 이름입니다.
+     * The name of the generated form.
      *
-     * @title 폼 이름.
+     * @title Form name.
      */
     name: string;
 
     /**
-     * 생성된 폼의 타입입니다.
+     * The type of the generated form.
      *
-     * @title 폼 타입.
+     * @title Form Type.
      */
     type: string;
   }
   export interface IFindFormOutput {
     /**
-     * 읽어온 폼의 id입니다.
+     * The id of the form being read.
      *
-     * @title 폼 id.
+     * @title form id.
      */
     formId: string &
       Prerequisite<{
@@ -163,9 +163,9 @@ export namespace ITypeform {
       }>;
 
     /**
-     * 읽어온 폼의 이름입니다.
+     * The name of the form being read.
      *
-     * @title 폼 이름.
+     * @title Form name.
      */
     name: string;
   }
@@ -188,9 +188,9 @@ export namespace ITypeform {
       ]
     > {
     /**
-     * 값을 업데이트 할 폼.
+     * The form to update the values.
      *
-     * @title 폼.
+     * @title form.
      */
     formId: string &
       Prerequisite<{
@@ -200,25 +200,25 @@ export namespace ITypeform {
       }>;
 
     /**
-     * 폼을 복제할 워크스페이스 링크입니다.
+     * The workspace link to duplicate the form.
      *
-     * @title 워크스페이스 링크.
+     * @title Workspace Link.
      */
     workspaceLink: string;
 
     /**
-     * 복제하여 생성할 폼의 이름입니다.
+     * The name of the form to be cloned and created.
      *
-     * @title 폼 이름.
+     * @title Form name.
      */
     name: string;
   }
 
   export interface IFieldInfoForUpdateFieldValueOutput {
     /**
-     * 값을 업데이트 할 필드
+     * Field to update value
      *
-     * @title 필드
+     * @title field
      */
     id: string &
       Prerequisite<{
@@ -228,9 +228,9 @@ export namespace ITypeform {
       }>;
 
     /**
-     * 값을 업데이트 할 필드의 명.
+     * The name of the field whose value is to be updated.
      *
-     * @title 필드 명.
+     * @title Field name.
      */
     name: string;
   }
@@ -253,9 +253,9 @@ export namespace ITypeform {
       ]
     > {
     /**
-     * 값을 업데이트 할 폼.
+     * The form to update the values.
      *
-     * @title 폼.
+     * @title form.
      */
     formId: string &
       Prerequisite<{
@@ -265,9 +265,9 @@ export namespace ITypeform {
       }>;
 
     /**
-     * 값을 업데이트 할 필드.
+     * The field whose value is to be updated.
      *
-     * @title 업데이트 할 필드.
+     * @title The field whose value is to be updated.
      */
     fieldId: string &
       Prerequisite<{
@@ -277,18 +277,18 @@ export namespace ITypeform {
       }>;
 
     /**
-     * 업데이트 할 필드의 값입니다.
+     * The value of the field to update.
      *
-     * @title 필드 값.
+     * @title field value.
      */
     value: string[];
   }
 
   export interface IUpdateFormFieldValueOutput extends IFindFormOutput {
     /**
-     * 값이 업데이트 된 필드의 정보입니다.
+     * Information about the field whose value has been updated.
      *
-     * @title 값이 업데이트 된 필드 정보.
+     * @title Information about the field whose value has been updated.
      */
     fields: IFieldInformation[];
   }
@@ -296,226 +296,227 @@ export namespace ITypeform {
   export interface IFieldInformation
     extends IFieldInfoForUpdateFieldValueOutput {
     /**
-     * 업데이트 된 필드의 값입니다.
+     * The value of the updated field.
      *
-     * @title 필드 값.
+     * @title field value.
      */
     value: string;
   }
 
   export interface IFormFieldOutput {
     /**
-     * 폼에 있는 필드의 id입니다.
+     * The id of the field in the form.
      *
-     * @title 필드의 id.
+     * The id of the @title field.
      */
     id: string;
 
     /**
-     * 폼에 있는 필드의 제목입니다.
+     * The title of the field in the form.
      *
-     * @title 필드의 제목.
+     * @title The title of the field.
      */
     title: string;
 
     /**
-     * 폼에 있는 필드의 별칭입니다.
+     * An alias for a field in a form.
      *
-     * @title 필드 별칭.
+     * @title Field alias.
      */
     ref: string;
 
     /**
-     * 필드의 속성 정보입니다.
+     * Field property information.
      *
-     * @title 필드의 속성.
+     * @title Field property.
      */
     properties: IFieldProperties;
 
     /**
-     * 필드의 유효성 검사 정보입니다.
+     * Validation information for the field.
      *
-     * @title 필드의 유효성 검사.
+     * @title Validation for the field.
      */
     validations: {
       /**
-       * 필수 필드 여부입니다.
+       * Whether the field is required.
        *
-       * @title 필수 필드 여부.
+       * @title Whether the field is required.
        */
       required: boolean;
     };
 
     /**
-     * 필드의 타입입니다.
+     * The type of the field.
      * ex) text, choice ...
      *
-     * @title 필드의 타입.
+     * @title The type of the field.
      */
     type: string;
   }
 
   interface IFieldProperties {
     /**
-     * 필드의 설명입니다.
+     * Description of the field.
      *
-     * @title 필드 설명.
+     * @title Field description.
      */
     description: string;
 
     /**
-     * 선택지를 무작위로 배치 할지 여부입니다.
+     * Whether to randomly place the choices.
      *
-     * @title 선택지 무작위 배치 여부.
+     * @title Whether to randomly place the choices.
      */
     randomize: boolean;
 
     /**
-     * 다중 선택을 허용할지 여부입니다.
+     * Whether to allow multiple selections.
      *
-     * @title 다중 선택 허용 여부.
+     * @title Whether to allow multiple selections.
      */
     allow_multiple_selection: boolean;
 
     /**
-     * 선택지 정보입니다.
+     * Here is the selection information.
      *
-     * @title 선택지.
+     * @title Selection.
      */
     choices: IChoice[];
   }
 
   export interface IChoice {
     /**
-     * 선택지의 고유 id입니다.
+     * The unique id of the choice.
      *
-     * @title 선택지 고유 id.
+     * @title Unique id of the choice.
      */
     id: string;
 
     /**
-     * 선택지의 별칭입니다.
+     * An alias for the choice.
      *
-     * @title 선택지 별칭.
+     * @title Choice alias.
      */
     ref: string;
 
     /**
-     * 선택지의 라벨입니다.
+     * The label of the choice.
      *
-     * @title 선택지 라벨.
+     * @title Choice Label.
      */
     label: string;
   }
   export interface IFormOutput {
     /**
-     * 폼의 id입니다.
+     * The form's id.
      *
-     * @title 폼 id.
+     * @title form id.
      */
     id: string;
 
     /**
-     * 폼의 타입입니다.
+     * The type of the form.
      *
-     * @title 폼 타입.
+     * @title Form type.
      */
     type: string;
 
     /**
-     * 폼의 제목입니다.
+     * The title of the form.
      *
-     * @title 폼 제목.
+     * @title The form title.
      */
     title: string;
 
     /**
-     * 폼이 속한 워크스페이스 정보입니다.
+     * Information about the workspace the form belongs to.
      *
-     * @title 폼이 속한 워크스페이스 정보.
+     * @title Information about the workspace the form belongs to.
      */
     workspace: {
       /**
-       * 워크스페이스 하이퍼링크입니다.
+       * This is a workspace hyperlink.
        *
-       * @title 워크스페이스 링크.
+       * @title Workspace Link.
        */
       href: string;
     };
 
     /**
-     * 폼의 테마 정보입니다.
+     * Theme information for the form.
      *
-     * @title 테마 정보.
+     * @title Theme information.
      */
     theme: {
       /**
-       * 폼의 테마 하이퍼링크입니다.
+       * This is the theme hyperlink for the form.
        *
-       * @title 테마 링크.
+       * @title Theme Link.
        */
       href: string;
     };
 
     /**
-     * 폼의 설정 정보입니다.
+     * This is the form settings information.
      *
-     * @title 폼 설정 정보.
+     * @title Form settings information.
      */
     settings: ISettings;
 
     /**
-     * 폼 작성 완료 후 사용자에게 보여지는 감사 메시지 화면 정보입니다.
+     * This is the information on the thank you message screen that is shown to the user after completing the form.
      *
-     * @title 폼 작성 완료 후 보여지는 감사 메시지 화면 정보.
+     * @title This is the information on the thank you message screen that is shown after completing the form.
      */
     thankyou_screens: IThankyouScreens[];
 
     /**
-     * 폼의 필드 정보입니다.
+     * This is the field information of the form.
      *
-     * @title 폼 필드 정보.
+     * @title Form field information.
      */
     fields: IFormFieldOutput[];
 
     /**
-     * 폼의 생성 날짜입니다.
+     * The creation date of the form.
      *
-     * @title 폼 생성 날짜.
+     * @title The creation date of the form.
      */
     created_at: string;
 
     /**
-     * 폼의 마지막 업데이트 날짜입니다.
+     * The last update date of the form.
      *
-     * @title 폼 마지막 업데이트 날짜.
+     * @title The last update date of the form.
      */
     last_updated_at: string;
 
     /**
-     * 폼의 공개 날짜입니다.
+     * The date the form was released.
      *
-     * @title 폼 공개 날짜.
+     * @title The date the form was released.
      */
     published_at: string;
 
     /**
-     * 해당 리소스와 관련된 하이퍼링크를 제공합니다.
+     * Provides a hyperlink related to the resource.
      *
-     * @title 해당 리소스와 관련된 하이퍼링크를 제공.
+     * @title Provides a hyperlink related to the resource.
      */
     _links: {
       /**
-       * 주로 양식을 완성한 후 해당 양식을 사용자에게 보여주거나 공유할 목적으로 사용됩니다.
+       * It is mainly used for the purpose of showing or sharing the form to the user after the form has been completed.
        *
-       * @title 사용자가 양식을 작성할 수 있는 웹 페이지로 이동할 수 있는 URL.
+       * @title The URL that takes the user to the web page where the form can be filled out.
        */
       display: string;
 
       /**
-       * 양식을 작성한 사용자들의 응답을 수집하거나 분석할 때 이 링크를 통해 접근 가능.
+       * This link can be used to collect or analyze responses from users who have filled out a form.
+       *
        * \
-       * @title 양식에 대한 응답을 조회할 수 있는 API 엔드포인트의 URL.
+       * @title URL of the API endpoint where responses to the form can be retrieved.
        */
       responses: string;
     };
@@ -523,163 +524,163 @@ export namespace ITypeform {
 
   interface ISettings {
     /**
-     * 양식의 언어입니다.
-     * ex) ko: 한국어.
+     * The language of the form.
+     * ex) ko: Korean.
      *
-     * @title 양식의 언어.
+     * @title The language of the form.
      */
     language: string;
 
     /**
-     * 진행 바의 표시 방식을 설정합니다.
-     * ex) percentage: 백분율.
+     * Sets the display method of the progress bar.
+     * ex) percentage: percentage.
      *
-     * @title 진행 바의 표시 방식.
+     * @title The display method of the progress bar.
      */
     progress_bar: string;
 
     /**
-     * 추가 설정을 설정합니다.
+     * Set additional settings.
      *
-     * @title 추가 설정.
+     * @title Additional settings.
      */
     meta: {
       /**
-       * 검색엔진에 의해 색인 허용 여부입니다.
+       * Whether to allow indexing by search engines.
        *
-       * @title 검색엔진에 의해 색인 허용 여부.
+       * @title Whether to allow indexing by search engines.
        */
       allow_indexing: boolean;
     };
 
     /**
-     * 양식 내의 네비게이션을 숨길지 여부입니다.
+     * Whether to hide the navigation within the form.
      *
-     * @title 양식 내의 네비게이션 숨길지 여부.
+     * @title Whether to hide the navigation within the form.
      */
     hide_navigation: boolean;
 
     /**
-     * 양식의 공개 여부입니다.
+     * Whether the form is public or not.
      *
-     * @title 양식의 공개 여부.
+     * @title Whether the form is public or not.
      */
     is_public: boolean;
 
     /**
-     * 양식이 시험 버전인지 여부입니다.
+     * Whether the form is a trial version.
      *
-     * @title 양식이 시험 버전인지 여부.
+     * @title Whether the form is a trial version.
      */
     is_trial: boolean;
 
     /**
-     * 진행 바 표시 여부입니다.
+     * Whether to display the progress bar.
      *
-     * @title 진행 바 표시 여부.
+     * @title Whether to display the progress bar.
      */
     show_progress_bar: boolean;
 
     /**
-     * Typeform의 브랜딩 표시 여부입니다.
+     * Whether to display Typeform's branding.
      *
-     * @title Typeform의 브랜딩 표시 여부.
+     * @title Whether to display Typeform's branding.
      */
     show_typeform_branding: boolean;
 
     /**
-     * 파일 업로드 공개적으로 접근 가능 여부입니다.
+     * Whether the file upload is publicly accessible.
      *
-     * @title 파일 업로드 공개적으로 접근 가능 여부.
+     * @title Whether the file upload is publicly accessible.
      */
     are_uploads_public: boolean;
 
     /**
-     * 양식 완성 예상 시간 표시 여부입니다.
+     * Whether to display the estimated time for form completion.
      *
-     * @title 양식 완성 예상 시간 표시 여부.
+     * @title Whether to display the estimated time for form completion.
      */
     show_time_to_complete: boolean;
 
     /**
-     * 양식 제출 횟수 표시 여부입니다.
+     * Whether to display the number of form submissions.
      *
-     * @title 양식 제출 횟수 표시 여부.
+     * @title Whether to display the number of form submissions.
      */
     show_number_of_submissions: boolean;
 
     /**
-     * 쿠키 동의 표시 여부입니다.
+     * Whether to display cookie consent.
      *
-     * @title 쿠키 동의 표시 여부.
+     * @title Whether to display cookie consent.
      */
     show_cookie_consent: boolean;
 
     /**
-     * 질문 번호 표시 여부입니다.
+     * Whether to display question numbers.
      *
-     * @title 질문 번호 표시 여부.
+     * @title Whether to display question numbers.
      */
     show_question_number: boolean;
 
     /**
-     * 선택지 키보드 단축기 힌트 표시 여부입니다.
+     * Whether to show hints for selection keyboard shortcuts.
      *
-     * @title 선택지 키보드 단축기 힌트 표시 여부.
+     * @title Whether to show hints for selection keyboard shortcuts.
      */
     show_key_hint_on_choices: boolean;
 
     /**
-     * 진행 상황 자동 저장 여부입니다.
+     * Whether to automatically save progress.
      *
-     * @title 진행 상황 자동 저장 여부.
+     * @title Whether to automatically save progress.
      */
     autosave_progress: boolean;
 
     /**
-     * 양식 내에서 자유롭게 이동 가능 여부입니다.
+     * Whether or not you can move freely within the form.
      *
-     * @title 양식 내에서 자유롭게 이동 가능 여부.
+     * @title Whether or not you can move freely within the form.
      */
     free_form_navigation: boolean;
 
     /**
-     * 리드 자격 사용 여부입니다.
+     * Whether to use lead qualification.
      *
-     * @title 리드 자격 사용 여부.
+     * @title Whether to use lead qualification.
      */
     use_lead_qualification: boolean;
 
     /**
-     * 서브도메인 가능 여부입니다.
+     * Whether subdomains are possible.
      *
-     * @title 서브도메인 가능 여부.
+     * @title Whether subdomains are possible.
      */
     pro_subdomain_enabled: boolean;
 
     /**
-     * 추가 기능 설정입니다.
+     * Additional feature settings.
      *
-     * @title 추가 기능 설정.
+     * @title Additional feature settings.
      */
     capabilities: {
       /**
-       * 양식의 처음 부터 끝까지 암호화 여부입니다.
+       * Whether the form is encrypted from the beginning to the end.
        *
-       * @title 양식의 처음 부터 끝까지 암호화 여부.
+       * @title Whether the form is encrypted from the beginning to the end.
        */
       e2e_encryption: {
         /**
-         * 암호화 활성화 여부 입니다.
+         * Whether encryption is enabled.
          *
-         * @title 활성화 여부.
+         * @title Whether encryption is enabled.
          */
         enabled: boolean;
 
         /**
-         * 암호화 설정 변경 가능 여부 입니다.
+         * Whether encryption settings can be changed.
          *
-         * @title 변경 가능 여부.
+         * @title Whether encryption settings can be changed.
          */
         modifiable: boolean;
       };
@@ -687,85 +688,85 @@ export namespace ITypeform {
   }
   interface IThankyouScreens {
     /**
-     * 감사 메시지 화면의 id입니다.
+     * The ID of the thank you message screen.
      *
-     * @title 감사 메시지 화면의 id.
+     * @title The ID of the thank you message screen.
      */
     id: string;
 
     /**
-     * 감사 메시지 화면의 별칭입니다.
+     * Alias for the thank you message screen.
      *
-     * @title 감사 메시지 화면의 별칭.
+     * @title Alias for the thank you message screen.
      */
     ref: string;
 
     /**
-     * 감사 메시지 화면의 제목입니다.
+     * The title of the thank you message screen.
      *
-     * @title 감사 메시지 화면의 제목.
+     * @title The title of the thank you message screen.
      */
     name: string;
 
     /**
-     * 감사 메시지 화면의 타입입니다.
+     * The type of the thank you message screen.
      *
-     * @title 감사 메시지 화면의 타입.
+     * @title The type of the thank you message screen.
      */
     type: string;
 
     /**
-     * 감사 메시지 화면의 속성 정보입니다.
+     * The properties of the thank you message screen.
      *
-     * @title 감사 메시지 화면의 속성.
+     * @title The properties of the thank you message screen.
      */
     properties: {
       /**
-       * 버튼 표시 여부입니다.
+       * Whether to show the button.
        *
-       * @title 버튼 표시 여부.
+       * @title Whether to show the button.
        */
       show_button: boolean;
 
       /**
-       * 공유 아이콘 표시 여부입니다.
+       * Whether to display the share icon.
        *
-       * @title 공유 아이콘 표시 여부.
+       * @title Whether to display the share icon.
        */
       share_icons: boolean;
 
       /**
-       * 버튼 모드입니다.
+       * This is button mode.
        *
-       * @title 버튼 모드.
+       * @title Button Mode.
        */
       button_mode: string;
 
       /**
-       * 버튼 텍스트입니다.
+       * This is the button text.
        *
-       * @title 버튼 텍스트.
+       * @title Button Text.
        */
       button_text: string;
     };
 
     /**
-     * 첨부 파일 정보입니다.
+     * Here is the attached file information.
      *
-     * @title 첨부 파일 정보.
+     * @title Attached file information.
      */
     attachment: {
       /**
-       * 첨부 파일의 타입입니다.
+       * The type of the attachment.
        *
-       * @title 첨부 파일 타입.
+       * @title Attachment type.
        */
       type: string;
 
       /**
-       * 첨부 파일의 하이퍼링크입니다.
+       * Hyperlink to the attached file.
        *
-       * @title 첨부 파일 하이퍼링크.
+       * @title Hyperlink to the attached file.
        */
       href: string;
     };

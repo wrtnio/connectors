@@ -25,7 +25,7 @@ export namespace IImweb {
   }
 
   /**
-   * @title 상품 조회 요청 DTO.
+   * @title Product Inquiry Request DTO.
    */
   export interface IGetProductInput extends IImweb.Credential {
     /**

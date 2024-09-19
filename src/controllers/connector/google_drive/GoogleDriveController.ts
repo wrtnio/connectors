@@ -11,13 +11,13 @@ export class GoogleDriveController {
   constructor(private readonly googleDriveProvider: GoogleDriveProvider) {}
 
   /**
-   * 구글 드라이브에 있는 폴더 목록을 가져옵니다.
+   * Get a list of folders in Google Drive.
    *
-   * @summary 구글 드라이브 폴더 목록 가져오기.
+   * @summary Get a list of Google Drive folders.
    *
-   * @param headers 구글 드라이브에 접근하기 위한 정보.
+   * @param headers Information for accessing Google Drive.
    *
-   * @returns 구글 드라이브 폴더 목록.
+   * @returns A list of Google Drive folders.
    */
   @Standalone()
   @RouteIcon(
@@ -32,13 +32,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 있는 파일 목록을 가져옵니다.
+   * Get a list of files in Google Drive.
    *
-   * @summary 구글 드라이브 파일 목록 가져오기.
+   * @summary Get a list of Google Drive files.
    *
-   * @param query 파일 목록을 가져오기 위한 정보.
+   * @param query Information for getting a list of files.
    *
-   * @returns 구글 드라이브 파일 목록.
+   * @returns A list of Google Drive files.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -51,14 +51,14 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 새로운 폴더를 생성합니다.
+   * Create a new folder in Google Drive.
    *
-   * @summary 구글 드라이브 폴더 생성.
+   * @summary Create a Google Drive folder.
    *
    * @param headers
-   * @param input 생성할 폴더 이름.
+   * @param input The name of the folder to be created.
    *
-   * @returns 생성된 폴더 고유 ID.
+   * @returns The unique ID of the created folder.
    */
   @Standalone()
   @RouteIcon(
@@ -72,13 +72,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 새로운 파일을 생성합니다.
+   * Create a new file in Google Drive.
    *
-   * @summary 구글 드라이브 파일 생성.
+   * @summary Create a Google Drive file.
    *
-   * @param input 생성할 파일명과 파일을 생성할 폴더 고유 ID.
+   * @param input The name of the file to be created and the unique ID of the folder where the file will be created.
    *
-   * @returns 생성된 파일 고유 ID.
+   * @returns The unique ID of the created file.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -91,11 +91,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 있는 파일을 삭제합니다.
+   * Delete a file in Google Drive.
    *
-   * @summary 구글 드라이브 파일 삭제.
+   * @summary Delete a Google Drive file.
    *
-   * @param id 삭제할 파일 고유 ID.
+   * @param id The unique ID of the file to be deleted.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -103,8 +103,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
     /**
-     * @title 삭제할 파일
-     * @description 삭제할 파일을 선택해 주세요.
+     * @title File to delete
+     * @description Please select the file to delete.
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
@@ -119,11 +119,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 있는 폴더를 삭제합니다.
+   * Delete a folder in Google Drive.
    *
-   * @summary 구글 드라이브 폴더 삭제.
+   * @summary Delete a Google Drive folder.
    *
-   * @param id 삭제할 폴더 고유 ID.
+   * @param id The unique ID of the folder to be deleted.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -131,8 +131,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
     /**
-     * @title 삭제할 폴더
-     * @description 삭제할 폴더를 선택해 주세요.
+     * @title Folder to delete
+     * @description Please select the folder to delete.
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.folderList,
@@ -147,11 +147,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * 파일 또는 폴더에 접근하기 위한 권한을 부여합니다.
+   * Grants permission to access a file or folder.
    *
-   * @summary 구글 드라이브 권한 부여.
+   * @summary Grant Google Drive permission.
    *
-   * @param input 권한 부여를 위한 정보.
+   * @param input Information for granting permission.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -164,13 +164,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 파일에 텍스트를 추가합니다.
+   * Add text to a file.
    *
-   * @summary 구글 드라이브 파일 텍스트 추가.
+   * @summary Add text to a Google Drive file.
    *
-   * @param id 파일 고유 ID.
+   * @param id Unique ID of the file.
    *
-   * @param input 추가할 텍스트.
+   * @param input The text to add.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -178,8 +178,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
     /**
-     * @title 텍스트를 추가할 파일
-     * @description 텍스트를 추가할 파일을 선택해 주세요.
+     * @title Select the file to which you want to add text
+     * @description Select the file to which you want to add text
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
@@ -193,13 +193,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 파일에서 텍스트를 읽어옵니다.
+   * Read text from a file.
    *
-   * @summary 구글 드라이브 파일 텍스트 읽기.
+   * @summary Read text from a Google Drive file.
    *
-   * @param id 파일 고유 ID.
+   * @param id Unique ID of the file.
    *
-   * @returns 파일 텍스트 내용.
+   * @returns The text content of the file.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -207,8 +207,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
     /**
-     * @title 읽어올 파일
-     * @description 읽어올 파일을 선택해 주세요.
+     * @title File to read
+     * @description Please select the file to read.
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,

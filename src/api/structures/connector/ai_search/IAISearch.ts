@@ -2,13 +2,13 @@ import { tags } from "typia";
 
 export namespace IAISearch {
   /**
-   * @title 검색에 필요한 조건
+   * @title Conditions required for search
    */
   export interface IRequest {
     /**
-     * 검색어를 입력해주세요.
+     * Please enter your search term.
      *
-     * @title 검색어
+     * @title Search term
      */
     search_query: string & tags.MaxLength<100>;
   }

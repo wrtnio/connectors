@@ -2,22 +2,22 @@ import { tags } from "typia";
 
 export namespace IDallE3 {
   /**
-   * @title 이미지 생성을 위한 정보
+   * @title Information for image creation
    */
   export interface IRequest {
     /**
-     * 이미지를 생성하기 위한 프롬프트
+     * Prompt to create an image
      *
-     * @title 프롬프트
+     * @title prompt
      */
     prompt: string;
 
     /**
-     * 생성할 이미지 사이즈 프리셋 입니다.
+     * Preset image size to generate.
      *
-     * 가능한 값으로는 "square", "landscape", "portrait" 3가지만 가능합니다.
+     * Only three possible values are available: "square", "landscape", and "portrait".
      *
-     * @title 이미지 사이즈
+     * @title Image Size
      */
     image_ratio:
       | tags.Constant<"square", { title: "정사각형"; description: "1024x1024" }>
@@ -26,13 +26,13 @@ export namespace IDallE3 {
   }
 
   /**
-   * @title 이미지 생성 결과
+   * @title Image creation result
    */
   export interface IResponse {
     /**
-     * 생성된 이미지 url
+     * Generated image url
      *
-     * @title 생성된 이미지 Url
+     * @title Generated image Url
      */
     imgUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }

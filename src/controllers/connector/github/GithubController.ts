@@ -1008,7 +1008,7 @@ export class GithubController {
    *
    * @summary Lists all branches that contain the HEAD commit
    * @returns A promise that resolves to an array of branch names that include the specified commit.
-   **/
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )

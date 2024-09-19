@@ -3,26 +3,26 @@ import { tags } from "typia";
 
 export namespace IKakaoNavi {
   /**
-   * @title 요청 조건
+   * @title Request Conditions
    */
   export interface IGetFutureDirectionsInput {
     /**
-     * @title 출발 시간
-     * @description YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정
+     * @title Departure time
+     * @description Set time after current time in YYYYMMDDHHMM format
      */
     departure_time: string & Placeholder<`202406202000`>;
 
     /**
-     * @title 출발지
-     * @description X좌표,Y좌표 형식의 경도, 위도 값
+     * @title Origin
+     * @description Longitude and latitude values in X, Y coordinate format
      */
     origin: string &
       tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
       Placeholder<"127.111202,37.394912">;
 
     /**
-     * @title 목적지
-     * @description X좌표,Y좌표 형식의 경도, 위도 값
+     * @title Destination
+     * @description Longitude and latitude values in X, Y coordinate format
      */
     destination: string &
       tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
@@ -30,43 +30,43 @@ export namespace IKakaoNavi {
   }
 
   /**
-   * @title 응답 결과
+   * @title Response Results
    */
   export type IGetFutureDirectionsOutput = SuccessCase;
 
   /**
-   * @title 성공 응답
+   * @title Success response
    */
   export interface SuccessCase {
     /**
-     * @title 경로 요청 ID
+     * @title Path Request ID
      */
     trans_id: string;
 
     /**
-     * @title 경로 정보
+     * @title Path information
      */
     routes: Route[];
   }
 
   export interface Route {
     /**
-     * @title 경로 탐색 결과 코드
+     * @title Path search result code
      */
     result_code: Route.Code;
 
     /**
-     * @title 경로 탐색 결과 메시지
+     * @title Path search result message
      */
     result_msg: string;
 
     /**
-     * @title 경로 요약 정보
+     * @title Path Summary Information
      */
     summary?: Summary;
 
     /**
-     * @title 구간 별 경로 정보
+     * @title Route information by section
      */
     sections?: Section[];
   }
@@ -140,157 +140,157 @@ export namespace IKakaoNavi {
   export interface Summary
     extends Pick<Section, "bound" | "distance" | "duration"> {
     /**
-     * @title 출발지 정보
+     * @title Departure information
      */
     origin: Place;
 
     /**
-     * @title 목적지 정보
+     * @title destination information
      */
     destination: Place;
 
     /**
-     * @title 경유지 정보
+     * @title Transit Information
      */
     waypoints: Place[];
 
     /**
-     * @title 경로 탐색 우선순위 옵션
+     * @title Path Finding Priority Options
      */
     priority: string;
 
     /**
-     * @title 요금 정보
+     * @title Rate Information
      */
     fare: Fare;
   }
 
   export interface Place {
     /**
-     * @title 장소 이름
+     * @title place name
      */
     name: string;
 
     /**
-     * @title X 좌표 (경도)
+     * @title X coordinate (longitude)
      */
     x: number;
 
     /**
-     * @title Y 좌표 (위도)
+     * @title Y coordinate (latitude)
      */
     y: number;
   }
 
   /**
-   * @title 모든 경로를 포함하는 사각형의 바운딩 박스(Bounding box)
+   * @title Bounding box of a rectangle containing all paths
    */
   export interface Bound {
     /**
-     * @title 바운딩 박스 왼쪽 하단의 X 좌표
+     * @title X coordinate of the bottom left of the bounding box
      */
     min_x: number;
 
     /**
-     * @title 바운딩 박스 왼쪽 하단의 Y 좌표
+     * @title Y coordinate of the bottom left of the bounding box
      */
     min_y: number;
 
     /**
-     * @title 바운딩 박스 오른쪽 상단의 X 좌표
+     * @title X coordinate of the upper right corner of the bounding box
      */
     max_x: number;
 
     /**
-     * @title 바운딩 박스 오른쪽 상단의 Y 좌표
+     * @title Y coordinate of the upper right corner of the bounding box
      */
     max_y: number;
   }
 
   /**
-   * @title 요금 정보
+   * @title Rate Information
    */
   export interface Fare {
     /**
-     * @title 택시 요금(원)
+     * @title Taxi fare (won)
      */
     taxi: number;
 
     /**
-     * @title 통행 요금(원)
+     * @title Toll fee (won)
      */
     toll: number;
   }
 
   /**
-   * @title 구간 별 경로 정보
-   * @description 경유지가 존재할 경우 경유지 수에 1을 더한 값만큼의 섹션이 생성된다.
+   * @title Route information by section
+   * @description If there is a waypoint, a section is created equal to the number of waypoints plus 1.
    */
   export interface Section {
     /**
-     * @title 섹션 거리(미터)
+     * @title Section Distance (meters)
      */
     distance: number & tags.Type<"int32">;
 
     /**
-     * @title 전체 검색 결과 이동 시간(초)
+     * @title Full search results move time (seconds)
      */
     duration: number & tags.Type<"int32">;
 
     /**
-     * @title 모든 경로를 포함하는 사각형의 바운딩 박스
+     * @title A rectangular bounding box that contains all paths
      */
     bound: Bound;
 
     /**
-     * @title 도로 정보
+     * @title Road Information
      */
     roads?: Road[];
 
     /**
-     * @title 안내 정보
+     * @title Guide Information
      */
     guides?: Guide[];
   }
 
   /**
-   * @title 도로 정보
+   * @title Road Information
    */
   export interface Road {
     /**
-     * @title 도로 명
+     * @title road name
      */
     name: string;
 
     /**
-     * @title 도로 길이(미터)
+     * @title Road length (meters)
      */
     distance: number & tags.Type<"int32">;
 
     /**
-     * @title 예상 이동 시간(초)
-     * @description 현재 예상 이동 시간 및 실제 이동 시간은 동일한 값으로 설정
+     * @title Estimated travel time (sec)
+     * @description Current estimated travel time and actual travel time are set to the same value
      */
     duration: number & tags.Type<"int32">;
 
     /**
-     * @title 현재 교통 정보 속도(km/h)
+     * @title Current traffic information speed (km/h)
      */
     traffic_speed: number;
 
     /**
-     * @title 현재 교통 정보 상태
+     * @title Current traffic information status
      */
     traffic_state: TrafficState;
 
     /**
-     * @title X, Y 좌표로 구성된 1차원 배열
+     * @title A one-dimensional array consisting of X, Y coordinates
      */
     vertexes: number[];
   }
 
   /**
-   * @title 현재 교통 정보 상태
+   * @title Current traffic information status
    */
   export type TrafficState =
     | tags.Constant<0, { title: "교통 상태 정보 없음" }>
@@ -301,27 +301,27 @@ export namespace IKakaoNavi {
     | tags.Constant<6, { title: "교통사고(통행 불가)" }>;
 
   /**
-   * @title 안내 정보
+   * @title Guide information
    */
   export interface Guide extends Place, Pick<Section, "distance" | "duration"> {
     /**
-     * @title 안내 타입
+     * @title Guide type
      */
     type: GuideType;
 
     /**
-     * @title 안내 문구
+     * @title Guide text
      */
     guidance: string;
 
     /**
-     * @title 현재 가이드에 대한 링크 인덱스
+     * @title Link index for the current guide
      */
     road_index: number & tags.Type<"int32">;
   }
 
   /**
-   * @title 안내 문구
+   * @title Guide text
    */
   export type GuideType =
     | tags.Constant<0, { title: "직진" }>

@@ -269,7 +269,7 @@ export class JiraController {
     });
   }
 
-  // /**
+  //
   //  * Create an issue
   //  *
   //  * Issue type, project, and summary are essential properties.
