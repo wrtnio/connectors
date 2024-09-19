@@ -676,6 +676,15 @@ export class GithubController {
     return this.githubProvider.requestReviewers(input);
   }
 
+  /**
+   * List comments for a pull request review
+   *
+   * Lists comments for a specific pull request review.
+   *
+   * @summary List comments for a pull request review
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
