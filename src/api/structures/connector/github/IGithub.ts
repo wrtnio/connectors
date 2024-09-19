@@ -115,6 +115,85 @@ export namespace IGithub {
     due_on: string & tags.Format<"date-time">;
   };
 
+  export interface ReviewComment extends StrictOmit<Comment, "pages"> {
+    /**
+     * @title pull_request_review_id
+     */
+    pull_request_review_id: number & tags.Type<"uint64">;
+
+    /**
+     * @title diff_hunk
+     */
+    diff_hunk: string;
+
+    /**
+     * @title path
+     */
+    path: string;
+
+    /**
+     * @title position
+     */
+    position: number & tags.Type<"uint64">;
+
+    /**
+     * @title original_position
+     */
+    original_position: number & tags.Type<"uint64">;
+
+    /**
+     * @title commit_id
+     */
+    commit_id: Commit["sha"];
+
+    /**
+     * @title original_commit_id
+     */
+    original_commit_id: Commit["sha"];
+
+    /**
+     * @title in_reply_to_id
+     */
+    in_reply_to_id: number & tags.Type<"uint64">;
+
+    /**
+     * @title user
+     */
+    user: Collaborator;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"uri">;
+
+    /**
+     * @title author_association
+     */
+    author_association: IGithub.AuthorAssociation;
+  }
+
+  export interface IGetReviewCommentOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title result
+     */
+    result: IGithub.ReviewComment[];
+  }
+
+  export interface IGetReviewCommentInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title review_id
+     */
+    review_id: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/repositories/pull-requests/get-reviews";
+        jmesPath: `result[].{value:id, label: join('', [user.login, '\'s review'])}`;
+      }>;
+  }
+
   export interface IReadPullRequestFileOutput
     extends IGithub.ICommonPaginationOutput {
     result: File[];
@@ -2991,14 +3070,37 @@ export namespace IGithub {
   }
 
   export interface Comment {
+    /**
+     * @title id
+     */
     id: number & tags.Type<"uint64">;
+
+    /**
+     * @title body
+     */
     body?: string;
+
+    /**
+     * @title user
+     */
     user: Pick<
       IGithub.User,
       "id" | "login" | "type" | "avatar_url" | "html_url"
     >;
+
+    /**
+     * @title created_at
+     */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title pages
+     */
     pages?: IGithub.Page[];
   }
 
