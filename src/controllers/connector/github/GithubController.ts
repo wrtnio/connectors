@@ -4,7 +4,6 @@ import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGi
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
-import { StrictOmit } from "../../../utils/strictOmit";
 
 @Controller("connector/github")
 export class GithubController {
