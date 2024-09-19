@@ -216,7 +216,7 @@ export namespace IFigma {
      */
     fileKey: string;
   }
-  /*
+  /**
    * 피그마 특정 프레임으로부터 댓글을 조회하는 DTO.
    *
    * 한 번에 하나의 프레임으로부터 댓글을 읽을 수 있다.
@@ -237,7 +237,7 @@ export namespace IFigma {
    */
   export type IAddCommentOutput = PostCommentResponse;
 
-  /*
+  /**
    * 읽어온 피그마 댓글의 정보에 해당하는 DTO.
    */
   export type IReadCommentOutput = GetCommentsResponse;
