@@ -139,26 +139,37 @@ export class TypeformProvider {
       }
       const { settings, fields } = existingFormInfo;
 
+      // 새로운 타입 정의 (id가 없는 필드)
+      type FormFieldWithoutId = Omit<ITypeform.IFormFieldOutput, "id">;
+
       /**
        * id 필드 제거해야 함.
        * https://www.typeform.com/developers/create/walkthroughs/
        * Duplicates an existing form 참고
        */
-      const fieldsWithoutId = fields.map(
-        ({ id, ...field }: ITypeform.IFormFieldOutput) => {
-          const choices = field.properties.choices.map(
-            ({ id, ...choice }: ITypeform.IChoice) => choice,
-          );
-          return {
-            ...field,
-            properties: {
-              ...field.properties,
-              choices,
-            },
-          };
-        },
-      );
+      let fieldsWithoutId;
+      if (fields && fields.length > 0) {
+        fieldsWithoutId = typia.misc.assertClone<FormFieldWithoutId[]>(fields);
+      }
+      // if (fields && fields.length > 0) {
+      //   // fieldsWithoutId = fields.map(
+      //   //   ({ id, ...field }: ITypeform.IFormFieldOutput) => {
+      //   //     const choices =
+      //   //       field.properties.choices?.map(
+      //   //         ({ id, ...choice }: ITypeform.IChoice) => choice,
+      //   //       ) || [];
+      //   //     return {
+      //   //       ...field,
+      //   //       properties: {
+      //   //         ...field.properties,
+      //   //         choices,
+      //   //       },
+      //   //     };
+      //   //   },
+      //   // );
+      // }
 
+      const accessToken = await this.refresh(input);
       const res = await axios.post(
         "https://api.typeform.com/forms",
         {
@@ -171,7 +182,7 @@ export class TypeformProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       );
@@ -194,11 +205,12 @@ export class TypeformProvider {
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
     try {
       const formInfo = await this.getFormInfo(input, input.formId);
+      const fields: ITypeform.IFormFieldOutput[] = formInfo.fields || [];
 
       /**
        * 랭킹, 드롭다운, 다중선택 필드만 제공
        */
-      const fields: ITypeform.IFormFieldOutput[] = formInfo.fields.filter(
+      const filteredFields = fields.filter(
         (field: ITypeform.IFormFieldOutput) =>
           field.type === "ranking" ||
           field.type === "dropdown" ||
@@ -206,7 +218,7 @@ export class TypeformProvider {
       );
       const fieldInfoList: ITypeform.IFieldInfoForUpdateFieldValueOutput[] = [];
 
-      for (const field of fields) {
+      for (const field of filteredFields) {
         const fieldInfo = {
           id: field.id,
           name: `${field.title}(${field.type})`,
@@ -226,7 +238,6 @@ export class TypeformProvider {
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
     try {
       const formInfo = await this.getFormInfo(input, input.formId);
-
       const updatedFormInfo = this.updateFormInfo(formInfo, input);
       const updatedForm = await this.updateForm(
         input,
@@ -363,9 +374,9 @@ export class TypeformProvider {
     return fieldInfoList;
   }
 
-  private async refresh({ secretKey }: ITypeform.ISecret): Promise<string> {
+  private async refresh(input: ITypeform.ISecret): Promise<string> {
     try {
-      const secret = await OAuthSecretProvider.getSecretValue(secretKey);
+      const secret = await OAuthSecretProvider.getSecretValue(input.secretKey);
       const refreshToken =
         typeof secret === "string"
           ? secret
@@ -390,8 +401,9 @@ export class TypeformProvider {
       /**
        * Refresh Token이 일회용이므로 값 업데이트
        */
-      if (typia.is<string & tags.Format<"uuid">>(secretKey)) {
-        await OAuthSecretProvider.updateSecretValue(secretKey, {
+      input.secretKey = res.data.refresh_token;
+      if (typia.is<string & tags.Format<"uuid">>(input.secretKey)) {
+        await OAuthSecretProvider.updateSecretValue(input.secretKey, {
           value: res.data.refresh_token,
         });
       }
