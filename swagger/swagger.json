@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.211",
+    "version": "0.1.212",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -127,280 +127,6 @@
             }
           }
         }
-      }
-    },
-    "/connector/typeform/workspace": {
-      "post": {
-        "summary": "타입폼 워크스페이스 생성.",
-        "description": "워크스페이스를 생성합니다.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "생성할 워크스페이스 제목.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ITypeform.ICreateWorkspaceInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "생성된 워크스페이스 ID, 제목, URL.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ITypeform.ICreateWorkspaceOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/workspace/{workspaceId}": {
-      "delete": {
-        "summary": "타입폼 워크스페이스 삭제.",
-        "description": "워크스페이스를 삭제합니다.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "title": "삭제할 워크스페이스 ID",
-            "description": " 삭제할 워크스페이스 ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/get-workspaces": {
-      "post": {
-        "summary": "타입폼 워크스페이스 정보 가져오기.",
-        "description": "워크스페이스 정보를 가져옵니다.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "워크스페이스 ID, 제목, URL.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ITypeform.IFindWorkspaceOutput"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/empty-form": {
-      "post": {
-        "summary": "타입폼 빈 폼 생성.",
-        "description": "워크스페이스에 빈 폼을 생성합니다.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "생성할 폼 제목.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ITypeform.ICreateEmptyFormInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "생성된 폼 ID, 제목, 타입.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ITypeform.ICreateFormOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/get-forms": {
-      "post": {
-        "summary": "타입폼 폼 목록 가져오기.",
-        "description": "워크스페이스에 존재하는 폼 목록을 가져옵니다.",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "폼 ID, 제목.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ITypeform.IFindFormOutput"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/duplicate-form": {
-      "post": {
-        "summary": "타입폼 폼 복사.",
-        "description": "워크스페이스에 존재하는 폼을 복사합니다.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "복사하여 새로 만들 폼 이름.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ITypeform.IDuplicateExistingFormInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "생성된 폼 ID, 제목, 타입.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ITypeform.ICreateFormOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/forms/{formId}/fields": {
-      "get": {
-        "summary": "타입폼 업데이트 할 폼의 필드 정보 가져오기.",
-        "description": "랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트 할 폼의 필드 정보 가져오기.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "formId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "title": "업데이트 할 폼의 ID",
-            "description": " 업데이트 할 폼의 ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "폼의 필드 ID와 필드명.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ITypeform.IFieldInfoForUpdateFieldValueOutput"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      }
-    },
-    "/connector/typeform/forms/{formId}": {
-      "put": {
-        "summary": "타입폼 폼 필드 옵션 업데이트.",
-        "description": "랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트합니다.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "formId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "description": "업데이트할 폼 필드명과 업데이트 할 값.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ITypeform.IUpdateFormFieldValueInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ITypeform.IUpdateFormFieldValueOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
-      },
-      "delete": {
-        "summary": "타입폼 폼 삭제.",
-        "description": "폼을 삭제합니다.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "formId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "title": "삭제할 폼 ID",
-            "description": " 삭제할 폼 ID."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg"
       }
     },
     "/connector/extract/keyword": {
@@ -10895,6 +10621,601 @@
         }
       }
     },
+    "/connector/typeform/workspace": {
+      "post": {
+        "summary": "타입폼 워크스페이스 생성.",
+        "description": "워크스페이스를 생성합니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "생성할 워크스페이스 제목.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.ICreateWorkspaceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 워크스페이스 ID, 제목, URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ITypeform.ICreateWorkspaceOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/workspace/{workspaceId}": {
+      "delete": {
+        "summary": "타입폼 워크스페이스 삭제.",
+        "description": "워크스페이스를 삭제합니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/typeform/get-workspaces",
+                "jmesPath": "[].{value:workspace_id, label:name || '워크스페이스 이름'}"
+              }
+            },
+            "required": true,
+            "title": "삭제할 워크스페이스 ID",
+            "description": " 삭제할 워크스페이스 ID."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/get-workspaces": {
+      "post": {
+        "summary": "타입폼 워크스페이스 정보 가져오기.",
+        "description": "워크스페이스 정보를 가져옵니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "워크스페이스 ID, 제목, URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ITypeform.IFindWorkspaceOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/empty-form": {
+      "post": {
+        "summary": "타입폼 빈 폼 생성.",
+        "description": "워크스페이스에 빈 폼을 생성합니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "생성할 폼 제목.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.ICreateEmptyFormInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 폼 ID, 제목, 타입.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ITypeform.ICreateFormOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/get-forms": {
+      "post": {
+        "summary": "타입폼 폼 목록 가져오기.",
+        "description": "워크스페이스에 존재하는 폼 목록을 가져옵니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "폼 ID, 제목.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ITypeform.IFindFormOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/duplicate-form": {
+      "post": {
+        "summary": "타입폼 폼 복사.",
+        "description": "워크스페이스에 존재하는 폼을 복사합니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "복사하여 새로 만들 폼 이름.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.IDuplicateExistingFormInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "생성된 폼 ID, 제목, 타입.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ITypeform.ICreateFormOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/forms/get-update-form-fields": {
+      "post": {
+        "summary": "타입폼 업데이트 할 폼의 필드 정보 가져오기.",
+        "description": "랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트 할 폼의 필드 정보 가져오기.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.IGetFieldForUpdateFieldValueInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "폼의 필드 ID와 필드명.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ITypeform.IFieldInfoForUpdateFieldValueOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/form-field-value-update": {
+      "post": {
+        "summary": "타입폼 폼 필드 옵션 업데이트.",
+        "description": "랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트합니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "업데이트할 폼 필드명과 업데이트 할 값.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.IUpdateFormFieldValueInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ITypeform.IUpdateFormFieldValueOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
+    "/connector/typeform/forms/{formId}": {
+      "delete": {
+        "summary": "타입폼 폼 삭제.",
+        "description": "폼을 삭제합니다.",
+        "tags": [
+          "Typeform",
+          "타입폼",
+          "설문조사",
+          "온라인",
+          "설문지",
+          "고객",
+          "설문",
+          "퀴즈",
+          "응답",
+          "응답자",
+          "질문지",
+          "인터뷰",
+          "행사",
+          "피드백",
+          "사용자",
+          "이벤트",
+          "Survey",
+          "Online",
+          "Questionnaire",
+          "Customer",
+          "Quiz",
+          "Manage",
+          "Response",
+          "Share",
+          "Create",
+          "Interview",
+          "Collect",
+          "Event",
+          "Feedback",
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "formId",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/typeform/get-forms",
+                "jmesPath": "[].{value:formId, label:name || '폼 이름'}"
+              }
+            },
+            "required": true,
+            "title": "삭제할 폼 ID",
+            "description": " 삭제할 폼 ID."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITypeform.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
+      }
+    },
     "/swagger/update": {
       "post": {
         "summary": "Swagger.json 업데이트",
@@ -11028,245 +11349,6 @@
             "description": "지정되지 않으면 모든 실행을 반환."
           }
         }
-      },
-      "ITypeform.ICreateWorkspaceOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "워크스페이스 id.",
-            "description": "생성된 워크스페이스 id입니다."
-          },
-          "name": {
-            "type": "string",
-            "title": "워크스페이스 이름.",
-            "description": "생성된 워크스페이스 이름입니다."
-          },
-          "link": {
-            "type": "string",
-            "title": "워크스페이스 링크.",
-            "description": "생성된 워크스페이스 링크입니다."
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "link"
-        ]
-      },
-      "ITypeform.ICreateWorkspaceInput": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "워크스페이스 이름.",
-            "description": "생성할 워크스페이스 이름입니다."
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "ITypeform.IFindWorkspaceOutput": {
-        "type": "object",
-        "properties": {
-          "workspace_id": {
-            "type": "string",
-            "title": "워크스페이스 id.",
-            "description": "읽어온 워크스페이스의 id 입니다."
-          },
-          "name": {
-            "type": "string",
-            "title": "워크스페이스 이름.",
-            "description": "읽어온 워크스페이스의 이름입니다."
-          },
-          "link": {
-            "type": "string",
-            "title": "워크스페이스 링크.",
-            "description": "읽어온 워크스페이스의 링크입니다."
-          }
-        },
-        "required": [
-          "workspace_id",
-          "name",
-          "link"
-        ]
-      },
-      "ITypeform.ICreateFormOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "폼 id.",
-            "description": "생성된 폼의 id입니다."
-          },
-          "name": {
-            "type": "string",
-            "title": "폼 이름.",
-            "description": "생성된 폼의 이름입니다."
-          },
-          "type": {
-            "type": "string",
-            "title": "폼 타입.",
-            "description": "생성된 폼의 타입입니다."
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "type"
-        ]
-      },
-      "ITypeform.ICreateEmptyFormInput": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "폼 제목.",
-            "description": "생성할 폼의 제목입니다."
-          }
-        },
-        "required": [
-          "name"
-        ]
-      },
-      "ITypeform.IFindFormOutput": {
-        "type": "object",
-        "properties": {
-          "formId": {
-            "type": "string",
-            "title": "폼 id.",
-            "description": "읽어온 폼의 id입니다."
-          },
-          "name": {
-            "type": "string",
-            "title": "폼 이름.",
-            "description": "읽어온 폼의 이름입니다."
-          }
-        },
-        "required": [
-          "formId",
-          "name"
-        ]
-      },
-      "ITypeform.IDuplicateExistingFormInput": {
-        "type": "object",
-        "properties": {
-          "formId": {
-            "type": "string",
-            "title": "폼.",
-            "description": "복제할 폼."
-          },
-          "workspaceLink": {
-            "type": "string",
-            "title": "워크스페이스 링크.",
-            "description": "폼을 복제할 워크스페이스 링크입니다."
-          },
-          "name": {
-            "type": "string",
-            "title": "폼 이름.",
-            "description": "복제하여 생성할 폼의 이름입니다."
-          }
-        },
-        "required": [
-          "formId",
-          "workspaceLink",
-          "name"
-        ]
-      },
-      "ITypeform.IFieldInfoForUpdateFieldValueOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "필드 id.",
-            "description": "값을 업데이트 할 필드의 id."
-          },
-          "name": {
-            "type": "string",
-            "title": "필드 명.",
-            "description": "값을 업데이트 할 필드의 명."
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
-      },
-      "ITypeform.IUpdateFormFieldValueOutput": {
-        "type": "object",
-        "properties": {
-          "fields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ITypeform.IFieldInformation"
-            },
-            "title": "값이 업데이트 된 필드 정보.",
-            "description": "값이 업데이트 된 필드의 정보입니다."
-          },
-          "formId": {
-            "type": "string",
-            "title": "폼 id.",
-            "description": "읽어온 폼의 id입니다."
-          },
-          "name": {
-            "type": "string",
-            "title": "폼 이름.",
-            "description": "읽어온 폼의 이름입니다."
-          }
-        },
-        "required": [
-          "fields",
-          "formId",
-          "name"
-        ]
-      },
-      "ITypeform.IFieldInformation": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "title": "필드 값.",
-            "description": "업데이트 된 필드의 값입니다."
-          },
-          "id": {
-            "type": "string",
-            "title": "필드 id.",
-            "description": "값을 업데이트 할 필드의 id."
-          },
-          "name": {
-            "type": "string",
-            "title": "필드 명.",
-            "description": "값을 업데이트 할 필드의 명."
-          }
-        },
-        "required": [
-          "value",
-          "id",
-          "name"
-        ]
-      },
-      "ITypeform.IUpdateFormFieldValueInput": {
-        "type": "object",
-        "properties": {
-          "fieldId": {
-            "type": "string",
-            "title": "업데이트 할 필드.",
-            "description": "값을 업데이트 할 필드."
-          },
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "필드 값.",
-            "description": "업데이트 할 필드의 값입니다."
-          }
-        },
-        "required": [
-          "fieldId",
-          "value"
-        ]
       },
       "IKeywordExtraction.IExtractKeywordOutput": {
         "type": "object",
@@ -48547,6 +48629,431 @@
           "search_query"
         ],
         "title": "검색에 필요한 조건"
+      },
+      "ITypeform.ICreateWorkspaceOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "워크스페이스 id.",
+            "description": "생성된 워크스페이스 id입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "워크스페이스 이름.",
+            "description": "생성된 워크스페이스 이름입니다."
+          },
+          "link": {
+            "type": "string",
+            "title": "워크스페이스 링크.",
+            "description": "생성된 워크스페이스 링크입니다."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "link"
+        ]
+      },
+      "ITypeform.ICreateWorkspaceInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "워크스페이스 이름.",
+            "description": "생성할 워크스페이스 이름입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "typeform",
+            "x-wrtn-secret-scopes": [
+              "accounts:read",
+              "forms:read",
+              "forms:write",
+              "images:read",
+              "images:write",
+              "responses:read",
+              "responses:write",
+              "themes:read",
+              "themes:write",
+              "workspaces:read",
+              "workspaces:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "secretKey"
+        ]
+      },
+      "ITypeform.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "typeform",
+            "x-wrtn-secret-scopes": [
+              "accounts:read",
+              "forms:read",
+              "forms:write",
+              "images:read",
+              "images:write",
+              "responses:read",
+              "responses:write",
+              "themes:read",
+              "themes:write",
+              "workspaces:read",
+              "workspaces:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ITypeform.IFindWorkspaceOutput": {
+        "type": "object",
+        "properties": {
+          "workspace_id": {
+            "type": "string",
+            "title": "워크스페이스 id.",
+            "description": "읽어온 워크스페이스의 id 입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "워크스페이스 이름.",
+            "description": "읽어온 워크스페이스의 이름입니다."
+          },
+          "link": {
+            "type": "string",
+            "title": "워크스페이스 링크.",
+            "description": "읽어온 워크스페이스의 링크입니다."
+          }
+        },
+        "required": [
+          "workspace_id",
+          "name",
+          "link"
+        ]
+      },
+      "ITypeform.ICreateFormOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "폼 id.",
+            "description": "생성된 폼의 id입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "폼 이름.",
+            "description": "생성된 폼의 이름입니다."
+          },
+          "type": {
+            "type": "string",
+            "title": "폼 타입.",
+            "description": "생성된 폼의 타입입니다."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type"
+        ]
+      },
+      "ITypeform.ICreateEmptyFormInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "폼 제목.",
+            "description": "생성할 폼의 제목입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "typeform",
+            "x-wrtn-secret-scopes": [
+              "accounts:read",
+              "forms:read",
+              "forms:write",
+              "images:read",
+              "images:write",
+              "responses:read",
+              "responses:write",
+              "themes:read",
+              "themes:write",
+              "workspaces:read",
+              "workspaces:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "secretKey"
+        ]
+      },
+      "ITypeform.IFindFormOutput": {
+        "type": "object",
+        "properties": {
+          "formId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/get-forms",
+              "jmesPath": "[].{value:formId, label:name || 'form title'}"
+            },
+            "title": "폼 id.",
+            "description": "읽어온 폼의 id입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "폼 이름.",
+            "description": "읽어온 폼의 이름입니다."
+          }
+        },
+        "required": [
+          "formId",
+          "name"
+        ]
+      },
+      "ITypeform.IDuplicateExistingFormInput": {
+        "type": "object",
+        "properties": {
+          "formId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/get-forms",
+              "jmesPath": "[].{value:formId, label:name || 'form title'}"
+            },
+            "title": "폼.",
+            "description": "값을 업데이트 할 폼."
+          },
+          "workspaceLink": {
+            "type": "string",
+            "title": "워크스페이스 링크.",
+            "description": "폼을 복제할 워크스페이스 링크입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "폼 이름.",
+            "description": "복제하여 생성할 폼의 이름입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "typeform",
+            "x-wrtn-secret-scopes": [
+              "accounts:read",
+              "forms:read",
+              "forms:write",
+              "images:read",
+              "images:write",
+              "responses:read",
+              "responses:write",
+              "themes:read",
+              "themes:write",
+              "workspaces:read",
+              "workspaces:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "formId",
+          "workspaceLink",
+          "name",
+          "secretKey"
+        ]
+      },
+      "ITypeform.IFieldInfoForUpdateFieldValueOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/forms/get-update-form-fields",
+              "jmesPath": "[].{value:id, label:name || 'field title'}"
+            },
+            "title": "필드",
+            "description": "값을 업데이트 할 필드"
+          },
+          "name": {
+            "type": "string",
+            "title": "필드 명.",
+            "description": "값을 업데이트 할 필드의 명."
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "ITypeform.IGetFieldForUpdateFieldValueInput": {
+        "type": "object",
+        "properties": {
+          "formId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/get-forms",
+              "jmesPath": "[].{value:formId, label:name || 'form title'}"
+            },
+            "title": "필드 id.",
+            "description": "값을 업데이트 할 필드의 id."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "typeform",
+            "x-wrtn-secret-scopes": [
+              "accounts:read",
+              "forms:read",
+              "forms:write",
+              "images:read",
+              "images:write",
+              "responses:read",
+              "responses:write",
+              "themes:read",
+              "themes:write",
+              "workspaces:read",
+              "workspaces:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "formId",
+          "secretKey"
+        ]
+      },
+      "ITypeform.IUpdateFormFieldValueOutput": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ITypeform.IFieldInformation"
+            },
+            "title": "값이 업데이트 된 필드 정보.",
+            "description": "값이 업데이트 된 필드의 정보입니다."
+          },
+          "formId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/get-forms",
+              "jmesPath": "[].{value:formId, label:name || 'form title'}"
+            },
+            "title": "폼 id.",
+            "description": "읽어온 폼의 id입니다."
+          },
+          "name": {
+            "type": "string",
+            "title": "폼 이름.",
+            "description": "읽어온 폼의 이름입니다."
+          }
+        },
+        "required": [
+          "fields",
+          "formId",
+          "name"
+        ]
+      },
+      "ITypeform.IFieldInformation": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "필드 값.",
+            "description": "업데이트 된 필드의 값입니다."
+          },
+          "id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/forms/get-update-form-fields",
+              "jmesPath": "[].{value:id, label:name || 'field title'}"
+            },
+            "title": "필드",
+            "description": "값을 업데이트 할 필드"
+          },
+          "name": {
+            "type": "string",
+            "title": "필드 명.",
+            "description": "값을 업데이트 할 필드의 명."
+          }
+        },
+        "required": [
+          "value",
+          "id",
+          "name"
+        ]
+      },
+      "ITypeform.IUpdateFormFieldValueInput": {
+        "type": "object",
+        "properties": {
+          "formId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/get-forms",
+              "jmesPath": "[].{value:formId, label:name || 'form title'}"
+            },
+            "title": "폼.",
+            "description": "값을 업데이트 할 폼."
+          },
+          "fieldId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/typeform/forms/get-update-form-fields",
+              "jmesPath": "[].{value:id, label:name || 'field title'}"
+            },
+            "title": "업데이트 할 필드.",
+            "description": "값을 업데이트 할 필드."
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "필드 값.",
+            "description": "업데이트 할 필드의 값입니다."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "typeform",
+            "x-wrtn-secret-scopes": [
+              "accounts:read",
+              "forms:read",
+              "forms:write",
+              "images:read",
+              "images:write",
+              "responses:read",
+              "responses:write",
+              "themes:read",
+              "themes:write",
+              "workspaces:read",
+              "workspaces:write"
+            ],
+            "title": "인증 정보 선택",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "formId",
+          "fieldId",
+          "value",
+          "secretKey"
+        ]
       }
     }
   },
@@ -48554,6 +49061,119 @@
     {
       "name": "Llm",
       "description": "selection 선택 추출"
+    },
+    {
+      "name": "Typeform"
+    },
+    {
+      "name": "타입폼"
+    },
+    {
+      "name": "설문조사",
+      "description": "결과"
+    },
+    {
+      "name": "온라인",
+      "description": "폼"
+    },
+    {
+      "name": "설문지",
+      "description": "템플릿"
+    },
+    {
+      "name": "고객",
+      "description": "만족도 조사"
+    },
+    {
+      "name": "설문",
+      "description": "양식"
+    },
+    {
+      "name": "퀴즈"
+    },
+    {
+      "name": "응답",
+      "description": "확인"
+    },
+    {
+      "name": "응답자",
+      "description": "관리"
+    },
+    {
+      "name": "질문지",
+      "description": "작성"
+    },
+    {
+      "name": "인터뷰",
+      "description": "신청"
+    },
+    {
+      "name": "행사",
+      "description": "피드백"
+    },
+    {
+      "name": "피드백"
+    },
+    {
+      "name": "사용자",
+      "description": "조사"
+    },
+    {
+      "name": "이벤트",
+      "description": "피드백"
+    },
+    {
+      "name": "Survey",
+      "description": "Form"
+    },
+    {
+      "name": "Online",
+      "description": "Form"
+    },
+    {
+      "name": "Questionnaire"
+    },
+    {
+      "name": "Customer",
+      "description": "Satisfaction Survey"
+    },
+    {
+      "name": "Quiz"
+    },
+    {
+      "name": "Manage",
+      "description": "Responses"
+    },
+    {
+      "name": "Response",
+      "description": "Data"
+    },
+    {
+      "name": "Share",
+      "description": "Survey"
+    },
+    {
+      "name": "Create",
+      "description": "Questionnaire"
+    },
+    {
+      "name": "Interview",
+      "description": "Application"
+    },
+    {
+      "name": "Collect",
+      "description": "Responses"
+    },
+    {
+      "name": "Event",
+      "description": "Feedback"
+    },
+    {
+      "name": "Feedback"
+    },
+    {
+      "name": "User",
+      "description": "Survey"
     }
   ],
   "x-samchon-emended": true
