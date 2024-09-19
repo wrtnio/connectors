@@ -18,7 +18,7 @@
     "title": "CSV 파일 데이터 처리기",
     "summary": "CSV 파일을 쉽게 다룰 수 있어요.",
     "description": "CSV 파일의 내용을 읽고, 새로운 CSV 파일을 만들 수 있어요. 또한 CSV 파일을 Excel 파일로 변환할 수도 있어요. 데이터 분석, 정보 정리, 대량의 데이터 처리 등 다양한 작업에 활용할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/csv/read": {
       "post": {
-        "summary": "CSV 파일 읽기",
-        "description": "CSV 파일 내용을 읽어옵니다",
+        "summary": "Read CSV file",
+        "description": "Read CSV file contents",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "CSV 파일을 읽어 오기 위한 정보",
+          "description": "Information for reading CSV file",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "CSV 파일 내용.",
+            "description": "CSV file contents.",
             "content": {
               "application/json": {
                 "schema": {
@@ -58,12 +58,12 @@
     },
     "/connector/csv/write": {
       "post": {
-        "summary": "CSV 파일 생성",
-        "description": "CSV 파일을 생성합니다",
+        "summary": "Create a CSV file",
+        "description": "Create a CSV file",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "CSV 파일을 생성하기 위한 정보",
+          "description": "Information to create a CSV file",
           "content": {
             "application/json": {
               "schema": {
@@ -91,12 +91,12 @@
     },
     "/connector/csv/csv-to-excel": {
       "post": {
-        "summary": "CSV 파일 Excel 파일 변환",
-        "description": "CSV 파일을 엑셀 파일로 변환합니다.",
+        "summary": "Convert CSV file to Excel file",
+        "description": "Convert CSV file to Excel file.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "CSV 파일을 엑셀 파일로 변환하기 위한 정보",
+          "description": "Information to convert CSV file to Excel file",
           "content": {
             "application/json": {
               "schema": {
@@ -136,14 +136,14 @@
                 "type": "string"
               }
             },
-            "title": "csv 데이터 리스트.",
-            "description": "읽어온 csv 파일 데이터."
+            "title": "csv data list.",
+            "description": "Read csv file data."
           }
         },
         "required": [
           "data"
         ],
-        "title": "Csv 파일 읽기 결과"
+        "title": "Csv file reading result"
       },
       "ICsv.IReadInput": {
         "type": "object",
@@ -152,21 +152,21 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "text/csv",
-            "title": "파일",
-            "description": "읽어올 Csv 파일입니다."
+            "title": "file",
+            "description": "This is the Csv file to read."
           },
           "delimiter": {
             "type": "string",
             "x-wrtn-placeholder": ",",
-            "title": "구분자",
-            "description": "읽어올 Csv 파일 구분자 입니다."
+            "title": "delimiter",
+            "description": "This is the CSV file delimiter to read."
           }
         },
         "required": [
           "s3Url",
           "delimiter"
         ],
-        "title": "Csv 파일 정보"
+        "title": "Csv file information"
       },
       "ICsv.IWriteOutput": {
         "type": "object",
@@ -175,14 +175,14 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "text/csv",
-            "title": "csv 파일",
-            "description": "작성된 csv 파일의 s3 url입니다."
+            "title": "csv file",
+            "description": "This is the s3 url of the csv file that was created."
           }
         },
         "required": [
           "s3Url"
         ],
-        "title": "Csv 파일 생성 결과"
+        "title": "Csv file creation result"
       },
       "ICsv.IWriteInput": {
         "type": "object",
@@ -190,14 +190,14 @@
           "fileName": {
             "type": "string",
             "x-wrtn-placeholder": "example.csv",
-            "title": "파일명",
-            "description": "생성할 Csv 파일명입니다."
+            "title": "File name",
+            "description": "The name of the Csv file to be created."
           },
           "delimiter": {
             "type": "string",
             "x-wrtn-placeholder": ",",
-            "title": "구분자",
-            "description": "생성할 Csv 파일 구분자 입니다."
+            "title": "delimiter",
+            "description": "The Csv file delimiter to be generated."
           },
           "values": {
             "type": "array",
@@ -208,8 +208,8 @@
                 "type": "string"
               }
             },
-            "title": "파일 데이터 값들",
-            "description": "생성할 Csv 파일에 넣을 데이터 값 들 입니다."
+            "title": "File data values",
+            "description": "These are the data values to be placed in the Csv file to be created."
           }
         },
         "required": [
@@ -217,7 +217,7 @@
           "delimiter",
           "values"
         ],
-        "title": "Csv 파일 생성에 필요한 정보"
+        "title": "Information required to create a CSV file"
       },
       "ICsv.ICsvToExcelOutput": {
         "type": "object",
@@ -227,13 +227,13 @@
             "format": "uri",
             "contentMediaType": "text/csv",
             "title": "s3 url",
-            "description": "변환된 excel 파일의 s3 url입니다."
+            "description": "Here is the s3 url of the converted excel file."
           }
         },
         "required": [
           "url"
         ],
-        "title": "Csv 파일을 Excel 파일 변환 결과"
+        "title": "Csv file to Excel file conversion result"
       },
       "ICsv.ICsvToExcelInput": {
         "type": "object",
@@ -242,21 +242,21 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "text/csv",
-            "title": "파일",
-            "description": "csv에서 excel로 변환할 파일입니다."
+            "title": "file",
+            "description": "This is the file to convert from csv to excel."
           },
           "delimiter": {
             "type": "string",
             "x-wrtn-placeholder": ",",
-            "title": "구분자",
-            "description": "csv에서 excel로 변환할 파일 구분자 입니다."
+            "title": "delimiter",
+            "description": "This is the file delimiter to convert from csv to excel."
           }
         },
         "required": [
           "s3Url",
           "delimiter"
         ],
-        "title": "Csv 파일을 Excel 파일로 변환하는데 필요한 정보"
+        "title": "Information needed to convert a Csv file to an Excel file"
       }
     }
   },

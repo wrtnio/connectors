@@ -18,7 +18,7 @@
     "title": "구글 학술 자료 통합 검색",
     "summary": "구글 스칼라를 이용해 학술 자료를 빠르고 정확하게 찾을 수 있어요.",
     "description": "구글 스칼라를 통해 논문, 학술지, 도서, 학위 논문 등 다양한 학술 자료를 효율적으로 검색하고 접근할 수 있어요. 키워드, 저자, 출판 연도 등으로 검색할 수 있고, 인용 횟수나 관련성에 따라 결과를 정렬할 수 있어요. 특정 논문의 인용 정보를 확인하거나, 관련 논문을 쉽게 찾아볼 수 있어요. 또한, 일부 자료의 경우 전문(full-text)을 바로 확인할 수 있어 연구나 학습에 매우 유용해요. 학생, 연구자, 그리고 지식에 관심 있는 모든 분들이 활용하기 좋은 도구예요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-scholar": {
       "post": {
-        "summary": "구글 스콜라 논문 목록 검색",
-        "description": "구글 스콜라에 있는 논문 목록을 가져옵니다.",
+        "summary": "Search Google Scholar paper list",
+        "description": "Get a list of papers in Google Scholar.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 스콜라 논문 검색 조건",
+          "description": "Google Scholar paper search criteria",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 스콜라 논문 목록",
+            "description": "Google Scholar paper list",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,13 +68,13 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "검색 결과 데이터 고유 id",
-            "description": "검색 결과 데이터의 고유 id 입니다."
+            "title": "Unique id of search result data",
+            "description": "Unique id of search result data."
           },
           "title": {
             "type": "string",
-            "title": "검색된 논문 제목",
-            "description": "검색된 논문의 제목입니다."
+            "title": "Title of the paper searched",
+            "description": "This is the title of the paper searched."
           },
           "link": {
             "oneOf": [
@@ -86,18 +86,18 @@
                 "format": "uri"
               }
             ],
-            "title": "검색된 논문 링크",
-            "description": "검색된 논문의 링크입니다."
+            "title": "Link to the searched paper",
+            "description": "Here is the link to the searched paper."
           },
           "snippet": {
             "type": "string",
-            "title": "검색 결과 내용 단편",
-            "description": "검색 결과의 내용 단편입니다."
+            "title": "Snippet of the search results",
+            "description": "Here is a snippet of the search results."
           },
           "publication_info": {
             "type": "string",
-            "title": "출판 요약 정보",
-            "description": "검색된 논문의 출판 요약 정보입니다."
+            "title": "Publication Summary Information",
+            "description": "Here is the publication summary information for the searched paper."
           },
           "resource": {
             "oneOf": [
@@ -111,24 +111,24 @@
                 }
               }
             ],
-            "title": "참고자료 정보",
-            "description": "검색된 논문의 참고자료 정보입니다."
+            "title": "Reference information",
+            "description": "Here is the reference information for the searched paper."
           },
           "citation_count": {
             "type": "integer",
-            "title": "인용된 횟수",
-            "description": "검색된 논문이 인용된 횟수입니다."
+            "title": "Number of times cited",
+            "description": "The number of times the searched paper was cited."
           },
           "related_pages_link": {
             "type": "string",
             "format": "uri",
-            "title": "관련 학술 자료 링크",
-            "description": "검색된 논문과 관련된 학술 자료 링크입니다."
+            "title": "Links to related academic materials",
+            "description": "Here are links to academic materials related to the searched paper."
           },
           "version_info": {
             "$ref": "#/components/schemas/IGoogleScholar.IVersion",
-            "title": "버전 정보",
-            "description": "검색된 논문의 버전 정보입니다."
+            "title": "Version information",
+            "description": "Here is the version information for the searched paper."
           }
         },
         "required": [
@@ -142,33 +142,33 @@
           "related_pages_link",
           "version_info"
         ],
-        "title": "검색 결과"
+        "title": "Search Results"
       },
       "IGoogleScholar.IResource": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "참고 자료 제목",
-            "description": "참고 자료의 제목입니다."
+            "title": "Title of the reference material",
+            "description": "Title of the reference material."
           },
           "file_format": {
             "type": "string",
-            "title": "참고자료 파일 형식",
-            "description": "참고자료 파일의 형식입니다."
+            "title": "Reference file format",
+            "description": "This is the format of the reference file."
           },
           "link": {
             "type": "string",
             "format": "uri",
-            "title": "참고자료 링크",
-            "description": "참고자료의 링크입니다."
+            "title": "Link to the reference material",
+            "description": "Here is a link to the reference material."
           }
         },
         "required": [
           "title",
           "link"
         ],
-        "title": "참고 자료"
+        "title": "References"
       },
       "IGoogleScholar.IVersion": {
         "type": "object",
@@ -182,8 +182,8 @@
                 "type": "integer"
               }
             ],
-            "title": "버전 정보",
-            "description": "버전 정보입니다."
+            "title": "Version information",
+            "description": "Here is the version information."
           },
           "link": {
             "oneOf": [
@@ -195,15 +195,15 @@
                 "format": "uri"
               }
             ],
-            "title": "버전 관련 링크",
-            "description": "버전 관련 링크입니다."
+            "title": "Version-related links",
+            "description": "Here are the version-related links."
           }
         },
         "required": [
           "version",
           "link"
         ],
-        "title": "버전"
+        "title": "version"
       },
       "IGoogleScholar.ISearchInput": {
         "type": "object",
@@ -214,8 +214,8 @@
               "type": "string",
               "x-wrtn-placeholder": "biology"
             },
-            "title": "꼭 포함할 키워드",
-            "description": "검색 결과에 포함되어야 하는 키워드입니다."
+            "title": "Keywords that must be included",
+            "description": "Keywords that must be included in search results."
           },
           "orKeyword": {
             "type": "array",
@@ -223,8 +223,8 @@
               "type": "string",
               "x-wrtn-placeholder": "ecosystem"
             },
-            "title": "포함 되면 좋겠는 키워드",
-            "description": "검색 결과에 포함되면 좋겠는 키워드입니다."
+            "title": "Keywords that you would like to see included",
+            "description": "Keywords that you would like to see included in your search results."
           },
           "notKeyword": {
             "type": "array",
@@ -232,21 +232,21 @@
               "type": "string",
               "x-wrtn-placeholder": "pollution"
             },
-            "title": "제외할 키워드",
-            "description": "검색 결과에 포함되면 안되는 키워드입니다."
+            "title": "Keywords to exclude",
+            "description": "Keywords that should not be included in search results."
           },
           "max_results": {
             "type": "integer",
             "x-wrtn-placeholder": "10",
-            "title": "검색 결과 갯수",
-            "description": "몇 개의 검색 결과를 받아올 것인지 설정합니다."
+            "title": "Number of search results",
+            "description": "Sets how many search results to retrieve."
           }
         },
         "required": [
           "andKeyword",
           "max_results"
         ],
-        "title": "검색 조건"
+        "title": "Search Conditions"
       }
     }
   },

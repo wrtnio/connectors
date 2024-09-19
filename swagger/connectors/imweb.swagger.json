@@ -18,7 +18,7 @@
     "title": "아임웹 상품 정보 관리",
     "summary": "아임웹으로 상품 정보를 효과적으로 관리해요.",
     "description": "아임웹에서 상품 리스트를 조회회할 수 있어요. 판매자 인증을 통해 API 토큰을 발급받아 더 많은 기능을 활용할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -62,12 +62,12 @@
     },
     "/connector/imweb/auth": {
       "post": {
-        "summary": "아임웹 액세스 토큰 발급",
-        "description": "아임웹 액세스 토큰 발급.",
+        "summary": "Issue Aimweb Access Token",
+        "description": "Issue Aimweb Access Token.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "액세스 토큰 발급을 위한 요청 DTO.",
+          "description": "Request DTO for access token issuance.",
           "content": {
             "application/json": {
               "schema": {
@@ -79,7 +79,7 @@
         },
         "responses": {
           "201": {
-            "description": "액세스 토큰을 담은 응답 DTO.",
+            "description": "Response DTO containing access token.",
             "content": {
               "application/json": {
                 "schema": {
@@ -729,7 +729,7 @@
           "key",
           "secret"
         ],
-        "title": "상품 조회 요청 DTO."
+        "title": "Product Inquiry Request DTO."
       },
       "IImweb.IGetAccessTokenOutput": {
         "type": "object",

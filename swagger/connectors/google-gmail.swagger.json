@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/gmail/send": {
       "post": {
-        "summary": "GMAIL 전송",
-        "description": "메일을 전송합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
+        "summary": "GMAIL Send",
+        "description": "Sending mail\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the HTML format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "메일을 보내기 위해 필요한 정보.",
+          "description": "Information needed to send an email.",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "전송된 메일의 ID.",
+            "description": "ID of the sent email.",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,12 +59,12 @@
     },
     "/connector/gmail/draft": {
       "post": {
-        "summary": "GMAIL 초안 생성",
-        "description": "메일 초안을 생성 합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
+        "summary": "Create GMAIL Draft",
+        "description": "Create a mail draft\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the html format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "메일 초안을 생성하기 위한 정보.",
+          "description": "Information for creating a mail draft.",
           "content": {
             "application/json": {
               "schema": {
@@ -88,8 +88,8 @@
     },
     "/connector/gmail/reply/{id}": {
       "post": {
-        "summary": "GMAIL 답장",
-        "description": "수신된 메일에 답장을 보냅니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 커넥터는 이메일 보내는 용도이며,\n단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.\n현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.\n경우에 따라 html 형식을 사용할 수도 있습니다.",
+        "summary": "GMAIL Reply",
+        "description": "Reply to received email\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can also use the HTML format.",
         "tags": [],
         "parameters": [
           {
@@ -107,7 +107,7 @@
           }
         ],
         "requestBody": {
-          "description": "메일 답장에 필요한 정보.",
+          "description": "Information required for replying to emails.",
           "content": {
             "application/json": {
               "schema": {
@@ -130,8 +130,8 @@
     },
     "/connector/gmail/get/{id}": {
       "post": {
-        "summary": "GMAIL 정보 가져오기",
-        "description": "메일의 정보를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "summary": "Get GMAIL information",
+        "description": "Get information about a mail\n\nGmail is a free web-based email service provided by Google.",
         "tags": [],
         "parameters": [
           {
@@ -146,8 +146,8 @@
               }
             },
             "required": true,
-            "title": "해당 메일의 고유 ID",
-            "description": " 해당 메일의 고유 ID."
+            "title": "Unique ID of the email",
+            "description": " Unique ID of the email."
           }
         ],
         "requestBody": {
@@ -162,7 +162,7 @@
         },
         "responses": {
           "201": {
-            "description": "해당 메일의 정보.",
+            "description": "Information about the email.",
             "content": {
               "application/json": {
                 "schema": {
@@ -177,12 +177,12 @@
     },
     "/connector/gmail/read-list": {
       "post": {
-        "summary": "GMAIL 리스트 가져오기",
-        "description": "메일 리스트를 가져옵니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "summary": "Get GMAIL list",
+        "description": "Get mailing list\n\nGmail is a free web-based email service provided by Google.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "메일 리스트를 가져오기 위한 정보.",
+          "description": "Information for getting mailing list.",
           "content": {
             "application/json": {
               "schema": {
@@ -194,7 +194,7 @@
         },
         "responses": {
           "201": {
-            "description": "메일 리스트.",
+            "description": "Mailing list.",
             "content": {
               "application/json": {
                 "schema": {
@@ -210,8 +210,8 @@
     },
     "/connector/gmail/{id}/hardDelete": {
       "delete": {
-        "summary": "메일을 삭제합니다.",
-        "description": "메일을 삭제합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.\n\n이 기능은 메일을 휴지통으로 옮기는 게 아니라 영구히 삭제하는 기능이기 때문에 각별히 주의가 필요합니다.\n대부분의 유저는 이미 휴지통에 있는 것들을 삭제하고자 할 것입니다.\n따라서 유저가 삭제를 희망하는 경우 가급적 휴지통으로 메일을 옮기는 것으로 유도하되, 그럼에도 삭제하고자 한다면 휴지통에 있는 것을 대상으로 하는 것이 옳습니다.",
+        "summary": "Delete mail.",
+        "description": "Delete mail\n\nGmail is a free web-based email service provided by Google.\n\nThis function requires special attention because it permanently deletes mail instead of moving it to the trash.\n\nMost users will want to delete mail that is already in the trash.\n\nTherefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash.",
         "tags": [],
         "parameters": [
           {
@@ -251,8 +251,8 @@
     },
     "/connector/gmail/{id}": {
       "delete": {
-        "summary": "GMAIL 삭제",
-        "description": "메일을 휴지통으로 옮깁니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "summary": "Delete GMAIL",
+        "description": "Move mail to trash\n\nGmail is a free web-based email service provided by Google.",
         "tags": [],
         "parameters": [
           {
@@ -267,8 +267,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 메일의 고유 ID",
-            "description": " 삭제할 메일의 고유 ID."
+            "title": "The unique ID of the email to be deleted",
+            "description": " The unique ID of the email to be deleted."
           }
         ],
         "requestBody": {
@@ -294,12 +294,12 @@
     },
     "/connector/gmail/label": {
       "post": {
-        "summary": "GMAIL 라벨 생성",
-        "description": "라벨을 생성합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "summary": "Create GMAIL label",
+        "description": "Create a label\n\nGmail is a free web-based email service provided by Google.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "라벨 생성을 위한 정보.",
+          "description": "Information for creating a label.",
           "content": {
             "application/json": {
               "schema": {
@@ -311,7 +311,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 라벨의 고유 ID.",
+            "description": "Unique ID of the created label.",
             "content": {
               "application/json": {
                 "schema": {
@@ -327,8 +327,8 @@
     },
     "/connector/gmail/label/{mailId}": {
       "post": {
-        "summary": "GMAIL 라벨 부여",
-        "description": "메일에 라벨을 부여합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "summary": "GMAIL Label Assignment",
+        "description": "Assign a label to a mail\n\nGmail is a free web-based email service provided by Google.",
         "tags": [],
         "parameters": [
           {
@@ -343,12 +343,12 @@
               }
             },
             "required": true,
-            "title": "라벨을 부여할 메일의 고유 ID",
-            "description": " 라벨을 부여할 메일의 고유 ID."
+            "title": "Unique ID of the mail to assign a label to",
+            "description": " Unique ID of the mail to assign a label to."
           }
         ],
         "requestBody": {
-          "description": "부여할 라벨의 고유 ID 목록.",
+          "description": "A list of unique IDs of labels to assign.",
           "content": {
             "application/json": {
               "schema": {
@@ -369,8 +369,8 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg"
       },
       "delete": {
-        "summary": "GMAIL 라벨 제거",
-        "description": "메일에 부여된 라벨을 제거합니다\n\n지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.",
+        "summary": "Remove GMAIL labels",
+        "description": "Remove labels assigned to mail\n\nGmail is a free web-based email service provided by Google.",
         "tags": [],
         "parameters": [
           {
@@ -385,12 +385,12 @@
               }
             },
             "required": true,
-            "title": "라벨을 제거할 메일의 고유 ID",
-            "description": " 라벨을 제거할 메일의 고유 ID."
+            "title": "Unique ID of the mail from which to remove labels",
+            "description": " Unique ID of the mail from which to remove labels."
           }
         ],
         "requestBody": {
-          "description": "제거할 라벨의 고유 ID 목록.",
+          "description": "A list of unique IDs of labels to remove.",
           "content": {
             "application/json": {
               "schema": {
@@ -413,7 +413,7 @@
     },
     "/internal/google": {
       "get": {
-        "description": "구글 access token 재발급 요청",
+        "description": "Request to reissue Google access token",
         "tags": [],
         "parameters": [],
         "responses": {
@@ -438,14 +438,14 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "보낸 메일의 id.",
-            "description": "보낸 메일의 id."
+            "title": "The ID of the sent email.",
+            "description": "The ID of the sent email."
           }
         },
         "required": [
           "id"
         ],
-        "title": "메일 전송 결과"
+        "title": "Mail transmission result"
       },
       "IGmail.ICreateMailInput": {
         "type": "object",
@@ -455,34 +455,34 @@
             "items": {
               "type": "string"
             },
-            "title": "받는 사람 이메일 주소.",
-            "description": "메일을 받는 사람의 이메일 주소."
+            "title": "Recipient's email address.",
+            "description": "The email address of the recipient."
           },
           "subject": {
             "type": "string",
-            "title": "이메일 제목.",
-            "description": "보낼 메일의 제목."
+            "title": "Email subject.",
+            "description": "Subject of the email to be sent."
           },
           "body": {
             "type": "string",
-            "title": "이메일 본문.",
-            "description": "보낼 메일의 본문.\n\nhtml로 작성해야 합니다. 그렇지 않으면 본문이 제대로 표시되지 않을 수 있습니다.\n\ngmail에서 적용가능한 css 형식을 적용해주세요.\n\nhtml 길이가 너무 길지 않게 작성해주세요. 길이가 너무 길면 전송이 되지 않을 수 있습니다.\n\nlink 또는 url이 있는 경우 html <a> 태그의 title 속성을 꼭 사용하여 링크를 제공해주세요."
+            "title": "Email body.</a>",
+            "description": "The body of the email to be sent. It must be written in html. Otherwise, the body may not be displayed properly. Please apply the CSS format applicable to gmail. Please write the html length so that it is not too long. If it is too long, it may not be sent. If there is a link or url <a>, be sure to use the title attribute of the html tag to provide a link."
           },
           "cc": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "참조할 사람 이메일.",
-            "description": "참조할 사람 이메일 주소."
+            "title": "Email address of the person to be referenced.",
+            "description": "Email address of the person to be referenced."
           },
           "Bcc": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "숨은참조할 사람 이메일.",
-            "description": "숨은참조할 사람 이메일 주소."
+            "title": "Bcc email address.",
+            "description": "Bcc email address."
           },
           "files": {
             "type": "array",
@@ -512,7 +512,7 @@
             "x-wrtn-secret-scopes": [
               "https://mail.google.com/"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -522,15 +522,15 @@
           "body",
           "secretKey"
         ],
-        "title": "메일을 보내기 위해 필요한 정보"
+        "title": "Information required to send email"
       },
       "IGmail.IReplyInput": {
         "type": "object",
         "properties": {
           "replyText": {
             "type": "string",
-            "title": "답장할 문구.",
-            "description": "답장할 문구."
+            "title": "Phrase to reply.",
+            "description": "Phrase to reply."
           },
           "secretKey": {
             "type": "string",
@@ -538,7 +538,7 @@
             "x-wrtn-secret-scopes": [
               "https://mail.google.com/"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -546,7 +546,7 @@
           "replyText",
           "secretKey"
         ],
-        "title": "메일 답장에 필요한 정보"
+        "title": "Information required to reply to email"
       },
       "IGmail.IFindGmailOutput": {
         "type": "object",
@@ -560,8 +560,8 @@
                 "type": "string"
               }
             ],
-            "title": "이메일 id.",
-            "description": "이메일의 고유 id."
+            "title": "Email id.",
+            "description": "Unique id of the email."
           },
           "labelIds": {
             "oneOf": [
@@ -575,8 +575,8 @@
                 }
               }
             ],
-            "title": "이메일 라벨 id.",
-            "description": "이메일에 부여된 라벨 id."
+            "title": "Email Label id.",
+            "description": "Label id assigned to the email."
           },
           "from": {
             "oneOf": [
@@ -587,8 +587,8 @@
                 "type": "string"
               }
             ],
-            "title": "발신자 이메일.",
-            "description": "이메일을 보낸 사람의 이메일 주소."
+            "title": "Sender Email.",
+            "description": "The email address of the person who sent the email."
           },
           "subject": {
             "oneOf": [
@@ -599,8 +599,8 @@
                 "type": "string"
               }
             ],
-            "title": "제목.",
-            "description": "이메일의 제목."
+            "title": "Subject.",
+            "description": "The subject of the email."
           },
           "body": {
             "oneOf": [
@@ -611,8 +611,8 @@
                 "type": "string"
               }
             ],
-            "title": "본문 요약.",
-            "description": "이메일의 본문 요약."
+            "title": "Summary of the body.",
+            "description": "Summary of the body of the email."
           },
           "attachments": {
             "oneOf": [
@@ -626,11 +626,11 @@
                 }
               }
             ],
-            "title": "첨부파일.",
-            "description": "이메일에 첨부된 파일 목록."
+            "title": "Attachments.",
+            "description": "List of files attached to the email."
           }
         },
-        "title": "이메일 검색 결과"
+        "title": "Email search results"
       },
       "IGmail.IAttachmentOutput": {
         "type": "object",
@@ -644,8 +644,8 @@
                 "type": "string"
               }
             ],
-            "title": "메시지 부분의 변경할 수 없는 ID.",
-            "description": "메시지 부분의 변경할 수 없는 ID."
+            "title": "The immutable ID of the message part.",
+            "description": "The immutable ID of the message part."
           },
           "mimeType": {
             "oneOf": [
@@ -656,8 +656,8 @@
                 "type": "string"
               }
             ],
-            "title": "메시지 부분의 MIME 유형.",
-            "description": "메세지의 MIME 유형입니다."
+            "title": "The MIME type of the message part.",
+            "description": "The MIME type of the message."
           },
           "filename": {
             "oneOf": [
@@ -668,8 +668,8 @@
                 "type": "string"
               }
             ],
-            "title": "첨부파일 명.",
-            "description": "이 메시지 부분이 첨부파일을 나타내는 경우에만 표시됩니다."
+            "title": "Attachment name.",
+            "description": "This message part will only be displayed if it indicates an attachment."
           },
           "headers": {
             "oneOf": [
@@ -683,8 +683,8 @@
                 }
               }
             ],
-            "title": "첨부파일 헤더 정보.",
-            "description": "전체 메시지 페이로드를 나타내는 최상위 메시지 부분에는 To, From, Subject와 같은 표준 RFC 2822 이메일 헤더가 포함됩니다."
+            "title": "Attachment header information.",
+            "description": "The top-level message portion, which represents the entire message payload, contains standard RFC 2822 email headers such as To, From, and Subject."
           },
           "body": {
             "oneOf": [
@@ -695,11 +695,11 @@
                 "$ref": "#/components/schemas/IGmail.IAttachmentBody"
               }
             ],
-            "title": "첨부파일 헤더 body 정보.",
-            "description": "이 부분의 메시지 부분 본문으로, 컨테이너 MIME 메시지 부분의 경우 비어 있을 수 있습니다."
+            "title": "Attachment header body information.",
+            "description": "The body of the message part of this section, which may be empty for container MIME message parts."
           }
         },
-        "title": "첨부파일 정보"
+        "title": "Attachment file information"
       },
       "IGmail.IAttachmentHeader": {
         "type": "object",
@@ -713,8 +713,8 @@
                 "type": "string"
               }
             ],
-            "title": "첨부파일 헤더 타입.",
-            "description": "첨부파일 헤더 타입."
+            "title": "Attachment header type.",
+            "description": "Attachment header type."
           },
           "value": {
             "oneOf": [
@@ -725,11 +725,11 @@
                 "type": "string"
               }
             ],
-            "title": "첨부파일 헤더 값.",
-            "description": "첨부파일 헤더 값."
+            "title": "Attachment header value.",
+            "description": "Attachment header value."
           }
         },
-        "title": "첨부파일 헤더 정보"
+        "title": "Attachment file header information"
       },
       "IGmail.IAttachmentBody": {
         "type": "object",
@@ -743,8 +743,8 @@
                 "type": "string"
               }
             ],
-            "title": "첨부파일 id.",
-            "description": "첨부파일 고유 id입니다."
+            "title": "Attachment file id.",
+            "description": "The unique ID of the attached file."
           },
           "size": {
             "oneOf": [
@@ -755,11 +755,11 @@
                 "type": "integer"
               }
             ],
-            "title": "첨부파일 데이터의 바이트 수.",
-            "description": "첨부파일 데이터의 바이트 수입니다."
+            "title": "The number of bytes in the attachment data.",
+            "description": "The number of bytes in the attachment data."
           }
         },
-        "title": "첨부파일 body 정보"
+        "title": "Attached file body information"
       },
       "IGmail.ISecret": {
         "type": "object",
@@ -770,14 +770,14 @@
             "x-wrtn-secret-scopes": [
               "https://mail.google.com/"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "인증 정보"
+        "title": "Authentication Information"
       },
       "IGmail.IFindGmailListOutput": {
         "type": "object",
@@ -787,62 +787,62 @@
             "items": {
               "$ref": "#/components/schemas/IGmail.IFindGmailOutput"
             },
-            "title": "gmail 검색 데이터 정보.",
-            "description": "검색된 gmail 데이터 정보."
+            "title": "gmail search data information.",
+            "description": "Searched gmail data information."
           }
         },
         "required": [
           "data"
         ],
-        "title": "이메일 리스트 검색 결과"
+        "title": "Email list search results"
       },
       "IGmail.IFindEmailListInput": {
         "type": "object",
         "properties": {
           "from": {
             "type": "string",
-            "title": "보낸 사람의 이메일.",
-            "description": "이메일을 보낸 사람의 이메일 주소."
+            "title": "The email of the sender.",
+            "description": "The email address of the sender of the email."
           },
           "to": {
             "type": "string",
-            "title": "받는 사람의 이메일.",
-            "description": "이메일을 받는 사람의 이메일 주소."
+            "title": "The email address of the recipient.",
+            "description": "The email address of the recipient."
           },
           "subject": {
             "type": "string",
-            "title": "이메일 제목.",
-            "description": "이메일 제목."
+            "title": "Email Subject.",
+            "description": "Email Subject."
           },
           "after": {
             "type": "string",
-            "title": "특정 날짜 이후.",
-            "description": "해당 날짜 이후의 이메일만 반환."
+            "title": "After a specific date.",
+            "description": "Returns only emails after a given date."
           },
           "before": {
             "type": "string",
-            "title": "특정 날짜 이전.",
-            "description": "해당 날짜 이전의 이메일만 반환."
+            "title": "Before a specific date.",
+            "description": "Returns only emails before a given date."
           },
           "label": {
             "type": "string",
-            "title": "메일에 부여된 라벨.",
-            "description": "메일에 부여된 라벨."
+            "title": "Label assigned to the email.",
+            "description": "Label assigned to the email."
           },
           "maxResults": {
             "type": "number",
             "maximum": 500,
             "minimum": 1,
-            "title": "최대 반환 갯수.",
-            "description": "메일의 반환 갯수."
+            "title": "Maximum number of returned mails.",
+            "description": "Number of returned mails."
           },
           "labelIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "필터링할 라벨 목록.",
-            "description": "지정된 라벨 ID와 모두 일치하는 라벨이 있는 메일만 반환하기 위한 라벨 목록들."
+            "title": "A list of labels to filter by.",
+            "description": "A list of labels to return only emails with labels that all match the specified label ID."
           },
           "secretKey": {
             "type": "string",
@@ -850,36 +850,36 @@
             "x-wrtn-secret-scopes": [
               "https://mail.google.com/"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "이메일 리스트 검색에 필요한 정보"
+        "title": "Information needed to search email lists"
       },
       "IGmail.ILabelOutput": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "생성된 라벨 id.",
-            "description": "생성된 라벨의 id."
+            "title": "Generated label id.",
+            "description": "The id of the generated label."
           }
         },
         "required": [
           "id"
         ],
-        "title": "라벨 생성 결과"
+        "title": "Label Creation Result"
       },
       "IGmail.ILabelInput": {
         "type": "object",
         "properties": {
           "labelName": {
             "type": "string",
-            "title": "라벨 이름.",
-            "description": "생성할 라벨의 이름."
+            "title": "Label name.",
+            "description": "The name of the label to create."
           },
           "labelListVisibility": {
             "oneOf": [
@@ -893,8 +893,8 @@
                 "const": "labelShowIfUnread"
               }
             ],
-            "title": "라벨의 공개 상태.",
-            "description": "생성할 라벨의 공개 상태.\n\n숨김 / 보임 / 안읽었을 때 보임\n\n- labelHide: 숨김\n- labelShow: 보임\n- labelShowIfUnread: 안읽었을 때 보임\n\n가능한 값으로 labelHide, labelShow, labelShowIfUnread 3가지만 가능합니다."
+            "title": "Visibility status of the label.",
+            "description": "Visibility status of the label to be created.\n\nHidden / Visible / Visible when unread\n\n- labelHide: Hidden\n- labelShow: Visible\n- labelShowIfUnread: Visible when unread\n\nOnly three possible values are available: labelHide, labelShow, and labelShowIfUnread."
           },
           "messageListVisibility": {
             "oneOf": [
@@ -905,13 +905,13 @@
                 "const": "show"
               }
             ],
-            "title": "라벨이 지정된 메일의 공개 상태.",
-            "description": "생성된 라벨이 지정된 메일의 공개 상태.\n\n숨김 / 보임\n\n- hide: 숨김\n- show: 보임\n\n가능한 값으로 hide, show 2가지만 가능합니다."
+            "title": "The visibility status of the labeled mail.",
+            "description": "The visibility status of the generated labeled mail.\n\nHidden / Visible\n\n- hide: hidden\n- show: visible\n\nThere are only two possible values: hide and show."
           },
           "color": {
             "$ref": "#/components/schemas/IGmail.ILabelColor",
-            "title": "라벨 색깔.",
-            "description": "생성할 메일 라벨의 색깔"
+            "title": "Label Color.",
+            "description": "Color of the mail label to be generated"
           },
           "secretKey": {
             "type": "string",
@@ -919,7 +919,7 @@
             "x-wrtn-secret-scopes": [
               "https://mail.google.com/"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -927,27 +927,27 @@
           "labelName",
           "secretKey"
         ],
-        "title": "라벨 생성에 필요한 정보"
+        "title": "Information required to create a label"
       },
       "IGmail.ILabelColor": {
         "type": "object",
         "properties": {
           "textColor": {
             "type": "string",
-            "title": "라벨 글씨 색.",
-            "description": "라벨 글씨 색상."
+            "title": "Label text color.",
+            "description": "Label text color."
           },
           "backgroundColor": {
             "type": "string",
-            "title": "라벨 배경 색.",
-            "description": "라벨 배경 색상."
+            "title": "Label background color.",
+            "description": "Label background color."
           }
         },
         "required": [
           "textColor",
           "backgroundColor"
         ],
-        "title": "라벨 색상"
+        "title": "label color"
       },
       "IGmail.IMailLabelOperationInput": {
         "type": "object",
@@ -957,8 +957,8 @@
             "items": {
               "type": "string"
             },
-            "title": "라벨 목록.",
-            "description": "부여하거나 삭제할 라벨 목록들."
+            "title": "A list of labels.",
+            "description": "A list of labels to assign or remove."
           },
           "secretKey": {
             "type": "string",
@@ -966,7 +966,7 @@
             "x-wrtn-secret-scopes": [
               "https://mail.google.com/"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -974,7 +974,7 @@
           "labelIds",
           "secretKey"
         ],
-        "title": "라벨 부여에 필요한 정보"
+        "title": "Information required to assign a label"
       }
     }
   },

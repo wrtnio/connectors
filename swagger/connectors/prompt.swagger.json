@@ -17,7 +17,7 @@
   "info": {
     "title": "프롬프트",
     "description": "",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/prompt/generate": {
       "post": {
-        "summary": "프롬프트 노드",
-        "description": "LLM에게 지시할 요청사항을 입력합니다.",
+        "summary": "prompt node",
+        "description": "Enter the request you want to give to LLM.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "유저의 프롬프트 입력",
+          "description": "user's prompt",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "프롬프트를 통한 답변",
+            "description": "response via prompt",
             "content": {
               "application/json": {
                 "schema": {
@@ -63,13 +63,14 @@
         "properties": {
           "result": {
             "type": "string",
-            "title": "입력된 프롬프트를 통해 받은 결과"
+            "title": "Result received through input prompt"
           }
         },
         "required": [
           "result"
         ],
-        "title": "프롬프트를 통해 받은 결과"
+        "title": "prompt",
+        "description": "Results received via"
       },
       "IPrompt.IRequest": {
         "type": "object",
@@ -77,18 +78,18 @@
           "user_request": {
             "type": "string",
             "x-wrtn-placeholder": "제품 이름과 제품 특징을 참고해서 광고 문구를 기발하고 유머러스하게 만들어주세요.",
-            "title": "유저 요청 사항"
+            "title": "User Request"
           },
           "system_prompt": {
             "type": "string",
             "x-wrtn-placeholder": "친절한 어투로 말해주세요.",
-            "title": "시스템 프롬프트"
+            "title": "System Prompt"
           }
         },
         "required": [
           "user_request"
         ],
-        "title": "프롬프트 입력"
+        "title": "prompt input"
       }
     }
   },

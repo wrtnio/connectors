@@ -18,7 +18,7 @@
     "title": "한셀 문서 데이터 관리",
     "summary": "한셀 파일을 쉽게 다룰 수 있어요.",
     "description": "한셀 파일의 내용을 가져오고, 워크시트를 수정하거나 새로운 파일을 만들 수 있어요. 셀 데이터를 읽고 쓸 수 있으며, 수식을 적용하거나 차트를 만들 수도 있어요. 여러 워크시트를 한 번에 관리할 수 있고, 데이터 필터링이나 정렬 기능을 사용할 수 있어요. 또한 한셀 파일을 다른 형식(CSV, PDF 등)으로 변환할 수 있어, 다양한 환경에서 데이터를 활용할 수 있어요. 이를 통해 재무 관리, 성적 관리, 재고 관리 등 다양한 업무를 효율적으로 처리할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/hancell/sheet": {
       "post": {
-        "summary": "한셀 수정",
-        "description": "한셀 시트를 수정합니다.\n\n만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.",
+        "summary": "Modify Hansel",
+        "description": "Modify a Hansel sheet.\n\nIf the sheet already exists, modify it, or add it if it did not exist before.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "수정할 한셀 정보",
+          "description": "Hansel information to modify",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "수정 후 새로 만들어진 파일 링크",
+            "description": "Link to the newly created file after modification",
             "content": {
               "application/json": {
                 "schema": {
@@ -58,12 +58,12 @@
     },
     "/connector/hancell/read": {
       "post": {
-        "summary": "한셀 파일 읽기",
-        "description": "한셀 파일을 읽습니다.",
+        "summary": "Read a Hansel file",
+        "description": "Read a Hansel file.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "읽을 한셀 파일 정보",
+          "description": "Hansel file information to read",
           "content": {
             "application/json": {
               "schema": {
@@ -75,7 +75,7 @@
         },
         "responses": {
           "201": {
-            "description": "한셀 파일 정보",
+            "description": "Hansel file information",
             "content": {
               "application/json": {
                 "schema": {
@@ -91,8 +91,8 @@
     },
     "/connector/aws/file/upload-url": {
       "get": {
-        "summary": "파일 업로드 URL 생성",
-        "description": "파일 업로드를 하기 위해 필요한 URL을 생성합니다.",
+        "summary": "Generate File Upload URL",
+        "description": "Generate the URL required to upload a file.",
         "tags": [],
         "parameters": [
           {
@@ -102,8 +102,8 @@
               "type": "string"
             },
             "required": true,
-            "title": "파일 확장자",
-            "description": "파일 확장자입니다."
+            "title": "File extension",
+            "description": "File extension."
           }
         ],
         "responses": {
@@ -128,7 +128,7 @@
         "properties": {
           "fileUrl": {
             "type": "string",
-            "title": "새 한셀 파일 링크"
+            "title": "New Hansel File Link"
           }
         },
         "required": [
@@ -140,20 +140,20 @@
         "properties": {
           "sheetName": {
             "type": "string",
-            "title": "시트 이름",
-            "description": "존재하지 않는 시트라면 추가되고 존재한다면 수정됩니다."
+            "title": "Sheet name",
+            "description": "If the sheet does not exist, it will be added, and if it does exist, it will be modified."
           },
           "cells": {
             "$ref": "#/components/schemas/IHancell.Cells",
-            "title": "시트 정보",
-            "description": "시트의 각 셀마다 담긴 정보를 의미합니다."
+            "title": "Sheet Information",
+            "description": "Information contained in each cell of the sheet."
           },
           "fileUrl": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "title": "엑셀 파일",
-            "description": "읽어올 엑셀 파일"
+            "title": "Excel file",
+            "description": "Excel file to read"
           }
         },
         "required": [
@@ -165,7 +165,7 @@
       "IHancell.Cells": {
         "type": "object",
         "properties": {},
-        "title": "셀에 담긴 정보",
+        "title": "Information contained in the cell",
         "additionalProperties": {
           "oneOf": [
             {
@@ -180,7 +180,7 @@
       "IHancell.IReadHancellOutput": {
         "type": "object",
         "properties": {},
-        "title": "한셀 읽기 응답",
+        "title": "Hansel Read Response",
         "additionalProperties": {
           "$ref": "#/components/schemas/IHancell.Cells"
         }
@@ -192,14 +192,14 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "title": "엑셀 파일",
-            "description": "읽어올 엑셀 파일"
+            "title": "Excel file",
+            "description": "Excel file to read"
           }
         },
         "required": [
           "fileUrl"
         ],
-        "title": "한셀 읽기 조건"
+        "title": "Hansel reading conditions"
       },
       "IAws.IGetPutObjectUrlOutput": {
         "type": "object",
@@ -207,18 +207,18 @@
           "uuid": {
             "type": "string",
             "format": "uuid",
-            "title": "파일 uuid",
-            "description": "파일 uuid입니다."
+            "title": "file uuid",
+            "description": "This is the file uuid."
           },
           "uploadUrl": {
             "type": "string",
-            "title": "업로드 url",
-            "description": "파일을 업로드하기 위한 url입니다."
+            "title": "upload url",
+            "description": "This is the url for uploading the file."
           },
           "urlExpTsMillis": {
             "type": "number",
-            "title": "url 만료 시간",
-            "description": "url 만료 시간입니다."
+            "title": "url expiration time",
+            "description": "url expiration time."
           }
         },
         "required": [
@@ -232,8 +232,8 @@
         "properties": {
           "extension": {
             "type": "string",
-            "title": "파일 확장자",
-            "description": "파일 확장자입니다."
+            "title": "File extension",
+            "description": "File extension."
           }
         },
         "required": [

@@ -18,7 +18,7 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,8 +26,8 @@
   "paths": {
     "/connector/google-slides/presentations/{id}/export/hanshow": {
       "post": {
-        "summary": "프레젠테이션을 한쇼 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 한쇼 형식으로 내보내요!",
+        "summary": "Export presentations to Hanshow files",
+        "description": "Export Google Slides presentations to Hanshow format!",
         "tags": [],
         "parameters": [
           {
@@ -37,11 +37,11 @@
               "type": "string"
             },
             "required": true,
-            "description": " 변환할 프레젠테이션 아이디"
+            "description": " Presentation ID to convert"
           }
         ],
         "requestBody": {
-          "description": "인증 정보",
+          "description": "Authentication information",
           "content": {
             "application/json": {
               "schema": {
@@ -53,7 +53,7 @@
         },
         "responses": {
           "201": {
-            "description": "한쇼 파일을 다운로드 가능한 링크",
+            "description": "Link to download Hanshow files",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,8 +68,8 @@
     },
     "/connector/google-slides/presentations/{id}/export/power-point": {
       "post": {
-        "summary": "프레젠테이션을 PPT 파일로 내보내기",
-        "description": "구글 슬라이드 프레젠테이션을 파워포인트 형식으로 내보내요!\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.",
+        "summary": "Export presentations to PPT files",
+        "description": "Export Google Slides presentations to PowerPoint format!\n\nA connector that can be used when creating stories or picture books.",
         "tags": [],
         "parameters": [
           {
@@ -79,11 +79,11 @@
               "type": "string"
             },
             "required": true,
-            "description": " 변환할 프레젠테이션 아이디"
+            "description": " Presentation ID to convert"
           }
         ],
         "requestBody": {
-          "description": "인증 정보",
+          "description": "Authentication information",
           "content": {
             "application/json": {
               "schema": {
@@ -95,7 +95,7 @@
         },
         "responses": {
           "201": {
-            "description": "파워포인트 파일을 다운로드 가능한 링크",
+            "description": "Link to download PowerPoint files",
             "content": {
               "application/json": {
                 "schema": {
@@ -110,12 +110,12 @@
     },
     "/connector/google-slides/get-presentations": {
       "post": {
-        "summary": "Google Slides 프레젠테이션 조회.",
-        "description": "Google Slides 프레젠테이션을 조회합니다.",
+        "summary": "Retrieve a Google Slides presentation.",
+        "description": "Retrieve a Google Slides presentation.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "프레젠테이션을 조회하기 위한 조건 DTO.",
+          "description": "Condition DTO for retrieving a presentation.",
           "content": {
             "application/json": {
               "schema": {
@@ -127,7 +127,7 @@
         },
         "responses": {
           "201": {
-            "description": "조회된 프레젠테이션 정보 DTO.",
+            "description": "Retrieve presentation information DTO.",
             "content": {
               "application/json": {
                 "schema": {
@@ -142,8 +142,8 @@
     },
     "/connector/google-slides/presentations/{id}/image-slide": {
       "put": {
-        "summary": "Google Slides 프레젠테이션에 이미지 및 텍스트 슬라이드를 추가합니다.",
-        "description": "Google Slides 프레젠테이션에 슬라이드를 추가합니다.\n\n이야기 또는 그림책을 생성할 때 connector/google-slides/createPresentation 커넥터와 함께 사용해주세요.\n\n이야기 또는 그림책을 생성할 때 connector/google-slides/createPresentation 커넥터로 부터 생성된 프레젠테이션에 이 커넥터를 사용해서 생성된 이야기와 그림을 넣어주세요.\n\n이야기 또는 그림책을 생성할 때 해당 커넥터를 사용하지 않으면 빈 그림책이 될 수 있으니 조심해주세요.",
+        "summary": "Add image and text slides to a Google Slides presentation.",
+        "description": "Add slides to a Google Slides presentation.\n\nUse this connector with connector/google-slides/createPresentation when creating a story or picture book.\n\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/createPresentation connector.\n\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.",
         "tags": [],
         "parameters": [
           {
@@ -153,11 +153,11 @@
               "type": "string"
             },
             "required": true,
-            "description": " 슬라이드를 추가할 프레젠테이션 id"
+            "description": " Presentation id to add slides to"
           }
         ],
         "requestBody": {
-          "description": "추가할 템플릿",
+          "description": "Template to add",
           "content": {
             "application/json": {
               "schema": {
@@ -184,12 +184,12 @@
     },
     "/connector/google-slides/presentations": {
       "post": {
-        "summary": "Google Slides 프레젠테이션 생성.",
-        "description": "Google Slides 프레젠테이션을 생성합니다.\n\n이야기 또는 그림책을 생성할 때 사용될 수 있는 커넥터입니다.\n\n이야기 또는 그림책을 생성할 때 connector/google-slides/appendImageSlide 커넥터와 함께 사용해주세요.\n\n이야기 또는 그림책을 생성할 때 이 커넥터로 새로운 프레젠테이션을 생성하고 connector/google-slides/appendImageSlide 커넥터를 사용해서 생성된 이야기와 그림을 슬라이드에 넣어주세요.\n\n이야기 또는 그림책을 생성할 때 connector/google-slides/appendImageSlide 커넥터와 같이 사용하지 않으면 빈 그림책이 될 수 있으니 조심해주세요.",
+        "summary": "Create a Google Slides presentation.",
+        "description": "Create a Google Slides presentation.\n\nThis connector can be used when creating a story or picture book.\n\nPlease use it with the connector/google-slides/appendImageSlide connector when creating a story or picture book.\n\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/appendImageSlide connector.\n\nWhen creating a story or picture book, be careful not to use it with the connector/google-slides/appendImageSlide connector, as it may result in an empty picture book.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "프레젠테이션을 만들기 위한 조건 DTO.",
+          "description": "Condition DTO for creating a presentation.",
           "content": {
             "application/json": {
               "schema": {
@@ -201,7 +201,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 프레젠테이션 정보 DTO.",
+            "description": "Generated presentation information DTO.",
             "content": {
               "application/json": {
                 "schema": {
@@ -216,7 +216,7 @@
     },
     "/internal/google": {
       "get": {
-        "description": "구글 access token 재발급 요청",
+        "description": "Request to reissue Google access token",
         "tags": [],
         "parameters": [],
         "responses": {
@@ -242,7 +242,7 @@
           "hanshow": {
             "type": "string",
             "format": "uri",
-            "title": "파일 다운로드 링크"
+            "title": "File download link"
           }
         },
         "required": [
@@ -258,14 +258,14 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "슬라이드를 pptx로 내보내는 조건"
+        "title": "Conditions for exporting slides to pptx"
       },
       "IGoogleSlides.IExportPresentationOutput": {
         "type": "object",
@@ -273,7 +273,7 @@
           "powerPoint": {
             "type": "string",
             "format": "uri",
-            "title": "파일 다운로드 링크"
+            "title": "File download link"
           }
         },
         "required": [
@@ -292,11 +292,11 @@
                 "type": "string"
               }
             ],
-            "title": "프레젠테이션의 제목."
+            "title": "The title of the presentation."
           },
           "pageSize": {
             "$ref": "#/components/schemas/IGoogleSlides.Size",
-            "title": "프레젠테이션의 페이지 크기."
+            "title": "The page size of the presentation."
           },
           "presentationId": {
             "oneOf": [
@@ -307,7 +307,7 @@
                 "type": "string"
               }
             ],
-            "title": "프레젠네이션의 ID."
+            "title": "Presentation ID."
           }
         }
       },
@@ -316,11 +316,11 @@
         "properties": {
           "width": {
             "$ref": "#/components/schemas/IGoogleSlides.Dimension",
-            "title": "객체의 너비."
+            "title": "Width of the object."
           },
           "height": {
             "$ref": "#/components/schemas/IGoogleSlides.Dimension",
-            "title": "객체의 높이."
+            "title": "The height of the object."
           }
         }
       },
@@ -336,7 +336,7 @@
                 "type": "number"
               }
             ],
-            "title": "규모."
+            "title": "scale."
           },
           "unit": {
             "oneOf": [
@@ -358,7 +358,7 @@
                 "description": "1/72인치입니다."
               }
             ],
-            "title": "크기 단위."
+            "title": "Size units."
           }
         }
       },
@@ -367,7 +367,7 @@
         "properties": {
           "presentationId": {
             "type": "string",
-            "title": "검색의 대상이 되는 프레젠테이션 ID."
+            "title": "The presentation ID to search for."
           },
           "secretKey": {
             "type": "string",
@@ -375,7 +375,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/presentations"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -383,7 +383,7 @@
           "presentationId",
           "secretKey"
         ],
-        "title": "프레젠테이션 검색을 위한 조건 DTO."
+        "title": "Condition DTO for presentation search."
       },
       "IGoogleSlides.AppendSlideInput": {
         "type": "object",
@@ -419,8 +419,8 @@
                 }
               }
             },
-            "title": "한 번에 생성하고자 하는 템플릿의 목록.",
-            "description": "이야기 또는 그림책을 생성할 때는 정방형으로만 사용해주세요."
+            "title": "A list of templates to create at once.",
+            "description": "When creating a story or picture book, please use only squares."
           },
           "secretKey": {
             "type": "string",
@@ -428,7 +428,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/presentations"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -436,14 +436,14 @@
           "templates",
           "secretKey"
         ],
-        "title": "슬라이드를 붙이기 위한 요청 DTO."
+        "title": "Request DTO for pasting slides."
       },
       "IGoogleSlides.Template.Vertical": {
         "type": "object",
         "properties": {
           "type": {
             "const": "Vertical",
-            "title": "템플릿의 타입."
+            "title": "The type of the template."
           },
           "contents": {
             "type": "object",
@@ -451,25 +451,25 @@
               "url": {
                 "type": "string",
                 "format": "uri",
-                "title": "이미지의 URL."
+                "title": "URL of the image."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
+                "title": "Text corresponding to the image."
               }
             },
             "required": [
               "url",
               "text"
             ],
-            "title": "슬라이드의 내용물"
+            "title": "Contents of the slide"
           }
         },
         "required": [
           "type",
           "contents"
         ],
-        "title": "세로형"
+        "title": "vertical"
       },
       "IGoogleSlides.InsertText": {
         "type": "object",
@@ -483,7 +483,7 @@
                 "type": "string"
               }
             ],
-            "title": "추가할 텍스트"
+            "title": "Text to add"
           },
           "objectId": {
             "oneOf": [
@@ -494,7 +494,7 @@
                 "type": "string"
               }
             ],
-            "title": "아이디"
+            "title": "ID"
           }
         }
       },
@@ -503,7 +503,7 @@
         "properties": {
           "type": {
             "const": "Square",
-            "title": "템플릿의 타입."
+            "title": "The type of the template."
           },
           "contents": {
             "type": "object",
@@ -511,33 +511,33 @@
               "url": {
                 "type": "string",
                 "format": "uri",
-                "title": "이미지의 URL."
+                "title": "URL of the image."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
+                "title": "Text corresponding to the image."
               }
             },
             "required": [
               "url",
               "text"
             ],
-            "title": "슬라이드의 내용물"
+            "title": "Contents of the slide"
           }
         },
         "required": [
           "type",
           "contents"
         ],
-        "title": "정방형",
-        "description": "이야기 또는 그림책을 생성할 때는 정방형으로만 사용해주세요."
+        "title": "Square",
+        "description": "When creating a story or picture book, please use only squares."
       },
       "IGoogleSlides.Template.Landscape": {
         "type": "object",
         "properties": {
           "type": {
             "const": "Landscape",
-            "title": "템플릿의 타입."
+            "title": "The type of the template."
           },
           "contents": {
             "type": "object",
@@ -545,32 +545,32 @@
               "url": {
                 "type": "string",
                 "format": "uri",
-                "title": "이미지의 URL."
+                "title": "URL of the image."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
+                "title": "Text corresponding to the image."
               }
             },
             "required": [
               "url",
               "text"
             ],
-            "title": "슬라이드의 내용물"
+            "title": "Contents of the slide"
           }
         },
         "required": [
           "type",
           "contents"
         ],
-        "title": "가로형"
+        "title": "Horizontal"
       },
       "IGoogleSlides.Template.Entire": {
         "type": "object",
         "properties": {
           "type": {
             "const": "Entire",
-            "title": "템플릿의 타입."
+            "title": "The type of the template."
           },
           "contents": {
             "type": "object",
@@ -578,32 +578,32 @@
               "url": {
                 "type": "string",
                 "format": "uri",
-                "title": "이미지의 URL."
+                "title": "URL of the image."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "이미지에 대응되는 텍스트."
+                "title": "Text corresponding to the image."
               }
             },
             "required": [
               "url",
               "text"
             ],
-            "title": "슬라이드의 내용물"
+            "title": "Contents of the slide"
           }
         },
         "required": [
           "type",
           "contents"
         ],
-        "title": "전체보기 가로형(16:9)"
+        "title": "View all Horizontal (16:9)"
       },
       "IGoogleSlides.Template.QuarterDivision": {
         "type": "object",
         "properties": {
           "type": {
             "const": "QuarterDivision",
-            "title": "템플릿의 타입."
+            "title": "The type of the template."
           },
           "contents": {
             "type": "array",
@@ -614,11 +614,11 @@
                   "url": {
                     "type": "string",
                     "format": "uri",
-                    "title": "이미지의 URL."
+                    "title": "URL of the image."
                   },
                   "text": {
                     "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "이미지에 대응되는 텍스트."
+                    "title": "Text corresponding to the image."
                   }
                 },
                 "required": [
@@ -632,11 +632,11 @@
                   "url": {
                     "type": "string",
                     "format": "uri",
-                    "title": "이미지의 URL."
+                    "title": "URL of the image."
                   },
                   "text": {
                     "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "이미지에 대응되는 텍스트."
+                    "title": "Text corresponding to the image."
                   }
                 },
                 "required": [
@@ -650,11 +650,11 @@
                   "url": {
                     "type": "string",
                     "format": "uri",
-                    "title": "이미지의 URL."
+                    "title": "URL of the image."
                   },
                   "text": {
                     "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "이미지에 대응되는 텍스트."
+                    "title": "Text corresponding to the image."
                   }
                 },
                 "required": [
@@ -668,11 +668,11 @@
                   "url": {
                     "type": "string",
                     "format": "uri",
-                    "title": "이미지의 URL."
+                    "title": "URL of the image."
                   },
                   "text": {
                     "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "이미지에 대응되는 텍스트."
+                    "title": "Text corresponding to the image."
                   }
                 },
                 "required": [
@@ -682,14 +682,14 @@
               }
             ],
             "additionalItems": false,
-            "title": "슬라이드의 내용물"
+            "title": "Contents of the slide"
           }
         },
         "required": [
           "type",
           "contents"
         ],
-        "title": "4분할 정방형 (컷 만화형)"
+        "title": "4-part square (cut cartoon type)"
       },
       "IGoogleSlides.ICreatePresentationInput": {
         "type": "object",
@@ -700,7 +700,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/presentations"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           },
           "title": {
@@ -712,13 +712,13 @@
                 "type": "string"
               }
             ],
-            "title": "프레젠테이션의 제목."
+            "title": "The title of the presentation."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "Google Slides의 프레젠테이션을 생성하기 위한 요청 DTO."
+        "title": "Request DTO for generating a presentation in Google Slides."
       }
     }
   },

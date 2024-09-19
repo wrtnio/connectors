@@ -18,7 +18,7 @@
     "title": "통합 택배 추적기",
     "summary": "택배 정보를 쉽게 확인할 수 있어요.",
     "description": "택배사를 조회하고, 송장번호에 맞는 택배사를 추천받을 수 있어요. 송장 조회로 택배 배송 상태를 실시간으로 확인할 수 있어요. 여러 택배사의 배송 정보를 한 번에 관리할 수 있고, 배송 알림을 설정할 수도 있어요. 개인 사용자는 물론 온라인 쇼핑몰 운영자나 물류 관리자들이 효율적으로 배송 상황을 추적하고 관리할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/sweet-tacker/get-companies/recommended": {
       "post": {
-        "summary": "송장 번호에 매칭되는 택배사 목록 조회",
-        "description": "송장번호에 매칭되는 택배사 목록을 조회합니다\n\n송장 조회를 하기 위해서는 택배사 코드가 필수적입니다.\n따라서 유저가 송장번호는 알고 자신의 택배를 전달해줄 택배사가 어딘지 모르면 송장 조회를 할 수 없습니다.\n이 커넥터는 이러한 문제를 해결하기 위해 송장번호에 맞는 택배사를 추론해주는 기능을 제공합니다.\n다만 이 기능을 호출해도 택배사일 가능성이 있는 여러 개의 택배사로 나올 수도 있기 때문에 어느 회사가 이 택배를 운송해줄지는 알 수 없습니다.\n\n물론, 리스트에 대상이 1개라면 그 택배사일 가능성이 거의 100% 일 것입니다.",
+        "summary": "Search for a list of couriers matching the invoice number",
+        "description": "Search for a list of couriers matching the invoice number\n\nA courier code is essential to search for an invoice.\nTherefore, if a user knows the invoice number but does not know which courier will deliver his or her parcel, he or she cannot search for the invoice.\nTo solve this problem, this connector provides a function that infers the courier matching the invoice number.\nHowever, even if this function is called, multiple couriers that may be couriers may appear, so it is impossible to know which company will transport this parcel.\n\nOf course, if there is only one target in the list, the probability that it will be that courier is almost 100%.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "택배사 조회를 위한 조건",
+          "description": "Conditions for courier search",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "택배사 목록",
+            "description": "List of couriers",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,13 +59,13 @@
     },
     "/connector/sweet-tacker/get-companies": {
       "post": {
-        "summary": "택배사 목록 조회",
-        "description": "택배사 목록을 조회합니다\n\n대한민국 국내, 국외의 택배사들을 모두 조회합니다.\n추후 송장번호를 통한 배송 조회를 할 때에는 택배사 코드가 함께 필요하기 때문에 먼저 택배사 목록부터 조회해야 합니다.\n택배사 목록을 조회한 후 자신의 택배사를 찾아서 해당 택배사의 코드를 송장 조회 시에 제공해주면 됩니다.",
+        "summary": "Search for courier list",
+        "description": "Search for the courier list\n\nSearch for all domestic and international courier companies in Korea.\nWhen searching for delivery through the invoice number later, you will need the courier code, so you must search for the courier list first.\nAfter searching for the courier list, find your courier and provide the courier code when searching for the invoice.",
         "tags": [],
         "parameters": [],
         "responses": {
           "201": {
-            "description": "택배사 목록",
+            "description": "List of couriers",
             "content": {
               "application/json": {
                 "schema": {
@@ -81,12 +81,12 @@
     },
     "/connector/sweet-tacker/tracking-info": {
       "post": {
-        "summary": "송장 조회",
-        "description": "송장 번호를 조회합니다\n\n송장을 조회하기 위해서는 자신이 조회하고자 하는 송장 번호 외에도 택배사 코드가 필요합니다.\n내 택배를 운송해줄 택배사가 어딘지 안다면 택배사를 조회하여 택배사 이름이 일치하는 택배사로부터 택배사 코드를 가져오면 됩니다.\n만약 송장 번호는 알지만 택배사 코드는 모르는 상태라면 '송장 번호에 매칭되는 택배사 목록 조회' 를 사용하여 자신의 택배를 운송해줄 택배사를 유추해볼 수 있습니다.\n택배를 조회하면 현재 택배가 어디까지 도달하였는지 그 위치와 시간, 그리고 그 택배를 운송해주는 담당자가 누군지를 알 수 있습니다.\n경우에 따라 전화번호가 있을 수도 있지만 절대적인 것은 아닙니다.\n또한, 쿠팡과 같이 커머스 업체에서 직배송하는 경우에는 송장 번호가 있어도 조회할 수 없는 경우도 있습니다.",
+        "summary": "Invoice search",
+        "description": "Search for the invoice number\n\nTo search for an invoice, you need the courier code in addition to the invoice number you want to search for.\nIf you know which courier will transport your package, you can search for the courier and get the courier code from the courier whose name matches the courier code.\nIf you know the invoice number but do not know the courier code, you can use 'Search for a list of couriers matching the invoice number' to infer the courier that will transport your package.\nWhen you search for a package, you can find out the current location and time of the package, as well as who is transporting the package.\nIn some cases, there may be a phone number, but it is not absolute.\nIn addition, in cases where the product is delivered directly by an commerce company such as Coupang, there are cases where you cannot search even if you have the invoice number.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "송장 번호를 조회하기 위한 조건",
+          "description": "Conditions for searching the invoice number",
           "content": {
             "application/json": {
               "schema": {
@@ -98,7 +98,7 @@
         },
         "responses": {
           "201": {
-            "description": "택배의 이동 경로",
+            "description": "The movement path of the package",
             "content": {
               "application/json": {
                 "schema": {
@@ -122,25 +122,25 @@
             "items": {
               "$ref": "#/components/schemas/OmitISweetTracker.CompanyInternational"
             },
-            "title": "택배사 목록"
+            "title": "Courier list"
           }
         },
         "required": [
           "Recommend"
         ],
-        "title": "송장 번호에 매칭되는 택배사 목록 DTO"
+        "title": "DTO List of couriers matching the invoice number"
       },
       "OmitISweetTracker.CompanyInternational": {
         "type": "object",
         "properties": {
           "Name": {
             "type": "string",
-            "title": "택배사 이름"
+            "title": "Courier name"
           },
           "Code": {
             "type": "string",
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "택배사가 가지는 고유한 코드 값"
+            "title": "Unique code value of the courier company"
           }
         },
         "required": [
@@ -154,7 +154,7 @@
         "properties": {
           "t_invoice": {
             "type": "string",
-            "title": "송장번호"
+            "title": "Invoice number"
           }
         },
         "required": [
@@ -169,13 +169,13 @@
             "items": {
               "$ref": "#/components/schemas/ISweetTracker.Company"
             },
-            "title": "택배사 목록"
+            "title": "Courier list"
           }
         },
         "required": [
           "Company"
         ],
-        "title": "택배사 조회 응답 DTO"
+        "title": "Courier inquiry response DTO"
       },
       "ISweetTracker.Company": {
         "type": "object",
@@ -183,7 +183,7 @@
           "Code": {
             "type": "string",
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "택배사가 가지는 고유한 코드 값"
+            "title": "Unique code value of the courier company"
           },
           "International": {
             "oneOf": [
@@ -194,11 +194,11 @@
                 "const": "false"
               }
             ],
-            "title": "국제 배송 여부"
+            "title": "International Shipping"
           },
           "Name": {
             "type": "string",
-            "title": "택배사 이름"
+            "title": "Courier name"
           }
         },
         "required": [
@@ -212,15 +212,16 @@
         "properties": {
           "senderName": {
             "type": "string",
-            "title": "보내는 사람 이름"
+            "title": "Sender's name"
           },
           "receiverAddr": {
             "type": "string",
-            "title": "받는 사람 주소"
+            "title": "Recipient Address"
           },
           "firstDetail": {
             "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
-            "description": "경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다"
+            "title": "It means the first path among the paths, and corresponds to the 0th index of the `trackingDetails` array",
+            "description": "It means the first path among the paths, and corresponds to the 0th index of the `trackingDetails` array."
           },
           "level": {
             "oneOf": [
@@ -255,11 +256,12 @@
                 "description": "배송 완료"
               }
             ],
-            "title": "진행 단계"
+            "title": "Progress stage"
           },
           "lastDetail": {
             "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
-            "description": "경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다"
+            "title": "It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array",
+            "description": "It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array."
           },
           "estimate": {
             "oneOf": [
@@ -270,16 +272,16 @@
                 "type": "string"
               }
             ],
-            "title": "배송 예정 시간",
-            "description": "'15시~17시' 형식의 텍스트"
+            "title": "Expected delivery time",
+            "description": "Text in the format '15:00~17:00'"
           },
           "itemImage": {
             "type": "string",
-            "title": "상품 이미지 URL"
+            "title": "Product Image URL"
           },
           "adUrl": {
             "type": "string",
-            "title": "택배사에서 광고용으로 사용하는 주소"
+            "title": "Address used by courier companies for advertising purposes"
           },
           "lastStateDetail": {
             "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
@@ -294,11 +296,11 @@
                 "type": "string"
               }
             ],
-            "title": "우편주소"
+            "title": "Postal address"
           },
           "invoiceNo": {
             "type": "string",
-            "title": "운송장 번호"
+            "title": "tracking number"
           },
           "completeYN": {
             "oneOf": [
@@ -313,7 +315,7 @@
                 "description": "배송이 완료되지 않은 경우에는 N으로 표기된다."
               }
             ],
-            "title": "배송 완료 여부"
+            "title": "Delivery Completed"
           },
           "orderNumber": {
             "oneOf": [
@@ -324,23 +326,23 @@
                 "type": "string"
               }
             ],
-            "title": "주문 번호"
+            "title": "Order Number"
           },
           "complete": {
             "type": "boolean",
-            "title": "배송 완료 여부"
+            "title": "Delivery Completed"
           },
           "recipient": {
             "type": "string",
-            "title": "수령인 정보"
+            "title": "Recipient Information"
           },
           "receiverName": {
             "type": "string",
-            "title": "받는 사람"
+            "title": "Recipient"
           },
           "result": {
             "type": "string",
-            "title": "조회 결과"
+            "title": "Search Results"
           },
           "productInfo": {
             "oneOf": [
@@ -351,11 +353,11 @@
                 "type": "string"
               }
             ],
-            "title": "상품 정보"
+            "title": "Product Information"
           },
           "itemName": {
             "type": "string",
-            "title": "상품 이름"
+            "title": "Product Name"
           }
         },
         "required": [
@@ -390,11 +392,11 @@
                 "type": "string"
               }
             ],
-            "title": "배송 상태 코드"
+            "title": "Delivery Status Code"
           },
           "kind": {
             "type": "string",
-            "title": "진행 상태"
+            "title": "Progress status"
           },
           "level": {
             "oneOf": [
@@ -429,15 +431,15 @@
                 "description": "배송 완료"
               }
             ],
-            "title": "진행 단계"
+            "title": "Progress stage"
           },
           "manName": {
             "type": "string",
-            "title": "배송기사 이름"
+            "title": "Delivery driver name"
           },
           "manPic": {
             "type": "string",
-            "title": "배송기사 전화번호"
+            "title": "Delivery driver phone number"
           },
           "remark": {
             "oneOf": [
@@ -448,27 +450,27 @@
                 "type": "string"
               }
             ],
-            "title": "비고"
+            "title": "Note"
           },
           "telno": {
             "type": "string",
-            "title": "배송기사 전화번호"
+            "title": "Delivery driver phone number"
           },
           "telno2": {
             "type": "string",
-            "title": "배송기사 전화번호"
+            "title": "Delivery driver phone number"
           },
           "time": {
             "type": "number",
-            "title": "진행 시간"
+            "title": "Progress time"
           },
           "timeString": {
             "type": "string",
-            "title": "진행 시간"
+            "title": "Progress time"
           },
           "where": {
             "type": "string",
-            "title": "진행 위치"
+            "title": "Progress location"
           }
         },
         "required": [
@@ -490,7 +492,7 @@
         "properties": {
           "t_invoice": {
             "type": "string",
-            "title": "송장번호"
+            "title": "Invoice number"
           },
           "t_code": {
             "oneOf": [
@@ -511,8 +513,8 @@
                 }
               }
             ],
-            "title": "택배사 코드",
-            "description": "택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다\n택배사의 이름이 아닌 임의의 코드 값임에 주의해야 한다"
+            "title": "Courier Code",
+            "description": "The courier code must be entered as the `Code` value that appears when searching for a courier company.\nNote that this is an arbitrary code value, not the name of the courier company."
           }
         },
         "required": [

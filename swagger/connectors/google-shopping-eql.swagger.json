@@ -18,7 +18,7 @@
     "title": "EQL 상품 검색",
     "summary": "EQL 쇼핑몰의 상품을 한 번에 검색해요.",
     "description": "EQL 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-shopping/eql": {
       "post": {
-        "summary": "EQL 검색",
-        "description": "상품을 EQL에서 검색합니다.",
+        "summary": "EQL search",
+        "description": "Search for products in EQL.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "search conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "검색 결과",
+            "description": "search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,7 +68,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "상품명"
+            "title": "Product name"
           },
           "link": {
             "oneOf": [
@@ -81,26 +81,26 @@
                 "format": "uri"
               }
             ],
-            "title": "상품 링크"
+            "title": "Product Link"
           },
           "price": {
             "type": "string",
-            "title": "상품 가격",
-            "description": "₩57,600 형식"
+            "title": "Product Price",
+            "description": "₩57,600 Format"
           },
           "source": {
             "type": "string",
-            "title": "상품 출처"
+            "title": "Product Source"
           },
           "deliveryCost": {
             "type": "string",
-            "title": "배송비"
+            "title": "Shipping fee"
           },
           "thumbnail": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "상품 이미지"
+            "title": "Product Image"
           }
         },
         "required": [
@@ -109,27 +109,27 @@
           "price",
           "thumbnail"
         ],
-        "title": "상품 검색 결과"
+        "title": "Product search results"
       },
       "IGoogleShopping.IRequestStandAlone": {
         "type": "object",
         "properties": {
           "keyword": {
             "type": "string",
-            "title": "검색어",
-            "description": "검색할 키워드를 입력하세요."
+            "title": "Search term",
+            "description": "Enter the keyword you want to search for."
           },
           "max_results": {
             "type": "integer",
-            "title": "검색 결과 개수",
-            "description": "검색 결과의 개수를 설정합니다."
+            "title": "Number of search results",
+            "description": "Set the number of search results."
           }
         },
         "required": [
           "keyword",
           "max_results"
         ],
-        "title": "상품 검색 조건"
+        "title": "Product search conditions"
       }
     }
   },

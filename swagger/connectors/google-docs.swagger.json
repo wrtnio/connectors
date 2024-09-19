@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-docs": {
       "post": {
-        "summary": "구글 docs 생성",
-        "description": "구글 docs를 생성합니다",
+        "summary": "Generate Google Docs",
+        "description": "Generate Google Docs",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "생성할 구글 docs 제목",
+          "description": "Title of Google Docs to generate",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 구글 docs 고유 ID",
+            "description": "Unique ID of generated Google Docs",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,12 +59,12 @@
     },
     "/connector/google-docs/permission": {
       "post": {
-        "summary": "구글 docs 권한 부여",
-        "description": "구글 docs에 권한을 부여합니다",
+        "summary": "Grant permission to Google Docs",
+        "description": "Grant permission to Google Docs",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 docs 권한 부여를 위한 정보",
+          "description": "Information for granting permission to Google Docs",
           "content": {
             "application/json": {
               "schema": {
@@ -87,8 +87,8 @@
     },
     "/connector/google-docs/get/{id}": {
       "post": {
-        "summary": "구글 docs 읽기",
-        "description": "구글 docs의 내용을 읽어옵니다",
+        "summary": "Read Google Docs",
+        "description": "Read the contents of Google Docs",
         "tags": [],
         "parameters": [
           {
@@ -103,7 +103,7 @@
               }
             },
             "required": true,
-            "description": " 구글 docs 고유 ID"
+            "description": " Google Docs unique ID"
           }
         ],
         "requestBody": {
@@ -118,7 +118,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 docs 내용",
+            "description": "Google Docs contents",
             "content": {
               "application/json": {
                 "schema": {
@@ -133,12 +133,12 @@
     },
     "/connector/google-docs/template": {
       "post": {
-        "summary": "구글 docs 복사",
-        "description": "이미 존재하는 구글 docs를 복사하여 새로운 구글 docs를 생성합니다",
+        "summary": "Copy Google Docs",
+        "description": "Create new Google Docs by copying existing Google Docs",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "복사할 구글 docs 링크와 생성할 구글 docs 제목",
+          "description": "Links to Google Docs to copy and titles of Google Docs to create",
           "content": {
             "application/json": {
               "schema": {
@@ -150,7 +150,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 구글 docs 고유 ID",
+            "description": "Unique ID of the generated Google Docs",
             "content": {
               "application/json": {
                 "schema": {
@@ -165,8 +165,8 @@
     },
     "/connector/google-docs/{id}": {
       "delete": {
-        "summary": "구글 docs 삭제",
-        "description": "구글 docs를 삭제합니다.",
+        "summary": "Delete Google Docs",
+        "description": "Delete Google Docs.",
         "tags": [],
         "parameters": [
           {
@@ -181,7 +181,7 @@
               }
             },
             "required": true,
-            "description": " 삭제할 구글 docs 고유 ID"
+            "description": " Unique ID of the Google Docs to delete"
           }
         ],
         "requestBody": {
@@ -207,8 +207,8 @@
     },
     "/connector/google-docs/get-list": {
       "post": {
-        "summary": "구글 docs 목록 가져오기",
-        "description": "구글 docs 목록을 가져옵니다",
+        "summary": "Get a list of Google Docs",
+        "description": "Get a list of Google Docs",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -223,7 +223,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 docs 목록",
+            "description": "a list of Google Docs",
             "content": {
               "application/json": {
                 "schema": {
@@ -239,8 +239,8 @@
     },
     "/connector/google-docs/append": {
       "post": {
-        "summary": "구글 docs 텍스트 추가",
-        "description": "구글 docs에 텍스트를 추가합니다",
+        "summary": "Add text to Google Docs",
+        "description": "Add text to Google Docs",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -266,7 +266,7 @@
     },
     "/internal/google": {
       "get": {
-        "description": "구글 access token 재발급 요청",
+        "description": "Request to reissue Google access token",
         "tags": [],
         "parameters": [],
         "responses": {
@@ -291,22 +291,22 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "생성된 docs id.",
-            "description": "생성된 docs의 id입니다."
+            "title": "Generated docs id.",
+            "description": "The ID of the generated docs."
           }
         },
         "required": [
           "id"
         ],
-        "title": "구글 docs 생성 결과"
+        "title": "Google Docs creation result"
       },
       "IGoogleDocs.ICreateGoogleDocsInput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "구글 docs 제목.",
-            "description": "생성할 docs의 제목입니다."
+            "title": "Google docs title.",
+            "description": "The title of the docs to be generated."
           },
           "secretKey": {
             "type": "string",
@@ -315,7 +315,7 @@
               "https://www.googleapis.com/auth/drive",
               "https://www.googleapis.com/auth/documents"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -323,7 +323,7 @@
           "title",
           "secretKey"
         ],
-        "title": "구글 docs 생성에 필요한 정보"
+        "title": "Information required to create Google docs"
       },
       "IGoogleDocs.IPermissionGoogleDocsInput": {
         "type": "object",
@@ -335,16 +335,16 @@
               "path": "/connector/google-docs/get-list",
               "jmesPath": "data[].{value:id, label:title}"
             },
-            "title": "구글 docs id.",
-            "description": "접근 권한을 부여할 구글 docs의 id입니다."
+            "title": "Google docs id.",
+            "description": "The id of the Google docs to which you want to grant access."
           },
           "permissions": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IPermission"
             },
-            "title": "접근 가능하게 할 이메일과 부여할 권한 리스트.",
-            "description": "접근 가능하게 할 이메일과 부여할 권한 리스트입니다."
+            "title": "Here is a list of emails to make accessible and the permissions to grant.",
+            "description": "Here is a list of emails to make accessible and the permissions to grant."
           },
           "secretKey": {
             "type": "string",
@@ -353,7 +353,7 @@
               "https://www.googleapis.com/auth/drive",
               "https://www.googleapis.com/auth/documents"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -362,7 +362,7 @@
           "permissions",
           "secretKey"
         ],
-        "title": "구글 docs 권한 부여에 필요한 정보"
+        "title": "Information required to grant Google Docs permissions"
       },
       "IPermission": {
         "type": "object",
@@ -370,8 +370,8 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "권한을 부여할 사용자의 이메일.",
-            "description": "권한을 부여할 사용자의 이메일입니다."
+            "title": "The email address of the user to grant permission to.",
+            "description": "The email address of the user to grant permission to."
           },
           "role": {
             "oneOf": [
@@ -394,8 +394,8 @@
                 "const": "fileOrganizer"
               }
             ],
-            "title": "부여할 권한.",
-            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\norganizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.\nfileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"writer\", \"commenter\", \"reader\", \"organizer\", \"fileOrganizer\" 6가지만 가능합니다."
+            "title": "The permission to grant.",
+            "description": "The type of permission to grant.\n\nowner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.\norganizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.\nfileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.\nwriter: Grants write permissions. Users with this permission can modify or delete files.\ncommenter: Grants comment permissions. Users with this permission can read and comment on files.\nreader: Grants read permissions. Users with this permission can read files.\n\nThere are only six possible values: \"owner\", \"writer\", \"commenter\", \"reader\", \"organizer\", \"fileOrganizer\"."
           },
           "type": {
             "oneOf": [
@@ -412,8 +412,8 @@
                 "const": "anyone"
               }
             ],
-            "title": "부여할 권한의 타입.",
-            "description": "부여할 권한의 타입입니다.\n\n user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.\ngroup - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.\ndomain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.\nanyone - 모든 사용자\n\n가능한 값으로는 \"user\", \"group\", \"domain\", \"anyone\" 4가지만 가능합니다."
+            "title": "The type of permission to grant.",
+            "description": "The type of permission to grant.\n\nuser - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.\ngroup - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.\ndomain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.\nanyone - all users\n\nThere are only four possible values: \"user\", \"group\", \"domain\", \"anyone\"."
           }
         },
         "required": [
@@ -421,29 +421,29 @@
           "role",
           "type"
         ],
-        "title": "권한 부여 정보"
+        "title": "Authorization information"
       },
       "IGoogleDocs.IReadGoogleDocsOutput": {
         "type": "object",
         "properties": {
           "data": {
             "$ref": "#/components/schemas/IGoogleDocs",
-            "title": "구글 docs 데이터.",
-            "description": "읽어온 구글 docs의 데이터입니다."
+            "title": "Google docs data.",
+            "description": "This is data from Google docs that I read."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 docs 조회 결과"
+        "title": "Google Docs search results"
       },
       "IGoogleDocs": {
         "type": "object",
         "properties": {
           "text": {
             "type": "string",
-            "title": "text 정보.",
-            "description": "구글 docs의 text 정보입니다."
+            "title": "text information.",
+            "description": "Here is the text information from Google Docs."
           },
           "table": {
             "type": "array",
@@ -456,8 +456,8 @@
                 }
               }
             },
-            "title": "테이블 정보.",
-            "description": "구글 docs의 테이블 정보입니다."
+            "title": "Table Information.",
+            "description": "Here is the table information from Google Docs."
           }
         }
       },
@@ -471,28 +471,28 @@
               "https://www.googleapis.com/auth/drive",
               "https://www.googleapis.com/auth/documents"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "인증 정보"
+        "title": "Authentication Information"
       },
       "IGoogleDocs.ICreateDocByTemplateOutput": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "생성된 docs id.",
-            "description": "복사된 docs의 id입니다."
+            "title": "Generated docs id.",
+            "description": "The id of the copied docs."
           }
         },
         "required": [
           "id"
         ],
-        "title": "구글 docs 복제 결과"
+        "title": "Google Docs Duplication Results"
       },
       "IGoogleDocs.ICreateDocByTemplateInput": {
         "type": "object",
@@ -504,13 +504,13 @@
               "path": "/connector/google-docs/get-list",
               "jmesPath": "data[].{value:id, label:title}"
             },
-            "title": "복제할 구글 docs.",
-            "description": "복제할 구글 docs."
+            "title": "Google docs to clone.",
+            "description": "Google docs to clone."
           },
           "title": {
             "type": "string",
-            "title": "생성할 docs 제목.",
-            "description": "복제하여 새로 생성할 docs의 제목입니다."
+            "title": "The title of the docs to be created.",
+            "description": "The title of the docs to be newly created by duplicating."
           },
           "secretKey": {
             "type": "string",
@@ -519,7 +519,7 @@
               "https://www.googleapis.com/auth/drive",
               "https://www.googleapis.com/auth/documents"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -528,7 +528,7 @@
           "title",
           "secretKey"
         ],
-        "title": "구글 docs 복제에 필요한 정보"
+        "title": "Information needed to duplicate Google Docs"
       },
       "IGoogleDocs.IListGoogleDocsOutput": {
         "type": "object",
@@ -547,8 +547,8 @@
                       "type": "string"
                     }
                   ],
-                  "title": "구글 docs id.",
-                  "description": "가져온 구글 docs의 id입니다."
+                  "title": "Google docs id.",
+                  "description": "The id of the imported Google docs."
                 },
                 "title": {
                   "oneOf": [
@@ -559,19 +559,19 @@
                       "type": "string"
                     }
                   ],
-                  "title": "구글 docs title.",
-                  "description": "가져온 구글 docs의 제목입니다."
+                  "title": "Google docs title.",
+                  "description": "The title of the imported Google docs."
                 }
               }
             },
-            "title": "구글 docs 리스트.",
-            "description": "검색된 구글 docs 리스트입니다."
+            "title": "List of Google docs.",
+            "description": "Here is a list of Google docs that were searched."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 docs 리스트 조회 결과"
+        "title": "Google docs list query results"
       },
       "IGoogleDocs.IAppendTextGoogleDocsInput": {
         "type": "object",
@@ -583,13 +583,13 @@
               "path": "/connector/google-docs/get-list",
               "jmesPath": "data[].{value:id, label:title}"
             },
-            "title": "구글 docs.",
-            "description": "텍스트를 추가할 구글 docs를 선택합니다."
+            "title": "Google docs.",
+            "description": "Select the Google docs you want to add text to."
           },
           "text": {
             "type": "string",
-            "title": "텍스트.",
-            "description": "추가할 텍스트입니다."
+            "title": "text.",
+            "description": "The text to add."
           },
           "secretKey": {
             "type": "string",
@@ -598,7 +598,7 @@
               "https://www.googleapis.com/auth/drive",
               "https://www.googleapis.com/auth/documents"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -607,7 +607,7 @@
           "text",
           "secretKey"
         ],
-        "title": "구글 docs 텍스트 추가에 필요한 정보"
+        "title": "Information needed to add text to Google Docs"
       }
     }
   },

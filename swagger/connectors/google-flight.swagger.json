@@ -18,7 +18,7 @@
     "title": "구글 항공권 검색 및 비교",
     "summary": "항공편을 검색하고 최적의 옵션을 선택해요.",
     "description": "출발지와 목적지, 날짜를 입력하면 다양한 항공편을 검색할 수 있어요. 직항/경유, 항공사, 가격 범위 등으로 검색 결과를 필터링할 수 있고, 가격, 소요 시간, 편의성 등을 기준으로 정렬할 수 있어요. 왕복 항공편 검색도 가능하며, 여러 날짜의 가격을 한눈에 비교할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-flight/one-way": {
       "post": {
-        "summary": "편도 항공편 검색",
-        "description": "편도 항공편을 검색합니다.",
+        "summary": "Search for one-way flights",
+        "description": "Search for one-way flights.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "항공편 검색에 필요한 조건",
+          "description": "Conditions required to search for flights",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "편도 항공편 검색 결과",
+            "description": "Search results for one-way flights",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,12 +59,12 @@
     },
     "/connector/google-flight/round-trip": {
       "post": {
-        "summary": "왕복 항공편 검색",
-        "description": "왕복 항공편을 검색합니다.",
+        "summary": "Search for round-trip flights",
+        "description": "Search for round-trip flights.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "항공편 검색에 필요한 조건",
+          "description": "The conditions required to search for flights",
           "content": {
             "application/json": {
               "schema": {
@@ -76,7 +76,7 @@
         },
         "responses": {
           "201": {
-            "description": "왕복 항공편 검색 결과",
+            "description": "The results of the round-trip flight search",
             "content": {
               "application/json": {
                 "schema": {
@@ -101,24 +101,24 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleFlight.ISearchOutput"
             },
-            "title": "최종 선택된 항공권 정보",
-            "description": "최종 선택된 항공권 정보입니다."
+            "title": "Final selected flight information",
+            "description": "Here is the final selected flight information."
           },
           "booking_options": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGoogleFlight.IBookingOption"
             },
-            "title": "예약 정보",
-            "description": "선택한 항공편을 예약할 수 있는 정보들입니다."
+            "title": "Reservation Information",
+            "description": "Here is the information you need to book your chosen flight."
           }
         },
         "required": [
           "flight",
           "booking_options"
         ],
-        "title": "최종 항공권 선택 결과",
-        "description": "최종 항공권 선택 결과입니다."
+        "title": "Final flight selection results",
+        "description": "Here are the final flight selection results."
       },
       "IGoogleFlight.ISearchOutput": {
         "type": "object",
@@ -128,33 +128,33 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleFlight.IFlight"
             },
-            "title": "항공편 정보",
-            "description": "항공편 정보입니다."
+            "title": "Flight Information",
+            "description": "Here is the flight information."
           },
           "total_duration": {
             "type": "string",
-            "title": "비행 총 소요시간",
-            "description": "비행에 걸리는 총 소요시간입니다."
+            "title": "Total flight time",
+            "description": "Total flight time."
           },
           "price": {
             "type": "string",
-            "title": "항공편 가격",
-            "description": "항공편 가격입니다."
+            "title": "Flight prices",
+            "description": "Flight prices."
           },
           "layover": {
             "$ref": "#/components/schemas/IGoogleFlight.ILayover",
-            "title": "환승 정보",
-            "description": "항공편 환승 정보입니다."
+            "title": "Transfer Information",
+            "description": "Here is the flight transfer information."
           },
           "departure_token": {
             "type": "string",
-            "title": "돌아오는 항공편 검색 토큰",
-            "description": "돌아오는 항공편 검색을 위한 토큰"
+            "title": "Return flight search token",
+            "description": "Token for return flight search"
           },
           "booking_token": {
             "type": "string",
-            "title": "항공편 최종 확인 토큰",
-            "description": "항공편 최종 확인을 위한 토큰"
+            "title": "Final confirmation token for flight",
+            "description": "Token for final confirmation of flight"
           }
         },
         "required": [
@@ -162,53 +162,53 @@
           "total_duration",
           "price"
         ],
-        "title": "항공권 검색 결과",
-        "description": "항공권 검색 결과입니다."
+        "title": "Flight search results",
+        "description": "Here are the flight search results."
       },
       "IGoogleFlight.IFlight": {
         "type": "object",
         "properties": {
           "departure_airport": {
             "$ref": "#/components/schemas/IGoogleFlight.IAirport",
-            "title": "출발 정보",
-            "description": "항공편 출발 정보입니다."
+            "title": "Departure Information",
+            "description": "Here is the flight departure information."
           },
           "arrival_airport": {
             "$ref": "#/components/schemas/IGoogleFlight.IAirport",
-            "title": "도착 정보",
-            "description": "항공편 도착 정보입니다."
+            "title": "Arrival Information",
+            "description": "Here is the flight arrival information."
           },
           "duration": {
             "type": "string",
-            "title": "비행 시간",
-            "description": "비행에 걸리는 소요 시간입니다."
+            "title": "Flight time",
+            "description": "This is the time it takes to fly."
           },
           "airplane": {
             "type": "string",
-            "title": "비행기 기종",
-            "description": "비행기 기종 정보입니다."
+            "title": "Airplane type",
+            "description": "Here is the aircraft type information."
           },
           "airline": {
             "type": "string",
-            "title": "항공사",
-            "description": "항공사 정보입니다."
+            "title": "Airline",
+            "description": "Here is the airline information."
           },
           "airline_logo": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "항공사 로고",
-            "description": "항공사 로고 이미지입니다."
+            "title": "Airline Logo",
+            "description": "This is an image of an airline logo."
           },
           "travel_class": {
             "type": "string",
-            "title": "좌석 등급",
-            "description": "좌석 등급 정보입니다."
+            "title": "Seat Class",
+            "description": "Here is the seat class information."
           },
           "flight_number": {
             "type": "string",
-            "title": "항공편 번호",
-            "description": "항공편 번호입니다."
+            "title": "Flight number",
+            "description": "Flight number is."
           }
         },
         "required": [
@@ -227,18 +227,18 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "공항 이름",
-            "description": "공항 이름입니다."
+            "title": "Airport name",
+            "description": "Airport name."
           },
           "code": {
             "type": "string",
-            "title": "공항 코드",
-            "description": "세자리 공항 코드입니다."
+            "title": "Airport Code",
+            "description": "This is a three-digit airport code."
           },
           "time": {
             "type": "string",
-            "title": "비행기 출발 일자 / 시각",
-            "description": "비행기가 출발하는 일자와 시각입니다."
+            "title": "Flight Departure Date / Time",
+            "description": "The date and time of the flight departure."
           }
         },
         "required": [
@@ -246,25 +246,25 @@
           "code",
           "time"
         ],
-        "title": "항공편 정보"
+        "title": "Flight Information"
       },
       "IGoogleFlight.ILayover": {
         "type": "object",
         "properties": {
           "duration": {
             "type": "string",
-            "title": "환승 시간",
-            "description": "환승 시간입니다."
+            "title": "Transfer time",
+            "description": "It's transfer time."
           },
           "name": {
             "type": "string",
-            "title": "공항 이름",
-            "description": "공항 이름입니다."
+            "title": "Airport name",
+            "description": "Airport name."
           },
           "code": {
             "type": "string",
-            "title": "공항 코드",
-            "description": "세자리 공항 코드입니다."
+            "title": "Airport Code",
+            "description": "This is a three-digit airport code."
           }
         },
         "required": [
@@ -272,20 +272,20 @@
           "name",
           "code"
         ],
-        "title": "환승 정보"
+        "title": "Transfer information"
       },
       "IGoogleFlight.IBookingOption": {
         "type": "object",
         "properties": {
           "book_with": {
             "type": "string",
-            "title": "예약 사이트",
-            "description": "선택할 항공편을 예약할 수 있는 사이트 입니다."
+            "title": "Reservation site",
+            "description": "This is a site where you can book flights of your choice."
           },
           "price": {
             "type": "string",
-            "title": "가격",
-            "description": "선택된 항공편의 가격입니다."
+            "title": "Price",
+            "description": "The price of the selected flight."
           },
           "book_link": {
             "oneOf": [
@@ -296,8 +296,8 @@
                 "$ref": "#/components/schemas/Formaturi"
               }
             ],
-            "title": "예약 링크",
-            "description": "선택된 항공편을 예약할 수 있는 링크입니다."
+            "title": "Reservation Link",
+            "description": "Here is a link to book your selected flight."
           }
         },
         "required": [
@@ -305,8 +305,8 @@
           "price",
           "book_link"
         ],
-        "title": "예약 옵션",
-        "description": "예약 옵션입니다."
+        "title": "Reservation options",
+        "description": "Reservation options."
       },
       "Formaturi": {
         "type": "object",
@@ -373,8 +373,8 @@
               "path": "/connector/airport-information/search",
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
-            "title": "출발지",
-            "description": "출발지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 출발지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
+            "title": "Departure",
+            "description": "Please enter the code of the departure airport.\n\nThe departure code must be the same even if it is a round trip (type \"1\").\n\nWhen calling connector/google-flight/arrival for a round trip (type \"1\"), the departure_id must be the same as when calling connector/google-flight/departure."
           },
           "arrival_id": {
             "type": "string",
@@ -383,8 +383,8 @@
               "path": "/connector/airport-information/search",
               "jmesPath": "[].{value:airport_code, label: [country_name, city_name, airport_name, airport_code].join('-', @)}"
             },
-            "title": "도착지",
-            "description": "도착지 공항의 코드를 입력해주세요.\n\n왕복(type이 \"1\")이어도 도착지 코드는 동일해야 합니다.\n\n왕복(type이 \"1\")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다."
+            "title": "Destination",
+            "description": "Please enter the destination airport code.\n\nEven if it is a round trip (type \"1\"), the destination code must be the same.\n\nWhen calling connector/google-flight/arrival for a round trip (type \"1\"), the arrival_id must be the same as when calling connector/google-flight/departure."
           },
           "type": {
             "oneOf": [
@@ -397,30 +397,30 @@
                 "title": "편도"
               }
             ],
-            "title": "왕복 또는 편도 여부",
-            "description": "왕복 또는 편도 여부를 선택해주세요.\n\n가능한 값으로 1, 2가 있습니다.\n\n왕복이면 \"1\", 편도면 \"2\"를 선택해주세요."
+            "title": "Round trip or one way",
+            "description": "Please select whether it is round trip or one way.\n\nPossible values are 1 and 2.\n\nPlease select \"1\" for round trip and \"2\" for one way."
           },
           "outbound_date": {
             "type": "string",
             "format": "date",
-            "title": "가는 날짜",
-            "description": "가는 날짜를 입력해주세요.\n\n오늘 날짜 이후의 날짜를 입력해주세요."
+            "title": "Departure date",
+            "description": "Please enter your departure date.\n\nPlease enter a date after today's date."
           },
           "return_date": {
             "type": "string",
             "format": "date",
-            "title": "오는 날짜",
-            "description": "오는 날짜를 입력해주세요.\n\ntype이 \"1\" 이면 필수로 넣어줘야 합니다.\n\ntype이 \"2\" 이면 넣어주지 않아야 합니다.\n\n오늘 날짜 이후의 날짜를 입력해주세요."
+            "title": "Date of arrival",
+            "description": "Please enter the date of arrival.\n\nIf type is \"1\", it must be entered.\n\nIf type is \"2\", it must not be entered.\n\nPlease enter a date after today's date."
           },
           "adults": {
             "type": "integer",
-            "title": "성인 인원",
-            "description": "성인 인원수를 입력해주세요."
+            "title": "Number of adults",
+            "description": "Please enter the number of adults."
           },
           "children": {
             "type": "integer",
-            "title": "아동 인원",
-            "description": "아동 인원수를 입력해주세요."
+            "title": "Number of children",
+            "description": "Please enter the number of children."
           },
           "stop": {
             "oneOf": [
@@ -441,13 +441,13 @@
                 "title": "2번 이상 경유"
               }
             ],
-            "title": "직항 여부",
-            "description": "직항 여부를 선택해주세요.\n\n가능한 값으로 0, 1, 2, 3이 있습니다."
+            "title": "Whether it is a direct flight",
+            "description": "Please select whether it is a direct flight.\n\nPossible values are 0, 1, 2, 3."
           },
           "max_price": {
             "type": "integer",
-            "title": "최대 가격",
-            "description": "항공권의 최대 가격을 입력해주세요.\n\n입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다."
+            "title": "Maximum Price",
+            "description": "Please enter the maximum price for your flight.\n\nYou must search for flights that do not exceed the maximum price you entered."
           }
         },
         "required": [
@@ -458,7 +458,7 @@
           "adults",
           "stop"
         ],
-        "title": "항공권 검색에 필요한 정보"
+        "title": "Information needed to search for airline tickets"
       }
     }
   },

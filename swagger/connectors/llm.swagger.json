@@ -17,7 +17,7 @@
   "info": {
     "title": "LLM",
     "description": "",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,14 +25,14 @@
   "paths": {
     "/connector/llm/selector-llm": {
       "post": {
-        "summary": "조건 선택",
-        "description": "주어진 후보 중에서 조건에 맞는 것을 선택합니다.",
+        "summary": "Select condition",
+        "description": "Select a candidate that satisfies the conditions from the given candidates.",
         "tags": [
           "Llm"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "후보 선택을 위한 입력",
+          "description": "Input for candidate selection",
           "content": {
             "application/json": {
               "schema": {
@@ -44,7 +44,7 @@
         },
         "responses": {
           "201": {
-            "description": "선택된 후보 인덱스 배열",
+            "description": "Array of selected candidate indices",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,8 +68,8 @@
             "items": {
               "type": "number"
             },
-            "title": "선택된 후보 인덱스 정보.",
-            "description": "선택된 후보들의 인덱스 리스트입니다."
+            "title": "Selected candidate index information.",
+            "description": "Here is a list of indexes for the selected candidates."
           }
         },
         "required": [
@@ -82,17 +82,17 @@
           "candidates": {
             "type": "array",
             "items": {},
-            "title": "선택지.",
-            "description": "선택 후보군 리스트입니다."
+            "title": "Choices.",
+            "description": "Here is a list of candidates for selection."
           },
           "num_select": {
             "type": "number",
-            "title": "선택 개수.",
-            "description": "선택할 후보군의 개수입니다."
+            "title": "Number of selections.",
+            "description": "The number of candidates to select."
           },
           "context": {
-            "title": "고려사항.",
-            "description": "후보군을 선택할 때 고려해야할 내용들을 넣습니다."
+            "title": "Considerations.",
+            "description": "Here are some things to consider when choosing a candidate."
           }
         },
         "required": [
@@ -106,7 +106,7 @@
   "tags": [
     {
       "name": "Llm",
-      "description": "selection 선택 추출"
+      "description": "selection Extract selection"
     }
   ],
   "x-samchon-emended": true

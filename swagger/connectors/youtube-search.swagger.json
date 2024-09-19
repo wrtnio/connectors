@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/youtube-search": {
       "post": {
-        "summary": "유튜브 영상 검색",
-        "description": "유튜브 영상 검색 결과를 가져옵니다.\n\n검색 결과는 영상의 제목과 링크가 있습니다.\n대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.",
+        "summary": "YouTube video search",
+        "description": "Get YouTube video search results.\n\nThe search results have the video title and link.\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "유튜브 영상 검색을 위한 조건",
+          "description": "Conditions for YouTube video search",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "유튜브 영상 검색 결과 목록.",
+            "description": "List of YouTube video search results.",
             "content": {
               "application/json": {
                 "schema": {
@@ -67,22 +67,22 @@
             "items": {
               "$ref": "#/components/schemas/IConnector.IReferenceContent"
             },
-            "title": "산출물 정보",
-            "description": "검색 결과에 대한 산출물 정보를 담고 있습니다."
+            "title": "Output Information",
+            "description": "Contains output information for search results."
           }
         },
         "required": [
           "references"
         ],
-        "title": "검색 결과"
+        "title": "Search Results"
       },
       "IConnector.IReferenceContent": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "제목",
-            "description": "산출물의 제목입니다."
+            "title": "Title",
+            "description": "The title of the output."
           },
           "type": {
             "oneOf": [
@@ -103,8 +103,8 @@
                 "title": "research_paper"
               }
             ],
-            "title": "산출물 타입",
-            "description": "비디오, 이미지, 뉴스기사, 논문.\n\nIt must be one of: video, image, news_article, research_paper"
+            "title": "Output Type",
+            "description": "Video, image, news article, research paper.\n\nIt must be one of: video, image, news_article, research_paper"
           },
           "source": {
             "oneOf": [
@@ -133,30 +133,30 @@
                 "title": "google_news"
               }
             ],
-            "title": "산출물의 출처",
-            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
+            "title": "Source of output",
+            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
           },
           "url": {
             "type": "string",
             "format": "uri",
-            "title": "URL 주소",
-            "description": "산출물의 URL 주소입니다."
+            "title": "URL address",
+            "description": "The URL address of the output."
           },
           "contents": {
             "type": "string",
-            "title": "산출물 내용",
-            "description": "산출물의 내용입니다."
+            "title": "Output Content",
+            "description": "Here is the content of the output."
           },
           "image": {
             "type": "string",
             "format": "uri",
-            "title": "산출물 이미지 url",
-            "description": "산출물의 이미지 URL 주소입니다."
+            "title": "Output Image URL",
+            "description": "The URL address of the image of the output."
           },
           "statistics": {
             "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
-            "title": "산출물 통계 자료 정보",
-            "description": "산출물의 통계 자료 정보입니다.\n\n가능한 값: view_count, like_count, rank"
+            "title": "Output statistics information",
+            "description": "Output statistics information.\n\nPossible values: view_count, like_count, rank"
           }
         },
         "required": [
@@ -190,8 +190,8 @@
               "x-wrtn-placeholder": "뤼튼"
             },
             "minItems": 1,
-            "title": "반드시 포함되어야 하는 키워드",
-            "description": "검색 결과에 포함되어야 하는 키워드입니다."
+            "title": "Must be included keywords",
+            "description": "Keywords that must be included in search results."
           },
           "or_keywords": {
             "type": "array",
@@ -199,8 +199,8 @@
               "type": "string",
               "x-wrtn-placeholder": "스튜디오"
             },
-            "title": "포함되면 좋겠는 키워드",
-            "description": "검색 결과에 포함되면 좋겠는 키워드입니다."
+            "title": "Keywords that you would like to see included",
+            "description": "Keywords that you would like to see included in your search results."
           },
           "not_keywords": {
             "type": "array",
@@ -208,14 +208,14 @@
               "type": "string",
               "x-wrtn-placeholder": "폭력"
             },
-            "title": "포함되면 안되는 키워드",
-            "description": "검색 결과에 포함되면 안되는 키워드입니다."
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results."
           }
         },
         "required": [
           "and_keywords"
         ],
-        "title": "유튜브 검색 조건"
+        "title": "YouTube search conditions"
       }
     }
   },

@@ -17,7 +17,7 @@
   "info": {
     "title": "내파일 기반 생활기록부 일괄 작성",
     "description": "",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/student-report-generator": {
       "post": {
-        "summary": "학생 생활 기록부 생성",
-        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.",
+        "summary": "Create a student life record",
+        "description": "Create a student life record based on the entered information.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "학생 생활 기록부 생성을 위한 정보.",
+          "description": "Information for creating a student life record.",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 학생 생활 기록부.",
+            "description": "The created student life record.",
             "content": {
               "application/json": {
                 "schema": {
@@ -57,12 +57,12 @@
     },
     "/connector/student-report-generator/row": {
       "post": {
-        "summary": "학생 생활 기록부 생성",
-        "description": "입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.",
+        "summary": "Create a student life record",
+        "description": "Create a student life record based on the entered information.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "학생 생활 기록부 생성을 위한 정보.",
+          "description": "Information for creating a student life record.",
           "content": {
             "application/json": {
               "schema": {
@@ -74,7 +74,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 학생 생활 기록부.",
+            "description": "The created student life record.",
             "content": {
               "application/json": {
                 "schema": {
@@ -98,8 +98,8 @@
             "items": {
               "$ref": "#/components/schemas/ITableRowData"
             },
-            "title": "생성된 생기부 데이터.",
-            "description": "생성된 생기부 데이터입니다."
+            "title": "Generated life data.",
+            "description": "Generated life data."
           }
         },
         "required": [
@@ -118,24 +118,24 @@
         "properties": {
           "consideration": {
             "type": "string",
-            "title": "고려사항.",
-            "description": "생기부 데이터 생성시 LLM에게 전달할 고려사항입니다."
+            "title": "Things to consider.",
+            "description": "Here are some things to consider when generating your biometric data to pass on to your LLM."
           },
           "outputs": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IOutputStructure"
             },
-            "title": "생성될 생기부 데이터 구조.",
-            "description": "생성될 생기부 데이터 구조 입니다."
+            "title": "This is the data structure of the generated lifeblood.",
+            "description": "This is the data structure of the generated lifeblood."
           },
           "reference_data": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ITableRowData"
             },
-            "title": "참고자료 데이터.",
-            "description": "생기부 데이터 생성시 참고할 표의 데이터입니다."
+            "title": "Reference data.",
+            "description": "This is the data for the table to reference when creating the life data."
           }
         },
         "required": [
@@ -149,18 +149,18 @@
         "properties": {
           "field_name": {
             "type": "string",
-            "title": "LLM으로 부터 생성될 필드명.",
-            "description": "LLM으로 부터 생성될 필드명입니다."
+            "title": "The field name to be generated from LLM.",
+            "description": "The field name to be generated from LLM."
           },
           "field_description": {
             "type": "string",
-            "title": "필드에 대한 설명.",
-            "description": "필드에 대한 설명 및 LLM이 해당 필드를 어떻게 채울지에 대한 가이드."
+            "title": "Description of the field.",
+            "description": "Description of the field and guidance on how LLM should fill it out."
           },
           "example": {
             "type": "string",
-            "title": "필드에 대한 예시.",
-            "description": "필드에 대한 예시입니다."
+            "title": "Example for the field.",
+            "description": "Here is an example for the field."
           }
         },
         "required": [
@@ -174,8 +174,8 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/ITableRowData",
-            "title": "생성된 생기부 데이터.",
-            "description": "생성된 생기부 데이터입니다."
+            "title": "Generated life data.",
+            "description": "Generated life data."
           }
         },
         "required": [
@@ -187,18 +187,18 @@
         "properties": {
           "consideration": {
             "type": "string",
-            "title": "고려사항.",
-            "description": "생기부 데이터 생성시 LLM에게 전달할 고려사항입니다."
+            "title": "Things to consider.",
+            "description": "Here are some things to consider when generating your biometric data to pass on to your LLM."
           },
           "output_structure": {
             "$ref": "#/components/schemas/IOutputStructure",
-            "title": "생성될 생기부 데이터 구조.",
-            "description": "생성될 생기부 데이터 구조 입니다."
+            "title": "This is the data structure of the generated lifeblood.",
+            "description": "This is the data structure of the generated lifeblood."
           },
           "reference_data": {
             "$ref": "#/components/schemas/ITableRowData",
-            "title": "참고자료 데이터.",
-            "description": "생기부 데이터 생성시 참고할 표의 데이터입니다."
+            "title": "Reference data.",
+            "description": "This is the data for the table to reference when creating the life data."
           }
         },
         "required": [

@@ -18,7 +18,7 @@
     "title": "구글 웹 검색 엔진",
     "summary": "구글 검색 기능을 쉽게 활용할 수 있어요.",
     "description": "검색어를 통해 구글의 일반 검색 결과를 얻을 수 있어요. 웹페이지, 이미지, 뉴스 등 다양한 유형의 검색 결과를 가져올 수 있고, 검색 결과의 순위, URL, 제목, 설명 등 상세 정보를 확인할 수 있어요. 특정 사이트 내에서만 검색하거나, 특정 기간 동안의 결과만 찾는 등 고급 검색 옵션도 사용할 수 있어요. 이를 통해 정보 수집, 트렌드 분석, 경쟁사 모니터링 등 다양한 목적으로 활용할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-search": {
       "post": {
-        "summary": "구글 검색",
-        "description": "입력한 검색어를 구글에서 검색합니다.",
+        "summary": "Google search",
+        "description": "Search Google for the search term you entered.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 검색 조건",
+          "description": "Google search terms",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 검색 결과",
+            "description": "Google search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,29 +68,29 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "검색 결과 제목"
+            "title": "Search Results Title"
           },
           "link": {
             "type": "string",
             "format": "uri",
-            "title": "검색 결과 링크"
+            "title": "Search Results Link"
           },
           "snippet": {
             "type": "string",
-            "title": "검색 결과 요약"
+            "title": "Search Results Summary"
           },
           "thumbnail": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "검색 결과 thumbnail"
+            "title": "Search Results thumbnail"
           }
         },
         "required": [
           "title",
           "link"
         ],
-        "title": "검색 결과"
+        "title": "Search Results"
       },
       "IGoogleSearch.IRequest": {
         "type": "object",
@@ -101,8 +101,8 @@
               "type": "string",
               "x-wrtn-placeholder": "뤼튼"
             },
-            "title": "꼭 들어가야하는 키워드",
-            "description": "검색 결과에 들어가야하는 키워드를 설정합니다."
+            "title": "Must-include keywords",
+            "description": "Set keywords that must be included in search results."
           },
           "orKeywords": {
             "type": "array",
@@ -110,8 +110,8 @@
               "type": "string",
               "x-wrtn-placeholder": "스튜디오"
             },
-            "title": "들어가면 좋은 키워드",
-            "description": "검색 결과에 들어가면 좋은 키워드를 설정합니다."
+            "title": "Good keywords to enter",
+            "description": "Set good keywords to enter the search results."
           },
           "notKeywords": {
             "type": "array",
@@ -119,20 +119,20 @@
               "type": "string",
               "x-wrtn-placeholder": "폭력"
             },
-            "title": "들어가면 안되는 키워드",
-            "description": "검색 결과에 들어가면 안되는 키워드를 설정합니다."
+            "title": "Keywords that should not be included",
+            "description": "Set keywords that should not be included in search results."
           },
           "max_results": {
             "type": "integer",
-            "title": "검색 결과 개수",
-            "description": "검색 결과의 개수를 설정합니다."
+            "title": "Number of search results",
+            "description": "Set the number of search results."
           }
         },
         "required": [
           "andKeywords",
           "max_results"
         ],
-        "title": "검색하기 위한 조건"
+        "title": "Conditions for searching"
       }
     }
   },

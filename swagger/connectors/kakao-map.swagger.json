@@ -18,7 +18,7 @@
     "title": "카카오 지도 정보 검색",
     "summary": "카카오 맵으로 원하는 장소를 쉽게 찾아요.",
     "description": "카카오 맵에서 키워드로 장소를 검색할 수 있어요. 검색 결과로 장소의 이름, 주소, 전화번호, 카테고리 등 상세 정보를 얻을 수 있어요. 또한 장소의 좌표 정보를 얻어 지도에 표시하거나, 길찾기에 활용할 수 있어요. 이를 통해 여행 계획을 세우거나, 주변 맛집을 찾거나, 비즈니스 위치를 분석하는 등 다양한 목적으로 활용할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/kakao-map/search": {
       "post": {
-        "summary": "카카오 맵 검색",
-        "description": "카카오맵으로 검색합니다\n\nIn addition to the place name company, category, and phone number,\nit also provides lot number and road name addresses in the Korean address system.\nIt can be used with public data or other address-based connectors.",
+        "summary": "Kakao Map Search",
+        "description": "Search with Kakao Map\n\nIn addition to the place name company, category, and phone number,\nit also provides lot number and road name addresses in the Korean address system.\nIt can be used with public data or other address-based connectors.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "Search condition",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "검색 결과",
+            "description": "Search result",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,33 +68,33 @@
             "items": {
               "$ref": "#/components/schemas/IKakaoMap.Document"
             },
-            "title": "검색 결과 목록"
+            "title": "Search Results List"
           },
           "meta": {
             "$ref": "#/components/schemas/IKakaoMap.Meta",
-            "title": "메타 정보"
+            "title": "meta information"
           }
         },
         "required": [
           "documents",
           "meta"
         ],
-        "title": "검색 결과"
+        "title": "Search Results"
       },
       "IKakaoMap.Document": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "장소 ID"
+            "title": "Location ID"
           },
           "place_name": {
             "type": "string",
-            "title": "장소명, 업체명"
+            "title": "Place name, company name"
           },
           "category_name": {
             "type": "string",
-            "title": "카테고리 이름"
+            "title": "Category Name"
           },
           "category_group_code": {
             "oneOf": [
@@ -175,7 +175,7 @@
                 "title": "알 수 없음"
               }
             ],
-            "title": "중요 카테고리만 그룹핑한 카테고리 그룹 코드"
+            "title": "Category group code that groups only important categories"
           },
           "category_group_name": {
             "oneOf": [
@@ -256,39 +256,39 @@
                 "title": "알 수 없음"
               }
             ],
-            "title": "중요 카테고리만 그룹핑한 카테고리 그룹명"
+            "title": "Category group name that groups only important categories"
           },
           "phone": {
             "type": "string",
-            "title": "전화번호"
+            "title": "phone number"
           },
           "address_name": {
             "type": "string",
-            "title": "전체 지번 주소"
+            "title": "Full street address"
           },
           "road_address_name": {
             "type": "string",
-            "title": "전체 도로명 주소"
+            "title": "Full road name address"
           },
           "x": {
             "type": "string",
-            "title": "X 좌표값",
-            "description": "경위도인 경우 longitude (경도)"
+            "title": "X coordinate value",
+            "description": "longitude (longitude) in case of latitude and longitude"
           },
           "y": {
             "type": "string",
-            "title": "Y 좌표값",
-            "description": "경위도인 경우 latitude(위도)"
+            "title": "Y coordinate value",
+            "description": "latitude in case of longitude and latitude"
           },
           "place_url": {
             "type": "string",
             "format": "uri",
-            "title": "장소 상세페이지 URL"
+            "title": "Location details page URL"
           },
           "distance": {
             "type": "string",
-            "title": "중심좌표까지의 거리",
-            "description": "(단, x,y 파라미터를 준 경우에만 존재) 단위 meter"
+            "title": "Distance to the center coordinate",
+            "description": "(only exists when x,y parameters are given) Unit meter"
           }
         },
         "required": [
@@ -305,44 +305,44 @@
           "place_url",
           "distance"
         ],
-        "title": "검색 결과"
+        "title": "Search Results"
       },
       "IKakaoMap.Meta": {
         "type": "object",
         "properties": {
           "total_count": {
             "type": "integer",
-            "title": "검색어에 검색된 문서 수"
+            "title": "Number of documents found for search term"
           },
           "pageable_count": {
             "type": "integer",
             "maximum": 45,
-            "title": "한 번에 표시되는 문서 수"
+            "title": "Number of documents displayed at once"
           },
           "is_end": {
             "type": "boolean",
-            "title": "현재 페이지가 마지막 페이지인지 여부",
-            "description": "값이 false면 다음 요청 시 page 값을 증가시켜 다음 페이지 요청 가능"
+            "title": "Whether the current page is the last page",
+            "description": "If the value is false, the page value can be increased for the next request to request the next page."
           },
           "same_name": {
             "type": "object",
             "properties": {
               "keyword": {
                 "type": "string",
-                "title": "질의어에서 지역 정보를 제외한 키워드",
-                "description": "'중앙로 맛집'을 검색한 경우 '맛집'에 해당하는 부분을 추출한 값"
+                "title": "Keyword excluding local information from query language",
+                "description": "If you search for 'Jungang-ro Restaurant', the value extracted from the part corresponding to 'Restaurant'"
               },
               "region": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "title": "질의어에서 인식된 지역의 리스트",
-                "description": "'중앙로 맛집'을 검색한 경우 '중앙로'에 해당하는 부분을 추출한 값"
+                "title": "List of regions recognized in the query",
+                "description": "If you search for 'Jungang-ro restaurant', the value extracted from the part corresponding to 'Jungang-ro'"
               },
               "selected_region": {
                 "type": "string",
-                "title": "검색에 활용된 지역 정보"
+                "title": "Local information used in search"
               }
             },
             "required": [
@@ -357,7 +357,7 @@
           "pageable_count",
           "is_end"
         ],
-        "title": "메타 정보"
+        "title": "meta information"
       },
       "IKakaoMap.SearchByKeywordInput": {
         "type": "object",
@@ -365,27 +365,27 @@
           "query": {
             "type": "string",
             "x-wrtn-placeholder": "종로구 맛집",
-            "title": "검색 키워드"
+            "title": "Search Keyword"
           },
           "page": {
             "type": "integer",
             "minimum": 1,
             "maximum": 45,
             "default": 1,
-            "title": "결과 페이지 번호"
+            "title": "Results page number"
           },
           "size": {
             "type": "integer",
             "minimum": 1,
             "maximum": 15,
             "default": 15,
-            "title": "페이지 당 문서 수"
+            "title": "Number of documents per page"
           }
         },
         "required": [
           "query"
         ],
-        "title": "검색 조건"
+        "title": "Search Conditions"
       }
     }
   },

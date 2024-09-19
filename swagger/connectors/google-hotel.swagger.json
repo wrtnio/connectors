@@ -18,7 +18,7 @@
     "title": "구글 호텔 정보 검색 및 예약",
     "summary": "일정에 맞는 숙소를 쉽게 찾아볼 수 있어요.",
     "description": "여행 일정에 맞는 호텔, 리조트, 펜션 등 다양한 숙소를 검색할 수 있어요. 목적지, 체크인/체크아웃 날짜, 인원 수 등을 입력하면 조건에 맞는 숙소 목록을 볼 수 있어요. 가격, 평점, 위치 등으로 검색 결과를 필터링하거나 정렬할 수 있어요. 또한 지도 보기를 통해 숙소의 위치를 직관적으로 파악할 수 있어, 여행 계획을 더욱 쉽고 효율적으로 세울 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-hotel": {
       "post": {
-        "summary": "구글 호텔 검색",
-        "description": "구글 호텔 서비스를 사용하여 숙소를 검색합니다",
+        "summary": "Google Hotels Search",
+        "description": "Search for accommodations using Google Hotels service",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 호텔 검색 조건",
+          "description": "Google Hotels search criteria",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 호텔 검색 결과",
+            "description": "Google Hotels Search Results",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,46 +68,46 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "숙소 이름",
-            "description": "숙소 이름"
+            "title": "Accommodation Name",
+            "description": "Accommodation Name"
           },
           "description": {
             "type": "string",
-            "title": "숙소 설명",
-            "description": "숙소 설명"
+            "title": "Property Description",
+            "description": "Property Description"
           },
           "link": {
             "type": "string",
-            "title": "숙소 링크",
-            "description": "숙소 링크"
+            "title": "Accommodation Link",
+            "description": "Accommodation Link"
           },
           "check_in_time": {
             "type": "string",
-            "title": "체크인 시간",
-            "description": "숙소 체크인 시간"
+            "title": "Check-in time",
+            "description": "Accommodation check-in time"
           },
           "check_out_time": {
             "type": "string",
-            "title": "체크아웃 시간",
-            "description": "숙소 체크아웃 시간"
+            "title": "Check-out Time",
+            "description": "Accommodation Check-out Time"
           },
           "price": {
             "type": "string",
-            "title": "숙소 가격",
-            "description": "숙소 가격"
+            "title": "Accommodation prices",
+            "description": "Accommodation prices"
           },
           "nearby_place": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGoogleHotel.INearbyPlace"
             },
-            "title": "주변 시설",
-            "description": "숙소 주변 시설"
+            "title": "Facilities around the property",
+            "description": "Facilities around the property"
           },
           "hotel_class": {
             "type": "string",
-            "title": "숙소 등급",
-            "description": "숙소 등급"
+            "title": "Accommodation rating",
+            "description": "Accommodation rating"
           },
           "thumbnails": {
             "type": "array",
@@ -116,18 +116,18 @@
               "format": "uri",
               "contentMediaType": "image/*"
             },
-            "title": "썸네일",
-            "description": "숙소 썸네일 이미지"
+            "title": "thumbnail",
+            "description": "Accommodation thumbnail image"
           },
           "rating": {
             "type": "string",
-            "title": "평점",
-            "description": "숙소 평점"
+            "title": "rating",
+            "description": "Accommodation rating"
           },
           "review_count": {
             "type": "string",
-            "title": "리뷰 갯수",
-            "description": "리뷰 갯수"
+            "title": "Number of reviews",
+            "description": "Number of reviews"
           },
           "amenities": {
             "oneOf": [
@@ -141,16 +141,16 @@
                 }
               }
             ],
-            "title": "어메니티",
-            "description": "숙소에서 제공하는 어메니티"
+            "title": "Amenities",
+            "description": "Amenities provided by the property"
           },
           "excluded_amenities": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "제공 하지 않는 어메니티",
-            "description": "숙소에서 제공하지 않는 어메니티"
+            "title": "Amenities not provided",
+            "description": "Amenities not provided by the property"
           }
         },
         "required": [
@@ -159,15 +159,15 @@
           "thumbnails",
           "amenities"
         ],
-        "title": "숙소 검색 결과"
+        "title": "Accommodation search results"
       },
       "IGoogleHotel.INearbyPlace": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "title": "주변 시설 이름",
-            "description": "주변 시설 이름"
+            "title": "Surrounding facility name",
+            "description": "Surrounding facility name"
           },
           "transportations": {
             "type": "array",
@@ -176,13 +176,13 @@
               "properties": {
                 "type": {
                   "type": "string",
-                  "title": "교통편 종류",
-                  "description": "교통편 종류"
+                  "title": "Types of Transportation",
+                  "description": "Types of Transportation"
                 },
                 "duration": {
                   "type": "string",
-                  "title": "소요 시간",
-                  "description": "주변 시설까지 소요 시간"
+                  "title": "Time required",
+                  "description": "Time required to reach surrounding facilities"
                 }
               },
               "required": [
@@ -190,46 +190,46 @@
                 "duration"
               ]
             },
-            "title": "교통편",
-            "description": "주변 시설 교통편"
+            "title": "Transportation",
+            "description": "Transportation to nearby facilities"
           }
         },
         "required": [
           "name"
         ],
-        "title": "주변 시설"
+        "title": "Surrounding facilities"
       },
       "IGoogleHotel.IRequest": {
         "type": "object",
         "properties": {
           "keyword": {
             "type": "string",
-            "title": "검색어",
-            "description": "검색할 키워드를 입력하세요."
+            "title": "Search term",
+            "description": "Enter the keyword you want to search for."
           },
           "check_in_date": {
             "type": "string",
             "format": "date",
-            "title": "체크인 날짜",
-            "description": "체크인 날짜를 설정하세요.\n\n오늘 날짜 이후의 날짜를 입력해주세요."
+            "title": "Check-in date",
+            "description": "Set your check-in date.\n\nPlease enter a date after today's date."
           },
           "check_out_date": {
             "type": "string",
             "format": "date",
-            "title": "체크아웃 날짜",
-            "description": "체크아웃 날짜를 설정하세요.\n\n오늘 날짜 이후의 날짜를 입력해주세요."
+            "title": "Checkout Date",
+            "description": "Set a checkout date.\n\nPlease enter a date after today's date."
           },
           "adults": {
             "type": "integer",
             "default": 2,
-            "title": "성인 인원",
-            "description": "투숙하는 성인 인원수를 설정하세요. 기본값은 2입니다."
+            "title": "Number of adults",
+            "description": "Set the number of adults staying. The default is 2."
           },
           "children": {
             "type": "integer",
             "default": 0,
-            "title": "아동 인원",
-            "description": "투숙하는 아동 인원수를 설정하세요. 기본값은 0입니다."
+            "title": "Number of children",
+            "description": "Set the number of children staying. The default is 0."
           },
           "sort_by": {
             "oneOf": [
@@ -246,18 +246,18 @@
                 "title": "리뷰 많은 순"
               }
             ],
-            "title": "정렬 기준",
-            "description": "원하는 정렬 기준을 선택해주세요.\n\n가능한 값으로 3, 8, 13만 가능합니다."
+            "title": "Sort criteria",
+            "description": "Please select the desired sort criteria.\n\nOnly 3, 8, and 13 are possible values."
           },
           "min_price": {
             "type": "integer",
-            "title": "최소 가격",
-            "description": "가격 범위의 최소 가격을 설정해주세요."
+            "title": "Minimum price",
+            "description": "Please set the minimum price for the price range."
           },
           "max_price": {
             "type": "integer",
-            "title": "최대 가격",
-            "description": "가격 범위의 최대 가격을 설정해주세요."
+            "title": "Maximum price",
+            "description": "Please set the maximum price for the price range."
           },
           "rating": {
             "oneOf": [
@@ -274,8 +274,8 @@
                 "title": "평점 4.5 이상"
               }
             ],
-            "title": "평점",
-            "description": "선택한 평점 이상의 숙소만 검색합니다.\n\n가능한 값으로 7, 8, 9만 가능합니다."
+            "title": "Rating",
+            "description": "Search only properties with a selected rating or higher.\n\nOnly possible values are 7, 8, and 9."
           },
           "type": {
             "type": "array",
@@ -335,8 +335,8 @@
                 }
               ]
             },
-            "title": "숙소 유형",
-            "description": "숙소 유형을 선택해주세요.\n\n가능한 값으로 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24만 가능합니다."
+            "title": "Accommodation type",
+            "description": "Please select the accommodation type.\n\nOnly 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 are possible values."
           },
           "hotel_class": {
             "type": "array",
@@ -364,19 +364,19 @@
                 }
               ]
             },
-            "title": "숙소 등급",
-            "description": "숙소 등급을 선택해주세요.'\n\n가능한 값으로 1, 2, 3, 4, 5만 가능합니다."
+            "title": "Accommodation class",
+            "description": "Please select your accommodation class.'\n\nOnly 1, 2, 3, 4, 5 are possible values."
           },
           "free_cancellation": {
             "type": "boolean",
             "default": false,
-            "title": "무료취소 가능 여부",
-            "description": "무료 취소 가능한 숙소만 검색합니다."
+            "title": "Is free cancellation possible?",
+            "description": "Search only properties with free cancellation."
           },
           "max_results": {
             "type": "integer",
-            "title": "검색 결과 개수",
-            "description": "검색 결과의 개수를 설정합니다."
+            "title": "Number of search results",
+            "description": "Set the number of search results."
           }
         },
         "required": [
@@ -385,7 +385,7 @@
           "check_out_date",
           "max_results"
         ],
-        "title": "숙소 검색 조건"
+        "title": "Accommodation search criteria"
       }
     }
   },

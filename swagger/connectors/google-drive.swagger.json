@@ -18,7 +18,7 @@
     "title": "구글 클라우드 스토리지 관리",
     "summary": "구글 드라이브로 파일을 쉽게 저장하고 공유해요.",
     "description": "구글 드라이브를 사용해 파일과 폴더를 효율적으로 관리할 수 있어요. 드라이브 내의 폴더와 파일 목록을 가져오고, 새로운 폴더나 파일을 만들 수 있어요. 불필요한 파일이나 폴더는 삭제할 수 있고, 특정 파일이나 폴더에 대한 접근 권한을 다른 사용자에게 부여할 수도 있어요. 텍스트 파일의 경우 내용을 직접 추가하거나 읽을 수 있어요. 이를 통해 개인 파일 보관, 팀 프로젝트 자료 공유, 대용량 파일 전송 등 다양한 목적으로 활용할 수 있어요. 클라우드 기반이라 어느 기기에서든 접근이 가능하고, 자동 동기화 기능으로 항상 최신 버전의 파일을 유지할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,8 +26,8 @@
   "paths": {
     "/connector/google-drive/get/folders": {
       "post": {
-        "summary": "구글 드라이브 폴더 목록 가져오기.",
-        "description": "구글 드라이브에 있는 폴더 목록을 가져옵니다.",
+        "summary": "Get a list of Google Drive folders.",
+        "description": "Get a list of folders in Google Drive.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 드라이브 폴더 목록.",
+            "description": "A list of Google Drive folders.",
             "content": {
               "application/json": {
                 "schema": {
@@ -58,8 +58,8 @@
     },
     "/connector/google-drive/get/files": {
       "post": {
-        "summary": "구글 드라이브 파일 목록 가져오기.",
-        "description": "구글 드라이브에 있는 파일 목록을 가져옵니다.",
+        "summary": "Get a list of Google Drive files.",
+        "description": "Get a list of files in Google Drive.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -74,7 +74,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 드라이브 파일 목록.",
+            "description": "A list of Google Drive files.",
             "content": {
               "application/json": {
                 "schema": {
@@ -89,12 +89,12 @@
     },
     "/connector/google-drive/folder": {
       "post": {
-        "summary": "구글 드라이브 폴더 생성.",
-        "description": "구글 드라이브에 새로운 폴더를 생성합니다.",
+        "summary": "Create a Google Drive folder.",
+        "description": "Create a new folder in Google Drive.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "생성할 폴더 이름.",
+          "description": "The name of the folder to be created.",
           "content": {
             "application/json": {
               "schema": {
@@ -106,7 +106,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 폴더 고유 ID.",
+            "description": "The unique ID of the created folder.",
             "content": {
               "application/json": {
                 "schema": {
@@ -122,12 +122,12 @@
     },
     "/connector/google-drive/file": {
       "post": {
-        "summary": "구글 드라이브 파일 생성.",
-        "description": "구글 드라이브에 새로운 파일을 생성합니다.",
+        "summary": "Create a Google Drive file.",
+        "description": "Create a new file in Google Drive.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "생성할 파일명과 파일을 생성할 폴더 고유 ID.",
+          "description": "The name of the file to be created and the unique ID of the folder where the file will be created.",
           "content": {
             "application/json": {
               "schema": {
@@ -139,7 +139,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 파일 고유 ID.",
+            "description": "The unique ID of the created file.",
             "content": {
               "application/json": {
                 "schema": {
@@ -154,8 +154,8 @@
     },
     "/connector/google-drive/file/{id}": {
       "delete": {
-        "summary": "구글 드라이브 파일 삭제.",
-        "description": "구글 드라이브에 있는 파일을 삭제합니다.",
+        "summary": "Delete a Google Drive file.",
+        "description": "Delete a file in Google Drive.",
         "tags": [],
         "parameters": [
           {
@@ -170,8 +170,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 파일 고유 ID",
-            "description": " 삭제할 파일 고유 ID."
+            "title": "The unique ID of the file to be deleted",
+            "description": " The unique ID of the file to be deleted."
           }
         ],
         "requestBody": {
@@ -197,8 +197,8 @@
     },
     "/connector/google-drive/folder/{id}": {
       "delete": {
-        "summary": "구글 드라이브 폴더 삭제.",
-        "description": "구글 드라이브에 있는 폴더를 삭제합니다.",
+        "summary": "Delete a Google Drive folder.",
+        "description": "Delete a folder in Google Drive.",
         "tags": [],
         "parameters": [
           {
@@ -213,8 +213,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 폴더 고유 ID",
-            "description": " 삭제할 폴더 고유 ID."
+            "title": "The unique ID of the folder to be deleted",
+            "description": " The unique ID of the folder to be deleted."
           }
         ],
         "requestBody": {
@@ -240,12 +240,12 @@
     },
     "/connector/google-drive/permission": {
       "post": {
-        "summary": "구글 드라이브 권한 부여.",
-        "description": "파일 또는 폴더에 접근하기 위한 권한을 부여합니다.",
+        "summary": "Grant Google Drive permission.",
+        "description": "Grants permission to access a file or folder.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "권한 부여를 위한 정보.",
+          "description": "Information for granting permission.",
           "content": {
             "application/json": {
               "schema": {
@@ -268,8 +268,8 @@
     },
     "/connector/google-drive/file/{id}/text": {
       "post": {
-        "summary": "구글 드라이브 파일 텍스트 추가.",
-        "description": "파일에 텍스트를 추가합니다.",
+        "summary": "Add text to a Google Drive file.",
+        "description": "Add text to a file.",
         "tags": [],
         "parameters": [
           {
@@ -284,12 +284,12 @@
               }
             },
             "required": true,
-            "title": "파일 고유 ID",
-            "description": " 파일 고유 ID."
+            "title": "Unique ID of the file",
+            "description": " Unique ID of the file."
           }
         ],
         "requestBody": {
-          "description": "추가할 텍스트.",
+          "description": "The text to add.",
           "content": {
             "application/json": {
               "schema": {
@@ -312,8 +312,8 @@
     },
     "/connector/google-drive/get/file/{id}": {
       "post": {
-        "summary": "구글 드라이브 파일 텍스트 읽기.",
-        "description": "파일에서 텍스트를 읽어옵니다.",
+        "summary": "Read text from a Google Drive file.",
+        "description": "Read text from a file.",
         "tags": [],
         "parameters": [
           {
@@ -328,8 +328,8 @@
               }
             },
             "required": true,
-            "title": "파일 고유 ID",
-            "description": " 파일 고유 ID."
+            "title": "Unique ID of the file",
+            "description": " Unique ID of the file."
           }
         ],
         "requestBody": {
@@ -344,7 +344,7 @@
         },
         "responses": {
           "201": {
-            "description": "파일 텍스트 내용.",
+            "description": "The text content of the file.",
             "content": {
               "application/json": {
                 "schema": {
@@ -359,7 +359,7 @@
     },
     "/internal/google": {
       "get": {
-        "description": "구글 access token 재발급 요청",
+        "description": "Request to reissue Google access token",
         "tags": [],
         "parameters": [],
         "responses": {
@@ -396,8 +396,8 @@
                       "type": "string"
                     }
                   ],
-                  "title": "구글 drive folder id.",
-                  "description": "구글 drive folder의 id."
+                  "title": "Google drive folder id.",
+                  "description": "Google drive folder id."
                 },
                 "name": {
                   "oneOf": [
@@ -408,19 +408,19 @@
                       "type": "string"
                     }
                   ],
-                  "title": "구글 drive folder name.",
-                  "description": "구글 drive 폴더 명."
+                  "title": "Google drive folder name.",
+                  "description": "Google drive folder name."
                 }
               }
             },
-            "title": "구글 drive folder 데이터.",
-            "description": "구글 drive에 있는 folder 데이터 리스트."
+            "title": "Google Drive Folder Data.",
+            "description": "List of folder data in Google Drive."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 drive에 있는 폴더 리스트 정보"
+        "title": "Folder list information in Google Drive"
       },
       "IGoogleDrive.ISecret": {
         "type": "object",
@@ -431,14 +431,14 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "인증 정보"
+        "title": "Authentication Information"
       },
       "IGoogleDrive.IFileListGoogleDriveOutput": {
         "type": "object",
@@ -457,8 +457,8 @@
                       "type": "string"
                     }
                   ],
-                  "title": "구글 drive file id.",
-                  "description": "구글 drive file의 id."
+                  "title": "Google drive file id.",
+                  "description": "Google drive file id."
                 },
                 "name": {
                   "oneOf": [
@@ -469,19 +469,19 @@
                       "type": "string"
                     }
                   ],
-                  "title": "구글 drive file name.",
-                  "description": "구글 drive file의 이름."
+                  "title": "Google drive file name.",
+                  "description": "The name of the Google drive file."
                 }
               }
             },
-            "title": "구글 drive file 데이터.",
-            "description": "구글 drive에 있는 file 데이터 리스트."
+            "title": "Google Drive File Data.",
+            "description": "List of file data in Google Drive."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 drive에 있는 파일 리스트 정보"
+        "title": "File list information in Google Drive"
       },
       "IGoogleDrive.IFileListGoogleDriveInput": {
         "type": "object",
@@ -493,8 +493,8 @@
               "path": "/connector/google-drive/get/folders",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "구글 drive 폴더.",
-            "description": "파일을 불러 올 폴더."
+            "title": "Google Drive Folder.",
+            "description": "Folder to load files from."
           },
           "secretKey": {
             "type": "string",
@@ -502,36 +502,36 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "구글 drive에 있는 파일 리스트를 불러오기 위한 정보"
+        "title": "Information for loading a list of files in Google Drive"
       },
       "IGoogleDrive.ICreateFolderGoogleDriveOutput": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "생성된 drive id.",
-            "description": "생성된 drive 폴더 id."
+            "title": "Generated drive id.",
+            "description": "Generated drive folder id."
           }
         },
         "required": [
           "id"
         ],
-        "title": "구글 drive 폴더 생성 결과"
+        "title": "Google Drive Folder Creation Results"
       },
       "IGoogleDrive.ICreateFolderGoogleDriveInput": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "title": "구글 drive 폴더명.",
-            "description": "생성할 drive 폴더명."
+            "title": "Google drive folder name.",
+            "description": "Drive folder name to be created."
           },
           "secretKey": {
             "type": "string",
@@ -539,7 +539,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -547,29 +547,29 @@
           "name",
           "secretKey"
         ],
-        "title": "구글 drive 폴더 생성에 필요한 정보"
+        "title": "Information required to create a Google Drive folder"
       },
       "IGoogleDrive.ICreateFileGoogleDriveOutput": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "title": "생성된 drive file id.",
-            "description": "생성된 drive 파일 id."
+            "title": "Generated drive file id.",
+            "description": "Generated drive file id."
           }
         },
         "required": [
           "id"
         ],
-        "title": "구글 drive에 파일 생성 결과"
+        "title": "Result of creating a file in Google Drive"
       },
       "IGoogleDrive.ICreateFileGoogleDriveInput": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "title": "구글 drive file명.",
-            "description": "drive에 생성할 파일명."
+            "title": "Google drive file name.",
+            "description": "File name to be created in drive."
           },
           "folderIds": {
             "type": "array",
@@ -582,13 +582,13 @@
               }
             },
             "minItems": 1,
-            "title": "구글 drive folder ids.",
-            "description": "drive에 생성할 파일이 속할 폴더 id 리스트."
+            "title": "Google drive folder ids.",
+            "description": "A list of folder ids that will contain the files to be created in the drive."
           },
           "content": {
             "type": "string",
-            "title": "구글 drive file content.",
-            "description": "drive에 생성할 파일의 내용."
+            "title": "Google drive file content.",
+            "description": "Contents of the file to be created in drive."
           },
           "secretKey": {
             "type": "string",
@@ -596,7 +596,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -606,7 +606,7 @@
           "content",
           "secretKey"
         ],
-        "title": "구글 drive에 파일 생성에 필요한 정보"
+        "title": "Information required to create a file in Google Drive"
       },
       "IGoogleDrive.IPermissionGoogleDriveInput": {
         "type": "object",
@@ -618,8 +618,8 @@
               "path": "/connector/google-drive/get/files",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "구글 drive file id.",
-            "description": "접근 권한을 부여할 drive 파일 id."
+            "title": "Google drive file id.",
+            "description": "The drive file id to grant access to."
           },
           "folderId": {
             "type": "string",
@@ -628,16 +628,16 @@
               "path": "/connector/google-drive/get/folders",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "구글 drive folder id.",
-            "description": "접근 권한을 부여할 drive 폴더 id."
+            "title": "Google drive folder id.",
+            "description": "Drive folder id to grant access to."
           },
           "permissions": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGoogleDrive.IPermission"
             },
-            "title": "접근 가능하게 할 이메일과 부여할 권한 리스트.",
-            "description": "접근 가능하게 할 이메일과 부여할 권한 리스트 입니다."
+            "title": "Here is a list of emails to make accessible and permissions to grant.",
+            "description": "Here is a list of emails to make accessible and permissions to grant."
           },
           "secretKey": {
             "type": "string",
@@ -645,7 +645,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -653,7 +653,7 @@
           "permissions",
           "secretKey"
         ],
-        "title": "구글 drive 접근 권한에 필요한 정보"
+        "title": "Information required for Google Drive access permission"
       },
       "IGoogleDrive.IPermission": {
         "type": "object",
@@ -661,8 +661,8 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "권한을 부여할 사용자의 이메일.",
-            "description": "구글 drive 접근 권한을 부여할 사용자의 이메일 주소입니다."
+            "title": "The email address of the user to whom you wish to grant access.",
+            "description": "The email address of the user to whom you wish to grant access to Google Drive."
           },
           "role": {
             "oneOf": [
@@ -685,8 +685,8 @@
                 "const": "fileOrganizer"
               }
             ],
-            "title": "부여할 권한.",
-            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\norganizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.\nfileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"organizer\", \"fileOrganizer\", \"writer\", \"commenter\", \"reader\" 6가지만 가능합니다."
+            "title": "The permission to grant.",
+            "description": "The type of permission to grant.\n\nowner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.\norganizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.\nfileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.\nwriter: Grants write permissions. Users with this permission can modify or delete files.\ncommenter: Grants comment permissions. Users with this permission can read and comment on files.\nreader: Grants read permissions. Users with this permission can read files.\n\nThere are only six possible values: \"owner\", \"organizer\", \"fileOrganizer\", \"writer\", \"commenter\", \"reader\"."
           },
           "type": {
             "oneOf": [
@@ -703,8 +703,8 @@
                 "const": "anyone"
               }
             ],
-            "title": "부여할 권한의 타입.",
-            "description": "부여할 권한의 타입입니다.\n\nuser - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.\ngroup - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.\ndomain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.\nanyone - 모든 사용자\n\n가능한 값으로는 \"user\", \"group\", \"domain\", \"anyone\" 4가지만 가능합니다."
+            "title": "The type of permission to grant.",
+            "description": "The type of permission to grant.\n\nuser - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.\ngroup - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.\ndomain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.\nanyone - all users\n\nThere are only four possible values: \"user\", \"group\", \"domain\", \"anyone\"."
           }
         },
         "required": [
@@ -712,15 +712,15 @@
           "role",
           "type"
         ],
-        "title": "접근 권한 정보"
+        "title": "Access Rights Information"
       },
       "IGoogleDrive.IAppendTextGoogleDriveInput": {
         "type": "object",
         "properties": {
           "text": {
             "type": "string",
-            "title": "추가할 text.",
-            "description": "drive 파일에 추가할 text."
+            "title": "Text to add.",
+            "description": "Text to add to the drive file."
           },
           "secretKey": {
             "type": "string",
@@ -728,7 +728,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -736,21 +736,21 @@
           "text",
           "secretKey"
         ],
-        "title": "구글 drive 파일 text 추가에 필요한 정보"
+        "title": "Information required to add text to Google Drive file"
       },
       "IGoogleDrive.IReadFileGoogleDriveOutput": {
         "type": "object",
         "properties": {
           "data": {
             "type": "string",
-            "title": "구글 drive file data.",
-            "description": "drive 파일에서 추출한 text 데이터."
+            "title": "Google drive file data.",
+            "description": "Text data extracted from the drive file."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 drive 파일 조회 결과"
+        "title": "Google Drive file search results"
       }
     }
   },

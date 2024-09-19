@@ -18,7 +18,7 @@
     "title": "통합 채용정보 검색",
     "summary": "다양한 채용 사이트의 공고를 한 번에 검색해요.",
     "description": "원티드, 인크루트, 사람인, 점핏, 커리어리 등 다양한 채용 사이트의 공고를 검색할 수 있어요. 직무, 지역, 경력 등으로 검색 조건을 설정할 수 있고, 각 사이트별로 제공하는 상세 정보(연봉, 기업 규모, 복지 등)를 비교해볼 수 있어요. 관심 있는 공고를 저장하거나 지원 현황을 관리할 수 있고, 유사한 공고 추천 기능도 활용할 수 있어요. 이를 통해 취업 준비나 이직을 고려 중인 사용자들이 효율적으로 채용 정보를 탐색하고 관리할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-search/wanted": {
       "post": {
-        "summary": "원티드 채용 공고 검색",
-        "description": "원티드에서 채용 공고를 검색합니다.",
+        "summary": "Wanted job posting search",
+        "description": "Search for job postings on Wanted.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "Search conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "원티드 채용 공고 검색 결과",
+            "description": "Wanted job posting search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -62,12 +62,12 @@
     },
     "/connector/google-search/incruit": {
       "post": {
-        "summary": "인크루트 채용 공고 검색",
-        "description": "인크루트에서 채용 공고를 검색합니다.",
+        "summary": "Search Incruit job postings",
+        "description": "Search for job postings on Incruit.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "Search conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -79,7 +79,7 @@
         },
         "responses": {
           "201": {
-            "description": "인크루트 채용 공고 검색 결과",
+            "description": "Search results for Incruit job postings",
             "content": {
               "application/json": {
                 "schema": {
@@ -98,12 +98,12 @@
     },
     "/connector/google-search/saramin": {
       "post": {
-        "summary": "사람인 채용 공고 검색",
-        "description": "사람인에서 채용 공고를 검색합니다.",
+        "summary": "Search for Saramin job postings",
+        "description": "Search for job postings in Saramin.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "Search criteria",
           "content": {
             "application/json": {
               "schema": {
@@ -115,7 +115,7 @@
         },
         "responses": {
           "201": {
-            "description": "사람인 채용 공고 검색 결과",
+            "description": "Search for Saramin job postings results",
             "content": {
               "application/json": {
                 "schema": {
@@ -134,12 +134,12 @@
     },
     "/connector/google-search/jumpit": {
       "post": {
-        "summary": "점핏 채용 공고 검색",
-        "description": "점핏에서 채용 공고를 검색합니다.",
+        "summary": "Jumpfit job posting search",
+        "description": "Search for job postings on Jumpfit.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "Search conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -151,7 +151,7 @@
         },
         "responses": {
           "201": {
-            "description": "점핏 채용 공고 검색 결과",
+            "description": "Jumpfit job posting search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -170,12 +170,12 @@
     },
     "/connector/google-search/careerly": {
       "post": {
-        "summary": "커리어리 검색",
-        "description": "커리어리에서 게시물을 검색합니다.",
+        "summary": "Careerly Search",
+        "description": "Search for posts in Careerly.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "검색 조건",
+          "description": "Search conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -187,7 +187,7 @@
         },
         "responses": {
           "201": {
-            "description": "커리어리 게시물 검색 결과",
+            "description": "Careerly Post Search Results",
             "content": {
               "application/json": {
                 "schema": {
@@ -212,29 +212,29 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "검색 결과 제목"
+            "title": "Search Results Title"
           },
           "link": {
             "type": "string",
             "format": "uri",
-            "title": "검색 결과 링크"
+            "title": "Search Results Link"
           },
           "snippet": {
             "type": "string",
-            "title": "검색 결과 요약"
+            "title": "Search Results Summary"
           },
           "thumbnail": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "검색 결과 thumbnail"
+            "title": "Search Results thumbnail"
           }
         },
         "required": [
           "title",
           "link"
         ],
-        "title": "검색 결과"
+        "title": "Search Results"
       },
       "IGoogleSearch.IRequest": {
         "type": "object",
@@ -245,8 +245,8 @@
               "type": "string",
               "x-wrtn-placeholder": "뤼튼"
             },
-            "title": "꼭 들어가야하는 키워드",
-            "description": "검색 결과에 들어가야하는 키워드를 설정합니다."
+            "title": "Must-include keywords",
+            "description": "Set keywords that must be included in search results."
           },
           "orKeywords": {
             "type": "array",
@@ -254,8 +254,8 @@
               "type": "string",
               "x-wrtn-placeholder": "스튜디오"
             },
-            "title": "들어가면 좋은 키워드",
-            "description": "검색 결과에 들어가면 좋은 키워드를 설정합니다."
+            "title": "Good keywords to enter",
+            "description": "Set good keywords to enter the search results."
           },
           "notKeywords": {
             "type": "array",
@@ -263,20 +263,20 @@
               "type": "string",
               "x-wrtn-placeholder": "폭력"
             },
-            "title": "들어가면 안되는 키워드",
-            "description": "검색 결과에 들어가면 안되는 키워드를 설정합니다."
+            "title": "Keywords that should not be included",
+            "description": "Set keywords that should not be included in search results."
           },
           "max_results": {
             "type": "integer",
-            "title": "검색 결과 개수",
-            "description": "검색 결과의 개수를 설정합니다."
+            "title": "Number of search results",
+            "description": "Set the number of search results."
           }
         },
         "required": [
           "andKeywords",
           "max_results"
         ],
-        "title": "검색하기 위한 조건"
+        "title": "Conditions for searching"
       }
     }
   },

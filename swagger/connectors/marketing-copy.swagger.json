@@ -17,7 +17,7 @@
   "info": {
     "title": "마케팅 카피",
     "description": "마케팅 카피를 생성할 수 있어요",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/marketing-copy/generate-copy": {
       "post": {
-        "summary": "마케팅 카피 생성",
-        "description": "주어진 입력으로부터 마케팅 카피를 생성합니다.",
+        "summary": "Generate marketing copy",
+        "description": "Generates marketing copy from given input.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "마케팅 카피 생성을 위한 입력",
+          "description": "Input for generating marketing copy",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 마케팅 카피",
+            "description": "Generated marketing copy",
             "content": {
               "application/json": {
                 "schema": {
@@ -57,12 +57,12 @@
     },
     "/connector/marketing-copy/generate-copy-image": {
       "post": {
-        "summary": "마케팅 카피 이미지 생성",
-        "description": "주어진 입력으로부터 마케팅 카피 이미지를 생성합니다.",
+        "summary": "Generate a marketing copy image",
+        "description": "Generates a marketing copy image from the given input.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "마케팅 카피 이미지 생성을 위한 입력",
+          "description": "Input for generating a marketing copy image",
           "content": {
             "application/json": {
               "schema": {
@@ -74,7 +74,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 마케팅 카피 이미지",
+            "description": "Generated marketing copy image",
             "content": {
               "application/json": {
                 "schema": {
@@ -89,8 +89,8 @@
     },
     "/connector/aws/file/upload-url": {
       "get": {
-        "summary": "파일 업로드 URL 생성",
-        "description": "파일 업로드를 하기 위해 필요한 URL을 생성합니다.",
+        "summary": "Generate File Upload URL",
+        "description": "Generate the URL required to upload a file.",
         "tags": [],
         "parameters": [
           {
@@ -100,8 +100,8 @@
               "type": "string"
             },
             "required": true,
-            "title": "파일 확장자",
-            "description": "파일 확장자입니다."
+            "title": "File extension",
+            "description": "File extension."
           }
         ],
         "responses": {
@@ -126,18 +126,18 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "마케팅 카피의 제목.",
-            "description": "마케팅 카피의 제목입니다."
+            "title": "The title of your marketing copy.",
+            "description": "The title of your marketing copy."
           },
           "cta": {
             "type": "string",
-            "title": "마케팅 카피의 CTA 문구.",
-            "description": "마케팅 카피의 CTA 문구입니다."
+            "title": "This is the CTA phrase in your marketing copy.",
+            "description": "This is the CTA phrase in your marketing copy."
           },
           "subtitle": {
             "type": "string",
-            "title": "마케팅 카피의 설명.",
-            "description": "마케팅 카피의 설명입니다."
+            "title": "A description of the marketing copy.",
+            "description": "Here is a description of the marketing copy."
           }
         }
       },
@@ -146,23 +146,23 @@
         "properties": {
           "keyword": {
             "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
-            "title": "키워드",
-            "description": "마케팅 카피의 전반적인 키워드"
+            "title": "Keywords",
+            "description": "Overall keywords in your marketing copy"
           },
           "marketingPurpose": {
             "$ref": "#/components/schemas/IMarketingPurpose",
-            "title": "마케팅 목적",
-            "description": "마케팅을 하려는 목적 및 상품 정보"
+            "title": "Marketing Purpose",
+            "description": "Purpose of marketing and product information"
           },
           "distributionChannel": {
             "$ref": "#/components/schemas/IDistributionChannel",
-            "title": "마케팅 채널",
-            "description": "마케팅 카피를 사용할 채널 정보"
+            "title": "Marketing Channel",
+            "description": "Channel information for using marketing copy"
           },
           "referenceContent": {
             "$ref": "#/components/schemas/IConnector.IReferenceContent",
-            "title": "참고 자료",
-            "description": "마케팅 카피 생성을 위한 참고 자료"
+            "title": "References",
+            "description": "References for Creating Marketing Copy"
           }
         },
         "required": [
@@ -171,14 +171,14 @@
           "distributionChannel",
           "referenceContent"
         ],
-        "title": "마케팅 카피 생성을 위한 입력"
+        "title": "Input for creating marketing copy"
       },
       "IKeywordExtraction.IExtractKeywordOutput": {
         "type": "object",
         "properties": {
           "keyword": {
             "type": "string",
-            "description": "추출된 키워드"
+            "description": "Extracted Keywords"
           }
         },
         "required": [
@@ -200,29 +200,29 @@
                 "const": "visit"
               }
             ],
-            "title": "마케팅 목적.",
-            "description": "마케팅을 하려는 목적입니다.\n\n가능한 값으로는 sign_up, purchase, visit 3가지만 가능합니다."
+            "title": "Marketing purpose.",
+            "description": "The purpose is to do marketing.\n\nOnly three possible values are available: sign_up, purchase, and visit."
           },
           "product_name": {
             "type": "string",
-            "title": "마케팅 할 상품명.",
-            "description": "마케팅을 할 상품명입니다."
+            "title": "This is the product name to be marketed.",
+            "description": "This is the product name to be marketed."
           },
           "unique_selling_point": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "상품의 셀링 포인트.",
-            "description": "상품의 셀링 포인트입니다."
+            "title": "This is the selling point of the product.",
+            "description": "This is the selling point of the product."
           },
           "user_benefit": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "마케팅 하려는 제품의 베네핏.",
-            "description": "마케팅 하려는 제품의 베네핏입니다."
+            "title": "Benefits of the product you are marketing.",
+            "description": "Benefits of the product you are marketing."
           }
         },
         "required": [
@@ -256,8 +256,8 @@
                 "const": "naver"
               }
             ],
-            "title": "마케팅 카피를 사용할 채널.",
-            "description": "마케팅 카피를 사용할 채널 입니다.\n\n가능한 값으로 facebook, instagram_feed, instagram_story, youtube, naver, kakao 6가지만 가능합니다."
+            "title": "Channels to use marketing copy.",
+            "description": "Channels to use marketing copy.\n\nOnly 6 possible values are possible: facebook, instagram_feed, instagram_story, youtube, naver, kakao."
           },
           "components": {
             "type": "array",
@@ -274,8 +274,8 @@
                 }
               ]
             },
-            "title": "마케팅 카피를 사용할 채널에서 가져올 정보.",
-            "description": "마케팅 카피를 사용할 채널에서 가져올 정보입니다.\n\n가능한 값으로 title, cta, subtitle 3가지만 가능합니다."
+            "title": "Information to retrieve from the channel where the marketing copy will be used.",
+            "description": "Information to retrieve from the channel where the marketing copy will be used.\n\nOnly three possible values are possible: title, cta, subtitle."
           }
         },
         "required": [
@@ -288,8 +288,8 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "제목",
-            "description": "산출물의 제목입니다."
+            "title": "Title",
+            "description": "The title of the output."
           },
           "type": {
             "oneOf": [
@@ -310,8 +310,8 @@
                 "title": "research_paper"
               }
             ],
-            "title": "산출물 타입",
-            "description": "비디오, 이미지, 뉴스기사, 논문.\n\nIt must be one of: video, image, news_article, research_paper"
+            "title": "Output Type",
+            "description": "Video, image, news article, research paper.\n\nIt must be one of: video, image, news_article, research_paper"
           },
           "source": {
             "oneOf": [
@@ -340,30 +340,30 @@
                 "title": "google_news"
               }
             ],
-            "title": "산출물의 출처",
-            "description": "유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
+            "title": "Source of output",
+            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
           },
           "url": {
             "type": "string",
             "format": "uri",
-            "title": "URL 주소",
-            "description": "산출물의 URL 주소입니다."
+            "title": "URL address",
+            "description": "The URL address of the output."
           },
           "contents": {
             "type": "string",
-            "title": "산출물 내용",
-            "description": "산출물의 내용입니다."
+            "title": "Output Content",
+            "description": "Here is the content of the output."
           },
           "image": {
             "type": "string",
             "format": "uri",
-            "title": "산출물 이미지 url",
-            "description": "산출물의 이미지 URL 주소입니다."
+            "title": "Output Image URL",
+            "description": "The URL address of the image of the output."
           },
           "statistics": {
             "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
-            "title": "산출물 통계 자료 정보",
-            "description": "산출물의 통계 자료 정보입니다.\n\n가능한 값: view_count, like_count, rank"
+            "title": "Output statistics information",
+            "description": "Output statistics information.\n\nPossible values: view_count, like_count, rank"
           }
         },
         "required": [
@@ -394,8 +394,8 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "마케팅 카피 시안의 이미지 URL.",
-            "description": "생성된 마케팅 카피 시안의 이미지 URL입니다."
+            "title": "Image URL of the generated marketing copy draft.",
+            "description": "Image URL of the generated marketing copy draft."
           }
         },
         "required": [
@@ -407,28 +407,28 @@
         "properties": {
           "copy": {
             "$ref": "#/components/schemas/MyPartialIMarketingCopyComponents",
-            "title": "마케팅 카피 생성 결과",
-            "description": "마케팅 카피 이미지과 관련된 마케팅 카피 생성 결과"
+            "title": "Marketing Copy Creation Results",
+            "description": "Marketing Copy Creation Results Related to Marketing Copy Image"
           },
           "keyword": {
             "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
-            "title": "키워드",
-            "description": "마케팅 카피 이미지의 전반적인 키워드"
+            "title": "Keywords",
+            "description": "Overall keywords for marketing copy images"
           },
           "marketingPurpose": {
             "$ref": "#/components/schemas/IMarketingPurpose",
-            "title": "마케팅 목적",
-            "description": "마케팅을 하려는 목적 및 상품 정보"
+            "title": "Marketing Purpose",
+            "description": "Purpose of marketing and product information"
           },
           "distributionChannel": {
             "$ref": "#/components/schemas/IDistributionChannel",
-            "title": "마케팅 채널",
-            "description": "마케팅 카피를 사용할 채널 정보"
+            "title": "Marketing Channel",
+            "description": "Channel information for using marketing copy"
           },
           "referenceContent": {
             "$ref": "#/components/schemas/IConnector.IReferenceContent",
-            "title": "참고 자료",
-            "description": "마케팅 카피 생성을 위한 참고 자료"
+            "title": "References",
+            "description": "References for Creating Marketing Copy"
           }
         },
         "required": [
@@ -438,7 +438,7 @@
           "distributionChannel",
           "referenceContent"
         ],
-        "title": "마케팅 카피 이미지 생성을 위한 입력"
+        "title": "Input for generating marketing copy images"
       },
       "IAws.IGetPutObjectUrlOutput": {
         "type": "object",
@@ -446,18 +446,18 @@
           "uuid": {
             "type": "string",
             "format": "uuid",
-            "title": "파일 uuid",
-            "description": "파일 uuid입니다."
+            "title": "file uuid",
+            "description": "This is the file uuid."
           },
           "uploadUrl": {
             "type": "string",
-            "title": "업로드 url",
-            "description": "파일을 업로드하기 위한 url입니다."
+            "title": "upload url",
+            "description": "This is the url for uploading the file."
           },
           "urlExpTsMillis": {
             "type": "number",
-            "title": "url 만료 시간",
-            "description": "url 만료 시간입니다."
+            "title": "url expiration time",
+            "description": "url expiration time."
           }
         },
         "required": [
@@ -471,8 +471,8 @@
         "properties": {
           "extension": {
             "type": "string",
-            "title": "파일 확장자",
-            "description": "파일 확장자입니다."
+            "title": "File extension",
+            "description": "File extension."
           }
         },
         "required": [

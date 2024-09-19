@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "description": "Starter kit of Nestia",
     "license": {
       "name": "AGPL-3.0-only"
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/google-map": {
       "post": {
-        "summary": "구글맵 맛집 검색",
-        "description": "구글맵을 사용하여 맛집을 검색합니다.",
+        "summary": "Google Map restaurant search",
+        "description": "Search for restaurants using Google Maps.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "맛집을 검색할 검색어",
+          "description": "Search term to search for restaurants",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "맛집 검색 결과",
+            "description": "Restaurant search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -61,12 +61,12 @@
     },
     "/connector/google-map/review": {
       "post": {
-        "summary": "구글맵 맛집 리뷰 검색",
-        "description": "구글맵에서 선택한 맛집 리뷰를 검색합니다.",
+        "summary": "Search Google Map restaurant reviews",
+        "description": "Search for restaurant reviews selected from Google Maps.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "맛집의 고유 id",
+          "description": "Unique id of the restaurant",
           "content": {
             "application/json": {
               "schema": {
@@ -78,7 +78,7 @@
         },
         "responses": {
           "201": {
-            "description": "맛집 리뷰 검색 결과",
+            "description": "Restaurant review search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -103,82 +103,82 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "이름",
-            "description": "맛집 이름입니다."
+            "title": "Name",
+            "description": "It's the name of a restaurant."
           },
           "place_id": {
             "type": "string",
-            "title": "고유 id",
-            "description": "맛집 고유 id입니다.\n\n리뷰를 검색하기 위해 필요한 정보입니다."
+            "title": "unique ID",
+            "description": "This is the unique ID of the restaurant.\n\nThis is the information needed to search for reviews."
           },
           "gps_coordinate": {
             "type": "object",
             "properties": {
               "latitude": {
                 "type": "number",
-                "title": "위도",
-                "description": "맛집 좌표상 위도입니다."
+                "title": "Latitude",
+                "description": "This is the latitude of the restaurant's coordinates."
               },
               "longitude": {
                 "type": "number",
-                "title": "경도",
-                "description": "맛집 좌표상 경도입니다."
+                "title": "Longitude",
+                "description": "This is the coordinates of the restaurant."
               }
             },
             "required": [
               "latitude",
               "longitude"
             ],
-            "title": "좌표",
-            "description": "맛집 좌표입니다."
+            "title": "Coordinates",
+            "description": "Here are the coordinates for the restaurant."
           },
           "rating": {
             "type": "number",
-            "title": "평점",
-            "description": "맛집 평점입니다."
+            "title": "ratings",
+            "description": "Here are the restaurant ratings."
           },
           "reviews": {
             "type": "number",
-            "title": "리뷰 수",
-            "description": "맛집 리뷰 수 입니다."
+            "title": "Number of reviews",
+            "description": "This is the number of restaurant reviews."
           },
           "address": {
             "type": "string",
-            "title": "주소",
-            "description": "맛집 주소 입니다."
+            "title": "Address",
+            "description": "Here is the address of the restaurant."
           },
           "open_state": {
             "type": "string",
-            "title": "운영 정보",
-            "description": "맛집이 현재 운영중인지에 대한 정보입니다."
+            "title": "Operation Information",
+            "description": "Information about whether the restaurant is currently operating."
           },
           "operating_hours": {
             "type": "object",
             "properties": {},
-            "title": "운영 시간 정보",
-            "description": "맛집 운영 시간 정보입니다.",
+            "title": "Information on operating hours",
+            "description": "Here is the information on the restaurant's operating hours.",
             "additionalProperties": {
               "type": "string"
             }
           },
           "phone_number": {
             "type": "string",
-            "title": "전화번호",
-            "description": "맛집 전화번호입니다."
+            "title": "Phone number",
+            "description": "This is the phone number for the restaurant."
           },
           "service_options": {
             "type": "object",
             "properties": {},
-            "title": "서비스 옵션",
-            "description": "맛집에서 제공하는 서비스 옵션입니다.",
+            "title": "Service options",
+            "description": "Service options provided by the restaurant.",
             "additionalProperties": {
               "type": "boolean"
             }
           },
           "user_review": {
             "type": "string",
-            "title": "유저 리뷰",
-            "description": "맛집 유저 리뷰 입니다."
+            "title": "User Review",
+            "description": "This is a user review of a delicious restaurant."
           },
           "thumbnail": {
             "oneOf": [
@@ -191,8 +191,8 @@
                 "contentMediaType": "image/*"
               }
             ],
-            "title": "이미지",
-            "description": "맛집 썸네일 이미지 입니다."
+            "title": "image",
+            "description": "This is a thumbnail image of a delicious restaurant."
           }
         },
         "required": [
@@ -201,7 +201,7 @@
           "gps_coordinate",
           "address"
         ],
-        "title": "구글 맵 맛집 검색 결과"
+        "title": "Google Maps Restaurant Search Results"
       },
       "IGoogleMap.IRequest": {
         "type": "object",
@@ -209,38 +209,38 @@
           "keyword": {
             "type": "string",
             "x-wrtn-placeholder": "강남역 맛집",
-            "title": "검색어",
-            "description": "검색어를 입력해주세요"
+            "title": "Search term",
+            "description": "Please enter your search term"
           }
         },
         "required": [
           "keyword"
         ],
-        "title": "구글 맵 맛집 검색을 위한 정보"
+        "title": "Information for searching restaurants on Google Maps"
       },
       "IGoogleMap.IReviewResponse": {
         "type": "object",
         "properties": {
           "username": {
             "type": "string",
-            "title": "작성자 이름",
-            "description": "리뷰 작성자 이름입니다."
+            "title": "Author's name",
+            "description": "Reviewer's name."
           },
           "rating": {
             "type": "number",
-            "title": "리뷰 평점",
-            "description": "리뷰 평점입니다."
+            "title": "Review ratings",
+            "description": "Here are the review ratings."
           },
           "description": {
             "type": "string",
-            "title": "리뷰 내용",
-            "description": "리뷰 내용입니다."
+            "title": "Review content",
+            "description": "Here is the review content."
           },
           "link": {
             "type": "string",
             "format": "uri",
-            "title": "리뷰 링크",
-            "description": "리뷰 링크입니다."
+            "title": "Review Link",
+            "description": "Here is the review link."
           },
           "images": {
             "type": "array",
@@ -249,13 +249,13 @@
               "format": "uri",
               "contentMediaType": "image/*"
             },
-            "title": "리뷰 이미지",
-            "description": "리뷰에 등록된 이미지입니다."
+            "title": "Review Image",
+            "description": "This is the image registered in the review."
           },
           "date": {
             "type": "string",
-            "title": "리뷰 날짜",
-            "description": "리뷰가 작성된 날짜입니다."
+            "title": "Review Date",
+            "description": "The date the review was written."
           }
         },
         "required": [
@@ -266,7 +266,7 @@
           "images",
           "date"
         ],
-        "title": "리뷰 조회 결과"
+        "title": "Review search results"
       },
       "IGoogleMap.IReviewRequest": {
         "type": "object",

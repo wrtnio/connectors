@@ -18,7 +18,7 @@
     "title": "구글 스프레드시트 데이터 관리",
     "summary": "구글 스프레드시트로 데이터를 쉽게 관리해요.",
     "description": "구글 스프레드시트를 사용해 다양한 데이터 관리 작업을 할 수 있어요. 스프레드시트의 헤더 정보를 가져오거나, 특정 사용자에게 접근 권한을 부여할 수 있어요. 새로운 헤더를 추가하거나, 워크시트 목록을 확인할 수 있고, 특정 행(Row)의 정보를 가져올 수도 있어요. 원하는 셀에 새로운 내용을 추가하거나 기존 내용을 수정할 수도 있어요. 이를 통해 예산 관리, 프로젝트 추적, 데이터 분석 등 다양한 작업을 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 팀 단위의 데이터 관리에도 매우 유용해요. 주의할 점은 구글 시트를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/google-sheet": {
       "post": {
-        "summary": "구글 시트 헤더 정보 가져오기.",
-        "description": "구글 시트의 헤더 정보를 가져옵니다.",
+        "summary": "Get the header information of a Google Sheet.",
+        "description": "Get the header information of a Google Sheet.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 시트 URL과 가져올 헤더 index.",
+          "description": "Google Sheet URL and the header index to get.",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 시트 헤더 정보.",
+            "description": "Google Sheet header information.",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,12 +59,12 @@
     },
     "/connector/google-sheet/append": {
       "post": {
-        "summary": "구글 시트에 내용 추가하기",
-        "description": "구글 시트에 내용을 추가합니다.",
+        "summary": "Add content to Google Sheets",
+        "description": "Add content to Google Sheets.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "내용을 추가하기 위한 정보",
+          "description": "Information to add content",
           "content": {
             "application/json": {
               "schema": {
@@ -87,12 +87,12 @@
     },
     "/connector/google-sheet/create": {
       "post": {
-        "summary": "구글 시트 생성하기",
-        "description": "구글 시트를 생성합니다.\n\n생성된 시트는 구글 드라이브 루트 경로에 생성됩니다.",
+        "summary": "Create a Google Sheet",
+        "description": "Create a Google Sheet.\n\nThe created sheet will be created in the Google Drive root path.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "생성할 시트 제목",
+          "description": "The title of the sheet to be created",
           "content": {
             "application/json": {
               "schema": {
@@ -104,7 +104,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 시트 id와 Url",
+            "description": "The created sheet id and Url",
             "content": {
               "application/json": {
                 "schema": {
@@ -120,12 +120,12 @@
     },
     "/connector/google-sheet/permission": {
       "post": {
-        "summary": "구글 시트 권한 부여.",
-        "description": "구글 시트에 권한을 부여합니다.",
+        "summary": "Grant permissions to Google Sheets.",
+        "description": "Grant permissions to Google Sheets.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "권한 부여를 위한 정보.",
+          "description": "Information for granting permissions.",
           "content": {
             "application/json": {
               "schema": {
@@ -149,12 +149,12 @@
     },
     "/connector/google-sheet/header": {
       "post": {
-        "summary": "구글 시트 헤더 추가.",
-        "description": "구글 시트에 헤더를 추가합니다.",
+        "summary": "Add a Google Sheet header.",
+        "description": "Add a header to a Google Sheet.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "구글 시트 url과 추가할 헤더 이름.",
+          "description": "The Google Sheet url and the header name to add.",
           "content": {
             "application/json": {
               "schema": {
@@ -178,12 +178,12 @@
     },
     "/connector/google-sheet/worksheet": {
       "post": {
-        "summary": "구글 시트 워크시트 목록 가져오기.",
-        "description": "구글 워크시트 목록을 가져옵니다.",
+        "summary": "Get a list of Google Sheets Worksheets.",
+        "description": "Get a list of Google Worksheets.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "워크시트 목록을 가져올 구글 시트 url.",
+          "description": "The Google Sheets url to get the list of worksheets.",
           "content": {
             "application/json": {
               "schema": {
@@ -211,8 +211,8 @@
     },
     "/connector/google-sheet/get-rows": {
       "post": {
-        "summary": "구글 시트 Row 정보 가져오기.",
-        "description": "구글 시트의 Row 정보를 가져옵니다.",
+        "summary": "Get Row information from Google Sheets.",
+        "description": "Get Row information from Google Sheets.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -227,7 +227,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 시트 Row 정보.",
+            "description": "Row information from Google Sheets.",
             "content": {
               "application/json": {
                 "schema": {
@@ -243,7 +243,7 @@
     },
     "/internal/google": {
       "get": {
-        "description": "구글 access token 재발급 요청",
+        "description": "Request to reissue Google access token",
         "tags": [],
         "parameters": [],
         "responses": {
@@ -267,27 +267,27 @@
         "type": "object",
         "properties": {
           "data": {
-            "title": "시트 데이터.",
-            "description": "읽어온 시트의 데이터입니다."
+            "title": "Sheet data.",
+            "description": "This is the data from the read sheet."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 시트 읽기 결과"
+        "title": "Google Sheet Reading Results"
       },
       "IGoogleSheet.IReadGoogleSheetHeadersInput": {
         "type": "object",
         "properties": {
           "url": {
             "type": "string",
-            "title": "시트 url.",
-            "description": "헤더 정보를 읽어올 시트의 url 주소입니다."
+            "title": "sheet url.",
+            "description": "The url address of the sheet from which to read the header information."
           },
           "index": {
             "type": "number",
-            "title": "시트 헤더 index.",
-            "description": "읽어올 시트의 헤더 index입니다."
+            "title": "Sheet header index.",
+            "description": "The header index of the sheet to read."
           },
           "secretKey": {
             "type": "string",
@@ -296,7 +296,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -304,7 +304,7 @@
           "url",
           "secretKey"
         ],
-        "title": "구글 시트 헤더 읽기에 필요한 정보"
+        "title": "Information needed to read Google Sheet header"
       },
       "IGoogleSheet.IAppendToSheetInput": {
         "type": "object",
@@ -316,13 +316,13 @@
               "path": "/connector/google-sheet/create",
               "jmesPath": "[].{value:spreadsheetId, label:spreadsheetUrl}"
             },
-            "title": "추가할 시트",
-            "description": "내용을 추가할 시트입니다."
+            "title": "The sheet to add",
+            "description": "This is the sheet to which you want to add content."
           },
           "range": {
             "type": "string",
-            "title": "추가할 범위",
-            "description": "추가할 범위입니다.\n\nA1 notation 형식으로 입력해주세요."
+            "title": "Range to add",
+            "description": "This is the range to add.\n\nPlease enter in A1 notation format."
           },
           "values": {
             "type": "array",
@@ -330,8 +330,8 @@
               "type": "array",
               "items": {}
             },
-            "title": "추가할 값들",
-            "description": "추가할 값들입니다."
+            "title": "These are the values to add",
+            "description": "These are the values to add."
           },
           "secretKey": {
             "type": "string",
@@ -340,7 +340,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -356,28 +356,28 @@
         "properties": {
           "spreadsheetId": {
             "type": "string",
-            "title": "시트 ID",
-            "description": "생성된 구글 스프레드 시트의 ID입니다."
+            "title": "Sheet ID",
+            "description": "The ID of the generated Google Spreadsheet."
           },
           "spreadsheetUrl": {
             "type": "string",
-            "title": "시트 URL",
-            "description": "생성된 구글 스프레드 시트의 URL입니다."
+            "title": "Sheet URL",
+            "description": "The URL of the generated Google Spreadsheet."
           }
         },
         "required": [
           "spreadsheetId",
           "spreadsheetUrl"
         ],
-        "title": "구글 스프레드 시트 생성 결과"
+        "title": "Google Spreadsheet Creation Results"
       },
       "IGoogleSheet.ICreateGoogleSheetInput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "시트 제목",
-            "description": "생성할 구글 스프레드 시트 제목을 입력해주세요."
+            "title": "Sheet Title",
+            "description": "Please enter a title for the Google Spreadsheet you want to create."
           },
           "secretKey": {
             "type": "string",
@@ -386,7 +386,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -394,7 +394,7 @@
           "title",
           "secretKey"
         ],
-        "title": "구글 스프레드 시트 생성에 필요한 정보"
+        "title": "Information needed to create a Google Spreadsheet"
       },
       "IGoogleSheet.IPermissionInput": {
         "type": "object",
@@ -402,16 +402,16 @@
           "url": {
             "type": "string",
             "format": "uri",
-            "title": "시트 url.",
-            "description": "권한을 부여할 시트의 url 입니다."
+            "title": "sheet url.",
+            "description": "The url of the sheet to grant permission to."
           },
           "permissions": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IPermission.o1"
             },
-            "title": "접근 가능하게 할 이메일과 부여할 권한 리스트.",
-            "description": "접근 가능하게 할 이메일과 부여할 권한 리스트 입니다."
+            "title": "Here is a list of emails to make accessible and permissions to grant.",
+            "description": "Here is a list of emails to make accessible and permissions to grant."
           },
           "secretKey": {
             "type": "string",
@@ -420,7 +420,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -429,7 +429,7 @@
           "permissions",
           "secretKey"
         ],
-        "title": "구글 시트 권한 부여에 필요한 정보"
+        "title": "Information required to grant Google Sheets permissions"
       },
       "IPermission.o1": {
         "type": "object",
@@ -437,8 +437,8 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "권한을 부여할 사용자의 이메일.",
-            "description": "권한을 부여할 사용자의 이메일입니다."
+            "title": "The email address of the user to grant permission to.",
+            "description": "The email address of the user to grant permission to."
           },
           "role": {
             "oneOf": [
@@ -455,36 +455,36 @@
                 "const": "reader"
               }
             ],
-            "title": "부여할 권한.",
-            "description": "부여할 권한의 종류입니다.\n\nowner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.\nwriter: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.\ncommenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.\nreader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.\n\n가능한 값으로는 \"owner\", \"writer\", \"commenter\", \"reader\" 4가지만 가능합니다."
+            "title": "The permission to grant.",
+            "description": "The type of permission to grant.\n\nowner: Grants owner permission. Users with this permission can delete files or folders, or grant permission to other users.\nwriter: Grants write permission. Users with this permission can modify or delete files.\ncommenter: Grants comment permission. Users with this permission can read files and post comments.\nreader: Grants read permission. Users with this permission can read files.\n\nThere are only four possible values: \"owner\", \"writer\", \"commenter\", and \"reader\"."
           }
         },
         "required": [
           "email",
           "role"
         ],
-        "title": "권한 정보"
+        "title": "Permissions Information"
       },
       "IGoogleSheet.IWriteGoogleSheetHeadersInput": {
         "type": "object",
         "properties": {
           "url": {
             "type": "string",
-            "title": "시트 url.",
-            "description": "헤더를 추가할 시트의 url 입니다."
+            "title": "sheet url.",
+            "description": "The url of the sheet to which you want to add the header."
           },
           "index": {
             "type": "number",
-            "title": "시트 index.",
-            "description": "추가할 헤더의 index 입니다."
+            "title": "sheet index.",
+            "description": "The index of the header to add."
           },
           "headerNames": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "시트에 추가할 헤더 리스트.",
-            "description": "시트에 추가할 헤더 리스트 입니다."
+            "title": "A list of headers to add to the sheet.",
+            "description": "A list of headers to add to the sheet."
           },
           "secretKey": {
             "type": "string",
@@ -493,7 +493,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -502,7 +502,7 @@
           "headerNames",
           "secretKey"
         ],
-        "title": "구글 시트 헤더 추가에 필요한 정보"
+        "title": "Information needed to add a Google Sheet header"
       },
       "IGoogleSheet.IGetWorkSheetOutput": {
         "type": "object",
@@ -512,22 +512,22 @@
             "items": {
               "type": "string"
             },
-            "title": "워크시트 제목 리스트.",
-            "description": "읽어온 시트의 제목 리스트 입니다."
+            "title": "List of worksheet titles.",
+            "description": "Here is a list of titles for the sheets you've read."
           }
         },
         "required": [
           "data"
         ],
-        "title": "워크시트 조회 결과"
+        "title": "Worksheet query results"
       },
       "IGoogleSheet.IGetWorkSheetInput": {
         "type": "object",
         "properties": {
           "url": {
             "type": "string",
-            "title": "시트 url.",
-            "description": "읽어올 시트의 url 입니다."
+            "title": "sheet url.",
+            "description": "The url of the sheet to read."
           },
           "secretKey": {
             "type": "string",
@@ -536,7 +536,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -544,7 +544,7 @@
           "url",
           "secretKey"
         ],
-        "title": "워크시트 조회에 필요한 정보"
+        "title": "Information required to view worksheets"
       },
       "IGoogleSheet.IReadGoogleSheetRowsOutput": {
         "type": "object",
@@ -554,19 +554,19 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowData"
             },
-            "title": "읽어온 구글 시트 행 데이터.",
-            "description": "읽어온 구글 시트 행 데이터입니다."
+            "title": "Read Google Sheet row data.",
+            "description": "This is the read Google Sheet row data."
           }
         },
         "required": [
           "data"
         ],
-        "title": "구글 시트 행 읽기 결과"
+        "title": "Google Sheets Row Reading Results"
       },
       "IGoogleSheet.IReadGoogleSheetRowData": {
         "type": "object",
         "properties": {},
-        "title": "구글 시트 행 데이터 정보",
+        "title": "Google Sheets Row Data Information",
         "additionalProperties": {}
       },
       "IGoogleSheet.IReadGoogleSheetRowsInput": {
@@ -574,13 +574,13 @@
         "properties": {
           "url": {
             "type": "string",
-            "title": "시트 url.",
-            "description": "행을 읽어올 시트의 url 입니다."
+            "title": "sheet url.",
+            "description": "The url of the sheet from which to read the rows."
           },
           "workSheetTitle": {
             "type": "string",
-            "title": "작업할 시트 제목.",
-            "description": "작업할 시트의 제목입니다."
+            "title": "The title of the sheet to work on.",
+            "description": "The title of the sheet to work on."
           },
           "secretKey": {
             "type": "string",
@@ -589,7 +589,7 @@
               "https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -598,7 +598,7 @@
           "workSheetTitle",
           "secretKey"
         ],
-        "title": "구글 시트 행 읽기에 필요한 정보"
+        "title": "Information needed to read Google Sheet rows"
       }
     }
   },

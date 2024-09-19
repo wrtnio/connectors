@@ -18,7 +18,7 @@
     "title": "DALL-E 3 고급 이미지 생성",
     "summary": "프롬프트로 AI가 독특한 이미지를 만들어요.",
     "description": "텍스트 설명을 바탕으로 AI가 독특하고 창의적인 이미지를 생성해줘요. 추상적인 개념부터 구체적인 장면까지 다양한 유형의 이미지를 만들 수 있어요. 생성된 이미지의 스타일, 구도, 색감 등을 세밀하게 조정할 수 있어요. 광고 시안 제작, 일러스트레이션, 제품 디자인 아이디어 등 다양한 창작 분야에서 활용할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/dall-e-3/generate": {
       "post": {
-        "summary": "dall-e-3 이미지 생성기 노드",
-        "description": "dall-e-3 모델을 이용하여 이미지를 생성합니다.",
+        "summary": "dall-e-3 image generator node",
+        "description": "Generate an image using the dall-e-3 model.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "이미지 생성을 위한 정보",
+          "description": "Information for image generation",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 이미지 URL",
+            "description": "URL of the generated image",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,8 +59,8 @@
     },
     "/connector/aws/file/upload-url": {
       "get": {
-        "summary": "파일 업로드 URL 생성",
-        "description": "파일 업로드를 하기 위해 필요한 URL을 생성합니다.",
+        "summary": "Generate File Upload URL",
+        "description": "Generate the URL required to upload a file.",
         "tags": [],
         "parameters": [
           {
@@ -70,8 +70,8 @@
               "type": "string"
             },
             "required": true,
-            "title": "파일 확장자",
-            "description": "파일 확장자입니다."
+            "title": "File extension",
+            "description": "File extension."
           }
         ],
         "responses": {
@@ -98,22 +98,22 @@
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "생성된 이미지 Url",
-            "description": "생성된 이미지 url"
+            "title": "Generated image Url",
+            "description": "Generated image url"
           }
         },
         "required": [
           "imgUrl"
         ],
-        "title": "이미지 생성 결과"
+        "title": "Image creation result"
       },
       "IDallE3.IRequest": {
         "type": "object",
         "properties": {
           "prompt": {
             "type": "string",
-            "title": "프롬프트",
-            "description": "이미지를 생성하기 위한 프롬프트"
+            "title": "prompt",
+            "description": "Prompt to create an image"
           },
           "image_ratio": {
             "oneOf": [
@@ -133,15 +133,15 @@
                 "description": "1024x1792"
               }
             ],
-            "title": "이미지 사이즈",
-            "description": "생성할 이미지 사이즈 프리셋 입니다.\n\n가능한 값으로는 \"square\", \"landscape\", \"portrait\" 3가지만 가능합니다."
+            "title": "Image Size",
+            "description": "Preset image size to generate.\n\nOnly three possible values are available: \"square\", \"landscape\", and \"portrait\"."
           }
         },
         "required": [
           "prompt",
           "image_ratio"
         ],
-        "title": "이미지 생성을 위한 정보"
+        "title": "Information for image creation"
       },
       "IAws.IGetPutObjectUrlOutput": {
         "type": "object",
@@ -149,18 +149,18 @@
           "uuid": {
             "type": "string",
             "format": "uuid",
-            "title": "파일 uuid",
-            "description": "파일 uuid입니다."
+            "title": "file uuid",
+            "description": "This is the file uuid."
           },
           "uploadUrl": {
             "type": "string",
-            "title": "업로드 url",
-            "description": "파일을 업로드하기 위한 url입니다."
+            "title": "upload url",
+            "description": "This is the url for uploading the file."
           },
           "urlExpTsMillis": {
             "type": "number",
-            "title": "url 만료 시간",
-            "description": "url 만료 시간입니다."
+            "title": "url expiration time",
+            "description": "url expiration time."
           }
         },
         "required": [
@@ -174,8 +174,8 @@
         "properties": {
           "extension": {
             "type": "string",
-            "title": "파일 확장자",
-            "description": "파일 확장자입니다."
+            "title": "File extension",
+            "description": "File extension."
           }
         },
         "required": [

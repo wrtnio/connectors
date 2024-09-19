@@ -18,7 +18,7 @@
     "title": "카카오 내비게이션 경로 안내",
     "summary": "카카오 내비로 빠른 길을 찾아요.",
     "description": "카카오 내비게이션을 통해 교통 정보를 조회하고 길찾기를 할 수 있어요. 출발지와 도착지를 설정하면 최적의 경로를 제안받을 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,12 +26,12 @@
   "paths": {
     "/connector/kakao-navi/get-future-directions": {
       "post": {
-        "summary": "카카오 네비 길찾기",
-        "description": "카카오 네비로 길을 찾습니다.",
+        "summary": "Kakao Navi Directions",
+        "description": "Finding directions with Kakao Navi",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "요청 조건",
+          "description": "Request conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -43,7 +43,7 @@
         },
         "responses": {
           "201": {
-            "description": "길 찾기 결과",
+            "description": "Directions results",
             "content": {
               "application/json": {
                 "schema": {
@@ -65,21 +65,21 @@
         "properties": {
           "trans_id": {
             "type": "string",
-            "title": "경로 요청 ID"
+            "title": "Path Request ID"
           },
           "routes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IKakaoNavi.Route"
             },
-            "title": "경로 정보"
+            "title": "Path information"
           }
         },
         "required": [
           "trans_id",
           "routes"
         ],
-        "title": "성공 응답"
+        "title": "Success response"
       },
       "IKakaoNavi.Route": {
         "type": "object",
@@ -167,22 +167,22 @@
                 "title": "다중 목적지: 목적지가 설정한 길찾기 반경 범위를 벗어남"
               }
             ],
-            "title": "경로 탐색 결과 코드"
+            "title": "Path search result code"
           },
           "result_msg": {
             "type": "string",
-            "title": "경로 탐색 결과 메시지"
+            "title": "Path search result message"
           },
           "summary": {
             "$ref": "#/components/schemas/IKakaoNavi.Summary",
-            "title": "경로 요약 정보"
+            "title": "Path Summary Information"
           },
           "sections": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IKakaoNavi.Section"
             },
-            "title": "구간 별 경로 정보"
+            "title": "Route information by section"
           }
         },
         "required": [
@@ -195,38 +195,38 @@
         "properties": {
           "origin": {
             "$ref": "#/components/schemas/IKakaoNavi.Place",
-            "title": "출발지 정보"
+            "title": "Departure information"
           },
           "destination": {
             "$ref": "#/components/schemas/IKakaoNavi.Place",
-            "title": "목적지 정보"
+            "title": "destination information"
           },
           "waypoints": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IKakaoNavi.Place"
             },
-            "title": "경유지 정보"
+            "title": "Transit Information"
           },
           "priority": {
             "type": "string",
-            "title": "경로 탐색 우선순위 옵션"
+            "title": "Path Finding Priority Options"
           },
           "fare": {
             "$ref": "#/components/schemas/IKakaoNavi.Fare",
-            "title": "요금 정보"
+            "title": "Rate Information"
           },
           "duration": {
             "type": "integer",
-            "title": "전체 검색 결과 이동 시간(초)"
+            "title": "Full search results move time (seconds)"
           },
           "bound": {
             "$ref": "#/components/schemas/IKakaoNavi.Bound",
-            "title": "모든 경로를 포함하는 사각형의 바운딩 박스"
+            "title": "A rectangular bounding box that contains all paths"
           },
           "distance": {
             "type": "integer",
-            "title": "섹션 거리(미터)"
+            "title": "Section Distance (meters)"
           }
         },
         "required": [
@@ -245,15 +245,15 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "장소 이름"
+            "title": "place name"
           },
           "x": {
             "type": "number",
-            "title": "X 좌표 (경도)"
+            "title": "X coordinate (longitude)"
           },
           "y": {
             "type": "number",
-            "title": "Y 좌표 (위도)"
+            "title": "Y coordinate (latitude)"
           }
         },
         "required": [
@@ -267,37 +267,37 @@
         "properties": {
           "taxi": {
             "type": "number",
-            "title": "택시 요금(원)"
+            "title": "Taxi fare (won)"
           },
           "toll": {
             "type": "number",
-            "title": "통행 요금(원)"
+            "title": "Toll fee (won)"
           }
         },
         "required": [
           "taxi",
           "toll"
         ],
-        "title": "요금 정보"
+        "title": "Rate Information"
       },
       "IKakaoNavi.Bound": {
         "type": "object",
         "properties": {
           "min_x": {
             "type": "number",
-            "title": "바운딩 박스 왼쪽 하단의 X 좌표"
+            "title": "X coordinate of the bottom left of the bounding box"
           },
           "min_y": {
             "type": "number",
-            "title": "바운딩 박스 왼쪽 하단의 Y 좌표"
+            "title": "Y coordinate of the bottom left of the bounding box"
           },
           "max_x": {
             "type": "number",
-            "title": "바운딩 박스 오른쪽 상단의 X 좌표"
+            "title": "X coordinate of the upper right corner of the bounding box"
           },
           "max_y": {
             "type": "number",
-            "title": "바운딩 박스 오른쪽 상단의 Y 좌표"
+            "title": "Y coordinate of the upper right corner of the bounding box"
           }
         },
         "required": [
@@ -306,36 +306,36 @@
           "max_x",
           "max_y"
         ],
-        "title": "모든 경로를 포함하는 사각형의 바운딩 박스(Bounding box)"
+        "title": "Bounding box of a rectangle containing all paths"
       },
       "IKakaoNavi.Section": {
         "type": "object",
         "properties": {
           "distance": {
             "type": "integer",
-            "title": "섹션 거리(미터)"
+            "title": "Section Distance (meters)"
           },
           "duration": {
             "type": "integer",
-            "title": "전체 검색 결과 이동 시간(초)"
+            "title": "Full search results move time (seconds)"
           },
           "bound": {
             "$ref": "#/components/schemas/IKakaoNavi.Bound",
-            "title": "모든 경로를 포함하는 사각형의 바운딩 박스"
+            "title": "A rectangular bounding box that contains all paths"
           },
           "roads": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IKakaoNavi.Road"
             },
-            "title": "도로 정보"
+            "title": "Road Information"
           },
           "guides": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IKakaoNavi.Guide"
             },
-            "title": "안내 정보"
+            "title": "Guide Information"
           }
         },
         "required": [
@@ -343,28 +343,28 @@
           "duration",
           "bound"
         ],
-        "title": "구간 별 경로 정보",
-        "description": "경유지가 존재할 경우 경유지 수에 1을 더한 값만큼의 섹션이 생성된다."
+        "title": "Route information by section",
+        "description": "If there is a waypoint, a section is created equal to the number of waypoints plus 1."
       },
       "IKakaoNavi.Road": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "title": "도로 명"
+            "title": "road name"
           },
           "distance": {
             "type": "integer",
-            "title": "도로 길이(미터)"
+            "title": "Road length (meters)"
           },
           "duration": {
             "type": "integer",
-            "title": "예상 이동 시간(초)",
-            "description": "현재 예상 이동 시간 및 실제 이동 시간은 동일한 값으로 설정"
+            "title": "Estimated travel time (sec)",
+            "description": "Current estimated travel time and actual travel time are set to the same value"
           },
           "traffic_speed": {
             "type": "number",
-            "title": "현재 교통 정보 속도(km/h)"
+            "title": "Current traffic information speed (km/h)"
           },
           "traffic_state": {
             "oneOf": [
@@ -393,14 +393,14 @@
                 "title": "교통사고(통행 불가)"
               }
             ],
-            "title": "현재 교통 정보 상태"
+            "title": "Current traffic information status"
           },
           "vertexes": {
             "type": "array",
             "items": {
               "type": "number"
             },
-            "title": "X, Y 좌표로 구성된 1차원 배열"
+            "title": "A one-dimensional array consisting of X, Y coordinates"
           }
         },
         "required": [
@@ -411,7 +411,7 @@
           "traffic_state",
           "vertexes"
         ],
-        "title": "도로 정보"
+        "title": "Road Information"
       },
       "IKakaoNavi.Guide": {
         "type": "object",
@@ -707,35 +707,35 @@
                 "title": "경유지"
               }
             ],
-            "title": "안내 타입"
+            "title": "Guide type"
           },
           "guidance": {
             "type": "string",
-            "title": "안내 문구"
+            "title": "Guide text"
           },
           "road_index": {
             "type": "integer",
-            "title": "현재 가이드에 대한 링크 인덱스"
+            "title": "Link index for the current guide"
           },
           "name": {
             "type": "string",
-            "title": "장소 이름"
+            "title": "place name"
           },
           "x": {
             "type": "number",
-            "title": "X 좌표 (경도)"
+            "title": "X coordinate (longitude)"
           },
           "y": {
             "type": "number",
-            "title": "Y 좌표 (위도)"
+            "title": "Y coordinate (latitude)"
           },
           "duration": {
             "type": "integer",
-            "title": "전체 검색 결과 이동 시간(초)"
+            "title": "Full search results move time (seconds)"
           },
           "distance": {
             "type": "integer",
-            "title": "섹션 거리(미터)"
+            "title": "Section Distance (meters)"
           }
         },
         "required": [
@@ -748,7 +748,7 @@
           "duration",
           "distance"
         ],
-        "title": "안내 정보"
+        "title": "Guide information"
       },
       "IKakaoNavi.IGetFutureDirectionsInput": {
         "type": "object",
@@ -756,22 +756,22 @@
           "departure_time": {
             "type": "string",
             "x-wrtn-placeholder": "202406202000",
-            "title": "출발 시간",
-            "description": "YYYYMMDDHHMM 형식으로 현재 시간 이후 시간 설정"
+            "title": "Departure time",
+            "description": "Set time after current time in YYYYMMDDHHMM format"
           },
           "origin": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
             "x-wrtn-placeholder": "127.111202,37.394912",
-            "title": "출발지",
-            "description": "X좌표,Y좌표 형식의 경도, 위도 값"
+            "title": "Origin",
+            "description": "Longitude and latitude values in X, Y coordinate format"
           },
           "destination": {
             "type": "string",
             "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
             "x-wrtn-placeholder": "127.111202,37.394912",
-            "title": "목적지",
-            "description": "X좌표,Y좌표 형식의 경도, 위도 값"
+            "title": "Destination",
+            "description": "Longitude and latitude values in X, Y coordinate format"
           }
         },
         "required": [
@@ -779,7 +779,7 @@
           "origin",
           "destination"
         ],
-        "title": "요청 조건"
+        "title": "Request Conditions"
       }
     }
   },

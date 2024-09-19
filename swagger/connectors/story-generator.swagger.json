@@ -17,7 +17,7 @@
   "info": {
     "title": "스토리 생성",
     "description": "",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/story-generator": {
       "post": {
-        "summary": "스토리 생성",
-        "description": "유저의 입력을 기반으로 스토리를 짭니다.\n\n그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.\n\n스토리 이미지 생성 커넥터와 연계해서 사용해주세요.\n\nconnector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요.\n\n생성된 스토리와 이미지를 구글 슬라이드를 이용해서 내보내주세요.\n\nconnector/google-slides/presentations 커넥터를 사용하여 생성된 스토리와 이미지를 구글 슬라이드로 내보내주세요.",
+        "summary": "Create a story",
+        "description": "Create a story based on user input.\n\nThis connector can be used when creating a chatbot workflow for creating picture books or stories.\n\nPlease use it in conjunction with the Story Image Generation connector.\n\nPlease create an image based on the story created using the connector/story-image-generator connector.\n\nPlease export the created story and image using Google Slides.\n\nPlease export the created story and image using the connector/google-slides/presentations connector to Google Slides.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "스토리 생성을 위한 입력",
+          "description": "Input for creating a story",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 스토리 혹은 추가 정보 요청",
+            "description": "The generated story or a request for additional information",
             "content": {
               "application/json": {
                 "schema": {

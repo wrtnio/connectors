@@ -18,7 +18,7 @@
     "title": "구글 일정 관리자",
     "summary": "구글 캘린더로 일정을 손쉽게 관리해요.",
     "description": "구글 캘린더를 통해 개인 및 팀의 일정을 효과적으로 관리할 수 있어요. 캘린더 목록을 가져오고, 새로운 캘린더를 만들거나 불필요한 캘린더를 삭제할 수 있어요. 특정 캘린더의 이벤트 목록을 조회하고, 새로운 이벤트를 빠르게 추가할 수 있어요. 기존 이벤트를 수정하거나 삭제할 수도 있고, 이벤트에 참석자를 추가할 수도 있어요. 이를 통해 개인 일정 관리는 물론, 팀 미팅 조율, 프로젝트 일정 관리, 중요 기념일 알림 등 다양한 목적으로 활용할 수 있어요. 여러 기기 간 동기화가 자동으로 이루어져 언제 어디서든 일정을 확인하고 관리할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,8 +26,8 @@
   "paths": {
     "/connector/google-calendar/get-list": {
       "post": {
-        "summary": "구글 캘린더 목록 가져오기.",
-        "description": "구글 캘린더 목록을 가져옵니다.",
+        "summary": "Get a list of Google Calendars.",
+        "description": "Get a list of Google Calendars.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 캘린더 목록.",
+            "description": "A list of Google Calendars.",
             "content": {
               "application/json": {
                 "schema": {
@@ -61,12 +61,12 @@
     },
     "/connector/google-calendar": {
       "post": {
-        "summary": "구글 캘린더 생성.",
-        "description": "구글 캘린더를 생성합니다.",
+        "summary": "Create a Google Calendar.",
+        "description": "Create a Google Calendar.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "생성할 캘린더 제목.",
+          "description": "The title of the calendar to be created.",
           "content": {
             "application/json": {
               "schema": {
@@ -78,7 +78,7 @@
         },
         "responses": {
           "201": {
-            "description": "캘린더 고유 ID와 캘린더 제목.",
+            "description": "The unique ID of the calendar and the title of the calendar.",
             "content": {
               "application/json": {
                 "schema": {
@@ -94,8 +94,8 @@
     },
     "/connector/google-calendar/{calendarId}": {
       "delete": {
-        "summary": "구글 캘린더 삭제.",
-        "description": "캘린더를 삭제합니다.",
+        "summary": "Delete a Google Calendar.",
+        "description": "Delete a calendar.",
         "tags": [],
         "parameters": [
           {
@@ -110,8 +110,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 캘린더 고유 ID",
-            "description": " 삭제할 캘린더 고유 ID."
+            "title": "The unique ID of the calendar to delete",
+            "description": " The unique ID of the calendar to delete."
           }
         ],
         "requestBody": {
@@ -137,8 +137,8 @@
     },
     "/connector/google-calendar/{calendarId}/get-events": {
       "post": {
-        "summary": "구글 캘린더 이벤트 목록 가져오기.",
-        "description": "구글 캘린더에 있는 이벤트 목록을 가져옵니다.",
+        "summary": "Get a list of Google Calendar events.",
+        "description": "Get a list of events in Google Calendar.",
         "tags": [],
         "parameters": [
           {
@@ -153,12 +153,12 @@
               }
             },
             "required": true,
-            "title": "이벤트 목록을 가져올 캘린더 고유 ID",
-            "description": " 이벤트 목록을 가져올 캘린더 고유 ID."
+            "title": "Unique ID of the calendar to get the list of events",
+            "description": " Unique ID of the calendar to get the list of events."
           }
         ],
         "requestBody": {
-          "description": "이벤트 목록을 가져오기 위한 조건.",
+          "description": "Condition to get the list of events.",
           "content": {
             "application/json": {
               "schema": {
@@ -170,7 +170,7 @@
         },
         "responses": {
           "201": {
-            "description": "구글 캘린더 이벤트 목록.",
+            "description": "A list of Google Calendar events.",
             "content": {
               "application/json": {
                 "schema": {
@@ -185,8 +185,8 @@
     },
     "/connector/google-calendar/{calendarId}/quick-event": {
       "post": {
-        "summary": "구글 캘린더 빠른 이벤트 추가.",
-        "description": "구글 캘린더에 빠른 이벤트를 추가합니다.",
+        "summary": "Add a quick event to Google Calendar.",
+        "description": "Add a quick event to Google Calendar.",
         "tags": [],
         "parameters": [
           {
@@ -201,12 +201,12 @@
               }
             },
             "required": true,
-            "title": "이벤트를 추가할 캘린더 고유 ID",
-            "description": " 이벤트를 추가할 캘린더 고유 ID."
+            "title": "Unique ID of the calendar to add the event to",
+            "description": " Unique ID of the calendar to add the event to."
           }
         ],
         "requestBody": {
-          "description": "이벤트를 추가할 캘린더 고유 ID, 이벤트 명.",
+          "description": "Unique ID of the calendar to add the event to, and the event name.",
           "content": {
             "application/json": {
               "schema": {
@@ -229,8 +229,8 @@
     },
     "/connector/google-calendar/{calendarId}/event": {
       "post": {
-        "summary": "구글 캘린더 이벤트 추가.",
-        "description": "구글 캘린더에 이벤트를 추가합니다.",
+        "summary": "Add a Google Calendar event.",
+        "description": "Add an event to Google Calendar.",
         "tags": [],
         "parameters": [
           {
@@ -245,12 +245,12 @@
               }
             },
             "required": true,
-            "title": "이벤트를 추가할 캘린더 고유 ID",
-            "description": " 이벤트를 추가할 캘린더 고유 ID."
+            "title": "Unique ID of the calendar to add the event to",
+            "description": " Unique ID of the calendar to add the event to."
           }
         ],
         "requestBody": {
-          "description": "이벤트 추가를 위한 정보.",
+          "description": "Information for adding the event.",
           "content": {
             "application/json": {
               "schema": {
@@ -262,7 +262,7 @@
         },
         "responses": {
           "201": {
-            "description": "추가한 이벤트 정보.",
+            "description": "Information about the added event.",
             "content": {
               "application/json": {
                 "schema": {
@@ -277,8 +277,8 @@
     },
     "/connector/google-calendar/{calendarId}/event/{eventId}": {
       "put": {
-        "summary": "구글 캘린더 이벤트 수정.",
-        "description": "이벤트를 수정합니다.",
+        "summary": "Modify a Google Calendar event.",
+        "description": "Modify an event.",
         "tags": [],
         "parameters": [
           {
@@ -293,8 +293,8 @@
               }
             },
             "required": true,
-            "title": "이벤트가 있는 캘린더 고유 ID",
-            "description": " 이벤트가 있는 캘린더 고유 ID."
+            "title": "Unique ID of the calendar that contains the event",
+            "description": " Unique ID of the calendar that contains the event."
           },
           {
             "name": "eventId",
@@ -308,12 +308,12 @@
               }
             },
             "required": true,
-            "title": "수정할 이벤트 고유 ID",
-            "description": " 수정할 이벤트 고유 ID."
+            "title": "Unique ID of the event to modify",
+            "description": " Unique ID of the event to modify."
           }
         ],
         "requestBody": {
-          "description": "업데이트 할 이벤트 정보.",
+          "description": "The event information to update.",
           "content": {
             "application/json": {
               "schema": {
@@ -325,7 +325,7 @@
         },
         "responses": {
           "200": {
-            "description": "업데이트 된 이벤트 정보.",
+            "description": "The updated event information.",
             "content": {
               "application/json": {
                 "schema": {
@@ -338,8 +338,8 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg"
       },
       "delete": {
-        "summary": "구글 캘린더 이벤트 삭제.",
-        "description": "이벤트를 삭제합니다.",
+        "summary": "Delete a Google Calendar event.",
+        "description": "Delete an event.",
         "tags": [],
         "parameters": [
           {
@@ -354,8 +354,8 @@
               }
             },
             "required": true,
-            "title": "이벤트가 있는 캘린더 고유 ID",
-            "description": " 이벤트가 있는 캘린더 고유 ID."
+            "title": "The unique ID of the calendar that contains the event",
+            "description": " The unique ID of the calendar that contains the event."
           },
           {
             "name": "eventId",
@@ -369,8 +369,8 @@
               }
             },
             "required": true,
-            "title": "삭제할 이벤트 고유 ID",
-            "description": " 삭제할 이벤트 고유 ID."
+            "title": "The unique ID of the event to delete",
+            "description": " The unique ID of the event to delete."
           }
         ],
         "requestBody": {
@@ -396,8 +396,8 @@
     },
     "/connector/google-calendar/{calendarId}/event/{eventId}/attendees": {
       "put": {
-        "summary": "구글 캘린더 이벤트 참석자 추가.",
-        "description": "이벤트에 참석자를 추가합니다.",
+        "summary": "Add attendees to a Google Calendar event.",
+        "description": "Add attendees to an event.",
         "tags": [],
         "parameters": [
           {
@@ -412,8 +412,8 @@
               }
             },
             "required": true,
-            "title": "이벤트가 있는 캘린더 고유 ID",
-            "description": " 이벤트가 있는 캘린더 고유 ID."
+            "title": "Unique ID of the calendar where the event is",
+            "description": " Unique ID of the calendar where the event is."
           },
           {
             "name": "eventId",
@@ -427,12 +427,12 @@
               }
             },
             "required": true,
-            "title": "참석자를 추가할 이벤트 고유 ID",
-            "description": " 참석자를 추가할 이벤트 고유 ID."
+            "title": "Unique ID of the event to add attendees to",
+            "description": " Unique ID of the event to add attendees to."
           }
         ],
         "requestBody": {
-          "description": "추가할 참석자 이메일 목록.",
+          "description": "List of email addresses of attendees to add.",
           "content": {
             "application/json": {
               "schema": {
@@ -444,7 +444,7 @@
         },
         "responses": {
           "200": {
-            "description": "참석자가 추가된 이벤트 정보.",
+            "description": "Event information with attendees added.",
             "content": {
               "application/json": {
                 "schema": {
@@ -459,7 +459,7 @@
     },
     "/internal/google": {
       "get": {
-        "description": "구글 access token 재발급 요청",
+        "description": "Request to reissue Google access token",
         "tags": [],
         "parameters": [],
         "responses": {
@@ -491,8 +491,8 @@
                 "type": "string"
               }
             ],
-            "title": "캘린더 id.",
-            "description": "생성된 캘린더의 id 입니다."
+            "title": "Calendar id.",
+            "description": "The id of the generated calendar."
           },
           "summary": {
             "oneOf": [
@@ -503,11 +503,11 @@
                 "type": "string"
               }
             ],
-            "title": "캘린더 명.",
-            "description": "생성된 캘린더의 이름 입니다."
+            "title": "Calendar name.",
+            "description": "The name of the generated calendar."
           }
         },
-        "title": "캘린더 생성 결과"
+        "title": "Calendar creation result"
       },
       "IGoogleCalendar.ISecret": {
         "type": "object",
@@ -518,22 +518,22 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/calendar"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "인증 정보"
+        "title": "Authentication Information"
       },
       "IGoogleCalendar.ICreateCalendarInput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "생성할 캘린더 제목.",
-            "description": "생성할 캘린더의 제목 입니다."
+            "title": "The title of the calendar to be created.",
+            "description": "The title of the calendar to be created."
           },
           "secretKey": {
             "type": "string",
@@ -541,7 +541,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/calendar"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -549,7 +549,7 @@
           "title",
           "secretKey"
         ],
-        "title": "캘린더 생성을 위한 정보"
+        "title": "Information for creating a calendar"
       },
       "IGoogleCalendar.IReadGoogleCalendarEventOutput": {
         "type": "object",
@@ -559,14 +559,14 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent"
             },
-            "title": "이벤트 리스트.",
-            "description": "검색된 캘린더 이벤트 리스트입니다."
+            "title": "Event List.",
+            "description": "Here is a list of calendar events that were found."
           }
         },
         "required": [
           "events"
         ],
-        "title": "캘린더 이벤트 검색 결과"
+        "title": "Calendar Event Search Results"
       },
       "IGoogleCalendar.IGoogleCalendarEvent": {
         "type": "object",
@@ -580,8 +580,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 id.",
-            "description": "이벤트의 고유 id 입니다."
+            "title": "event id.",
+            "description": "The unique id of the event."
           },
           "htmlLink": {
             "oneOf": [
@@ -593,8 +593,8 @@
                 "format": "uri"
               }
             ],
-            "title": "이벤트 링크.",
-            "description": "이벤트 링크 입니다."
+            "title": "Event Link.",
+            "description": "Here is the event link."
           },
           "color": {
             "oneOf": [
@@ -605,8 +605,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 색상.",
-            "description": "이벤트 색상입니다."
+            "title": "Event color.",
+            "description": "Event color."
           },
           "createdDate": {
             "oneOf": [
@@ -617,8 +617,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 생성 날짜.",
-            "description": "이벤트 생성 날짜입니다."
+            "title": "The event creation date.",
+            "description": "The event creation date."
           },
           "updatedDate": {
             "oneOf": [
@@ -629,8 +629,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 업데이트 날짜.",
-            "description": "이벤트 업데이트 날짜입니다."
+            "title": "Event update date.",
+            "description": "Event update date."
           },
           "title": {
             "oneOf": [
@@ -641,8 +641,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 제목.",
-            "description": "이벤트 제목입니다."
+            "title": "Event title.",
+            "description": "This is the event title."
           },
           "description": {
             "oneOf": [
@@ -653,8 +653,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 설명.",
-            "description": "이벤트 설명입니다."
+            "title": "Event description.",
+            "description": "Event description."
           },
           "location": {
             "oneOf": [
@@ -665,8 +665,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 위치.",
-            "description": "이벤트 위치입니다."
+            "title": "Event Location.",
+            "description": "This is the event location."
           },
           "organizer": {
             "oneOf": [
@@ -677,8 +677,8 @@
                 "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IOrganizer"
               }
             ],
-            "title": "이벤트 주최자.",
-            "description": "이벤트 주최자의 정보입니다."
+            "title": "Event Organizer.",
+            "description": "Here is the information for the event organizer."
           },
           "creator": {
             "oneOf": [
@@ -689,8 +689,8 @@
                 "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.ICreator"
               }
             ],
-            "title": "이벤트 생성자.",
-            "description": "이벤트 생성자의 정보입니다."
+            "title": "Event Creator.",
+            "description": "Information about the event creator."
           },
           "startDate": {
             "oneOf": [
@@ -709,8 +709,8 @@
                         "type": "string"
                       }
                     ],
-                    "title": "이벤트 시작 날짜.",
-                    "description": "이벤트 시작 날짜입니다."
+                    "title": "Event start date.",
+                    "description": "Event start date."
                   },
                   "timeZone": {
                     "oneOf": [
@@ -721,13 +721,13 @@
                         "type": "string"
                       }
                     ],
-                    "title": "이벤트 시작 날짜 타임존.",
-                    "description": "이벤트 시작 날짜 타임존입니다."
+                    "title": "Event start date time zone.",
+                    "description": "Event start date time zone."
                   }
                 }
               }
             ],
-            "title": "이벤트 시작 날짜.\n\n이벤트의 시작 날짜 정보입니다."
+            "title": "Event Start Date.\n\nThe start date information for the event."
           },
           "endDate": {
             "oneOf": [
@@ -746,8 +746,8 @@
                         "type": "string"
                       }
                     ],
-                    "title": "이벤트 끝나는 날짜.",
-                    "description": "이벤트 끝나는 날짜입니다."
+                    "title": "The event ends on this date.",
+                    "description": "The event ends on this date."
                   },
                   "timeZone": {
                     "oneOf": [
@@ -758,14 +758,14 @@
                         "type": "string"
                       }
                     ],
-                    "title": "이벤트 끝나는 날짜 타임존.",
-                    "description": "이벤트 끝나는 날짜 타임존입니다."
+                    "title": "Event End Date Timezone.",
+                    "description": "Event End Date Timezone."
                   }
                 }
               }
             ],
-            "title": "이벤트 끝나는 날짜.",
-            "description": "이벤트의 끝나는 날짜 정보입니다."
+            "title": "Event end date.",
+            "description": "This is the event end date information."
           },
           "recurrence": {
             "oneOf": [
@@ -779,8 +779,8 @@
                 }
               }
             ],
-            "title": "이벤트 반복 정보.",
-            "description": "이벤트 반복 정보입니다."
+            "title": "Event repeat information.",
+            "description": "Event repeat information."
           },
           "transparency": {
             "oneOf": [
@@ -791,8 +791,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 바쁨 / 한가함 여부.",
-            "description": "이벤트 바쁨 / 한가함 여부입니다."
+            "title": "Event busy/free status.",
+            "description": "Event busy/free status."
           },
           "guestsCanModify": {
             "oneOf": [
@@ -803,8 +803,8 @@
                 "type": "boolean"
               }
             ],
-            "title": "초대자 이벤트 수정 권한 여부.",
-            "description": "초대자 이벤트 수정 권한 여부입니다."
+            "title": "Whether the inviter has permission to edit the event.",
+            "description": "Whether the inviter has permission to edit the event."
           },
           "reminders": {
             "oneOf": [
@@ -815,8 +815,8 @@
                 "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IReminders"
               }
             ],
-            "title": "이벤트 알림 정보.",
-            "description": "이벤트 알림 정보입니다."
+            "title": "Event notification information.",
+            "description": "Event notification information."
           },
           "attendees": {
             "oneOf": [
@@ -830,8 +830,8 @@
                 }
               }
             ],
-            "title": "이벤트 참석자.",
-            "description": "이벤트 참석자 정보입니다."
+            "title": "Event Attendee.",
+            "description": "Here is the event attendee information."
           },
           "attachments": {
             "oneOf": [
@@ -845,8 +845,8 @@
                 }
               }
             ],
-            "title": "첨부파일 정보.",
-            "description": "이벤트 첨부파일 정보입니다."
+            "title": "Attachment information.",
+            "description": "Event attachment information."
           },
           "hangoutLink": {
             "oneOf": [
@@ -857,8 +857,8 @@
                 "type": "string"
               }
             ],
-            "title": "구글 밋 링크.",
-            "description": "구글 밋 링크입니다."
+            "title": "Google Meet link.",
+            "description": "Here is the Google Meet link."
           },
           "visibility": {
             "oneOf": [
@@ -869,11 +869,11 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 공개 상태.",
-            "description": "이벤트 공개 상태입니다."
+            "title": "The event is open.",
+            "description": "The event is open."
           }
         },
-        "title": "구글 캘린더 이벤트 정보"
+        "title": "Google Calendar Event Information"
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IOrganizer": {
         "type": "object",
@@ -887,8 +887,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 주최자 프로필 id.",
-            "description": "이벤트 주최자 프로필 id입니다."
+            "title": "Event organizer profile id.",
+            "description": "Event organizer profile id."
           },
           "displayName": {
             "oneOf": [
@@ -899,8 +899,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 주최자 이름.",
-            "description": "이벤트 주최자 이름입니다."
+            "title": "The name of the event organizer.",
+            "description": "The name of the event organizer."
           },
           "email": {
             "oneOf": [
@@ -911,8 +911,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 주최자 이메일.",
-            "description": "이벤트 주최자 이메일입니다."
+            "title": "This is the event organizer's email.",
+            "description": "This is the event organizer's email."
           },
           "self": {
             "oneOf": [
@@ -923,11 +923,11 @@
                 "type": "boolean"
               }
             ],
-            "title": "이벤트 사본이 표시되는 캘린더에 해당하는지 여부.",
-            "description": "이벤트 사본이 표시되는 캘린더에 해당하는지 여부입니다."
+            "title": "Whether the event copy corresponds to the calendar on which it is displayed.",
+            "description": "Whether the event copy corresponds to the calendar on which it is displayed."
           }
         },
-        "title": "주최자 정보"
+        "title": "Host Information"
       },
       "IGoogleCalendar.IGoogleCalendarEvent.ICreator": {
         "type": "object",
@@ -941,8 +941,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 생성자 프로필 id.",
-            "description": "이벤트 생성자 프로필 id입니다."
+            "title": "Event Creator Profile Id.",
+            "description": "The event creator profile id."
           },
           "displayName": {
             "oneOf": [
@@ -953,8 +953,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 생성자 이름.",
-            "description": "이벤트 생성자 이름입니다."
+            "title": "The event creator name.",
+            "description": "The event creator name."
           },
           "email": {
             "oneOf": [
@@ -965,8 +965,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 생성자 이메일.",
-            "description": "이벤트 생성자 이메일입니다."
+            "title": "The event creator email.",
+            "description": "The event creator email."
           },
           "self": {
             "oneOf": [
@@ -977,31 +977,31 @@
                 "type": "boolean"
               }
             ],
-            "title": "이벤트 사본이 표시되는 캘린더에 해당하는지 여부.",
-            "description": "이벤트 사본이 표시되는 캘린더에 해당하는지 여부입니다."
+            "title": "Whether the event copy corresponds to the calendar on which it is displayed.",
+            "description": "Whether the event copy corresponds to the calendar on which it is displayed."
           }
         },
-        "title": "이벤트 생성자 정보.",
-        "description": "이벤트 생성자 정보입니다."
+        "title": "Event creator information.",
+        "description": "Event creator information."
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IReminders": {
         "type": "object",
         "properties": {
           "useDefault": {
             "type": "boolean",
-            "title": "디폴트 알림 여부.",
-            "description": "디폴트 알림 여부입니다."
+            "title": "Whether to default notification.",
+            "description": "Whether to default notification."
           },
           "overrides": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IRemindersOverrides"
             },
-            "title": "알림 설정 정보.",
-            "description": "알림 설정 정보입니다."
+            "title": "Notification settings information.",
+            "description": "Here is the notification settings information."
           }
         },
-        "title": "알림 정보"
+        "title": "Notification information"
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IRemindersOverrides": {
         "type": "object",
@@ -1015,8 +1015,8 @@
                 "type": "string"
               }
             ],
-            "title": "알림 방식.",
-            "description": "알림 방식입니다."
+            "title": "Notification method.",
+            "description": "This is the notification method."
           },
           "minutes": {
             "oneOf": [
@@ -1027,11 +1027,11 @@
                 "type": "number"
               }
             ],
-            "title": "알림 보내는 시간.",
-            "description": "알림 보내는 시간입니다."
+            "title": "It's time to send notifications.",
+            "description": "It's time to send notifications."
           }
         },
-        "title": "알림 설정 정보"
+        "title": "Notification settings information"
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IAttendees": {
         "type": "object",
@@ -1045,8 +1045,8 @@
                 "type": "string"
               }
             ],
-            "title": "이벤트 참석자 이메일.",
-            "description": "이벤트 참석자 이메일입니다."
+            "title": "Event attendee email.",
+            "description": "This is the event attendee email."
           },
           "organizer": {
             "oneOf": [
@@ -1057,8 +1057,8 @@
                 "type": "boolean"
               }
             ],
-            "title": "이벤트 참석자가 주최자인지 여부.",
-            "description": "이벤트 참석자가 주최자인지 여부입니다."
+            "title": "Whether the event attendee is the host.",
+            "description": "Whether the event attendee is the host."
           },
           "self": {
             "oneOf": [
@@ -1069,8 +1069,8 @@
                 "type": "boolean"
               }
             ],
-            "title": "일정 사본이 표시되는 캘린더를 나타내는지 여부.",
-            "description": "일정 사본이 표시되는 캘린더를 나타내는지 여부입니다."
+            "title": "Whether the calendar that the schedule copy is displayed on is indicated.",
+            "description": "Whether the calendar that the schedule copy is displayed on is indicated."
           },
           "responseStatus": {
             "oneOf": [
@@ -1081,11 +1081,11 @@
                 "type": "string"
               }
             ],
-            "title": "참석자의 참석 응답 상태.",
-            "description": "참석자의 참석 응답 상태입니다."
+            "title": "Attendee's attendance response status.",
+            "description": "Attendee's attendance response status."
           }
         },
-        "title": "참석자 정보"
+        "title": "Attendee Information"
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IAttachments": {
         "type": "object",
@@ -1100,8 +1100,8 @@
                 "format": "uri"
               }
             ],
-            "title": "파일 url.",
-            "description": "이벤트 첨부파일 url입니다."
+            "title": "file url.",
+            "description": "This is the event attachment file url."
           },
           "title": {
             "oneOf": [
@@ -1112,8 +1112,8 @@
                 "type": "string"
               }
             ],
-            "title": "파일 제목.",
-            "description": "첨부파일 제목입니다."
+            "title": "File title.",
+            "description": "This is the title of the attached file."
           },
           "mimeType": {
             "oneOf": [
@@ -1124,8 +1124,8 @@
                 "type": "string"
               }
             ],
-            "title": "인터넷 미디어 유형.",
-            "description": "인터넷 미디어 유형입니다."
+            "title": "Internet Media Type.",
+            "description": "Internet Media Type."
           },
           "iconLink": {
             "oneOf": [
@@ -1137,8 +1137,8 @@
                 "format": "uri"
               }
             ],
-            "title": "파일 icon 링크.",
-            "description": "첨부파일 아이콘 링크입니다."
+            "title": "File icon link.",
+            "description": "Attachment file icon link."
           },
           "fileId": {
             "oneOf": [
@@ -1149,29 +1149,29 @@
                 "type": "string"
               }
             ],
-            "title": "파일 id.",
-            "description": "첨부파일의 id 입니다."
+            "title": "file id.",
+            "description": "This is the id of the attached file."
           }
         },
-        "title": "첨부파일 정보"
+        "title": "Attachment file information"
       },
       "IGoogleCalendar.IReadGoogleCalendarEventInput": {
         "type": "object",
         "properties": {
           "time_max": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
-            "title": "이벤트를 가져올 마지막 날짜 정보.",
-            "description": "해당 날짜 이후의 이벤트는 가져오지 않습니다."
+            "title": "Information about the last date from which events will be fetched.",
+            "description": "Events after that date will not be fetched."
           },
           "time_min": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
-            "title": "이벤트를 가져올 시작 날짜 정보.",
-            "description": "해당 날짜 이전의 이벤트는 가져오지 않습니다."
+            "title": "Information on the start date from which events will be retrieved.",
+            "description": "Events prior to that date will not be retrieved."
           },
           "max_results": {
             "type": "integer",
-            "title": "몇 개의 결과를 반환할지.",
-            "description": "가져올 이벤트의 최대 개수를 설정합니다."
+            "title": "How many results to return.",
+            "description": "Sets the maximum number of events to retrieve."
           },
           "orderBy": {
             "oneOf": [
@@ -1184,13 +1184,13 @@
                 "title": "업데이트 날짜"
               }
             ],
-            "title": "어떤 순서대로 받아올 것인지.",
-            "description": "캘린더 이벤트 정렬 순서입니다.\n\n- startTime: 이벤트 시작 시간.\n- updated: 이벤트 업데이트 날짜.\n\n가능한 값으로는 \"startTime\", \"updated\" 2가지만 가능합니다."
+            "title": "The order in which the events will be received.",
+            "description": "The order in which the calendar events are sorted.\n\n- startTime: The start time of the event.\n- updated: The date the event was updated.\n\nOnly two possible values are possible: \"startTime\" and \"updated\"."
           },
           "query": {
             "type": "string",
-            "title": "이벤트 검색어.",
-            "description": "검색어를 포함하는 이벤트를 검색할 수 있습니다.\n\n제목, 설명, 위치, 참석자 등에서 지정한 검색어를 포함하는 이벤트를 검색할 수 있음"
+            "title": "Event search terms.",
+            "description": "You can search for events that contain your search terms.\n\nYou can search for events that contain your search terms in the title, description, location, attendees, etc."
           },
           "secretKey": {
             "type": "string",
@@ -1198,7 +1198,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/calendar"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -1207,30 +1207,30 @@
           "time_min",
           "secretKey"
         ],
-        "title": "이벤트 검색에 필요한 정보"
+        "title": "Information needed to search for events"
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IDate": {
         "type": "object",
         "properties": {
           "year": {
             "type": "number",
-            "title": "연도.",
-            "description": "연도입니다."
+            "title": "The year.",
+            "description": "It's the year."
           },
           "month": {
             "type": "number",
-            "title": "달.",
-            "description": "달입니다."
+            "title": "Moon.",
+            "description": "It's the moon."
           },
           "date": {
             "type": "number",
-            "title": "일.",
-            "description": "일입니다."
+            "title": "Work.",
+            "description": "It's work."
           },
           "hour": {
             "type": "number",
-            "title": "시.",
-            "description": "시입니다."
+            "title": "Poetry.",
+            "description": "It's a poem."
           }
         },
         "required": [
@@ -1239,15 +1239,15 @@
           "date",
           "hour"
         ],
-        "title": "날짜 정보"
+        "title": "Date information"
       },
       "IGoogleCalendar.ICreateQuickEventInput": {
         "type": "object",
         "properties": {
           "text": {
             "type": "string",
-            "title": "캘린더 빠른 이벤트 생성 문구.",
-            "description": "캘린더 빠른 이벤트 생성 문구입니다."
+            "title": "This is the text for creating a quick calendar event.",
+            "description": "This is the text for creating a quick calendar event."
           },
           "secretKey": {
             "type": "string",
@@ -1255,7 +1255,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/calendar"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -1263,43 +1263,43 @@
           "text",
           "secretKey"
         ],
-        "title": "빠른 이벤트 생성을 위해 필요한 정보"
+        "title": "Information needed to create a quick event"
       },
       "IGoogleCalendar.IEventRequestBodyInput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "이벤트 제목.",
-            "description": "생성할 이벤트 제목입니다."
+            "title": "Event title.",
+            "description": "The title of the event to be generated."
           },
           "description": {
             "type": "string",
-            "title": "이벤트 설명.",
-            "description": "생성할 이벤트 설명입니다."
+            "title": "Event description.",
+            "description": "Description of the event to be generated."
           },
           "location": {
             "type": "string",
-            "title": "이벤트 장소.",
-            "description": "생성할 이벤트 장소입니다."
+            "title": "Event Location.",
+            "description": "This is the event location to be created."
           },
           "start": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
-            "title": "이벤트 시작일.",
-            "description": "생성할 이벤트 시작일입니다."
+            "title": "Event start date.",
+            "description": "The start date of the event to be created."
           },
           "end": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
-            "title": "이벤트 종료일.",
-            "description": "생성할 이벤트 종료일입니다."
+            "title": "Event end date.",
+            "description": "The end date of the event to be created."
           },
           "attendeesEmail": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "참석자 이메일.",
-            "description": "이벤트 참석자 이메일입니다."
+            "title": "Attendee Email.",
+            "description": "This is the event attendee email."
           },
           "repeatFrequency": {
             "oneOf": [
@@ -1316,28 +1316,28 @@
                 "const": "YEARLY"
               }
             ],
-            "title": "이벤트 반복 주기.",
-            "description": "이벤트 반복 주기입니다.\n\n- DAILY: 매일\n- WEEKLY: 매주\n- MONTHLY: 매달\n- YEARLY: 매년\n\n가능한 값으로는 \"DAILY\", \"WEEKLY\", \"MONTHLY\", \"YEARLY\" 4가지만 가능합니다."
+            "title": "The event repeat cycle.",
+            "description": "The event repeat cycle.\n\n- DAILY: Daily\n- WEEKLY: Weekly\n- MONTHLY: Monthly\n- YEARLY: Yearly\n\nOnly 4 possible values are possible: \"DAILY\", \"WEEKLY\", \"MONTHLY\", \"YEARLY\"."
           },
           "repeatNum": {
             "type": "number",
-            "title": "이벤트 반복 횟수.",
-            "description": "이벤트 반복 횟수입니다."
+            "title": "The number of times the event is repeated.",
+            "description": "The number of times the event is repeated."
           },
           "repeatUntil": {
             "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
-            "title": "이벤트 반복 마감 일자.",
-            "description": "이벤트 반복 마감 일자입니다."
+            "title": "Event repeat deadline.",
+            "description": "Event repeat deadline."
           },
           "isBusy": {
             "type": "boolean",
-            "title": "바쁨 여부.",
-            "description": "이벤트 바쁨 상태 여부입니다."
+            "title": "Whether the event is busy or not.",
+            "description": "Whether the event is busy or not."
           },
           "isUseDefaultReminder": {
             "type": "boolean",
-            "title": "캘린더 기본 알림 사용 여부.",
-            "description": "캘린더 기본 알림 사용 여부입니다."
+            "title": "Whether to use the default calendar notifications.",
+            "description": "Whether to use the default calendar notifications."
           },
           "remindersType": {
             "oneOf": [
@@ -1348,18 +1348,18 @@
                 "const": "popup"
               }
             ],
-            "title": "이벤트 알림 유형.",
-            "description": "이벤트 알림 유형입니다.\n\n- popup: 팝업 알림\n- email: 이메일 알림\n\n가능한 값으로는 \"popup\", \"email\" 2가지만 가능합니다."
+            "title": "Event notification type.",
+            "description": "Event notification type.\n\n- popup: Popup notification\n- email: Email notification\n\nOnly two possible values are possible: \"popup\" and \"email\"."
           },
           "minutesBeforeReminders": {
             "type": "number",
-            "title": "일정 시작전 알림 설정 시간.",
-            "description": "일정 시작전 알림 설정 시간입니다."
+            "title": "It's time to set a notification before the schedule starts.",
+            "description": "It's time to set a notification before the schedule starts."
           },
           "isConferencing": {
             "type": "boolean",
-            "title": "구글밋 생성 여부.",
-            "description": "구글밋 생성 여부입니다."
+            "title": "Whether to create a Google Meet.",
+            "description": "Whether to create a Google Meet."
           },
           "visibility": {
             "oneOf": [
@@ -1373,18 +1373,18 @@
                 "const": "private"
               }
             ],
-            "title": "이벤트 공개 상태.",
-            "description": "이벤트 공개 상태입니다.\n\ndefault - 기본 공개 상태\npublic - 일정이 공개되며 일정 세부정보가 캘린더의 모든 독자에게 표시\nprivate - 일정이 비공개이며 일정 참석자만 일정 세부정보를 볼 수 있음\n\n가능한 값으로는 \"default\", \"public\", \"private\" 3가지만 가능합니다."
+            "title": "The event's public status.",
+            "description": "The event's public status.\n\ndefault - The default public status\npublic - The event is public and the event details are visible to all readers of the calendar\nprivate - The event is private and only the event attendees can see the event details\n\nThere are only three possible values: \"default\", \"public\", \"private\"."
           },
           "colorId": {
             "type": "string",
-            "title": "이벤트 색상.",
-            "description": "이벤트 색상."
+            "title": "Event Color.",
+            "description": "Event Color."
           },
           "isGuestCanModify": {
             "type": "boolean",
-            "title": "게스트 이벤트 수정 가능 여부.",
-            "description": "게스트 이벤트 수정 가능 여부입니다."
+            "title": "Whether guest events can be modified.",
+            "description": "Whether guest events can be modified."
           },
           "secretKey": {
             "type": "string",
@@ -1392,7 +1392,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/calendar"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -1401,7 +1401,7 @@
           "end",
           "secretKey"
         ],
-        "title": "이벤트 생성을 위해 필요한 정보"
+        "title": "Information required to create an event"
       },
       "IGoogleCalendar.IAddAttendeesToEventInput": {
         "type": "object",
@@ -1411,8 +1411,8 @@
             "items": {
               "type": "string"
             },
-            "title": "추가할 참석자 이메일.",
-            "description": "추가할 참석자 이메일입니다."
+            "title": "The email address of the attendee you wish to add.",
+            "description": "The email address of the attendee you wish to add."
           },
           "secretKey": {
             "type": "string",
@@ -1420,7 +1420,7 @@
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/calendar"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
@@ -1428,7 +1428,7 @@
           "attendeesEmail",
           "secretKey"
         ],
-        "title": "참석자 추가를 위해 필요한 정보"
+        "title": "Information required to add attendees"
       }
     }
   },

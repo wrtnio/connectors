@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,8 +26,8 @@
   "paths": {
     "/connector/open-data/getAddress": {
       "post": {
-        "summary": "대한민국 주소 체계를 조회합니다",
-        "description": "대한민국 주소 체계를 조회합니다\n\n- 우편주소를 넣을 경우 지번 주소와 도로명 주소로 변환할 수 있습니다.",
+        "summary": "Search for the address system of the Republic of Korea",
+        "description": "Search for the address system of the Republic of Korea\n\n- If you enter a postal address, you can convert it to a street address and a road name address.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -436,15 +436,15 @@
                   "properties": {
                     "zipNo": {
                       "type": "string",
-                      "title": "우편 주소"
+                      "title": "Postal address"
                     },
                     "lnmAdres": {
                       "type": "string",
-                      "title": "지번 주소"
+                      "title": "street address"
                     },
                     "rnAdres": {
                       "type": "string",
-                      "title": "도로명 주소"
+                      "title": "Road name address"
                     }
                   },
                   "required": [
@@ -453,13 +453,13 @@
                     "rnAdres"
                   ]
                 },
-                "title": "주소 데이터\n\n데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다."
+                "title": "Address Data\n\nIf there is no data, the key itself does not exist, so in this case, there are no search results."
               }
             },
             "required": [
               "cmmMsgHeader"
             ],
-            "title": "NewAddressListResponse\n\n응답 결과에 대한 헤더 정보가 담기는 구간"
+            "title": "NewAddressListResponse\n\nSection containing header information for the response result"
           }
         },
         "required": [
@@ -473,15 +473,15 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 200,
-            "title": "검색어"
+            "title": "search term"
           },
           "countPerPage": {
             "type": "integer",
-            "title": "페이지 당 출력 개수"
+            "title": "Number of outputs per page"
           },
           "currentPage": {
             "type": "integer",
-            "title": "출력될 페이지 번호"
+            "title": "Page number to be printed"
           }
         },
         "required": [
@@ -499,7 +499,7 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "nextPage\n\n다음 페이지 존재 여부를 의미"
+            "title": "nextPage\n\nIndicates whether the next page exists"
           }
         },
         "required": [
@@ -512,7 +512,7 @@
         "properties": {
           "useOfRenewalRight": {
             "type": "string",
-            "title": "갱신요구권사용"
+            "title": "Use of renewal request right"
           },
           "yearOfConstruction": {
             "oneOf": [
@@ -523,15 +523,15 @@
                 "type": "number"
               }
             ],
-            "title": "건축년도"
+            "title": "Year of construction"
           },
           "typeOfContract": {
             "type": "string",
-            "title": "계약구분"
+            "title": "Contract type"
           },
           "contractPeriod": {
             "type": "string",
-            "title": "계약기간"
+            "title": "Contract period"
           },
           "year": {
             "oneOf": [
@@ -542,11 +542,11 @@
                 "type": "number"
               }
             ],
-            "title": "년"
+            "title": "year"
           },
           "legalDistrict": {
             "type": "string",
-            "title": "법정동"
+            "title": "Beopjeong-dong"
           },
           "depositAmount": {
             "oneOf": [
@@ -557,7 +557,7 @@
                 "type": "number"
               }
             ],
-            "title": "보증금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
+            "title": "Deposit amount\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
           },
           "month": {
             "oneOf": [
@@ -570,7 +570,7 @@
                 "maximum": 12
               }
             ],
-            "title": "월"
+            "title": "month"
           },
           "monthlyRentAmount": {
             "oneOf": [
@@ -581,7 +581,7 @@
                 "type": "integer"
               }
             ],
-            "title": "월세금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
+            "title": "Monthly rent\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
           },
           "day": {
             "oneOf": [
@@ -594,7 +594,7 @@
                 "maximum": 31
               }
             ],
-            "title": "일"
+            "title": "day"
           },
           "previousContractDeposit": {
             "oneOf": [
@@ -605,7 +605,7 @@
                 "type": "number"
               }
             ],
-            "title": "종전계약보증금"
+            "title": "Previous contract deposit"
           },
           "previousContractMonthlyRent": {
             "oneOf": [
@@ -616,7 +616,7 @@
                 "type": "number"
               }
             ],
-            "title": "종전계약월세"
+            "title": "Previous contract monthly rent"
           },
           "areaCode": {
             "oneOf": [
@@ -627,7 +627,7 @@
                 "type": "number"
               }
             ],
-            "title": "지역코드"
+            "title": "area code"
           }
         },
         "required": [
@@ -655,12 +655,12 @@
               "path": "/connector/open-data/getStandardRegionCodeList",
               "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
-            "title": "시군구 코드"
+            "title": "City/county/district code"
           },
           "DEAL_YMD": {
             "type": "string",
             "x-wrtn-placeholder": "202201",
-            "title": "실거래 자료의 계약년월(6자리)"
+            "title": "Contract year and month of actual transaction data (6 digits)"
           },
           "page": {
             "type": "integer",
@@ -691,7 +691,7 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "nextPage\n\n다음 페이지 존재 여부를 의미"
+            "title": "nextPage\n\nIndicates whether the next page exists"
           }
         },
         "required": [
@@ -711,7 +711,7 @@
                 "type": "number"
               }
             ],
-            "title": "전용면적"
+            "title": "Exclusive area"
           },
           "lotNumber": {
             "oneOf": [
@@ -722,7 +722,7 @@
                 "type": "integer"
               }
             ],
-            "title": "지번"
+            "title": "Address"
           },
           "floor": {
             "oneOf": [
@@ -733,19 +733,19 @@
                 "type": "integer"
               }
             ],
-            "title": "층"
+            "title": "floor"
           },
           "useOfRenewalRight": {
             "type": "string",
-            "title": "갱신요구권사용"
+            "title": "Use of renewal request right"
           },
           "typeOfContract": {
             "type": "string",
-            "title": "계약구분"
+            "title": "Contract type"
           },
           "contractPeriod": {
             "type": "string",
-            "title": "계약기간"
+            "title": "Contract period"
           },
           "year": {
             "oneOf": [
@@ -756,11 +756,11 @@
                 "type": "number"
               }
             ],
-            "title": "년"
+            "title": "year"
           },
           "legalDistrict": {
             "type": "string",
-            "title": "법정동"
+            "title": "Beopjeong-dong"
           },
           "month": {
             "oneOf": [
@@ -773,7 +773,7 @@
                 "maximum": 12
               }
             ],
-            "title": "월"
+            "title": "month"
           },
           "day": {
             "oneOf": [
@@ -786,7 +786,7 @@
                 "maximum": 31
               }
             ],
-            "title": "일"
+            "title": "day"
           },
           "previousContractDeposit": {
             "oneOf": [
@@ -797,7 +797,7 @@
                 "type": "number"
               }
             ],
-            "title": "종전계약보증금"
+            "title": "Previous contract deposit"
           },
           "previousContractMonthlyRent": {
             "oneOf": [
@@ -808,7 +808,7 @@
                 "type": "number"
               }
             ],
-            "title": "종전계약월세"
+            "title": "Previous contract monthly rent"
           },
           "areaCode": {
             "oneOf": [
@@ -819,7 +819,7 @@
                 "type": "number"
               }
             ],
-            "title": "지역코드"
+            "title": "area code"
           }
         },
         "required": [
@@ -849,7 +849,7 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "nextPage\n\n다음 페이지 존재 여부를 의미"
+            "title": "nextPage\n\nIndicates whether the next page exists"
           }
         },
         "required": [
@@ -862,7 +862,7 @@
         "properties": {
           "useOfRenewalRight": {
             "type": "string",
-            "title": "갱신요구권사용"
+            "title": "Use of renewal request right"
           },
           "yearOfConstruction": {
             "oneOf": [
@@ -873,15 +873,15 @@
                 "type": "number"
               }
             ],
-            "title": "건축년도"
+            "title": "Year of construction"
           },
           "typeOfContract": {
             "type": "string",
-            "title": "계약구분"
+            "title": "Contract type"
           },
           "contractPeriod": {
             "type": "string",
-            "title": "계약기간"
+            "title": "Contract period"
           },
           "year": {
             "oneOf": [
@@ -892,11 +892,11 @@
                 "type": "number"
               }
             ],
-            "title": "년"
+            "title": "year"
           },
           "legalDistrict": {
             "type": "string",
-            "title": "법정동"
+            "title": "Beopjeong-dong"
           },
           "depositAmount": {
             "oneOf": [
@@ -907,11 +907,11 @@
                 "type": "number"
               }
             ],
-            "title": "보증금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
+            "title": "Deposit amount\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
           },
           "apartment": {
             "type": "string",
-            "title": "아파트"
+            "title": "Apartment"
           },
           "month": {
             "oneOf": [
@@ -924,7 +924,7 @@
                 "maximum": 12
               }
             ],
-            "title": "월"
+            "title": "month"
           },
           "monthlyRentAmount": {
             "oneOf": [
@@ -935,7 +935,7 @@
                 "type": "integer"
               }
             ],
-            "title": "월세금액\n\n한국 돈을 기준으로 하기 때문에 대부분의 경우 만 원 단위일 것"
+            "title": "Monthly rent\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
           },
           "day": {
             "oneOf": [
@@ -948,7 +948,7 @@
                 "maximum": 31
               }
             ],
-            "title": "일"
+            "title": "day"
           },
           "exclusiveArea": {
             "oneOf": [
@@ -959,7 +959,7 @@
                 "type": "number"
               }
             ],
-            "title": "전용면적"
+            "title": "Exclusive area"
           },
           "previousContractDeposit": {
             "oneOf": [
@@ -970,7 +970,7 @@
                 "type": "number"
               }
             ],
-            "title": "종전계약보증금"
+            "title": "Previous contract deposit"
           },
           "previousContractMonthlyRent": {
             "oneOf": [
@@ -981,7 +981,7 @@
                 "type": "number"
               }
             ],
-            "title": "종전계약월세"
+            "title": "Previous contract monthly rent"
           },
           "lotNumber": {
             "oneOf": [
@@ -992,7 +992,7 @@
                 "type": "integer"
               }
             ],
-            "title": "지번"
+            "title": "Address"
           },
           "areaCode": {
             "oneOf": [
@@ -1003,7 +1003,7 @@
                 "type": "number"
               }
             ],
-            "title": "지역코드"
+            "title": "area code"
           },
           "floor": {
             "oneOf": [
@@ -1014,7 +1014,7 @@
                 "type": "integer"
               }
             ],
-            "title": "층"
+            "title": "floor"
           }
         },
         "required": [
@@ -1041,7 +1041,7 @@
         "properties": {
           "nextPage": {
             "type": "boolean",
-            "title": "다음 페이지 유무"
+            "title": "Next page availability"
           },
           "data": {
             "type": "array",
@@ -1051,57 +1051,57 @@
                 "SUM_HSH_CNT": {
                   "type": "string",
                   "x-wrtn-placeholder": "873",
-                  "title": "총세대수"
+                  "title": "Total number of households"
                 },
                 "RFE": {
                   "type": "string",
                   "x-wrtn-placeholder": "373500",
-                  "title": "월임대료(원)"
+                  "title": "Monthly rent (won)"
                 },
                 "RNUM": {
                   "type": "string",
                   "x-wrtn-placeholder": "1",
-                  "title": "순번"
+                  "title": "order"
                 },
                 "HSH_CNT": {
                   "type": "string",
                   "x-wrtn-placeholder": "72",
-                  "title": "세대수"
+                  "title": "Number of generations"
                 },
                 "ARA_NM": {
                   "type": "string",
                   "x-wrtn-placeholder": "서울특별시 강남구",
-                  "title": "지역명"
+                  "title": "Region name"
                 },
                 "LS_GMY": {
                   "type": "string",
                   "x-wrtn-placeholder": "45003000",
-                  "title": "임대보증금"
+                  "title": "Rental Deposit"
                 },
                 "AIS_TP_CD_NM": {
                   "type": "string",
                   "x-wrtn-placeholder": "국민임대",
-                  "title": "공급유형명"
+                  "title": "Supply type name"
                 },
                 "SBD_LGO_NM": {
                   "type": "string",
                   "x-wrtn-placeholder": "서울강남 3블록",
-                  "title": "단지명"
+                  "title": "Name of the unit"
                 },
                 "ALL_CNT": {
                   "type": "string",
                   "x-wrtn-placeholder": "157",
-                  "title": "전체건수"
+                  "title": "Total number"
                 },
                 "DDO_AR": {
                   "type": "string",
                   "x-wrtn-placeholder": "46.71",
-                  "title": "전용면적"
+                  "title": "Exclusive area"
                 },
                 "MVIN_XPC_YM": {
                   "type": "string",
                   "x-wrtn-placeholder": "201311",
-                  "title": "최초입주년월"
+                  "title": "First year of residency"
                 }
               },
               "required": [
@@ -1124,7 +1124,7 @@
           "nextPage",
           "data"
         ],
-        "title": "LH 임대주택 조회 응답"
+        "title": "LH rental housing inquiry response"
       },
       "ILH.IGetLHLeaseInfoInput": {
         "type": "object",
@@ -1200,7 +1200,7 @@
                 "title": "세종특별자치시"
               }
             ],
-            "title": "지역 코드\n\nIt can be one of this numbers:\n- 11: 서울특별시\n- 26: 부산광역시\n- 27: 대구광역시\n- 28: 인천광역시\n- 29: 광주광역시\n- 30: 대전광역시\n- 31: 울산광역시\n- 36110: 세종특별자치시\n- 41: 경기도\n- 42: 강원도\n- 43: 충청북도\n- 44: 충청남도\n- 45: 전라북도\n- 46: 전라남도\n- 47: 경상북도\n- 48: 경상남도\n- 50: 제주특별자치도"
+            "title": "Area Code\n\nIt can be one of these numbers:\n- 11: Seoul\n- 26: Busan\n- 27: Daegu\n- 28: Incheon\n- 29: Gwangju\n- 30: Daejeon\n- 31: Ulsan\n- 36110: Sejong\n- 41: Gyeonggi\n- 42: Gangwon\n- 43: Chungcheongbuk\n- 44: Chungcheongnam\n- 45: Jeollabuk\n- 46: Jeollanam\n- 47: Gyeongsangbuk\n- 48: Gyeongsangnam\n- 50: Jeju"
           },
           "SPL_TP_CD": {
             "oneOf": [
@@ -1233,7 +1233,7 @@
                 "title": "전세임대"
               }
             ],
-            "title": "공급유형코드\n\nIt can be one of this numbers:\n- 07: 국민임대\n- 08: 공공임대\n- 09: 영구임대\n- 10: 행복주택\n- 11: 장기전세\n- 13: 매입임대\n- 17: 전세임대"
+            "title": "Supply Type Code\n\nIt can be one of these numbers:\n- 07: National Rental\n- 08: Public Rental\n- 09: Permanent Rental\n- 10: Happy Housing\n- 11: Long-term Lease\n- 13: Purchase Lease\n- 17: Lease Lease"
           },
           "numOfRows": {
             "type": "integer",
@@ -1249,7 +1249,7 @@
         "required": [
           "CNP_CD"
         ],
-        "title": "LH 임대주택 조회 조건"
+        "title": "LH rental housing search conditions"
       },
       "INIA.IGetParkingLotOutput": {
         "type": "object",
@@ -1259,7 +1259,7 @@
             "items": {
               "$ref": "#/components/schemas/INIA.ParkingLot"
             },
-            "title": "주차장 정보"
+            "title": "Parking lot information"
           },
           "numOfRows": {
             "type": "integer",
@@ -1280,26 +1280,26 @@
           "parkingLots",
           "totalCount"
         ],
-        "title": "주차장 조회 응답"
+        "title": "Parking lot inquiry response"
       },
       "INIA.ParkingLot": {
         "type": "object",
         "properties": {
           "prkplceNo": {
             "type": "string",
-            "title": "주차장관리번호"
+            "title": "Parking lot management number"
           },
           "prkplceNm": {
             "type": "string",
-            "title": "주차장명"
+            "title": "Parking lot name"
           },
           "prkplceSe": {
             "type": "string",
-            "title": "주차장구분"
+            "title": "Parking lot classification"
           },
           "prkplceType": {
             "type": "string",
-            "title": "주차장유형"
+            "title": "Parking lot type"
           },
           "rdnmadr": {
             "type": "string",
@@ -1308,7 +1308,7 @@
               "path": "/connector/kakao-map/search",
               "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
             },
-            "title": "도로명 주소 (read name address)"
+            "title": "road name address (read name address)"
           },
           "lnmadr": {
             "type": "string",
@@ -1317,119 +1317,119 @@
               "path": "/connector/kakao-map/search",
               "jmesPath": "documents[].{value:address_name, label:address_name}"
             },
-            "title": "소재지지번주소 (lot number address)"
+            "title": "Lot number address"
           },
           "prkcmprt": {
             "type": "string",
-            "title": "주차구획수"
+            "title": "Number of parking spaces"
           },
           "feedingSe": {
             "type": "string",
-            "title": "급지구분"
+            "title": "Urgent Distinction"
           },
           "enforceSe": {
             "type": "string",
-            "title": "부제시행구분"
+            "title": "Subtitle enforcement classification"
           },
           "operDay": {
             "type": "string",
-            "title": "운영요일"
+            "title": "Operating days"
           },
           "weekdayOperOpenHhmm": {
             "type": "string",
-            "title": "평일운영시작시각"
+            "title": "Weekday operation start time"
           },
           "weekdayOperColseHhmm": {
             "type": "string",
-            "title": "평일운영종료시각"
+            "title": "Weekday operating closing time"
           },
           "satOperOperOpenHhmm": {
             "type": "string",
-            "title": "토요일운영시작시각"
+            "title": "Saturday operation start time"
           },
           "satOperCloseHhmm": {
             "type": "string",
-            "title": "토요일운영종료시각"
+            "title": "Saturday closing time"
           },
           "holidayOperOpenHhmm": {
             "type": "string",
-            "title": "공휴일운영시작시각"
+            "title": "Holiday operation start time"
           },
           "holidayCloseOpenHhmm": {
             "type": "string",
-            "title": "공휴일운영종료시각"
+            "title": "Holiday closing time"
           },
           "parkingchrgeInfo": {
             "type": "string",
-            "title": "요금정보"
+            "title": "Rate information"
           },
           "basicTime": {
             "type": "string",
-            "title": "주차기본시간"
+            "title": "Basic parking time"
           },
           "basicCharge": {
             "type": "string",
-            "title": "주차기본요금"
+            "title": "Basic parking fee"
           },
           "addUnitTime": {
             "type": "string",
-            "title": "추가단위시간"
+            "title": "Additional unit time"
           },
           "addUnitCharge": {
             "type": "string",
-            "title": "추가단위요금"
+            "title": "Additional unit fee"
           },
           "dayCmmtktAdjTime": {
             "type": "string",
-            "title": "1일주차권요금적용시간"
+            "title": "1-day parking fee application time"
           },
           "dayCmmtkt": {
             "type": "string",
-            "title": "1일주차권요금"
+            "title": "1-day parking fee"
           },
           "monthCmmtkt": {
             "type": "string",
-            "title": "월정기권요금"
+            "title": "Monthly pass fee"
           },
           "metpay": {
             "type": "string",
-            "title": "결제방법"
+            "title": "Payment method"
           },
           "spcmnt": {
             "type": "string",
-            "title": "특기사항"
+            "title": "Special Notes"
           },
           "institutionNm": {
             "type": "string",
-            "title": "관리기관명"
+            "title": "Management Agency Name"
           },
           "phoneNumber": {
             "type": "string",
-            "title": "전화번호"
+            "title": "phone number"
           },
           "latitude": {
             "type": "string",
-            "title": "위도"
+            "title": "Latitude"
           },
           "longitude": {
             "type": "string",
-            "title": "경도"
+            "title": "Hardness"
           },
           "pwdbsPpkZoneYn": {
             "type": "string",
-            "title": "장애인전용주차구역보유여부"
+            "title": "Whether there is a parking area for the disabled"
           },
           "referenceDate": {
             "type": "string",
-            "title": "데이터기준일자"
+            "title": "Data reference date"
           },
           "instt_code": {
             "type": "string",
-            "title": "제공기관코드"
+            "title": "Provider Code"
           },
           "instt_nm": {
             "type": "string",
-            "title": "제공기관기관명"
+            "title": "Provider Name of institution"
           }
         }
       },
@@ -1453,7 +1453,7 @@
               "path": "/connector/kakao-map/search",
               "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
             },
-            "title": "도로명 주소 (read name address)"
+            "title": "road name address (read name address)"
           }
         }
       },
@@ -1477,7 +1477,7 @@
               "path": "/connector/kakao-map/search",
               "jmesPath": "documents[].{value:address_name, label:address_name}"
             },
-            "title": "소재지지번주소 (lot number address)"
+            "title": "Lot number address"
           }
         }
       },
@@ -1489,7 +1489,7 @@
             "items": {
               "$ref": "#/components/schemas/IMOLIT.Building"
             },
-            "title": "빌딩 정보 목록"
+            "title": "Building Information List"
           },
           "numOfRows": {
             "type": "integer",
@@ -1510,18 +1510,18 @@
           "bulidings",
           "totalCount"
         ],
-        "title": "빌딩 조회 응답"
+        "title": "Building Inquiry Response"
       },
       "IMOLIT.Building": {
         "type": "object",
         "properties": {
           "mainPurpsCdNm": {
             "type": "string",
-            "title": "주용도코드명"
+            "title": "Primary purpose code name"
           },
           "etcPurps": {
             "type": "string",
-            "title": "기타용도"
+            "title": "Other uses"
           },
           "roofCd": {
             "oneOf": [
@@ -1532,87 +1532,87 @@
                 "type": "number"
               }
             ],
-            "title": "지붕코드"
+            "title": "roof code"
           },
           "roofCdNm": {
             "type": "string",
-            "title": "지붕코드명"
+            "title": "Roof code name"
           },
           "etcRoof": {
             "type": "string",
-            "title": "기타지붕"
+            "title": "Guitar Roof"
           },
           "hhldCnt": {
             "type": "number",
-            "title": "세대수(세대)"
+            "title": "Number of generations (generation)"
           },
           "fmlyCnt": {
             "type": "number",
-            "title": "가구수(가구)"
+            "title": "Number of households (households)"
           },
           "heit": {
             "type": "number",
-            "title": "높이(m)"
+            "title": "Height (m)"
           },
           "grndFlrCnt": {
             "type": "number",
-            "title": "지상층수"
+            "title": "Number of floors above ground"
           },
           "ugrndFlrCnt": {
             "type": "number",
-            "title": "지하층수"
+            "title": "Basement floor"
           },
           "rideUseElvtCnt": {
             "type": "number",
-            "title": "승용승강기수"
+            "title": "Elevator driver"
           },
           "emgenUseElvtCnt": {
             "type": "number",
-            "title": "비상용승강기수"
+            "title": "Emergency Elevator"
           },
           "atchBldCnt": {
             "type": "number",
-            "title": "부속건축물수"
+            "title": "Number of auxiliary buildings"
           },
           "atchBldArea": {
             "type": "number",
-            "title": "부속건축물면적(㎡)"
+            "title": "Area of attached building (㎡)"
           },
           "totDongTotArea": {
             "type": "number",
-            "title": "총동연면적(㎡)"
+            "title": "Total floor area (㎡)"
           },
           "indrMechUtcnt": {
             "type": "number",
-            "title": "옥내기계식대수(대)"
+            "title": "Indoor machine counter (large)"
           },
           "indrMechArea": {
             "type": "number",
-            "title": "옥내기계식면적(㎡)"
+            "title": "Indoor mechanical area (㎡)"
           },
           "oudrMechUtcnt": {
             "type": "number",
-            "title": "옥외기계식대수(대)"
+            "title": "Outdoor mechanical counter (large)"
           },
           "oudrMechArea": {
             "type": "number",
-            "title": "옥외기계식면적(㎡)"
+            "title": "Outdoor mechanical area (㎡)"
           },
           "indrAutoUtcnt": {
             "type": "number",
-            "title": "옥내자주식대수(대)"
+            "title": "Indoor self-sufficient stock (large)"
           },
           "indrAutoArea": {
             "type": "number",
-            "title": "옥내자주식면적(㎡)"
+            "title": "Indoor self-sufficient area (㎡)"
           },
           "oudrAutoUtcnt": {
             "type": "number",
-            "title": "옥외자주식대수(대)"
+            "title": "Outdoor self-propelled vehicle (large)"
           },
           "oudrAutoArea": {
             "type": "number",
-            "title": "옥외자주식면적(㎡)"
+            "title": "Outdoor self-contained area (㎡)"
           },
           "pmsDay": {
             "oneOf": [
@@ -1623,7 +1623,7 @@
                 "type": "number"
               }
             ],
-            "title": "허가일"
+            "title": "Permission Date"
           },
           "stcnsDay": {
             "oneOf": [
@@ -1634,7 +1634,7 @@
                 "type": "number"
               }
             ],
-            "title": "착공일"
+            "title": "Start date"
           },
           "useAprDay": {
             "oneOf": [
@@ -1645,7 +1645,7 @@
                 "type": "number"
               }
             ],
-            "title": "사용승인일"
+            "title": "Date of approval for use"
           },
           "pmsnoYear": {
             "oneOf": [
@@ -1656,7 +1656,7 @@
                 "type": "number"
               }
             ],
-            "title": "허가번호년"
+            "title": "License number year"
           },
           "pmsnoKikCd": {
             "oneOf": [
@@ -1667,11 +1667,11 @@
                 "type": "number"
               }
             ],
-            "title": "허가번호기관코드"
+            "title": "License Number Agency Code"
           },
           "pmsnoKikCdNm": {
             "type": "string",
-            "title": "허가번호기관코드명"
+            "title": "License Number Agency Code Name"
           },
           "pmsnoGbCd": {
             "oneOf": [
@@ -1682,27 +1682,27 @@
                 "type": "number"
               }
             ],
-            "title": "허가번호구분코드"
+            "title": "Permit number classification code"
           },
           "pmsnoGbCdNm": {
             "type": "string",
-            "title": "허가번호구분코드명"
+            "title": "Permit number classification code name"
           },
           "hoCnt": {
             "type": "number",
-            "title": "호수(호)"
+            "title": "lake"
           },
           "engrGrade": {
             "type": "string",
-            "title": "에너지효율등급"
+            "title": "Energy Efficiency Rating"
           },
           "engrRat": {
             "type": "number",
-            "title": "에너지절감율"
+            "title": "Energy saving rate"
           },
           "engrEpi": {
             "type": "number",
-            "title": "EPI점수"
+            "title": "EPI score"
           },
           "gnBldGrade": {
             "oneOf": [
@@ -1713,19 +1713,19 @@
                 "type": "number"
               }
             ],
-            "title": "친환경건축물등급"
+            "title": "Eco-friendly building rating"
           },
           "gnBldCert": {
             "type": "number",
-            "title": "친환경건축물인증점수"
+            "title": "Eco-friendly building certification score"
           },
           "itgBldGrade": {
             "type": "string",
-            "title": "지능형건축물등급"
+            "title": "Intelligent Building Rating"
           },
           "itgBldCert": {
             "type": "number",
-            "title": "지능형건축물인증점수"
+            "title": "Intelligent Building Certification Score"
           },
           "crtnDay": {
             "oneOf": [
@@ -1736,15 +1736,15 @@
                 "type": "number"
               }
             ],
-            "title": "생성일자"
+            "title": "Creation date"
           },
           "rnum": {
             "type": "number",
-            "title": "순번"
+            "title": "order"
           },
           "platPlc": {
             "type": "string",
-            "title": "대지위치"
+            "title": "Earth location"
           },
           "sigunguCd": {
             "oneOf": [
@@ -1755,7 +1755,7 @@
                 "type": "number"
               }
             ],
-            "title": "시군구코드"
+            "title": "City/county/district code"
           },
           "bjdongCd": {
             "oneOf": [
@@ -1766,7 +1766,7 @@
                 "type": "number"
               }
             ],
-            "title": "법정동코드"
+            "title": "Beopjeong-dong code"
           },
           "platGbCd": {
             "oneOf": [
@@ -1777,21 +1777,21 @@
                 "type": "number"
               }
             ],
-            "title": "대지구분코드"
+            "title": "Earth Classification Code"
           },
           "bun": {
             "type": "string",
-            "title": "번",
-            "description": "한국 주소 명칭 중 하나"
+            "title": "number",
+            "description": "One of the Korean address names"
           },
           "ji": {
             "type": "string",
-            "title": "지",
-            "description": "한국 주소 명칭 중 하나"
+            "title": "Ji",
+            "description": "One of the Korean address names"
           },
           "mgmBldrgstPk": {
             "type": "string",
-            "title": "관리건축물대장PK"
+            "title": "Management Building Register PK"
           },
           "regstrGbCd": {
             "oneOf": [
@@ -1802,11 +1802,11 @@
                 "type": "number"
               }
             ],
-            "title": "대장구분코드"
+            "title": "Colon Distinction Code"
           },
           "regstrGbCdNm": {
             "type": "string",
-            "title": "대장구분코드명"
+            "title": "Colon division code name"
           },
           "regstrKindCd": {
             "oneOf": [
@@ -1817,35 +1817,35 @@
                 "type": "number"
               }
             ],
-            "title": "대장종류코드"
+            "title": "Colon type code"
           },
           "regstrKindCdNm": {
             "type": "string",
-            "title": "대장종류코드명"
+            "title": "Colon type code name"
           },
           "newPlatPlc": {
             "type": "string",
-            "title": "도로명대지위치"
+            "title": "Road name site location"
           },
           "bldNm": {
             "type": "string",
-            "title": "건물명"
+            "title": "Building name"
           },
           "splotNm": {
             "type": "string",
-            "title": "특수지명"
+            "title": "Special place name"
           },
           "block": {
             "type": "string",
-            "title": "블록"
+            "title": "block"
           },
           "lot": {
             "type": "string",
-            "title": "로트"
+            "title": "lot"
           },
           "bylotCnt": {
             "type": "number",
-            "title": "외필지수"
+            "title": "External index"
           },
           "naRoadCd": {
             "oneOf": [
@@ -1856,7 +1856,7 @@
                 "type": "number"
               }
             ],
-            "title": "새주소도로코드"
+            "title": "New address road code"
           },
           "naBjdongCd": {
             "oneOf": [
@@ -1867,7 +1867,7 @@
                 "type": "number"
               }
             ],
-            "title": "새주소법정동코드"
+            "title": "New address law code"
           },
           "naUgrndCd": {
             "oneOf": [
@@ -1878,15 +1878,15 @@
                 "type": "number"
               }
             ],
-            "title": "새주소지상지하코드"
+            "title": "New address ground and underground code"
           },
           "naMainBun": {
             "type": "number",
-            "title": "새주소본번"
+            "title": "New address number"
           },
           "naSubBun": {
             "type": "number",
-            "title": "새주소부번"
+            "title": "New address number"
           },
           "dongNm": {
             "oneOf": [
@@ -1897,7 +1897,7 @@
                 "type": "number"
               }
             ],
-            "title": "동명칭"
+            "title": "Same name"
           },
           "mainAtchGbCd": {
             "oneOf": [
@@ -1908,35 +1908,35 @@
                 "type": "number"
               }
             ],
-            "title": "주부속구분코드"
+            "title": "Main/Subordinate Classification Code"
           },
           "mainAtchGbCdNm": {
             "type": "string",
-            "title": "주부속구분코드명"
+            "title": "Main/Subordinate Code Name"
           },
           "platArea": {
             "type": "number",
-            "title": "대지면적(㎡)"
+            "title": "Land area (㎡)"
           },
           "archArea": {
             "type": "number",
-            "title": "건축면적(㎡)"
+            "title": "Building area (㎡)"
           },
           "bcRat": {
             "type": "number",
-            "title": "건폐율(%)"
+            "title": "Building coverage ratio (%)"
           },
           "totArea": {
             "type": "number",
-            "title": "연면적(㎡)"
+            "title": "Total floor area (㎡)"
           },
           "vlRatEstmTotArea": {
             "type": "number",
-            "title": "용적률산정연면적(㎡)"
+            "title": "Floor area ratio calculation area (㎡)"
           },
           "vlRat": {
             "type": "number",
-            "title": "용적률(%)"
+            "title": "Volume ratio (%)"
           },
           "strctCd": {
             "oneOf": [
@@ -1947,15 +1947,15 @@
                 "type": "number"
               }
             ],
-            "title": "구조코드"
+            "title": "Structure Code"
           },
           "strctCdNm": {
             "type": "string",
-            "title": "구조코드명"
+            "title": "Structure code name"
           },
           "etcStrct": {
             "type": "string",
-            "title": "기타구조"
+            "title": "Other Structures"
           },
           "mainPurpsCd": {
             "oneOf": [
@@ -1966,7 +1966,7 @@
                 "type": "number"
               }
             ],
-            "title": "주용도코드"
+            "title": "Primary Purpose Code"
           },
           "rserthqkDsgnApplyYn": {
             "oneOf": [
@@ -1983,11 +1983,11 @@
                 "title": "알 수 없음"
               }
             ],
-            "title": "내진설계적용여부"
+            "title": "Whether earthquake-resistant design is applied"
           },
           "rserthqkAblty": {
             "type": "string",
-            "title": "내진능력"
+            "title": "seismic capacity"
           }
         },
         "required": [
@@ -2008,7 +2008,7 @@
               "path": "/connector/open-data/getStandardRegionCodeList",
               "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
-            "title": "시군구 코드"
+            "title": "City/county/district code"
           },
           "bjdongCd": {
             "type": "string",
@@ -2017,7 +2017,7 @@
               "path": "/connector/open-data/getStandardRegionCodeList",
               "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
             },
-            "title": "법정동 코드"
+            "title": "Beopjeong-dong Code"
           },
           "numOfRows": {
             "type": "integer",
@@ -2034,7 +2034,7 @@
           "sigunguCd",
           "bjdongCd"
         ],
-        "title": "빌딩 조회 조건"
+        "title": "Building search conditions"
       },
       "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput": {
         "type": "object",
@@ -2229,7 +2229,7 @@
                 "x-wrtn-placeholder": "서울특별시"
               }
             ],
-            "title": "Region address name\nIt must be one of: \"서울특별시\",\"부산광역시\",\"대구광역시\",\"인천광역시\",\"광주광역시\",\"대전광역시\",\"울산광역시\",\"세종특별자치시\",\"경기도\",\"충청북도\",\"충청남도\",\"경상북도\",\"경상남도\",\"전라남도\",\"제주특별자치도\",\"강원특별자치도\",\"전북특별자치도\""
+            "title": "Region address name\nIt must be one of: \"Seoul Metropolitan City\",\"Busan Metropolitan City\",\"Daegu Metropolitan City\",\"Incheon Metropolitan City\",\"Gwangju Metropolitan City\",\"Daejeon Metropolitan City\",\"Ulsan Metropolitan City\",\"Sejong Special Self-Governing City\",\"Gyeonggi-do\",\"Chungcheongbuk-do\",\"Chungcheongnam-do\",\"Gyeongsangbuk-do\",\"Gyeongsangnam-do\",\"Jeollanam-do\",\"Jeju Special Self-Governing Province\",\"Gangwon Special Self-Governing Province\",\"Jeollabuk-do Special Self-Governing Province\""
           },
           "numOfRows": {
             "type": "integer",
@@ -2636,28 +2636,28 @@
         "properties": {
           "currentCount": {
             "type": "integer",
-            "title": "현재 페이지 개수"
+            "title": "Current page count"
           },
           "matchCount": {
             "type": "integer",
-            "title": "검색 조건에 일치하는 저작권 수"
+            "title": "Number of copyrights matching the search criteria"
           },
           "data": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate"
             },
-            "title": "검색 결과"
+            "title": "Search Results"
           },
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "페이지 번호"
+            "title": "Page number"
           },
           "perPage": {
             "type": "integer",
             "default": 10,
-            "title": "한 페이지 당 결과 수"
+            "title": "Number of results per page"
           }
         },
         "required": [
@@ -2665,30 +2665,30 @@
           "matchCount",
           "data"
         ],
-        "title": "저작권 조회 결과"
+        "title": "Copyright search results"
       },
       "PickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate": {
         "type": "object",
         "properties": {
           "REG_ID": {
             "type": "string",
-            "title": "저작권 등록번호",
-            "description": "완전일치하는 저작권만 조회된다."
+            "title": "Copyright registration number",
+            "description": "Only copyrights that match exactly are searched."
           },
           "CONT_TITLE": {
             "type": "string",
             "x-wrtn-placeholder": "제호 (명칭)",
-            "title": "제호(명칭)\n\n제호란 저작물의 명칭을 의미하는 말입니다."
+            "title": "Title (Name)\n\nTitle refers to the name of the work."
           },
           "AUTHOR_NAME": {
             "type": "string",
             "x-wrtn-placeholder": "저작자 이름",
-            "title": "저작권자 이름\n\n이는 저작권자의 이름을 의미합니다. 사람의 이름일 수도 있고 기업이나 특정 단체의 이름일 수도 있습니다."
+            "title": "Copyright holder name\n\nThis refers to the name of the copyright holder. It can be a person's name, or the name of a company or specific organization."
           },
           "REG_DATE": {
             "type": "string",
             "format": "date",
-            "title": "저작권 등록일"
+            "title": "Copyright registration date"
           }
         },
         "required": [
@@ -2701,30 +2701,30 @@
           "perPage": {
             "type": "integer",
             "default": 10,
-            "title": "한 페이지 당 결과 수"
+            "title": "Number of results per page"
           },
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "페이지 번호"
+            "title": "Page number"
           },
           "REG_ID": {
             "type": "string",
-            "title": "저작권 등록번호",
-            "description": "완전일치하는 저작권만 조회된다."
+            "title": "Copyright registration number",
+            "description": "Only copyrights that match exactly are searched."
           },
           "CONT_TITLE": {
             "type": "string",
             "x-wrtn-placeholder": "제호 (명칭)",
-            "title": "제호(명칭)\n\n제호란 저작물의 명칭을 의미하는 말입니다."
+            "title": "Title (Name)\n\nTitle refers to the name of the work."
           },
           "AUTHOR_NAME": {
             "type": "string",
             "x-wrtn-placeholder": "저작자 이름",
-            "title": "저작권자 이름\n\n이는 저작권자의 이름을 의미합니다. 사람의 이름일 수도 있고 기업이나 특정 단체의 이름일 수도 있습니다."
+            "title": "Copyright holder name\n\nThis refers to the name of the copyright holder. It can be a person's name, or the name of a company or specific organization."
           }
         },
-        "title": "저작권 조회 조건"
+        "title": "Copyright inquiry conditions"
       }
     }
   },

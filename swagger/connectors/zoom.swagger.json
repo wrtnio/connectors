@@ -17,7 +17,7 @@
   "info": {
     "title": "Zoom",
     "description": "",
-    "version": "0.1.212",
+    "version": "0.1.213",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,12 +25,12 @@
   "paths": {
     "/connector/zoom/meetings": {
       "post": {
-        "summary": "zoom 미팅 생성.",
-        "description": "zoom 미팅을 생성합니다.",
+        "summary": "Create a zoom meeting.",
+        "description": "Create a zoom meeting.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "미팅을 생성하고자 하는 유저 정보 및 조건에 대한 DTO.",
+          "description": "DTO of the user information and conditions for creating a meeting.",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "생성된 zoom 미팅 정보 DTO.",
+            "description": "DTO of the created zoom meeting information.",
             "content": {
               "application/json": {
                 "schema": {
@@ -65,82 +65,82 @@
           "agenda": {
             "type": "string",
             "maxLength": 2000,
-            "title": "미팅의 안건.",
+            "title": "The meeting's agenda.",
             "description": "The meeting's agenda."
           },
           "default_password": {
             "type": "boolean",
             "default": false,
-            "title": "기본 비밀번호 생성 여부.",
-            "description": "이 값이 true이고 사용자가 비밀번호로 PMI 설정을 활성화한 경우 사용자 미팅에서는 PMI 비밀번호를 사용한다."
+            "title": "Whether to create a default password.",
+            "description": "If this value is true and the user has enabled PMI settings with passwords, the user's meetings will use the PMI password."
           },
           "duration": {
             "type": "integer",
-            "title": "미팅의 예정 시간(duration).",
-            "description": "회의의 예정된 시간으로 분 단위를 의미한다.\n\n회의가 예약된 경우에만 사용된다."
+            "title": "The scheduled time (duration) of the meeting.",
+            "description": "The scheduled time of the meeting, in minutes.\n\nUsed only when a meeting is scheduled."
           },
           "password": {
             "type": "string",
             "maxLength": 10,
-            "title": "미팅 비밀번호.",
-            "description": "영어 대소문자와 '@', '-', '_', '*' 으로 이루어진 비밀번호를 의미한다."
+            "title": "Meeting password.",
+            "description": "It means a password consisting of English uppercase and lowercase letters and '@', '-', '_', '*'."
           },
           "pre_schedule": {
             "type": "boolean",
             "default": false,
-            "title": "`GSuite` app을 통한 예정된 회의 생성 여부."
+            "title": "Whether to create a scheduled meeting via the `GSuite` app."
           },
           "assistant_id": {
             "type": "string",
-            "title": "이 미팅을 주최한 사용자의 ID."
+            "title": "The ID of the user who hosted this meeting."
           },
           "host_email": {
             "type": "string",
             "format": "email",
-            "title": "미팅 주최자의 이메일 주소."
+            "title": "The email address of the meeting organizer."
           },
           "id": {
             "type": "integer",
-            "title": "미팅 ID."
+            "title": "Meeting ID."
           },
           "registration_url": {
             "type": "string",
             "format": "url",
-            "title": "참가자들이 등록할 수 있는 URL."
+            "title": "URL where participants can register."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "이 미팅이 생성된 날짜와 시간."
+            "title": "The date and time this meeting was created."
           },
           "encrypted_password": {
             "type": "string",
-            "title": "타사 엔드포인트(H323/SIP)용 암호화된 비밀번호."
+            "title": "Encrypted password for 3rd party endpoints (H323/SIP)."
           },
           "pstn_password": {
             "type": "string",
-            "title": "PSTN을 통해 미팅에 참여하기 위한 비밀번호."
+            "title": "Password to join the meeting via PSTN."
           },
           "h323_password": {
             "type": "string",
-            "title": "H.323/SIP 룸 시스템 비밀번호."
+            "title": "H.323/SIP room system password."
           },
           "join_url": {
             "type": "string",
             "format": "url",
-            "title": "참가자들이 미팅에 참여할 수 있는 URL."
+            "title": "The URL where participants can join the meeting."
           },
           "chat_join_url": {
             "type": "string",
             "format": "url",
-            "title": "채팅에 참여할 수 있는 URL."
+            "title": "URL where you can join the chat."
           },
           "occurrences": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IZoom.Occurrence"
             },
-            "title": "반복 웨비나에 대한 정보."
+            "title": "Information about recurring webinars."
           },
           "pmi": {
             "type": "string",
@@ -148,22 +148,22 @@
           },
           "recurrence": {
             "$ref": "#/components/schemas/IZoom.Recurrence",
-            "title": "미팅의 반복 주기에 대한 정보."
+            "title": "Information about the meeting's recurrence cycle."
           },
           "settings": {
             "$ref": "#/components/schemas/MyPartialIZoom.Settings",
-            "title": "Zoom 세팅 정보."
+            "title": "Zoom settings information."
           },
           "start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "미팅 시작 시간."
+            "title": "Meeting start time."
           },
           "start_url": {
             "type": "string",
             "format": "url",
-            "title": "미팅 주최자 권한으로 참여 가능한 URL.",
-            "description": "이 URL은 미팅의 주최자만 사용해야 하며, 다른 참가자와는 공유해서는 안 된다.\n\n이 URL을 가진 사람은 누구나 주최자 권한으로 Zoom 클라이언트에 로그인할 수 있다."
+            "title": "URL that allows you to join as the meeting host.",
+            "description": "This URL should only be used by the meeting host and should not be shared with other participants.\n\nAnyone with this URL can log into the Zoom client with host privileges."
           },
           "timezone": {
             "type": "string",
@@ -171,7 +171,7 @@
           },
           "topic": {
             "type": "string",
-            "title": "미팅의 주제(topic)"
+            "title": "Topic of the meeting"
           },
           "tracking_fields": {
             "type": "array",
@@ -202,8 +202,8 @@
                 "default": 2
               }
             ],
-            "title": "미팅의 타입.",
-            "description": "- 1 : 즉석 미팅.\n- 2 : 예약된 미팅.\n- 3 : 고정된 시간이 없는 반복 미팅.\n- 8 : 고정된 시간이 있는 반복 미팅.\n- 10 : 화면 공유만 가능한 미팅."
+            "title": "Type of meeting.",
+            "description": "- 1: Instant meeting.\n- 2: Scheduled meeting.\n- 3: Recurring meeting without fixed time.\n- 8: Recurring meeting with fixed time.\n- 10: Meeting with screen sharing only."
           },
           "dynamic_host_key": {
             "type": "string",
@@ -216,16 +216,16 @@
         "properties": {
           "duration": {
             "type": "integer",
-            "title": "웨비나 지속 시간을 나타내는 정수."
+            "title": "An integer representing the duration of the webinar."
           },
           "occurrence_id": {
             "type": "string",
-            "title": "각 웨비나 발생을 구분하는 고유 식별자(Unique Identifier)."
+            "title": "A unique identifier that identifies each webinar occurrence."
           },
           "start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "웨비나 시작 시간."
+            "title": "Webinar start time."
           },
           "status": {
             "oneOf": [
@@ -236,8 +236,8 @@
                 "const": "available"
               }
             ],
-            "title": "웨비나 발생의 상태",
-            "description": "웨비나 발생의 상태."
+            "title": "Status of webinar occurrence",
+            "description": "Status of webinar occurrence."
           }
         },
         "required": [
@@ -246,7 +246,7 @@
           "start_time",
           "status"
         ],
-        "title": "반복 웨비나에 대한 정보."
+        "title": "Information about recurring webinars."
       },
       "IZoom.Recurrence": {
         "type": "object",
@@ -254,15 +254,15 @@
           "end_date_time": {
             "type": "string",
             "format": "date-time",
-            "title": "회의 최종 종료 전 마지막 날짜를 의미.",
-            "description": "회의가 취소되지 않을 경우 회의가 열리는 마지막 날을 의미한다.\n\n`end_times`와 함께 사용될 수는 없다."
+            "title": "This means the last day before the meeting ends.",
+            "description": "If the meeting is not cancelled, this means the last day of the meeting.\n\nCannot be used with `end_times`."
           },
           "end_times": {
             "type": "integer",
             "maximum": 60,
             "default": 1,
-            "title": "회의 최종 종료 전 반복 횟수.",
-            "description": "회의가 취소되기 전에 몇 번 반복할지를 의미한다.\n\nend_times가 0으로 설정되어 있으면 종료 시간이 없음을 의미한다."
+            "title": "The number of repetitions before the meeting is finally terminated.",
+            "description": "Indicates how many times the meeting will repeat before it is canceled.\n\nIf end_times is set to 0, it means there is no end time."
           },
           "type": {
             "oneOf": [
@@ -276,15 +276,15 @@
                 "const": 3
               }
             ],
-            "title": "회의 반복 주기.",
-            "description": "1은 daily, 2는 weekly, 3은 monthly로, 반복 유형을 의미한다."
+            "title": "Meeting repetition cycle.",
+            "description": "1 is daily, 2 is weekly, 3 is monthly, indicating the repetition type."
           },
           "monthly_day": {
             "type": "integer",
             "minimum": 1,
             "maximum": 31,
-            "title": "해당 월의 1부터 31까지의 일.",
-            "description": "해당 월의 1부터 31까지의 일자를 의미하며 `type`이 3, 즉 매달마다 반복되는 경우에 설정하는 값이다."
+            "title": "The days from 1 to 31 of the month.",
+            "description": "It means the days from 1 to 31 of the month, and is the value set when `type` is 3, that is, it repeats every month."
           },
           "monthly_week": {
             "oneOf": [
@@ -304,23 +304,23 @@
                 "const": 4
               }
             ],
-            "title": "매 월의 몇번째 주 인지를 의미.",
-            "description": "매월 몇 번째 주인지를 의미한다.\n\n`type`이 3으로, 즉 매 달마다 반복되는 회의일 때 설정하는 값이다.\n\n- -1 : 월의 마지막 주.\n- 1 : 월의 첫 번째 주.\n- 2 : 월의 두 번째 주.\n- 3 : 월의 세 번째 주.\n- 4 : 월의 네 번째 주."
+            "title": "Indicates which week of each month.",
+            "description": "Indicates which week of each month.\n\nThis is the value set when `type` is 3, that is, the meeting is repeated every month.\n\n- -1: Last week of the month.\n- 1: First week of the month.\n- 2: Second week of the month.\n- 3: Third week of the month.\n- 4: Fourth week of the month."
           },
           "monthly_week_day": {
             "type": "string",
-            "title": "매 달 무슨 요일인지를 의미.",
-            "description": "`type`이 3으로, 즉 매 달마다 반복되는 회의일 때 설정하는 값이다.\n\n만약 여러 요일을 선택할 경우에는 `,` 기호를 통해 '1,3'과 같은 형태로 숫자를 연결하여 나타낸다.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
+            "title": "Indicates which day of the week it is each month.",
+            "description": "This is the value set when `type` is 3, that is, a meeting that repeats every month.\n\nIf multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
           },
           "repeat_interval": {
             "type": "integer",
-            "title": "미팅 간의 간격.",
-            "description": "`type`이 1일 때, 즉 daily로 설정된 미팅의 경우 최대 90(일)까지 가능.\n\n`type`이 2일 때, 즉 weekly로 설정된 미팅의 경우 최대 12(주)까지 가능.\n\n`type`이 3일 때, 즉 monthly로 설정된 미팅의 경우 최대 3(달)까지 가능."
+            "title": "Interval between meetings.",
+            "description": "When `type` is 1, i.e., for meetings set to daily, up to 90 (days) is possible.\n\nWhen `type` is 2, i.e., for meetings set to weekly, up to 12 (weeks) is possible.\n\nWhen `type` is 3, i.e., for meetings set to monthly, up to 3 (months) is possible."
           },
           "weekly_days": {
             "type": "string",
-            "title": "매 주 무슨 요일인지를 의미.",
-            "description": "`type`이 2으로, 즉 매 주마다 반복되는 회의일 때 설정하는 값이다.\n\n만약 여러 요일을 선택할 경우에는 `,` 기호를 통해 '1,3'과 같은 형태로 숫자를 연결하여 나타낸다.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
+            "title": "Indicates which day of the week it is.",
+            "description": "This is the value set when `type` is 2, that is, a meeting that repeats every week.\n\nIf multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
           }
         },
         "required": [
@@ -331,24 +331,24 @@
           "repeat_interval",
           "weekly_days"
         ],
-        "title": "미팅의 반복 주기에 대한 정보."
+        "title": "Information about the meeting's recurrence cycle."
       },
       "MyPartialIZoom.Settings": {
         "type": "object",
         "properties": {
           "allow_multiple_devices": {
             "type": "boolean",
-            "title": "참가자가 여러 기기의 접속 가능한지 여부.",
-            "description": "등록이 활성화된 미팅에서 참가자가 여러 기기에서 접속할 수 있도록 허용할지 여부를 설정한다."
+            "title": "Whether participants can join from multiple devices.",
+            "description": "Sets whether participants can join from multiple devices in a meeting where registration is enabled."
           },
           "alternative_hosts": {
             "type": "string",
-            "title": "세미콜론으로 구분된 대체 호스트의 이메일 주소 또는 ID 목록."
+            "title": "A semicolon-separated list of email addresses or IDs for alternate hosts."
           },
           "alternative_hosts_email_notification": {
             "type": "boolean",
             "default": true,
-            "title": "대체 호스트에게 이메일 알림을 보낼지 여부."
+            "title": "Whether to send email notifications to alternate hosts."
           },
           "alternative_host_update_polls": {
             "type": "boolean"
@@ -368,8 +368,8 @@
                 "default": 2
               }
             ],
-            "title": "미팅 등록 승인 설정.",
-            "description": "- 0 : 자동 승인\n- 1 : 수동 승인\n- 2 : 등록 불필요(기본값)"
+            "title": "Meeting registration approval settings.",
+            "description": "- 0 : Automatic approval\n- 1 : Manual approval\n- 2 : No registration required (default)"
           },
           "approved_or_denied_countries_or_regions": {
             "type": "object",
@@ -379,18 +379,18 @@
                 "items": {
                   "type": "string"
                 },
-                "title": "승인된 국가 또는 지역의 목록."
+                "title": "List of approved countries or regions."
               },
               "denied_list": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "title": "차단된 국가 또는 지역의 목록."
+                "title": "List of blocked countries or regions."
               },
               "enable": {
                 "type": "boolean",
-                "title": "특정 국가, 지역의 사용자 승인 또는 차단 설정의 활성화 여부."
+                "title": "Whether to enable or disable user authorization or blocking settings for specific countries and regions."
               },
               "method": {
                 "oneOf": [
@@ -401,13 +401,13 @@
                     "const": "approve"
                   }
                 ],
-                "title": "방식."
+                "title": "method."
               }
             },
             "required": [
               "enable"
             ],
-            "title": "승인/거부 국가 또는 지역."
+            "title": "Approved/rejected country or region."
           },
           "audio": {
             "oneOf": [
@@ -1030,15 +1030,15 @@
         "properties": {
           "field": {
             "type": "string",
-            "title": "`TrackingField`의 라벨."
+            "title": "Label of `TrackingField`."
           },
           "value": {
             "type": "string",
-            "title": "`TrackingField`의 값."
+            "title": "The value of `TrackingField`."
           },
           "visible": {
             "type": "boolean",
-            "title": "`TrackingField`의 노출 여부."
+            "title": "Whether `TrackingField` is exposed."
           }
         },
         "required": [
@@ -1061,7 +1061,7 @@
               "meeting:write:admin",
               "meeting:write"
             ],
-            "title": "인증 정보 선택",
+            "title": "Select authentication information",
             "description": "secret key."
           }
         },
