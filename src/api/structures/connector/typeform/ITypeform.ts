@@ -1,5 +1,54 @@
+import { Prerequisite } from "@wrtnio/decorators";
+import { ICommon } from "../common/ISecretValue";
+
 export namespace ITypeform {
-  export interface ICreateWorkspaceInput {
+  export type ISecret = ICommon.ISecret<
+    "typeform",
+    [
+      "accounts:read",
+      "forms:read",
+      "forms:write",
+      "images:read",
+      "images:write",
+      "responses:read",
+      "responses:write",
+      "themes:read",
+      "themes:write",
+      "workspaces:read",
+      "workspaces:write",
+    ]
+  >;
+
+  export interface IGetFieldForUpdateFieldValueInput extends ISecret {
+    /**
+     * 값을 업데이트 할 필드의 id.
+     *
+     * @title 필드 id.
+     */
+    formId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
+      }>;
+  }
+  export interface ICreateWorkspaceInput
+    extends ICommon.ISecret<
+      "typeform",
+      [
+        "accounts:read",
+        "forms:read",
+        "forms:write",
+        "images:read",
+        "images:write",
+        "responses:read",
+        "responses:write",
+        "themes:read",
+        "themes:write",
+        "workspaces:read",
+        "workspaces:write",
+      ]
+    > {
     /**
      * 생성할 워크스페이스 이름입니다.
      *
@@ -53,7 +102,23 @@ export namespace ITypeform {
     link: string;
   }
 
-  export interface ICreateEmptyFormInput {
+  export interface ICreateEmptyFormInput
+    extends ICommon.ISecret<
+      "typeform",
+      [
+        "accounts:read",
+        "forms:read",
+        "forms:write",
+        "images:read",
+        "images:write",
+        "responses:read",
+        "responses:write",
+        "themes:read",
+        "themes:write",
+        "workspaces:read",
+        "workspaces:write",
+      ]
+    > {
     /**
      * 생성할 폼의 제목입니다.
      *
@@ -90,7 +155,12 @@ export namespace ITypeform {
      *
      * @title 폼 id.
      */
-    formId: string;
+    formId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
+      }>;
 
     /**
      * 읽어온 폼의 이름입니다.
@@ -100,13 +170,34 @@ export namespace ITypeform {
     name: string;
   }
 
-  export interface IDuplicateExistingFormInput {
+  export interface IDuplicateExistingFormInput
+    extends ICommon.ISecret<
+      "typeform",
+      [
+        "accounts:read",
+        "forms:read",
+        "forms:write",
+        "images:read",
+        "images:write",
+        "responses:read",
+        "responses:write",
+        "themes:read",
+        "themes:write",
+        "workspaces:read",
+        "workspaces:write",
+      ]
+    > {
     /**
-     * 복제할 폼.
+     * 값을 업데이트 할 폼.
      *
      * @title 폼.
      */
-    formId: string;
+    formId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
+      }>;
 
     /**
      * 폼을 복제할 워크스페이스 링크입니다.
@@ -125,11 +216,16 @@ export namespace ITypeform {
 
   export interface IFieldInfoForUpdateFieldValueOutput {
     /**
-     * 값을 업데이트 할 필드의 id.
+     * 값을 업데이트 할 필드
      *
-     * @title 필드 id.
+     * @title 필드
      */
-    id: string;
+    id: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/typeform/forms/get-update-form-fields";
+        jmesPath: "[].{value:id, label:name || 'field title'}";
+      }>;
 
     /**
      * 값을 업데이트 할 필드의 명.
@@ -139,13 +235,46 @@ export namespace ITypeform {
     name: string;
   }
 
-  export interface IUpdateFormFieldValueInput {
+  export interface IUpdateFormFieldValueInput
+    extends ICommon.ISecret<
+      "typeform",
+      [
+        "accounts:read",
+        "forms:read",
+        "forms:write",
+        "images:read",
+        "images:write",
+        "responses:read",
+        "responses:write",
+        "themes:read",
+        "themes:write",
+        "workspaces:read",
+        "workspaces:write",
+      ]
+    > {
+    /**
+     * 값을 업데이트 할 폼.
+     *
+     * @title 폼.
+     */
+    formId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/typeform/get-forms";
+        jmesPath: "[].{value:formId, label:name || 'form title'}";
+      }>;
+
     /**
      * 값을 업데이트 할 필드.
      *
      * @title 업데이트 할 필드.
      */
-    fieldId: string;
+    fieldId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/typeform/forms/get-update-form-fields";
+        jmesPath: "[].{value:id, label:name || 'field title'}";
+      }>;
 
     /**
      * 업데이트 할 필드의 값입니다.
