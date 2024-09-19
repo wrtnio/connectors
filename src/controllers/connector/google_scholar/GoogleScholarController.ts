@@ -10,13 +10,13 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/google-scholar")
 export class GoogleScholarController {
   /**
-   * 구글 스콜라에 있는 논문 목록을 가져옵니다.
+   * Get a list of papers in Google Scholar.
    *
-   * @summary 구글 스콜라 논문 목록 검색
+   * @summary Search Google Scholar paper list
    *
-   * @param input 구글 스콜라 논문 검색 조건
+   * @param input Google Scholar paper search criteria
    *
-   * @returns 구글 스콜라 논문 목록
+   * @returns Google Scholar paper list
    */
   @Standalone()
   @core.TypedRoute.Post()

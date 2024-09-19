@@ -2,22 +2,22 @@ import { tags } from "typia";
 
 export namespace IStableDiffusionBeta {
   /**
-   * @title 이미지 생성기 설정
+   * @title Image Generator Settings
    */
   export interface IRequest {
     /**
-     * 생성하고자 하는 이미지에 포함하고 싶은 요소, 스타일, 주제 등을 구체적으로 적어주세요. 이 프롬프트는 모델이 이미지를 생성할 때 원하는 특징과 디테일을 반영하도록 지시합니다.
+     * Please be specific about the elements, styles, and subjects you want to include in the image you want to generate. This prompt will instruct the model to reflect the desired features and details when generating the image.
      *
-     * @title 프롬프트
+     * @title prompt
      */
     prompt: string;
 
     /**
-     * 생성할 이미지 사이즈 프리셋 입니다.
+     * Preset image size to generate.
      *
-     * 가능한 값으로는 "square", "landscape", "portrait" 3가지만 가능합니다.
+     * Only three possible values are available: "square", "landscape", and "portrait".
      *
-     * @title 이미지 사이즈
+     * @title Image Size
      */
     image_ratio:
       | tags.Constant<"square", { title: "정사각형"; description: "512x512" }>
@@ -25,11 +25,11 @@ export namespace IStableDiffusionBeta {
       | tags.Constant<"portrait", { title: "인물"; description: "512x896" }>;
 
     /**
-     * 이미지를 특정한 스타일로 생성합니다.
+     * Generates an image in a specific style.
      *
-     * 가능한 값으로는 "3d-model", "analog-film", "anime", "cinematic", "comic-book", "digital-art", "enhance", "fantasy-art", "isometric", "line-art", "low-poly", "modeling-compound", "neon-punk", "origami", "photographic", "pixel-art", "tile-texture" 16가지만 가능합니다.
+     * There are only 16 possible values: "3d-model", "analog-film", "anime", "cinematic", "comic-book", "digital-art", "enhance", "fantasy-art", "isometric", "line-art", "low-poly", "modeling-compound", "neon-punk", "origami", "photographic", "pixel-art", "tile-texture".
      *
-     * @title 스타일 프리셋
+     * @title Style Preset
      */
     style_preset?:
       | tags.Constant<"3d-model", { title: "3D 모델" }>
@@ -52,13 +52,13 @@ export namespace IStableDiffusionBeta {
   }
 
   /**
-   * @title 이미지 생성 결과
+   * @title Image creation result
    */
   export interface IResponse {
     /**
-     * 생성된 이미지 url
+     * Generated image url
      *
-     * @title 생성된 이미지 Url
+     * @title Generated image Url
      */
     imgUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }

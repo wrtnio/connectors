@@ -10,9 +10,9 @@ import { retry } from "../../../utils/retry";
 export class AwsController {
   constructor(private readonly awsProvider: AwsProvider) {}
   /**
-   * 파일 업로드를 하기 위해 필요한 URL을 생성합니다.
+   * Generate the URL required to upload a file.
    *
-   * @summary 파일 업로드 URL 생성
+   * @summary Generate File Upload URL
    * @internal
    */
   @core.TypedRoute.Get("/file/upload-url")

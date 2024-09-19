@@ -2,54 +2,54 @@ import { tags } from "typia";
 
 export namespace IGoogleHotel {
   /**
-   * @title 숙소 검색 조건
+   * @title Accommodation search criteria
    */
   export interface IRequest {
     /**
-     * 검색할 키워드를 입력하세요.
+     * Enter the keyword you want to search for.
      *
-     * @title 검색어
+     * @title Search term
      */
     keyword: string;
 
     /**
-     * 체크인 날짜를 설정하세요.
+     * Set your check-in date.
      *
-     * 오늘 날짜 이후의 날짜를 입력해주세요.
+     * Please enter a date after today's date.
      *
-     * @title 체크인 날짜
+     * @title Check-in date
      */
     check_in_date: string & tags.Format<"date">;
 
     /**
-     * 체크아웃 날짜를 설정하세요.
+     * Set a checkout date.
      *
-     * 오늘 날짜 이후의 날짜를 입력해주세요.
+     * Please enter a date after today's date.
      *
-     * @title 체크아웃 날짜
+     * @title Checkout Date
      */
     check_out_date: string & tags.Format<"date">;
 
     /**
-     * 투숙하는 성인 인원수를 설정하세요. 기본값은 2입니다.
+     * Set the number of adults staying. The default is 2.
      *
-     * @title 성인 인원
+     * @title Number of adults
      */
     adults?: number & tags.Type<"int32"> & tags.Default<2>;
 
     /**
-     * 투숙하는 아동 인원수를 설정하세요. 기본값은 0입니다.
+     * Set the number of children staying. The default is 0.
      *
-     * @title 아동 인원
+     * @title Number of children
      */
     children?: number & tags.Type<"int32"> & tags.Default<0>;
 
     /**
-     * 원하는 정렬 기준을 선택해주세요.
+     * Please select the desired sort criteria.
      *
-     * 가능한 값으로 3, 8, 13만 가능합니다.
+     * Only 3, 8, and 13 are possible values.
      *
-     * @title 정렬 기준
+     * @title Sort criteria
      */
     sort_by?:
       | tags.Constant<"3", { title: "낮은 가격 순" }>
@@ -57,25 +57,25 @@ export namespace IGoogleHotel {
       | tags.Constant<"13", { title: "리뷰 많은 순" }>;
 
     /**
-     * 가격 범위의 최소 가격을 설정해주세요.
+     * Please set the minimum price for the price range.
      *
-     * @title 최소 가격
+     * @title Minimum price
      */
     min_price?: number & tags.Type<"int32">;
 
     /**
-     * 가격 범위의 최대 가격을 설정해주세요.
+     * Please set the maximum price for the price range.
      *
-     * @title 최대 가격
+     * @title Maximum price
      */
     max_price?: number & tags.Type<"int32">;
 
     /**
-     * 선택한 평점 이상의 숙소만 검색합니다.
+     * Search only properties with a selected rating or higher.
      *
-     * 가능한 값으로 7, 8, 9만 가능합니다.
+     * Only possible values are 7, 8, and 9.
      *
-     * @title 평점
+     * @title Rating
      */
     rating?:
       | tags.Constant<"7", { title: "평점 3.5 이상" }>
@@ -83,11 +83,11 @@ export namespace IGoogleHotel {
       | tags.Constant<"9", { title: "평점 4.5 이상" }>;
 
     /**
-     * 숙소 유형을 선택해주세요.
+     * Please select the accommodation type.
      *
-     * 가능한 값으로 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24만 가능합니다.
+     * Only 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 are possible values.
      *
-     * @title 숙소 유형
+     * @title Accommodation type
      */
     type?: Array<
       string &
@@ -109,11 +109,11 @@ export namespace IGoogleHotel {
     >;
 
     /**
-     * 숙소 등급을 선택해주세요.'
+     * Please select your accommodation class.'
      *
-     * 가능한 값으로 1, 2, 3, 4, 5만 가능합니다.
+     * Only 1, 2, 3, 4, 5 are possible values.
      *
-     * @title 숙소 등급
+     * @title Accommodation class
      */
     hotel_class?: Array<
       string &
@@ -127,146 +127,146 @@ export namespace IGoogleHotel {
     >;
 
     /**
-     * 무료 취소 가능한 숙소만 검색합니다.
+     * Search only properties with free cancellation.
      *
-     * @title 무료취소 가능 여부
+     * @title Is free cancellation possible?
      */
     free_cancellation?: boolean & tags.Default<false>;
 
     /**
-     * 검색 결과의 개수를 설정합니다.
+     * Set the number of search results.
      *
-     * @title 검색 결과 개수
+     * @title Number of search results
      */
     max_results: number & tags.Type<"int32">;
   }
 
   /**
-   * @title 숙소 검색 결과
+   * @title Accommodation search results
    */
   export interface IResponse {
     /**
-     * 숙소 이름
+     * Accommodation Name
      *
-     * @title 숙소 이름
+     * @title Accommodation Name
      */
     name: string;
 
     /**
-     * 숙소 설명
+     * Property Description
      *
-     * @title 숙소 설명
+     * @title Property Description
      */
     description?: string;
 
     /**
-     * 숙소 링크
+     * Accommodation Link
      *
-     * @title 숙소 링크
+     * @title Accommodation Link
      */
     link?: string;
 
     /**
-     * 숙소 체크인 시간
+     * Accommodation check-in time
      *
-     * @title 체크인 시간
+     * @title Check-in time
      */
     check_in_time?: string;
 
     /**
-     * 숙소 체크아웃 시간
+     * Accommodation Check-out Time
      *
-     * @title 체크아웃 시간
+     * @title Check-out Time
      */
     check_out_time?: string;
 
     /**
-     * 숙소 가격
+     * Accommodation prices
      *
-     * @title 숙소 가격
+     * @title Accommodation prices
      */
     price: string;
 
     /**
-     * 숙소 주변 시설
+     * Facilities around the property
      *
-     * @title 주변 시설
+     * @title Facilities around the property
      */
     nearby_place?: INearbyPlace[];
 
     /**
-     * 숙소 등급
+     * Accommodation rating
      *
-     * @title 숙소 등급
+     * @title Accommodation rating
      */
     hotel_class?: string;
 
     /**
-     * 숙소 썸네일 이미지
+     * Accommodation thumbnail image
      *
-     * @title 썸네일
+     * @title thumbnail
      */
     thumbnails: Array<
       string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">
     >;
 
     /**
-     * 숙소 평점
+     * Accommodation rating
      *
-     * @title 평점
+     * @title rating
      */
     rating?: string;
 
     /**
-     * 리뷰 갯수
+     * Number of reviews
      *
-     * @title 리뷰 갯수
+     * @title Number of reviews
      */
     review_count?: string;
 
     /**
-     * 숙소에서 제공하는 어메니티
+     * Amenities provided by the property
      *
-     * @title 어메니티
+     * @title Amenities
      */
     amenities: string[] | string;
 
     /**
-     * 숙소에서 제공하지 않는 어메니티
+     * Amenities not provided by the property
      *
-     * @title 제공 하지 않는 어메니티
+     * @title Amenities not provided
      */
     excluded_amenities?: string[];
   }
 
   /**
-   * @title 주변 시설
+   * @title Surrounding facilities
    */
   export interface INearbyPlace {
     /**
-     * 주변 시설 이름
+     * Surrounding facility name
      *
-     * @title 주변 시설 이름
+     * @title Surrounding facility name
      */
     name: string;
 
     /**
-     * 주변 시설 교통편
+     * Transportation to nearby facilities
      *
-     * @title 교통편
+     * @title Transportation
      */
     transportations?: {
       /**
-       * 교통편 종류
+       * Types of Transportation
        *
-       * @title 교통편 종류
+       * @title Types of Transportation
        */
       type: string;
 
       /**
-       * 주변 시설까지 소요 시간
+       * Time required to reach surrounding facilities
        *
-       * @title 소요 시간
+       * @title Time required
        */
       duration: string;
     }[];

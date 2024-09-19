@@ -2,202 +2,202 @@ import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 /**
- * @title 정렬기준
+ * @title Sort by
  *
- * accuracy: 정확도순 (default)
+ * accuracy: accuracy (default)
  *
- * recency: 최신순
+ * recency: latest
  */
 type Sort = "accuracy" | "recency";
 
 export namespace IDaum {
   /**
-   * @title 다음 검색에 필요한 정보
+   * @title Information needed for the next search
    */
   export interface ISearchDaumInput {
     /**
-     * 다음 검색 결과에 들어가야하는 키워드를 설정합니다.
+     * Set keywords that must be included in the following search results.
      *
-     * @title 꼭 들어가야하는 키워드
+     * @title Must-include keywords
      */
     andKeywords: string & Placeholder<"뤼튼">;
 
     /**
-     * 다음 검색 결과에 들어가면 좋은 키워드를 설정합니다.
+     * Set good keywords to enter the following search results.
      *
-     * @title 들어가면 좋은 키워드
+     * @title Good keywords to enter
      */
     orKeywords?: string & Placeholder<"스튜디오">;
 
     /**
-     * 다음 검색 결과에 들어가면 안되는 키워드를 설정합니다.
+     * Set keywords that should not be included in the following search results.
      *
-     * @title 들어가면 안되는 키워드
+     * @title Keywords that should not be included
      */
     notKeywords?: string & Placeholder<"폭력">;
 
     /**
-     * - accuracy: 정확도순 (default)
-     * - recency: 최신순
+     * - accuracy: accuracy order (default)
+     * - recency: most recent order
      *
-     * @title 결과 문서 정렬 방식
+     * @title Sorting method for result documents
      */
     sort?: Sort & tags.Default<"accuracy"> & Placeholder<"accuracy">;
 
     /**
-     * 결과 페이지의 번호입니다.
+     * The number of the results page.
      *
-     * @title 결과 페이지 번호
+     * @title Results page number
      */
     page?: number & tags.Minimum<1> & tags.Maximum<50> & tags.Default<1>;
 
     /**
-     * 한 페이지에 보여질 문서 수 입니다.
+     * The number of documents to be displayed on one page.
      *
-     * @title 한 페이지에 보여질 문서 수
+     * @title The number of documents to be displayed on one page
      */
     size?: number & tags.Minimum<1> & tags.Maximum<50> & tags.Default<10>;
   }
 
   /**
-   * @title 다음 블로그 검색 결과
+   * @title Next blog search results
    */
   export interface IBlogDaumOutput {
     meta: {
       /**
-       * 검색된 문서의 총 개수입니다.
+       * Total number of documents searched.
        *
-       * @title 검색된 컨텐츠 수
+       * @title Number of searched contents
        */
       totalCount: number;
 
       /**
-       * 검색된 문서 중 노출 가능한 컨텐츠의 개수입니다.
+       * The number of content that can be exposed among the searched documents.
        *
-       * @title 검색된 문서 중 노출 가능한 컨텐츠 수
+       * @title The number of content that can be exposed among the searched documents
        */
       pageableCount: number;
 
       /**
-       * 값이 false면 page를 증가시켜 다음 페이지를 요청할 수 있습니다.
+       * If the value is false, you can request the next page by incrementing page.
        *
-       * @title 현재 페이지가 마지막 페이지인지 여부
+       * @title Whether the current page is the last page
        */
       isEnd: boolean;
     };
 
     documents: {
       /**
-       * 검색된 문서의 제목입니다.
+       * The title of the document searched.
        *
-       * @title 문서의 제목
+       * @title The title of the document
        */
       title: string;
 
       /**
-       * 검색된 문서의 본문 중 일부입니다.
+       * This is part of the text of the document that was searched.
        *
-       * @title 문서 본문중 일부
+       * @title Part of the text of the document
        */
       contents: string;
 
       /**
-       * 검색된 문서의 URL입니다.
+       * The URL of the document being searched.
        *
-       * @title 문서 URL
+       * @title Document URL
        */
       url: string;
 
       /**
-       * 검색된 블로그의 이름입니다.
+       * The name of the blog searched.
        *
-       * @title 블로그의 이름
+       * @title The name of the blog
        */
       blogName: string;
 
       /**
-       * 검색 시스템에서 추출한 대표 미리보기 이미지 URL.
+       * Representative preview image URL extracted from the search system.
        *
-       * @title 썸네일 이미지 URL
+       * @title Thumbnail image URL
        */
       thumbnail: string & tags.ContentMediaType<"image/*">;
 
       /**
-       * 검색된 문서가 작성된 시간입니다.
+       * The time the document was created.
        *
-       * @title 문서 작성 시간
+       * @title Document Creation Time
        */
       dateTime: string;
     }[];
   }
 
   /**
-   * @title 다음 카페 검색 결과
+   * @title Next Cafe Search Results
    */
   export interface ICafeDaumOutput {
     meta: {
       /**
-       * 검색된 다음 카페의 총 갯수 입니다.
+       * Total number of searched cafes.
        *
-       * @title 검색된 다음 카페 컨텐츠 수
+       * @title Number of searched cafe contents
        */
       totalCount: number;
 
       /**
-       * 검색된 다음 카페 컨텐츠 중 노출 가능한 컨텐츠의 개수입니다.
+       * The number of contents that can be exposed among the searched cafe contents.
        *
-       * @title 검색된 다음 카페 컨텐츠 중 노출 가능한 컨텐츠 수
+       * @title The number of contents that can be exposed among the searched cafe contents
        */
       pageableCount: number;
 
       /**
-       * 값이 false면 page를 증가시켜 다음 페이지를 요청할 수 있습니다.
+       * If the value is false, you can request the next page by incrementing page.
        *
-       * @title 현재 페이지가 마지막 페이지인지 여부
+       * @title Whether the current page is the last page
        */
       isEnd: boolean;
     };
 
     documents: {
       /**
-       * 검색된 문서의 제목입니다.
+       * The title of the document searched.
        *
-       * @title 문서의 제목
+       * @title The title of the document
        */
       title: string;
 
       /**
-       * 검색된 문서의 본문 중 일부입니다.
+       * This is part of the text of the document that was searched.
        *
-       * @title 문서 본문중 일부
+       * @title Part of the text of the document
        */
       contents: string;
 
       /**
-       * 검색된 문서의 URL입니다.
+       * The URL of the document being searched.
        *
-       * @title 문서 URL
+       * @title Document URL
        */
       url: string;
 
       /**
-       * 검색된 다음 카페 이름입니다.
+       * The following cafe name is searched.
        *
-       * @title 카페 이름
+       * @title Cafe Name
        */
       cafeName: string;
 
       /**
-       * 검색 시스템에서 추출한 대표 미리보기 이미지 URL.
+       * Representative preview image URL extracted from the search system.
        *
-       * @title 썸네일 이미지 URL
+       * @title Thumbnail image URL
        */
       thumbnail: string & tags.ContentMediaType<"image/*">;
 
       /**
-       * 검색된 문서가 작성된 시간입니다.
+       * The time the document was created.
        *
-       * @title 문서 작성 시간
+       * @title Document Creation Time
        */
       dateTime: string;
     }[];

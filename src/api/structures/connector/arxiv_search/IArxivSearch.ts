@@ -1,15 +1,15 @@
 export interface IArxivSearchParams {
   /**
-   * 아카이브에서 검색할 때 사용하는 검색어 구문 입니다.
+   * Search phrases to use when searching the archive.
    *
-   * @title 검색 구문
+   * @title Search Phrase
    */
   search_query: string;
 
   /**
-   * 몇 개의 검색 결과를 가져올지 설정합니다.
+   * Sets how many search results to retrieve.
    *
-   * @title 검색 결과 개수
+   * @title Number of search results
    */
   max_results?: number;
 }

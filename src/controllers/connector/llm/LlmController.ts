@@ -14,15 +14,15 @@ export class LlmController {
   constructor(private llmProvider: LlmProvider) {}
 
   /**
-   * 주어진 후보 중에서 조건에 맞는 것을 선택합니다.
+   * Select a candidate that satisfies the conditions from the given candidates.
    *
-   * @summary 조건 선택
+   * @summary Select condition
    *
-   * @param body 후보 선택을 위한 입력
+   * @param body Input for candidate selection
    *
-   * @returns 선택된 후보 인덱스 배열
+   * @returns Array of selected candidate indices
    *
-   * @tag Llm selection 선택 추출
+   * @tag Llm selection Extract selection
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/LLM_full.svg",

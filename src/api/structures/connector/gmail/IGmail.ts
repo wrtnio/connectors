@@ -4,50 +4,40 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 
 export namespace IGmail {
   /**
-   * @title 메일을 보내기 위해 필요한 정보
+   * @title Information required to send email
    */
   export interface ICreateMailInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 메일을 받는 사람의 이메일 주소.
+     * The email address of the recipient.
      *
-     * @title 받는 사람 이메일 주소.
+     * @title Recipient's email address.
      */
     to: string[];
 
     /**
-     * 보낼 메일의 제목.
+     * Subject of the email to be sent.
      *
-     * @title 이메일 제목.
+     * @title Email subject.
      */
     subject: string;
 
     /**
-     * 보낼 메일의 본문.
-     *
-     * html로 작성해야 합니다. 그렇지 않으면 본문이 제대로 표시되지 않을 수 있습니다.
-     *
-     * gmail에서 적용가능한 css 형식을 적용해주세요.
-     *
-     * html 길이가 너무 길지 않게 작성해주세요. 길이가 너무 길면 전송이 되지 않을 수 있습니다.
-     *
-     * link 또는 url이 있는 경우 html <a> 태그의 title 속성을 꼭 사용하여 링크를 제공해주세요.
-     *
-     * @title 이메일 본문.
+     * The body of the email to be sent. It must be written in html. Otherwise, the body may not be displayed properly. Please apply the CSS format applicable to gmail. Please write the html length so that it is not too long. If it is too long, it may not be sent. If there is a link or url <a>, be sure to use the title attribute of the html tag to provide a link. @title Email body.</a>
      */
     body: string;
 
     /**
-     * 참조할 사람 이메일 주소.
+     * Email address of the person to be referenced.
      *
-     * @title 참조할 사람 이메일.
+     * @title Email address of the person to be referenced.
      */
     cc?: string[];
 
     /**
-     * 숨은참조할 사람 이메일 주소.
+     * Bcc email address.
      *
-     * @title 숨은참조할 사람 이메일.
+     * @title Bcc email address.
      */
     Bcc?: string[];
 
@@ -68,342 +58,342 @@ export namespace IGmail {
   }
 
   /**
-   * @title 메일 전송 결과
+   * @title Mail transmission result
    */
   export interface ISendMailOutput {
     /**
-     * 보낸 메일의 id.
+     * The ID of the sent email.
      *
-     * @title 보낸 메일의 id.
+     * @title The ID of the sent email.
      */
     id: string;
   }
 
   /**
-   * @title 메일 답장에 필요한 정보
+   * @title Information required to reply to email
    */
   export interface IReplyInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 답장할 문구.
+     * Phrase to reply.
      *
-     * @title 답장할 문구.
+     * @title Phrase to reply.
      */
     replyText: string;
   }
 
   /**
-   * @title 라벨 색상
+   * @title label color
    */
   export interface ILabelColor {
     /**
-     * 라벨 글씨 색상.
+     * Label text color.
      *
-     * @title 라벨 글씨 색.
+     * @title Label text color.
      */
     textColor: string;
 
     /**
-     * 라벨 배경 색상.
+     * Label background color.
      *
-     * @title 라벨 배경 색.
+     * @title Label background color.
      */
     backgroundColor: string;
   }
 
   /**
-   * @title 라벨 생성에 필요한 정보
+   * @title Information required to create a label
    */
   export interface ILabelInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 생성할 라벨의 이름.
+     * The name of the label to create.
      *
-     * @title 라벨 이름.
+     * @title Label name.
      */
     labelName: string;
 
     /**
-     * 생성할 라벨의 공개 상태.
+     * Visibility status of the label to be created.
      *
-     * 숨김 / 보임 / 안읽었을 때 보임
+     * Hidden / Visible / Visible when unread
      *
-     * - labelHide: 숨김
-     * - labelShow: 보임
-     * - labelShowIfUnread: 안읽었을 때 보임
+     * - labelHide: Hidden
+     * - labelShow: Visible
+     * - labelShowIfUnread: Visible when unread
      *
-     * 가능한 값으로 labelHide, labelShow, labelShowIfUnread 3가지만 가능합니다.
+     * Only three possible values are available: labelHide, labelShow, and labelShowIfUnread.
      *
-     * @title 라벨의 공개 상태.
+     * @title Visibility status of the label.
      */
     labelListVisibility?: labelListVisibility;
 
     /**
-     * 생성된 라벨이 지정된 메일의 공개 상태.
+     * The visibility status of the generated labeled mail.
      *
-     * 숨김 / 보임
+     * Hidden / Visible
      *
-     * - hide: 숨김
-     * - show: 보임
+     * - hide: hidden
+     * - show: visible
      *
-     * 가능한 값으로 hide, show 2가지만 가능합니다.
+     * There are only two possible values: hide and show.
      *
-     * @title 라벨이 지정된 메일의 공개 상태.
+     * @title The visibility status of the labeled mail.
      */
     messageListVisibility?: messageListVisibility;
 
     /**
-     * 생성할 메일 라벨의 색깔
+     * Color of the mail label to be generated
      *
-     * @title 라벨 색깔.
+     * @title Label Color.
      */
     color?: ILabelColor;
   }
 
   /**
-   * - labelHide: 숨김
-   * - labelShow: 보임
-   * - labelShowIfUnread: 안읽었을 때 보임
+   * - labelHide: hidden
+   * - labelShow: visible
+   * - labelShowIfUnread: visible when unread
    *
-   * @title 라벨의 공개 상태.
+   * @title Label visibility status.
    */
   type labelListVisibility = "labelHide" | "labelShow" | "labelShowIfUnread";
 
   /**
-   * - hide: 숨김
-   * - show: 보임
+   * - hide: hidden
+   * - show: visible
    *
-   * @title 라벨이 지정된 메일의 공개 상태.
+   * Public status of emails labeled with @title.
    */
   type messageListVisibility = "hide" | "show";
 
   /**
-   * @title 라벨 생성 결과
+   * @title Label Creation Result
    */
   export interface ILabelOutput {
     /**
-     * 생성된 라벨의 id.
+     * The id of the generated label.
      *
-     * @title 생성된 라벨 id.
+     * @title Generated label id.
      */
     id: string;
   }
 
   /**
-   * @title 라벨 부여에 필요한 정보
+   * @title Information required to assign a label
    */
   export interface IMailLabelOperationInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 부여하거나 삭제할 라벨 목록들.
+     * A list of labels to assign or remove.
      *
-     * @title 라벨 목록.
+     * @title A list of labels.
      */
     labelIds: string[];
   }
 
   /**
-   * @title 이메일 리스트 검색에 필요한 정보
+   * @title Information needed to search email lists
    */
   export interface IFindEmailListInput
     extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
     /**
-     * 이메일을 보낸 사람의 이메일 주소.
+     * The email address of the sender of the email.
      *
-     * @title 보낸 사람의 이메일.
+     * @title The email of the sender.
      */
     from?: string;
 
     /**
-     * 이메일을 받는 사람의 이메일 주소.
+     * The email address of the recipient.
      *
-     * @title 받는 사람의 이메일.
+     * @title The email address of the recipient.
      */
     to?: string;
 
     /**
-     * 이메일 제목.
+     * Email Subject.
      *
-     * @title 이메일 제목.
+     * @title Email Subject.
      */
     subject?: string;
 
     /**
-     * 해당 날짜 이후의 이메일만 반환.
+     * Returns only emails after a given date.
      *
-     * @title 특정 날짜 이후.
+     * @title After a specific date.
      */
     after?: string;
 
     /**
-     * 해당 날짜 이전의 이메일만 반환.
+     * Returns only emails before a given date.
      *
-     * @title 특정 날짜 이전.
+     * @title Before a specific date.
      */
     before?: string; // 특정 날짜 이전
 
     /**
-     * 메일에 부여된 라벨.
+     * Label assigned to the email.
      *
-     * @title 메일에 부여된 라벨.
+     * @title Label assigned to the email.
      */
     label?: string;
 
     /**
-     * 메일의 반환 갯수.
+     * Number of returned mails.
      *
-     * @title 최대 반환 갯수.
+     * @title Maximum number of returned mails.
      */
     maxResults?: number & tags.Maximum<500> & tags.Minimum<1>;
 
     /**
-     * 지정된 라벨 ID와 모두 일치하는 라벨이 있는 메일만 반환하기 위한 라벨 목록들.
+     * A list of labels to return only emails with labels that all match the specified label ID.
      *
-     * @title 필터링할 라벨 목록.
+     * @title A list of labels to filter by.
      */
     labelIds?: string[];
   }
 
   /**
-   * @title 이메일 리스트 검색 결과
+   * @title Email list search results
    */
   export interface IFindGmailListOutput {
     /**
-     * 검색된 gmail 데이터 정보.
+     * Searched gmail data information.
      *
-     * @title gmail 검색 데이터 정보.
+     * @title gmail search data information.
      */
     data: IFindGmailOutput[];
   }
 
   /**
-   * @title 이메일 검색 결과
+   * @title Email search results
    */
   export interface IFindGmailOutput {
     /**
-     * 이메일의 고유 id.
+     * Unique id of the email.
      *
-     * @title 이메일 id.
+     * @title Email id.
      */
     id?: string | null;
 
     /**
-     * 이메일에 부여된 라벨 id.
+     * Label id assigned to the email.
      *
-     * @title 이메일 라벨 id.
+     * @title Email Label id.
      */
     labelIds?: string[] | null;
 
     /**
-     * 이메일을 보낸 사람의 이메일 주소.
+     * The email address of the person who sent the email.
      *
-     * @title 발신자 이메일.
+     * @title Sender Email.
      */
     from?: string | null;
 
     /**
-     * 이메일의 제목.
+     * The subject of the email.
      *
-     * @title 제목.
+     * @title Subject.
      */
     subject?: string | null;
 
     /**
-     * 이메일의 본문 요약.
+     * Summary of the body of the email.
      *
-     * @title 본문 요약.
+     * @title Summary of the body.
      */
     body?: string | null;
 
     /**
-     * 이메일에 첨부된 파일 목록.
+     * List of files attached to the email.
      *
-     * @title 첨부파일.
+     * @title Attachments.
      */
     attachments?: IAttachmentOutput[] | null;
   }
 
   /**
-   * @title 첨부파일 정보
+   * @title Attachment file information
    */
 
   export interface IAttachmentOutput {
     /**
-     * 메시지 부분의 변경할 수 없는 ID.
+     * The immutable ID of the message part.
      *
-     * @title 메시지 부분의 변경할 수 없는 ID.
+     * @title The immutable ID of the message part.
      */
     partId?: string | null;
 
     /**
-     * 메세지의 MIME 유형입니다.
+     * The MIME type of the message.
      *
-     * @title 메시지 부분의 MIME 유형.
+     * @title The MIME type of the message part.
      */
     mimeType?: string | null;
 
     /**
-     * 이 메시지 부분이 첨부파일을 나타내는 경우에만 표시됩니다.
+     * This message part will only be displayed if it indicates an attachment.
      *
-     * @title 첨부파일 명.
+     * @title Attachment name.
      */
     filename?: string | null;
 
     /**
-     * 전체 메시지 페이로드를 나타내는 최상위 메시지 부분에는 To, From, Subject와 같은 표준 RFC 2822 이메일 헤더가 포함됩니다.
+     * The top-level message portion, which represents the entire message payload, contains standard RFC 2822 email headers such as To, From, and Subject.
      *
-     * @title 첨부파일 헤더 정보.
+     * @title Attachment header information.
      */
     headers?: IAttachmentHeader[] | null;
 
     /**
-     * 이 부분의 메시지 부분 본문으로, 컨테이너 MIME 메시지 부분의 경우 비어 있을 수 있습니다.
+     * The body of the message part of this section, which may be empty for container MIME message parts.
      *
-     * @title 첨부파일 헤더 body 정보.
+     * @title Attachment header body information.
      */
     body?: IAttachmentBody | null;
   }
 
   /**
-   * @title 첨부파일 헤더 정보
+   * @title Attachment file header information
    */
   export interface IAttachmentHeader {
     /**
-     * 첨부파일 헤더 타입.
+     * Attachment header type.
      *
-     * @title 첨부파일 헤더 타입.
+     * @title Attachment header type.
      */
     name?: string | null;
 
     /**
-     * 첨부파일 헤더 값.
+     * Attachment header value.
      *
-     * @title 첨부파일 헤더 값.
+     * @title Attachment header value.
      */
     value?: string | null;
   }
 
   /**
-   * @title 첨부파일 body 정보
+   * @title Attached file body information
    */
   export interface IAttachmentBody {
     /**
-     * 첨부파일 고유 id입니다.
+     * The unique ID of the attached file.
      *
-     * @title 첨부파일 id.
+     * @title Attachment file id.
      */
     attachmentId?: string | null;
 
     /**
-     * 첨부파일 데이터의 바이트 수입니다.
+     * The number of bytes in the attachment data.
      *
-     * @title 첨부파일 데이터의 바이트 수.
+     * @title The number of bytes in the attachment data.
      */
     size?: (number & tags.Type<"int32">) | null;
   }
 
   /**
-   * @title 인증 정보
+   * @title Authentication Information
    */
   export type ISecret = ICommon.ISecret<"google", ["https://mail.google.com/"]>;
 }

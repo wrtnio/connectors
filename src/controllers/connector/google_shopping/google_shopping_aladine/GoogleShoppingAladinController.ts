@@ -13,13 +13,13 @@ export class GoogleShoppingAladinController {
   ) {}
 
   /**
-   * 상품을 알라딘에서 검색합니다.
+   * Search for products in Aladdin.
    *
-   * @summary 알라딘 검색
+   * @summary Aladdin Search
    *
-   * @param input  검색 조건
+   * @param input Search conditions
    *
-   * @returns  검색 결과
+   * @returns Search results
    */
   @Standalone()
   @core.TypedRoute.Post("aladine")

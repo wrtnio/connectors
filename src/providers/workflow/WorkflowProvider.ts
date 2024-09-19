@@ -25,9 +25,8 @@ export class WorkflowProvider {
   public async getWorkflowRunStatus(
     workflowRunId: string,
   ): Promise<IGetWorkflowRunStatusOutput> {
-    const runStatus = await this._workflowStateManager.getWorkflowRunStatus(
-      workflowRunId,
-    );
+    const runStatus =
+      await this._workflowStateManager.getWorkflowRunStatus(workflowRunId);
     // workflow run info doesn't exist
     if (!runStatus) {
       throw new HttpException("Workflow run not found", HttpStatus.NOT_FOUND);

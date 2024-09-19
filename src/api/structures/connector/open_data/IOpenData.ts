@@ -43,7 +43,7 @@ export namespace IOpenData {
       extends ICommon.IPaginationInput {
       /**
        * @title Region address name
-       * It must be one of: "서울특별시","부산광역시","대구광역시","인천광역시","광주광역시","대전광역시","울산광역시","세종특별자치시","경기도","충청북도","충청남도","경상북도","경상남도","전라남도","제주특별자치도","강원특별자치도","전북특별자치도"
+       * It must be one of: "Seoul Metropolitan City","Busan Metropolitan City","Daegu Metropolitan City","Incheon Metropolitan City","Gwangju Metropolitan City","Daejeon Metropolitan City","Ulsan Metropolitan City","Sejong Special Self-Governing City","Gyeonggi-do","Chungcheongbuk-do","Chungcheongnam-do","Gyeongsangbuk-do","Gyeongsangnam-do","Jeollanam-do","Jeju Special Self-Governing Province","Gangwon Special Self-Governing Province","Jeollabuk-do Special Self-Governing Province"
        */
       locatadd_nm: (
         | tags.Constant<"서울특별시", { title: "서울특별시" }>

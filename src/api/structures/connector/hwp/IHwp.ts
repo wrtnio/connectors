@@ -3,13 +3,13 @@ import { ContentMediaType } from "typia/lib/tags/ContentMediaType";
 
 export namespace IHwp {
   /**
-   * @title hwp 파일 파싱을 위한 정보
+   * @title Information for parsing hwp files
    */
   export interface IParseInput {
     /**
-     * 파싱할 hwp 파일.
+     * hwp file to parse.
      *
-     * @title hwp 파일
+     * @title hwp file
      */
     fileUrl: string &
       tags.Format<"uri"> &
@@ -17,14 +17,14 @@ export namespace IHwp {
   }
 
   /**
-   * @title hwp 파일 파싱 결과
+   * @title hwp file parsing result
    */
 
   export interface IParseOutput {
     /**
-     * 파싱된 hwp 파일의 텍스트
+     * Text of the parsed hwp file
      *
-     * @title 텍스트
+     * @title text
      */
     text: string;
   }

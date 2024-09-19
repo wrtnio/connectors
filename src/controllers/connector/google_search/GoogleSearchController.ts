@@ -12,13 +12,13 @@ export class GoogleSearchController {
   constructor(private readonly googleSearchProvider: GoogleSearchProvider) {}
 
   /**
-   * 입력한 검색어를 구글에서 검색합니다.
+   * Search Google for the search term you entered.
    *
-   * @summary 구글 검색
+   * @summary Google search
    *
-   * @param input 구글 검색 조건
+   * @param input Google search terms
    *
-   * @returns 구글 검색 결과
+   * @returns Google search results
    */
   @Standalone()
   @core.TypedRoute.Post("")

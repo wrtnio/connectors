@@ -3,12 +3,12 @@ import { tags } from "typia";
 
 export namespace IKoreaEximbank {
   /**
-   * @title 환율 정보
-   * @description 한국 수출입 은행에서 오늘 날짜에 해당하는 환율 정보를 제공
+   * @title Exchange Rate Information
+   * @description Korea Export-Import Bank provides exchange rate information for today's date.
    */
   export type IGetExchangeOutput = {
     /**
-     * @title 조회 결과에 대한 요약
+     * @title Summary of query results
      */
     result:
       | tags.Constant<1, { title: "성공" }>
@@ -17,52 +17,52 @@ export namespace IKoreaEximbank {
       | tags.Constant<4, { title: "일일 제한 횟수 마감" }>;
 
     /**
-     * @title 통화코드
+     * @title currency code
      */
     cur_unit: (string & Placeholder<"KRW">) | null;
 
     /**
-     * @title 전신환(송금) 받을 떄
+     * @title When receiving a wire transfer (remittance)
      */
     ttb: string | null;
 
     /**
-     * @title 전신환(송금) 보낼 때
+     * @title When sending a wire transfer (remittance)
      */
     tts: string | null;
 
     /**
-     * @title 매매 기준율
+     * @title Trading standard rate
      */
     deal_bas_r: string | null;
 
     /**
-     * @title 장부 가격
+     * @title Book Price
      */
     bkpr: string | null;
 
     /**
-     * @title 년환가료율
+     * @title Annual Conversion Rate
      */
     yy_efee_r: string | null;
 
     /**
-     * @title 10일환가료율
+     * @title 10-day redemption rate
      */
     ten_dd_efee_r: string | null;
 
     /**
-     * @title 서울외국환중개장부가격
+     * @title Seoul Foreign Exchange Brokerage Book Price
      */
     kftc_bkpr: string | null;
 
     /**
-     * @title 서울외국환중개매매기준율
+     * @title Seoul Foreign Exchange Brokerage Trading Standard Rate
      */
     kftc_deal_bas_r: string | null;
 
     /**
-     * @title 국가/통화명
+     * @title Country/Currency Name
      */
     cur_nm: (string & Placeholder<"한국 원">) | null;
   }[];

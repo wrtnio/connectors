@@ -13,13 +13,13 @@ export class GoogleShoppingTwentyNineCentimeterController {
   ) {}
 
   /**
-   * 상품을 29cm에서 검색합니다.
+   * Search for products from 29cm.
    *
-   * @summary 29cm 검색
+   * @summary 29cm search
    *
-   * @param input  검색 조건
+   * @param input search condition
    *
-   * @returns  검색 결과
+   * @returns search result
    */
   @Standalone()
   @core.TypedRoute.Post("twenty-nine-centimeter")

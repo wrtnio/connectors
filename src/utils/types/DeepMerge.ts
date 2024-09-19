@@ -15,12 +15,12 @@ export type DeepMerge<T extends object, P extends object> = {
         : T[key]
       : T[key]
     : key extends keyof P
-    ? key extends keyof T
-      ? P[key] extends object
-        ? T[key] extends object
-          ? DeepMerge<T[key], P[key]>
+      ? key extends keyof T
+        ? P[key] extends object
+          ? T[key] extends object
+            ? DeepMerge<T[key], P[key]>
+            : P[key]
           : P[key]
         : P[key]
-      : P[key]
-    : never;
+      : never;
 };

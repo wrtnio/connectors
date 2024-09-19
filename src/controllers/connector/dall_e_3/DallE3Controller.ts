@@ -11,13 +11,13 @@ export class DallE3Controller {
   constructor(private readonly dallE3Provider: DallE3Provider) {}
 
   /**
-   * dall-e-3 모델을 이용하여 이미지를 생성합니다.
+   * Generate an image using the dall-e-3 model.
    *
-   * @summary dall-e-3 이미지 생성기 노드
+   * @summary dall-e-3 image generator node
    *
-   * @param input 이미지 생성을 위한 정보
+   * @param input Information for image generation
    *
-   * @returns 생성된 이미지 URL
+   * @returns URL of the generated image
    */
   @Standalone()
   @core.TypedRoute.Post("/generate")

@@ -14,15 +14,15 @@ export class StoryImageGeneratorController {
   constructor(private storyImageGenerator: StoryImageGeneratorProvider) {}
 
   /**
-   * 주어진 입력으로부터 이미지를 생성합니다.
+   * Generates an image from given input.
    *
-   * 그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.
+   * A connector that can be used when creating a chatbot workflow for picture book or story generation.
    *
-   * @summary 스토리 이미지 생성
+   * @summary Generate story image
    *
-   * @param input 이미지 생성을 위한 입력
+   * @param input Input for image generation
    *
-   * @returns 생성된 이미지
+   * @returns Generated image
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/image.svg",

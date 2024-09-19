@@ -11,16 +11,16 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/youtube-search")
 export class YoutubeSearchController {
   /**
-   * 유튜브 영상 검색 결과를 가져옵니다.
+   * Get YouTube video search results.
    *
-   * 검색 결과는 영상의 제목과 링크가 있습니다.
-   * 대부분의 사용자들이 이 기능을 사용한다면, 아마도 영상을 보기를 원할 것이기 때문에 URL을 제공해주는 편이 좋습니다.
+   * The search results have the video title and link.
+   * If most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.
    *
-   * @summary 유튜브 영상 검색
+   * @summary YouTube video search
    *
-   * @param input 유튜브 영상 검색을 위한 조건
+   * @param input Conditions for YouTube video search
    *
-   * @returns 유튜브 영상 검색 결과 목록.
+   * @returns List of YouTube video search results.
    */
   @Standalone()
   @core.TypedRoute.Post()

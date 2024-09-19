@@ -11,13 +11,13 @@ export class GoogleHotelController {
   constructor(private readonly googleHotelProvider: GoogleHotelProvider) {}
 
   /**
-   * 구글 호텔 서비스를 사용하여 숙소를 검색합니다
+   * Search for accommodations using Google Hotels service
    *
-   * @summary 구글 호텔 검색
+   * @summary Google Hotels Search
    *
-   * @param input 구글 호텔 검색 조건
+   * @param input Google Hotels search criteria
    *
-   * @returns 구글 호텔 검색 결과
+   * @returns Google Hotels Search Results
    */
   @Standalone()
   @core.TypedRoute.Post("")
