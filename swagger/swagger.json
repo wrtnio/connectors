@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.210",
+    "version": "0.1.211",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -15597,7 +15597,8 @@
         "required": [
           "fileKey",
           "secretKey"
-        ]
+        ],
+        "description": "피그마 특정 프레임으로부터 댓글을 조회하는 DTO.\n\n한 번에 하나의 프레임으로부터 댓글을 읽을 수 있다."
       },
       "IFigma.IGetProjectFileOutput": {
         "type": "object",
