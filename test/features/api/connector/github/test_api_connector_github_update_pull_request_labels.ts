@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import assert from "assert";
+import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
@@ -58,6 +59,21 @@ export async function test_api_connector_github_update_pull_request_labels_by_up
 export async function test_api_connector_github_update_pull_request_labels_by_update_pull_request_connector(
   connection: CApi.IConnection,
 ) {
+  // 동일한 commit_sha에 대해서는 100개 까지만 PR을 만들 수 있기 때문에 하나를 추가한다.
+  const randomString = randomUUID();
+  await CApi.functional.connector.github.repos.commits.contents.createFileContents(
+    connection,
+    {
+      owner: "studio-pro",
+      repo: "github_connector",
+      branch: "kakasoo",
+      content: "hello, studio-pro!",
+      message: `create src/${randomString}.ts`,
+      path: `src/${randomString}.ts`,
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+    },
+  );
+
   const created =
     await CApi.functional.connector.github.repositories.pull_requests.createPullRequest(
       connection,

@@ -1028,27 +1028,32 @@ export class GithubProvider {
   async createPullRequest(
     input: IGithub.ICreatePullRequestInput,
   ): Promise<IGithub.ICreatePullRequestOutput> {
-    const { owner, repo, secretKey, ...rest } = input;
+    try {
+      const { owner, repo, secretKey, ...rest } = input;
 
-    const url = `https://api.github.com/repos/${owner}/${repo}/pulls`;
-    const token = await this.getToken(secretKey);
-    const res = await axios.post(
-      url,
-      {
-        ...rest,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const url = `https://api.github.com/repos/${owner}/${repo}/pulls`;
+      const token = await this.getToken(secretKey);
+      const res = await axios.post(
+        url,
+        {
+          ...rest,
         },
-      },
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-    return {
-      id: res.data.id,
-      number: res.data.number,
-      title: res.data.title,
-    };
+      return {
+        id: res.data.id,
+        number: res.data.number,
+        title: res.data.title,
+      };
+    } catch (err) {
+      console.error(JSON.stringify((err as any).response.data, null, 2));
+      throw err;
+    }
   }
 
   async searchUser(
