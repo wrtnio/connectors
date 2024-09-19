@@ -7,6 +7,7 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import qs from "qs";
+import typia, { tags } from "typia";
 
 @Injectable()
 export class TypeformProvider {
@@ -14,7 +15,7 @@ export class TypeformProvider {
     input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       const res = await axios.post(
         "https://api.typeform.com/workspaces",
         {
@@ -43,7 +44,7 @@ export class TypeformProvider {
     input: ITypeform.ISecret,
   ): Promise<ITypeform.IFindWorkspaceOutput[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       const res = await axios.get("https://api.typeform.com/workspaces", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -73,7 +74,7 @@ export class TypeformProvider {
     input: ITypeform.ICreateEmptyFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       const res = await axios.post(
         "https://api.typeform.com/forms",
         {
@@ -104,7 +105,7 @@ export class TypeformProvider {
     input: ITypeform.ISecret,
   ): Promise<ITypeform.IFindFormOutput[]> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       const res = await axios.get("https://api.typeform.com/forms", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -132,10 +133,7 @@ export class TypeformProvider {
     input: ITypeform.IDuplicateExistingFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
     try {
-      const existingFormInfo = await this.getFormInfo(
-        input.secretKey,
-        input.formId,
-      );
+      const existingFormInfo = await this.getFormInfo(input, input.formId);
       if (!existingFormInfo) {
         throw new HttpException("Cannot find form", HttpStatus.NOT_FOUND);
       }
@@ -195,7 +193,7 @@ export class TypeformProvider {
     input: ITypeform.IGetFieldForUpdateFieldValueInput,
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
     try {
-      const formInfo = await this.getFormInfo(input.secretKey, input.formId);
+      const formInfo = await this.getFormInfo(input, input.formId);
 
       /**
        * 랭킹, 드롭다운, 다중선택 필드만 제공
@@ -227,7 +225,7 @@ export class TypeformProvider {
     input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
     try {
-      const formInfo = await this.getFormInfo(input.secretKey, input.formId);
+      const formInfo = await this.getFormInfo(input, input.formId);
 
       const updatedFormInfo = this.updateFormInfo(formInfo, input);
       const updatedForm = await this.updateForm(
@@ -256,7 +254,7 @@ export class TypeformProvider {
     updatedFormInfo: any,
   ): Promise<ITypeform.IFormOutput> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       const res = await axios.put(
         `https://api.typeform.com/forms/${formId}`,
         updatedFormInfo,
@@ -278,7 +276,7 @@ export class TypeformProvider {
     workspaceId: string,
   ): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       await axios.delete(`https://api.typeform.com/workspaces/${workspaceId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -292,7 +290,7 @@ export class TypeformProvider {
 
   async deleteForm(input: ITypeform.ISecret, formId: string): Promise<void> {
     try {
-      const accessToken = await this.refresh(input.secretKey);
+      const accessToken = await this.refresh(input);
       await axios.delete(`https://api.typeform.com/forms/${formId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -305,7 +303,7 @@ export class TypeformProvider {
   }
 
   async getFormInfo(
-    secretKey: string,
+    secretKey: ITypeform.ISecret,
     formId?: string,
   ): Promise<ITypeform.IFormOutput> {
     try {
@@ -365,9 +363,9 @@ export class TypeformProvider {
     return fieldInfoList;
   }
 
-  private async refresh(secretValue: string): Promise<string> {
+  private async refresh({ secretKey }: ITypeform.ISecret): Promise<string> {
     try {
-      const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+      const secret = await OAuthSecretProvider.getSecretValue(secretKey);
       const refreshToken =
         typeof secret === "string"
           ? secret
@@ -392,12 +390,21 @@ export class TypeformProvider {
       /**
        * Refresh Token이 일회용이므로 값 업데이트
        */
-      await OAuthSecretProvider.updateSecretValue(
-        (secret as IOAuthSecret.ISecretValue).id,
-        {
+      if (typia.is<string & tags.Format<"uuid">>(secretKey)) {
+        await OAuthSecretProvider.updateSecretValue(secretKey, {
           value: res.data.refresh_token,
-        },
-      );
+        });
+      }
+
+      /**
+       * 테스트 환경에서만 사용
+       */
+      if (process.env.NODE_ENV === "test") {
+        await ConnectorGlobal.write({
+          TYPEFORM_TEST_SECRET: res.data.refresh_token,
+        });
+      }
+
       return res.data.access_token;
     } catch (err) {
       console.error(JSON.stringify(err));
