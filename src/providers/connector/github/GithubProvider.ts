@@ -11,12 +11,11 @@ import {
 } from "../../../utils/constants/extensions";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { StrictOmit } from "../../../utils/strictOmit";
+import { PickPartial } from "../../../utils/types/PickPartial";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
-import { PickPartial } from "../../../utils/types/PickPartial";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -985,7 +984,7 @@ export class GithubProvider {
 
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
     const token = await this.getToken(secretKey);
-    const res = await axios.post(
+    const res = await axios.patch(
       url,
       {
         ...rest,
