@@ -546,6 +546,7 @@ export class GithubController {
    * Update pull request
    *
    * Use to change the title or body of a PR, or draft status or open-close status.
+   * It can also be used for overwriting labels or modifying them.
    *
    * @param input Update pull request
    * @returns

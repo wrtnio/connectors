@@ -980,7 +980,7 @@ export class GithubProvider {
   async updatePullRequest(
     input: IGithub.IUpdatePullRequestInput,
   ): Promise<IGithub.IUpdatePullRequestOutput> {
-    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const { owner, repo, pull_number, labels, secretKey, ...rest } = input;
 
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
     const token = await this.getToken(secretKey);
@@ -995,6 +995,11 @@ export class GithubProvider {
         },
       },
     );
+
+    if (labels?.length) {
+      const issue_number = pull_number;
+      await this.updateIssue({ owner, repo, labels, secretKey, issue_number });
+    }
 
     return {
       id: res.data.id,

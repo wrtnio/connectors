@@ -1,8 +1,8 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
-import { ICommon } from "../common/ISecretValue";
 import { PickPartial } from "../../../../utils/types/PickPartial";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -1479,7 +1479,8 @@ export namespace IGithub {
   >;
 
   export interface IUpdatePullRequestInput
-    extends PickPartial<ICreatePullRequestInput, "head" | "base"> {
+    extends PickPartial<ICreatePullRequestInput, "head" | "base">,
+      Pick<IUpdateIssueInput, "labels"> {
     /**
      * @title pull request number to update
      */
