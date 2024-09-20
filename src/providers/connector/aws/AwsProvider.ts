@@ -170,24 +170,14 @@ export namespace AwsProvider {
     });
 
     const { data, contentType } = input;
-    const encodedKey = input.key
-      .split("/")
-      .map((token) => {
-        const unsafeCharactersRegex = /[^a-zA-Z0-9._\-\/]/g;
-        if (unsafeCharactersRegex.test(token)) {
-          return encodeURIComponent(token);
-        }
-        return token;
-      })
-      .join("/");
 
     const putObjectConfig = new PutObjectCommand({
       Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
-      Key: encodedKey,
+      Key: input.key,
       Body: data,
       ContentType: contentType,
     });
     await s3.send(putObjectConfig);
-    return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.amazonaws.com/${encodedKey}`;
+    return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${input.key}`;
   }
 }
