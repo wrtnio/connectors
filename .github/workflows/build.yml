@@ -60,7 +60,11 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --exclude sweet_tracker korea_exim kakao jira slack github figma discord google_ads google_slides google_calendar google_docs google_drive google_flight open_data_get_address
+        run: | # sweet_tracker, google_ads는 현재 테스트 대상이 아님
+          npm run test -- \
+            --exclude sweet_tracker korea_exim kakao jira slack github figma discord \
+            google_ads google_slides google_calendar google_docs google_drive google_flight \
+            open_data calendly notion naver
 
   test-kakao:
     runs-on: ubuntu-latest
@@ -152,7 +156,30 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include open_data
+        run: npm run test -- --include open_data --exclude get_short_term # 기상청은 따로 테스트 코드가 돌게 수정
+
+  test-get_short_term: # 기상청 테스트 코드
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: |
+            ./bin
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include get_short_term
 
   test-github:
     runs-on: ubuntu-latest
@@ -314,3 +341,72 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
         run: npm run test -- --include google_drive
+
+  test-calendly:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: |
+            ./bin
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include calendly
+
+  test-notion:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: |
+            ./bin
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include notion
+
+  test-naver:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: |
+            ./bin
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include naver
