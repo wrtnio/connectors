@@ -1992,6 +1992,15 @@ export namespace IGithub {
     extends IReadPullRequestDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}
 
+  export type ICreateIssueCommentOutput = IssueComment;
+
+  export interface ICreateIssueCommentInput extends IGetIssueDetailInput {
+    /**
+     * @title The contents of the comment
+     */
+    body: string;
+  }
+
   export interface IGetIssueCommentsInput
     extends IGetIssueDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}

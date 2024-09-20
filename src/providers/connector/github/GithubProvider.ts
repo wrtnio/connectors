@@ -1162,6 +1162,27 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async createIssueComments(
+    input: IGithub.ICreateIssueCommentInput,
+  ): Promise<IGithub.ICreateIssueCommentOutput> {
+    const { owner, repo, issue_number, secretKey, body } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/comments`;
+    const res = await axios.post(
+      url,
+      {
+        body,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
+
   async getOrganizationRepositories(
     input: IGithub.IGetOrganizationRepositoryInput,
   ): Promise<IGithub.IGetOrganizationRepositoryOutput> {
