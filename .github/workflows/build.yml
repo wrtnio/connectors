@@ -38,4 +38,4 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Run Test Program
-        run: npm run test -- --exclude sweet_tracker korea_exim google_ads github_analyze google_flight open_data_get_address
+        run: npm run test -- --include typeform_create_empty_form
