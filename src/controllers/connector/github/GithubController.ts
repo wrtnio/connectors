@@ -881,7 +881,12 @@ export class GithubController {
   }
 
   /**
+   * Create an issue comment
    *
+   * Add a comment. If you put an issue number, you can add a comment to the issue, where the issue number is also the number of PR.
+   * In other words, both issue and PR can add a comment through this connector.
+   *
+   * @summary Create an issue comment
    * @param input
    * @returns
    */
