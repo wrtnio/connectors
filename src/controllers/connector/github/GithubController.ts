@@ -722,6 +722,16 @@ export class GithubController {
     return this.githubProvider.readReviews(input);
   }
 
+  /**
+   * Create a review for a pull request
+   *
+   * Pull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.
+   * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+   *
+   * @summary Create a review for a pull request
+   * @param input
+   * @returns
+   */
   @core.TypedRoute.Post("repositories/pull-requests/reviews")
   async reviewPullRequest(
     @TypedBody() input: IGithub.IReviewPullRequestInput,
