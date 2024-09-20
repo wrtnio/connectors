@@ -1,8 +1,8 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { StrictOmit } from "../../../../utils/strictOmit";
-import { ICommon } from "../common/ISecretValue";
 import { PickPartial } from "../../../../utils/types/PickPartial";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -114,6 +114,151 @@ export namespace IGithub {
     closed_at: string & tags.Format<"date-time">;
     due_on: string & tags.Format<"date-time">;
   };
+
+  export interface ReviewComment extends StrictOmit<Comment, "pages"> {
+    /**
+     * @title pull_request_review_id
+     */
+    pull_request_review_id: number & tags.Type<"uint64">;
+
+    /**
+     * @title diff_hunk
+     *
+     * diff_hunk is a form for representing a change in code in github.
+     * It consists of strings, and the first line, based on the new line character,
+     * has meta information about the change point between the symbols @@ and @@.
+     * This meta information includes how many lines were affected based on the file before the change,
+     * and how many lines were affected based on the file after the change.
+     * Like `@@ -45,4 +45,23 @@`
+     */
+    diff_hunk: string;
+
+    /**
+     * @title path
+     */
+    path: string;
+
+    /**
+     * @title position
+     *
+     * The position in the diff where you want to add a review comment.
+     * Note this value is not the same as the line number in the file.
+     * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment.
+     * The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+     *
+     * Position value, which is the number of rows based on diff_hunk.
+     */
+    position: (number & tags.Type<"uint64">) | null;
+
+    /**
+     * @title original_position
+     *
+     * Original position value, which is the number of rows based on diff_hunk.
+     */
+    original_position: number & tags.Type<"uint64">;
+
+    /**
+     * @title commit_id
+     */
+    commit_id: Commit["sha"];
+
+    /**
+     * @title original_commit_id
+     */
+    original_commit_id: Commit["sha"];
+
+    /**
+     * @title in_reply_to_id
+     *
+     * In_reply_to_id is a field used by GitHub's review or comment API that is used to write a reply to a particular review or comment.
+     */
+    in_reply_to_id?: number & tags.Type<"uint64">;
+
+    /**
+     * @title user
+     */
+    user: Collaborator;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"uri">;
+
+    /**
+     * @title author_association
+     */
+    author_association: IGithub.AuthorAssociation;
+  }
+
+  export interface IGetReviewCommentOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title result
+     */
+    result: IGithub.ReviewComment[];
+  }
+
+  export interface IGetReviewCommentInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title review_id
+     */
+    review_id: Review["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/repositories/pull-requests/get-reviews";
+        jmesPath: `result[].{value:id, label: join('', [user.login, '\'s review'])}`;
+      }>;
+  }
+
+  export interface IPullRequestComment
+    extends Pick<IGithub.ReviewComment, "path" | "position" | "body"> {
+    line: number & tags.Type<"uint64">;
+    side: string;
+    start_line: number & tags.Type<"uint64">;
+    start_side: string;
+  }
+
+  export type IReviewPullRequestOutput = Pick<IGithub.Review, "id">;
+
+  export interface IReviewPullRequestInput extends IReadPullRequestDetailInput {
+    /**
+     * @title commit_id
+     *
+     * The SHA of the commit that needs a review.
+     * Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.
+     * Defaults to the most recent commit in the pull request when you do not specify a value.
+     */
+    commit_id?: string;
+
+    /**
+     * @title body
+     *
+     * Required when using REQUEST_CHANGES or COMMENT for the event parameter.
+     * The body text of the pull request review.
+     */
+    body?: string;
+
+    /**
+     * @title event
+     *
+     * The review action you want to perform.
+     * The review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.
+     * By leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready.
+     */
+    event?:
+      | tags.Constant<"APPROVE", { title: "APPROVE" }>
+      | tags.Constant<"REQUEST_CHANGES", { title: "REQUEST_CHANGES" }>
+      | tags.Constant<"COMMENT", { title: "COMMENT" }>;
+
+    /**
+     * @title comments
+     *
+     * Use the following table to specify the location, destination, and contents of the draft review comment.
+     */
+    comments?: IPullRequestComment[];
+  }
 
   export interface IReadPullRequestFileOutput
     extends IGithub.ICommonPaginationOutput {
@@ -622,7 +767,12 @@ export namespace IGithub {
      */
     path: string;
 
+    /**
+     * @title commit message
+     * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
+     */
     message: Commit["message"];
+
     /**
      * @title the new file content
      *
@@ -1479,7 +1629,8 @@ export namespace IGithub {
   >;
 
   export interface IUpdatePullRequestInput
-    extends PickPartial<ICreatePullRequestInput, "head" | "base"> {
+    extends PickPartial<ICreatePullRequestInput, "head" | "base">,
+      Pick<IUpdateIssueInput, "labels"> {
     /**
      * @title pull request number to update
      */
@@ -1893,6 +2044,15 @@ export namespace IGithub {
   export interface IGetPullRequestCommentsInput
     extends IReadPullRequestDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export type ICreateIssueCommentOutput = IssueComment;
+
+  export interface ICreateIssueCommentInput extends IGetIssueDetailInput {
+    /**
+     * @title The contents of the comment
+     */
+    body: string;
+  }
 
   export interface IGetIssueCommentsInput
     extends IGetIssueDetailInput,
@@ -2990,14 +3150,37 @@ export namespace IGithub {
   }
 
   export interface Comment {
+    /**
+     * @title id
+     */
     id: number & tags.Type<"uint64">;
+
+    /**
+     * @title body
+     */
     body?: string;
+
+    /**
+     * @title user
+     */
     user: Pick<
       IGithub.User,
       "id" | "login" | "type" | "avatar_url" | "html_url"
     >;
+
+    /**
+     * @title created_at
+     */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title pages
+     */
     pages?: IGithub.Page[];
   }
 

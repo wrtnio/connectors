@@ -338,7 +338,7 @@ export namespace ISlack {
      * The closer you are to the 0th in the array, the more recent it is.
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
      */
-    messages: ISlack.Message[];
+    messages: StrictOmit<ISlack.Message, "type">[];
 
     /**
      * @title members
@@ -603,6 +603,8 @@ export namespace ISlack {
 
     /**
      * @title message contents
+     *
+     * When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.
      */
     text: string;
 

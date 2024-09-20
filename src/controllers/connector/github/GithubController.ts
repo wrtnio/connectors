@@ -4,7 +4,6 @@ import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGi
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
-import { StrictOmit } from "../../../utils/strictOmit";
 
 @Controller("connector/github")
 export class GithubController {
@@ -223,6 +222,7 @@ export class GithubController {
    * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
    *
    * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
    *
    * @summary Delete file content and commit
    * @param input
@@ -254,6 +254,7 @@ export class GithubController {
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
    *
    * @summary Update File content and commit
    * @param input
@@ -547,6 +548,8 @@ export class GithubController {
    * Update pull request
    *
    * Use to change the title or body of a PR, or draft status or open-close status.
+   * It can also be used for overwriting labels or modifying them.
+   * It can also be used to close or reopen pull request.
    *
    * @param input Update pull request
    * @returns
@@ -572,6 +575,8 @@ export class GithubController {
    *
    * When creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.
    * You can also create a pull request in draft state if necessary.
+   *
+   * In order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.
    *
    * @param input Create pull request
    * @returns
@@ -677,6 +682,25 @@ export class GithubController {
   }
 
   /**
+   * List comments for a pull request review
+   *
+   * Lists comments for a specific pull request review.
+   *
+   * @summary List comments for a pull request review
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/pull-requests/reviews/get-comments")
+  async readReviewComments(
+    @TypedBody() input: IGithub.IGetReviewCommentInput,
+  ): Promise<IGithub.IGetReviewCommentOutput> {
+    return this.githubProvider.readReviewComments(input);
+  }
+
+  /**
    * List reviews for a pull request
    *
    * Pull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.
@@ -696,6 +720,23 @@ export class GithubController {
     @TypedBody() input: IGithub.IReadPullRequestReviewInput,
   ): Promise<IGithub.IReadPullRequestReviewOutput> {
     return this.githubProvider.readReviews(input);
+  }
+
+  /**
+   * Create a review for a pull request
+   *
+   * Pull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.
+   * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+   *
+   * @summary Create a review for a pull request
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("repositories/pull-requests/reviews")
+  async reviewPullRequest(
+    @TypedBody() input: IGithub.IReviewPullRequestInput,
+  ): Promise<IGithub.IReviewPullRequestOutput> {
+    return this.githubProvider.reviewPullRequest(input);
   }
 
   /**
@@ -854,6 +895,26 @@ export class GithubController {
     @TypedBody() input: IGithub.IGetIssueCommentsInput,
   ): Promise<IGithub.IGetIssueCommentsOutput> {
     return this.githubProvider.getIssueComments(input);
+  }
+
+  /**
+   * Create an issue comment
+   *
+   * Add a comment. If you put an issue number, you can add a comment to the issue, where the issue number is also the number of PR.
+   * In other words, both issue and PR can add a comment through this connector.
+   *
+   * @summary Create an issue comment
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @core.TypedRoute.Post("repositories/issues/comments")
+  async createIssueComments(
+    @TypedBody() input: IGithub.ICreateIssueCommentInput,
+  ): Promise<IGithub.ICreateIssueCommentOutput> {
+    return this.githubProvider.createIssueComments(input);
   }
 
   /**
@@ -1147,6 +1208,7 @@ export class GithubController {
    * The information in the text should follow the markdown grammar allowed by github.
    *
    * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   * It can also be used to close or reopen issues.
    *
    * @summary Update an issue
    * @param input
@@ -1170,6 +1232,8 @@ export class GithubController {
    * The information in the text should follow the markdown grammar allowed by github.
    *
    * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   *
+   * In order to create issue, you may need to refer to the issue template files that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.
    *
    * @summary Create an issue
    * @param input

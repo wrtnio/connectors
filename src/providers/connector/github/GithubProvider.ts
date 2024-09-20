@@ -11,12 +11,11 @@ import {
 } from "../../../utils/constants/extensions";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { StrictOmit } from "../../../utils/strictOmit";
+import { PickPartial } from "../../../utils/types/PickPartial";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
-import { PickPartial } from "../../../utils/types/PickPartial";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GithubProvider {
@@ -305,6 +304,23 @@ export class GithubProvider {
     );
   }
 
+  async readReviewComments(
+    input: IGithub.IGetReviewCommentInput,
+  ): Promise<IGithub.IGetReviewCommentOutput> {
+    const { owner, repo, pull_number, review_id, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/reviews/${review_id}/comments?${queryParameter}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const link = res.headers["link"];
+    return { result: res.data, ...this.getCursors(link) };
+  }
+
   async readReviews(
     input: IGithub.IReadPullRequestReviewInput,
   ): Promise<IGithub.IReadPullRequestReviewOutput> {
@@ -320,6 +336,27 @@ export class GithubProvider {
 
     const link = res.headers["link"];
     return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async reviewPullRequest(
+    input: IGithub.IReviewPullRequestInput,
+  ): Promise<IGithub.IReviewPullRequestOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/reviews`;
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
   }
 
   async readPullRequestFiles(
@@ -981,11 +1018,11 @@ export class GithubProvider {
   async updatePullRequest(
     input: IGithub.IUpdatePullRequestInput,
   ): Promise<IGithub.IUpdatePullRequestOutput> {
-    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const { owner, repo, pull_number, labels, secretKey, ...rest } = input;
 
     const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}`;
     const token = await this.getToken(secretKey);
-    const res = await axios.post(
+    const res = await axios.patch(
       url,
       {
         ...rest,
@@ -996,6 +1033,11 @@ export class GithubProvider {
         },
       },
     );
+
+    if (labels?.length) {
+      const issue_number = pull_number;
+      await this.updateIssue({ owner, repo, labels, secretKey, issue_number });
+    }
 
     return {
       id: res.data.id,
@@ -1007,27 +1049,32 @@ export class GithubProvider {
   async createPullRequest(
     input: IGithub.ICreatePullRequestInput,
   ): Promise<IGithub.ICreatePullRequestOutput> {
-    const { owner, repo, secretKey, ...rest } = input;
+    try {
+      const { owner, repo, secretKey, ...rest } = input;
 
-    const url = `https://api.github.com/repos/${owner}/${repo}/pulls`;
-    const token = await this.getToken(secretKey);
-    const res = await axios.post(
-      url,
-      {
-        ...rest,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const url = `https://api.github.com/repos/${owner}/${repo}/pulls`;
+      const token = await this.getToken(secretKey);
+      const res = await axios.post(
+        url,
+        {
+          ...rest,
         },
-      },
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-    return {
-      id: res.data.id,
-      number: res.data.number,
-      title: res.data.title,
-    };
+      return {
+        id: res.data.id,
+        number: res.data.number,
+        title: res.data.title,
+      };
+    } catch (err) {
+      console.error(JSON.stringify((err as any).response.data, null, 2));
+      throw err;
+    }
   }
 
   async searchUser(
@@ -1134,6 +1181,27 @@ export class GithubProvider {
 
     const link = res.headers["link"];
     return { result: res.data, ...this.getCursors(link) };
+  }
+
+  async createIssueComments(
+    input: IGithub.ICreateIssueCommentInput,
+  ): Promise<IGithub.ICreateIssueCommentOutput> {
+    const { owner, repo, issue_number, secretKey, body } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/comments`;
+    const res = await axios.post(
+      url,
+      {
+        body,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
   }
 
   async getOrganizationRepositories(
