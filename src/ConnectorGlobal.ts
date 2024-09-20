@@ -82,6 +82,7 @@ export namespace ConnectorGlobal {
 
     // GITHUB
     G_GITHUB_TEST_SECRET: string;
+    G_GITHUB_TEST_SECRET_2: string;
 
     // GOOGLE
     GOOGLE_CLIENT_ID: string;

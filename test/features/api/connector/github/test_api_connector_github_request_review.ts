@@ -58,7 +58,7 @@ export async function test_api_connector_github_pull_request_review(
       pull_number: created.number as number,
       body: "LGTM",
       event: "APPROVE",
-      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET_2,
     },
   );
 
