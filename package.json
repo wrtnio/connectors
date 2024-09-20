@@ -101,7 +101,7 @@
     "@samchon/openapi": "^1.0.2",
     "@tryfabric/martian": "^1.2.4",
     "@wrtnio/decorators": "^1.4.12",
-    "@wrtnio/schema": "^1.0.2",
+    "@wrtnio/schema": "^1.0.3",
     "atob": "^2.1.2",
     "aws-sdk": "^2.1546.0",
     "axios": "^1.6.8",
