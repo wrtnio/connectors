@@ -576,6 +576,8 @@ export class GithubController {
    * When creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.
    * You can also create a pull request in draft state if necessary.
    *
+   * In order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.
+   *
    * @param input Create pull request
    * @returns
    */
@@ -1193,6 +1195,8 @@ export class GithubController {
    * The information in the text should follow the markdown grammar allowed by github.
    *
    * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   *
+   * In order to create issue, you may need to refer to the issue template files that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.
    *
    * @summary Create an issue
    * @param input
