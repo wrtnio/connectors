@@ -1,16 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
 
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import qs from "qs";
 import typia, { tags } from "typia";
 
 @Injectable()
 export class TypeformProvider {
+  private readonly logger = new Logger("TypeformProvider"); //logger
+
   async createWorkspace(
     input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
@@ -376,11 +377,9 @@ export class TypeformProvider {
 
   private async refresh(input: ITypeform.ISecret): Promise<string> {
     try {
-      const secret = await OAuthSecretProvider.getSecretValue(input.secretKey);
-      const refreshToken =
-        typeof secret === "string"
-          ? secret
-          : (secret as IOAuthSecret.ISecretValue).value;
+      const refreshToken = await OAuthSecretProvider.getSecretValue(
+        input.secretKey,
+      );
       const res = await axios.post(
         "https://api.typeform.com/oauth/token",
         qs.stringify({
@@ -401,11 +400,11 @@ export class TypeformProvider {
       /**
        * Refresh Token이 일회용이므로 값 업데이트
        */
-      input.secretKey = res.data.refresh_token;
       if (typia.is<string & tags.Format<"uuid">>(input.secretKey)) {
         await OAuthSecretProvider.updateSecretValue(input.secretKey, {
           value: res.data.refresh_token,
         });
+        this.logger.log("Refresh Token Updated");
       }
 
       /**
@@ -417,6 +416,7 @@ export class TypeformProvider {
         });
       }
 
+      input.secretKey = res.data.refresh_token;
       return res.data.access_token;
     } catch (err) {
       console.error(JSON.stringify(err));

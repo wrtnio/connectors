@@ -38,7 +38,7 @@ export class RagProvider {
       tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">
   > {
     const matches = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/gu,
     );
 
     if (!matches) {
