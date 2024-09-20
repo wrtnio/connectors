@@ -714,7 +714,12 @@ export namespace IGithub {
      */
     path: string;
 
+    /**
+     * @title commit message
+     * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
+     */
     message: Commit["message"];
+
     /**
      * @title the new file content
      *

@@ -222,6 +222,7 @@ export class GithubController {
    * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
    *
    * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
    *
    * @summary Delete file content and commit
    * @param input
@@ -253,6 +254,7 @@ export class GithubController {
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
    *
    * @summary Update File content and commit
    * @param input
