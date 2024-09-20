@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
 
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
@@ -11,6 +11,8 @@ import typia, { tags } from "typia";
 
 @Injectable()
 export class TypeformProvider {
+  private readonly logger = new Logger("TypeformProvider");
+
   async createWorkspace(
     input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
@@ -401,11 +403,11 @@ export class TypeformProvider {
       /**
        * Refresh Token이 일회용이므로 값 업데이트
        */
-      input.secretKey = res.data.refresh_token;
       if (typia.is<string & tags.Format<"uuid">>(input.secretKey)) {
         await OAuthSecretProvider.updateSecretValue(input.secretKey, {
           value: res.data.refresh_token,
         });
+        this.logger.log("Refresh Token Updated");
       }
 
       /**
@@ -417,6 +419,7 @@ export class TypeformProvider {
         });
       }
 
+      input.secretKey = res.data.refresh_token;
       return res.data.access_token;
     } catch (err) {
       console.error(JSON.stringify(err));
