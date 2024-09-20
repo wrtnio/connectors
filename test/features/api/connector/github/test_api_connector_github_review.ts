@@ -4,7 +4,7 @@ import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 // create pull request 테스트 코드에 리뷰 요청을 추가하여 작성
-export async function test_api_connector_github_pull_request_review(
+export async function test_api_connector_github_request_review_and_delete_review(
   connection: CApi.IConnection,
 ) {
   const created =
@@ -56,9 +56,8 @@ export async function test_api_connector_github_pull_request_review(
       owner: "studio-pro",
       repo: "github_connector",
       pull_number: created.number as number,
-      body: "LGTM",
-      event: "APPROVE",
       secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      body: "TEST REVIEW",
     },
   );
 

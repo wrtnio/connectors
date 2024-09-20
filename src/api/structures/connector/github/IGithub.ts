@@ -230,7 +230,7 @@ export namespace IGithub {
      * Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.
      * Defaults to the most recent commit in the pull request when you do not specify a value.
      */
-    commit_id: string;
+    commit_id?: string;
 
     /**
      * @title body
@@ -238,7 +238,7 @@ export namespace IGithub {
      * Required when using REQUEST_CHANGES or COMMENT for the event parameter.
      * The body text of the pull request review.
      */
-    body: string;
+    body?: string;
 
     /**
      * @title event
@@ -247,7 +247,10 @@ export namespace IGithub {
      * The review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.
      * By leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready.
      */
-    event?: string;
+    event?:
+      | tags.Constant<"APPROVE", { title: "APPROVE" }>
+      | tags.Constant<"REQUEST_CHANGES", { title: "REQUEST_CHANGES" }>
+      | tags.Constant<"COMMENT", { title: "COMMENT" }>;
 
     /**
      * @title comments
