@@ -338,6 +338,27 @@ export class GithubProvider {
     return { result: res.data, ...this.getCursors(link) };
   }
 
+  async reviewPullRequest(
+    input: IGithub.IReviewPullRequestInput,
+  ): Promise<IGithub.IReviewPullRequestOutput> {
+    const { owner, repo, pull_number, secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
+    const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pull_number}/reviews`;
+    const res = await axios.post(
+      url,
+      {
+        ...rest,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  }
+
   async readPullRequestFiles(
     input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestFileOutput> {

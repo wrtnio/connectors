@@ -141,6 +141,11 @@ export namespace IGithub {
     /**
      * @title position
      *
+     * The position in the diff where you want to add a review comment.
+     * Note this value is not the same as the line number in the file.
+     * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment.
+     * The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+     *
      * Position value, which is the number of rows based on diff_hunk.
      */
     position: (number & tags.Type<"uint64">) | null;
@@ -205,6 +210,51 @@ export namespace IGithub {
         path: "/connector/repositories/pull-requests/get-reviews";
         jmesPath: `result[].{value:id, label: join('', [user.login, '\'s review'])}`;
       }>;
+  }
+
+  export interface IPullRequestComment
+    extends Pick<IGithub.ReviewComment, "path" | "position" | "body"> {
+    line: number & tags.Type<"uint64">;
+    side: string;
+    start_line: number & tags.Type<"uint64">;
+    start_side: string;
+  }
+
+  export type IReviewPullRequestOutput = Pick<IGithub.Review, "id">;
+
+  export interface IReviewPullRequestInput extends IReadPullRequestDetailInput {
+    /**
+     * @title commit_id
+     *
+     * The SHA of the commit that needs a review.
+     * Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.
+     * Defaults to the most recent commit in the pull request when you do not specify a value.
+     */
+    commit_id: string;
+
+    /**
+     * @title body
+     *
+     * Required when using REQUEST_CHANGES or COMMENT for the event parameter.
+     * The body text of the pull request review.
+     */
+    body: string;
+
+    /**
+     * @title event
+     *
+     * The review action you want to perform.
+     * The review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.
+     * By leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready.
+     */
+    event?: string;
+
+    /**
+     * @title comments
+     *
+     * Use the following table to specify the location, destination, and contents of the draft review comment.
+     */
+    comments?: IPullRequestComment[];
   }
 
   export interface IReadPullRequestFileOutput

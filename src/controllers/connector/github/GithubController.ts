@@ -722,6 +722,13 @@ export class GithubController {
     return this.githubProvider.readReviews(input);
   }
 
+  @core.TypedRoute.Post("repositories/pull-requests/reviews")
+  async reviewPullRequest(
+    @TypedBody() input: IGithub.IReviewPullRequestInput,
+  ): Promise<IGithub.IReviewPullRequestOutput> {
+    return this.githubProvider.reviewPullRequest(input);
+  }
+
   /**
    * List pull requests files
    *
