@@ -6,11 +6,11 @@ on:
       - "test/**"
       - "package.json"
       - ".github/workflows/build.yml"
-  # pull_request_target:
-  #   paths:
-  #     - "src/**"
-  #     - "test/**"
-  #     - "package.json"
+  pull_request_target:
+    paths:
+      - "src/**"
+      - "test/**"
+      - "package.json"
 jobs:
   build:
     runs-on: ubuntu-latest
