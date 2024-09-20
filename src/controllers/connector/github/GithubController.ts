@@ -549,6 +549,7 @@ export class GithubController {
    *
    * Use to change the title or body of a PR, or draft status or open-close status.
    * It can also be used for overwriting labels or modifying them.
+   * It can also be used to close or reopen pull request.
    *
    * @param input Update pull request
    * @returns
@@ -1168,6 +1169,7 @@ export class GithubController {
    * The information in the text should follow the markdown grammar allowed by github.
    *
    * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   * It can also be used to close or reopen issues.
    *
    * @summary Update an issue
    * @param input
