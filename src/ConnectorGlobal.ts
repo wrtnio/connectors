@@ -47,7 +47,6 @@ export class ConnectorGlobal {
     Object.entries(parsed).forEach(([key, value]) => {
       if (Object.keys(ConnectorGlobal.env).includes(key)) {
         (ConnectorGlobal.env as any)[key] = value as any;
-        console.log("KEY NAME", key);
       }
     });
 
