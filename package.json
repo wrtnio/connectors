@@ -2,7 +2,7 @@
   "private": true,
   "name": "@wrtn/connector",
   "version": "0.1.214",
-  "description": "Starter kit of Nestia test",
+  "description": "Starter kit of Nestia tests",
   "main": "lib/index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test node bin/test",
