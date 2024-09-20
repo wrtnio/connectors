@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.213",
+    "version": "0.1.214",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -8277,7 +8277,7 @@
     "/connector/github/repos/commits/contents": {
       "delete": {
         "summary": "Delete file content and commit",
-        "description": "Delete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.",
+        "description": "Delete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8302,7 +8302,7 @@
       },
       "put": {
         "summary": "Update File content and commit",
-        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.",
+        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8752,7 +8752,7 @@
     },
     "/connector/github/repositories/pull-requests": {
       "put": {
-        "description": "Update pull request\n\nUse to change the title or body of a PR, or draft status or open-close status.",
+        "description": "Update pull request\n\nUse to change the title or body of a PR, or draft status or open-close status.\nIt can also be used for overwriting labels or modifying them.\nIt can also be used to close or reopen pull request.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8781,7 +8781,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       },
       "post": {
-        "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.",
+        "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.\n\nIn order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -8924,6 +8924,37 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
+    "/connector/github/repositories/pull-requests/reviews/get-comments": {
+      "post": {
+        "summary": "List comments for a pull request review",
+        "description": "List comments for a pull request review\n\nLists comments for a specific pull request review.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IGetReviewCommentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IGetReviewCommentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
     "/connector/github/repositories/pull-requests/get-reviews": {
       "post": {
         "summary": "List reviews for a pull request",
@@ -8953,6 +8984,36 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/reviews": {
+      "post": {
+        "summary": "Create a review for a pull request",
+        "description": "Create a review for a pull request\n\nPull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment. The line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.IReviewPullRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IReviewPullRequestOutput"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/connector/github/repositories/pull-requests/get-files": {
@@ -9163,6 +9224,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGithub.IGetIssueCommentsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/issues/comments": {
+      "post": {
+        "summary": "Create an issue comment",
+        "description": "Create an issue comment\n\nAdd a comment. If you put an issue number, you can add a comment to the issue, where the issue number is also the number of PR.\nIn other words, both issue and PR can add a comment through this connector.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICreateIssueCommentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IssueComment"
                 }
               }
             }
@@ -9610,7 +9702,7 @@
     "/connector/github/issues": {
       "patch": {
         "summary": "Update an issue",
-        "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.",
+        "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\nIt can also be used to close or reopen issues.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -9639,7 +9731,7 @@
       },
       "post": {
         "summary": "Create an issue",
-        "description": "Leave an issue in the repository\n\nCreate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.",
+        "description": "Leave an issue in the repository\n\nCreate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\n\nIn order to create issue, you may need to refer to the issue template files that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -32659,7 +32751,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents"
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
           },
           "attachments": {
             "type": "array",
@@ -32930,7 +33022,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents"
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
           },
           "attachments": {
             "type": "array",
@@ -33055,7 +33147,7 @@
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ISlack.Message"
+              "$ref": "#/components/schemas/StrictOmitISlack.Messagetype"
             },
             "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
@@ -33084,13 +33176,9 @@
           "next_cursor"
         ]
       },
-      "ISlack.Message": {
+      "StrictOmitISlack.Messagetype": {
         "type": "object",
         "properties": {
-          "type": {
-            "const": "message",
-            "title": "type"
-          },
           "user": {
             "oneOf": [
               {
@@ -33102,23 +33190,31 @@
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
           },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
           "channel": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "title": "channel id"
           },
-          "text": {
-            "type": "string",
-            "title": "message contents"
-          },
           "ts": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
             "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
-          },
-          "ts_date": {
-            "type": "string",
-            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
           },
           "reply_count": {
             "type": "number",
@@ -33128,29 +33224,20 @@
             "type": "number",
             "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
           },
-          "attachments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
-            },
-            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
-          },
-          "link": {
+          "ts_date": {
             "type": "string",
-            "format": "uri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
           }
         },
         "required": [
-          "type",
           "user",
-          "channel",
+          "link",
           "text",
+          "channel",
           "ts",
-          "ts_date",
           "reply_count",
           "reply_users_count",
-          "link"
+          "ts_date"
         ]
       },
       "PickISlack.IGetUserOutputiddisplay_name": {
@@ -37802,27 +37889,33 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "id"
           },
           "body": {
-            "type": "string"
+            "type": "string",
+            "title": "body"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url"
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "title": "user"
           },
           "created_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "created_at"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "updated_at"
           },
           "pages": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.Page"
-            }
+            },
+            "title": "pages"
           }
         },
         "required": [
@@ -39191,7 +39284,8 @@
         "type": "object",
         "properties": {
           "message": {
-            "type": "string"
+            "type": "string",
+            "title": "commit message\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message."
           },
           "path": {
             "type": "string",
@@ -39358,7 +39452,8 @@
             "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "title": "commit message\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message."
           },
           "content": {
             "type": "string",
@@ -39450,7 +39545,8 @@
             "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "title": "commit message\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message."
           },
           "content": {
             "type": "string",
@@ -40347,6 +40443,13 @@
           "issue": {
             "type": "number",
             "title": "issue\n\nAn issue in the repository to convert to a pull request. The issue title, body, and comments will become the title, body, and comments on the new pull request. Required unless title is specified."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels"
           }
         },
         "required": [
@@ -40534,21 +40637,26 @@
             "title": "author_association"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url"
+            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "title": "user"
           },
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "id"
           },
           "body": {
-            "type": "string"
+            "type": "string",
+            "title": "body"
           },
           "created_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "created_at"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "updated_at"
           }
         },
         "required": [
@@ -40815,6 +40923,251 @@
           "secretKey"
         ]
       },
+      "IGithub.IGetReviewCommentOutput": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.ReviewComment"
+            },
+            "title": "result"
+          },
+          "nextPage": {
+            "type": "boolean",
+            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the next page."
+          },
+          "before": {
+            "type": "string",
+            "title": "before\n\nIf this is the response value for cursor-based pagenation, it provides a hash code for the previous page."
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+          },
+          "next": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+          },
+          "last": {
+            "type": "number",
+            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+          },
+          "first": {
+            "type": "number",
+            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+          }
+        },
+        "required": [
+          "result",
+          "nextPage"
+        ]
+      },
+      "IGithub.ReviewComment": {
+        "type": "object",
+        "properties": {
+          "pull_request_review_id": {
+            "type": "integer",
+            "title": "pull_request_review_id"
+          },
+          "diff_hunk": {
+            "type": "string",
+            "title": "diff_hunk\n\ndiff_hunk is a form for representing a change in code in github.\nIt consists of strings, and the first line, based on the new line character,\nhas meta information about the change point between the symbols"
+          },
+          "path": {
+            "type": "string",
+            "title": "path"
+          },
+          "position": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "position\n\nThe position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
+          },
+          "original_position": {
+            "type": "integer",
+            "title": "original_position\n\nOriginal position value, which is the number of rows based on diff_hunk."
+          },
+          "commit_id": {
+            "type": "string",
+            "title": "commit_id"
+          },
+          "original_commit_id": {
+            "type": "string",
+            "title": "original_commit_id"
+          },
+          "in_reply_to_id": {
+            "type": "integer",
+            "title": "in_reply_to_id\n\nIn_reply_to_id is a field used by GitHub's review or comment API that is used to write a reply to a particular review or comment."
+          },
+          "user": {
+            "$ref": "#/components/schemas/IGithub.Collaborator",
+            "title": "user"
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri",
+            "title": "html_url"
+          },
+          "author_association": {
+            "oneOf": [
+              {
+                "const": "NONE"
+              },
+              {
+                "const": "COLLABORATOR"
+              },
+              {
+                "const": "CONTRIBUTOR"
+              },
+              {
+                "const": "FIRST_TIMER"
+              },
+              {
+                "const": "FIRST_TIME_CONTRIBUTOR"
+              },
+              {
+                "const": "MANNEQUIN"
+              },
+              {
+                "const": "MEMBER"
+              },
+              {
+                "const": "OWNER"
+              }
+            ],
+            "title": "author_association"
+          },
+          "id": {
+            "type": "integer",
+            "title": "id"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          }
+        },
+        "required": [
+          "pull_request_review_id",
+          "diff_hunk",
+          "path",
+          "position",
+          "original_position",
+          "commit_id",
+          "original_commit_id",
+          "user",
+          "html_url",
+          "author_association",
+          "id",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "IGithub.IGetReviewCommentInput": {
+        "type": "object",
+        "properties": {
+          "review_id": {
+            "type": "integer",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/repositories/pull-requests/get-reviews",
+              "jmesPath": "result[].{value:id, label: join('', [user.login, ''s review'])}"
+            },
+            "title": "review_id"
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "page\nThe page number of the results to fetch."
+          },
+          "per_page": {
+            "type": "integer",
+            "default": 30,
+            "maximum": 100,
+            "title": "per_page\nThe number of results per page (max 100)."
+          }
+        },
+        "required": [
+          "review_id",
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
       "IGithub.IReadPullRequestReviewOutput": {
         "type": "object",
         "properties": {
@@ -41020,6 +41373,145 @@
           "repo",
           "pull_number",
           "secretKey"
+        ]
+      },
+      "IGithub.IReviewPullRequestOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "id"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "IGithub.IReviewPullRequestInput": {
+        "type": "object",
+        "properties": {
+          "commit_id": {
+            "type": "string",
+            "title": "commit_id\n\nThe SHA of the commit that needs a review.\nNot using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.\nDefaults to the most recent commit in the pull request when you do not specify a value."
+          },
+          "body": {
+            "type": "string",
+            "title": "body\n\nRequired when using REQUEST_CHANGES or COMMENT for the event parameter.\nThe body text of the pull request review."
+          },
+          "event": {
+            "oneOf": [
+              {
+                "const": "APPROVE",
+                "title": "APPROVE"
+              },
+              {
+                "const": "REQUEST_CHANGES",
+                "title": "REQUEST_CHANGES"
+              },
+              {
+                "const": "COMMENT",
+                "title": "COMMENT"
+              }
+            ],
+            "title": "event\n\nThe review action you want to perform.\nThe review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.\nBy leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready."
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGithub.IPullRequestComment"
+            },
+            "title": "comments\n\nUse the following table to specify the location, destination, and contents of the draft review comment."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "pull_number": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/get-pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:title}"
+                }
+              },
+              {
+                "type": "integer",
+                "minimum": 1,
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/repositories/pull-requests",
+                  "jmesPath": "pullRequests[].{value:number, label:number}"
+                }
+              }
+            ],
+            "title": "pull request number to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number",
+          "secretKey"
+        ]
+      },
+      "IGithub.IPullRequestComment": {
+        "type": "object",
+        "properties": {
+          "line": {
+            "type": "integer"
+          },
+          "side": {
+            "type": "string"
+          },
+          "start_line": {
+            "type": "integer"
+          },
+          "start_side": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "title": "path"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          },
+          "position": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "position\n\nThe position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
+          }
+        },
+        "required": [
+          "line",
+          "side",
+          "start_line",
+          "start_side",
+          "path",
+          "position"
         ]
       },
       "IGithub.IReadPullRequestFileOutput": {
@@ -42526,6 +43018,45 @@
           }
         },
         "required": [
+          "issue_number",
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
+      "IGithub.ICreateIssueCommentInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "title": "The contents of the comment"
+          },
+          "issue_number": {
+            "type": "integer",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repositories/get-issues",
+              "jmesPath": "fetchedIssues[].{value:number, label:title}"
+            },
+            "title": "issue number to get detailed info"
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "body",
           "issue_number",
           "owner",
           "repo",
