@@ -1,37 +1,33 @@
+import { HttpLlm, HttpMigration, OpenApi } from "@samchon/openapi";
 import cp from "child_process";
 import fs from "fs";
 import typia from "typia";
-import {
-  IOpenAiDocument,
-  ISwagger,
-  OpenAiComposer,
-  OpenAiTypeChecker,
-} from "@wrtnio/openai-function-schema";
 
 import { ConnectorConfiguration } from "../ConnectorConfiguration";
-import { IMigrateDocument, OpenApi } from "@samchon/openapi";
+import {
+  IHttpOpenAiApplication,
+  ISwaggerMigrateApplication,
+  OpenAiTypeChecker,
+} from "@wrtnio/schema";
 
 const main = async (): Promise<void> => {
   const location: string = `${ConnectorConfiguration.ROOT}/packages/api`;
   if (false === fs.existsSync(`${location}/swagger.json`))
     cp.execSync("npx nestia swagger", { stdio: "inherit" });
 
-  const swagger: ISwagger = typia.assert<ISwagger>(
+  const document: OpenApi.IDocument = typia.assert<OpenApi.IDocument>(
     JSON.parse(await fs.promises.readFile(`${location}/swagger.json`, "utf-8")),
   );
-  const migrate: IMigrateDocument = OpenApi.migrate(swagger);
+  const migrate: ISwaggerMigrateApplication =
+    HttpMigration.application(document);
 
   for (const keyword of [false, true]) {
-    const openai: IOpenAiDocument = OpenAiComposer.document({
-      swagger,
-      migrate,
-      options: {
-        keyword,
-        separate: (s) =>
-          OpenAiTypeChecker.isString(s) &&
-          (s["x-wrtn-secret-key"] !== undefined ||
-            s.contentMediaType !== undefined),
-      },
+    const openai: IHttpOpenAiApplication = HttpLlm.application(document, {
+      keyword,
+      separate: (s) =>
+        OpenAiTypeChecker.isString(s) &&
+        (s["x-wrtn-secret-key"] !== undefined ||
+          s.contentMediaType !== undefined),
     });
 
     if (openai.errors.length > 0) {
@@ -52,7 +48,7 @@ const main = async (): Promise<void> => {
   );
   await fs.promises.writeFile(
     `${location}/version.json`,
-    JSON.stringify({ version: swagger.info?.version }),
+    JSON.stringify({ version: document.info?.version }),
     "utf8",
   );
 };

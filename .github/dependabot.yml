@@ -7,9 +7,9 @@ updates:
     open-pull-requests-limit: 25
     allow:
       - dependency-name: "@samchon/openapi"
-      - dependency-name: "@wrtnio/openai-function-schema"
       - dependency-name: "@nestjs/*"
       - dependency-name: "@nestia/*"
+      - dependency-name: "@wrtnio/*"
       - dependency-name: "nestia"
       - dependency-name: "typia"
       - dependency-name: "typescript"
@@ -19,8 +19,8 @@ updates:
       Samchon:
         patterns:
           - "@samchon/openapi"
-          - "@wrtnio/openai-function-schema"
           - "@nestia/*"
+          - "@wrtnio/*"
           - "nestia"
           - "typia"
       NestJS:
