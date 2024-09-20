@@ -64,7 +64,7 @@ jobs:
           npm run test -- \
             --exclude sweet_tracker korea_exim kakao jira slack github figma discord \
             google_ads google_slides google_calendar google_docs google_drive google_flight \
-            open_data calendly notion naver
+            open_data calendly notion naver typeform
 
   test-kakao:
     runs-on: ubuntu-latest
@@ -410,3 +410,26 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
         run: npm run test -- --include naver
+
+  test-typeform:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 코드 재체크아웃하여 package.json 확보
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: |
+            ./bin
+      - name: install dependencies
+        run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: test
+        run: npm run test -- --include typeform
