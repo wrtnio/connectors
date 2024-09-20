@@ -28,7 +28,10 @@ export class JiraController {
     input: StrictOmit<IJira.IDeleteCommentInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<void> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.deleteComment({ ...input, ...authorization });
   }
 
@@ -36,6 +39,7 @@ export class JiraController {
    * modify comment
    *
    * Modify the comment. You can only modify the body of the comment here.
+   * To create comment in issue, Just write markdown string format contents.
    *
    * @summary modify comment body
    * @param input
@@ -44,13 +48,14 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
-  @core.TypedRoute.Put("issues/comments")
+  @core.TypedRoute.Put("issues/comments/markdown")
   async updateComment(
-    @TypedBody()
-    input: StrictOmit<IJira.IUpdateCommentInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IUpdateCommentByMarkdownInput,
   ): Promise<void> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.updateComment({ ...input, ...authorization });
   }
 
@@ -64,13 +69,15 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
-  @core.TypedRoute.Post("issues/comments")
+  @core.TypedRoute.Post("issues/comments/markdown")
   async createComment(
     @TypedBody()
-    input: StrictOmit<IJira.ICreateCommentInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    input: IJira.ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.createComment({ ...input, ...authorization });
   }
 
@@ -95,7 +102,10 @@ export class JiraController {
     input: StrictOmit<IJira.IGetCommentInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetCommentOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getComments({ ...input, ...authorization });
   }
 
@@ -120,7 +130,10 @@ export class JiraController {
     input: StrictOmit<IJira.IGetTransitionInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetTransitionOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getTransitions({ ...input, ...authorization });
   }
 
@@ -140,7 +153,10 @@ export class JiraController {
     input: StrictOmit<IJira.IUnAssignInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<void> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.unassign({ ...input, ...authorization });
   }
 
@@ -160,7 +176,10 @@ export class JiraController {
     input: StrictOmit<IJira.IAssignInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<void> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.assign({ ...input, ...authorization });
   }
 
@@ -183,7 +202,10 @@ export class JiraController {
     input: StrictOmit<IJira.IUpdateStatusInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<void> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.updateIssueStatus({ ...input, ...authorization });
   }
 
@@ -210,12 +232,15 @@ export class JiraController {
     input: StrictOmit<IJira.IUpdateIssueInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<void> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.updateIssue(id, { ...input, ...authorization });
   }
 
   /**
-   * Create an issue
+   * Create an issue by markdown
    *
    * Issue type, project, and summary are essential properties.
    * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
@@ -223,22 +248,53 @@ export class JiraController {
    * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
    * There are pre-designated content types, so please check this type information carefully.
    *
-   * @summary create issue in jira
+   * @summary create issue by markdown in jira
    * @param input issue information to create
    * @returns id and key of created issue
    */
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
-  @core.TypedRoute.Post("issues")
-  async createIssue(
-    @TypedBody()
-    input: StrictOmit<IJira.ICreateIssueInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+  @core.TypedRoute.Post("issues/markdown")
+  async createIssueByMarkdown(
+    @TypedBody() input: IJira.ICreateIssueByMarkdownInput,
   ): Promise<IJira.ICreateIssueOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
-    return this.jiraProvider.createIssue({ ...input, ...authorization });
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
+    return this.jiraProvider.createIssueByMarkdown({
+      ...input,
+      ...authorization,
+    });
   }
+
+  //
+  //  * Create an issue
+  //  *
+  //  * Issue type, project, and summary are essential properties.
+  //  * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
+  //  *
+  //  * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
+  //  * There are pre-designated content types, so please check this type information carefully.
+  //  *
+  //  * @summary create issue in jira
+  //  * @param input issue information to create
+  //  * @returns id and key of created issue
+  //  */
+  // @RouteIcon(
+  //   `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+  // )
+  // @core.TypedRoute.Post("issues")
+  // async createIssue(
+  //   @TypedBody() input: IJira.ICreateIssueInputWithBasicAuth,
+  // ): Promise<IJira.ICreateIssueOutput> {
+  //   const secretValue = await this.jiraProvider.getToken(input.secretKey);
+  //   const authorization = this.jiraProvider.parseSecretKey({
+  //     secretKey: secretValue,
+  //   });
+  //   return this.jiraProvider.createIssue({ ...input, ...authorization });
+  // }
 
   /**
    * Get detailed issue information
@@ -264,7 +320,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueDetailOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getIssueDetail({ ...input, ...authorization });
   }
 
@@ -289,7 +348,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getIssues({ ...input, ...authorization });
   }
 
@@ -317,7 +379,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetProjectOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getProjects({ ...input, ...authorization });
   }
 
@@ -337,7 +402,10 @@ export class JiraController {
     input: StrictOmit<IJira.IGetIssueLabelInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueLabelOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getIssueLabels({ ...input, ...authorization });
   }
 
@@ -362,7 +430,10 @@ export class JiraController {
     input: StrictOmit<IJira.IGetIssueTypeInput, "domain" | "email" | "token"> &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueTypeOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getIssueTypes({ ...input, ...authorization });
   }
 
@@ -385,7 +456,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueStatusOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getIssueStatuses({ ...input, ...authorization });
   }
 
@@ -411,7 +485,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssuePriorityOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getIssuePriorities({ ...input, ...authorization });
   }
 
@@ -434,7 +511,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetIssueAssignableOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getUsersAssignableInIssue({
       ...input,
       ...authorization,
@@ -460,7 +540,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetProjectAssignableOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getUsersAssignableInProject({
       ...input,
       ...authorization,
@@ -486,7 +569,10 @@ export class JiraController {
     > &
       IJira.IBasicSecret,
   ): Promise<IJira.IGetStatusCategoryOutput> {
-    const authorization = this.jiraProvider.parseSecretKey(input);
+    const secretValue = await this.jiraProvider.getToken(input.secretKey);
+    const authorization = this.jiraProvider.parseSecretKey({
+      secretKey: secretValue,
+    });
     return this.jiraProvider.getStatusCategories({
       ...input,
       ...authorization,

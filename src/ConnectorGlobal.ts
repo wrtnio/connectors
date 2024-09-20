@@ -1,9 +1,58 @@
+import axios from "axios";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia, { tags } from "typia";
+import { AwsProvider } from "./providers/connector/aws/AwsProvider";
 
 export class ConnectorGlobal {
+  /**
+   * 테스트 환경에서 사용하기 위해 만든 것으로, 평소에는 사용하지 않는다.
+   *
+   * @param env
+   * @returns
+   */
+  public static async write(env: Record<string, string>) {
+    const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+    const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+    const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
+    const res = await axios.get(url);
+    const parsed = res.data;
+
+    Object.entries({ ...parsed, ...env }).forEach(([key, value]) => {
+      if (Object.keys(ConnectorGlobal.env).includes(key)) {
+        parsed[key] = value as any;
+      }
+    });
+
+    const data = Buffer.from(JSON.stringify(parsed), "utf-8");
+    await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
+
+    return await this.reload();
+  }
+
+  /**
+   * 테스트 환경에서 사용하기 위해 만든 것으로, 평소에는 사용하지 않는다.
+   *
+   * @param env
+   * @returns
+   */
+  public static async reload() {
+    const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+    const key = ConnectorGlobal.env.ROTATION_REFRESH_TOKEN_PATH;
+    const url = `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}`;
+    const res = await axios.get(url);
+    const parsed = res.data;
+
+    Object.entries(parsed).forEach(([key, value]) => {
+      if (Object.keys(ConnectorGlobal.env).includes(key)) {
+        (ConnectorGlobal.env as any)[key] = value as any;
+      }
+    });
+
+    return ConnectorGlobal;
+  }
+
   public static get env(): ConnectorGlobal.IEnvironments {
     return environments.get();
   }
@@ -22,6 +71,11 @@ export namespace ConnectorGlobal {
     AWS_SECRET_ACCESS_KEY: string;
     AWS_S3_BUCKET: string;
     FAKE_S3_PORT: `${number}`;
+
+    // CALENDLY
+    CALENDLY_CLIENT_ID: string;
+    CALENDLY_CLIENT_SECRET: string;
+    CALENDLY_TEST_SECRET: string;
 
     // DAUM
     DAUM_API_KEY: string;
@@ -48,6 +102,8 @@ export namespace ConnectorGlobal {
     NAVER_CLIENT_ID: string;
     NAVER_CLIENT_SECRET: string;
 
+    NOTION_TEST_SECRET: string;
+
     // OPENAI
     OPENAI_API_KEY: string;
 
@@ -59,6 +115,9 @@ export namespace ConnectorGlobal {
 
     // TYPEFORM
     TYPEFORM_PERSONAL_ACCESS_KEY: string;
+    TYPEFORM_TEST_SECRET: string;
+    TYPEFORM_CLIENT_ID: string;
+    TYPEFORM_CLIENT_SECRET: string;
 
     // FIGMA
     FIGMA_TEST_FILE_KEY: string;
@@ -100,6 +159,9 @@ export namespace ConnectorGlobal {
     SLACK_CLIENT_SECRET: string;
     SLACK_TEST_SECRET: string;
 
+    // DISCORD
+    DISCORD_BOT_TOKEN: string;
+
     //----
     // INHOUSE SERVERS
     //----
@@ -117,6 +179,16 @@ export namespace ConnectorGlobal {
     HAMLET_HEADER_KEY_VALUE: string;
     HAMLET_PROMPT_NODE_MODEL_NAME: string;
     HAMLET_PROMPT_NODE_REQUEST_ENDPOINT: string;
+
+    // GH DEVS BE
+    GH_DEVS_BE_SERVER_URL: string & tags.Format<"uri">;
+    SHORT_LINK_RETURN_URL: string & tags.Format<"uri">;
+
+    // ROTATION_REFRESH_TOKEN_PATH
+    ROTATION_REFRESH_TOKEN_PATH: string;
+
+    // BROWSING AGENT PLAYGROUND
+    BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"uri">;
   }
 }
 

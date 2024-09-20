@@ -20,13 +20,13 @@ export class StudentReportGeneratorController {
   ) {}
 
   /**
-   * 입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.
+   * Create a student life record based on the entered information.
    *
-   * @summary 학생 생활 기록부 생성
+   * @summary Create a student life record
    *
-   * @param input 학생 생활 기록부 생성을 위한 정보.
+   * @param input Information for creating a student life record.
    *
-   * @returns 생성된 학생 생활 기록부.
+   * @returns The created student life record.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",
@@ -39,13 +39,13 @@ export class StudentReportGeneratorController {
   }
 
   /**
-   * 입력된 정보를 바탕으로 학생 생활 기록부를 생성합니다.
+   * Create a student life record based on the entered information.
    *
-   * @summary 학생 생활 기록부 생성
+   * @summary Create a student life record
    *
-   * @param input 학생 생활 기록부 생성을 위한 정보.
+   * @param input Information for creating a student life record.
    *
-   * @returns 생성된 학생 생활 기록부.
+   * @returns The created student life record.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",

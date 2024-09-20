@@ -12,6 +12,7 @@ export namespace ISlack {
       "channels:history",
       "users.profile:read",
       "im:read",
+      "groups:history",
       "groups:read",
       "chat:write",
       "users:read",
@@ -214,11 +215,22 @@ export namespace ISlack {
 
   export interface IAuthTestOutput {
     ok: boolean;
-    url: "https://kakasootest.slack.com/";
+
+    /**
+     * @title Slack workspace uri
+     */
+    url: string &
+      tags.Format<"uri"> &
+      Placeholder<"https://kakasootest.slack.com/">;
+
     team: string;
+
     user: string;
+
     team_id: string;
+
     user_id: string;
+
     is_enterprise_install: boolean;
   }
 
@@ -366,40 +378,20 @@ export namespace ISlack {
       );
 
     /**
-     * @title lastest
+     * @title latestDateTime
      *
-     * Only messages before this Unix timestamp will be included in results. Default is the current time.
-     * Slack's own timestamp format.
-     * for example, '1234567890.123456'
+     * Only messages before this date-time will be included in results. Default is the current time.
+     * It is a value that takes precedence over 'latest', 'latestTimestamp'.
      */
-    latest?: number & Placeholder<"1234567890.123456">;
+    latestDateTime?: string & tags.Format<"date-time">;
 
     /**
-     * @title oldest
+     * @title oldestDateTime
      *
-     * Only messages after this Unix timestamp will be included in results.
-     * Slack's own timestamp format.
-     * for example, '1234567890.123456'
+     * Only messages after this date-time will be included in results.
+     * It is a value that takes precedence over 'oldest', 'oldestTimestamp'.
      */
-    oldest?: number & tags.Default<0> & Placeholder<"1234567890.123456">;
-
-    /**
-     * @title latestTimestamp
-     *
-     * Only messages before this Unix timestamp will be included in results. Default is the current time.
-     * It can be obtained through `Date.getTime()` as a commonly thought timestamp value.
-     * If it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `lastest` property is present together.
-     */
-    latestTimestamp?: number;
-
-    /**
-     * @title oldestTimestamp
-     *
-     * Only messages after this Unix timestamp will be included in results.
-     * It can be obtained through `Date.getTime()` as a commonly thought timestamp value.
-     * If it exists that the desired date value is obtained as the timestamp value, this value is given priority if the `oldest` property is present together.
-     */
-    oldestTimestamp?: number;
+    oldestDateTime?: string & tags.Format<"date-time">;
   }
 
   /**
@@ -435,9 +427,23 @@ export namespace ISlack {
   /**
    * @title request condition
    */
-  export interface IGetChannelInput
-    extends ISlack.ISecret,
-      ISlack.ICommonPaginationInput {}
+  export interface IGetChannelInput extends ISlack.ISecret {
+    /**
+     * @title limit
+     * @deprecated
+     */
+    limit?: number &
+      tags.Type<"int32"> &
+      tags.Minimum<1> &
+      tags.Maximum<1000> &
+      Placeholder<"200">;
+
+    /**
+     * @title cursor
+     * @deprecated
+     */
+    cursor?: string;
+  }
 
   export interface ImChannel extends Channel {
     /**
@@ -555,14 +561,19 @@ export namespace ISlack {
   export interface ScheduledMessage
     extends StrictOmit<
       Message,
-      "ts" | "type" | "user" | "reply_count" | "reply_users_count" | "ts_date"
+      | "ts"
+      | "type"
+      | "user"
+      | "reply_count"
+      | "reply_users_count"
+      | "ts_date"
+      | "link"
     > {
     /**
      * @title timestamp
      *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
-     *
      */
     post_at: string & Placeholder<"1234567890.123456">;
 
@@ -600,7 +611,6 @@ export namespace ISlack {
      *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
-     *
      */
     ts: string & Placeholder<"1234567890.123456">;
 
@@ -634,6 +644,14 @@ export namespace ISlack {
      * It is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up.
      */
     attachments?: Pick<ISlack.Attachment, "id" | "title">[];
+
+    /**
+     * @title shortcut link
+     *
+     * Link to view the conversation history immediately.
+     * We can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times.
+     */
+    link: string & tags.Format<"uri">;
   }
 
   export interface Attachment {
@@ -649,7 +667,7 @@ export namespace ISlack {
     /**
      * @title fallback
      *
-     * 	A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
+     * A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
      */
     fallback?: string;
 

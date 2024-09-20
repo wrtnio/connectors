@@ -10,12 +10,16 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/kakao-map")
 export class KakaoMapController {
   /**
-   * 카카오맵으로 검색합니다
+   * Search with Kakao Map
    *
-   * @summary 카카오 맵 검색
+   * In addition to the place name company, category, and phone number,
+   * it also provides lot number and road name addresses in the Korean address system.
+   * It can be used with public data or other address-based connectors.
    *
-   * @param input 검색 조건
-   * @returns 검색 결과
+   * @summary Kakao Map Search
+   *
+   * @param input Search condition
+   * @returns Search result
    */
   @Standalone()
   @RouteIcon(

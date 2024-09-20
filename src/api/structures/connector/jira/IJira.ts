@@ -5,10 +5,9 @@ import { MyPartial } from "../../../../utils/types/MyPartial";
 import type { ICommon } from "../common/ISecretValue";
 import type { ListNode } from "./ListNode";
 
-export type LookUp<
-  U extends { type: string },
-  T extends U["type"],
-> = U["type"] extends T ? U : never;
+export type LookUp<U extends { type: string }, T> = U extends { type: T }
+  ? U
+  : never;
 
 export namespace IJira {
   /**
@@ -216,6 +215,28 @@ export namespace IJira {
     id: string;
   }
 
+  export interface ICreateCommentByMarkdownInput
+    extends StrictOmit<
+        ICreateCommentInput,
+        "body" | "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {
+    /**
+     * @title body of comment
+     */
+    body: StrictOmit<Comment["body"], "content"> & {
+      /**
+       * @title contents of description
+       *
+       * You must use markdown format string.
+       *
+       * It is recommended to contain as much detail as possible on the issue raised by the user,
+       * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       */
+      content: string;
+    };
+  }
+
   export interface ICreateCommentInput extends BasicAuthorization {
     /**
      * @title issue id or key
@@ -361,6 +382,28 @@ export namespace IJira {
       );
   }
 
+  export interface IUpdateCommentByMarkdownInput
+    extends StrictOmit<
+        IUpdateCommentInput,
+        "body" | "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {
+    /**
+     * @title body of comment
+     */
+    body: StrictOmit<Comment["body"], "content"> & {
+      /**
+       * @title contents of description
+       *
+       * You must use markdown format string.
+       *
+       * It is recommended to contain as much detail as possible on the issue raised by the user,
+       * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       */
+      content: string;
+    };
+  }
+
   export interface IUpdateCommentInput
     extends BasicAuthorization,
       MyPartial<
@@ -410,6 +453,195 @@ export namespace IJira {
      */
     fields: MyPartial<ICreateIssueInput["fields"]>;
   }
+
+  export interface ICreateIssueByMarkdownInput extends IJira.IBasicSecret {
+    /**
+     * @title fields
+     *
+     * Indicates the fields that you need to fill in when you want to create an issue.
+     */
+    fields: {
+      /**
+       * @title Specify a representative at the same time as you create
+       */
+      assignee?: {
+        /**
+         * @title accountId of the user you want to designate as the person in charge
+         *
+         * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
+         * The person in charge is inevitably one of Jira's users.
+         */
+        id:
+          | null
+          | (User["accountId"] &
+              (
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/issues/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/project/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+              ));
+      };
+
+      /**
+       * @title description
+       *
+       * The content of the Jira issue consists of a combination of various contents.
+       */
+      description?: {
+        /**
+         * @title type of description
+         *
+         * Allow doc type only Now
+         */
+        type: "doc";
+
+        /**
+         * @title version
+         */
+        version: 1;
+
+        /**
+         * @title contents of description
+         *
+         * You must use markdown format string.
+         *
+         * It is recommended to contain as much detail as possible on the issue raised by the user,
+         * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+         */
+        content: string;
+      };
+
+      /**
+       * @title due date
+       *
+       * date format type.
+       * Indicates the schedule you want to be closed.Of course, it will be good to create a date or today.
+       */
+      duedate?: string & tags.Format<"date">;
+
+      /**
+       * @title issuetype
+       */
+      issuetype: {
+        /**
+         * @title id of issue type
+         *
+         * The ID of the issue.
+         * Sometimes the user can say the name of the issue type,
+         * such as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.
+         * Because there can be types with the same name.
+         * Therefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.
+         *
+         * However, if you handed over the number string type from the beginning, it could be the ID of the issue type.
+         *
+         * @inheritdoc
+         */
+        id: IssueType["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-types";
+            jmesPath: "issuetypes[].{value:id, label:name}";
+          }>;
+      };
+
+      /**
+       * @title labels
+       * You can add labels to make it easier to read issues.
+       * Labels are simply strings, which can be added immediately without having to look up using other connectors.
+       */
+      labels?: string[];
+
+      /**
+       * @title parent of this issue
+       */
+      parent?: {
+        /**
+         * @title key of parent issue
+         *
+         * Sometimes an issue can be a sub-issue of another issue.
+         * In this case, you need to specify the key for the parent issue.
+         * If you want to know the key, use an issue list query or another connector to look up the details of the issue.
+         */
+        key: Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>;
+      };
+
+      /**
+       * @title priority
+       */
+      priority?: {
+        /**
+         * @title id of proirity
+         *
+         * You can prioritize issues.
+         * Users can also prioritize issues in natural languages such as Low, Medium, High, and so on,
+         * but when creating issues, ID values for these priorities are required.
+         * Therefore, you should first call a connector that looks up what priorities are available for the project and issue.
+         */
+        id: Priority["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-priorities";
+            jmesPath: "[].{value:id, label:name}";
+          }>;
+      };
+
+      /**
+       * @title project
+       *
+       * Issues must inevitably belong to the project.
+       * At this point, the project can be specified by receiving an ID or key.
+       * If you do not know the key or ID of the project, you should first look up the project.
+       */
+      project:
+        | {
+            /**
+             * @title id of project
+             */
+            id: Project["id"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-projects";
+                jmesPath: "[].{value:id, label:name}";
+              }>;
+          }
+        | {
+            /**
+             * @title key of project
+             */
+            key: Project["key"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-project";
+                jmesPath: "[].{value:key, label:name}";
+              }>;
+          };
+
+      /**
+       * @title summary
+       *
+       * Meaning the title of the issue.
+       * Make sure you write a sentence that best represents this issue.
+       */
+      summary: string;
+    };
+  }
+
+  export type ICreateIssueInputWithBasicAuth = StrictOmit<
+    IJira.ICreateIssueInput,
+    "domain" | "email" | "token"
+  > &
+    IJira.IBasicSecret;
 
   /**
    * @title Issue Creation Conditions
@@ -1220,12 +1452,12 @@ export namespace IJira {
        *
        * - Minimum width
        *
-       *   - 1 column table = 48px
-       *   - 2 column table = 96px
-       *   - 3 column table = 144px
-       *   - > 3 column table = 144px
+       * - 1 column table = 48px
+       * - 2 column table = 96px
+       * - 3 column table = 144px
+       * - > 3 column table = 144px
        * - Maximum width
-       *   - 1800
+       * - 1800
        */
       width?: number & tags.Minimum<0>;
 
@@ -1233,7 +1465,7 @@ export namespace IJira {
        * layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.
        * The layout values are mapped as follows:
        * - 'center' : will align the table to the center of page, its width can be larger than the line length
-       *  - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
+       * - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
        */
       layout?: "center" | "align-start";
 
@@ -1247,7 +1479,7 @@ export namespace IJira {
   };
 
   export type TableCellNode = {
-    type: "tabelCell";
+    type: "tableCell";
     content: (
       | BlockquoteNode
       | ListNode
@@ -1269,7 +1501,7 @@ export namespace IJira {
        * @title colspan
        * colspan defines the number of columns the cell spans.
        */
-      colspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
       /**
        * defines the width of the column or,
@@ -1278,7 +1510,7 @@ export namespace IJira {
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
        */
-      colwidth: [
+      colwidth?: [
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
@@ -1288,7 +1520,7 @@ export namespace IJira {
        * @title rowspan
        * rowspan defines the number of rows a cell spans.
        */
-      rowspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
   };
 
@@ -1315,7 +1547,7 @@ export namespace IJira {
        * @title colspan
        * colspan defines the number of columns the cell spans.
        */
-      colspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
       /**
        * defines the width of the column or,
@@ -1324,7 +1556,7 @@ export namespace IJira {
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
        */
-      colwidth: [
+      colwidth?: [
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
         number & tags.Type<"uint64">,
@@ -1334,7 +1566,7 @@ export namespace IJira {
        * @title rowspan
        * rowspan defines the number of rows a cell spans.
        */
-      rowspan: number & tags.Type<"uint64"> & tags.Default<1>;
+      rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
   };
 
@@ -1728,7 +1960,7 @@ export namespace IJira {
      * - "In Progress": The issue is currently being worked on.
      * - "Done": The issue has been completed.
      */
-    statuscategorychangedate?: string;
+    statuscategorychangedate?: string | null;
 
     /**
      * @title reporter
@@ -1955,7 +2187,7 @@ export namespace IJira {
            *
            * Color can be expressed using symbols('#') and RGB values.
            */
-          color: `#${string}`;
+          color: string & tags.Pattern<"^#([0-9A-Fa-f]{6})$">;
         };
       }
     | {

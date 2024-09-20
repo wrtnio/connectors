@@ -1,45 +1,45 @@
 export namespace IAirportInformation {
   /**
-   * @title 공항 정보 검색 조건
+   * @title Airport information search conditions
    */
   export interface IRequest {
     /**
-     * 검색할 국가나 도시의 이름을 입력하세요.
+     * Enter the name of the country or city you want to search for.
      *
-     * @title 검색어
+     * @title Search term
      */
     keyword: string;
   }
 
   /**
-   * @title 공항 정보 검색 결과
+   * @title Airport information search results
    */
   export interface IResponse {
     /**
-     * 국가 이름
+     * Country Name
      *
-     * @title 국가
+     * @title Country
      */
     country_name: string;
 
     /**
-     * 도시 이름
+     * City Name
      *
-     * @title 도시
+     * @title City
      */
     city_name: string;
 
     /**
-     * 공항 이름
+     * Airport Name
      *
-     * @title 공항
+     * @title Airport
      */
     airport_name: string;
 
     /**
-     * 공항 코드
+     * Airport Code
      *
-     * @title 공항 코드
+     * @title Airport Code
      */
     airport_code: string;
   }

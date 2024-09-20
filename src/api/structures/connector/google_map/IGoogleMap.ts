@@ -4,120 +4,122 @@ import { ContentMediaType } from "typia/lib/tags";
 
 export namespace IGoogleMap {
   /**
-   * @title 구글 맵 맛집 검색을 위한 정보
+   * @title Information for searching restaurants on Google Maps
    */
   export interface IRequest {
     /**
-     * 검색어를 입력해주세요
+     * Please enter your search term
      *
-     * @title 검색어
+     * @title Search term
      */
     keyword: string & Placeholder<"강남역 맛집">;
   }
 
   /**
-   * @title 구글 맵 맛집 검색 결과
+   * @title Google Maps Restaurant Search Results
    */
   export interface IResponse {
     /**
-     * 맛집 이름입니다.
+     * It's the name of a restaurant.
      *
-     * @title 이름
+     * @title Name
      */
     title: string;
 
     /**
-     * 맛집 고유 id입니다.
+     * This is the unique ID of the restaurant.
      *
-     * 리뷰를 검색하기 위해 필요한 정보입니다.
+     * This is the information needed to search for reviews.
      *
-     * @title 고유 id
+     * @title unique ID
      */
     place_id: string;
 
     /**
-     * 맛집 좌표입니다.
+     * Here are the coordinates for the restaurant.
      *
-     * @title 좌표
+     * @title Coordinates
      */
     gps_coordinate: {
       /**
-       * 맛집 좌표상 위도입니다.
+       * This is the latitude of the restaurant's coordinates.
        *
-       * @title 위도
+       * @title Latitude
        */
       latitude: number;
 
       /**
-       * 맛집 좌표상 경도입니다.
+       * This is the coordinates of the restaurant.
        *
-       * @title 경도
+       * @title Longitude
        */
       longitude: number;
     };
 
     /**
-     * 맛집 평점입니다.
+     * Here are the restaurant ratings.
      *
-     * @title 평점
+     * @title ratings
      */
     rating?: number;
 
     /**
-     * 맛집 리뷰 수 입니다.
+     * This is the number of restaurant reviews.
      *
-     * @title 리뷰 수
+     * @title Number of reviews
      */
     reviews?: number;
 
     /**
-     * 맛집 주소 입니다.
+     * Here is the address of the restaurant.
      *
-     * @title 주소
+     * @title Address
      */
     address: string;
 
     /**
-     * 맛집이 현재 운영중인지에 대한 정보입니다.
+     * Information about whether the restaurant is currently operating.
      *
-     * @title 운영 정보
+     * @title Operation Information
      */
     open_state?: string;
 
     /**
-     * 맛집 운영 시간 정보입니다.
+     * Here is the information on the restaurant's operating hours.
      *
-     * @title 운영 시간 정보
+     * @title Information on operating hours
      */
     operating_hours?: { [key: string]: string };
 
     /**
-     * 맛집 전화번호입니다.
+     * This is the phone number for the restaurant.
      *
-     * @title 전화번호
+     * @title Phone number
      */
     phone_number?: string;
 
     /**
-     * 맛집에서 제공하는 서비스 옵션입니다.
+     * Service options provided by the restaurant.
      *
-     * @title 서비스 옵션
+     * @title Service options
      */
     service_options?: { [key: string]: boolean };
 
     /**
-     * 맛집 유저 리뷰 입니다.
+     * This is a user review of a delicious restaurant.
      *
-     * @title 유저 리뷰
+     * @title User Review
      */
     user_review?: string;
 
     /**
-     * 맛집 썸네일 이미지 입니다.
+     * This is a thumbnail image of a delicious restaurant.
      *
-     * @title 이미지
+     * @title image
      */
-    thumbnail: string & tags.Format<"uri"> & ContentMediaType<"image/*">;
+    thumbnail?:
+      | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+      | null;
   }
 
   export interface IReviewRequest {
@@ -130,48 +132,48 @@ export namespace IGoogleMap {
   }
 
   /**
-   * @title 리뷰 조회 결과
+   * @title Review search results
    */
   export interface IReviewResponse {
     /**
-     * 리뷰 작성자 이름입니다.
+     * Reviewer's name.
      *
-     * @title 작성자 이름
+     * @title Author's name
      */
     username: string;
 
     /**
-     * 리뷰 평점입니다.
+     * Here are the review ratings.
      *
-     * @title 리뷰 평점
+     * @title Review ratings
      */
     rating: number;
 
     /**
-     * 리뷰 내용입니다.
+     * Here is the review content.
      *
-     * @title 리뷰 내용
+     * @title Review content
      */
     description: string;
 
     /**
-     * 리뷰 링크입니다.
+     * Here is the review link.
      *
-     * @title 리뷰 링크
+     * @title Review Link
      */
     link: string & tags.Format<"uri">;
 
     /**
-     * 리뷰에 등록된 이미지입니다.
+     * This is the image registered in the review.
      *
-     * @title 리뷰 이미지
+     * @title Review Image
      */
     images: Array<string & tags.Format<"uri"> & ContentMediaType<"image/*">>;
 
     /**
-     * 리뷰가 작성된 날짜입니다.
+     * The date the review was written.
      *
-     * @title 리뷰 날짜
+     * @title Review Date
      */
     date: string;
   }

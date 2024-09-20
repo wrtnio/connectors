@@ -13,13 +13,13 @@ export class GoogleShoppingMarketKurlyController {
   ) {}
 
   /**
-   * 상품을 마켓컬리에서 검색합니다.
+   * Search for products on Market Kurly.
    *
-   * @summary 마켓컬리 검색
+   * @summary Market Kurly Search
    *
-   * @param input  검색 조건
+   * @param input Search conditions
    *
-   * @returns  검색 결과
+   * @returns Search results
    */
   @Standalone()
   @core.TypedRoute.Post("market-kurly")

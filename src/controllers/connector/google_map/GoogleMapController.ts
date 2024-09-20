@@ -3,7 +3,6 @@ import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_map/IGoogleMap";
 import { GoogleMapProvider } from "../../../providers/connector/google_map/GoogleMapProvider";
 
@@ -12,19 +11,18 @@ export class GoogleMapController {
   constructor(private readonly googleMapProvider: GoogleMapProvider) {}
 
   /**
-   * 구글맵을 사용하여 맛집을 검색합니다.
+   * Search for restaurants using Google Maps.
    *
-   * @summary 구글맵 맛집 검색
+   * @summary Google Map restaurant search
    *
-   * @param input 맛집을 검색할 검색어
-   * @returns 맛집 검색 결과
+   * @param input Search term to search for restaurants
+   * @returns Restaurant search results
    */
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
-  @ApiTags("Google map")
   async search(
     @core.TypedBody() input: IGoogleMap.IRequest,
   ): Promise<IGoogleMap.IResponse[]> {
@@ -32,19 +30,18 @@ export class GoogleMapController {
   }
 
   /**
-   * 구글맵에서 선택한 맛집 리뷰를 검색합니다.
+   * Search for restaurant reviews selected from Google Maps.
    *
-   * @summary 구글맵 맛집 리뷰 검색
+   * @summary Search Google Map restaurant reviews
    *
-   * @param input 맛집의 고유 id
-   * @returns 맛집 리뷰 검색 결과
+   * @param input Unique id of the restaurant
+   * @returns Restaurant review search results
    */
   @Standalone()
   @core.TypedRoute.Post("review")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
-  @ApiTags("Google map")
   async review(
     @core.TypedBody() input: IGoogleMap.IReviewRequest,
   ): Promise<IGoogleMap.IReviewResponse[]> {

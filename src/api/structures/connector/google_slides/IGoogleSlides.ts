@@ -16,7 +16,7 @@ export namespace IGoogleSlides {
   >;
 
   /**
-   * @title 슬라이드를 pptx로 내보내는 조건
+   * @title Conditions for exporting slides to pptx
    */
   export type IExportPresentationInput = ICommon.ISecret<
     "google",
@@ -25,20 +25,20 @@ export namespace IGoogleSlides {
 
   export interface IExportHanshowOutput {
     /**
-     * @title 파일 다운로드 링크
+     * @title File download link
      */
     hanshow: string & tags.Format<"uri">;
   }
 
   export interface IExportPresentationOutput {
     /**
-     * @title 파일 다운로드 링크
+     * @title File download link
      */
     powerPoint: string & tags.Format<"uri">;
   }
 
   /**
-   * @title 슬라이드를 붙이기 위한 요청 DTO.
+   * @title Request DTO for pasting slides.
    */
   export interface AppendSlideInput
     extends ICommon.ISecret<
@@ -46,17 +46,17 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * 이야기 또는 그림책을 생성할 때는 정방형으로만 사용해주세요.
+     * When creating a story or picture book, please use only squares.
      *
-     * @title 한 번에 생성하고자 하는 템플릿의 목록.
+     * @title A list of templates to create at once.
      */
     templates: IGoogleSlides.Template[];
   }
 
   /**
-   * @title 유저의 유즈케이스에 맞게 입력 폼을 제한하기 위한 목적의 템플릿.
+   * @title A template for limiting the input form to fit the user's use case.
    *
-   * 이미지의 위치를 기준으로 타입의 이름을 결정했다.
+   * The name of the type was determined based on the location of the image.
    */
   export type Template =
     | Template.Vertical
@@ -71,129 +71,129 @@ export namespace IGoogleSlides {
 
   export namespace Template {
     /**
-     * @title 세로형
+     * @title vertical
      */
     export type Vertical = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "Vertical";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
 
         /**
-         * @title 이미지에 대응되는 텍스트.
+         * @title Text corresponding to the image.
          */
         text: InsertText;
       };
     };
 
     /**
-     * 이야기 또는 그림책을 생성할 때는 정방형으로만 사용해주세요.
+     * When creating a story or picture book, please use only squares.
      *
-     * @title 정방형
+     * @title Square
      */
     export type Square = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "Square";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
 
         /**
-         * @title 이미지에 대응되는 텍스트.
+         * @title Text corresponding to the image.
          */
         text: InsertText;
       };
     };
 
     /**
-     * @title 가로형
+     * @title Horizontal
      */
     export type Landscape = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "Landscape";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
 
         /**
-         * @title 이미지에 대응되는 텍스트.
+         * @title Text corresponding to the image.
          */
         text: InsertText;
       };
     };
 
     /**
-     * @title 전체보기 가로형(16:9)
+     * @title View all Horizontal (16:9)
      */
     export type Entire = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "Entire";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
 
         /**
-         * @title 이미지에 대응되는 텍스트.
+         * @title Text corresponding to the image.
          */
         text: InsertText;
       };
     };
 
     /**
-     * @title 4분할 정방형 (컷 만화형)
+     * @title 4-part square (cut cartoon type)
      */
     export type QuarterDivision = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "QuarterDivision";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: NTpule<
         4,
         {
           /**
-           * @title 이미지의 URL.
+           * @title URL of the image.
            */
           url: string & tags.Format<"uri">;
 
           /**
-           * @title 이미지에 대응되는 텍스트.
+           * @title Text corresponding to the image.
            */
           text: InsertText;
         }
@@ -201,27 +201,27 @@ export namespace IGoogleSlides {
     };
 
     /**
-     * @title 6분할 정방형 (컷 만화형)
+     * @title 6-part square (cut cartoon type)
      */
     export type SixthDivision = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "SixthDivision";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: NTpule<
         6,
         {
           /**
-           * @title 이미지의 URL.
+           * @title URL of the image.
            */
           url: string & tags.Format<"uri">;
 
           /**
-           * @title 이미지에 대응되는 텍스트.
+           * @title Text corresponding to the image.
            */
           text: InsertText;
         }
@@ -229,100 +229,98 @@ export namespace IGoogleSlides {
     };
 
     /**
-     * @title 세로형 1분할(6:8)
+     * @title Vertical 1-split (6:8)
      */
     export type Exhibition = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "Exhibition";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
 
         /**
-         * @title 이미지에 대응되는 텍스트 중 제목 부분.
+         * @title The title part of the text corresponding to the image.
          */
         header: InsertText;
 
         /**
-         * @title 이미지에 대응되는 텍스트 중 본문 부분.
+         * @title The body part of the text corresponding to the image.
          */
         body: InsertText;
       };
     };
 
     /**
-     * @title 가로형 1분할
-     * 
-     * 타이틀(너비 100% : 높이 20%)
-     * 본문 (너비 60% : 높이 80%)
-     * 이미지 (너비 40% : 높이 80%)
-
+     * @title Horizontal 1-split
+     *
+     * Title (width 100%: height 20%)
+     * Body (width 60%: height 80%)
+     * Image (width 40%: height 80%)
      */
     export type Corner = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "Corner";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
 
         /**
-         * @title 이미지에 대응되는 텍스트 중 제목 부분.
+         * @title The title part of the text corresponding to the image.
          */
         header: InsertText;
 
         /**
-         * @title 이미지에 대응되는 텍스트 중 본문 부분.
+         * @title The body part of the text corresponding to the image.
          */
         body: InsertText;
       };
     };
 
     /**
-     * @title 가로형 2분할
-     * 
-     * 타이틀(너비 100% : 높이 20%)
-     * 본문 (너비 70% : 높이 80%)
-     * 이미지 (너비 30% : 높이 40%)
-
+     * @title Horizontal 2-split
+     *
+     * Title (width 100%: height 20%)
+     * Body (width 70%: height 80%)
+     * Image (width 30%: height 40%)
      */
     export type CornerHalf = {
       /**
-       * @title 템플릿의 타입.
+       * @title The type of the template.
        */
       type: "CornerHalf";
 
       /**
-       * @title 슬라이드의 내용물
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title 이미지의 URL.
+         * @title URL of the image.
          */
         url: NTpule<2, string & tags.Format<"uri">>;
 
         /**
-         * @title 이미지에 대응되는 텍스트 중 제목 부분.
+         * @title The title part of the text corresponding to the image.
          */
         header: InsertText;
 
         /**
-         * @title 이미지에 대응되는 텍스트 중 본문 부분.
+         * @title The body part of the text corresponding to the image.
          */
         body: InsertText;
       };
@@ -330,7 +328,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title 수정할 프레젠테이션의 조건 DTO.
+   * @title Condition DTO of the presentation to be modified.
    */
   export interface IUpdatePresentationInput
     extends ICommon.ISecret<
@@ -338,7 +336,7 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title 수정할 프레젠테이션의 ID.
+     * @title The ID of the presentation to be modified.
      */
     requests: BatchUpdateInput[];
   }
@@ -346,7 +344,7 @@ export namespace IGoogleSlides {
   export type BatchUpdateInput =
     | {
         /**
-         * @title 새로 생성할 슬라이드의 정보.
+         * @title Information about the new slide to be created.
          */
         createSlide: CreateSlideRequest;
       }
@@ -431,12 +429,12 @@ export namespace IGoogleSlides {
 
   export interface InsertText {
     /**
-     * @title 추가할 텍스트
+     * @title Text to add
      */
     text?: string | null;
 
     /**
-     * @title 아이디
+     * @title ID
      */
     objectId?: string | null;
   }
@@ -486,7 +484,7 @@ export namespace IGoogleSlides {
 
     /**
      * A user-supplied object ID. If you specify an ID, it must be unique among all pages and page elements in the presentation. The ID must start with an alphanumeric character or an underscore (matches regex `[a-zA-Z0-9_]`)
-     *  remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
+     * remaining characters may include those as well as a hyphen or colon (matches regex `[a-zA-Z0-9_-:]`). The ID length must be between 5 and 50 characters, inclusive. If you don't specify an ID, a unique one is generated.
      */
     objectId?: string | null;
 
@@ -532,7 +530,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title 프레젠테이션 검색을 위한 조건 DTO.
+   * @title Condition DTO for presentation search.
    */
   export interface IGetPresentationInput
     extends ICommon.ISecret<
@@ -540,13 +538,13 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title 검색의 대상이 되는 프레젠테이션 ID.
+     * @title The presentation ID to search for.
      */
     presentationId: string;
   }
 
   /**
-   * @title Google Slides의 프레젠테이션을 생성하기 위한 요청 DTO.
+   * @title Request DTO for generating a presentation in Google Slides.
    */
   export type ICreatePresentationInput = ICommon.ISecret<
     "google",
@@ -559,49 +557,49 @@ export namespace IGoogleSlides {
    */
   export interface Presentation {
     /**
-     * @title 프레젠네이션의 ID.
+     * @title Presentation ID.
      */
     presentationId?: string | null;
 
     /**
-     * @title 프레젠테이션의 페이지 크기.
+     * @title The page size of the presentation.
      */
     pageSize?: Size;
 
     /**
-     * @@title 프레젠테이션의 슬라이드.
+     * @@title A slide in a presentation.
      *
-     * 슬라이드는 슬라이드 레이아웃에서 속성을 상속합니다.
+     * Slides inherit properties from the slide layout.
      */
     slides?: Page[];
 
     /**
-     * @title 프레젠테이션의 제목.
+     * @title The title of the presentation.
      */
     title?: string | null;
 
     /**
-     * @title 프레젠테이션의 슬라이드 마스터.
+     * @title The slide master of a presentation.
      *
-     * 슬라이드 마스터에는 레이아웃 집합에 대한 모든 일반 페이지 요소와 공통 속성이 포함되어 있습니다. 다음과 같은 세 가지 용도로 사용됩니다.
+     * The slide master contains all the common page elements and common properties for a set of layouts. It serves three purposes:
      *
-     * - 마스터의 자리표시자 도형은 해당 마스터를 사용하는 페이지에 있는 모든 자리표시자 도형의 기본 텍스트 스타일 및 도형 속성을 포함합니다.
-     * - 마스터 페이지 속성은 레이아웃에 상속되는 일반적인 페이지 속성을 정의합니다
-     * - 마스터 슬라이드의 다른 모든 도형은 레이아웃에 관계없이 해당 마스터를 사용하는 모든 슬라이드에 표시됩니다.
+     * - The placeholder shapes on the master contain the default text styles and shape properties for all placeholder shapes on pages that use that master.
+     * - The master page properties define general page properties that are inherited by the layout.
+     * - All other shapes on the master slide appear on all slides that use that master, regardless of the layout.
      */
     masters?: Page[];
 
     /**
-     * @title 콘텐츠를 정렬하고 스타일을 지정하는 템플릿.
+     * @title A template that aligns and styles content.
      *
-     * 프레젠테이션의 레이아웃 레이아웃은 해당 레이아웃에서 상속된 슬라이드에서 콘텐츠를 정렬하고 스타일을 지정하는 방식을 결정하는 템플릿입니다.
+     * A layout in a presentation is a template that determines how content is aligned and styled on slides inherited from that layout.
      */
     layouts?: Page[];
 
     /**
-     * @title 프레젠테이션의 언어
+     * @title Language of the presentation
      *
-     * IETF BCP 47 언어 태크 형식.
+     * IETF BCP 47 language tag format.
      */
     locale?:
       | tags.Constant<"eu", { title: "미국 영어" }>
@@ -609,58 +607,58 @@ export namespace IGoogleSlides {
       | null;
 
     /**
-     * @title 출력 전용 프레젠테이션 버전의 ID.
+     * @title ID of the presentation version for printing only.
      *
-     * 마지막 읽기 작업 이후 프레젠테이션 버전이 변경되지 않았음을 어설션하는 업데이트 요청에 사용할 수 있습니다.
+     * Can be used in update requests to assert that the presentation version has not changed since the last read operation.
      *
-     * 사용자가 프레젠테이션에 대한 수정 액세스 권한이 있는 경우에만 채워집니다.
+     * Only populated if the user has edit access to the presentation.
      *
-     * 버전 ID는 순차 번호가 아니라 모호한 문자열입니다.
+     * The version ID is not a sequential number, but an opaque string.
      *
-     * 버전 ID의 형식은 시간이 지남에 따라 변경될 수 있으므로 불투명하게 처리해야 합니다.
+     * The format of the version ID may change over time, so it should be treated as opaque.
      *
-     * 반환된 버전 ID는 반환된 후 24시간 동안만 유효하며 사용자 간에 공유할 수 없습니다.
+     * The returned version ID is only valid for 24 hours after it is returned, and cannot be shared between users.
      *
-     * 통화 간에 버전 ID가 변경되지 않으면 프레젠테이션이 변경되지 않은 것입니다.
+     * If the version ID does not change between calls, then the presentation has not changed.
      *
-     * 반대로, 변경된 ID (동일한 프레젠테이션 및 사용자)는 일반적으로 프레젠테이션이 업데이트되었음을 의미합니다.
+     * Conversely, a changed ID (same presentation and user) usually means that the presentation has been updated.
      *
-     * 그러나 ID 형식 변경과 같은 내부 요인으로 인해 ID가 변경되었을 수도 있습니다.
+     * However, the ID may have changed due to internal factors, such as a change in the ID format.
      */
     revisionId?: string | null;
 
     /**
-     * @title 프레젠테이션의 메모 마스터.
+     * @title Note Master for Presentation.
      */
     notesMaster?: Page;
   }
 
   export interface Size {
     /**
-     * @title 객체의 너비.
+     * @title Width of the object.
      */
     width?: Dimension;
 
     /**
-     * @title 객체의 높이.
+     * @title The height of the object.
      */
     height?: Dimension;
   }
 
   export interface Dimension {
     /**
-     * @title 규모.
+     * @title scale.
      */
     magnitude?: number | null;
 
     /**
-     * @title 크기 단위.
+     * @title Size units.
      */
     unit?: Unit | null;
   }
 
   /**
-   * @title 측정 단위.
+   * @title Unit of measurement.
    */
   export type Unit =
     | tags.Constant<"UNIT_UNSPECIFIED", { title: "알 수 없는 단위" }>
@@ -684,7 +682,7 @@ export namespace IGoogleSlides {
     pageType?: "SLIDE";
 
     /**
-     * @title 특정 속성을 슬라이드한다.
+     * @title Slides a specific property.
      */
     slideProperties: SlideProperties;
   }
@@ -693,7 +691,7 @@ export namespace IGoogleSlides {
     pageType?: "LAYOUT";
 
     /**
-     * @title 레이아웃 속성.
+     * @title layout property.
      */
     layoutProperties: LayoutProperties;
   }
@@ -702,7 +700,7 @@ export namespace IGoogleSlides {
     pageType?: "NOTES";
 
     /**
-     * @title 메모 속성.
+     * @title memo attribute.
      */
     notesProperties: NotesProperties;
   }
@@ -710,7 +708,7 @@ export namespace IGoogleSlides {
   export interface MasterPage extends PageBase {
     pageType?: "MASTER";
     /**
-     * @title 특정 속성을 마스터한다.
+     * @title Master specific attributes.
      */
     masterProperties: MasterProperties;
   }
@@ -720,136 +718,136 @@ export namespace IGoogleSlides {
 
   export type PageBase = {
     /**
-     * @title 이 페이지의 객체 ID.
+     * @title The object ID of this page.
      *
-     * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
+     * The object IDs used by `Page` and `PageElement` share the same namespace.
      */
     objectId?: string | null;
 
     /**
-     * @title 페이지 유형.
+     * @title Page type.
      */
     pageType?: PageType | null;
 
     /**
-     * @title 페이지에서 렌더링된 페이지 요소.
+     * @title The page element rendered on the page.
      */
     pageElements?: PageElement[];
 
     /**
-     * @title 페이지의 속성.
+     * @title Attributes of the page.
      */
     pageProperties?: PageProperties;
   };
 
   export interface MasterProperties {
     /**
-     * @title 사람이 읽을 수 있는 마스터 이름입니다.
+     * @title Human-readable master name.
      */
     displayName?: string | null;
   }
 
   /**
-   * @title pageType NOTES가 있는 페이지에만 관련된 Page의 속성입니다.
+   * @title pageType A Page property that is relevant only to pages that have NOTES.
    */
   export interface NotesProperties {
     /**
-     * @title 해당 슬라이드에 대한 발표자 노트를 포함하는 이 메모 페이지에 있는 도형의 개체 ID입니다.
+     * @title The object ID of the shape on this notes page that contains the presenter notes for that slide.
      */
     speakerNotesObjectId?: string | null;
   }
 
   export interface LayoutProperties {
     /**
-     * @title 이 레이아웃의 기반이 되는 마스터의 객체 ID입니다.
+     * @title The object ID of the master on which this layout is based.
      */
     masterObjectId?: string | null;
 
     /**
-     * @title 레이아웃의 이름입니다.
+     * @title The name of the layout.
      */
     name?: string | null;
 
     /**
-     * @title 사람이 읽을 수 있는 레이아웃의 이름.
+     * @title The human-readable name of the layout.
      */
     displayName?: string | null;
   }
 
   export interface SlideProperties {
     /**
-     * @title 이 슬라이드의 기반이 되는 레이아웃의 객체 ID입니다.
+     * @title The object ID of the layout that this slide is based on.
      */
     readonly layoutObjectId?: string | null;
 
     /**
-     * 이 슬라이드의 기반이 되는 마스터 객체 ID입니다.
+     * This is the master object ID that this slide is based on.
      */
     readonly masterObjectId?: string | null;
 
     /**
-     * @title 이 슬라이드와 연결된 메모 페이지입니다.
+     * @title This is the notes page associated with this slide.
      *
-     * 발표자 노트가 포함된 슬라이드를 인쇄하거나 내보낼 때 노트 페이지의 시각적 모양을 정의합니다.
+     * Defines the visual appearance of the notes page when printing or exporting slides that contain speaker notes.
      *
-     * 메모 페이지는 notes master에서 속성을 상속받습니다.
+     * The notes page inherits properties from the notes master.
      *
-     * 노트 페이지에 있는 BODY 유형의 자리표시자 도형에는 이 슬라이드의 발표자 노트가 포함되어 있습니다.
+     * A placeholder shape of type BODY on the notes page contains the speaker notes for this slide.
      *
-     * 이 도형의 ID는 speakerNotesObjectId 필드로 식별됩니다.
+     * The ID of this shape is identified by the speakerNotesObjectId field.
      *
-     * @todo 재귀 문제로 인해 일단 제거
+     * @todo Removed for now due to recursion issues
      */
     // readonly notesPage?: Page;
 
     /**
-     * @title 프레젠테이션 모드에서 슬라이드를 건너뛸지 여부.
+     * @title Whether to skip slides in presentation mode.
      */
     isSkipped?: (boolean & tags.Default<false>) | null;
   }
 
   export interface PageProperties {
     /**
-     * 페이지의 배경 채우기입니다.
+     * The background fill for the page.
      *
-     * 설정하지 않으면 배경 채우기가 상위 페이지(있는 경우)에서 상속됩니다.
+     * If not set, the background fill will be inherited from the parent page (if any).
      *
-     * 페이지에 상위 요소가 없으면 배경 채우기는 Slides 편집기의 상응하는 채우기로 기본 설정됩니다.
+     * If the page has no parent element, the background fill will default to the corresponding fill in the Slides editor.
      */
     pageBackgroundFill?: PageBackgroundFill;
 
     /**
-     * @title 페이지의 색 구성표.
+     * @title Color scheme of the page.
      */
     colorScheme?: ColorScheme;
   }
 
   /**
-   * @title 페이지의 사전 정의된 색상 팔레트입니다.
+   * @title Predefined color palette for the page.
    */
   export interface ColorScheme {
     /**
-     * @title ThemeColorType 및 해당하는 구체적인 색상 쌍.
+     * @title ThemeColorType and its corresponding concrete color pair.
      */
     colors?: ThemeColorPair[];
   }
 
   export interface ThemeColorPair {
     /**
-     * @title 테마 색상 유형입니다.
+     * @title is the theme color type.
      */
     type?: ThemeColorType | null;
 
     /**
-     * @title 위의 테마 색상 유형에 해당하는 구체적인 색상입니다.
+     * @title A specific color corresponding to the theme color type above.
      */
     color?: RgbColor;
   }
 
   /**
-   * @title 테마 색상 유형
+   * @title Theme Color Types
    *
-   * PageProperties에는 이러한 테마 색상 유형을 구체적인 색상으로 매핑하는 ColorScheme를 포함합니다.
+   * PageProperties contains a ColorScheme that maps these theme color types to specific colors.
    */
   export type ThemeColorType =
     | tags.Constant<
@@ -884,58 +882,58 @@ export namespace IGoogleSlides {
 
   export type PageBackgroundFill = {
     /**
-     * @title 배경 채우기 속성 상태입니다.
+     * @title Background fill property status.
      */
     propertyState?: PropertyState | null;
   } & MyPartial<FillOption>;
 
   type FillOption = OneOf<{
     /**
-     * @title 단색 채우기.
+     * @title Solid color fill.
      */
     solidFill?: SolidFill;
 
     /**
-     * @title 늘린 사진 채우기.
+     * @title Fill in the enlarged photo.
      */
     stretchedPictureFill?: StretchedPictureFill;
   }>;
 
   /**
-   * @title 늘린 사진 채우기.
+   * @title Fill stretched image.
    *
-   * 늘린 그림을 채웁니다.
+   * Fills a stretched image.
    *
-   * 페이지 또는 페이지 요소가 지정된 사진으로 완전히 채워집니다.
+   * The page or page element is completely filled with the specified image.
    *
-   * 사진이 컨테이너에 맞게 늘어납니다.
+   * The image is stretched to fit the container.
    */
   export interface StretchedPictureFill {
     /**
-     * @title 기본 수명으로 30분인 사진의 URL입니다.
+     * @title The URL of a photo with a default lifetime of 30 minutes.
      *
-     * 이 URL에는 요청자 계정으로 태그가 지정됩니다.
+     * This URL is tagged with the requester account.
      *
-     * URL이 있는 모든 사람은 원래 요청자로서 사진에 실질적으로 액세스합니다.
+     * Anyone with the URL will have effective access to the photo as the original requester.
      *
-     * 프레젠테이션의 공유 설정이 변경되면 사진에 액세스하지 못하게 될 수 있습니다.
+     * If the sharing settings of the presentation change, the photo may become inaccessible.
      *
-     * 삽입 시 사진을 한 번 가져오고 프레젠테이션에 표시하기 위해 사본을 저장합니다.
+     * When you insert, the photo is imported once and a copy is saved for display in the presentation.
      *
-     * 사진은 50MB 미만이어야 하고, 25메가픽셀을 초과할 수 없으며, PNG, JPEG 또는 GIF 형식이어야 합니다.
+     * The photo must be less than 50 MB, no larger than 25 megapixels, and in PNG, JPEG, or GIF format.
      *
-     * 제공된 URL의 최대 길이는 2KB입니다.
+     * The maximum length of the URL provided is 2 KB.
      */
     contentUrl?: (string & tags.Format<"uri">) | null;
 
     /**
-     * @title 사진 채우기의 원래 크기.
+     * @title Original size of the photo fill.
      */
     readonly size?: Size;
   }
 
   /**
-   * @title 페이지 유형.
+   * @title Page type.
    */
   export type PageType =
     | tags.Constant<"SLIDE", { title: "슬라이드 페이지" }>
@@ -945,45 +943,45 @@ export namespace IGoogleSlides {
     | tags.Constant<"NOTES_MASTER", { title: "메모 마스터 페이지" }>;
 
   /**
-   * @title 페이지에서 렌더링된 페이지 요소.
+   * @title The page element rendered on the page.
    */
   export type PageElementBase = {
     /**
-     * @title 이 페이지 요소의 개체 ID.
+     * @title The object ID of this page element.
      *
-     * `Page`와 `PageElement`에서 사용하는 객체 ID는 동일한 네임스페이스를 공유한다.
+     * The object IDs used by `Page` and `PageElement` share the same namespace.
      */
     objectId?: string | null;
 
     /**
-     * @ttitle 페이지 요소의 크기.
+     * @ttitle The size of the page element.
      */
     size?: Size;
 
-    /**?
-     * @title 페이지 요소의 변환.
+    /**
+     * @title The transformation of the page element.
      *
-     * 페이지 요소의 시각적 모양은 절대 변환에 따라 결정됩니다.
+     * The visual appearance of the page element is determined by its absolute transformation.
      *
-     * 절대 변환을 계산하려면 페이지 요소의 변환을 모든 상위 그룹의 변환과 연결합니다.
+     * To calculate the absolute transformation, the transformation of the page element is concatenated with the transformations of all its parent groups.
      *
-     * 페이지 요소가 그룹에 없는 경우 절대 변환은 이 필드의 값과 동일합니다.
+     * If the page element is not in a group, the absolute transformation is equal to the value of this field.
      *
-     * 새로 생성된 Group의 초기 변환은 항상 ID 변환입니다.
+     * The initial transformation of a newly created Group is always the ID transformation.
      */
     transform?: Transform;
 
     /**
-     * @title 페이지 요소의 제목.
+     * @title The title of the page element.
      *
-     * 설명과 결합하여 대체 텍스트를 표시한다.
+     * Combined with the description, displays alternative text.
      */
     title?: string;
 
     /**
-     * @title 페이지 요소의 설명.
+     * @title Description of the page element.
      *
-     * 제목과 결합하여 대체 텍스트를 표시한다.
+     * Combined with the title, displays alternative text.
      */
     description?: string;
   };
@@ -995,52 +993,52 @@ export namespace IGoogleSlides {
 
   export interface ShapePageElement extends PageElementBase {
     /**
-     * @title 일반 셰이프.
+     * @title General shape.
      */
     shape: Shape;
   }
 
   export interface ImagePageElement extends PageElementBase {
     /**
-     * @title 이미지 페이지 요소.
+     * @title image page element.
      */
     image: Image;
   }
 
   export interface LinePageElement extends PageElementBase {
     /**
-     * @title 라인 페이지 요소.
+     * @title line page element.
      */
     line: Line;
   }
 
   export interface Shape {
     /**
-     * @title 도형의 유형.
+     * @title Type of shape.
      */
     shapeType?: Shape.Type;
 
     /**
-     * @title 도형의 텍스트 콘텐츠.
+     * @title Text content of the shape.
      */
     text?: TextContent;
 
     /**
-     * @title 도형의 속성.
+     * @title Shape properties.
      */
     shapeProperties?: ShapeProperties;
 
     /**
-     * @title 자리표시자는 레이아웃과 마스터의 해당 자리표시자에서 상속되는 페이지 요소.
+     * @title Placeholder is a page element that inherits from its placeholder in the layout and master.
      *
-     * 설정된 경우 도형은 자리표시자 도형이며 상속된 속성은 Placeholder.parent_object_id 필드로 식별된 상위 자리표시자를 확인하여 확인할 수 있습니다.
+     * If set, the shape is a placeholder shape and the inherited properties can be determined by checking the parent placeholder identified by the Placeholder.parent_object_id field.
      */
     placeholder?: Placeholder;
   }
 
   export interface Placeholder {
     /**
-     * @title 자리표시자의 유형.
+     * @title Type of placeholder.
      */
     type:
       | tags.Constant<
@@ -1068,113 +1066,113 @@ export namespace IGoogleSlides {
       | tags.Constant<"SLIDE_IMAGE", { title: "슬라이드 이미지입니다." }>;
 
     /**
-     * @title 자리표시자의 색인.
+     * @title The index of the placeholder.
      *
-     * 동일한 페이지에 동일한 자리표시자 유형이 있는 경우 색인 값이 서로 다르다.
+     * If there are the same placeholder type on the same page, the index values are different.
      */
     index?: number & tags.Type<"int64">;
 
     /**
-     * @title 이 도형의 상위 자리표시자의 객체 ID.
+     * @title The object ID of the parent placeholder of this shape.
      *
-     * 설정하지 않으면 상위 자리표시자 도형이 존재하지 않으므로 도형은 다른 도형의 속성을 상속하지 않는다.
+     * If not set, the shape will not inherit properties from other shapes since there is no parent placeholder shape.
      */
     parentObjectId?: string;
   }
 
   /**
-   * @title 도형 속성.
+   * @title Shape properties.
    *
-   * 도형이 placeholder 필드에 의해 결정된 자리표시자 도형인 경우 이러한 속성은 상위 자리표시자 도형에서 상속될 수 있습니다.
+   * If the shape is a placeholder shape determined by the placeholder field, these properties may be inherited from the parent placeholder shape.
    *
-   * 속성의 렌더링된 값을 결정하는 것은 상응하는 propertyState 필드 값에 따라 다릅니다.
+   * The rendered value of the property depends on the corresponding propertyState field value.
    *
-   * 도형의 텍스트 자동 맞춤 설정은 텍스트가 도형에 적용되는 방식에 영향을 줄 수 있는 요청에 의해 자동으로 비활성화됩니다.
+   * Auto-fitting text on shapes is automatically disabled by request, which may affect how text is applied to the shape.
    */
   export interface ShapeProperties {
     /**
-     * @title 도형의 배경 채우기.
+     * @title Background fill for the shape.
      *
-     * 도형의 배경 채우기 설정하지 않으면 상위 자리표시자가 배경 채우기를 상속받습니다.
+     * If the background fill for the shape is not set, the parent placeholder inherits the background fill.
      *
-     * 도형에 상위 요소가 없는 경우 기본 배경 채우기는 도형 유형에 따라 달라지며 Slides 편집기에서 만든 새 도형의 기본값과 일치합니다.
+     * If the shape has no parent, the default background fill depends on the shape type and matches the default for new shapes created in the Slides editor.
      */
     shapeBackgroundFill?: ShapeBackgroundFill;
 
     /**
-     * @title 도형의 윤곽선.
+     * @title The outline of the shape.
      *
-     * 설정되지 않으면 개요가 상위 자리표시자에 상속됩니다.
+     * If not set, the outline is inherited from the parent placeholder.
      *
-     * 도형에 상위 요소가 없으면 기본 윤곽선은 도형 유형에 따라 달라지며 Slides 편집기에서 만든 새 도형의 기본값과 일치합니다.
+     * If the shape has no parent, the default outline depends on the shape type and matches the default for new shapes created in the Slides editor.
      */
     outline?: Outline;
 
     /**
-     * @title 도형의 그림자 속성.
+     * @title Shadow property of the shape.
      *
-     * 설정하지 않으면 상위 자리표시자에 그림자가 상속됩니다.
+     * If not set, the shadow is inherited from the parent placeholder.
      *
-     * 도형에 상위 항목이 없는 경우 기본 그림자는 Slides 편집기에서 만든 새 도형의 기본값과 일치합니다.
+     * If the shape has no parent, the default shadow matches the default for new shapes created in the Slides editor.
      */
     readonly shadow?: Shadow;
 
     /**
-     * @title 도형의 하이퍼링크 대상입니다.
+     * @title The hyperlink target of the shape.
      *
-     * 설정하지 않으면 링크가 표시되지 않습니다.
+     * If not set, the link will not be displayed.
      *
-     * 링크는 상위 자리표시자로부터 상속되지 않습니다.
+     * The link is not inherited from the parent placeholder.
      */
     link?: Link;
 
     /**
-     * @title 도형 내 콘텐츠의 정렬
+     * @title Alignment of content within a shape
      *
-     * unspecified인 경우 정렬은 상위 자리표시자가 있으면 상속됩니다.
+     * If unspecified, alignment is inherited if there is a parent placeholder.
      *
-     * 도형에 상위 항목이 없는 경우 기본 정렬은 Slides 편집기에서 만든 새 도형의 정렬과 일치합니다.
+     * If a shape has no parent, the default alignment matches the alignment of new shapes created in the Slides editor.
      */
     contentAlignment?: ContentAlignment | null;
 
     /**
-     * @title 도형의 자동 맞춤 속성입니다.
+     * @title Autofit property of the shape.
      *
-     * 이 속성은 텍스트를 허용하는 도형에만 설정됩니다.
+     * This property is only set on shapes that accept text.
      */
     autofit?: AutoFit;
   }
 
   /**
-   * @title `Shape`의 자동 맞춤 속성.
+   * @title Autofit property of `Shape`.
    */
   export interface AutoFit {
     /**
-     * 도형의 자동 맞춤 유형입니다.
+     * The autofit type of the shape.
      *
-     * 자동 맞춤 유형이 AUTOFIT_TYPE_UNSPECIFIED이면 상위 자리표시자에 자동 맞춤 유형이 상속됩니다.
+     * If the autofit type is AUTOFIT_TYPE_UNSPECIFIED, the parent placeholder inherits the autofit type.
      *
-     * 경계 텍스트 상자 안의 텍스트 맞추기에 영향을 줄 수 있는 요청이 있는 경우 이 필드는 NONE로 자동 설정됩니다.
+     * If there is a request that can affect the text alignment within the bounding text box, this field is automatically set to NONE.
      *
-     * 이 경우 fontScale는 fontSize에 적용되고 lineSpacingReduction는 lineSpacing에 적용됩니다.
+     * In this case, fontScale applies to fontSize and lineSpacingReduction applies to lineSpacing.
      *
-     * 두 속성 모두 기본값으로 재설정됩니다.
+     * Both properties are reset to their default values.
      */
     autofitType?: AutofitType | null;
 
     /**
-     * @title 도형에 적용된 글꼴 배율.
+     * @title Font scale applied to the shape.
      */
     readonly fontScale?: number | null;
 
     /**
-     * @title 도형에 적용되는 선 간격 감소.
+     * @title Reduce line spacing applied to shapes.
      */
     readonly lineSpacingReduction?: number | null;
   }
 
   /**
-   * @title 자동 맞춤 유형.
+   * @title Auto-fit type.
    */
   export type AutofitType =
     | tags.Constant<
@@ -1192,11 +1190,11 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title 콘텐츠 정렬 유형.
+   * @title Content Anchoring Type.
    *
-   * 콘텐츠 정렬 유형
+   * Content Anchoring Type
    *
-   * 'Office Open XML File Format - Fundamentals and Markup Language Reference' 섹션 20.1.10.59의 ECMA-376 4th Edition 파트 1에서 'ST_TextAnchoringType' 단순 유형 값의 하위 집합에서 파생되었습니다.
+   * Derived from a subset of the 'ST_TextAnchoringType' simple type values in ECMA-376 4th Edition Part 1, Section 20.1.10.59 of the 'Office Open XML File Format - Fundamentals and Markup Language Reference'.
    */
   export type ContentAlignment =
     | tags.Constant<
@@ -1232,36 +1230,36 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title 하이퍼 텍스트 링크.
+   * @title Hypertext link.
    */
   export type Link = OneOf<{
     /**
-     * 설정된 경우 이 URL이 외부 웹 페이지의 링크임을 나타낸다.
+     * If set, indicates that this URL is a link to an external web page.
      */
     url?: (string & tags.Format<"uri">) | null;
 
     /**
-     * 이 값이 설정된 경우 이 프레젠테이션에서 슬라이드의 위치에 따라 링크로 연결됩니다.
+     * If this value is set, the link will be directed to the slide's location in this presentation.
      */
     relativeLink?: RelativeSlideLink | null;
 
     /**
-     * 설정된 경우 이 ID를 가진 프레젠테이션의 특정 페이지에 대한 링크임을 나타냅니다.
+     * If set, indicates that the link is to a specific page in the presentation with this ID.
      *
-     * 이 ID를 가진 페이지가 존재하지 않을 수 있습니다.
+     * The page with this ID may not exist.
      */
     pageObjectId?: string | null;
 
     /**
-     * 설정된 경우 프레젠테이션에서 이 0부터 시작하는 색인의 슬라이드 링크임을 나타냅니다.
+     * If set, indicates that this is a slide link starting from this 0-based index in the presentation.
      *
-     * 이 인덱스에 슬라이드가 없을 수 있습니다.
+     * There may be no slides at this index.
      */
     slideIndex?: (number & tags.Type<"int64">) | null;
   }>;
 
   /**
-   * @title 상대 링크의 종류.
+   * @title Type of relative link.
    */
   export type RelativeSlideLink =
     | tags.Constant<
@@ -1280,7 +1278,7 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title 그림자.
+   * @title Shadow.
    */
   export interface Shadow {
     readonly type?:
@@ -1292,45 +1290,45 @@ export namespace IGoogleSlides {
       | null;
 
     /**
-     * 정렬 위치를 기준으로 그림자의 변환, 배율 및 왜곡을 인코딩하는 변환입니다.
+     * A transform that encodes the translation, scale, and distortion of a shadow based on its alignment position.
      */
     transform?: AffineTransform;
 
     /**
-     * 그림자의 변환 지점, 배율 및 왜곡 방향을 설정하는 그림자의 정렬 지점입니다.
+     * The alignment point of the shadow, which sets the shadow's transformation point, scale, and distortion direction.
      */
     readonly alignment?: RectanglePosition | null;
 
     /**
-     * @title 그림자 블러의 반경.
+     * @title Radius of the shadow blur.
      *
-     * 반경이 클수록 그림자가 더 확산됩니다.
+     * The larger the radius, the more diffuse the shadow.
      */
     blurRadius?: Dimension;
 
     /**
-     * @title 그림자 색상 값.
+     * @title Shadow color value.
      */
     color?: OpaqueColor;
 
     /**
-     * @title 그림자 색상의 알파.
+     * @title Alpha of the shadow color.
      */
     alpha?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title 도형이 도형과 함께 회전되어야 하는지 여부.
+     * @title Whether the shape should rotate along with the shape.
      */
     readonly rotateWithShape?: boolean | null;
 
     /**
-     * @title 그림자 속성 상태
+     * @title Shadow property status
      *
-     * 페이지 요소에 그림자를 업데이트하면 같은 요청에 다른 값이 지정되지 않는 한 이 필드가 RENDERED에 암시적으로 업데이트됩니다.
+     * Updating a shadow on a page element implicitly updates this field to RENDERED unless a different value is specified in the same request.
      *
-     * 페이지 요소에 그림자가 없도록 하려면 이 필드를 NOT_RENDERED로 설정합니다.
+     * To prevent a shadow on a page element, set this field to NOT_RENDERED.
      *
-     * 이 경우 동일한 요청에 설정된 다른 그림자 필드는 모두 무시됩니다.
+     * In this case, any other shadow fields set on the same request will be ignored.
      */
     propertyState?: PropertyState | null;
   }
@@ -1354,76 +1352,76 @@ export namespace IGoogleSlides {
 
   export interface Outline {
     /**
-     * @title 윤곽선 속성 상태입니다.
+     * @title Outline property status.
      */
     propertyState?: PropertyState | null;
 
     /**
-     * @title 윤곽선 채우기.
+     * @title Fill in the outline.
      */
     outlineFill?: OutlineFill;
 
     /**
-     * @title 윤곽선의 두께.
+     * @title Thickness of the outline.
      */
     weight?: Dimension;
 
     /**
-     * @title 윤곽선의 대시 스타일.
+     * @title Dash style for outline.
      */
     dashStyle?: DashStyle | null;
   }
 
   /**
-   * @title 윤곽선 채우기.
+   * @title Fill in the outline.
    */
   export interface OutlineFill {
     /**
-     * @title 단색 채우기.
+     * @title Solid fill.
      */
     solidFill?: SolidFill;
   }
 
   /**
-   * @title 단색 채우기.
+   * @title Solid Fill.
    *
-   * 단색 채우기 페이지 또는 페이지 요소가 지정된 색상 값으로 완전히 채워집니다.
+   * Solid Fill The page or page element is completely filled with the specified color value.
    *
-   * 설정되지 않은 필드의 값은 상위 자리표시자가 있는 경우 해당 값을 상속받을 수 있습니다.
+   * The value of an unset field can inherit its value from a parent placeholder if it exists.
    */
   export interface SolidFill {
     /**
-     * @title 단색의 색상 값.
+     * @title Color value of a single color.
      */
     color?: OpaqueColor;
 
     /**
-     * @title 픽셀에 적용해야 하는 color의 비율 값.
+     * @title The percentage value of the color to be applied to the pixel.
      *
-     * 최종 픽셀 색상은 등식으로 정의된다.
+     * The final pixel color is defined by the equation:
      *
-     * `픽셀 색상 = (alpha * color) + (1.0 - alpha) * (배경 색상)`
+     * `Pixel color = (alpha * color) + (1.0 - alpha) * (background color)`
      *
-     * 즉 1.0 값은 단색에 해당하는 반면 0.0 값은 완전히 투명한 색상에 해당한다.
+     * That is, a value of 1.0 corresponds to a solid color, while a value of 0.0 corresponds to a completely transparent color.
      */
     alpha?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
   }
 
   /**
-   * @title 테마가 있는 단색 값.
+   * @title A solid color value with a theme.
    */
   export type OpaqueColor = RgbColorMap | ThemeColorMap;
 
   export interface ThemeColorMap {
     /**
-     * @title 테마 색상 유형.
+     * @title Theme color type.
      */
     themeColor?: ThemeColor;
   }
 
   export interface RgbColorMap {
     /**
-     * @title RGB 색상 유형.
+     * @title RGB color type.
      */
     rgbColor?: RgbColor;
   }
@@ -1461,32 +1459,32 @@ export namespace IGoogleSlides {
 
   export interface RgbColor {
     /**
-     * @title 색상의 빨간색 구성 요소.
+     * @title The red component of the color.
      */
     red?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title 색상의 초록색 구성 요소.
+     * @title The green component of the color.
      */
     green?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title 색상의 파란색 구성 요소.
+     * @title The blue component of the color.
      */
     blue?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
   }
 
   /**
-   * @title 도형 배경 채우기.
+   * @title Fill shape background.
    */
   export interface ShapeBackgroundFill {
     /**
-     * @title 속성의 가능한 상태.
+     * Possible states of the @title property.
      */
     propertyState?: PropertyState | null;
 
     /**
-     * @title 단색 채우기.
+     * @title Solid fill.
      */
     solidFill?: SolidFill;
   }
@@ -1518,14 +1516,14 @@ export namespace IGoogleSlides {
 
   export interface TextContent {
     /**
-     * @title 스타일 지정 정보를 포함하여 구성요소로 분류된 텍스트 콘텐츠입니다.
+     * @title Text content categorized as a component, including styling information.
      */
     readonly textElements?: TextElement[];
 
     /**
-     * @title 텍스트에 포함된 글머리 기호 목록.
+     * @title A list of bullets contained in the text.
      *
-     * 목록 ID로 키가 지정된다.
+     * Keyed by list ID.
      */
     lists?: {
       [Key: string]: List;
@@ -1533,22 +1531,22 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title 목록과 연결된 단락에 속한 글머리기호의 디자인을 설명하는 타입.
+   * @title A type that describes the design of a bullet in a paragraph associated with a list.
    *
-   * 목록의 일부인 단락에는 해당 목록의 ID에 대한 암시적 참조가 있습니다.
+   * A paragraph that is part of a list has an implicit reference to the ID of that list.
    */
   export interface List {
     /**
-     * @title 목록의 ID.
+     * @title The ID of the list.
      */
     listId?: string | null;
 
     /**
-     * @title 관련 수준의 글머리 기호 속성에 대한 중첩 수준의 맵
+     * @title A map of nesting levels for bullet properties at the relevant level
      *
-     * 목록의 중첩 수준은 최대 9개이므로 사용할 수 있는 키는 0부터 8까지이다.
+     * The maximum nesting level of a list is 9, so the available keys are 0 through 8.
      *
-     * 지정된 중첩 수준에서 목록 글머리 기호의 디자인을 설명하는 속성이 포함되어 있습니다.
+     * Contains properties that describe the design of the list bullets at the specified nesting level.
      */
     nestingLevel?:
       | {
@@ -1561,40 +1559,40 @@ export namespace IGoogleSlides {
 
   export type TextElement = {
     /**
-     * @title 이 텍스트 요소의 0부터 시작되는 시작 색인. (유니코드 코드 단위)
+     * @title The zero-based starting index of this text element (in Unicode code units).
      */
     startIndex?: (number & tags.Type<"int64">) | null;
 
     /**
-     * @title 이 텍스트 요소의 0부터 시작되는 종료 색인. (유니코드 코드 단위 제외)
+     * @title The zero-based ending index of this text element (excluding Unicode code units).
      */
     endIndex?: (number & tags.Type<"int64">) | null;
   } & OneOf<{
     /**
-     * @title 단락 마커.
+     * @title Paragraph Marker.
      *
-     * 새 단락의 시작을 나타내는 TextElement 종류입니다.
+     * A kind of TextElement that indicates the start of a new paragraph.
      */
     paragraphMarker?: ParagraphMarker;
 
     /**
-     * @title 런의 모든 문자가 동일한 TextStyle인 텍스트 런을 나타내는 TextElement입니다.
+     * @title A TextElement representing a text run where all characters in the run have the same TextStyle.
      *
-     * TextRun의 startIndex 및 endIndex는 항상 단일 paragraphMarker TextElement의 색인 범위에 완전히 포함됩니다.
+     * The startIndex and endIndex of a TextRun are always entirely within the index range of a single paragraphMarker TextElement.
      *
-     * 즉, TextRun은 여러 단락으로 확장되지 않습니다.
+     * That is, a TextRun does not span multiple paragraphs.
      */
     textRun?: TextRun;
 
     /**
-     * @title 시간이 지남에 따라 변할 수 있는 콘텐츠로 동적으로 대체되는 텍스트의 한 지점을 나타내는 TextElement입니다.
+     * @title A TextElement representing a point of text that can be dynamically replaced with content that can change over time.
      */
     autoText?: AutoText;
   }>;
 
   export interface AutoText {
     /**
-     * @title 이 자동 텍스트의 유형.
+     * @title The type of this autotext.
      */
     type:
       | tags.Constant<
@@ -1607,36 +1605,36 @@ export namespace IGoogleSlides {
         >;
 
     /**
-     * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
+     * @title The rendered content of this autotext (if any).
      */
     content: string;
 
     /**
-     * @title 이 자동 텍스트에 적용되는 스타일.
+     * @title Style applied to this autotext.
      */
     style?: TextStyle;
   }
 
   /**
-   * @title 텍스트 실행.
+   * @title Text execution.
    *
-   * 모든 스타일이 동일한 RON을 나타내는 TextElement의 종류.
+   * A kind of TextElement that represents a RON with all styles identical.
    */
   export interface TextRun {
     /**
-     * @title 이 실행의 텍스트.
+     * @title The text of this execution.
      */
     content?: string | null;
 
     /**
-     * @title 이 실행에 적용된 스타일 지정.
+     * @title Specifies the style applied to this run.
      */
     style?: TextStyle;
   }
 
   export interface AutoText {
     /**
-     * @title 이 자동 텍스트의 유형.
+     * @title The type of this autotext.
      */
     type:
       | tags.Constant<
@@ -1649,172 +1647,173 @@ export namespace IGoogleSlides {
         >;
 
     /**
-     * @title 이 자동 텍스트의 렌더링된 콘텐츠. (있는 경우)
+     * @title The rendered content of this autotext (if any).
      */
     content: string;
 
     /**
-     * @title 이 자동 텍스트에 적용되는 스타일.
+     * @title Style applied to this autotext.
      */
     style?: TextStyle;
   }
 
   export interface ParagraphMarker {
     /**
-     * @title 단락의 스타일.
+     * @title Paragraph style.
      */
     style?: ParagraphStyle;
 
     /**
-     * @title 이 단락의 글머리 기호.
+     * @title The bullet point for this paragraph.
      *
-     * 없는 경우 단락이 목록에 속하지 않는다.
+     * If not present, the paragraph does not belong in the list.
      */
     bullet?: Bullet;
   }
 
   /**
-   * @title 단락의 글머리 기호.
+   * @title The bullets in the paragraph.
    */
   export interface Bullet {
     /**
-     * @title 이 단락이 속한 목록의 ID
+     * @title The ID of the list this paragraph belongs to.
      */
     listId: string;
 
     /**
-     * @title 목록에서 이 단락의 중첩 수준.
+     * @title The nesting level of this paragraph in the list.
      */
     nestingLevel?: number & tags.Type<"int64">;
 
     /**
-     * @title 이 단락에 대해 렌더링된 글머리 기호 글리프.
+     * @title The bullet glyph rendered for this paragraph.
      */
     glyph: string;
 
     /**
-     * @title 이 글머리 기호에 적용되는 단락별 텍스트 스타일.
+     * @title Paragraph text style applied to this bullet.
      */
     bulletStyle: TextStyle;
   }
 
   /**
-   * TextRun에 적용할 수 있는 스타일을 나타냅니다.
+   * Indicates a style that can be applied to the TextRun.
    *
-   * 이 텍스트가 상위 placeholder가 있는 도형에 포함되어 있으면 이 텍스트 스타일이 상위 요소로부터 상속될 수 있습니다.
+   * If this text is contained in a shape with a parent placeholder, this text style can be inherited from the parent element.
    *
-   * 상속되는 텍스트 스타일은 목록의 중첩 수준에 따라 다릅니다.
+   * The text style that is inherited depends on the nesting level of the list.
    *
-   * - 목록에 없는 단락에서 실행되는 텍스트는 상위 자리표시자 내 목록의 0 중첩 수준에서 단락의 줄바꿈 문자에서 텍스트 스타일을 상속합니다.
-   * - 목록에 있는 단락에서 실행되는 텍스트는 상위 자리표시자 내 목록의 해당 중첩 수준에서 단락의 줄바꿈 문자에서 텍스트 스타일을 상속합니다.
+   * - Text that runs in a paragraph that is not in the list inherits the text style from the paragraph's line break character at nesting level 0 in the list within the parent placeholder.
+   * - Text that runs in a paragraph that is in the list inherits the text style from the paragraph's line break character at that nesting level in the list within the parent placeholder.
    *
-   * 상속된 텍스트 스타일은 이 메시지에서 설정되지 않은 필드로 표시됩니다.
+   * Inherited text styles are indicated by the unset field in this message.
    *
-   * 상위 자리표시자가 없는 도형에 텍스트가 포함된 경우 이 필드를 설정 해제하면 스타일이 Slides 편집기에서 기본값과 일치하는 값으로 되돌아갑니다.
+   * If the text is contained in a shape without a parent placeholder, unsetting this field causes the style to revert to a value that matches the default in the Slides editor.
    */
   export interface TextStyle {
     /**
-     * @title 텍스트의 배경색.
+     * @title The background color of the text.
      *
-     * 이 속성을 설정하면 색상의 opaqueColor 필드가 설정되어 있는지에 따라 색상이 불투명하거나 투명합니다.
+     * Setting this property will make the color opaque or transparent, depending on whether the opaqueColor field of the color is set.
      */
     backgroundColor?: OptionalColor;
 
     /**
-     * @title 텍스트 자체의 색상.
+     * @title The color of the text itself.
      *
-     * 이 속성을 설정하면 색상의 opaqueColor 필드가 설정되어 있는지에 따라 색상이 불투명하거나 투명합니다.
+     * Setting this property will make the color opaque or transparent, depending on whether the opaqueColor field of the color is set.
      */
     foregroundColor?: OptionalColor;
 
     /**
-     * @title 텍스트가 굵게 렌더링되는지 여부.
+     * @title Whether the text is rendered bold.
      */
     bold?: boolean | null;
 
     /**
-     * @title 텍스트에 기울임꼴을 적용할지 여부.
+     * @title Whether to italicize the text.
      */
     italic?: boolean | null;
 
     /**
-     * @title 텍스트의 글꼴.
+     * The font of the @title text.
      *
-     * 글꼴 모음은 Slides의 글꼴 메뉴 또는 Google Fonts의 글꼴일 수 있습니다.
+     * The font family can be from the font menu in Slides or from Google Fonts.
      *
-     * 글꼴 이름이 인식되지 않으면 텍스트가 `Arial`에서 렌더링된다.
+     * If the font name is not recognized, the text is rendered in `Arial`.
      *
-     * 일부 글꼴은 텍스트의 두께에 영향을 줄 수 있다.
+     * Some fonts can affect the weight of the text.
      *
-     * 업데이트 요청에서 fonrtFamily 및 bold 값을 모두 지정하면 명시적으로 설정된 bold 값이 사용된다.
+     * If both fonrtFamily and bold values are specified in an update request, the explicitly set bold value is used.
      */
     fontFamily?: string | null;
 
     /**
-     * @title 텍스트 글꼴의 크기.
+     * @title Text font size.
      *
-     * 읽을 때 `fontSize`가 포인트로 지정된다.
+     * When reading, `fontSize` is specified in points.
      */
     fontSize?: Dimension;
 
     /**
-     * @title 텍스트의 하이퍼링크 대상.
-     * 설정하지 않으면 링크가 표시되지 않습니다.
+     * @title The hyperlink target for the text.
      *
-     * 링크는 상위 텍스트에서 상속되지 않습니다.
+     * If not set, the link will not be displayed.
      *
-     * 업데이트 요청에서 링크를 변경하면 범위의 텍스트 스타일이 일부 변경됩니다.
+     * The link is not inherited from the parent text.
      *
-     * 링크를 설정할 때 텍스트 전경색이 ThemeColorType.HYPERLINK으로 설정되고 텍스트에 밑줄이 표시됩니다.
+     * When you change a link in an update request, the text style of the range will change in some ways.
      *
-     * 동일한 요청에서 이러한 필드가 수정되면 링크 기본값 대신 해당 값이 사용됩니다.
+     * When you set a link, the text foreground color is set to ThemeColorType.HYPERLINK and the text is underlined.
      *
-     * 기존 링크와 겹치는 텍스트 범위에 링크를 설정하면 새 URL을 가리키도록 기존 링크도 업데이트됩니다.
+     * If these fields are modified in the same request, those values will be used instead of the link defaults.
      *
-     * 줄바꿈 문자에는 링크를 설정할 수 없습니다.
+     * If you set a link to a range of text that overlaps an existing link, the existing link will also be updated to point to the new URL.
      *
-     * 따라서 단락 경계를 가로지르는 텍스트 범위(예: "ABC\n123")에 링크를 설정하면 줄바꿈 문자가 자체 텍스트 실행으로 분리됩니다.
+     * You cannot set a link to a line break character.
      *
-     * 이 링크는 줄바꿈 전후의 실행에 별도로 적용됩니다.
+     * So if you set a link to a range of text that crosses a paragraph boundary (e.g., "ABC\n123"), the line break character will be split into its own run of text.
      *
-     * 링크를 삭제하면 동일한 텍스트에 다른 스타일이 설정되어 있지 않는 한 범위의 텍스트 스타일이 이전 텍스트 (또는 이전 텍스트가 다른 링크인 경우 기본 텍스트 스타일)의 스타일과 일치하도록 업데이트됩니다.
+     * The link applies separately to the runs before and after the line break.
+     *
+     * If you delete a link, the text style of the range will be updated to match the style of the previous text (or the default text style if the previous text is another link), unless a different style is set for the same text.
      */
     link?: Link;
 
     /**
-     * @title 일반 위치에서의 텍스트 세로 오프셋.
+     * @title Vertical offset of text from normal position.
      *
-     * SUPERSCRIPT 또는 SUBSCRIPT 기준 오프셋이 있는 텍스트는 더 작은 글꼴 크기로 자동 렌더링되며 fontSize 필드를 기준으로 계산됩니다.
+     * Text with a SUPERSCRIPT or SUBSCRIPT offset is automatically rendered at a smaller font size, calculated based on the fontSize field.
      *
-     * fontSize 자체는 이 필드의 변경에 영향을 받지 않습니다.
+     * fontSize itself is not affected by changes to this field.
      */
     baselineOffset?: BaselineOffset | null;
 
     /**
-     * @title 텍스트가 작은 대문자인지 여부.
+     * @title Whether the text is in small caps.
      */
     smallCaps?: boolean | null;
 
     /**
-     * @title 취소선 표시 여부.
+     * @title Whether to display strikethrough.
      */
     strikethrough?: boolean | null;
 
     /**
-     * @title 텍스트에 밑줄이 표시되는지 여부.
+     * @title Whether the text is underlined.
      */
     underline?: boolean | null;
 
     /**
-     * @title 글꼴 모음 및 텍스트의 렌더링된 두꼐.
+     * @title Font family and rendered thickness of text.
      */
     weightedFontFamily?: WeightedFontFamily;
   }
 
   /**
-   * @title 기준선 오프셋.
+   * @title Baseline Offset.
    *
-   * 텍스트가 정상적인 위치에서 세로로 오프셋되는 방식.
+   * How the text is offset vertically from its normal position.
    */
   export type BaselineOffset =
     | tags.Constant<
@@ -1832,20 +1831,20 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title 가중치가 적용된 글꼴 모음.
+   * @title A collection of weighted fonts.
    */
   export interface WeightedFontFamily {
     /**
-     * @title 텍스트의 글꼴입니다.
+     * @title The font for the text.
      *
-     * 글꼴 모음은 Slides의 글꼴 메뉴 또는 Google Fonts의 글꼴일 수 있습니다.
+     * The font family can be from the font menu in Slides or from Google Fonts.
      *
-     * 글꼴 이름이 인식되지 않으면 텍스트가 Arial에서 렌더링됩니다.
+     * If the font name is not recognized, the text is rendered in Arial.
      */
     fontFamily?: string | null;
 
     /**
-     * @title 텍스트의 렌더링된 두께입니다.
+     * @title The rendered thickness of the text.
      */
     weight:
       | (number &
@@ -1857,84 +1856,83 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title 선택 색상.
+   * @title Select Color.
    *
-   * 완전히 불투명하거나 완전히 투명할 수 있는 색상.
+   * A color that can be completely opaque or completely transparent.
    */
   export interface OptionalColor {
     /**
-     * 설정된 경우 불투명 색상으로 사용됩니다.
+     * If set, it is used as an opaque color.
      *
-     * 설정하지 않으면 투명한 색상을 나타냅니다.
+     * If not set, it is a transparent color.
      */
     opaqueColor?: OpaqueColor;
   }
 
   /**
-   * @title 전체 단락에 적용되는 스타일.
+   * @title Style applied to the entire paragraph.
    *
-   * 이 텍스트가 상위 placeholder를 포함하는 도형에 포함되어 있으면 이 단락 스타일이 상위 요소로부터 상속될 수 있습니다.
+   * If this text is contained in a shape that contains a parent placeholder, this paragraph style may be inherited from the parent element.
    *
-   * 상속되는 단락 스타일은 목록의 중첩 수준에 따라 다릅니다.
+   * The paragraph style inherited depends on the nesting level of the list.
    *
-   * - 목록에 없는 단락은 상위 자리표시자 내에서 목록의 0 중첩 수준에 있는 단락에서 단락 스타일을 상속합니다.
-   * - 목록의 단락은 상위 자리표시자 내 목록의 해당 중첩 수준에 있는 단락에서 단락 스타일을 상속합니다.
+   * - A paragraph that is not in a list inherits the paragraph style from the paragraph at nesting level 0 of the list within the parent placeholder.
+   * - A paragraph in a list inherits the paragraph style from the paragraph at the corresponding nesting level of the list within the parent placeholder.
    *
-   * 상속된 단락 스타일은 이 메시지에서 설정되지 않은 필드로 표시됩니다.
-   *
+   * An inherited paragraph style is indicated by the unset field in this message.
    */
   export interface ParagraphStyle {
     lineSpacing?: number | null;
 
     /**
-     * @title 단락의 텍스트 정렬 유형
+     * @title Paragraph text alignment type
      */
     alignment?: Alignment | null;
 
     /**
-     * @title 현재 텍스트 방향을 기준으로 텍스트의 시작 부분에 해당하는 단락 단락의 들여쓰기 간격.
+     * @title The indentation distance for the paragraph corresponding to the beginning of the text based on the current text direction.
      */
     indentStart?: Dimension;
 
     /**
-     * @title 현재 텍스트 방향을 기준으로 텍스트의 끝 부분에 해당하는 단락 단락의 들여쓰기 간격.
+     * @title The indentation distance of the paragraph corresponding to the end of the text based on the current text direction.
      */
     indentEnd?: Dimension;
 
     /**
-     * @title 단락 위의 추가 공백입니다.
+     * @title Extra space above the paragraph.
      *
-     * 설정하지 않으면 값이 상위 요소로부터 상속됩니다.
+     * If not set, the value is inherited from the parent element.
      */
     spaceAbove?: Dimension;
 
     /**
-     * @title 단락 아래에 여분의 공간이 표시됩니다.
+     * @title Extra space is displayed below the paragraph.
      *
-     * 설정하지 않으면 값이 상위 요소로부터 상속됩니다.
+     * If not set, the value is inherited from the parent element.
      */
     spaceBelow?: Dimension;
 
     /**
-     * @title 단락 첫 번째 줄의 시작 부분을 들여씁니다.
+     * @title Indents the beginning of the first line of a paragraph.
      *
-     * 설정하지 않으면 값이 상위 요소로부터 상속됩니다.
+     * If not set, the value is inherited from the parent element.
      */
     indentFirstLine?: Dimension;
 
     /**
-     * @title 이 단락의 텍스트 방향입니다.
+     * @title The text direction of this paragraph.
      */
     direction?: (TextDirection & tags.Default<"LEFT_TO_RIGHT">) | null;
 
     /**
-     * @title 단락의 간격 모드.
+     * @title Paragraph spacing mode.
      */
     spacingMode?: SpacingMode | null;
   }
 
   /**
-   * @title 단락의 텍스트 정렬 유형
+   * @title Paragraph text alignment type
    */
   export type Alignment =
     | tags.Constant<
@@ -1957,9 +1955,9 @@ export namespace IGoogleSlides {
     | tags.Constant<"JUSTIFIED", { title: "단락이 정렬되었습니다." }>;
 
   /**
-   * @title 텍스트 방향.
+   * @title Text direction.
    *
-   * 텍스트 경로가 표시될 수 있다.
+   * The text path can be displayed.
    */
   export type TextDirection =
     | tags.Constant<
@@ -1976,9 +1974,9 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title 간격 모드.
+   * @title Spacing Mode.
    *
-   * 단락 간격의 여러 가지 모드.
+   * Various modes of paragraph spacing.
    */
   export type SpacingMode =
     | tags.Constant<
@@ -1995,15 +1993,15 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title 도형의 유형.
+   * @title Type of shape.
    */
   export namespace Shape {
     /**
-     * @title 도형 유형
+     * @title Shape Types
      *
-     * 이러한 도형의 대부분은 ECMA-376 표준의 사전 정의된 도형에 해당합니다.
+     * Most of these shapes correspond to predefined shapes in the ECMA-376 standard.
      *
-     * 이러한 도형에 관한 자세한 내용은 ECMA-376 4판의 1부 'Office Open XML File Formats - Fundamentals and Markup Language Reference'의 섹션 20.1.10.55에서 'ST_ShapeType' 간단한 유형에 관한 설명을 참고하세요.
+     * For more information about these shapes, see the description of the 'ST_ShapeType' simple type in section 20.1.10.55 of the Office Open XML File Formats - Fundamentals and Markup Language Reference, Part 1, ECMA-376, Edition 4.
      */
     export type Type =
       | tags.Constant<"TYPE_UNSPECIFIED", { title: `사전 정의된 도형 유형.` }>
@@ -2777,149 +2775,149 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title 이미지.
+   * @title Image.
    *
-   * 이미지를 나타내는 `PageElement` 종류.
+   * A type of `PageElement` representing an image.
    */
   export interface Image {
     /**
-     * @title 기본 수명이 30분인 이미지의 URL.
+     * @title URL of an image with a default lifetime of 30 minutes.
      *
-     * 이 URL에는 요청자의 계정으로 태그가 지정됩니다.
+     * This URL is tagged with the requester's account.
      *
-     * URL이 있는 사람은 누구나 원래 요청자로서 이미지에 효과적으로 액세스합니다.
+     * Anyone with the URL effectively has access to the image as the original requester.
      *
-     * 프레젠테이션의 공유 설정이 변경되면 이미지에 액세스할 수 없게 됩니다.
+     * If the presentation's sharing settings change, the image will become inaccessible.
      */
     contentUrl?: string | null;
 
     /**
-     * @title 이미지의 속성.
+     * @title Image properties.
      */
     imageProperties: ImageProperties;
 
     /**
-     * @title 소스 URL은 이미지를 삽입하는 데 사용되는 URL입니다.
+     * @title Source URL is the URL used to embed the image.
      *
-     * 소스 URL은 비워 둘 수 있습니다.
+     * The source URL can be left blank.
      */
     sourceUrl?: string | null;
 
     /**
-     * @title 레이아웃과 마스터의 해당 자리표시자에서 상속되는 페이지 요소.
+     * @title The page element that inherits from the corresponding placeholder in the layout and master.
      *
-     * 설정된 경우 이미지는 자리표시자 이미지입니다.
+     * If set, the image is the placeholder image.
      *
-     * 상속된 모든 속성은 Placeholder.parent_object_id 필드로 식별된 상위 자리표시자를 확인하여 확인할 수 있습니다.
+     * All inherited properties can be checked by checking the parent placeholder identified by the Placeholder.parent_object_id field.
      */
     placeholder?: Placeholder;
   }
 
   /**
-   * @title 이미지의 속성.
+   * @title Image properties.
    */
   export interface ImageProperties {
     /**
-     * @title 이미지의 자르기 속성입니다.
+     * @title The cropping property of the image.
      *
-     * 설정하지 않으면 이미지가 잘리지 않습니다.
+     * If not set, the image will not be cropped.
      */
     readonly cropProperties?: CropProperties;
 
     /**
-     * @title 이미지의 투명도 효과입니다.
+     * @title The transparency effect of the image.
      *
-     * 여기서 0은 효과 없음, 1은 완전히 투명함을 의미합니다.
+     * Here, 0 means no effect, 1 means completely transparent.
      */
     readonly transparency?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title 이미지의 밝기 효과입니다.
+     * @title The brightness effect of the image.
      *
-     * 0은 효과가 없음을 의미합니다.
+     * 0 means no effect.
      */
     readonly brightness?: (number & tags.Minimum<-1> & tags.Maximum<1>) | null;
 
     /**
-     * @title 이미지의 대비 효과.
+     * @title Contrast effect of the image.
      */
     readonly contrast?: (number & tags.Minimum<-1> & tags.Maximum<1>) | null;
 
     /**
-     * @title 이미지의 윤곽선.
+     * @title The outline of the image.
      *
-     * 설정하지 않으면 이미지에 윤곽선이 없다.
+     * If not set, the image will have no outline.
      */
     readonly recolor?: Recolor;
 
     /**
-     * @title 이미지의 윤곽선.
+     * @title The outline of the image.
      *
-     * 설정하지 않으면 이미지에 그림자가 없다.
+     * If not set, the image will have no shadow.
      */
     readonly outline?: Outline;
 
     /**
-     * @title 이미지의 그림자입니다.
+     * @title This is the shadow of the image.
      */
     readonly shadow?: Shadow;
 
     /**
-     * @title 이미지의 하이퍼 링크 대상.
+     * @title Hyperlink target of the image.
      *
-     * 설정하지 않으면 링크가 표시되지 않는다.
+     * If not set, the link will not be displayed.
      */
     link?: Link;
   }
 
   export interface CropProperties {
     /**
-     * 오프셋은 객체의 원래 너비를 기준으로 원본 경계 직사각형의 왼쪽 가장자리에 있는 자르기 사각형의 왼쪽 가장자리를 지정합니다.
+     * The offset specifies the left edge of the crop rectangle relative to the left edge of the original bounding rectangle, relative to the original width of the object.
      */
     leftOffset?: number | null;
 
     /**
-     * 오프셋은 객체의 원래 너비를 기준으로 원본 경계 직사각형의 오른쪽 가장자리 왼쪽에 있는 자르기 사각형의 오른쪽 가장자리를 지정합니다.
+     * The offset specifies the right edge of the crop rectangle to the left of the right edge of the original bounding rectangle, relative to the original width of the object.
      */
     rightOffset?: number | null;
 
     /**
-     * 오프셋은 객체의 원래 높이를 기준으로 원래 경계 직사각형의 상단 가장자리 아래에 있는 자르기 사각형의 상단 가장자리를 지정합니다.
+     * The offset specifies the top edge of the clipping rectangle below the top edge of the original bounding rectangle, relative to the object's original height.
      */
     topOffset?: number | null;
 
     /**
-     * 오프셋은 객체의 원래 높이를 기준으로 원래의 경계 직사각형 하단 가장자리 위에 위치한 자르기 사각형의 하단 가장자리를 지정합니다.
+     * The offset specifies where the bottom edge of the crop rectangle is positioned above the bottom edge of the original bounding rectangle, relative to the object's original height.
      */
     bottomOffset?: number | null;
 
     /**
-     * 중앙을 기준으로 자르기 창의 회전 각도(라디안)입니다. 회전 각도는 오프셋 후에 적용됩니다.
+     * The rotation angle (in radians) of the crop window relative to the center. The rotation angle is applied after the offset.
      */
     angle?: number | null;
   }
 
   /**
-   * @title 색상 재지정.
+   * @title Color Reset.
    *
-   * 이미지에 적용된 색상 재지정 효과.
+   * Color reset effect applied to the image.
    */
   export interface Recolor {
     /**
-     * @title 재색상 효과
+     * @title Recolor effect
      *
-     * 색상 중지 목록인 그라데이션으로 표현된다.
+     * Represented as a gradient, a list of color stops.
      */
     recolorStops?: ColorStop[];
 
     /**
-     * @title 색상 변경 효과의 이름.
+     * @title The name of the color change effect.
      */
     readonly name?: Name | null;
   }
 
   /**
-   * @title 색상 효과 이름.
+   * @title Color effect name.
    */
   export type Name =
     | tags.Constant<
@@ -3067,14 +3065,14 @@ export namespace IGoogleSlides {
 
   export interface ColorStop {
     /**
-     * @title 그라데이션 색상의 색상.
+     * @title Color of gradient color.
      */
     color?: OpaqueColor;
 
     /**
-     * @title 그래디언트 밴드에서 이 색상의 알파 값입니다.
+     * @title The alpha value of this color in the gradient band.
      *
-     * 기본값은 1.0이며 완전 불투명입니다.
+     * The default is 1.0, which is fully opaque.
      */
     alpha?:
       | (number &
@@ -3085,7 +3083,7 @@ export namespace IGoogleSlides {
       | null;
 
     /**
-     * 백분율로 측정된 그래디언트 밴드 내 색상 중지 지점의 상대 위치입니다. 이 값은 [0.0, 1.0] 간격으로 입력해야 합니다.
+     * The relative position of the color stop within the gradient band, measured as a percentage. This value must be entered in the interval [0.0, 1.0].
      */
     position?: number | null;
   }
@@ -3093,21 +3091,21 @@ export namespace IGoogleSlides {
   // export interface Video {}
 
   /**
-   * @title 커넥터가 아닌 선, 직선 커넥터, 구부러진 커넥터, 구부러진 커넥터 등을 나타내는 PageElement 종류입니다.
+   * @title A type of PageElement that represents non-connector lines, straight connectors, bent connectors, bent connectors, etc.
    */
   export interface Line {
     /**
-     * @title 선의 속성입니다.
+     * @title is a line property.
      */
     lineProperties?: LineProperties;
 
     /**
-     * @title 선의 유형.
+     * @title Type of line.
      */
     lineType?: LineType | null;
 
     /**
-     * @title 선의 카테고리.
+     * @title Category of good.
      */
     lineCategory?: LineCategory | null;
   }
@@ -3195,58 +3193,58 @@ export namespace IGoogleSlides {
 
   export interface LineProperties {
     /**
-     * @title 선의 채우기
+     * @title Filling the line
      */
     lineFill?: LineFill;
 
     /**
-     * @title 선의 두께
+     * @title Line thickness
      */
     weight?: Dimension;
 
     /**
-     * @title 선의 파선 스타일
+     * @title dashed line style
      */
     dashStyle?: DashStyle | null;
 
     /**
-     * @title 선의 시작 부분에 있는 화살표 스타일
+     * @title Arrow style at the beginning of the line
      */
     startArrow?: ArrowStyle | null;
 
     /**
-     * @title 선의 끝에 있는 화살표 스타일
+     * @title Arrow style at the end of the line
      */
     endArrow?: ArrowStyle | null;
 
     /**
-     * @title 선의 하이퍼 링크 대상.
+     * @title The hyperlink target of the line.
      */
     link?: Link;
 
     /**
-     * @title 줄의 시작 부분에 있는 연결.
+     * @title A connection at the beginning of a line.
      *
-     * 커넥터 타입에만 존재.
+     * Only exists for connector types.
      */
     startConnection?: LineConnection;
 
     /**
-     * @title 줄의 끝 부분에 있는 연결.
+     * @title A connection at the end of a line.
      *
-     * 커넥터 타입에만 존재.
+     * Only present in connector type.
      */
     endConnection?: LineConnection;
   }
 
   export interface LineConnection {
     /**
-     * @title 연결된 페이지 요소의 객체 ID입니다.
+     * @title The object ID of the linked page element.
      */
     connectedObjectId?: string | null;
 
     /**
-     * @title 연결된 페이지 요소에 있는 연결 사이트의 색인입니다.
+     * @title The index of the linked site in the linked page element.
      */
     connectionSiteIndex?: (number & tags.Type<"int64">) | null;
   }
@@ -3327,9 +3325,9 @@ export namespace IGoogleSlides {
 
   export interface LineFill {
     /**
-     * @title 단색 채우기.
+     * @title Solid Fill.
      *
-     * 기본 선 채우기는 Slides 편집기에서 만든 새 줄의 기본값과 일치합니다.
+     * The default line fill matches the default for new lines created in the Slides editor.
      */
     solidFill?: SolidFill;
   }
@@ -3339,41 +3337,41 @@ export namespace IGoogleSlides {
   // export interface WordArt {}
 
   /**
-   * @title 페이지 요소의 변환.
+   * @title Transformation of the page element.
    */
   export interface Transform {
     /**
-     * @title X 좌표 배율 요소.
+     * @title X-coordinate scale factor.
      */
     scaleX?: number | null;
 
     /**
-     * @title Y 좌표 배율 요소.
+     * @title Y coordinate scale factor.
      */
     scaleY?: number | null;
 
     /**
-     * @title X 좌표 기울기 요소.
+     * @title X-coordinate slope component.
      */
     shearX?: number | null;
 
     /**
-     * @title Y 좌표 기울기 요소.
+     * @title Y coordinate slope component.
      */
     shearY?: number | null;
 
     /**
-     * @title X 좌표 변환 요소.
+     * @title X coordinate transformation element.
      */
     translateX?: number | null;
 
     /**
-     * @title Y 좌표 변환 요소.
+     * @title Y coordinate transformation factor.
      */
     translateY?: number | null;
 
     /**
-     * @title 변환 요소의 단위.
+     * @title Units of conversion factor.
      */
     unit?: Unit | null;
   }

@@ -1,46 +1,47 @@
 import { tags } from "typia";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 
 /**
- * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
- * writer: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.
- * commenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.
- * reader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.
+ * owner: Grants owner permission. Users with this permission can delete files or folders, or grant permission to other users.
+ * writer: Grants write permission. Users with this permission can modify or delete files.
+ * commenter: Grants comment permission. Users with this permission can read files and post comments.
+ * reader: Grants read permission. Users with this permission can read files.
  *
- * @title 권한의 종류.
+ * @title Type of permission.
  */
 type PermissionRoles = "owner" | "writer" | "commenter" | "reader";
 
 /**
- * @title 권한 정보
+ * @title Permissions Information
  */
 interface IPermission {
   /**
-   * 권한을 부여할 사용자의 이메일입니다.
+   * The email address of the user to grant permission to.
    *
-   * @title 권한을 부여할 사용자의 이메일.
+   * @title The email address of the user to grant permission to.
    */
   email: string & tags.Format<"email">;
 
   /**
-   * 부여할 권한의 종류입니다.
+   * The type of permission to grant.
    *
-   * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
-   * writer: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.
-   * commenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.
-   * reader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.
+   * owner: Grants owner permission. Users with this permission can delete files or folders, or grant permission to other users.
+   * writer: Grants write permission. Users with this permission can modify or delete files.
+   * commenter: Grants comment permission. Users with this permission can read files and post comments.
+   * reader: Grants read permission. Users with this permission can read files.
    *
-   * 가능한 값으로는 "owner", "writer", "commenter", "reader" 4가지만 가능합니다.
+   * There are only four possible values: "owner", "writer", "commenter", and "reader".
    *
-   * @title 부여할 권한.
+   * @title The permission to grant.
    */
   role: PermissionRoles;
 }
 
 export namespace IGoogleSheet {
   /**
-   * @title 구글 시트 읽기에 필요한 정보
+   * @title Information needed to read Google Sheets
    */
   export interface IReadGoogleSheetInput
     extends ICommon.ISecret<
@@ -51,22 +52,22 @@ export namespace IGoogleSheet {
       ]
     > {
     /**
-     * 읽어올 구글 시트의 ID입니다.
+     * The ID of the Google Sheet to read.
      *
-     * @title 구글 시트 ID.
+     * @title Google Sheet ID.
      */
     sheet_id: string;
 
     /**
-     * 읽어올 구글 시트의 범위입니다.
+     * The range of Google Sheets to read.
      *
-     * @title 읽어올 범위.
+     * @title Range to read.
      */
     range: string;
   }
 
   /**
-   * @title 구글 시트 헤더 읽기에 필요한 정보
+   * @title Information needed to read Google Sheet header
    */
   export interface IReadGoogleSheetHeadersInput
     extends ICommon.ISecret<
@@ -77,34 +78,34 @@ export namespace IGoogleSheet {
       ]
     > {
     /**
-     * 헤더 정보를 읽어올 시트의 url 주소입니다.
+     * The url address of the sheet from which to read the header information.
      *
-     * @title 시트 url.
+     * @title sheet url.
      */
     url: string;
 
     /**
-     * 읽어올 시트의 헤더 index입니다.
+     * The header index of the sheet to read.
      *
-     * @title 시트 헤더 index.
+     * @title Sheet header index.
      */
     index?: number;
   }
 
   /**
-   * @title 구글 시트 읽기 결과
+   * @title Google Sheet Reading Results
    */
   export interface IReadGoogleSheetOutput {
     /**
-     * 읽어온 시트의 데이터입니다.
+     * This is the data from the read sheet.
      *
-     * @title 시트 데이터.
+     * @title Sheet data.
      */
     data: any;
   }
 
   /**
-   * @title 구글 시트 권한 부여에 필요한 정보
+   * @title Information required to grant Google Sheets permissions
    */
   export interface IPermissionInput
     extends ICommon.ISecret<
@@ -115,22 +116,22 @@ export namespace IGoogleSheet {
       ]
     > {
     /**
-     * 권한을 부여할 시트의 url 입니다.
+     * The url of the sheet to grant permission to.
      *
-     * @title 시트 url.
+     * @title sheet url.
      */
     url: string & tags.Format<"uri">;
 
     /**
-     * 접근 가능하게 할 이메일과 부여할 권한 리스트 입니다.
+     * Here is a list of emails to make accessible and permissions to grant.
      *
-     * @title 접근 가능하게 할 이메일과 부여할 권한 리스트.
+     * @title Here is a list of emails to make accessible and permissions to grant.
      */
     permissions: IPermission[];
   }
 
   /**
-   * @title 구글 시트 헤더 추가에 필요한 정보
+   * @title Information needed to add a Google Sheet header
    */
   export interface IWriteGoogleSheetHeadersInput
     extends ICommon.ISecret<
@@ -141,62 +142,62 @@ export namespace IGoogleSheet {
       ]
     > {
     /**
-     * 헤더를 추가할 시트의 url 입니다.
+     * The url of the sheet to which you want to add the header.
      *
-     * @title 시트 url.
+     * @title sheet url.
      */
     url: string;
 
     /**
-     * 추가할 헤더의 index 입니다.
+     * The index of the header to add.
      *
-     * @title 시트 index.
+     * @title sheet index.
      */
     index?: number;
 
     /**
-     * 시트에 추가할 헤더 리스트 입니다.
+     * A list of headers to add to the sheet.
      *
-     * @title 시트에 추가할 헤더 리스트.
+     * @title A list of headers to add to the sheet.
      */
     headerNames: string[];
   }
 
   /**
-   * @title 구글 시트 행 추가에 필요한 정보
+   * @title Information needed to add rows in Google Sheets
    */
   export interface IWriteGoogleSheetRowsInput {
     /**
-     * 행을 추가할 시트의 url 입니다.
+     * The url of the sheet to which you want to add rows.
      *
-     * @title 시트 url.
+     * @title sheet url.
      */
     url: string;
 
     /**
-     * 추가할 행의 index 입니다.
+     * The index of the row to add.
      *
-     * @title 시트 index.
+     * @title sheet index.
      */
     index?: number;
 
     /**
-     * 어떤 값을 기준으로 행을 추가할 지에 대한 정보입니다.
+     * Information about what value to add rows based on.
      *
-     * @title 어떤 값을 기준으로 할 지에 대한 정보.
+     * @title Information about what value to add rows based on.
      */
     from: string[];
 
     /**
-     * 추가해야할 row에 대한 헤더 정보입니다.
+     * Header information for the row to be added.
      *
-     * @title 추가해야할 row에 대한 헤더 정보.
+     * @title Header information for the row to be added.
      */
     to: string[];
   }
 
   /**
-   * @title 워크시트 조회에 필요한 정보
+   * @title Information required to view worksheets
    */
   export interface IGetWorkSheetInput
     extends ICommon.ISecret<
@@ -207,27 +208,27 @@ export namespace IGoogleSheet {
       ]
     > {
     /**
-     * 읽어올 시트의 url 입니다.
+     * The url of the sheet to read.
      *
-     * @title 시트 url.
+     * @title sheet url.
      */
     url: string;
   }
 
   /**
-   * @title 워크시트 조회 결과
+   * @title Worksheet query results
    */
   export interface IGetWorkSheetOutput {
     /**
-     * 읽어온 시트의 제목 리스트 입니다.
+     * Here is a list of titles for the sheets you've read.
      *
-     * @title 워크시트 제목 리스트.
+     * @title List of worksheet titles.
      */
     data: string[];
   }
 
   /**
-   * @title 구글 시트 행 읽기에 필요한 정보
+   * @title Information needed to read Google Sheet rows
    */
   export interface IReadGoogleSheetRowsInput
     extends ICommon.ISecret<
@@ -238,41 +239,119 @@ export namespace IGoogleSheet {
       ]
     > {
     /**
-     * 행을 읽어올 시트의 url 입니다.
+     * The url of the sheet from which to read the rows.
      *
-     * @title 시트 url.
+     * @title sheet url.
      */
     url: string;
 
     /**
-     * 작업할 시트의 제목입니다.
+     * The title of the sheet to work on.
      *
-     * @title 작업할 시트 제목.
+     * @title The title of the sheet to work on.
      */
     workSheetTitle: string;
   }
 
   /**
-   * @title 구글 시트 행 데이터 정보
+   * @title Google Sheets Row Data Information
    */
   interface IReadGoogleSheetRowData {
     /**
-     * key가 헤더 이름이고 value가 해당 행의 값인 객체.
+     * An object where the key is the header name and the value is the value of the corresponding row.
      *
-     * @title 읽어온 구글 시트 행 데이터.
+     * @title The read Google Sheet row data.
      */
     [key: string]: any;
   }
 
   /**
-   * @title 구글 시트 행 읽기 결과
+   * @title Google Sheets Row Reading Results
    */
   export interface IReadGoogleSheetRowsOutput {
     /**
-     * 읽어온 구글 시트 행 데이터입니다.
+     * This is the read Google Sheet row data.
      *
-     * @title 읽어온 구글 시트 행 데이터.
+     * @title Read Google Sheet row data.
      */
     data: IReadGoogleSheetRowData[];
+  }
+
+  /**
+   * @title Information needed to create a Google Spreadsheet
+   */
+  export interface ICreateGoogleSheetInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
+    /**
+     * Please enter a title for the Google Spreadsheet you want to create.
+     *
+     * @title Sheet Title
+     */
+    title: string;
+  }
+
+  /**
+   * @title Google Spreadsheet Creation Results
+   */
+  export interface ICreateGoogleSheetOutput {
+    /**
+     * The ID of the generated Google Spreadsheet.
+     *
+     * @title Sheet ID
+     */
+    spreadsheetId: string;
+
+    /**
+     * The URL of the generated Google Spreadsheet.
+     *
+     * @title Sheet URL
+     */
+    spreadsheetUrl: string;
+  }
+
+  export interface IAppendToSheetInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive",
+      ]
+    > {
+    /**
+     * This is the sheet to which you want to add content.
+     *
+     * @title The sheet to add
+     */
+    spreadSheetId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-sheet/create";
+        jmesPath: JMESPath<
+          ICreateGoogleSheetOutput,
+          "[].{value:spreadsheetId, label:spreadsheetUrl}"
+        >;
+      }>;
+
+    /**
+     * This is the range to add.
+     *
+     * Please enter in A1 notation format.
+     *
+     * @title Range to add
+     */
+    range: string;
+
+    /**
+     * These are the values to add.
+     *
+     * @title These are the values to add
+     */
+    values: any[][];
   }
 }

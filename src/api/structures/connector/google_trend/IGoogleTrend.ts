@@ -15,6 +15,7 @@ export namespace IGoogleTrend {
      * 데일리 트렌드를 조회할 날짜 입니다.
      *
      * 입력되지 않으면 오늘 날짜를 기준으로 조회합니다.
+     * year-month-day 형식의 date 타입 문자열을 제공해주어야 한다.
      *
      * @title 날짜
      */

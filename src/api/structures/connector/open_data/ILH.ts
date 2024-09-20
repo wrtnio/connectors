@@ -5,12 +5,32 @@ import { IOpenData } from "./IOpenData";
 
 export namespace ILH {
   /**
-   * @title LH 임대주택 조회 조건
+   * @title LH rental housing search conditions
    */
   export interface IGetLHLeaseInfoInput
     extends IOpenData.ICommon.IPaginationInput {
     /**
-     * @title 지역 코드
+     * @title Area Code
+     *
+     * It can be one of these numbers:
+     * - 11: Seoul
+     * - 26: Busan
+     * - 27: Daegu
+     * - 28: Incheon
+     * - 29: Gwangju
+     * - 30: Daejeon
+     * - 31: Ulsan
+     * - 36110: Sejong
+     * - 41: Gyeonggi
+     * - 42: Gangwon
+     * - 43: Chungcheongbuk
+     * - 44: Chungcheongnam
+     * - 45: Jeollabuk
+     * - 46: Jeollanam
+     * - 47: Gyeongsangbuk
+     * - 48: Gyeongsangnam
+     * - 50: Jeju
+     *
      */
     CNP_CD:
       | tags.Constant<11, { title: "서울특별시" }>
@@ -32,7 +52,16 @@ export namespace ILH {
       | tags.Constant<50, { title: "제주특별자치도" }>;
 
     /**
-     * @title 공급유형코드
+     * @title Supply Type Code
+     *
+     * It can be one of these numbers:
+     * - 07: National Rental
+     * - 08: Public Rental
+     * - 09: Permanent Rental
+     * - 10: Happy Housing
+     * - 11: Long-term Lease
+     * - 13: Purchase Lease
+     * - 17: Lease Lease
      */
     SPL_TP_CD?:
       | tags.Constant<"07", { title: "국민임대" }>
@@ -45,67 +74,67 @@ export namespace ILH {
   }
 
   /**
-   * @title LH 임대주택 조회 응답
+   * @title LH rental housing inquiry response
    */
   export interface IGetLHLeaseInfoOutput {
     /**
-     * @title 다음 페이지 유무
+     * @title Next page availability
      */
     nextPage: boolean;
 
     data: {
       /**
-       * @title 총세대수
+       * @title Total number of households
        */
       SUM_HSH_CNT: string & Placeholder<"873">;
 
       /**
-       * @title 월임대료(원)
+       * @title Monthly rent (won)
        */
       RFE: string & Placeholder<"373500">;
 
       /**
-       * @title 순번
+       * @title order
        */
       RNUM: string & Placeholder<"1">;
 
       /**
-       * @title 세대수
+       * @title Number of generations
        */
       HSH_CNT: string & Placeholder<"72">;
 
       /**
-       * @title 지역명
+       * @title Region name
        */
       ARA_NM: string & Placeholder<"서울특별시 강남구">;
 
       /**
-       * @title 임대보증금
+       * @title Rental Deposit
        */
       LS_GMY: string & Placeholder<"45003000">;
 
       /**
-       * @title 공급유형명
+       * @title Supply type name
        */
       AIS_TP_CD_NM: string & Placeholder<"국민임대">;
 
       /**
-       * @title 단지명
+       * @title Name of the unit
        */
       SBD_LGO_NM: string & Placeholder<"서울강남 3블록">;
 
       /**
-       * @title 전체건수
+       * @title Total number
        */
       ALL_CNT: string & Placeholder<"157">;
 
       /**
-       * @title 전용면적
+       * @title Exclusive area
        */
       DDO_AR: string & Placeholder<"46.71">;
 
       /**
-       * @title 최초입주년월
+       * @title First year of residency
        */
       MVIN_XPC_YM: string & Placeholder<"201311">;
     }[];

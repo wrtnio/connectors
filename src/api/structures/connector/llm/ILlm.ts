@@ -1,31 +1,31 @@
 export interface ISelectorLlmRequest {
   /**
-   * 선택 후보군 리스트입니다.
+   * Here is a list of candidates for selection.
    *
-   * @title 선택지.
+   * @title Choices.
    */
   candidates: any[];
 
   /**
-   * 선택할 후보군의 개수입니다.
+   * The number of candidates to select.
    *
-   * @title 선택 개수.
+   * @title Number of selections.
    */
   num_select: number;
 
   /**
-   * 후보군을 선택할 때 고려해야할 내용들을 넣습니다.
+   * Here are some things to consider when choosing a candidate.
    *
-   * @title 고려사항.
+   * @title Considerations.
    */
   context: any;
 }
 
 export interface ISelectorLlmResponse {
   /**
-   * 선택된 후보들의 인덱스 리스트입니다.
+   * Here is a list of indexes for the selected candidates.
    *
-   * @title 선택된 후보 인덱스 정보.
+   * @title Selected candidate index information.
    */
   selection: number[];
 }

@@ -4,6 +4,8 @@ import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISe
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 export namespace KakaoTalkProvider {
   export async function getFriends(
@@ -27,9 +29,9 @@ export namespace KakaoTalkProvider {
       });
 
       return { ...res.data, elements: res.data.elements ?? [] }; // elements는 비어 있을 때 빈 Array로 나오지 않고 undefined로 나온다.
-    } catch (err) {
-      console.log("err", err);
-      throw err;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -88,9 +90,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.log("err", err);
-      throw err;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -113,9 +115,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.log("err", err);
-      throw err;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
     }
   }
 
@@ -123,12 +125,19 @@ export namespace KakaoTalkProvider {
     input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
     try {
+      const secret = await OAuthSecretProvider.getSecretValue(
+        input.refresh_token,
+      );
+      const token =
+        typeof secret === "string"
+          ? secret
+          : (secret as IOAuthSecret.ISecretValue).value;
       const res = await axios.post(
         "https://kauth.kakao.com/oauth/token",
         {
           grant_type: "refresh_token",
           client_id: ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID,
-          refresh_token: input.refresh_token,
+          refresh_token: token,
           client_secret: ConnectorGlobal.env.KAKAO_TALK_CLIENT_SECRET,
         },
         {
@@ -139,9 +148,9 @@ export namespace KakaoTalkProvider {
       );
 
       return res.data;
-    } catch (err) {
-      console.log("err", err);
-      throw err;
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
     }
   }
 

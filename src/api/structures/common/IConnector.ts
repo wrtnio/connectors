@@ -4,150 +4,150 @@ import { MyPartial } from "../../../utils/types/MyPartial";
 
 export namespace IConnector {
   /**
-   * @title 검색 결과
+   * @title Search Results
    */
   export interface ISearchOutput {
     /**
-     * 검색 결과에 대한 산출물 정보를 담고 있습니다.
+     * Contains output information for search results.
      *
-     * @title 산출물 정보
+     * @title Output Information
      */
     references: IReferenceContent[];
   }
 
   export interface IReferenceContent {
     /**
-     * 산출물의 제목입니다.
+     * The title of the output.
      *
-     * @title 제목
+     * @title Title
      */
     title: string;
 
     /**
-     * 비디오, 이미지, 뉴스기사, 논문..
+     * Video, image, news article, research paper.
      *
-     * 가능한 값: video, image, news_article, research_paper
+     * It must be one of: video, image, news_article, research_paper
      *
-     * @title 산출물 타입
+     * @title Output Type
      */
     type: ReferenceType;
 
     /**
-     * 유튜브, 페이스북, 인스타그램, 구글 검색, arxiv, 구글 뉴스
+     * youtube, facebook, instagram, google_search, arxiv, google_news
      *
-     * 가능한 값: youtube, facebook, instagram, google_search, arxiv, google_news
+     * It must be one of: youtube, facebook, instagram, google_search, arxiv, google_news
      *
-     * @title 산출물의 출처
+     * @title Source of output
      */
     source: ContentProvider;
 
     /**
-     * 산출물의 URL 주소입니다.
+     * The URL address of the output.
      *
-     * @title URL 주소
+     * @title URL address
      */
     url: string & tags.Format<"uri">;
 
     /**
-     * 산출물의 내용입니다.
+     * Here is the content of the output.
      *
-     * @title 산출물 내용
+     * @title Output Content
      */
     contents?: string;
 
     /**
-     * 산출물의 이미지 URL 주소입니다.
+     * The URL address of the image of the output.
      *
-     * @title 산출물 이미지 url
+     * @title Output Image URL
      */
     image?: string & tags.Format<"uri">;
 
     /**
-     * 산출물의 통계 자료 정보입니다.
+     * Output statistics information.
      *
-     * 가능한 값: view_count, like_count, rank
+     * Possible values: view_count, like_count, rank
      *
-     * @title 산출물 통계 자료 정보
+     * @title Output statistics information
      */
     statistics?: MyPartial<Record<MetricType, number & tags.Type<"int32">>>;
   }
 
   /**
-   * 비디오, 이미지, 뉴스기사, 논문..
+   * Videos, images, news articles, papers.
    *
-   * @title Connector 산출물 타입
+   * @title Connector Output Type
    */
   export type ReferenceType =
-    | "video"
-    | "image"
-    | "news_article"
-    | "research_paper";
+    | tags.Constant<"video", { title: "video" }>
+    | tags.Constant<"image", { title: "image" }>
+    | tags.Constant<"news_article", { title: "news_article" }>
+    | tags.Constant<"research_paper", { title: "research_paper" }>;
 
   /**
-   * 산출물의 출처입니다.
+   * The source of the output.
    *
-   * @title Connector 산출물 출처
+   * @title Connector Output Source
    */
   export type ContentProvider =
-    | "youtube"
-    | "facebook"
-    | "instagram"
-    | "google_search"
-    | "arxiv"
-    | "google_news";
+    | tags.Constant<"youtube", { title: "youtube" }>
+    | tags.Constant<"facebook", { title: "facebook" }>
+    | tags.Constant<"instagram", { title: "instagram" }>
+    | tags.Constant<"google_search", { title: "google_search" }>
+    | tags.Constant<"arxiv", { title: "arxiv" }>
+    | tags.Constant<"google_news", { title: "google_news" }>;
 
   /**
-   * 조회수, 좋아요 수, 랭킹
+   * Views, Likes, Ranking
    *
-   * @title 통계 자료 타입
+   * @title Statistics Data Type
    */
   export type MetricType = "view_count" | "like_count" | "rank";
 
   /**
-   * 검색 조건을 입력합니다.
+   * Enter your search criteria.
    *
-   * @title 검색 조건
+   * @title Search criteria
    */
   export interface ISearchInput {
     /**
-     * 몇 개의 검색 결과를 가져올지 설정합니다.
+     * Sets how many search results to retrieve.
      *
-     * @title 검색 결과 개수
+     * @title Number of search results
      */
     num_results?: number & tags.Type<"uint32"> & Placeholder<"10">;
 
     /**
-     * 검색 결과 시작 날짜를 설정합니다.
+     * Set the start date for search results.
      *
-     * @title 검색 결과 시작 날짜
+     * @title Start date for search results
      */
     from_date?: string & tags.Format<"date">;
 
     /**
-     * 검색 결과 종료 날짜를 설정합니다.
+     * Set the end date for the search results.
      *
-     * @title 검색 결과 종료 날짜
+     * @title End date for the search results
      */
     to_date?: string & tags.Format<"date">;
 
     /**
-     * 검색 결과에 포함되어야 하는 키워드입니다.
+     * Keywords that must be included in search results.
      *
-     * @title 반드시 포함되어야 하는 키워드
+     * @title Must be included keywords
      */
     and_keywords: Array<string & Placeholder<"biology">>;
 
     /**
-     * 검색 결과에 포함되면 좋겠는 키워드입니다.
+     * Keywords that you would like to see included in your search results.
      *
-     * @title 포함되면 좋겠는 키워드
+     * @title Keywords that you would like to see included
      */
     or_keywords?: Array<string & Placeholder<"ecosystem">>;
 
     /**
-     * 검색 결과에 포함되면 안되는 키워드입니다.
+     * Keywords that should not be included in search results.
      *
-     * @title 포함되면 안되는 키워드
+     * @title Keywords that should not be included
      */
     not_keywords?: Array<string & Placeholder<"pollution">>;
   }

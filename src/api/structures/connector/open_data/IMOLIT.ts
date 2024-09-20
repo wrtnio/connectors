@@ -5,12 +5,40 @@ import { StrictOmit } from "../../../../utils/strictOmit";
 import { IOpenData } from "./IOpenData";
 
 /**
- * @title 국토교통부 타입
+ * @title Ministry of Land, Infrastructure and Transport Type
  */
 export namespace IMOLIT {
-  export interface IGetRTMSDataSvcAptRentInput {
+  export interface ICommonPaginationOutput {
     /**
-     * @title 시군구 코드
+     * @title nextPage
+     *
+     * Indicates whether the next page exists
+     */
+    nextPage: boolean;
+  }
+
+  export interface ICommonPaginationInput {
+    /**
+     * @title page
+     */
+    page: number & tags.Type<"uint64">;
+
+    /**
+     * @title limit
+     */
+    limit: number & tags.Type<"uint64"> & tags.Minimum<1> & tags.Maximum<20>;
+  }
+
+  export interface ICommonPaginationOutput {
+    /**
+     * @title nextPage
+     */
+    nextPage: boolean;
+  }
+
+  export interface IGetRTMSDataSvcAptRentInput extends ICommonPaginationInput {
+    /**
+     * @title City/county/district code
      */
     LAWD_CD: string &
       Prerequisite<{
@@ -23,17 +51,18 @@ export namespace IMOLIT {
       }>;
 
     /**
-     * @title 실거래 자료의 계약년월(6자리)
+     * @title Contract year and month of actual transaction data (6 digits)
      */
     DEAL_YMD: string & Placeholder<"202201">;
   }
 
-  export interface IGetRTMSDataSvcAptRentOutput {
+  export interface IGetRTMSDataSvcAptRentOutput
+    extends ICommonPaginationOutput {
     data: BuildingLentInfo[];
   }
 
   export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
-  export interface IgetRTMSDataSvcSHRentOutput {
+  export interface IgetRTMSDataSvcSHRentOutput extends ICommonPaginationOutput {
     data: StrictOmit<
       BuildingLentInfo,
       "apartment" | "exclusiveArea" | "lotNumber" | "floor"
@@ -42,7 +71,8 @@ export namespace IMOLIT {
 
   export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;
 
-  export interface IGetRTMSDataSvcOffiRentOutput {
+  export interface IGetRTMSDataSvcOffiRentOutput
+    extends ICommonPaginationOutput {
     data: StrictOmit<
       BuildingLentInfo,
       "depositAmount" | "monthlyRentAmount" | "apartment" | "yearOfConstruction"
@@ -50,12 +80,12 @@ export namespace IMOLIT {
   }
 
   /**
-   * @title 빌딩 조회 조건
+   * @title Building search conditions
    */
   export interface GetBuildingInfoInput
     extends IOpenData.ICommon.IPaginationInput {
     /**
-     * @title 시군구 코드
+     * @title City/county/district code
      */
     sigunguCd: string &
       Prerequisite<{
@@ -67,7 +97,7 @@ export namespace IMOLIT {
         >;
       }>;
     /**
-     * @title 법정동 코드
+     * @title Beopjeong-dong Code
      */
     bjdongCd: string &
       Prerequisite<{
@@ -81,401 +111,401 @@ export namespace IMOLIT {
   }
 
   /**
-   * @title 빌딩 조회 응답
+   * @title Building Inquiry Response
    */
   export interface GetBuildingInfoOutput
     extends IOpenData.ICommon.IPaginationOutput {
     /**
-     * @title 빌딩 정보 목록
+     * @title Building Information List
      */
     bulidings: Building[];
   }
 
   export interface Building {
     /**
-     * @title 주용도코드명
+     * @title Primary purpose code name
      */
     mainPurpsCdNm?: string;
 
     /**
-     * @title 기타용도
+     * @title Other uses
      */
     etcPurps?: string;
 
     /**
-     * @title 지붕코드
+     * @title roof code
      */
     roofCd?: number | `${number}` | string;
 
     /**
-     * @title 지붕코드명
+     * @title Roof code name
      */
     roofCdNm?: string;
 
     /**
-     * @title 기타지붕
+     * @title Guitar Roof
      */
     etcRoof?: string;
 
     /**
-     * @title 세대수(세대)
+     * @title Number of generations (generation)
      */
     hhldCnt?: number;
 
     /**
-     * @title 가구수(가구)
+     * @title Number of households (households)
      */
     fmlyCnt?: number;
 
     /**
-     * @title 높이(m)
+     * @title Height (m)
      */
     heit?: number;
 
     /**
-     * @title 지상층수
+     * @title Number of floors above ground
      */
     grndFlrCnt?: number;
 
     /**
-     * @title 지하층수
+     * @title Basement floor
      */
     ugrndFlrCnt?: number;
 
     /**
-     * @title 승용승강기수
+     * @title Elevator driver
      */
     rideUseElvtCnt?: number;
 
     /**
-     * @title 비상용승강기수
+     * @title Emergency Elevator
      */
     emgenUseElvtCnt?: number;
 
     /**
-     * @title 부속건축물수
+     * @title Number of auxiliary buildings
      */
     atchBldCnt?: number;
 
     /**
-     * @title 부속건축물면적(㎡)
+     * @title Area of attached building (㎡)
      */
     atchBldArea?: number;
 
     /**
-     * @title 총동연면적(㎡)
+     * @title Total floor area (㎡)
      */
     totDongTotArea?: number;
 
     /**
-     * @title 옥내기계식대수(대)
+     * @title Indoor machine counter (large)
      */
     indrMechUtcnt?: number;
 
     /**
-     * @title 옥내기계식면적(㎡)
+     * @title Indoor mechanical area (㎡)
      */
     indrMechArea?: number;
 
     /**
-     * @title 옥외기계식대수(대)
+     * @title Outdoor mechanical counter (large)
      */
     oudrMechUtcnt?: number;
 
     /**
-     * @title 옥외기계식면적(㎡)
+     * @title Outdoor mechanical area (㎡)
      */
     oudrMechArea?: number;
 
     /**
-     * @title 옥내자주식대수(대)
+     * @title Indoor self-sufficient stock (large)
      */
     indrAutoUtcnt?: number;
 
     /**
-     * @title 옥내자주식면적(㎡)
+     * @title Indoor self-sufficient area (㎡)
      */
     indrAutoArea?: number;
 
     /**
-     * @title 옥외자주식대수(대)
+     * @title Outdoor self-propelled vehicle (large)
      */
     oudrAutoUtcnt?: number;
 
     /**
-     * @title 옥외자주식면적(㎡)
+     * @title Outdoor self-contained area (㎡)
      */
     oudrAutoArea?: number;
 
     /**
-     * @title 허가일
+     * @title Permission Date
      */
     pmsDay?: string | `${number}` | number;
 
     /**
-     * @title 착공일
+     * @title Start date
      */
     stcnsDay?: string | `${number}` | number;
 
     /**
-     * @title 사용승인일
+     * @title Date of approval for use
      */
     useAprDay?: string | `${number}` | number;
 
     /**
-     * @title 허가번호년
+     * @title License number year
      */
     pmsnoYear?: string | `${number}` | number;
 
     /**
-     * @title 허가번호기관코드
+     * @title License Number Agency Code
      */
     pmsnoKikCd?: number | `${number}` | string;
 
     /**
-     * @title 허가번호기관코드명
+     * @title License Number Agency Code Name
      */
     pmsnoKikCdNm?: string;
 
     /**
-     * @title 허가번호구분코드
+     * @title Permit number classification code
      */
     pmsnoGbCd?: number | `${number}` | string;
 
     /**
-     * @title 허가번호구분코드명
+     * @title Permit number classification code name
      */
     pmsnoGbCdNm?: string;
 
     /**
-     * @title 호수(호)
+     * @title lake
      */
     hoCnt?: number;
 
     /**
-     * @title 에너지효율등급
+     * @title Energy Efficiency Rating
      */
     engrGrade?: string;
 
     /**
-     * @title 에너지절감율
+     * @title Energy saving rate
      */
     engrRat?: number;
 
     /**
-     * @title EPI점수
+     * @title EPI score
      */
     engrEpi?: number;
 
     /**
-     * @title 친환경건축물등급
+     * @title Eco-friendly building rating
      */
-    gnBldGrade?: string;
+    gnBldGrade?: string | number;
 
     /**
-     * @title 친환경건축물인증점수
+     * @title Eco-friendly building certification score
      */
     gnBldCert?: number;
 
     /**
-     * @title 지능형건축물등급
+     * @title Intelligent Building Rating
      */
     itgBldGrade?: string;
 
     /**
-     * @title 지능형건축물인증점수
+     * @title Intelligent Building Certification Score
      */
     itgBldCert?: number;
 
     /**
-     * @title 생성일자
+     * @title Creation date
      */
     crtnDay: string | `${number}` | number;
 
     /**
-     * @title 순번
+     * @title order
      */
     rnum?: number;
 
     /**
-     * @title 대지위치
+     * @title Earth location
      */
     platPlc: string;
 
     /**
-     * @title 시군구코드
+     * @title City/county/district code
      */
     sigunguCd: number | `${number}` | string;
 
     /**
-     * @title 법정동코드
+     * @title Beopjeong-dong code
      */
     bjdongCd: number | `${number}` | string;
 
     /**
-     * @title 대지구분코드
+     * @title Earth Classification Code
      */
     platGbCd?: number | `${number}` | string;
 
     /**
-     * @title 번
-     * @description 한국 주소 명칭 중 하나
+     * @title number
+     * @description One of the Korean address names
      */
     bun?: string;
 
     /**
-     * @title 지
-     * @description 한국 주소 명칭 중 하나
+     * @title Ji
+     * @description One of the Korean address names
      */
     ji?: string;
 
     /**
-     * @title 관리건축물대장PK
+     * @title Management Building Register PK
      */
     mgmBldrgstPk: string;
 
     /**
-     * @title 대장구분코드
+     * @title Colon Distinction Code
      */
     regstrGbCd?: number | `${number}` | string;
 
     /**
-     * @title 대장구분코드명
+     * @title Colon division code name
      */
     regstrGbCdNm?: string;
 
     /**
-     * @title 대장종류코드
+     * @title Colon type code
      */
     regstrKindCd?: number | `${number}` | string;
 
     /**
-     * @title 대장종류코드명
+     * @title Colon type code name
      */
     regstrKindCdNm?: string;
 
     /**
-     * @title 도로명대지위치
+     * @title Road name site location
      */
     newPlatPlc?: string;
 
     /**
-     * @title 건물명
+     * @title Building name
      */
     bldNm?: string;
 
     /**
-     * @title 특수지명
+     * @title Special place name
      */
     splotNm?: string;
 
     /**
-     * @title 블록
+     * @title block
      */
     block?: string;
 
     /**
-     * @title 로트
+     * @title lot
      */
     lot?: string;
 
     /**
-     * @title 외필지수
+     * @title External index
      */
     bylotCnt?: number;
 
     /**
-     * @title 새주소도로코드
+     * @title New address road code
      */
     naRoadCd?: number | `${number}` | string;
 
     /**
-     * @title 새주소법정동코드
+     * @title New address law code
      */
     naBjdongCd?: number | `${number}` | string;
 
     /**
-     * @title 새주소지상지하코드
+     * @title New address ground and underground code
      */
     naUgrndCd?: number | `${number}` | string;
 
     /**
-     * @title 새주소본번
+     * @title New address number
      */
     naMainBun?: number;
 
     /**
-     * @title 새주소부번
+     * @title New address number
      */
     naSubBun?: number;
 
     /**
-     * @title 동명칭
+     * @title Same name
      */
     dongNm?: string | number;
 
     /**
-     * @title 주부속구분코드
+     * @title Main/Subordinate Classification Code
      */
     mainAtchGbCd?: number | `${number}` | string;
 
     /**
-     * @title 주부속구분코드명
+     * @title Main/Subordinate Code Name
      */
     mainAtchGbCdNm?: string;
 
     /**
-     * @title 대지면적(㎡)
+     * @title Land area (㎡)
      */
     platArea?: number;
 
     /**
-     * @title 건축면적(㎡)
+     * @title Building area (㎡)
      */
     archArea?: number;
 
     /**
-     * @title 건폐율(%)
+     * @title Building coverage ratio (%)
      */
     bcRat?: number;
 
     /**
-     * @title 연면적(㎡)
+     * @title Total floor area (㎡)
      */
     totArea?: number;
 
     /**
-     * @title 용적률산정연면적(㎡)
+     * @title Floor area ratio calculation area (㎡)
      */
     vlRatEstmTotArea?: number;
 
     /**
-     * @title 용적률(%)
+     * @title Volume ratio (%)
      */
     vlRat?: number;
 
     /**
-     * @title 구조코드
+     * @title Structure Code
      */
     strctCd?: number | `${number}` | string;
 
     /**
-     * @title 구조코드명
+     * @title Structure code name
      */
     strctCdNm?: string;
 
     /**
-     * @title 기타구조
+     * @title Other Structures
      */
     etcStrct?: string;
 
     /**
-     * @title 주용도코드
+     * @title Primary Purpose Code
      */
     mainPurpsCd?: number | `${number}` | string;
 
     /**
-     * @title 내진설계적용여부
+     * @title Whether earthquake-resistant design is applied
      */
     rserthqkDsgnApplyYn?:
       | tags.Constant<1, { title: "적용" }>
@@ -483,189 +513,193 @@ export namespace IMOLIT {
       | tags.Constant<" ", { title: "알 수 없음" }>;
 
     /**
-     * @title 내진능력
+     * @title seismic capacity
      */
     rserthqkAblty?: string;
   }
 
   export interface OriginalBuildingLentInfo {
     /**
-     * @title 갱신요구권사용
+     * @title Use of renewal request right
      */
     갱신요구권사용: string;
 
     /**
-     * @title 건축년도
+     * @title Year of construction
      */
     건축년도?: string | `${number}` | number;
 
     /**
-     * @title 계약구분
+     * @title Contract type
      */
     계약구분: string;
 
     /**
-     * @title 계약기간
+     * @title Contract period
      */
     계약기간: string;
 
     /**
-     * @title 년
+     * @title year
      */
     년: string | `${number}` | number;
 
     /**
-     * @title 법정동
+     * @title Beopjeong-dong
      */
     법정동: string;
 
     /**
-     * @title 보증금액
+     * @title Deposit amount
      */
     보증금액: string | number;
 
     /**
-     * @title 아파트
+     * @title Apartment
      */
     아파트: string;
 
     /**
-     * @title 월
+     * @title month
      */
     월:
       | string
       | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
 
     /**
-     * @title 월세금액
+     * @title Monthly rent amount
      */
     월세금액: string | (number & tags.Type<"int32">);
 
     /**
-     * @title 일
+     * @title day
      */
     일:
       | string
       | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
 
     /**
-     * @title 전용면적
+     * @title Exclusive area
      */
     전용면적: string | number;
 
     /**
-     * @title 종전계약보증금
+     * @title Previous contract deposit
      */
     종전계약보증금: string | number;
 
     /**
-     * @title 종전계약월세
+     * @title Previous contract monthly rent
      */
     종전계약월세: string | number;
 
     /**
-     * @title 지번
+     * @title Address
      */
     지번: string | (number & tags.Type<"int32">);
 
     /**
-     * @title 지역코드
+     * @title area code
      */
     지역코드: string | number;
 
     /**
-     * @title 층
+     * @title floor
      */
     층: string | (number & tags.Type<"int32">);
   }
 
   export interface BuildingLentInfo {
     /**
-     * @title 갱신요구권사용
+     * @title Use of renewal request right
      */
     useOfRenewalRight: string;
 
     /**
-     * @title 건축년도
+     * @title Year of construction
      */
     yearOfConstruction?: string | `${number}` | number;
 
     /**
-     * @title 계약구분
+     * @title Contract type
      */
     typeOfContract: string;
 
     /**
-     * @title 계약기간
+     * @title Contract period
      */
     contractPeriod: string;
 
     /**
-     * @title 년
+     * @title year
      */
     year: string | `${number}` | number;
 
     /**
-     * @title 법정동
+     * @title Beopjeong-dong
      */
     legalDistrict: string;
 
     /**
-     * @title 보증금액
+     * @title Deposit amount
+     *
+     * Since it is based on Korean currency, it will be in ten thousand won in most cases.
      */
     depositAmount: string | number;
 
     /**
-     * @title 아파트
+     * @title Apartment
      */
     apartment: string;
 
     /**
-     * @title 월
+     * @title month
      */
     month:
       | string
       | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<12>);
 
     /**
-     * @title 월세금액
+     * @title Monthly rent
+     *
+     * Since it is based on Korean currency, it will be in ten thousand won in most cases.
      */
     monthlyRentAmount: string | (number & tags.Type<"int32">);
 
     /**
-     * @title 일
+     * @title day
      */
     day:
       | string
       | (number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<31>);
 
     /**
-     * @title 전용면적
+     * @title Exclusive area
      */
     exclusiveArea: string | number;
 
     /**
-     * @title 종전계약보증금
+     * @title Previous contract deposit
      */
     previousContractDeposit: string | number;
 
     /**
-     * @title 종전계약월세
+     * @title Previous contract monthly rent
      */
     previousContractMonthlyRent: string | number;
 
     /**
-     * @title 지번
+     * @title Address
      */
     lotNumber: string | (number & tags.Type<"int32">);
 
     /**
-     * @title 지역코드
+     * @title area code
      */
     areaCode: string | number;
 
     /**
-     * @title 층
+     * @title floor
      */
     floor: string | (number & tags.Type<"int32">);
   }

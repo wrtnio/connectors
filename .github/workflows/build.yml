@@ -60,7 +60,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --exclude sweet_tracker korea_exim kakao jira slack github figma discord google_ads google_slides google_calendar google_docs google_drive
+        run: npm run test -- --exclude sweet_tracker korea_exim kakao jira slack github figma discord google_ads google_slides google_calendar google_docs google_drive google_flight open_data_get_address
 
   test-kakao:
     runs-on: ubuntu-latest

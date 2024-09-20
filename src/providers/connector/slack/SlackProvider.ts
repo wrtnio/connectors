@@ -1,8 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
+import { tags } from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { ElementOf } from "../../../utils/types/ElementOf";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class SlackProvider {
@@ -12,6 +15,7 @@ export class SlackProvider {
     try {
       const url = `https://slack.com/api/chat.deleteScheduledMessage`;
       const { secretKey, ...rest } = input;
+      const token = await this.getToken(secretKey);
 
       await axios.post(
         url,
@@ -20,7 +24,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${secretKey}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json; charset=utf-8;",
           },
         },
@@ -38,17 +42,20 @@ export class SlackProvider {
     try {
       const { secretKey, ...rest } = input;
       const queryParameter = createQueryParameter(rest);
+      const token = await this.getToken(secretKey);
+
       const res = await axios.post(
         `${url}?${queryParameter}`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${secretKey}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json; charset=utf-8;",
           },
         },
       );
 
+      const { url: workspaceUrl } = await this.authTest(input);
       const next_cursor = res.data.response_metadata?.next_cursor;
       const scheduled_messages = res.data.scheduled_messages.map(
         (
@@ -82,6 +89,8 @@ export class SlackProvider {
     input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
     const url = `https://slack.com/api/chat.scheduleMessage`;
+    const token = await this.getToken(input.secretKey);
+
     try {
       const res = await axios.post(
         url,
@@ -93,7 +102,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -107,6 +116,8 @@ export class SlackProvider {
 
   async mark(input: ISlack.IMarkInput): Promise<void> {
     const url = `https://slack.com/api/conversations.mark`;
+    const token = await this.getToken(input.secretKey);
+
     try {
       await axios.post(
         url,
@@ -116,7 +127,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -130,6 +141,8 @@ export class SlackProvider {
     input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
+    const token = await this.getToken(input.secretKey);
+
     try {
       const res = await axios.post(
         url,
@@ -140,7 +153,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -159,9 +172,11 @@ export class SlackProvider {
     const queryParameter = createQueryParameter(rest);
 
     const url = `https://slack.com/api/conversations.replies?pretty=1`;
+    const token = await this.getToken(secretKey);
+
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -213,9 +228,10 @@ export class SlackProvider {
     const queryParameter = createQueryParameter(rest);
 
     const url = `https://slack.com/api/users.list?pretty=1`;
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -241,6 +257,7 @@ export class SlackProvider {
     input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
+    const token = await this.getToken(input.secretKey);
     try {
       const { channels } = await this.getImChannels(input);
       const auth = await this.authTest(input);
@@ -253,7 +270,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -268,9 +285,10 @@ export class SlackProvider {
   async authTest(input: {
     secretKey: string;
   }): Promise<ISlack.IAuthTestOutput> {
+    const token = await this.getToken(input.secretKey);
     const res = await axios.get("https://slack.com/api/auth.test", {
       headers: {
-        Authorization: `Bearer ${input.secretKey}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -281,6 +299,7 @@ export class SlackProvider {
     input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
+    const token = await this.getToken(input.secretKey);
     try {
       const res = await axios.post(
         url,
@@ -290,7 +309,7 @@ export class SlackProvider {
         },
         {
           headers: {
-            Authorization: `Bearer ${input.secretKey}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -308,45 +327,57 @@ export class SlackProvider {
     const url = `https://slack.com/api/conversations.history?&pretty=1`;
     const { secretKey, ...rest } = input;
     const queryParameter = createQueryParameter({
-      ...rest,
-      latest: input.latestTimestamp
-        ? this.transformTimestampToTs(input.latestTimestamp)
-        : input.latest,
-      oldest: input.oldestTimestamp
-        ? this.transformTimestampToTs(input.oldestTimestamp)
-        : input.oldest,
+      channel: rest.channel,
+      cursor: rest.cursor,
+      limit: rest.limit,
+      ...(input.latestDateTime && {
+        latest: this.transformDateTimeToTs(input.latestDateTime),
+      }),
+      ...(input.oldestDateTime && {
+        oldest: this.transformDateTimeToTs(input.oldestDateTime),
+      }),
     });
 
+    const token = await this.getToken(secretKey);
+
+    const { url: workspaceUrl } = await this.authTest(input);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
+
+    const allMembers = await this.getAllUsers(input);
 
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.Message[] = res.data.messages.map(
       (message: ISlack.Message): ISlack.Message => {
         const timestamp = this.transformTsToTimestamp(message.ts);
+        const text = message.text
+          .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
+          .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
+          .replaceAll(/\n/gs, " ")
+          .replace(/@(\w+)/g, (_, id) => {
+            const member = allMembers.find((member) => member.id === id);
+            return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
+          });
 
         return {
           type: message.type,
           user: message.user ?? null,
-          text: message.text
-            .replaceAll(/\`\`\`(.)+\`\`\`/gs, "<CODE/>")
-            .replaceAll(/<https:\/\/(.)+>/gs, "<LINK/>")
-            .replaceAll(/\n/gs, " "),
+          text: text,
           ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
           reply_users_count: message?.reply_users_count ?? 0,
           ts_date: new Date(timestamp).toISOString(),
+          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
           ...(message.attachments && { attachments: message.attachments }),
         };
       },
     );
 
-    const allMembers = await this.getAllUsers(input);
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
@@ -358,7 +389,30 @@ export class SlackProvider {
       })
       .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
 
-    return { messages, next_cursor: next_cursor ? next_cursor : null, members }; // next_cursor가 빈 문자인 경우 대비
+    return {
+      messages,
+      next_cursor: next_cursor ? next_cursor : null,
+      members,
+    }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  async getAllPrivateChannels(input: { secretKey: string }) {
+    let nextCursor: string | null = null;
+    let response: Awaited<
+      ReturnType<typeof this.getPrivateChannels>
+    >["channels"] = [];
+    do {
+      const { next_cursor, channels } = await this.getPrivateChannels({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(channels);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
   }
 
   async getPrivateChannels(
@@ -371,9 +425,11 @@ export class SlackProvider {
       types: "private_channel",
     });
 
+    const token = await this.getToken(secretKey);
+
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -388,6 +444,25 @@ export class SlackProvider {
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
+  async getAllPublicChannels(input: { secretKey: string }) {
+    let nextCursor: string | null = null;
+    let response: Awaited<
+      ReturnType<typeof this.getPublicChannels>
+    >["channels"] = [];
+    do {
+      const { next_cursor, channels } = await this.getPublicChannels({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(channels);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
+  }
+
   async getPublicChannels(
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput> {
@@ -398,9 +473,10 @@ export class SlackProvider {
       types: "public_channel",
     });
 
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -415,6 +491,24 @@ export class SlackProvider {
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
+  async getAllImChannels(input: { secretKey: string }) {
+    let nextCursor: string | null = null;
+    let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
+      [];
+    do {
+      const { next_cursor, channels } = await this.getImChannels({
+        secretKey: input.secretKey,
+        ...(nextCursor ? { cursor: nextCursor } : {}),
+        limit: 1000,
+      });
+
+      response = response.concat(channels);
+      nextCursor = next_cursor;
+    } while (nextCursor);
+
+    return response;
+  }
+
   async getImChannels(
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
@@ -425,9 +519,10 @@ export class SlackProvider {
       types: "im",
     });
 
+    const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
-        Authorization: `Bearer ${secretKey}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8;",
       },
     });
@@ -444,7 +539,22 @@ export class SlackProvider {
     return timestamp;
   }
 
+  private transformDateTimeToTs(dateTime: string & tags.Format<"date-time">) {
+    const timestamp = new Date(dateTime).getTime();
+    return this.transformTimestampToTs(timestamp);
+  }
+
   private transformTimestampToTs(timestamp: number) {
     return String(timestamp).split("").slice(0, -3).join("");
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+
+    return token;
   }
 }

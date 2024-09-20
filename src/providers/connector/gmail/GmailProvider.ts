@@ -3,46 +3,46 @@ import { gmail_v1, google } from "googleapis";
 
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
+import axios from "axios";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GmailProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  async hardDelete(id: string, input: IGmail.ISecret): Promise<void> {
+    try {
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
+      await gmail.users.messages.delete({
+        userId: "me",
+        id,
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   async sendEmail(
     input: IGmail.ICreateMailInput,
   ): Promise<IGmail.ISendMailOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
-
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
-      const emailLines = [
-        `To: ${input.to.join(",")}`,
-        `From: me`,
-        "Content-Type: text/html; charset=utf-8",
-        "MIME-Version: 1.0",
-        this.encodeHeaderFieldForKorean("Subject", input.subject),
-      ];
-
-      /**
-       * 참조 대상 있는 경우 헤더에 추가
-       */
-      if (input.cc) {
-        emailLines.push(`Cc: ${input.cc.join(",")}`);
-      }
-
-      if (input.Bcc) {
-        emailLines.push(`Bcc: ${input.Bcc.join(",")}`);
-      }
-
-      const raw = this.makeEmailContent(emailLines, input.body);
-
+      const raw = await this.makeConpleteContents(input);
       const res = await gmail.users.messages.send({
         userId: "me",
         requestBody: {
@@ -62,37 +62,15 @@ export class GmailProvider {
 
   async createDraft(input: IGmail.ICreateMailInput): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
 
       const gmail = google.gmail({ version: "v1", auth: authClient });
 
-      const emailLines = [
-        `To: ${input.to.join(",")}`,
-        `From: me`,
-        "Content-Type: text/html; charset=utf-8",
-        "MIME-Version: 1.0",
-        this.encodeHeaderFieldForKorean("Subject", input.subject),
-      ];
-
-      /**
-       * 참조 대상 있는 경우 헤더에 추가
-       */
-      if (input.cc) {
-        emailLines.push(`Cc: ${input.cc.join(",")}`);
-      }
-
-      if (input.Bcc) {
-        emailLines.push(`Bcc: ${input.Bcc.join(",")}`);
-      }
-
-      const raw = this.makeEmailContent(emailLines, input.body);
-
+      const raw = await this.makeConpleteContents(input);
       await gmail.users.drafts.create({
         userId: "me",
         requestBody: {
@@ -109,10 +87,8 @@ export class GmailProvider {
 
   async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -167,10 +143,8 @@ export class GmailProvider {
 
   async createLabel(input: IGmail.ILabelInput): Promise<IGmail.ILabelOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -202,10 +176,8 @@ export class GmailProvider {
     input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -230,10 +202,8 @@ export class GmailProvider {
     input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -258,10 +228,8 @@ export class GmailProvider {
     input: IGmail.ISecret,
   ): Promise<IGmail.IFindGmailOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -283,10 +251,8 @@ export class GmailProvider {
     input: IGmail.IFindEmailListInput,
   ): Promise<IGmail.IFindGmailListOutput> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -331,10 +297,8 @@ export class GmailProvider {
 
   async removeEmail(id: string, input: IGmail.ISecret): Promise<void> {
     try {
-      const secretKey = input.secretKey;
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
 
       authClient.setCredentials({ access_token: accessToken });
@@ -387,6 +351,55 @@ export class GmailProvider {
     return { id, labelIds, from, subject, body, attachments };
   }
 
+  async makeConpleteContents(input: IGmail.ICreateMailInput): Promise<string> {
+    // 파일이 존재할 경우에는 Content-Type을 multipart/mixed가 되게 수정
+    const boundary = "__my_boundary__";
+    const emailLines = [
+      `To: ${input.to.join(",")}`,
+      `From: me`,
+      "MIME-Version: 1.0",
+      this.encodeHeaderFieldForKorean("Subject", input.subject),
+      `Content-Type: multipart/mixed; boundary="${boundary}"`, // 파일이 들어갈지도 모르기 때문에 multipart/mixed로 수정, 바운더리 기호 명시
+      "",
+      `--${boundary}`,
+      `Content-Type: text/html; charset=utf-8`,
+    ];
+
+    if (input.files?.length) {
+      for await (const { filename, fileUrl } of input.files) {
+        const res = await axios.get(fileUrl, { responseType: "arraybuffer" });
+        const base64Buffer = Buffer.from(res.data).toString("base64");
+
+        const filePart = [
+          `--${boundary}`,
+          `Content-Type: application/octet-stream; name="${filename}"`,
+          `Content-Disposition: attachment; filename="${filename}"`,
+          `Content-Transfer-Encoding: base64`,
+          "",
+          base64Buffer,
+          "",
+        ] as const;
+
+        emailLines.push(...filePart);
+      }
+      emailLines.push(`--${boundary}--`); // 모든 파일이 입력된 후 바운더리를 추가로 입력하여 바운더리 사이에 파일이 위치하도록 한다.
+    }
+
+    /**
+     * 참조 대상 있는 경우 헤더에 추가
+     */
+    if (input.cc) {
+      emailLines.push(`Cc: ${input.cc.join(",")}`);
+    }
+
+    if (input.Bcc) {
+      emailLines.push(`Bcc: ${input.Bcc.join(",")}`);
+    }
+
+    const raw = this.makeEmailContent(emailLines, input.body);
+    return raw;
+  }
+
   /**
    * 한글 base64 인코딩
    */
@@ -400,7 +413,7 @@ export class GmailProvider {
    * gmail 메일 헤더 및 본문 base64 인코딩
    */
   makeEmailContent(headers: string[], body: string) {
-    const emailLines = [...headers, "", body];
+    const emailLines = [...headers, "", body, ""];
 
     const email = emailLines.join("\r\n");
     return Buffer.from(email)
@@ -438,5 +451,14 @@ export class GmailProvider {
     }
 
     return query.trim();
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }

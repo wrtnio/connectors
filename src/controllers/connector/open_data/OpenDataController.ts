@@ -1,6 +1,5 @@
 import core, { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { ILH } from "@wrtn/connector-api/lib/structures/connector/open_data/ILH";
@@ -12,16 +11,42 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
+import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 import { retry } from "../../../utils/retry";
 
 @Controller("connector/open-data")
 export class OpenDataController {
   /**
+   * Search for the address system of the Republic of Korea
+   *
+   * - If you enter a postal address, you can convert it to a street address and a road name address.
+   *
+   * @summary Search for the address system of the Republic of Korea
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
+  )
+  @TypedRoute.Post("getAddress")
+  async getAddress(
+    @TypedBody() input: IMSIT.IGetAddressInput,
+  ): Promise<IMSIT.IGetAddressOutput> {
+    return retry(() => OpenDataProvider.getAddress(input))();
+  }
+
+  /**
    * [Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve multi-family lease and rental information
    * @param input Query conditions
@@ -30,18 +55,11 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags(
-    "Housing",
-    "Single-Family Homes",
-    "Multi-Family Homes",
-    "Rent",
-    "Lease",
-  )
   @TypedRoute.Post("getRTMSDataSvcSHRent")
   async getRTMSDataSvcSHRent(
     @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
   ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
-    return retry(() => OpenDataProvider.getRTMSDataSvcSHRent(input), 20)();
+    return retry(() => OpenDataProvider.getRTMSDataSvcSHRent(input))();
   }
 
   /**
@@ -50,6 +68,12 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve officetel lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
@@ -57,12 +81,11 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags("Housing", "Officetel", "Rent", "Lease")
   @TypedRoute.Post("getRTMSDataSvcOffiRent")
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
-    return retry(() => OpenDataProvider.getRTMSDataSvcOffiRent(input), 20)();
+    return retry(() => OpenDataProvider.getRTMSDataSvcOffiRent(input))();
   }
 
   /**
@@ -70,6 +93,12 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve apartment lease and rental information
    * @param input Query conditions
@@ -79,12 +108,11 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "Housing", "Apartment", "Rent", "Lease")
   @TypedRoute.Post("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
-    return retry(() => OpenDataProvider.getRTMSDataSvcAptRent(input), 20)();
+    return retry(() => OpenDataProvider.getRTMSDataSvcAptRent(input))();
   }
 
   /**
@@ -92,6 +120,12 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * The types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.
+   * In addition, you can inquire by city, county, and region(=시도군)
+   *
+   * In the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.
    *
    * @summary Retrieve LH rental housing information
    * @param input Conditions for querying rental housing
@@ -101,12 +135,11 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "LH", "Housing", "Rental Housing", "Happy Housing")
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
   ): Promise<ILH.IGetLHLeaseInfoOutput> {
-    return retry(() => OpenDataProvider.getLHLeaseInfo(input), 20)();
+    return retry(() => OpenDataProvider.getLHLeaseInfo(input))();
   }
 
   /**
@@ -114,6 +147,11 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   * If you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.
+   * Look up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
    *
    * @summary Retrieve parking lot information
    * @param input Conditions for querying parking lots
@@ -123,12 +161,11 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "Parking Lot", "Parking")
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
   ): Promise<INIA.IGetParkingLotOutput> {
-    return retry(() => OpenDataProvider.getParkingLot(input), 20)();
+    return retry(() => OpenDataProvider.getParkingLot(input))();
   }
 
   /**
@@ -137,6 +174,12 @@ export class OpenDataController {
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
    *
+   * You need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)
+   * A connector that looks up the distirct code already exists, so call the preceding connector.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve building registration information
    * @param input Conditions for querying building information
    * @returns Building information
@@ -144,17 +187,21 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
-  @ApiTags(
-    "Public Data",
-    "Building",
-    "Building Information",
-    "Earthquake Design",
-  )
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
-    return retry(() => OpenDataProvider.getBuildingInfo(input), 20, 3000)();
+    /**
+     * The legal dong code is originally in the form of `${city/county code}${number}`, consisting of a 5-digit city/county code and 5 other digits. Here, you need to know the remaining 5 digits excluding the city/county code to use it, but since there is an intermittent problem of entering a 10-digit number, it is handled at the connector level.
+     */
+
+    if (
+      input.bjdongCd.length === 10 &&
+      input.bjdongCd.startsWith(input.sigunguCd)
+    ) {
+      input.bjdongCd = input.bjdongCd.replace(input.sigunguCd, "");
+    }
+    return retry(() => OpenDataProvider.getBuildingInfo(input))();
   }
 
   /**
@@ -162,6 +209,14 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   * Public data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,
+   * may all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).
+   * In this case, this connector call must be preceded.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
+   * For the search, you should use the exact name that means the administrative district, just like the "서울특별시", not "서울".
    *
    * @summary Retrieve administrative standard codes
    * @param input Conditions for querying regions
@@ -171,20 +226,12 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags(
-    "Public Data",
-    "Administrative District",
-    "Region Code",
-    "Township",
-    "City",
-    "County",
-  )
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
     @TypedBody()
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
   ): Promise<IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput> {
-    return retry(() => OpenDataProvider.getStandardRegionCodeList(input), 20)();
+    return retry(() => OpenDataProvider.getStandardRegionCodeList(input))();
   }
 
   /**
@@ -192,6 +239,9 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean. for example "삼성전자".
+   * Also, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.
    *
    * @summary Retrieve market capitalization and stock information
    *
@@ -202,19 +252,12 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags(
-    "Public Data",
-    "Stock",
-    "Market Capitalization",
-    "Company",
-    "Capital",
-  )
   @TypedRoute.Post("getStockPriceInfo")
   async getStockPriceInfo(
     @TypedBody()
     input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
   ): Promise<IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput> {
-    return retry(() => OpenDataProvider.getStockPriceInfo(input), 20)();
+    return retry(() => OpenDataProvider.getStockPriceInfo(input))();
   }
 
   /**
@@ -256,6 +299,9 @@ export class OpenDataController {
    * If the latitude hardness value is delivered,
    * it is converted to grid coordinate value from the inside and used.
    *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
    * @summary Retrieve today's weather from the Korea Meteorological Administration
    *
    * @param input DTO for weather query location
@@ -265,13 +311,12 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Public Data", "Weather", "KMA", "Today’s Weather", "Climate")
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IKoreaMeteorologicalAdministration.IGetForecastOutput[]> {
-    return retry(() => OpenDataProvider.getShortTermForecast(input), 20)();
+    return retry(() => OpenDataProvider.getShortTermForecast(input))();
   }
 
   /**
@@ -279,6 +324,11 @@ export class OpenDataController {
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
+   *
+   * Since this is Korean public data, most searches may have to be done in Korean.
+   * Please be aware of this.
+   *
+   * - 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.
    *
    * @summary [Copyright Registration Information Service (New)]
    * @param input Conditions for querying copyright
@@ -288,11 +338,10 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @Standalone()
-  @ApiTags("Copyright")
   @core.TypedRoute.Post("getCopyRight")
   async getCopyRight(
     @TypedBody() input: KoreaCopyrightCommission.IGetCopyRightInput,
   ): Promise<KoreaCopyrightCommission.IGetCopyRightOutput> {
-    return retry(() => OpenDataProvider.getCopyRight(input), 20)();
+    return retry(() => OpenDataProvider.getCopyRight(input))();
   }
 }

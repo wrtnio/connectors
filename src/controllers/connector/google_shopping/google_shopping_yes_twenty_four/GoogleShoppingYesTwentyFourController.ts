@@ -13,13 +13,13 @@ export class GoogleShoppingYesTwentyFourController {
   ) {}
 
   /**
-   * 상품을 yes24에서 검색합니다.
+   * Search for products on yes24.
    *
-   * @summary yes24 검색
+   * @summary yes24 search
    *
-   * @param input  검색 조건
+   * @param input search conditions
    *
-   * @returns  검색 결과
+   * @returns search results
    */
   @Standalone()
   @core.TypedRoute.Post("yes-twenty-four")

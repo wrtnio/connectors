@@ -13,12 +13,12 @@ export class AirportInformationController {
   ) {}
 
   /**
-   * 입력된 검색어를 사용하여 공항 정보를 검색합니다.
+   * Search for airport information using the entered search term.
    *
-   * @summary 공항 정보 검색
+   * @summary Search for airport information
    *
-   * @param input 공항 정보 검색을 위한 조건
-   * @returns 공항 정보 검색 결과
+   * @param input Conditions for searching for airport information
+   * @returns Search results for airport information
    */
   @Standalone()
   @core.TypedRoute.Post("search")

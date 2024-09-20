@@ -3,32 +3,32 @@ import { tags } from "typia";
 export namespace IAws {
   export interface IGetPutObjectUrlInput {
     /**
-     * 파일 확장자입니다.
+     * File extension.
      *
-     * @title 파일 확장자
+     * @title File extension
      */
     extension: string;
   }
 
   export interface IGetPutObjectUrlOutput {
     /**
-     * 파일 uuid입니다.
+     * This is the file uuid.
      *
-     * @title 파일 uuid
+     * @title file uuid
      */
     uuid: string & tags.Format<"uuid">;
 
     /**
-     * 파일을 업로드하기 위한 url입니다.
+     * This is the url for uploading the file.
      *
-     * @title 업로드 url
+     * @title upload url
      */
     uploadUrl: string;
 
     /**
-     * url 만료 시간입니다.
+     * url expiration time.
      *
-     * @title url 만료 시간
+     * @title url expiration time
      */
     urlExpTsMillis: number;
   }

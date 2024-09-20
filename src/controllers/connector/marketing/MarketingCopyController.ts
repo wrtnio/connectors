@@ -11,15 +11,13 @@ export class MarketingCopyController {
   constructor(private marketingCopyGenerator: MarketingCopyGeneratorProvider) {}
 
   /**
-   * 주어진 입력으로부터 마케팅 카피를 생성합니다.
+   * Generates marketing copy from given input.
    *
-   * @summary 마케팅 카피 생성
+   * @summary Generate marketing copy
    *
-   * @param input 마케팅 카피 생성을 위한 입력
+   * @param input Input for generating marketing copy
    *
-   * @returns 생성된 마케팅 카피
-   *
-   * @tag Llm 마케팅 카피 텍스트 생성
+   * @returns Generated marketing copy
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",
@@ -33,15 +31,13 @@ export class MarketingCopyController {
   }
 
   /**
-   * 주어진 입력으로부터 마케팅 카피 이미지를 생성합니다.
+   * Generates a marketing copy image from the given input.
    *
-   * @summary 마케팅 카피 이미지 생성
+   * @summary Generate a marketing copy image
    *
-   * @param input 마케팅 카피 이미지 생성을 위한 입력
+   * @param input Input for generating a marketing copy image
    *
-   * @returns 생성된 마케팅 카피 이미지
-   *
-   * @tag Llm 마케팅 카피 이미지 생성
+   * @returns Generated marketing copy image
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",

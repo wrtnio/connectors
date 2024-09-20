@@ -6,6 +6,8 @@ import { v4 } from "uuid";
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
@@ -21,9 +23,8 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportHanshowOutput> {
     try {
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        input.secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
       const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
@@ -51,9 +52,8 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
     try {
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        input.secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
       const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
@@ -81,8 +81,8 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
       const { secretKey, presentationId } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const token = await this.getToken(secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const res = await axios.get(
         `https://slides.googleapis.com/v1/presentations/${presentationId}`,
@@ -113,7 +113,7 @@ export class GoogleSlidesProvider {
 
     // if there are s3 buckets urls, get presigned url
     const matches = JSON.stringify(input).match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
     );
 
     if (!matches) {
@@ -140,8 +140,9 @@ export class GoogleSlidesProvider {
     try {
       input = await this.transformUrl(input);
       const { secretKey, templates } = input;
-      const accessToken =
-        await this.googleProvider.refreshAccessToken(secretKey);
+      const token = await this.getToken(secretKey);
+
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const presentation = await this.getPresentation({
         presentationId,
@@ -829,9 +830,9 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
-      const accessToken = await this.googleProvider.refreshAccessToken(
-        input.secretKey,
-      );
+      const token = await this.getToken(input.secretKey);
+
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const res = await axios.post(
         "https://slides.googleapis.com/v1/presentations",
@@ -853,5 +854,14 @@ export class GoogleSlidesProvider {
       console.error(JSON.stringify(error));
       throw error;
     }
+  }
+
+  private async getToken(secretValue: string): Promise<string> {
+    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
+    const token =
+      typeof secret === "string"
+        ? secret
+        : (secret as IOAuthSecret.ISecretValue).value;
+    return token;
   }
 }

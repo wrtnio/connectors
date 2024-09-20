@@ -13,35 +13,33 @@ import type { ValueOf } from "./ValueOf";
  * type Example = GetType<{ a: { b: { c: number } } }, "a.b.c">; // number
  * ```
  */
-export type GetType<
-  T extends object,
-  K extends DeepStrictObjectKeys<T>,
-> = StringType.Split<K, "."> extends [infer First extends keyof T]
-  ? ValueOf<ToObject<Pick<T, First>>>
-  : StringType.Split<K, "."> extends [
-      infer First extends string,
-      ...infer Rest extends string[],
-    ]
-  ? RemoveArraySymbol<First> extends keyof T
-    ? ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>> extends object
-      ? ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>> extends Array<
-          infer E
-        >
-        ? E extends object
-          ? GetType<
-              E,
-              Allow<StringType.Join<Rest, ".">, DeepStrictObjectKeys<E>>
+export type GetType<T extends object, K extends DeepStrictObjectKeys<T>> =
+  StringType.Split<K, "."> extends [infer First extends keyof T]
+    ? ValueOf<ToObject<Pick<T, First>>>
+    : StringType.Split<K, "."> extends [
+          infer First extends string,
+          ...infer Rest extends string[],
+        ]
+      ? RemoveArraySymbol<First> extends keyof T
+        ? ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>> extends object
+          ? ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>> extends Array<
+              infer E
             >
-          : E
-        : GetType<
-            ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>>,
-            Allow<
-              StringType.Join<Rest, ".">,
-              DeepStrictObjectKeys<
-                ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>>
+            ? E extends object
+              ? GetType<
+                  E,
+                  Allow<StringType.Join<Rest, ".">, DeepStrictObjectKeys<E>>
+                >
+              : E
+            : GetType<
+                ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>>,
+                Allow<
+                  StringType.Join<Rest, ".">,
+                  DeepStrictObjectKeys<
+                    ValueOf<ToObject<Pick<T, RemoveArraySymbol<First>>>>
+                  >
+                >
               >
-            >
-          >
-      : never
-    : never
-  : never;
+          : never
+        : never
+      : never;

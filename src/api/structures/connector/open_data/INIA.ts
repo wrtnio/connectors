@@ -1,195 +1,206 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { IOpenData } from "./IOpenData";
 
 /**
- * 한국지능정보사회진흥원 타입
+ * Korea Intelligence Information Society Agency Type
  */
 export namespace INIA {
   /**
-   * @title 주차장 조회 조건
-   * @description 도로명주소 혹은 지번주소를 완전히 일치해야 검색 가능
+   * @title Parking lot search conditions
+   * @description Search is possible only if the road name address or street address matches exactly
    */
   export type IGetParkingLotInput = IOpenData.ICommon.IPaginationInput &
     (Pick<ParkingLot, "rdnmadr"> | Pick<ParkingLot, "lnmadr">);
 
   export type ParkingLot = {
     /**
-     * @title 주차장관리번호
+     * @title Parking lot management number
      */
     prkplceNo?: string;
 
     /**
-     * @title 주차장명
+     * @title Parking lot name
      */
     prkplceNm?: string;
 
     /**
-     * @title 주차장구분
+     * @title Parking lot classification
      */
     prkplceSe?: string;
 
     /**
-     * @title 주차장유형
+     * @title Parking lot type
      */
     prkplceType?: string;
 
     /**
-     * @title 소재지도로명주소
+     * @title road name address (read name address)
      */
-    rdnmadr?: string;
+    rdnmadr?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-map/search";
+        jmesPath: "documents[].{value:road_address_name, label:road_address_name}";
+      }>;
 
     /**
-     * @title 소재지지번주소
+     * @title Lot number address
      */
-    lnmadr?: string;
+    lnmadr?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/kakao-map/search";
+        jmesPath: "documents[].{value:address_name, label:address_name}";
+      }>;
 
     /**
-     * @title 주차구획수
+     * @title Number of parking spaces
      */
     prkcmprt?: string;
 
     /**
-     * @title 급지구분
+     * @title Urgent Distinction
      */
     feedingSe?: string;
 
     /**
-     * @title 부제시행구분
+     * @title Subtitle enforcement classification
      */
     enforceSe?: string;
 
     /**
-     * @title 운영요일
+     * @title Operating days
      */
     operDay?: string;
 
     /**
-     * @title 평일운영시작시각
+     * @title Weekday operation start time
      */
     weekdayOperOpenHhmm?: string;
 
     /**
-     * @title 평일운영종료시각
+     * @title Weekday operating closing time
      */
     weekdayOperColseHhmm?: string;
 
     /**
-     * @title 토요일운영시작시각
+     * @title Saturday operation start time
      */
     satOperOperOpenHhmm?: string;
 
     /**
-     * @title 토요일운영종료시각
+     * @title Saturday closing time
      */
     satOperCloseHhmm?: string;
 
     /**
-     * @title 공휴일운영시작시각
+     * @title Holiday operation start time
      */
     holidayOperOpenHhmm?: string;
 
     /**
-     * @title 공휴일운영종료시각
+     * @title Holiday closing time
      */
     holidayCloseOpenHhmm?: string;
 
     /**
-     * @title 요금정보
+     * @title Rate information
      */
     parkingchrgeInfo?: string;
 
     /**
-     * @title 주차기본시간
+     * @title Basic parking time
      */
     basicTime?: string;
 
     /**
-     * @title 주차기본요금
+     * @title Basic parking fee
      */
     basicCharge?: string;
 
     /**
-     * @title 추가단위시간
+     * @title Additional unit time
      */
     addUnitTime?: string;
 
     /**
-     * @title 추가단위요금
+     * @title Additional unit fee
      */
     addUnitCharge?: string;
 
     /**
-     * @title 1일주차권요금적용시간
+     * @title 1-day parking fee application time
      */
     dayCmmtktAdjTime?: string;
 
     /**
-     * @title 1일주차권요금
+     * @title 1-day parking fee
      */
     dayCmmtkt?: string;
 
     /**
-     * @title 월정기권요금
+     * @title Monthly pass fee
      */
     monthCmmtkt?: string;
 
     /**
-     * @title 결제방법
+     * @title Payment method
      */
     metpay?: string;
 
     /**
-     * @title 특기사항
+     * @title Special Notes
      */
     spcmnt?: string;
 
     /**
-     * @title 관리기관명
+     * @title Management Agency Name
      */
     institutionNm?: string;
 
     /**
-     * @title 전화번호
+     * @title phone number
      */
     phoneNumber?: string;
 
     /**
-     * @title 위도
+     * @title Latitude
      */
     latitude?: string;
 
     /**
-     * @title 경도
+     * @title Hardness
      */
     longitude?: string;
 
     /**
-     * @title 장애인전용주차구역보유여부
+     * @title Whether there is a parking area for the disabled
      */
     pwdbsPpkZoneYn?: string;
 
     /**
-     * @title 데이터기준일자
+     * @title Data reference date
      */
     referenceDate?: string;
 
     /**
-     * @title 제공기관코드
+     * @title Provider Code
      */
     instt_code?: string;
 
     /**
-     * @title 제공기관기관명
+     * @title Provider Name of institution
      */
     instt_nm?: string;
   };
 
   /**
-   * @title 주차장 조회 응답
+   * @title Parking lot inquiry response
    */
   export interface IGetParkingLotOutput
     extends IOpenData.ICommon.IPaginationOutput {
     /**
-     * @title 주차장 정보
+     * @title Parking lot information
      */
     parkingLots: ParkingLot[];
   }

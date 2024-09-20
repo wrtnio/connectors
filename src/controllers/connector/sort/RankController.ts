@@ -11,17 +11,15 @@ export class RankController {
   constructor(private ranker: RankerProvider) {}
 
   /**
-   * 주어진 아이템의 배열을 점수가 높은 순서대로 정렬합니다.
+   * Sorts the given array of items in order of highest score.
    *
    * @deprecated
    *
-   * @summary 조건 정렬
+   * @summary Sort by condition
    *
-   * @param input 정렬할 후보 정보
+   * @param input Candidate information to sort
    *
-   * @returns 정렬된 후보의 인덱스 배열
-   *
-   * @tag Sort Rank Ranking 정렬 순위 순서 랭킹 랭크
+   * @returns Array of indices of sorted candidates
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg",

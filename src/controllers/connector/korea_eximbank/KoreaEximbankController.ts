@@ -10,8 +10,8 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/korea-eximbank")
 export class KoreaEximbankController {
   /**
-   * @summary 한국 수출입 은행 현재 환율 조회
-   * @returns 환율 정보
+   * @summary Korea Export-Import Bank Current Exchange Rate Inquiry
+   * @returns Exchange Rate Information
    *
    * @internal
    */

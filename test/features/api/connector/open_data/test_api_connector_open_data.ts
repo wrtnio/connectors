@@ -1,32 +1,7 @@
 import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
-
-export const test_api_connector_open_data_get_get_stock_price_info = async (
-  connection: CApi.IConnection,
-) => {
-  const res = await CApi.functional.connector.open_data.getStockPriceInfo(
-    connection,
-    {
-      basDt: "20240620",
-    },
-  );
-
-  typia.assertEquals(res);
-};
-
-export const test_api_connector_open_data_get_get_standard_region_code_list =
-  async (connection: CApi.IConnection) => {
-    const res =
-      await CApi.functional.connector.open_data.getStandardRegionCodeList(
-        connection,
-        {
-          locatadd_nm: "서울특별시",
-        },
-      );
-
-    typia.assertEquals(res);
-  };
+import assert from "assert";
 
 export const test_api_connector_open_data_get_get_building_info = async (
   connection: CApi.IConnection,
@@ -36,6 +11,22 @@ export const test_api_connector_open_data_get_get_building_info = async (
     {
       sigunguCd: "11680",
       bjdongCd: "10300",
+      pageNo: 1,
+      numOfRows: 100,
+    },
+  );
+
+  typia.assertEquals(res);
+};
+
+export const test_api_connector_open_data_get_get_building_info_2 = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.open_data.getBuildingInfo(
+    connection,
+    {
+      sigunguCd: "11680",
+      bjdongCd: "1168010300",
       pageNo: 1,
       numOfRows: 100,
     },
@@ -142,6 +133,8 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent = async (
   const res = await CApi.functional.connector.open_data.getRTMSDataSvcOffiRent(
     connection,
     {
+      page: 1,
+      limit: 20,
       LAWD_CD: sigunguCd,
       DEAL_YMD: "202406",
     },
@@ -149,6 +142,48 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent = async (
 
   typia.assertEquals(res);
 };
+export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagination =
+  async (connection: CApi.IConnection) => {
+    const standardRegionCodeList =
+      await CApi.functional.connector.open_data.getStandardRegionCodeList(
+        connection,
+        {
+          locatadd_nm: "서울특별시",
+        },
+      );
+
+    const sigunguCd = standardRegionCodeList.rows.at(0)?.sigunguCd;
+    if (!sigunguCd) {
+      throw new Error("시군도 코드 조회 단계에서 에러 발생");
+    }
+
+    const firstPage =
+      await CApi.functional.connector.open_data.getRTMSDataSvcOffiRent(
+        connection,
+        {
+          page: 1,
+          limit: 1,
+          LAWD_CD: sigunguCd,
+          DEAL_YMD: "202406",
+        },
+      );
+
+    typia.assertEquals(firstPage);
+
+    const secondPage =
+      await CApi.functional.connector.open_data.getRTMSDataSvcOffiRent(
+        connection,
+        {
+          page: 2,
+          limit: 1,
+          LAWD_CD: sigunguCd,
+          DEAL_YMD: "202406",
+        },
+      );
+
+    typia.assertEquals(secondPage);
+    assert(JSON.stringify(firstPage) !== JSON.stringify(secondPage));
+  };
 
 export const test_api_connector_open_data_get_RTMS_Data_svc_apt_rent = async (
   connection: CApi.IConnection,
@@ -169,6 +204,8 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_apt_rent = async (
   const res = await CApi.functional.connector.open_data.getRTMSDataSvcAptRent(
     connection,
     {
+      page: 1,
+      limit: 20,
       LAWD_CD: sigunguCd,
       DEAL_YMD: "202406",
     },
@@ -187,6 +224,34 @@ export const test_api_connector_open_data_get_copy_right = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_open_data_get_copy_right_with_author_name_1 =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getCopyRight(
+      connection,
+      {
+        AUTHOR_NAME: "이지은",
+        page: 1,
+        perPage: 100,
+      },
+    );
+
+    typia.assertEquals(res);
+  };
+
+export const test_api_connector_open_data_get_copy_right_with_author_name_2 =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.open_data.getCopyRight(
+      connection,
+      {
+        AUTHOR_NAME: "이지은",
+        page: 2,
+        perPage: 100,
+      },
+    );
+
+    typia.assertEquals(res);
+  };
 
 export const test_api_connector_open_data_get_RTMS_Data_svc_sh_rent = async (
   connection: CApi.IConnection,
@@ -207,6 +272,8 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_sh_rent = async (
   const res = await CApi.functional.connector.open_data.getRTMSDataSvcSHRent(
     connection,
     {
+      page: 1,
+      limit: 20,
       LAWD_CD: sigunguCd,
       DEAL_YMD: "202406",
     },

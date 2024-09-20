@@ -13,13 +13,13 @@ export class GoogleShoppingIherbController {
   ) {}
 
   /**
-   * 상품을 아이허브에서 검색합니다.
+   * Search for products on iHerb.
    *
-   * @summary 아이허브 검색
+   * @summary iHerb Search
    *
-   * @param input  검색 조건
+   * @param input Search conditions
    *
-   * @returns  검색 결과
+   * @returns Search results
    */
   @Standalone()
   @core.TypedRoute.Post("iherb")

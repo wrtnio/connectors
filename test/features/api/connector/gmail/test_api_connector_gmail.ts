@@ -19,11 +19,6 @@ export const test_api_connector_gmail = async (
   };
 
   /**
-   * Create Draft
-   */
-  await CApi.functional.connector.gmail.draft(connection, createMailInput);
-
-  /**
    * Send Email
    */
   const sendEmailOutput: IGmail.ISendMailOutput =
@@ -52,7 +47,7 @@ export const test_api_connector_gmail = async (
   typia.assertEquals<IGmail.IFindGmailListOutput>(emailList);
 
   /**
-   * remove Email
+   * remove Email (move mail to trash)
    */
   await CApi.functional.connector.gmail.removeMail(connection, emailId, {
     secretKey,
@@ -101,6 +96,13 @@ export const test_api_connector_gmail = async (
    */
   await CApi.functional.connector.gmail.reply(connection, emailId, {
     replyText: "답장입니다.",
+    secretKey,
+  });
+
+  /**
+   * remove Email (hard delete)
+   */
+  await CApi.functional.connector.gmail.hardDelete(connection, emailId, {
     secretKey,
   });
 };

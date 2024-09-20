@@ -3,16 +3,16 @@ import { tags } from "typia";
 
 export namespace IKakaoMap {
   /**
-   * @title 검색 조건
+   * @title Search Conditions
    */
   export interface SearchByKeywordInput {
     /**
-     * @title 검색 키워드
+     * @title Search Keyword
      */
     query: string & Placeholder<"종로구 맛집">;
 
     /**
-     * @title 결과 페이지 번호
+     * @title Results page number
      */
     page?: number &
       tags.Type<"int32"> &
@@ -21,7 +21,7 @@ export namespace IKakaoMap {
       tags.Default<1>;
 
     /**
-     * @title 페이지 당 문서 수
+     * @title Number of documents per page
      */
     size?: number &
       tags.Type<"int32"> &
@@ -31,130 +31,130 @@ export namespace IKakaoMap {
   }
 
   /**
-   * @title 검색 결과
+   * @title Search Results
    */
   export interface SearchByKeywordOutput {
     /**
-     * @title 검색 결과 목록
+     * @title Search Results List
      */
     documents: Document[];
 
     /**
-     * @title 메타 정보
+     * @title meta information
      */
     meta: Meta;
   }
 
   /**
-   * @title 검색 결과
+   * @title Search Results
    */
   export interface Document {
     /**
-     * @title 장소 ID
+     * @title Location ID
      */
     id: string;
 
     /**
-     * @title 장소명, 업체명
+     * @title Place name, company name
      */
     place_name: string;
 
     /**
-     * @title 카테고리 이름
+     * @title Category Name
      */
     category_name: string;
 
     /**
-     * @title 중요 카테고리만 그룹핑한 카테고리 그룹 코드
+     * @title Category group code that groups only important categories
      */
     category_group_code: CategoryGroupCode;
 
     /**
-     * @title 중요 카테고리만 그룹핑한 카테고리 그룹명
+     * @title Category group name that groups only important categories
      */
     category_group_name: CategoryGroupName;
 
     /**
-     * @title 전화번호
+     * @title phone number
      */
     phone: string;
 
     /**
-     * @title 전체 지번 주소
+     * @title Full street address
      */
     address_name: string;
 
     /**
-     * @title 전체 도로명 주소
+     * @title Full road name address
      */
     road_address_name: string;
 
     /**
-     * @title X 좌표값
-     * @description 경위도인 경우 longitude (경도)
+     * @title X coordinate value
+     * @description longitude (longitude) in case of latitude and longitude
      */
     x: string;
 
     /**
-     * @title Y 좌표값
-     * @description 경위도인 경우 latitude(위도)
+     * @title Y coordinate value
+     * @description latitude in case of longitude and latitude
      */
     y: string;
 
     /**
-     * @title 장소 상세페이지 URL
+     * @title Location details page URL
      */
     place_url: string & tags.Format<"uri">;
 
     /**
-     * @title 중심좌표까지의 거리
-     * @description (단, x,y 파라미터를 준 경우에만 존재) 단위 meter
+     * @title Distance to the center coordinate
+     * @description (only exists when x,y parameters are given) Unit meter
      */
     distance: string;
   }
 
   /**
-   * @title 메타 정보
+   * @title meta information
    */
   export interface Meta {
     /**
-     * @title 검색어에 검색된 문서 수
+     * @title Number of documents found for search term
      */
     total_count: number & tags.Type<"int32">;
 
     /**
-     * @title 한 번에 표시되는 문서 수
+     * @title Number of documents displayed at once
      */
     pageable_count: number & tags.Type<"int32"> & tags.Maximum<45>;
 
     /**
-     * @title 현재 페이지가 마지막 페이지인지 여부
-     * @description 값이 false면 다음 요청 시 page 값을 증가시켜 다음 페이지 요청 가능
+     * @title Whether the current page is the last page
+     * @description If the value is false, the page value can be increased for the next request to request the next page.
      */
     is_end: boolean;
 
     same_name?: {
       /**
-       * @title 질의어에서 지역 정보를 제외한 키워드
-       * @description '중앙로 맛집'을 검색한 경우 '맛집'에 해당하는 부분을 추출한 값
+       * @title Keyword excluding local information from query language
+       * @description If you search for 'Jungang-ro Restaurant', the value extracted from the part corresponding to 'Restaurant'
        */
       keyword: string;
 
       /**
-       * @title 질의어에서 인식된 지역의 리스트
-       * @description '중앙로 맛집'을 검색한 경우 '중앙로'에 해당하는 부분을 추출한 값
+       * @title List of regions recognized in the query
+       * @description If you search for 'Jungang-ro restaurant', the value extracted from the part corresponding to 'Jungang-ro'
        */
       region: string[];
 
       /**
-       * @title 검색에 활용된 지역 정보
+       * @title Local information used in search
        */
       selected_region: string;
     };
   }
 
   /**
-   * @title 카테고리 그룹 코드
+   * @title Category Group Code
    */
   export type CategoryGroupCode =
     | tags.Constant<"MT1", { title: "대형마트" }>
@@ -178,7 +178,7 @@ export namespace IKakaoMap {
     | tags.Constant<"", { title: "알 수 없음" }>;
 
   /**
-   * @title 카테고리 그룹 이름
+   * @title Category Group Name
    */
   export type CategoryGroupName =
     | tags.Constant<"대형마트", { title: "대형마트" }>

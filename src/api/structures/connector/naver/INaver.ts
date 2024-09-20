@@ -1,45 +1,37 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 
-/**
- * - sim: 정확도순 내림차수 정렬 (default).
- * - date: 날짜순 내림차수 정렬.
- *
- * @title 정렬 기준
- */
-type Sort = "sim" | "date";
-
 export namespace INaver {
   /**
-   * @title 검색 조건
+   * @title Search Conditions
    */
   export interface INaverKeywordInput {
     /**
-     * 검색 결과에 반드시 포함되어야 하는 키워드입니다.
+     * Keywords that must be included in search results.
      *
-     * @title 꼭 들어가야하는 키워드
+     * @title Must-include keywords
      */
     andKeywords: string & Placeholder<"뤼튼">;
 
     /**
-     * 검색 결과에 포함되면 좋겠는 키워드입니다.
+     * Keywords that you would like to see included in the search results.
      *
-     * @title 들어가면 좋은 키워드
+     * @title Keywords that would be good to include
      */
     orKeywords?: string & Placeholder<"스튜디오">;
 
     /**
-     * 검색 결과에 포함되면 안되는 키워드입니다.
+     * Keywords that should not be included in search results.
      *
-     * @title 들어가면 안되는 키워드
+     * @title Keywords that should not be included
      */
     notKeywords?: string & Placeholder<"폭력">;
 
     /**
-     * 검색 결과를 몇 개 받아올 것인지 설정합니다.
-     * 최소 1개, 최대 100개, 기본 10개입니다.
+     * Set how many search results to retrieve.
+     * Minimum 1, maximum 100, default 10.
      *
-     * @title 검색할 개수
+     * @title Number to search
      */
     display?: number &
       tags.Minimum<1> &
@@ -48,184 +40,272 @@ export namespace INaver {
       Placeholder<"10">;
 
     /**
-     * 검색 결과를 어떤 기준으로 정렬할 것인지 설정합니다.
+     * Indicates how to sort.
      *
-     * @title 검색 결과 정렬 방법
+     * - sim: Sort by accuracy descending (default).
+     * - date: Sort by date descending.
+     *
+     * @title Sort by
      */
-    sort?: Sort & Placeholder<"sim">;
+    sort?: (
+      | tags.Constant<
+          "sim",
+          { title: "sim"; description: "정확도 순 내림착순 정렬" }
+        >
+      | tags.Constant<
+          "date",
+          { title: "date"; description: "날짜순 내림차수 정렬" }
+        >
+    ) &
+      Placeholder<"sim">;
   }
 
   /**
-   * @title 네이버 카페 검색 데이터
+   * @title Naver Cafe Search Data
    */
   export interface ICafeNaverItemOutput {
     /**
-     * 네이버 카페 게시글의 제목.
+     * Title of Naver Cafe post.
      *
-     * @title 게시글 제목.
+     * @title Post title.
      */
     title: string;
 
     /**
-     * 네이버 카페 게시글의 링크.
+     * Link to Naver Cafe post.
      *
-     * @title 게시글 링크.
+     * @title Post link.
      */
     link: string;
 
     /**
-     * 네이버 카페 게시글의 요약 내용.
+     * Summary of Naver Cafe post.
      *
-     * @title 게시글 요약 내용.
+     * @title Summary of post.
      */
     description: string;
 
     /**
-     * 네이버 카페 게시글이 있는 카페의 이름.
+     * The name of the cafe where the Naver Cafe post is located.
      *
-     * @title 게시글이 있는 카페 이름.
+     * @title The name of the cafe where the post is located.
      */
     cafename: string;
 
     /**
-     * 네이버 카페 게시글이 있는 카페의 링크.
+     * Link to the cafe where the Naver Cafe post is located.
      *
-     * @title 게시글이 있는 카페 링크.
+     * @title Link to the cafe where the post is located.
      */
     cafeurl: string;
   }
 
   /**
-   * @title 네이버 블로그 검색 데이터
+   * @title Naver blog search data
    */
   export interface IBlogNaverItemOutput {
     /**
-     * 네이버 블로그 게시물의 제목.
+     * Title of Naver blog post.
      *
-     * @title 게시글 제목.
+     * @title Post title.
      */
     title: string;
 
     /**
-     * 네이버 블로그 게시물의 링크.
+     * Link to Naver blog post.
      *
-     * @title 게시글 링크.
+     * @title Post link.
      */
     link: string;
 
     /**
-     * 네이버 블로그 게시물의 요약 내용.
+     * Summary of Naver blog post.
      *
-     * @title 게시글 요약 내용.
+     * @title Summary of post.
      */
     description: string;
 
     /**
-     * 네이버 블로그 게시물이 있는 블로그의 이름.
+     * The name of the blog that contains the Naver blog post.
      *
-     * @title 블로그 포스트가 있는 블로그의 이름.
+     * @title The name of the blog that contains the blog post.
      */
     bloggername: string;
 
     /**
-     * 네이버 블로그 게시물이 있는 블로그의 주소.
+     * Address of the blog that contains the Naver blog post.
      *
-     * @title 블로그 포스트가 있는 블로그의 주소.
+     * @title Address of the blog that contains the blog post.
      */
     bloggerlink: string;
 
     /**
-     * 네이버 블로그 게시물이 작성된 날짜.
+     * The date the Naver blog post was created.
      *
-     * @title 블로그 포스트가 작성된 날짜.
+     * @title The date the blog post was created.
      */
     postdate: string;
   }
 
   /**
-   * @title 네이버 카페 검색 결과
+   * @title Naver Cafe Search Results
    */
   export interface ICafeNaverOutput {
     /**
-     *  네이버 카페 검색 결과물 데이터.
+     * Naver Cafe search result data.
      *
-     * @title 네이버 카페 검색 결과물 데이터.
+     * @title Naver Cafe search result data.
      */
     data: {
       /**
-       * 검색 결과를 생성한 시간입니다.
+       * The time the search results were generated.
        *
-       * @title 검색 결과를 생성한 시간.
+       * @title The time the search results were generated.
        */
       lastBuildDate: string;
 
       /**
-       * 검색 결과의 총 개수입니다.
+       * Total number of search results.
        *
-       * @title 총 검색 결과 개수.
+       * @title Total number of search results.
        */
       total: number;
 
       /**
-       * 검색 결과의 시작 위치입니다.
+       * The starting position of the search results.
        *
-       * @title 검색 시작 위치.
+       * @title The starting position of the search.
        */
       start: number;
 
       /**
-       * 한 번에 표시할 검색 결과의 개수입니다.
+       * The number of search results to display at one time.
        *
-       * @title 한 번에 표시할 검색 결과 개수.
+       * @title The number of search results to display at one time.
        */
       display: number;
 
       /**
-       * 개별 검색 결과입니다.
+       * Individual search results.
        *
-       * @title 개별 검색 결과.
+       * @title Individual search results.
        */
       items: ICafeNaverItemOutput[];
     };
   }
 
   /**
-   * @title 네이버 블로그 검색 결과
+   * @title Naver blog search results
    */
   export interface IBlogNaverOutput {
     /**
-     * 검색 결과를 생성한 시간입니다.
+     * The time the search results were generated.
      *
-     * @title 검색 결과를 생성한 시간.
+     * @title The time the search results were generated.
      */
     lastBuildDate: string;
 
     /**
-     * 검색 결과의 총 개수입니다.
+     * Total number of search results.
      *
-     * @title 총 검색 결과 개수.
+     * @title Total number of search results.
      */
     total: number;
 
     /**
-     * 검색 결과의 시작 위치입니다.
+     * The starting position of the search results.
      *
-     * @title 검색 시작 위치.
+     * @title The starting position of the search.
      */
     start: number;
 
     /**
-     * 한 번에 표시할 검색 결과의 개수입니다.
+     * The number of search results to display at one time.
      *
-     * @title 한 번에 표시할 검색 결과 개수.
+     * @title The number of search results to display at one time.
      */
     display: number;
 
     /**
-     * 개별 검색 결과입니다.
+     * Individual search results.
      *
-     * @title 개별 검색 결과.
+     * @title Individual search results.
      */
     items: IBlogNaverItemOutput[];
+  }
+
+  export interface INewsNaverOutput {
+    /**
+     * The time the search results were generated.
+     *
+     * @title The time the search results were generated.
+     */
+    lastBuildDate: string;
+
+    /**
+     * Total number of search results.
+     *
+     * @title Total number of search results.
+     */
+    total: number;
+
+    /**
+     * The starting position of the search results.
+     *
+     * @title The starting position of the search.
+     */
+    start: number;
+
+    /**
+     * The number of search results to display at one time.
+     *
+     * @title The number of search results to display at one time.
+     */
+    display: number;
+
+    /**
+     * Individual search results.
+     *
+     * @title Individual search results.
+     */
+    items: INewsNaverItemOutput[];
+  }
+
+  /**
+   * @title Naver News Search Data
+   */
+  export interface INewsNaverItemOutput {
+    /**
+     * News Title.
+     *
+     * @title Title
+     */
+    title: string;
+
+    /**
+     * Naver News URL.
+     *
+     * @title Naver News URL
+     */
+    link: string & tags.Format<"uri">;
+
+    /**
+     * Original URL of news article.
+     *
+     * @title Original URL
+     */
+    originallink: string & tags.Format<"uri">;
+
+    /**
+     * The part that matches the search term <b>is wrapped in tags. @title Summary of the news article</b>
+     */
+    description: string;
+
+    /**
+     * The time the news article was provided to Naver.
+     *
+     * @title News article publication time
+     */
+    pubDate: string;
   }
 }

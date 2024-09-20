@@ -9,6 +9,7 @@ import { v4 } from "uuid";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
+import axios from "axios";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
 
@@ -74,35 +75,12 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function getExcelData(
-    input: IExcel.IReadExcelInput,
-  ): Promise<IExcel.IReadExcelOutput> {
+  export function getExcelData(input: {
+    workbook: Excel.Workbook;
+    sheetName?: string | null;
+  }): IExcel.IReadExcelOutput {
     try {
-      const { fileUrl, sheetName } = input;
-      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-      const command = new GetObjectCommand({
-        Bucket: bucket,
-        Key: key,
-      });
-
-      const { Body } = await ExcelProvider.s3.send(command);
-
-      if (!Body) {
-        throw new NotFoundException("Not existing excel file");
-      }
-
-      const chunks = [];
-
-      for await (const chunk of Body) {
-        chunks.push(chunk);
-      }
-
-      const buffer = Buffer.concat(chunks);
-
-      const workbook = new Excel.Workbook();
-      await workbook.xlsx.load(buffer);
-
-      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      const sheet = input.workbook.getWorksheet(input.sheetName ?? 1);
       if (!sheet) {
         throw new NotFoundException("Not existing sheet");
       }
@@ -133,33 +111,74 @@ export namespace ExcelProvider {
         },
       );
 
-      return { data: result };
+      return { headers, data: result };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
     }
   }
 
+  export async function readHeaders(
+    input: IExcel.IReadExcelInput,
+  ): Promise<string[]> {
+    const { fileUrl, sheetName } = input;
+    const workbook = await getExcelFile({ fileUrl });
+    return readExcelHeaders(workbook, sheetName);
+  }
+
+  export function readExcelHeaders(
+    workbook: Excel.Workbook,
+    sheetName?: string | null,
+  ): string[] {
+    const worksheet = workbook.getWorksheet(sheetName ?? 1);
+    const headerRow = worksheet?.getRow(1); // 첫 번째 행이 헤더라고 가정
+
+    // 헤더 데이터를 배열로 추출
+    const headers: string[] = [];
+    headerRow?.eachCell((cell) => {
+      headers.push(cell.value as string); // 각 셀의 값을 문자열로 변환하여 배열에 추가
+    });
+
+    return headers;
+  }
+
   export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
-  ): Promise<IExcel.IInsertExcelRowOutput> {
+  ): Promise<IExcel.IExportExcelFileOutput> {
     try {
-      const { sheetName, data } = input;
-      const workbook = new Excel.Workbook();
-      workbook.addWorksheet(sheetName ?? "Sheet1");
+      const { sheetName, data, fileUrl } = input;
+      const workbook = await getExcelFile({ fileUrl });
+      if (
+        typeof sheetName === "string" &&
+        workbook.worksheets.every((worksheet) => worksheet.name !== sheetName)
+      ) {
+        // 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
+        workbook.addWorksheet(sheetName ?? "Sheet1");
+      }
 
-      const sheet = workbook.getWorksheet(sheetName ?? 1);
+      // 0번 인덱스는 우리가 생성한 적 없는 시트이므로 패스한다.
+      const CREATED_SHEET = 1 as const;
+      const sheet = workbook.getWorksheet(sheetName ?? CREATED_SHEET);
       if (!sheet) {
         throw new NotFoundException("Not existing sheet");
       }
 
-      // 모든 데이터의 key를 추출하여 header로 사용합니다.
       const headers = Object.keys(
-        data.reduce((curr, acc) => ({ ...acc, ...curr })),
+        data.reduce((acc, cur) => ({ ...acc, ...cur })),
       );
-      sheet.addRow(headers);
 
-      data.forEach((rowData: any) => {
+      if (!fileUrl) {
+        // 수정이 아닌 경우에만 저장하게끔 수정
+        sheet.addRow(headers);
+      } else {
+        // 수정인 경우, 하지만 빈 엑셀 파일인 경우
+        const originalData = getExcelData({ sheetName, workbook });
+        if (originalData.data.length === 0) {
+          sheet.addRow(headers);
+        }
+      }
+
+      data.forEach((rowData: Record<string, any>) => {
         const data: string[] = [];
         headers.forEach((header: string) => {
           data.push(rowData[header] ?? "");
@@ -168,27 +187,57 @@ export namespace ExcelProvider {
       });
 
       const modifiedBuffer = await workbook.xlsx.writeBuffer();
-
+      const buffer = Buffer.from(modifiedBuffer);
       const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
 
-      const uploadCommand = new PutObjectCommand({
-        Bucket: ExcelProvider.bucket,
-        Key: key,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        Body: modifiedBuffer,
-        ContentType:
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // ContentType 지정
-      });
-
-      await ExcelProvider.s3.send(uploadCommand);
-
-      return {
-        fileUrl: `https://${ExcelProvider.bucket}.s3.amazonaws.com/${key}`,
-      };
+      return await upsertFile({ Key: key, Body: buffer });
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
     }
+  }
+
+  export async function getExcelFile(input: {
+    fileUrl?: string;
+  }): Promise<Excel.Workbook> {
+    if (input.fileUrl) {
+      const response = await axios.get(input.fileUrl, {
+        responseType: "arraybuffer",
+      });
+
+      // 워크북 로드
+      return new Excel.Workbook().xlsx.load(response.data);
+    }
+    return new Excel.Workbook();
+  }
+
+  export async function createSheets(
+    input: IExcel.ICreateSheetInput,
+  ): Promise<IExcel.IExportExcelFileOutput> {
+    const workbook = new Excel.Workbook();
+    workbook.addWorksheet(input.sheetName ?? "Sheet1");
+
+    const modifiedBuffer: ArrayBuffer = await workbook.xlsx.writeBuffer();
+    const buffer = Buffer.from(modifiedBuffer);
+    const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
+
+    return await upsertFile({ Key: key, Body: buffer });
+  }
+
+  export async function upsertFile(input: {
+    Key: string;
+    Body: Buffer;
+  }): Promise<IExcel.IExportExcelFileOutput> {
+    const ContentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+    const uploadCommand = new PutObjectCommand({
+      Bucket: ExcelProvider.bucket,
+      Key: input.Key,
+      Body: input.Body,
+      ContentType,
+    });
+
+    await ExcelProvider.s3.send(uploadCommand);
+    const fileUrl = `https://${ExcelProvider.bucket}.s3.amazonaws.com/${input.Key}`;
+    return { fileUrl };
   }
 }

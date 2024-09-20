@@ -9,10 +9,44 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
+import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
+import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { getOffset } from "../../../utils/getOffset";
 import type { Rename } from "../../../utils/types/Rename";
 
 export namespace OpenDataProvider {
+  export function getPagination<T>(
+    data: T[],
+    option: { page: number; limit: number },
+  ): { response: T[]; nextPage: boolean } {
+    const { skip, take } = getOffset(option);
+    const response = data.splice(skip, take + 1);
+
+    // 다음 페이지가 존재한다는 take + 1 번째 값이 존재할 경우 다음 페이지가 있다고 값 저장 후 take + 1 번째 값 제거
+    const nextPage = response.length === take + 1 ? true : false;
+    if (nextPage === true) {
+      response.pop();
+    }
+
+    return { response, nextPage };
+  }
+
+  export async function getAddress(
+    input: IMSIT.IGetAddressInput,
+  ): Promise<IMSIT.IGetAddressOutput> {
+    const baseUrl = `http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdService/retrieveNewAdressAreaCdService/getNewAddressListAreaCd`;
+    const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
+    const queryString = createQueryParameter({
+      ...input,
+      searchSe: "post",
+      serviceKey,
+    });
+    const res = await axios.get(`${baseUrl}?${queryString}`);
+    return res.data;
+  }
+
   export async function getRTMSDataSvcSHRent(
     input: IMOLIT.IgetRTMSDataSvcSHRentInput,
   ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
@@ -28,11 +62,12 @@ export namespace OpenDataProvider {
         .join("&");
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
-      const data: IMOLIT.OriginalBuildingLentInfo[] =
-        res.data.response.body.items.item;
+      const data = res.data.response.body.items
+        .item as IMOLIT.OriginalBuildingLentInfo[];
 
+      const { response, nextPage } = getPagination(data, input);
       return {
-        data: data.map((el) => {
+        data: response.map((el) => {
           const sh: IMOLIT.BuildingLentInfo = {
             useOfRenewalRight: el.갱신요구권사용,
             yearOfConstruction: el.건축년도,
@@ -54,6 +89,7 @@ export namespace OpenDataProvider {
           };
           return sh;
         }),
+        nextPage,
       };
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -81,8 +117,9 @@ export namespace OpenDataProvider {
         [["보증금액", "보증금"], ["월세금액", "월세"]]
       >[] = res.data.response.body.items.item;
 
+      const { response, nextPage } = getPagination(data, input);
       return {
-        data: data.map((el) => {
+        data: response.map((el) => {
           const sh: IMOLIT.BuildingLentInfo = {
             useOfRenewalRight: el.갱신요구권사용,
             yearOfConstruction: el.건축년도,
@@ -104,6 +141,7 @@ export namespace OpenDataProvider {
           };
           return sh;
         }),
+        nextPage,
       };
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -128,9 +166,9 @@ export namespace OpenDataProvider {
       const res = await axios.get(`${baseUrl}?${queryString}`);
       const data: IMOLIT.OriginalBuildingLentInfo[] =
         res.data.response.body.items.item;
-
+      const { response, nextPage } = getPagination(data, input);
       return {
-        data: data.map((el) => {
+        data: response.map((el) => {
           const sh: IMOLIT.BuildingLentInfo = {
             useOfRenewalRight: el.갱신요구권사용,
             yearOfConstruction: el.건축년도,
@@ -152,6 +190,7 @@ export namespace OpenDataProvider {
           };
           return sh;
         }),
+        nextPage,
       };
     } catch (error) {
       console.error(JSON.stringify(error));
@@ -308,13 +347,21 @@ export namespace OpenDataProvider {
       const baseUrl = `https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
 
-      const queryString = Object.entries({
-        ...input,
+      // 형식에 안맞는 date format일 경우 공공 데이터 포맷에 맞게 변형
+      const is = typia.createIs<string & tags.Format<"date">>();
+
+      const transformedInput = Object.entries(input)
+        .map((el) => (is(el) ? el.replaceAll("-", "") : el))
+        .reduce((acc, [key, value]) => {
+          acc = Object.assign({ [key]: value });
+          return acc;
+        }, {});
+
+      const queryString = createQueryParameter({
+        ...transformedInput,
         serviceKey,
         resultType: "json",
-      })
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+      });
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
       return res.data;
@@ -386,12 +433,14 @@ export namespace OpenDataProvider {
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
 
       const decoded = decodeURIComponent(serviceKey);
-      const queryString = Object.entries({
-        ...input,
+      const queryString = createQueryParameter({
         serviceKey: decoded,
-      })
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+        "cond[AUTHOR_NAME::LIKE]": input.AUTHOR_NAME,
+        "cond[CONT_TITLE::LIKE]": input.CONT_TITLE,
+        "cond[REG_ID::EQ]": input.REG_ID,
+        page: input.page,
+        perPage: input.perPage,
+      });
 
       const res = await axios.get(`${baseUrl}?${queryString}`, {
         headers: {

@@ -4,17 +4,17 @@ import { IAirportInformation } from "../airport_information/IAirportInformation"
 
 export namespace IGoogleFlight {
   /**
-   * @title 항공권 검색에 필요한 정보
+   * @title Information needed to search for airline tickets
    */
   export interface IRequest {
     /**
-     * 출발지 공항의 코드를 입력해주세요.
+     * Please enter the code of the departure airport.
      *
-     * 왕복(type이 "1")이어도 출발지 코드는 동일해야 합니다.
+     * The departure code must be the same even if it is a round trip (type "1").
      *
-     * 왕복(type이 "1")일 때 connector/google-flight/arrival을 호출하는 경우 departure_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다.
+     * When calling connector/google-flight/arrival for a round trip (type "1"), the departure_id must be the same as when calling connector/google-flight/departure.
      *
-     * @title 출발지
+     * @title Departure
      */
     departure_id: string &
       Prerequisite<{
@@ -27,13 +27,13 @@ export namespace IGoogleFlight {
       }>;
 
     /**
-     * 도착지 공항의 코드를 입력해주세요.
+     * Please enter the destination airport code.
      *
-     * 왕복(type이 "1")이어도 도착지 코드는 동일해야 합니다.
+     * Even if it is a round trip (type "1"), the destination code must be the same.
      *
-     * 왕복(type이 "1")일 때 connector/google-flight/arrival을 호출하는 경우 arrival_id는 connector/google-flight/departure를 호출할 때와 동일해야 합니다.
+     * When calling connector/google-flight/arrival for a round trip (type "1"), the arrival_id must be the same as when calling connector/google-flight/departure.
      *
-     * @title 도착지
+     * @title Destination
      */
     arrival_id: string &
       Prerequisite<{
@@ -46,42 +46,46 @@ export namespace IGoogleFlight {
       }>;
 
     /**
-     * 왕복 또는 편도 여부를 선택해주세요.
+     * Please select whether it is round trip or one way.
      *
-     * 가능한 값으로 1, 2가 있습니다.
+     * Possible values are 1 and 2.
      *
-     * 왕복이면 "1", 편도면 "2"를 선택해주세요.
+     * Please select "1" for round trip and "2" for one way.
      *
-     * @title 왕복 또는 편도 여부
+     * @title Round trip or one way
      */
     type:
       | tags.Constant<"1", { title: "왕복" }>
       | tags.Constant<"2", { title: "편도" }>;
 
     /**
-     * 가는 날짜를 입력해주세요.
+     * Please enter your departure date.
      *
-     * @title 가는 날짜
+     * Please enter a date after today's date.
+     *
+     * @title Departure date
      */
     outbound_date: string & tags.Format<"date">;
 
     /**
-     * 오는 날짜를 입력해주세요.
+     * Please enter the date of arrival.
      *
-     * type이 "1" 이면 필수로 넣어줘야 합니다.
+     * If type is "1", it must be entered.
      *
-     * type이 "2" 이면 넣어주지 않아야 합니다.
+     * If type is "2", it must not be entered.
      *
-     * @title 오는 날짜
+     * Please enter a date after today's date.
+     *
+     * @title Date of arrival
      */
     return_date?: string & tags.Format<"date">;
 
     /**
-     * 좌석 등급을 선택해주세요.
+     * Please select a seat class.
      *
-     * 가능한 값으로 1, 2, 3, 4가 있습니다.
+     * Possible values are 1, 2, 3, 4.
      *
-     * @title 좌석 등급
+     * @title Seat Class
      *
      * @internal
      */
@@ -92,25 +96,25 @@ export namespace IGoogleFlight {
       | tags.Constant<"4", { title: "퍼스트" }>;
 
     /**
-     * 성인 인원수를 입력해주세요.
+     * Please enter the number of adults.
      *
-     * @title 성인 인원
+     * @title Number of adults
      */
     adults: number & tags.Type<"int32">;
 
     /**
-     * 아동 인원수를 입력해주세요.
+     * Please enter the number of children.
      *
-     * @title 아동 인원
+     * @title Number of children
      */
     children?: number & tags.Type<"int32">;
 
     /**
-     * 직항 여부를 선택해주세요.
+     * Please select whether it is a direct flight.
      *
-     * 가능한 값으로 0, 1, 2, 3이 있습니다.
+     * Possible values are 0, 1, 2, 3.
      *
-     * @title 직항 여부
+     * @title Whether it is a direct flight
      */
     stop:
       | tags.Constant<"0", { title: "상관 없음" }>
@@ -119,20 +123,20 @@ export namespace IGoogleFlight {
       | tags.Constant<"3", { title: "2번 이상 경유" }>;
 
     /**
-     * 항공권의 최대 가격을 입력해주세요.
+     * Please enter the maximum price for your flight.
      *
-     * 입력받은 최대 가격을 넘지 않는 항공권을 검색해야 합니다.
+     * You must search for flights that do not exceed the maximum price you entered.
      *
-     * @title 최대 가격
+     * @title Maximum Price
      */
     max_price?: number & tags.Type<"int32">;
   }
 
   export interface IRequestArrival extends IRequest {
     /**
-     * 돌아오는 항공편 검색을 위한 토큰입니다.
+     * Token for searching for return flights.
      *
-     * @title 돌아오는 항공편 검색 토큰
+     * @title Return Flight Search Token
      */
     departure_token: string &
       Prerequisite<{
@@ -147,9 +151,9 @@ export namespace IGoogleFlight {
 
   export interface IRequestFinal extends IRequest {
     /**
-     * 항공편 최종 확인을 위한 토큰입니다.
+     * Token for final confirmation of flight.
      *
-     * @title 항공편 최종 확인 토큰
+     * @title Flight final confirmation token
      */
     booking_token: string &
       Prerequisite<{
@@ -163,218 +167,218 @@ export namespace IGoogleFlight {
   }
 
   /**
-   * 항공권 검색 결과입니다.
+   * Here are the flight search results.
    *
-   * @title 항공권 검색 결과
+   * @title Flight search results
    */
   export interface IResponse {
     /**
-     * 주어진 조건에 맞는 최적의 항공권 검색 결과입니다.
+     * Here are the best flight search results for the given conditions.
      *
-     * @title 최적의 항공권 검색 결과
+     * @title Best flight search results
      */
     best_flights: ISearchOutput[];
 
     /**
-     * 나머지 항공권 검색 결과입니다.
+     * Here are the remaining flight search results.
      *
-     * @title 나머지 항공권 검색 결과
+     * @title The remaining flight search results
      */
     other_flights: ISearchOutput[];
   }
 
   /**
-   * 최종 항공권 선택 결과입니다.
+   * Here are the final flight selection results.
    *
-   * @title 최종 항공권 선택 결과
+   * @title Final flight selection results
    */
   export interface IFinalResponse {
     /**
-     * 최종 선택된 항공권 정보입니다.
+     * Here is the final selected flight information.
      *
-     * @title 최종 선택된 항공권 정보
+     * @title Final selected flight information
      */
     flight: ISearchOutput[];
 
     /**
-     * 선택한 항공편을 예약할 수 있는 정보들입니다.
+     * Here is the information you need to book your chosen flight.
      *
-     * @title 예약 정보
+     * @title Reservation Information
      */
     booking_options: IBookingOption[];
   }
 
   /**
-   * 항공권 검색 결과입니다.
+   * Here are the flight search results.
    *
-   * @title 항공권 검색 결과
+   * @title Flight search results
    */
   export interface ISearchOutput {
     /**
-     * 항공편 정보입니다.
+     * Here is the flight information.
      *
-     * @title 항공편 정보
+     * @title Flight Information
      */
     flight: IFlight[];
 
     /**
-     * 비행에 걸리는 총 소요시간입니다.
+     * Total flight time.
      *
-     * @title 비행 총 소요시간
+     * @title Total flight time
      */
     total_duration: string;
 
     /**
-     * 항공편 가격입니다.
+     * Flight prices.
      *
-     * @title 항공편 가격
+     * @title Flight prices
      */
     price: `${number}원` | string;
 
     /**
-     * 항공편 환승 정보입니다.
+     * Here is the flight transfer information.
      *
-     * @title 환승 정보
+     * @title Transfer Information
      */
     layover?: ILayover;
 
     /**
-     * 돌아오는 항공편 검색을 위한 토큰
+     * Token for return flight search
      *
-     * @title 돌아오는 항공편 검색 토큰
+     * @title Return flight search token
      */
     departure_token?: string;
 
     /**
-     * 항공편 최종 확인을 위한 토큰
+     * Token for final confirmation of flight
      *
-     * @title 항공편 최종 확인 토큰
+     * @title Final confirmation token for flight
      */
     booking_token?: string;
   }
 
   interface IFlight {
     /**
-     * 항공편 출발 정보입니다.
+     * Here is the flight departure information.
      *
-     * @title 출발 정보
+     * @title Departure Information
      */
     departure_airport: IAirport;
 
     /**
-     * 항공편 도착 정보입니다.
+     * Here is the flight arrival information.
      *
-     * @title 도착 정보
+     * @title Arrival Information
      */
     arrival_airport: IAirport;
 
     /**
-     * 비행에 걸리는 소요 시간입니다.
+     * This is the time it takes to fly.
      *
-     * @title 비행 시간
+     * @title Flight time
      */
     duration: string;
 
     /**
-     * 비행기 기종 정보입니다.
+     * Here is the aircraft type information.
      *
-     * @title 비행기 기종
+     * @title Airplane type
      */
     airplane: string;
 
     /**
-     * 항공사 정보입니다.
+     * Here is the airline information.
      *
-     * @title 항공사
+     * @title Airline
      */
     airline: string;
 
     /**
-     * 항공사 로고 이미지입니다.
+     * This is an image of an airline logo.
      *
-     * @title 항공사 로고
+     * @title Airline Logo
      */
     airline_logo: string &
       tags.Format<"uri"> &
       tags.ContentMediaType<"image/*">;
 
     /**
-     * 좌석 등급 정보입니다.
+     * Here is the seat class information.
      *
-     * @title 좌석 등급
+     * @title Seat Class
      */
     travel_class: string;
 
     /**
-     * 항공편 번호입니다.
+     * Flight number is.
      *
-     * @title 항공편 번호
+     * @title Flight number
      */
     flight_number: string;
   }
 
   /**
-   * @title 항공편 정보
+   * @title Flight Information
    */
   interface IAirport {
     /**
-     * 공항 이름입니다.
+     * Airport name.
      *
-     * @title 공항 이름
+     * @title Airport name
      */
     name: string;
 
     /**
-     * 세자리 공항 코드입니다.
+     * This is a three-digit airport code.
      *
-     * @title 공항 코드
+     * @title Airport Code
      */
     code: string;
 
     /**
-     * 비행기가 출발하는 일자와 시각입니다.
+     * The date and time of the flight departure.
      *
-     * @title 비행기 출발 일자 / 시각
+     * @title Flight Departure Date / Time
      */
     time: string;
   }
 
   /**
-   * @title 환승 정보
+   * @title Transfer information
    */
   interface ILayover extends Omit<IAirport, "time"> {
     /**
-     * 환승 시간입니다.
+     * It's transfer time.
      *
-     * @title 환승 시간
+     * @title Transfer time
      */
     duration: string;
   }
 
   /**
-   * 예약 옵션입니다.
+   * Reservation options.
    *
-   * @title 예약 옵션
+   * @title Reservation options
    */
   export interface IBookingOption {
     /**
-     * 선택할 항공편을 예약할 수 있는 사이트 입니다.
+     * This is a site where you can book flights of your choice.
      *
-     * @title 예약 사이트
+     * @title Reservation site
      */
     book_with: string;
 
     /**
-     * 선택된 항공편의 가격입니다.
+     * The price of the selected flight.
      *
-     * @title 가격
+     * @title Price
      */
     price: string | `${number}원`;
 
     /**
-     * 선택된 항공편을 예약할 수 있는 링크입니다.
+     * Here is a link to book your selected flight.
      *
-     * @title 예약 링크
+     * @title Reservation Link
      */
     book_link: string | tags.Format<"uri">;
   }

@@ -1,19 +1,25 @@
 import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
+import {
+  BlockObjectRequest,
+  CreatePageParameters,
+} from "@notionhq/client/build/src/api-endpoints";
+import { StrictOmit } from "../../../../utils/strictOmit";
+import { Hierarchy } from "../../../../utils/types/Hierarchy";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {
   /**
-   * - plainText: 텍스트
-   * - markdown: 마크다운
+   * - plainText: text
+   * - markdown: markdown
    *
-   * @title 데이터베이스 아이템 페이지 content의 유형
+   * @title The type of content in the database item page
    */
   type ContentType = "plainText" | "markdown";
 
   /**
-   * @title 색상
+   * @title color
    */
   type Color =
     | "default"
@@ -28,7 +34,7 @@ export namespace INotion {
     | "red";
 
   /**
-   * @title 데이터베이스 날짜 속성
+   * @title Database Date Attribute
    */
   type DateDatabaseProperty = {
     id: string;
@@ -38,7 +44,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 체크박스 속성
+   * @title Database Checkbox Properties
    */
   type CheckboxDatabaseProperty = {
     id: string;
@@ -48,7 +54,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 작성자 속성
+   * @title Database Creator Attributes
    */
   type CreatedByDatabaseProperty = {
     id: string;
@@ -57,7 +63,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 작성 시간 속성
+   * @title Database Creation Time Attribute
    */
   type CreatedTimeDatabaseProperty = {
     id: string;
@@ -67,7 +73,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 이메일 속성
+   * @title Database Email Attributes
    */
   type EmailDatabaseProperty = {
     id: string;
@@ -77,7 +83,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 파일 속성
+   * @title Database File Properties
    */
   type FilesDatabaseProperty = {
     id: string;
@@ -87,7 +93,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 공식 속성
+   * @title Database official properties
    */
   type FormulaDatabaseProperty = {
     id: string;
@@ -99,7 +105,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 마지막 수정자 속성
+   * @title Database Last Modified Attribute
    */
   type LastEditedByDatabaseProperty = {
     id: string;
@@ -109,7 +115,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 수정 시간 속성
+   * @title Database Modification Time Attribute
    */
   type LastEditedTimeDatabaseProperty = {
     id: string;
@@ -119,7 +125,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 다중 선택 속성
+   * @title Database Multi-Select Attribute
    */
   type MultiSelectDatabaseProperty = {
     id: string;
@@ -135,7 +141,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 숫자 포맷
+   * @title Database Number Format
    */
   type NumberFormat =
     | "number"
@@ -180,7 +186,7 @@ export namespace INotion {
     | "peruvian_sol";
 
   /**
-   * @title 데이터베이스 숫자 속성
+   * @title Database numeric properties
    */
   type NumberDatabaseProperty = {
     id: string;
@@ -192,7 +198,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 사람 속성
+   * @title database people properties
    */
   type PeopleDatabaseProperty = {
     id: string;
@@ -202,7 +208,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 전화번호 속성
+   * @title Database Phone Number Attribute
    */
   type PhoneNumberDatabaseProperty = {
     id: string;
@@ -212,7 +218,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 관계 속성
+   * @title Database Relationship Properties
    */
   type RelationDatabaseProperty = {
     id: string;
@@ -226,7 +232,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 텍스트 속성
+   * @title database text property
    */
   type RichTextDatabaseProperty = {
     id: string;
@@ -236,7 +242,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 집계 함수
+   * @title Aggregate Function
    */
   type RollupFunction =
     | "count"
@@ -265,7 +271,7 @@ export namespace INotion {
     | "show_original";
 
   /**
-   * @title 데이터베이스 집계 속성
+   * @title Database Aggregate Properties
    */
   type RollupDatabaseProperty = {
     type: "rollup";
@@ -281,7 +287,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 선택 속성
+   * @title Database Selection Attributes
    */
   type SelectDatabaseProperty = {
     id: string;
@@ -297,7 +303,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 상태 속성
+   * @title Database status properties
    */
   type StatusDatabaseProperty = {
     id: string;
@@ -319,7 +325,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 제목 속성
+   * @title Database title property
    */
   type TitleDatabaseProperty = {
     type: "title";
@@ -329,7 +335,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 Url 속성
+   * @title Database Url property
    */
   type UrlDatabaseProperty = {
     type: "url";
@@ -339,7 +345,7 @@ export namespace INotion {
   };
 
   /**
-   * @title 데이터베이스 속성
+   * @title database properties
    */
   export type DatabaseProperty =
     | NumberDatabaseProperty
@@ -364,15 +370,15 @@ export namespace INotion {
     | LastEditedTimeDatabaseProperty;
 
   /**
-   * - database: 데이터베이스
-   * - page: 페이지
-   * - user: 사람
-   * - block: 블럭
-   * - property_item: 속성 아이템
-   * - list: 목록
-   * - comment: 댓글
+   * - database: database
+   * - page: page
+   * - user: person
+   * - block: block
+   * - property_item: property item
+   * - list: list
+   * - comment: comment
    *
-   * @title 노션 개체 유형
+   * @title Notion Object Type
    */
   export type NotionObject =
     | "database"
@@ -384,250 +390,832 @@ export namespace INotion {
     | "comment";
 
   /**
-   * - emoji: 이모지
-   * - external: 외부 이미지
-   * - file: 이미지 파일
+   * - emoji: emoji
+   * - external: external image
+   * - file: image file
    *
-   * @title 노션 페이지 아이콘의 유형
+   * @title Type of Notion page icon
    */
   type IconType = "emoji" | "external" | "file";
 
   /**
-   * @title 페이지 생성에 필요한 조건
+   * @title Conditions required to create a page
    */
   export interface ICreatePageInput extends ICommon.ISecret<"notion"> {
     /**
-     * 새로 생성할 페이지의 부모 페이지
+     * Parent page of the newly created page
      *
-     * @title 부모 페이지
+     * @title Parent page
      */
-    parentPageId: string &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/notion/get/page";
-        jmesPath: JMESPath<IReadPageOutput[], "[].{value:pageId, label:title}">;
-      }> &
-      Placeholder<"부모 페이지를 선택하세요.">;
+    parentPageId: PageIdInput["pageId"];
 
     /**
-     * 새로 생성할 페이지 제목
+     * New page title to be created
      *
-     * @title 페이지 제목
+     * @title Page title
      */
     title: string & Placeholder<"테스트 페이지.">;
+  }
 
+  export interface ICreatePageContentInput
+    extends Pick<CreatePageParameters, "children"> {
+    children: BlockObjectRequest[];
+  }
+
+  export type LookUp<U extends { type?: string }, T> = U extends { type?: T }
+    ? U
+    : never;
+
+  export interface ICreateChildContentTypeFileInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `file`>,
+        "type" | "object" | "file"
+      > {
     /**
-     * 페이지에 생성할 내용
-     *
-     * @title 내용
+     * @title file
      */
-    content: string & Placeholder<"테스트 페이지를 생성했습니다.">;
+    file: {
+      /**
+       * @title external
+       */
+      external: {
+        /**
+         * @title url
+         *
+         * You can enter the path of the file you want to upload.
+         */
+        url: string & tags.Format<"uri">;
+      };
+
+      /**
+       * @title filename
+       */
+      name?: string;
+
+      /**
+       * @title caption for this file
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeEmbedInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `embed`>,
+        "type" | "object" | "embed"
+      > {
+    /**
+     * @title embed
+     */
+    embed: {
+      /**
+       * @title url
+       *
+       * You can enter the path of the file you want to embed.
+       */
+      url: string & tags.Format<"uri">;
+
+      /**
+       * @title caption of this embed
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeBookmarkInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `bookmark`>,
+        "type" | "object" | "bookmark"
+      > {
+    /**
+     * @title bookmark
+     */
+    bookmark: {
+      /**
+       * @title url
+       *
+       * You can enter the path of the file you want to bookmark.
+       */
+      url: string & tags.Format<"uri">;
+
+      /**
+       * @title caption of this bookmark
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeImageInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `image`>,
+        "type" | "object" | "image"
+      > {
+    /**
+     * @title image
+     */
+    image: {
+      /**
+       * @title external
+       */
+      external: {
+        /**
+         * @title url
+         *
+         * image file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.
+         */
+        url: string &
+          tags.Format<"uri"> &
+          tags.Pattern<".*\\.(bmp|gif|heic|jpe?g|png|svg|tiff?)(\\?.*)?">;
+      };
+
+      /**
+       * @title caption of this image
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeVideoInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `video`>,
+        "type" | "object" | "video"
+      > {
+    video: {
+      external: {
+        /**
+         * @title url
+         *
+         * video file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'
+         * OR
+         * YouTube video links that include embed or watch.
+         * E.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]
+         */
+        url: string & tags.Format<"uri">;
+      };
+
+      /**
+       * @title caption of this embed
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypePdfInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `pdf`>, "type" | "object" | "pdf"> {
+    /**
+     * @title pdf
+     */
+    pdf: {
+      /**
+       * @title external
+       */
+      external: {
+        /**
+         * @title url
+         */
+        url: string & tags.Format<"uri"> & tags.Pattern<".*\\.(pdf)(\\?.*)?">;
+      };
+
+      /**
+       * @title caption of this pdf
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeAudioInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `audio`>,
+        "type" | "object" | "audio"
+      > {
+    audio: {
+      /**
+       * @title external
+       */
+      external: {
+        /**
+         * @title url
+         */
+        url: string & tags.Format<"uri">;
+      };
+
+      /**
+       * @title caption of this embed
+       */
+      caption?: INotion.OnlyOneTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeCodeInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `code`>,
+        | "code" // 코드를 완전히 새로 구현하기 위함
+        | "type"
+        | "object"
+      > {
+    code: {
+      /**
+       * @title programming language name
+       */
+      language:
+        | "abap"
+        | "agda"
+        | "arduino"
+        | "assembly"
+        | "bash"
+        | "basic"
+        | "bnf"
+        | "c"
+        | "c#"
+        | "c++"
+        | "clojure"
+        | "coffeescript"
+        | "coq"
+        | "css"
+        | "dart"
+        | "dhall"
+        | "diff"
+        | "docker"
+        | "ebnf"
+        | "elixir"
+        | "elm"
+        | "erlang"
+        | "f#"
+        | "flow"
+        | "fortran"
+        | "gherkin"
+        | "glsl"
+        | "go"
+        | "graphql"
+        | "groovy"
+        | "haskell"
+        | "html"
+        | "idris"
+        | "java"
+        | "javascript"
+        | "json"
+        | "julia"
+        | "kotlin"
+        | "latex"
+        | "less"
+        | "lisp"
+        | "livescript"
+        | "llvm ir"
+        | "lua"
+        | "makefile"
+        | "markdown"
+        | "markup"
+        | "matlab"
+        | "mathematica"
+        | "mermaid"
+        | "nix"
+        | "notion formula"
+        | "objective-c"
+        | "ocaml"
+        | "pascal"
+        | "perl"
+        | "php"
+        | "plain text"
+        | "powershell"
+        | "prolog"
+        | "protobuf"
+        | "purescript"
+        | "python"
+        | "r"
+        | "racket"
+        | "reason"
+        | "ruby"
+        | "rust"
+        | "sass"
+        | "scala"
+        | "scheme"
+        | "scss"
+        | "shell"
+        | "solidity"
+        | "sql"
+        | "swift"
+        | "toml"
+        | "typescript"
+        | "vb.net"
+        | "verilog"
+        | "vhdl"
+        | "visual basic"
+        | "webassembly"
+        | "xml"
+        | "yaml"
+        | "java/c/c++/c#";
+
+      /**
+       * @title rich text for this codebox
+       */
+      rich_text: INotion.MultipleTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeEquationInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `equation`>,
+        "type" | "object" | "equation"
+      > {
+    /**
+     * @title equation
+     */
+    equation: {
+      /**
+       * @title expression
+       *
+       * an equation in mathematics
+       */
+      expression: "y = 2x";
+    };
+  }
+
+  export interface ICreateChildContentTypeDividerInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `divider`>, "type" | "object"> {
+    /**
+     * @title divider
+     */
+    divider: Record<string, never>;
+  }
+
+  export interface ICreateChildContentTypeBreadcrumbInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `breadcrumb`>, "type" | "object"> {
+    /**
+     * @title breadcrumb
+     *
+     * You only need to match the key name correctly, so you just need to pass on an empty object.
+     */
+    breadcrumb: Record<string, never>;
+  }
+
+  export interface ICreateChildContentTypeTableOfContentsInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `table_of_contents`>,
+        "type" | "object" | "table_of_contents"
+      > {
+    /**
+     * @title table_of_contents
+     */
+    table_of_contents: {
+      /**
+       * @title color
+       *
+       * It must be one of :
+       * "default", "gray", "brown", "orange", "yellow", "green", "blue", "purple", "pink", "red", "gray_background", "brown_background", "orange_background", "yellow_background", "green_background", "blue_background", "purple_background", "pink_background", "red_background"
+       */
+      color: ApiColor;
+    };
+  }
+
+  export interface ICreateChildContentTypeLinkToPageInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `link_to_page`>,
+        "type" | "object" | "link_to_page"
+      > {
+    /**
+     * @title link_to_page
+     */
+    link_to_page: {
+      /**
+       * @title page_id
+       *
+       * You can look up the page by passing the page ID as a parameter at the end of the notion link.
+       * For example, in the format 'https://www.notion.so/ :pageId'.
+       */
+      page_id: string & PageIdInput["pageId"];
+    };
+  }
+
+  export interface ICreateChildContentTypeTableRowInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `table_row`>, "type" | "object"> {}
+
+  export interface ICreateChildContentTypeTableInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `table`>, "type" | "object"> {}
+
+  export interface ICreateChildContentTypeColumnListInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `column_list`>,
+        "type" | "object"
+      > {}
+
+  export interface ICreateChildContentTypeColumnInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `column`>, "type" | "object"> {}
+
+  export interface ICreateChildContentTypeHeading_1Input
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `heading_1`>,
+        "type" | "object" | "heading_1"
+      > {
+    /**
+     * @title heading_1
+     */
+    heading_1: {
+      /**
+       * @title rich_text
+       */
+      rich_text: INotion.MultipleTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeHeading_2Input
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `heading_2`>,
+        "type" | "object" | "heading_2"
+      > {
+    /**
+     * @title heading_2
+     */
+    heading_2: {
+      /**
+       * @title rich_text
+       */
+      rich_text: INotion.MultipleTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeHeading_3Input
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `heading_3`>,
+        "type" | "object" | "heading_3"
+      > {
+    /**
+     * @title heading_3
+     */
+    heading_3: {
+      /**
+       * @title rich_text
+       */
+      rich_text: INotion.MultipleTextLine;
+    };
+  }
+
+  export interface ICreateChildContentTypeParagraphInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `paragraph`>,
+        "type" | "object" | "paragraph"
+      >,
+      WithChilden<
+        {
+          /**
+           * @title paragraph
+           */
+          paragraph: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.MultipleTextLine;
+          };
+        },
+        "paragraph"
+      > {}
+
+  export interface ICreateChildContentTypeBulletedListItemInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `bulleted_list_item`>,
+        "type" | "object" | "bulleted_list_item"
+      >,
+      WithChilden<
+        {
+          /**
+           * @title bulleted_list_item
+           */
+          bulleted_list_item: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.MultipleTextLine;
+          };
+        },
+        "bulleted_list_item"
+      > {}
+
+  export interface ICreateChildContentTypeNumberedListItemInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `numbered_list_item`>,
+        "type" | "object" | "numbered_list_item"
+      >,
+      WithChilden<
+        {
+          /**
+           * @title numbered_list_item
+           */
+          numbered_list_item: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.MultipleTextLine;
+          };
+        },
+        "numbered_list_item"
+      > {}
+
+  export interface ICreateChildContentTypeQuoteInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `quote`>,
+        "type" | "object" | "quote"
+      >,
+      WithChilden<
+        {
+          /**
+           * @title quote
+           */
+          quote: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.MultipleTextLine;
+          };
+        },
+        "quote"
+      > {}
+
+  export interface ICreateChildContentTypeToDoInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `to_do`>,
+        "type" | "object" | "to_do"
+      >,
+      WithChilden<
+        {
+          /**
+           * @title to_do
+           */
+          to_do: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.MultipleTextLine;
+
+            /**
+             * @title checked
+             */
+            checked?: boolean;
+
+            /**
+             * @title color
+             */
+            color?: ApiColor;
+          };
+        },
+        "to_do"
+      > {}
+
+  export interface ICreateChildContentTypeToggleInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `toggle`>,
+        "type" | "object" | "toggle"
+      >,
+      WithChilden<
+        {
+          /**
+           * @title toggle
+           */
+          toggle: {
+            /**
+             * @title rich_text
+             */
+            rich_text: INotion.MultipleTextLine;
+
+            /**
+             * @title color
+             */
+            color?: ApiColor;
+          };
+        },
+        "toggle"
+      > {}
+
+  export interface ICreateChildContentTypeCalloutInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<LookUp<BlockObjectRequest, `callout`>, "type" | "object"> {}
+
+  export interface ICreateChildContentTypeSyncedBlockInput
+    extends ICommon.ISecret<"notion">,
+      PageIdInput,
+      StrictOmit<
+        LookUp<BlockObjectRequest, `synced_block`>,
+        "type" | "object"
+      > {}
+
+  export interface PageIdInput {
+    /**
+     * @title pageId
+     *
+     * Indicates the page on which you want to add a block.
+     * At the bottom of this page, a block is added to match the requested object here.
+     * Calling this connector requires the correct page ID,
+     * so it should only be called if you have previously created a page to obtain that ID, viewed the page,
+     * or obtained a link or page ID from the user in advance.
+     */
+    pageId: string &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/notion/get/page";
+            jmesPath: JMESPath<
+              IReadPageOutput[],
+              "[].{value:pageId, label:title}"
+            >;
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/notion/page";
+            jmesPath: JMESPath<IReadPageOutput[], "[].{value:id, label:id}">;
+          }>
+      ) &
+      Placeholder<"부모 페이지를 선택하세요.">;
   }
 
   /**
-   * @title 페이지 생성 결과
+   * @title Page creation result
    */
   export interface ICreatePageOutput {
     /**
-     * 생성된 페이지의 고유 id
+     * Unique id of the generated page
      *
-     * @title 페이지 id
+     * @title page id
      */
     id: string;
+
+    /**
+     * @title tilte
+     *
+     * Title of the document you just created
+     */
+    title: string;
   }
 
   /**
-   * @title 유저 정보
+   * @title User Information
    */
   export interface IUser {
     /**
-     * 유저 정보의 개체 유형
+     * Object type of user information
      *
-     * @title 개체 유형
+     * @title Object type
      */
     object: NotionObject;
 
     /**
-     * 유저 고유 id
+     * User unique id
      *
-     * @title 고유 id
+     * @title unique id
      */
     id: string;
 
     /**
-     * 유저의 이름
+     * User's name
      *
-     * @title 이름
+     * @title Name
      */
     name: string;
 
     /**
-     * 프로필 사진 url
+     * Profile picture url
      *
-     * @title 프로필 사진 url
+     * @title Profile picture url
      */
     avatar_url: string | null;
 
     /**
-     * - person: 사람
-     * - bot: 자동화 봇
+     * - person: person
+     * - bot: automated bot
      *
-     * @title 유저 유형
+     * @title User Type
      */
     type: "person" | "bot";
 
     /**
-     * 유저 유형이 사람일 때의 정보
+     * Information when the user type is human
      *
-     * @title 유저 정보
+     * @title User Information
      */
     person?: {
       /**
-       * 유저 이메일
+       * User Email
        *
-       * @title 이메일
+       * @title Email
        */
       email: string;
     };
 
     /**
-     * 유저 유형이 bot일 때의 정보
+     * Information when the user type is bot
      *
-     * @title bot 정보
+     * @title bot information
      */
     bot?: {
       /**
-       * 봇을 소유하고 있는 유저의 정보
+       * Information about the user who owns the bot
        *
-       * @title 소유 정보
+       * @title Ownership Information
        */
       owner: {
         /**
-         * 소유하고 있는 유저의 유형
+         * Type of user you own
          *
-         * @title 유형
+         * @title Type
          */
         type: string;
 
         /**
-         * 워크스페이스인지 여부
+         * Whether it is a workspace
          *
-         * @title 워크스페이스 여부
+         * @title Whether it is a workspace
          */
         workspace: boolean;
       };
       /**
-       * 워크스페이스 이름
+       * Workspace Name
        *
-       * @title 워크스페이스 이름
+       * @title Workspace Name
        */
       workspace_name: string;
     };
   }
 
   /**
-   * @title 유저 목록 조회 결과
+   * @title User list query results
    */
   export interface IUserOutput {
     /**
-     * 유저 고유 id
+     * User unique id
      *
      * @title id
      */
     id: string;
 
     /**
-     * 유저 이름
+     * Username
      *
-     * @title 이름
+     * @title Name
      */
     name: string;
   }
 
   /**
-   * @title 페이지 목록 조회 결과
+   * @title Page list query results
    */
   export interface IReadPageOutput {
     /**
      * 페이지 고유 id
      *
      * @title id
-     */
-    pageId: string;
-
-    /**
-     * 페이지 제목
      *
-     * @title 제목
-     */
-    title: string;
-  }
-
-  /**
-   * @title 페이지에 내용을 추가할 때 필요한 정보
-   */
-  export interface IAppendPageToContentInput extends ICommon.ISecret<"notion"> {
-    /**
-     * 페이지에 추가할 내용
-     *
-     * @title 내용
-     */
-    content: string & Placeholder<"뤼튼 스튜디오">;
-  }
-
-  /**
-   * @title 데이터베이스 속성 정보
-   *
-   * TODO: 타입 확정 및 inspector 구조에 맞추어 변경 필요
-   */
-  export interface IDatabasePropertyInput {
-    /**
-     * 데이터베이스 속성 별로 넣을 수 있는 값의 type이 다 다름
-     * 일단 any로 선언 했는데, 속성별로 넣을 수 있는 값의 type을 Union으로 지정해야 되는지 구조 고민 필요함.
-     *
-     * TODO: 타입 확정 및 inspector 구조에 맞추어 변경 필요
-     */
-    [key: string]: any;
-  }
-
-  /**
-   * @title 데이터베이스에 아이템을 추가할 때 필요한 정보
-   */
-  export interface ICreateDatabaseItemInput
-    extends IDatabasePropertyInput,
-      ICommon.ISecret<"notion"> {
-    /**
-     * 데이터베이스 속성에 추가할 값
-     *
-     * @title 속성 값
-     */
-    value?: string;
-
-    /**
-     * 생성할 데이터베이스 아이템 페이지에 넣을 내용
-     *
-     * @title 페이지에 넣을 내용
-     */
-    content?: string;
-
-    /**
-     * 생성할 데이터베이스 아이템 페이지 내용 유형
-     *
-     * @title 페이지 내용의 유형
-     */
-    contentType?: ContentType;
-  }
-
-  /**
-   * @title 데이터베이스에 존재하는 아이템을 수정할 때 필요한 정보
-   */
-  export interface IUpdateDatabaseItemInput
-    extends IDatabasePropertyInput,
-      ICommon.ISecret<"notion"> {
-    /**
-     * 업데이트 할 페이지
-     *
-     * @title 페이지
+     * Indicates the page on which you want to add a block.
+     * At the bottom of this page, a block is added to match the requested object here.
      */
     pageId: string &
       Prerequisite<{
@@ -637,189 +1225,270 @@ export namespace INotion {
       }>;
 
     /**
-     * 업데이트 할 데이터베이스 페이지 내용
+     * Page Title
      *
-     * @title 내용
-     */
-    content?: string;
-
-    /**
-     * 업데이트 할 데이터베이스 속성 값
-     *
-     * @title 속성 값
-     */
-    value?: string;
-  }
-
-  /**
-   * @title 데이터베이스 정보
-   */
-  export interface IDatabaseInfo {
-    /**
-     * 데이터베이스 고유 id
-     *
-     * @title id
-     */
-    id: string;
-
-    /**
-     * 데이터베이스 제목
-     *
-     * @title 제목P
+     * @title Title
      */
     title: string;
-
-    /**
-     * 데이터베이스 속성 정보
-     *
-     * @title 속성
-     */
-    properties: Record<string, DatabaseProperty>;
   }
 
   /**
-   * @title 데이터베이스 속성 정보
+   * @title Information needed to add content to the page
    */
-  export interface IDatabasePropertyInfo {
+  export interface IAppendPageToContentInput extends ICommon.ISecret<"notion"> {
     /**
-     * 데이터베이스 속성 고유 id
+     * What to add to the page
      *
-     * @title id
+     * @title Content
      */
-    id: string;
+    content: string & Placeholder<"뤼튼 스튜디오">;
+  }
 
+  /**
+   * @title Database property information
+   *
+   * TODO: Need to change type and inspector structure accordingly
+   */
+  export interface IDatabasePropertyInput {
     /**
-     * 데이터베이스 속성 이름
+     * The types of values that can be inserted by database properties are all different
+     * First, I declared it as any, but I need to think about the structure to see if I should specify the types of values that can be inserted by property as Union.
      *
-     * @title 이름
-     */
-    name: string;
-
-    /**
-     * 데이터베이스 속성 유형
-     *
-     * @title 유형
-     */
-    type: string;
-
-    /**
-     * 데이터베이스 속성 값 정보
-     *
-     * @title 값
-     *
-     * TODO: 타입 확정 및 inspector 구조에 맞추어 변경 필요
+     * TODO: Type confirmation and changes to fit the inspector structure are needed
      */
     [key: string]: any;
   }
 
   /**
-   * @title 페이지 검색에 필요한 정보
+   * @title Information required to add an item to the database
+   */
+  export interface ICreateDatabaseItemInput
+    extends IDatabasePropertyInput,
+      ICommon.ISecret<"notion"> {
+    /**
+     * Value to add to database property
+     *
+     * @title property value
+     */
+    value?: string;
+
+    /**
+     * What to put on the database item page you want to create
+     *
+     * What to put on the @title page
+     */
+    content?: string;
+
+    /**
+     * Database item page content type to create
+     *
+     * @title Page content type
+     */
+    contentType?: ContentType;
+  }
+
+  /**
+   * @title Information required to modify an item that exists in the database
+   */
+  export interface IUpdateDatabaseItemInput
+    extends IDatabasePropertyInput,
+      ICommon.ISecret<"notion"> {
+    /**
+     * Page to update
+     *
+     * @title Page
+     */
+    pageId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/page";
+        jmesPath: JMESPath<IReadPageOutput[], "[].{value:pageId, label:title}">;
+      }>;
+
+    /**
+     * Database page content to update
+     *
+     * @title Content
+     */
+    content?: string;
+
+    /**
+     * Database property value to update
+     *
+     * @title property value
+     */
+    value?: string;
+  }
+
+  /**
+   * @title Database Information
+   */
+  export interface IDatabaseInfo {
+    /**
+     * database unique id
+     *
+     * @title id
+     */
+    id: string;
+
+    /**
+     * Database Title
+     *
+     * @title TitleP
+     */
+    title: string;
+
+    /**
+     * Database property information
+     *
+     * @title property
+     */
+    properties: Record<string, DatabaseProperty>;
+  }
+
+  /**
+   * @title Database property information
+   */
+  export interface IDatabasePropertyInfo {
+    /**
+     * database property unique id
+     *
+     * @title id
+     */
+    id: string;
+
+    /**
+     * Database property name
+     *
+     * @title name
+     */
+    name: string;
+
+    /**
+     * Database property type
+     *
+     * @title type
+     */
+    type: string;
+
+    /**
+     * Database property value information
+     *
+     * @title value
+     *
+     * TODO: Type confirmation and inspector structure needs to be changed
+     */
+    [key: string]: any;
+  }
+
+  /**
+   * @title Information needed to search the page
    */
   export interface IFindPageOrDatabaseItemInput
     extends ICommon.ISecret<"notion"> {
     /**
-     * 페이지 제목
+     * Page Title
      *
-     * @title 제목
+     * @title Title
      */
     title: string;
   }
 
   /**
-   * @title 데이터베이스에 있는 아이템을 찾을 때 필요한 정보
+   * @title Information needed to find an item in the database
    */
   export interface IFindDatabaseItemInput extends ICommon.ISecret<"notion"> {
     /**
-     * 데이터베이스 아이템에 있는 아이템의 제목
+     * The title of the item in the database item
      *
-     * @title 제목
+     * @title Title
      */
     title?: string;
 
     /**
-     * 데이터베이스 아이템에 있는 숫자
+     * Number in database item
      *
-     * @title 숫자
+     * @title Number
      */
     number?: number & tags.Type<"int32">;
 
     /**
-     * 데이터베이스 아이템에 있는 url
+     * url in database item
      *
      * @title url
      */
     url?: string & tags.Format<"uri">;
 
     /**
-     * 데이터베이스 아이템에 있는 이메일 주소
+     * Email address in database item
      *
-     * @title 이메일 주소
+     * @title Email address
      */
     email?: string & tags.Format<"email">;
 
     /**
-     * 데이터베이스 아이템에 있는 텍스트
+     * Text in database item
      *
-     * @title 텍스트
+     * @title text
      */
     rich_text?: string;
 
     /**
-     * 데이터베이스 아이템에 있는 전화번호
+     * Phone number in database item
      *
-     * @title 전화번호
+     * @title Phone number
      */
     phone_number?: string;
 
     /**
-     * 데이터베이스 아이템을 찾을 때 속성가 여러개 올 수 있음 (제목, 숫자, url, 이메일, 텍스트, 전화번호)
-     * 속성마다 오는 value들이 다 다르므로 일단 any로 선언
+     * When searching for a database item, multiple attributes can come up (title, number, url, email, text, phone number)
+     * Since the values coming for each attribute are different, declare it as any
      *
-     * TODO: 타입 확정 및 inspector 구조에 맞추어 변경 필요
+     * TODO: Type confirmation and changes to fit the inspector structure are needed
      */
     [key: string]: any;
   }
 
   /**
-   * @title 페이지 정보
+   * @title Page Information
    */
   interface ICommonPageOutputInterface extends ICreatePageOutput {
     /**
-     * 페이지 객체의 유형
+     * Type of page object
      *
-     * @title 개체 유형
+     * @title Object Type
      */
     object: NotionObject;
 
     /**
-     * 페이지가 생성된 일자
+     * Date the page was created
      *
-     * @title 생성 일자
+     * @title Date created
      */
     created_time: string;
 
     /**
-     * 페이지가 마지막으로 수정된 일자
+     * Date the page was last modified
      *
-     * @title 마지막 수정 일자
+     * @title Last modified
      */
     last_edited_time: string;
 
     /**
-     * 페이지를 생성한 사람에 대한 정보
+     * Information about who created the page
      *
-     * @title 생성한 사람
+     * @title Created by
      */
     created_by: {
       /**
-       * 페이지를 생성한 사람 객체의 유형
+       * The type of the object that created the page
        *
-       * @title 개체 유형
+       * @title Object Type
        */
       object: NotionObject;
 
       /**
-       * 페이지를 생성한 사람의 고유 id
+       * Unique id of the person who created the page
        *
        * @title id
        */
@@ -827,20 +1496,20 @@ export namespace INotion {
     };
 
     /**
-     * 페이지를 마지막으로 수정한 사람에 대한 정보
+     * Information about who last modified the page
      *
-     * @title 마지막으로 수정한 사람
+     * @title Last modified by
      */
     last_edited_by: {
       /**
-       * 페이지를 마지막으로 수정한 사람 객체의 유형
+       * The type of object that last modified the page
        *
-       * @title 개체 유형
+       * @title Object Type
        */
       object: NotionObject;
 
       /**
-       * 페이지를 마지막으로 수정한 사람의 고유 id
+       * Unique id of the last person to edit the page
        *
        * @title id
        */
@@ -848,47 +1517,47 @@ export namespace INotion {
     };
 
     /**
-     * 페이지 배경 이미지 정보
+     * Page Background Image Information
      *
-     * @title 배경 이미지
+     * @title Background Image
      */
     cover: IPageCover | null;
 
     /**
-     * 페이지 아이콘 정보
+     * Page Icon Information
      *
-     * @title 아이콘
+     * @title Icon
      */
     icon: IPageIcon | null;
 
     /**
-     * 페이지 임시 보관 여부
+     * Whether to archive the page
      *
-     * @title 임시 보관 여부
+     * @title Whether to archive the page
      */
     archived: boolean;
 
     /**
-     * 페이지 url
+     * Page url
      *
      * @title url
      */
     url: string & tags.Format<"uri">;
 
     /**
-     * 페이지 공개 url
+     * Page public url
      *
-     * @title 공개 url
+     * @title public url
      */
     public_url: (string & tags.Format<"uri">) | null;
   }
 
   /**
-   * @title 외부 이미지 정보
+   * @title External image information
    */
   interface IExternalImage {
     /**
-     * 이미지 url
+     * image url
      *
      * @title url
      */
@@ -896,273 +1565,344 @@ export namespace INotion {
   }
 
   /**
-   * @title 페이지 배경 이미지 정보
+   * @title Page background image information
    */
   interface IPageCover {
     /**
-     * 이미지 유형
+     * Image Type
      *
-     *  @title 유형
+     * @title Type
      */
     type: string;
 
     /**
-     * 이미지 정보
+     * Image information
      *
-     * @title 이미지
+     * @title Image
      */
     external: IExternalImage;
   }
 
   /**
-   * @title 페이지 아이콘 정보
+   * @title Page Icon Information
    */
   interface IPageIcon {
     /**
-     * 아이콘 유형
+     * Icon Type
      *
-     * @title 유형
+     * @title Type
      */
     type: IconType;
 
     /**
-     * 아이콘 유형이 emoji 일 때의 아이콘 정보
+     * Icon information when the icon type is emoji
      *
-     * @title 이모지 아이콘
+     * @title Emoji icon
      */
     emoji?: string | null;
 
     /**
-     * 아이콘 유형이 icon 일 때의 아이콘 정보
+     * Icon information when the icon type is icon
      *
-     * @title 아이콘
+     * @title Icon
      */
     external?: IExternalImage | null;
 
     /**
-     * 아이콘 유형이 file 일 때의 아이콘 정보
+     * Icon information when the icon type is file
      *
-     * @title 아이콘 파일
+     * @title Icon file
      */
     file?: {
       /**
-       * 파일 url
+       * file url
        *
        * @title url
        */
       url: string & tags.Format<"uri">;
 
       /**
-       * 이미지 파일 만료시간
+       * Image file expiration time
        *
-       * @title 만료시간
+       * @title expiration time
        */
       expiry_time: string;
     };
   }
 
   /**
-   * @title 페이지 속성 정보
+   * @title Page property information
    */
   interface IFindPageProperty {
     /**
-     * 제목 속성의 정보
+     * Information about the title attribute
      *
-     * @title 제목 속성
+     * @title Title attribute
      */
     title: {
       /**
-       * 페이지 속성 id
+       * Page property id
        *
        * @title id
        */
       id: string;
 
       /**
-       * 페이지 속성 유형
+       * Page Property Type
        *
-       * @title 속성 유형
+       * @title Property Type
        */
       type: string;
 
       /**
-       * 페이지 제목 속성 정보
+       * Page Title Attribute Information
        *
-       * @title 제목 속성
+       * @title Title Attribute
        */
       title: IFindPageTitleProperty[];
     };
   }
 
   /**
-   * @title 페이지 제목 속성
+   * @title Page title attribute
    */
   interface IFindPageTitleProperty {
     /**
-     * 제목 속성 유형
+     * Title property type
      *
-     * @title 유형
+     * @title type
      */
     type: string;
 
     /**
-     * 페이지 제목 텍스트 정보
+     * Page Title Text Information
      *
-     * @title 텍스트 정보
+     * @title Text Information
      */
     text: IPageTitleText;
 
     /**
-     * 페이지 제목 부가 정보
+     * Page Title Additional Information
      *
-     * @title 부가 정보
+     * @title Additional Information
      */
     annotations: IPageTitleAnnotation;
 
     /**
-     * 페이지 제목 원본 텍스트
+     * Page Title Original Text
      *
-     * @title 원본
+     * @title Original
      */
     plain_text: string;
 
     /**
-     * 페이지 링크
+     * Page Link
      *
-     * @title 링크
+     * @title Link
      */
     href: (string & tags.Format<"uri">) | null;
   }
 
   /**
-   * @title 페이지 제목 텍스트 정보
+   * @title Page title text information
    */
 
   interface IPageTitleText {
     /**
-     * 제목 텍스트 내용
+     * Title Text Content
      *
-     * @title 내용
+     * @title Content
      */
     content: string;
 
     /**
-     * 페이지 제목 링크
+     * Page Title Link
      *
-     * @title 링크
+     * @title Link
      */
     link: (string & tags.Format<"uri">) | null;
   }
 
   /**
-   * @title 페이지 제목 부가 정보
+   * @title Page title Additional information
    */
   interface IPageTitleAnnotation {
     /**
-     * 제목 텍스트 볼드체 여부
+     * Title Text Bold
      *
-     * @title 볼드체 여부
+     * @title Bold
      */
     bold: boolean;
 
     /**
-     * 제목 텍스트 이탤릭체 여부
+     * Title text italicized
      *
-     * @title 이탤릭체 여부
+     * @title italicized
      */
     italic: boolean;
 
     /**
-     * 제목 텍스트 취소선 여부
+     * Title text strikethrough
      *
-     * @title 취소선 여부
+     * @title strikethrough
      */
     strikethrough: boolean;
 
     /**
-     * 제목 텍스트 밑줄 여부
+     * Title text underline
      *
-     * @title 밑줄 여부
+     * @title underline
      */
     underline: boolean;
 
     /**
-     * 제목 텍스트가 코드로 감싸져 있는지 여부
+     * Whether the title text is wrapped in code
      *
-     * @title 코드로 감싸져 있는지 여부
+     * @title Whether the title text is wrapped in code
      */
     code: boolean;
 
     /**
-     * 제목 텍스트 색상
+     * Title Text Color
      *
-     * @title 색깔
+     * @title Color
      */
     color: string;
   }
 
   export interface IFindPageByTitleOutput extends ICommonPageOutputInterface {
     /**
-     * 부모 페이지 정보
+     * Parent Page Information
      *
-     * @title 부모 페이지
+     * @title Parent Page
      */
     parent: {
       /**
-       * 부모 페이지 객체 유형
+       * Parent Page Object Type
        *
-       * @title 유형
+       * @title Type
        */
       type: string;
 
       /**
-       * 부모 페이지가 워크스페이스 인지 여부
+       * Whether the parent page is a workspace
        *
-       * @title 워크스페이스 여부
+       * @title Whether the workspace is
        */
       workspace: boolean;
     };
 
     /**
-     * 페이지 속성 정보
+     * Page Properties Information
      *
-     * @title 속성
+     * @title property
      */
     properties: IFindPageProperty;
   }
 
   /**
-   * @title 데이터베이스 아이템 생성 결과
+   * @title Database item creation result
    */
   export interface IDatabaseItemOutput extends ICommonPageOutputInterface {
     /**
-     * 부모 데이터베이스 아이템 정보
+     * Parent Database Item Information
      *
-     * @title 부모 데이터베이스 아이템
+     * @title Parent Database Item
      */
     parent: {
       /**
-       * 부모 데이터베이스 아이템 객체 유형
+       * Parent database item object type
        *
-       * @title 유형
+       * @title type
        */
       type: string;
 
       /**
-       * 데이터 베이스 아이템 부모 id
+       * database item parent id
        *
-       * @title 데이터베이스 id
+       * @title database id
        */
       database_id: string;
     };
 
     /**
-     * 데이터베이스 아이템 속성
+     * Database Item Properties
      *
-     * @title 속성
+     * @title Property
      */
     properties: any;
   }
 
   export type ISecret = ICommon.ISecret<"notion">;
+
+  /**
+   * @title OnlyOneTextLine
+   *
+   * Tuple that Length is 1
+   */
+  export type OnlyOneTextLine = {
+    text: {
+      content: string;
+      link?: { url: string & tags.Format<"uri"> };
+    };
+  }[] &
+    tags.MinItems<1> &
+    tags.MaxItems<1>;
+
+  export type MultipleTextLine = {
+    text: {
+      content: string;
+      link?: { url: string & tags.Format<"uri"> };
+    };
+  }[] &
+    tags.MaxItems<1>;
+
+  export type ApiColor =
+    | "default"
+    | "gray"
+    | "brown"
+    | "orange"
+    | "yellow"
+    | "green"
+    | "blue"
+    | "purple"
+    | "pink"
+    | "red"
+    | "gray_background"
+    | "brown_background"
+    | "orange_background"
+    | "yellow_background"
+    | "green_background"
+    | "blue_background"
+    | "purple_background"
+    | "pink_background"
+    | "red_background";
+
+  /**
+   * @title WithChildren
+   *
+   * A type that matches the same type as T received as an argument into an array T[] within its own property, children.
+   */
+  export type WithChilden<T extends object, P extends string> = Hierarchy<
+    T,
+    `${P}.children`,
+    3,
+    true
+  >;
+
+  export interface IAppendPageByMarkdownInput
+    extends PageIdInput,
+      ICommon.ISecret<"notion"> {
+    /**
+     * @title markdown
+     */
+    markdown: string;
+  }
+
+  export interface ICreatePageByMarkdownInput extends INotion.ICreatePageInput {
+    /**
+     * @title markdown
+     */
+    markdown: string;
+  }
 }

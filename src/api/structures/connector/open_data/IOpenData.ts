@@ -43,8 +43,28 @@ export namespace IOpenData {
       extends ICommon.IPaginationInput {
       /**
        * @title Region address name
+       * It must be one of: "Seoul Metropolitan City","Busan Metropolitan City","Daegu Metropolitan City","Incheon Metropolitan City","Gwangju Metropolitan City","Daejeon Metropolitan City","Ulsan Metropolitan City","Sejong Special Self-Governing City","Gyeonggi-do","Chungcheongbuk-do","Chungcheongnam-do","Gyeongsangbuk-do","Gyeongsangnam-do","Jeollanam-do","Jeju Special Self-Governing Province","Gangwon Special Self-Governing Province","Jeollabuk-do Special Self-Governing Province"
        */
-      locatadd_nm: string & Placeholder<"Seoul Special City">;
+      locatadd_nm: (
+        | tags.Constant<"서울특별시", { title: "서울특별시" }>
+        | tags.Constant<"부산광역시", { title: "부산광역시" }>
+        | tags.Constant<"대구광역시", { title: "대구광역시" }>
+        | tags.Constant<"인천광역시", { title: "인천광역시" }>
+        | tags.Constant<"광주광역시", { title: "광주광역시" }>
+        | tags.Constant<"대전광역시", { title: "대전광역시" }>
+        | tags.Constant<"울산광역시", { title: "울산광역시" }>
+        | tags.Constant<"세종특별자치시", { title: "세종특별자치시" }>
+        | tags.Constant<"경기도", { title: "경기도" }>
+        | tags.Constant<"충청북도", { title: "충청북도" }>
+        | tags.Constant<"충청남도", { title: "충청남도" }>
+        | tags.Constant<"경상북도", { title: "경상북도" }>
+        | tags.Constant<"경상남도", { title: "경상남도" }>
+        | tags.Constant<"전라남도", { title: "전라남도" }>
+        | tags.Constant<"제주특별자치도", { title: "제주특별자치도" }>
+        | tags.Constant<"강원특별자치도", { title: "강원특별자치도" }>
+        | tags.Constant<"전북특별자치도", { title: "전북특별자치도" }>
+      ) &
+        Placeholder<"서울특별시">;
     }
 
     /**
@@ -148,6 +168,10 @@ export namespace IOpenData {
     export type IGetStockPriceInfoInput = ICommon.IPaginationInput & {
       /**
        * @title Keyword for stock name search
+       *
+       * Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.
+       * Since it is a Korean company, most of it will be in Korean.
+       * Please give Korean company name.
        */
       likeItmsNm?: string &
         tags.MaxLength<120> &
@@ -156,20 +180,23 @@ export namespace IOpenData {
         | {
             /**
              * @title Base date
-             * @description Searches for data matching the search value and base date
+             * Searches for data matching the search value and base date
+             * YYYYMMDD format date string.
              */
             basDt?: string & Placeholder<"20220919">;
           }
         | {
             /**
              * @title Start date (inclusive)
-             * @description Searches for data where the base date is greater than or equal to the search value
+             * Searches for data where the base date is greater than or equal to the search value
+             * YYYYMMDD format date string.
              */
             beginBasDt?: string & Placeholder<"20220919">;
 
             /**
              * @title End date (exclusive)
-             * @description Searches for data where the base date is less than the search value
+             * Searches for data where the base date is less than the search value
+             * YYYYMMDD format date string.
              */
             endBasDt?: string & Placeholder<"20220919">;
           }

@@ -10,14 +10,14 @@ import axios, { AxiosError } from "axios";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { AwsProvider } from "../aws/AwsProvider";
-import { v4 } from "uuid";
 import { tags } from "typia";
+import { v4 } from "uuid";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import {
   getJsonObject,
   getStreamHandler,
 } from "../../../utils/handle-stream-data-util";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class RagProvider {
@@ -38,7 +38,7 @@ export class RagProvider {
       tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">
   > {
     const matches = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([\p{L}\p{N}\/.-]+)/gu,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
     );
 
     if (!matches) {
@@ -91,11 +91,11 @@ export class RagProvider {
    * 파일 마다 고유 fileId 생성
    * 여러 개의 파일을 분석 시키고 해당 분석 결과에 대해서 채팅을 하기 위해서 chatId는 같은 것을 사용
    */
-  async analyze(input: IRag.IAnalyzeInput[]): Promise<IRag.IAnalysisOutput> {
+  async analyze(input: IRag.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
     const chatId = v4();
 
-    if (input.length > 5) {
+    if (input.url.length > 5) {
       throw new BadRequestException(
         "파일 및 링크는 최대 5개까지 분석할 수 있습니다.",
       );
@@ -104,13 +104,13 @@ export class RagProvider {
     /**
      * 여러 개의 파일 중 하나라도 업로드 및 분석 실패시 실패 처리
      */
-    const uploadPromises = input.map(async (file) => {
-      let url = file.url;
-      const fileType = this.inferFileType(file.url);
+    const uploadPromises = input.url.map(async (file) => {
+      let url = file;
+      const fileType = this.inferFileType(file);
 
       // web url일 때 s3 upload 및 파일 크기 제한 X
       if (fileType !== "html") {
-        url = await this.transformInput(file.url);
+        url = await this.transformInput(file);
         //파일 크기 5MB 이하로 제한
         const fileSize = await this.awsProvider.getFileSize(url);
         if (fileSize > 5 * 1024 * 1024) {
@@ -127,6 +127,7 @@ export class RagProvider {
       };
 
       try {
+        // https://rag-api.dev.wrtn.club/file-chat/v1/file
         const res = await axios.post(requestUrl, requestBody, {
           headers: {
             "x-service-id": "eco_file_chat",
@@ -188,13 +189,14 @@ export class RagProvider {
           }, 2000);
         });
       } catch (err) {
+        this.logger.error(err);
         if (
           err instanceof AxiosError &&
           err.response &&
           (err.response.status === 400 || err.response.status === 404)
         ) {
           this.logger.error(
-            `File upload Failed: fileId: ${fileId}, msg: ${err.response.data.detail.message}`,
+            `File upload Failed: fileId: ${fileId}, msg: ${err.response.data.detail?.message}`,
           );
           throw new BadRequestException(`File upload failed`);
         } else if (
@@ -242,8 +244,8 @@ export class RagProvider {
     const requestUrl = `${this.ragServer}/file-chat/v1/chat/stream`;
     const requestBody = {
       text: input.query,
-      chat_history: input.histories,
     };
+
     const response = await axios.post(requestUrl, requestBody, {
       responseType: "stream",
       params: {

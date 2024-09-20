@@ -11,97 +11,13 @@ export class GoogleDriveController {
   constructor(private readonly googleDriveProvider: GoogleDriveProvider) {}
 
   /**
-   * 구글 드라이브에 있는 폴더 목록을 가져옵니다.
+   * Get a list of folders in Google Drive.
    *
-   * @summary 구글 드라이브 폴더 목록 가져오기.
+   * @summary Get a list of Google Drive folders.
    *
-   * @param headers 구글 드라이브에 접근하기 위한 정보.
+   * @param headers Information for accessing Google Drive.
    *
-   * @returns 구글 드라이브 폴더 목록.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @returns A list of Google Drive folders.
    */
   @Standalone()
   @RouteIcon(
@@ -116,97 +32,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 있는 파일 목록을 가져옵니다.
+   * Get a list of files in Google Drive.
    *
-   * @summary 구글 드라이브 파일 목록 가져오기.
+   * @summary Get a list of Google Drive files.
    *
-   * @param query 파일 목록을 가져오기 위한 정보.
+   * @param query Information for getting a list of files.
    *
-   * @returns 구글 드라이브 파일 목록.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @returns A list of Google Drive files.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -219,98 +51,14 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 새로운 폴더를 생성합니다.
+   * Create a new folder in Google Drive.
    *
-   * @summary 구글 드라이브 폴더 생성.
+   * @summary Create a Google Drive folder.
    *
    * @param headers
-   * @param input 생성할 폴더 이름.
+   * @param input The name of the folder to be created.
    *
-   * @returns 생성된 폴더 고유 ID.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @returns The unique ID of the created folder.
    */
   @Standalone()
   @RouteIcon(
@@ -324,97 +72,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 새로운 파일을 생성합니다.
+   * Create a new file in Google Drive.
    *
-   * @summary 구글 드라이브 파일 생성.
+   * @summary Create a Google Drive file.
    *
-   * @param input 생성할 파일명과 파일을 생성할 폴더 고유 ID.
+   * @param input The name of the file to be created and the unique ID of the folder where the file will be created.
    *
-   * @returns 생성된 파일 고유 ID.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @returns The unique ID of the created file.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -427,95 +91,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 있는 파일을 삭제합니다.
+   * Delete a file in Google Drive.
    *
-   * @summary 구글 드라이브 파일 삭제.
+   * @summary Delete a Google Drive file.
    *
-   * @param id 삭제할 파일 고유 ID.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @param id The unique ID of the file to be deleted.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -523,8 +103,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Delete("/file/:id")
   async deleteFile(
     /**
-     * @title 삭제할 파일
-     * @description 삭제할 파일을 선택해 주세요.
+     * @title File to delete
+     * @description Please select the file to delete.
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
@@ -539,95 +119,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * 구글 드라이브에 있는 폴더를 삭제합니다.
+   * Delete a folder in Google Drive.
    *
-   * @summary 구글 드라이브 폴더 삭제.
+   * @summary Delete a Google Drive folder.
    *
-   * @param id 삭제할 폴더 고유 ID.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @param id The unique ID of the folder to be deleted.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -635,8 +131,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Delete("/folder/:id")
   async deleteFolder(
     /**
-     * @title 삭제할 폴더
-     * @description 삭제할 폴더를 선택해 주세요.
+     * @title Folder to delete
+     * @description Please select the folder to delete.
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.folderList,
@@ -651,95 +147,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * 파일 또는 폴더에 접근하기 위한 권한을 부여합니다.
+   * Grants permission to access a file or folder.
    *
-   * @summary 구글 드라이브 권한 부여.
+   * @summary Grant Google Drive permission.
    *
-   * @param input 권한 부여를 위한 정보.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @param input Information for granting permission.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -752,97 +164,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 파일에 텍스트를 추가합니다.
+   * Add text to a file.
    *
-   * @summary 구글 드라이브 파일 텍스트 추가.
+   * @summary Add text to a Google Drive file.
    *
-   * @param id 파일 고유 ID.
+   * @param id Unique ID of the file.
    *
-   * @param input 추가할 텍스트.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @param input The text to add.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -850,8 +178,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Post("/file/:id/text")
   async createText(
     /**
-     * @title 텍스트를 추가할 파일
-     * @description 텍스트를 추가할 파일을 선택해 주세요.
+     * @title Select the file to which you want to add text
+     * @description Select the file to which you want to add text
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
@@ -865,97 +193,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * 파일에서 텍스트를 읽어옵니다.
+   * Read text from a file.
    *
-   * @summary 구글 드라이브 파일 텍스트 읽기.
+   * @summary Read text from a Google Drive file.
    *
-   * @param id 파일 고유 ID.
+   * @param id Unique ID of the file.
    *
-   * @returns 파일 텍스트 내용.
-   *
-   * @tag Google-Drive
-   * @tag 구글 드라이브
-   * @tag 드라이브
-   * @tag 저장
-   * @tag 파일 저장
-   * @tag 클라우드 저장
-   * @tag 파일 공유
-   * @tag 파일 동기화
-   * @tag 파일 업데이트
-   * @tag 파일 다운로드
-   * @tag 파일 생성
-   * @tag 파일명 수정
-   * @tag 파일 삭제
-   * @tag 파일 관리
-   * @tag 폴더 추가
-   * @tag 폴더명 수정
-   * @tag 폴더 삭제
-   * @tag 폴더 관리
-   * @tag 문서 작성
-   * @tag 문서 공유
-   * @tag 사진 저장
-   * @tag 사진 공유
-   * @tag 동영상 저장
-   * @tag 동영상 공유
-   * @tag 파일 검색
-   * @tag 협업
-   * @tag 문서 협업
-   * @tag 파일 권한 설정
-   * @tag 파일 암호화
-   * @tag 문서 편집
-   * @tag 파일 이동
-   * @tag 구글 문서
-   * @tag 구글 스위트
-   * @tag 구글 시트
-   * @tag 구글 닥스
-   * @tag 구글 슬라이드
-   * @tag 자료 공유
-   * @tag 자료
-   * @tag 구글 폼
-   * @tag 설문 응답
-   * @tag 파일 링크 생성
-   * @tag 팀 드라이브
-   * @tag Google Drive
-   * @tag Drive
-   * @tag Save
-   * @tag Save File
-   * @tag Save to Cloud
-   * @tag Share File
-   * @tag Sync File
-   * @tag Update File
-   * @tag Download File
-   * @tag Create File
-   * @tag Rename File
-   * @tag Delete File
-   * @tag Manage File
-   * @tag Add Folder
-   * @tag Rename Folder
-   * @tag Delete Folder
-   * @tag Manage Folder
-   * @tag Create Document
-   * @tag Share Document
-   * @tag Save Photo
-   * @tag Share Photo
-   * @tag Save Video
-   * @tag Share Video
-   * @tag Search File
-   * @tag Collaborate
-   * @tag Collaborate on Document
-   * @tag Set File Permissions
-   * @tag Encrypt File
-   * @tag Edit Document
-   * @tag Move File
-   * @tag Google Docs
-   * @tag Google Suite
-   * @tag Google Sheets
-   * @tag Google Docs
-   * @tag Google Slides
-   * @tag Share Resources
-   * @tag Resources
-   * @tag Google Forms
-   * @tag Survey Responses
-   * @tag Create File Link
-   * @tag Team Drive
+   * @returns The text content of the file.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -963,8 +207,8 @@ export class GoogleDriveController {
   @core.TypedRoute.Post("get/file/:id")
   async readFile(
     /**
-     * @title 읽어올 파일
-     * @description 읽어올 파일을 선택해 주세요.
+     * @title File to read
+     * @description Please select the file to read.
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,

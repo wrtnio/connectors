@@ -2,8 +2,8 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { RouteIcon } from "@wrtnio/decorators";
-import typia from "typia";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/slack")
 export class SlackController {
@@ -22,7 +22,7 @@ export class SlackController {
   )
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
-    return this.slackProvider.mark(input);
+    return retry(() => this.slackProvider.mark(input))();
   }
 
   /**
@@ -51,7 +51,7 @@ export class SlackController {
   async sendScheduleMessage(
     @TypedBody() input: ISlack.ISCheduleMessageInput,
   ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
-    return this.slackProvider.sendScheduleMessage(input);
+    return retry(() => this.slackProvider.sendScheduleMessage(input))();
   }
 
   /**
@@ -72,7 +72,7 @@ export class SlackController {
   async deleteScheduleMessage(
     @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
   ): Promise<void> {
-    return this.slackProvider.deleteScheduleMessage(input);
+    return retry(() => this.slackProvider.deleteScheduleMessage(input))();
   }
 
   /**
@@ -94,7 +94,7 @@ export class SlackController {
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendTextToMyself(input);
+    return retry(() => this.slackProvider.sendTextToMyself(input))();
   }
 
   /**
@@ -119,14 +119,15 @@ export class SlackController {
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const response = await this.slackProvider.sendReply(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.sendReply(input);
   }
 
   /**
    * send message to channel
    *
    * Here, you can send a message as long as you have the message and channel information you want to send.
+   * Slack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.
+   * You must send the contents after receiving confirmation from the user.
    *
    * @summary post text message in slack
    * @param input
@@ -139,8 +140,7 @@ export class SlackController {
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const response = await this.slackProvider.sendText(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.sendText(input);
   }
 
   /**
@@ -161,8 +161,7 @@ export class SlackController {
   async getScheduledMessages(
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
-    const response = await this.slackProvider.getScheduledMessages(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getScheduledMessages(input);
   }
 
   /**
@@ -188,8 +187,7 @@ export class SlackController {
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
-    const response = await this.slackProvider.getUsers(input);
-    return typia.misc.assertClone(response);
+    return this.slackProvider.getUsers(input);
   }
 
   /**
@@ -210,7 +208,7 @@ export class SlackController {
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
-    return this.slackProvider.getReplies(input);
+    return retry(() => this.slackProvider.getReplies(input))();
   }
 
   /**
@@ -229,6 +227,10 @@ export class SlackController {
    * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
    *
    * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
+   * For users, it is replaced by a user name, Like <@USERNAME>.
+   * <@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.
+   *
+   * If you want to filter by date, prioritize using the datetime format.
    *
    * @summary get channel histories in slack
    * @param input
@@ -241,7 +243,7 @@ export class SlackController {
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
-    return this.slackProvider.getChannelHistories(input);
+    return retry(() => this.slackProvider.getChannelHistories(input))();
   }
 
   /**
@@ -251,6 +253,8 @@ export class SlackController {
    * This connector will only look up its own `private` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * `private` channel is a locked channel that can only be viewed by those invited to the channel.
+   *
+   * If you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.
    *
    * @summary get private channels in slack
    * @param input
@@ -262,8 +266,8 @@ export class SlackController {
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetPrivateChannelOutput> {
-    return this.slackProvider.getPrivateChannels(input);
+  ): Promise<ISlack.IGetPrivateChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllPrivateChannels(input))();
   }
 
   /**
@@ -285,8 +289,8 @@ export class SlackController {
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetPublicChannelOutput> {
-    return this.slackProvider.getPublicChannels(input);
+  ): Promise<ISlack.IGetPublicChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllPublicChannels(input))();
   }
 
   /**
@@ -308,7 +312,7 @@ export class SlackController {
   @TypedRoute.Post("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
-  ): Promise<ISlack.IGetImChannelOutput> {
-    return this.slackProvider.getImChannels(input);
+  ): Promise<ISlack.IGetImChannelOutput["channels"]> {
+    return retry(() => this.slackProvider.getAllImChannels(input))();
   }
 }

@@ -45,7 +45,6 @@ import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGen
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
-import { TypeformController } from "./typeform/TypeformController";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { JiraModule } from "./jira/JiraModule";
@@ -65,6 +64,11 @@ import { GoogleShoppingTwentyNineCentimeterModule } from "./google_shopping/goog
 import { GoogleShoppingMusinsaModule } from "./google_shopping/google_shopping_musinsa/GoogleShoppingMusinsaModule";
 import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GithubModule } from "./github/GithubModule";
+import { ShortLinkModule } from "./short_link/ShortLinkModule";
+import { DiscordModule } from "./discord/DiscordModule";
+import { CalendlyModule } from "../calendly/CalendlyModule";
+import { AISearchModule } from "./ai_search/AISearchModule";
+import { TypeformModule } from "./typeform/TypeformModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -134,7 +138,11 @@ import { GithubModule } from "./github/GithubModule";
     GoogleTrendModule,
     GoogleMapModule,
     GithubModule,
+    ShortLinkModule,
+    DiscordModule,
+    CalendlyModule,
+    AISearchModule,
+    TypeformModule,
   ],
-  controllers: [TypeformController],
 })
 export class ConnectorModule {}

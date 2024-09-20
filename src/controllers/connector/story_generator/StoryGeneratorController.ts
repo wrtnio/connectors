@@ -16,25 +16,23 @@ export class StoryGeneratorController {
   constructor(private storyGeneratorProvider: StoryGeneratorProvider) {}
 
   /**
-   * 유저의 입력을 기반으로 스토리를 짭니다.
+   * Create a story based on user input.
    *
-   * 그림책 또는 이야기 생성을 위한 챗봇 워크플로우를 제작할 때 사용될 수 있는 커넥터입니다.
+   * This connector can be used when creating a chatbot workflow for creating picture books or stories.
    *
-   * 스토리 이미지 생성 커넥터와 연계해서 사용해주세요.
+   * Please use it in conjunction with the Story Image Generation connector.
    *
-   * connector/story-image-generator 커넥터를 사용하여 생성된 스토리를 기반으로 이미지를 생성해주세요.
+   * Please create an image based on the story created using the connector/story-image-generator connector.
    *
-   * 생성된 스토리와 이미지를 구글 슬라이드를 이용해서 내보내주세요.
+   * Please export the created story and image using Google Slides.
    *
-   * connector/google-slides/presentations 커넥터를 사용하여 생성된 스토리와 이미지를 구글 슬라이드로 내보내주세요.
+   * Please export the created story and image using the connector/google-slides/presentations connector to Google Slides.
    *
-   * @summary 스토리 생성
+   * @summary Create a story
    *
-   * @param input 스토리 생성을 위한 입력
+   * @param input Input for creating a story
    *
-   * @returns 생성된 스토리 혹은 추가 정보 요청
-   *
-   * @tag Llm 스토리 생성
+   * @returns The generated story or a request for additional information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg",

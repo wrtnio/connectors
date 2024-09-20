@@ -1,95 +1,95 @@
 export interface IOutputStructure {
   /**
-   * LLM으로 부터 생성될 필드명입니다.
+   * The field name to be generated from LLM.
    *
-   * @title LLM으로 부터 생성될 필드명.
+   * @title The field name to be generated from LLM.
    */
   field_name: string;
 
   /**
-   * 필드에 대한 설명 및 LLM이 해당 필드를 어떻게 채울지에 대한 가이드.
+   * Description of the field and guidance on how LLM should fill it out.
    *
-   * @title 필드에 대한 설명.
+   * @title Description of the field.
    */
   field_description: string;
 
   /**
-   * 필드에 대한 예시입니다.
+   * Here is an example for the field.
    *
-   * @title 필드에 대한 예시.
+   * @title Example for the field.
    */
   example: string;
 }
 
 export interface ITableRowData {
   /**
-   * 생기부 데이터 생성시 참고할 표의 데이터입니다.
+   * This is the data for the table to reference when creating the life data.
    *
-   * @title 테이블의 각 열에 대한 데이터.
+   * @title Data for each column in the table.
    */
   [column: string]: string;
 }
 
 export interface IStudentReportGeneratorRequest {
   /**
-   * 생기부 데이터 생성시 LLM에게 전달할 고려사항입니다.
+   * Here are some things to consider when generating your biometric data to pass on to your LLM.
    *
-   * @title 고려사항.
+   * @title Things to consider.
    */
   consideration: string;
 
   /**
-   * 생성될 생기부 데이터 구조 입니다.
+   * This is the data structure of the generated lifeblood.
    *
-   * @title 생성될 생기부 데이터 구조.
+   * @title This is the data structure of the generated lifeblood.
    */
   outputs: IOutputStructure[];
 
   /**
-   * 생기부 데이터 생성시 참고할 표의 데이터입니다.
+   * This is the data for the table to reference when creating the life data.
    *
-   * @title 참고자료 데이터.
+   * @title Reference data.
    */
   reference_data: ITableRowData[];
 }
 
 export interface IStudentReportGeneratorResponse {
   /**
-   * 생성된 생기부 데이터입니다.
+   * Generated life data.
    *
-   * @title 생성된 생기부 데이터.
+   * @title Generated life data.
    */
   data: ITableRowData[];
 }
 
 export interface IStudentReportRowGeneratorRequest {
   /**
-   * 생기부 데이터 생성시 LLM에게 전달할 고려사항입니다.
+   * Here are some things to consider when generating your biometric data to pass on to your LLM.
    *
-   * @title 고려사항.
+   * @title Things to consider.
    */
   consideration: string;
 
   /**
-   * 생성될 생기부 데이터 구조 입니다.
+   * This is the data structure of the generated lifeblood.
    *
-   * @title 생성될 생기부 데이터 구조.
+   * @title This is the data structure of the generated lifeblood.
    */
   output_structure: IOutputStructure;
 
   /**
-   * 생기부 데이터 생성시 참고할 표의 데이터입니다.
+   * This is the data for the table to reference when creating the life data.
    *
-   * @title 참고자료 데이터.
+   * @title Reference data.
    */
   reference_data: ITableRowData;
 }
 
 export interface IStudentReportRowGeneratorResponse {
   /**
-   * 생성된 생기부 데이터입니다.
+   * Generated life data.
    *
-   * @title 생성된 생기부 데이터.
+   * @title Generated life data.
    */
   data: ITableRowData;
 }
