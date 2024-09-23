@@ -99,23 +99,12 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendQuarterDivisionSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    const { templates, secretKey } = input;
-    const presentation = await this.googleSlideProvider.getPresentation({
-      presentationId,
-      secretKey,
-    });
-
-    const size = this.googleSlideProvider.getSize(presentation);
     const type = "QuarterDivision" as const;
-    const typed = { templates: templates.map((el) => ({ ...el, type })) };
-    const body = this.googleSlideProvider.createSlide(typed, size);
-
-    await this.googleSlideProvider.appendSlide(presentationId, {
-      body,
-      secretKey,
-    });
-
-    return presentation;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
   }
 
   /**
@@ -138,23 +127,12 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendEntireSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    const { templates, secretKey } = input;
-    const presentation = await this.googleSlideProvider.getPresentation({
-      presentationId,
-      secretKey,
-    });
-
-    const size = this.googleSlideProvider.getSize(presentation);
     const type = "Entire" as const;
-    const typed = { templates: templates.map((el) => ({ ...el, type })) };
-    const body = this.googleSlideProvider.createSlide(typed, size);
-
-    await this.googleSlideProvider.appendSlide(presentationId, {
-      body,
-      secretKey,
-    });
-
-    return presentation;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
   }
 
   /**
@@ -177,23 +155,12 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendLandscapeSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    const { templates, secretKey } = input;
-    const presentation = await this.googleSlideProvider.getPresentation({
-      presentationId,
-      secretKey,
-    });
-
-    const size = this.googleSlideProvider.getSize(presentation);
     const type = "Landscape" as const;
-    const typed = { templates: templates.map((el) => ({ ...el, type })) };
-    const body = this.googleSlideProvider.createSlide(typed, size);
-
-    await this.googleSlideProvider.appendSlide(presentationId, {
-      body,
-      secretKey,
-    });
-
-    return presentation;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
   }
 
   /**
@@ -216,23 +183,12 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendSquareSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    const { templates, secretKey } = input;
-    const presentation = await this.googleSlideProvider.getPresentation({
-      presentationId,
-      secretKey,
-    });
-
-    const size = this.googleSlideProvider.getSize(presentation);
     const type = "Square" as const;
-    const typed = { templates: templates.map((el) => ({ ...el, type })) };
-    const body = this.googleSlideProvider.createSlide(typed, size);
-
-    await this.googleSlideProvider.appendSlide(presentationId, {
-      body,
-      secretKey,
-    });
-
-    return presentation;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
   }
 
   /**
@@ -255,23 +211,12 @@ export class GoogleSlidesController {
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.AppendVerticalSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    const { templates, secretKey } = input;
-    const presentation = await this.googleSlideProvider.getPresentation({
-      presentationId,
-      secretKey,
-    });
-
-    const size = this.googleSlideProvider.getSize(presentation);
     const type = "Vertical" as const;
-    const typed = { templates: templates.map((el) => ({ ...el, type })) };
-    const body = this.googleSlideProvider.createSlide(typed, size);
-
-    await this.googleSlideProvider.appendSlide(presentationId, {
-      body,
-      secretKey,
-    });
-
-    return presentation;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
   }
 
   /**
