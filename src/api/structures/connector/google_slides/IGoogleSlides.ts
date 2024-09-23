@@ -235,20 +235,19 @@ export namespace IGoogleSlides {
       /**
        * @title Contents of the slide
        */
-      contents: NTpule<
-        4,
-        {
-          /**
-           * @title URL of the image.
-           */
-          url: string & tags.Format<"uri">;
+      contents: {
+        /**
+         * @title URL of the image.
+         */
+        url: string & tags.Format<"uri">;
 
-          /**
-           * @title Text corresponding to the image.
-           */
-          text: InsertText;
-        }
-      >;
+        /**
+         * @title Text corresponding to the image.
+         */
+        text: InsertText;
+      }[] &
+        tags.MinItems<4> &
+        tags.MaxItems<4>;
     };
 
     /**
