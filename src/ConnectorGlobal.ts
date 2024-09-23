@@ -168,6 +168,8 @@ export namespace ConnectorGlobal {
 
     // OPENWEATHER
     OPEN_WEATHER_API_KEY: string;
+    // X
+    X_APP_USER_BEARER_TOKEN: string;
 
     //----
     // INHOUSE SERVERS

@@ -72,6 +72,7 @@ import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { XModule } from "./x/XModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -149,6 +150,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     MarpModule,
     CrunchbaseModule,
     SimilarwebModule,
+    XModule,
   ],
 })
 export class ConnectorModule {}
