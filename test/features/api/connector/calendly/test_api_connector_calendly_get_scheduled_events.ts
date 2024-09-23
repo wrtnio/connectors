@@ -8,6 +8,8 @@ export const test_api_connector_calendly_get_scheduled_events = async (
 ) => {
   await ConnectorGlobal.reload();
   const me = await test_api_connector_calendly_users_get_me(connection);
+
+  await new Promise((res) => setTimeout(res, 2000));
   const res =
     await CApi.functional.connector.calendly.get_scheduled_events.getScheduledEvents(
       connection,

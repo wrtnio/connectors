@@ -80,18 +80,176 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add slides to a Google Slides presentation.
+   * Add "QuarterDivision" type slides to a Google Slides presentation
+   *
+   * The "QuarterDivision" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.
+   * Four images are required for this template, and the text is located right under each image.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add "QuarterDivision" type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/quarter-divisions")
+  async appendQuarterDivisionImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendQuarterDivisionSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const type = "QuarterDivision" as const;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
+  }
+
+  /**
+   * Add "Entire" type slides to a Google Slides presentation
+   *
+   * The "Entire" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.
+   * Because ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add entire type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/entires")
+  async appendEntireImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendEntireSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const type = "Entire" as const;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
+  }
+
+  /**
+   * Add "Landscape" type slides to a Google Slides presentation
+   *
+   * The "Landscape" type template fits text underneath with a longer horizontal image tightly packed like a background.
+   * It is suitable when the image is highlighted and the text is short.
+   * It is suitable for marking images and titles as if they were on display.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add "Landscape" type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/landscapes")
+  async appendLandscapeImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendLandscapeSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const type = "Landscape" as const;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
+  }
+
+  /**
+   * Add "Square" type slides to a Google Slides presentation
+   *
+   * The "Square" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.
+   * The picture is on the left, and the text is on the right.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add "Square" type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/squares")
+  async appendSquareImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendSquareSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const type = "Square" as const;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
+  }
+
+  /**
+   * Add "Vertical" type slides to a Google Slides presentation
+   *
+   * The "Vertical" type is like a square type slide, with an image on the left and text on the right.
+   * In this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.
+   * This also allows for enough text.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add "Vertical" type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/verticals")
+  async appendVerticalImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendVerticalSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const type = "Vertical" as const;
+    return this.googleSlideProvider.appendSlidesByType(
+      presentationId,
+      type,
+      input,
+    );
+  }
+
+  /**
+   * Add slides to a Google Slides presentation
    *
    * Use this connector with connector/google-slides/presentations when creating a story or picture book.
    * When creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.
    * Be careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.
    * Slide type must be one of: "Vertical", "Square", "Landscape", "Entire", "QuarterDivision".
    * It is common to choose a "Square" type when there is one image.
-   * 
+   *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
+   * @deprecated
    * @summary Add image and text slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
    * @param input Template to add

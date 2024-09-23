@@ -10,6 +10,7 @@ export const test_api_connector_calendly_create_one_off_event_type = async (
 
   const me = await test_api_connector_calendly_users_get_me(connection);
 
+  await new Promise((res) => setTimeout(res, 2000));
   const res =
     await CApi.functional.connector.calendly.one_off_event_types.createOneOffEventType(
       connection,
