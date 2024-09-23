@@ -234,6 +234,9 @@ export namespace IGoogleSlides {
 
       /**
        * @title Contents of the slide
+       *
+       * Here, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.
+       * Therefore, you must prepare in advance by receiving or generating four images.
        */
       contents: {
         /**
