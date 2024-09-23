@@ -408,7 +408,7 @@ export class GoogleSlidesProvider {
         },
         {
           insertText: {
-            text: template.contents[0].text.text,
+            text: template.contents[1].text.text,
             objectId: secondShapeId,
           },
         },
@@ -488,7 +488,7 @@ export class GoogleSlidesProvider {
         },
         {
           insertText: {
-            text: template.contents[0].text.text,
+            text: template.contents[2].text.text,
             objectId: thirdShapeId,
           },
         },
@@ -574,7 +574,7 @@ export class GoogleSlidesProvider {
         },
         {
           insertText: {
-            text: template.contents[0].text.text,
+            text: template.contents[3].text.text,
             objectId: fourthShapeId,
           },
         },
