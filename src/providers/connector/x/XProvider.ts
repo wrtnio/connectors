@@ -32,6 +32,7 @@ export class XProvider {
     const twitterClient = new TwitterApi(
       ConnectorGlobal.env.X_APP_USER_BEARER_TOKEN,
     );
+
     const userTweetTimeLines = await twitterClient.v2.userTimeline(
       input.userId,
       {
