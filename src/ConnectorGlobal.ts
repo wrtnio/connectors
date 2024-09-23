@@ -163,6 +163,9 @@ export namespace ConnectorGlobal {
     // DISCORD
     DISCORD_BOT_TOKEN: string;
 
+    // X
+    X_APP_USER_BEARER_TOKEN: string;
+
     //----
     // INHOUSE SERVERS
     //----

@@ -70,6 +70,7 @@ import { CalendlyModule } from "./calendly/CalendlyModule";
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { TypeformModule } from "./typeform/TypeformModule";
 import { MarpModule } from "./marp/MarpModule";
+import { XModule } from "./x/XModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -145,6 +146,7 @@ import { MarpModule } from "./marp/MarpModule";
     AISearchModule,
     TypeformModule,
     MarpModule,
+    XModule,
   ],
 })
 export class ConnectorModule {}
