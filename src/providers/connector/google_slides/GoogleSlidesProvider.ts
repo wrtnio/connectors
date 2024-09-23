@@ -23,7 +23,7 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportHanshowOutput> {
     try {
-      const token = await this.getToken(input.secretKey);
+      const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
       const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
@@ -52,7 +52,7 @@ export class GoogleSlidesProvider {
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
     try {
-      const token = await this.getToken(input.secretKey);
+      const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
       const accessToken = await this.googleProvider.refreshAccessToken(token);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
@@ -133,8 +133,8 @@ export class GoogleSlidesProvider {
     );
   }
 
-  private createQuarterDivisionImageSlide(
-    template: IGoogleSlides.Template.QuarterDivision,
+  createQuarterDivisionImageSlide(
+    templates: IGoogleSlides.Template.QuarterDivision[],
     imageSize: {
       height: number; // heigh와 width의 크기가 같다.
       width: number;
@@ -162,348 +162,350 @@ export class GoogleSlidesProvider {
       height: (imageSize.height - imageHeightSize * 2) / 3,
     };
 
-    return [
-      /**
-       * 1번 이미지와 텍스트 필드.
-       */
-      {
-        createSlide: {
-          objectId: slideId,
-        },
-      },
-      {
-        createImage: {
-          objectId: firstImageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageWidthSize,
-                unit: imageSize.unit,
-              },
-              width: {
-                magnitude: imageHeightSize,
-                unit: imageSize.unit,
-              },
-            },
-            transform: {
-              translateX: blank.width,
-              translateY: blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+    return templates.flatMap((template) => {
+      return [
+        /**
+         * 1번 이미지와 텍스트 필드.
+         */
+        {
+          createSlide: {
+            objectId: slideId,
           },
-          url: template.contents[0].url,
         },
-      },
-      {
-        createShape: {
-          objectId: firstShapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageHeightSize,
+        {
+          createImage: {
+            objectId: firstImageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageWidthSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX: blank.width,
+                translateY: blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
-              width: {
-                magnitude: textBoxWidthSize,
+            },
+            url: template.contents[0].url,
+          },
+        },
+        {
+          createShape: {
+            objectId: firstShapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: textBoxWidthSize,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX: blank.width + imageWidthSize,
+                translateY: blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
             },
-            transform: {
-              translateX: blank.width + imageWidthSize,
-              translateY: blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            shapeType: "TEXT_BOX",
           },
-          shapeType: "TEXT_BOX",
         },
-      },
-      {
-        insertText: {
-          text: template.contents[0].text.text,
-          objectId: firstShapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
+        {
+          insertText: {
+            text: template.contents[0].text.text,
+            objectId: firstShapeId,
           },
-          objectId: firstShapeId,
         },
-      },
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
+              },
+            },
+            objectId: firstShapeId,
+          },
+        },
 
-      /**
-       * 2번 이미지와 텍스트 필드.
-       */
-      {
-        createImage: {
-          objectId: secondImageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageWidthSize,
-                unit: imageSize.unit,
+        /**
+         * 2번 이미지와 텍스트 필드.
+         */
+        {
+          createImage: {
+            objectId: secondImageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageWidthSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
               },
-              width: {
-                magnitude: imageHeightSize,
+              transform: {
+                translateX:
+                  blank.width + imageWidthSize + textBoxWidthSize + blank.width,
+                translateY: blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
             },
-            transform: {
-              translateX:
-                blank.width + imageWidthSize + textBoxWidthSize + blank.width,
-              translateY: blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            url: template.contents[0].url,
           },
-          url: template.contents[0].url,
         },
-      },
-      {
-        createShape: {
-          objectId: secondShapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageHeightSize,
+        {
+          createShape: {
+            objectId: secondShapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: textBoxWidthSize,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX:
+                  blank.width +
+                  imageWidthSize +
+                  imageWidthSize +
+                  textBoxWidthSize +
+                  blank.width,
+                translateY: blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
-              width: {
-                magnitude: textBoxWidthSize,
-                unit: imageSize.unit,
+            },
+            shapeType: "TEXT_BOX",
+          },
+        },
+        {
+          insertText: {
+            text: template.contents[0].text.text,
+            objectId: secondShapeId,
+          },
+        },
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
               },
             },
-            transform: {
-              translateX:
-                blank.width +
-                imageWidthSize +
-                imageWidthSize +
-                textBoxWidthSize +
-                blank.width,
-              translateY: blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            objectId: secondShapeId,
           },
-          shapeType: "TEXT_BOX",
         },
-      },
-      {
-        insertText: {
-          text: template.contents[0].text.text,
-          objectId: secondShapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
-          },
-          objectId: secondShapeId,
-        },
-      },
 
-      /**
-       * 3번 이미지와 텍스트 필드.
-       */
-      {
-        createImage: {
-          objectId: thirdImageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageWidthSize,
-                unit: imageSize.unit,
+        /**
+         * 3번 이미지와 텍스트 필드.
+         */
+        {
+          createImage: {
+            objectId: thirdImageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageWidthSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
               },
-              width: {
-                magnitude: imageHeightSize,
+              transform: {
+                translateX: blank.width,
+                translateY: blank.height + imageHeightSize + blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
             },
-            transform: {
-              translateX: blank.width,
-              translateY: blank.height + imageHeightSize + blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            url: template.contents[0].url,
           },
-          url: template.contents[0].url,
         },
-      },
-      {
-        createShape: {
-          objectId: thirdShapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageHeightSize,
+        {
+          createShape: {
+            objectId: thirdShapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: textBoxWidthSize,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX: blank.width + imageWidthSize,
+                translateY: blank.height + imageHeightSize + blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
-              width: {
-                magnitude: textBoxWidthSize,
-                unit: imageSize.unit,
+            },
+            shapeType: "TEXT_BOX",
+          },
+        },
+        {
+          insertText: {
+            text: template.contents[0].text.text,
+            objectId: thirdShapeId,
+          },
+        },
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
               },
             },
-            transform: {
-              translateX: blank.width + imageWidthSize,
-              translateY: blank.height + imageHeightSize + blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            objectId: thirdShapeId,
           },
-          shapeType: "TEXT_BOX",
         },
-      },
-      {
-        insertText: {
-          text: template.contents[0].text.text,
-          objectId: thirdShapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
-          },
-          objectId: thirdShapeId,
-        },
-      },
 
-      /**
-       * 4번째 이미지와 텍스트 필드.
-       */
-      {
-        createImage: {
-          objectId: fourthImageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageWidthSize,
-                unit: imageSize.unit,
+        /**
+         * 4번째 이미지와 텍스트 필드.
+         */
+        {
+          createImage: {
+            objectId: fourthImageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageWidthSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
               },
-              width: {
-                magnitude: imageHeightSize,
+              transform: {
+                translateX:
+                  blank.width + imageWidthSize + textBoxWidthSize + blank.width,
+                translateY: blank.height + imageHeightSize + blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
             },
-            transform: {
-              translateX:
-                blank.width + imageWidthSize + textBoxWidthSize + blank.width,
-              translateY: blank.height + imageHeightSize + blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            url: template.contents[0].url,
           },
-          url: template.contents[0].url,
         },
-      },
-      {
-        createShape: {
-          objectId: fourthShapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageHeightSize,
+        {
+          createShape: {
+            objectId: fourthShapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageHeightSize,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: textBoxWidthSize,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX:
+                  blank.width +
+                  imageWidthSize +
+                  imageWidthSize +
+                  textBoxWidthSize +
+                  blank.width,
+                translateY: blank.height + imageHeightSize + blank.height,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
-              width: {
-                magnitude: textBoxWidthSize,
-                unit: imageSize.unit,
+            },
+            shapeType: "TEXT_BOX",
+          },
+        },
+        {
+          insertText: {
+            text: template.contents[0].text.text,
+            objectId: fourthShapeId,
+          },
+        },
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
               },
             },
-            transform: {
-              translateX:
-                blank.width +
-                imageWidthSize +
-                imageWidthSize +
-                textBoxWidthSize +
-                blank.width,
-              translateY: blank.height + imageHeightSize + blank.height,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            objectId: fourthShapeId,
           },
-          shapeType: "TEXT_BOX",
         },
-      },
-      {
-        insertText: {
-          text: template.contents[0].text.text,
-          objectId: fourthShapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
-          },
-          objectId: fourthShapeId,
-        },
-      },
-    ];
+      ];
+    });
   }
 
-  private createEntireImageSlide(
-    template: IGoogleSlides.Template.Entire,
+  createEntireImageSlide(
+    templates: IGoogleSlides.Template.Entire[],
     imageSize: {
       height: number; // heigh와 width의 크기가 같다.
       width: number;
@@ -513,124 +515,38 @@ export class GoogleSlidesProvider {
     const slideId = v4();
     const imageId = v4();
 
-    return [
-      {
-        createSlide: {
-          objectId: slideId,
+    return templates.flatMap((template) => {
+      return [
+        {
+          createSlide: {
+            objectId: slideId,
+          },
         },
-      },
-      {
-        createImage: {
-          objectId: imageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height,
-                unit: imageSize.unit,
-              },
-              width: {
-                magnitude: imageSize.width,
-                unit: imageSize.unit,
+        {
+          createImage: {
+            objectId: imageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width,
+                  unit: imageSize.unit,
+                },
               },
             },
+            url: template.contents.url,
           },
-          url: template.contents.url,
         },
-      },
-    ];
+      ];
+    });
   }
 
-  private createLandscapeImageSlide(
-    template: IGoogleSlides.Template.Landscape,
-    imageSize: {
-      height: number; // heigh와 width의 크기가 같다.
-      width: number;
-      unit?: IGoogleSlides.Unit | null;
-    },
-  ): IGoogleSlides.BatchUpdateInput[] {
-    const slideId = v4();
-    const imageId = v4();
-    const shapeId = v4();
-
-    return [
-      {
-        createSlide: {
-          objectId: slideId,
-        },
-      },
-      {
-        createImage: {
-          objectId: imageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height * 0.75,
-                unit: imageSize.unit,
-              },
-              width: {
-                magnitude: imageSize.width,
-                unit: imageSize.unit,
-              },
-            },
-          },
-          url: template.contents.url,
-        },
-      },
-      {
-        createShape: {
-          objectId: shapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height * 0.25,
-                unit: imageSize.unit,
-              },
-              width: {
-                magnitude: imageSize.width,
-                unit: imageSize.unit,
-              },
-            },
-            transform: {
-              translateX: 0,
-              translateY: imageSize.height * 0.75,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
-          },
-          shapeType: "TEXT_BOX",
-        },
-      },
-      {
-        insertText: {
-          text: template.contents.text.text,
-          objectId: shapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
-          },
-          objectId: shapeId,
-        },
-      },
-    ];
-  }
-
-  private createVerticalImageSlide(
-    template: IGoogleSlides.Template.Vertical,
+  createLandscapeImageSlide(
+    templates: IGoogleSlides.Template.Landscape[],
     imageSize: {
       height: number; // heigh와 width의 크기가 같다.
       width: number;
@@ -641,84 +557,86 @@ export class GoogleSlidesProvider {
     const imageId = v4();
     const shapeId = v4();
 
-    return [
-      {
-        createSlide: {
-          objectId: slideId,
-        },
-      },
-      {
-        createImage: {
-          objectId: imageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height,
-                unit: imageSize.unit,
-              },
-              width: {
-                magnitude: imageSize.width / 2,
-                unit: imageSize.unit,
-              },
-            },
+    return templates.flatMap((template) => {
+      return [
+        {
+          createSlide: {
+            objectId: slideId,
           },
-          url: template.contents.url,
         },
-      },
-      {
-        createShape: {
-          objectId: shapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height,
+        {
+          createImage: {
+            objectId: imageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height * 0.75,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width,
+                  unit: imageSize.unit,
+                },
+              },
+            },
+            url: template.contents.url,
+          },
+        },
+        {
+          createShape: {
+            objectId: shapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height * 0.25,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX: 0,
+                translateY: imageSize.height * 0.75,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
-              width: {
-                magnitude: imageSize.width / 2,
-                unit: imageSize.unit,
+            },
+            shapeType: "TEXT_BOX",
+          },
+        },
+        {
+          insertText: {
+            text: template.contents.text.text,
+            objectId: shapeId,
+          },
+        },
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
               },
             },
-            transform: {
-              translateX: imageSize.width / 2,
-              translateY: 0,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            objectId: shapeId,
           },
-          shapeType: "TEXT_BOX",
         },
-      },
-      {
-        insertText: {
-          text: template.contents.text.text,
-          objectId: shapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
-          },
-          objectId: shapeId,
-        },
-      },
-    ];
+      ];
+    });
   }
 
-  private createSqaureImageSlide(
-    template: IGoogleSlides.Template.Square,
+  createVerticalImageSlide(
+    templates: IGoogleSlides.Template.Vertical[],
     imageSize: {
       height: number; // heigh와 width의 크기가 같다.
       width: number;
@@ -729,76 +647,176 @@ export class GoogleSlidesProvider {
     const imageId = v4();
     const shapeId = v4();
 
-    return [
-      { createSlide: { objectId: slideId } },
-      {
-        createImage: {
-          objectId: imageId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height,
-                unit: imageSize.unit,
-              },
-              width: {
-                magnitude: imageSize.width,
-                unit: imageSize.unit,
-              },
-            },
+    return templates.flatMap((template) => {
+      return [
+        {
+          createSlide: {
+            objectId: slideId,
           },
-          url: template.contents.url,
         },
-      },
-      {
-        createShape: {
-          objectId: shapeId,
-          elementProperties: {
-            pageObjectId: slideId,
-            size: {
-              height: {
-                magnitude: imageSize.height,
+        {
+          createImage: {
+            objectId: imageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width / 2,
+                  unit: imageSize.unit,
+                },
+              },
+            },
+            url: template.contents.url,
+          },
+        },
+        {
+          createShape: {
+            objectId: shapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width / 2,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX: imageSize.width / 2,
+                translateY: 0,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
-              width: {
-                magnitude: imageSize.width - imageSize.height,
+            },
+            shapeType: "TEXT_BOX",
+          },
+        },
+        {
+          insertText: {
+            text: template.contents.text.text,
+            objectId: shapeId,
+          },
+        },
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
+              },
+            },
+            objectId: shapeId,
+          },
+        },
+      ];
+    });
+  }
+
+  createSqaureImageSlide(
+    templates: IGoogleSlides.Template.Square[],
+    imageSize: {
+      height: number; // heigh와 width의 크기가 같다.
+      width: number;
+      unit?: IGoogleSlides.Unit | null;
+    },
+  ): IGoogleSlides.BatchUpdateInput[] {
+    const slideId = v4();
+    const imageId = v4();
+    const shapeId = v4();
+
+    return templates.flatMap((template) => {
+      return [
+        { createSlide: { objectId: slideId } },
+        {
+          createImage: {
+            objectId: imageId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width,
+                  unit: imageSize.unit,
+                },
+              },
+            },
+            url: template.contents.url,
+          },
+        },
+        {
+          createShape: {
+            objectId: shapeId,
+            elementProperties: {
+              pageObjectId: slideId,
+              size: {
+                height: {
+                  magnitude: imageSize.height,
+                  unit: imageSize.unit,
+                },
+                width: {
+                  magnitude: imageSize.width - imageSize.height,
+                  unit: imageSize.unit,
+                },
+              },
+              transform: {
+                translateX: imageSize.height,
+                translateY: 0,
+                scaleX: 1,
+                scaleY: 1,
+                shearX: 0,
+                shearY: 0,
                 unit: imageSize.unit,
               },
             },
-            transform: {
-              translateX: imageSize.height,
-              translateY: 0,
-              scaleX: 1,
-              scaleY: 1,
-              shearX: 0,
-              shearY: 0,
-              unit: imageSize.unit,
-            },
+            shapeType: "TEXT_BOX",
           },
-          shapeType: "TEXT_BOX",
         },
-      },
-      {
-        insertText: {
-          text: template.contents.text.text,
-          objectId: shapeId,
-        },
-      },
-      {
-        updateTextStyle: {
-          fields: "*",
-          style: {
-            baselineOffset: "SUPERSCRIPT",
-            fontFamily: "Arial",
-            fontSize: {
-              magnitude: 18,
-              unit: "PT",
-            },
+        {
+          insertText: {
+            text: template.contents.text.text,
+            objectId: shapeId,
           },
-          objectId: shapeId,
         },
-      },
-    ];
+        {
+          updateTextStyle: {
+            fields: "*",
+            style: {
+              baselineOffset: "SUPERSCRIPT",
+              fontFamily: "Arial",
+              fontSize: {
+                magnitude: 18,
+                unit: "PT",
+              },
+            },
+            objectId: shapeId,
+          },
+        },
+      ];
+    });
+  }
+
+  getSize(presentation: IGoogleSlides.Presentation) {
+    const height = presentation.pageSize?.height?.magnitude as number;
+    const unit = presentation.pageSize?.height?.unit;
+    const width = presentation.pageSize?.width?.magnitude as number;
+
+    return { height, width, unit };
   }
 
   async appendImageSlide(
@@ -807,76 +825,22 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
       input = await this.transformUrl(input);
-      const { secretKey, templates } = input;
-      const token = await this.getToken(secretKey);
-
-      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const { secretKey } = input;
 
       const presentation = await this.getPresentation({
         presentationId,
-        secretKey: input.secretKey,
+        secretKey,
       });
 
-      const heightMagnitude = presentation.pageSize?.height
-        ?.magnitude as number;
-      const unit = presentation.pageSize?.height?.unit;
-      const widthMagnitude = presentation.pageSize?.width?.magnitude as number;
+      const size = this.getSize(presentation);
+      const body = this.createSlide(input, size);
 
-      const body: Pick<IGoogleSlides.IUpdatePresentationInput, "requests"> = {
-        requests: templates
-          .flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
-            if (template.type === "Vertical") {
-              return this.createVerticalImageSlide(template, {
-                height: heightMagnitude,
-                width: widthMagnitude,
-                unit: unit,
-              });
-            } else if (template.type === "Square") {
-              return this.createSqaureImageSlide(template, {
-                height: heightMagnitude,
-                width: widthMagnitude,
-                unit: unit,
-              });
-            } else if (template.type === "Landscape") {
-              return this.createLandscapeImageSlide(template, {
-                height: heightMagnitude,
-                width: widthMagnitude,
-                unit: unit,
-              });
-            } else if (template.type === "Entire") {
-              return this.createEntireImageSlide(template, {
-                height: heightMagnitude,
-                width: widthMagnitude,
-                unit: unit,
-              });
-            } else if (template.type === "QuarterDivision") {
-              return this.createQuarterDivisionImageSlide(template, {
-                height: heightMagnitude,
-                width: widthMagnitude,
-                unit: unit,
-              });
-            }
+      await this.appendSlide(presentationId, { body, secretKey });
 
-            return null!;
-          })
-          .filter(Boolean),
-      };
-
-      const res = await axios.post(
-        `https://slides.googleapis.com/v1/presentations/${presentationId}:batchUpdate`,
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-
-      const data: IGoogleSlides.Presentation = res.data;
       return {
-        presentationId: data.presentationId,
-        pageSize: data.pageSize,
-        title: data.title,
+        presentationId: presentation.presentationId,
+        pageSize: presentation.pageSize,
+        title: presentation.title,
       };
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -884,11 +848,63 @@ export class GoogleSlidesProvider {
     }
   }
 
+  async appendSlide(
+    presentationId: string,
+    input: {
+      body: Pick<IGoogleSlides.IUpdatePresentationInput, "requests">;
+      secretKey: string;
+    },
+  ): Promise<void> {
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+
+    await axios.post(
+      `https://slides.googleapis.com/v1/presentations/${presentationId}:batchUpdate`,
+      input.body,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  }
+
+  createSlide(
+    input: Pick<IGoogleSlides.AppendSlideInput, "templates">,
+    size: {
+      height: number;
+      width: number;
+      unit?: IGoogleSlides.Unit | null;
+    },
+  ): Pick<IGoogleSlides.IUpdatePresentationInput, "requests"> {
+    const body: Pick<IGoogleSlides.IUpdatePresentationInput, "requests"> = {
+      requests: input.templates
+        .flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
+          if (template.type === "Vertical") {
+            return this.createVerticalImageSlide([template], size);
+          } else if (template.type === "Square") {
+            return this.createSqaureImageSlide([template], size);
+          } else if (template.type === "Landscape") {
+            return this.createLandscapeImageSlide([template], size);
+          } else if (template.type === "Entire") {
+            return this.createEntireImageSlide([template], size);
+          } else if (template.type === "QuarterDivision") {
+            return this.createQuarterDivisionImageSlide([template], size);
+          }
+
+          return null!;
+        })
+        .filter(Boolean),
+    };
+
+    return body;
+  }
+
   async createPresentation(
     input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
-      const token = await this.getToken(input.secretKey);
+      const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
 
       const accessToken = await this.googleProvider.refreshAccessToken(token);
 

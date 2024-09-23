@@ -80,6 +80,201 @@ export class GoogleSlidesController {
   }
 
   /**
+   * Add division type slides to a Google Slides presentation.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add division type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/quarter-divisions")
+  async appendQuarterDivisionImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendQuarterDivisionSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const { templates, secretKey } = input;
+    const presentation = await this.googleSlideProvider.getPresentation({
+      presentationId,
+      secretKey,
+    });
+
+    const size = this.googleSlideProvider.getSize(presentation);
+    const type = "QuarterDivision" as const;
+    const typed = { templates: templates.map((el) => ({ ...el, type })) };
+    const body = this.googleSlideProvider.createSlide(typed, size);
+
+    await this.googleSlideProvider.appendSlide(presentationId, {
+      body,
+      secretKey,
+    });
+
+    return presentation;
+  }
+
+  /**
+   * Add entire type slides to a Google Slides presentation.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add entire type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/entires")
+  async appendEntireImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendEntireSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const { templates, secretKey } = input;
+    const presentation = await this.googleSlideProvider.getPresentation({
+      presentationId,
+      secretKey,
+    });
+
+    const size = this.googleSlideProvider.getSize(presentation);
+    const type = "Entire" as const;
+    const typed = { templates: templates.map((el) => ({ ...el, type })) };
+    const body = this.googleSlideProvider.createSlide(typed, size);
+
+    await this.googleSlideProvider.appendSlide(presentationId, {
+      body,
+      secretKey,
+    });
+
+    return presentation;
+  }
+
+  /**
+   * Add landscape type slides to a Google Slides presentation.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add landscape type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/landscapes")
+  async appendLandscapeImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendLandscapeSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const { templates, secretKey } = input;
+    const presentation = await this.googleSlideProvider.getPresentation({
+      presentationId,
+      secretKey,
+    });
+
+    const size = this.googleSlideProvider.getSize(presentation);
+    const type = "Landscape" as const;
+    const typed = { templates: templates.map((el) => ({ ...el, type })) };
+    const body = this.googleSlideProvider.createSlide(typed, size);
+
+    await this.googleSlideProvider.appendSlide(presentationId, {
+      body,
+      secretKey,
+    });
+
+    return presentation;
+  }
+
+  /**
+   * Add square type slides to a Google Slides presentation.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add square type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/squares")
+  async appendSquareImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendSquareSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const { templates, secretKey } = input;
+    const presentation = await this.googleSlideProvider.getPresentation({
+      presentationId,
+      secretKey,
+    });
+
+    const size = this.googleSlideProvider.getSize(presentation);
+    const type = "Square" as const;
+    const typed = { templates: templates.map((el) => ({ ...el, type })) };
+    const body = this.googleSlideProvider.createSlide(typed, size);
+
+    await this.googleSlideProvider.appendSlide(presentationId, {
+      body,
+      secretKey,
+    });
+
+    return presentation;
+  }
+
+  /**
+   * Add vertical type slides to a Google Slides presentation.
+   *
+   * You may need an image when the user asks you to add a slide.
+   * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
+   * It is safe to ask the user for consent to this process.
+   *
+   * @summary Add vertical type image slides to a Google Slides presentation.
+   * @param presentationId Presentation id to add slides to
+   * @param input Template to add
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+  )
+  @core.TypedRoute.Put("presentations/:id/slides/verticals")
+  async appendVerticalImageSlide(
+    @TypedParam("id") presentationId: string,
+    @TypedBody() input: IGoogleSlides.AppendVerticalSlideInput,
+  ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
+    const { templates, secretKey } = input;
+    const presentation = await this.googleSlideProvider.getPresentation({
+      presentationId,
+      secretKey,
+    });
+
+    const size = this.googleSlideProvider.getSize(presentation);
+    const type = "Vertical" as const;
+    const typed = { templates: templates.map((el) => ({ ...el, type })) };
+    const body = this.googleSlideProvider.createSlide(typed, size);
+
+    await this.googleSlideProvider.appendSlide(presentationId, {
+      body,
+      secretKey,
+    });
+
+    return presentation;
+  }
+
+  /**
    * Add slides to a Google Slides presentation.
    *
    * Use this connector with connector/google-slides/presentations when creating a story or picture book.

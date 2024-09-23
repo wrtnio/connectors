@@ -38,6 +38,22 @@ export namespace IGoogleSlides {
     powerPoint: string & tags.Format<"uri">;
   }
 
+  export interface AppendQuarterDivisionSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    templates: StrictOmit<IGoogleSlides.Template.QuarterDivision, "type">[];
+  }
+
+  export interface AppendEntireSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    templates: StrictOmit<IGoogleSlides.Template.Entire, "type">[];
+  }
+
   export interface AppendLandscapeSlideInput
     extends ICommon.ISecret<
       "google",
@@ -46,20 +62,20 @@ export namespace IGoogleSlides {
     templates: StrictOmit<IGoogleSlides.Template.Landscape, "type">[];
   }
 
-  export interface AppendSquareSlideInput
-    extends ICommon.ISecret<
-      "google",
-      ["https://www.googleapis.com/auth/presentations"]
-    > {
-    templates: StrictOmit<IGoogleSlides.Template.Square, "type">[];
-  }
-
   export interface AppendVerticalSlideInput
     extends ICommon.ISecret<
       "google",
       ["https://www.googleapis.com/auth/presentations"]
     > {
     templates: StrictOmit<IGoogleSlides.Template.Vertical, "type">[];
+  }
+
+  export interface AppendSquareSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    templates: StrictOmit<IGoogleSlides.Template.Square, "type">[];
   }
 
   /**
