@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.216",
+    "version": "0.1.217",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -3425,7 +3425,7 @@
     "/connector/google-slides/presentations/{id}/image-slide": {
       "put": {
         "summary": "Add image and text slides to a Google Slides presentation.",
-        "description": "Add slides to a Google Slides presentation.\n\nUse this connector with connector/google-slides/createPresentation when creating a story or picture book.\n\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/createPresentation connector.\n\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.",
+        "description": "Add slides to a Google Slides presentation.\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "tags": [],
         "parameters": [
           {
@@ -3467,7 +3467,7 @@
     "/connector/google-slides/presentations": {
       "post": {
         "summary": "Create a Google Slides presentation.",
-        "description": "Create a Google Slides presentation.\n\nThis connector can be used when creating a story or picture book.\n\nPlease use it with the connector/google-slides/appendImageSlide connector when creating a story or picture book.\n\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/appendImageSlide connector.\n\nWhen creating a story or picture book, be careful not to use it with the connector/google-slides/appendImageSlide connector, as it may result in an empty picture book.",
+        "description": "Create a Google Slides presentation.\n\nThis connector can be used when creating a story or picture book.\nPlease use it with the connector/google-slides/image-slide connector when creating a story or picture book.\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/image-slide connector.\nWhen creating a story or picture book, be careful not to use it with the connector/google-slides/image-slide connector, as it may result in an empty picture book.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -20631,7 +20631,7 @@
         "properties": {
           "type": {
             "const": "Vertical",
-            "title": "The type of the template."
+            "title": "The type of the template.\n\ntype must be \"Vertical\""
           },
           "contents": {
             "type": "object",
@@ -20691,7 +20691,7 @@
         "properties": {
           "type": {
             "const": "Square",
-            "title": "The type of the template."
+            "title": "The type of the template.\n\ntype must be \"Square\"."
           },
           "contents": {
             "type": "object",
@@ -20725,7 +20725,7 @@
         "properties": {
           "type": {
             "const": "Landscape",
-            "title": "The type of the template."
+            "title": "The type of the template.\n\ntype must be \"Landscape\"."
           },
           "contents": {
             "type": "object",
@@ -20758,7 +20758,7 @@
         "properties": {
           "type": {
             "const": "Entire",
-            "title": "The type of the template."
+            "title": "The type of the template.\n\ntype must be \"Entire\"."
           },
           "contents": {
             "type": "object",
@@ -20791,7 +20791,7 @@
         "properties": {
           "type": {
             "const": "QuarterDivision",
-            "title": "The type of the template."
+            "title": "The type of the template.\n\ntype must be \"QuarterDivision\"."
           },
           "contents": {
             "type": "array",
