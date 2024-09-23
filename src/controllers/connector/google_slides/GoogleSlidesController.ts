@@ -3,9 +3,9 @@ import { Controller } from "@nestjs/common";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
+import { RouteIcon } from "@wrtnio/decorators";
 import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
 import { retry } from "../../../utils/retry";
-import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
@@ -82,10 +82,8 @@ export class GoogleSlidesController {
   /**
    * Add slides to a Google Slides presentation.
    *
-   * Use this connector with connector/google-slides/createPresentation when creating a story or picture book.
-   *
-   * When creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/createPresentation connector.
-   *
+   * Use this connector with connector/google-slides/presentations when creating a story or picture book.
+   * When creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.
    * Be careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.
    *
    * @summary Add image and text slides to a Google Slides presentation.
@@ -110,12 +108,9 @@ export class GoogleSlidesController {
    * Create a Google Slides presentation.
    *
    * This connector can be used when creating a story or picture book.
-   *
-   * Please use it with the connector/google-slides/appendImageSlide connector when creating a story or picture book.
-   *
-   * When creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/appendImageSlide connector.
-   *
-   * When creating a story or picture book, be careful not to use it with the connector/google-slides/appendImageSlide connector, as it may result in an empty picture book.
+   * Please use it with the connector/google-slides/image-slide connector when creating a story or picture book.
+   * When creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/image-slide connector.
+   * When creating a story or picture book, be careful not to use it with the connector/google-slides/image-slide connector, as it may result in an empty picture book.
    *
    * @summary Create a Google Slides presentation.
    *
