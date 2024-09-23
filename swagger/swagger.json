@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.217",
+    "version": "0.1.218",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -3422,10 +3422,221 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
+    "/connector/google-slides/presentations/{id}/slides/quarter-divisions": {
+      "put": {
+        "summary": "Add \"QuarterDivision\" type image slides to a Google Slides presentation.",
+        "description": "Add \"QuarterDivision\" type slides to a Google Slides presentation\n\nThe \"QuarterDivision\" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.\nFour images are required for this template, and the text is located right under each image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendQuarterDivisionSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/entires": {
+      "put": {
+        "summary": "Add entire type image slides to a Google Slides presentation.",
+        "description": "Add \"Entire\" type slides to a Google Slides presentation\n\nThe \"Entire\" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.\nBecause ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendEntireSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/landscapes": {
+      "put": {
+        "summary": "Add \"Landscape\" type image slides to a Google Slides presentation.",
+        "description": "Add \"Landscape\" type slides to a Google Slides presentation\n\nThe \"Landscape\" type template fits text underneath with a longer horizontal image tightly packed like a background.\nIt is suitable when the image is highlighted and the text is short.\nIt is suitable for marking images and titles as if they were on display.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendLandscapeSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/squares": {
+      "put": {
+        "summary": "Add \"Square\" type image slides to a Google Slides presentation.",
+        "description": "Add \"Square\" type slides to a Google Slides presentation\n\nThe \"Square\" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.\nThe picture is on the left, and the text is on the right.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendSquareSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/verticals": {
+      "put": {
+        "summary": "Add \"Vertical\" type image slides to a Google Slides presentation.",
+        "description": "Add \"Vertical\" type slides to a Google Slides presentation\n\nThe \"Vertical\" type is like a square type slide, with an image on the left and text on the right.\nIn this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.\nThis also allows for enough text.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendVerticalSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
+      }
+    },
     "/connector/google-slides/presentations/{id}/image-slide": {
       "put": {
         "summary": "Add image and text slides to a Google Slides presentation.",
-        "description": "Add slides to a Google Slides presentation.\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "description": "Add slides to a Google Slides presentation\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "deprecated": true,
         "tags": [],
         "parameters": [
           {
@@ -20573,6 +20784,348 @@
         ],
         "title": "Condition DTO for presentation search."
       },
+      "IGoogleSlides.AppendQuarterDivisionSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.QuarterDivisiontype"
+            }
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.QuarterDivisiontype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "URL of the image."
+                  },
+                  "text": {
+                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                    "title": "Text corresponding to the image."
+                  }
+                },
+                "required": [
+                  "url",
+                  "text"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "URL of the image."
+                  },
+                  "text": {
+                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                    "title": "Text corresponding to the image."
+                  }
+                },
+                "required": [
+                  "url",
+                  "text"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "URL of the image."
+                  },
+                  "text": {
+                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                    "title": "Text corresponding to the image."
+                  }
+                },
+                "required": [
+                  "url",
+                  "text"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "URL of the image."
+                  },
+                  "text": {
+                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                    "title": "Text corresponding to the image."
+                  }
+                },
+                "required": [
+                  "url",
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.InsertText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text to add"
+          },
+          "objectId": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID"
+          }
+        }
+      },
+      "IGoogleSlides.AppendEntireSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Entiretype"
+            }
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Entiretype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "URL of the image."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendLandscapeSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Landscapetype"
+            }
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Landscapetype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "URL of the image."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendSquareSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Squaretype"
+            }
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Squaretype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "URL of the image."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendVerticalSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Verticaltype"
+            }
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Verticaltype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "title": "URL of the image."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image."
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
       "IGoogleSlides.AppendSlideInput": {
         "type": "object",
         "properties": {
@@ -20658,33 +21211,6 @@
           "contents"
         ],
         "title": "vertical"
-      },
-      "IGoogleSlides.InsertText": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Text to add"
-          },
-          "objectId": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "ID"
-          }
-        }
       },
       "IGoogleSlides.Template.Square": {
         "type": "object",
