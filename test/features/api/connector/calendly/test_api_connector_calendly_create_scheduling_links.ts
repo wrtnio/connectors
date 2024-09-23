@@ -11,6 +11,7 @@ export const test_api_connector_calendly_users_create_scheduling_links = async (
   const types = await test_api_connector_calendly_get_event_types(connection);
   const eventTypeUri = types.collection?.[0].uri;
 
+  await new Promise((res) => setTimeout(res, 2000));
   const res =
     await CApi.functional.connector.calendly.scheduling_links.createSchedulingLink(
       connection,
@@ -31,6 +32,7 @@ export const test_api_connector_calendly_users_create_scheduling_links_with_one_
       await test_api_connector_calendly_create_one_off_event_type(connection);
     const eventTypeUri = type.resource.uri;
 
+    await new Promise((res) => setTimeout(res, 2000));
     const res =
       await CApi.functional.connector.calendly.scheduling_links.createSchedulingLink(
         connection,

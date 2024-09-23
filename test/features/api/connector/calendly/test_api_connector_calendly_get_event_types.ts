@@ -9,6 +9,8 @@ export const test_api_connector_calendly_get_event_types = async (
 ) => {
   await ConnectorGlobal.reload();
   const user = await test_api_connector_calendly_users_get_me(connection);
+
+  await new Promise((res) => setTimeout(res, 2000));
   const res =
     await CApi.functional.connector.calendly.get_event_types.getEventTypes(
       connection,

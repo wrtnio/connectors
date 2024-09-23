@@ -14,6 +14,7 @@ export const test_api_connector_calendly_events_get_invitees = async (
     (event) => event.invitees_counter.active > 0,
   );
 
+  await new Promise((res) => setTimeout(res, 2000));
   const res =
     await CApi.functional.connector.calendly.events.get_invitees.getInvitees(
       connection,

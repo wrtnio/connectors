@@ -15,6 +15,7 @@ export const test_api_connector_calendly_events_invitees_get_cancel_link =
     const searchText = "https://api.calendly.com/scheduled_events";
     const eventId = invitee.resource.event.replace(searchText, "");
 
+    await new Promise((res) => setTimeout(res, 2000));
     const res =
       await CApi.functional.connector.calendly.events.invitees.get_cancel_link.cancel(
         connection,
