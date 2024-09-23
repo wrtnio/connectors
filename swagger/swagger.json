@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.219",
+    "version": "0.1.220",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -20791,7 +20791,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.QuarterDivisiontype"
-            }
+            },
+            "title": "templates\n\nAs a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
           },
           "secretKey": {
             "type": "string",
@@ -20874,7 +20875,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Entiretype"
-            }
+            },
+            "title": "templates\n\nAs a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
           },
           "secretKey": {
             "type": "string",
@@ -20925,7 +20927,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Landscapetype"
-            }
+            },
+            "title": "templates\n\nAs a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
           },
           "secretKey": {
             "type": "string",
@@ -20976,7 +20979,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Squaretype"
-            }
+            },
+            "title": "templates\n\nAs a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
           },
           "secretKey": {
             "type": "string",
@@ -21027,7 +21031,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Verticaltype"
-            }
+            },
+            "title": "templates\n\nAs a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
           },
           "secretKey": {
             "type": "string",
