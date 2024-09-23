@@ -43,6 +43,14 @@ export namespace IGoogleSlides {
       "google",
       ["https://www.googleapis.com/auth/presentations"]
     > {
+    /**
+     * @title templates
+     *
+     * As a slide to add, this template arrangement consists of the same type of template.
+     * Templates have unconditional text except for the Entire type, and the image and text are paired.
+     * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
+     * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     */
     templates: StrictOmit<IGoogleSlides.Template.QuarterDivision, "type">[];
   }
 
@@ -51,6 +59,14 @@ export namespace IGoogleSlides {
       "google",
       ["https://www.googleapis.com/auth/presentations"]
     > {
+    /**
+     * @title templates
+     *
+     * As a slide to add, this template arrangement consists of the same type of template.
+     * Templates have unconditional text except for the Entire type, and the image and text are paired.
+     * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
+     * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     */
     templates: StrictOmit<IGoogleSlides.Template.Entire, "type">[];
   }
 
@@ -59,6 +75,14 @@ export namespace IGoogleSlides {
       "google",
       ["https://www.googleapis.com/auth/presentations"]
     > {
+    /**
+     * @title templates
+     *
+     * As a slide to add, this template arrangement consists of the same type of template.
+     * Templates have unconditional text except for the Entire type, and the image and text are paired.
+     * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
+     * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     */
     templates: StrictOmit<IGoogleSlides.Template.Landscape, "type">[];
   }
 
@@ -67,6 +91,14 @@ export namespace IGoogleSlides {
       "google",
       ["https://www.googleapis.com/auth/presentations"]
     > {
+    /**
+     * @title templates
+     *
+     * As a slide to add, this template arrangement consists of the same type of template.
+     * Templates have unconditional text except for the Entire type, and the image and text are paired.
+     * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
+     * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     */
     templates: StrictOmit<IGoogleSlides.Template.Vertical, "type">[];
   }
 
@@ -75,6 +107,14 @@ export namespace IGoogleSlides {
       "google",
       ["https://www.googleapis.com/auth/presentations"]
     > {
+    /**
+     * @title templates
+     *
+     * As a slide to add, this template arrangement consists of the same type of template.
+     * Templates have unconditional text except for the Entire type, and the image and text are paired.
+     * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
+     * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     */
     templates: StrictOmit<IGoogleSlides.Template.Square, "type">[];
   }
 
