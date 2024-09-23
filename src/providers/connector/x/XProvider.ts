@@ -19,6 +19,13 @@ export class XProvider {
     };
   }
 
+  // TODO: Get User followers for get tweets from followers. It require for oauth authentication.
+  async getUserFollowers() {}
+
+  // TODO: Get Tweet by tweet id. It is used for get tweet detail. Also it is used for provided by short link tweet.
+  async getTweet() {}
+
+  // TODO: Need RAG logic for get tweets from followers. It is used for get tweets from followers.
   async getUserTimelineTweets(
     input: IX.IUserTweetTimeLineRequest,
   ): Promise<IX.IUserTweetTimeLineResponse[]> {
