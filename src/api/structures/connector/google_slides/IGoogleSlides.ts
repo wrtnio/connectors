@@ -2,6 +2,7 @@ import { tags } from "typia";
 
 import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
 
+import { StrictOmit } from "../../../../utils/strictOmit";
 import { MyPartial } from "../../../../utils/types/MyPartial";
 import { ICommon } from "../common/ISecretValue";
 
@@ -35,6 +36,30 @@ export namespace IGoogleSlides {
      * @title File download link
      */
     powerPoint: string & tags.Format<"uri">;
+  }
+
+  export interface AppendLandscapeSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    templates: StrictOmit<IGoogleSlides.Template.Landscape, "type">[];
+  }
+
+  export interface AppendSquareSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    templates: StrictOmit<IGoogleSlides.Template.Square, "type">[];
+  }
+
+  export interface AppendVerticalSlideInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/presentations"]
+    > {
+    templates: StrictOmit<IGoogleSlides.Template.Vertical, "type">[];
   }
 
   /**
@@ -76,7 +101,7 @@ export namespace IGoogleSlides {
     export type Vertical = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "Vertical"
        */
       type: "Vertical";
@@ -105,7 +130,7 @@ export namespace IGoogleSlides {
     export type Square = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "Square".
        */
       type: "Square";
@@ -132,7 +157,7 @@ export namespace IGoogleSlides {
     export type Landscape = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "Landscape".
        */
       type: "Landscape";
@@ -159,7 +184,7 @@ export namespace IGoogleSlides {
     export type Entire = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "Entire".
        */
       type: "Entire";
@@ -186,7 +211,7 @@ export namespace IGoogleSlides {
     export type QuarterDivision = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "QuarterDivision".
        */
       type: "QuarterDivision";
@@ -216,7 +241,7 @@ export namespace IGoogleSlides {
     export type SixthDivision = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "SixthDivision".
        */
       type: "SixthDivision";
@@ -246,7 +271,7 @@ export namespace IGoogleSlides {
     export type Exhibition = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "Exhibition".
        */
       type: "Exhibition";
@@ -282,7 +307,7 @@ export namespace IGoogleSlides {
     export type Corner = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "Corner".
        */
       type: "Corner";
@@ -318,7 +343,7 @@ export namespace IGoogleSlides {
     export type CornerHalf = {
       /**
        * @title The type of the template.
-       * 
+       *
        * type must be "CornerHalf".
        */
       type: "CornerHalf";

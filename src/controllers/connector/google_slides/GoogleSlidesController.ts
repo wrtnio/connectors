@@ -87,11 +87,12 @@ export class GoogleSlidesController {
    * Be careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.
    * Slide type must be one of: "Vertical", "Square", "Landscape", "Entire", "QuarterDivision".
    * It is common to choose a "Square" type when there is one image.
-   * 
+   *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
+   * @deprecated
    * @summary Add image and text slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
