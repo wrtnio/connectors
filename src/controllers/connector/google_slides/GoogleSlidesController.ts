@@ -85,6 +85,7 @@ export class GoogleSlidesController {
    * Use this connector with connector/google-slides/presentations when creating a story or picture book.
    * When creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.
    * Be careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.
+   * Slide type must be one of: "Vertical", "Square", "Landscape", "Entire", "QuarterDivision".
    *
    * @summary Add image and text slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
