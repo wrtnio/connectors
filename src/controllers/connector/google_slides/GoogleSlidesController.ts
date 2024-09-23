@@ -80,13 +80,16 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add division type slides to a Google Slides presentation.
+   * Add "QuarterDivision" type slides to a Google Slides presentation
+   *
+   * The "QuarterDivision" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.
+   * Four images are required for this template, and the text is located right under each image.
    *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add division type image slides to a Google Slides presentation.
+   * @summary Add "QuarterDivision" type image slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -108,7 +111,10 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add entire type slides to a Google Slides presentation.
+   * Add "Entire" type slides to a Google Slides presentation
+   *
+   * The "Entire" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.
+   * Because ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.
    *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
@@ -136,13 +142,17 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add landscape type slides to a Google Slides presentation.
+   * Add "Landscape" type slides to a Google Slides presentation
+   *
+   * The "Landscape" type template fits text underneath with a longer horizontal image tightly packed like a background.
+   * It is suitable when the image is highlighted and the text is short.
+   * It is suitable for marking images and titles as if they were on display.
    *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add landscape type image slides to a Google Slides presentation.
+   * @summary Add "Landscape" type image slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -164,13 +174,16 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add square type slides to a Google Slides presentation.
+   * Add "Square" type slides to a Google Slides presentation
+   *
+   * The "Square" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.
+   * The picture is on the left, and the text is on the right.
    *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add square type image slides to a Google Slides presentation.
+   * @summary Add "Square" type image slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -192,13 +205,17 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add vertical type slides to a Google Slides presentation.
+   * Add "Vertical" type slides to a Google Slides presentation
+   *
+   * The "Vertical" type is like a square type slide, with an image on the left and text on the right.
+   * In this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.
+   * This also allows for enough text.
    *
    * You may need an image when the user asks you to add a slide.
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add vertical type image slides to a Google Slides presentation.
+   * @summary Add "Vertical" type image slides to a Google Slides presentation.
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -220,7 +237,7 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Add slides to a Google Slides presentation.
+   * Add slides to a Google Slides presentation
    *
    * Use this connector with connector/google-slides/presentations when creating a story or picture book.
    * When creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.
