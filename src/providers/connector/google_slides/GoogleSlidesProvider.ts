@@ -370,7 +370,7 @@ export class GoogleSlidesProvider {
                 unit: presentationSize.unit,
               },
             },
-            url: template.contents[0].url,
+            url: template.contents[1].url,
           },
         },
         {
@@ -455,7 +455,7 @@ export class GoogleSlidesProvider {
                 unit: presentationSize.unit,
               },
             },
-            url: template.contents[0].url,
+            url: template.contents[2].url,
           },
         },
         {
@@ -536,7 +536,7 @@ export class GoogleSlidesProvider {
                 unit: presentationSize.unit,
               },
             },
-            url: template.contents[0].url,
+            url: template.contents[3].url,
           },
         },
         {
