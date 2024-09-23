@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.218",
+    "version": "0.1.219",
     "title": "@wrtn/connector",
     "description": "Starter kit of Nestia",
     "license": {
@@ -20813,82 +20813,27 @@
         "properties": {
           "contents": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "URL of the image."
                 },
-                "required": [
-                  "url",
-                  "text"
-                ]
+                "text": {
+                  "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                  "title": "Text corresponding to the image."
+                }
               },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
-            "title": "Contents of the slide"
+              "required": [
+                "url",
+                "text"
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "title": "Contents of the slide\n\nHere, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.\nTherefore, you must prepare in advance by receiving or generating four images."
           }
         },
         "required": [
@@ -21321,82 +21266,27 @@
           },
           "contents": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "URL of the image."
                 },
-                "required": [
-                  "url",
-                  "text"
-                ]
+                "text": {
+                  "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                  "title": "Text corresponding to the image."
+                }
               },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
-            "title": "Contents of the slide"
+              "required": [
+                "url",
+                "text"
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "title": "Contents of the slide\n\nHere, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.\nTherefore, you must prepare in advance by receiving or generating four images."
           }
         },
         "required": [

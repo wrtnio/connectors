@@ -18,7 +18,7 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.218",
+    "version": "0.1.219",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -625,82 +625,27 @@
         "properties": {
           "contents": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "URL of the image."
                 },
-                "required": [
-                  "url",
-                  "text"
-                ]
+                "text": {
+                  "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                  "title": "Text corresponding to the image."
+                }
               },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
-            "title": "Contents of the slide"
+              "required": [
+                "url",
+                "text"
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "title": "Contents of the slide\n\nHere, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.\nTherefore, you must prepare in advance by receiving or generating four images."
           }
         },
         "required": [
@@ -1133,82 +1078,27 @@
           },
           "contents": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "title": "URL of the image."
                 },
-                "required": [
-                  "url",
-                  "text"
-                ]
+                "text": {
+                  "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                  "title": "Text corresponding to the image."
+                }
               },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "title": "URL of the image."
-                  },
-                  "text": {
-                    "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                    "title": "Text corresponding to the image."
-                  }
-                },
-                "required": [
-                  "url",
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
-            "title": "Contents of the slide"
+              "required": [
+                "url",
+                "text"
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "title": "Contents of the slide\n\nHere, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.\nTherefore, you must prepare in advance by receiving or generating four images."
           }
         },
         "required": [
