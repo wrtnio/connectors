@@ -234,21 +234,23 @@ export namespace IGoogleSlides {
 
       /**
        * @title Contents of the slide
+       *
+       * Here, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.
+       * Therefore, you must prepare in advance by receiving or generating four images.
        */
-      contents: NTpule<
-        4,
-        {
-          /**
-           * @title URL of the image.
-           */
-          url: string & tags.Format<"uri">;
+      contents: {
+        /**
+         * @title URL of the image.
+         */
+        url: string & tags.Format<"uri">;
 
-          /**
-           * @title Text corresponding to the image.
-           */
-          text: InsertText;
-        }
-      >;
+        /**
+         * @title Text corresponding to the image.
+         */
+        text: InsertText;
+      }[] &
+        tags.MinItems<4> &
+        tags.MaxItems<4>;
     };
 
     /**
