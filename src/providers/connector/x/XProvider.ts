@@ -4,6 +4,9 @@ import { TwitterApi } from "twitter-api-v2";
 import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import axios from "axios";
+import typia, { tags } from "typia";
 
 @Injectable()
 export class XProvider {
@@ -53,5 +56,28 @@ export class XProvider {
       });
     }
     return result;
+  }
+
+  async refresh(input: IX.ISecret) {
+    try {
+      const refreshToken = await OAuthSecretProvider.getSecretValue(
+        input.secretKey,
+      );
+
+      const params = new URLSearchParams();
+      params.append("grant_type", "refresh_token");
+      params.append("refresh_token", refreshToken);
+      params.append("client_id", ConnectorGlobal.env.X_CLIENT_ID);
+
+      const res = await axios.post("https://api.x.com/2/oauth2/token", params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      return res.data.access_token;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }
