@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@wrtn/connector",
-  "version": "0.1.226",
+  "version": "0.1.227",
   "description": "connector server for wrtn-ecosystem, studio-pro",
   "main": "lib/index.js",
   "scripts": {
