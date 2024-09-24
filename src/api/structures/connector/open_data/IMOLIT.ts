@@ -1,7 +1,7 @@
 import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
-import { StrictOmit } from "../../../../utils/strictOmit";
+import { StrictOmit } from "../../../../utils/types/strictOmit";
 import { IOpenData } from "./IOpenData";
 
 /**

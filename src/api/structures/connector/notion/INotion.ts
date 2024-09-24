@@ -5,8 +5,8 @@ import {
   BlockObjectRequest,
   CreatePageParameters,
 } from "@notionhq/client/build/src/api-endpoints";
-import { StrictOmit } from "../../../../utils/strictOmit";
 import { Hierarchy } from "../../../../utils/types/Hierarchy";
+import { StrictOmit } from "../../../../utils/types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {

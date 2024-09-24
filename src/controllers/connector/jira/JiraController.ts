@@ -3,7 +3,7 @@ import { Controller } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import { RouteIcon } from "@wrtnio/decorators";
 import { JiraProvider } from "../../../providers/connector/jira/JiraProvider";
-import { StrictOmit } from "../../../utils/strictOmit";
+import { StrictOmit } from "../../../utils/types/strictOmit";
 
 @Controller("connector/jira")
 export class JiraController {
