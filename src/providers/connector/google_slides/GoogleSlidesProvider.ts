@@ -319,7 +319,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        this.getInsertTextStatement({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -403,7 +403,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        this.getInsertTextStatement({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -481,7 +481,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        this.getInsertTextStatement({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -565,7 +565,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        this.getInsertTextStatement({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -686,8 +686,18 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        ...this.createTextBoxShapeState({
+          slideId,
           objectId: shapeId,
+          size: {
+            height: presentationSize.height * 0.25,
+            width: presentationSize.width,
+            unit: presentationSize.unit,
+          },
+          transform: {
+            translateY: presentationSize.height * 0.75,
+            unit: presentationSize.unit,
+          },
           text: template.contents.text.text,
         }),
         {
@@ -770,7 +780,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        this.getInsertTextStatement({
           objectId: shapeId,
           text: template.contents.text.text,
         }),
@@ -854,7 +864,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertTextStatemenet({
+        this.getInsertTextStatement({
           objectId: shapeId,
           text: template.contents.text.text,
         }),
@@ -942,11 +952,55 @@ export class GoogleSlidesProvider {
     return [{ createSlide: { objectId } }];
   }
 
-  private getInsertTextStatemenet(input: {
+  private getInsertTextStatement(input: {
     objectId: string;
     text?: string | null;
-  }): [LookUpByKey<IGoogleSlides.BatchUpdateInput, "insertText">] {
+  }): LookUpByKey<IGoogleSlides.BatchUpdateInput, "insertText"> {
     const { objectId, text } = input;
-    return [{ insertText: { objectId, text } }];
+    return { insertText: { objectId, text } };
+  }
+
+  private createTextBoxShapeState(input: {
+    slideId: string;
+    objectId: string;
+    size: {
+      height: number;
+      width: number;
+      unit?: IGoogleSlides.Unit | null;
+    };
+    transform: IGoogleSlides.Transform;
+    text?: string | null;
+  }):
+    | [LookUpByKey<IGoogleSlides.BatchUpdateInput, "createShape">]
+    | [
+        LookUpByKey<IGoogleSlides.BatchUpdateInput, "createShape">,
+        LookUpByKey<IGoogleSlides.BatchUpdateInput, "insertText">,
+      ] {
+    const insertTextStatement = this.getInsertTextStatement(input);
+    const response = [
+      {
+        createShape: {
+          objectId: input.objectId,
+          elementProperties: {
+            pageObjectId: input.slideId,
+            size: {
+              height: { magnitude: input.size.height, unit: input.size.unit },
+              width: { magnitude: input.size.width, unit: input.size.unit },
+            },
+            transform: input.transform,
+          },
+          shapeType: "TEXT_BOX",
+        },
+      },
+    ] as [
+      LookUpByKey<IGoogleSlides.BatchUpdateInput, "createShape">,
+      LookUpByKey<IGoogleSlides.BatchUpdateInput, "insertText">?,
+    ];
+
+    if (insertTextStatement) {
+      response.push(insertTextStatement);
+    }
+
+    return response;
   }
 }
