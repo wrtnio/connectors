@@ -262,7 +262,7 @@ export class GoogleSlidesProvider {
         /**
          * 1번 이미지와 텍스트 필드.
          */
-        this.getCreateSlideStatement(slideId),
+        ...this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: firstImageId,
@@ -600,7 +600,7 @@ export class GoogleSlidesProvider {
 
     return templates.flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
       return [
-        this.getCreateSlideStatement(slideId),
+        ...this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: imageId,
@@ -638,7 +638,7 @@ export class GoogleSlidesProvider {
 
     return templates.flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
       return [
-        this.getCreateSlideStatement(slideId),
+        ...this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: imageId,
@@ -722,7 +722,7 @@ export class GoogleSlidesProvider {
 
     return templates.flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
       return [
-        this.getCreateSlideStatement(slideId),
+        ...this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: imageId,
@@ -938,8 +938,8 @@ export class GoogleSlidesProvider {
 
   private getCreateSlideStatement(
     objectId: string,
-  ): LookUpByKey<IGoogleSlides.BatchUpdateInput, "createSlide"> {
-    return { createSlide: { objectId } };
+  ): [LookUpByKey<IGoogleSlides.BatchUpdateInput, "createSlide">] {
+    return [{ createSlide: { objectId } }];
   }
 
   private getInsertText(input: { objectId: string; text?: string | null }) {
