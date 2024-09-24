@@ -1,6 +1,5 @@
 import { tags } from "typia";
-
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGmail {
   /**

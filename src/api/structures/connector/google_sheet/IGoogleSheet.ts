@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
+import { ICommon } from "../common/ISecretValue";
 
 /**
  * owner: Grants owner permission. Users with this permission can delete files or folders, or grant permission to other users.
