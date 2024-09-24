@@ -319,12 +319,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents[0].text.text,
-            objectId: firstShapeId,
-          },
-        },
+        ...this.getInsertText({
+          text: template.contents[0].text.text,
+          objectId: firstShapeId,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -405,12 +403,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents[0].text.text,
-            objectId: secondShapeId,
-          },
-        },
+        ...this.getInsertText({
+          text: template.contents[0].text.text,
+          objectId: firstShapeId,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -485,12 +481,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents[0].text.text,
-            objectId: thirdShapeId,
-          },
-        },
+        ...this.getInsertText({
+          text: template.contents[0].text.text,
+          objectId: firstShapeId,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -571,12 +565,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents[0].text.text,
-            objectId: fourthShapeId,
-          },
-        },
+        ...this.getInsertText({
+          text: template.contents[0].text.text,
+          objectId: firstShapeId,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -694,7 +686,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        this.getInsertText(shapeId, template.contents.text.text),
+        ...this.getInsertText({
+          objectId: shapeId,
+          text: template.contents.text.text,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -775,7 +770,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        this.getInsertText(shapeId, template.contents.text.text),
+        ...this.getInsertText({
+          objectId: shapeId,
+          text: template.contents.text.text,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -856,7 +854,10 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        this.getInsertText(shapeId, template.contents.text.text),
+        ...this.getInsertText({
+          objectId: shapeId,
+          text: template.contents.text.text,
+        }),
         {
           updateTextStyle: {
             fields: "*",
@@ -941,7 +942,8 @@ export class GoogleSlidesProvider {
     return { createSlide: { objectId } };
   }
 
-  private getInsertText(objectId: string, text?: string | null) {
-    return { insertText: { objectId }, text };
+  private getInsertText(input: { objectId: string; text?: string | null }) {
+    const { objectId, text } = input;
+    return [{ insertText: { objectId }, text }];
   }
 }
