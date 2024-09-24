@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.230",
+    "version": "0.1.231",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connector server apis",
     "license": {

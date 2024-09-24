@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.230",
+    "version": "0.1.231",
     "description": "wrtn-ecosystem connector server apis",
     "license": {
       "name": "AGPL-3.0-only"
