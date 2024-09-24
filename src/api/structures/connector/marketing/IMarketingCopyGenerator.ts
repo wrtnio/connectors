@@ -1,5 +1,5 @@
 import { tags } from "typia";
-import { MyPartial } from "../../../../utils/types/MyPartial";
+import { MyPartial } from "../../types/MyPartial";
 import { IConnector } from "../../common/IConnector";
 import { IKeywordExtraction } from "../extract/IKeywordExtractor";
 

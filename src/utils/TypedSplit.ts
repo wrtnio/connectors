@@ -1,5 +1,5 @@
-import { ArrayType } from "./types/ArrayType";
-import { Equal } from "./types/Equal";
+import { ArrayType } from "../api/structures/types/ArrayType";
+import { Equal } from "../api/structures/types/Equal";
 
 type Falsy = false | 0 | "" | null | undefined;
 type Truthy<T> = T extends Falsy ? false : true;

@@ -1,6 +1,6 @@
 import { tags } from "typia";
 
-import { MyPartial } from "../../../utils/types/MyPartial";
+import { MyPartial } from "../types/MyPartial";
 import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {

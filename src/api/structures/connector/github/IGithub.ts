@@ -1,7 +1,7 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
-import { PickPartial } from "../../../../utils/types/PickPartial";
-import { StrictOmit } from "../../../../utils/types/strictOmit";
+import { PickPartial } from "../../types/PickPartial";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGithub {

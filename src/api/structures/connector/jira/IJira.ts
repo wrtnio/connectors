@@ -1,7 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
-import { MyPartial } from "../../../../utils/types/MyPartial";
-import { StrictOmit } from "../../../../utils/types/strictOmit";
+import { MyPartial } from "../../types/MyPartial";
+import { StrictOmit } from "../../types/strictOmit";
 import type { ICommon } from "../common/ISecretValue";
 import type { ListNode } from "./ListNode";
 

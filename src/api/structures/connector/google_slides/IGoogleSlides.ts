@@ -1,8 +1,8 @@
 import { tags } from "typia";
 
-import { MyPartial } from "../../../../utils/types/MyPartial";
-import { NTpule } from "../../../../utils/types/NTuple";
-import { StrictOmit } from "../../../../utils/types/strictOmit";
+import { MyPartial } from "../../types/MyPartial";
+import { NTpule } from "../../types/NTuple";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
