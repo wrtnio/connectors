@@ -64,3 +64,5 @@ jobs:
           npm version patch -m "Bump sdk version to %s [skip ci]"
           git push --set-upstream origin main --follow-tags
           npm run deploy
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
