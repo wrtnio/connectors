@@ -1,6 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
-import { MyPartial } from "../../../utils/types/MyPartial";
+import { MyPartial } from "../types/MyPartial";
 
 export namespace IConnector {
   /**

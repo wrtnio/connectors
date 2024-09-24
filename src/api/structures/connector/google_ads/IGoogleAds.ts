@@ -1,7 +1,7 @@
 import type { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
-import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
-import { MyPartial } from "../../../../utils/types/MyPartial";
+import { DeepStrictMerge } from "../../types/DeepStrictMerge";
+import { MyPartial } from "../../types/MyPartial";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
