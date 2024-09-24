@@ -5,6 +5,7 @@ import { v4 } from "uuid";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
+import { LookUpByKey } from "../../../utils/types/LookUpByKey";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -261,9 +262,7 @@ export class GoogleSlidesProvider {
         /**
          * 1번 이미지와 텍스트 필드.
          */
-        {
-          createSlide: { objectId: slideId },
-        },
+        this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: firstImageId,
@@ -609,9 +608,7 @@ export class GoogleSlidesProvider {
 
     return templates.flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
       return [
-        {
-          createSlide: { objectId: slideId },
-        },
+        this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: imageId,
@@ -649,9 +646,7 @@ export class GoogleSlidesProvider {
 
     return templates.flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
       return [
-        {
-          createSlide: { objectId: slideId },
-        },
+        this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: imageId,
@@ -737,9 +732,7 @@ export class GoogleSlidesProvider {
 
     return templates.flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
       return [
-        {
-          createSlide: { objectId: slideId },
-        },
+        this.getCreateSlideStatement(slideId),
         {
           createImage: {
             objectId: imageId,
@@ -955,5 +948,11 @@ export class GoogleSlidesProvider {
         },
       },
     );
+  }
+
+  private getCreateSlideStatement(
+    slideId: string,
+  ): LookUpByKey<IGoogleSlides.BatchUpdateInput, "createSlide"> {
+    return { createSlide: { objectId: slideId } };
   }
 }
