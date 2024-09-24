@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "version": "0.1.225",
+    "version": "0.1.226",
     "title": "@wrtn/connector",
-    "description": "connector server for wrtn-ecosystem",
+    "description": "connector server for wrtn-ecosystem, studio-pro",
     "license": {
       "name": "AGPL-3.0-only"
     }
