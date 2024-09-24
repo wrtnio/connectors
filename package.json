@@ -25,7 +25,7 @@
     "webpack": "rimraf dist && webpack",
     "webpack:start": "cd dist && node dist/server",
     "------------------------DEPLOYS------------------------": "",
-    "package:api": "npm run example:workflows && npm run build:api && cd packages/api && npm publish",
+    "package:api": "npm run build:api && cd packages/api && npm publish",
     "start": "node lib/executable/server",
     "start:swagger": "ts-node src/executable/swagger.ts",
     "translate": "ts-node src/executable/translate.ts",
