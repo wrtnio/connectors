@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "private": false,
   "name": "@wrtn/connector",
   "version": "0.1.231",
   "description": "wrtn-ecosystem connector server apis",
