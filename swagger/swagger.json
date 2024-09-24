@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "version": "0.1.228",
+    "version": "0.1.230",
     "title": "@wrtn/connector",
-    "description": "wrtn-ecosystem connector server",
+    "description": "wrtn-ecosystem connector server apis",
     "license": {
       "name": "AGPL-3.0-only"
     }
