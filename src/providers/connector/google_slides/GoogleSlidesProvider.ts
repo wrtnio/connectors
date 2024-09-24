@@ -694,12 +694,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents.text.text,
-            objectId: shapeId,
-          },
-        },
+        this.getInsertText(shapeId, template.contents.text.text),
         {
           updateTextStyle: {
             fields: "*",
@@ -780,12 +775,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents.text.text,
-            objectId: shapeId,
-          },
-        },
+        this.getInsertText(shapeId, template.contents.text.text),
         {
           updateTextStyle: {
             fields: "*",
@@ -866,12 +856,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        {
-          insertText: {
-            text: template.contents.text.text,
-            objectId: shapeId,
-          },
-        },
+        this.getInsertText(shapeId, template.contents.text.text),
         {
           updateTextStyle: {
             fields: "*",
@@ -951,8 +936,12 @@ export class GoogleSlidesProvider {
   }
 
   private getCreateSlideStatement(
-    slideId: string,
+    objectId: string,
   ): LookUpByKey<IGoogleSlides.BatchUpdateInput, "createSlide"> {
-    return { createSlide: { objectId: slideId } };
+    return { createSlide: { objectId } };
+  }
+
+  private getInsertText(objectId: string, text?: string | null) {
+    return { insertText: { objectId }, text };
   }
 }
