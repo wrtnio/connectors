@@ -23,6 +23,9 @@ jobs:
           node-version: 20.x
           registry-url: "https://registry.npmjs.org/"
 
+      - name: Authenticate to npm registry
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: Secrets to Env
         run: |
           rm .env
