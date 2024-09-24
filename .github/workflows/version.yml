@@ -41,16 +41,26 @@ jobs:
         with:
           branch: gh-pages
           folder: ./website/out
-          
+
       - name: Checkout repository for versioning
         uses: actions/checkout@v2
         with:
           branch: main
 
-      - name: Bump version
+      - name: Bump version for swagger
         run: |
-          git config --local user.email "actions@example.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "studio@wrtn.io"
+          git config --local user.name "studio-pro"
           git pull
-          npm version patch -m "Bump version to %s [skip ci]"
+          npm version patch -m "Bump swagger version to %s [skip ci]"
+          git push --set-upstream origin main
+
+      - name: Bump version for sdk
+        working-directory: packages/api
+        run: |
+          git config --local user.email "studio@wrtn.io"
+          git config --local user.name "studio-pro"
+          git pull
+          npm version patch -m "Bump sdk version to %s [skip ci]"
           git push --set-upstream origin main --follow-tags
+          npm run deploy
