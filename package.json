@@ -2,7 +2,7 @@
   "private": true,
   "name": "@wrtn/connector",
   "version": "0.1.227",
-  "description": "connector server for wrtn-ecosystem, studio-pro",
+  "description": "connector server for wrtn-ecosystem",
   "main": "lib/index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test node bin/test",
