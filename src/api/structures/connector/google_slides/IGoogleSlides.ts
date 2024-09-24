@@ -1,9 +1,8 @@
 import { tags } from "typia";
 
-import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
-
 import { StrictOmit } from "../../../../utils/strictOmit";
 import { MyPartial } from "../../../../utils/types/MyPartial";
+import { NTpule } from "../../../../utils/types/NTuple";
 import { ICommon } from "../common/ISecretValue";
 
 type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
