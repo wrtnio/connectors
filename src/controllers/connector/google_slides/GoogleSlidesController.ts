@@ -273,8 +273,8 @@ export class GoogleSlidesController {
    *
    * This connector can be used when creating a story or picture book.
    * Please use it with the connector/google-slides/image-slide connector when creating a story or picture book.
-   * When creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using the connector/google-slides/image-slide connector.
-   * When creating a story or picture book, be careful not to use it with the connector/google-slides/image-slide connector, as it may result in an empty picture book.
+   * When creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.
+   * This creates a blank presentation file, which is basically created with the first slide with no text.
    *
    * @summary Create a Google Slides presentation.
    *

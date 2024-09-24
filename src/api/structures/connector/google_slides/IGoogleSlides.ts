@@ -253,11 +253,6 @@ export namespace IGoogleSlides {
          * @title URL of the image.
          */
         url: string & tags.Format<"uri">;
-
-        /**
-         * @title Text corresponding to the image.
-         */
-        text: InsertText;
       };
     };
 
@@ -532,7 +527,7 @@ export namespace IGoogleSlides {
     /**
      * @title Text to add
      */
-    text?: string | null;
+    text?: (string & tags.MinLength<1>) | null;
 
     /**
      * @title ID
