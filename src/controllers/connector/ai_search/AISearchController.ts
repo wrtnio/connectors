@@ -1,9 +1,9 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
-import { retry } from "../../../utils/retry";
-import { AISearchProvider } from "../../../providers/connector/ai_search/AISearchProvider";
 import { IAISearch } from "@wrtn/connector-api/lib/structures/connector/ai_search/IAISearch";
+import { AISearchProvider } from "../../../providers/connector/ai_search/AISearchProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/ai-search")
 export class AISearchController {
@@ -13,6 +13,7 @@ export class AISearchController {
    *
    * @summary AI search
    *
+   * @hidden
    * @param input Conditions required for search
    * @returns
    */
