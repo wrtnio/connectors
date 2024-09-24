@@ -319,7 +319,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -403,7 +403,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -481,7 +481,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -565,7 +565,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           text: template.contents[0].text.text,
           objectId: firstShapeId,
         }),
@@ -686,7 +686,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           objectId: shapeId,
           text: template.contents.text.text,
         }),
@@ -770,7 +770,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           objectId: shapeId,
           text: template.contents.text.text,
         }),
@@ -854,7 +854,7 @@ export class GoogleSlidesProvider {
             shapeType: "TEXT_BOX",
           },
         },
-        ...this.getInsertText({
+        ...this.getInsertTextStatemenet({
           objectId: shapeId,
           text: template.contents.text.text,
         }),
@@ -942,8 +942,11 @@ export class GoogleSlidesProvider {
     return [{ createSlide: { objectId } }];
   }
 
-  private getInsertText(input: { objectId: string; text?: string | null }) {
+  private getInsertTextStatemenet(input: {
+    objectId: string;
+    text?: string | null;
+  }): [LookUpByKey<IGoogleSlides.BatchUpdateInput, "insertText">] {
     const { objectId, text } = input;
-    return [{ insertText: { objectId }, text }];
+    return [{ insertText: { objectId, text } }];
   }
 }
