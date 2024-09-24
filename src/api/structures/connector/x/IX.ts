@@ -1,10 +1,16 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IX {
+  export type ISecret = ICommon.ISecret<
+    "x",
+    ["tweet.read", "tweet.write", "users.read", "follows.read", "list.read"]
+  >;
+
   /**
    * @title User Search Condition
    */
-  export interface IUserRequest {
+  export interface IUserRequest extends ISecret {
     /**
      * User name for search
      *
@@ -42,7 +48,7 @@ export namespace IX {
   /**
    * @title User Tweet Time Line Request
    */
-  export interface IUserTweetTimeLineRequest {
+  export interface IUserTweetTimeLineRequest extends ISecret {
     /**
      * The unique id of the user for search user tweet time line
      *

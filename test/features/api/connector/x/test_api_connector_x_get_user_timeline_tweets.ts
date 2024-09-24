@@ -2,6 +2,7 @@ import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { test_api_connector_x_get_user } from "./test_api_connector_x_get_user";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_x_get_user_timeline_tweets = async (
   connection: CApi.IConnection,
@@ -13,8 +14,10 @@ export const test_api_connector_x_get_user_timeline_tweets = async (
       {
         userId: user.id,
         userName: user.userName,
+        secretKey: ConnectorGlobal.env.X_TEST_SECRET,
       },
     );
+  console.log("TWEET RESULT", res);
   typia.assert(res);
   return res;
 };
