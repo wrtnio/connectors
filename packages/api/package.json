@@ -8,7 +8,7 @@
     "build": "npm run build:sdk && npm run compile",
     "build:sdk": "rimraf ../../src/api/functional && cd ../.. && npx nestia sdk && cd packages/api",
     "compile": "rimraf lib && tsc",
-    "deploy": "cd ../.. && npm install && npm run build:api && cd ./packages/api && npm pack",
+    "deploy": "cd ../.. && npm install && npm run build:api && cd ./packages/api && npm publish",
     "prepare": "ts-patch install && typia patch"
   },
   "repository": {
