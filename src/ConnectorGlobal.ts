@@ -171,6 +171,7 @@ export namespace ConnectorGlobal {
     // X
     X_APP_USER_BEARER_TOKEN: string;
     X_CLIENT_ID: string;
+    X_CLIENT_SECRET: string;
     X_TEST_SECRET: string;
 
     //----
