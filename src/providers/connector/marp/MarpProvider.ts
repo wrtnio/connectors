@@ -13,9 +13,8 @@ export class MarpProvider {
    * @returns Promise resolving to the S3 link of the converted PPT
    */
   async convertToPpt(input: IMarp.IConvertInput): Promise<IMarp.IConvertOutput> {
-    const tempDir = '/path/to/temp'; // 임시 파일 저장 디렉토리
-    const markdownFilePath = path.join(tempDir, 'markdown-file.md');
-    const pptFilePath = path.join(tempDir, 'slides.pptx');
+    const markdownFilePath = path.join(__dirname, 'markdown-file.md');
+    const pptFilePath = path.join(__dirname, 'slides.pptx');
 
     try {
       // 마크다운 문자열을 파일로 저장
