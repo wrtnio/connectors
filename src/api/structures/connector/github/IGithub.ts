@@ -182,7 +182,7 @@ export namespace IGithub {
     /**
      * @title html_url
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title author_association
@@ -344,12 +344,12 @@ export namespace IGithub {
     /**
      * @title html_url
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title pull_request_url
      */
-    pull_request_url: string & tags.Format<"uri">;
+    pull_request_url: string & tags.Format<"iri">;
 
     /**
      * @title submitted_at
@@ -1407,7 +1407,7 @@ export namespace IGithub {
      */
     commit: StrictOmit<Commit, "sha">;
 
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title Parents of this commit
@@ -2033,7 +2033,7 @@ export namespace IGithub {
     /**
      * @title issue_url
      */
-    issue_url: string & tags.Format<"uri">;
+    issue_url: string & tags.Format<"iri">;
 
     /**
      * @title author_association
@@ -2447,14 +2447,14 @@ export namespace IGithub {
      *
      * This means the user's profile image.
      */
-    avatar_url: string & tags.Format<"uri">;
+    avatar_url: string & tags.Format<"iri">;
 
     /**
      * @title html_url
      *
      * If you want to look up your profile, you can access this website.
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title type
@@ -2493,7 +2493,7 @@ export namespace IGithub {
     /**
      * @title html_url
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title description
@@ -2716,7 +2716,7 @@ export namespace IGithub {
      *
      * uri to look up details of commitment
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
 
     /**
      * @title author
@@ -2743,7 +2743,7 @@ export namespace IGithub {
 
     tree: {
       sha: string;
-      url: string & tags.Format<"uri">;
+      url: string & tags.Format<"iri">;
     };
 
     comment_count: number & tags.Type<"uint64">;
@@ -2814,7 +2814,7 @@ export namespace IGithub {
      * If pull is included on this link path, it is pull_request, and if issue is included, it is issue.
      * In essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path.
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title issue number
@@ -2863,7 +2863,7 @@ export namespace IGithub {
       | string
       | {
           id?: number & tags.Type<"uint64">;
-          url?: string & tags.Format<"uri">;
+          url?: string & tags.Format<"iri">;
           name?: string;
           description?: string | null;
           color?: string | null;
@@ -3236,14 +3236,14 @@ export namespace IGithub {
      *
      * This is the path through which you can view the file through the github website.
      */
-    blob_url: string & tags.Format<"uri">;
+    blob_url: string & tags.Format<"iri">;
 
     /**
      * @title raw_url
      *
      * The API path through which the contents of the file can be viewed.
      */
-    raw_url: string & tags.Format<"uri">;
+    raw_url: string & tags.Format<"iri">;
 
     /**
      * @title patch

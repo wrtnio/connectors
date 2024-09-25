@@ -586,7 +586,7 @@ export namespace IGoogleAds {
     /**
      * @title Homepage that is the target of the advertisement
      */
-    finalUrl: string & tags.Format<"uri">;
+    finalUrl: string & tags.Format<"iri">;
 
     /**
      * @title title list
@@ -613,7 +613,7 @@ export namespace IGoogleAds {
     /**
      * @title Homepage that is the target of the advertisement
      */
-    finalUrl: string & tags.Format<"uri">;
+    finalUrl: string & tags.Format<"iri">;
 
     /**
      * @title List of short titles

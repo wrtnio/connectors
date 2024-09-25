@@ -168,7 +168,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
 
         /**
          * @title Text corresponding to the image.
@@ -197,7 +197,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
 
         /**
          * @title Text corresponding to the image.
@@ -224,7 +224,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
 
         /**
          * @title Text corresponding to the image.
@@ -251,7 +251,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
       };
     };
 
@@ -276,7 +276,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
 
         /**
          * @title Text corresponding to the image.
@@ -307,7 +307,7 @@ export namespace IGoogleSlides {
           /**
            * @title URL of the image.
            */
-          url: string & tags.Format<"uri">;
+          url: string & tags.Format<"iri">;
 
           /**
            * @title Text corresponding to the image.
@@ -335,7 +335,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
 
         /**
          * @title The title part of the text corresponding to the image.
@@ -371,7 +371,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
 
         /**
          * @title The title part of the text corresponding to the image.
@@ -407,7 +407,7 @@ export namespace IGoogleSlides {
         /**
          * @title URL of the image.
          */
-        url: NTpule<2, string & tags.Format<"uri">>;
+        url: NTpule<2, string & tags.Format<"iri">>;
 
         /**
          * @title The title part of the text corresponding to the image.
@@ -548,7 +548,7 @@ export namespace IGoogleSlides {
     /**
      * The image URL. The image is fetched once at insertion time and a copy is stored for display inside the presentation. Images must be less than 50 MB in size, can't exceed 25 megapixels, and must be in one of PNG, JPEG, or GIF formats. The provided URL must be publicly accessible and up to 2 KB in length. The URL is saved with the image, and exposed through the Image.source_url field.
      */
-    url?: (string & tags.Format<"uri">) | null;
+    url?: (string & tags.Format<"iri">) | null;
   }
 
   /**
@@ -1019,7 +1019,7 @@ export namespace IGoogleSlides {
      *
      * The maximum length of the URL provided is 2 KB.
      */
-    contentUrl?: (string & tags.Format<"uri">) | null;
+    contentUrl?: (string & tags.Format<"iri">) | null;
 
     /**
      * @title Original size of the photo fill.
@@ -1331,7 +1331,7 @@ export namespace IGoogleSlides {
     /**
      * If set, indicates that this URL is a link to an external web page.
      */
-    url?: (string & tags.Format<"uri">) | null;
+    url?: (string & tags.Format<"iri">) | null;
 
     /**
      * If this value is set, the link will be directed to the slide's location in this presentation.

@@ -446,7 +446,7 @@ export namespace INotion {
          *
          * You can enter the path of the file you want to upload.
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
       };
 
       /**
@@ -477,7 +477,7 @@ export namespace INotion {
        *
        * You can enter the path of the file you want to embed.
        */
-      url: string & tags.Format<"uri">;
+      url: string & tags.Format<"iri">;
 
       /**
        * @title caption of this embed
@@ -502,7 +502,7 @@ export namespace INotion {
        *
        * You can enter the path of the file you want to bookmark.
        */
-      url: string & tags.Format<"uri">;
+      url: string & tags.Format<"iri">;
 
       /**
        * @title caption of this bookmark
@@ -560,7 +560,7 @@ export namespace INotion {
          * YouTube video links that include embed or watch.
          * E.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
       };
 
       /**
@@ -585,7 +585,7 @@ export namespace INotion {
         /**
          * @title url
          */
-        url: string & tags.Format<"uri"> & tags.Pattern<".*\\.(pdf)(\\?.*)?">;
+        url: string & tags.Format<"iri"> & tags.Pattern<".*\\.(pdf)(\\?.*)?">;
       };
 
       /**
@@ -610,7 +610,7 @@ export namespace INotion {
         /**
          * @title url
          */
-        url: string & tags.Format<"uri">;
+        url: string & tags.Format<"iri">;
       };
 
       /**
@@ -1417,7 +1417,7 @@ export namespace INotion {
      *
      * @title url
      */
-    url?: string & tags.Format<"uri">;
+    url?: string & tags.Format<"iri">;
 
     /**
      * Email address in database item
@@ -1542,14 +1542,14 @@ export namespace INotion {
      *
      * @title url
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
 
     /**
      * Page public url
      *
      * @title public url
      */
-    public_url: (string & tags.Format<"uri">) | null;
+    public_url: (string & tags.Format<"iri">) | null;
   }
 
   /**
@@ -1561,7 +1561,7 @@ export namespace INotion {
      *
      * @title url
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
   }
 
   /**
@@ -1619,7 +1619,7 @@ export namespace INotion {
        *
        * @title url
        */
-      url: string & tags.Format<"uri">;
+      url: string & tags.Format<"iri">;
 
       /**
        * Image file expiration time
@@ -1700,7 +1700,7 @@ export namespace INotion {
      *
      * @title Link
      */
-    href: (string & tags.Format<"uri">) | null;
+    href: (string & tags.Format<"iri">) | null;
   }
 
   /**
@@ -1720,7 +1720,7 @@ export namespace INotion {
      *
      * @title Link
      */
-    link: (string & tags.Format<"uri">) | null;
+    link: (string & tags.Format<"iri">) | null;
   }
 
   /**
@@ -1843,7 +1843,7 @@ export namespace INotion {
   export type OnlyOneTextLine = {
     text: {
       content: string;
-      link?: { url: string & tags.Format<"uri"> };
+      link?: { url: string & tags.Format<"iri"> };
     };
   }[] &
     tags.MinItems<1> &
@@ -1852,7 +1852,7 @@ export namespace INotion {
   export type MultipleTextLine = {
     text: {
       content: string;
-      link?: { url: string & tags.Format<"uri"> };
+      link?: { url: string & tags.Format<"iri"> };
     };
   }[] &
     tags.MaxItems<1>;

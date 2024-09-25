@@ -118,7 +118,7 @@ export namespace IGoogleMap {
      * @title image
      */
     thumbnail?:
-      | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+      | (string & tags.Format<"iri"> & ContentMediaType<"image/*">)
       | null;
   }
 
@@ -161,14 +161,14 @@ export namespace IGoogleMap {
      *
      * @title Review Link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
      * This is the image registered in the review.
      *
      * @title Review Image
      */
-    images: Array<string & tags.Format<"uri"> & ContentMediaType<"image/*">>;
+    images: Array<string & tags.Format<"iri"> & ContentMediaType<"image/*">>;
 
     /**
      * The date the review was written.

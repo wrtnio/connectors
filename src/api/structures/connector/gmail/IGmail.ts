@@ -52,7 +52,7 @@ export namespace IGmail {
       /**
        * @title file uri
        */
-      fileUrl: string & tags.Format<"uri">;
+      fileUrl: string & tags.Format<"iri">;
     }[];
   }
 

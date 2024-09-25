@@ -207,7 +207,7 @@ export namespace IGoogleHotel {
      * @title thumbnail
      */
     thumbnails: Array<
-      string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">
+      string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">
     >;
 
     /**

@@ -287,14 +287,14 @@ export namespace INaver {
      *
      * @title Naver News URL
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
      * Original URL of news article.
      *
      * @title Original URL
      */
-    originallink: string & tags.Format<"uri">;
+    originallink: string & tags.Format<"iri">;
 
     /**
      * The part that matches the search term <b>is wrapped in tags. @title Summary of the news article</b>

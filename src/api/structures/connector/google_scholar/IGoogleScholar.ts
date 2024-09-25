@@ -59,7 +59,7 @@ export namespace IGoogleScholar {
      *
      * @title Link to the searched paper
      */
-    link: (string & tags.Format<"uri">) | null;
+    link: (string & tags.Format<"iri">) | null;
 
     /**
      * Here is a snippet of the search results.
@@ -94,7 +94,7 @@ export namespace IGoogleScholar {
      *
      * @title Links to related academic materials
      */
-    related_pages_link: string & tags.Format<"uri">;
+    related_pages_link: string & tags.Format<"iri">;
 
     /**
      * Here is the version information for the searched paper.
@@ -127,7 +127,7 @@ export namespace IGoogleScholar {
      *
      * @title Link to the reference material
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
   }
 
   /**
@@ -146,6 +146,6 @@ export namespace IGoogleScholar {
      *
      * @title Version-related links
      */
-    link: (string & tags.Format<"uri">) | null;
+    link: (string & tags.Format<"iri">) | null;
   }
 }

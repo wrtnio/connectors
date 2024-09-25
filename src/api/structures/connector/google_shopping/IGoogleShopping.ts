@@ -40,7 +40,7 @@ export namespace IGoogleShopping {
      * @title Product Link
      */
     link:
-      | (string & tags.Format<"uri">)
+      | (string & tags.Format<"iri">)
       | (string & tags.Constant<"#", { title: "알 수 없는 링크" }>);
 
     /**
@@ -63,6 +63,6 @@ export namespace IGoogleShopping {
     /**
      * @title Product Image
      */
-    thumbnail: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    thumbnail: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
   }
 }

@@ -127,7 +127,7 @@ export namespace IExcel {
      *
      * @title 엑셀 파일
      */
-    fileUrl?: string & tags.Format<"uri">;
+    fileUrl?: string & tags.Format<"iri">;
 
     /**
      * An array of objects where the key is the header name and the value is the value of the corresponding row

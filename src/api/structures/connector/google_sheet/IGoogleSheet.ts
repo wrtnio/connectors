@@ -120,7 +120,7 @@ export namespace IGoogleSheet {
      *
      * @title sheet url.
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
 
     /**
      * Here is a list of emails to make accessible and permissions to grant.

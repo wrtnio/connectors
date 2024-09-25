@@ -34,6 +34,6 @@ export namespace IDallE3 {
      *
      * @title Generated image Url
      */
-    imgUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    imgUrl: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
   }
 }

@@ -533,7 +533,7 @@ export namespace ISlack {
        * @title profile image
        */
       image_original:
-        | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+        | (string & tags.Format<"iri"> & ContentMediaType<"image/*">)
         | null;
     };
   }
@@ -653,7 +653,7 @@ export namespace ISlack {
      * Link to view the conversation history immediately.
      * We can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times.
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
   }
 
   export interface Attachment {
@@ -680,7 +680,7 @@ export namespace ISlack {
      * The thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.
      * For best results, please use images that are already 75px by 75px.
      */
-    thumb_url?: string & tags.Format<"uri">;
+    thumb_url?: string & tags.Format<"iri">;
 
     /**
      * @title thumb_width
