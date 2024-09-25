@@ -56,7 +56,9 @@ jobs:
           git config --local user.email "studio@wrtn.io"
           git config --local user.name "studio-pro"
           git pull
-          npm version patch -m "Bump swagger version to %s [skip ci]"
+          npm version patch
+          git add *
+          git commit --no-verify -m "Bump swagger version to %s [skip ci]"
           git push --set-upstream origin main
 
       - name: Bump version for sdk
@@ -65,7 +67,9 @@ jobs:
           git config --local user.email "studio@wrtn.io"
           git config --local user.name "studio-pro"
           git pull
-          npm version patch -m "Bump sdk version to %s [skip ci]"
+          npm version patch
+          git add *
+          git commit --no-verify -m "Bump sdk version to %s [skip ci]"
           git push --set-upstream origin main --follow-tags
           npm run deploy
         env:
