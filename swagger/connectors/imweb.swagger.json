@@ -18,7 +18,7 @@
     "title": "아임웹 상품 정보 관리",
     "summary": "아임웹으로 상품 정보를 효과적으로 관리해요.",
     "description": "아임웹에서 상품 리스트를 조회회할 수 있어요. 판매자 인증을 통해 API 토큰을 발급받아 더 많은 기능을 활용할 수 있어요.",
-    "version": "0.1.232",
+    "version": "0.1.233",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,7 +28,9 @@
       "post": {
         "summary": "Get my sales product from `Imweb`",
         "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
-        "tags": [],
+        "tags": [
+          "Imweb"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "key and secret",
@@ -64,7 +66,9 @@
       "post": {
         "summary": "Issue Aimweb Access Token",
         "description": "Issue Aimweb Access Token.",
-        "tags": [],
+        "tags": [
+          "Imweb"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Request DTO for access token issuance.",
@@ -779,6 +783,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Imweb"
+    }
+  ],
   "x-samchon-emended": true
 }

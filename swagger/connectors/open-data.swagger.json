@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.232",
+    "version": "0.1.233",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,7 +28,9 @@
       "post": {
         "summary": "Search for the address system of the Republic of Korea",
         "description": "Search for the address system of the Republic of Korea\n\n- If you enter a postal address, you can convert it to a street address and a road name address.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -59,7 +61,9 @@
       "post": {
         "summary": "Retrieve multi-family lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -91,7 +95,9 @@
       "post": {
         "summary": "Retrieve officetel lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -123,7 +129,9 @@
       "post": {
         "summary": "Retrieve apartment lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -156,7 +164,9 @@
       "post": {
         "summary": "Retrieve LH rental housing information",
         "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)\n\nIn the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying rental housing",
@@ -189,7 +199,9 @@
       "post": {
         "summary": "Retrieve parking lot information",
         "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nIf you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.\nLook up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying parking lots",
@@ -229,7 +241,9 @@
       "post": {
         "summary": "Retrieve building registration information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying building information",
@@ -261,7 +275,9 @@
       "post": {
         "summary": "Retrieve administrative standard codes",
         "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\nFor the search, you should use the exact name that means the administrative district, just like the \"서울특별시\", not \"서울\".",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying regions",
@@ -294,7 +310,9 @@
       "post": {
         "summary": "Retrieve market capitalization and stock information",
         "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying market capitalization",
@@ -334,7 +352,9 @@
       "post": {
         "summary": "Retrieve today's weather from the Korea Meteorological Administration",
         "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "DTO for weather query location",
@@ -370,7 +390,9 @@
       "post": {
         "summary": "[Copyright Registration Information Service (New)]",
         "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\n- 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying copyright",
@@ -2728,6 +2750,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Open Data"
+    }
+  ],
   "x-samchon-emended": true
 }

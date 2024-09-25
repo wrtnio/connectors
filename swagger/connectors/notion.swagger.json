@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.232",
+    "version": "0.1.233",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,7 +28,9 @@
       "post": {
         "summary": "Append block by markdown format",
         "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -55,7 +57,9 @@
       "post": {
         "summary": "Append an file type child node",
         "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.\n\nUploading a file exposes it to the Notion page as an icon in the file format, but there is no Preview.\nIf you want the internal elements to be seen as soon as you enter the page, it is better to create the image, pdf format for each format, and consider embed for other formats.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -82,7 +86,9 @@
       "post": {
         "summary": "Append an embed type child node",
         "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.\n\nThis is suitable when you want an internal element to be rendered immediately, such as an imprame within a page.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -109,7 +115,9 @@
       "post": {
         "summary": "Append an bookmark type child node",
         "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.\n\nBookmarks are visually better and more organized because they have previews, images, and explanations than just saving url as text.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -136,7 +144,9 @@
       "post": {
         "summary": "Append an image type child node",
         "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -163,7 +173,9 @@
       "post": {
         "summary": "Append an video type child node",
         "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -190,7 +202,9 @@
       "post": {
         "summary": "Append an pdf type child node",
         "description": "Append an pdf type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `pdf`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -218,7 +232,9 @@
         "summary": "Append an code type child node",
         "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "deprecated": true,
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -245,7 +261,9 @@
       "post": {
         "summary": "Append an equation type child node",
         "description": "Append an equation type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `equation`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -272,7 +290,9 @@
       "post": {
         "summary": "Append an divider type child node",
         "description": "Append an divider type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `divider`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -299,7 +319,9 @@
       "post": {
         "summary": "Append an breadcrumb type child node",
         "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -326,7 +348,9 @@
       "post": {
         "summary": "Append an table_of_contents type child node",
         "description": "Append an table_of_contents type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_of_contents`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -353,7 +377,9 @@
       "post": {
         "summary": "Append an link_to_page type child node",
         "description": "Append an link_to_page type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `link_to_page`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -380,7 +406,9 @@
       "post": {
         "summary": "Append an toggle type child node",
         "description": "Append an toggle type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `toggle`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -407,7 +435,9 @@
       "post": {
         "summary": "Create page",
         "description": "Create a Notion page.\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information needed to create the page",
@@ -439,7 +469,9 @@
       "post": {
         "summary": "Retrieve a list of pages",
         "description": "Retrieve a list of all pages in your Notion workspace.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -474,7 +506,9 @@
       "post": {
         "summary": "Retrieve the list of users",
         "description": "Retrieve the list of users in the workspace.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -509,7 +543,9 @@
       "post": {
         "summary": "Query the database list",
         "description": "Query the database list to create items in the database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -544,7 +580,9 @@
       "post": {
         "summary": "Retrieves database information",
         "description": "Retrieves database information to create items in the database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -590,7 +628,9 @@
       "post": {
         "summary": "Create a database item",
         "description": "Create an item in the Notion Table database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -635,7 +675,9 @@
       "patch": {
         "summary": "Modify database item",
         "description": "Modify item information in the database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -682,7 +724,9 @@
       "post": {
         "summary": "Search for pages by title",
         "description": "Search for pages by title.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Page title",
@@ -715,7 +759,9 @@
       "post": {
         "summary": "Retrieve a list of database items",
         "description": "Retrieve a list of items that exist in a table database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -764,7 +810,9 @@
       "post": {
         "summary": "Retrieval of database items",
         "description": "Retrieves an item that exists in a table database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -811,7 +859,9 @@
       "post": {
         "summary": "Create page by markdown format",
         "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -4772,6 +4822,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Notion"
+    }
+  ],
   "x-samchon-emended": true
 }

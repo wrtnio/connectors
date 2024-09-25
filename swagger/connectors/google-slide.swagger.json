@@ -18,7 +18,7 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.232",
+    "version": "0.1.233",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,7 +28,9 @@
       "post": {
         "summary": "Export presentations to Hanshow files",
         "description": "Export Google Slides presentations to Hanshow format!",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -70,7 +72,9 @@
       "post": {
         "summary": "Export presentations to PPT files",
         "description": "Export Google Slides presentations to PowerPoint format!\n\nA connector that can be used when creating stories or picture books.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -112,7 +116,9 @@
       "post": {
         "summary": "Retrieve a Google Slides presentation.",
         "description": "Retrieve a Google Slides presentation.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition DTO for retrieving a presentation.",
@@ -144,7 +150,9 @@
       "put": {
         "summary": "Add \"QuarterDivision\" type image slides to a Google Slides presentation.",
         "description": "Add \"QuarterDivision\" type slides to a Google Slides presentation\n\nThe \"QuarterDivision\" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.\nFour images are required for this template, and the text is located right under each image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -186,7 +194,9 @@
       "put": {
         "summary": "Add entire type image slides to a Google Slides presentation.",
         "description": "Add \"Entire\" type slides to a Google Slides presentation\n\nThe \"Entire\" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.\nBecause ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -228,7 +238,9 @@
       "put": {
         "summary": "Add \"Landscape\" type image slides to a Google Slides presentation.",
         "description": "Add \"Landscape\" type slides to a Google Slides presentation\n\nThe \"Landscape\" type template fits text underneath with a longer horizontal image tightly packed like a background.\nIt is suitable when the image is highlighted and the text is short.\nIt is suitable for marking images and titles as if they were on display.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -270,7 +282,9 @@
       "put": {
         "summary": "Add \"Square\" type image slides to a Google Slides presentation.",
         "description": "Add \"Square\" type slides to a Google Slides presentation\n\nThe \"Square\" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.\nThe picture is on the left, and the text is on the right.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -312,7 +326,9 @@
       "put": {
         "summary": "Add \"Vertical\" type image slides to a Google Slides presentation.",
         "description": "Add \"Vertical\" type slides to a Google Slides presentation\n\nThe \"Vertical\" type is like a square type slide, with an image on the left and text on the right.\nIn this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.\nThis also allows for enough text.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -355,7 +371,9 @@
         "summary": "Add image and text slides to a Google Slides presentation.",
         "description": "Add slides to a Google Slides presentation\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "deprecated": true,
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -397,7 +415,9 @@
       "post": {
         "summary": "Create a Google Slides presentation.",
         "description": "Create a Google Slides presentation.\n\nThis connector can be used when creating a story or picture book.\nPlease use it with the connector/google-slides/image-slide connector when creating a story or picture book.\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.\nThis creates a blank presentation file, which is basically created with the first slide with no text.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition DTO for creating a presentation.",
@@ -1134,6 +1154,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Google Slide"
+    }
+  ],
   "x-samchon-emended": true
 }
