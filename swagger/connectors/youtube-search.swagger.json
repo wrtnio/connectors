@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.232",
+    "version": "0.1.235",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,9 @@
       "post": {
         "summary": "YouTube video search",
         "description": "Get YouTube video search results.\n\nThe search results have the video title and link.\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.",
-        "tags": [],
+        "tags": [
+          "Youtube"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for YouTube video search",
@@ -219,6 +221,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Youtube"
+    }
+  ],
   "x-samchon-emended": true
 }

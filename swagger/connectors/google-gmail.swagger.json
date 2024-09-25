@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.232",
+    "version": "0.1.235",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,7 +28,9 @@
       "post": {
         "summary": "GMAIL Send",
         "description": "Sending mail\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the HTML format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information needed to send an email.",
@@ -61,7 +63,9 @@
       "post": {
         "summary": "Create GMAIL Draft",
         "description": "Create a mail draft\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the html format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for creating a mail draft.",
@@ -90,7 +94,9 @@
       "post": {
         "summary": "GMAIL Reply",
         "description": "Reply to received email\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can also use the HTML format.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -132,7 +138,9 @@
       "post": {
         "summary": "Get GMAIL information",
         "description": "Get information about a mail\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -179,7 +187,9 @@
       "post": {
         "summary": "Get GMAIL list",
         "description": "Get mailing list\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for getting mailing list.",
@@ -212,7 +222,9 @@
       "delete": {
         "summary": "Delete mail.",
         "description": "Delete mail\n\nGmail is a free web-based email service provided by Google.\n\nThis function requires special attention because it permanently deletes mail instead of moving it to the trash.\n\nMost users will want to delete mail that is already in the trash.\n\nTherefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -253,7 +265,9 @@
       "delete": {
         "summary": "Delete GMAIL",
         "description": "Move mail to trash\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -296,7 +310,9 @@
       "post": {
         "summary": "Create GMAIL label",
         "description": "Create a label\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for creating a label.",
@@ -329,7 +345,9 @@
       "post": {
         "summary": "GMAIL Label Assignment",
         "description": "Assign a label to a mail\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "mailId",
@@ -371,7 +389,9 @@
       "delete": {
         "summary": "Remove GMAIL labels",
         "description": "Remove labels assigned to mail\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "mailId",
@@ -978,6 +998,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Gmail"
+    }
+  ],
   "x-samchon-emended": true
 }

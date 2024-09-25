@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "version": "0.1.232",
+    "version": "0.1.235",
     "title": "@wrtn/connector",
-    "description": "wrtn-ecosystem connector server apis",
+    "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -357,7 +357,9 @@
       "post": {
         "summary": "Request RAG analysis.",
         "description": "Request RAG analysis for the input file.\n\nThis connector can be used when creating a chatbot that compares multiple research papers.",
-        "tags": [],
+        "tags": [
+          "RAG"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information about the file to be analyzed.",
@@ -389,7 +391,9 @@
       "get": {
         "summary": "Check RAG analysis status.",
         "description": "Check the analysis progress status.",
-        "tags": [],
+        "tags": [
+          "RAG"
+        ],
         "parameters": [
           {
             "name": "jobId",
@@ -418,7 +422,9 @@
       "post": {
         "summary": "Generate RAG-based results",
         "description": "Generates requested results based on RAG analysis.\n\nA connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.",
-        "tags": [],
+        "tags": [
+          "RAG"
+        ],
         "parameters": [
           {
             "name": "chatId",
@@ -458,7 +464,9 @@
       "post": {
         "summary": "Parse the Hwp file",
         "description": "Parse the hwp file.",
-        "tags": [],
+        "tags": [
+          "Hwp"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The hwp file to parse",
@@ -490,7 +498,9 @@
       "post": {
         "summary": "Get the headers in the Excel file",
         "description": "Based on the input file information, the headers of the corresponding Excel file are retrieved.",
-        "tags": [],
+        "tags": [
+          "Excel"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -524,7 +534,9 @@
       "post": {
         "summary": "Get the contents of the Excel file",
         "description": "Get the contents of the corresponding Excel file based on the input file information.",
-        "tags": [],
+        "tags": [
+          "Excel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information on the Excel file to get the contents",
@@ -556,7 +568,9 @@
       "post": {
         "summary": "Get a list of Excel worksheets",
         "description": "Get a list of Excel worksheets that exist in the input file url.",
-        "tags": [],
+        "tags": [
+          "Excel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The url of the Excel file from which to get the list of worksheets",
@@ -588,7 +602,9 @@
       "post": {
         "summary": "엑셀 파일 업로드를 통한 엑셀 생성 및 데이터 추가",
         "description": "엑셀 파일을 업로드하여 파일에 데이터를 추가합니다\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nIt is a connector that allows users to upload files by drag and drop.",
-        "tags": [],
+        "tags": [
+          "Excel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "엑셀 파일에 새로운 데이터를 추가 하기 위한 정보",
@@ -620,7 +636,9 @@
       "post": {
         "summary": "엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가",
         "description": "엑셀 파일 링크를 가지고 엑셀 파일에 데이터를 추가합니다\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nA connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.\n\nSince a link to the Excel file generated immediately after the Excel file is generated, calling this connector is more advantageous in terms of user experience than adding data through upload.",
-        "tags": [],
+        "tags": [
+          "Excel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "엑셀 파일에 새로운 데이터를 추가 하기 위한 정보",
@@ -653,7 +671,9 @@
         "summary": "Add Excel files and sheet",
         "description": "Add Excel files and sheet\n\nCreate an Excel file and get the link back.\nYou can also forward this link to the following connector to reflect further modifications.\nWhen creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.",
         "deprecated": true,
-        "tags": [],
+        "tags": [
+          "Excel"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -684,7 +704,9 @@
       "post": {
         "summary": "Generate Google Docs",
         "description": "Generate Google Docs",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Title of Google Docs to generate",
@@ -717,7 +739,9 @@
       "post": {
         "summary": "Grant permission to Google Docs",
         "description": "Grant permission to Google Docs",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for granting permission to Google Docs",
@@ -745,7 +769,9 @@
       "post": {
         "summary": "Read Google Docs",
         "description": "Read the contents of Google Docs",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -791,7 +817,9 @@
       "post": {
         "summary": "Copy Google Docs",
         "description": "Create new Google Docs by copying existing Google Docs",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Links to Google Docs to copy and titles of Google Docs to create",
@@ -823,7 +851,9 @@
       "delete": {
         "summary": "Delete Google Docs",
         "description": "Delete Google Docs.",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -865,7 +895,9 @@
       "post": {
         "summary": "Get a list of Google Docs",
         "description": "Get a list of Google Docs",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -897,7 +929,9 @@
       "post": {
         "summary": "Add text to Google Docs",
         "description": "Add text to Google Docs",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -943,7 +977,9 @@
       "post": {
         "summary": "Get the header information of a Google Sheet.",
         "description": "Get the header information of a Google Sheet.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Google Sheet URL and the header index to get.",
@@ -976,7 +1012,9 @@
       "post": {
         "summary": "Add content to Google Sheets",
         "description": "Add content to Google Sheets.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information to add content",
@@ -1004,7 +1042,9 @@
       "post": {
         "summary": "Create a Google Sheet",
         "description": "Create a Google Sheet.\n\nThe created sheet will be created in the Google Drive root path.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The title of the sheet to be created",
@@ -1037,7 +1077,9 @@
       "post": {
         "summary": "Grant permissions to Google Sheets.",
         "description": "Grant permissions to Google Sheets.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for granting permissions.",
@@ -1066,7 +1108,9 @@
       "post": {
         "summary": "Add a Google Sheet header.",
         "description": "Add a header to a Google Sheet.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The Google Sheet url and the header name to add.",
@@ -1095,7 +1139,9 @@
       "post": {
         "summary": "Get a list of Google Sheets Worksheets.",
         "description": "Get a list of Google Worksheets.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The Google Sheets url to get the list of worksheets.",
@@ -1128,7 +1174,9 @@
       "post": {
         "summary": "Get Row information from Google Sheets.",
         "description": "Get Row information from Google Sheets.",
-        "tags": [],
+        "tags": [
+          "Google Sheet"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1160,7 +1208,9 @@
       "post": {
         "summary": "Get a list of Google Calendars.",
         "description": "Get a list of Google Calendars.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1195,7 +1245,9 @@
       "post": {
         "summary": "Create a Google Calendar.",
         "description": "Create a Google Calendar.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The title of the calendar to be created.",
@@ -1228,7 +1280,9 @@
       "delete": {
         "summary": "Delete a Google Calendar.",
         "description": "Delete a calendar.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1271,7 +1325,9 @@
       "post": {
         "summary": "Get a list of Google Calendar events.",
         "description": "Get a list of events in Google Calendar.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1319,7 +1375,9 @@
       "post": {
         "summary": "Add a quick event to Google Calendar.",
         "description": "Add a quick event to Google Calendar.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1363,7 +1421,9 @@
       "post": {
         "summary": "Add a Google Calendar event.",
         "description": "Add an event to Google Calendar.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1411,7 +1471,9 @@
       "put": {
         "summary": "Modify a Google Calendar event.",
         "description": "Modify an event.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1472,7 +1534,9 @@
       "delete": {
         "summary": "Delete a Google Calendar event.",
         "description": "Delete an event.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1530,7 +1594,9 @@
       "put": {
         "summary": "Add attendees to a Google Calendar event.",
         "description": "Add attendees to an event.",
-        "tags": [],
+        "tags": [
+          "Google Calendar"
+        ],
         "parameters": [
           {
             "name": "calendarId",
@@ -1593,7 +1659,9 @@
       "post": {
         "summary": "Get a list of Google Drive folders.",
         "description": "Get a list of folders in Google Drive.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1625,7 +1693,9 @@
       "post": {
         "summary": "Get a list of Google Drive files.",
         "description": "Get a list of files in Google Drive.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -1656,7 +1726,9 @@
       "post": {
         "summary": "Create a Google Drive folder.",
         "description": "Create a new folder in Google Drive.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The name of the folder to be created.",
@@ -1689,7 +1761,9 @@
       "post": {
         "summary": "Create a Google Drive file.",
         "description": "Create a new file in Google Drive.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The name of the file to be created and the unique ID of the folder where the file will be created.",
@@ -1721,7 +1795,9 @@
       "delete": {
         "summary": "Delete a Google Drive file.",
         "description": "Delete a file in Google Drive.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1764,7 +1840,9 @@
       "delete": {
         "summary": "Delete a Google Drive folder.",
         "description": "Delete a folder in Google Drive.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1807,7 +1885,9 @@
       "post": {
         "summary": "Grant Google Drive permission.",
         "description": "Grants permission to access a file or folder.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for granting permission.",
@@ -1835,7 +1915,9 @@
       "post": {
         "summary": "Add text to a Google Drive file.",
         "description": "Add text to a file.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1879,7 +1961,9 @@
       "post": {
         "summary": "Read text from a Google Drive file.",
         "description": "Read text from a file.",
-        "tags": [],
+        "tags": [
+          "Google Drive"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1960,7 +2044,9 @@
       "post": {
         "summary": "GMAIL Send",
         "description": "Sending mail\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the HTML format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information needed to send an email.",
@@ -1993,7 +2079,9 @@
       "post": {
         "summary": "Create GMAIL Draft",
         "description": "Create a mail draft\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the html format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for creating a mail draft.",
@@ -2022,7 +2110,9 @@
       "post": {
         "summary": "GMAIL Reply",
         "description": "Reply to received email\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can also use the HTML format.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2064,7 +2154,9 @@
       "post": {
         "summary": "Get GMAIL information",
         "description": "Get information about a mail\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2111,7 +2203,9 @@
       "post": {
         "summary": "Get GMAIL list",
         "description": "Get mailing list\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for getting mailing list.",
@@ -2144,7 +2238,9 @@
       "delete": {
         "summary": "Delete mail.",
         "description": "Delete mail\n\nGmail is a free web-based email service provided by Google.\n\nThis function requires special attention because it permanently deletes mail instead of moving it to the trash.\n\nMost users will want to delete mail that is already in the trash.\n\nTherefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2185,7 +2281,9 @@
       "delete": {
         "summary": "Delete GMAIL",
         "description": "Move mail to trash\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2228,7 +2326,9 @@
       "post": {
         "summary": "Create GMAIL label",
         "description": "Create a label\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for creating a label.",
@@ -2261,7 +2361,9 @@
       "post": {
         "summary": "GMAIL Label Assignment",
         "description": "Assign a label to a mail\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "mailId",
@@ -2303,7 +2405,9 @@
       "delete": {
         "summary": "Remove GMAIL labels",
         "description": "Remove labels assigned to mail\n\nGmail is a free web-based email service provided by Google.",
-        "tags": [],
+        "tags": [
+          "Gmail"
+        ],
         "parameters": [
           {
             "name": "mailId",
@@ -2451,7 +2555,9 @@
       "post": {
         "summary": "Import Figma files",
         "description": "Import Figma files",
-        "tags": [],
+        "tags": [
+          "Figma"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditional values for importing files",
@@ -2483,7 +2589,9 @@
       "post": {
         "summary": "Write a comment within the canvas",
         "description": "Write a comment",
-        "tags": [],
+        "tags": [
+          "Figma"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition value for writing a comment",
@@ -2515,7 +2623,9 @@
       "post": {
         "summary": "Get Figma comments",
         "description": "Get Figma comments",
-        "tags": [],
+        "tags": [
+          "Figma"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition value to get comments",
@@ -2547,7 +2657,9 @@
       "post": {
         "summary": "Search for canvases within a team",
         "description": "Get all canvases of a specific project\n\nCanvases are Figma files managed by a specific team.\n\nThis connector allows users to see which canvases are managed within their Figma team, along with their canvas names and thumbnail links.",
-        "tags": [],
+        "tags": [
+          "Figma"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -2594,7 +2706,9 @@
       "post": {
         "summary": "Retrieve team-level Figma statistics",
         "description": "Retrieve team-level statistics",
-        "tags": [],
+        "tags": [
+          "Figma"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for retrieving team-level statistics",
@@ -2622,15 +2736,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
     "/connector/figma/get-projects": {
       "post": {
         "summary": "Search for projects within a team",
         "description": "Search for projects within a team\n\nAs an argument, it should receive teamId, which is the team ID, and can be found by looking at the URL path of figma.\nWhen accessing the link `https://www.figma.com/files/team`, a number is automatically added after the `team` keyword, which is the team ID.\nA user can belong to multiple teams, so if you do not want to automate the search for these projects, you need to get a different team ID.",
-        "tags": [],
+        "tags": [
+          "Figma"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Project search conditions",
@@ -2655,15 +2770,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
     "/connector/zoom/meetings": {
       "post": {
         "summary": "Create a zoom meeting.",
         "description": "Create a zoom meeting.",
-        "tags": [],
+        "tags": [
+          "Zoom"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "DTO of the user information and conditions for creating a meeting.",
@@ -2696,7 +2812,9 @@
       "post": {
         "summary": "Search for a list of couriers matching the invoice number",
         "description": "Search for a list of couriers matching the invoice number\n\nA courier code is essential to search for an invoice.\nTherefore, if a user knows the invoice number but does not know which courier will deliver his or her parcel, he or she cannot search for the invoice.\nTo solve this problem, this connector provides a function that infers the courier matching the invoice number.\nHowever, even if this function is called, multiple couriers that may be couriers may appear, so it is impossible to know which company will transport this parcel.\n\nOf course, if there is only one target in the list, the probability that it will be that courier is almost 100%.",
-        "tags": [],
+        "tags": [
+          "SweetTracker"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for courier search",
@@ -2729,7 +2847,9 @@
       "post": {
         "summary": "Search for courier list",
         "description": "Search for the courier list\n\nSearch for all domestic and international courier companies in Korea.\nWhen searching for delivery through the invoice number later, you will need the courier code, so you must search for the courier list first.\nAfter searching for the courier list, find your courier and provide the courier code when searching for the invoice.",
-        "tags": [],
+        "tags": [
+          "SweetTracker"
+        ],
         "parameters": [],
         "responses": {
           "201": {
@@ -2751,7 +2871,9 @@
       "post": {
         "summary": "Invoice search",
         "description": "Search for the invoice number\n\nTo search for an invoice, you need the courier code in addition to the invoice number you want to search for.\nIf you know which courier will transport your package, you can search for the courier and get the courier code from the courier whose name matches the courier code.\nIf you know the invoice number but do not know the courier code, you can use 'Search for a list of couriers matching the invoice number' to infer the courier that will transport your package.\nWhen you search for a package, you can find out the current location and time of the package, as well as who is transporting the package.\nIn some cases, there may be a phone number, but it is not absolute.\nIn addition, in cases where the product is delivered directly by an commerce company such as Coupang, there are cases where you cannot search even if you have the invoice number.",
-        "tags": [],
+        "tags": [
+          "SweetTracker"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for searching the invoice number",
@@ -2783,7 +2905,9 @@
       "post": {
         "summary": "Modify Hansel",
         "description": "Modify a Hansel sheet.\n\nIf the sheet already exists, modify it, or add it if it did not exist before.",
-        "tags": [],
+        "tags": [
+          "Hancel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Hansel information to modify",
@@ -2815,7 +2939,9 @@
       "post": {
         "summary": "Read a Hansel file",
         "description": "Read a Hansel file.",
-        "tags": [],
+        "tags": [
+          "Hancel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Hansel file information to read",
@@ -2848,7 +2974,9 @@
       "post": {
         "summary": "Send a message to a KakaoTalk(카카오톡) friend",
         "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for sending the message",
@@ -2880,7 +3008,9 @@
       "post": {
         "summary": "Send a message to myself on KakaoTalk(카카오톡)",
         "description": "Sends a commerce type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for sending the message",
@@ -2913,7 +3043,9 @@
       "post": {
         "summary": "Send a message to myself on KakaoTalk(카카오톡)",
         "description": "Sends a location type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for sending the message",
@@ -2946,7 +3078,9 @@
       "post": {
         "summary": "Send a message to myself on KakaoTalk(카카오톡)",
         "description": "Sends a list type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for sending the message",
@@ -2979,7 +3113,9 @@
       "post": {
         "summary": "Send a message to myself on KakaoTalk(카카오톡)",
         "description": "Sends a feed type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for sending the message",
@@ -3012,7 +3148,9 @@
       "post": {
         "summary": "Send a message to myself on KakaoTalk(카카오톡)",
         "description": "Sends a text type message to myself on KakaoTalk(카카오톡)\n\nWhen sending a KakaoTalk(카카오톡) message, there are buttons. If you want to add a link to the button, you should use a URL starting with `https://studio-pro.wrtn.ai/` or a redirect link. If the link starts with `https://studio-pro.wrtn.ai/`, the page will be viewed, otherwise, it will redirect to the new link. This is because only links registered in our domain are allowed according to the KakaoTalk(카카오톡) API specifications.\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for sending the message",
@@ -3045,7 +3183,9 @@
       "post": {
         "summary": "Add an event to the KakaoTalk(카카오톡) calendar",
         "description": "Adds an event to the KakaoTalk(카카오톡) calendar\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Input conditions for creating an event",
@@ -3078,7 +3218,9 @@
       "post": {
         "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
         "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for retrieving the friend list",
@@ -3111,7 +3253,9 @@
       "post": {
         "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
         "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "DTO for event retrieval.",
@@ -3151,7 +3295,9 @@
       "post": {
         "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
         "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Request DTO to retrieve calendars.",
@@ -3212,7 +3358,9 @@
     "/connector/kakao-talk/refresh": {
       "post": {
         "description": "Refreshes the KakaoTalk(카카오톡) access token",
-        "tags": [],
+        "tags": [
+          "KakaoTalk"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Request DTO for refresh.",
@@ -3244,7 +3392,9 @@
       "post": {
         "summary": "Kakao Map Search",
         "description": "Search with Kakao Map\n\nIn addition to the place name company, category, and phone number,\nit also provides lot number and road name addresses in the Korean address system.\nIt can be used with public data or other address-based connectors.",
-        "tags": [],
+        "tags": [
+          "Kakao Map"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search condition",
@@ -3277,7 +3427,9 @@
       "post": {
         "summary": "Kakao Navi Directions",
         "description": "Finding directions with Kakao Navi",
-        "tags": [],
+        "tags": [
+          "Kakao Navi"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Request conditions",
@@ -3310,7 +3462,9 @@
       "post": {
         "summary": "Export presentations to Hanshow files",
         "description": "Export Google Slides presentations to Hanshow format!",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3352,7 +3506,9 @@
       "post": {
         "summary": "Export presentations to PPT files",
         "description": "Export Google Slides presentations to PowerPoint format!\n\nA connector that can be used when creating stories or picture books.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3394,7 +3550,9 @@
       "post": {
         "summary": "Retrieve a Google Slides presentation.",
         "description": "Retrieve a Google Slides presentation.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition DTO for retrieving a presentation.",
@@ -3426,7 +3584,9 @@
       "put": {
         "summary": "Add \"QuarterDivision\" type image slides to a Google Slides presentation.",
         "description": "Add \"QuarterDivision\" type slides to a Google Slides presentation\n\nThe \"QuarterDivision\" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.\nFour images are required for this template, and the text is located right under each image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3468,7 +3628,9 @@
       "put": {
         "summary": "Add entire type image slides to a Google Slides presentation.",
         "description": "Add \"Entire\" type slides to a Google Slides presentation\n\nThe \"Entire\" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.\nBecause ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3510,7 +3672,9 @@
       "put": {
         "summary": "Add \"Landscape\" type image slides to a Google Slides presentation.",
         "description": "Add \"Landscape\" type slides to a Google Slides presentation\n\nThe \"Landscape\" type template fits text underneath with a longer horizontal image tightly packed like a background.\nIt is suitable when the image is highlighted and the text is short.\nIt is suitable for marking images and titles as if they were on display.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3552,7 +3716,9 @@
       "put": {
         "summary": "Add \"Square\" type image slides to a Google Slides presentation.",
         "description": "Add \"Square\" type slides to a Google Slides presentation\n\nThe \"Square\" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.\nThe picture is on the left, and the text is on the right.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3594,7 +3760,9 @@
       "put": {
         "summary": "Add \"Vertical\" type image slides to a Google Slides presentation.",
         "description": "Add \"Vertical\" type slides to a Google Slides presentation\n\nThe \"Vertical\" type is like a square type slide, with an image on the left and text on the right.\nIn this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.\nThis also allows for enough text.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3637,7 +3805,9 @@
         "summary": "Add image and text slides to a Google Slides presentation.",
         "description": "Add slides to a Google Slides presentation\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "deprecated": true,
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -3679,7 +3849,9 @@
       "post": {
         "summary": "Create a Google Slides presentation.",
         "description": "Create a Google Slides presentation.\n\nThis connector can be used when creating a story or picture book.\nPlease use it with the connector/google-slides/image-slide connector when creating a story or picture book.\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.\nThis creates a blank presentation file, which is basically created with the first slide with no text.",
-        "tags": [],
+        "tags": [
+          "Google Slide"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition DTO for creating a presentation.",
@@ -3711,7 +3883,9 @@
       "post": {
         "summary": "Get my sales product from `Imweb`",
         "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
-        "tags": [],
+        "tags": [
+          "Imweb"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "key and secret",
@@ -3747,7 +3921,9 @@
       "post": {
         "summary": "Issue Aimweb Access Token",
         "description": "Issue Aimweb Access Token.",
-        "tags": [],
+        "tags": [
+          "Imweb"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Request DTO for access token issuance.",
@@ -3779,7 +3955,9 @@
       "post": {
         "summary": "Search for the address system of the Republic of Korea",
         "description": "Search for the address system of the Republic of Korea\n\n- If you enter a postal address, you can convert it to a street address and a road name address.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -3810,7 +3988,9 @@
       "post": {
         "summary": "Retrieve multi-family lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -3842,7 +4022,9 @@
       "post": {
         "summary": "Retrieve officetel lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -3874,7 +4056,9 @@
       "post": {
         "summary": "Retrieve apartment lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Query conditions",
@@ -3907,7 +4091,9 @@
       "post": {
         "summary": "Retrieve LH rental housing information",
         "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)\n\nIn the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying rental housing",
@@ -3940,7 +4126,9 @@
       "post": {
         "summary": "Retrieve parking lot information",
         "description": "[National Information Society Agency] Retrieves parking lot information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nIf you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.\nLook up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying parking lots",
@@ -3980,7 +4168,9 @@
       "post": {
         "summary": "Retrieve building registration information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying building information",
@@ -4012,7 +4202,9 @@
       "post": {
         "summary": "Retrieve administrative standard codes",
         "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\nFor the search, you should use the exact name that means the administrative district, just like the \"서울특별시\", not \"서울\".",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying regions",
@@ -4045,7 +4237,9 @@
       "post": {
         "summary": "Retrieve market capitalization and stock information",
         "description": "[Financial Services Commission] Retrieves market capitalization and stock information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying market capitalization",
@@ -4085,7 +4279,9 @@
       "post": {
         "summary": "Retrieve today's weather from the Korea Meteorological Administration",
         "description": "[Korea Meteorological Administration] Retrieves today's weather information.\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "DTO for weather query location",
@@ -4121,7 +4317,9 @@
       "post": {
         "summary": "[Copyright Registration Information Service (New)]",
         "description": "[Korea Copyright Commission] Searches for copyright information.\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\n- 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.",
-        "tags": [],
+        "tags": [
+          "Open Data"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for querying copyright",
@@ -4185,7 +4383,9 @@
     "/connector/korea-eximbank/exchange": {
       "get": {
         "summary": "Korea Export-Import Bank Current Exchange Rate Inquiry",
-        "tags": [],
+        "tags": [
+          "Korea Eximbank"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -4422,7 +4622,9 @@
       "post": {
         "summary": "Stable diffusion image generator node",
         "description": "Generate an image using the stable diffusion model.",
-        "tags": [],
+        "tags": [
+          "Stable Diffusion"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for image generation",
@@ -4455,7 +4657,9 @@
       "post": {
         "summary": "dall-e-3 image generator node",
         "description": "Generate an image using the dall-e-3 model.",
-        "tags": [],
+        "tags": [
+          "Dall-e-3"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for image generation",
@@ -4480,15 +4684,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg"
       }
     },
     "/connector/google-search": {
       "post": {
         "summary": "Google search",
         "description": "Search Google for the search term you entered.",
-        "tags": [],
+        "tags": [
+          "Google Search"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Google search terms",
@@ -4524,7 +4729,9 @@
       "post": {
         "summary": "Wanted job posting search",
         "description": "Search for job postings on Wanted.",
-        "tags": [],
+        "tags": [
+          "Wanted"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4560,7 +4767,9 @@
       "post": {
         "summary": "Search Incruit job postings",
         "description": "Search for job postings on Incruit.",
-        "tags": [],
+        "tags": [
+          "Incruit"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4596,7 +4805,9 @@
       "post": {
         "summary": "Search for Saramin job postings",
         "description": "Search for job postings in Saramin.",
-        "tags": [],
+        "tags": [
+          "Saramin"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search criteria",
@@ -4632,7 +4843,9 @@
       "post": {
         "summary": "Jumpfit job posting search",
         "description": "Search for job postings on Jumpfit.",
-        "tags": [],
+        "tags": [
+          "Jumpit"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4668,7 +4881,9 @@
       "post": {
         "summary": "Careerly Search",
         "description": "Search for posts in Careerly.",
-        "tags": [],
+        "tags": [
+          "Careerly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4704,7 +4919,9 @@
       "post": {
         "summary": "Aladdin Search",
         "description": "Search for products in Aladdin.",
-        "tags": [],
+        "tags": [
+          "Aladin"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4740,7 +4957,9 @@
       "post": {
         "summary": "Search for AliExpress",
         "description": "Search for products on AliExpress.",
-        "tags": [],
+        "tags": [
+          "AliExpress"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search criteria",
@@ -4776,7 +4995,9 @@
       "post": {
         "summary": "Coupang Search",
         "description": "Search for products on Coupang.",
-        "tags": [],
+        "tags": [
+          "Coupang"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4812,7 +5033,9 @@
       "post": {
         "summary": "EQL search",
         "description": "Search for products in EQL.",
-        "tags": [],
+        "tags": [
+          "EQL"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "search conditions",
@@ -4848,7 +5071,9 @@
       "post": {
         "summary": "iHerb Search",
         "description": "Search for products on iHerb.",
-        "tags": [],
+        "tags": [
+          "iHerb"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4884,7 +5109,9 @@
       "post": {
         "summary": "Market Kurly Search",
         "description": "Search for products on Market Kurly.",
-        "tags": [],
+        "tags": [
+          "Market Kurly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4920,7 +5147,9 @@
       "post": {
         "summary": "OCO search",
         "description": "Search for products in OCO.",
-        "tags": [],
+        "tags": [
+          "OCO"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4956,7 +5185,9 @@
       "post": {
         "summary": "Olive Young Search",
         "description": "Search for products at Olive Young.",
-        "tags": [],
+        "tags": [
+          "Olive Young"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -4992,7 +5223,9 @@
       "post": {
         "summary": "29cm search",
         "description": "Search for products from 29cm.",
-        "tags": [],
+        "tags": [
+          "29CM"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "search condition",
@@ -5028,7 +5261,9 @@
       "post": {
         "summary": "Uniqlo Search",
         "description": "Search for products in Uniqlo.",
-        "tags": [],
+        "tags": [
+          "Uniqlo"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -5064,7 +5299,9 @@
       "post": {
         "summary": "yes24 search",
         "description": "Search for products on yes24.",
-        "tags": [],
+        "tags": [
+          "yes24"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "search conditions",
@@ -5100,7 +5337,9 @@
       "post": {
         "summary": "Musinsa Search",
         "description": "Search for products in Musinsa.",
-        "tags": [],
+        "tags": [
+          "Musinsa"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -5136,7 +5375,9 @@
       "post": {
         "summary": "Create keywords using keywords and URL",
         "description": "Recommend keywords for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords and URL that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Object containing URL",
@@ -5169,7 +5410,9 @@
       "post": {
         "summary": "Create keywords using keywords",
         "description": "Get keyword recommendations for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values when registering an ad for each keyword.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Object containing URL",
@@ -5202,7 +5445,9 @@
       "post": {
         "summary": "Create keywords through URL",
         "description": "Get keyword recommendations for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the URL that he or she wanted to register, it recommends other keywords that can be derived from it.\n\nThe request result is a list of keywords, competition index, unit price, and expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Object containing the URL",
@@ -5235,7 +5480,9 @@
       "post": {
         "summary": "Register Rutten as an administrator",
         "description": "Designate Rutten as the advertising account manager of the user\n\nTo call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.\nThis connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.\nAfter the connector is executed, an email registered to the customer account will be sent via Gmail.\nThose who receive the email can go to the dashboard through the email and give the `Wrtn` account administrator rights.\nIf `Wrtn` is registered as an administrator, he will be able to use other APIs created in Google Ads.\n\nThis administrator designation must be done before calling all Google Ads connectors except for connectors that do not receive `customerId` as an argument, such as keyword recommendations.\nHowever, even if this connector is called, `Wrtn` will not be designated as an administrator without the user's approval, so there is no need to worry.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Customer information",
@@ -5263,7 +5510,9 @@
       "post": {
         "summary": "Get ad account",
         "description": "Get the customer's advertising account\n\nUsing the user's access token, search for the user's advertising account, i.e., `customer`, among the accounts where `Wrtn` is an administrator.\nEven if the user has an advertising account, if `Wrtn` is not an administrator, it will not be listed.\nTherefore, if `Wrtn` has never been registered as an administrator, you must call the `POST connector/google-ads/customerClientLink` connector.\n\nIn addition, this connector filters out advertising accounts that do not use the Korean currency unit `KRW`.\nThe reason for this is to prevent mistakes from occurring in other campaign budget modification or ad status change connectors in the future.\nWhen creating ads through the Google Ads connector, human errors may occur in budget settings depending on the currency unit of each account.\nFor example, if you register a budget for an account with a currency unit of `USD` as an account with a currency unit of `KRW`, a budget difference of the exchange rate may occur.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Customer information",
@@ -5299,7 +5548,9 @@
       "post": {
         "summary": "Search for a list of campaigns",
         "description": "Get a list of campaigns for a Google customer account\n\nPass `customerId` to the user and search for campaigns in the customer's advertising account.\nIf `customerId` is not passed, `Wrtn` will automatically select only one advertising account that the user can access.\nA campaign corresponds to `campaign` among Google resources and is in charge of advertising channels, budgets, and the start and end dates of advertising execution.\nA channel refers to Google advertising products such as responsive search ads (=responsive search ads) and responsive display ads (=responsive display ads).\nIf a campaign is a search ad, there are only search ads in the ad group and ads.\nA user can use this connector to search for their campaigns and the status of the campaigns, and create ad groups for the desired campaigns, etc., for subsequent actions.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Customer information",
@@ -5334,7 +5585,9 @@
       "post": {
         "summary": "Search for a list of ad groups.",
         "description": "Get a list of ad groups in a Google customer account\n\nPass `customerId` to the user and search for ad groups (=adGroup) in the customer ad account.\nIf `customerId` is not passed, it will automatically select only one ad account that `Wrtn` can access from the user.\nIf `campaignId` is also passed, it will search only the child ad groups of the campaign.\nAd groups are the area in charge of targeting and are also the parents of ads (ads).\nThe result of this connector contains simple information about the campaign that is the parent of the ad group, information about the ad group,\na list of ads belonging to the ad group, their current status, and simple information.\nIt also contains information about keywords connected to the ad group.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Ad group list query condition",
@@ -5369,7 +5622,9 @@
       "post": {
         "summary": "Retrieves a list of campaign ads",
         "description": "Get the list of ads from the Google customer account\n\nPass the `customerId` to the user and search for the ads (=ad) in the customer's ad account.\nIf `customerId` is not passed, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\nAn ad is a node at the end of a tree structure consisting of campaigns, ad groups, and ads, and is a section in charge of materials,\nand is also a unit exposed to end users.\nIf the resource name of an ad group (=adGroup) is passed as an argument, only the ads belonging to that ad group will be searched.\nThe purpose of this connector is to determine whether the user's ad is currently running or not.\nIn the case of `Wrtn` managers, campaigns and ad groups are not changed to `PAUSED` status unless the user directly changes the campaign and ad group status in the Google Ads dashboard.\nTherefore, in general, if the ad status is `ENABLED`, the ad is running, and if it is `PAUSED`, the ad is stopped. Again, the `Wrtn` connector does not change the status of a campaign or ad group.\n\nThis function can also be used to check whether an ad is being properly executed in addition to viewing the ad.\n\nEach ad has an evaluation history for ad review and policy, which exists as a property called `PolicySummary`.\n\nThis property contains whether the ad has been approved, and the `APPROVED` status means that Google has approved the review and determined it is eligible.\n\nYou can change the ad status in `PATCH connector/google-ads/campaigns/ads/status`.\n\nBefore calling the function, you should ask the user for their `customerId`, so you should suggest a connector that can check their `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition for retrieving the ad list",
@@ -5404,7 +5659,9 @@
       "post": {
         "summary": "Get the performance (metrics) of the ad group",
         "description": "View metrics per Google customer account ad\n\nPass `customerId` to the user and view statistical metrics for the customer ad group.\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\nUsers can view ad metrics for a specific date through this connector,\nand these metrics include impressions, clicks, video views, views based on video playback range, and average page count.\nYou can also check simple information about the searched content, such as the resource name of the ad group.\nIn addition, `costMicros` information is provided, which is the advertising expenditure in micro units and means the amount actually executed.\nIf this figure is `1,000,000`, if the currency unit is `KRW`, 1 won was used.\nThis figure is the actual amount used, unlike the campaign budget, and according to Google policy, advertising costs may be slightly more than the budget. Also, the total spend of the ad group in the campaign must be equal to the total spend of the campaign.\n\nThis connector allows the user to check whether their ads are being executed efficiently in terms of cost and performance.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Ad metrics query conditions",
@@ -5439,7 +5696,9 @@
       "post": {
         "summary": "Add keywords to the ad",
         "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add ad keywords to ad groups (=adGroup).\n\nFor convenience, this connector receives the resource name of the ad, finds the parent ad group of the ad, and then inserts the keyword.\nThe result value of this connector helps users check whether all keywords have been added properly by re-checking them after adding the keyword.\nHowever, not all keywords added are used in ads.\nKeywords are reviewed by Google and used for targeting, and at this time, keywords may be excluded from ad keywords due to inappropriate reviews.\nHowever, since ads will work properly if there are other keywords, it is advantageous to register various keywords so that users can be attracted.\n\nThere are also recommended connectors for keywords.\n\nThis connector receives an ad account as an argument from the user as authentication for the customer account, but this is also optional.\n\nIf `customerId` is not passed, it is automatically selected only if `Wrtn` has only one ad account accessible to the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Add keyword condition",
@@ -5474,7 +5733,9 @@
       "patch": {
         "summary": "Change the status of the ad",
         "description": "Change the ad status of a Google customer account\n\nChange the ad status by receiving the ID of the ad account and the resource name of the ad in the ad group (=`adGroupAd```ResourceName`).\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nThe ad status supported by this connector is `ENABLED` and `PAUSED`, which means the execution and suspension of the ad, respectively.\nSince the `Wrtn` manager account only changes the status of the ad without changing the status of the campaign and ad group,\nunless the user changes the status of the campaign and ad group directly in the Google Ads dashboard, the ad status means whether or not spending occurs.\nIf the user wants to change the status of the ad group, instead of changing the status of the ad group, query the ad group and change the status of all ads in the ad group.\nIf the user wants to change the status of the campaign, instead of changing the status of the campaign, query the campaign and change the status of all ads in the campaign. However, if you change the status of a campaign, you must go down the campaign and ad group in the Google Ads ad structure and terminate all ads.\n\nAlso, our connector does not support deleting ads.\n\nIf there is a user who wants to delete a campaign, ad group, or ad, we recommend changing all child ads of the corresponding node to the `PAUSED` status.\n\nSince deleting an ad means losing the means to check previous performance and indicators, it is advantageous to terminate the ad instead of deleting it for future ad re-execution.\n\nBefore calling the function, you must ask the user for `customerId`, so you must suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The status of the ad to be changed",
@@ -5502,7 +5763,9 @@
       "delete": {
         "summary": "Delete keywords from an ad",
         "description": "Delete keywords from specific ads in Google customer account\n\nReceive the resource name of keyword (=`AdGroupCriterion`) from the user and delete all of them.\nKeywords are `AdGroupCriterion` whose `type` is `KEYWORD`, so you should be careful because there may be other types of resources.\nIf all keywords are deleted in an ad, you should be careful because deleting keywords may affect ad execution, etc.\n\nIn addition, if you delete keywords from an ad, other ads that share the ad group that is the parent of the ad may also be affected.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Keyword deletion condition",
@@ -5528,7 +5791,9 @@
       "post": {
         "summary": "Add keywords to ads",
         "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add keywords to the ad group (=adGroup), which is the parent of the ad.\nSince keywords are added to ad groups, they are applied to all child ads.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition for adding keywords",
@@ -5565,7 +5830,9 @@
       "post": {
         "summary": "View ad details",
         "description": "View ad details\n\nDepending on the campaign, it is either a responsive search ad or a responsive display ad.\n\nIf `customerId` is not passed, it will be automatically selected only if the user has only one ad account that `Wrtn` can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for viewing ad details",
@@ -5597,7 +5864,9 @@
       "post": {
         "summary": "Create an ad",
         "description": "Create an ad for a Google customer account\n\nThe `Wrtn` manager creates one ad per ad group for convenience.\nTherefore, this connector does not receive the resource name or ID of the ad group (=adGroup) to create the ad, and the ad group is created first when creating the ad.\nSince the types of ads that can be created depend on the campaign, you must create them after checking the campaign.\nFor example, search ads must be created in a search campaign.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nThe ad is immediately moved to the review stage after creation, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, when creating an ad with this connector, the ad status is set to `PAUSED`.\nThis is to allow users to check the campaign, ad group, ad, etc. again to check if they have been created in the desired state in case of an emergency.\nTherefore, even if the ad review is complete, the ad will not be executed, and no performance or expenses will be incurred. If the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `ad edit connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Ad creation conditions",
@@ -5643,7 +5912,9 @@
       "patch": {
         "summary": "Modify the campaign",
         "description": "Edit an ad campaign for your Google customer account\n\nEdit a campaign.\nThe only things you can edit in a campaign are the campaign name, budget, and end date.\nThe campaign name is a value for people to recognize and has no effect on the ad, so you can specify it as you like.\nFor the budget, you can enter the budget you want to advertise in Korean Won (KRW), and in this case, the daily ad spending will be formed above and below the budget.\nIn some cases, you may spend more than the budget, or if the ad optimization is not done, you may spend less than the budget.\nThe last end date can be used as a scheduled end date because the ad will not end and will continue to run if it is not specified.\nHowever, if you do not delete the end date that you have already specified, the ad may not be executed even if you turn it on later.\nIf you want to turn on the ad for a campaign that has ended, you must also change the campaign's scheduled end date.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.\n\nOriginally, there is no amount limit, but in case of an emergency, we currently limit the function to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Campaign modification conditions",
@@ -5669,7 +5940,9 @@
       "post": {
         "summary": "Create a campaign",
         "description": "Create an ad campaign for your Google customer account\n\nCreate a campaign (=campaign).\nA campaign is located under an account in Google Ads, and is located at the top of the tree structure consisting of campaigns, ad groups, and ads.\nA campaign is a parent object for grouping ad groups, and is responsible for the duration, budget, purpose, channel, etc. of the ad.\nIf you do not specify a campaign name, a random name will be assigned. In this case, it may be difficult to identify.\nTherefore, it is recommended to give different names to each campaign according to its purpose so that you can distinguish them.\nThe name of the campaign is only for the user to easily identify, and does not affect the effectiveness of the ad at all, so you can rest assured.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nYou should ask the user for `customerId` before calling the function, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Campaign creation conditions",
@@ -5701,7 +5974,9 @@
       "post": {
         "summary": "Create responsive search ads for your Google customer account all at once",
         "description": "Create search ads in Google customer accounts at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for creating ads from campaigns all at once",
@@ -5733,7 +6008,9 @@
       "post": {
         "summary": "Create responsive display ads in Google Account Ads at once",
         "description": "Create display ads in your Google customer account at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for creating ads from campaigns at once",
@@ -5765,7 +6042,9 @@
       "post": {
         "summary": "Archive Paper Search",
         "description": "Searches the archive for papers based on the search criteria you entered.",
-        "tags": [],
+        "tags": [
+          "Arxiv"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Archive Paper Search Criteria",
@@ -5798,7 +6077,9 @@
       "post": {
         "summary": "Search the following blog",
         "description": "Search the following blog content.",
-        "tags": [],
+        "tags": [
+          "Daum"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for searching the following blog",
@@ -5823,15 +6104,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg"
       }
     },
     "/connector/daum/cafe": {
       "post": {
         "summary": "Search for the following cafe",
         "description": "Search for the following cafe content.",
-        "tags": [],
+        "tags": [
+          "Daum"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for searching the following cafe",
@@ -5856,15 +6138,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg"
       }
     },
     "/connector/naver/cafe": {
       "post": {
         "summary": "Naver Cafe search",
         "description": "Search Naver Cafe contents.",
-        "tags": [],
+        "tags": [
+          "Naver"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for Naver Cafe search",
@@ -5897,7 +6180,9 @@
       "post": {
         "summary": "Naver blog search",
         "description": "Search Naver blog content.",
-        "tags": [],
+        "tags": [
+          "Naver"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for Naver blog search",
@@ -5930,7 +6215,9 @@
       "post": {
         "summary": "Search Naver News",
         "description": "Search Naver News.",
-        "tags": [],
+        "tags": [
+          "Naver"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for searching Naver News",
@@ -5962,7 +6249,9 @@
       "post": {
         "summary": "YouTube video search",
         "description": "Get YouTube video search results.\n\nThe search results have the video title and link.\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.",
-        "tags": [],
+        "tags": [
+          "Youtube"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for YouTube video search",
@@ -5995,7 +6284,9 @@
       "post": {
         "summary": "Search Google Scholar paper list",
         "description": "Get a list of papers in Google Scholar.",
-        "tags": [],
+        "tags": [
+          "Google Scholar"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Google Scholar paper search criteria",
@@ -6031,7 +6322,9 @@
       "post": {
         "summary": "Read CSV file",
         "description": "Read CSV file contents",
-        "tags": [],
+        "tags": [
+          "CSV"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information for reading CSV file",
@@ -6063,7 +6356,9 @@
       "post": {
         "summary": "Create a CSV file",
         "description": "Create a CSV file",
-        "tags": [],
+        "tags": [
+          "CSV"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information to create a CSV file",
@@ -6088,15 +6383,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg"
       }
     },
     "/connector/csv/csv-to-excel": {
       "post": {
         "summary": "Convert CSV file to Excel file",
         "description": "Convert CSV file to Excel file.",
-        "tags": [],
+        "tags": [
+          "CSV"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information to convert CSV file to Excel file",
@@ -6128,7 +6424,9 @@
       "post": {
         "summary": "Append block by markdown format",
         "description": "Append block by markdown format\n\nYou can add blocks to the page immediately with only the markdown grammar.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6155,7 +6453,9 @@
       "post": {
         "summary": "Append an file type child node",
         "description": "Append an file type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `file`.\n\nUploading a file exposes it to the Notion page as an icon in the file format, but there is no Preview.\nIf you want the internal elements to be seen as soon as you enter the page, it is better to create the image, pdf format for each format, and consider embed for other formats.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6182,7 +6482,9 @@
       "post": {
         "summary": "Append an embed type child node",
         "description": "Append an embed type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `embed`.\n\nThis is suitable when you want an internal element to be rendered immediately, such as an imprame within a page.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6209,7 +6511,9 @@
       "post": {
         "summary": "Append an bookmark type child node",
         "description": "Append an bookmark type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `bookmark`.\n\nBookmarks are visually better and more organized because they have previews, images, and explanations than just saving url as text.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6236,7 +6540,9 @@
       "post": {
         "summary": "Append an image type child node",
         "description": "Append an image type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `image`.\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6263,7 +6569,9 @@
       "post": {
         "summary": "Append an video type child node",
         "description": "Append an video type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `video`.\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6290,7 +6598,9 @@
       "post": {
         "summary": "Append an pdf type child node",
         "description": "Append an pdf type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `pdf`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6318,7 +6628,9 @@
         "summary": "Append an code type child node",
         "description": "Append an code type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `code`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
         "deprecated": true,
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6345,7 +6657,9 @@
       "post": {
         "summary": "Append an equation type child node",
         "description": "Append an equation type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `equation`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6372,7 +6686,9 @@
       "post": {
         "summary": "Append an divider type child node",
         "description": "Append an divider type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `divider`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6399,7 +6715,9 @@
       "post": {
         "summary": "Append an breadcrumb type child node",
         "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6426,7 +6744,9 @@
       "post": {
         "summary": "Append an table_of_contents type child node",
         "description": "Append an table_of_contents type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `table_of_contents`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6453,7 +6773,9 @@
       "post": {
         "summary": "Append an link_to_page type child node",
         "description": "Append an link_to_page type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `link_to_page`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6480,7 +6802,9 @@
       "post": {
         "summary": "Append an toggle type child node",
         "description": "Append an toggle type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `toggle`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6507,7 +6831,9 @@
       "post": {
         "summary": "Create page",
         "description": "Create a Notion page.\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Information needed to create the page",
@@ -6539,7 +6865,9 @@
       "post": {
         "summary": "Retrieve a list of pages",
         "description": "Retrieve a list of all pages in your Notion workspace.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6574,7 +6902,9 @@
       "post": {
         "summary": "Retrieve the list of users",
         "description": "Retrieve the list of users in the workspace.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6609,7 +6939,9 @@
       "post": {
         "summary": "Query the database list",
         "description": "Query the database list to create items in the database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6644,7 +6976,9 @@
       "post": {
         "summary": "Retrieves database information",
         "description": "Retrieves database information to create items in the database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -6690,7 +7024,9 @@
       "post": {
         "summary": "Create a database item",
         "description": "Create an item in the Notion Table database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -6735,7 +7071,9 @@
       "patch": {
         "summary": "Modify database item",
         "description": "Modify item information in the database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -6782,7 +7120,9 @@
       "post": {
         "summary": "Search for pages by title",
         "description": "Search for pages by title.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Page title",
@@ -6815,7 +7155,9 @@
       "post": {
         "summary": "Retrieve a list of database items",
         "description": "Retrieve a list of items that exist in a table database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -6864,7 +7206,9 @@
       "post": {
         "summary": "Retrieval of database items",
         "description": "Retrieves an item that exists in a table database.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [
           {
             "name": "databaseId",
@@ -6911,7 +7255,9 @@
       "post": {
         "summary": "Create page by markdown format",
         "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
-        "tags": [],
+        "tags": [
+          "Notion"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6942,7 +7288,9 @@
       "post": {
         "summary": "Google Hotels Search",
         "description": "Search for accommodations using Google Hotels service",
-        "tags": [],
+        "tags": [
+          "Google Hotel"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Google Hotels search criteria",
@@ -6978,7 +7326,9 @@
       "post": {
         "summary": "Search for airport information",
         "description": "Search for airport information using the entered search term.",
-        "tags": [],
+        "tags": [
+          "Search Airport Information"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for searching for airport information",
@@ -7014,7 +7364,9 @@
       "post": {
         "summary": "Search for one-way flights",
         "description": "Search for one-way flights.",
-        "tags": [],
+        "tags": [
+          "Google Flight"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions required to search for flights",
@@ -7047,7 +7399,9 @@
       "post": {
         "summary": "Search for round-trip flights",
         "description": "Search for round-trip flights.",
-        "tags": [],
+        "tags": [
+          "Google Flight"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The conditions required to search for flights",
@@ -7080,7 +7434,9 @@
       "post": {
         "summary": "Marks a specific message in a Slack channel as read",
         "description": "Marks a specific message in a Slack channel as read\n\nYou need to know both the channel ID and the ts value of the message.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7106,7 +7462,9 @@
     "/connector/slack/scheduleMessage/text": {
       "post": {
         "description": "Create a schduled message\n\nBy default,\nit is not much different from sending a message except for specifying a schduled time,\nand requires a channel ID and message content.\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.\n\nMessages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.\nTherefore, be careful in writing messages.\nIf you want to cancel, please refer to the message created through another connector and call the delete connector again.\n\nUsers may be embarrassed if the message you booked is not viewed in the Slack desktop app,\nso although it cannot be viewed in Slack before and after transmission,\nit would be a good idea to let them know that it will actually be transmitted in our service.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7137,7 +7495,9 @@
       "delete": {
         "summary": "Delete the scheduled message",
         "description": "Delete the scheduled message\n\nTo clear a scheduled message,\nyou must get the exact id of that message, so you must first use the scheduled message lookup connector.\nWhen using this connector,\nthe ID of the channel is also required, which can be retrieved from the message object by querying the channel or by querying the scheduled message.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7164,7 +7524,9 @@
       "post": {
         "summary": "post text message to myself in slack",
         "description": "send message to myself\n\nHere, you can send a message as long as you have the message.\nThis feature identifies who the token's users are inside and sends a message to themselves.\nTherefore, even if you don't specify a channel,\nyou send a message to the `im` channel that corresponds to your own user id.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7195,7 +7557,9 @@
       "post": {
         "summary": "post reply message to thread",
         "description": "send reply message to thread\n\nCreates a reply.\nTo reply, you must first look up the thread.\nYou can look up the thread and pass on the 'ts' value of that thread.\nYou still need the channel's ID here.\nThe channel's ID will start with a C or D and be an unknown string,\nnot a natural language name recognized by the user.\nTherefore, if you don't know the channel ID, you should also look up the channel.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7226,7 +7590,9 @@
       "post": {
         "summary": "post text message in slack",
         "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7286,7 +7652,9 @@
       "post": {
         "summary": "Look up the list of users in Slack",
         "description": "Look up the list of users in Slack.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7316,7 +7684,9 @@
     "/connector/slack/get-replies": {
       "post": {
         "description": "Inquire the inside of the thread in History\n\nIf you have inquired the history of a channel,\nyou can use the 'ts' values of its history elements to query the internal thread for each history again.\nEach channel history has a number of replies, so if this number is more than 1, it is worth looking up.\n'Reply' is basically no different from the 'Message'(=Channel History).",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7347,7 +7717,9 @@
       "post": {
         "summary": "get channel histories in slack",
         "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7378,7 +7750,9 @@
       "post": {
         "summary": "get private channels in slack",
         "description": "get private channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.\n\nIf you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7412,7 +7786,9 @@
       "post": {
         "summary": "get public channels in slack",
         "description": "get public channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `public` channel.\nThe channel ID is required to look up the conversation history within the channel later.\nThe `public` channel is anyone's accessible.\nThis does not require an invitation process, and users can join the channel themselves if necessary.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7446,7 +7822,9 @@
       "post": {
         "summary": "get im channels in slack",
         "description": "get im channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7480,7 +7858,9 @@
       "delete": {
         "summary": "delete comment",
         "description": "Delete the comment\n\nDelete the comments on the issue.\nIn order to delete the comments on the issue, you need the issue ID or key and the ID of the comment to be deleted.\nPlease be careful because deleted comments will not be able to be viewed again.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7507,7 +7887,9 @@
       "put": {
         "summary": "modify comment body",
         "description": "modify comment\n\nModify the comment. You can only modify the body of the comment here.\nTo create comment in issue, Just write markdown string format contents.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7532,7 +7914,9 @@
       "post": {
         "summary": "creates a comment on an issue",
         "description": "Creates a comment on an issue\nHere, user can write the body of the comment you want to write with the ID or key of the issue.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "condition of creation",
@@ -7564,7 +7948,9 @@
       "post": {
         "summary": "get comments by issue id or key",
         "description": "Get comments by issue id or key\n\nThis connector uses the issue's key or ID value to query the comments written on the issue.\nComments are also visible when looking up issues,\nbut not all comments inside are visible,\nso user have to use this connector to look up them in pagination.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "issue id or key",
@@ -7596,7 +7982,9 @@
       "post": {
         "summary": "Inquire the transition of an issue",
         "description": "Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue\nIf the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.\nIn Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.\nWhen designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.\nIn this case, you need to move two edges to turn the backoff issue into 'done'.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7626,7 +8014,9 @@
     "/connector/jira/issues/asignee": {
       "delete": {
         "description": "Unassign the assignee from the Jira issue",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7651,7 +8041,9 @@
       "put": {
         "summary": "assign the assignee",
         "description": "Assign the assignee from the Jira issue",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7678,7 +8070,9 @@
       "put": {
         "summary": "change issue status",
         "description": "Change issue status\n\nChanging the status of an issue must be done after inquiring about changeable Transitions from the current issue.\nThis is forced by the person who designed the workflow in the project, so you must change the status in the order set.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7705,7 +8099,9 @@
       "put": {
         "summary": "update issue in jira",
         "description": "Update an issue\n\nYou can modify any element in the field.\nIt can be used to modify the issue type, person in charge, summary, and description.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -7743,7 +8139,9 @@
       "post": {
         "summary": "create issue by markdown in jira",
         "description": "Create an issue by markdown\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "issue information to create",
@@ -7775,7 +8173,9 @@
       "post": {
         "summary": "get detailed Issue Information",
         "description": "Get detailed issue information\n\nProvides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7806,7 +8206,9 @@
       "post": {
         "summary": "Find The Jira issues.",
         "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "condition of request",
@@ -7838,7 +8240,9 @@
       "post": {
         "summary": "Find the Jira projects.",
         "description": "Find the Jira projects\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "condition of request",
@@ -7870,7 +8274,9 @@
       "post": {
         "summary": "Find issue labels",
         "description": "Find issue labels",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7901,7 +8307,9 @@
       "post": {
         "summary": "Find issue types",
         "description": "Find issue types\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7932,7 +8340,9 @@
       "post": {
         "summary": "Find issue statuses",
         "description": "Find issue statuses for searching issue",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7963,7 +8373,9 @@
       "post": {
         "summary": "Inquire the priority levels that can be assigned to the issue.",
         "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7997,7 +8409,9 @@
       "post": {
         "summary": "Find assignable users in issue",
         "description": "Find a person within the issue who can be assigned as assignee.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8031,7 +8445,9 @@
       "post": {
         "summary": "Find assignable users in project",
         "description": "Find a person within the project who can be assigned as assignee.",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8065,7 +8481,9 @@
       "post": {
         "summary": "get status categories",
         "description": "Get status categories",
-        "tags": [],
+        "tags": [
+          "Jira"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8099,7 +8517,9 @@
       "post": {
         "summary": "Google Trends Daily Search",
         "description": "Get daily search results from Google Trends.",
-        "tags": [],
+        "tags": [
+          "Google Trends"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search date",
@@ -8135,7 +8555,9 @@
       "post": {
         "summary": "Google Map restaurant search",
         "description": "Search for restaurants using Google Maps.",
-        "tags": [],
+        "tags": [
+          "Google Map"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Search term to search for restaurants",
@@ -8171,7 +8593,9 @@
       "post": {
         "summary": "Search Google Map restaurant reviews",
         "description": "Search for restaurant reviews selected from Google Maps.",
-        "tags": [],
+        "tags": [
+          "Google Map"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Unique id of the restaurant",
@@ -8208,7 +8632,9 @@
         "summary": "Analysis for a github repository",
         "description": "\nRAG analysis for a particular repo\n\nThis RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.\nThis will be useful when users want to analyze the repository.",
         "deprecated": true,
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8239,7 +8665,9 @@
       "post": {
         "summary": "List events received by the authenticated user",
         "description": "List events received by the authenticated user\n\nThese are events that you've received by watching repositories and following users.\nIf you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.\nIn this case, the \"received\" event includes the repository that the user is interested in or the activity of the user who is following,\nfor example, if the user has pushed to the repository, or if an issue has been created from the repository that the user is interested in.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8270,7 +8698,9 @@
       "post": {
         "summary": "Inquire the user's pinned repository names",
         "description": "Inquire the user's pinned repositories\n\nInquire up to 6 repositories where the user has pinned.\nHere, only the name of the repository is searched, so if necessary, find detailed information about the repository by pageing the user's repository list.\nPlacing a pin in a repository is most likely a repository that users are most confident in.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8304,7 +8734,9 @@
       "post": {
         "summary": "Inquire the user's repositories",
         "description": "Inquire the user's repositories\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8335,7 +8767,9 @@
       "post": {
         "summary": "Lists organization events for the authenticated user",
         "description": "Lists organization events for the authenticated user\n\nThis API endpoint retrieves events that have occurred within the organizations\nthe authenticated user is a member of. It includes activities such as issues,\npull requests, commits, and other actions taken within the organization's repositories.\n\nThe events cover all repositories within the organization that the user has access to,\nmaking it useful for tracking the organization's activity or monitoring the progress\nof projects that the user is involved in within the team.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8366,7 +8800,9 @@
       "post": {
         "summary": "List organization issues assigned to the authenticated user",
         "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.\nIf you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8397,7 +8833,9 @@
       "post": {
         "summary": "List organization repositories",
         "description": "List organization repositories\n\nThis endpoint allows you to list all repositories that belong to a specified organization on GitHub.\nIt's useful for viewing all the repositories under an organization’s account, including both public and private repositories, depending on your access level.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8428,7 +8866,9 @@
       "post": {
         "summary": "List public organization events.",
         "description": "List public organization events\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\n\nThis API endpoint retrieves a stream of public events that have occurred\nwithin a specified organization. These events include activities such as\nrepository creation, issues, pull requests, and other actions taken by members\nof the organization across all its public repositories.\n\nThis is useful for monitoring the public activity within an organization,\nproviding insights into how the organization is managing its projects,\nthe work being done by its members, and the overall public engagement with\nits repositories.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8459,7 +8899,9 @@
       "post": {
         "summary": "List repository collaborators",
         "description": "List repository collaborators\n\nFor organization-owned repositories, the list of collaborators includes outside collaborators,\norganization members that are direct collaborators, organization members with access through team memberships,\norganization members with access through default organization permissions, and organization owners.\nOrganization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.\nTeam members will include the members of child teams.\n\nYou can refer to it before specifying a person in charge of the issue or a reviewer for PR.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8482,14 +8924,17 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/repos/commits/contents": {
       "delete": {
         "summary": "Delete file content and commit",
         "description": "Delete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8514,7 +8959,9 @@
       "put": {
         "summary": "Update File content and commit",
         "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8543,7 +8990,9 @@
       "post": {
         "summary": "Create File content and commit",
         "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nIf someone says they want to add a file to the repo it's like they want to commit.\nHowever, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.\nUsers value branches that reflect their commitments.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8574,7 +9023,9 @@
       "post": {
         "summary": "Review Repository Folder Structure",
         "description": "Review Repository Folder Structure\n\nIt allows you to know the overall folder structure by traversing files in the repository.\nThis feature is intended to navigate like a DFS based on folders.\nIf this function is so vast that you cannot see the entire folder, you can pass the `path` again to inquire.\nThe `path` delivered is treated like a Root folder and continues the navigation from this folder.\nThis feature is designed to navigate to the inside two more times, up to steps 0, 1 at a time, based on the root folder.\n\nIf you want to know the details of the file, it is recommended to use the get-contents connector.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8622,7 +9073,9 @@
       "post": {
         "summary": "Look up repository files(bulk)",
         "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8680,7 +9133,9 @@
       "post": {
         "summary": "Look up repository files",
         "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8735,7 +9190,9 @@
       "post": {
         "summary": "Read the README file",
         "description": "Read the README file in the repository\n\nREADME is one of the initial settings of the project and usually records a description of this repository,\nso it's useful if you want to see a rough description of the repository.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8779,7 +9236,9 @@
       "post": {
         "summary": "List events for the authenticated user",
         "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nYou can check all events surrounding the repository, such as who inquired and who forked.\nIt is used in conjunction with a connector that inquires the activity details and is suitable for checking how active the repository is.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8810,7 +9269,9 @@
       "post": {
         "summary": "List public events for a network of repositories",
         "description": "Fetches events across all forks of a specified repository.\n\nThis API endpoint provides a stream of events that occur in any fork\nof the specified repository. It includes actions such as commits,\npull requests, issues, and other activity happening in the forked\nrepositories.\n\nUse this endpoint when you need to monitor the activity not just\nin the original repository, but also in all of its forks. This can\nbe particularly useful for understanding the broader impact or\nactivity surrounding a popular project that has been forked multiple\ntimes.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8841,7 +9302,9 @@
       "post": {
         "summary": "List events for the authenticated user.",
         "description": "List events for the authenticated user\n\nThis API endpoint retrieves a stream of events related to the authenticated user,\nincluding activities such as issues, pull requests, commits, and repository actions\nthat the user has participated in or been mentioned in. The events reflect the user's\ninteractions across all repositories they have access to, both public and private (if\nthe user has appropriate permissions).\n\nThis is useful for tracking a user's activity on GitHub, allowing you to see a\npersonalized feed of their involvement in various projects and interactions with\nother users.\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nIt looks up users' public events. Username should be your own nickname because you can usually only see your own events.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8872,7 +9335,9 @@
       "post": {
         "summary": "List organizations for a user",
         "description": "List organizations for a user\n\nLook up the user's organization list, but since you can't look up the user's private organization here,\nyou can't really conclude that there isn't an empty array.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8903,7 +9368,9 @@
       "post": {
         "summary": "List public events.",
         "description": "List public events\n\nThis API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.\nWhen I look up the events, they may not be of much value to the user because they are events that occurred on github.\n\nIt's looking up public events, and it's looking at events that occur on github regardless of the specific user.\nTherefore, it may not be of much use unless it is a special case.\nIf you want to get your information, it would be more advantageous to use the 'user/get-events' connector.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8934,7 +9401,9 @@
       "post": {
         "summary": "Get Repository' activities",
         "description": "Get repository activities\n\nYou can use it to see how active your contribution is to the repository\nbecause it looks up all the activities that have occurred in the repository.\n\nThe types of activities that can be viewed here are as follows, and you can also find out by which user it was operated.\npush, force_push, branch_creation, branch_deletion, pr_merge, merge_queue_merge",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -8964,7 +9433,9 @@
     "/connector/github/repositories/pull-requests": {
       "put": {
         "description": "Update pull request\n\nUse to change the title or body of a PR, or draft status or open-close status.\nIt can also be used for overwriting labels or modifying them.\nIt can also be used to close or reopen pull request.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Update pull request",
@@ -8993,7 +9464,9 @@
       },
       "post": {
         "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.\n\nIn order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Create pull request",
@@ -9025,7 +9498,9 @@
       "post": {
         "summary": "List pull request comments",
         "description": "List pull request comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.\n\nThis is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.\nComments and reviews on PR are separate, you can only see comments on this connector.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9056,7 +9531,9 @@
       "post": {
         "summary": "Get all requested reviewers for a pull request",
         "description": "Get all requested reviewers\n\nGets the users or teams whose review is requested for a pull request.\nOnce a requested reviewer submits a review, they are no longer considered a requested reviewer.\nTheir review will instead be returned by the List reviews for a pull request operation.\n\nThe requested_reviewers are the ones who have been asked to review, but not yet.\nSo when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.\nTherefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.\nRefer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9087,7 +9564,9 @@
       "delete": {
         "summary": "Remove requested reviewers from a pull request",
         "description": "Removes review requests from a pull request for a given set of users and/or teams\n\nYou should check the person who has already been requested as a reviewer, i.e., requested_reviewers, and then send out the delete request.\nEven if you don't do that, there will be no error, but it doesn't mean anything if you delete the person who hasn't been requested as a reviewer.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9112,7 +9591,9 @@
       "post": {
         "summary": "Request reviewers for a pull request",
         "description": "Request reviewers for a pull request\n\nRequests reviews for a pull request from a given set of users and/or teams. This endpoint triggers notifications.\nYou can specify a reviewer by the user's name alone, but not by anyone, so use a connector that looks up collaborators first.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9139,7 +9620,9 @@
       "post": {
         "summary": "List comments for a pull request review",
         "description": "List comments for a pull request review\n\nLists comments for a specific pull request review.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9170,7 +9653,9 @@
       "post": {
         "summary": "List reviews for a pull request",
         "description": "List reviews for a pull request\n\nPull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.\nLists all reviews for a specified pull request. The list of reviews returns in chronological order.\nSince github distinguishes requested_reviewers from those who have already completed the review,\nif you want to see a review for any PR, you should look up both of these connectors.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9201,7 +9686,9 @@
       "post": {
         "summary": "Create a review for a pull request",
         "description": "Create a review for a pull request\n\nPull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment. The line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9224,14 +9711,17 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/repositories/pull-requests/get-files": {
       "post": {
         "summary": "List pull requests files",
         "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9261,7 +9751,9 @@
     "/connector/github/repositories/pull-requests/get-commits": {
       "post": {
         "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9292,7 +9784,9 @@
       "post": {
         "summary": "Get a diff of pull request",
         "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9323,7 +9817,9 @@
       "post": {
         "summary": "Get a pull request",
         "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9354,7 +9850,9 @@
       "post": {
         "summary": "Get Repository' pull request",
         "description": "List repository pull requests\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9385,7 +9883,9 @@
       "post": {
         "summary": "Get a issue",
         "description": "Get a deatiled issue info\n\nUnlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.\nHowever, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9416,7 +9916,9 @@
       "post": {
         "summary": "List issue comments",
         "description": "List issue comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9447,7 +9949,9 @@
       "post": {
         "summary": "Create an issue comment",
         "description": "Create an issue comment\n\nAdd a comment. If you put an issue number, you can add a comment to the issue, where the issue number is also the number of PR.\nIn other words, both issue and PR can add a comment through this connector.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9478,7 +9982,9 @@
       "post": {
         "summary": "List repository issues",
         "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9509,7 +10015,9 @@
       "post": {
         "summary": "Search for users by keyword in github",
         "description": "Search for users by keyword in github",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9540,7 +10048,9 @@
       "post": {
         "summary": "Look up the user's detailed profile",
         "description": "Look up the user's detailed profile",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9571,7 +10081,9 @@
       "post": {
         "summary": "List organizations for the authenticated user",
         "description": "List organizations for the authenticated user\n\nInquire the user's repository.\nHere, the user is an authenticated user, which means a user of that token.\nIf a user does not select an organization at login or ask the organization's admin to link it,\nthe resource might not be viewed even if the token scope has permissions.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9602,7 +10114,9 @@
       "post": {
         "summary": "Inquire the user's branch",
         "description": "Inquire the user's branch\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.\n\nYou shouldn't call the main branch arbitrarily because there may be people who use the master branch.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9633,7 +10147,9 @@
       "post": {
         "summary": "Create branch",
         "description": "Create branch\n\nCreates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.\nYou need to know the sha of the commit, so if you want to create a branch, you should first call another connector that looks up the commit list or header commitments to find out the sha value.\nIf you want to copy the branch, you should also look up the commit history of the branch and then retrieve the sha value from the branch's HEAD commit.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9663,7 +10179,9 @@
       "post": {
         "summary": "get pull requests associated with a commit",
         "description": "List pull requests associated with a commit\n\nFetches the pull requests (PRs) associated with a specific commit in a GitHub repository.\nThis API endpoint retrieves a list of pull requests that include the specified commit.\nThis can be useful for tracking where and how a particular change was merged into a branch.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9697,7 +10215,9 @@
       "post": {
         "summary": "Lists all branches that contain the HEAD commit",
         "description": "Lists all branches that contain the HEAD commit of a GitHub repository.\n\nThis function utilizes the GitHub API to retrieve a list of branches where the current\nHEAD commit (the latest commit on the checked-out branch) is included. This is useful for\ndetermining which branches contain the most recent changes.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9728,7 +10248,9 @@
       "post": {
         "summary": "Inquire the commit details of the user",
         "description": "Inquire the commit details of the user\nIt contains all the history of how the file changed, so you can see the details of a single commit node.\nIf you do not deliver ref, look up based on default_branch.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9759,7 +10281,9 @@
       "post": {
         "summary": "Inquire the commit diff of the user",
         "description": "Inquire the commit diff of the user\ndiff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.\nIf you do not deliver ref, look up based on default_branch.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9790,7 +10314,9 @@
       "post": {
         "summary": "Look up the list of commitments for a specific repo, a specific branch",
         "description": "Look up the list of commitments for a specific repo, a specific branch\n\nThis function can be used in general because it sees the commit list in units of branches, but if the user wants to see it in units of PR, it is better to use another connector.\nIf the user specifies to view in PR units, use other connectors because there are connectors for viewing files, commit lists, and changes in PR units elsewhere.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9821,7 +10347,9 @@
       "post": {
         "summary": "Inquire the followers of the user",
         "description": "Inquire the followers of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9852,7 +10380,9 @@
       "post": {
         "summary": "Inquire the followees of the user",
         "description": "Inquire the followees of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9883,7 +10413,9 @@
       "post": {
         "summary": "List labels for a repository",
         "description": "List labels for a repository\n\nView a list of issues created and used in that repository.\nEach issue will only have labels that are already registered in this repository.\nOf course, it doesn't necessarily mean that you have to use only the labels here when creating issues,\nbut it would be beneficial to assign them by referring to the labels here.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9914,7 +10446,9 @@
       "patch": {
         "summary": "Update an issue",
         "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\nIt can also be used to close or reopen issues.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9943,7 +10477,9 @@
       "post": {
         "summary": "Create an issue",
         "description": "Leave an issue in the repository\n\nCreate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\n\nIn order to create issue, you may need to refer to the issue template files that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.",
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -9972,7 +10508,9 @@
     },
     "/connector/github/upload": {
       "post": {
-        "tags": [],
+        "tags": [
+          "Github"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10030,7 +10568,9 @@
       "post": {
         "summary": "Create a DM channel",
         "description": "Create a new DM channel.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10061,7 +10601,9 @@
       "post": {
         "summary": "Modify server information",
         "description": "Modify server information.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10092,7 +10634,9 @@
       "post": {
         "summary": "Get a list of channels",
         "description": "Get a list of channels on the server.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10126,7 +10670,9 @@
       "post": {
         "summary": "Create a channel",
         "description": "Create a new channel on the server.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10157,7 +10703,9 @@
       "post": {
         "summary": "Get a list of members",
         "description": "Get a list of members on the server.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10191,7 +10739,9 @@
       "post": {
         "summary": "Kick members",
         "description": "Kicks selected members from the server.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10218,7 +10768,9 @@
       "post": {
         "summary": "Modify channel information",
         "description": "Modify channel information.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10249,7 +10801,9 @@
       "post": {
         "summary": "Delete channel",
         "description": "Delete the selected channel.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10276,7 +10830,9 @@
       "post": {
         "summary": "Get a list of pinned messages",
         "description": "Get a list of pinned messages in a channel.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10310,7 +10866,9 @@
       "post": {
         "summary": "Pin a message",
         "description": "Pin a message to a channel.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10337,7 +10895,9 @@
       "post": {
         "summary": "Unpin message",
         "description": "Unpin a pinned message from a channel.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10364,7 +10924,9 @@
       "post": {
         "summary": "Get a list of messages",
         "description": "Get the messages that exist in the channel.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10398,7 +10960,9 @@
       "post": {
         "summary": "Send a message",
         "description": "Send a message.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10429,7 +10993,9 @@
       "post": {
         "summary": "Modify message",
         "description": "Modify the message.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10460,7 +11026,9 @@
       "post": {
         "summary": "Delete message",
         "description": "Delete message.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10487,7 +11055,9 @@
       "post": {
         "summary": "Delete multiple messages",
         "description": "Delete multiple messages.",
-        "tags": [],
+        "tags": [
+          "Discord"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -10513,7 +11083,9 @@
     "/connector/calendly/scheduling_links": {
       "post": {
         "summary": "Create a new scheduling link",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The necessary details to create the scheduling link.",
@@ -10543,7 +11115,9 @@
     "/connector/calendly/get-event-types": {
       "post": {
         "summary": "List all event types",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The input required to retrieve event types.",
@@ -10573,7 +11147,9 @@
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}/get-cancel-link": {
       "post": {
         "summary": "Get cancel link for invitee",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [
           {
             "name": "eventId",
@@ -10635,7 +11211,9 @@
     "/connector/calendly/get-events/{eventId}": {
       "post": {
         "summary": "Get details of a scheduled event",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [
           {
             "name": "eventId",
@@ -10676,7 +11254,9 @@
     "/connector/calendly/get-scheduled-events": {
       "post": {
         "summary": "Get all scheduled events",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The input to filter scheduled events.",
@@ -10706,7 +11286,9 @@
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}/no-show": {
       "post": {
         "summary": "Mark an invitee as no-show",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [
           {
             "name": "eventId",
@@ -10757,7 +11339,9 @@
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}": {
       "post": {
         "summary": "Get invitee details",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [
           {
             "name": "eventId",
@@ -10808,7 +11392,9 @@
     "/connector/calendly/events/get-invitees": {
       "post": {
         "summary": "Get all invitees for a scheduled event",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The input to filter invitees.",
@@ -10838,7 +11424,9 @@
     "/connector/calendly/one-off-event-types": {
       "post": {
         "summary": "Create a one-off event type",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The details needed to create a one-off event type.",
@@ -10868,7 +11456,9 @@
     "/connector/calendly/users/get-me": {
       "post": {
         "summary": "Get authenticated user details",
-        "tags": [],
+        "tags": [
+          "Calendly"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The input required to get the user details.",
@@ -10899,7 +11489,9 @@
       "post": {
         "summary": "AI search",
         "description": "Returns search results via AI search.",
-        "tags": [],
+        "tags": [
+          "AI Search"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions required for search",
@@ -10929,23 +11521,7 @@
         "summary": "Create a Typeform workspace.",
         "description": "Create a workspace.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -10979,23 +11555,7 @@
         "summary": "Delete a Typeform workspace.",
         "description": "Delete a workspace.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [
           {
@@ -11040,23 +11600,7 @@
         "summary": "Get Typeform workspace information.",
         "description": "Get workspace information.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -11092,23 +11636,7 @@
         "summary": "Typeform Create an empty form.",
         "description": "Create an empty form in the workspace.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -11142,23 +11670,7 @@
         "summary": "Get a list of Typeform forms.",
         "description": "Get a list of forms that exist in the workspace.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -11194,23 +11706,7 @@
         "summary": "Copy a Typeform form.",
         "description": "Copy a form that exists in the workspace.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -11244,23 +11740,7 @@
         "summary": "Get the field information of the form to update Typeform.",
         "description": "Get the field information of the form to update the options of the ranking, dropdown, and multiple choice questions.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -11296,23 +11776,7 @@
         "summary": "Updates Typeform form field options.",
         "description": "Updates options for ranking, dropdown, and multiple choice questions.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [],
         "requestBody": {
@@ -11346,23 +11810,7 @@
         "summary": "Delete a typeform form.",
         "description": "Delete a form.",
         "tags": [
-          "Typeform",
-          "Survey",
-          "Online",
-          "Questionnaire",
-          "Customer",
-          "Quiz",
-          "Check",
-          "Response",
-          "Respondent",
-          "Share",
-          "Create",
-          "Interview",
-          "Event",
-          "Feedback",
-          "User",
-          "Manage",
-          "Collect"
+          "Typeform"
         ],
         "parameters": [
           {
@@ -49888,72 +50336,185 @@
   },
   "tags": [
     {
+      "name": "RAG"
+    },
+    {
+      "name": "Hwp"
+    },
+    {
+      "name": "Excel"
+    },
+    {
+      "name": "Google Docs"
+    },
+    {
+      "name": "Google Sheet"
+    },
+    {
+      "name": "Google Calendar"
+    },
+    {
+      "name": "Google Drive"
+    },
+    {
       "name": "Llm",
       "description": "selection Extract selection"
     },
     {
+      "name": "Gmail"
+    },
+    {
+      "name": "Figma"
+    },
+    {
+      "name": "Zoom"
+    },
+    {
+      "name": "SweetTracker"
+    },
+    {
+      "name": "Hancel"
+    },
+    {
+      "name": "KakaoTalk"
+    },
+    {
+      "name": "Kakao Map"
+    },
+    {
+      "name": "Kakao Navi"
+    },
+    {
+      "name": "Google Slide"
+    },
+    {
+      "name": "Imweb"
+    },
+    {
+      "name": "Open Data"
+    },
+    {
+      "name": "Korea Eximbank"
+    },
+    {
+      "name": "Stable Diffusion"
+    },
+    {
+      "name": "Dall-e-3"
+    },
+    {
+      "name": "Google Search"
+    },
+    {
+      "name": "Wanted"
+    },
+    {
+      "name": "Incruit"
+    },
+    {
+      "name": "Saramin"
+    },
+    {
+      "name": "Jumpit"
+    },
+    {
+      "name": "Careerly"
+    },
+    {
+      "name": "Aladin"
+    },
+    {
+      "name": "AliExpress"
+    },
+    {
+      "name": "Coupang"
+    },
+    {
+      "name": "EQL"
+    },
+    {
+      "name": "iHerb"
+    },
+    {
+      "name": "Market Kurly"
+    },
+    {
+      "name": "OCO"
+    },
+    {
+      "name": "Olive Young"
+    },
+    {
+      "name": "29CM"
+    },
+    {
+      "name": "Uniqlo"
+    },
+    {
+      "name": "yes24"
+    },
+    {
+      "name": "Musinsa"
+    },
+    {
+      "name": "Google Ads"
+    },
+    {
+      "name": "Arxiv"
+    },
+    {
+      "name": "Daum"
+    },
+    {
+      "name": "Naver"
+    },
+    {
+      "name": "Youtube"
+    },
+    {
+      "name": "Google Scholar"
+    },
+    {
+      "name": "CSV"
+    },
+    {
+      "name": "Notion"
+    },
+    {
+      "name": "Google Hotel"
+    },
+    {
+      "name": "Search Airport Information"
+    },
+    {
+      "name": "Google Flight"
+    },
+    {
+      "name": "Slack"
+    },
+    {
+      "name": "Jira"
+    },
+    {
+      "name": "Google Trends"
+    },
+    {
+      "name": "Google Map"
+    },
+    {
+      "name": "Github"
+    },
+    {
+      "name": "Discord"
+    },
+    {
+      "name": "Calendly"
+    },
+    {
+      "name": "AI Search"
+    },
+    {
       "name": "Typeform"
-    },
-    {
-      "name": "Survey",
-      "description": "Form"
-    },
-    {
-      "name": "Online",
-      "description": "Form"
-    },
-    {
-      "name": "Questionnaire"
-    },
-    {
-      "name": "Customer",
-      "description": "Satisfaction Survey"
-    },
-    {
-      "name": "Quiz"
-    },
-    {
-      "name": "Check",
-      "description": "Response"
-    },
-    {
-      "name": "Response",
-      "description": "Management"
-    },
-    {
-      "name": "Respondent",
-      "description": "Management"
-    },
-    {
-      "name": "Share",
-      "description": "Survey"
-    },
-    {
-      "name": "Create",
-      "description": "Questionnaire"
-    },
-    {
-      "name": "Interview",
-      "description": "Request"
-    },
-    {
-      "name": "Event",
-      "description": "Feedback"
-    },
-    {
-      "name": "Feedback"
-    },
-    {
-      "name": "User",
-      "description": "Survey"
-    },
-    {
-      "name": "Manage",
-      "description": "Responses"
-    },
-    {
-      "name": "Collect",
-      "description": "Responses"
     }
   ],
   "x-samchon-emended": true

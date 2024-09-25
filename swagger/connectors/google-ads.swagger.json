@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.232",
+    "version": "0.1.235",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,7 +28,9 @@
       "post": {
         "summary": "Create keywords using keywords and URL",
         "description": "Recommend keywords for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords and URL that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Object containing URL",
@@ -61,7 +63,9 @@
       "post": {
         "summary": "Create keywords using keywords",
         "description": "Get keyword recommendations for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values when registering an ad for each keyword.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Object containing URL",
@@ -94,7 +98,9 @@
       "post": {
         "summary": "Create keywords through URL",
         "description": "Get keyword recommendations for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the URL that he or she wanted to register, it recommends other keywords that can be derived from it.\n\nThe request result is a list of keywords, competition index, unit price, and expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Object containing the URL",
@@ -127,7 +133,9 @@
       "post": {
         "summary": "Register Rutten as an administrator",
         "description": "Designate Rutten as the advertising account manager of the user\n\nTo call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.\nThis connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.\nAfter the connector is executed, an email registered to the customer account will be sent via Gmail.\nThose who receive the email can go to the dashboard through the email and give the `Wrtn` account administrator rights.\nIf `Wrtn` is registered as an administrator, he will be able to use other APIs created in Google Ads.\n\nThis administrator designation must be done before calling all Google Ads connectors except for connectors that do not receive `customerId` as an argument, such as keyword recommendations.\nHowever, even if this connector is called, `Wrtn` will not be designated as an administrator without the user's approval, so there is no need to worry.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Customer information",
@@ -155,7 +163,9 @@
       "post": {
         "summary": "Get ad account",
         "description": "Get the customer's advertising account\n\nUsing the user's access token, search for the user's advertising account, i.e., `customer`, among the accounts where `Wrtn` is an administrator.\nEven if the user has an advertising account, if `Wrtn` is not an administrator, it will not be listed.\nTherefore, if `Wrtn` has never been registered as an administrator, you must call the `POST connector/google-ads/customerClientLink` connector.\n\nIn addition, this connector filters out advertising accounts that do not use the Korean currency unit `KRW`.\nThe reason for this is to prevent mistakes from occurring in other campaign budget modification or ad status change connectors in the future.\nWhen creating ads through the Google Ads connector, human errors may occur in budget settings depending on the currency unit of each account.\nFor example, if you register a budget for an account with a currency unit of `USD` as an account with a currency unit of `KRW`, a budget difference of the exchange rate may occur.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Customer information",
@@ -191,7 +201,9 @@
       "post": {
         "summary": "Search for a list of campaigns",
         "description": "Get a list of campaigns for a Google customer account\n\nPass `customerId` to the user and search for campaigns in the customer's advertising account.\nIf `customerId` is not passed, `Wrtn` will automatically select only one advertising account that the user can access.\nA campaign corresponds to `campaign` among Google resources and is in charge of advertising channels, budgets, and the start and end dates of advertising execution.\nA channel refers to Google advertising products such as responsive search ads (=responsive search ads) and responsive display ads (=responsive display ads).\nIf a campaign is a search ad, there are only search ads in the ad group and ads.\nA user can use this connector to search for their campaigns and the status of the campaigns, and create ad groups for the desired campaigns, etc., for subsequent actions.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Customer information",
@@ -226,7 +238,9 @@
       "post": {
         "summary": "Search for a list of ad groups.",
         "description": "Get a list of ad groups in a Google customer account\n\nPass `customerId` to the user and search for ad groups (=adGroup) in the customer ad account.\nIf `customerId` is not passed, it will automatically select only one ad account that `Wrtn` can access from the user.\nIf `campaignId` is also passed, it will search only the child ad groups of the campaign.\nAd groups are the area in charge of targeting and are also the parents of ads (ads).\nThe result of this connector contains simple information about the campaign that is the parent of the ad group, information about the ad group,\na list of ads belonging to the ad group, their current status, and simple information.\nIt also contains information about keywords connected to the ad group.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Ad group list query condition",
@@ -261,7 +275,9 @@
       "post": {
         "summary": "Retrieves a list of campaign ads",
         "description": "Get the list of ads from the Google customer account\n\nPass the `customerId` to the user and search for the ads (=ad) in the customer's ad account.\nIf `customerId` is not passed, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\nAn ad is a node at the end of a tree structure consisting of campaigns, ad groups, and ads, and is a section in charge of materials,\nand is also a unit exposed to end users.\nIf the resource name of an ad group (=adGroup) is passed as an argument, only the ads belonging to that ad group will be searched.\nThe purpose of this connector is to determine whether the user's ad is currently running or not.\nIn the case of `Wrtn` managers, campaigns and ad groups are not changed to `PAUSED` status unless the user directly changes the campaign and ad group status in the Google Ads dashboard.\nTherefore, in general, if the ad status is `ENABLED`, the ad is running, and if it is `PAUSED`, the ad is stopped. Again, the `Wrtn` connector does not change the status of a campaign or ad group.\n\nThis function can also be used to check whether an ad is being properly executed in addition to viewing the ad.\n\nEach ad has an evaluation history for ad review and policy, which exists as a property called `PolicySummary`.\n\nThis property contains whether the ad has been approved, and the `APPROVED` status means that Google has approved the review and determined it is eligible.\n\nYou can change the ad status in `PATCH connector/google-ads/campaigns/ads/status`.\n\nBefore calling the function, you should ask the user for their `customerId`, so you should suggest a connector that can check their `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition for retrieving the ad list",
@@ -296,7 +312,9 @@
       "post": {
         "summary": "Get the performance (metrics) of the ad group",
         "description": "View metrics per Google customer account ad\n\nPass `customerId` to the user and view statistical metrics for the customer ad group.\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\nUsers can view ad metrics for a specific date through this connector,\nand these metrics include impressions, clicks, video views, views based on video playback range, and average page count.\nYou can also check simple information about the searched content, such as the resource name of the ad group.\nIn addition, `costMicros` information is provided, which is the advertising expenditure in micro units and means the amount actually executed.\nIf this figure is `1,000,000`, if the currency unit is `KRW`, 1 won was used.\nThis figure is the actual amount used, unlike the campaign budget, and according to Google policy, advertising costs may be slightly more than the budget. Also, the total spend of the ad group in the campaign must be equal to the total spend of the campaign.\n\nThis connector allows the user to check whether their ads are being executed efficiently in terms of cost and performance.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Ad metrics query conditions",
@@ -331,7 +349,9 @@
       "post": {
         "summary": "Add keywords to the ad",
         "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add ad keywords to ad groups (=adGroup).\n\nFor convenience, this connector receives the resource name of the ad, finds the parent ad group of the ad, and then inserts the keyword.\nThe result value of this connector helps users check whether all keywords have been added properly by re-checking them after adding the keyword.\nHowever, not all keywords added are used in ads.\nKeywords are reviewed by Google and used for targeting, and at this time, keywords may be excluded from ad keywords due to inappropriate reviews.\nHowever, since ads will work properly if there are other keywords, it is advantageous to register various keywords so that users can be attracted.\n\nThere are also recommended connectors for keywords.\n\nThis connector receives an ad account as an argument from the user as authentication for the customer account, but this is also optional.\n\nIf `customerId` is not passed, it is automatically selected only if `Wrtn` has only one ad account accessible to the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Add keyword condition",
@@ -366,7 +386,9 @@
       "patch": {
         "summary": "Change the status of the ad",
         "description": "Change the ad status of a Google customer account\n\nChange the ad status by receiving the ID of the ad account and the resource name of the ad in the ad group (=`adGroupAd```ResourceName`).\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nThe ad status supported by this connector is `ENABLED` and `PAUSED`, which means the execution and suspension of the ad, respectively.\nSince the `Wrtn` manager account only changes the status of the ad without changing the status of the campaign and ad group,\nunless the user changes the status of the campaign and ad group directly in the Google Ads dashboard, the ad status means whether or not spending occurs.\nIf the user wants to change the status of the ad group, instead of changing the status of the ad group, query the ad group and change the status of all ads in the ad group.\nIf the user wants to change the status of the campaign, instead of changing the status of the campaign, query the campaign and change the status of all ads in the campaign. However, if you change the status of a campaign, you must go down the campaign and ad group in the Google Ads ad structure and terminate all ads.\n\nAlso, our connector does not support deleting ads.\n\nIf there is a user who wants to delete a campaign, ad group, or ad, we recommend changing all child ads of the corresponding node to the `PAUSED` status.\n\nSince deleting an ad means losing the means to check previous performance and indicators, it is advantageous to terminate the ad instead of deleting it for future ad re-execution.\n\nBefore calling the function, you must ask the user for `customerId`, so you must suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "The status of the ad to be changed",
@@ -394,7 +416,9 @@
       "delete": {
         "summary": "Delete keywords from an ad",
         "description": "Delete keywords from specific ads in Google customer account\n\nReceive the resource name of keyword (=`AdGroupCriterion`) from the user and delete all of them.\nKeywords are `AdGroupCriterion` whose `type` is `KEYWORD`, so you should be careful because there may be other types of resources.\nIf all keywords are deleted in an ad, you should be careful because deleting keywords may affect ad execution, etc.\n\nIn addition, if you delete keywords from an ad, other ads that share the ad group that is the parent of the ad may also be affected.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Keyword deletion condition",
@@ -420,7 +444,9 @@
       "post": {
         "summary": "Add keywords to ads",
         "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add keywords to the ad group (=adGroup), which is the parent of the ad.\nSince keywords are added to ad groups, they are applied to all child ads.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Condition for adding keywords",
@@ -457,7 +483,9 @@
       "post": {
         "summary": "View ad details",
         "description": "View ad details\n\nDepending on the campaign, it is either a responsive search ad or a responsive display ad.\n\nIf `customerId` is not passed, it will be automatically selected only if the user has only one ad account that `Wrtn` can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for viewing ad details",
@@ -489,7 +517,9 @@
       "post": {
         "summary": "Create an ad",
         "description": "Create an ad for a Google customer account\n\nThe `Wrtn` manager creates one ad per ad group for convenience.\nTherefore, this connector does not receive the resource name or ID of the ad group (=adGroup) to create the ad, and the ad group is created first when creating the ad.\nSince the types of ads that can be created depend on the campaign, you must create them after checking the campaign.\nFor example, search ads must be created in a search campaign.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nThe ad is immediately moved to the review stage after creation, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, when creating an ad with this connector, the ad status is set to `PAUSED`.\nThis is to allow users to check the campaign, ad group, ad, etc. again to check if they have been created in the desired state in case of an emergency.\nTherefore, even if the ad review is complete, the ad will not be executed, and no performance or expenses will be incurred. If the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `ad edit connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Ad creation conditions",
@@ -535,7 +565,9 @@
       "patch": {
         "summary": "Modify the campaign",
         "description": "Edit an ad campaign for your Google customer account\n\nEdit a campaign.\nThe only things you can edit in a campaign are the campaign name, budget, and end date.\nThe campaign name is a value for people to recognize and has no effect on the ad, so you can specify it as you like.\nFor the budget, you can enter the budget you want to advertise in Korean Won (KRW), and in this case, the daily ad spending will be formed above and below the budget.\nIn some cases, you may spend more than the budget, or if the ad optimization is not done, you may spend less than the budget.\nThe last end date can be used as a scheduled end date because the ad will not end and will continue to run if it is not specified.\nHowever, if you do not delete the end date that you have already specified, the ad may not be executed even if you turn it on later.\nIf you want to turn on the ad for a campaign that has ended, you must also change the campaign's scheduled end date.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.\n\nOriginally, there is no amount limit, but in case of an emergency, we currently limit the function to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Campaign modification conditions",
@@ -561,7 +593,9 @@
       "post": {
         "summary": "Create a campaign",
         "description": "Create an ad campaign for your Google customer account\n\nCreate a campaign (=campaign).\nA campaign is located under an account in Google Ads, and is located at the top of the tree structure consisting of campaigns, ad groups, and ads.\nA campaign is a parent object for grouping ad groups, and is responsible for the duration, budget, purpose, channel, etc. of the ad.\nIf you do not specify a campaign name, a random name will be assigned. In this case, it may be difficult to identify.\nTherefore, it is recommended to give different names to each campaign according to its purpose so that you can distinguish them.\nThe name of the campaign is only for the user to easily identify, and does not affect the effectiveness of the ad at all, so you can rest assured.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nYou should ask the user for `customerId` before calling the function, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Campaign creation conditions",
@@ -593,7 +627,9 @@
       "post": {
         "summary": "Create responsive search ads for your Google customer account all at once",
         "description": "Create search ads in Google customer accounts at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for creating ads from campaigns all at once",
@@ -625,7 +661,9 @@
       "post": {
         "summary": "Create responsive display ads in Google Account Ads at once",
         "description": "Create display ads in your Google customer account at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
-        "tags": [],
+        "tags": [
+          "Google Ads"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for creating ads from campaigns at once",
@@ -2992,6 +3030,10 @@
       }
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Google Ads"
+    }
+  ],
   "x-samchon-emended": true
 }
