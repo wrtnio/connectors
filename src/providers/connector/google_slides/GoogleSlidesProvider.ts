@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
-import typia from "typia";
 import { v4 } from "uuid";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -113,7 +112,7 @@ export class GoogleSlidesProvider {
     const matches = Array.from(
       new Set(
         JSON.stringify(input).match(
-          /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
+          /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu, // 여기는 gu 플래그, 특히 무조건 g를 써야 한다.
         ),
       ),
     );
@@ -126,14 +125,32 @@ export class GoogleSlidesProvider {
       matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
     );
 
-    let stringified = JSON.stringify(input);
-    matches.forEach((match, index) => {
-      stringified = stringified.replaceAll(match, transformed[index]);
+    // let stringified = JSON.stringify(input);
+    // matches.forEach((match, index) => {
+    //   stringified = stringified.replaceAll(match, transformed[index]);
+    // });
+
+    // return typia.assert<IGoogleSlides.AppendSlideInput>(
+    //   JSON.parse(stringified),
+    // );
+
+    matches.forEach((matchedUrl, index) => {
+      for (const template of input.templates) {
+        if (template.contents instanceof Array) {
+          template.contents.forEach((content) => {
+            if (content.url.includes(matchedUrl)) {
+              content.url = transformed[index];
+            }
+          });
+        } else {
+          if (template.contents.url.includes(matchedUrl)) {
+            template.contents.url = transformed[index];
+          }
+        }
+      }
     });
 
-    return typia.assert<IGoogleSlides.AppendSlideInput>(
-      JSON.parse(stringified),
-    );
+    return input;
   }
 
   async appendImageSlide(

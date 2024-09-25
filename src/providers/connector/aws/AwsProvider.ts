@@ -74,7 +74,7 @@ export class AwsProvider {
    */
   async getGetObjectUrl(fileUrl: string): Promise<string> {
     const match = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!match) {
@@ -84,7 +84,6 @@ export class AwsProvider {
     const bucket = match[1];
     const key = match[3];
 
-    console.log(fileUrl, bucket, key);
     return await getSignedUrl(
       this.s3,
       new GetObjectCommand({ Bucket: bucket, Key: key }),
@@ -106,7 +105,7 @@ export class AwsProvider {
   async getFileSize(fileUrl: string): Promise<number> {
     const [url] = fileUrl.split("?"); // 쿼리파라미터 부분 제거
     const matches = url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/u,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!matches) {
@@ -142,7 +141,7 @@ export namespace AwsProvider {
   } {
     try {
       const match = url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
       );
       if (!match) {
         throw new BadRequestException("Invalid S3 URL");

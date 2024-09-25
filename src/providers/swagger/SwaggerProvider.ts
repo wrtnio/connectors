@@ -59,7 +59,7 @@ export class SwaggerProvider {
       await this.s3.send(params);
       console.log(`File uploaded successfully`);
     } catch (err) {
-      console.error("Error uploading file to S3:", err);
+      console.error("Error uploading file to S3:", JSON.stringify(err));
     }
   };
 }

@@ -137,6 +137,51 @@ export const test_api_connector_google_slides_fail_case_of_quarter_division_by_d
     }
   };
 
+export const test_api_connector_google_slides_fail_case_of_quarter_division_by_depcreated_connector_2 =
+  async () => {
+    const googleProvider = new GoogleProvider();
+    const awsProvider = new AwsProvider();
+    const gs = new GoogleSlidesProvider(googleProvider, awsProvider);
+
+    const response = await gs.transformUrl({
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+      templates: [
+        {
+          type: "QuarterDivision",
+          contents: [
+            {
+              text: { text: "작업실의 평화" },
+              url: `https://dev-studio-pro.s3.ap-northeast-2.amazonaws.com/connector/generate-image-node/sdxl-beta/1de2644a-7193-4ace-81ba-cbeb7a901bf5?test=a`,
+            },
+            {
+              text: { text: "내면의 불꽃" },
+              url: `https://dev-studio-pro.s3.ap-northeast-2.amazonaws.com/connector/generate-image-node/sdxl-beta/9947e221-d37b-4f18-91db-6a9f5f287f64?test=a`,
+            },
+            {
+              text: { text: "낯선 소리" },
+              url: `https://dev-studio-pro.s3.ap-northeast-2.amazonaws.com/connector/generate-image-node/sdxl-beta/dab59dfe-0c02-46cd-bc8a-b425b37295cc?test=a`,
+            },
+            {
+              text: { text: "새로운 발견" },
+              url: `https://dev-studio-pro.s3.ap-northeast-2.amazonaws.com/connector/generate-image-node/sdxl-beta/dab59dfe-0c02-46cd-bc8a-b425b37295cc?test=a`,
+            },
+          ],
+        },
+      ],
+    });
+
+    const urls = response.templates.flatMap((el) => {
+      if (el.contents instanceof Array) {
+        return el.contents.map((content) => content.url);
+      }
+      return [el.contents.url];
+    });
+
+    for await (const url of urls) {
+      await axios.get(url);
+    }
+  };
+
 export const test_api_connector_google_slides_fail_case_of_quarter_division =
   async (connection: CApi.IConnection) => {
     const presentation =
