@@ -8,6 +8,7 @@ import axios from "axios";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
+import typia, { tags } from "typia";
 
 @Injectable()
 export class XProvider {
@@ -216,11 +217,36 @@ export class XProvider {
       params.append("refresh_token", refreshToken);
       params.append("client_id", ConnectorGlobal.env.X_CLIENT_ID);
 
+      const BasicAuthToken = Buffer.from(
+        `${ConnectorGlobal.env.X_CLIENT_ID}:${ConnectorGlobal.env.X_CLIENT_SECRET}`,
+        "utf8",
+      ).toString("base64");
       const res = await axios.post("https://api.x.com/2/oauth2/token", params, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Basic ${BasicAuthToken}`,
         },
       });
+
+      /**
+       * Refresh Token이 일회용이므로 값 업데이트
+       */
+      if (typia.is<string & tags.Format<"uuid">>(input.secretKey)) {
+        await OAuthSecretProvider.updateSecretValue(input.secretKey, {
+          value: res.data.refresh_token,
+        });
+        this.logger.log("X Refresh Token Updated");
+      }
+
+      /**
+       * 테스트 환경에서만 사용
+       */
+      if (process.env.NODE_ENV === "test") {
+        await ConnectorGlobal.write({
+          X_TEST_SECRET: res.data.refresh_token,
+        });
+      }
+
       return res.data.access_token;
     } catch (err) {
       console.error(JSON.stringify(err));
