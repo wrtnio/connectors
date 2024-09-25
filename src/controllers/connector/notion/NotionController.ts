@@ -6,6 +6,7 @@ import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INo
 
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/notion")
 export class NotionController {
@@ -26,6 +27,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/markdown")
   async appendBlocksByMarkdown(
     @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
@@ -187,6 +189,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/file")
   async createFile(
     @TypedBody() input: INotion.ICreateChildContentTypeFileInput,
@@ -212,6 +215,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/embed")
   async createEmbed(
     @TypedBody() input: INotion.ICreateChildContentTypeEmbedInput,
@@ -237,6 +241,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/bookmark")
   async createBookmark(
     @TypedBody() input: INotion.ICreateChildContentTypeBookmarkInput,
@@ -262,6 +267,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/image")
   async createImage(
     @TypedBody() input: INotion.ICreateChildContentTypeImageInput,
@@ -290,6 +296,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/video")
   async createVideo(
     @TypedBody() input: INotion.ICreateChildContentTypeVideoInput,
@@ -313,6 +320,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/pdf")
   async createPdf(
     @TypedBody() input: INotion.ICreateChildContentTypePdfInput,
@@ -337,6 +345,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/code")
   async createCode(
     @TypedBody() input: INotion.ICreateChildContentTypeCodeInput,
@@ -360,6 +369,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/equation")
   async createEquation(
     @TypedBody() input: INotion.ICreateChildContentTypeEquationInput,
@@ -383,6 +393,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/divider")
   async createDivider(
     @TypedBody() input: INotion.ICreateChildContentTypeDividerInput,
@@ -406,6 +417,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/breadcrumb")
   async createBreadcrumb(
     @TypedBody() input: INotion.ICreateChildContentTypeBreadcrumbInput,
@@ -429,6 +441,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/table_of_contents")
   async createTableOfContents(
     @TypedBody() input: INotion.ICreateChildContentTypeTableOfContentsInput,
@@ -452,6 +465,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/link_to_page")
   async createLinkToPage(
     @TypedBody() input: INotion.ICreateChildContentTypeLinkToPageInput,
@@ -667,6 +681,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/toggle")
   async createToggle(
     @TypedBody() input: INotion.ICreateChildContentTypeToggleInput,
@@ -687,6 +702,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/page")
   async createPage(
     @core.TypedBody() input: INotion.ICreatePageInput,
@@ -703,6 +719,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("/get/page")
   async readPageList(
@@ -720,6 +737,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("get/users")
   async getUsers(
@@ -737,6 +755,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
@@ -756,6 +775,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
     @core.TypedBody() input: INotion.ISecret,
@@ -786,6 +806,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
     @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
@@ -816,6 +837,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Patch("/database-item/:databaseId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
@@ -844,6 +866,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("/get-page-by-title")
   async getPageByTitle(
@@ -863,6 +886,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
     @core.TypedBody() input: INotion.ISecret,
@@ -895,6 +919,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
@@ -929,6 +954,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("markdown")
   async createPageByMarkdown(
     @core.TypedBody() input: INotion.ICreatePageByMarkdownInput,

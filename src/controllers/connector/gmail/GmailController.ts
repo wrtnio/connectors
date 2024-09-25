@@ -6,6 +6,7 @@ import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmai
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/gmail")
 export class GmailController {
@@ -31,6 +32,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("send")
   async send(
     @core.TypedBody() input: IGmail.ICreateMailInput,
@@ -58,6 +60,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
     return retry(() => this.gmailProvider.createDraft(input))();
@@ -79,6 +82,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("reply/:id")
   async reply(
     /**
@@ -109,6 +113,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("get/:id")
   async findEmail(
     /**
@@ -140,6 +145,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("read-list")
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
@@ -166,6 +172,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Delete(":id/hardDelete")
   async hardDelete(
     /**
@@ -195,6 +202,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Delete(":id")
   async removeMail(
     /**
@@ -226,6 +234,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("label")
   async createLabel(
     @core.TypedBody() input: IGmail.ILabelInput,
@@ -245,6 +254,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
     /**
@@ -274,6 +284,7 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(
     /**

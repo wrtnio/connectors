@@ -5,6 +5,7 @@ import { RouteIcon } from "@wrtnio/decorators";
 import { DiscordProvider } from "../../../providers/connector/discord/DiscordProvider";
 import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/discord")
 export class DiscordController {
@@ -21,6 +22,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async createDM(
     @core.TypedBody() input: IDiscord.ICreateDMRequest,
   ): Promise<IDiscord.IChannel> {
@@ -39,6 +41,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async modifyGuild(
     @core.TypedBody() input: IDiscord.IModifyGuildRequest,
   ): Promise<IDiscord.IGuild> {
@@ -57,6 +60,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getGuildChannels(
     @core.TypedBody() input: IDiscord.ISecret,
   ): Promise<IDiscord.IChannel[]> {
@@ -75,6 +79,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async createGuildChannel(
     @core.TypedBody() input: IDiscord.ICreateGuildChannelRequest,
   ): Promise<IDiscord.IChannel> {
@@ -93,6 +98,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getListGuildMembers(
     @core.TypedBody() input: IDiscord.ISecret,
   ): Promise<IDiscord.IGuildMember[]> {
@@ -113,6 +119,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async removeGuildMember(
     @core.TypedBody() input: IDiscord.IRemoveGuildMember,
   ): Promise<void> {
@@ -131,6 +138,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async modifyChannel(
     @core.TypedBody() input: IDiscord.IModifyChannelRequest,
   ): Promise<IDiscord.IChannel> {
@@ -149,6 +157,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async deleteChannel(
     @core.TypedBody() input: IDiscord.IDeleteChannelRequest,
   ): Promise<void> {
@@ -167,6 +176,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getPinnedMessages(
     @core.TypedBody() input: IDiscord.IGetPinnedMessagesRequest,
   ): Promise<IDiscord.IMessage[]> {
@@ -185,6 +195,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async pinMessage(
     @core.TypedBody() input: IDiscord.IPinOrUnpinMessagesRequest,
   ): Promise<void> {
@@ -203,6 +214,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async unpinMessage(
     @core.TypedBody() input: IDiscord.IPinOrUnpinMessagesRequest,
   ): Promise<void> {
@@ -221,6 +233,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getChannelMessageHistories(
     @core.TypedBody() input: IDiscord.IGetChannelMessageHistoriesRequest,
   ): Promise<IDiscord.IMessage[]> {
@@ -241,6 +254,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async createMessage(
     @core.TypedBody() input: IDiscord.ICreateMessageRequest,
   ): Promise<IDiscord.IMessage> {
@@ -259,6 +273,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async editMessage(
     @core.TypedBody() input: IDiscord.IEditMessageRequest,
   ): Promise<IDiscord.IMessage> {
@@ -277,6 +292,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async deleteMessage(
     @core.TypedBody() input: IDiscord.IDeleteMessageRequest,
   ): Promise<void> {
@@ -295,6 +311,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async bulkDeleteMessage(
     @core.TypedBody() input: IDiscord.IBulkDeleteMessagesRequest,
   ): Promise<void> {

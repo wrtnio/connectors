@@ -4,6 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IAISearch } from "@wrtn/connector-api/lib/structures/connector/ai_search/IAISearch";
 import { AISearchProvider } from "../../../providers/connector/ai_search/AISearchProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/ai-search")
 export class AISearchController {
@@ -17,6 +18,7 @@ export class AISearchController {
    * @param input Conditions required for search
    * @returns
    */
+  @ApiTags("AI Search")
   @core.TypedRoute.Post("")
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",

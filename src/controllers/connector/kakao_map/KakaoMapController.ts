@@ -6,7 +6,7 @@ import { IKakaoMap } from "@wrtn/connector-api/lib/structures/connector/kakao_ma
 
 import { KakaoMapProvider } from "../../../providers/connector/kakao_map/KakaoMapProvider";
 import { retry } from "../../../utils/retry";
-
+import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/kakao-map")
 export class KakaoMapController {
   /**
@@ -25,6 +25,7 @@ export class KakaoMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoMap_full.svg",
   )
+  @ApiTags("Kakao Map")
   @TypedRoute.Post("search")
   async search(
     @TypedBody()

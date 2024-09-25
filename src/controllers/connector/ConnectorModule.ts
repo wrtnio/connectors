@@ -66,7 +66,7 @@ import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GithubModule } from "./github/GithubModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { DiscordModule } from "./discord/DiscordModule";
-import { CalendlyModule } from "../calendly/CalendlyModule";
+import { CalendlyModule } from "./calendly/CalendlyModule";
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { TypeformModule } from "./typeform/TypeformModule";
 

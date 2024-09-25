@@ -6,6 +6,7 @@ import { IHwp } from "@wrtn/connector-api/lib/structures/connector/hwp/IHwp";
 
 import { HwpProvider } from "../../../providers/connector/hwp/HwpProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/hwp")
 export class HwpController {
@@ -24,6 +25,7 @@ export class HwpController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg",
   )
+  @ApiTags("Hwp")
   async parseHwp(
     @core.TypedBody() input: IHwp.IParseInput,
   ): Promise<IHwp.IParseOutput> {

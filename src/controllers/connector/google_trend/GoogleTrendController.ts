@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { IGoogleTrend } from "@wrtn/connector-api/lib/structures/connector/google_trend/IGoogleTrend";
 import { retry } from "../../../utils/retry";
 import { GoogleTrendProvider } from "../../../providers/connector/google_trend/GoogleTrendProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-trend")
 export class GoogleTrendController {
@@ -23,6 +24,7 @@ export class GoogleTrendController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleTrend_full.svg",
   )
+  @ApiTags("Google Trends")
   async daily(
     @core.TypedBody() input: IGoogleTrend.IRequest,
   ): Promise<IGoogleTrend.IResponse[]> {

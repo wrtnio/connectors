@@ -6,6 +6,7 @@ import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/goog
 import { RouteIcon } from "@wrtnio/decorators";
 import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
@@ -23,6 +24,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Post("presentations/:id/export/hanshow")
   async hanshow(
     @TypedParam("id") presentationId: string,
@@ -49,6 +51,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Post("presentations/:id/export/power-point")
   async powerPoint(
     @TypedParam("id") presentationId: string,
@@ -72,6 +75,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Post("get-presentations")
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
@@ -97,6 +101,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/quarter-divisions")
   async appendQuarterDivisionImageSlide(
     @TypedParam("id") presentationId: string,
@@ -128,6 +133,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/entires")
   async appendEntireImageSlide(
     @TypedParam("id") presentationId: string,
@@ -160,6 +166,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/landscapes")
   async appendLandscapeImageSlide(
     @TypedParam("id") presentationId: string,
@@ -191,6 +198,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/squares")
   async appendSquareImageSlide(
     @TypedParam("id") presentationId: string,
@@ -223,6 +231,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/verticals")
   async appendVerticalImageSlide(
     @TypedParam("id") presentationId: string,
@@ -258,6 +267,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
     @TypedParam("id") presentationId: string,
@@ -284,6 +294,7 @@ export class GoogleSlidesController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @ApiTags("Google Slide")
   @core.TypedRoute.Post("presentations")
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,

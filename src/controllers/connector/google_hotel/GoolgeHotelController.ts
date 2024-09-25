@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { retry } from "../../../utils/retry";
 import { GoogleHotelProvider } from "../../../providers/connector/google_hotel/GoogleHotelProvider";
 import { IGoogleHotel } from "@wrtn/connector-api/lib/structures/connector/google_hotel/IGoogleHotel";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-hotel")
 export class GoogleHotelController {
@@ -24,6 +25,7 @@ export class GoogleHotelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleHotel_full.svg",
   )
+  @ApiTags("Google Hotel")
   async search(
     @core.TypedBody() input: IGoogleHotel.IRequest,
   ): Promise<IGoogleHotel.IResponse[]> {

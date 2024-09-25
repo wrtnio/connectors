@@ -4,6 +4,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import core from "@nestia/core";
 import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/google_search/IGoogleSearch";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-search")
 export class GoogleSearchCareerController {
@@ -22,6 +23,7 @@ export class GoogleSearchCareerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_wanted_full.svg",
   )
+  @ApiTags("Wanted")
   async searchForWanted(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -42,6 +44,7 @@ export class GoogleSearchCareerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Incruit_full.svg",
   )
+  @ApiTags("Incruit")
   async searchForIncruit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -62,6 +65,7 @@ export class GoogleSearchCareerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Saramin_full.svg",
   )
+  @ApiTags("Saramin")
   async searchForSaramin(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -82,6 +86,7 @@ export class GoogleSearchCareerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/jumpit_full.svg",
   )
+  @ApiTags("Jumpit")
   async searchForJumpit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -102,6 +107,7 @@ export class GoogleSearchCareerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/careerly_full.svg",
   )
+  @ApiTags("Careerly")
   async searchForCareerly(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {

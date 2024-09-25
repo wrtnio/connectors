@@ -7,6 +7,7 @@ import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INave
 import { NaverProvider } from "../../../providers/connector/naver/NaverProvider";
 import { retry } from "../../../utils/retry";
 import typia from "typia";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/naver")
 export class NaverController {
@@ -22,6 +23,7 @@ export class NaverController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
   )
+  @ApiTags("Naver")
   async cafeList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.ICafeNaverOutput> {
@@ -40,6 +42,7 @@ export class NaverController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
   )
+  @ApiTags("Naver")
   async blogList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.IBlogNaverOutput> {
@@ -58,6 +61,7 @@ export class NaverController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg",
   )
+  @ApiTags("Naver")
   async newsList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.INewsNaverOutput> {

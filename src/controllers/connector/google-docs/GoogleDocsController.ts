@@ -6,6 +6,7 @@ import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google
 
 import { GoogleDocsProvider } from "../../../providers/connector/google_docs/GoogleDocsProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-docs")
 export class GoogleDocsController {
@@ -21,6 +22,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post()
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
@@ -37,6 +39,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post("/permission")
   async permission(
     @core.TypedBody() input: IGoogleDocs.IPermissionGoogleDocsInput,
@@ -56,6 +59,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post("get/:id")
   async readDocs(
     /**
@@ -84,6 +88,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post("/template")
   async createDocByTemplate(
     @core.TypedBody() input: IGoogleDocs.ICreateDocByTemplateInput,
@@ -100,6 +105,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Delete(":id")
   async deleteById(
     /**
@@ -128,6 +134,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post("get-list")
   async list(
     @core.TypedBody()
@@ -144,6 +151,7 @@ export class GoogleDocsController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post("/append")
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,

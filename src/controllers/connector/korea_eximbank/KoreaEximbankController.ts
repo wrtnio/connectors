@@ -6,6 +6,7 @@ import { IKoreaEximbank } from "@wrtn/connector-api/lib/structures/connector/kor
 
 import { KoreaEximbankProvider } from "../../../providers/connector/korea_eximbank/KoreaEximbankProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/korea-eximbank")
 export class KoreaEximbankController {
@@ -19,6 +20,7 @@ export class KoreaEximbankController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ExchangeRate_full.svg",
   )
+  @ApiTags("Korea Eximbank")
   @core.TypedRoute.Get("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {
     return retry(() => KoreaEximbankProvider.getExchange())();

@@ -6,6 +6,7 @@ import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 
 import { DaumProvider } from "../../../providers/connector/daum/DaumProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/daum")
 export class DaumController {
@@ -15,11 +16,11 @@ export class DaumController {
    * @summary Search the following blog
    * @param input Conditions for searching the following blog
    */
-  @Standalone()
   @core.TypedRoute.Post("blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
   )
+  @ApiTags("Daum")
   async searchBlog(
     @core.TypedBody() input: IDaum.ISearchDaumInput,
   ): Promise<IDaum.IBlogDaumOutput> {
@@ -32,11 +33,11 @@ export class DaumController {
    * @summary Search for the following cafe
    * @param input Conditions for searching the following cafe
    */
-  @Standalone()
   @core.TypedRoute.Post("cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",
   )
+  @ApiTags("Daum")
   async searchCafe(
     @core.TypedBody() input: IDaum.ISearchDaumInput,
   ): Promise<IDaum.ICafeDaumOutput> {

@@ -6,7 +6,7 @@ import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/I
 
 import { HancellProvider } from "../../../providers/connector/hancell/HancellProvider";
 import { retry } from "../../../utils/retry";
-
+import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/hancell")
 export class HancellController {
   constructor(private readonly hancellProvider: HancellProvider) {}
@@ -24,6 +24,7 @@ export class HancellController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
+  @ApiTags("Hancel")
   async upsertSheet(
     @TypedBody() input: IHancell.IUpsertSheetInput,
   ): Promise<IHancell.IUpsertSheetOutput> {
@@ -41,6 +42,7 @@ export class HancellController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
+  @ApiTags("Hancel")
   @core.TypedRoute.Post("read")
   async read(
     @TypedBody() input: IHancell.IReadHancellInput,

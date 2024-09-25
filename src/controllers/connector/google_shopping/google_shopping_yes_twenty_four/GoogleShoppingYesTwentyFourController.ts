@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
 import { retry } from "../../../../utils/retry";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingYesTwentyFourController {
@@ -26,6 +27,7 @@ export class GoogleShoppingYesTwentyFourController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
   )
+  @ApiTags("yes24")
   async yes24(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
