@@ -50,27 +50,16 @@ jobs:
         uses: actions/checkout@v2
         with:
           branch: main
-
-      - name: Bump version for swagger
+      - name: Bump version for swagger and sdk
         run: |
           git config --local user.email "studio@wrtn.io"
           git config --local user.name "studio-pro"
           git pull
-          npm version patch
-          git add *
-          git commit --no-verify -m "Bump swagger version to %s [skip ci]"
+          npm version patch -m "Bump swagger version to %s [skip ci]"
           git push --set-upstream origin main
-
-      - name: Bump version for sdk
-        working-directory: packages/api
-        run: |
-          git config --local user.email "studio@wrtn.io"
-          git config --local user.name "studio-pro"
-          git pull
+          cd ./packages/api
           npm version patch
           git add *
           git commit --no-verify -m "Bump sdk version to %s [skip ci]"
           git push --set-upstream origin main --follow-tags
           npm run deploy
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

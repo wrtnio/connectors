@@ -2,7 +2,7 @@
   "private": false,
   "name": "@wrtn/connector",
   "version": "0.1.236",
-  "description": "wrtn-ecosystem connectors and sdk",
+  "description": "wrtn-ecosystem connectors and sdk.",
   "main": "lib/index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test node bin/test",
