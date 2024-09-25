@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.231",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -138,7 +138,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "URL address",
             "description": "The URL address of the output."
           },
@@ -149,7 +149,7 @@
           },
           "image": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Output Image URL",
             "description": "The URL address of the image of the output."
           },

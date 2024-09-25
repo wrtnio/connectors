@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.231",
+    "version": "0.1.232",
     "description": "wrtn-ecosystem connector server apis",
     "license": {
       "name": "AGPL-3.0-only"
@@ -187,7 +187,7 @@
               },
               {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "contentMediaType": "image/*"
               }
             ],
@@ -238,7 +238,7 @@
           },
           "link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Review Link",
             "description": "Here is the review link."
           },
@@ -246,7 +246,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri",
+              "format": "iri",
               "contentMediaType": "image/*"
             },
             "title": "Review Image",

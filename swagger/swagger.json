@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.231",
+    "version": "0.1.232",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connector server apis",
     "license": {
@@ -10624,7 +10624,7 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "format": "uri"
+                  "format": "iri"
                 }
               }
             }
@@ -11629,7 +11629,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "URL address",
             "description": "The URL address of the output."
           },
@@ -11640,7 +11640,7 @@
           },
           "image": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Output Image URL",
             "description": "The URL address of the image of the output."
           },
@@ -11874,7 +11874,7 @@
         "properties": {
           "imageUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "image/*",
             "title": "Image URL of the generated marketing copy draft.",
             "description": "Image URL of the generated marketing copy draft."
@@ -12363,7 +12363,7 @@
         "properties": {
           "fileUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "엑셀 파일",
             "description": "엑셀 행을 추가할 파일\n\nIf you have this address, take an Excel file from that path and modify it.\nThe modified file is saved as a new link and does not modify the original file in this path.\nIf this address does not exist, create a new file immediately."
           },
@@ -12873,7 +12873,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "sheet url.",
             "description": "The url of the sheet to grant permission to."
           },
@@ -13183,7 +13183,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Event Link.",
@@ -13690,7 +13690,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "file url.",
@@ -13727,7 +13727,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "File icon link.",
@@ -14499,7 +14499,7 @@
                 },
                 "fileUrl": {
                   "type": "string",
-                  "format": "uri",
+                  "format": "iri",
                   "title": "file uri"
                 }
               },
@@ -18812,7 +18812,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Next page URL of the friends list"
@@ -18824,7 +18824,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Previous page URL of the friends list"
@@ -18869,7 +18869,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Thumbnail"
@@ -19809,7 +19809,7 @@
           },
           "place_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Location details page URL"
           },
           "distance": {
@@ -20819,7 +20819,7 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "format": "uri",
+                  "format": "iri",
                   "title": "URL of the image."
                 },
                 "text": {
@@ -20902,7 +20902,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               }
             },
@@ -20949,7 +20949,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               },
               "text": {
@@ -21001,7 +21001,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               },
               "text": {
@@ -21053,7 +21053,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               },
               "text": {
@@ -21137,7 +21137,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               },
               "text": {
@@ -21170,7 +21170,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               },
               "text": {
@@ -21204,7 +21204,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               },
               "text": {
@@ -21237,7 +21237,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "URL of the image."
               }
             },
@@ -21267,7 +21267,7 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "format": "uri",
+                  "format": "iri",
                   "title": "URL of the image."
                 },
                 "text": {
@@ -21377,7 +21377,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri",
+              "format": "iri",
               "contentMediaType": "image/*"
             },
             "title": "File urls\n\nCan't call it right away because it's not a completed URL."
@@ -24466,7 +24466,7 @@
         "properties": {
           "imgUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "image/*",
             "title": "Generated image Url",
             "description": "Generated image url"
@@ -24592,7 +24592,7 @@
         "properties": {
           "imgUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "image/*",
             "title": "Generated image Url",
             "description": "Generated image url"
@@ -24648,7 +24648,7 @@
           },
           "link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Search Results Link"
           },
           "snippet": {
@@ -24657,7 +24657,7 @@
           },
           "thumbnail": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "image/*",
             "title": "Search Results thumbnail"
           }
@@ -24725,7 +24725,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Product Link"
@@ -24745,7 +24745,7 @@
           },
           "thumbnail": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "image/*",
             "title": "Product Image"
           }
@@ -26482,7 +26482,7 @@
           },
           "finalUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Homepage that is the target of the advertisement"
           },
           "headlines": {
@@ -26567,7 +26567,7 @@
           },
           "finalUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Homepage that is the target of the advertisement"
           },
           "headlines": {
@@ -26889,7 +26889,7 @@
           },
           "finalUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Homepage that is the target of the advertisement"
           },
           "keywords": {
@@ -27021,7 +27021,7 @@
           },
           "finalUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Homepage that is the target of the advertisement"
           },
           "keywords": {
@@ -27666,13 +27666,13 @@
           },
           "link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Naver News URL",
             "description": "Naver News URL."
           },
           "originallink": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Original URL",
             "description": "Original URL of news article."
           },
@@ -27753,7 +27753,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Link to the searched paper",
@@ -27791,7 +27791,7 @@
           },
           "related_pages_link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Links to related academic materials",
             "description": "Here are links to academic materials related to the searched paper."
           },
@@ -27829,7 +27829,7 @@
           },
           "link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Link to the reference material",
             "description": "Here is a link to the reference material."
           }
@@ -27862,7 +27862,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Version-related links",
@@ -27944,7 +27944,7 @@
         "properties": {
           "s3Url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "text/csv",
             "title": "file",
             "description": "This is the Csv file to read."
@@ -27967,7 +27967,7 @@
         "properties": {
           "s3Url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "text/csv",
             "title": "csv file",
             "description": "This is the s3 url of the csv file that was created."
@@ -28018,7 +28018,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "text/csv",
             "title": "s3 url",
             "description": "Here is the s3 url of the converted excel file."
@@ -28034,7 +28034,7 @@
         "properties": {
           "s3Url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "text/csv",
             "title": "file",
             "description": "This is the file to convert from csv to excel."
@@ -28106,7 +28106,7 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "url\n\nYou can enter the path of the file you want to upload."
                   }
                 },
@@ -28135,7 +28135,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -28206,7 +28206,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "url\n\nYou can enter the path of the file you want to embed."
               },
               "caption": {
@@ -28225,7 +28225,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -28296,7 +28296,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "url\n\nYou can enter the path of the file you want to bookmark."
               },
               "caption": {
@@ -28315,7 +28315,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -28415,7 +28415,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -28489,7 +28489,7 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "url\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]"
                   }
                 },
@@ -28513,7 +28513,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -28586,7 +28586,7 @@
                 "properties": {
                   "url": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "pattern": ".*\\.(pdf)(\\?.*)?",
                     "title": "url"
                   }
@@ -28612,7 +28612,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -28960,7 +28960,7 @@
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "uri"
+                              "format": "iri"
                             }
                           },
                           "required": [
@@ -29408,7 +29408,7 @@
                       "properties": {
                         "url": {
                           "type": "string",
-                          "format": "uri"
+                          "format": "iri"
                         }
                       },
                       "required": [
@@ -29533,7 +29533,7 @@
                       "properties": {
                         "url": {
                           "type": "string",
-                          "format": "uri"
+                          "format": "iri"
                         }
                       },
                       "required": [
@@ -29658,7 +29658,7 @@
                       "properties": {
                         "url": {
                           "type": "string",
-                          "format": "uri"
+                          "format": "iri"
                         }
                       },
                       "required": [
@@ -29764,7 +29764,7 @@
                                 "properties": {
                                   "url": {
                                     "type": "string",
-                                    "format": "uri"
+                                    "format": "iri"
                                   }
                                 },
                                 "required": [
@@ -31252,7 +31252,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "url",
             "description": "Page url"
           },
@@ -31263,7 +31263,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "public url",
@@ -31322,7 +31322,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "url",
             "description": "image url"
           }
@@ -31379,7 +31379,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "url",
                 "description": "file url"
               },
@@ -31660,7 +31660,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "url",
             "description": "Page url"
           },
@@ -31671,7 +31671,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "public url",
@@ -31773,7 +31773,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Link",
@@ -31804,7 +31804,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "Link",
@@ -31897,7 +31897,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "url",
             "description": "url in database item"
           },
@@ -32031,7 +32031,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri",
+              "format": "iri",
               "contentMediaType": "image/*"
             },
             "title": "thumbnail",
@@ -33318,7 +33318,7 @@
               },
               {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "contentMediaType": "image/*"
               }
             ],
@@ -33604,7 +33604,7 @@
           },
           "link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
           "text": {
@@ -34445,7 +34445,7 @@
                             "properties": {
                               "href": {
                                 "type": "string",
-                                "format": "uri",
+                                "format": "iri",
                                 "title": "link"
                               }
                             },
@@ -34497,7 +34497,7 @@
                           },
                           "url": {
                             "type": "string",
-                            "format": "uri",
+                            "format": "iri",
                             "title": "url"
                           }
                         },
@@ -34648,7 +34648,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "url\nIndicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
               },
               "data": {
@@ -34878,7 +34878,7 @@
             "properties": {
               "url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "url\nIndicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
               },
               "data": {
@@ -35040,7 +35040,7 @@
                       "properties": {
                         "href": {
                           "type": "string",
-                          "format": "uri",
+                          "format": "iri",
                           "title": "link"
                         }
                       },
@@ -35553,7 +35553,7 @@
                           "properties": {
                             "href": {
                               "type": "string",
-                              "format": "uri",
+                              "format": "iri",
                               "title": "link"
                             }
                           },
@@ -35605,7 +35605,7 @@
                         },
                         "url": {
                           "type": "string",
-                          "format": "uri",
+                          "format": "iri",
                           "title": "url"
                         }
                       },
@@ -37717,7 +37717,7 @@
               },
               {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "contentMediaType": "image/*"
               }
             ],
@@ -37768,7 +37768,7 @@
           },
           "link": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Review Link",
             "description": "Here is the review link."
           },
@@ -37776,7 +37776,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri",
+              "format": "iri",
               "contentMediaType": "image/*"
             },
             "title": "Review Image",
@@ -38118,7 +38118,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "number": {
@@ -38180,7 +38180,7 @@
                     },
                     "url": {
                       "type": "string",
-                      "format": "uri"
+                      "format": "iri"
                     },
                     "name": {
                       "type": "string"
@@ -38364,12 +38364,12 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
           },
           "avatar_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "avatar url\n\nThis means the user's profile image."
           }
         },
@@ -38565,7 +38565,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url"
           },
           "description": {
@@ -39259,7 +39259,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url"
           },
           "description": {
@@ -39591,12 +39591,12 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
           },
           "avatar_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "avatar url\n\nThis means the user's profile image."
           }
         },
@@ -40619,7 +40619,7 @@
           },
           "avatar_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "avatar url\n\nThis means the user's profile image."
           }
         },
@@ -41016,7 +41016,7 @@
         "properties": {
           "issue_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "issue_url"
           },
           "author_association": {
@@ -41441,7 +41441,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url"
           },
           "author_association": {
@@ -41660,12 +41660,12 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url"
           },
           "pull_request_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "pull_request_url"
           },
           "submitted_at": {
@@ -42034,12 +42034,12 @@
           },
           "blob_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "blob_url\n\nThis is the path through which you can view the file through the github website."
           },
           "raw_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "raw_url\n\nThe API path through which the contents of the file can be viewed."
           },
           "patch": {
@@ -42187,7 +42187,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\n\nuri to look up details of commitment"
           },
           "author": {
@@ -42240,7 +42240,7 @@
               },
               "url": {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             },
             "required": [
@@ -42589,7 +42589,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "state": {
@@ -42647,7 +42647,7 @@
                     },
                     "url": {
                       "type": "string",
-                      "format": "uri"
+                      "format": "iri"
                     },
                     "name": {
                       "type": "string"
@@ -43222,7 +43222,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "number": {
@@ -43284,7 +43284,7 @@
                     },
                     "url": {
                       "type": "string",
-                      "format": "uri"
+                      "format": "iri"
                     },
                     "name": {
                       "type": "string"
@@ -43798,12 +43798,12 @@
           },
           "avatar_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "avatar url\n\nThis means the user's profile image."
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
           },
           "type": {
@@ -44039,7 +44039,7 @@
           },
           "avatar_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "avatar url\n\nThis means the user's profile image."
           }
         },
@@ -44079,7 +44079,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url"
           },
           "description": {
@@ -44776,7 +44776,7 @@
                     },
                     "url": {
                       "type": "string",
-                      "format": "uri"
+                      "format": "iri"
                     },
                     "name": {
                       "type": "string"
@@ -44830,7 +44830,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "updated_at": {
@@ -45028,7 +45028,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\n\nuri to look up details of commitment"
           },
           "author": {
@@ -45081,7 +45081,7 @@
               },
               "url": {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             },
             "required": [
@@ -45150,7 +45150,7 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri"
+            "format": "iri"
           },
           "parents": {
             "type": "array",
@@ -45326,7 +45326,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\n\nuri to look up details of commitment"
           },
           "author": {
@@ -45528,12 +45528,12 @@
           },
           "html_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
           },
           "avatar_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "avatar url\n\nThis means the user's profile image."
           }
         },
@@ -47555,12 +47555,12 @@
             "properties": {
               "booking_url": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "Scheduling link url"
               },
               "owner": {
                 "type": "string",
-                "format": "uri",
+                "format": "iri",
                 "title": "owner\nA link to the resource that owns this Scheduling Link (currently, this is always an Event Type)"
               },
               "owner_type": {
@@ -47584,7 +47584,7 @@
         "properties": {
           "owner": {
             "type": "string",
-            "format": "uri"
+            "format": "iri"
           },
           "secretKey": {
             "type": "string",
@@ -47621,7 +47621,7 @@
         "properties": {
           "uri": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\nCanonical reference (unique identifier) for the event type.\nFor example, 'https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA'"
           },
           "name": {
@@ -48063,7 +48063,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "next_page\nURI to return the next page of an ordered list (\"null\" indicates no additional results are available)"
@@ -48075,7 +48075,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "previous_page\nURI to return the previous page of an ordered list (\"null\" indicates no additional results are available)"
@@ -48087,7 +48087,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "next_page_token\nToken to return the next page of an ordered list (\"null\" indicates no additional results are available)"
@@ -48099,7 +48099,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "previous_page_token\nToken to return the previous page of an ordered list (\"null\" indicates no additional results are available)"
@@ -48122,12 +48122,12 @@
           },
           "organization": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "organization\nView available personal, team, and organization event types associated with the organization's URI.\nuser or organization must be filled."
           },
           "user": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/calendly/users/get-me",
@@ -48137,7 +48137,7 @@
           },
           "user_availability_schedule": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "user_availability_schedule"
           },
           "active": {
@@ -48238,7 +48238,7 @@
           },
           "uri": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\nCanonical reference (unique identifier) for the resource"
           },
           "name": {
@@ -48301,7 +48301,7 @@
           },
           "event_type": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "event_type\nEvent Type URI"
           },
           "location": {
@@ -48373,7 +48373,7 @@
               "properties": {
                 "user": {
                   "type": "string",
-                  "format": "uri",
+                  "format": "iri",
                   "title": "user\nCanonical reference (unique identifier) for the user"
                 },
                 "user_email": {
@@ -48538,12 +48538,12 @@
                 "properties": {
                   "user": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
                   },
                   "group": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "group\nReturn events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
                   }
                 },
@@ -48557,12 +48557,12 @@
                 "properties": {
                   "user": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
                   },
                   "group": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "group\nReturn events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
                   }
                 },
@@ -48576,7 +48576,7 @@
                 "properties": {
                   "user": {
                     "type": "string",
-                    "format": "uri",
+                    "format": "iri",
                     "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
                   }
                 },
@@ -48589,7 +48589,7 @@
           },
           "organization": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "organization\nReturn events that are scheduled with the organization associated with this URI."
           },
           "invitee_email": {
@@ -48666,7 +48666,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "url\nCanonical reference (unique identifier) for the no show"
           },
           "created_at": {
@@ -48700,7 +48700,7 @@
           },
           "uri": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\nCanonical reference (unique identifier) for the invitee"
           },
           "email": {
@@ -48786,7 +48786,7 @@
           },
           "event": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "event\nA reference to the event"
           },
           "created_at": {
@@ -48901,7 +48901,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "old_invitee\nReference to old Invitee instance that got rescheduled"
@@ -48913,19 +48913,19 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "new_invitee\nLink to new invitee after reschedule"
           },
           "cancel_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "cancel_url\nLink to cancelling the event for the invitee"
           },
           "reschedule_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "reschedule_url\nLink to rescheduling the event for the invitee"
           },
           "routing_form_submission": {
@@ -48935,7 +48935,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "routing_form_submission\nReference to a routing form submission that redirected the invitee to a booking page."
@@ -48996,7 +48996,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "invitee_scheduled_by\nReference to user URI who scheduled the event"
@@ -49280,7 +49280,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri"
+              "format": "iri"
             },
             "maxItems": 9,
             "title": "co_hosts\nCollection of meeting co-host(s) user URIs"
@@ -49371,7 +49371,7 @@
         "properties": {
           "uri": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "uri\nCanonical reference (unique identifier) for the user"
           },
           "name": {
@@ -49389,7 +49389,7 @@
           },
           "scheduling_url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "scheduling_url\nThe URL of the user's Calendly landing page (that lists all the user's event types)"
           },
           "timezone": {
@@ -49404,7 +49404,7 @@
               },
               {
                 "type": "string",
-                "format": "uri"
+                "format": "iri"
               }
             ],
             "title": "avatar_url\nThe URL of the user's avatar (image). Can be null."
@@ -49421,7 +49421,7 @@
           },
           "current_organization": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "current_organization\nA unique reference to the user's current organization"
           },
           "resource_type": {

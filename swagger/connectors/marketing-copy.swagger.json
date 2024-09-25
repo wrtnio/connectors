@@ -17,7 +17,7 @@
   "info": {
     "title": "마케팅 카피",
     "description": "마케팅 카피를 생성할 수 있어요",
-    "version": "0.1.231",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -345,7 +345,7 @@
           },
           "url": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "URL address",
             "description": "The URL address of the output."
           },
@@ -356,7 +356,7 @@
           },
           "image": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "title": "Output Image URL",
             "description": "The URL address of the image of the output."
           },
@@ -392,7 +392,7 @@
         "properties": {
           "imageUrl": {
             "type": "string",
-            "format": "uri",
+            "format": "iri",
             "contentMediaType": "image/*",
             "title": "Image URL of the generated marketing copy draft.",
             "description": "Image URL of the generated marketing copy draft."
