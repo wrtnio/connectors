@@ -18,7 +18,7 @@
     "title": "통합 채용정보 검색",
     "summary": "다양한 채용 사이트의 공고를 한 번에 검색해요.",
     "description": "원티드, 인크루트, 사람인, 점핏, 커리어리 등 다양한 채용 사이트의 공고를 검색할 수 있어요. 직무, 지역, 경력 등으로 검색 조건을 설정할 수 있고, 각 사이트별로 제공하는 상세 정보(연봉, 기업 규모, 복지 등)를 비교해볼 수 있어요. 관심 있는 공고를 저장하거나 지원 현황을 관리할 수 있고, 유사한 공고 추천 기능도 활용할 수 있어요. 이를 통해 취업 준비나 이직을 고려 중인 사용자들이 효율적으로 채용 정보를 탐색하고 관리할 수 있어요.",
-    "version": "0.1.233",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,9 +28,7 @@
       "post": {
         "summary": "Wanted job posting search",
         "description": "Search for job postings on Wanted.",
-        "tags": [
-          "Wanted"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -66,9 +64,7 @@
       "post": {
         "summary": "Search Incruit job postings",
         "description": "Search for job postings on Incruit.",
-        "tags": [
-          "Incruit"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -104,9 +100,7 @@
       "post": {
         "summary": "Search for Saramin job postings",
         "description": "Search for job postings in Saramin.",
-        "tags": [
-          "Saramin"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Search criteria",
@@ -142,9 +136,7 @@
       "post": {
         "summary": "Jumpfit job posting search",
         "description": "Search for job postings on Jumpfit.",
-        "tags": [
-          "Jumpit"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -180,9 +172,7 @@
       "post": {
         "summary": "Careerly Search",
         "description": "Search for posts in Careerly.",
-        "tags": [
-          "Careerly"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Search conditions",
@@ -290,22 +280,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Wanted"
-    },
-    {
-      "name": "Incruit"
-    },
-    {
-      "name": "Saramin"
-    },
-    {
-      "name": "Jumpit"
-    },
-    {
-      "name": "Careerly"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

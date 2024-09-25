@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.233",
+    "version": "0.1.232",
     "description": "wrtn-ecosystem connector server apis",
     "license": {
       "name": "AGPL-3.0-only"
@@ -27,9 +27,7 @@
       "post": {
         "summary": "Google Map restaurant search",
         "description": "Search for restaurants using Google Maps.",
-        "tags": [
-          "Google Map"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Search term to search for restaurants",
@@ -65,9 +63,7 @@
       "post": {
         "summary": "Search Google Map restaurant reviews",
         "description": "Search for restaurant reviews selected from Google Maps.",
-        "tags": [
-          "Google Map"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Unique id of the restaurant",
@@ -290,10 +286,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google Map"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

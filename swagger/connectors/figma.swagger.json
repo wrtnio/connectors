@@ -18,7 +18,7 @@
     "title": "피그마 디자인 협업 플랫폼",
     "summary": "피그마 파일을 쉽게 관리하고 협업할 수 있어요.",
     "description": "피그마 파일에 접근하고, 댓글을 가져오거나 추가할 수 있어요. 디자인 작업과 팀 협업을 효율적으로 진행할 수 있어요. 프로젝트의 진행 상황을 확인하고, 팀원들의 피드백을 실시간으로 주고받을 수 있어요. 디자인 에셋을 관리하고, 버전 히스토리를 추적할 수 있어요. UI/UX 디자인, 프로토타이핑, 그래픽 디자인 등 다양한 디자인 작업을 수행하고 관리할 수 있어요.",
-    "version": "0.1.233",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,9 +28,7 @@
       "post": {
         "summary": "Import Figma files",
         "description": "Import Figma files",
-        "tags": [
-          "Figma"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditional values for importing files",
@@ -62,9 +60,7 @@
       "post": {
         "summary": "Write a comment within the canvas",
         "description": "Write a comment",
-        "tags": [
-          "Figma"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Condition value for writing a comment",
@@ -96,9 +92,7 @@
       "post": {
         "summary": "Get Figma comments",
         "description": "Get Figma comments",
-        "tags": [
-          "Figma"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Condition value to get comments",
@@ -130,9 +124,7 @@
       "post": {
         "summary": "Search for canvases within a team",
         "description": "Get all canvases of a specific project\n\nCanvases are Figma files managed by a specific team.\n\nThis connector allows users to see which canvases are managed within their Figma team, along with their canvas names and thumbnail links.",
-        "tags": [
-          "Figma"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -179,9 +171,7 @@
       "post": {
         "summary": "Retrieve team-level Figma statistics",
         "description": "Retrieve team-level statistics",
-        "tags": [
-          "Figma"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Conditions for retrieving team-level statistics",
@@ -209,16 +199,15 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/figma/get-projects": {
       "post": {
         "summary": "Search for projects within a team",
         "description": "Search for projects within a team\n\nAs an argument, it should receive teamId, which is the team ID, and can be found by looking at the URL path of figma.\nWhen accessing the link `https://www.figma.com/files/team`, a number is automatically added after the `team` keyword, which is the team ID.\nA user can belong to multiple teams, so if you do not want to automate the search for these projects, you need to get a different team ID.",
-        "tags": [
-          "Figma"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Project search conditions",
@@ -243,7 +232,8 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
+        "x-wrtn-standalone": true
       }
     }
   },
@@ -1242,10 +1232,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Figma"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

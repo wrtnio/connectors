@@ -18,7 +18,7 @@
     "title": "CSV 파일 데이터 처리기",
     "summary": "CSV 파일을 쉽게 다룰 수 있어요.",
     "description": "CSV 파일의 내용을 읽고, 새로운 CSV 파일을 만들 수 있어요. 또한 CSV 파일을 Excel 파일로 변환할 수도 있어요. 데이터 분석, 정보 정리, 대량의 데이터 처리 등 다양한 작업에 활용할 수 있어요.",
-    "version": "0.1.233",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,9 +28,7 @@
       "post": {
         "summary": "Read CSV file",
         "description": "Read CSV file contents",
-        "tags": [
-          "CSV"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Information for reading CSV file",
@@ -62,9 +60,7 @@
       "post": {
         "summary": "Create a CSV file",
         "description": "Create a CSV file",
-        "tags": [
-          "CSV"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Information to create a CSV file",
@@ -89,16 +85,15 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/csv/csv-to-excel": {
       "post": {
         "summary": "Convert CSV file to Excel file",
         "description": "Convert CSV file to Excel file.",
-        "tags": [
-          "CSV"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Information to convert CSV file to Excel file",
@@ -265,10 +260,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "CSV"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

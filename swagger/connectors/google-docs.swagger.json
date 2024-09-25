@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.233",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -28,9 +28,7 @@
       "post": {
         "summary": "Generate Google Docs",
         "description": "Generate Google Docs",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Title of Google Docs to generate",
@@ -63,9 +61,7 @@
       "post": {
         "summary": "Grant permission to Google Docs",
         "description": "Grant permission to Google Docs",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Information for granting permission to Google Docs",
@@ -93,9 +89,7 @@
       "post": {
         "summary": "Read Google Docs",
         "description": "Read the contents of Google Docs",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -141,9 +135,7 @@
       "post": {
         "summary": "Copy Google Docs",
         "description": "Create new Google Docs by copying existing Google Docs",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "Links to Google Docs to copy and titles of Google Docs to create",
@@ -175,9 +167,7 @@
       "delete": {
         "summary": "Delete Google Docs",
         "description": "Delete Google Docs.",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [
           {
             "name": "id",
@@ -219,9 +209,7 @@
       "post": {
         "summary": "Get a list of Google Docs",
         "description": "Get a list of Google Docs",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -253,9 +241,7 @@
       "post": {
         "summary": "Add text to Google Docs",
         "description": "Add text to Google Docs",
-        "tags": [
-          "Google Docs"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -625,10 +611,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Google Docs"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

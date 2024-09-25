@@ -17,7 +17,7 @@
   "info": {
     "title": "Zoom",
     "description": "",
-    "version": "0.1.233",
+    "version": "0.1.232",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,9 +27,7 @@
       "post": {
         "summary": "Create a zoom meeting.",
         "description": "Create a zoom meeting.",
-        "tags": [
-          "Zoom"
-        ],
+        "tags": [],
         "parameters": [],
         "requestBody": {
           "description": "DTO of the user information and conditions for creating a meeting.",
@@ -1074,10 +1072,6 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Zoom"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }
