@@ -81,7 +81,8 @@
     "typescript-transform-paths": "^3.4.6",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "write-file-webpack-plugin": "^4.5.1"
+    "write-file-webpack-plugin": "^4.5.1",
+    "@marp-team/marp-cli": "0.0.12"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.504.0",
