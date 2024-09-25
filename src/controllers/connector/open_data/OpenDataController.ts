@@ -14,6 +14,7 @@ import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/con
 import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/open-data")
 export class OpenDataController {
@@ -29,6 +30,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @TypedRoute.Post("getAddress")
   async getAddress(
     @TypedBody() input: IMSIT.IGetAddressInput,
@@ -55,6 +57,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @TypedRoute.Post("getRTMSDataSvcSHRent")
   async getRTMSDataSvcSHRent(
     @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
@@ -81,6 +84,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @TypedRoute.Post("getRTMSDataSvcOffiRent")
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
@@ -107,6 +111,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @TypedRoute.Post("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
@@ -134,6 +139,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @TypedRoute.Post("getLHLeaseInfo")
   async getLHLeaseInfo(
@@ -160,6 +166,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @TypedRoute.Post("getParkingLot")
   async getParkingLot(
@@ -187,6 +194,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @TypedRoute.Post("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
@@ -225,6 +233,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @TypedRoute.Post("getStandardRegionCodeList")
   async getStandardRegionCodeList(
@@ -251,6 +260,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @TypedRoute.Post("getStockPriceInfo")
   async getStockPriceInfo(
@@ -310,6 +320,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @TypedRoute.Post("getShortTermForecast")
   async getShortTermForecast(
@@ -337,6 +348,7 @@ export class OpenDataController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
+  @ApiTags("Open Data")
   @Standalone()
   @core.TypedRoute.Post("getCopyRight")
   async getCopyRight(

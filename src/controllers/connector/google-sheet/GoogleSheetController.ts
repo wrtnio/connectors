@@ -6,6 +6,7 @@ import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/googl
 
 import { GoogleSheetProvider } from "../../../providers/connector/google_sheet/GoogleSheetProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-sheet")
 export class GoogleSheetController {
@@ -23,6 +24,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
@@ -42,6 +44,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("append")
   async appendGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.IAppendToSheetInput,
@@ -64,6 +67,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("create")
   async createGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.ICreateGoogleSheetInput,
@@ -82,6 +86,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/permission")
   async permission(
     @core.TypedBody() input: IGoogleSheet.IPermissionInput,
@@ -100,6 +105,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/header")
   async writeHeaders(
     @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
@@ -118,6 +124,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
@@ -138,6 +145,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/get-rows")
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,

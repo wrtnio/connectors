@@ -7,6 +7,7 @@ import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_t
 
 import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/KakaoTalkProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/kakao-talk")
 export class KakaoTalkController {
@@ -22,6 +23,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("message/text")
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
@@ -44,6 +46,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/commerce")
   async commerceMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput,
@@ -66,6 +69,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/location")
   async locationMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput,
@@ -88,6 +92,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/list")
   async listMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput,
@@ -110,6 +115,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/feed")
   async feedMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput,
@@ -132,6 +138,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/text")
   async textMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput,
@@ -153,6 +160,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("calendars/events")
   async createEvent(
     @TypedBody() input: IKakaoTalk.ICreateEventInput,
@@ -173,6 +181,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("get-friends")
   async getFriends(
     @TypedBody() input: IKakaoTalk.IGetFriendsInput,
@@ -200,6 +209,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("get-events")
   async getEvents(
     @TypedBody() input: IKakaoTalk.IGetEventInput,
@@ -224,6 +234,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
@@ -255,6 +266,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("refresh")
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,

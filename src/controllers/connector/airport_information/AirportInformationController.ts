@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { retry } from "../../../utils/retry";
 import { IAirportInformation } from "@wrtn/connector-api/lib/structures/connector/airport_information/IAirportInformation";
 import { AirportInformationProvider } from "../../../providers/connector/airport_information/AirportInformationProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/airport-information")
 export class AirportInformationController {
@@ -25,6 +26,7 @@ export class AirportInformationController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
   )
+  @ApiTags("Search Airport Information")
   async search(
     @core.TypedBody() input: IAirportInformation.IRequest,
   ): Promise<IAirportInformation.IResponse[]> {

@@ -6,6 +6,7 @@ import { IFigma } from "@wrtn/connector-api/lib/structures/connector/figma/IFigm
 
 import { FigmaProvider } from "../../../providers/connector/figma/FigmaProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/figma")
 export class FigmaController {
@@ -21,6 +22,7 @@ export class FigmaController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @ApiTags("Figma")
   @core.TypedRoute.Post("get-files")
   async readFiles(
     @core.TypedBody() input: IFigma.IReadFileInput,
@@ -38,6 +40,7 @@ export class FigmaController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @ApiTags("Figma")
   @core.TypedRoute.Post("comments")
   async addComment(
     @core.TypedBody() input: IFigma.IAddCommentInput,
@@ -55,6 +58,7 @@ export class FigmaController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @ApiTags("Figma")
   @core.TypedRoute.Post("get-comments")
   async readComments(
     @core.TypedBody() input: IFigma.IReadCommentInput,
@@ -77,6 +81,7 @@ export class FigmaController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @ApiTags("Figma")
   @core.TypedRoute.Post("projects/:id/get-canvas")
   async getProjectCanvas(
     @Prerequisite({
@@ -98,10 +103,10 @@ export class FigmaController {
    * @param input Conditions for retrieving team-level statistics
    * @returns Results of team-level statistics retrieval
    */
-  @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @ApiTags("Figma")
   @core.TypedRoute.Post("get-statistics")
   async getStatistics(
     @TypedBody()
@@ -123,10 +128,10 @@ export class FigmaController {
    *
    * @returns Project list
    */
-  @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @ApiTags("Figma")
   @core.TypedRoute.Post("get-projects")
   async getProjects(
     @core.TypedBody() input: IFigma.IGetProjectInput,

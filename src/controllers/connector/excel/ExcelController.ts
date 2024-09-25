@@ -6,6 +6,7 @@ import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExce
 
 import { ExcelProvider } from "../../../providers/connector/excel/ExcelProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/excel")
 export class ExcelController {
@@ -19,6 +20,7 @@ export class ExcelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
+  @ApiTags("Excel")
   async readHeaders(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<string[]> {
@@ -35,6 +37,7 @@ export class ExcelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
+  @ApiTags("Excel")
   async read(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
@@ -54,6 +57,7 @@ export class ExcelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
+  @ApiTags("Excel")
   async worksheetList(
     @core.TypedBody() input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
@@ -81,6 +85,7 @@ export class ExcelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
+  @ApiTags("Excel")
   async insertRowsByUpload(
     @core.TypedBody() input: IExcel.IInsertExcelRowByUploadInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
@@ -110,6 +115,7 @@ export class ExcelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
+  @ApiTags("Excel")
   async insertRows(
     @core.TypedBody() input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
@@ -130,6 +136,7 @@ export class ExcelController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
+  @ApiTags("Excel")
   async createSheets(
     @core.TypedBody() input: IExcel.ICreateSheetInput,
   ): Promise<IExcel.IExportExcelFileOutput> {

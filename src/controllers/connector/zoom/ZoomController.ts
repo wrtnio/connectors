@@ -6,6 +6,7 @@ import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
 import { retry } from "../../../utils/retry";
 import { ZoomProvider } from "../../../providers/connector/zoom/ZoomProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/zoom")
 export class ZoomController {
@@ -21,6 +22,7 @@ export class ZoomController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Zoom_full.svg",
   )
+  @ApiTags("Zoom")
   @core.TypedRoute.Post("meetings")
   async createMeeting(
     @core.TypedBody() input: IZoom.ICreateMeetingInput,

@@ -3,7 +3,8 @@ import { Controller } from "@nestjs/common";
 import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
 import { Prerequisite } from "@wrtnio/decorators";
 import typia from "typia";
-import { CalendlyProvider } from "../../providers/connector/calendly/CalendlyProvider";
+import { CalendlyProvider } from "../../../providers/connector/calendly/CalendlyProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/calendly")
 export class CalendlyController {
@@ -16,6 +17,7 @@ export class CalendlyController {
    * @returns The created scheduling link details.
    */
   @core.TypedRoute.Post("scheduling_links")
+  @ApiTags("Calendly")
   async createSchedulingLink(
     @TypedBody() input: ICalendly.CreateSchedulingLinkInput,
   ): Promise<ICalendly.CreateSchedulingLinkOutput> {
@@ -34,6 +36,7 @@ export class CalendlyController {
    * @returns The list of event types.
    */
   @core.TypedRoute.Post("get-event-types")
+  @ApiTags("Calendly")
   async getEventTypes(
     @TypedBody() input: ICalendly.IGetEventTypeInput,
   ): Promise<ICalendly.IGetEventTypeOutput> {
@@ -54,6 +57,7 @@ export class CalendlyController {
    * @returns The cancel link for the invitee.
    */
   @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/get-cancel-link")
+  @ApiTags("Calendly")
   async cancel(
     @Prerequisite({
       neighbor: () => CalendlyController.prototype.getScheduledEvents,
@@ -90,6 +94,7 @@ export class CalendlyController {
    * @returns The detailed information of the scheduled event.
    */
   @core.TypedRoute.Post("get-events/:eventId")
+  @ApiTags("Calendly")
   async getOneScheduledEvent(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
@@ -112,6 +117,7 @@ export class CalendlyController {
    * @returns The list of scheduled events.
    */
   @core.TypedRoute.Post("get-scheduled-events")
+  @ApiTags("Calendly")
   async getScheduledEvents(
     @TypedBody() input: ICalendly.IGetScheduledEventInput,
   ): Promise<ICalendly.IGetScheduledEventOutput> {
@@ -132,6 +138,7 @@ export class CalendlyController {
    * @returns The result of the no-show marking.
    */
   @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/no-show")
+  @ApiTags("Calendly")
   async checkNoShow(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
@@ -158,6 +165,7 @@ export class CalendlyController {
    * @returns The details of the invitee.
    */
   @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId")
+  @ApiTags("Calendly")
   async getOneInvite(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
@@ -183,6 +191,7 @@ export class CalendlyController {
    * @returns The list of invitees for the event.
    */
   @core.TypedRoute.Post("events/get-invitees")
+  @ApiTags("Calendly")
   async getInvitees(
     @TypedBody() input: ICalendly.IGetScheduledEventInviteeInput,
   ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
@@ -201,6 +210,7 @@ export class CalendlyController {
    * @returns The created one-off event type details.
    */
   @core.TypedRoute.Post("one-off-event-types")
+  @ApiTags("Calendly")
   async createOneOffEventType(
     @TypedBody() input: ICalendly.ICreateOneOffEventTypeInput,
   ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
@@ -219,6 +229,7 @@ export class CalendlyController {
    * @returns The authenticated user's details.
    */
   @core.TypedRoute.Post("users/get-me")
+  @ApiTags("Calendly")
   async getUserInfo(
     @TypedBody() input: ICalendly.IGetUserInfoInput,
   ): Promise<ICalendly.IGetUserInfoOutput> {

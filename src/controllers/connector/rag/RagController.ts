@@ -5,6 +5,7 @@ import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 import { RouteIcon } from "@wrtnio/decorators";
 import { RagProvider } from "../../../providers/connector/rag/RagProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("/connector/rag")
 export class RagController {
@@ -22,6 +23,7 @@ export class RagController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
+  @ApiTags("RAG")
   @core.TypedRoute.Post("/analyze")
   async analyze(
     @core.TypedBody() input: IRag.IAnalyzeInput,
@@ -38,6 +40,7 @@ export class RagController {
    *
    * @internal
    */
+  @ApiTags("RAG")
   @core.TypedRoute.Get("/:jobId/status")
   async getStatus(
     @core.TypedParam("jobId") jobId: string,
@@ -57,6 +60,7 @@ export class RagController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
+  @ApiTags("RAG")
   @core.TypedRoute.Post("/generate/:chatId")
   public async generate(
     @core.TypedBody() input: IRag.IGenerateInput,
