@@ -6,6 +6,7 @@ import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 import { XProvider } from "../../../providers/connector/x/XProvider";
 import { retry } from "../../../utils/retry";
 import { RouteIcon } from "@wrtnio/decorators";
+import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 @Controller("connector/x")
 export class XController {
@@ -29,6 +30,42 @@ export class XController {
   }
 
   /**
+   * Get User Followers
+   *
+   * @summary Get User Followers
+   *
+   * @param input userId
+   * @returns followers information
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/get-user-followers")
+  async getUserFollowers(
+    @core.TypedBody() input: IX.IGetUserFollowersRequest,
+  ): Promise<IX.IGetUserFollowersResponse[]> {
+    return retry(() => this.XProvider.getUserFollowers(input))();
+  }
+
+  /**
+   * Get Tweet
+   *
+   * @summary Get Tweet
+   *
+   * @param input tweetId
+   * @returns tweet information
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/get-tweet")
+  async getTweet(
+    @core.TypedBody() input: IX.IGetTweetRequest,
+  ): Promise<IX.ITweetResponse> {
+    return retry(() => this.XProvider.getTweet(input))();
+  }
+
+  /**
    * Get user timeline tweets
    *
    * @summary Get User Post timeline
@@ -42,7 +79,45 @@ export class XController {
   @core.TypedRoute.Post("/get-user-timeline-tweets")
   async getUserTimelineTweets(
     @core.TypedBody() input: IX.IUserTweetTimeLineRequest,
-  ): Promise<IX.IUserTweetTimeLineResponse[]> {
+  ): Promise<IX.ITweetResponse[]> {
     return retry(() => this.XProvider.getUserTimelineTweets(input))();
+  }
+
+  /**
+   * Make txt file for tweet and upload to S3
+   *
+   * @summary Make tweet file and upload
+   * @param userName
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/make-txt-file-and-upload/:userName")
+  async makeTxtFileForTweetAndUploadToS3(
+    @core.TypedParam("userName") userName: string,
+    @core.TypedBody() input: IX.ITweetResponse[],
+  ): Promise<IX.IMakeTxtFileAndUploadResponse> {
+    return retry(() =>
+      this.XProvider.makeTxtFileForTweetAndUploadToS3(userName, input),
+    )();
+  }
+
+  /**
+   * Tweet Summarize for txt file
+   *
+   * @summary Summarize tweet
+   * @param fileUrl
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/summarize-tweet")
+  async summarizeTweet(
+    @core.TypedBody() input: IX.ISummarizeTweetRequest,
+  ): Promise<IRag.IGenerateOutput> {
+    return retry(() => this.XProvider.summarizeTweet(input))();
   }
 }

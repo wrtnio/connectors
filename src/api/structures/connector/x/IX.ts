@@ -1,5 +1,6 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { ICommon } from "../common/ISecretValue";
+import { tags } from "typia";
 
 export namespace IX {
   export type ISecret = ICommon.ISecret<
@@ -50,43 +51,57 @@ export namespace IX {
    */
   export interface IUserTweetTimeLineRequest extends ISecret {
     /**
-     * The unique id of the user for search user tweet time line
+     * User information for search user tweet time line
      *
-     * @title user id
+     * @title user
      */
-    userId: string &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/x/get-user";
-        jmesPath: JMESPath<IUserResponse, "data.{value:id, label:userName}">;
-      }>;
+    user: {
+      /**
+       * The unique id of the user for search user tweet time line
+       *
+       * @title user id
+       */
+      userId: string &
+        Prerequisite<{
+          method: "post";
+          path: "/connector/x/get-user";
+          jmesPath: JMESPath<IUserResponse, "data.{value:id, label:userName}">;
+        }>;
 
-    /**
-     * The user name of the user for search user tweet time line
-     *
-     * @title user name
-     */
-    userName: string &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/x/get-user";
-        jmesPath: JMESPath<
-          IUserResponse,
-          "data.{value:userName, label:userName}"
-        >;
-      }>;
+      /**
+       * The user name of the user for search user tweet time line
+       *
+       * @title user name
+       */
+      userName: string &
+        Prerequisite<{
+          method: "post";
+          path: "/connector/x/get-user";
+          jmesPath: JMESPath<
+            IUserResponse,
+            "data.{value:userName, label:userName}"
+          >;
+        }>;
+    }[];
   }
 
   /**
    * @title User Tweet Time Line data
    */
-  export interface IUserTweetTimeLineResponse {
+  export interface ITweetResponse {
     /**
      * The unique id of the tweet
      *
      * @title tweet ID
      */
     id: string;
+
+    /**
+     * The user name of the tweet
+     *
+     * @title user name
+     */
+    userName: string;
 
     /**
      * The content text of the tweet
@@ -101,5 +116,43 @@ export namespace IX {
      * @title tweet link
      */
     tweet_link: string;
+  }
+
+  export interface IGetUserFollowersRequest extends ISecret {
+    userId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/x/get-user";
+        jmesPath: JMESPath<IUserResponse, "data.{value:id, label:userName}">;
+      }>;
+  }
+
+  export interface IGetUserFollowersResponse extends IUserResponse {}
+
+  export interface IGetTweetRequest extends ISecret {
+    tweetId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/x/get-user-timeline-tweets";
+        jmesPath: JMESPath<ITweetResponse, "data[].{value:id, label:text}">;
+      }>;
+  }
+
+  export interface IMakeTxtFileAndUploadResponse {
+    fileUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">;
+  }
+
+  export interface ISummarizeTweetRequest {
+    fileUrl: string &
+      tags.Format<"uri"> &
+      tags.ContentMediaType<"text/plain"> &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/x/make-txt-file-and-upload/:userName";
+        jmesPath: JMESPath<
+          IMakeTxtFileAndUploadResponse,
+          "data.{value:fileUrl, label:fileUrl}"
+        >;
+      }>;
   }
 }
