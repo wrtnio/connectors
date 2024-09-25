@@ -84,6 +84,7 @@ export class AwsProvider {
     const bucket = match[1];
     const key = match[3];
 
+    console.log(fileUrl, bucket, key);
     return await getSignedUrl(
       this.s3,
       new GetObjectCommand({ Bucket: bucket, Key: key }),

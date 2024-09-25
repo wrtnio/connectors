@@ -109,11 +109,13 @@ export class GoogleSlidesProvider {
   async transformUrl(
     input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.AppendSlideInput> {
-    let stringified = JSON.stringify(input);
-
     // if there are s3 buckets urls, get presigned url
-    const matches = JSON.stringify(input).match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
+    const matches = Array.from(
+      new Set(
+        JSON.stringify(input).match(
+          /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
+        ),
+      ),
     );
 
     if (!matches) {
@@ -124,8 +126,9 @@ export class GoogleSlidesProvider {
       matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
     );
 
+    let stringified = JSON.stringify(input);
     matches.forEach((match, index) => {
-      stringified = stringified.replace(match, transformed[index]);
+      stringified = stringified.replaceAll(match, transformed[index]);
     });
 
     return typia.assert<IGoogleSlides.AppendSlideInput>(
@@ -157,7 +160,7 @@ export class GoogleSlidesProvider {
         title: presentation.title,
       };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.error(JSON.stringify((err as any).response.data));
       throw err;
     }
   }
