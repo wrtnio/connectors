@@ -25,7 +25,7 @@ export class MarpProvider {
       await new Promise<void>((resolve, reject) => {
         exec(`npx @marp-team/marp-cli ${markdownFilePath} --pptx -o ${pptFilePath}`, (error, stdout, stderr) => {
           if (error) {
-            reject(`exec error: ${error}`);
+            reject(new Error(`exec error: ${error.message}`));
             return;
           }
           console.log(stdout);
@@ -39,7 +39,7 @@ export class MarpProvider {
       // Placeholder return
       return { s3Link: "https://example.com/path/to/converted.ppt" };
     } catch (error) {
-      throw new Error(`Failed to convert Marp markdown to PPT: ${error.message}`);
+      throw new Error(`Failed to convert Marp markdown to PPT: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       // 임시 파일 삭제
       await fs.unlink(markdownFilePath).catch(() => {});
