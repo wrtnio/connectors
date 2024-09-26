@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@wrtn/connector",
-  "version": "0.1.239",
+  "version": "0.1.240",
   "description": "wrtn-ecosystem connectors and sdk",
   "main": "lib/index.js",
   "scripts": {
@@ -51,7 +51,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@figma/rest-api-spec": "^0.14.0",
     "@nestia/e2e": "^0.7.0",
-    "@nestia/sdk": "^3.14.0",
+    "@nestia/sdk": "^3.15.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/atob": "^2.1.4",
     "@types/cli": "^0.11.21",
@@ -101,7 +101,7 @@
     "@samchon/openapi": "^1.0.2",
     "@tryfabric/martian": "^1.2.4",
     "@wrtnio/decorators": "^1.4.12",
-    "@wrtnio/schema": "^1.0.3",
+    "@wrtnio/schema": "^1.1.0",
     "atob": "^2.1.2",
     "aws-sdk": "^2.1546.0",
     "axios": "^1.6.8",
