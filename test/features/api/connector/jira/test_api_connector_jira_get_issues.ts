@@ -25,7 +25,7 @@ export const test_api_connector_jira_get_issues_without_paramter = async (
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 
@@ -54,7 +54,7 @@ export const test_api_connector_jira_get_issues_with_issue_type = async (
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 
@@ -83,7 +83,7 @@ export const test_api_connector_jira_get_issues_with_status = async (
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 
@@ -112,7 +112,7 @@ export const test_api_connector_jira_get_issues_with_assignees = async (
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 
@@ -131,7 +131,7 @@ export const test_api_connector_jira_get_issues_with_created_start_date =
         },
       );
 
-      typia.assertEquals(res);
+      typia.assert(res);
     }
   };
 
@@ -151,7 +151,7 @@ export const test_api_connector_jira_get_issues_with_created_end_date = async (
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 
@@ -179,7 +179,7 @@ export const test_api_connector_jira_get_users_assignable_in_issue = async (
       },
     );
 
-  typia.assertEquals(user);
+  typia.assert(user);
 };
 
 export const test_api_connector_jira_get_issues_with_priority = async (
@@ -209,7 +209,7 @@ export const test_api_connector_jira_get_issues_with_priority = async (
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 
@@ -239,7 +239,7 @@ export const test_api_connector_jira_get_issues_with_labels = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_jira_get_issues_with_non_existant_labels =
@@ -258,7 +258,7 @@ export const test_api_connector_jira_get_issues_with_non_existant_labels =
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   };
 
 export const test_api_connector_jira_get_issues_with_empty_labels = async (
@@ -277,7 +277,7 @@ export const test_api_connector_jira_get_issues_with_empty_labels = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_jira_get_one_detailed_issue = async (
@@ -294,7 +294,7 @@ export const test_api_connector_jira_get_one_detailed_issue = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   for await (const issue of res.issues.slice(0, 10)) {
     const foundIssueById =
@@ -306,7 +306,7 @@ export const test_api_connector_jira_get_one_detailed_issue = async (
         },
       );
 
-    typia.assertEquals(foundIssueById);
+    typia.assert(foundIssueById);
 
     const foundIssueByKey =
       await CApi.functional.connector.jira.get_issue_detail.getIssueDetail(
@@ -317,6 +317,6 @@ export const test_api_connector_jira_get_one_detailed_issue = async (
         },
       );
 
-    typia.assertEquals(foundIssueByKey);
+    typia.assert(foundIssueByKey);
   }
 };

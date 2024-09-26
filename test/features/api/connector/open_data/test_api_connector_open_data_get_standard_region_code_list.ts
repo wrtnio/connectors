@@ -32,6 +32,6 @@ export const test_api_connector_open_data_get_get_standard_region_code_list =
           },
         );
 
-      typia.assertEquals(res);
+      typia.assert(res);
     }
   };

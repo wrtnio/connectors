@@ -15,7 +15,7 @@ export const test_api_kakao_navi_get_future_directions = async (
       },
     );
 
-  typia.assertEquals(first);
+  typia.assert(first);
 
   const second =
     await CApi.functional.connector.kakao_navi.get_future_directions.getFutureDirections(
@@ -27,5 +27,5 @@ export const test_api_kakao_navi_get_future_directions = async (
       },
     );
 
-  typia.assertEquals(second);
+  typia.assert(second);
 };

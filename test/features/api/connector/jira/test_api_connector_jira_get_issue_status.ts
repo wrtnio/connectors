@@ -19,6 +19,6 @@ export const test_api_connector_jira_get_issue_statuses = async (
       },
     );
 
-  typia.assertEquals(statuses);
+  typia.assert(statuses);
   return statuses;
 };

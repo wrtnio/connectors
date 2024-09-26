@@ -6,7 +6,7 @@ export const test_api_connector_calendly_users_get_me = async (
   connection: CApi.IConnection,
 ) => {
   await ConnectorGlobal.reload();
-  await new Promise((res) => setTimeout(res, 2000));
+  await new Promise((res) => setTimeout(res, 10000));
   const res = await CApi.functional.connector.calendly.users.get_me.getUserInfo(
     connection,
     {

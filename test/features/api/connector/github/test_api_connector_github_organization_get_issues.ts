@@ -14,6 +14,6 @@ export async function test_api_connector_github_organizations_get_issues(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }

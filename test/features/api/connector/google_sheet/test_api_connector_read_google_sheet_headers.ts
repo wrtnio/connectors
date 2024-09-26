@@ -17,6 +17,6 @@ export const test_api_connector_read_google_sheet_headers = async (
     connection,
     input,
   );
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

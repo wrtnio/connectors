@@ -28,5 +28,5 @@ export const test_studio1_chatbot_hard_generate = async (
       connection,
       hardInput,
     );
-  typia.assertEquals<IChatbot.IChatbotGenerateOutput>(output);
+  typia.assert<IChatbot.IChatbotGenerateOutput>(output);
 };

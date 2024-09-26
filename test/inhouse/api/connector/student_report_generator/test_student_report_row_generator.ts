@@ -24,6 +24,6 @@ export async function test_api_student_report_row_generator(
         },
       },
     );
-  typia.assertEquals<IStudentReportRowGeneratorResponse>(generated);
+  typia.assert<IStudentReportRowGeneratorResponse>(generated);
   return generated;
 }

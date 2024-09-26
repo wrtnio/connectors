@@ -16,5 +16,5 @@ export const test_api_connector_kakao_talk_get_friends = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };

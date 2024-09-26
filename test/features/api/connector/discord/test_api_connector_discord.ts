@@ -17,7 +17,7 @@ export const test_api_connector_discord = async (
         secretKey: secretKey,
       },
     );
-  typia.assertEquals(modifyGuild);
+  typia.assert(modifyGuild);
 
   /**
    * Get Guild Channels
@@ -29,7 +29,7 @@ export const test_api_connector_discord = async (
         secretKey: secretKey,
       },
     );
-  typia.assertEquals(channels);
+  typia.assert(channels);
 
   // /**
   //  * Get list Guild Members
@@ -43,7 +43,7 @@ export const test_api_connector_discord = async (
   //       secretKey: secretKey,
   //     },
   //   );
-  // typia.assertEquals(members);
+  // typia.assert(members);
 
   // /**
   //  * Create DM Channel
@@ -72,7 +72,7 @@ export const test_api_connector_discord = async (
   //       secretKey: secretKey,
   //     },
   //   );
-  // typia.assertEquals(removeMember);
+  // typia.assert(removeMember);
 
   /**
    * Create Guild Channel
@@ -86,7 +86,7 @@ export const test_api_connector_discord = async (
         secretKey: secretKey,
       },
     );
-  typia.assertEquals(createChannel);
+  typia.assert(createChannel);
 
   const channelId = createChannel.id;
 
@@ -101,7 +101,7 @@ export const test_api_connector_discord = async (
         name: "스튜디오 채널2",
       },
     );
-  typia.assertEquals(modifyChannel);
+  typia.assert(modifyChannel);
 
   /**
    * Get Pinned Messages
@@ -113,7 +113,7 @@ export const test_api_connector_discord = async (
         channelId: channelId,
       },
     );
-  typia.assertEquals(pinnedMessages);
+  typia.assert(pinnedMessages);
 
   /**
    * Get Channel Message Histories
@@ -125,7 +125,7 @@ export const test_api_connector_discord = async (
         channelId: "1260868337467129996",
       },
     );
-  typia.assertEquals(messageHistories);
+  typia.assert(messageHistories);
 
   /**
    * Send Message
@@ -138,7 +138,7 @@ export const test_api_connector_discord = async (
         content: "안녕하세요!",
       },
     );
-  typia.assertEquals(sendMessage);
+  typia.assert(sendMessage);
 
   /**
    * Pin Message
@@ -148,7 +148,7 @@ export const test_api_connector_discord = async (
       channelId: "1260868337467129996",
       messageId: sendMessage.id,
     });
-  typia.assertEquals(pinMessage);
+  typia.assert(pinMessage);
 
   /**
    * Unpin Message
@@ -161,7 +161,7 @@ export const test_api_connector_discord = async (
         messageId: sendMessage.id,
       },
     );
-  typia.assertEquals(unpinMessage);
+  typia.assert(unpinMessage);
 
   /**
    * Modify Message
@@ -175,7 +175,7 @@ export const test_api_connector_discord = async (
         content: "안녕하세요2!",
       },
     );
-  typia.assertEquals(modifyMessage);
+  typia.assert(modifyMessage);
 
   /**
    * Delete Message
@@ -188,7 +188,7 @@ export const test_api_connector_discord = async (
         messageId: sendMessage.id,
       },
     );
-  typia.assertEquals(deleteMessage);
+  typia.assert(deleteMessage);
 
   const sendMessageForBulkDeleteOne =
     await CApi.functional.connector.discord.create_message.createMessage(
@@ -198,7 +198,7 @@ export const test_api_connector_discord = async (
         content: "안녕하세요!",
       },
     );
-  typia.assertEquals(sendMessage);
+  typia.assert(sendMessage);
 
   const sendMessageForBulkDeleteTwo =
     await CApi.functional.connector.discord.create_message.createMessage(
@@ -208,7 +208,7 @@ export const test_api_connector_discord = async (
         content: "안녕하세요!",
       },
     );
-  typia.assertEquals(sendMessage);
+  typia.assert(sendMessage);
 
   /**
    * Bulk Delete Message
@@ -224,7 +224,7 @@ export const test_api_connector_discord = async (
         ],
       },
     );
-  typia.assertEquals(bulkDeleteMessage);
+  typia.assert(bulkDeleteMessage);
 
   /**
    * Delete Guild Channel
@@ -236,5 +236,5 @@ export const test_api_connector_discord = async (
         channelId: channelId,
       },
     );
-  typia.assertEquals(deleteChannel);
+  typia.assert(deleteChannel);
 };

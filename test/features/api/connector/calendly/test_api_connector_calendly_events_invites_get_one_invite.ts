@@ -13,7 +13,7 @@ export const test_api_connector_calendly_events_invitees_get_invitees_get_one_in
     const searchText = "https://api.calendly.com/scheduled_events";
     const eventId = invitee.event.replace(searchText, "");
 
-    await new Promise((res) => setTimeout(res, 2000));
+    await new Promise((res) => setTimeout(res, 10000));
     const res =
       await CApi.functional.connector.calendly.events.invitees.getOneInvite(
         connection,

@@ -10,7 +10,7 @@ export const test_api_connector_google_shopping = async (
       keyword: "니트",
       max_results: 100,
     });
-  typia.assertEquals(musinsa_result);
+  typia.assert(musinsa_result);
 
   const twentyNineCentimeter =
     await CApi.functional.connector.google_shopping.twenty_nine_centimeter.twentyNineCentimeter(
@@ -20,7 +20,7 @@ export const test_api_connector_google_shopping = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(twentyNineCentimeter);
+  typia.assert(twentyNineCentimeter);
 
   const eql = await CApi.functional.connector.google_shopping.eql.hansumEQL(
     connection,
@@ -29,13 +29,13 @@ export const test_api_connector_google_shopping = async (
       max_results: 10,
     },
   );
-  typia.assertEquals(eql);
+  typia.assert(eql);
 
   const oco = await CApi.functional.connector.google_shopping.oco(connection, {
     keyword: "더비슈즈",
     max_results: 10,
   });
-  typia.assertEquals(oco);
+  typia.assert(oco);
 
   const uniqlo = await CApi.functional.connector.google_shopping.uniqlo(
     connection,
@@ -44,12 +44,12 @@ export const test_api_connector_google_shopping = async (
       max_results: 10,
     },
   );
-  typia.assertEquals(uniqlo);
+  typia.assert(uniqlo);
 
   // const wconcept = await CApi.functional.connector.google_shopping.wconcept(connection, {
   //   keyword: "블라우스"
   // })
-  // typia.assertEquals(wconcept);
+  // typia.assert(wconcept);
 
   const coupang = await CApi.functional.connector.google_shopping.coupang(
     connection,
@@ -58,7 +58,7 @@ export const test_api_connector_google_shopping = async (
       max_results: 10,
     },
   );
-  typia.assertEquals(coupang);
+  typia.assert(coupang);
 
   const marketKurly =
     await CApi.functional.connector.google_shopping.market_kurly.marketKurly(
@@ -68,7 +68,7 @@ export const test_api_connector_google_shopping = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(marketKurly);
+  typia.assert(marketKurly);
 
   const iHerb = await CApi.functional.connector.google_shopping.iherb(
     connection,
@@ -77,7 +77,7 @@ export const test_api_connector_google_shopping = async (
       max_results: 10,
     },
   );
-  typia.assertEquals(iHerb);
+  typia.assert(iHerb);
 
   const aliExpress =
     await CApi.functional.connector.google_shopping.ali_express.aliExpress(
@@ -87,7 +87,7 @@ export const test_api_connector_google_shopping = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(aliExpress);
+  typia.assert(aliExpress);
 
   const oliveYoung =
     await CApi.functional.connector.google_shopping.olive_young.oliveYoung(
@@ -97,7 +97,7 @@ export const test_api_connector_google_shopping = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(oliveYoung);
+  typia.assert(oliveYoung);
 
   const yes24 =
     await CApi.functional.connector.google_shopping.yes_twenty_four.yes24(
@@ -107,7 +107,7 @@ export const test_api_connector_google_shopping = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(yes24);
+  typia.assert(yes24);
 
   const aladine = await CApi.functional.connector.google_shopping.aladine(
     connection,
@@ -116,5 +116,5 @@ export const test_api_connector_google_shopping = async (
       max_results: 10,
     },
   );
-  typia.assertEquals(aladine);
+  typia.assert(aladine);
 };

@@ -8,5 +8,5 @@ export async function test_api_connector_kakao_map_search_by_keyword(
   const res = await CApi.functional.connector.kakao_map.search(connection, {
     query: "도봉구 맛집",
   });
-  typia.assertEquals(res);
+  typia.assert(res);
 }

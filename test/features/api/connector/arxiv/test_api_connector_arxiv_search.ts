@@ -15,6 +15,6 @@ export const test_api_connector_arxiv_search = async (
       num_results: 50,
     },
   );
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

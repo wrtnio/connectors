@@ -2,10 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { IMarp } from "@wrtn/connector-api/lib/structures/connector/marp/IMarp";
 import { promises as fs } from "fs";
 
-import * as path from "path";
-import { randomUUID } from "crypto";
-import { AwsProvider } from "../aws/AwsProvider";
 import { execSync } from "child_process";
+import { randomUUID } from "crypto";
+import * as path from "path";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class MarpProvider {
@@ -33,7 +33,7 @@ export class MarpProvider {
 
       // Marp CLI를 사용하여 마크다운 파일을 PPT로 변환
       const command = `npx @marp-team/marp-cli ${markdownFilePath} -o ${pptFilePath}`;
-      execSync(command, { stdio: "inherit" });
+      execSync(command, { stdio: "ignore" });
 
       const data = await fs.readFile(pptFilePath);
       const uploaded = await this.awsProvider.uploadObject({

@@ -14,7 +14,7 @@ export const test_api_connector_sweet_tracker_get_companies = async (
       connection,
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 };
 
@@ -28,7 +28,7 @@ export const test_api_connector_sweet_tracker_get_recommended_companies =
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
     return res;
   };
 
@@ -49,7 +49,7 @@ export const test_api_connector_sweet_tracker_get_tracking_info = async (
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 };
 

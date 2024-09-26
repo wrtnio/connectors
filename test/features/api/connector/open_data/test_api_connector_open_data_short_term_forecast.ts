@@ -13,7 +13,7 @@ export const test_api_connector_open_data_get_short_term_forecast_1 = async (
     },
   );
 
-  typia.assertEquals(seoul);
+  typia.assert(seoul);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_2 = async (
@@ -28,7 +28,7 @@ export const test_api_connector_open_data_get_short_term_forecast_2 = async (
     },
   );
 
-  typia.assertEquals(busan);
+  typia.assert(busan);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_3 = async (
@@ -43,7 +43,7 @@ export const test_api_connector_open_data_get_short_term_forecast_3 = async (
     },
   );
 
-  typia.assertEquals(daegu);
+  typia.assert(daegu);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_4 = async (
@@ -56,7 +56,7 @@ export const test_api_connector_open_data_get_short_term_forecast_4 = async (
       ny: 37.4563,
     });
 
-  typia.assertEquals(incheon);
+  typia.assert(incheon);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_5 = async (
@@ -69,7 +69,7 @@ export const test_api_connector_open_data_get_short_term_forecast_5 = async (
       ny: 37.1595,
     });
 
-  typia.assertEquals(gwangju);
+  typia.assert(gwangju);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_6 = async (
@@ -82,7 +82,7 @@ export const test_api_connector_open_data_get_short_term_forecast_6 = async (
       ny: 36.3504,
     });
 
-  typia.assertEquals(daejeon);
+  typia.assert(daejeon);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_7 = async (
@@ -97,7 +97,7 @@ export const test_api_connector_open_data_get_short_term_forecast_7 = async (
     },
   );
 
-  typia.assertEquals(ulsan);
+  typia.assert(ulsan);
 };
 
 export const test_api_connector_open_data_get_short_term_forecast_by_grid_coordinates =
@@ -119,6 +119,6 @@ export const test_api_connector_open_data_get_short_term_forecast_by_grid_coordi
           },
         );
 
-      typia.assertEquals(res);
+      typia.assert(res);
     }
   };

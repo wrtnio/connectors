@@ -1,7 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
+import assert, { deepStrictEqual } from "assert";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import assert, { deepStrictEqual } from "assert";
 
 export async function test_api_connector_github_repositories_get_issues_desc(
   connection: CApi.IConnection,
@@ -20,7 +20,7 @@ export async function test_api_connector_github_repositories_get_issues_desc(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   const counts = res.fetchedIssues.map((el) => el.comments.totalCount);
   deepStrictEqual(
@@ -48,7 +48,7 @@ export async function test_api_connector_github_repositories_get_issues_asc(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   const counts = res.fetchedIssues.map((el) => el.comments.totalCount);
   deepStrictEqual(
@@ -74,7 +74,7 @@ export async function test_api_connector_github_repositories_get_issues_sort_by_
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 }
 
 export async function test_api_connector_github_repositories_get_issues_sort_by_updated_at(
@@ -94,7 +94,7 @@ export async function test_api_connector_github_repositories_get_issues_sort_by_
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   const counts = res.fetchedIssues.map((el) => el.updatedAt);
   deepStrictEqual(

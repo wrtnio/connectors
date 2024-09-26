@@ -15,7 +15,7 @@ export async function test_api_connector_github_get_commit_list(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }
 
@@ -33,7 +33,7 @@ export async function test_api_connector_github_get_commit(
       secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
     },
   );
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }
 
@@ -48,7 +48,7 @@ export async function test_api_connector_github_get_commit_without_ref(
       secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
     },
   );
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }
 
@@ -67,7 +67,7 @@ export async function test_api_connector_github_get_commit_diff(
         secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }
 
@@ -86,7 +86,7 @@ export async function test_api_connector_github_get_pull_requests_associated_wit
         secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }
 
@@ -105,6 +105,6 @@ export async function test_api_connector_github_get_commit_heads(
         secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }

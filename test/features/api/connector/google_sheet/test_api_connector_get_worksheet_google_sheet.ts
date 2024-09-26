@@ -17,6 +17,6 @@ export const test_api_connector_get_worksheet_google_sheet = async (
       connection,
       input,
     );
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

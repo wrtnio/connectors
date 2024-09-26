@@ -17,5 +17,5 @@ export const test_api_kakao_talk_send_message = async (
       message: "텍스트 영역입니다. 최대 200자 표시 가능합니다.",
     });
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };

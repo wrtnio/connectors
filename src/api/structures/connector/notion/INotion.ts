@@ -402,11 +402,6 @@ export namespace INotion {
    * @title Conditions required to create a page
    */
   export interface ICreatePageInput extends ICommon.ISecret<"notion"> {
-    /**
-     * Parent page of the newly created page
-     *
-     * @title Parent page
-     */
     parentPageId: PageIdInput["pageId"];
 
     /**
