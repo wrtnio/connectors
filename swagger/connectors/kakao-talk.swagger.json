@@ -18,7 +18,7 @@
     "title": "카카오톡 메시징 및 일정 관리",
     "summary": "카카오톡으로 메시지를 보내고 일정을 관리해요.",
     "description": "카카오톡으로 다양한 유형의 메시지를 보내고, 캘린더를 조회하고 일정을 추가할 수 있어요. 친구 목록도 조회할 수 있어요. 텍스트 메시지는 물론 이미지, 링크, 위치 정보 등을 포함한 다양한 형태의 메시지를 전송할 수 있어요. 개인 캘린더와 채널 캘린더를 관리하여 효율적인 일정 관리가 가능해요. 친구나 그룹채팅방에 일정을 공유하고, 알림을 설정할 수 있어 중요한 약속을 잊지 않을 수 있어요.",
-    "version": "0.1.239",
+    "version": "0.1.240",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/kakao-talk/message/text": {
       "post": {
         "summary": "Send a message to a KakaoTalk(카카오톡) friend",
-        "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
+        "description": "Sends a text type KakaoTalk(카카오톡) message to a friend\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.\nIf it is not specified who the user wants to send the message, it should not be sent at will.",
         "tags": [
           "KakaoTalk"
         ],
@@ -271,7 +271,7 @@
     "/connector/kakao-talk/get-friends": {
       "post": {
         "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
-        "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.",
+        "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.\nWhen looking up your friends, only those who linked Kakao Talk in studio-pro will be searched, so you may not be able to check the target.\nIn this case, it might be better to send a message by email or other means.",
         "tags": [
           "KakaoTalk"
         ],
