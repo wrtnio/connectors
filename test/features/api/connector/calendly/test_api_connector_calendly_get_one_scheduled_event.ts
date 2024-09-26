@@ -11,7 +11,7 @@ export const test_api_connector_calendly_get_events_get_one_schduled_event =
       await test_api_connector_calendly_get_scheduled_events(connection);
     const eventUuid = events.collection?.[0].uuid;
 
-    await new Promise((res) => setTimeout(res, 2000));
+    await new Promise((res) => setTimeout(res, 10000));
     const res =
       await CApi.functional.connector.calendly.get_events.getOneScheduledEvent(
         connection,
