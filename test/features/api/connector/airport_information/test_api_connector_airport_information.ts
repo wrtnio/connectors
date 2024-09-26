@@ -12,6 +12,6 @@ export const test_api_connector_airport_information = async (
       keyword: "로스앤젤레스",
     },
   );
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

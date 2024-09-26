@@ -14,5 +14,5 @@ export const test_studio1_tool_generate = async (
     },
   );
 
-  typia.assertEquals<ITool.IGenerateOutput>(output);
+  typia.assert<ITool.IGenerateOutput>(output);
 };

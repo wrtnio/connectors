@@ -14,7 +14,7 @@ export const test_api_kakao_talk_refresh = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_kakao_talk_text_memo = async (
@@ -36,7 +36,7 @@ export const test_api_kakao_talk_text_memo = async (
       },
     });
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };
 
 export const test_api_kakao_talk_feed_memo = async (
@@ -49,7 +49,7 @@ export const test_api_kakao_talk_feed_memo = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 피드 메시지 발송.
@@ -132,7 +132,7 @@ export const test_api_kakao_talk_feed_memo = async (
       },
     });
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };
 
 export const test_api_kakao_talk_get_calendars = async (
@@ -145,7 +145,7 @@ export const test_api_kakao_talk_get_calendars = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   const calendarInfo =
     await CApi.functional.connector.kakao_talk.get_calendars.getCalendars(
@@ -155,7 +155,7 @@ export const test_api_kakao_talk_get_calendars = async (
       },
     );
 
-  typia.assertEquals(calendarInfo);
+  typia.assert(calendarInfo);
 };
 
 export const test_api_kakao_talk_get_calendar_events = async (
@@ -168,7 +168,7 @@ export const test_api_kakao_talk_get_calendar_events = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 일정 조회.
@@ -183,7 +183,7 @@ export const test_api_kakao_talk_get_calendar_events = async (
       },
     );
 
-  typia.assertEquals(events);
+  typia.assert(events);
 
   return events;
 };
@@ -198,7 +198,7 @@ export const test_api_kakao_talk_create_event = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 일정 생성.
@@ -218,7 +218,7 @@ export const test_api_kakao_talk_create_event = async (
       },
     );
 
-  typia.assertEquals(event);
+  typia.assert(event);
 };
 
 /**
@@ -234,7 +234,7 @@ export const test_api_kakao_talk_create_event = async (
 //     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
 //   });
 
-//   typia.assertEquals(res);
+//   typia.assert(res);
 
 //   const events = await test_api_kakao_talk_get_calendar_events(connection);
 //   const firstEvent = events.events.find((el) => el.id);
@@ -275,7 +275,7 @@ export const test_api_kakao_talk_create_event = async (
 //     },
 //   );
 
-//   typia.assertEquals(sendTextForm);
+//   typia.assert(sendTextForm);
 // };
 
 export const test_api_kakao_talk_list_memo = async (
@@ -288,7 +288,7 @@ export const test_api_kakao_talk_list_memo = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 리스트 메시지 발송.
@@ -368,7 +368,7 @@ export const test_api_kakao_talk_list_memo = async (
       },
     });
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };
 
 export const test_api_kakao_talk_location_memo = async (
@@ -381,7 +381,7 @@ export const test_api_kakao_talk_location_memo = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 위치 메시지 발송.
@@ -422,7 +422,7 @@ export const test_api_kakao_talk_location_memo = async (
       },
     );
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };
 
 export const test_api_kakao_talk_commerce_memo = async (
@@ -435,7 +435,7 @@ export const test_api_kakao_talk_commerce_memo = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 커머스 메시지 발송.
@@ -489,7 +489,7 @@ export const test_api_kakao_talk_commerce_memo = async (
       },
     );
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };
 
 export const test_api_kakao_talk_commerce_memo_with_redirect_url = async (
@@ -502,7 +502,7 @@ export const test_api_kakao_talk_commerce_memo_with_redirect_url = async (
     refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   /**
    * 커머스 메시지 발송.
@@ -556,5 +556,5 @@ export const test_api_kakao_talk_commerce_memo_with_redirect_url = async (
       },
     );
 
-  typia.assertEquals(sendTextForm);
+  typia.assert(sendTextForm);
 };

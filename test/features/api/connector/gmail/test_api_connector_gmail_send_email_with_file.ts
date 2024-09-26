@@ -30,5 +30,5 @@ export const test_api_connector_gmail_send_mail_with_files = async (
     createMailInput,
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };

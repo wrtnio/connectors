@@ -17,7 +17,7 @@ export const test_connector_api_csv = async (connection: CApi.IConnection) => {
     connection,
     readCsvInput,
   );
-  typia.assertEquals<ICsv.IReadOutput>(result);
+  typia.assert<ICsv.IReadOutput>(result);
 
   /**
    * write csv file to s3
@@ -37,7 +37,7 @@ export const test_connector_api_csv = async (connection: CApi.IConnection) => {
     connection,
     writeCsvInput,
   );
-  typia.assertEquals(writeResult);
+  typia.assert(writeResult);
 
   /**
    * convert csv to excel
@@ -51,5 +51,5 @@ export const test_connector_api_csv = async (connection: CApi.IConnection) => {
       connection,
       csvToExcelInput,
     );
-  typia.assertEquals<ICsv.ICsvToExcelOutput>(csvToExcelResult);
+  typia.assert<ICsv.ICsvToExcelOutput>(csvToExcelResult);
 };

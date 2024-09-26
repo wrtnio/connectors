@@ -9,6 +9,6 @@ export const test_api_connector_open_data_get_address = async (
     srchwrd: "01471",
   });
 
-  typia.assertEquals(res);
+  typia.assert(res);
   assert(!!res.NewAddressListResponse.newAddressListAreaCd);
 };

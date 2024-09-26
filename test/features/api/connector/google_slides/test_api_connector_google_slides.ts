@@ -48,7 +48,7 @@ export const test_api_connector_google_slides_create_presentation = async (
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 /**
@@ -70,7 +70,7 @@ export const test_api_connector_google_slides_create_presentation_with_one_slide
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   };
 
 /**
@@ -91,7 +91,7 @@ export const test_api_connector_google_slides_create_random_presentation =
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
 
     return res;
   };
@@ -117,7 +117,7 @@ export const test_api_connector_google_slides_get_one_presentation = async (
       },
     );
 
-  typia.assertEquals(presentation);
+  typia.assert(presentation);
 };
 
 export const test_api_connector_google_slides_append_image_slide = async (

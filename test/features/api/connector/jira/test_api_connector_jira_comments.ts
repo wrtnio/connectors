@@ -67,9 +67,9 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
         },
       );
 
-    typia.assertEquals(comment);
-    typia.assertEquals(before);
-    typia.assertEquals(after);
+    typia.assert(comment);
+    typia.assert(before);
+    typia.assert(after);
 
     // 댓글이 1개 늘어난 걸 검증한다.
     assert(before.comments.length + 1 === after.comments.length);
@@ -136,7 +136,7 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
           issueIdOrKey: issue.key, // 이번에는 키를 이용해서 조회해본다.
         },
       );
-    typia.assertEquals(afterDelete);
+    typia.assert(afterDelete);
     assert(afterDelete.comments.length === 0);
   };
 

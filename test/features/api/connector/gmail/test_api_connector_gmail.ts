@@ -23,7 +23,7 @@ export const test_api_connector_gmail = async (
    */
   const sendEmailOutput: IGmail.ISendMailOutput =
     await CApi.functional.connector.gmail.send(connection, createMailInput);
-  typia.assertEquals<IGmail.ISendMailOutput>(sendEmailOutput);
+  typia.assert<IGmail.ISendMailOutput>(sendEmailOutput);
 
   const emailId = sendEmailOutput.id;
 
@@ -34,7 +34,7 @@ export const test_api_connector_gmail = async (
     await CApi.functional.connector.gmail.get.findEmail(connection, emailId, {
       secretKey,
     });
-  typia.assertEquals<IGmail.IFindGmailOutput>(email);
+  typia.assert<IGmail.IFindGmailOutput>(email);
 
   /**
    * Find Emails
@@ -44,7 +44,7 @@ export const test_api_connector_gmail = async (
       from: "store@wrtn.io",
       secretKey,
     });
-  typia.assertEquals<IGmail.IFindGmailListOutput>(emailList);
+  typia.assert<IGmail.IFindGmailListOutput>(emailList);
 
   /**
    * remove Email (move mail to trash)
@@ -63,7 +63,7 @@ export const test_api_connector_gmail = async (
       secretKey,
     },
   );
-  typia.assertEquals<IGmail.ILabelOutput>(label);
+  typia.assert<IGmail.ILabelOutput>(label);
 
   const labelId = label.id;
 

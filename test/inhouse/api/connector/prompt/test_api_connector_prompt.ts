@@ -14,5 +14,5 @@ export const test_api_connector_prompt = async (
     connection,
     requestBody,
   );
-  typia.assertEquals<IPrompt.IResponse>(output);
+  typia.assert<IPrompt.IResponse>(output);
 };

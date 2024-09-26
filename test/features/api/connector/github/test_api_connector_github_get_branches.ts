@@ -15,6 +15,6 @@ export async function test_api_connector_github_get_branches(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }

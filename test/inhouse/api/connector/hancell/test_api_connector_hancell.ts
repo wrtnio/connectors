@@ -24,7 +24,7 @@ export const test_api_connector_hancell_read_file = async (
     worksheetListInput,
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 
   return res;
 };

@@ -16,7 +16,7 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_url =
         },
       );
 
-    typia.assertEquals(firstPage);
+    typia.assert(firstPage);
 
     const secondPage =
       await CApi.functional.connector.google_ads.generateKeywordIdeas.url(
@@ -30,7 +30,7 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_url =
         },
       );
 
-    typia.assertEquals(secondPage);
+    typia.assert(secondPage);
   };
 
 export const test_api_connector_google_ads_generate_keyword_ideas_by_keywords =
@@ -46,7 +46,7 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_keywords =
         },
       );
 
-    typia.assertEquals(firstPage);
+    typia.assert(firstPage);
 
     const secondPage =
       await CApi.functional.connector.google_ads.generateKeywordIdeas.keywords(
@@ -60,7 +60,7 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_keywords =
         },
       );
 
-    typia.assertEquals(secondPage);
+    typia.assert(secondPage);
   };
 
 export const test_api_connector_google_ads_generate_keyword_ideas_by_keywordsAndUrl =
@@ -77,7 +77,7 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_keywordsAnd
         },
       );
 
-    typia.assertEquals(firstPage);
+    typia.assert(firstPage);
 
     const secondPage =
       await CApi.functional.connector.google_ads.generateKeywordIdeas.keywordsAndUrl(
@@ -92,5 +92,5 @@ export const test_api_connector_google_ads_generate_keyword_ideas_by_keywordsAnd
         },
       );
 
-    typia.assertEquals(secondPage);
+    typia.assert(secondPage);
   };

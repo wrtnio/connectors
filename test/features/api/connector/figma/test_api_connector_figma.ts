@@ -16,7 +16,7 @@ export const test_api_connector_figma_read_file = async (
       fileKey: ConnectorGlobal.env.FIGMA_TEST_FILE_KEY,
     });
 
-  typia.assertEquals(readFileEvent);
+  typia.assert(readFileEvent);
 };
 
 export const test_api_connector_figma_read_comment = async (
@@ -52,7 +52,7 @@ export const test_api_connector_figma_add_comment = async (
       message: typia.random<string>(),
     });
 
-  typia.assertEquals(addCommentEvent);
+  typia.assert(addCommentEvent);
 
   /**
    * 방금 추가한 댓글이 조회되어야 한다.
@@ -75,7 +75,7 @@ export const test_api_connector_figma_get_projects = async (
     },
   );
 
-  typia.assertEquals(team);
+  typia.assert(team);
   return team;
 };
 

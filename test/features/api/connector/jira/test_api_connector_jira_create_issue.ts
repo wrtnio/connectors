@@ -41,7 +41,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case1);
+//   typia.assert(case1);
 
 //   // 언어가 명시된 경우에 대한 테스트
 //   const case2 = await CApi.functional.connector.jira.issues.createIssue(
@@ -75,7 +75,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case2);
+//   typia.assert(case2);
 
 //   // 언어는 명시되어 있지만 존재하지 않는 언어 이름인 경우에 대한 테스트
 //   const case3 = await CApi.functional.connector.jira.issues.createIssue(
@@ -109,7 +109,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case3);
+//   typia.assert(case3);
 // };
 
 // export const test_api_connector_jira_create_random_issue_paragraph = async (
@@ -145,7 +145,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case1);
+//   typia.assert(case1);
 
 //   // attrs가 빈 배열인 경우에 대한 테스트
 //   const case2 = await CApi.functional.connector.jira.issues.createIssue(
@@ -177,7 +177,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case2);
+//   typia.assert(case2);
 
 //   // 내부의 텍스트 노드가 링크인 경우에 대한 테스트
 //   const case3 = await CApi.functional.connector.jira.issues.createIssue(
@@ -217,7 +217,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case3);
+//   typia.assert(case3);
 
 //   const content = typia.random<IJira.ParagraphNode>();
 //   content.content = content.content.filter((el) => el.type !== "mention");
@@ -239,7 +239,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(res);
+//   typia.assert(res);
 // };
 
 // export const test_api_connector_jira_create_random_issue_paragraph_2 = async (
@@ -285,7 +285,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(failedCase);
+//   typia.assert(failedCase);
 // };
 
 // export const test_api_connector_jira_create_random_issue_paragraph_3 = async (
@@ -347,7 +347,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(failedCase);
+//   typia.assert(failedCase);
 // };
 
 // export const test_api_connector_jira_create_random_issue_media_single = async (
@@ -390,7 +390,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case1);
+//   typia.assert(case1);
 
 //   // 원본 이미지 사이즈의 비율을 유지한 상태로 줄인 경우
 //   const case2 = await CApi.functional.connector.jira.issues.createIssue(
@@ -429,7 +429,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case2);
+//   typia.assert(case2);
 
 //   // 원본 이미지 사이즈의 비율을 유지한 상태로 늘린 경우
 //   const case3 = await CApi.functional.connector.jira.issues.createIssue(
@@ -468,7 +468,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case3);
+//   typia.assert(case3);
 
 //   // 원본 이미지 사이즈의 비율이 깨진 경우
 //   const case4 = await CApi.functional.connector.jira.issues.createIssue(
@@ -507,7 +507,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(case4);
+//   typia.assert(case4);
 // };
 
 // export const test_api_connector_jira_create_random_issue_mention = async (
@@ -553,7 +553,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(res);
+//   typia.assert(res);
 // };
 
 // export const test_api_connector_jira_create_random_issue_blockquote = async (
@@ -602,7 +602,7 @@
 //     },
 //   );
 
-//   typia.assertEquals(res);
+//   typia.assert(res);
 // };
 
 // export const test_api_connector_jira_create_random_issue_bullet_list = async (
@@ -646,5 +646,5 @@
 //     },
 //   );
 
-//   typia.assertEquals(res);
+//   typia.assert(res);
 // };
