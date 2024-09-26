@@ -26,13 +26,13 @@ export class MarpProvider {
     try {
       await fs.writeFile(markdownFilePath, input.markdown);
 
-      const marpCli = path.join(
-        __dirname,
-        "../../../../../node_modules/@marp-team/marp-cli/marp-cli.js",
-      );
+      // const marpCli = path.join(
+      //   __dirname,
+      //   "../../../../../node_modules/@marp-team/marp-cli/marp-cli.js",
+      // );
 
       // Marp CLI를 사용하여 마크다운 파일을 PPT로 변환
-      const command = `node ${marpCli} ${markdownFilePath} -o ${pptFilePath}`;
+      const command = `npx @marp-team/marp-cli ${markdownFilePath} -o ${pptFilePath}`;
       execSync(command, { stdio: "inherit" });
 
       const data = await fs.readFile(pptFilePath);
