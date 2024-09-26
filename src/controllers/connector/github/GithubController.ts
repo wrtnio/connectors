@@ -1,10 +1,10 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/github")
 export class GithubController {
@@ -17,6 +17,7 @@ export class GithubController {
    * This RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.
    * This will be useful when users want to analyze the repository.
    *
+   * @internal
    * @deprecated The RAG part will add a function so that chatbots can do it themselves
    * @summary Analysis for a github repository
    * @param input
