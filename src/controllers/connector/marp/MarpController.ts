@@ -5,7 +5,6 @@ import { RouteIcon } from "@wrtnio/decorators";
 import { IMarp } from "@wrtn/connector-api/lib/structures/connector/marp/IMarp";
 
 import { MarpProvider } from "../../../providers/connector/marp/MarpProvider";
-import { retry } from "../../../utils/retry";
 import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/marp")
@@ -29,6 +28,6 @@ export class MarpController {
   async convertToPpt(
     @core.TypedBody() input: IMarp.IConvertInput,
   ): Promise<IMarp.IConvertOutput> {
-    return retry(() => this.marpProvider.convertToPpt(input))();
+    return this.marpProvider.convertToPpt(input);
   }
 }
