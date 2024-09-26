@@ -14,6 +14,8 @@ import { randomUUID } from "crypto";
 
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
 
+import axios from "axios";
+import mime from "mime";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
@@ -179,5 +181,19 @@ export namespace AwsProvider {
     });
     await s3.send(putObjectConfig);
     return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${input.key}`;
+  }
+
+  export async function saveAndReturns(fileUrls: string[]) {
+    return await Promise.all(
+      fileUrls.map(async (fileUrl) => {
+        const file = await axios.get(fileUrl, { responseType: "arraybuffer" });
+        const key = randomUUID();
+        return await AwsProvider.uploadObject({
+          contentType: mime.lookup(fileUrl) ?? "application/octet-stream",
+          data: file.data,
+          key: key,
+        });
+      }),
+    );
   }
 }

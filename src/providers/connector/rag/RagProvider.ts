@@ -92,6 +92,8 @@ export class RagProvider {
    * 여러 개의 파일을 분석 시키고 해당 분석 결과에 대해서 채팅을 하기 위해서 chatId는 같은 것을 사용
    */
   async analyze(input: IRag.IAnalyzeInput): Promise<IRag.IAnalysisOutput> {
+    input.url = await AwsProvider.saveAndReturns(input.url);
+
     const requestUrl = `${this.ragServer}/file-chat/v1/file`;
     const chatId = v4();
 

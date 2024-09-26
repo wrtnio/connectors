@@ -3,9 +3,9 @@ import { Controller } from "@nestjs/common";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
+import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon } from "@wrtnio/decorators";
 import { RagProvider } from "../../../providers/connector/rag/RagProvider";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("/connector/rag")
 export class RagController {
