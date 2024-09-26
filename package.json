@@ -127,7 +127,8 @@
     "typia": "^6.10.2",
     "uuid": "^9.0.0",
     "xlsx": "^0.18.5",
-    "xml2js": "^0.6.2"
+    "xml2js": "^0.6.2",
+    "@marp-team/marp-cli": "0.0.12"
   },
   "optionaldependencies": {
     "sharp": "^0.33.4"
