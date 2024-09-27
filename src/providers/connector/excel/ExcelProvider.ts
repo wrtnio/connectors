@@ -110,7 +110,10 @@ export class ExcelProvider {
         typeof sheetName === "string" &&
         workbook.worksheets.every((worksheet) => worksheet.name !== sheetName)
       ) {
-        // 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
+        // 유저가 제시한 시트 이름으로 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
+        workbook.addWorksheet(sheetName ?? "Sheet1");
+      } else if (!sheetName && workbook.worksheets.length === 0) {
+        // 워크 시트가 만들어진 적이 한 번도 없다면 우선 생성한다.
         workbook.addWorksheet(sheetName ?? "Sheet1");
       }
 
