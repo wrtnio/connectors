@@ -14,7 +14,7 @@ export const test_api_connector_slack_get_private_channels = async (
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 };
 
@@ -29,7 +29,7 @@ export const test_api_connector_slack_get_public_channels = async (
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 };
 
@@ -44,7 +44,7 @@ export const test_api_connector_slack_get_im_channels = async (
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 };
 
@@ -63,7 +63,7 @@ export const test_api_connector_slack_get_channel_histories = async (
       },
     );
 
-  typia.assertEquals(messages);
+  typia.assert(messages);
   return messages;
 };
 
@@ -83,7 +83,7 @@ export const test_api_connector_slack_get_channel_histories_with_date_time =
         },
       );
 
-    typia.assertEquals(messages);
+    typia.assert(messages);
     return messages;
   };
 
@@ -116,7 +116,7 @@ export const test_api_connector_slack_send_scheduled_text_message_to_public =
         },
       );
 
-    return typia.assertEquals(res);
+    return typia.assert(res);
   };
 
 export const test_api_connector_slack_add_reply_scheduled_text_message_to_public =
@@ -149,7 +149,7 @@ export const test_api_connector_slack_add_reply_scheduled_text_message_to_public
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
 
     return res;
   };
@@ -178,7 +178,7 @@ export const test_api_connector_slack_get_scheduled_messages = async (
       },
     );
 
-  typia.assertEquals(after);
+  typia.assert(after);
   assert(
     before.scheduled_messages.length + 1 === after.scheduled_messages.length,
   );
@@ -300,7 +300,7 @@ export const test_api_connector_slack_mark_message = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_slack_send_text_message_to_myself = async (
@@ -349,7 +349,7 @@ export const test_api_connector_slack_reply = async (
     },
   );
 
-  typia.assertEquals(before);
+  typia.assert(before);
 
   await CApi.functional.connector.slack.postMessage.reply.sendReply(
     connection,
@@ -370,7 +370,7 @@ export const test_api_connector_slack_reply = async (
     },
   );
 
-  typia.assertEquals(after);
+  typia.assert(after);
 
   if (before.replies.length + 1 !== after.replies.length) {
     throw new Error("Reply가 추가되지 않은 것으로 추정되는 상태");

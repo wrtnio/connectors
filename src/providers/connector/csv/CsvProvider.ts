@@ -17,7 +17,7 @@ export namespace CsvProvider {
       const { s3Url, delimiter } = input;
       const s3 = new AWS.S3();
       const match = s3Url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
       );
 
       const body: string = await (async (): Promise<string> => {
@@ -109,7 +109,7 @@ export namespace CsvProvider {
     const s3 = new AWS.S3();
 
     const match = s3Url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
     if (!match) throw new Error("Invalid S3 URL");
 

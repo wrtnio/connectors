@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { retry } from "../../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingOcoController {
@@ -26,6 +27,7 @@ export class GoogleShoppingOcoController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/OCO_full.svg",
   )
+  @ApiTags("OCO")
   async oco(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {

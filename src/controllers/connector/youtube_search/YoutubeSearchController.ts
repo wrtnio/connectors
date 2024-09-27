@@ -7,6 +7,7 @@ import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/you
 
 import { YoutubeSearchProvider } from "../../../providers/connector/youtube_search/YoutubeSearchProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/youtube-search")
 export class YoutubeSearchController {
@@ -27,6 +28,7 @@ export class YoutubeSearchController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
   )
+  @ApiTags("Youtube")
   async search(
     @core.TypedBody() input: IYoutubeSearch.ISearchInput,
   ): Promise<IConnector.ISearchOutput> {

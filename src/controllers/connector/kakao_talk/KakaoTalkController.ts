@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
 
+import { ApiTags } from "@nestjs/swagger";
 import { KakaoTalkProvider } from "../../../providers/connector/kakao_talk/KakaoTalkProvider";
 import { retry } from "../../../utils/retry";
 
@@ -14,6 +15,7 @@ export class KakaoTalkController {
    * Sends a text type KakaoTalk(카카오톡) message to a friend
    *
    * KakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.
+   * If it is not specified who the user wants to send the message, it should not be sent at will.
    *
    * @summary Send a message to a KakaoTalk(카카오톡) friend
    * @param input Conditions for sending the message
@@ -22,6 +24,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("message/text")
   async send(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
@@ -44,6 +47,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/commerce")
   async commerceMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkCommerceInput,
@@ -66,6 +70,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/location")
   async locationMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkLocationInput,
@@ -88,6 +93,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/list")
   async listMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkListInput,
@@ -110,6 +116,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/feed")
   async feedMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkFeedInput,
@@ -132,6 +139,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/text")
   async textMemo(
     @TypedBody() input: IKakaoTalk.ISendKakaoTalkTextInput,
@@ -153,6 +161,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("calendars/events")
   async createEvent(
     @TypedBody() input: IKakaoTalk.ICreateEventInput,
@@ -164,6 +173,8 @@ export class KakaoTalkController {
    * Retrieves the list of friends on KakaoTalk(카카오톡)
    *
    * KakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.
+   * When looking up your friends, only those who linked Kakao Talk in studio-pro will be searched, so you may not be able to check the target.
+   * In this case, it might be better to send a message by email or other means.
    *
    * @summary Retrieve the list of friends on KakaoTalk(카카오톡)
    * @param input Conditions for retrieving the friend list
@@ -173,6 +184,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("get-friends")
   async getFriends(
     @TypedBody() input: IKakaoTalk.IGetFriendsInput,
@@ -200,6 +212,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("get-events")
   async getEvents(
     @TypedBody() input: IKakaoTalk.IGetEventInput,
@@ -224,6 +237,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
@@ -255,6 +269,7 @@ export class KakaoTalkController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
+  @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("refresh")
   async refresh(
     @TypedBody() input: IKakaoTalk.IRefreshAccessTokenInput,

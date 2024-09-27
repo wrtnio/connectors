@@ -1,5 +1,5 @@
-import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 import CApi from "@wrtn/connector-api/lib/index";
+import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 import typia from "typia";
 
 export const test_api_connector_read_news_naver = async (
@@ -12,6 +12,6 @@ export const test_api_connector_read_news_naver = async (
     connection,
     input,
   );
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

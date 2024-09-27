@@ -6,6 +6,7 @@ import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
 import { retry } from "../../../utils/retry";
 import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/typeform")
 export class TypeformController {
@@ -18,56 +19,12 @@ export class TypeformController {
    * @param input Title of the workspace to create.
    *
    * @returns The created workspace ID, title, and URL.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/workspace")
   async createWorkspace(
     @core.TypedBody() input: ITypeform.ICreateWorkspaceInput,
@@ -81,56 +38,12 @@ export class TypeformController {
    * @summary Delete a Typeform workspace.
    *
    * @param workspaceId The workspace ID to delete.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Delete("/workspace/:workspaceId")
   async deleteWorkspace(
     @core.TypedBody() input: ITypeform.ISecret,
@@ -156,56 +69,12 @@ export class TypeformController {
    * @summary Get Typeform workspace information.
    *
    * @returns Workspace ID, Title, URL.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/get-workspaces")
   async getWorkspaces(
     @core.TypedBody() input: ITypeform.ISecret,
@@ -221,56 +90,12 @@ export class TypeformController {
    * @param input The title of the form to be created.
    *
    * @returns The ID, title, and type of the generated form.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/empty-form")
   async createEmptyForm(
     @core.TypedBody() input: ITypeform.ICreateEmptyFormInput,
@@ -284,56 +109,12 @@ export class TypeformController {
    * @summary Get a list of Typeform forms.
    *
    * @returns form ID, title.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/get-forms")
   async getForms(
     @core.TypedBody() input: ITypeform.ISecret,
@@ -349,56 +130,12 @@ export class TypeformController {
    * @param input The name of the form to copy and create.
    *
    * @returns The generated form ID, title, and type.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/duplicate-form")
   async duplicateExistingForm(
     @core.TypedBody() input: ITypeform.IDuplicateExistingFormInput,
@@ -412,56 +149,12 @@ export class TypeformController {
    * @summary Get the field information of the form to update Typeform.
    *
    * @returns The field ID and field name of the form.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/forms/get-update-form-fields")
   async getFieldsForUpdateFieldValue(
     @core.TypedBody() input: ITypeform.IGetFieldForUpdateFieldValueInput,
@@ -477,56 +170,12 @@ export class TypeformController {
    * @summary Updates Typeform form field options.
    *
    * @param input The name of the form field to update and the value to update.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/form-field-value-update")
   async updateFormFieldValue(
     @core.TypedBody() input: ITypeform.IUpdateFormFieldValueInput,
@@ -540,56 +189,12 @@ export class TypeformController {
    * @summary Delete a typeform form.
    *
    * @param formId The ID of the form to delete.
-   *
-   * @tag Typeform
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey
-   * @tag Check Response
-   * @tag Response Management
-   * @tag Respondent Management
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Response
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Request
-   * @tag Response Collection
-   * @tag Event
-   * @tag Feedback
-   * @tag User Survey
-   * @tag Event Feedback
-   * @tag Event Feedback
-   * @tag Typeform
-   * @tag Survey
-   * @tag Online Form
-   * @tag Questionnaire
-   * @tag Customer Satisfaction Survey
-   * @tag Survey Form
-   * @tag Quiz
-   * @tag Survey Responses
-   * @tag Manage Responses
-   * @tag Manage Respondents
-   * @tag Survey Analysis
-   * @tag Response Data
-   * @tag Survey Template
-   * @tag Survey Answers
-   * @tag Share Survey
-   * @tag Survey Results
-   * @tag Create Questionnaire
-   * @tag Interview Application
-   * @tag Collect Responses @tag Event @tag Feedback @tag User Survey @tag Event Feedback
+
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Delete("/forms/:formId")
   async deleteForm(
     @core.TypedBody() input: ITypeform.ISecret,

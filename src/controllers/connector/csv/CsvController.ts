@@ -6,6 +6,7 @@ import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
 import { CsvProvider } from "../../../providers/connector/csv/CsvProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/csv")
 export class CsvController {
@@ -20,6 +21,7 @@ export class CsvController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
+  @ApiTags("CSV")
   async read(
     @core.TypedBody() input: ICsv.IReadInput,
   ): Promise<ICsv.IReadOutput> {
@@ -32,11 +34,11 @@ export class CsvController {
    * @summary Create a CSV file
    * @param input Information to create a CSV file
    */
-  @Standalone()
   @core.TypedRoute.Post("write")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
+  @ApiTags("CSV")
   async write(
     @core.TypedBody() input: ICsv.IWriteInput,
   ): Promise<ICsv.IWriteOutput> {
@@ -54,6 +56,7 @@ export class CsvController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
+  @ApiTags("CSV")
   async csvToExcel(
     @core.TypedBody() input: ICsv.ICsvToExcelInput,
   ): Promise<ICsv.ICsvToExcelOutput> {

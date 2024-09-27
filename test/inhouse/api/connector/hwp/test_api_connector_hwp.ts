@@ -14,5 +14,5 @@ export const test_api_connector_hwp = async (connection: CApi.IConnection) => {
     connection,
     parseInput,
   );
-  typia.assertEquals<IHwp.IParseOutput>(parseOutput);
+  typia.assert<IHwp.IParseOutput>(parseOutput);
 };

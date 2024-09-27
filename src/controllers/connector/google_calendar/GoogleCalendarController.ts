@@ -6,6 +6,7 @@ import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/go
 
 import { GoogleCalendarProvider } from "../../../providers/connector/google_calendar/GoogleCalendarProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-calendar")
 export class GoogleCalendarController {
@@ -23,6 +24,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("get-list")
   async readCalenders(
     @core.TypedBody()
@@ -44,6 +46,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("")
   async createCalendar(
     @core.TypedBody() input: IGoogleCalendar.ICreateCalendarInput,
@@ -61,6 +64,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
     /**
@@ -95,6 +99,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
     /**
@@ -126,6 +131,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
     /**
@@ -159,6 +165,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
     /**
@@ -194,6 +201,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
     /**
@@ -239,6 +247,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
     /**
@@ -285,6 +294,7 @@ export class GoogleCalendarController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
     /**

@@ -1,5 +1,5 @@
-import { NTpule } from "@wrtn/connector-api/lib/utils/NTuple";
 import { Allow } from "@wrtnio/decorators";
+import { NTpule } from "./NTuple";
 import { StringToDeepObject } from "./StringToDeepObject";
 
 export type Sub<A extends number, B extends number> =

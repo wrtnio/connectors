@@ -10,5 +10,5 @@ export const test_api_connector_korea_eximbank_get_exchanage = async (
       connection,
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };

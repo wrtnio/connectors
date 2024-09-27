@@ -1,7 +1,7 @@
 import type { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
-import { DeepStrictMerge } from "../../../../utils/types/DeepStrictMerge";
-import { MyPartial } from "../../../../utils/types/MyPartial";
+import { DeepStrictMerge } from "../../types/DeepStrictMerge";
+import { MyPartial } from "../../types/MyPartial";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
@@ -586,7 +586,7 @@ export namespace IGoogleAds {
     /**
      * @title Homepage that is the target of the advertisement
      */
-    finalUrl: string & tags.Format<"uri">;
+    finalUrl: string & tags.Format<"iri">;
 
     /**
      * @title title list
@@ -613,7 +613,7 @@ export namespace IGoogleAds {
     /**
      * @title Homepage that is the target of the advertisement
      */
-    finalUrl: string & tags.Format<"uri">;
+    finalUrl: string & tags.Format<"iri">;
 
     /**
      * @title List of short titles

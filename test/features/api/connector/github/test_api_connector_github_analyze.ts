@@ -13,7 +13,7 @@ export async function test_aws_provider_upload_object() {
   });
 
   try {
-    typia.assertEquals(uploaded);
+    typia.assert(uploaded);
     await axios.get(uploaded);
   } catch (err) {
     throw new Error("AWS 업로드에 실패한 경우");

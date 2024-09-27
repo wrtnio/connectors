@@ -10,8 +10,8 @@ import {
   videoExtensions,
 } from "../../../utils/constants/extensions";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
-import { StrictOmit } from "../../../utils/strictOmit";
-import { PickPartial } from "../../../utils/types/PickPartial";
+import { PickPartial } from "../../../api/structures/types/PickPartial";
+import { StrictOmit } from "../../../api/structures/types/strictOmit";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";

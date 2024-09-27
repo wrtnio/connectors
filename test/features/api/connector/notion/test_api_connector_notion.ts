@@ -18,7 +18,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //       content: "페이지 생성 테스트 입니다.",
 //       secretKey,
 //     });
-//   typia.assertEquals<INotion.ICreatePageOutput>(page);
+//   typia.assert<INotion.ICreatePageOutput>(page);
 
 //   const pageId = page.id;
 
@@ -29,7 +29,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //     await CApi.functional.connector.notion.get.page.readPageList(connection, {
 //       secretKey,
 //     });
-//   typia.assertEquals<INotion.IReadPageOutput[]>(pageList);
+//   typia.assert<INotion.IReadPageOutput[]>(pageList);
 
 //   /**
 //    * Append Content to end of page
@@ -51,7 +51,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //         secretKey,
 //       },
 //     );
-//   typia.assertEquals<INotion.IFindPageByTitleOutput>(pageOutputFindByTitle);
+//   typia.assert<INotion.IFindPageByTitleOutput>(pageOutputFindByTitle);
 
 //   /**
 //    * Get DatabaseInfo List
@@ -63,7 +63,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //         secretKey,
 //       },
 //     );
-//   typia.assertEquals<INotion.IDatabaseInfo[]>(databaseListInfo);
+//   typia.assert<INotion.IDatabaseInfo[]>(databaseListInfo);
 
 //   /**
 //    * Get Database Info
@@ -76,7 +76,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //       },
 //       databaseId,
 //     );
-//   typia.assertEquals<INotion.IDatabaseInfo>(databaseInfo);
+//   typia.assert<INotion.IDatabaseInfo>(databaseInfo);
 
 //   /**
 //    * Get User list
@@ -85,7 +85,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //     await CApi.functional.connector.notion.get.users.getUsers(connection, {
 //       secretKey,
 //     });
-//   typia.assertEquals<INotion.IUserOutput[]>(users);
+//   typia.assert<INotion.IUserOutput[]>(users);
 
 //   /**
 //    * Create Database Item
@@ -123,7 +123,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //       },
 //       databaseId,
 //     );
-//   typia.assertEquals<INotion.IDatabaseItemOutput>(createdDatabaseItem);
+//   typia.assert<INotion.IDatabaseItemOutput>(createdDatabaseItem);
 
 //   /**
 //    * Update Database Item
@@ -160,7 +160,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //       },
 //       databaseId,
 //     );
-//   typia.assertEquals<INotion.IDatabaseItemOutput>(updatedDatabaseItem);
+//   typia.assert<INotion.IDatabaseItemOutput>(updatedDatabaseItem);
 
 //   /**
 //    * Find DatabaseItem List
@@ -173,7 +173,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //       },
 //       databaseId,
 //     );
-//   typia.assertEquals<INotion.IDatabaseItemOutput[]>(databaseItemList);
+//   typia.assert<INotion.IDatabaseItemOutput[]>(databaseItemList);
 
 //   /**
 //    * Find Database Item
@@ -188,7 +188,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 //       },
 //       databaseId,
 //     );
-//   typia.assertEquals<INotion.IDatabaseItemOutput>(databaseItem);
+//   typia.assert<INotion.IDatabaseItemOutput>(databaseItem);
 // };
 
 export const test_api_connector_notion_create_page = async (

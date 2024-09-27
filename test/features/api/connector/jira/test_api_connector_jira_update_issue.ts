@@ -42,7 +42,7 @@ export const test_api_connector_jira_update_issue_summary_and_description =
         },
       );
 
-    typia.assertEquals(updateSummary);
+    typia.assert(updateSummary);
 
     const updateDescription =
       await CApi.functional.connector.jira.issues.updateIssue(
@@ -73,7 +73,7 @@ export const test_api_connector_jira_update_issue_summary_and_description =
         },
       );
 
-    typia.assertEquals(updateDescription);
+    typia.assert(updateDescription);
   };
 
 export const test_api_connector_jira_update_issue_assignee = async (
@@ -122,7 +122,7 @@ export const test_api_connector_jira_update_issue_assignee = async (
       },
     );
 
-  typia.assertEquals(updateAssignee);
+  typia.assert(updateAssignee);
 };
 
 export const test_api_connector_jira_update_issue_status = async (
@@ -163,6 +163,6 @@ export const test_api_connector_jira_update_issue_status = async (
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };

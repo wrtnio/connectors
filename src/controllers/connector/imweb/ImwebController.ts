@@ -6,6 +6,7 @@ import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImwe
 
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/imweb")
 export class ImwebController {
@@ -27,6 +28,7 @@ export class ImwebController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
+  @ApiTags("Imweb")
   @Standalone()
   @core.TypedRoute.Post("get-products")
   async getProducts(
@@ -46,6 +48,7 @@ export class ImwebController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
+  @ApiTags("Imweb")
   @core.TypedRoute.Post("auth")
   async authorization(
     @TypedBody() input: IImweb.Credential,

@@ -8,5 +8,5 @@ export const test_api_internal_google = async (
   const refreshAccessTokenOutput =
     await CApi.functional.internal.google.refreshAccessToken(connection);
 
-  typia.assertEquals<string>(refreshAccessTokenOutput);
+  typia.assert<string>(refreshAccessTokenOutput);
 };

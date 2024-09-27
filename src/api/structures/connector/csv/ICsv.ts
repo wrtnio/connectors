@@ -12,7 +12,7 @@ export namespace ICsv {
      *
      * @title file
      */
-    s3Url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    s3Url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
 
     /**
      * This is the CSV file delimiter to read.
@@ -73,7 +73,7 @@ export namespace ICsv {
      *
      * @title csv file
      */
-    s3Url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    s3Url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
   }
 
   /**
@@ -85,7 +85,7 @@ export namespace ICsv {
      *
      * @title file
      */
-    s3Url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    s3Url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
 
     /**
      * This is the file delimiter to convert from csv to excel.
@@ -104,6 +104,6 @@ export namespace ICsv {
      *
      * @title s3 url
      */
-    url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
   }
 }

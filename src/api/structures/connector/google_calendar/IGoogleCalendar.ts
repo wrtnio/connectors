@@ -1,6 +1,5 @@
 import { tags } from "typia";
-
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleCalendar {
   /**
@@ -127,7 +126,7 @@ export namespace IGoogleCalendar {
      *
      * @title Event Link.
      */
-    htmlLink?: (string & tags.Format<"uri">) | null;
+    htmlLink?: (string & tags.Format<"iri">) | null;
 
     /**
      * Event color.
@@ -433,7 +432,7 @@ export namespace IGoogleCalendar {
        *
        * @title file url.
        */
-      fileUrl?: (string & tags.Format<"uri">) | null;
+      fileUrl?: (string & tags.Format<"iri">) | null;
 
       /**
        * This is the title of the attached file.
@@ -454,7 +453,7 @@ export namespace IGoogleCalendar {
        *
        * @title File icon link.
        */
-      iconLink?: (string & tags.Format<"uri">) | null;
+      iconLink?: (string & tags.Format<"iri">) | null;
 
       /**
        * This is the id of the attached file.

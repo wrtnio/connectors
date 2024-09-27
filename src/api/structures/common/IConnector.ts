@@ -1,6 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
-import { MyPartial } from "../../../utils/types/MyPartial";
+import { MyPartial } from "../types/MyPartial";
 
 export namespace IConnector {
   /**
@@ -46,7 +46,7 @@ export namespace IConnector {
      *
      * @title URL address
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
 
     /**
      * Here is the content of the output.
@@ -60,7 +60,7 @@ export namespace IConnector {
      *
      * @title Output Image URL
      */
-    image?: string & tags.Format<"uri">;
+    image?: string & tags.Format<"iri">;
 
     /**
      * Output statistics information.

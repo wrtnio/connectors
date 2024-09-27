@@ -7,6 +7,7 @@ import { ISweetTracker } from "@wrtn/connector-api/lib/structures/connector/swee
 import { SweetTrackerProvider } from "../../../providers/connector/sweet_tracker/SweetTrackerProvider";
 import { retry } from "../../../utils/retry";
 import typia from "typia";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/sweet-tacker")
 export class SweetTrackerController {
@@ -27,6 +28,7 @@ export class SweetTrackerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
+  @ApiTags("SweetTracker")
   @Standalone()
   @core.TypedRoute.Post("get-companies/recommended")
   async getRecommendedCompanyList(
@@ -48,6 +50,7 @@ export class SweetTrackerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
+  @ApiTags("SweetTracker")
   @Standalone()
   @core.TypedRoute.Post("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
@@ -71,6 +74,7 @@ export class SweetTrackerController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
+  @ApiTags("SweetTracker")
   @core.TypedRoute.Post("tracking-info")
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,

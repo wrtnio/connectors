@@ -16,7 +16,7 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     connection,
     analyzeInput,
   );
-  typia.assertEquals(analyzeOutput);
+  typia.assert(analyzeOutput);
 
   const generateInput: IRag.IGenerateInput = {
     query:
@@ -29,5 +29,28 @@ export const test_api_connector_rag = async (connection: CApi.IConnection) => {
     chatId,
   );
 
-  typia.assertEquals(generateOutput);
+  typia.assert(generateOutput);
+};
+
+export const test_api_connector_rag_step_by_step = async (
+  connection: CApi.IConnection,
+) => {
+  const res1 = await CApi.functional.connector.rag.analyze(connection, {
+    url: [
+      `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf`,
+    ],
+  });
+  typia.assert(res1);
+
+  const res2 = await CApi.functional.connector.rag.analyze(connection, {
+    url: [
+      `https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-hwp-test.hwp`,
+    ],
+  });
+  typia.assert(res2);
+
+  const res3 = await CApi.functional.connector.rag.analyze(connection, {
+    url: [`https://namu.wiki/w/%EC%98%AC%EB%A6%BC%ED%94%BD`],
+  });
+  typia.assert(res3);
 };

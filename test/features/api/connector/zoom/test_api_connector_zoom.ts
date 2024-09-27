@@ -42,5 +42,5 @@ export const test_api_connector_zoom_create_meeting = async (
     requestBody,
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };

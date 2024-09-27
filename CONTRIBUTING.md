@@ -115,7 +115,7 @@ import { tags } from "typia";
 export namespace IWrtn {
   export interface IGetSomethingInput {
     someProperty1: number & tags.type<"int64"> & tags.Minimum<0>;
-    someProperty2: string & tags.Format<"uri">;
+    someProperty2: string & tags.Format<"iri">;
   }
 
   export interface IGetSomethingOutput {
@@ -140,7 +140,7 @@ export namespace IWrtn {
      */
     someProperty1: number & tags.type<"int64"> & tags.Minimum<0>;
 
-    someProperty2: string & tags.Format<"uri">;
+    someProperty2: string & tags.Format<"iri">;
   }
 
   export interface IGetSomethingOutput {

@@ -1,5 +1,5 @@
 import { tags } from "typia";
-import { MyPartial } from "../../../../utils/types/MyPartial";
+import { MyPartial } from "../../types/MyPartial";
 import { IConnector } from "../../common/IConnector";
 import { IKeywordExtraction } from "../extract/IKeywordExtractor";
 
@@ -152,7 +152,7 @@ export interface IMarketingCopyImage {
    *
    * @title Image URL of the generated marketing copy draft.
    */
-  imageUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+  imageUrl: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
 }
 
 export namespace IMarketingCopyGenerator {

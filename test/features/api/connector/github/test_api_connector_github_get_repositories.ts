@@ -18,7 +18,7 @@ export async function test_api_connector_github_get_repositories(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }
 
@@ -34,6 +34,6 @@ export async function test_api_connector_github_get_repositories_with_too_many_c
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res;
 }

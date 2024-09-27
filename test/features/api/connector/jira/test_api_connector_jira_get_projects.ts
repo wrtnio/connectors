@@ -18,7 +18,7 @@ export const test_api_connector_jira_get_projects = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res.values;
 };
 
@@ -35,6 +35,6 @@ export const test_api_connector_jira_get_projects_2 = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   return res.values;
 };

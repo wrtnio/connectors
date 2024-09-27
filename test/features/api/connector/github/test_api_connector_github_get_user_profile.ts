@@ -8,7 +8,7 @@ export async function test_api_connector_github_get_user_profile(
 ) {
   const userList = await test_api_connector_github_search_user(connection);
   const user = userList.result.at(0);
-  typia.assertEquals(user);
+  typia.assert(user);
 
   const res =
     await CApi.functional.connector.github.get_user_profile.getUserProfile(

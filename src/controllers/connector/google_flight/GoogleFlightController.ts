@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { retry } from "../../../utils/retry";
 import { GoogleFlightProvider } from "../../../providers/connector/google_flight/GoogleFlightProvider";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-flight")
 export class GoogleFlightController {
@@ -23,6 +24,7 @@ export class GoogleFlightController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
+  @ApiTags("Google Flight")
   async oneWay(
     @core.TypedBody() input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {
@@ -44,6 +46,7 @@ export class GoogleFlightController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
+  @ApiTags("Google Flight")
   async roundTrip(
     @core.TypedBody() input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {

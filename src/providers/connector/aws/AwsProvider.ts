@@ -10,10 +10,8 @@ import {
   Injectable,
   InternalServerErrorException,
 } from "@nestjs/common";
-import { randomUUID } from "crypto";
-
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
-
+import { randomUUID } from "crypto";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
@@ -74,7 +72,7 @@ export class AwsProvider {
    */
   async getGetObjectUrl(fileUrl: string): Promise<string> {
     const match = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!match) {
@@ -105,7 +103,7 @@ export class AwsProvider {
   async getFileSize(fileUrl: string): Promise<number> {
     const [url] = fileUrl.split("?"); // 쿼리파라미터 부분 제거
     const matches = url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/u,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!matches) {
@@ -141,7 +139,7 @@ export namespace AwsProvider {
   } {
     try {
       const match = url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
       );
       if (!match) {
         throw new BadRequestException("Invalid S3 URL");

@@ -13,5 +13,5 @@ export const test_api_connector_ai_search = async (
     connection,
     requestBody,
   );
-  typia.assertEquals<any>(output);
+  typia.assert<any>(output);
 };

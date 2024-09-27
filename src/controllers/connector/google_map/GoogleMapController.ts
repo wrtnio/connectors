@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { retry } from "../../../utils/retry";
 import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_map/IGoogleMap";
 import { GoogleMapProvider } from "../../../providers/connector/google_map/GoogleMapProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-map")
 export class GoogleMapController {
@@ -23,6 +24,7 @@ export class GoogleMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
+  @ApiTags("Google Map")
   async search(
     @core.TypedBody() input: IGoogleMap.IRequest,
   ): Promise<IGoogleMap.IResponse[]> {
@@ -42,6 +44,7 @@ export class GoogleMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
+  @ApiTags("Google Map")
   async review(
     @core.TypedBody() input: IGoogleMap.IReviewRequest,
   ): Promise<IGoogleMap.IReviewResponse[]> {

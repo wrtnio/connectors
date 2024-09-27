@@ -104,7 +104,7 @@ export namespace IKakaoMap {
     /**
      * @title Location details page URL
      */
-    place_url: string & tags.Format<"uri">;
+    place_url: string & tags.Format<"iri">;
 
     /**
      * @title Distance to the center coordinate

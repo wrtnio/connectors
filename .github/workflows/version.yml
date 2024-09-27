@@ -21,6 +21,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 20.x
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Authenticate to npm registry
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Secrets to Env
         run: |
@@ -41,16 +45,30 @@ jobs:
         with:
           branch: gh-pages
           folder: ./website/out
-          
+
       - name: Checkout repository for versioning
         uses: actions/checkout@v2
         with:
           branch: main
 
-      - name: Bump version
+      - name: Bump version for swagger
         run: |
-          git config --local user.email "actions@example.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "studio@wrtn.io"
+          git config --local user.name "studio-pro"
           git pull
-          npm version patch -m "Bump version to %s [skip ci]"
+          npm version patch -m "Bump swagger version to %s [skip ci]"
           git push --set-upstream origin main --follow-tags
+
+      - name: Bump version for sdk
+        working-directory: packages/api
+        run: |
+          git config --local user.email "studio@wrtn.io"
+          git config --local user.name "studio-pro"
+          git pull
+          npm version patch
+          git add *
+          git commit --no-verify -m "Bump sdk version to %s [skip ci]"
+          git push --set-upstream origin main
+          npm run deploy
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

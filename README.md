@@ -397,7 +397,7 @@ export interface IGoogleDriveImageSingleUpload {
    * 
    * Workflow Editor 상 Inspector 내지 Chat Agent 의 File Uploader 의하여 구성됨.
    */
-  url: string & tags.Format<"uri"> & (
+  url: string & tags.Format<"iri"> & (
     | tags.MediaContentType<"image/png">
     | tags.MediaContentType<"image/jpg">
   );

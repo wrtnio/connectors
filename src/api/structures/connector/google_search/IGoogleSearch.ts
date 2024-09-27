@@ -47,7 +47,7 @@ export namespace IGoogleSearch {
     /**
      * @title Search Results Link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
      * @title Search Results Summary
@@ -57,6 +57,6 @@ export namespace IGoogleSearch {
     /**
      * @title Search Results thumbnail
      */
-    thumbnail?: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    thumbnail?: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
   }
 }

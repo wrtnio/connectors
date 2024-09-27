@@ -1,4 +1,4 @@
-import { StrictOmit } from "../strictOmit";
+import { StrictOmit } from "./strictOmit";
 
 /**
  * Pick된 대상만을 Partial로 감싸는 타입

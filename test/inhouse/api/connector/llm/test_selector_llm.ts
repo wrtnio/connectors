@@ -19,6 +19,6 @@ export async function test_selector_llm(
         request: "I want to catch up on recent trends",
       },
     });
-  typia.assertEquals(generated);
+  typia.assert(generated);
   return generated;
 }

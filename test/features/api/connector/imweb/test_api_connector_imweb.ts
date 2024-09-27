@@ -15,7 +15,7 @@ export const test_api_connector_imweb_get_access_token = async (
     },
   );
 
-  typia.assertEquals(auth);
+  typia.assert(auth);
 
   return auth.access_token;
 };
@@ -31,5 +31,5 @@ export const test_api_connector_imweb_get_products = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };

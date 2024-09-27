@@ -18,3 +18,5 @@ hancell_test_file.cell
 
 src/api/functional
 src/executable/migrations
+
+wrtnio-connector-api-*.tgz

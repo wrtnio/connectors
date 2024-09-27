@@ -41,6 +41,6 @@
 //         ],
 //       },
 //     );
-//   typia.assertEquals<IMarketingCopyGeneratorResponse>(generated);
+//   typia.assert<IMarketingCopyGeneratorResponse>(generated);
 //   return generated;
 // }

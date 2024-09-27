@@ -16,5 +16,5 @@ export const test_api_connector_stable_diffusion_beta = async (
       connection,
       requestBody,
     );
-  typia.assertEquals<IStableDiffusionBeta.IResponse>(output);
+  typia.assert<IStableDiffusionBeta.IResponse>(output);
 };

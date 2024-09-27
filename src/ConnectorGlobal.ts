@@ -150,7 +150,7 @@ export namespace ConnectorGlobal {
 
     // STABILITY AI
     STABILITY_AI_API_KEY: string;
-    STABILITY_AI_HOST: string & tags.Format<"uri">;
+    STABILITY_AI_HOST: string & tags.Format<"iri">;
     STABILITY_AI_ENGINE_ID: string;
     STABILITY_AI_DEFAULT_STEP: `${number}`;
     STABILITY_AI_CFG_SCALE: `${number}`;
@@ -167,14 +167,14 @@ export namespace ConnectorGlobal {
     // INHOUSE SERVERS
     //----
     // RAG SERVERS
-    RAG_SERVER_URL: string & tags.Format<"uri">;
+    RAG_SERVER_URL: string & tags.Format<"iri">;
 
     // CONNECTOR API
-    CONNECTOR_BRANCH_API_SERVER: string & tags.Format<"uri">;
+    CONNECTOR_BRANCH_API_SERVER: string & tags.Format<"iri">;
 
     // LLM PROXY
-    HAMLET_URL: string & tags.Format<"uri">;
-    SHAKESPEARE_URL: string & tags.Format<"uri">;
+    HAMLET_URL: string & tags.Format<"iri">;
+    SHAKESPEARE_URL: string & tags.Format<"iri">;
     HAMLET_CHAT_COMPLETION_REQUEST_ENDPOINT: string;
     HAMLET_HEADER_KEY_NAME: string;
     HAMLET_HEADER_KEY_VALUE: string;
@@ -182,14 +182,14 @@ export namespace ConnectorGlobal {
     HAMLET_PROMPT_NODE_REQUEST_ENDPOINT: string;
 
     // GH DEVS BE
-    GH_DEVS_BE_SERVER_URL: string & tags.Format<"uri">;
-    SHORT_LINK_RETURN_URL: string & tags.Format<"uri">;
+    GH_DEVS_BE_SERVER_URL: string & tags.Format<"iri">;
+    SHORT_LINK_RETURN_URL: string & tags.Format<"iri">;
 
     // ROTATION_REFRESH_TOKEN_PATH
     ROTATION_REFRESH_TOKEN_PATH: string;
 
     // BROWSING AGENT PLAYGROUND
-    BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"uri">;
+    BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"iri">;
   }
 }
 

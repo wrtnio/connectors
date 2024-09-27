@@ -76,7 +76,7 @@ export namespace IYoutubeSearch {
      *
      * @title YouTube video link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
      * Channel information of YouTube videos that appear in search results.
@@ -147,14 +147,14 @@ export namespace IYoutubeSearch {
      *
      * @title YouTube Channel Link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
      * Thumbnail images of YouTube channels that appear in search results.
      *
      * @title YouTube Channel Thumbnail Image
      */
-    thumbnail: string & tags.Format<"uri">;
+    thumbnail: string & tags.Format<"iri">;
   }
 
   /**
@@ -166,13 +166,13 @@ export namespace IYoutubeSearch {
      *
      * @title YouTube video thumbnail image (static)
      */
-    static: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    static: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
 
     /**
      * Animated image that changes according to the video playback time.
      *
      * @title YouTube video thumbnail image (dynamic)
      */
-    rich: string & tags.Format<"uri">;
+    rich: string & tags.Format<"iri">;
   }
 }

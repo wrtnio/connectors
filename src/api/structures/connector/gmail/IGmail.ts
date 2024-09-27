@@ -1,6 +1,5 @@
 import { tags } from "typia";
-
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGmail {
   /**
@@ -53,7 +52,7 @@ export namespace IGmail {
       /**
        * @title file uri
        */
-      fileUrl: string & tags.Format<"uri">;
+      fileUrl: string & tags.Format<"iri">;
     }[];
   }
 

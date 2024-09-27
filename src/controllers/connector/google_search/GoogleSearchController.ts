@@ -6,6 +6,7 @@ import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/goog
 
 import { GoogleSearchProvider } from "../../../providers/connector/google_search/GoogleSearchProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-search")
 export class GoogleSearchController {
@@ -25,6 +26,7 @@ export class GoogleSearchController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSearch_full.svg",
   )
+  @ApiTags("Google Search")
   async search(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {

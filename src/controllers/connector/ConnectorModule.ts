@@ -66,9 +66,10 @@ import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GithubModule } from "./github/GithubModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { DiscordModule } from "./discord/DiscordModule";
-import { CalendlyModule } from "../calendly/CalendlyModule";
+import { CalendlyModule } from "./calendly/CalendlyModule";
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { TypeformModule } from "./typeform/TypeformModule";
+import { MarpModule } from "./marp/MarpModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -143,6 +144,7 @@ import { TypeformModule } from "./typeform/TypeformModule";
     CalendlyModule,
     AISearchModule,
     TypeformModule,
+    MarpModule,
   ],
 })
 export class ConnectorModule {}

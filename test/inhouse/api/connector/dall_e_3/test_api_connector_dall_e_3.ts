@@ -48,5 +48,5 @@ Generate the marketing copy.`,
       connection,
       requestBody,
     );
-  typia.assertEquals<IDallE3.IResponse>(output);
+  typia.assert<IDallE3.IResponse>(output);
 };

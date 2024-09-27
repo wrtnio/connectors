@@ -97,7 +97,7 @@ export namespace IImweb {
      *
      * Can't call it right away because it's not a completed URL.
      */
-    image_url: (string & tags.Format<"uri"> & ContentMediaType<"image/*">)[];
+    image_url: (string & tags.Format<"iri"> & ContentMediaType<"image/*">)[];
 
     /**
      * @title Detailed description

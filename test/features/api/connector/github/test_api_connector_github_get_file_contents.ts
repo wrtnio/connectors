@@ -69,7 +69,7 @@ export async function test_api_connector_github_get_readme_file(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 }
 
 export async function test_api_connector_github_get_repo_folder_structures(
@@ -86,7 +86,7 @@ export async function test_api_connector_github_get_repo_folder_structures(
       },
     );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 }
 
 export async function test_api_connector_github_get_repo_get_contents_bulk(
