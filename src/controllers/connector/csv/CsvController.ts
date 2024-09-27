@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon } from "@wrtnio/decorators";
 
 import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
@@ -10,6 +10,8 @@ import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/csv")
 export class CsvController {
+  constructor(private readonly csvProvider: CsvProvider) {}
+
   /**
    * Read CSV file contents
    *
@@ -25,7 +27,7 @@ export class CsvController {
   async read(
     @core.TypedBody() input: ICsv.IReadInput,
   ): Promise<ICsv.IReadOutput> {
-    return retry(() => CsvProvider.read(input))();
+    return retry(() => this.csvProvider.read(input))();
   }
 
   /**
@@ -42,7 +44,7 @@ export class CsvController {
   async write(
     @core.TypedBody() input: ICsv.IWriteInput,
   ): Promise<ICsv.IWriteOutput> {
-    return retry(() => CsvProvider.write(input))();
+    return retry(() => this.csvProvider.write(input))();
   }
 
   /**
@@ -60,6 +62,6 @@ export class CsvController {
   async csvToExcel(
     @core.TypedBody() input: ICsv.ICsvToExcelInput,
   ): Promise<ICsv.ICsvToExcelOutput> {
-    return retry(() => CsvProvider.convertCsvToExcel(input))();
+    return retry(() => this.csvProvider.convertCsvToExcel(input))();
   }
 }
