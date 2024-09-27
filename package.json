@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@wrtn/connector",
-  "version": "0.1.241",
+  "version": "0.1.243",
   "description": "wrtn-ecosystem connectors and sdk",
   "main": "lib/index.js",
   "scripts": {
@@ -69,7 +69,7 @@
     "eslint-plugin-deprecation": "^1.4.1",
     "express": "^4.18.2",
     "husky": "^9.0.11",
-    "nestia": "^6.1.0",
+    "nestia": "^6.2.0",
     "prettier": "^3.3.2",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.21",
