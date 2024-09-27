@@ -1,4 +1,3 @@
-import * as AWS from "aws-sdk";
 import { parse } from "csv-parse/sync";
 import ExcelJS from "exceljs";
 import * as csv from "fast-csv";
@@ -8,28 +7,24 @@ import { WritableStreamBuffer } from "stream-buffers";
 import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { Injectable } from "@nestjs/common";
+import { AwsProvider } from "../aws/AwsProvider";
+import { Readable } from "stream";
 
-export namespace CsvProvider {
-  export async function read(
-    input: ICsv.IReadInput,
-  ): Promise<ICsv.IReadOutput> {
+@Injectable()
+export class CsvProvider {
+  constructor(private readonly awsProvider: AwsProvider) {}
+
+  async read(input: ICsv.IReadInput): Promise<ICsv.IReadOutput> {
     try {
       const { s3Url, delimiter } = input;
-      const s3 = new AWS.S3();
       const match = s3Url.match(
         /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
       );
 
       const body: string = await (async (): Promise<string> => {
         if (match) {
-          const bucket = match[1];
-          const fileName = match[3];
-          const params = {
-            Bucket: bucket,
-            Key: fileName,
-          };
-          const response = await s3.getObject(params).promise();
-          return response.Body?.toString() ?? "";
+          return (await this.awsProvider.getObject(match[0])).toString("utf-8");
         } else {
           const response: Response = await fetch(s3Url);
           return response.text();
@@ -48,20 +43,15 @@ export namespace CsvProvider {
     }
   }
 
-  export async function write(
-    input: ICsv.IWriteInput,
-  ): Promise<ICsv.IWriteOutput> {
+  async write(input: ICsv.IWriteInput): Promise<ICsv.IWriteOutput> {
     const { values, fileName, delimiter } = input;
-    const s3 = new AWS.S3();
-    const params = {
-      Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
-      Key: fileName,
-    };
-
     let existValues = [];
     try {
-      const response = await s3.getObject(params).promise();
-      existValues = parse(response.Body?.toString() || "", {
+      const response =
+        (await this.awsProvider.getObjectByFileName(fileName)).toString(
+          "utf-8",
+        ) || "";
+      existValues = parse(response, {
         columns: true,
         delimiter: delimiter,
       });
@@ -80,15 +70,14 @@ export namespace CsvProvider {
         .write(insertValues, { headers: true, delimiter: delimiter })
         .pipe(csvBuffer)
         .on("finish", async function () {
-          const uploadParams = {
-            Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
-            Key: fileName,
-            // csvBuffer.getContents returns false when empty
-            Body: csvBuffer.getContents() || "",
-          };
-
           try {
-            await s3.upload(uploadParams).promise();
+            const bufferContent = csvBuffer.getContents() || Buffer.from("");
+
+            await AwsProvider.uploadObject({
+              key: fileName,
+              data: bufferContent,
+              contentType: "text/csv",
+            });
             resolve();
           } catch (err) {
             console.error("Error uploading file:", err);
@@ -102,25 +91,22 @@ export namespace CsvProvider {
     };
   }
 
-  export async function convertCsvToExcel(
+  async convertCsvToExcel(
     input: ICsv.ICsvToExcelInput,
   ): Promise<ICsv.ICsvToExcelOutput> {
     const { s3Url, delimiter } = input;
-    const s3 = new AWS.S3();
-
     const match = s3Url.match(
       /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
     if (!match) throw new Error("Invalid S3 URL");
 
-    const bucket = match[1];
     const fileName = match[3];
+    const s3Buffer = await this.awsProvider.getObjectByFileName(fileName);
 
-    const downloadParams = {
-      Bucket: bucket,
-      Key: fileName,
-    };
-    const s3Stream = s3.getObject(downloadParams).createReadStream();
+    // Buffer를 스트림으로 변환
+    const s3Stream = new Readable();
+    s3Stream.push(s3Buffer);
+    s3Stream.push(null); // 스트림의 끝을 나타냄
 
     const buffer = new WritableStreamBuffer();
     const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream: buffer });
@@ -147,17 +133,20 @@ export namespace CsvProvider {
             await workbook.commit();
 
             const uploadParams = {
-              Bucket: bucket,
-              Key: key,
-              Body: buffer.getContents(),
+              key: key,
+              data: buffer.getContents() || Buffer.from(""), // 버퍼 내용이 없을 경우 빈 버퍼 처리
+              contentType:
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             };
-            await s3.upload(uploadParams).promise();
+            await this.awsProvider.uploadObject(uploadParams);
             resolve();
           });
       } catch (err) {
         reject(err);
       }
     });
-    return { url: `https://${bucket}.s3.ap-northeast-2.amazonaws.com/${key}` };
+    return {
+      url: `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${key}`,
+    };
   }
 }
