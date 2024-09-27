@@ -118,17 +118,6 @@ export namespace IX {
     tweet_link: string;
   }
 
-  export interface IGetUserFollowersRequest extends ISecret {
-    userId: string &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/x/get-user";
-        jmesPath: JMESPath<IUserResponse, "data.{value:id, label:userName}">;
-      }>;
-  }
-
-  export interface IGetUserFollowersResponse extends IUserResponse {}
-
   export interface IGetTweetRequest extends ISecret {
     tweetId: string &
       Prerequisite<{

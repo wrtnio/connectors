@@ -19,62 +19,38 @@ export class XProvider {
   private readonly logger = new Logger("XProvider");
 
   async getUser(input: IX.IUserRequest): Promise<IX.IUserResponse> {
-    const accessToken = await this.refresh(input);
-    const user = await axios.get(
-      `https://api.x.com/2/users/by/username/${input.userName}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    return {
-      id: user.data.id,
-      name: user.data.name,
-      userName: user.data.username,
-    };
-  }
-
-  async getUserFollowers(
-    input: IX.IGetUserFollowersRequest,
-  ): Promise<IX.IGetUserFollowersResponse[]> {
     try {
       const accessToken = await this.refresh(input);
-      const userFollowers = await axios.get(
-        `https://api.x.com/2/users/${input.userId}/followers`,
+      const user = await axios.get(
+        `https://api.x.com/2/users/by/username/${input.userName}`,
         {
-          params: {
-            max_results: 50,
-          },
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         },
       );
-
-      const result: IX.IGetUserFollowersResponse[] = [];
-      for (const follower of userFollowers.data) {
-        result.push({
-          id: follower.id,
-          name: follower.name,
-          userName: follower.username,
-        });
-      }
-      return result;
+      return {
+        id: user.data.data.id,
+        name: user.data.data.name,
+        userName: user.data.data.username,
+      };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
   }
 
-  async getTweet(input: IX.IGetTweetRequest): Promise<IX.ITweetResponse> {
+  async getTweet(
+    input: IX.IGetTweetRequest,
+    accessTokenValue?: string,
+  ): Promise<IX.ITweetResponse> {
     try {
-      const accessToken = await this.refresh(input);
+      const accessToken = accessTokenValue ?? (await this.refresh(input));
       const tweet = await axios.get(
         `https://api.x.com/2/tweets/${input.tweetId}`,
         {
           params: {
-            expansion: "author_id",
+            expansions: "author_id",
           },
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -83,7 +59,7 @@ export class XProvider {
       );
 
       const user = await axios.get(
-        `https://api.x.com/2/users/${tweet.data.author_id}`,
+        `https://api.x.com/2/users/${tweet.data.data.author_id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -92,75 +68,84 @@ export class XProvider {
       );
 
       return {
-        id: tweet.data.id,
-        text: tweet.data.text,
-        userName: user.data.username,
-        tweet_link: `https://twitter.com/${user.data.userName}/status/${tweet.data.id}`,
+        id: tweet.data.data.id,
+        text: tweet.data.data.text,
+        userName: user.data.data.username,
+        tweet_link: `https://twitter.com/${user.data.data.username}/status/${tweet.data.data.id}`,
       };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
   }
+
   async getUserTimelineTweets(
     input: IX.IUserTweetTimeLineRequest,
   ): Promise<IX.ITweetResponse[]> {
-    const accessToken = await this.refresh(input);
-    const result: IX.ITweetResponse[] = [];
+    try {
+      const accessToken = await this.refresh(input);
+      const result: IX.ITweetResponse[] = [];
 
-    input.user.map(async (user) => {
-      if (!user.userId || !user.userName) {
-        this.logger.error("X User id and user name are required");
-      }
-      const userTweetTimeLines = await axios.get(
-        `https://api.x.com/2users/${user.userId}/tweets`,
-        {
-          params: {
-            max_results: 50,
-            expansions: "referenced_tweets.id",
-            end_time: new Date().toISOString(),
-            start_time: new Date(
-              new Date().getTime() - 1000 * 60 * 60 * 24,
-            ).toISOString(),
-          },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-
-      for (const userTweetTimeLine of userTweetTimeLines.data) {
-        // If Retweet or Quoted Tweet, get the original tweet. Exclude the replied tweet.
-        if (
-          userTweetTimeLine.referenced_tweets &&
-          userTweetTimeLine.referenced_tweets.length > 0
-        ) {
-          for (const referencedTweet of userTweetTimeLine.referenced_tweets) {
-            if (
-              referencedTweet.type === "retweeted" ||
-              referencedTweet.type === "quoted"
-            ) {
-              const originalTweet = await this.getTweet(referencedTweet);
-              result.push({
-                id: originalTweet.id,
-                userName: originalTweet.userName,
-                text: originalTweet.text,
-                tweet_link: originalTweet.tweet_link,
-              });
-            }
-          }
+      for (const user of input.user) {
+        if (!user.userId || !user.userName) {
+          this.logger.error("X User id and user name are required");
         }
 
-        result.push({
-          id: userTweetTimeLine.id,
-          userName: user.userName,
-          text: userTweetTimeLine.text,
-          tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
-        });
-      }
-    });
+        const userTweetTimeLines = await axios.get(
+          `https://api.x.com/2/users/${user.userId}/tweets`,
+          {
+            params: {
+              max_results: 50,
+              expansions: "referenced_tweets.id",
+              end_time: new Date().toISOString(),
+              start_time: new Date(
+                new Date().getTime() - 1000 * 60 * 60 * 24,
+              ).toISOString(),
+            },
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
 
-    return result;
+        for (const userTweetTimeLine of userTweetTimeLines.data.data) {
+          // If Retweet or Quoted Tweet, get the original tweet. Exclude the replied tweet.
+          if (
+            userTweetTimeLine.referenced_tweets &&
+            userTweetTimeLine.referenced_tweets.length > 0
+          ) {
+            for (const referencedTweet of userTweetTimeLine.referenced_tweets) {
+              if (referencedTweet.type !== "replied") {
+                const originalTweet = await this.getTweet(
+                  {
+                    secretKey: input.secretKey,
+                    tweetId: referencedTweet.id,
+                  },
+                  accessToken,
+                );
+                result.push({
+                  id: originalTweet.id,
+                  userName: originalTweet.userName,
+                  text: originalTweet.text,
+                  tweet_link: originalTweet.tweet_link,
+                });
+              }
+            }
+          }
+
+          result.push({
+            id: userTweetTimeLine.id,
+            userName: user.userName,
+            text: userTweetTimeLine.text,
+            tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+          });
+        }
+      }
+      return result;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async makeTxtFileForTweetAndUploadToS3(
@@ -206,12 +191,11 @@ export class XProvider {
     );
   }
 
-  async refresh(input: IX.ISecret) {
+  async refresh(input: IX.ISecret): Promise<string> {
     try {
       const refreshToken = await OAuthSecretProvider.getSecretValue(
         input.secretKey,
       );
-
       const params = new URLSearchParams();
       params.append("grant_type", "refresh_token");
       params.append("refresh_token", refreshToken);
@@ -246,7 +230,7 @@ export class XProvider {
           X_TEST_SECRET: res.data.refresh_token,
         });
       }
-
+      input.secretKey = res.data.refresh_token;
       return res.data.access_token;
     } catch (err) {
       console.error(JSON.stringify(err));
