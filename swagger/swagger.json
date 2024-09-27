@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.243",
+    "version": "0.1.244",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -41687,10 +41687,10 @@
           "privacy": {
             "oneOf": [
               {
-                "const": "open"
+                "const": "closed"
               },
               {
-                "const": "closed"
+                "const": "open"
               }
             ],
             "title": "privacy"
@@ -43245,10 +43245,10 @@
           "state": {
             "oneOf": [
               {
-                "const": "open"
+                "const": "closed"
               },
               {
-                "const": "closed"
+                "const": "open"
               }
             ]
           },
@@ -43336,10 +43336,10 @@
           "privacy": {
             "oneOf": [
               {
-                "const": "open"
+                "const": "closed"
               },
               {
-                "const": "closed"
+                "const": "open"
               }
             ],
             "title": "privacy"
