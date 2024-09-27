@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.242",
+    "version": "0.1.243",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -16032,7 +16032,14 @@
             "description": "The content of the comment"
           },
           "order_id": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "description": "Only set for top level comments. The number displayed with the comment in the UI"
           },
           "reactions": {
@@ -16050,6 +16057,7 @@
           "user",
           "created_at",
           "message",
+          "order_id",
           "reactions"
         ],
         "description": "A comment or reply left by a user."
