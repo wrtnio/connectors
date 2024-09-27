@@ -1,15 +1,15 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGoogleHotel } from "@wrtn/connector-api/lib/structures/connector/google_hotel/IGoogleHotel";
 import { getJson } from "serpapi";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 const defaultParams = {
   engine: "google_hotels",
-  api_key: process.env.SERP_API_KEY,
+  api_key: ConnectorGlobal.env.SERP_API_KEY,
   hl: "ko",
   gl: "kr",
   currency: "KRW",
 };
-
 @Injectable()
 export class GoogleHotelProvider {
   async search(
