@@ -3,6 +3,7 @@ import { NestFactory } from "@nestjs/core";
 import { Test } from "@nestjs/testing";
 import { Logger } from "nestjs-pino";
 
+import { TypedRoute } from "@nestia/core";
 import { ConnectorConfiguration } from "./ConnectorConfiguration";
 import { StudioModule } from "./StudioModule";
 import { HttpExceptionFilter } from "./common/filters/all-exceptions.filter";
@@ -53,6 +54,10 @@ export class ConnectorBackend {
         new LoggingInterceptor(this.application_.get(Logger)),
       );
     }
+
+    TypedRoute.setValidateErrorLogger((err) => {
+      console.error(JSON.stringify(err));
+    });
 
     // DO OPEN
     await this.application_.listen(
