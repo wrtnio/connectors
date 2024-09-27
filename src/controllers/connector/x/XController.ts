@@ -26,25 +26,7 @@ export class XController {
   async getUser(
     @core.TypedBody() input: IX.IUserRequest,
   ): Promise<IX.IUserResponse> {
-    return retry(() => this.XProvider.getUser(input))();
-  }
-
-  /**
-   * Get User Followers
-   *
-   * @summary Get User Followers
-   *
-   * @param input userId
-   * @returns followers information
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
-  )
-  @core.TypedRoute.Post("/get-user-followers")
-  async getUserFollowers(
-    @core.TypedBody() input: IX.IGetUserFollowersRequest,
-  ): Promise<IX.IGetUserFollowersResponse[]> {
-    return retry(() => this.XProvider.getUserFollowers(input))();
+    return this.XProvider.getUser(input);
   }
 
   /**
@@ -62,7 +44,7 @@ export class XController {
   async getTweet(
     @core.TypedBody() input: IX.IGetTweetRequest,
   ): Promise<IX.ITweetResponse> {
-    return retry(() => this.XProvider.getTweet(input))();
+    return this.XProvider.getTweet(input);
   }
 
   /**
@@ -80,7 +62,7 @@ export class XController {
   async getUserTimelineTweets(
     @core.TypedBody() input: IX.IUserTweetTimeLineRequest,
   ): Promise<IX.ITweetResponse[]> {
-    return retry(() => this.XProvider.getUserTimelineTweets(input))();
+    return this.XProvider.getUserTimelineTweets(input);
   }
 
   /**
@@ -99,9 +81,7 @@ export class XController {
     @core.TypedParam("userName") userName: string,
     @core.TypedBody() input: IX.ITweetResponse[],
   ): Promise<IX.IMakeTxtFileAndUploadResponse> {
-    return retry(() =>
-      this.XProvider.makeTxtFileForTweetAndUploadToS3(userName, input),
-    )();
+    return this.XProvider.makeTxtFileForTweetAndUploadToS3(userName, input);
   }
 
   /**
@@ -118,6 +98,6 @@ export class XController {
   async summarizeTweet(
     @core.TypedBody() input: IX.ISummarizeTweetRequest,
   ): Promise<IRag.IGenerateOutput> {
-    return retry(() => this.XProvider.summarizeTweet(input))();
+    return this.XProvider.summarizeTweet(input);
   }
 }

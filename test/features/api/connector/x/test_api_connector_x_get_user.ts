@@ -6,6 +6,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 export const test_api_connector_x_get_user = async (
   connection: CApi.IConnection,
 ) => {
+  await ConnectorGlobal.reload();
   const res = await CApi.functional.connector.x.get_user.getUser(connection, {
     userName: "elonmusk",
     secretKey: ConnectorGlobal.env.X_TEST_SECRET,
