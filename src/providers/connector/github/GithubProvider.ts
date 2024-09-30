@@ -791,7 +791,11 @@ export class GithubProvider {
   ): Promise<IGithub.IGetFileContentOutput | null> {
     try {
       const data = await this.getFileContents(input);
-      return data;
+      if (data instanceof Array) {
+        return data;
+      } else {
+        return data.type === "null" ? null : data;
+      }
     } catch (err) {
       return null;
     }
