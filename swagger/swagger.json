@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.251",
+    "version": "0.1.252",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -8665,40 +8665,6 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-standalone": true
-      }
-    },
-    "/connector/github/analyze": {
-      "post": {
-        "summary": "Analysis for a github repository",
-        "description": "\nRAG analysis for a particular repo\n\nThis RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.\nThis will be useful when users want to analyze the repository.",
-        "deprecated": true,
-        "tags": [
-          "Github"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGithub.IAnalyzeInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IRag.IAnalysisOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/users/get-received-events": {
@@ -38655,30 +38621,6 @@
         },
         "required": [
           "place_id"
-        ]
-      },
-      "IGithub.IAnalyzeInput": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "github",
-            "title": "Select authentication information",
-            "description": "secret key."
-          },
-          "owner": {
-            "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
-          },
-          "repo": {
-            "type": "string",
-            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
-          }
-        },
-        "required": [
-          "secretKey",
-          "owner",
-          "repo"
         ]
       },
       "IGithub.IGetEventOutput": {
