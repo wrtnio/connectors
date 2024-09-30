@@ -60,27 +60,27 @@ export namespace ISweetTracker {
     /**
      * @title Sender's name
      */
-    senderName?: string;
+    senderName?: string | null;
 
     /**
      * @title Recipient Address
      */
-    receiverAddr?: string;
+    receiverAddr?: string | null;
 
     /**
      * It means the first path among the paths, and corresponds to the 0th index of the `trackingDetails` array.
      */
-    firstDetail: TrackingDetail;
+    firstDetail?: TrackingDetail | null;
 
     /**
      * @title Progress stage
      */
-    level: ISweetTracker.Level;
+    level: ISweetTracker.Level | null;
 
     /**
      * It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array.
      */
-    lastDetail: TrackingDetail;
+    lastDetail?: TrackingDetail | null;
 
     /**
      * Text in the format '15:00~17:00'
@@ -92,32 +92,32 @@ export namespace ISweetTracker {
     /**
      * @title Product Image URL
      */
-    itemImage: string;
+    itemImage?: string | null;
 
     /**
      * @title Address used by courier companies for advertising purposes
      */
-    adUrl: string;
+    adUrl?: string | null;
 
     /**
      * @title lastStateDetail
      */
-    lastStateDetail: ISweetTracker.TrackingDetail;
+    lastStateDetail?: ISweetTracker.TrackingDetail | null;
 
     /**
      * @title Postal address
      */
-    zipCode: string | null;
+    zipCode?: string | null;
 
     /**
      * @title tracking number
      */
-    invoiceNo: string;
+    invoiceNo?: string | null;
 
     /**
      * @title Delivery Completed
      */
-    completeYN:
+    completeYN?:
       | tags.Constant<
           "Y",
           {
@@ -131,42 +131,43 @@ export namespace ISweetTracker {
             title: "배송 중";
             description: "배송이 완료되지 않은 경우에는 N으로 표기된다.";
           }
-        >;
+        >
+      | null;
 
     /**
      * @title Order Number
      */
-    orderNumber: string | null;
+    orderNumber?: string | null;
 
     /**
      * @title Delivery Completed
      */
-    complete: boolean;
+    complete?: boolean | null;
 
     /**
      * @title Recipient Information
      */
-    recipient: string;
+    recipient?: string | null;
 
     /**
      * @title Recipient
      */
-    receiverName: string;
+    receiverName?: string | null;
 
     /**
      * @title Search Results
      */
-    result: string;
+    result?: string | null;
 
     /**
      * @title Product Information
      */
-    productInfo: string | null;
+    productInfo?: string | null;
 
     /**
      * @title Product Name
      */
-    itemName: string;
+    itemName?: string | null;
   }
 
   export interface Company {
@@ -190,57 +191,57 @@ export namespace ISweetTracker {
     /**
      * @title Delivery Status Code
      */
-    code: string | null;
+    code?: string | null;
 
     /**
      * @title Progress status
      */
-    kind: string;
+    kind?: string | null;
 
     /**
      * @title Progress stage
      */
-    level: ISweetTracker.Level;
+    level?: ISweetTracker.Level | null;
 
     /**
      * @title Delivery driver name
      */
-    manName: string;
+    manName?: string | null;
 
     /**
      * @title Delivery driver phone number
      */
-    manPic: string;
+    manPic?: string | null;
 
     /**
      * @title Note
      */
-    remark: string | null;
+    remark?: string | null;
 
     /**
      * @title Delivery driver phone number
      */
-    telno: string;
+    telno?: string | null;
 
     /**
      * @title Delivery driver phone number
      */
-    telno2: string;
+    telno2?: string | null;
 
     /**
      * @title Progress time
      */
-    time: number;
+    time?: number | null;
 
     /**
      * @title Progress time
      */
-    timeString: string;
+    timeString?: string | null;
 
     /**
      * @title Progress location
      */
-    where: string;
+    where?: string | null;
   }
 
   /**
