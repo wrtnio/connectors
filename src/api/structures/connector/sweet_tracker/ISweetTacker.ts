@@ -75,7 +75,7 @@ export namespace ISweetTracker {
     /**
      * @title Progress stage
      */
-    level: ISweetTracker.Level | null;
+    level?: ISweetTracker.Level | null;
 
     /**
      * It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array.
@@ -87,7 +87,7 @@ export namespace ISweetTracker {
      *
      * @title Expected delivery time
      */
-    estimate: string | null;
+    estimate?: string | null;
 
     /**
      * @title Product Image URL
