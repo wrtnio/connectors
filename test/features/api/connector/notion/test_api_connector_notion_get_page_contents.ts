@@ -17,7 +17,7 @@ export const test_api_connector_notion_get_page_contents = async (
       await CApi.functional.connector.notion.get.page.contents.readPageContents(
         connection,
         {
-          block_id: page.pageId,
+          block_id: page.pageId as string,
           page_size: 50,
           secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
         },

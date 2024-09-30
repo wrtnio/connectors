@@ -717,6 +717,7 @@ export class NotionController {
    * Returns a paginated array of child block objects contained in the block using the ID specified.
    * In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.
    * Returns only the first level of children for the specified block. See block objects for more detail on determining if that block has nested children.
+   * It is used to check the contents of the page by inquiring about the children of the page or block.
    *
    * @summary Retrieve block children
    * @param input
@@ -729,7 +730,7 @@ export class NotionController {
   @core.TypedRoute.Post("/get/page/contents")
   async readPageContents(
     @core.TypedBody() input: INotion.IReadPageContentInput,
-  ) {
+  ): Promise<INotion.IReadPageContentOutput> {
     return retry(() => NotionProvider.readPageContents(input))();
   }
 
