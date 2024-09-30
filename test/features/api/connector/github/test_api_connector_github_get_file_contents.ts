@@ -56,6 +56,24 @@ export async function test_api_connector_github_get_file_contents_3(
   typia.assert(res);
 }
 
+// 존재하지 않는 파일을 찾는 경우
+export async function test_api_connector_github_get_file_contents_4(
+  connection: CApi.IConnection,
+) {
+  const res =
+    await CApi.functional.connector.github.repos.get_contents.getFileContents(
+      connection,
+      {
+        owner: "samchon",
+        repo: "nestia",
+        path: "THIS_IS_NOT_NON_EXSISTANT_FILE",
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  typia.assert(res);
+}
+
 export async function test_api_connector_github_get_readme_file(
   connection: CApi.IConnection,
 ) {

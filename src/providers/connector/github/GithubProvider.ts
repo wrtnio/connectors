@@ -2,16 +2,16 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { ElementOf } from "@wrtnio/decorators";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import typia from "typia";
+import { PickPartial } from "../../../api/structures/types/PickPartial";
+import { StrictOmit } from "../../../api/structures/types/strictOmit";
 import {
   docsExtensions,
   imageExtensions,
   videoExtensions,
 } from "../../../utils/constants/extensions";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
-import { PickPartial } from "../../../api/structures/types/PickPartial";
-import { StrictOmit } from "../../../api/structures/types/strictOmit";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
@@ -800,35 +800,50 @@ export class GithubProvider {
   async getFileContents(
     input: IGithub.IGetFileContentInput,
   ): Promise<IGithub.IGetFileContentOutput> {
-    const { owner, repo, path, secretKey, branch } = input;
-    const token = await this.getToken(secretKey);
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path ? path : ""}`;
-    const res = await axios.get(url, {
-      params: {
-        ref: branch,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/vnd.github.object+json",
-      },
-    });
+    try {
+      const { owner, repo, path, secretKey, branch } = input;
+      const token = await this.getToken(secretKey);
+      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path ? path : ""}`;
+      const res = await axios.get(url, {
+        params: {
+          ref: branch,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/vnd.github.object+json",
+        },
+      });
 
-    if (res.data instanceof Array) {
-      // 폴더를 조회한 경우 폴더 내부의 파일 목록이 조회된다.
-      return res.data;
-    } else {
-      // 파일인 경우 상세 내용이 조회된다.
-      const file: IGithub.RepositoryFile = res.data;
-      const isMediaFile = this.isMediaFile(file);
+      if (res.data instanceof Array) {
+        // 폴더를 조회한 경우 폴더 내부의 파일 목록이 조회된다.
+        return res.data;
+      } else {
+        // 파일인 경우 상세 내용이 조회된다.
+        const file: IGithub.RepositoryFile = res.data;
+        const isMediaFile = this.isMediaFile(file);
 
-      return {
-        ...file,
-        ...(file.content && {
-          content: isMediaFile
-            ? file.content
-            : Buffer.from(file.content, "base64").toString("utf-8"),
-        }),
-      };
+        return {
+          ...file,
+          ...(file.content && {
+            content: isMediaFile
+              ? file.content
+              : Buffer.from(file.content, "base64").toString("utf-8"),
+          }),
+        };
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.status === 404) {
+          // 우리가 만드는 임의의 타입
+          return {
+            type: "null",
+            size: 0,
+            message: "No files exist corresponding to the path.",
+          } as const;
+        }
+      }
+
+      throw err;
     }
   }
 

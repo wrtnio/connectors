@@ -482,7 +482,12 @@ export namespace IGithub {
 
   export type IGetFileContentOutput =
     | (StrictOmit<RepositoryFile, "encoding" | "content"> | RepositoryFolder)[]
-    | RepositoryFile;
+    | RepositoryFile
+    | {
+        type: "null";
+        size: 0;
+        message: "No files exist corresponding to the path.";
+      };
 
   export type RepositoryFolder = {
     /**
