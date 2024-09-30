@@ -25,9 +25,14 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
       - name: Install
         run: npm install
+      - name: Secrets to Env
+        run: |
+          rm .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Build Test Program
         run: |
           npm run build:sdk
