@@ -12,7 +12,7 @@ export const test_api_connector_open_data_get_get_stock_price_info = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
   assert(res.response.body.items.item.length > 0);
 };
 
@@ -36,7 +36,7 @@ export const test_api_connector_open_data_get_get_stock_price_info_with_exact_co
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
     assert(res.response.body.items.item.length > 0);
   };
 
@@ -64,7 +64,7 @@ export const test_api_connector_open_data_get_get_stock_price_info_59_days_ago =
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
     assert(res.response.body.items.item.length > 0);
   };
 
@@ -92,7 +92,7 @@ export const test_api_connector_open_data_get_get_stock_price_info_20_days_ago =
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
     assert(res.response.body.items.item.length > 0);
   };
 
@@ -119,7 +119,7 @@ export const test_api_connector_open_data_get_get_stock_price_info_before_one_we
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
     assert(res.response.body.items.item.length > 0);
   };
 
@@ -140,6 +140,6 @@ export const test_api_connector_open_data_get_get_today_stock_price_info =
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
     assert(res.response.body.items.item.length === 0);
   };

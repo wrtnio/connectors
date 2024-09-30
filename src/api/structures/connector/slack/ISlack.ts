@@ -1,7 +1,7 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
-import { StrictOmit } from "../../../../utils/strictOmit";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ISlack {
@@ -338,7 +338,7 @@ export namespace ISlack {
      * The closer you are to the 0th in the array, the more recent it is.
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
      */
-    messages: ISlack.Message[];
+    messages: StrictOmit<ISlack.Message, "type">[];
 
     /**
      * @title members
@@ -533,7 +533,7 @@ export namespace ISlack {
        * @title profile image
        */
       image_original:
-        | (string & tags.Format<"uri"> & ContentMediaType<"image/*">)
+        | (string & tags.Format<"iri"> & ContentMediaType<"image/*">)
         | null;
     };
   }
@@ -574,7 +574,6 @@ export namespace ISlack {
      *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
-     *
      */
     post_at: string & Placeholder<"1234567890.123456">;
 
@@ -604,6 +603,8 @@ export namespace ISlack {
 
     /**
      * @title message contents
+     *
+     * When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.
      */
     text: string;
 
@@ -612,7 +613,6 @@ export namespace ISlack {
      *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
-     *
      */
     ts: string & Placeholder<"1234567890.123456">;
 
@@ -653,7 +653,7 @@ export namespace ISlack {
      * Link to view the conversation history immediately.
      * We can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times.
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
   }
 
   export interface Attachment {
@@ -669,7 +669,7 @@ export namespace ISlack {
     /**
      * @title fallback
      *
-     * 	A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
+     * A plain text summary of the attachment used in clients that don't show formatted text (eg. IRC, mobile notifications).
      */
     fallback?: string;
 
@@ -680,7 +680,7 @@ export namespace ISlack {
      * The thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.
      * For best results, please use images that are already 75px by 75px.
      */
-    thumb_url?: string & tags.Format<"uri">;
+    thumb_url?: string & tags.Format<"iri">;
 
     /**
      * @title thumb_width

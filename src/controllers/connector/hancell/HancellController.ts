@@ -6,24 +6,25 @@ import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/I
 
 import { HancellProvider } from "../../../providers/connector/hancell/HancellProvider";
 import { retry } from "../../../utils/retry";
-
+import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/hancell")
 export class HancellController {
   constructor(private readonly hancellProvider: HancellProvider) {}
 
   /**
-   * 한셀 시트를 수정합니다.
+   * Modify a Hansel sheet.
    *
-   * 만약 시트가 이미 존재한다면 시트를 수정하고 기존에 없던 시트라면 추가합니다.
+   * If the sheet already exists, modify it, or add it if it did not exist before.
    *
-   * @summary 한셀 수정
-   * @param input 수정할 한셀 정보
-   * @returns 수정 후 새로 만들어진 파일 링크
+   * @summary Modify Hansel
+   * @param input Hansel information to modify
+   * @returns Link to the newly created file after modification
    */
   @core.TypedRoute.Post("sheet")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
+  @ApiTags("Hancel")
   async upsertSheet(
     @TypedBody() input: IHancell.IUpsertSheetInput,
   ): Promise<IHancell.IUpsertSheetOutput> {
@@ -31,16 +32,17 @@ export class HancellController {
   }
 
   /**
-   * 한셀 파일을 읽습니다.
+   * Read a Hansel file.
    *
-   * @summary 한셀 파일 읽기
-   * @param input 읽을 한셀 파일 정보
-   * @returns 한셀 파일 정보
+   * @summary Read a Hansel file
+   * @param input Hansel file information to read
+   * @returns Hansel file information
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
+  @ApiTags("Hancel")
   @core.TypedRoute.Post("read")
   async read(
     @TypedBody() input: IHancell.IReadHancellInput,

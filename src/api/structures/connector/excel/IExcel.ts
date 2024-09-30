@@ -4,40 +4,40 @@ import { ContentMediaType } from "typia/lib/tags/ContentMediaType";
 
 export namespace IExcel {
   /**
-   * @title 파일 정보
+   * @title file information
    */
   export interface IReadExcelInput {
     /**
-     * 읽어올 엑셀 파일
+     * Excel file to read
      *
-     * @title 엑셀 파일
+     * @title Excel file
      */
     fileUrl: string &
       tags.Format<"uri"> &
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
-     * 읽어올 sheet 이름
+     * Sheet name to read
      *
-     * @title sheet 이름
+     * @title sheet name
      */
     sheetName?: (string & Placeholder<"Sheet1">) | null;
   }
 
   /**
-   * @title 읽어온 엑셀 행 데이터
+   * @title Read Excel row data
    */
   interface IReadExcelRowData {
     /**
-     * key가 헤더 이름이고 value가 해당 행의 값인 객체
+     * Object where key is header name and value is value of that row
      *
-     * @title 읽어온 엑셀 행 데이터
+     * @title Read Excel row data
      */
     [key: string]: any;
   }
 
   /**
-   * @title 엑셀 파일 읽기 결과
+   * @title Excel file reading result
    */
   export interface IReadExcelOutput {
     /**
@@ -46,19 +46,19 @@ export namespace IExcel {
     headers: string[];
 
     /**
-     * @title 엑셀 시트 데이터
+     * @title Excel sheet data
      */
     data: IReadExcelRowData[];
   }
 
   /**
-   * @title 파일 정보
+   * @title file information
    */
   export interface IGetWorksheetListInput {
     /**
-     * 엑셀 워크 시트 리스트를 가져올 파일
+     * File to import list of Excel worksheets
      *
-     * @title 엑셀 파일
+     * @title Excel file
      */
     fileUrl: string &
       tags.Format<"uri"> &
@@ -66,22 +66,22 @@ export namespace IExcel {
   }
 
   /**
-   * @title 가져온 워크 시트 리스트
+   * @title List of imported worksheets
    */
   export interface IWorksheetListOutput {
     /**
-     * @title sheet 리스트 데이터
+     * @title sheet list data
      */
     data: {
       /**
-       * 가져온 워크 시트의 이름
+       * Name of the imported worksheet
        *
-       * @title sheet 이름
+       * @title sheet name
        */
       sheetName: string;
 
       /**
-       * 가져온 워크 시트의 id.
+       * The id of the imported worksheet.
        *
        * @title sheet id
        */
@@ -90,7 +90,7 @@ export namespace IExcel {
   }
 
   /**
-   * @title 데이터 추가를 위한 정보
+   * @title Information for adding data
    */
   export interface IInsertExcelRowByUploadInput extends ICreateSheetInput {
     /**
@@ -107,15 +107,15 @@ export namespace IExcel {
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
-     * key가 header 이름이고 value가 해당 행의 값인 객체의 배열
+     * An array of objects where the key is the header name and the value is the value of the corresponding row
      *
-     * @title 추가할 엑셀 행 데이터
+     * @title Excel row data to add
      */
     data: Record<string, any>[];
   }
 
   /**
-   * @title 데이터 추가를 위한 정보
+   * @title Information for adding data
    */
   export interface IInsertExcelRowInput extends ICreateSheetInput {
     /**
@@ -127,32 +127,32 @@ export namespace IExcel {
      *
      * @title 엑셀 파일
      */
-    fileUrl?: string & tags.Format<"uri">;
+    fileUrl?: string & tags.Format<"iri">;
 
     /**
-     * key가 header 이름이고 value가 해당 행의 값인 객체의 배열
+     * An array of objects where the key is the header name and the value is the value of the corresponding row
      *
-     * @title 추가할 엑셀 행 데이터
+     * @title Excel row data to add
      */
     data: Record<string, any>[];
   }
 
   export interface ICreateSheetInput {
     /**
-     * 엑셀 행을 추가할 시트 이름
-     * 입력이 들어오지 않을 시 기본으로 첫번째 sheet를 대상으로 동작합니다.
+     * Sheet name to add Excel rows to
+     * If no input is entered, the first sheet is used as the default.
      *
-     * @title 엑셀 시트 이름
+     * @title Excel sheet name
      */
     sheetName?: (string & Placeholder<"Sheet1">) | null;
   }
 
   /**
-   * @title 엑셀 행 추가 결과
+   * @title Excel row addition result
    */
   export interface IExportExcelFileOutput {
     /**
-     * @title 생성된 엑셀 파일 url
+     * @title Generated Excel file url
      */
     fileUrl: string &
       tags.Format<"uri"> &

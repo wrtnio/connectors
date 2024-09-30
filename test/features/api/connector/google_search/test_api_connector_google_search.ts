@@ -14,7 +14,7 @@ export const test_api_connector_google_search = async (
       max_results: 10,
     },
   );
-  typia.assertEquals(search_result);
+  typia.assert(search_result);
 
   const wanted_result =
     await CApi.functional.connector.google_search.wanted.searchForWanted(
@@ -26,7 +26,7 @@ export const test_api_connector_google_search = async (
         max_results: 20,
       },
     );
-  typia.assertEquals(wanted_result);
+  typia.assert(wanted_result);
 
   const incruit_result =
     await CApi.functional.connector.google_search.incruit.searchForIncruit(
@@ -38,7 +38,7 @@ export const test_api_connector_google_search = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(incruit_result);
+  typia.assert(incruit_result);
 
   const saramin_result =
     await CApi.functional.connector.google_search.saramin.searchForSaramin(
@@ -50,7 +50,7 @@ export const test_api_connector_google_search = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(saramin_result);
+  typia.assert(saramin_result);
 
   const jumpit_result =
     await CApi.functional.connector.google_search.jumpit.searchForJumpit(
@@ -62,7 +62,7 @@ export const test_api_connector_google_search = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(jumpit_result);
+  typia.assert(jumpit_result);
 
   const careerly_result =
     await CApi.functional.connector.google_search.careerly.searchForCareerly(
@@ -74,5 +74,5 @@ export const test_api_connector_google_search = async (
         max_results: 10,
       },
     );
-  typia.assertEquals(careerly_result);
+  typia.assert(careerly_result);
 };

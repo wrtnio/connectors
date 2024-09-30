@@ -5,24 +5,26 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { retry } from "../../../utils/retry";
 import { GoogleFlightProvider } from "../../../providers/connector/google_flight/GoogleFlightProvider";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-flight")
 export class GoogleFlightController {
   constructor(private readonly googleFlightProvider: GoogleFlightProvider) {}
 
   /**
-   * 편도 항공편을 검색합니다.
+   * Search for one-way flights.
    *
-   * @summary 편도 항공편 검색
+   * @summary Search for one-way flights
    *
-   * @param input 항공편 검색에 필요한 조건
-   * @returns 편도 항공편 검색 결과
+   * @param input Conditions required to search for flights
+   * @returns Search results for one-way flights
    */
   @Standalone()
   @core.TypedRoute.Post("/one-way")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
+  @ApiTags("Google Flight")
   async oneWay(
     @core.TypedBody() input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {
@@ -30,20 +32,21 @@ export class GoogleFlightController {
   }
 
   /**
-   * 왕복 항공편을 검색합니다.
+   * Search for round-trip flights.
    *
-   * @summary 왕복 항공편 검색
+   * @summary Search for round-trip flights
    *
-   * @param departureToken 이전 단계에서 선택한 항공편의 departure token
+   * @param departureToken The departure token of the flight selected in the previous step
    *
-   * @param input 항공편 검색에 필요한 조건
-   * @returns 왕복 항공편 검색 결과
+   * @param input The conditions required to search for flights
+   * @returns The results of the round-trip flight search
    */
   @Standalone()
   @core.TypedRoute.Post("/round-trip")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
+  @ApiTags("Google Flight")
   async roundTrip(
     @core.TypedBody() input: IGoogleFlight.IRequest,
   ): Promise<IGoogleFlight.IFinalResponse> {

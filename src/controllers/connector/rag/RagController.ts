@@ -3,6 +3,7 @@ import { Controller } from "@nestjs/common";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
+import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon } from "@wrtnio/decorators";
 import { RagProvider } from "../../../providers/connector/rag/RagProvider";
 
@@ -11,17 +12,18 @@ export class RagController {
   constructor(private readonly ragService: RagProvider) {}
 
   /**
-   * 입력된 파일에 대해 RAG 분석을 요청합니다.
+   * Request RAG analysis for the input file.
    *
-   * 여러 개의 연구논문을 비교하는 챗봇을 제작할 때 사용될 수 있는 커넥터 입니다.
+   * This connector can be used when creating a chatbot that compares multiple research papers.
    *
-   * @summary RAG 분석 요청.
+   * @summary Request RAG analysis.
    *
-   * @param input 분석할 파일 정보.
+   * @param input Information about the file to be analyzed.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
+  @ApiTags("RAG")
   @core.TypedRoute.Post("/analyze")
   async analyze(
     @core.TypedBody() input: IRag.IAnalyzeInput,
@@ -30,14 +32,15 @@ export class RagController {
   }
 
   /**
-   * 분석 진행 상태를 조회합니다.
+   * Check the analysis progress status.
    *
-   * @summary RAG 분석 상태 조회.
+   * @summary Check RAG analysis status.
    *
-   * @param docId 분석 진행 상태를 조회할 문서 ID.
+   * @param docId Document ID for which to check the analysis progress status.
    *
    * @internal
    */
+  @ApiTags("RAG")
   @core.TypedRoute.Get("/:jobId/status")
   async getStatus(
     @core.TypedParam("jobId") jobId: string,
@@ -46,17 +49,18 @@ export class RagController {
   }
 
   /**
-   * RAG 분석을 기반으로 요청받은 결과물을 생성합니다.
+   * Generates requested results based on RAG analysis.
    *
-   * 여러 개의 연구논문을 비교하는 챗봇을 통해 유저가 질문한 내용에 대한 답변을 생성할 때 사용될 수 있는 커넥터 입니다.
+   * A connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.
    *
-   * @summary RAG 기반 결과물 생성
+   * @summary Generate RAG-based results
    *
    * @param input
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
   )
+  @ApiTags("RAG")
   @core.TypedRoute.Post("/generate/:chatId")
   public async generate(
     @core.TypedBody() input: IRag.IGenerateInput,

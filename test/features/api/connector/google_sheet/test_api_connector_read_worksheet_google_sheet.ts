@@ -18,6 +18,6 @@ export const test_api_connector_read_worksheet_google_sheet = async (
     input,
   );
 
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

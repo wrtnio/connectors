@@ -2,27 +2,27 @@ import { IConnector } from "../../common/IConnector";
 
 export namespace IKeywordExtraction {
   /**
-   * @title 키워드 추출을 위한 입력
+   * @title Input for keyword extraction
    */
   export interface IExtractKeywordInput {
     /**
-     * 키워드 추출을 위한 참고 자료
+     * References for keyword extraction
      *
-     * @title 참고 자료
+     * @title References
      */
     referenceContent: IConnector.IReferenceContent;
 
     /**
-     * 키워드 추출을 위한 문맥 정보
+     * Contextual information for keyword extraction
      *
-     * @title 문맥 정보
+     * @title Contextual information
      */
     context: any;
   }
 
   export interface IExtractKeywordOutput {
     /**
-     * 추출된 키워드
+     * Extracted Keywords
      */
     keyword: string;
   }

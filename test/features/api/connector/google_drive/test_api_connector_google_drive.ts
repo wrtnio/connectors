@@ -23,9 +23,7 @@ export const test_api_connector_google_drive = async (
       connection,
       createFolderInput,
     );
-  typia.assertEquals<IGoogleDrive.ICreateFolderGoogleDriveOutput>(
-    createFolderOutput,
-  );
+  typia.assert<IGoogleDrive.ICreateFolderGoogleDriveOutput>(createFolderOutput);
 
   /**
    * get folder list
@@ -37,9 +35,7 @@ export const test_api_connector_google_drive = async (
         secretKey,
       },
     );
-  typia.assertEquals<IGoogleDrive.IFolderListGoogleDriveOutput>(
-    findFolderListOutput,
-  );
+  typia.assert<IGoogleDrive.IFolderListGoogleDriveOutput>(findFolderListOutput);
 
   /**
    * create new file
@@ -55,9 +51,7 @@ export const test_api_connector_google_drive = async (
       connection,
       createFileInput,
     );
-  typia.assertEquals<IGoogleDrive.ICreateFileGoogleDriveOutput>(
-    createFileOutput,
-  );
+  typia.assert<IGoogleDrive.ICreateFileGoogleDriveOutput>(createFileOutput);
 
   /**
    * append text to text file
@@ -72,7 +66,7 @@ export const test_api_connector_google_drive = async (
       createFileOutput.id!,
       appendTextToFileInput,
     );
-  typia.assertEquals(appendTextToFileOutput);
+  typia.assert(appendTextToFileOutput);
 
   /**
    * get text from text file
@@ -85,7 +79,7 @@ export const test_api_connector_google_drive = async (
         secretKey,
       },
     );
-  typia.assertEquals<{ data: "hello world" }>(getTextFromFileOutput);
+  typia.assert<{ data: "hello world" }>(getTextFromFileOutput);
 
   /**
    * permission to file or folder
@@ -106,7 +100,7 @@ export const test_api_connector_google_drive = async (
       connection,
       permissionInput,
     );
-  typia.assertEquals(permissionOutput);
+  typia.assert(permissionOutput);
 
   /**
    * get file list
@@ -120,9 +114,7 @@ export const test_api_connector_google_drive = async (
       connection,
       findFileListInput,
     );
-  typia.assertEquals<IGoogleDrive.IFileListGoogleDriveOutput>(
-    findFileListOutput,
-  );
+  typia.assert<IGoogleDrive.IFileListGoogleDriveOutput>(findFileListOutput);
 
   /**
    * get file list without folderId
@@ -135,7 +127,7 @@ export const test_api_connector_google_drive = async (
         secretKey,
       },
     );
-  typia.assertEquals<IGoogleDrive.IFileListGoogleDriveOutput>(
+  typia.assert<IGoogleDrive.IFileListGoogleDriveOutput>(
     findFileListWtthoutFolderIdOutput,
   );
 
@@ -175,7 +167,7 @@ export const test_api_connector_google_drive = async (
         secretKey,
       },
     );
-  typia.assertEquals(folderList.data);
+  typia.assert(folderList.data);
 
   return folderList;
 };

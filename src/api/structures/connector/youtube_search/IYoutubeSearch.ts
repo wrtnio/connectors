@@ -3,176 +3,177 @@ import { tags } from "typia";
 
 export namespace IYoutubeSearch {
   /**
-   * @title 유튜브 검색 조건
+   * @title YouTube search conditions
    */
   export interface ISearchInput {
     /**
-     * 검색 결과에 포함되어야 하는 키워드입니다.
+     * Keywords that must be included in search results.
      *
-     * @title 반드시 포함되어야 하는 키워드
+     * @title Must be included keywords
      */
-    and_keywords: Array<string & Placeholder<"뤼튼">> & tags.MinItems<1>;
+    and_keywords: Array<string & tags.MinLength<1> & Placeholder<"뤼튼">> &
+      tags.MinItems<1>;
 
     /**
-     * 검색 결과에 포함되면 좋겠는 키워드입니다.
+     * Keywords that you would like to see included in your search results.
      *
-     * @title 포함되면 좋겠는 키워드
+     * @title Keywords that you would like to see included
      */
-    or_keywords?: Array<string & Placeholder<"스튜디오">>;
+    or_keywords?: Array<string & tags.MinLength<1> & Placeholder<"스튜디오">>;
 
     /**
-     * 검색 결과에 포함되면 안되는 키워드입니다.
+     * Keywords that should not be included in search results.
      *
-     * @title 포함되면 안되는 키워드
+     * @title Keywords that should not be included
      */
-    not_keywords?: Array<string & Placeholder<"폭력">>;
+    not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"폭력">>;
   }
   /**
-   * @title SerpAPI Params 정보
+   * @title SerpAPI Params Information
    */
   export interface ISerpApiParams {
     /**
-     * SerpAPi에서 사용할 검색 엔진을 설정합니다.
+     * Set the search engine to use in SerpAPi.
      *
-     * @title 검색 엔진
+     * @title Search Engine
      */
     engine: string;
 
     /**
-     * SerpAPI에서 사용할 API 키.
+     * API key to use in SerpAPI.
      *
-     * @title API 키
+     * @title API Key
      */
     api_key: string;
 
     /**
-     * SerpAPI에서 사용할 검색어 쿼리.
+     * Search query to use in SerpAPI.
      *
-     * @title 검색어 쿼리
+     * @title Search query
      */
     search_query: string & tags.MinLength<1>;
   }
 
   /**
-   * @title serpapi를 통해 받아온 youtube video 검색 결과
+   * @title Youtube video search results received through serpapi
    */
   export interface ISerpApiVideoResult {
     /**
-     * 검색 결과 페이지 내에서의 위치.
+     * Location within the search results page.
      *
-     * @title 페이지 내 위치
+     * @title Location within the page
      */
     position_on_page: number & tags.Type<"uint32">;
 
     /**
-     * 검색 결과로 나온 유튜브 영상의 제목.
+     * Title of the YouTube video that appears in the search results.
      *
-     * @title 유튜브 영상 제목
+     * @title YouTube video title
      */
     title: string;
 
     /**
-     * 검색 결과로 나온 유튜브 영상의 링크.
+     * Links to YouTube videos that appear in search results.
      *
-     * @title 유튜브 영상 링크
+     * @title YouTube video link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
-     * 검색 결과로 나온 유튜브 영상의 채널 정보.
+     * Channel information of YouTube videos that appear in search results.
      *
-     * @title 유튜브 영상 채널 정보
+     * @title YouTube video channel information
      */
     channel: ISerpApiYoutubeSearchChannelResult;
 
     /**
-     * 유튜브 영상이 발행된 날짜.
+     * Date the YouTube video was published.
      * ex) 1 year ago
      *
-     * @title 유튜브 영상 발행 날짜
+     * @title YouTube video published date
      */
     published_date: string;
 
     /**
-     * 유튜브 영상의 조회 수.
+     * YouTube video views.
      *
-     * @title 유튜브 영상 조회 수
+     * @title YouTube video views
      */
     views?: number & tags.Type<"uint32">;
 
     /**
-     * 유튜브 영상의 길이.
+     * Length of YouTube video.
      * ex) 6:30
      *
-     * @title 유튜브 영상 길이
+     * @title YouTube video length
      */
     length: string;
 
     /**
-     * 유튜브 영상의 설명.
+     * Description of YouTube video.
      *
-     * @title 유튜브 영상 설명
+     * @title YouTube video description
      */
     description?: string;
 
     /**
-     * 유튜브 영상의 추가 정보.
+     * Additional information about YouTube videos.
      * ex) 4K, CC
      *
-     * @title 비디오 결과에 대한 추가 정보
+     * @title Additional information about video results
      */
     extensions?: string[];
 
     /**
-     * 유튜브 영상의 썸네일 이미지 정보.
+     * Thumbnail image information for YouTube videos.
      *
-     * @title 유튜브 영상 썸네일 이미지 정보
+     * @title Thumbnail image information for YouTube videos
      */
     thumbnail: ISerpApiYoutubeSearchThumbnailResult;
   }
 
   /**
-   * @title serpapi를 통해 받아온 youtube video 검색 결과 중 channel 정보
+   * @title Channel information from youtube video search results received through serpapi
    */
   export interface ISerpApiYoutubeSearchChannelResult {
     /**
-     * 검색 결과로 나온 유튜브 채널의 이름.
+     * The name of the YouTube channel that appears in the search results.
      *
-     * @title 유튜브 채널 명
+     * @title YouTube Channel Name
      */
     name: string;
 
     /**
-     * 검색 결과로 나온 유튜브 채널의 링크.
+     * Links to YouTube channels that appear in search results.
      *
-     * @title 유튜브 채널 링크
+     * @title YouTube Channel Link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
-     * 검색 결과로 나온 유튜브 채널의 썸네일 이미지.
+     * Thumbnail images of YouTube channels that appear in search results.
      *
-     * @title 유튜브 채널 썸네일 이미지
+     * @title YouTube Channel Thumbnail Image
      */
-    thumbnail: string & tags.Format<"uri">;
+    thumbnail: string & tags.Format<"iri">;
   }
 
   /**
-   * @title serpapi를 통해 받아온 youtube video 검색 결과 중 thumbnail 정보
+   * @title Thumbnail information from youtube video search results received through serpapi
    */
   export interface ISerpApiYoutubeSearchThumbnailResult {
     /**
-     * 유튜브 영상 썸네일 정적 이미지.
+     * YouTube video thumbnail static image.
      *
-     * @title 유튜브 영상 썸네일 이미지 (정적)
+     * @title YouTube video thumbnail image (static)
      */
-    static: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    static: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
 
     /**
-     * 비디오 재생 시간에 따라 변화하는 애니메이션 형태의 이미지.
+     * Animated image that changes according to the video playback time.
      *
-     * @title 유튜브 영상 썸네일 이미지 (동적)
+     * @title YouTube video thumbnail image (dynamic)
      */
-    rich: string & tags.Format<"uri">;
+    rich: string & tags.Format<"iri">;
   }
 }

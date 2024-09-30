@@ -1,17 +1,16 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
-
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { ICommon } from "../common/ISecretValue";
 
 /**
- * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
- * organizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.
- * fileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.
- * writer: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.
- * commenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.
- * reader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.
+ * owner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.
+ * organizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.
+ * fileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.
+ * writer: Grants write permissions. Users with this permission can modify or delete files.
+ * commenter: Grants comment permissions. Users with this permission can read and comment on files.
+ * reader: Grants read permissions. Users with this permission can read files.
  *
- * @title 권한의 종류.
+ * @title Type of permission.
  */
 export type PermissionRoles =
   | "owner"
@@ -22,18 +21,18 @@ export type PermissionRoles =
   | "fileOrganizer";
 
 /**
- * user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.
- * group - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.
- * domain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.
- * anyone - 모든 사용자
+ * user - A specific user, in this case you must specify the email address of the user to whom you want to grant the permission in the emailAddress field.
+ * group - A specific group, in this case you must specify the email address of the group to whom you want to grant the permission in the emailAddress field.
+ * domain - A specific domain, in this case you must specify the domain to which you want to grant the permission in the domain field.
+ * anyone - All users
  *
- * @title 권한을 부여할 대상.
+ * @title The target to whom you want to grant the permission.
  */
 type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
 export namespace IGoogleDrive {
   /**
-   * @title 구글 drive 폴더 생성에 필요한 정보
+   * @title Information required to create a Google Drive folder
    */
   export interface ICreateFolderGoogleDriveInput
     extends ICommon.ISecret<
@@ -41,27 +40,27 @@ export namespace IGoogleDrive {
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
-     * 생성할 drive 폴더명.
+     * Drive folder name to be created.
      *
-     * @title 구글 drive 폴더명.
+     * @title Google drive folder name.
      */
     name: string;
   }
 
   /**
-   * @title 구글 drive 폴더 생성 결과
+   * @title Google Drive Folder Creation Results
    */
   export interface ICreateFolderGoogleDriveOutput {
     /**
-     * 생성된 drive 폴더 id.
+     * Generated drive folder id.
      *
-     * @title 생성된 drive id.
+     * @title Generated drive id.
      */
     id: string;
   }
 
   /**
-   * @title 구글 drive에 있는 파일 리스트를 불러오기 위한 정보
+   * @title Information for loading a list of files in Google Drive
    */
   export interface IFileListGoogleDriveInput
     extends ICommon.ISecret<
@@ -69,9 +68,9 @@ export namespace IGoogleDrive {
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
-     * 파일을 불러 올 폴더.
+     * Folder to load files from.
      *
-     * @title 구글 drive 폴더.
+     * @title Google Drive Folder.
      */
     folderId?: string &
       Prerequisite<{
@@ -85,59 +84,59 @@ export namespace IGoogleDrive {
   }
 
   /**
-   * @title 구글 drive에 있는 파일 리스트 정보
+   * @title File list information in Google Drive
    */
   export interface IFileListGoogleDriveOutput {
     /**
-     * 구글 drive에 있는 file 데이터 리스트.
+     * List of file data in Google Drive.
      *
-     * @title 구글 drive file 데이터.
+     * @title Google Drive File Data.
      */
     data: {
       /**
-       * 구글 drive file의 id.
+       * Google drive file id.
        *
-       * @title 구글 drive file id.
+       * @title Google drive file id.
        */
       id?: string | null;
 
       /**
-       * 구글 drive file의 이름.
+       * The name of the Google drive file.
        *
-       * @title 구글 drive file name.
+       * @title Google drive file name.
        */
       name?: string | null;
     }[];
   }
 
   /**
-   * @title 구글 drive에 있는 폴더 리스트 정보
+   * @title Folder list information in Google Drive
    */
   export interface IFolderListGoogleDriveOutput {
     /**
-     * 구글 drive에 있는 folder 데이터 리스트.
+     * List of folder data in Google Drive.
      *
-     * @title 구글 drive folder 데이터.
+     * @title Google Drive Folder Data.
      */
     data: {
       /**
-       * 구글 drive folder의 id.
+       * Google drive folder id.
        *
-       * @title 구글 drive folder id.
+       * @title Google drive folder id.
        */
       id?: string | null;
 
       /**
-       * 구글 drive 폴더 명.
+       * Google drive folder name.
        *
-       * @title 구글 drive folder name.
+       * @title Google drive folder name.
        */
       name?: string | null;
     }[];
   }
 
   /**
-   * @title 구글 drive에 파일 생성에 필요한 정보
+   * @title Information required to create a file in Google Drive
    */
   export interface ICreateFileGoogleDriveInput
     extends ICommon.ISecret<
@@ -145,16 +144,16 @@ export namespace IGoogleDrive {
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
-     * drive에 생성할 파일명.
+     * File name to be created in drive.
      *
-     * @title 구글 drive file명.
+     * @title Google drive file name.
      */
     name: string;
 
     /**
-     * drive에 생성할 파일이 속할 폴더 id 리스트.
+     * A list of folder ids that will contain the files to be created in the drive.
      *
-     * @title 구글 drive folder ids.
+     * @title Google drive folder ids.
      */
     folderIds: (string &
       Prerequisite<{
@@ -168,69 +167,69 @@ export namespace IGoogleDrive {
       tags.MinItems<1>;
 
     /**
-     * drive에 생성할 파일의 내용.
+     * Contents of the file to be created in drive.
      *
-     * @title 구글 drive file content.
+     * @title Google drive file content.
      */
     content: string;
   }
 
   /**
-   * @title 구글 drive에 파일 생성 결과
+   * @title Result of creating a file in Google Drive
    */
   export interface ICreateFileGoogleDriveOutput {
     /**
-     * 생성된 drive 파일 id.
+     * Generated drive file id.
      *
-     * @title 생성된 drive file id.
+     * @title Generated drive file id.
      */
     id: string;
   }
 
   /**
-   * @title 접근 권한 정보
+   * @title Access Rights Information
    */
   export interface IPermission {
     /**
-     * 구글 drive 접근 권한을 부여할 사용자의 이메일 주소입니다.
+     * The email address of the user to whom you wish to grant access to Google Drive.
      *
-     * @title 권한을 부여할 사용자의 이메일.
+     * @title The email address of the user to whom you wish to grant access.
      */
     email: string & tags.Format<"email">;
 
     /**
-     * 부여할 권한의 종류입니다.
+     * The type of permission to grant.
      *
-     * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
-     * organizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.
-     * fileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.
-     * writer: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.
-     * commenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.
-     * reader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.
+     * owner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.
+     * organizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.
+     * fileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.
+     * writer: Grants write permissions. Users with this permission can modify or delete files.
+     * commenter: Grants comment permissions. Users with this permission can read and comment on files.
+     * reader: Grants read permissions. Users with this permission can read files.
      *
-     * 가능한 값으로는 "owner", "organizer", "fileOrganizer", "writer", "commenter", "reader" 6가지만 가능합니다.
+     * There are only six possible values: "owner", "organizer", "fileOrganizer", "writer", "commenter", "reader".
      *
-     * @title 부여할 권한.
+     * @title The permission to grant.
      */
     role: PermissionRoles;
 
     /**
-     * 부여할 권한의 타입입니다.
+     * The type of permission to grant.
      *
-     * user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.
-     * group - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.
-     * domain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.
-     * anyone - 모든 사용자
+     * user - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.
+     * group - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.
+     * domain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.
+     * anyone - all users
      *
-     * 가능한 값으로는 "user", "group", "domain", "anyone" 4가지만 가능합니다.
+     * There are only four possible values: "user", "group", "domain", "anyone".
      *
-     * @title 부여할 권한의 타입.
+     * @title The type of permission to grant.
      */
     type: PermissionTypes;
   }
 
   /**
-   * @title 구글 drive 접근 권한에 필요한 정보
+   * @title Information required for Google Drive access permission
    */
   export interface IPermissionGoogleDriveInput
     extends ICommon.ISecret<
@@ -238,9 +237,9 @@ export namespace IGoogleDrive {
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
-     * 접근 권한을 부여할 drive 파일 id.
+     * The drive file id to grant access to.
      *
-     * @title 구글 drive file id.
+     * @title Google drive file id.
      */
     fileId?: string &
       Prerequisite<{
@@ -253,9 +252,9 @@ export namespace IGoogleDrive {
       }>;
 
     /**
-     * 접근 권한을 부여할 drive 폴더 id.
+     * Drive folder id to grant access to.
      *
-     * @title 구글 drive folder id.
+     * @title Google drive folder id.
      */
     folderId?: string &
       Prerequisite<{
@@ -268,15 +267,15 @@ export namespace IGoogleDrive {
       }>;
 
     /**
-     * 접근 가능하게 할 이메일과 부여할 권한 리스트 입니다.
+     * Here is a list of emails to make accessible and permissions to grant.
      *
-     * @title 접근 가능하게 할 이메일과 부여할 권한 리스트.
+     * @title Here is a list of emails to make accessible and permissions to grant.
      */
     permissions: IPermission[];
   }
 
   /**
-   * @title 구글 drive 파일 text 추가에 필요한 정보
+   * @title Information required to add text to Google Drive file
    */
   export interface IAppendTextGoogleDriveInput
     extends ICommon.ISecret<
@@ -284,27 +283,27 @@ export namespace IGoogleDrive {
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
-     * drive 파일에 추가할 text.
+     * Text to add to the drive file.
      *
-     * @title 추가할 text.
+     * @title Text to add.
      */
     text: string;
   }
 
   /**
-   * @title 구글 drive 파일 조회 결과
+   * @title Google Drive file search results
    */
   export interface IReadFileGoogleDriveOutput {
     /**
-     * drive 파일에서 추출한 text 데이터.
+     * Text data extracted from the drive file.
      *
-     * @title 구글 drive file data.
+     * @title Google drive file data.
      */
     data: string;
   }
 
   /**
-   * @title 인증 정보
+   * @title Authentication Information
    */
   export type ISecret = ICommon.ISecret<
     "google",

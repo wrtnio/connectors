@@ -1,4 +1,4 @@
-import * as CApi from "./module";
+import * as ConnectorApi from "./module";
 
 export * from "./module";
-export default CApi;
+export default ConnectorApi;

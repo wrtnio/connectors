@@ -1,10 +1,9 @@
 import { tags } from "typia";
-
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleCalendar {
   /**
-   * @title 캘린더 생성을 위한 정보
+   * @title Information for creating a calendar
    */
   export interface ICreateCalendarInput
     extends ICommon.ISecret<
@@ -12,44 +11,44 @@ export namespace IGoogleCalendar {
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
-     * 생성할 캘린더의 제목 입니다.
+     * The title of the calendar to be created.
      *
-     * @title 생성할 캘린더 제목.
+     * @title The title of the calendar to be created.
      */
     title: string;
   }
 
   /**
-   * @title 캘린더 생성 결과
+   * @title Calendar creation result
    */
   export interface IGoogleCalendarOutput {
     /**
-     * 생성된 캘린더의 id 입니다.
+     * The id of the generated calendar.
      *
-     * @title 캘린더 id.
+     * @title Calendar id.
      */
     id?: string | null;
 
     /**
-     * 생성된 캘린더의 이름 입니다.
+     * The name of the generated calendar.
      *
-     * @title 캘린더 명.
+     * @title Calendar name.
      */
     summary?: string | null;
   }
 
   /**
-   * - startTime: 이벤트 시작 시간.
-   * - updated: 이벤트 업데이트 날짜.
+   * - startTime: Event start time.
+   * - updated: Event update date.
    *
-   * @title 이벤트 정렬 순서.
+   * @title Event sort order.
    */
   type OrderBy =
     | tags.Constant<"startTime", { title: "시작 시간" }>
     | tags.Constant<"updated", { title: "업데이트 날짜" }>;
 
   /**
-   * @title 이벤트 검색에 필요한 정보
+   * @title Information needed to search for events
    */
   export interface IReadGoogleCalendarEventInput
     extends ICommon.ISecret<
@@ -57,450 +56,450 @@ export namespace IGoogleCalendar {
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
-     * 해당 날짜 이후의 이벤트는 가져오지 않습니다.
+     * Events after that date will not be fetched.
      *
-     * @title 이벤트를 가져올 마지막 날짜 정보.
+     * @title Information about the last date from which events will be fetched.
      */
     time_max: IGoogleCalendarEvent.IDate;
 
     /**
-     * 해당 날짜 이전의 이벤트는 가져오지 않습니다.
+     * Events prior to that date will not be retrieved.
      *
-     * @title 이벤트를 가져올 시작 날짜 정보.
+     * @title Information on the start date from which events will be retrieved.
      */
     time_min: IGoogleCalendarEvent.IDate;
 
     /**
-     * 가져올 이벤트의 최대 개수를 설정합니다.
+     * Sets the maximum number of events to retrieve.
      *
-     * @title 몇 개의 결과를 반환할지.
+     * @title How many results to return.
      */
     max_results?: number & tags.Type<"uint32">;
 
     /**
-     * 캘린더 이벤트 정렬 순서입니다.
+     * The order in which the calendar events are sorted.
      *
-     * - startTime: 이벤트 시작 시간.
-     * - updated: 이벤트 업데이트 날짜.
+     * - startTime: The start time of the event.
+     * - updated: The date the event was updated.
      *
-     * 가능한 값으로는 "startTime", "updated" 2가지만 가능합니다.
+     * Only two possible values are possible: "startTime" and "updated".
      *
-     * @title 어떤 순서대로 받아올 것인지.
+     * @title The order in which the events will be received.
      */
     orderBy?: OrderBy;
 
     /**
-     * 검색어를 포함하는 이벤트를 검색할 수 있습니다.
+     * You can search for events that contain your search terms.
      *
-     * 제목, 설명, 위치, 참석자 등에서 지정한 검색어를 포함하는 이벤트를 검색할 수 있음
+     * You can search for events that contain your search terms in the title, description, location, attendees, etc.
      *
-     * @title 이벤트 검색어.
+     * @title Event search terms.
      */
     query?: string;
   }
 
   /**
-   * @title 캘린더 이벤트 검색 결과
+   * @title Calendar Event Search Results
    */
   export interface IReadGoogleCalendarEventOutput {
     /**
-     * 검색된 캘린더 이벤트 리스트입니다.
+     * Here is a list of calendar events that were found.
      *
-     * @title 이벤트 리스트.
+     * @title Event List.
      */
     events: IGoogleCalendarEvent[];
   }
 
   /**
-   * @title 구글 캘린더 이벤트 정보
+   * @title Google Calendar Event Information
    */
   export interface IGoogleCalendarEvent {
     /**
-     * 이벤트의 고유 id 입니다.
+     * The unique id of the event.
      *
-     * @title 이벤트 id.
+     * @title event id.
      */
     id?: string | null;
 
     /**
-     * 이벤트 링크 입니다.
+     * Here is the event link.
      *
-     * @title 이벤트 링크.
+     * @title Event Link.
      */
-    htmlLink?: (string & tags.Format<"uri">) | null;
+    htmlLink?: (string & tags.Format<"iri">) | null;
 
     /**
-     * 이벤트 색상입니다.
+     * Event color.
      *
-     * @title 이벤트 색상.
+     * @title Event color.
      */
     color?: string | null;
 
     /**
-     * 이벤트 생성 날짜입니다.
+     * The event creation date.
      *
-     * @title 이벤트 생성 날짜.
+     * @title The event creation date.
      */
     createdDate?: string | null;
 
     /**
-     * 이벤트 업데이트 날짜입니다.
+     * Event update date.
      *
-     * @title 이벤트 업데이트 날짜.
+     * @title Event update date.
      */
     updatedDate?: string | null;
 
     /**
-     * 이벤트 제목입니다.
+     * This is the event title.
      *
-     * @title 이벤트 제목.
+     * @title Event title.
      */
     title?: string | null;
 
     /**
-     * 이벤트 설명입니다.
+     * Event description.
      *
-     * @title 이벤트 설명.
+     * @title Event description.
      */
     description?: string | null;
 
     /**
-     * 이벤트 위치입니다.
+     * This is the event location.
      *
-     * @title 이벤트 위치.
+     * @title Event Location.
      */
     location?: string | null;
 
     /**
-     * 이벤트 주최자의 정보입니다.
+     * Here is the information for the event organizer.
      *
-     * @title 이벤트 주최자.
+     * @title Event Organizer.
      */
     organizer?: IGoogleCalendarEvent.IOrganizer | null;
 
     /**
-     * 이벤트 생성자의 정보입니다.
+     * Information about the event creator.
      *
-     * @title 이벤트 생성자.
+     * @title Event Creator.
      */
     creator?: IGoogleCalendarEvent.ICreator | null;
 
     /**
-     * @title 이벤트 시작 날짜.
+     * @title Event Start Date.
      *
-     * 이벤트의 시작 날짜 정보입니다.
+     * The start date information for the event.
      */
     startDate?: {
       /**
-       * 이벤트 시작 날짜입니다.
+       * Event start date.
        *
-       * @title 이벤트 시작 날짜.
+       * @title Event start date.
        */
       dateTime?: string | null;
 
       /**
-       * 이벤트 시작 날짜 타임존입니다.
+       * Event start date time zone.
        *
-       * @title 이벤트 시작 날짜 타임존.
+       * @title Event start date time zone.
        */
       timeZone?: string | null;
     } | null;
 
     /**
-     * 이벤트의 끝나는 날짜 정보입니다.
+     * This is the event end date information.
      *
-     * @title 이벤트 끝나는 날짜.
+     * @title Event end date.
      */
     endDate?: {
       /**
-       * 이벤트 끝나는 날짜입니다.
+       * The event ends on this date.
        *
-       * @title 이벤트 끝나는 날짜.
+       * @title The event ends on this date.
        */
       dateTime?: string | null;
 
       /**
-       * 이벤트 끝나는 날짜 타임존입니다.
+       * Event End Date Timezone.
        *
-       * @title 이벤트 끝나는 날짜 타임존.
+       * @title Event End Date Timezone.
        */
       timeZone?: string | null;
     } | null;
 
     /**
-     * 이벤트 반복 정보입니다.
+     * Event repeat information.
      *
-     * @title 이벤트 반복 정보.
+     * @title Event repeat information.
      */
     recurrence?: string[] | null;
 
     /**
-     * 이벤트 바쁨 / 한가함 여부입니다.
+     * Event busy/free status.
      *
-     * @title 이벤트 바쁨 / 한가함 여부.
+     * @title Event busy/free status.
      */
     transparency?: string | null;
 
     /**
-     * 초대자 이벤트 수정 권한 여부입니다.
+     * Whether the inviter has permission to edit the event.
      *
-     * @title 초대자 이벤트 수정 권한 여부.
+     * @title Whether the inviter has permission to edit the event.
      */
     guestsCanModify?: boolean | null;
 
     /**
-     * 이벤트 알림 정보입니다.
+     * Event notification information.
      *
-     * @title 이벤트 알림 정보.
+     * @title Event notification information.
      */
     reminders?: IGoogleCalendarEvent.IReminders | null;
 
     /**
-     * 이벤트 참석자 정보입니다.
+     * Here is the event attendee information.
      *
-     * @title 이벤트 참석자.
+     * @title Event Attendee.
      */
     attendees?: IGoogleCalendarEvent.IAttendees[] | null;
 
     /**
-     * 이벤트 첨부파일 정보입니다.
+     * Event attachment information.
      *
-     * @title 첨부파일 정보.
+     * @title Attachment information.
      */
     attachments?: IGoogleCalendarEvent.IAttachments[] | null;
 
     /**
-     * 구글 밋 링크입니다.
+     * Here is the Google Meet link.
      *
-     * @title 구글 밋 링크.
+     * @title Google Meet link.
      */
     hangoutLink?: string | null;
 
     /**
-     * 이벤트 공개 상태입니다.
+     * The event is open.
      *
-     * @title 이벤트 공개 상태.
+     * @title The event is open.
      */
     visibility?: string | null;
   }
 
   export namespace IGoogleCalendarEvent {
     /**
-     * 이벤트 생성자 정보입니다.
+     * Event creator information.
      *
-     * @title 이벤트 생성자 정보.
+     * @title Event creator information.
      */
     export interface ICreator {
       /**
-       * 이벤트 생성자 프로필 id입니다.
+       * The event creator profile id.
        *
-       * @title 이벤트 생성자 프로필 id.
+       * @title Event Creator Profile Id.
        */
       id?: string | null;
 
       /**
-       * 이벤트 생성자 이름입니다.
+       * The event creator name.
        *
-       * @title 이벤트 생성자 이름.
+       * @title The event creator name.
        */
       displayName?: string | null;
 
       /**
-       * 이벤트 생성자 이메일입니다.
+       * The event creator email.
        *
-       * @title 이벤트 생성자 이메일.
+       * @title The event creator email.
        */
       email?: string | null;
 
       /**
-       * 이벤트 사본이 표시되는 캘린더에 해당하는지 여부입니다.
+       * Whether the event copy corresponds to the calendar on which it is displayed.
        *
-       * @title 이벤트 사본이 표시되는 캘린더에 해당하는지 여부.
+       * @title Whether the event copy corresponds to the calendar on which it is displayed.
        */
       self?: boolean | null;
     }
 
     /**
-     * @title 주최자 정보
+     * @title Host Information
      */
     export interface IOrganizer {
       /**
-       * 이벤트 주최자 프로필 id입니다.
+       * Event organizer profile id.
        *
-       * @title 이벤트 주최자 프로필 id.
+       * @title Event organizer profile id.
        */
       id?: string | null;
 
       /**
-       * 이벤트 주최자 이름입니다.
+       * The name of the event organizer.
        *
-       * @title 이벤트 주최자 이름.
+       * @title The name of the event organizer.
        */
       displayName?: string | null;
 
       /**
-       * 이벤트 주최자 이메일입니다.
+       * This is the event organizer's email.
        *
-       * @title 이벤트 주최자 이메일.
+       * @title This is the event organizer's email.
        */
       email?: string | null;
 
       /**
-       * 이벤트 사본이 표시되는 캘린더에 해당하는지 여부입니다.
+       * Whether the event copy corresponds to the calendar on which it is displayed.
        *
-       * @title 이벤트 사본이 표시되는 캘린더에 해당하는지 여부.
+       * @title Whether the event copy corresponds to the calendar on which it is displayed.
        */
       self?: boolean | null;
     }
 
     /**
-     * @title 참석자 정보
+     * @title Attendee Information
      */
     export interface IAttendees {
       /**
-       * 이벤트 참석자 이메일입니다.
+       * This is the event attendee email.
        *
-       * @title 이벤트 참석자 이메일.
+       * @title Event attendee email.
        */
       email?: string | null;
 
       /**
-       * 이벤트 참석자가 주최자인지 여부입니다.
+       * Whether the event attendee is the host.
        *
-       * @title 이벤트 참석자가 주최자인지 여부.
+       * @title Whether the event attendee is the host.
        */
       organizer?: boolean | null;
 
       /**
-       * 일정 사본이 표시되는 캘린더를 나타내는지 여부입니다.
+       * Whether the calendar that the schedule copy is displayed on is indicated.
        *
-       * @title 일정 사본이 표시되는 캘린더를 나타내는지 여부.
+       * @title Whether the calendar that the schedule copy is displayed on is indicated.
        */
       self?: boolean | null;
 
       /**
-       * 참석자의 참석 응답 상태입니다.
+       * Attendee's attendance response status.
        *
-       * @title 참석자의 참석 응답 상태.
+       * @title Attendee's attendance response status.
        */
       responseStatus?: string | null;
     }
 
     /**
-     * @title 알림 정보
+     * @title Notification information
      */
     export interface IReminders {
       /**
-       * 디폴트 알림 여부입니다.
+       * Whether to default notification.
        *
-       * @title 디폴트 알림 여부.
+       * @title Whether to default notification.
        */
       useDefault?: boolean;
 
       /**
-       * 알림 설정 정보입니다.
+       * Here is the notification settings information.
        *
-       * @title 알림 설정 정보.
+       * @title Notification settings information.
        */
       overrides?: IRemindersOverrides[];
     }
 
     /**
-     * @title 알림 설정 정보
+     * @title Notification settings information
      */
     export interface IRemindersOverrides {
       /**
-       * 알림 방식입니다.
+       * This is the notification method.
        *
-       * @title 알림 방식.
+       * @title Notification method.
        */
       method?: string | null;
 
       /**
-       * 알림 보내는 시간입니다.
+       * It's time to send notifications.
        *
-       * @title 알림 보내는 시간.
+       * @title It's time to send notifications.
        */
       minutes?: number | null;
     }
 
     /**
-     * @title 첨부파일 정보
+     * @title Attachment file information
      */
     export interface IAttachments {
       /**
-       * 이벤트 첨부파일 url입니다.
+       * This is the event attachment file url.
        *
-       * @title 파일 url.
+       * @title file url.
        */
-      fileUrl?: (string & tags.Format<"uri">) | null;
+      fileUrl?: (string & tags.Format<"iri">) | null;
 
       /**
-       * 첨부파일 제목입니다.
+       * This is the title of the attached file.
        *
-       * @title 파일 제목.
+       * @title File title.
        */
       title?: string | null;
 
       /**
-       * 인터넷 미디어 유형입니다.
+       * Internet Media Type.
        *
-       * @title 인터넷 미디어 유형.
+       * @title Internet Media Type.
        */
       mimeType?: string | null;
 
       /**
-       * 첨부파일 아이콘 링크입니다.
+       * Attachment file icon link.
        *
-       * @title 파일 icon 링크.
+       * @title File icon link.
        */
-      iconLink?: (string & tags.Format<"uri">) | null;
+      iconLink?: (string & tags.Format<"iri">) | null;
 
       /**
-       * 첨부파일의 id 입니다.
+       * This is the id of the attached file.
        *
-       * @title 파일 id.
+       * @title file id.
        */
       fileId?: string | null;
     }
 
     /**
-     * @title 날짜 정보
+     * @title Date information
      */
 
     export interface IDate {
       /**
-       * 연도입니다.
+       * It's the year.
        *
-       * @title 연도.
+       * @title The year.
        */
       year: number;
 
       /**
-       * 달입니다.
+       * It's the moon.
        *
-       * @title 달.
+       * @title Moon.
        */
       month: number;
 
       /**
-       * 일입니다.
+       * It's work.
        *
-       * @title 일.
+       * @title Work.
        */
       date: number;
 
       /**
-       * 시입니다.
+       * It's a poem.
        *
-       * @title 시.
+       * @title Poetry.
        */
       hour: number;
     }
   }
 
   /**
-   * @title 빠른 이벤트 생성을 위해 필요한 정보
+   * @title Information needed to create a quick event
    */
   export interface ICreateQuickEventInput
     extends ICommon.ISecret<
@@ -508,15 +507,15 @@ export namespace IGoogleCalendar {
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
-     * 캘린더 빠른 이벤트 생성 문구입니다.
+     * This is the text for creating a quick calendar event.
      *
-     * @title 캘린더 빠른 이벤트 생성 문구.
+     * @title This is the text for creating a quick calendar event.
      */
     text: string;
   }
 
   /**
-   * @title 이벤트 생성을 위해 필요한 정보
+   * @title Information required to create an event
    */
   export interface IEventRequestBodyInput
     extends ICommon.ISecret<
@@ -524,184 +523,184 @@ export namespace IGoogleCalendar {
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
-     * 생성할 이벤트 제목입니다.
+     * The title of the event to be generated.
      *
-     * @title 이벤트 제목.
+     * @title Event title.
      */
     title?: string;
 
     /**
-     * 생성할 이벤트 설명입니다.
+     * Description of the event to be generated.
      *
-     * @title 이벤트 설명.
+     * @title Event description.
      */
     description?: string;
 
     /**
-     * 생성할 이벤트 장소입니다.
+     * This is the event location to be created.
      *
-     * @title 이벤트 장소.
+     * @title Event Location.
      */
     location?: string;
 
     /**
-     * 생성할 이벤트 시작일입니다.
+     * The start date of the event to be created.
      *
-     * @title 이벤트 시작일.
+     * @title Event start date.
      */
     start: IGoogleCalendarEvent.IDate;
 
     /**
-     * 생성할 이벤트 종료일입니다.
+     * The end date of the event to be created.
      *
-     * @title 이벤트 종료일.
+     * @title Event end date.
      */
     end: IGoogleCalendarEvent.IDate;
 
     /**
-     * 이벤트 참석자 이메일입니다.
+     * This is the event attendee email.
      *
-     * @title 참석자 이메일.
+     * @title Attendee Email.
      */
     attendeesEmail?: string[];
 
     /**
-     * 이벤트 반복 주기입니다.
+     * The event repeat cycle.
      *
-     * - DAILY: 매일
-     * - WEEKLY: 매주
-     * - MONTHLY: 매달
-     * - YEARLY: 매년
+     * - DAILY: Daily
+     * - WEEKLY: Weekly
+     * - MONTHLY: Monthly
+     * - YEARLY: Yearly
      *
-     * 가능한 값으로는 "DAILY", "WEEKLY", "MONTHLY", "YEARLY" 4가지만 가능합니다.
+     * Only 4 possible values are possible: "DAILY", "WEEKLY", "MONTHLY", "YEARLY".
      *
-     * @title 이벤트 반복 주기.
+     * @title The event repeat cycle.
      */
     repeatFrequency?: RepeatFrequency;
 
     /**
-     * 이벤트 반복 횟수입니다.
+     * The number of times the event is repeated.
      *
-     * @title 이벤트 반복 횟수.
+     * @title The number of times the event is repeated.
      */
     repeatNum?: number;
 
     /**
-     * 이벤트 반복 마감 일자입니다.
+     * Event repeat deadline.
      *
-     * @title 이벤트 반복 마감 일자.
+     * @title Event repeat deadline.
      */
     repeatUntil?: IGoogleCalendarEvent.IDate;
 
     /**
-     * 이벤트 바쁨 상태 여부입니다.
+     * Whether the event is busy or not.
      *
-     * @title 바쁨 여부.
+     * @title Whether the event is busy or not.
      */
     isBusy?: boolean;
 
     /**
-     * 캘린더 기본 알림 사용 여부입니다.
+     * Whether to use the default calendar notifications.
      *
-     * @title 캘린더 기본 알림 사용 여부.
+     * @title Whether to use the default calendar notifications.
      */
     isUseDefaultReminder?: boolean;
 
     /**
-     * 이벤트 알림 유형입니다.
+     * Event notification type.
      *
-     * - popup: 팝업 알림
-     * - email: 이메일 알림
+     * - popup: Popup notification
+     * - email: Email notification
      *
-     * 가능한 값으로는 "popup", "email" 2가지만 가능합니다.
+     * Only two possible values are possible: "popup" and "email".
      *
-     * @title 이벤트 알림 유형.
+     * @title Event notification type.
      */
     remindersType?: EventRemindersType;
 
     /**
-     * 일정 시작전 알림 설정 시간입니다.
+     * It's time to set a notification before the schedule starts.
      *
-     * @title 일정 시작전 알림 설정 시간.
+     * @title It's time to set a notification before the schedule starts.
      */
     minutesBeforeReminders?: number;
 
     /**
-     * 구글밋 생성 여부입니다.
+     * Whether to create a Google Meet.
      *
-     * @title 구글밋 생성 여부.
+     * @title Whether to create a Google Meet.
      */
     isConferencing?: boolean;
 
     /**
-     * 이벤트 공개 상태입니다.
+     * The event's public status.
      *
-     * default - 기본 공개 상태
-     * public - 일정이 공개되며 일정 세부정보가 캘린더의 모든 독자에게 표시
-     * private - 일정이 비공개이며 일정 참석자만 일정 세부정보를 볼 수 있음
+     * default - The default public status
+     * public - The event is public and the event details are visible to all readers of the calendar
+     * private - The event is private and only the event attendees can see the event details
      *
-     * 가능한 값으로는 "default", "public", "private" 3가지만 가능합니다.
+     * There are only three possible values: "default", "public", "private".
      *
-     * @title 이벤트 공개 상태.
+     * @title The event's public status.
      */
     visibility?: EventVisibility;
 
     /**
-     * 이벤트 색상.
+     * Event Color.
      *
-     * @title 이벤트 색상.
+     * @title Event Color.
      */
     colorId?: string;
 
     /**
-     * 게스트 이벤트 수정 가능 여부입니다.
+     * Whether guest events can be modified.
      *
-     * @title 게스트 이벤트 수정 가능 여부.
+     * @title Whether guest events can be modified.
      */
     isGuestCanModify?: boolean;
   }
 
   /**
-   * - DAILY: 매일
-   * - WEEKLY: 매주
-   * - MONTHLY: 매달
-   * - YEARLY: 매년
+   * - DAILY: Daily
+   * - WEEKLY: Weekly
+   * - MONTHLY: Monthly
+   * - YEARLY: Yearly
    *
-   * @title 이벤트 반복 주기.
+   * @title Event repeat cycle.
    */
   export type RepeatFrequency = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
 
   /**
-   * - popup: 팝업 알림
-   * - email: 이메일 알림
+   * - popup: Popup notification
+   * - email: Email notification
    *
-   * @title 이벤트 알림 유형.
+   * @title Event notification type.
    */
   export type EventRemindersType = "popup" | "email";
 
   /**
-   * default - 기본 공개 상태
-   * public - 일정이 공개되며 일정 세부정보가 캘린더의 모든 독자에게 표시
-   * private - 일정이 비공개이며 일정 참석자만 일정 세부정보를 볼 수 있음
+   * default - The default public status
+   * public - The event is public and the event details are visible to all readers of the calendar
+   * private - The event is private and only event attendees can see the event details
    *
-   * @title 이벤트 공개 상태.
+   * @title The public status of the event.
    */
   export type EventVisibility = "default" | "public" | "private";
 
   /**
-   * @title 이벤트 생성 결과
+   * @title Event creation result
    */
   export interface ICreateEventOutput {
     /**
-     * 생성된 이벤트의 id입니다.
+     * The id of the generated event.
      *
-     * @title 생성된 이벤트 id.
+     * @title Generated event id.
      */
     id?: string | null;
   }
 
   /**
-   * @title 참석자 추가를 위해 필요한 정보
+   * @title Information required to add attendees
    */
   export interface IAddAttendeesToEventInput
     extends ICommon.ISecret<
@@ -709,15 +708,15 @@ export namespace IGoogleCalendar {
       ["https://www.googleapis.com/auth/calendar"]
     > {
     /**
-     * 추가할 참석자 이메일입니다.
+     * The email address of the attendee you wish to add.
      *
-     * @title 추가할 참석자 이메일.
+     * @title The email address of the attendee you wish to add.
      */
     attendeesEmail: string[];
   }
 
   /**
-   * @title 인증 정보
+   * @title Authentication Information
    */
 
   export type ISecret = ICommon.ISecret<

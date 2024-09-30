@@ -1,61 +1,21 @@
-import {
-  GetObjectCommand,
-  PutObjectCommand,
-  S3Client,
-} from "@aws-sdk/client-s3";
-import { NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import * as Excel from "exceljs";
 import { v4 } from "uuid";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
 import axios from "axios";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AwsProvider } from "../aws/AwsProvider";
 
-export namespace ExcelProvider {
-  export const region = "ap-northeast-2";
-  export const accessKeyId = ConnectorGlobal.env.AWS_ACCESS_KEY_ID;
-  export const secretAccessKey = ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY;
-  export const bucket = ConnectorGlobal.env.AWS_S3_BUCKET;
-  export const uploadPrefix = "excel-connector";
-
-  /**
-   * @todo excel 쪽 S3 부분 AWS Provider를 주입하여 분리할 것
-   */
-  export const s3: S3Client = new S3Client({
-    region: ExcelProvider.region,
-    maxAttempts: 3,
-    credentials: {
-      accessKeyId: ExcelProvider.accessKeyId,
-      secretAccessKey: ExcelProvider.secretAccessKey,
-    },
-  });
-
-  export async function readSheets(
+@Injectable()
+export class ExcelProvider {
+  constructor(private readonly awsProvider: AwsProvider) {}
+  async readSheets(
     input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
     try {
       const { fileUrl } = input;
-
-      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-      const command = new GetObjectCommand({
-        Bucket: bucket,
-        Key: key,
-      });
-
-      const { Body } = await ExcelProvider.s3.send(command);
-
-      if (!Body) {
-        throw new NotFoundException("Not existing excel file");
-      }
-      const chunks = [];
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      for await (const chunk of Body) {
-        chunks.push(chunk);
-      }
-      const buffer = Buffer.concat(chunks);
+      const buffer = await this.awsProvider.getObject(fileUrl); // AWS Provider를 사용해 S3에서 파일 읽기
 
       const workbook = new Excel.Workbook();
       await workbook.xlsx.load(buffer);
@@ -75,7 +35,7 @@ export namespace ExcelProvider {
     }
   }
 
-  export function getExcelData(input: {
+  getExcelData(input: {
     workbook: Excel.Workbook;
     sheetName?: string | null;
   }): IExcel.IReadExcelOutput {
@@ -118,15 +78,13 @@ export namespace ExcelProvider {
     }
   }
 
-  export async function readHeaders(
-    input: IExcel.IReadExcelInput,
-  ): Promise<string[]> {
+  async readHeaders(input: IExcel.IReadExcelInput): Promise<string[]> {
     const { fileUrl, sheetName } = input;
-    const workbook = await getExcelFile({ fileUrl });
-    return readExcelHeaders(workbook, sheetName);
+    const workbook = await this.getExcelFile({ fileUrl });
+    return this.readExcelHeaders(workbook, sheetName);
   }
 
-  export function readExcelHeaders(
+  private readExcelHeaders(
     workbook: Excel.Workbook,
     sheetName?: string | null,
   ): string[] {
@@ -142,17 +100,20 @@ export namespace ExcelProvider {
     return headers;
   }
 
-  export async function insertRows(
+  async insertRows(
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
     try {
       const { sheetName, data, fileUrl } = input;
-      const workbook = await getExcelFile({ fileUrl });
+      const workbook = await this.getExcelFile({ fileUrl });
       if (
         typeof sheetName === "string" &&
         workbook.worksheets.every((worksheet) => worksheet.name !== sheetName)
       ) {
-        // 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
+        // 유저가 제시한 시트 이름으로 아직까지 워크 시트가 만들어진 적이 없다면 우선 생성한다.
+        workbook.addWorksheet(sheetName ?? "Sheet1");
+      } else if (!sheetName && workbook.worksheets.length === 0) {
+        // 워크 시트가 만들어진 적이 한 번도 없다면 우선 생성한다.
         workbook.addWorksheet(sheetName ?? "Sheet1");
       }
 
@@ -172,7 +133,7 @@ export namespace ExcelProvider {
         sheet.addRow(headers);
       } else {
         // 수정인 경우, 하지만 빈 엑셀 파일인 경우
-        const originalData = getExcelData({ sheetName, workbook });
+        const originalData = this.getExcelData({ sheetName, workbook });
         if (originalData.data.length === 0) {
           sheet.addRow(headers);
         }
@@ -187,19 +148,23 @@ export namespace ExcelProvider {
       });
 
       const modifiedBuffer = await workbook.xlsx.writeBuffer();
-      const buffer = Buffer.from(modifiedBuffer);
-      const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
-
-      return await upsertFile({ Key: key, Body: buffer });
+      const key = `excel-connector/${v4()}`;
+      const url = await this.awsProvider.uploadObject({
+        key,
+        data: Buffer.from(modifiedBuffer),
+        contentType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      return {
+        fileUrl: url,
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
     }
   }
 
-  export async function getExcelFile(input: {
-    fileUrl?: string;
-  }): Promise<Excel.Workbook> {
+  async getExcelFile(input: { fileUrl?: string }): Promise<Excel.Workbook> {
     if (input.fileUrl) {
       const response = await axios.get(input.fileUrl, {
         responseType: "arraybuffer",
@@ -211,33 +176,23 @@ export namespace ExcelProvider {
     return new Excel.Workbook();
   }
 
-  export async function createSheets(
+  async createSheets(
     input: IExcel.ICreateSheetInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
     const workbook = new Excel.Workbook();
     workbook.addWorksheet(input.sheetName ?? "Sheet1");
 
     const modifiedBuffer: ArrayBuffer = await workbook.xlsx.writeBuffer();
-    const buffer = Buffer.from(modifiedBuffer);
-    const key = `${ExcelProvider.uploadPrefix}/${v4()}`;
-
-    return await upsertFile({ Key: key, Body: buffer });
-  }
-
-  export async function upsertFile(input: {
-    Key: string;
-    Body: Buffer;
-  }): Promise<IExcel.IExportExcelFileOutput> {
-    const ContentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-    const uploadCommand = new PutObjectCommand({
-      Bucket: ExcelProvider.bucket,
-      Key: input.Key,
-      Body: input.Body,
-      ContentType,
+    const key = `excel-connector/${v4()}`;
+    const fileUrl = await this.awsProvider.uploadObject({
+      key,
+      data: Buffer.from(modifiedBuffer),
+      contentType:
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
 
-    await ExcelProvider.s3.send(uploadCommand);
-    const fileUrl = `https://${ExcelProvider.bucket}.s3.amazonaws.com/${input.Key}`;
-    return { fileUrl };
+    return {
+      fileUrl: fileUrl,
+    };
   }
 }

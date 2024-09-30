@@ -4,32 +4,32 @@ import { ContentMediaType } from "typia/lib/tags";
 
 export namespace ICsv {
   /**
-   * @title Csv 파일 정보
+   * @title Csv file information
    */
   export interface IReadInput {
     /**
-     * 읽어올 Csv 파일입니다.
+     * This is the Csv file to read.
      *
-     * @title 파일
+     * @title file
      */
-    s3Url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    s3Url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
 
     /**
-     * 읽어올 Csv 파일 구분자 입니다.
+     * This is the CSV file delimiter to read.
      *
-     * @title 구분자
+     * @title delimiter
      */
     delimiter: string & Placeholder<",">;
   }
 
   /**
-   * @title Csv 파일 읽기 결과
+   * @title Csv file reading result
    */
   export interface IReadOutput {
     /**
-     * 읽어온 csv 파일 데이터.
+     * Read csv file data.
      *
-     * @title csv 데이터 리스트.
+     * @title csv data list.
      */
     data: {
       [key: string]: string;
@@ -37,27 +37,27 @@ export namespace ICsv {
   }
 
   /**
-   * @title Csv 파일 생성에 필요한 정보
+   * @title Information required to create a CSV file
    */
   export interface IWriteInput {
     /**
-     * 생성할 Csv 파일명입니다.
+     * The name of the Csv file to be created.
      *
-     * @title 파일명
+     * @title File name
      */
     fileName: string & Placeholder<"example.csv">;
 
     /**
-     * 생성할 Csv 파일 구분자 입니다.
+     * The Csv file delimiter to be generated.
      *
-     * @title 구분자
+     * @title delimiter
      */
     delimiter: string & Placeholder<",">;
 
     /**
-     * 생성할 Csv 파일에 넣을 데이터 값 들 입니다.
+     * These are the data values to be placed in the Csv file to be created.
      *
-     * @title 파일 데이터 값들
+     * @title File data values
      */
     values: {
       [key: string]: string;
@@ -65,45 +65,45 @@ export namespace ICsv {
   }
 
   /**
-   * @title Csv 파일 생성 결과
+   * @title Csv file creation result
    */
   export interface IWriteOutput {
     /**
-     * 작성된 csv 파일의 s3 url입니다.
+     * This is the s3 url of the csv file that was created.
      *
-     * @title csv 파일
+     * @title csv file
      */
-    s3Url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    s3Url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
   }
 
   /**
-   * @title Csv 파일을 Excel 파일로 변환하는데 필요한 정보
+   * @title Information needed to convert a Csv file to an Excel file
    */
   export interface ICsvToExcelInput {
     /**
-     * csv에서 excel로 변환할 파일입니다.
+     * This is the file to convert from csv to excel.
      *
-     * @title 파일
+     * @title file
      */
-    s3Url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    s3Url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
 
     /**
-     * csv에서 excel로 변환할 파일 구분자 입니다.
+     * This is the file delimiter to convert from csv to excel.
      *
-     * @title 구분자
+     * @title delimiter
      */
     delimiter: string & Placeholder<",">;
   }
 
   /**
-   * @title Csv 파일을 Excel 파일 변환 결과
+   * @title Csv file to Excel file conversion result
    */
   export interface ICsvToExcelOutput {
     /**
-     * 변환된 excel 파일의 s3 url입니다.
+     * Here is the s3 url of the converted excel file.
      *
      * @title s3 url
      */
-    url: string & tags.Format<"uri"> & ContentMediaType<"text/csv">;
+    url: string & tags.Format<"iri"> & ContentMediaType<"text/csv">;
   }
 }

@@ -6,12 +6,13 @@ import { IKoreaEximbank } from "@wrtn/connector-api/lib/structures/connector/kor
 
 import { KoreaEximbankProvider } from "../../../providers/connector/korea_eximbank/KoreaEximbankProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/korea-eximbank")
 export class KoreaEximbankController {
   /**
-   * @summary 한국 수출입 은행 현재 환율 조회
-   * @returns 환율 정보
+   * @summary Korea Export-Import Bank Current Exchange Rate Inquiry
+   * @returns Exchange Rate Information
    *
    * @internal
    */
@@ -19,6 +20,7 @@ export class KoreaEximbankController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ExchangeRate_full.svg",
   )
+  @ApiTags("Korea Eximbank")
   @core.TypedRoute.Get("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {
     return retry(() => KoreaEximbankProvider.getExchange())();

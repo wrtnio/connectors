@@ -5,22 +5,24 @@ import { RouteIcon } from "@wrtnio/decorators";
 import { DiscordProvider } from "../../../providers/connector/discord/DiscordProvider";
 import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/discord")
 export class DiscordController {
   constructor(private readonly discordProvider: DiscordProvider) {}
   /**
-   * 새로운 DM 채널을 만듭니다.
+   * Create a new DM channel.
    *
-   * @summary DM 채널 만들기
+   * @summary Create a DM channel
    *
    * @param input
-   * @returns 채널 정보
+   * @returns Channel information
    */
   @core.TypedRoute.Post("create-dm")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async createDM(
     @core.TypedBody() input: IDiscord.ICreateDMRequest,
   ): Promise<IDiscord.IChannel> {
@@ -28,17 +30,18 @@ export class DiscordController {
   }
 
   /**
-   * 서버 정보를 수정합니다.
+   * Modify server information.
    *
-   * @summary 서버 정보 수정하기
+   * @summary Modify server information
    *
    * @param input
-   * @returns 수정된 서버 정보
+   * @returns Modified server information
    */
   @core.TypedRoute.Post("modify-guild")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async modifyGuild(
     @core.TypedBody() input: IDiscord.IModifyGuildRequest,
   ): Promise<IDiscord.IGuild> {
@@ -46,17 +49,18 @@ export class DiscordController {
   }
 
   /**
-   * 서버에 있는 채널 목록을 가져옵니다.
+   * Get a list of channels on the server.
    *
-   * @summary 채널 목록 가져오기
+   * @summary Get a list of channels
    *
    * @param input
-   * @returns 채널 목록
+   * @returns List of channels
    */
   @core.TypedRoute.Post("get-guild-channels")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getGuildChannels(
     @core.TypedBody() input: IDiscord.ISecret,
   ): Promise<IDiscord.IChannel[]> {
@@ -64,17 +68,18 @@ export class DiscordController {
   }
 
   /**
-   * 서버에 새로운 채널을 생성합니다.
+   * Create a new channel on the server.
    *
-   * @summary 채널 생성하기
+   * @summary Create a channel
    *
    * @param input
-   * @returns 생성된 채널 정보
+   * @returns Created channel information
    */
   @core.TypedRoute.Post("create-guild-channel")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async createGuildChannel(
     @core.TypedBody() input: IDiscord.ICreateGuildChannelRequest,
   ): Promise<IDiscord.IChannel> {
@@ -82,17 +87,18 @@ export class DiscordController {
   }
 
   /**
-   * 서버에 있는 멤버 목록을 가져옵니다.
+   * Get a list of members on the server.
    *
-   * @summary 멤버 목록 가져오기
+   * @summary Get a list of members
    *
    * @param input
-   * @returns 서버 멤버 목록
+   * @returns List of server members
    */
   @core.TypedRoute.Post("get-list-guild-members")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getListGuildMembers(
     @core.TypedBody() input: IDiscord.ISecret,
   ): Promise<IDiscord.IGuildMember[]> {
@@ -100,9 +106,9 @@ export class DiscordController {
   }
 
   /**
-   * 서버에서 선택한 멤버를 추방합니다.
+   * Kicks selected members from the server.
    *
-   * @summary 멤버 추방하기
+   * @summary Kick members
    *
    * @param input
    * @returns
@@ -113,6 +119,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async removeGuildMember(
     @core.TypedBody() input: IDiscord.IRemoveGuildMember,
   ): Promise<void> {
@@ -120,17 +127,18 @@ export class DiscordController {
   }
 
   /**
-   * 채널 정보를 수정합니다.
+   * Modify channel information.
    *
-   * @summary 채널 정보 수정하기
+   * @summary Modify channel information
    *
    * @param input
-   * @returns 수정된 채널 정보
+   * @returns Modified channel information
    */
   @core.TypedRoute.Post("modify-channel")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async modifyChannel(
     @core.TypedBody() input: IDiscord.IModifyChannelRequest,
   ): Promise<IDiscord.IChannel> {
@@ -138,9 +146,9 @@ export class DiscordController {
   }
 
   /**
-   * 선택한 채널을 삭제합니다.
+   * Delete the selected channel.
    *
-   * @summary 채널 삭제하기
+   * @summary Delete channel
    *
    * @param input
    * @returns
@@ -149,6 +157,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async deleteChannel(
     @core.TypedBody() input: IDiscord.IDeleteChannelRequest,
   ): Promise<void> {
@@ -156,17 +165,18 @@ export class DiscordController {
   }
 
   /**
-   * 채널에 고정된 메세지 목록을 가져옵니다.
+   * Get a list of pinned messages in a channel.
    *
-   * @summary 고정된 메세지 목록 가져오기
+   * @summary Get a list of pinned messages
    *
    * @param input
-   * @returns 고정된 메세지 목록
+   * @returns a list of pinned messages
    */
   @core.TypedRoute.Post("get-pinned-messages")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getPinnedMessages(
     @core.TypedBody() input: IDiscord.IGetPinnedMessagesRequest,
   ): Promise<IDiscord.IMessage[]> {
@@ -174,9 +184,9 @@ export class DiscordController {
   }
 
   /**
-   * 채널에 메세지를 고정합니다.
+   * Pin a message to a channel.
    *
-   * @summary 메세지 고정하기
+   * @summary Pin a message
    *
    * @param input
    * @returns
@@ -185,6 +195,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async pinMessage(
     @core.TypedBody() input: IDiscord.IPinOrUnpinMessagesRequest,
   ): Promise<void> {
@@ -192,9 +203,9 @@ export class DiscordController {
   }
 
   /**
-   * 채널에 고정된 메세지를 고정 해제합니다.
+   * Unpin a pinned message from a channel.
    *
-   * @summary 메세지 고정 해제하기
+   * @summary Unpin message
    *
    * @param input
    * @returns
@@ -203,6 +214,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async unpinMessage(
     @core.TypedBody() input: IDiscord.IPinOrUnpinMessagesRequest,
   ): Promise<void> {
@@ -210,17 +222,18 @@ export class DiscordController {
   }
 
   /**
-   * 채널에 존재하는 메세지들을 가져옵니다.
+   * Get the messages that exist in the channel.
    *
-   * @summary 메세지 목록 가져오기
+   * @summary Get a list of messages
    *
    * @param input
-   * @returns 메세지 목록
+   * @returns List of messages
    */
   @core.TypedRoute.Post("get-channel-message-histories")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async getChannelMessageHistories(
     @core.TypedBody() input: IDiscord.IGetChannelMessageHistoriesRequest,
   ): Promise<IDiscord.IMessage[]> {
@@ -230,17 +243,18 @@ export class DiscordController {
   }
 
   /**
-   * 메세지를 보냅니다.
+   * Send a message.
    *
-   * @summary 메세지 보내기
+   * @summary Send a message
    *
    * @param input
-   * @returns 생성된 메세지
+   * @returns The generated message
    */
   @core.TypedRoute.Post("create-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async createMessage(
     @core.TypedBody() input: IDiscord.ICreateMessageRequest,
   ): Promise<IDiscord.IMessage> {
@@ -248,17 +262,18 @@ export class DiscordController {
   }
 
   /**
-   * 메세지를 수정합니다.
+   * Modify the message.
    *
-   * @summary 메세지 수정하기
+   * @summary Modify message
    *
    * @param input
-   * @returns 수정된 메세지
+   * @returns Modified message
    */
   @core.TypedRoute.Post("edit-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async editMessage(
     @core.TypedBody() input: IDiscord.IEditMessageRequest,
   ): Promise<IDiscord.IMessage> {
@@ -266,9 +281,9 @@ export class DiscordController {
   }
 
   /**
-   * 메세지를 삭제합니다.
+   * Delete message.
    *
-   * @summary 메세지 삭제하기
+   * @summary Delete message
    *
    * @param input
    * @returns
@@ -277,6 +292,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async deleteMessage(
     @core.TypedBody() input: IDiscord.IDeleteMessageRequest,
   ): Promise<void> {
@@ -284,9 +300,9 @@ export class DiscordController {
   }
 
   /**
-   * 메세지를 여러개 삭제합니다.
+   * Delete multiple messages.
    *
-   * @summary 메세지 여러개 삭제하기
+   * @summary Delete multiple messages
    *
    * @param input
    * @returns
@@ -295,6 +311,7 @@ export class DiscordController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
+  @ApiTags("Discord")
   async bulkDeleteMessage(
     @core.TypedBody() input: IDiscord.IBulkDeleteMessagesRequest,
   ): Promise<void> {

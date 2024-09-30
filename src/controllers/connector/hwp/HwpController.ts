@@ -6,24 +6,26 @@ import { IHwp } from "@wrtn/connector-api/lib/structures/connector/hwp/IHwp";
 
 import { HwpProvider } from "../../../providers/connector/hwp/HwpProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/hwp")
 export class HwpController {
   constructor(private readonly hwpProvider: HwpProvider) {}
 
   /**
-   * hwp 파일을 파싱합니다.
+   * Parse the hwp file.
    *
-   * @summary Hwp 파일 파싱
+   * @summary Parse the Hwp file
    *
-   * @param input 파싱할 hwp 파일
+   * @param input The hwp file to parse
    *
-   * @returns 파싱된 hwp 파일 텍스트 데이터.
+   * @returns The parsed hwp file text data.
    */
   @core.TypedRoute.Post("/parse")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg",
   )
+  @ApiTags("Hwp")
   async parseHwp(
     @core.TypedBody() input: IHwp.IParseInput,
   ): Promise<IHwp.IParseOutput> {

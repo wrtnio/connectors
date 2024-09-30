@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { retry } from "../../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingEqlController {
@@ -13,19 +14,20 @@ export class GoogleShoppingEqlController {
   ) {}
 
   /**
-   * 상품을 EQL에서 검색합니다.
+   * Search for products in EQL.
    *
-   * @summary EQL 검색
+   * @summary EQL search
    *
-   * @param input  검색 조건
+   * @param input search conditions
    *
-   * @returns  검색 결과
+   * @returns search results
    */
   @Standalone()
   @core.TypedRoute.Post("eql")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ECL_full.svg",
   )
+  @ApiTags("EQL")
   async hansumEQL(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {

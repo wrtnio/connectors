@@ -134,7 +134,7 @@ export namespace IKakaoTalk {
      * @title Thumbnail
      */
     profile_thumbnail_image?:
-      | (string & tags.Format<"uri">)
+      | (string & tags.Format<"iri">)
       | tags.Constant<"", { title: "NO_PROFILE_IMAGE" }>;
   }
 
@@ -155,12 +155,12 @@ export namespace IKakaoTalk {
     /**
      * @title Next page URL of the friends list
      */
-    after_url?: (string & tags.Format<"uri">) | null;
+    after_url?: (string & tags.Format<"iri">) | null;
 
     /**
      * @title Previous page URL of the friends list
      */
-    before_url?: (string & tags.Format<"uri">) | null;
+    before_url?: (string & tags.Format<"iri">) | null;
 
     /**
      * @title Number of favorite friends

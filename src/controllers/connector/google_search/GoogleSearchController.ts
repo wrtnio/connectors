@@ -6,25 +6,27 @@ import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/goog
 
 import { GoogleSearchProvider } from "../../../providers/connector/google_search/GoogleSearchProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-search")
 export class GoogleSearchController {
   constructor(private readonly googleSearchProvider: GoogleSearchProvider) {}
 
   /**
-   * 입력한 검색어를 구글에서 검색합니다.
+   * Search Google for the search term you entered.
    *
-   * @summary 구글 검색
+   * @summary Google search
    *
-   * @param input 구글 검색 조건
+   * @param input Google search terms
    *
-   * @returns 구글 검색 결과
+   * @returns Google search results
    */
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSearch_full.svg",
   )
+  @ApiTags("Google Search")
   async search(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {

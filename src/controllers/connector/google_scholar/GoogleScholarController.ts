@@ -6,23 +6,25 @@ import { IGoogleScholar } from "@wrtn/connector-api/lib/structures/connector/goo
 
 import { GoogleScholarProvider } from "../../../providers/connector/google_scholar/GoogleScholarProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-scholar")
 export class GoogleScholarController {
   /**
-   * 구글 스콜라에 있는 논문 목록을 가져옵니다.
+   * Get a list of papers in Google Scholar.
    *
-   * @summary 구글 스콜라 논문 목록 검색
+   * @summary Search Google Scholar paper list
    *
-   * @param input 구글 스콜라 논문 검색 조건
+   * @param input Google Scholar paper search criteria
    *
-   * @returns 구글 스콜라 논문 목록
+   * @returns Google Scholar paper list
    */
   @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
   )
+  @ApiTags("Google Scholar")
   async search(
     @core.TypedBody() input: IGoogleScholar.ISearchInput,
   ): Promise<IGoogleScholar.ISearchOutput[]> {

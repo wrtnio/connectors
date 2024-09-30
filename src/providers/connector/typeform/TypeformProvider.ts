@@ -1,276 +1,341 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
 
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import qs from "qs";
+import typia, { tags } from "typia";
 
-export namespace TypeformProvider {
-  const apiKey = ConnectorGlobal.env.TYPEFORM_PERSONAL_ACCESS_KEY;
-  const headers = () => ({
-    Authorization: `Bearer ${apiKey}`,
-  });
+@Injectable()
+export class TypeformProvider {
+  private readonly logger = new Logger("TypeformProvider"); //logger
 
-  export async function createWorkspace(
+  async createWorkspace(
     input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
-    const res = await axios.post(
-      "https://api.typeform.com/workspaces",
-      {
-        name: input.name,
-      },
-      {
-        headers: headers(),
-      },
-    );
-
-    if (!res) {
-      throw new HttpException(
-        "Failed to create Workspaces",
-        HttpStatus.INTERNAL_SERVER_ERROR,
+    try {
+      const accessToken = await this.refresh(input);
+      const res = await axios.post(
+        "https://api.typeform.com/workspaces",
+        {
+          name: input.name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
       );
-    }
-    const workspace = res.data;
-    const createdResult: ITypeform.ICreateWorkspaceOutput = {
-      id: workspace.id,
-      name: workspace.name,
-      link: workspace.self.href,
-    };
-    return createdResult;
-  }
-
-  export async function getWorkspaces(): Promise<
-    ITypeform.IFindWorkspaceOutput[]
-  > {
-    const res = await axios.get("https://api.typeform.com/workspaces", {
-      headers: headers(),
-    });
-    if (!res) {
-      throw new HttpException(
-        "Failed to get Workspaces",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-    const workspaceList = res.data.items;
-    const workspaceListInfo: ITypeform.IFindWorkspaceOutput[] = [];
-
-    for (const workspace of workspaceList) {
-      const workspaceInfo: ITypeform.IFindWorkspaceOutput = {
-        workspace_id: workspace.id,
+      const workspace = res.data;
+      const createdResult: ITypeform.ICreateWorkspaceOutput = {
+        id: workspace.id,
         name: workspace.name,
         link: workspace.self.href,
       };
-      workspaceListInfo.push(workspaceInfo);
+      return createdResult;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
     }
-
-    return workspaceListInfo;
   }
 
-  export async function createEmptyForm(
+  async getWorkspaces(
+    input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindWorkspaceOutput[]> {
+    try {
+      const accessToken = await this.refresh(input);
+      const res = await axios.get("https://api.typeform.com/workspaces", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const workspaceList = res.data.items;
+      const workspaceListInfo: ITypeform.IFindWorkspaceOutput[] = [];
+
+      for (const workspace of workspaceList) {
+        const workspaceInfo: ITypeform.IFindWorkspaceOutput = {
+          workspace_id: workspace.id,
+          name: workspace.name,
+          link: workspace.self.href,
+        };
+        workspaceListInfo.push(workspaceInfo);
+      }
+
+      return workspaceListInfo;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async createEmptyForm(
     input: ITypeform.ICreateEmptyFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    const res = await axios.post(
-      "https://api.typeform.com/forms",
-      {
-        title: input.name,
-      },
-      { headers: headers() },
-    );
-
-    if (!res) {
-      throw new HttpException(
-        "Failed to create an empty form",
-        HttpStatus.INTERNAL_SERVER_ERROR,
+    try {
+      const accessToken = await this.refresh(input);
+      const res = await axios.post(
+        "https://api.typeform.com/forms",
+        {
+          title: input.name,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
       );
-    }
 
-    const result = res.data;
+      const result = res.data;
 
-    const createEmptyFormResult: ITypeform.ICreateFormOutput = {
-      id: result.id,
-      name: result.title,
-      type: result.type,
-    };
-    return createEmptyFormResult;
-  }
-
-  export async function getForms(): Promise<ITypeform.IFindFormOutput[]> {
-    const res = await axios.get("https://api.typeform.com/forms", {
-      headers: headers(),
-    });
-
-    if (!res) {
-      throw new HttpException(
-        "Failed to get forms",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-
-    const formList = res.data.items;
-
-    const formListInfo: ITypeform.IFindFormOutput[] = [];
-    for (const form of formList) {
-      const formInfo: ITypeform.IFindFormOutput = {
-        formId: form.id,
-        name: form.title,
+      const createEmptyFormResult: ITypeform.ICreateFormOutput = {
+        id: result.id,
+        name: result.title,
+        type: result.type,
       };
-      formListInfo.push(formInfo);
+      return createEmptyFormResult;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
     }
-    return formListInfo;
   }
 
-  export async function duplicateExistingForm(
+  async getForms(
+    input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindFormOutput[]> {
+    try {
+      const accessToken = await this.refresh(input);
+      const res = await axios.get("https://api.typeform.com/forms", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const formList = res.data.items;
+
+      const formListInfo: ITypeform.IFindFormOutput[] = [];
+      for (const form of formList) {
+        const formInfo: ITypeform.IFindFormOutput = {
+          formId: form.id,
+          name: form.title,
+        };
+        formListInfo.push(formInfo);
+      }
+      return formListInfo;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async duplicateExistingForm(
     input: ITypeform.IDuplicateExistingFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    const existingFormInfo = await getFormInfo(input.formId);
+    try {
+      const existingFormInfo = await this.getFormInfo(input, input.formId);
+      if (!existingFormInfo) {
+        throw new HttpException("Cannot find form", HttpStatus.NOT_FOUND);
+      }
+      const { settings, fields } = existingFormInfo;
 
-    if (!existingFormInfo) {
-      throw new HttpException("Cannot find form", HttpStatus.NOT_FOUND);
-    }
-    const { settings, fields } = existingFormInfo;
+      // 새로운 타입 정의 (id가 없는 필드)
+      type FormFieldWithoutId = Omit<ITypeform.IFormFieldOutput, "id">;
 
-    /**
-     * id 필드 제거해야 함.
-     * https://www.typeform.com/developers/create/walkthroughs/
-     * Duplicates an existing form 참고
-     */
-    const fieldsWithoutId = fields.map(
-      ({ id, ...field }: ITypeform.IFormFieldOutput) => {
-        const choices = field.properties.choices.map(
-          ({ id, ...choice }: ITypeform.IChoice) => choice,
-        );
-        return {
-          ...field,
-          properties: {
-            ...field.properties,
-            choices,
+      /**
+       * id 필드 제거해야 함.
+       * https://www.typeform.com/developers/create/walkthroughs/
+       * Duplicates an existing form 참고
+       */
+      let fieldsWithoutId;
+      if (fields && fields.length > 0) {
+        fieldsWithoutId = typia.misc.assertClone<FormFieldWithoutId[]>(fields);
+      }
+      // if (fields && fields.length > 0) {
+      //   // fieldsWithoutId = fields.map(
+      //   //   ({ id, ...field }: ITypeform.IFormFieldOutput) => {
+      //   //     const choices =
+      //   //       field.properties.choices?.map(
+      //   //         ({ id, ...choice }: ITypeform.IChoice) => choice,
+      //   //       ) || [];
+      //   //     return {
+      //   //       ...field,
+      //   //       properties: {
+      //   //         ...field.properties,
+      //   //         choices,
+      //   //       },
+      //   //     };
+      //   //   },
+      //   // );
+      // }
+
+      const accessToken = await this.refresh(input);
+      const res = await axios.post(
+        "https://api.typeform.com/forms",
+        {
+          workspace: {
+            href: input.workspaceLink,
           },
-        };
-      },
-    );
-
-    const res = await axios.post(
-      "https://api.typeform.com/forms",
-      {
-        workspace: {
-          href: input.workspaceLink,
+          title: input.name,
+          settings: settings,
+          fields: fieldsWithoutId,
         },
-        title: input.name,
-        settings: settings,
-        fields: fieldsWithoutId,
-      },
-      { headers: headers() },
-    );
-
-    if (!res) {
-      throw new HttpException(
-        "Failed to duplicate form",
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
       );
-    }
-
-    const result = res.data;
-    const duplicatedFormInfo: ITypeform.ICreateFormOutput = {
-      id: result.id,
-      name: result.title,
-      type: result.type,
-    };
-
-    return duplicatedFormInfo;
-  }
-
-  export async function getFieldsForUpdateFieldValue(
-    formId: string,
-  ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
-    const formInfo = await getFormInfo(formId);
-
-    if (!formInfo) {
-      throw new HttpException("Cannot find Form", HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * 랭킹, 드롭다운, 다중선택 필드만 제공
-     */
-    const fields: ITypeform.IFormFieldOutput[] = formInfo.fields.filter(
-      (field: ITypeform.IFormFieldOutput) =>
-        field.type === "ranking" ||
-        field.type === "dropdown" ||
-        field.type === "multiple_choice",
-    );
-    const fieldInfoList: ITypeform.IFieldInfoForUpdateFieldValueOutput[] = [];
-
-    for (const field of fields) {
-      const fieldInfo = {
-        id: field.id,
-        name: `${field.title}(${field.type})`,
+      const result = res.data;
+      const duplicatedFormInfo: ITypeform.ICreateFormOutput = {
+        id: result.id,
+        name: result.title,
+        type: result.type,
       };
-      fieldInfoList.push(fieldInfo);
-    }
 
-    return fieldInfoList;
+      return duplicatedFormInfo;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  export async function updateFormFieldValue(
-    formId: string,
+  async getFieldsForUpdateFieldValue(
+    input: ITypeform.IGetFieldForUpdateFieldValueInput,
+  ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
+    try {
+      const formInfo = await this.getFormInfo(input, input.formId);
+      const fields: ITypeform.IFormFieldOutput[] = formInfo.fields || [];
+
+      /**
+       * 랭킹, 드롭다운, 다중선택 필드만 제공
+       */
+      const filteredFields = fields.filter(
+        (field: ITypeform.IFormFieldOutput) =>
+          field.type === "ranking" ||
+          field.type === "dropdown" ||
+          field.type === "multiple_choice",
+      );
+      const fieldInfoList: ITypeform.IFieldInfoForUpdateFieldValueOutput[] = [];
+
+      for (const field of filteredFields) {
+        const fieldInfo = {
+          id: field.id,
+          name: `${field.title}(${field.type})`,
+        };
+        fieldInfoList.push(fieldInfo);
+      }
+
+      return fieldInfoList;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async updateFormFieldValue(
     input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
-    const formInfo = await getFormInfo(formId);
-    if (!formInfo)
-      throw new HttpException("Cannot get form info", HttpStatus.NOT_FOUND);
+    try {
+      const formInfo = await this.getFormInfo(input, input.formId);
+      const updatedFormInfo = this.updateFormInfo(formInfo, input);
+      const updatedForm = await this.updateForm(
+        input,
+        input.formId,
+        updatedFormInfo,
+      );
+      const fieldInfoList = this.getFieldInfoList(updatedForm.fields);
 
-    const updatedFormInfo = updateFormInfo(formInfo, input);
-    const updatedForm = await updateForm(formId, updatedFormInfo);
-    const fieldInfoList = getFieldInfoList(updatedForm.fields);
+      const updatedFieldResult: ITypeform.IUpdateFormFieldValueOutput = {
+        formId: updatedForm.id,
+        name: updatedForm.title,
+        fields: fieldInfoList,
+      };
 
-    const updatedFieldResult: ITypeform.IUpdateFormFieldValueOutput = {
-      formId: updatedForm.id,
-      name: updatedForm.title,
-      fields: fieldInfoList,
-    };
-
-    return updatedFieldResult;
+      return updatedFieldResult;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  async function updateForm(
+  async updateForm(
+    input: ITypeform.ISecret,
     formId: string,
     updatedFormInfo: any,
   ): Promise<ITypeform.IFormOutput> {
-    const res = await axios.put(
-      `https://api.typeform.com/forms/${formId}`,
-      updatedFormInfo,
-      { headers: headers() },
-    );
-
-    if (!res) {
-      throw new HttpException(
-        "Failed to Update field",
-        HttpStatus.INTERNAL_SERVER_ERROR,
+    try {
+      const accessToken = await this.refresh(input);
+      const res = await axios.put(
+        `https://api.typeform.com/forms/${formId}`,
+        updatedFormInfo,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
       );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
     }
-    return res.data;
   }
 
-  export async function deleteWorkspace(workspaceId: string): Promise<void> {
-    await axios.delete(`https://api.typeform.com/workspaces/${workspaceId}`, {
-      headers: headers(),
-    });
+  async deleteWorkspace(
+    input: ITypeform.ISecret,
+    workspaceId: string,
+  ): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input);
+      await axios.delete(`https://api.typeform.com/workspaces/${workspaceId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  export async function deleteForm(formId: string): Promise<void> {
-    await axios.delete(`https://api.typeform.com/forms/${formId}`, {
-      headers: headers(),
-    });
+  async deleteForm(input: ITypeform.ISecret, formId: string): Promise<void> {
+    try {
+      const accessToken = await this.refresh(input);
+      await axios.delete(`https://api.typeform.com/forms/${formId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  async function getFormInfo(formId: string): Promise<ITypeform.IFormOutput> {
-    const formInfo = await axios.get(
-      `https://api.typeform.com/forms/${formId}`,
-      { headers: headers() },
-    );
-    return formInfo.data;
+  async getFormInfo(
+    secretKey: ITypeform.ISecret,
+    formId?: string,
+  ): Promise<ITypeform.IFormOutput> {
+    try {
+      const accessToken = await this.refresh(secretKey);
+      const formInfo = await axios.get(
+        `https://api.typeform.com/forms/${formId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      return formInfo.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
-  function updateFormInfo(
+  private updateFormInfo(
     formInfo: ITypeform.IFormOutput,
     input: ITypeform.IUpdateFormFieldValueInput,
   ) {
@@ -292,7 +357,7 @@ export namespace TypeformProvider {
     };
   }
 
-  function getFieldInfoList(updatedFields: ITypeform.IFormFieldOutput[]) {
+  private getFieldInfoList(updatedFields: ITypeform.IFormFieldOutput[]) {
     const fieldInfoList: ITypeform.IFieldInformation[] = [];
     for (const field of updatedFields) {
       const labels: string[] = field.properties.choices.map(
@@ -308,5 +373,54 @@ export namespace TypeformProvider {
       }
     }
     return fieldInfoList;
+  }
+
+  private async refresh(input: ITypeform.ISecret): Promise<string> {
+    try {
+      const refreshToken = await OAuthSecretProvider.getSecretValue(
+        input.secretKey,
+      );
+      const res = await axios.post(
+        "https://api.typeform.com/oauth/token",
+        qs.stringify({
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+          client_id: ConnectorGlobal.env.TYPEFORM_CLIENT_ID,
+          client_secret: ConnectorGlobal.env.TYPEFORM_CLIENT_SECRET,
+          scope:
+            "accounts:read forms:read forms:write images:read images:write responses:read responses:write themes:read themes:write workspaces:read workspaces:write",
+        }),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        },
+      );
+
+      /**
+       * Refresh Token이 일회용이므로 값 업데이트
+       */
+      if (typia.is<string & tags.Format<"uuid">>(input.secretKey)) {
+        await OAuthSecretProvider.updateSecretValue(input.secretKey, {
+          value: res.data.refresh_token,
+        });
+        this.logger.log("Refresh Token Updated");
+      }
+
+      /**
+       * 테스트 환경에서만 사용
+       */
+      if (process.env.NODE_ENV === "test") {
+        await ConnectorGlobal.write({
+          TYPEFORM_TEST_SECRET: res.data.refresh_token,
+        });
+      }
+
+      input.secretKey = res.data.refresh_token;
+      return res.data.access_token;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }

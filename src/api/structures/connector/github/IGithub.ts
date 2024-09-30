@@ -1,8 +1,8 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
-import { StrictOmit } from "../../../../utils/strictOmit";
+import { PickPartial } from "../../types/PickPartial";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
-import { PickPartial } from "../../../../utils/types/PickPartial";
 
 export namespace IGithub {
   export interface ICommonPaginationOutput {
@@ -115,6 +115,151 @@ export namespace IGithub {
     due_on: string & tags.Format<"date-time">;
   };
 
+  export interface ReviewComment extends StrictOmit<Comment, "pages"> {
+    /**
+     * @title pull_request_review_id
+     */
+    pull_request_review_id: number & tags.Type<"uint64">;
+
+    /**
+     * @title diff_hunk
+     *
+     * diff_hunk is a form for representing a change in code in github.
+     * It consists of strings, and the first line, based on the new line character,
+     * has meta information about the change point between the symbols @@ and @@.
+     * This meta information includes how many lines were affected based on the file before the change,
+     * and how many lines were affected based on the file after the change.
+     * Like `@@ -45,4 +45,23 @@`
+     */
+    diff_hunk: string;
+
+    /**
+     * @title path
+     */
+    path: string;
+
+    /**
+     * @title position
+     *
+     * The position in the diff where you want to add a review comment.
+     * Note this value is not the same as the line number in the file.
+     * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment.
+     * The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+     *
+     * Position value, which is the number of rows based on diff_hunk.
+     */
+    position: (number & tags.Type<"uint64">) | null;
+
+    /**
+     * @title original_position
+     *
+     * Original position value, which is the number of rows based on diff_hunk.
+     */
+    original_position: number & tags.Type<"uint64">;
+
+    /**
+     * @title commit_id
+     */
+    commit_id: Commit["sha"];
+
+    /**
+     * @title original_commit_id
+     */
+    original_commit_id: Commit["sha"];
+
+    /**
+     * @title in_reply_to_id
+     *
+     * In_reply_to_id is a field used by GitHub's review or comment API that is used to write a reply to a particular review or comment.
+     */
+    in_reply_to_id?: number & tags.Type<"uint64">;
+
+    /**
+     * @title user
+     */
+    user: Collaborator;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"iri">;
+
+    /**
+     * @title author_association
+     */
+    author_association: IGithub.AuthorAssociation;
+  }
+
+  export interface IGetReviewCommentOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title result
+     */
+    result: IGithub.ReviewComment[];
+  }
+
+  export interface IGetReviewCommentInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title review_id
+     */
+    review_id: Review["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/repositories/pull-requests/get-reviews";
+        jmesPath: `result[].{value:id, label: join('', [user.login, '\'s review'])}`;
+      }>;
+  }
+
+  export interface IPullRequestComment
+    extends Pick<IGithub.ReviewComment, "path" | "position" | "body"> {
+    line: number & tags.Type<"uint64">;
+    side: string;
+    start_line: number & tags.Type<"uint64">;
+    start_side: string;
+  }
+
+  export type IReviewPullRequestOutput = Pick<IGithub.Review, "id">;
+
+  export interface IReviewPullRequestInput extends IReadPullRequestDetailInput {
+    /**
+     * @title commit_id
+     *
+     * The SHA of the commit that needs a review.
+     * Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.
+     * Defaults to the most recent commit in the pull request when you do not specify a value.
+     */
+    commit_id?: string;
+
+    /**
+     * @title body
+     *
+     * Required when using REQUEST_CHANGES or COMMENT for the event parameter.
+     * The body text of the pull request review.
+     */
+    body?: string;
+
+    /**
+     * @title event
+     *
+     * The review action you want to perform.
+     * The review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.
+     * By leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready.
+     */
+    event?:
+      | tags.Constant<"APPROVE", { title: "APPROVE" }>
+      | tags.Constant<"REQUEST_CHANGES", { title: "REQUEST_CHANGES" }>
+      | tags.Constant<"COMMENT", { title: "COMMENT" }>;
+
+    /**
+     * @title comments
+     *
+     * Use the following table to specify the location, destination, and contents of the draft review comment.
+     */
+    comments?: IPullRequestComment[];
+  }
+
   export interface IReadPullRequestFileOutput
     extends IGithub.ICommonPaginationOutput {
     result: File[];
@@ -135,6 +280,118 @@ export namespace IGithub {
   export interface IReadPullRequestCommitInput
     extends IReadPullRequestDetailInput,
       Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export interface IReadPullRequestRequestedReviewerOutput {
+    /**
+     * @title requested reviewers
+     */
+    users: Collaborator[];
+
+    /**
+     * @title team
+     */
+    teams: Pick<
+      Team,
+      | "id"
+      | "name"
+      | "description"
+      | "notification_setting"
+      | "permission"
+      | "privacy"
+      | "slug"
+    >[];
+  }
+
+  export interface IReadPullRequestReviewOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title commit list of this pull request
+     */
+    result: Review[];
+  }
+
+  export type AuthorAssociation =
+    | "COLLABORATOR"
+    | "CONTRIBUTOR"
+    | "FIRST_TIMER"
+    | "FIRST_TIME_CONTRIBUTOR"
+    | "MANNEQUIN"
+    | "MEMBER"
+    | "NONE"
+    | "OWNER";
+
+  export interface Review {
+    /**
+     * @title id
+     */
+    id: number & tags.Type<"uint32">;
+
+    /**
+     * @title reviewer
+     */
+    user: Collaborator;
+
+    /**
+     * @title body
+     */
+    body: string;
+
+    /**
+     * @title state
+     */
+    state: string & Placeholder<"APPROVED">;
+
+    /**
+     * @title html_url
+     */
+    html_url: string & tags.Format<"iri">;
+
+    /**
+     * @title pull_request_url
+     */
+    pull_request_url: string & tags.Format<"iri">;
+
+    /**
+     * @title submitted_at
+     */
+    submitted_at?: string & tags.Format<"date-time">;
+
+    /**
+     * @title commit_id
+     *
+     * A commit SHA for the review.
+     * If the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`.
+     */
+    commit_id: string | null;
+
+    /**
+     * @title author_association
+     */
+    author_association: IGithub.AuthorAssociation;
+  }
+
+  export interface IReadPullRequestReviewInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export interface IRequestReviewerInput extends IReadPullRequestDetailInput {
+    /**
+     * @Title reviewers
+     * An array of user logins that will be requested.
+     */
+    reviewers?: (User["login"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repos/get-collaborators";
+        jmesPath: "result[].{value:login, label:login}";
+      }>)[];
+
+    /**
+     * @title team_reviewers
+     * An array of team slugs that will be requested.
+     */
+    team_reviewers?: Team["slug"][];
+  }
 
   export type IReadPullRequestDetailOutput = PullRequest;
 
@@ -225,7 +482,12 @@ export namespace IGithub {
 
   export type IGetFileContentOutput =
     | (StrictOmit<RepositoryFile, "encoding" | "content"> | RepositoryFolder)[]
-    | RepositoryFile;
+    | RepositoryFile
+    | {
+        type: "null";
+        size: 0;
+        message: "No files exist corresponding to the path.";
+      };
 
   export type RepositoryFolder = {
     /**
@@ -373,6 +635,66 @@ export namespace IGithub {
     branch?: Branch["name"];
   }
 
+  export type IDeleteFileContentInput = StrictOmit<
+    IUpdateFileContentInput,
+    "content"
+  >;
+
+  export interface IGetCollaboratorOutput extends ICommonPaginationOutput {
+    result: IGithub.Collaborator[];
+  }
+
+  export type Collaborator = Pick<
+    IGithub.User,
+    "id" | "login" | "html_url" | "avatar_url" | "type"
+  >;
+
+  export interface IGetCollaboratorInput
+    extends ICommon.ISecret<"github", ["admin:org", "repo"]>,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {
+    /**
+     * @title owner's name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     */
+    owner: User["login"];
+
+    /**
+     * @title repository name
+     *
+     * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
+     */
+    repo: Repository["name"];
+
+    /**
+     * @title affiliation
+     *
+     * Filter collaborators returned by their affiliation.
+     * outside means all outside collaborators of an organization-owned repository. direct means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. all means all collaborators the authenticated user can see.
+     * It must be one of: "outside", "direct", "all".
+     */
+    affiliation?: (
+      | tags.Constant<"outside", { title: "outside" }>
+      | tags.Constant<"direct", { title: "direct" }>
+      | tags.Constant<"all", { title: "all" }>
+    ) &
+      tags.Default<"all">;
+
+    /**
+     * @title permission
+     *
+     * Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.
+     * It must be one of: "pull", "triage", "push", "maintain", "admin".
+     */
+    permission?:
+      | tags.Constant<"pull", { title: "pull" }>
+      | tags.Constant<"triage", { title: "triage" }>
+      | tags.Constant<"push", { title: "push" }>
+      | tags.Constant<"maintain", { title: "maintain" }>
+      | tags.Constant<"admin", { title: "admin" }>;
+  }
+
   export interface IUpdateFileContentInput extends ICreateFileContentInput {
     /**
      * @title sha of file content
@@ -450,7 +772,12 @@ export namespace IGithub {
      */
     path: string;
 
+    /**
+     * @title commit message
+     * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
+     */
     message: Commit["message"];
+
     /**
      * @title the new file content
      *
@@ -462,6 +789,8 @@ export namespace IGithub {
 
     /**
      * @title branch name
+     *
+     * The branch name. Default: the repository’s default branch
      */
     branch?: Branch["name"];
 
@@ -926,7 +1255,12 @@ export namespace IGithub {
      *
      * Deliver the user nickname to be designated as the person in charge in the array.
      */
-    assignees?: User["login"][];
+    assignees?: (User["login"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/github/repos/get-collaborators";
+        jmesPath: "result[].{value:login, label:login}";
+      }>)[];
 
     /**
      * @title labels
@@ -1078,7 +1412,7 @@ export namespace IGithub {
      */
     commit: StrictOmit<Commit, "sha">;
 
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title Parents of this commit
@@ -1300,7 +1634,8 @@ export namespace IGithub {
   >;
 
   export interface IUpdatePullRequestInput
-    extends PickPartial<ICreatePullRequestInput, "head" | "base"> {
+    extends PickPartial<ICreatePullRequestInput, "head" | "base">,
+      Pick<IUpdateIssueInput, "labels"> {
     /**
      * @title pull request number to update
      */
@@ -1691,6 +2026,43 @@ export namespace IGithub {
     closed_by?: Pick<User, "id" | "login" | "type"> | null;
   }
 
+  export interface IGetIssueCommentsOutput
+    extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title issue comments
+     */
+    result: IssueComment[];
+  }
+
+  export interface IssueComment extends StrictOmit<IGithub.Comment, "pages"> {
+    /**
+     * @title issue_url
+     */
+    issue_url: string & tags.Format<"iri">;
+
+    /**
+     * @title author_association
+     */
+    author_association: AuthorAssociation;
+  }
+
+  export interface IGetPullRequestCommentsInput
+    extends IReadPullRequestDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
+  export type ICreateIssueCommentOutput = IssueComment;
+
+  export interface ICreateIssueCommentInput extends IGetIssueDetailInput {
+    /**
+     * @title The contents of the comment
+     */
+    body: string;
+  }
+
+  export interface IGetIssueCommentsInput
+    extends IGetIssueDetailInput,
+      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+
   export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
     /**
      * @title issue number to get detailed info
@@ -2080,14 +2452,14 @@ export namespace IGithub {
      *
      * This means the user's profile image.
      */
-    avatar_url: string & tags.Format<"uri">;
+    avatar_url: string & tags.Format<"iri">;
 
     /**
      * @title html_url
      *
      * If you want to look up your profile, you can access this website.
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title type
@@ -2126,7 +2498,7 @@ export namespace IGithub {
     /**
      * @title html_url
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title description
@@ -2349,7 +2721,7 @@ export namespace IGithub {
      *
      * uri to look up details of commitment
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
 
     /**
      * @title author
@@ -2376,7 +2748,7 @@ export namespace IGithub {
 
     tree: {
       sha: string;
-      url: string & tags.Format<"uri">;
+      url: string & tags.Format<"iri">;
     };
 
     comment_count: number & tags.Type<"uint64">;
@@ -2447,7 +2819,7 @@ export namespace IGithub {
      * If pull is included on this link path, it is pull_request, and if issue is included, it is issue.
      * In essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path.
      */
-    html_url: string & tags.Format<"uri">;
+    html_url: string & tags.Format<"iri">;
 
     /**
      * @title issue number
@@ -2496,7 +2868,7 @@ export namespace IGithub {
       | string
       | {
           id?: number & tags.Type<"uint64">;
-          url?: string & tags.Format<"uri">;
+          url?: string & tags.Format<"iri">;
           name?: string;
           description?: string | null;
           color?: string | null;
@@ -2609,15 +2981,7 @@ export namespace IGithub {
     /**
      * @title author_association
      */
-    author_association:
-      | "COLLABORATOR"
-      | "CONTRIBUTOR"
-      | "FIRST_TIMER"
-      | "FIRST_TIME_CONTRIBUTOR"
-      | "MANNEQUIN"
-      | "MEMBER"
-      | "NONE"
-      | "OWNER";
+    author_association: IGithub.AuthorAssociation;
 
     /**
      * @title draft
@@ -2791,11 +3155,37 @@ export namespace IGithub {
   }
 
   export interface Comment {
+    /**
+     * @title id
+     */
     id: number & tags.Type<"uint64">;
+
+    /**
+     * @title body
+     */
     body?: string;
-    user: Pick<IGithub.User, "id" | "login" | "type">;
+
+    /**
+     * @title user
+     */
+    user: Pick<
+      IGithub.User,
+      "id" | "login" | "type" | "avatar_url" | "html_url"
+    >;
+
+    /**
+     * @title created_at
+     */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title pages
+     */
     pages?: IGithub.Page[];
   }
 
@@ -2851,14 +3241,14 @@ export namespace IGithub {
      *
      * This is the path through which you can view the file through the github website.
      */
-    blob_url: string & tags.Format<"uri">;
+    blob_url: string & tags.Format<"iri">;
 
     /**
      * @title raw_url
      *
      * The API path through which the contents of the file can be viewed.
      */
-    raw_url: string & tags.Format<"uri">;
+    raw_url: string & tags.Format<"iri">;
 
     /**
      * @title patch

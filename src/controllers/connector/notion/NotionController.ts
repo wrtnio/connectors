@@ -6,6 +6,7 @@ import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INo
 
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/notion")
 export class NotionController {
@@ -26,6 +27,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/markdown")
   async appendBlocksByMarkdown(
     @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
@@ -187,6 +189,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/file")
   async createFile(
     @TypedBody() input: INotion.ICreateChildContentTypeFileInput,
@@ -212,6 +215,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/embed")
   async createEmbed(
     @TypedBody() input: INotion.ICreateChildContentTypeEmbedInput,
@@ -237,6 +241,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/bookmark")
   async createBookmark(
     @TypedBody() input: INotion.ICreateChildContentTypeBookmarkInput,
@@ -262,6 +267,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/image")
   async createImage(
     @TypedBody() input: INotion.ICreateChildContentTypeImageInput,
@@ -290,6 +296,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/video")
   async createVideo(
     @TypedBody() input: INotion.ICreateChildContentTypeVideoInput,
@@ -313,6 +320,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/pdf")
   async createPdf(
     @TypedBody() input: INotion.ICreateChildContentTypePdfInput,
@@ -337,6 +345,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/code")
   async createCode(
     @TypedBody() input: INotion.ICreateChildContentTypeCodeInput,
@@ -360,6 +369,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/equation")
   async createEquation(
     @TypedBody() input: INotion.ICreateChildContentTypeEquationInput,
@@ -383,6 +393,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/divider")
   async createDivider(
     @TypedBody() input: INotion.ICreateChildContentTypeDividerInput,
@@ -406,6 +417,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/breadcrumb")
   async createBreadcrumb(
     @TypedBody() input: INotion.ICreateChildContentTypeBreadcrumbInput,
@@ -429,6 +441,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/table_of_contents")
   async createTableOfContents(
     @TypedBody() input: INotion.ICreateChildContentTypeTableOfContentsInput,
@@ -452,6 +465,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/link_to_page")
   async createLinkToPage(
     @TypedBody() input: INotion.ICreateChildContentTypeLinkToPageInput,
@@ -667,6 +681,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("page/toggle")
   async createToggle(
     @TypedBody() input: INotion.ICreateChildContentTypeToggleInput,
@@ -675,18 +690,19 @@ export class NotionController {
   }
 
   /**
-   * 노션 페이지를 생성합니다.
+   * Create a Notion page.
    *
    * Since a parent ID is required, when a user gives you a link to the page,
    * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
    *
-   * @summary 페이지 생성
-   * @param input 페이지 생성에 필요한 정보
-   * @returns 생성된 페이지 고유 id
+   * @summary Create page
+   * @param input Information needed to create the page
+   * @returns Unique ID of the generated page
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/page")
   async createPage(
     @core.TypedBody() input: INotion.ICreatePageInput,
@@ -695,14 +711,15 @@ export class NotionController {
   }
 
   /**
-   * 노션 워크스페이스에 존재하는 모든 페이지 목록을 조회합니다.
+   * Retrieve a list of all pages in your Notion workspace.
    *
-   * @summary 페이지 목록 조회
-   * @returns 페이지 정보들
+   * @summary Retrieve a list of pages
+   * @returns Page information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("/get/page")
   async readPageList(
@@ -712,14 +729,15 @@ export class NotionController {
   }
 
   /**
-   * 워크스페이스에 있는 유저 목록을 조회합니다.
+   * Retrieve the list of users in the workspace.
    *
-   * @summary 유저 목록 조회
-   * @returns 유저 정보들
+   * @summary Retrieve the list of users
+   * @returns User information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("get/users")
   async getUsers(
@@ -729,14 +747,15 @@ export class NotionController {
   }
 
   /**
-   * 데이터베이스에 아이템을 생성하기 위해 데이터베이스 목록을 조회합니다.
+   * Query the database list to create items in the database.
    *
-   * @summary 데이터베이스 목록 조회
-   * @returns 데이터베이스 정보 목록
+   * @summary Query the database list
+   * @returns A list of database information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("get/database-info")
   async getDatabaseListInfo(
@@ -746,22 +765,23 @@ export class NotionController {
   }
 
   /**
-   * 데이터베이스에 아이템을 생성하기 위한 데이터베이스 정보를 조회합니다.
+   * Retrieves database information to create items in the database.
    *
-   * @summary 데이터베이스 정보 조회
+   * @summary Retrieves database information
    *
-   * @param databaseId 데이터베이스 고유 id
-   * @returns 데이터베이스 정보
+   * @param databaseId Unique id of the database
+   * @returns Database information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("get/database-info/:databaseId")
   async getDatabaseInfo(
     @core.TypedBody() input: INotion.ISecret,
     /**
-     * @title 정보를 받아올 데이터베이스
-     * @description 정보를 받아올 데이터베이스를 선택해 주세요.
+     * @title Database to receive information from
+     * @description Please select the database to receive information from.
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -774,24 +794,25 @@ export class NotionController {
   }
 
   /**
-   * 노션 테이블 데이터베이스에 아이템을 생성합니다.
+   * Create an item in the Notion Table database.
    *
-   * @summary 데이터베이스 아이템 생성
+   * @summary Create a database item
    *
-   * @param input 데이터베이스 아이템 생성에 필요한 정보
+   * @param input Information needed to create a database item
    *
-   * @param databaseId 아이템을 생성할 데이터베이스 고유 id
-   * @returns 생성된 데이터베이스 아이템 정보
+   * @param databaseId Unique id of the database in which to create the item
+   * @returns Information about the created database item
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/database-item/:databaseId")
   async createDatabaseItem(
     @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
     /**
-     * @title 아이템을 추가할 데이터베이스
-     * @description 아이템을 추가할 데이터베이스를 선택해 주세요.
+     * @title Database to add item to
+     * @description Please select the database to add item to.
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -804,24 +825,25 @@ export class NotionController {
   }
 
   /**
-   * 데이터베이스에 있는 아이템 정보를 수정합니다.
+   * Modify item information in the database.
    *
-   * @summary 데이터베이스 아이템 수정
+   * @summary Modify database item
    *
-   * @param input 수정할 데이터베이스 아이템 정보
+   * @param input Database item information to modify
    *
-   * @param databaseId 수정할 데이터베이스 고유 id
-   * @returns 수정된 데이터베이스 아이템 정보
+   * @param databaseId Unique id of the database to modify
+   * @returns Modified database item information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Patch("/database-item/:databaseId")
   async updateDatabaseItem(
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     /**
-     * @title 아이템을 수정할 데이터베이스
-     * @description 아이템을 수정할 데이터베이스를 선택해 주세요.
+     * @title Database to modify item
+     * @description Please select the database to modify item.
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -834,16 +856,17 @@ export class NotionController {
   }
 
   /**
-   * 제목으로 페이지를 검색합니다.
+   * Search for pages by title.
    *
-   * @summary 제목으로 페이지 검색
+   * @summary Search for pages by title
    *
-   * @param input 페이지 제목
-   * @returns 검색된 페이지 정보
+   * @param input Page title
+   * @returns Searched page information
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @Standalone()
   @core.TypedRoute.Post("/get-page-by-title")
   async getPageByTitle(
@@ -853,22 +876,23 @@ export class NotionController {
   }
 
   /**
-   * 테이블 데이터베이스에 존재하는 아이템 목록을 조회합니다.
+   * Retrieve a list of items that exist in a table database.
    *
-   * @summary 데이터베이스 아이템 목록 조회
+   * @summary Retrieve a list of database items
    *
-   * @param databaseId 데이터베이스 고유 id
-   * @returns 조회된 데이터베이스 아이템 목록 정보
+   * @param databaseId Unique id of the database
+   * @returns List of retrieved database items
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/find-item-list/:databaseId")
   async getDatabaseItemList(
     @core.TypedBody() input: INotion.ISecret,
     /**
-     * @title 아이템 목록을 가져올 데이터베이스
-     * @description 아이템 목록을 가져올 데이터베이스를 선택해 주세요.
+     * @title Database to retrieve the list of items
+     * @description Please select the database to retrieve the list of items.
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -883,24 +907,25 @@ export class NotionController {
   }
 
   /**
-   * 테이블 데이터베이스에 존재하는 아이템을 조회합니다.
+   * Retrieves an item that exists in a table database.
    *
-   * @summary 데이터베이스 아이템 조회
+   * @summary Retrieval of database items
    *
-   * @param input 데이터베이스 아이템 조회에 필요한 정보
+   * @param input Information required to retrieve database items
    *
-   * @param databaseId 데이터베이스 고유 id
-   * @returns 조회된 데이터베이스 아이템 정보
+   * @param databaseId Unique id of the database
+   * @returns Information on retrieved database items
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     /**
-     * @title 아이템 정보를 가져올 데이터베이스
-     * @description 아이템 정보를 가져올 데이터베이스를 선택해 주세요.
+     * @title Database to retrieve item information
+     * @description Please select the database to retrieve item information.
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -929,6 +954,7 @@ export class NotionController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
+  @ApiTags("Notion")
   @core.TypedRoute.Post("markdown")
   async createPageByMarkdown(
     @core.TypedBody() input: INotion.ICreatePageByMarkdownInput,

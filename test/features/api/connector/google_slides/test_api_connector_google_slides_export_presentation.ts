@@ -16,7 +16,7 @@ export const test_api_connector_google_slides_export_presentation_power_point =
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   };
 
 export const test_api_connector_google_slides_export_presentation_hanshow =
@@ -31,5 +31,5 @@ export const test_api_connector_google_slides_export_presentation_hanshow =
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   };

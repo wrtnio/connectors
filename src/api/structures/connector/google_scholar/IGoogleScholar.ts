@@ -3,149 +3,149 @@ import { tags } from "typia";
 
 export namespace IGoogleScholar {
   /**
-   * @title 검색 조건
+   * @title Search Conditions
    */
   export interface ISearchInput {
     /**
-     * 검색 결과에 포함되어야 하는 키워드입니다.
+     * Keywords that must be included in search results.
      *
-     * @title 꼭 포함할 키워드
+     * @title Keywords that must be included
      */
     andKeyword: Array<string & Placeholder<"biology">>;
 
     /**
-     * 검색 결과에 포함되면 좋겠는 키워드입니다.
+     * Keywords that you would like to see included in your search results.
      *
-     * @title 포함 되면 좋겠는 키워드
+     * @title Keywords that you would like to see included
      */
     orKeyword?: Array<string & Placeholder<"ecosystem">>;
 
     /**
-     * 검색 결과에 포함되면 안되는 키워드입니다.
+     * Keywords that should not be included in search results.
      *
-     * @title 제외할 키워드
+     * @title Keywords to exclude
      */
     notKeyword?: Array<string & Placeholder<"pollution">>;
 
     /**
-     * 몇 개의 검색 결과를 받아올 것인지 설정합니다.
+     * Sets how many search results to retrieve.
      *
-     * @title 검색 결과 갯수
+     * @title Number of search results
      */
     max_results: number & tags.Type<"int32"> & Placeholder<"10">;
   }
 
   /**
-   * @title 검색 결과
+   * @title Search Results
    */
 
   export interface ISearchOutput {
     /**
-     * 검색 결과 데이터의 고유 id 입니다.
+     * Unique id of search result data.
      *
-     * @title 검색 결과 데이터 고유 id
+     * @title Unique id of search result data
      */
     id: string;
 
     /**
-     * 검색된 논문의 제목입니다.
+     * This is the title of the paper searched.
      *
-     * @title 검색된 논문 제목
+     * @title Title of the paper searched
      */
     title: string;
 
     /**
-     * 검색된 논문의 링크입니다.
+     * Here is the link to the searched paper.
      *
-     * @title 검색된 논문 링크
+     * @title Link to the searched paper
      */
-    link: (string & tags.Format<"uri">) | null;
+    link: (string & tags.Format<"iri">) | null;
 
     /**
-     * 검색 결과의 내용 단편입니다.
+     * Here is a snippet of the search results.
      *
-     * @title 검색 결과 내용 단편
+     * @title Snippet of the search results
      */
     snippet: string;
 
     /**
-     * 검색된 논문의 출판 요약 정보입니다.
+     * Here is the publication summary information for the searched paper.
      *
-     * @title 출판 요약 정보
+     * @title Publication Summary Information
      */
     publication_info: string;
 
     /**
-     * 검색된 논문의 참고자료 정보입니다.
+     * Here is the reference information for the searched paper.
      *
-     * @title 참고자료 정보
+     * @title Reference information
      */
     resource: IResource[] | null;
 
     /**
-     * 검색된 논문이 인용된 횟수입니다.
+     * The number of times the searched paper was cited.
      *
-     * @title 인용된 횟수
+     * @title Number of times cited
      */
     citation_count: number & tags.Type<"int32">;
 
     /**
-     * 검색된 논문과 관련된 학술 자료 링크입니다.
+     * Here are links to academic materials related to the searched paper.
      *
-     * @title 관련 학술 자료 링크
+     * @title Links to related academic materials
      */
-    related_pages_link: string & tags.Format<"uri">;
+    related_pages_link: string & tags.Format<"iri">;
 
     /**
-     * 검색된 논문의 버전 정보입니다.
+     * Here is the version information for the searched paper.
      *
-     * @title 버전 정보
+     * @title Version information
      */
     version_info: IVersion;
   }
 
   /**
-   * @title 참고 자료
+   * @title References
    */
   export interface IResource {
     /**
-     * 참고 자료의 제목입니다.
+     * Title of the reference material.
      *
-     * @title 참고 자료 제목
+     * @title Title of the reference material
      */
     title: string;
 
     /**
-     * 참고자료 파일의 형식입니다.
+     * This is the format of the reference file.
      *
-     * @title 참고자료 파일 형식
+     * @title Reference file format
      */
     file_format?: string;
 
     /**
-     * 참고자료의 링크입니다.
+     * Here is a link to the reference material.
      *
-     * @title 참고자료 링크
+     * @title Link to the reference material
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
   }
 
   /**
-   * @title 버전
+   * @title version
    */
   interface IVersion {
     /**
-     * 버전 정보입니다.
+     * Here is the version information.
      *
-     * @title 버전 정보
+     * @title Version information
      */
     version: (number & tags.Type<"int32">) | null;
 
     /**
-     * 버전 관련 링크입니다.
+     * Here are the version-related links.
      *
-     * @title 버전 관련 링크
+     * @title Version-related links
      */
-    link: (string & tags.Format<"uri">) | null;
+    link: (string & tags.Format<"iri">) | null;
   }
 }

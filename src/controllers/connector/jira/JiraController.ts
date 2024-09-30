@@ -3,7 +3,8 @@ import { Controller } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import { RouteIcon } from "@wrtnio/decorators";
 import { JiraProvider } from "../../../providers/connector/jira/JiraProvider";
-import { StrictOmit } from "../../../utils/strictOmit";
+import { StrictOmit } from "../../../api/structures/types/strictOmit";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/jira")
 export class JiraController {
@@ -22,6 +23,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Delete("issues/comments")
   async deleteComment(
     @TypedBody()
@@ -48,6 +50,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Put("issues/comments/markdown")
   async updateComment(
     @TypedBody() input: IJira.IUpdateCommentByMarkdownInput,
@@ -69,6 +72,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("issues/comments/markdown")
   async createComment(
     @TypedBody()
@@ -96,6 +100,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("issues/get-comments")
   async getComments(
     @TypedBody()
@@ -124,6 +129,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("issues/get-transitions")
   async getTransitions(
     @TypedBody()
@@ -147,6 +153,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Delete("issues/asignee")
   async unassign(
     @TypedBody()
@@ -170,6 +177,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Put("issues/asignee")
   async assign(
     @TypedBody()
@@ -196,6 +204,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Put("issues/status")
   async updateIssueStatus(
     @TypedBody()
@@ -225,6 +234,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Put("issues/:id")
   async updateIssue(
     @TypedParam("id") id: IJira.Issue["id"],
@@ -255,6 +265,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("issues/markdown")
   async createIssueByMarkdown(
     @TypedBody() input: IJira.ICreateIssueByMarkdownInput,
@@ -269,7 +280,7 @@ export class JiraController {
     });
   }
 
-  // /**
+  //
   //  * Create an issue
   //  *
   //  * Issue type, project, and summary are essential properties.
@@ -311,6 +322,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-detail")
   async getIssueDetail(
     @TypedBody()
@@ -339,6 +351,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-issues")
   async getIssues(
     @TypedBody()
@@ -370,6 +383,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-projects")
   async getProjects(
     @TypedBody()
@@ -396,6 +410,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-labels")
   async getIssueLabels(
     @TypedBody()
@@ -424,6 +439,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-types")
   async getIssueTypes(
     @TypedBody()
@@ -447,6 +463,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-statuses")
   async getIssueStatus(
     @TypedBody()
@@ -476,6 +493,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-priorities")
   async getIssuePriorities(
     @TypedBody()
@@ -502,6 +520,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("issues/get-users-assignable")
   async getUsersAssignableInIssue(
     @TypedBody()
@@ -531,6 +550,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("projects/get-users-assignable")
   async getUsersAssignableInProject(
     @TypedBody()
@@ -560,6 +580,7 @@ export class JiraController {
   @RouteIcon(
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
+  @ApiTags("Jira")
   @core.TypedRoute.Post("get-status-categories")
   async getStatusCategories(
     @TypedBody()

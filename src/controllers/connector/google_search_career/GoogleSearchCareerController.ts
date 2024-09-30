@@ -4,24 +4,26 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import core from "@nestia/core";
 import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/google_search/IGoogleSearch";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-search")
 export class GoogleSearchCareerController {
   constructor(private readonly googleSearchProvider: GoogleSearchProvider) {}
   /**
-   * 원티드에서 채용 공고를 검색합니다.
+   * Search for job postings on Wanted.
    *
-   * @summary 원티드 채용 공고 검색
+   * @summary Wanted job posting search
    *
-   * @param input 검색 조건
+   * @param input Search conditions
    *
-   * @returns 원티드 채용 공고 검색 결과
+   * @returns Wanted job posting search results
    */
   @Standalone()
   @core.TypedRoute.Post("wanted")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_wanted_full.svg",
   )
+  @ApiTags("Wanted")
   async searchForWanted(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -29,19 +31,20 @@ export class GoogleSearchCareerController {
   }
 
   /**
-   * 인크루트에서 채용 공고를 검색합니다.
+   * Search for job postings on Incruit.
    *
-   * @summary 인크루트 채용 공고 검색
+   * @summary Search Incruit job postings
    *
-   * @param input 검색 조건
+   * @param input Search conditions
    *
-   * @returns 인크루트 채용 공고 검색 결과
+   * @returns Search results for Incruit job postings
    */
   @Standalone()
   @core.TypedRoute.Post("incruit")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Incruit_full.svg",
   )
+  @ApiTags("Incruit")
   async searchForIncruit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -49,19 +52,20 @@ export class GoogleSearchCareerController {
   }
 
   /**
-   * 사람인에서 채용 공고를 검색합니다.
+   * Search for job postings in Saramin.
    *
-   * @summary 사람인 채용 공고 검색
+   * @summary Search for Saramin job postings
    *
-   * @param input 검색 조건
+   * @param input Search criteria
    *
-   * @returns 사람인 채용 공고 검색 결과
+   * @returns Search for Saramin job postings results
    */
   @Standalone()
   @core.TypedRoute.Post("saramin")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Saramin_full.svg",
   )
+  @ApiTags("Saramin")
   async searchForSaramin(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -69,19 +73,20 @@ export class GoogleSearchCareerController {
   }
 
   /**
-   * 점핏에서 채용 공고를 검색합니다.
+   * Search for job postings on Jumpfit.
    *
-   * @summary 점핏 채용 공고 검색
+   * @summary Jumpfit job posting search
    *
-   * @param input 검색 조건
+   * @param input Search conditions
    *
-   * @returns 점핏 채용 공고 검색 결과
+   * @returns Jumpfit job posting search results
    */
   @Standalone()
   @core.TypedRoute.Post("jumpit")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/jumpit_full.svg",
   )
+  @ApiTags("Jumpit")
   async searchForJumpit(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {
@@ -89,19 +94,20 @@ export class GoogleSearchCareerController {
   }
 
   /**
-   * 커리어리에서 게시물을 검색합니다.
+   * Search for posts in Careerly.
    *
-   * @summary 커리어리 검색
+   * @summary Careerly Search
    *
-   * @param input 검색 조건
+   * @param input Search conditions
    *
-   * @returns 커리어리 게시물 검색 결과
+   * @returns Careerly Post Search Results
    */
   @Standalone()
   @core.TypedRoute.Post("careerly")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/careerly_full.svg",
   )
+  @ApiTags("Careerly")
   async searchForCareerly(
     @core.TypedBody() input: IGoogleSearch.IRequest,
   ): Promise<IGoogleSearch.IResponse[]> {

@@ -20,9 +20,7 @@ export const test_api_connector_google_docs = async (
       connection,
       createGoogleDocsInput,
     );
-  typia.assertEquals<IGoogleDocs.ICreateGoogleDocsOutput>(
-    createGoogleDocsOutput,
-  );
+  typia.assert<IGoogleDocs.ICreateGoogleDocsOutput>(createGoogleDocsOutput);
 
   const docId = createGoogleDocsOutput.id;
   /**
@@ -44,7 +42,7 @@ export const test_api_connector_google_docs = async (
       connection,
       permissionGoogleDocsInput,
     );
-  typia.assertEquals(permissionGoogleDocsOutput);
+  typia.assert(permissionGoogleDocsOutput);
 
   /**
    * Append text to docs
@@ -59,7 +57,7 @@ export const test_api_connector_google_docs = async (
       connection,
       appendTextToDocsInput,
     );
-  typia.assertEquals(appendTextToDocsOutput);
+  typia.assert(appendTextToDocsOutput);
 
   /**
    * Read docs contents
@@ -72,8 +70,8 @@ export const test_api_connector_google_docs = async (
         secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       },
     );
-  typia.assertEquals<"Hello World\n">(readDocsOutput.data.text);
-  typia.assertEquals<IGoogleDocs.IReadGoogleDocsOutput>(readDocsOutput);
+  typia.assert<"Hello World\n">(readDocsOutput.data.text);
+  typia.assert<IGoogleDocs.IReadGoogleDocsOutput>(readDocsOutput);
 
   /**
    * Create docs by template
@@ -88,7 +86,7 @@ export const test_api_connector_google_docs = async (
       connection,
       createDocByTemplateInput,
     );
-  typia.assertEquals<IGoogleDocs.ICreateDocByTemplateOutput>(
+  typia.assert<IGoogleDocs.ICreateDocByTemplateOutput>(
     createDocByTemplateOutput,
   );
 
@@ -99,7 +97,7 @@ export const test_api_connector_google_docs = async (
     await CApi.functional.connector.google_docs.get_list.list(connection, {
       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
     });
-  typia.assertEquals<IGoogleDocs.IListGoogleDocsOutput>(readDocsListOutput);
+  typia.assert<IGoogleDocs.IListGoogleDocsOutput>(readDocsListOutput);
 
   /**
    * Delete docs
@@ -113,6 +111,6 @@ export const test_api_connector_google_docs = async (
         secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
       },
     );
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };

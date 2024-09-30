@@ -1,10 +1,10 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
-import { StrictOmit } from "../../../utils/strictOmit";
 
 @Controller("connector/github")
 export class GithubController {
@@ -17,6 +17,7 @@ export class GithubController {
    * This RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.
    * This will be useful when users want to analyze the repository.
    *
+   * @internal
    * @deprecated The RAG part will add a function so that chatbots can do it themselves
    * @summary Analysis for a github repository
    * @param input
@@ -25,6 +26,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("analyze")
   async analyze(
     @TypedBody() input: IGithub.IAnalyzeInput,
@@ -47,6 +49,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("users/get-received-events")
   async getReceivedEvents(
     @TypedBody() input: IGithub.IGetReceivedEventInput,
@@ -68,6 +71,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("users/get-pinned-repositories")
   async getUserPinnedRepositories(
     @TypedBody() input: IGithub.IGetUserPinnedRepositoryInput,
@@ -88,6 +92,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("users/get-repositories")
   async getUserRepositories(
     @TypedBody() input: IGithub.IGetUserRepositoryInput,
@@ -112,6 +117,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("organizations/users/get-events")
   async getUserOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationUserEventInput,
@@ -136,6 +142,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("organizations/get-issues")
   async getOrganizationIssues(
     @TypedBody() input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
@@ -156,6 +163,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("organizations/get-repositories")
   async getOrganizationRepositories(
     @TypedBody() input: IGithub.IGetOrganizationEventInput,
@@ -183,11 +191,66 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("organizations/get-events")
   async getOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {
     const data = await this.githubProvider.getOrganizationEvents(input);
+    return data;
+  }
+
+  /**
+   * List repository collaborators
+   *
+   * For organization-owned repositories, the list of collaborators includes outside collaborators,
+   * organization members that are direct collaborators, organization members with access through team memberships,
+   * organization members with access through default organization permissions, and organization owners.
+   * Organization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.
+   * Team members will include the members of child teams.
+   *
+   * You can refer to it before specifying a person in charge of the issue or a reviewer for PR.
+   *
+   * @summary List repository collaborators
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repos/get-collaborators")
+  async getCollaborators(
+    @TypedBody() input: IGithub.IGetCollaboratorInput,
+  ): Promise<IGithub.IGetCollaboratorOutput> {
+    return this.githubProvider.getCollaborators(input);
+  }
+
+  /**
+   * Delete file content in github repository
+   *
+   * To delete file content is the same as creating a single commit.
+   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
+   *
+   * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
+   * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+   *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
+   *
+   * @summary Delete file content and commit
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Delete("repos/commits/contents")
+  async deleteFileContents(
+    @TypedBody() input: IGithub.IDeleteFileContentInput,
+  ): Promise<void> {
+    const data = await this.githubProvider.deleteFileContents(input);
     return data;
   }
 
@@ -205,6 +268,9 @@ export class GithubController {
    * so it's right to check the existing code and then change some of the contents to the original to reflect it.
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
+   *
    * @summary Update File content and commit
    * @param input
    * @returns
@@ -212,6 +278,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Put("repos/commits/contents")
   async updateFileContents(
     @TypedBody() input: IGithub.IUpdateFileContentInput,
@@ -232,6 +299,8 @@ export class GithubController {
    * Users value branches that reflect their commitments.
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
+   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   *
    * @summary Create File content and commit
    * @param input
    * @returns
@@ -239,6 +308,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repos/commits/contents")
   async createFileContents(
     @TypedBody() input: IGithub.ICreateFileContentInput,
@@ -265,6 +335,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repos/get-folder-structures")
   async getRepositoryFolderStructures(
     @TypedBody() input: IGithub.IGetRepositoryFolderStructureInput,
@@ -297,6 +368,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repos/get-contents/bulk")
   async getBulkFileContents(
     @TypedBody() input: IGithub.IGetBulkFileContentInput,
@@ -322,6 +394,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repos/get-contents")
   async getFileContents(
     @TypedBody() input: IGithub.IGetFileContentInput,
@@ -342,6 +415,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repos/get-readme")
   async getReadmeFile(
     @TypedBody() input: IGithub.IGetReadmeFileContentInput,
@@ -361,6 +435,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repos/get-events")
   async getRepoEvents(
     @TypedBody() input: IGithub.IGetRepoEventInput,
@@ -388,6 +463,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("networks/get-events")
   async getNetworkRepoEvents(
     @TypedBody() input: IGithub.IGetRepoEventInput,
@@ -417,6 +493,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("users/get-events")
   async getUserEvents(
     @TypedBody() input: IGithub.IGetUserEventInput,
@@ -438,6 +515,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("users/get-organizations")
   async getUserOrganizations(
     @TypedBody() input: IGithub.IGetUserOrganizationInput,
@@ -460,6 +538,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-events")
   async getEvents(
     @TypedBody() input: IGithub.IGetEventInput,
@@ -484,6 +563,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/get-activities")
   async getRepositoryActivities(
     @TypedBody() input: IGithub.IGetRepositoryActivityInput,
@@ -495,6 +575,8 @@ export class GithubController {
    * Update pull request
    *
    * Use to change the title or body of a PR, or draft status or open-close status.
+   * It can also be used for overwriting labels or modifying them.
+   * It can also be used to close or reopen pull request.
    *
    * @param input Update pull request
    * @returns
@@ -502,6 +584,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Put("repositories/pull-requests")
   async updatePullRequest(
     @TypedBody() input: IGithub.IUpdatePullRequestInput,
@@ -521,17 +604,178 @@ export class GithubController {
    * When creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.
    * You can also create a pull request in draft state if necessary.
    *
+   * In order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.
+   *
    * @param input Create pull request
    * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/pull-requests")
   async createPullRequest(
     @TypedBody() input: IGithub.ICreatePullRequestInput,
   ): Promise<IGithub.ICreatePullRequestOutput> {
     return this.githubProvider.createPullRequest(input);
+  }
+
+  /**
+   * List pull request comments
+   *
+   * You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+   * In any case, you can also view comments with the number on pull request.
+   * Issue comments are ordered by ascending ID.
+   *
+   * This is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.
+   * Comments and reviews on PR are separate, you can only see comments on this connector.
+   *
+   * @summary List pull request comments
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/get-comments")
+  async getPullRequestComments(
+    @TypedBody() input: IGithub.IGetPullRequestCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    return this.githubProvider.getPullRequestComments(input);
+  }
+
+  /**
+   * Get all requested reviewers
+   *
+   * Gets the users or teams whose review is requested for a pull request.
+   * Once a requested reviewer submits a review, they are no longer considered a requested reviewer.
+   * Their review will instead be returned by the List reviews for a pull request operation.
+   *
+   * The requested_reviewers are the ones who have been asked to review, but not yet.
+   * So when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.
+   * Therefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.
+   * Refer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.
+   *
+   * @summary Get all requested reviewers for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/get-requested-reviewers")
+  async readPullRequestRequestedReviewers(
+    @TypedBody() input: IGithub.IReadPullRequestDetailInput,
+  ): Promise<IGithub.IReadPullRequestRequestedReviewerOutput> {
+    return this.githubProvider.readPullRequestRequestedReviewers(input);
+  }
+
+  /**
+   * Removes review requests from a pull request for a given set of users and/or teams
+   *
+   * You should check the person who has already been requested as a reviewer, i.e., requested_reviewers, and then send out the delete request.
+   * Even if you don't do that, there will be no error, but it doesn't mean anything if you delete the person who hasn't been requested as a reviewer.
+   *
+   * @summary Remove requested reviewers from a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Delete("repositories/pull-requests/requested-reviewers")
+  async removeRequestedReviewers(
+    @TypedBody() input: IGithub.IRequestReviewerInput,
+  ): Promise<void> {
+    return this.githubProvider.removeRequestedReviewers(input);
+  }
+
+  /**
+   * Request reviewers for a pull request
+   *
+   * Requests reviews for a pull request from a given set of users and/or teams. This endpoint triggers notifications.
+   * You can specify a reviewer by the user's name alone, but not by anyone, so use a connector that looks up collaborators first.
+   *
+   * @summary Request reviewers for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/requested-reviewers")
+  async requestReviewers(
+    @TypedBody() input: IGithub.IRequestReviewerInput,
+  ): Promise<void> {
+    return this.githubProvider.requestReviewers(input);
+  }
+
+  /**
+   * List comments for a pull request review
+   *
+   * Lists comments for a specific pull request review.
+   *
+   * @summary List comments for a pull request review
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/reviews/get-comments")
+  async readReviewComments(
+    @TypedBody() input: IGithub.IGetReviewCommentInput,
+  ): Promise<IGithub.IGetReviewCommentOutput> {
+    return this.githubProvider.readReviewComments(input);
+  }
+
+  /**
+   * List reviews for a pull request
+   *
+   * Pull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.
+   * Lists all reviews for a specified pull request. The list of reviews returns in chronological order.
+   * Since github distinguishes requested_reviewers from those who have already completed the review,
+   * if you want to see a review for any PR, you should look up both of these connectors.
+   *
+   * @summary List reviews for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/get-reviews")
+  async readReviews(
+    @TypedBody() input: IGithub.IReadPullRequestReviewInput,
+  ): Promise<IGithub.IReadPullRequestReviewOutput> {
+    return this.githubProvider.readReviews(input);
+  }
+
+  /**
+   * Create a review for a pull request
+   *
+   * Pull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.
+   * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
+   *
+   * @summary Create a review for a pull request
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/reviews")
+  async reviewPullRequest(
+    @TypedBody() input: IGithub.IReviewPullRequestInput,
+  ): Promise<IGithub.IReviewPullRequestOutput> {
+    return this.githubProvider.reviewPullRequest(input);
   }
 
   /**
@@ -550,6 +794,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/pull-requests/get-files")
   async readPullRequestFiles(
     @TypedBody() input: IGithub.IReadPullRequestFileInput,
@@ -572,6 +817,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/pull-requests/get-commits")
   async readPullRequestCommits(
     @TypedBody() input: IGithub.IReadPullRequestCommitInput,
@@ -599,6 +845,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/pull-requests/get-diff")
   async readPullRequestDiff(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
@@ -622,6 +869,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/pull-requests/get-detail")
   async readPullRequestDetail(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
@@ -630,11 +878,12 @@ export class GithubController {
   }
 
   /**
-   * List repository issues
+   * List repository pull requests
    *
    * Query pool requests to specific repositories.
    * Here, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   * If the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.
    *
    * @summary Get Repository' pull request
    * @param input
@@ -643,6 +892,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/get-pull-requests")
   async getRepositoryPullRequest(
     @TypedBody() input: IGithub.IFetchRepositoryPullRequestInput,
@@ -651,22 +901,67 @@ export class GithubController {
   }
 
   /**
-   * Get a deatiled pull-request info
+   * Get a deatiled issue info
+   *
    * Unlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.
    * However, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.
    *
-   * @summary Get a pull request
+   * @summary Get a issue
    * @param input
    * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/issues/get-detail")
   async getIssueDetail(
     @TypedBody() input: IGithub.IGetIssueDetailInput,
   ): Promise<IGithub.IGetIssueDetailOutput> {
     return this.githubProvider.getIssueDetail(input);
+  }
+
+  /**
+   * List issue comments
+   *
+   * You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+   * In any case, you can also view comments with the number on pull request.
+   * Issue comments are ordered by ascending ID.
+   *
+   * @summary List issue comments
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/issues/get-comments")
+  async getIssueComments(
+    @TypedBody() input: IGithub.IGetIssueCommentsInput,
+  ): Promise<IGithub.IGetIssueCommentsOutput> {
+    return this.githubProvider.getIssueComments(input);
+  }
+
+  /**
+   * Create an issue comment
+   *
+   * Add a comment. If you put an issue number, you can add a comment to the issue, where the issue number is also the number of PR.
+   * In other words, both issue and PR can add a comment through this connector.
+   *
+   * @summary Create an issue comment
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/issues/comments")
+  async createIssueComments(
+    @TypedBody() input: IGithub.ICreateIssueCommentInput,
+  ): Promise<IGithub.ICreateIssueCommentOutput> {
+    return this.githubProvider.createIssueComments(input);
   }
 
   /**
@@ -680,6 +975,7 @@ export class GithubController {
    * For more information, you should check the properties part of the request type.
    *
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
+   * If the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.
    *
    * @summary List repository issues
    * @param input
@@ -688,6 +984,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("repositories/get-issues")
   async getRepositoryIssues(
     @TypedBody() input: IGithub.IFetchRepositoryInput,
@@ -705,6 +1002,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-users")
   async searchUser(
     @TypedBody() input: IGithub.ISearchUserInput,
@@ -722,6 +1020,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-user-profile")
   async getUserProfile(
     @TypedBody() input: IGithub.IGetUserProfileInput,
@@ -744,6 +1043,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-organizations")
   async getAuthenticatedUserOrganizations(
     @TypedBody() input: IGithub.IGetAuthenticatedUserOrganizationInput,
@@ -766,6 +1066,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-branches")
   async getRepositoryBranches(
     @TypedBody() input: IGithub.IGetBranchInput,
@@ -784,6 +1085,7 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @ApiTags("Github")
   @core.TypedRoute.Post("branches")
   async createBranches(
     @TypedBody() input: IGithub.ICreateBranchInput,
@@ -804,6 +1106,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-pull-requests-associated-with-a-commit")
   async getPullRequestAssociatedWithACommit(
     @TypedBody() input: IGithub.IGetPullRequestInput,
@@ -820,10 +1123,11 @@ export class GithubController {
    *
    * @summary Lists all branches that contain the HEAD commit
    * @returns A promise that resolves to an array of branch names that include the specified commit.
-   **/
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-commit-heads")
   async getCommitHeads(
     @TypedBody() input: IGithub.IGetCommitHeadInput,
@@ -843,6 +1147,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-commit")
   async getCommit(
     @TypedBody() input: IGithub.IGetCommitInput,
@@ -862,6 +1167,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-commit-diff")
   async getCommitDiff(
     @TypedBody() input: IGithub.IGetCommitInput,
@@ -882,6 +1188,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-commit-list")
   async getCommitList(
     @TypedBody() input: IGithub.IGetCommitListInput,
@@ -902,6 +1209,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-followers")
   async getFollowers(
     @TypedBody() input: IGithub.IGetFollowerInput,
@@ -922,6 +1230,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-followees")
   async getFollowees(
     @TypedBody() input: IGithub.IGetFolloweeInput,
@@ -944,6 +1253,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("get-labels")
   async getLabels(
     @TypedBody() input: IGithub.IGetLabelInput,
@@ -959,6 +1269,7 @@ export class GithubController {
    * The information in the text should follow the markdown grammar allowed by github.
    *
    * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
+   * It can also be used to close or reopen issues.
    *
    * @summary Update an issue
    * @param input
@@ -967,6 +1278,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Patch("issues")
   async updateIssue(
     @TypedBody() input: IGithub.IUpdateIssueInput,
@@ -983,6 +1295,8 @@ export class GithubController {
    *
    * In some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.
    *
+   * In order to create issue, you may need to refer to the issue template files that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.
+   *
    * @summary Create an issue
    * @param input
    * @returns
@@ -990,6 +1304,7 @@ export class GithubController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
+  @ApiTags("Github")
   @core.TypedRoute.Post("issues")
   async createIssue(
     @TypedBody() input: IGithub.ICreateIssueInput,
@@ -1000,6 +1315,7 @@ export class GithubController {
   /**
    * @internal
    */
+  @ApiTags("Github")
   @core.TypedRoute.Post("upload")
   async upload(@TypedBody() input: IGithub.UploadFileInput): Promise<string> {
     return await this.githubProvider.upload(input.files, input.key);

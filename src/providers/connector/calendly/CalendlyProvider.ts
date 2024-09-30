@@ -263,7 +263,9 @@ export class CalendlyProvider {
 
       const { access_token, refresh_token: newRefreshToken } = res.data;
       if (typia.is<string & tags.Format<"uuid">>(secretKey)) {
-        await OAuthSecretProvider.updateSecretValue(secretKey, newRefreshToken);
+        await OAuthSecretProvider.updateSecretValue(secretKey, {
+          value: newRefreshToken,
+        });
       }
 
       if (process.env.NODE_ENV === "test") {

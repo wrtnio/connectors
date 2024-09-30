@@ -6,6 +6,7 @@ import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImwe
 
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/imweb")
 export class ImwebController {
@@ -27,6 +28,7 @@ export class ImwebController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
+  @ApiTags("Imweb")
   @Standalone()
   @core.TypedRoute.Post("get-products")
   async getProducts(
@@ -36,16 +38,17 @@ export class ImwebController {
   }
 
   /**
-   * 아임웹 액세스 토큰 발급.
+   * Issue Aimweb Access Token.
    *
    * @internal
    *
-   * @param input 액세스 토큰 발급을 위한 요청 DTO.
-   * @returns 액세스 토큰을 담은 응답 DTO.
+   * @param input Request DTO for access token issuance.
+   * @returns Response DTO containing access token.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
+  @ApiTags("Imweb")
   @core.TypedRoute.Post("auth")
   async authorization(
     @TypedBody() input: IImweb.Credential,

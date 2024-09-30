@@ -6,6 +6,7 @@ import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/go
 
 import { GoogleCalendarProvider } from "../../../providers/connector/google_calendar/GoogleCalendarProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-calendar")
 export class GoogleCalendarController {
@@ -13,16 +14,17 @@ export class GoogleCalendarController {
     private readonly googleCalendarProvider: GoogleCalendarProvider,
   ) {}
   /**
-   * 구글 캘린더 목록을 가져옵니다.
+   * Get a list of Google Calendars.
    *
-   * @summary 구글 캘린더 목록 가져오기.
+   * @summary Get a list of Google Calendars.
    *
-   * @returns 구글 캘린더 목록.
+   * @returns A list of Google Calendars.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("get-list")
   async readCalenders(
     @core.TypedBody()
@@ -32,18 +34,19 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 구글 캘린더를 생성합니다.
+   * Create a Google Calendar.
    *
-   * @summary 구글 캘린더 생성.
+   * @summary Create a Google Calendar.
    *
-   * @param input 생성할 캘린더 제목.
+   * @param input The title of the calendar to be created.
    *
-   * @returns 캘린더 고유 ID와 캘린더 제목.
+   * @returns The unique ID of the calendar and the title of the calendar.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("")
   async createCalendar(
     @core.TypedBody() input: IGoogleCalendar.ICreateCalendarInput,
@@ -52,20 +55,21 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 캘린더를 삭제합니다.
+   * Delete a calendar.
    *
-   * @summary 구글 캘린더 삭제.
+   * @summary Delete a Google Calendar.
    *
-   * @param calendarId 삭제할 캘린더 고유 ID.
+   * @param calendarId The unique ID of the calendar to delete.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Delete("/:calendarId")
   async deleteCalendar(
     /**
-     * @title 삭제할 캘린더
-     * @description 삭제할 캘린더를 선택해주세요.
+     * @title Calendar to delete
+     * @description Please select the calendar to delete.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -82,24 +86,25 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 구글 캘린더에 있는 이벤트 목록을 가져옵니다.
+   * Get a list of events in Google Calendar.
    *
-   * @summary 구글 캘린더 이벤트 목록 가져오기.
+   * @summary Get a list of Google Calendar events.
    *
-   * @param calendarId 이벤트 목록을 가져올 캘린더 고유 ID.
+   * @param calendarId Unique ID of the calendar to get the list of events.
    *
-   * @param input 이벤트 목록을 가져오기 위한 조건.
+   * @param input Condition to get the list of events.
    *
-   * @returns 구글 캘린더 이벤트 목록.
+   * @returns A list of Google Calendar events.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/get-events")
   async readEvents(
     /**
-     * @title 이벤트 목록을 가져올 캘린더
-     * @description 이벤트 목록을 가져올 캘린더를 선택해주세요.
+     * @title Calendar to retrieve event list
+     * @description Please select the calendar to retrieve event list.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -115,22 +120,23 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 구글 캘린더에 빠른 이벤트를 추가합니다.
+   * Add a quick event to Google Calendar.
    *
-   * @summary 구글 캘린더 빠른 이벤트 추가.
+   * @summary Add a quick event to Google Calendar.
    *
-   * @param calendarId 이벤트를 추가할 캘린더 고유 ID.
+   * @param calendarId Unique ID of the calendar to add the event to.
    *
-   * @param input 이벤트를 추가할 캘린더 고유 ID, 이벤트 명.
+   * @param input Unique ID of the calendar to add the event to, and the event name.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/quick-event")
   async createQuickEvent(
     /**
-     * @title 이벤트를 추가할 캘린더
-     * @description 빠른 이벤트를 추가할 캘린더를 선택해주세요.
+     * @title Calendar to add event to
+     * @description Please select the calendar to which you want to add a quick event.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -146,24 +152,25 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 구글 캘린더에 이벤트를 추가합니다.
+   * Add an event to Google Calendar.
    *
-   * @summary 구글 캘린더 이벤트 추가.
+   * @summary Add a Google Calendar event.
    *
-   * @param calendarId 이벤트를 추가할 캘린더 고유 ID.
+   * @param calendarId Unique ID of the calendar to add the event to.
    *
-   * @param input 이벤트 추가를 위한 정보.
+   * @param input Information for adding the event.
    *
-   * @returns 추가한 이벤트 정보.
+   * @returns Information about the added event.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/event")
   async createEvent(
     /**
-     * @title 이벤트를 추가할 캘린더
-     * @description 이벤트를 추가할 캘린더를 선택해주세요.
+     * @title Calendar to add event to
+     * @description Please select the calendar to which you want to add the event.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -179,26 +186,27 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 이벤트를 수정합니다.
+   * Modify an event.
    *
-   * @summary 구글 캘린더 이벤트 수정.
+   * @summary Modify a Google Calendar event.
    *
-   * @param calendarId 이벤트가 있는 캘린더 고유 ID.
+   * @param calendarId Unique ID of the calendar that contains the event.
    *
-   * @param eventId 수정할 이벤트 고유 ID.
+   * @param eventId Unique ID of the event to modify.
    *
-   * @param input 업데이트 할 이벤트 정보.
+   * @param input The event information to update.
    *
-   * @returns 업데이트 된 이벤트 정보.
+   * @returns The updated event information.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
   async updateEvent(
     /**
-     * @title 이벤트를 수정할 캘린더
-     * @description 이벤트를 수정할 캘린더를 선택해주세요.
+     * @title Calendar to edit event
+     * @description Please select the calendar to edit event.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -207,8 +215,8 @@ export class GoogleCalendarController {
     @core.TypedParam("calendarId")
     calendarId: string,
     /**
-     * @title 수정할 이벤트
-     * @description 수정할 이벤트를 선택해주세요.
+     * @title Event to edit
+     * @description Please select the event to edit.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
@@ -224,26 +232,27 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 이벤트에 참석자를 추가합니다.
+   * Add attendees to an event.
    *
-   * @summary 구글 캘린더 이벤트 참석자 추가.
+   * @summary Add attendees to a Google Calendar event.
    *
-   * @param calendarId 이벤트가 있는 캘린더 고유 ID.
+   * @param calendarId Unique ID of the calendar where the event is.
    *
-   * @param eventId 참석자를 추가할 이벤트 고유 ID.
+   * @param eventId Unique ID of the event to add attendees to.
    *
-   * @param input 추가할 참석자 이메일 목록.
+   * @param input List of email addresses of attendees to add.
    *
-   * @returns 참석자가 추가된 이벤트 정보.
+   * @returns Event information with attendees added.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
   async addAttendeesToEvent(
     /**
-     * @title 참석자를 추가할 캘린더
-     * @description 참석자를 추가할 캘린더를 선택해주세요.
+     * @title Calendar to add attendees
+     * @description Please select the calendar to add attendees to.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -252,9 +261,9 @@ export class GoogleCalendarController {
     @core.TypedParam("calendarId")
     calendarId: string,
     /**
-     * 참석자를 추가할 이벤트를 선택해주세요.
+     * Please select the event to which you want to add attendees.
      *
-     * @summary 참석자를 추가할 이벤트
+     * @summary Event to which you want to add attendees
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,
@@ -274,22 +283,23 @@ export class GoogleCalendarController {
   }
 
   /**
-   * 이벤트를 삭제합니다.
+   * Delete an event.
    *
-   * @summary 구글 캘린더 이벤트 삭제.
+   * @summary Delete a Google Calendar event.
    *
-   * @param calendarId 이벤트가 있는 캘린더 고유 ID.
+   * @param calendarId The unique ID of the calendar that contains the event.
    *
-   * @param eventId 삭제할 이벤트 고유 ID.
+   * @param eventId The unique ID of the event to delete.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
+  @ApiTags("Google Calendar")
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")
   async deleteEvent(
     /**
-     * @title 이벤트를 삭제할 캘린더
-     * @description 이벤트를 삭제할 캘린더를 선택해주세요.
+     * @title Select the calendar from which to delete the event
+     * @description Select the calendar from which to delete the event
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readCalenders,
@@ -298,8 +308,8 @@ export class GoogleCalendarController {
     @core.TypedParam("calendarId")
     calendarId: string,
     /**
-     * @title 삭제할 이벤트
-     * @description 삭제할 이벤트를 선택해주세요.
+     * @title Event to delete
+     * @description Please select the event to delete.
      */
     @Prerequisite({
       neighbor: () => GoogleCalendarController.prototype.readEvents,

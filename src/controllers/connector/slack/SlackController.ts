@@ -4,7 +4,7 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import { RouteIcon } from "@wrtnio/decorators";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 import { retry } from "../../../utils/retry";
-
+import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/slack")
 export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
@@ -20,6 +20,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("conversation/mark")
   async mark(@TypedBody() input: ISlack.IMarkInput): Promise<void> {
     return retry(() => this.slackProvider.mark(input))();
@@ -47,6 +48,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("scheduleMessage/text")
   async sendScheduleMessage(
     @TypedBody() input: ISlack.ISCheduleMessageInput,
@@ -68,6 +70,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Delete("scheduleMessage")
   async deleteScheduleMessage(
     @TypedBody() input: ISlack.IDeleteSCheduleMessageInput,
@@ -90,6 +93,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("postMessage/text/myself")
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
@@ -115,6 +119,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("postMessage/reply")
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
@@ -136,6 +141,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("postMessage/text")
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
@@ -183,6 +189,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("get-users")
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
@@ -204,6 +211,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("get-replies")
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
@@ -239,6 +247,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("get-channel-histories")
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
@@ -263,6 +272,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
@@ -286,6 +296,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
@@ -309,6 +320,7 @@ export class SlackController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
+  @ApiTags("Slack")
   @TypedRoute.Post("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,

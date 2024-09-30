@@ -7,21 +7,23 @@ import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INave
 import { NaverProvider } from "../../../providers/connector/naver/NaverProvider";
 import { retry } from "../../../utils/retry";
 import typia from "typia";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/naver")
 export class NaverController {
   /**
-   * 네이버 카페 컨텐츠를 검색합니다.
+   * Search Naver Cafe contents.
    *
-   * @summary 네이버 카페 검색
+   * @summary Naver Cafe search
    *
-   * @param input 네이버 카페 검색을 위한 조건
+   * @param input Conditions for Naver Cafe search
    */
   @Standalone()
   @core.TypedRoute.Post("/cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
   )
+  @ApiTags("Naver")
   async cafeList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.ICafeNaverOutput> {
@@ -29,17 +31,18 @@ export class NaverController {
   }
 
   /**
-   * 네이버 블로그 컨텐츠를 검색합니다.
+   * Search Naver blog content.
    *
-   * @summary 네이버 블로그 검색
+   * @summary Naver blog search
    *
-   * @param input 네이버 블로그 검색을 위한 조건
+   * @param input Conditions for Naver blog search
    */
   @Standalone()
   @core.TypedRoute.Post("/blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
   )
+  @ApiTags("Naver")
   async blogList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.IBlogNaverOutput> {
@@ -47,17 +50,18 @@ export class NaverController {
   }
 
   /**
-   * 네이버 뉴스를 검색합니다.
+   * Search Naver News.
    *
-   * @summary 네이버 뉴스 검색
+   * @summary Search Naver News
    *
-   * @param input 네이버 뉴스 검색을 위한 조건
+   * @param input Conditions for searching Naver News
    * @returns
    */
   @core.TypedRoute.Post("/news")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg",
   )
+  @ApiTags("Naver")
   async newsList(
     @core.TypedBody() input: INaver.INaverKeywordInput,
   ): Promise<INaver.INewsNaverOutput> {

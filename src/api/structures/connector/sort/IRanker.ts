@@ -1,36 +1,36 @@
 export namespace IRanker {
   /**
-   * @title 정렬할 아이템
+   * @title Items to sort
    */
   export interface IScoredItem {
     /**
-     * 아이템의 점수
+     * Item Score
      *
-     * @title 점수
+     * @title Score
      */
     score: number;
   }
 
   /**
-   * @title 정렬을 위한 입력
+   * @title Input for sorting
    */
   export interface IRankInput {
     /**
-     * 정렬할 아이템 목록
+     * List of items to sort
      *
-     * @title 아이템 목록
+     * @title List of items
      */
     items: IScoredItem[];
   }
 
   /**
-   * @title 정렬된 결과
+   * @title Sorted results
    */
   export interface IRankOutput {
     /**
-     * 정렬된 아이템의 인덱스 배열
+     * Array of indexes of sorted items
      *
-     * @title 정렬된 아이템의 인덱스 배열
+     * @title Array of indexes of sorted items
      */
     rankedIndices: number[];
   }

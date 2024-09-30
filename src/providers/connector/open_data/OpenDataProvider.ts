@@ -14,7 +14,7 @@ import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { getOffset } from "../../../utils/getOffset";
-import type { Rename } from "../../../utils/types/Rename";
+import type { Rename } from "../../../api/structures/types/Rename";
 
 export namespace OpenDataProvider {
   export function getPagination<T>(

@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
 
 import { StableDiffusionBetaProvider } from "../../../providers/connector/stable_diffusion_beta/StableDiffusionBetaProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/stable-diffusion-beta")
 export class StableDiffusionBetaController {
@@ -13,17 +14,18 @@ export class StableDiffusionBetaController {
   ) {}
 
   /**
-   * 스테이블 디퓨전 모델을 이용하여 이미지를 생성합니다.
+   * Generate an image using the stable diffusion model.
    *
-   * @summary 스테이블 디퓨전 이미지 생성기 노드
+   * @summary Stable diffusion image generator node
    *
-   * @param input 이미지 생성을 위한 정보
+   * @param input Information for image generation
    *
-   * @returns 생성된 이미지 URL
+   * @returns URL of the generated image
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg",
   )
+  @ApiTags("Stable Diffusion")
   @Standalone()
   @core.TypedRoute.Post("/generate")
   async generateImage(

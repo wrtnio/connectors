@@ -10,11 +10,10 @@ import {
   Injectable,
   InternalServerErrorException,
 } from "@nestjs/common";
-import { randomUUID } from "crypto";
-
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
-
+import { randomUUID } from "crypto";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { Readable } from "stream";
 
 @Injectable()
 export class AwsProvider {
@@ -69,12 +68,68 @@ export class AwsProvider {
     }
   }
 
+  async getObject(fileUrl: string): Promise<Buffer> {
+    try {
+      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
+
+      const getObjectCommand = new GetObjectCommand({
+        Bucket: bucket,
+        Key: key,
+      });
+
+      const response = await this.s3.send(getObjectCommand);
+
+      if (!response.Body) {
+        throw new InternalServerErrorException("S3 object has no content");
+      }
+
+      const stream = response.Body as Readable;
+      const chunks: Buffer[] = [];
+
+      for await (const chunk of stream) {
+        chunks.push(Buffer.from(chunk));
+      }
+
+      return Buffer.concat(chunks);
+    } catch (error) {
+      console.error(`Failed to get object from S3: ${error}`);
+      throw error;
+    }
+  }
+
+  async getObjectByFileName(fileName: string): Promise<Buffer> {
+    try {
+      const getObjectCommand = new GetObjectCommand({
+        Bucket: this.fileBucket,
+        Key: fileName, // file name
+      });
+
+      const response = await this.s3.send(getObjectCommand);
+
+      if (!response.Body) {
+        throw new InternalServerErrorException("S3 object has no content");
+      }
+
+      const stream = response.Body as Readable;
+      const chunks: Buffer[] = [];
+
+      for await (const chunk of stream) {
+        chunks.push(Buffer.from(chunk));
+      }
+
+      return Buffer.concat(chunks);
+    } catch (error) {
+      console.error(`Failed to get object from S3 using fileName: ${error}`);
+      throw error;
+    }
+  }
+
   /**
    * Transforms S3 URLs in output to presigned URLs
    */
   async getGetObjectUrl(fileUrl: string): Promise<string> {
     const match = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!match) {
@@ -105,7 +160,7 @@ export class AwsProvider {
   async getFileSize(fileUrl: string): Promise<number> {
     const [url] = fileUrl.split("?"); // 쿼리파라미터 부분 제거
     const matches = url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/u,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!matches) {
@@ -141,7 +196,7 @@ export namespace AwsProvider {
   } {
     try {
       const match = url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/(.+)/,
+        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
       );
       if (!match) {
         throw new BadRequestException("Invalid S3 URL");
@@ -170,24 +225,14 @@ export namespace AwsProvider {
     });
 
     const { data, contentType } = input;
-    const encodedKey = input.key
-      .split("/")
-      .map((token) => {
-        const unsafeCharactersRegex = /[^a-zA-Z0-9._\-\/]/g;
-        if (unsafeCharactersRegex.test(token)) {
-          return encodeURIComponent(token);
-        }
-        return token;
-      })
-      .join("/");
 
     const putObjectConfig = new PutObjectCommand({
       Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
-      Key: encodedKey,
+      Key: input.key,
       Body: data,
       ContentType: contentType,
     });
     await s3.send(putObjectConfig);
-    return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.amazonaws.com/${encodedKey}`;
+    return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${input.key}`;
   }
 }

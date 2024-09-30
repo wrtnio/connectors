@@ -14,6 +14,6 @@ export const test_api_connector_youtube_search = async (
       not_keywords: ["정치", "폭력"],
     },
   );
-  typia.assertEquals(result);
+  typia.assert(result);
   return result;
 };

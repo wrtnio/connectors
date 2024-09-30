@@ -4,42 +4,42 @@ import { tags } from "typia";
 export namespace ISweetTracker {
   export interface IGetRecommendedCompanyListInput {
     /**
-     * @title 송장번호
+     * @title Invoice number
      */
     t_invoice: string;
   }
 
   /**
-   * @title 송장 번호에 매칭되는 택배사 목록 DTO
+   * @title DTO List of couriers matching the invoice number
    */
   export interface IGetRecommendedCompanyListOutput {
     /**
-     * @title 택배사 목록
+     * @title Courier list
      */
     Recommend: Omit<ISweetTracker.Company, "International">[];
   }
 
   /**
-   * @title 택배사 조회 응답 DTO
+   * @title Courier inquiry response DTO
    */
   export interface IGetCompanyListOutput {
     /**
-     * @title 택배사 목록
+     * @title Courier list
      */
     Company: ISweetTracker.Company[];
   }
 
   export interface IGetTrackingInfoInput {
     /**
-     * @title 송장번호
+     * @title Invoice number
      */
     t_invoice: string;
 
     /**
-     * 택배사 코드는 택배사 조회를 할 때 나오는 `Code` 값을 대입해야 한다
-     * 택배사의 이름이 아닌 임의의 코드 값임에 주의해야 한다
+     * The courier code must be entered as the `Code` value that appears when searching for a courier company.
+     * Note that this is an arbitrary code value, not the name of the courier company.
      *
-     * @title 택배사 코드
+     * @title Courier Code
      */
     t_code: string &
       (
@@ -58,66 +58,66 @@ export namespace ISweetTracker {
 
   export interface IGetTrackingInfoOutput {
     /**
-     * @title 보내는 사람 이름
+     * @title Sender's name
      */
-    senderName?: string;
+    senderName?: string | null;
 
     /**
-     * @title 받는 사람 주소
+     * @title Recipient Address
      */
-    receiverAddr?: string;
+    receiverAddr?: string | null;
 
     /**
-     * 경로 중 첫 경로를 의미하며, `trackingDetails` 배열의 0번째 인덱스에 해당한다
+     * It means the first path among the paths, and corresponds to the 0th index of the `trackingDetails` array.
      */
-    firstDetail: TrackingDetail;
+    firstDetail?: TrackingDetail | null;
 
     /**
-     * @title 진행 단계
+     * @title Progress stage
      */
-    level: ISweetTracker.Level;
+    level: ISweetTracker.Level | null;
 
     /**
-     * 경로 중 마지막 경로를 의미하며, `trackingDetails` 배열의 마지막 인덱스에 해당한다
+     * It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array.
      */
-    lastDetail: TrackingDetail;
+    lastDetail?: TrackingDetail | null;
 
     /**
-     * '15시~17시' 형식의 텍스트
+     * Text in the format '15:00~17:00'
      *
-     * @title 배송 예정 시간
+     * @title Expected delivery time
      */
     estimate: string | null;
 
     /**
-     * @title 상품 이미지 URL
+     * @title Product Image URL
      */
-    itemImage: string;
+    itemImage?: string | null;
 
     /**
-     * @title 택배사에서 광고용으로 사용하는 주소
+     * @title Address used by courier companies for advertising purposes
      */
-    adUrl: string;
+    adUrl?: string | null;
 
     /**
      * @title lastStateDetail
      */
-    lastStateDetail: ISweetTracker.TrackingDetail;
+    lastStateDetail?: ISweetTracker.TrackingDetail | null;
 
     /**
-     * @title 우편주소
+     * @title Postal address
      */
-    zipCode: string | null;
+    zipCode?: string | null;
 
     /**
-     * @title 운송장 번호
+     * @title tracking number
      */
-    invoiceNo: string;
+    invoiceNo?: string | null;
 
     /**
-     * @title 배송 완료 여부
+     * @title Delivery Completed
      */
-    completeYN:
+    completeYN?:
       | tags.Constant<
           "Y",
           {
@@ -131,120 +131,121 @@ export namespace ISweetTracker {
             title: "배송 중";
             description: "배송이 완료되지 않은 경우에는 N으로 표기된다.";
           }
-        >;
+        >
+      | null;
 
     /**
-     * @title 주문 번호
+     * @title Order Number
      */
-    orderNumber: string | null;
+    orderNumber?: string | null;
 
     /**
-     * @title 배송 완료 여부
+     * @title Delivery Completed
      */
-    complete: boolean;
+    complete?: boolean | null;
 
     /**
-     * @title 수령인 정보
+     * @title Recipient Information
      */
-    recipient: string;
+    recipient?: string | null;
 
     /**
-     * @title 받는 사람
+     * @title Recipient
      */
-    receiverName: string;
+    receiverName?: string | null;
 
     /**
-     * @title 조회 결과
+     * @title Search Results
      */
-    result: string;
+    result?: string | null;
 
     /**
-     * @title 상품 정보
+     * @title Product Information
      */
-    productInfo: string | null;
+    productInfo?: string | null;
 
     /**
-     * @title 상품 이름
+     * @title Product Name
      */
-    itemName: string;
+    itemName?: string | null;
   }
 
   export interface Company {
     /**
-     * @title 택배사가 가지는 고유한 코드 값
+     * @title Unique code value of the courier company
      */
     Code: `${number}`;
 
     /**
-     * @title 국제 배송 여부
+     * @title International Shipping
      */
     International: `${boolean}`;
 
     /**
-     * @title 택배사 이름
+     * @title Courier name
      */
     Name: string;
   }
 
   export interface TrackingDetail {
     /**
-     * @title 배송 상태 코드
+     * @title Delivery Status Code
      */
-    code: string | null;
+    code?: string | null;
 
     /**
-     * @title 진행 상태
+     * @title Progress status
      */
-    kind: string;
+    kind?: string | null;
 
     /**
-     * @title 진행 단계
+     * @title Progress stage
      */
-    level: ISweetTracker.Level;
+    level?: ISweetTracker.Level | null;
 
     /**
-     * @title 배송기사 이름
+     * @title Delivery driver name
      */
-    manName: string;
+    manName?: string | null;
 
     /**
-     * @title 배송기사 전화번호
+     * @title Delivery driver phone number
      */
-    manPic: string;
+    manPic?: string | null;
 
     /**
-     * @title 비고
+     * @title Note
      */
-    remark: string | null;
+    remark?: string | null;
 
     /**
-     * @title 배송기사 전화번호
+     * @title Delivery driver phone number
      */
-    telno: string;
+    telno?: string | null;
 
     /**
-     * @title 배송기사 전화번호
+     * @title Delivery driver phone number
      */
-    telno2: string;
+    telno2?: string | null;
 
     /**
-     * @title 진행 시간
+     * @title Progress time
      */
-    time: number;
+    time?: number | null;
 
     /**
-     * @title 진행 시간
+     * @title Progress time
      */
-    timeString: string;
+    timeString?: string | null;
 
     /**
-     * @title 진행 위치
+     * @title Progress location
      */
-    where: string;
+    where?: string | null;
   }
 
   /**
-   * @title 진행 단계
+   * @title Progress stage
    */
   export type Level =
     | tags.Constant<

@@ -139,7 +139,7 @@ export class GoogleSheetProvider {
         /**
          * @todo 권한 할당에 실패한 경우를 찾아서 재실행하거나 유저에게 알려줄 수 있어야 한다.
          */
-        console.log(err);
+        console.error(err);
       }
     }
   }

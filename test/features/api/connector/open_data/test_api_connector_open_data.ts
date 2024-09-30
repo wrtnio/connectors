@@ -16,7 +16,7 @@ export const test_api_connector_open_data_get_get_building_info = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_open_data_get_get_building_info_2 = async (
@@ -32,7 +32,7 @@ export const test_api_connector_open_data_get_get_building_info_2 = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_open_data_get_get_parking_lot = async (
@@ -47,7 +47,7 @@ export const test_api_connector_open_data_get_get_parking_lot = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_open_data_get_get_lh_lease_info_has_next_page =
@@ -61,9 +61,9 @@ export const test_api_connector_open_data_get_get_lh_lease_info_has_next_page =
       },
     );
 
-    typia.assertEquals<true>(res.data.length === 10);
-    typia.assertEquals<true>(res.nextPage);
-    typia.assertEquals(res);
+    typia.assert<true>(res.data.length === 10);
+    typia.assert<true>(res.nextPage);
+    typia.assert(res);
   };
 
 export const test_api_connector_open_data_get_get_lh_lease_info = async (
@@ -78,9 +78,9 @@ export const test_api_connector_open_data_get_get_lh_lease_info = async (
     },
   );
 
-  typia.assertEquals<false>(res.data.length === 1000);
-  typia.assertEquals<false>(res.nextPage);
-  typia.assertEquals(res);
+  typia.assert<false>(res.data.length === 1000);
+  typia.assert<false>(res.nextPage);
+  typia.assert(res);
 };
 
 export const test_api_connector_open_data_get_get_lh_lease_info_second_page =
@@ -94,8 +94,8 @@ export const test_api_connector_open_data_get_get_lh_lease_info_second_page =
       },
     );
 
-    typia.assertEquals<false>(res.data.length === 1000);
-    typia.assertEquals(res);
+    typia.assert<false>(res.data.length === 1000);
+    typia.assert(res);
   };
 
 export const test_api_connector_open_data_get_get_lh_lease_info_third_page =
@@ -109,9 +109,9 @@ export const test_api_connector_open_data_get_get_lh_lease_info_third_page =
       },
     );
 
-    typia.assertEquals<false>(res.data.length === 1000);
-    typia.assertEquals<false>(res.nextPage);
-    typia.assertEquals(res);
+    typia.assert<false>(res.data.length === 1000);
+    typia.assert<false>(res.nextPage);
+    typia.assert(res);
   };
 
 export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent = async (
@@ -140,7 +140,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagination =
   async (connection: CApi.IConnection) => {
@@ -168,7 +168,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagin
         },
       );
 
-    typia.assertEquals(firstPage);
+    typia.assert(firstPage);
 
     const secondPage =
       await CApi.functional.connector.open_data.getRTMSDataSvcOffiRent(
@@ -181,7 +181,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagin
         },
       );
 
-    typia.assertEquals(secondPage);
+    typia.assert(secondPage);
     assert(JSON.stringify(firstPage) !== JSON.stringify(secondPage));
   };
 
@@ -211,7 +211,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_apt_rent = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_open_data_get_copy_right = async (
@@ -222,7 +222,7 @@ export const test_api_connector_open_data_get_copy_right = async (
     {},
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_open_data_get_copy_right_with_author_name_1 =
@@ -236,7 +236,7 @@ export const test_api_connector_open_data_get_copy_right_with_author_name_1 =
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   };
 
 export const test_api_connector_open_data_get_copy_right_with_author_name_2 =
@@ -250,7 +250,7 @@ export const test_api_connector_open_data_get_copy_right_with_author_name_2 =
       },
     );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   };
 
 export const test_api_connector_open_data_get_RTMS_Data_svc_sh_rent = async (
@@ -279,5 +279,5 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_sh_rent = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };

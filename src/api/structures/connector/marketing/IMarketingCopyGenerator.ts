@@ -1,12 +1,12 @@
 import { tags } from "typia";
-import { MyPartial } from "../../../../utils/types/MyPartial";
+import { MyPartial } from "../../types/MyPartial";
 import { IConnector } from "../../common/IConnector";
 import { IKeywordExtraction } from "../extract/IKeywordExtractor";
 
 /**
- * 마케팅 카피를 사용할 채널 목록.
+ * A list of channels on which to use your marketing copy.
  *
- * @title 마케팅 카피를 사용할 채널.
+ * @title Channels on which to use your marketing copy.
  */
 type ContentChannel =
   | "facebook"
@@ -17,226 +17,226 @@ type ContentChannel =
   | "kakao";
 
 /**
- * 마케팅 카피를 사용할 채널에서 가져올 정보.
+ * Information to pull from the channels you will use your marketing copy on.
  *
- * @title 마케팅 카피를 사용할 채널에서 가져올 정보.
+ * @title Information to pull from the channels you will use your marketing copy on.
  */
 type ContentChannelComponent = "title" | "cta" | "subtitle";
 
 /**
- * - `sign_up`: 회원가입
- * - `purchase`: 구매
- * - `visit`: 방문
+ * - `sign_up`: Sign up
+ * - `purchase`: Purchase
+ * - `visit`: Visit
  *
- * @title 마케팅 하려는 목적.
+ * @title Purpose of marketing.
  */
 type MarketingDesiredAction = "sign_up" | "purchase" | "visit";
 
 export interface IMarketingPurpose {
   /**
-   * 마케팅을 하려는 목적입니다.
+   * The purpose is to do marketing.
    *
-   * 가능한 값으로는 sign_up, purchase, visit 3가지만 가능합니다.
+   * Only three possible values are available: sign_up, purchase, and visit.
    *
-   * @title 마케팅 목적.
+   * @title Marketing purpose.
    */
   purpose: MarketingDesiredAction;
 
   /**
-   * 마케팅을 할 상품명입니다.
+   * This is the product name to be marketed.
    *
-   * @title 마케팅 할 상품명.
+   * @title This is the product name to be marketed.
    */
   product_name: string;
 
   /**
-   * 상품의 셀링 포인트입니다.
+   * This is the selling point of the product.
    *
-   * @title 상품의 셀링 포인트.
+   * @title This is the selling point of the product.
    */
   unique_selling_point: string[];
 
   /**
-   * 마케팅 하려는 제품의 베네핏입니다.
+   * Benefits of the product you are marketing.
    *
-   * @title 마케팅 하려는 제품의 베네핏.
+   * @title Benefits of the product you are marketing.
    */
   user_benefit: string[];
 }
 
 export interface IDistributionChannel {
   /**
-   * 마케팅 카피를 사용할 채널 입니다.
+   * Channels to use marketing copy.
    *
-   * 가능한 값으로 facebook, instagram_feed, instagram_story, youtube, naver, kakao 6가지만 가능합니다.
+   * Only 6 possible values are possible: facebook, instagram_feed, instagram_story, youtube, naver, kakao.
    *
-   * @title 마케팅 카피를 사용할 채널.
+   * @title Channels to use marketing copy.
    */
   channel: ContentChannel;
 
   /**
-   * 마케팅 카피를 사용할 채널에서 가져올 정보입니다.
+   * Information to retrieve from the channel where the marketing copy will be used.
    *
-   * 가능한 값으로 title, cta, subtitle 3가지만 가능합니다.
+   * Only three possible values are possible: title, cta, subtitle.
    *
-   * @title 마케팅 카피를 사용할 채널에서 가져올 정보.
+   * @title Information to retrieve from the channel where the marketing copy will be used.
    */
   components: ContentChannelComponent[];
 }
 
 export interface IMarketingCopyGeneratorRequest {
   /**
-   * 마케팅 카피 시안을 생성할 갯수입니다.
+   * The number of marketing copy drafts to be generated.
    *
-   * @title 마케팅 카피 시안을 생성할 갯수.
+   * @title The number of marketing copy drafts to be generated.
    */
   number_of_copies: number;
 
   /**
-   * 마케팅 카피 시안을 정렬할 기준입니다.
+   * The criteria for sorting marketing copy.
    *
-   * 가능한 값으로 view_count, like_count, rank 3가지만 가능합니다.
+   * Only three possible values are available: view_count, like_count, and rank.
    *
-   * @title 정렬 기준.
+   * @title Sort criteria.
    */
   sort_by?: IConnector.MetricType;
 
   /**
-   * 마케팅 카피 시안 생성시 참고할 자료입니다.
+   * Here are some reference materials for creating marketing copy.
    *
-   * @title 참고 자료.
+   * @title Reference Materials.
    */
   reference_contents: IConnector.IReferenceContent[];
 
   /**
-   * 마케팅을 하려는 목적입니다.
+   * The purpose is to do marketing.
    *
-   * @title 마케팅 목적.
+   * @title Marketing Purpose.
    */
   marketing_purpose: IMarketingPurpose;
 
   /**
-   * 마케팅 시안을 사용할 채널 정보입니다.
+   * Channel information for which the marketing plan will be used.
    *
-   * @title 마케팅 시안을 사용할 채널.
+   * @title Channel for which the marketing plan will be used.
    */
   distribution_channels: IDistributionChannel[];
 }
 
 export interface IMarketingCopyComponents {
   /**
-   * 마케팅 카피의 제목입니다.
+   * The title of your marketing copy.
    *
-   * @title 마케팅 카피의 제목.
+   * @title The title of your marketing copy.
    */
   title: string;
 
   /**
-   * 마케팅 카피의 CTA 문구입니다.
+   * This is the CTA phrase in your marketing copy.
    *
-   * @title 마케팅 카피의 CTA 문구.
+   * @title This is the CTA phrase in your marketing copy.
    */
   cta: string;
 
   /**
-   * 마케팅 카피의 설명입니다.
+   * Here is a description of the marketing copy.
    *
-   * @title 마케팅 카피의 설명.
+   * @title A description of the marketing copy.
    */
   subtitle: string;
 }
 
 export interface IMarketingCopyImage {
   /**
-   * 생성된 마케팅 카피 시안의 이미지 URL입니다.
+   * Image URL of the generated marketing copy draft.
    *
-   * @title 마케팅 카피 시안의 이미지 URL.
+   * @title Image URL of the generated marketing copy draft.
    */
-  imageUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+  imageUrl: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
 }
 
 export namespace IMarketingCopyGenerator {
   /**
-   * @title 마케팅 카피 생성을 위한 입력
+   * @title Input for creating marketing copy
    */
   export interface IGenerateMarketingCopyInput {
     /**
-     * 마케팅 카피의 전반적인 키워드
+     * Overall keywords in your marketing copy
      *
-     * @title 키워드
+     * @title Keywords
      */
     keyword: IKeywordExtraction.IExtractKeywordOutput;
 
     /**
-     * 마케팅을 하려는 목적 및 상품 정보
+     * Purpose of marketing and product information
      *
-     * @title 마케팅 목적
+     * @title Marketing Purpose
      */
     marketingPurpose: IMarketingPurpose;
 
     /**
-     * 마케팅 카피를 사용할 채널 정보
+     * Channel information for using marketing copy
      *
-     * @title 마케팅 채널
+     * @title Marketing Channel
      */
     distributionChannel: IDistributionChannel;
 
     /**
-     * 마케팅 카피 생성을 위한 참고 자료
+     * References for Creating Marketing Copy
      *
-     * @title 참고 자료
+     * @title References
      */
     referenceContent: IConnector.IReferenceContent;
   }
 
   /**
-   * @title 마케팅 카피 생성 결과
+   * @title Marketing Copy Creation Results
    */
   export type IGenerateMarketingCopyOutput =
     MyPartial<IMarketingCopyComponents>;
 
   /**
-   * @title 마케팅 카피 이미지 생성을 위한 입력
+   * @title Input for generating marketing copy images
    */
   export interface IGenerateMarketingCopyImageInput {
     /**
-     * 마케팅 카피 이미지과 관련된 마케팅 카피 생성 결과
+     * Marketing Copy Creation Results Related to Marketing Copy Image
      *
-     * @title 마케팅 카피 생성 결과
+     * @title Marketing Copy Creation Results
      */
     copy: IGenerateMarketingCopyOutput;
 
     /**
-     * 마케팅 카피 이미지의 전반적인 키워드
+     * Overall keywords for marketing copy images
      *
-     * @title 키워드
+     * @title Keywords
      */
     keyword: IKeywordExtraction.IExtractKeywordOutput;
 
     /**
-     * 마케팅을 하려는 목적 및 상품 정보
+     * Purpose of marketing and product information
      *
-     * @title 마케팅 목적
+     * @title Marketing Purpose
      */
     marketingPurpose: IMarketingPurpose;
 
     /**
-     * 마케팅 카피를 사용할 채널 정보
+     * Channel information for using marketing copy
      *
-     * @title 마케팅 채널
+     * @title Marketing Channel
      */
     distributionChannel: IDistributionChannel;
 
     /**
-     * 마케팅 카피 생성을 위한 참고 자료
+     * References for Creating Marketing Copy
      *
-     * @title 참고 자료
+     * @title References
      */
     referenceContent: IConnector.IReferenceContent;
   }
 
   /**
-   * @title 마케팅 카피 이미지 생성 결과
+   * @title Marketing copy image creation results
    */
   export type IGenerateMarketingCopyImageOutput = IMarketingCopyImage;
 }

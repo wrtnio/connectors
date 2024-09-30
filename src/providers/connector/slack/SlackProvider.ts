@@ -3,7 +3,7 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import axios from "axios";
 import { tags } from "typia";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
-import { ElementOf } from "../../../utils/types/ElementOf";
+import { ElementOf } from "../../../api/structures/types/ElementOf";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 

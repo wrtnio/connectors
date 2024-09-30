@@ -25,7 +25,7 @@ export namespace IImweb {
   }
 
   /**
-   * @title 상품 조회 요청 DTO.
+   * @title Product Inquiry Request DTO.
    */
   export interface IGetProductInput extends IImweb.Credential {
     /**
@@ -97,7 +97,7 @@ export namespace IImweb {
      *
      * Can't call it right away because it's not a completed URL.
      */
-    image_url: (string & tags.Format<"uri"> & ContentMediaType<"image/*">)[];
+    image_url: (string & tags.Format<"iri"> & ContentMediaType<"image/*">)[];
 
     /**
      * @title Detailed description

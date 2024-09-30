@@ -1,17 +1,16 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
-
-import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
+import { ICommon } from "../common/ISecretValue";
 
 /**
- * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
- * organizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.
- * fileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.
- * writer: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.
- * commenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.
- * reader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.
+ * owner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.
+ * organizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.
+ * fileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.
+ * writer: Grants write permissions. Users with this permission can modify or delete files.
+ * commenter: Grants comment permissions. Users with this permission can read and comment on files.
+ * reader: Grants read permissions. Users with this permission can read files.
  *
- * @title 권한의 종류.
+ * @title Type of permission.
  */
 type PermissionRoles =
   | "owner"
@@ -22,88 +21,88 @@ type PermissionRoles =
   | "fileOrganizer";
 
 /**
- * user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.
- * group - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.
- * domain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.
- * anyone - 모든 사용자
+ * user - A specific user, in this case you must specify the email address of the user to whom you want to grant the permission in the emailAddress field.
+ * group - A specific group, in this case you must specify the email address of the group to whom you want to grant the permission in the emailAddress field.
+ * domain - A specific domain, in this case you must specify the domain to which you want to grant the permission in the domain field.
+ * anyone - All users
  *
- * @title 권한을 부여할 대상.
+ * @title The target to whom you want to grant the permission.
  */
 type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
 /**
- * @title 권한 부여 정보
+ * @title Authorization information
  */
 interface IPermission {
   /**
-   * 권한을 부여할 사용자의 이메일입니다.
+   * The email address of the user to grant permission to.
    *
-   * @title 권한을 부여할 사용자의 이메일.
+   * @title The email address of the user to grant permission to.
    */
   email: string & tags.Format<"email">;
 
   /**
-   * 부여할 권한의 종류입니다.
+   * The type of permission to grant.
    *
-   * owner: 소유자 권한을 부여합니다. 이 권한을 가진 사용자는 파일이나 폴더를 삭제하거나 다른 사용자에게 권한을 부여할 수 있습니다.
-   * organizer: 드라이브에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 드라이브의 구성을 관리할 수 있습니다.
-   * fileOrganizer: 드라이브의 파일에 대한 운영자 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 추가하거나 삭제할 수 있습니다.
-   * writer: 쓰기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 수정하거나 삭제할 수 있습니다.
-   * commenter: 댓글 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽고 댓글을 달 수 있습니다.
-   * reader: 읽기 권한을 부여합니다. 이 권한을 가진 사용자는 파일을 읽을 수 있습니다.
+   * owner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.
+   * organizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.
+   * fileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.
+   * writer: Grants write permissions. Users with this permission can modify or delete files.
+   * commenter: Grants comment permissions. Users with this permission can read and comment on files.
+   * reader: Grants read permissions. Users with this permission can read files.
    *
-   * 가능한 값으로는 "owner", "writer", "commenter", "reader", "organizer", "fileOrganizer" 6가지만 가능합니다.
+   * There are only six possible values: "owner", "writer", "commenter", "reader", "organizer", "fileOrganizer".
    *
-   * @title 부여할 권한.
+   * @title The permission to grant.
    */
   role: PermissionRoles;
 
   /**
-   * 부여할 권한의 타입입니다.
+   * The type of permission to grant.
    *
-   *  user - 특정 사용자, 이 경우 emailAddress 필드에 권한을 부여할 사용자의 이메일 주소를 지정해야 합니다.
-   * group - 특정 그룹, 이 경우 emailAddress 필드에 권한을 부여할 그룹의 이메일 주소를 지정해야 합니다.
-   * domain - 특정 도메인, 이 경우 domain 필드에 권한을 부여할 도메인을 지정해야 합니다.
-   * anyone - 모든 사용자
+   * user - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.
+   * group - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.
+   * domain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.
+   * anyone - all users
    *
-   * 가능한 값으로는 "user", "group", "domain", "anyone" 4가지만 가능합니다.
+   * There are only four possible values: "user", "group", "domain", "anyone".
    *
-   * @title 부여할 권한의 타입.
+   * @title The type of permission to grant.
    */
   type: PermissionTypes;
 }
 
 interface IGoogleDocs {
   /**
-   * 구글 docs의 text 정보입니다.
+   * Here is the text information from Google Docs.
    *
-   * @title text 정보.
+   * @title text information.
    */
   text?: string;
 
   /**
-   * 구글 docs의 테이블 정보입니다.
+   * Here is the table information from Google Docs.
    *
-   * @title 테이블 정보.
+   * @title Table Information.
    */
   table?: string[][][];
 }
 
 export namespace IGoogleDocs {
   /**
-   * @title 구글 docs 생성 결과
+   * @title Google Docs creation result
    */
   export interface ICreateGoogleDocsOutput {
     /**
-     * 생성된 docs의 id입니다.
+     * The ID of the generated docs.
      *
-     * @title 생성된 docs id.
+     * @title Generated docs id.
      */
     id: string;
   }
 
   /**
-   * @title 구글 docs 생성에 필요한 정보
+   * @title Information required to create Google docs
    */
   export interface ICreateGoogleDocsInput
     extends ICommon.ISecret<
@@ -114,15 +113,15 @@ export namespace IGoogleDocs {
       ]
     > {
     /**
-     * 생성할 docs의 제목입니다.
+     * The title of the docs to be generated.
      *
-     * @title 구글 docs 제목.
+     * @title Google docs title.
      */
     title: string;
   }
 
   /**
-   * @title 구글 docs 권한 부여에 필요한 정보
+   * @title Information required to grant Google Docs permissions
    */
   export interface IPermissionGoogleDocsInput
     extends ICommon.ISecret<
@@ -133,9 +132,9 @@ export namespace IGoogleDocs {
       ]
     > {
     /**
-     * 접근 권한을 부여할 구글 docs의 id입니다.
+     * The id of the Google docs to which you want to grant access.
      *
-     * @title 구글 docs id.
+     * @title Google docs id.
      */
     documentId: string &
       Prerequisite<{
@@ -148,27 +147,27 @@ export namespace IGoogleDocs {
       }>;
 
     /**
-     * 접근 가능하게 할 이메일과 부여할 권한 리스트입니다.
+     * Here is a list of emails to make accessible and the permissions to grant.
      *
-     * @title 접근 가능하게 할 이메일과 부여할 권한 리스트.
+     * @title Here is a list of emails to make accessible and the permissions to grant.
      */
     permissions: IPermission[];
   }
 
   /**
-   * @title 구글 docs 조회 결과
+   * @title Google Docs search results
    */
   export interface IReadGoogleDocsOutput {
     /**
-     * 읽어온 구글 docs의 데이터입니다.
+     * This is data from Google docs that I read.
      *
-     * @title 구글 docs 데이터.
+     * @title Google docs data.
      */
     data: IGoogleDocs;
   }
 
   /**
-   * @title 구글 docs 복제에 필요한 정보
+   * @title Information needed to duplicate Google Docs
    */
   export interface ICreateDocByTemplateInput
     extends ICommon.ISecret<
@@ -179,9 +178,9 @@ export namespace IGoogleDocs {
       ]
     > {
     /**
-     * 복제할 구글 docs.
+     * Google docs to clone.
      *
-     * @title 복제할 구글 docs.
+     * @title Google docs to clone.
      */
     templateId: string &
       Prerequisite<{
@@ -194,53 +193,53 @@ export namespace IGoogleDocs {
       }>;
 
     /**
-     * 복제하여 새로 생성할 docs의 제목입니다.
+     * The title of the docs to be newly created by duplicating.
      *
-     * @title 생성할 docs 제목.
+     * @title The title of the docs to be created.
      */
     title: string;
   }
 
   /**
-   * @title 구글 docs 복제 결과
+   * @title Google Docs Duplication Results
    */
   export interface ICreateDocByTemplateOutput {
     /**
-     * 복사된 docs의 id입니다.
+     * The id of the copied docs.
      *
-     * @title 생성된 docs id.
+     * @title Generated docs id.
      */
     id: string;
   }
 
   /**
-   * @title 구글 docs 리스트 조회 결과
+   * @title Google docs list query results
    */
   export interface IListGoogleDocsOutput {
     /**
-     * 검색된 구글 docs 리스트입니다.
+     * Here is a list of Google docs that were searched.
      *
-     * @title 구글 docs 리스트.
+     * @title List of Google docs.
      */
     data: {
       /**
-       * 가져온 구글 docs의 id입니다.
+       * The id of the imported Google docs.
        *
-       * @title 구글 docs id.
+       * @title Google docs id.
        */
       id?: string | null;
 
       /**
-       * 가져온 구글 docs의 제목입니다.
+       * The title of the imported Google docs.
        *
-       * @title 구글 docs title.
+       * @title Google docs title.
        */
       title?: string | null;
     }[];
   }
 
   /**
-   * @title 구글 docs 텍스트 추가에 필요한 정보
+   * @title Information needed to add text to Google Docs
    */
   export interface IAppendTextGoogleDocsInput
     extends ICommon.ISecret<
@@ -251,9 +250,9 @@ export namespace IGoogleDocs {
       ]
     > {
     /**
-     * 텍스트를 추가할 구글 docs를 선택합니다.
+     * Select the Google docs you want to add text to.
      *
-     * @title 구글 docs.
+     * @title Google docs.
      */
     documentId: string &
       Prerequisite<{
@@ -266,15 +265,15 @@ export namespace IGoogleDocs {
       }>;
 
     /**
-     * 추가할 텍스트입니다.
+     * The text to add.
      *
-     * @title 텍스트.
+     * @title text.
      */
     text: string;
   }
 
   /**
-   * @title 인증 정보
+   * @title Authentication Information
    */
   export type ISecret = ICommon.ISecret<
     "google",

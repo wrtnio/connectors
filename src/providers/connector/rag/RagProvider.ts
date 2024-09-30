@@ -10,9 +10,16 @@ import axios, { AxiosError } from "axios";
 
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
+import { randomUUID } from "crypto";
+import mime from "mime";
 import { tags } from "typia";
 import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import {
+  docsExtensions,
+  imageExtensions,
+  videoExtensions,
+} from "../../../utils/constants/extensions";
 import {
   getJsonObject,
   getStreamHandler,
@@ -38,7 +45,7 @@ export class RagProvider {
       tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">
   > {
     const matches = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu,
+      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
     );
 
     if (!matches) {
@@ -110,7 +117,8 @@ export class RagProvider {
 
       // web url일 때 s3 upload 및 파일 크기 제한 X
       if (fileType !== "html") {
-        url = await this.transformInput(file);
+        const replacedUrl = await this.saveAndReturns(file);
+        url = await this.transformInput(replacedUrl);
         //파일 크기 5MB 이하로 제한
         const fileSize = await this.awsProvider.getFileSize(url);
         if (fileSize > 5 * 1024 * 1024) {
@@ -299,6 +307,28 @@ export class RagProvider {
         this.logger.error(`Stream error: ${err}`);
         reject(err);
       });
+    });
+  }
+
+  private async saveAndReturns(fileUrl: string) {
+    const file = await axios.get(fileUrl, { responseType: "arraybuffer" });
+    const key = randomUUID();
+    const mimeType = mime.lookup(fileUrl);
+    const splited = fileUrl.split(".");
+    const substrings = splited[splited.length - 1];
+
+    const extensions = [
+      ...docsExtensions,
+      ...imageExtensions,
+      ...videoExtensions,
+    ];
+    const matched = extensions.find((el) => el === substrings);
+    const extension = matched ? `.${matched}` : "";
+
+    return await AwsProvider.uploadObject({
+      contentType: mimeType ?? "application/octet-stream",
+      data: file.data,
+      key: `${key}${extension}`,
     });
   }
 }

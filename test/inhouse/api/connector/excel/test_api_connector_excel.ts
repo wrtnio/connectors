@@ -13,7 +13,7 @@ export const test_api_connector_excel_create_file_witnout_sheet_name = async (
     sheetName: "TEST",
   });
 
-  typia.assertEquals(file);
+  typia.assert(file);
 };
 
 export const test_api_connector_excel_create_file_with_sheet_name = async (
@@ -24,7 +24,7 @@ export const test_api_connector_excel_create_file_with_sheet_name = async (
     {},
   );
 
-  typia.assertEquals(file);
+  typia.assert(file);
 };
 
 export const test_api_connector_excel_insert_rows_without_file_url = async (
@@ -46,7 +46,7 @@ export const test_api_connector_excel_insert_rows_without_file_url = async (
     },
   );
 
-  typia.assertEquals(res);
+  typia.assert(res);
 };
 
 export const test_api_connector_excel_insert_rows_with_file_url = async (
@@ -253,7 +253,6 @@ export const test_api_connector_excel_insert_row_to_empty_excel_file = async (
     },
   );
 
-  console.log(JSON.stringify(res, null, 2));
   typia.assert(res);
 };
 
@@ -276,7 +275,7 @@ export const test_api_connector_excel = async (
       connection,
       worksheetListInput,
     );
-  typia.assertEquals<IExcel.IWorksheetListOutput>(worksheetListOutput);
+  typia.assert<IExcel.IWorksheetListOutput>(worksheetListOutput);
 
   /**
    * insert rows
@@ -307,5 +306,5 @@ export const test_api_connector_excel = async (
     connection,
     readExcelInput,
   );
-  typia.assertEquals<IExcel.IReadExcelOutput>(readExcelOutput);
+  typia.assert<IExcel.IReadExcelOutput>(readExcelOutput);
 };

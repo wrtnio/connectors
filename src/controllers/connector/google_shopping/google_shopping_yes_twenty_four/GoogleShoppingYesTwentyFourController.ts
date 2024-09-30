@@ -5,6 +5,7 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
 import { retry } from "../../../../utils/retry";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingYesTwentyFourController {
@@ -13,19 +14,20 @@ export class GoogleShoppingYesTwentyFourController {
   ) {}
 
   /**
-   * 상품을 yes24에서 검색합니다.
+   * Search for products on yes24.
    *
-   * @summary yes24 검색
+   * @summary yes24 search
    *
-   * @param input  검색 조건
+   * @param input search conditions
    *
-   * @returns  검색 결과
+   * @returns search results
    */
   @Standalone()
   @core.TypedRoute.Post("yes-twenty-four")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
   )
+  @ApiTags("yes24")
   async yes24(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {

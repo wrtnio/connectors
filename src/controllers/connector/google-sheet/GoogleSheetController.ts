@@ -6,23 +6,25 @@ import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/googl
 
 import { GoogleSheetProvider } from "../../../providers/connector/google_sheet/GoogleSheetProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-sheet")
 export class GoogleSheetController {
   constructor(private readonly googleSheetProvider: GoogleSheetProvider) {}
   /**
-   * 구글 시트의 헤더 정보를 가져옵니다.
+   * Get the header information of a Google Sheet.
    *
-   * @summary 구글 시트 헤더 정보 가져오기.
+   * @summary Get the header information of a Google Sheet.
    *
-   * @param input 구글 시트 URL과 가져올 헤더 index.
+   * @param input Google Sheet URL and the header index to get.
    *
-   * @returns 구글 시트 헤더 정보.
+   * @returns Google Sheet header information.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
@@ -31,17 +33,18 @@ export class GoogleSheetController {
   }
 
   /**
-   * 구글 시트에 내용을 추가합니다.
+   * Add content to Google Sheets.
    *
-   * @summary 구글 시트에 내용 추가하기
+   * @summary Add content to Google Sheets
    *
-   * @param input 내용을 추가하기 위한 정보
+   * @param input Information to add content
    *
    * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("append")
   async appendGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.IAppendToSheetInput,
@@ -50,20 +53,21 @@ export class GoogleSheetController {
   }
 
   /**
-   * 구글 시트를 생성합니다.
+   * Create a Google Sheet.
    *
-   * 생성된 시트는 구글 드라이브 루트 경로에 생성됩니다.
+   * The created sheet will be created in the Google Drive root path.
    *
-   * @summary 구글 시트 생성하기
+   * @summary Create a Google Sheet
    *
-   * @param input 생성할 시트 제목
+   * @param input The title of the sheet to be created
    *
-   * @returns 생성된 시트 id와 Url
+   * @returns The created sheet id and Url
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("create")
   async createGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.ICreateGoogleSheetInput,
@@ -72,16 +76,17 @@ export class GoogleSheetController {
   }
 
   /**
-   * 구글 시트에 권한을 부여합니다.
+   * Grant permissions to Google Sheets.
    *
-   * @summary 구글 시트 권한 부여.
+   * @summary Grant permissions to Google Sheets.
    *
-   * @param input 권한 부여를 위한 정보.
+   * @param input Information for granting permissions.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/permission")
   async permission(
     @core.TypedBody() input: IGoogleSheet.IPermissionInput,
@@ -90,16 +95,17 @@ export class GoogleSheetController {
   }
 
   /**
-   * 구글 시트에 헤더를 추가합니다.
+   * Add a header to a Google Sheet.
    *
-   * @summary 구글 시트 헤더 추가.
+   * @summary Add a Google Sheet header.
    *
-   * @param input 구글 시트 url과 추가할 헤더 이름.
+   * @param input The Google Sheet url and the header name to add.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/header")
   async writeHeaders(
     @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
@@ -108,16 +114,17 @@ export class GoogleSheetController {
   }
 
   /**
-   * 구글 워크시트 목록을 가져옵니다.
+   * Get a list of Google Worksheets.
    *
-   * @summary 구글 시트 워크시트 목록 가져오기.
+   * @summary Get a list of Google Sheets Worksheets.
    *
-   * @param input 워크시트 목록을 가져올 구글 시트 url.
+   * @param input The Google Sheets url to get the list of worksheets.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/worksheet")
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
@@ -126,12 +133,11 @@ export class GoogleSheetController {
   }
 
   /**
-   * 구글 시트의 Row 정보를 가져옵니다.
+   * Get Row information from Google Sheets.
    *
-   * @summary 구글 시트 Row 정보 가져오기.
+   * @summary Get Row information from Google Sheets.
    *
-   * @returns 구글 시트 Row 정보.
-   *
+   * @returns Row information from Google Sheets.
    *
    * @Todo determine api endpoint in later because not decided select options
    */
@@ -139,6 +145,7 @@ export class GoogleSheetController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
+  @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/get-rows")
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,

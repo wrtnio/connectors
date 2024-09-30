@@ -1,14 +1,14 @@
 import { tags } from "typia";
 
 /**
- * MSIT : 과학기술정보통신부
+ * MSIT: Ministry of Science and ICT
  */
 export namespace IMSIT {
   export interface IGetAddressOutput {
     /**
      * @title NewAddressListResponse
      *
-     * 응답 결과에 대한 헤더 정보가 담기는 구간
+     * Section containing header information for the response result
      */
     NewAddressListResponse: {
       cmmMsgHeader: {
@@ -34,23 +34,23 @@ export namespace IMSIT {
       };
 
       /**
-       * @title 주소 데이터
+       * @title Address Data
        *
-       * 데이터가 없을 경우에는 키 자체가 존재하지 않기 때문에 이 경우 검색 결과가 없다로 이해하면 됩니다.
+       * If there is no data, the key itself does not exist, so in this case, there are no search results.
        */
       newAddressListAreaCd?: {
         /**
-         * @title 우편 주소
+         * @title Postal address
          */
         zipNo: string;
 
         /**
-         * @title 지번 주소
+         * @title street address
          */
         lnmAdres: string;
 
         /**
-         * @title 도로명 주소
+         * @title Road name address
          */
         rnAdres: string;
       }[];
@@ -59,17 +59,17 @@ export namespace IMSIT {
 
   export interface IGetAddressInput {
     /**
-     * @title 검색어
+     * @title search term
      */
     srchwrd: string & tags.MinLength<1> & tags.MaxLength<200>;
 
     /**
-     * @title 페이지 당 출력 개수
+     * @title Number of outputs per page
      */
     countPerPage?: number & tags.Type<"uint32">;
 
     /**
-     * @title 출력될 페이지 번호
+     * @title Page number to be printed
      */
     currentPage?: number & tags.Type<"uint32">;
   }

@@ -5,181 +5,210 @@ import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform
 
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
 import { retry } from "../../../utils/retry";
-import { RouteIcon } from "@wrtnio/decorators";
+import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/typeform")
 export class TypeformController {
+  constructor(private readonly typeformProvider: TypeformProvider) {}
   /**
-   * 워크스페이스를 생성합니다.
+   * Create a workspace.
    *
-   * @summary 타입폼 워크스페이스 생성.
+   * @summary Create a Typeform workspace.
    *
-   * @param input 생성할 워크스페이스 제목.
+   * @param input Title of the workspace to create.
    *
-   * @returns 생성된 워크스페이스 ID, 제목, URL.
-   *
-   * @internal
+   * @returns The created workspace ID, title, and URL.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/workspace")
   async createWorkspace(
     @core.TypedBody() input: ITypeform.ICreateWorkspaceInput,
   ): Promise<ITypeform.ICreateWorkspaceOutput> {
-    return retry(() => TypeformProvider.createWorkspace(input))();
+    return retry(() => this.typeformProvider.createWorkspace(input))();
   }
 
   /**
-   * 워크스페이스를 삭제합니다.
+   * Delete a workspace.
    *
-   * @summary 타입폼 워크스페이스 삭제.
+   * @summary Delete a Typeform workspace.
    *
-   * @param workspaceId 삭제할 워크스페이스 ID.
-   *
-   * @internal
+   * @param workspaceId The workspace ID to delete.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Delete("/workspace/:workspaceId")
   async deleteWorkspace(
-    @core.TypedParam("workspaceId") workspaceId: string,
+    @core.TypedBody() input: ITypeform.ISecret,
+    /**
+     * @title Workspace to delete
+     * @description Please select the workspace to delete.
+     */
+    @Prerequisite({
+      neighbor: () => TypeformController.prototype.getWorkspaces,
+      jmesPath: "[].{value:workspace_id, label:name || '워크스페이스 이름'}",
+    })
+    @core.TypedParam("workspaceId")
+    workspaceId: string,
   ): Promise<void> {
-    return retry(() => TypeformProvider.deleteWorkspace(workspaceId))();
+    return retry(() =>
+      this.typeformProvider.deleteWorkspace(input, workspaceId),
+    )();
   }
 
   /**
-   * 워크스페이스 정보를 가져옵니다.
+   * Get workspace information.
    *
-   * @summary 타입폼 워크스페이스 정보 가져오기.
+   * @summary Get Typeform workspace information.
    *
-   * @returns 워크스페이스 ID, 제목, URL.
-   *
-   * @internal
+   * @returns Workspace ID, Title, URL.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/get-workspaces")
-  async getWorkspaces(): Promise<ITypeform.IFindWorkspaceOutput[]> {
-    return retry(() => TypeformProvider.getWorkspaces())();
+  async getWorkspaces(
+    @core.TypedBody() input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindWorkspaceOutput[]> {
+    return retry(() => this.typeformProvider.getWorkspaces(input))();
   }
 
   /**
-   * 워크스페이스에 빈 폼을 생성합니다.
+   * Create an empty form in the workspace.
    *
-   * @summary 타입폼 빈 폼 생성.
+   * @summary Typeform Create an empty form.
    *
-   * @param input 생성할 폼 제목.
+   * @param input The title of the form to be created.
    *
-   * @returns 생성된 폼 ID, 제목, 타입.
-   *
-   * @internal
+   * @returns The ID, title, and type of the generated form.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/empty-form")
   async createEmptyForm(
     @core.TypedBody() input: ITypeform.ICreateEmptyFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    return retry(() => TypeformProvider.createEmptyForm(input))();
+    return retry(() => this.typeformProvider.createEmptyForm(input))();
   }
 
   /**
-   * 워크스페이스에 존재하는 폼 목록을 가져옵니다.
+   * Get a list of forms that exist in the workspace.
    *
-   * @summary 타입폼 폼 목록 가져오기.
+   * @summary Get a list of Typeform forms.
    *
-   * @returns 폼 ID, 제목.
-   *
-   * @internal
+   * @returns form ID, title.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/get-forms")
-  async getForms(): Promise<ITypeform.IFindFormOutput[]> {
-    return retry(() => TypeformProvider.getForms())();
+  async getForms(
+    @core.TypedBody() input: ITypeform.ISecret,
+  ): Promise<ITypeform.IFindFormOutput[]> {
+    return retry(() => this.typeformProvider.getForms(input))();
   }
 
   /**
-   * 워크스페이스에 존재하는 폼을 복사합니다.
+   * Copy a form that exists in the workspace.
    *
-   * @summary 타입폼 폼 복사.
+   * @summary Copy a Typeform form.
    *
-   * @param input 복사하여 새로 만들 폼 이름.
+   * @param input The name of the form to copy and create.
    *
-   * @returns 생성된 폼 ID, 제목, 타입.
-   *
-   * @internal
+   * @returns The generated form ID, title, and type.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Post("/duplicate-form")
   async duplicateExistingForm(
     @core.TypedBody() input: ITypeform.IDuplicateExistingFormInput,
   ): Promise<ITypeform.ICreateFormOutput> {
-    return retry(() => TypeformProvider.duplicateExistingForm(input))();
+    return retry(() => this.typeformProvider.duplicateExistingForm(input))();
   }
 
   /**
-   * 랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트 할 폼의 필드 정보 가져오기.
+   * Get the field information of the form to update the options of the ranking, dropdown, and multiple choice questions.
    *
-   * @summary 타입폼 업데이트 할 폼의 필드 정보 가져오기.
+   * @summary Get the field information of the form to update Typeform.
    *
-   * @param formId 업데이트 할 폼의 ID.
-   *
-   * @returns 폼의 필드 ID와 필드명.
-   *
-   * @internal
+   * @returns The field ID and field name of the form.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
-  @core.TypedRoute.Get("/forms/:formId/fields")
+  @ApiTags("Typeform")
+  @core.TypedRoute.Post("/forms/get-update-form-fields")
   async getFieldsForUpdateFieldValue(
-    @core.TypedParam("formId") formId: string,
+    @core.TypedBody() input: ITypeform.IGetFieldForUpdateFieldValueInput,
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {
-    return retry(() => TypeformProvider.getFieldsForUpdateFieldValue(formId))();
+    return retry(() =>
+      this.typeformProvider.getFieldsForUpdateFieldValue(input),
+    )();
   }
 
   /**
-   * 랭킹, 드롭다운, 다중선택 질문의 옵션을 업데이트합니다.
+   * Updates options for ranking, dropdown, and multiple choice questions.
    *
-   * @summary 타입폼 폼 필드 옵션 업데이트.
+   * @summary Updates Typeform form field options.
    *
-   * @param input 업데이트할 폼 필드명과 업데이트 할 값.
-   *
-   * @internal
+   * @param input The name of the form field to update and the value to update.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
-  @core.TypedRoute.Put("/forms/:formId")
+  @ApiTags("Typeform")
+  @core.TypedRoute.Post("/form-field-value-update")
   async updateFormFieldValue(
-    @core.TypedParam("formId") formId: string,
     @core.TypedBody() input: ITypeform.IUpdateFormFieldValueInput,
   ): Promise<ITypeform.IUpdateFormFieldValueOutput> {
-    return retry(() => TypeformProvider.updateFormFieldValue(formId, input))();
+    return retry(() => this.typeformProvider.updateFormFieldValue(input))();
   }
 
   /**
-   * 폼을 삭제합니다.
+   * Delete a form.
    *
-   * @summary 타입폼 폼 삭제.
+   * @summary Delete a typeform form.
    *
-   * @param formId 삭제할 폼 ID.
-   *
-   * @internal
+   * @param formId The ID of the form to delete.
+
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/TypeForm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
+  @ApiTags("Typeform")
   @core.TypedRoute.Delete("/forms/:formId")
-  async deleteForm(@core.TypedParam("formId") formId: string): Promise<void> {
-    return retry(() => TypeformProvider.deleteForm(formId))();
+  async deleteForm(
+    @core.TypedBody() input: ITypeform.ISecret,
+    /**
+     * @title Form to delete
+     * @description Please select the form to delete.
+     */
+    @Prerequisite({
+      neighbor: () => TypeformController.prototype.getForms,
+      jmesPath: "[].{value:formId, label:name || '폼 이름'}",
+    })
+    @core.TypedParam("formId")
+    formId: string,
+  ): Promise<void> {
+    return retry(() => this.typeformProvider.deleteForm(input, formId))();
   }
 }

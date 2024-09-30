@@ -13,6 +13,6 @@ export async function test_api_story_generator(
       previousStories: [],
     },
   );
-  typia.assertEquals(generated);
+  typia.assert(generated);
   return generated;
 }

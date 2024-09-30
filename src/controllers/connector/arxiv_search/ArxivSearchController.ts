@@ -6,21 +6,23 @@ import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector
 
 import { ArxivSearchProvider } from "../../../providers/connector/arxiv_search/ArxivSearchProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/arxiv-search")
 export class ArxivSearchController {
   /**
-   * 입력한 검색 조건을 기반으로 아카이브에서 논문을 검색합니다.
+   * Searches the archive for papers based on the search criteria you entered.
    *
-   * @summary 아카이브 논문 검색
-   * @param input 아카이브 논문 검색 조건
-   * @returns 검색 조건을 기반으로 아카이브에서 검색된 논문 목록.
+   * @summary Archive Paper Search
+   * @param input Archive Paper Search Criteria
+   * @returns A list of papers found in the archive based on the search criteria.
    */
   @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Arxiv_full.svg",
   )
+  @ApiTags("Arxiv")
   async search(
     @core.TypedBody() input: IConnector.ISearchInput,
   ): Promise<IConnector.ISearchOutput> {

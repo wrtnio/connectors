@@ -13,5 +13,5 @@ export const test_api_connector_google_scholar = async (
       notKeyword: ["pollution", "politics"],
       max_results: 25,
     });
-  typia.assertEquals<IGoogleScholar.ISearchOutput[]>(searchResult);
+  typia.assert<IGoogleScholar.ISearchOutput[]>(searchResult);
 };

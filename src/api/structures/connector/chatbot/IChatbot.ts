@@ -1,117 +1,117 @@
 export namespace IChatbot {
   /**
-   * @title 챗봇 사용을 위한 기본 정보
+   * @title Basic information for using chatbots
    */
   export interface IChatBotBase {
     /**
-     * 챗봇의 이름입니다.
+     * The name of the chatbot.
      *
-     * @title 이름
+     * @title Name
      */
     name: string;
 
     /**
-     * 챗봇의 설명입니다.
+     * Here is the description of the chatbot.
      *
-     * @title 설명
+     * @title Description
      */
     description: string;
 
     /**
-     * 유저의 발화입니다.
+     * This is a user's speech.
      *
-     * @title 유저 발화
+     * @title User's speech
      */
     message: string;
 
     /**
-     * 채팅 히스토리 입니다.
+     * This is the chat history.
      *
-     * @title 채팅 히스토리
+     * @title Chat History
      */
     histories?: IHistory[];
   }
 
   /**
-   * @title 쉬움 난이도 챗봇 사용을 위한 정보
+   * @title Easy Difficulty Information for using the chatbot
    */
   export interface IChatbotEasyGenerateInput extends IChatBotBase {
     /**
-     * 챗봇이 제작된 난이도 입니다.
+     * This is the difficulty level at which the chatbot was created.
      *
-     * @title 난이도
+     * @title Difficulty
      */
     difficulty: "easy";
 
     /**
-     * 챗봇의 역할입니다.
+     * The role of the chatbot.
      *
-     * @title 역할
+     * @title Role
      */
     role: string;
 
     /**
-     * 챗봇의 성격입니다.
+     * The personality of the chatbot.
      *
-     * @title 성격
+     * @title Personality
      */
     personality: string;
 
     /**
-     * 챗봇의 요구사항입니다.
+     * Here are the requirements for the chatbot.
      *
-     * @title 요구사항
+     * @title Requirements
      */
     requirement: string;
   }
 
   /**
-   * @title 어려움 난이도 챗봇 사용을 위한 정보
+   * @title Information for using the chatbot in the difficult difficulty level
    */
 
   export interface IChatBotHardGenerateInput extends IChatBotBase {
     /**
-     * 챗봇이 제작된 난이도 입니다.
+     * This is the difficulty level at which the chatbot was created.
      *
-     * @title 난이도
+     * @title Difficulty
      */
     difficulty: "hard";
 
     /**
-     * LLM 요청시 필요한 프롬프트입니다.
+     * This is the prompt required when requesting an LLM.
      *
-     * @title 프롬프트
+     * @title prompt
      */
     prompt: string;
   }
 
   /**
-   * @title 챗봇 응답
+   * @title Chatbot response
    */
   export interface IChatbotGenerateOutput {
     /**
-     * 챗봇 응답 결과 입니다.
+     * Here is the chatbot response result.
      *
-     * @title 챗봇 응답
+     * @title Chatbot response
      */
     content: string;
   }
 
   /**
-   * @title 채팅 히스토리
+   * @title Chat History
    */
   export interface IHistory {
     /**
-     * 발화자의 역할입니다.
+     * The role of the speaker.
      *
-     * @title 발화자 역할
+     * @title The role of the speaker
      */
     role: "user" | "assistant";
 
     /**
-     * 발화 내용입니다.
+     * Here is the speech content.
      *
-     * @title 발화 내용
+     * @title The speech content
      */
     content: string;
   }

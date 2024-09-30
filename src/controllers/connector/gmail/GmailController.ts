@@ -6,31 +6,33 @@ import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmai
 
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
 import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/gmail")
 export class GmailController {
   constructor(private readonly gmailProvider: GmailProvider) {}
   /**
-   * 메일을 전송합니다
+   * Sending mail
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * 이 커넥터는 이메일 보내는 용도이며,
-   * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
-   * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
-   * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   * This connector is for sending emails,
+   * and if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.
+   * The current format uses `text/html; charset=utf-8` as content-type.
+   * In some cases, you can use the HTML format.
    *
    * If you want to attach a file, you must specify the name of the file and the address at which it is stored.
    * The saved file is read as a GET request inside the function, encoded, and processed.
    *
-   * @summary GMAIL 전송
-   * @param input 메일을 보내기 위해 필요한 정보.
-   * @returns 전송된 메일의 ID.
+   * @summary GMAIL Send
+   * @param input Information needed to send an email.
+   * @returns ID of the sent email.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("send")
   async send(
     @core.TypedBody() input: IGmail.ICreateMailInput,
@@ -39,51 +41,53 @@ export class GmailController {
   }
 
   /**
-   * 메일 초안을 생성 합니다
+   * Create a mail draft
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * 이 커넥터는 이메일 보내는 용도이며,
-   * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
-   * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
-   * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   * This connector is for sending emails,
+   * and if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.
+   * The current format uses `text/html; charset=utf-8` as content-type.
+   * In some cases, you can use the html format.
    *
    * If you want to attach a file, you must specify the name of the file and the address at which it is stored.
    * The saved file is read as a GET request inside the function, encoded, and processed.
    *
-   * @summary GMAIL 초안 생성
-   * @param input 메일 초안을 생성하기 위한 정보.
+   * @summary Create GMAIL Draft
+   * @param input Information for creating a mail draft.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
     return retry(() => this.gmailProvider.createDraft(input))();
   }
 
   /**
-   * 수신된 메일에 답장을 보냅니다
+   * Reply to received email
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * 이 커넥터는 이메일 보내는 용도이며,
-   * 단순 텍스트로 보낼 경우에는 문장이 한 줄로 길게 보여지기 때문에 줄바꿈 문자를 넣어주셔야 합니다.
-   * 현재 형식은 content-type으로 `text/html; charset=utf-8`을 사용하고 있습니다.
-   * 경우에 따라 html 형식을 사용할 수도 있습니다.
+   * This connector is for sending emails,
+   * and if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.
+   * The current format uses `text/html; charset=utf-8` as content-type.
+   * In some cases, you can also use the HTML format.
    *
-   * @summary GMAIL 답장
-   * @param input 메일 답장에 필요한 정보.
+   * @summary GMAIL Reply
+   * @param input Information required for replying to emails.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("reply/:id")
   async reply(
     /**
-     * @title 답장할 메일
-     * @description 답장할 메일을 선택해주세요.
+     * @title Email to reply to
+     * @description Please select an email to reply to.
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
@@ -98,22 +102,23 @@ export class GmailController {
   }
 
   /**
-   * 메일의 정보를 가져옵니다
+   * Get information about a mail
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * @summary GMAIL 정보 가져오기
-   * @param id 해당 메일의 고유 ID.
-   * @returns 해당 메일의 정보.
+   * @summary Get GMAIL information
+   * @param id Unique ID of the email.
+   * @returns Information about the email.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("get/:id")
   async findEmail(
     /**
-     * @title 가져올 메일
-     * @description 가져올 메일을 선택해주세요.
+     * @title Email to retrieve
+     * @description Please select the email to retrieve.
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
@@ -128,18 +133,19 @@ export class GmailController {
   }
 
   /**
-   * 메일 리스트를 가져옵니다
+   * Get mailing list
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * @summary GMAIL 리스트 가져오기
-   * @param input 메일 리스트를 가져오기 위한 정보.
-   * @returns 메일 리스트.
+   * @summary Get GMAIL list
+   * @param input Information for getting mailing list.
+   * @returns Mailing list.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("read-list")
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
@@ -148,15 +154,17 @@ export class GmailController {
   }
 
   /**
-   * 메일을 삭제합니다
+   * Delete mail
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * 이 기능은 메일을 휴지통으로 옮기는 게 아니라 영구히 삭제하는 기능이기 때문에 각별히 주의가 필요합니다.
-   * 대부분의 유저는 이미 휴지통에 있는 것들을 삭제하고자 할 것입니다.
-   * 따라서 유저가 삭제를 희망하는 경우 가급적 휴지통으로 메일을 옮기는 것으로 유도하되, 그럼에도 삭제하고자 한다면 휴지통에 있는 것을 대상으로 하는 것이 옳습니다.
+   * This function requires special attention because it permanently deletes mail instead of moving it to the trash.
    *
-   * @summary 메일을 삭제합니다.
+   * Most users will want to delete mail that is already in the trash.
+   *
+   * Therefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash.
+   *
+   * @summary Delete mail.
    * @param id
    * @param input
    * @returns
@@ -164,11 +172,12 @@ export class GmailController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Delete(":id/hardDelete")
   async hardDelete(
     /**
-     * @title 삭제할 메일
-     * @description 삭제할 메일을 선택해주세요.
+     * @title Email to delete
+     * @description Please select the email to delete.
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
@@ -183,21 +192,22 @@ export class GmailController {
   }
 
   /**
-   * 메일을 휴지통으로 옮깁니다
+   * Move mail to trash
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * @summary GMAIL 삭제
-   * @param id 삭제할 메일의 고유 ID.
+   * @summary Delete GMAIL
+   * @param id The unique ID of the email to be deleted.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Delete(":id")
   async removeMail(
     /**
-     * @title 삭제할 메일
-     * @description 삭제할 메일을 선택해주세요.
+     * @title Email to delete
+     * @description Please select the email to delete.
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
@@ -212,18 +222,19 @@ export class GmailController {
   }
 
   /**
-   * 라벨을 생성합니다
+   * Create a label
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * @summary GMAIL 라벨 생성
-   * @param input 라벨 생성을 위한 정보.
-   * @returns 생성된 라벨의 고유 ID.
+   * @summary Create GMAIL label
+   * @param input Information for creating a label.
+   * @returns Unique ID of the created label.
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("label")
   async createLabel(
     @core.TypedBody() input: IGmail.ILabelInput,
@@ -232,22 +243,23 @@ export class GmailController {
   }
 
   /**
-   * 메일에 라벨을 부여합니다
+   * Assign a label to a mail
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * @summary GMAIL 라벨 부여
-   * @param mailId 라벨을 부여할 메일의 고유 ID.
-   * @param input 부여할 라벨의 고유 ID 목록.
+   * @summary GMAIL Label Assignment
+   * @param mailId Unique ID of the mail to assign a label to.
+   * @param input A list of unique IDs of labels to assign.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Post("label/:mailId")
   async addLabelToMail(
     /**
-     * @title 라벨을 부여할 메일
-     * @description 라벨을 부여할 메일을 선택해주세요.
+     * @title Select the email to which you want to assign the label
+     * @description Select the email to which you want to assign the label
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
@@ -261,22 +273,23 @@ export class GmailController {
   }
 
   /**
-   * 메일에 부여된 라벨을 제거합니다
+   * Remove labels assigned to mail
    *
-   * 지메일(gmail)은 Google에서 제공하는 무료 웹 기반 이메일 서비스입니다.
+   * Gmail is a free web-based email service provided by Google.
    *
-   * @summary GMAIL 라벨 제거
-   * @param mailId 라벨을 제거할 메일의 고유 ID.
-   * @param input 제거할 라벨의 고유 ID 목록.
+   * @summary Remove GMAIL labels
+   * @param mailId Unique ID of the mail from which to remove labels.
+   * @param input A list of unique IDs of labels to remove.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
+  @ApiTags("Gmail")
   @core.TypedRoute.Delete("label/:mailId")
   async removeLabelFromMail(
     /**
-     * @title 라벨을 제거할 메일
-     * @description 라벨을 제거할 메일을 선택해주세요.
+     * @title Select the email from which you want to remove the label
+     * @description Select the email from which you want to remove the label
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,

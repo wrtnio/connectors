@@ -42,7 +42,7 @@ export namespace ICalendly {
      * @title co_hosts
      * Collection of meeting co-host(s) user URIs
      */
-    co_host?: (string & tags.Format<"uri">)[] & tags.MaxItems<9>;
+    co_host?: (string & tags.Format<"iri">)[] & tags.MaxItems<9>;
 
     /**
      * @title duration
@@ -221,14 +221,14 @@ export namespace ICalendly {
            *
            * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
            */
-          user: string & tags.Format<"uri">;
+          user: string & tags.Format<"iri">;
 
           /**
            * @title group
            * Return events that are scheduled with the group associated with this URI.
            * There must be either a user or a group.
            */
-          group: string & tags.Format<"uri">;
+          group: string & tags.Format<"iri">;
         }
       | {
           /**
@@ -238,14 +238,14 @@ export namespace ICalendly {
            *
            * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
            */
-          user: string & tags.Format<"uri">;
+          user: string & tags.Format<"iri">;
 
           /**
            * @title group
            * Return events that are scheduled with the group associated with this URI.
            * There must be either a user or a group.
            */
-          group: string & tags.Format<"uri">;
+          group: string & tags.Format<"iri">;
         }
       | {
           /**
@@ -255,7 +255,7 @@ export namespace ICalendly {
            *
            * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
            */
-          user: string & tags.Format<"uri">;
+          user: string & tags.Format<"iri">;
         };
 
     /**
@@ -263,7 +263,7 @@ export namespace ICalendly {
      * Return events that are scheduled with the organization associated with this URI.
      * @example "https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ"
      */
-    organization?: string & tags.Format<"uri">;
+    organization?: string & tags.Format<"iri">;
 
     /**
      * @title invitee_email
@@ -322,7 +322,7 @@ export namespace ICalendly {
       /**
        * @title Scheduling link url
        */
-      booking_url: string & tags.Format<"uri">;
+      booking_url: string & tags.Format<"iri">;
 
       /**
        * @title owner
@@ -354,7 +354,7 @@ export namespace ICalendly {
      * View available personal, team, and organization event types associated with the organization's URI.
      * user or organization must be filled.
      */
-    organization?: string & tags.Format<"uri">;
+    organization?: string & tags.Format<"iri">;
 
     /**
      * @title user
@@ -371,7 +371,7 @@ export namespace ICalendly {
     /**
      * @title user_availability_schedule
      */
-    user_availability_schedule?: string & tags.Format<"uri">;
+    user_availability_schedule?: string & tags.Format<"iri">;
 
     /**
      * @title active
@@ -420,7 +420,7 @@ export namespace ICalendly {
      * Canonical reference (unique identifier) for the event type.
      * For example, 'https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA'
      */
-    uri: string & tags.Format<"uri">;
+    uri: string & tags.Format<"iri">;
 
     /**
      * @title name
@@ -669,7 +669,7 @@ export namespace ICalendly {
      * Canonical reference (unique identifier) for the resource
      * @example "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2"
      */
-    uri: string & tags.Format<"uri">;
+    uri: string & tags.Format<"iri">;
 
     /**
      * @title name
@@ -717,10 +717,10 @@ export namespace ICalendly {
 
     /**
      * @title event_type
-     * 이벤트 타입 URI
+     * Event Type URI
      * @example "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
      */
-    event_type: string & tags.Format<"uri">;
+    event_type: string & tags.Format<"iri">;
 
     /**
      * @title location
@@ -751,7 +751,7 @@ export namespace ICalendly {
 
     /**
      * @title invitees_counter
-     * 초대 인원 카운터
+     * Invitees counter
      */
     invitees_counter: {
       /**
@@ -789,7 +789,7 @@ export namespace ICalendly {
 
     /**
      * @title event_memberships
-     * 이벤트 멤버십 목록
+     * Event Membership List
      */
     event_memberships: {
       /**
@@ -797,7 +797,7 @@ export namespace ICalendly {
        * Canonical reference (unique identifier) for the user
        * @example "https://api.calendly.com/users/GBGBDCAADAEDCRZ2"
        */
-      user: string & tags.Format<"uri">;
+      user: string & tags.Format<"iri">;
 
       /**
        * @title user_email
@@ -868,7 +868,7 @@ export namespace ICalendly {
      * Canonical reference (unique identifier) for the invitee
      * @example "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA"
      */
-    uri: string & tags.Format<"uri">;
+    uri: string & tags.Format<"iri">;
 
     /**
      * @title email
@@ -942,7 +942,7 @@ export namespace ICalendly {
      * A reference to the event
      * @example "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA"
      */
-    event: string & tags.Format<"uri">;
+    event: string & tags.Format<"iri">;
 
     /**
      * @title created_at
@@ -1017,32 +1017,32 @@ export namespace ICalendly {
      * @title old_invitee
      * Reference to old Invitee instance that got rescheduled
      */
-    old_invitee: (string & tags.Format<"uri">) | null;
+    old_invitee: (string & tags.Format<"iri">) | null;
 
     /**
      * @title new_invitee
      * Link to new invitee after reschedule
      */
-    new_invitee: (string & tags.Format<"uri">) | null;
+    new_invitee: (string & tags.Format<"iri">) | null;
 
     /**
      * @title cancel_url
      * Link to cancelling the event for the invitee
      */
-    cancel_url: string & tags.Format<"uri">;
+    cancel_url: string & tags.Format<"iri">;
 
     /**
      * @title reschedule_url
      * Link to rescheduling the event for the invitee
      */
-    reschedule_url: string & tags.Format<"uri">;
+    reschedule_url: string & tags.Format<"iri">;
 
     /**
      * @title routing_form_submission
      * Reference to a routing form submission that redirected the invitee to a booking page.
      * @example https://api.calendly.com/routing_form_submissions/AAAAAAAAAAAAAAAA
      */
-    routing_form_submission: (string & tags.Format<"uri">) | null;
+    routing_form_submission: (string & tags.Format<"iri">) | null;
 
     /**
      * @title cancellation
@@ -1081,7 +1081,7 @@ export namespace ICalendly {
      * @title invitee_scheduled_by
      * Reference to user URI who scheduled the event
      */
-    invitee_scheduled_by: (string & tags.Format<"uri">) | null;
+    invitee_scheduled_by: (string & tags.Format<"iri">) | null;
   }
 
   export type Reconfirmation = {
@@ -1105,7 +1105,7 @@ export namespace ICalendly {
      * @title url
      * Canonical reference (unique identifier) for the no show
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"iri">;
 
     /**
      * @title created_at
@@ -1205,25 +1205,25 @@ export namespace ICalendly {
      * @title next_page
      * URI to return the next page of an ordered list ("null" indicates no additional results are available)
      */
-    next_page: (string & tags.Format<"uri">) | null;
+    next_page: (string & tags.Format<"iri">) | null;
 
     /**
      * @title previous_page
      * URI to return the previous page of an ordered list ("null" indicates no additional results are available)
      */
-    previous_page: (string & tags.Format<"uri">) | null;
+    previous_page: (string & tags.Format<"iri">) | null;
 
     /**
      * @title next_page_token
      * Token to return the next page of an ordered list ("null" indicates no additional results are available)
      */
-    next_page_token: (string & tags.Format<"uri">) | null;
+    next_page_token: (string & tags.Format<"iri">) | null;
 
     /**
      * @title previous_page_token
      * Token to return the previous page of an ordered list ("null" indicates no additional results are available)
      */
-    previous_page_token: (string & tags.Format<"uri">) | null;
+    previous_page_token: (string & tags.Format<"iri">) | null;
   };
 
   /**
@@ -1236,7 +1236,7 @@ export namespace ICalendly {
      * Canonical reference (unique identifier) for the user
      * @example "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
      */
-    uri: string & tags.Format<"uri">;
+    uri: string & tags.Format<"iri">;
 
     /**
      * @title name
@@ -1264,7 +1264,7 @@ export namespace ICalendly {
      * The URL of the user's Calendly landing page (that lists all the user's event types)
      * @example "https://calendly.com/acmesales"
      */
-    scheduling_url: string & tags.Format<"uri">;
+    scheduling_url: string & tags.Format<"iri">;
 
     /**
      * @title timezone
@@ -1278,7 +1278,7 @@ export namespace ICalendly {
      * The URL of the user's avatar (image). Can be null.
      * @example "https://01234567890.cloudfront.net/uploads/user/avatar/0123456/a1b2c3d4.png"
      */
-    avatar_url: (string & tags.Format<"uri">) | null;
+    avatar_url: (string & tags.Format<"iri">) | null;
 
     /**
      * @title created_at
@@ -1299,7 +1299,7 @@ export namespace ICalendly {
      * A unique reference to the user's current organization
      * @example "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA"
      */
-    current_organization: string & tags.Format<"uri">;
+    current_organization: string & tags.Format<"iri">;
 
     /**
      * @title resource_type

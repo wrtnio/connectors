@@ -1,7 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
-import { StrictOmit } from "../../../../utils/strictOmit";
-import { MyPartial } from "../../../../utils/types/MyPartial";
+import { MyPartial } from "../../types/MyPartial";
+import { StrictOmit } from "../../types/strictOmit";
 import type { ICommon } from "../common/ISecretValue";
 import type { ListNode } from "./ListNode";
 
@@ -1184,7 +1184,7 @@ export namespace IJira {
        * Indicates the address value that the inline card will represent.
        * To allow you to move when you click on the card, you need to put a link in advance.
        */
-      url: string & tags.Format<"uri">;
+      url: string & tags.Format<"iri">;
 
       /**
        * @title representation of the link
@@ -1266,7 +1266,7 @@ export namespace IJira {
           /**
            * @title url
            */
-          url: string & tags.Format<"uri">;
+          url: string & tags.Format<"iri">;
         };
       };
 
@@ -1452,12 +1452,12 @@ export namespace IJira {
        *
        * - Minimum width
        *
-       *   - 1 column table = 48px
-       *   - 2 column table = 96px
-       *   - 3 column table = 144px
-       *   - > 3 column table = 144px
+       * - 1 column table = 48px
+       * - 2 column table = 96px
+       * - 3 column table = 144px
+       * - > 3 column table = 144px
        * - Maximum width
-       *   - 1800
+       * - 1800
        */
       width?: number & tags.Minimum<0>;
 
@@ -1465,7 +1465,7 @@ export namespace IJira {
        * layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.
        * The layout values are mapped as follows:
        * - 'center' : will align the table to the center of page, its width can be larger than the line length
-       *  - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
+       * - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
        */
       layout?: "center" | "align-start";
 
@@ -2095,22 +2095,22 @@ export namespace IJira {
     /**
      * @title "16x16" size image
      */
-    "16x16": string & tags.Format<"uri">;
+    "16x16": string & tags.Format<"iri">;
 
     /**
      * @title "24x24" size image
      */
-    "24x24": string & tags.Format<"uri">;
+    "24x24": string & tags.Format<"iri">;
 
     /**
      * @title "32x32" size image
      */
-    "32x32": string & tags.Format<"uri">;
+    "32x32": string & tags.Format<"iri">;
 
     /**
      * @title "48x48" size image
      */
-    "48x48": string & tags.Format<"uri">;
+    "48x48": string & tags.Format<"iri">;
   }
 
   /**
@@ -2120,7 +2120,7 @@ export namespace IJira {
     /**
      * @title url of icon
      */
-    // iconUrl: string & tags.Format<"uri">;
+    // iconUrl: string & tags.Format<"iri">;
 
     /**
      * @title priority name
@@ -2164,7 +2164,7 @@ export namespace IJira {
           /**
            * @title link
            */
-          href: string & tags.Format<"uri">;
+          href: string & tags.Format<"iri">;
         };
       }
     | {

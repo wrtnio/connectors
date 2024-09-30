@@ -1,6 +1,6 @@
 import { tags } from "typia";
 
-import { MyPartial } from "../../../utils/types/MyPartial";
+import { MyPartial } from "../types/MyPartial";
 import { ICommon } from "../connector/common/ISecretValue";
 
 export namespace IZoom {
@@ -13,92 +13,92 @@ export namespace IZoom {
 
   export interface Meeting {
     /**
-     *  The meeting's agenda.
+     * The meeting's agenda.
      *
-     * @title 미팅의 안건.
+     * @title The meeting's agenda.
      */
     agenda: string & tags.MaxLength<2000>;
 
     /**
-     * 이 값이 true이고 사용자가 비밀번호로 PMI 설정을 활성화한 경우 사용자 미팅에서는 PMI 비밀번호를 사용한다.
+     * If this value is true and the user has enabled PMI settings with passwords, the user's meetings will use the PMI password.
      *
-     * @title 기본 비밀번호 생성 여부.
+     * @title Whether to create a default password.
      */
     default_password: boolean & tags.Default<false>;
 
     /**
-     * 회의의 예정된 시간으로 분 단위를 의미한다.
+     * The scheduled time of the meeting, in minutes.
      *
-     * 회의가 예약된 경우에만 사용된다.
+     * Used only when a meeting is scheduled.
      *
-     * @title 미팅의 예정 시간(duration).
+     * @title The scheduled time (duration) of the meeting.
      */
     duration: number & tags.Type<"int64">;
 
     /**
-     * 영어 대소문자와 '@', '-', '_', '*' 으로 이루어진 비밀번호를 의미한다.
+     * It means a password consisting of English uppercase and lowercase letters and '@', '-', '_', '*'.
      *
-     * @title 미팅 비밀번호.
+     * @title Meeting password.
      */
     password: string & tags.MaxLength<10>;
 
     /**
-     * @title `GSuite` app을 통한 예정된 회의 생성 여부.
+     * @title Whether to create a scheduled meeting via the `GSuite` app.
      */
     pre_schedule: boolean & tags.Default<false>;
 
     /**
-     * @title 이 미팅을 주최한 사용자의 ID.
+     * @title The ID of the user who hosted this meeting.
      */
     assistant_id: string;
 
     /**
-     * @title 미팅 주최자의 이메일 주소.
+     * @title The email address of the meeting organizer.
      */
     host_email: string & tags.Format<"email">;
 
     /**
-     * @title 미팅 ID.
+     * @title Meeting ID.
      */
     id: number & tags.Type<"int64">;
 
     /**
-     * @title 참가자들이 등록할 수 있는 URL.
+     * @title URL where participants can register.
      */
     registration_url: string & tags.Format<"url">;
 
     /**
-     * @title 이 미팅이 생성된 날짜와 시간.
+     * @title The date and time this meeting was created.
      */
     created_at: string & tags.Format<"date-time">;
 
     /**
-     * @title 타사 엔드포인트(H323/SIP)용 암호화된 비밀번호.
+     * @title Encrypted password for 3rd party endpoints (H323/SIP).
      */
     encrypted_password: string;
 
     /**
-     * @title PSTN을 통해 미팅에 참여하기 위한 비밀번호.
+     * @title Password to join the meeting via PSTN.
      */
     pstn_password: string;
 
     /**
-     * @title H.323/SIP 룸 시스템 비밀번호.
+     * @title H.323/SIP room system password.
      */
     h323_password: string;
 
     /**
-     * @title 참가자들이 미팅에 참여할 수 있는 URL.
+     * @title The URL where participants can join the meeting.
      */
     join_url: string & tags.Format<"url">;
 
     /**
-     * @title 채팅에 참여할 수 있는 URL.
+     * @title URL where you can join the chat.
      */
     chat_join_url: string & tags.Format<"url">;
 
     /**
-     * @title 반복 웨비나에 대한 정보.
+     * @title Information about recurring webinars.
      */
     occurrences: IZoom.Occurrence[];
 
@@ -108,26 +108,26 @@ export namespace IZoom {
     pmi: string;
 
     /**
-     * @title 미팅의 반복 주기에 대한 정보.
+     * @title Information about the meeting's recurrence cycle.
      */
     recurrence: IZoom.Recurrence;
 
     /**
-     * @title Zoom 세팅 정보.
+     * @title Zoom settings information.
      */
     settings: MyPartial<IZoom.Settings>;
 
     /**
-     * @title 미팅 시작 시간.
+     * @title Meeting start time.
      */
     start_time: string & tags.Format<"date-time">;
 
     /**
-     * 이 URL은 미팅의 주최자만 사용해야 하며, 다른 참가자와는 공유해서는 안 된다.
+     * This URL should only be used by the meeting host and should not be shared with other participants.
      *
-     * 이 URL을 가진 사람은 누구나 주최자 권한으로 Zoom 클라이언트에 로그인할 수 있다.
+     * Anyone with this URL can log into the Zoom client with host privileges.
      *
-     * @title 미팅 주최자 권한으로 참여 가능한 URL.
+     * @title URL that allows you to join as the meeting host.
      */
     start_url: string & tags.Format<"url">;
 
@@ -137,7 +137,7 @@ export namespace IZoom {
     timezone: string;
 
     /**
-     * @title 미팅의 주제(topic)
+     * @title Topic of the meeting
      */
     topic: string;
 
@@ -147,13 +147,13 @@ export namespace IZoom {
     tracking_fields: TrackingField[];
 
     /**
-     * - 1 : 즉석 미팅.
-     * - 2 : 예약된 미팅.
-     * - 3 : 고정된 시간이 없는 반복 미팅.
-     * - 8 : 고정된 시간이 있는 반복 미팅.
-     * - 10 : 화면 공유만 가능한 미팅.
+     * - 1: Instant meeting.
+     * - 2: Scheduled meeting.
+     * - 3: Recurring meeting without fixed time.
+     * - 8: Recurring meeting with fixed time.
+     * - 10: Meeting with screen sharing only.
      *
-     * @title 미팅의 타입.
+     * @title Type of meeting.
      */
     type: (1 | 2 | 3 | 8 | 10) & tags.Default<2>;
 
@@ -164,24 +164,24 @@ export namespace IZoom {
   }
 
   /**
-   * @title 미팅의 반복 주기에 대한 정보.
+   * @title Information about the meeting's recurrence cycle.
    */
   export interface Recurrence {
     /**
-     * 회의가 취소되지 않을 경우 회의가 열리는 마지막 날을 의미한다.
+     * If the meeting is not cancelled, this means the last day of the meeting.
      *
-     * `end_times`와 함께 사용될 수는 없다.
+     * Cannot be used with `end_times`.
      *
-     * @title 회의 최종 종료 전 마지막 날짜를 의미.
+     * @title This means the last day before the meeting ends.
      */
     end_date_time?: string & tags.Format<"date-time">;
 
     /**
-     * 회의가 취소되기 전에 몇 번 반복할지를 의미한다.
+     * Indicates how many times the meeting will repeat before it is canceled.
      *
-     * end_times가 0으로 설정되어 있으면 종료 시간이 없음을 의미한다.
+     * If end_times is set to 0, it means there is no end time.
      *
-     * @title 회의 최종 종료 전 반복 횟수.
+     * @title The number of repetitions before the meeting is finally terminated.
      */
     end_times?: number &
       tags.Type<"int64"> &
@@ -189,16 +189,16 @@ export namespace IZoom {
       tags.Default<1>;
 
     /**
-     * 1은 daily, 2는 weekly, 3은 monthly로, 반복 유형을 의미한다.
+     * 1 is daily, 2 is weekly, 3 is monthly, indicating the repetition type.
      *
-     * @title 회의 반복 주기.
+     * @title Meeting repetition cycle.
      */
     type: 1 | 2 | 3;
 
     /**
-     * 해당 월의 1부터 31까지의 일자를 의미하며 `type`이 3, 즉 매달마다 반복되는 경우에 설정하는 값이다.
+     * It means the days from 1 to 31 of the month, and is the value set when `type` is 3, that is, it repeats every month.
      *
-     * @title 해당 월의 1부터 31까지의 일.
+     * @title The days from 1 to 31 of the month.
      */
     monthly_day: number &
       tags.Type<"int32"> &
@@ -206,24 +206,24 @@ export namespace IZoom {
       tags.Maximum<31>;
 
     /**
-     * 매월 몇 번째 주인지를 의미한다.
+     * Indicates which week of each month.
      *
-     * `type`이 3으로, 즉 매 달마다 반복되는 회의일 때 설정하는 값이다.
+     * This is the value set when `type` is 3, that is, the meeting is repeated every month.
      *
-     * - -1 : 월의 마지막 주.
-     * - 1 : 월의 첫 번째 주.
-     * - 2 : 월의 두 번째 주.
-     * - 3 : 월의 세 번째 주.
-     * - 4 : 월의 네 번째 주.
+     * - -1: Last week of the month.
+     * - 1: First week of the month.
+     * - 2: Second week of the month.
+     * - 3: Third week of the month.
+     * - 4: Fourth week of the month.
      *
-     * @title 매 월의 몇번째 주 인지를 의미.
+     * @title Indicates which week of each month.
      */
     monthly_week: -1 | 1 | 2 | 3 | 4;
 
     /**
-     * `type`이 3으로, 즉 매 달마다 반복되는 회의일 때 설정하는 값이다.
+     * This is the value set when `type` is 3, that is, a meeting that repeats every month.
      *
-     * 만약 여러 요일을 선택할 경우에는 `,` 기호를 통해 '1,3'과 같은 형태로 숫자를 연결하여 나타낸다.
+     * If multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.
      *
      * - 1 - Sunday.
      * - 2 - Monday.
@@ -233,27 +233,27 @@ export namespace IZoom {
      * - 6 - Friday.
      * - 7 - Saturday.
      *
-     * @title 매 달 무슨 요일인지를 의미.
+     * @title Indicates which day of the week it is each month.
      */
     monthly_week_day:
       | (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">)
       | string;
 
     /**
-     * `type`이 1일 때, 즉 daily로 설정된 미팅의 경우 최대 90(일)까지 가능.
+     * When `type` is 1, i.e., for meetings set to daily, up to 90 (days) is possible.
      *
-     * `type`이 2일 때, 즉 weekly로 설정된 미팅의 경우 최대 12(주)까지 가능.
+     * When `type` is 2, i.e., for meetings set to weekly, up to 12 (weeks) is possible.
      *
-     * `type`이 3일 때, 즉 monthly로 설정된 미팅의 경우 최대 3(달)까지 가능.
+     * When `type` is 3, i.e., for meetings set to monthly, up to 3 (months) is possible.
      *
-     * @title 미팅 간의 간격.
+     * @title Interval between meetings.
      */
     repeat_interval: number & tags.Type<"int64">;
 
     /**
-     * `type`이 2으로, 즉 매 주마다 반복되는 회의일 때 설정하는 값이다.
+     * This is the value set when `type` is 2, that is, a meeting that repeats every week.
      *
-     * 만약 여러 요일을 선택할 경우에는 `,` 기호를 통해 '1,3'과 같은 형태로 숫자를 연결하여 나타낸다.
+     * If multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.
      *
      * - 1 - Sunday.
      * - 2 - Monday.
@@ -263,7 +263,7 @@ export namespace IZoom {
      * - 6 - Friday.
      * - 7 - Saturday.
      *
-     * @title 매 주 무슨 요일인지를 의미.
+     * @title Indicates which day of the week it is.
      */
     weekly_days:
       | (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">)
@@ -271,83 +271,83 @@ export namespace IZoom {
   }
 
   /**
-   * @title 반복 웨비나에 대한 정보.
+   * @title Information about recurring webinars.
    */
   export interface Occurrence {
     /**
-     * @title 웨비나 지속 시간을 나타내는 정수.
+     * @title An integer representing the duration of the webinar.
      */
     duration: number & tags.Type<"int64">;
 
     /**
-     * @title 각 웨비나 발생을 구분하는 고유 식별자(Unique Identifier).
+     * @title A unique identifier that identifies each webinar occurrence.
      */
     occurrence_id: string;
 
     /**
-     * @title 웨비나 시작 시간.
+     * @title Webinar start time.
      */
     start_time: string & tags.Format<"date-time">;
 
     /**
-     * 웨비나 발생의 상태.
+     * Status of webinar occurrence.
      */
     status: "available" | "deleted";
   }
 
   /**
-   * @title Zoom 세팅 정보.
+   * @title Zoom settings information.
    */
   export interface Settings {
     /**
-     * 등록이 활성화된 미팅에서 참가자가 여러 기기에서 접속할 수 있도록 허용할지 여부를 설정한다.
+     * Sets whether participants can join from multiple devices in a meeting where registration is enabled.
      *
-     * @title 참가자가 여러 기기의 접속 가능한지 여부.
+     * @title Whether participants can join from multiple devices.
      */
     allow_multiple_devices: boolean;
 
     /**
-     * @title 세미콜론으로 구분된 대체 호스트의 이메일 주소 또는 ID 목록.
+     * @title A semicolon-separated list of email addresses or IDs for alternate hosts.
      */
     alternative_hosts: string;
 
     /**
-     * @title 대체 호스트에게 이메일 알림을 보낼지 여부.
+     * @title Whether to send email notifications to alternate hosts.
      */
     alternative_hosts_email_notification: boolean & tags.Default<true>;
 
     alternative_host_update_polls: boolean;
 
     /**
-     * - 0 : 자동 승인
-     * - 1 : 수동 승인
-     * - 2 : 등록 불필요(기본값)
+     * - 0 : Automatic approval
+     * - 1 : Manual approval
+     * - 2 : No registration required (default)
      *
-     * @title 미팅 등록 승인 설정.
+     * @title Meeting registration approval settings.
      */
     approval_type: (0 | 1 | 2) & tags.Default<2>;
 
     /**
-     * @title 승인/거부 국가 또는 지역.
+     * @title Approved/rejected country or region.
      */
     approved_or_denied_countries_or_regions: {
       /**
-       * @title 승인된 국가 또는 지역의 목록.
+       * @title List of approved countries or regions.
        */
       approved_list?: string[];
 
       /**
-       * @title 차단된 국가 또는 지역의 목록.
+       * @title List of blocked countries or regions.
        */
       denied_list?: string[];
 
       /**
-       * @title 특정 국가, 지역의 사용자 승인 또는 차단 설정의 활성화 여부.
+       * @title Whether to enable or disable user authorization or blocking settings for specific countries and regions.
        */
       enable: boolean;
 
       /**
-       * @title 방식.
+       * @title method.
        */
       method?: "deny" | "approve";
     };
@@ -610,7 +610,7 @@ export namespace IZoom {
         email: string & tags.Format<"email">;
 
         /**
-         *  comma-separated list of the interpreter's languages.
+         * comma-separated list of the interpreter's languages.
          *
          * The string must contain two country IDs.
          *
@@ -822,17 +822,17 @@ export namespace IZoom {
    */
   export interface TrackingField {
     /**
-     * @title `TrackingField`의 라벨.
+     * @title Label of `TrackingField`.
      */
     field: string;
 
     /**
-     * @title `TrackingField`의 값.
+     * @title The value of `TrackingField`.
      */
     value: string;
 
     /**
-     * @title `TrackingField`의 노출 여부.
+     * @title Whether `TrackingField` is exposed.
      */
     visible: boolean;
   }

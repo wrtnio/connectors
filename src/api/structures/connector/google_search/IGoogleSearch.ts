@@ -3,60 +3,60 @@ import { tags } from "typia";
 
 export namespace IGoogleSearch {
   /**
-   * @title 검색하기 위한 조건
+   * @title Conditions for searching
    */
   export interface IRequest {
     /**
-     *  검색 결과에 들어가야하는 키워드를 설정합니다.
+     * Set keywords that must be included in search results.
      *
-     * @title 꼭 들어가야하는 키워드
+     * @title Must-include keywords
      */
     andKeywords: Array<string & Placeholder<"뤼튼">>;
 
     /**
-     *  검색 결과에 들어가면 좋은 키워드를 설정합니다.
+     * Set good keywords to enter the search results.
      *
-     * @title 들어가면 좋은 키워드
+     * @title Good keywords to enter
      */
     orKeywords?: Array<string & Placeholder<"스튜디오">>;
 
     /**
-     *  검색 결과에 들어가면 안되는 키워드를 설정합니다.
+     * Set keywords that should not be included in search results.
      *
-     * @title 들어가면 안되는 키워드
+     * @title Keywords that should not be included
      */
     notKeywords?: Array<string & Placeholder<"폭력">>;
 
     /**
-     * 검색 결과의 개수를 설정합니다.
+     * Set the number of search results.
      *
-     * @title 검색 결과 개수
+     * @title Number of search results
      */
     max_results: number & tags.Type<"int32">;
   }
 
   /**
-   * @title 검색 결과
+   * @title Search Results
    */
   export interface IResponse {
     /**
-     * @title 검색 결과 제목
+     * @title Search Results Title
      */
     title: string;
 
     /**
-     * @title 검색 결과 링크
+     * @title Search Results Link
      */
-    link: string & tags.Format<"uri">;
+    link: string & tags.Format<"iri">;
 
     /**
-     * @title 검색 결과 요약
+     * @title Search Results Summary
      */
     snippet?: string;
 
     /**
-     * @title 검색 결과 thumbnail
+     * @title Search Results thumbnail
      */
-    thumbnail?: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
+    thumbnail?: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
   }
 }

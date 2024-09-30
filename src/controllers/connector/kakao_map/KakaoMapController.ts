@@ -6,25 +6,26 @@ import { IKakaoMap } from "@wrtn/connector-api/lib/structures/connector/kakao_ma
 
 import { KakaoMapProvider } from "../../../providers/connector/kakao_map/KakaoMapProvider";
 import { retry } from "../../../utils/retry";
-
+import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/kakao-map")
 export class KakaoMapController {
   /**
-   * 카카오맵으로 검색합니다
+   * Search with Kakao Map
    *
    * In addition to the place name company, category, and phone number,
    * it also provides lot number and road name addresses in the Korean address system.
    * It can be used with public data or other address-based connectors.
    *
-   * @summary 카카오 맵 검색
+   * @summary Kakao Map Search
    *
-   * @param input 검색 조건
-   * @returns 검색 결과
+   * @param input Search condition
+   * @returns Search result
    */
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoMap_full.svg",
   )
+  @ApiTags("Kakao Map")
   @TypedRoute.Post("search")
   async search(
     @TypedBody()

@@ -2,13 +2,13 @@ import { tags } from "typia";
 
 export namespace IRag {
   /**
-   * @title 챗봇이 답변에 사용할 지식
+   * @title Knowledge that the chatbot will use to answer
    */
   export interface IAnalyzeInput {
     /**
-     * 챗봇이 답변에 사용할 지식
+     * Knowledge that the chatbot will use to answer
      *
-     * @title 챗봇이 답변에 사용할 지식
+     * @title Knowledge that the chatbot will use to answer
      */
     url: Array<
       string &
@@ -18,13 +18,13 @@ export namespace IRag {
   }
 
   /**
-   * @title RAG 분석 결과물
+   * @title RAG analysis results
    */
   export interface IAnalysisOutput {
     /**
-     * RAG 생성 결과물에 필요한 chat id.
-     * RAG로 분석된 파일에 대해 채팅 결과물을 생성하기 위해 분석된 파일에 대한 chat id를 반환합니다.
-     * 여러 개의 파일을 분석시키고 같은 채팅에서 여러 파일에 대한 결과물을 생성하기 위해서는 같은 chat id가 필요합니다.
+     * Chat id required for RAG generation results.
+     * Returns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.
+     * The same chat id is required to analyze multiple files and generate results for multiple files in the same chat.
      *
      * @title chat id.
      */
@@ -32,41 +32,41 @@ export namespace IRag {
   }
 
   /**
-   * @title RAG 분석 상태
+   * @title RAG Analysis Status
    */
   export interface IStatusOutput {
     /**
-     * 분석 상태입니다.
+     * Analysis status.
      *
-     * - RUNNING: 분석 중
-     * - COMPLETED: 분석 완료
-     * - FAILED: 분석 실패
+     * - RUNNING: Analysis in progress
+     * - COMPLETED: Analysis completed
+     * - FAILED: Analysis failed
      *
-     * @title 분석 상태.
+     * @title Analysis status.
      */
     status: "RUNNING" | "COMPLETED" | "FAILED";
   }
 
   /**
-   * @title RAG를 통한 채팅을 위해 필요한 정보
+   * @title Information required for chatting via RAG
    */
   export interface IGenerateInput {
     /**
-     * 유저의 발화입니다.
+     * This is a user utterance.
      *
-     * @title 유저 발화.
+     * @title User utterance.
      */
     query: string;
   }
 
   /**
-   * @title RAG를 통한 채팅 결과
+   * @title Chat results via RAG
    */
   export interface IGenerateOutput {
     /**
-     * RAG 기반 생성 요청에 대한 응답입니다.
+     * Response to RAG-based creation request.
      *
-     * @title 발화에 대한 응답.
+     * @title Response to utterance.
      */
     answer: string;
   }

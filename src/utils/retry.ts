@@ -72,7 +72,7 @@ export function retry<T extends any[], ReturnType>(
                           googleError.details.quotaErrorDetails.retryDelay;
                         const [seconds] = TypedSplit(delay, "s");
 
-                        console.warn(`delay ${seconds}s...`);
+                        console.log(`delay ${seconds}s...`);
                         return seconds === "0" ? 1 : Number(seconds);
                       }
                     }
@@ -81,13 +81,13 @@ export function retry<T extends any[], ReturnType>(
                 }),
             );
 
-            console.warn(`retry delay: ${maxDelay} seconds...`);
+            console.log(`retry delay: ${maxDelay} seconds...`);
             await new Promise<void>((res) => setTimeout(res, maxDelay * 1000));
           }
         }
 
         await backoff(attempts, options?.delayMs);
-        console.warn(`retry attempts: ${attempts}`, JSON.stringify(error));
+        console.log(`retry attempts: ${attempts}`, JSON.stringify(error));
       }
     }
     throw new Error(`${fn.name} failed count: ${count}`);

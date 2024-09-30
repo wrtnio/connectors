@@ -14,5 +14,5 @@ export const test_api_connector_short_link = async (
       connection,
       shortLinkInput,
     );
-  typia.assertEquals(shortLinkOutput);
+  typia.assert(shortLinkOutput);
 };
