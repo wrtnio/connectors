@@ -11,21 +11,22 @@ export namespace IYoutubeSearch {
      *
      * @title Must be included keywords
      */
-    and_keywords: Array<string & Placeholder<"뤼튼">> & tags.MinItems<1>;
+    and_keywords: Array<string & tags.MinLength<1> & Placeholder<"뤼튼">> &
+      tags.MinItems<1>;
 
     /**
      * Keywords that you would like to see included in your search results.
      *
      * @title Keywords that you would like to see included
      */
-    or_keywords?: Array<string & Placeholder<"스튜디오">>;
+    or_keywords?: Array<string & tags.MinLength<1> & Placeholder<"스튜디오">>;
 
     /**
      * Keywords that should not be included in search results.
      *
      * @title Keywords that should not be included
      */
-    not_keywords?: Array<string & Placeholder<"폭력">>;
+    not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"폭력">>;
   }
   /**
    * @title SerpAPI Params Information
