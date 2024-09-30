@@ -166,7 +166,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
 
@@ -195,7 +202,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
 
@@ -222,7 +236,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
 
@@ -249,7 +270,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
       };
@@ -274,7 +302,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
 
@@ -305,7 +340,14 @@ export namespace IGoogleSlides {
         6,
         {
           /**
-           * @title URL of the image.
+           * @title URL of the image
+           *
+           * If there is a problem with the image, the message below may appear.
+           * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+           * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+           *
+           * 1. The provided image was not found.
+           * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
            */
           url: string & tags.Format<"iri">;
 
@@ -333,7 +375,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
 
@@ -369,7 +418,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: string & tags.Format<"iri">;
 
@@ -405,7 +461,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image.
+         * @title URL of the image
+         *
+         * If there is a problem with the image, the message below may appear.
+         * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
+         * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
+         *
+         * 1. The provided image was not found.
+         * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
          */
         url: NTpule<2, string & tags.Format<"iri">>;
 
