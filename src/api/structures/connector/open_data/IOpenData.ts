@@ -403,9 +403,6 @@ export namespace IKoreaMeteorologicalAdministration {
   /**
    * @title Weather query request conditions
    */
-  export type IWeatherRequest =
-    | IGetVillageForecastInformationInput
-    | IOpenWeather.IRequest;
   export interface IGetVillageForecastInformationInput {
     /**
      * @title Definition of nx, ny

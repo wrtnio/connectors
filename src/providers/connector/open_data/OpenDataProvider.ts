@@ -373,7 +373,7 @@ export namespace OpenDataProvider {
   }
 
   export async function getShortTermForecast(
-    input: IKoreaMeteorologicalAdministration.IWeatherRequest,
+    input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IKoreaMeteorologicalAdministration.IWeatherResponse> {
     try {
       const baseUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst`;
@@ -390,26 +390,10 @@ export namespace OpenDataProvider {
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = `00`;
 
-      let nx: number | null = (
-        input as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput
-      ).nx;
-      let ny: number | null = (
-        input as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput
-      ).ny;
-      if (
-        (
-          input as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput
-        ).type === "latitude_and_longitude"
-      ) {
-        const { x, y } = dfs_xy_conv(
-          "toXY",
-          (
-            input as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput
-          ).ny,
-          (
-            input as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput
-          ).nx,
-        );
+      let nx: number | null = input.nx;
+      let ny: number | null = input.ny;
+      if (input.type === "latitude_and_longitude") {
+        const { x, y } = dfs_xy_conv("toXY", input.ny, input.nx);
         nx = x;
         ny = y;
       }
@@ -442,11 +426,11 @@ export namespace OpenDataProvider {
         {
           params: {
             appid: ConnectorGlobal.env.OPEN_WEATHER_API_KEY,
-            q: (input as IOpenWeather.IRequest).cityName,
+            lat: input.ny,
+            lon: input.nx,
           },
         },
       );
-
       const kelvinToCelsius = (kelvin: number) =>
         Number((kelvin - 273.15).toFixed(1));
       const { name, main, weather, wind } = res.data;

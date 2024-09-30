@@ -107,7 +107,9 @@ export const test_api_connector_open_data_get_short_term_forecast_call_open_weat
       await CApi.functional.connector.open_data.getShortTermForecast(
         connection,
         {
-          cityName: "Seoul",
+          nx: 126.978,
+          ny: 37.5665,
+          type: "latitude_and_longitude",
         },
       );
     typia.assert(failedScenario);
