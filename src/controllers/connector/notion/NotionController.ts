@@ -4,9 +4,9 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
+import { ApiTags } from "@nestjs/swagger";
 import { NotionProvider } from "../../../providers/connector/notion/NotionProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/notion")
 export class NotionController {
@@ -690,10 +690,11 @@ export class NotionController {
   }
 
   /**
-   * Create a Notion page.
+   * Create a Notion page
    *
    * Since a parent ID is required, when a user gives you a link to the page,
    * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
+   * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
    *
    * @summary Create page
    * @param input Information needed to create the page
@@ -946,6 +947,8 @@ export class NotionController {
    *
    * Since users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.
    * Markdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.
+   *
+   * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
    *
    * @summary Create page by markdown format
    * @param input

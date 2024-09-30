@@ -1053,6 +1053,8 @@ export namespace INotion {
      * Calling this connector requires the correct page ID,
      * so it should only be called if you have previously created a page to obtain that ID, viewed the page,
      * or obtained a link or page ID from the user in advance.
+     *
+     * This is a Uuid format without the "-" symbol.
      */
     pageId: string &
       (
