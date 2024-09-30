@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.247",
+    "version": "0.1.248",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -18032,11 +18032,7 @@
             ],
             "title": "Product Name"
           }
-        },
-        "required": [
-          "level",
-          "estimate"
-        ]
+        }
       },
       "ISweetTracker.TrackingDetail": {
         "type": "object",
