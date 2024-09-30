@@ -6830,7 +6830,7 @@
     "/connector/notion/page": {
       "post": {
         "summary": "Create page",
-        "description": "Create a Notion page.\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.",
+        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.",
         "tags": [
           "Notion"
         ],
@@ -6853,6 +6853,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/get/page/contents": {
+      "post": {
+        "summary": "Retrieve block children",
+        "description": "Retrieve block children\n\nReturns a paginated array of child block objects contained in the block using the ID specified.\nIn order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.\nReturns only the first level of children for the specified block. See block objects for more detail on determining if that block has nested children.\nIt is used to check the contents of the page by inquiring about the children of the page or block.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IReadPageContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IReadPageContentOutput"
                 }
               }
             }
@@ -7254,7 +7287,7 @@
     "/connector/notion/markdown": {
       "post": {
         "summary": "Create page by markdown format",
-        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.",
+        "description": "Create page by markdown format\n\nReceive the markdown text and immediately create it as a notation page.\nYou can create pages more effectively than other connectors, so you can prioritize this.\nIf there are unique blocks of the note that cannot be created with the grammar of the markdown, it must be associated with other block generation connectors.\n\nSince users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.\nMarkdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.\n\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.",
         "tags": [
           "Notion"
         ],
@@ -30591,6 +30624,88 @@
           "secretKey"
         ],
         "title": "Conditions required to create a page"
+      },
+      "INotion.IReadPageContentOutput": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "title": "object\nIt may be just \"list\"."
+          },
+          "results": {
+            "type": "array",
+            "items": {},
+            "title": "blocks\nAs a result of the inquiry, it consists of a very complex combination of blocks."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor"
+          },
+          "has_more": {
+            "type": "boolean",
+            "title": "has_more"
+          }
+        },
+        "required": [
+          "object",
+          "results",
+          "next_cursor",
+          "has_more"
+        ]
+      },
+      "INotion.IReadPageContentInput": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "block_id\n\nIndicates the ID of the page.\nIf you have already looked up the page, only the first root blocks of the page will be looked up, so you can put the block ID back into this factor and use it to look up the child blocks."
+          },
+          "start_cursor": {
+            "type": "string",
+            "title": "start_cursor\nIf supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results."
+          },
+          "page_size": {
+            "type": "integer",
+            "default": 100,
+            "title": "page_size\nThe number of items from the full list desired in the response. Maximum: 100"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "block_id",
+          "secretKey"
+        ]
       },
       "INotion.IReadPageOutput": {
         "type": "object",
