@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.244",
+    "version": "0.1.245",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -189,6 +189,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "뤼튼"
             },
             "minItems": 1,
@@ -199,6 +200,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "스튜디오"
             },
             "title": "Keywords that you would like to see included",
@@ -208,6 +210,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "폭력"
             },
             "title": "Keywords that should not be included",

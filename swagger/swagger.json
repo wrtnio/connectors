@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.244",
+    "version": "0.1.245",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -27631,6 +27631,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "biology"
             },
             "title": "Must be included keywords",
@@ -27640,6 +27641,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "ecosystem"
             },
             "title": "Keywords that you would like to see included",
@@ -27649,6 +27651,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "pollution"
             },
             "title": "Keywords that should not be included",
@@ -28199,6 +28202,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "뤼튼"
             },
             "minItems": 1,
@@ -28209,6 +28213,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "스튜디오"
             },
             "title": "Keywords that you would like to see included",
@@ -28218,6 +28223,7 @@
             "type": "array",
             "items": {
               "type": "string",
+              "minLength": 1,
               "x-wrtn-placeholder": "폭력"
             },
             "title": "Keywords that should not be included",
@@ -38230,6 +38236,7 @@
         "properties": {
           "keyword": {
             "type": "string",
+            "minLength": 1,
             "x-wrtn-placeholder": "강남역 맛집",
             "title": "Search term",
             "description": "Please enter your search term"

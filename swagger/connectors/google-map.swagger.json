@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.244",
+    "version": "0.1.245",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -212,6 +212,7 @@
         "properties": {
           "keyword": {
             "type": "string",
+            "minLength": 1,
             "x-wrtn-placeholder": "강남역 맛집",
             "title": "Search term",
             "description": "Please enter your search term"
