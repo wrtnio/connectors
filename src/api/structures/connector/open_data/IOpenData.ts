@@ -1,5 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { IOpenWeather } from "../open_weather/IOpenWeather";
 
 export namespace IOpenData {
   export namespace ICommon {
@@ -402,6 +403,9 @@ export namespace IKoreaMeteorologicalAdministration {
   /**
    * @title Weather query request conditions
    */
+  export type IWeatherRequest =
+    | IGetVillageForecastInformationInput
+    | IOpenWeather.IRequest;
   export interface IGetVillageForecastInformationInput {
     /**
      * @title Definition of nx, ny
@@ -486,6 +490,7 @@ export namespace IKoreaMeteorologicalAdministration {
    *
    * @title Weather query result
    */
+  export type IWeatherResponse = IGetForecastOutput[] | IOpenWeather.IResponse;
   export interface IGetForecastOutput {
     /**
      * @title Date value composed of year, month, and day, e.g., `20240619`.
