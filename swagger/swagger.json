@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.250",
+    "version": "0.1.251",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -4300,10 +4300,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.IGetForecastOutput"
-                  }
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.IGetForecastOutput"
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/IOpenWeather.IResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -24886,9 +24893,69 @@
           "nx",
           "ny",
           "obsrValue"
+        ]
+      },
+      "IOpenWeather.IResponse": {
+        "type": "object",
+        "properties": {
+          "city_name": {
+            "type": "string",
+            "title": "City Name",
+            "description": "city name"
+          },
+          "weather_main": {
+            "type": "string",
+            "title": "weather information",
+            "description": "weather main information"
+          },
+          "weather_description": {
+            "type": "string",
+            "title": "weather description",
+            "description": "weather description about weather main"
+          },
+          "temperature": {
+            "type": "number",
+            "title": "temperature",
+            "description": "temperature"
+          },
+          "feel_like_temperature": {
+            "type": "number",
+            "title": "feel like temperature",
+            "description": "feel like temperature"
+          },
+          "temperature_min": {
+            "type": "number",
+            "title": "minimum temperature",
+            "description": "minimum temperature"
+          },
+          "temperature_max": {
+            "type": "number",
+            "title": "maximum temperature",
+            "description": "maximum temperature"
+          },
+          "wind_speed": {
+            "type": "number",
+            "title": "wind_speed",
+            "description": "wind_speed"
+          },
+          "humidity": {
+            "type": "number",
+            "title": "humidity",
+            "description": "humidity"
+          }
+        },
+        "required": [
+          "city_name",
+          "weather_main",
+          "weather_description",
+          "temperature",
+          "feel_like_temperature",
+          "temperature_min",
+          "temperature_max",
+          "wind_speed",
+          "humidity"
         ],
-        "title": "Weather query result",
-        "description": "Processed results"
+        "title": "Get Weather Response"
       },
       "IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
         "type": "object",
