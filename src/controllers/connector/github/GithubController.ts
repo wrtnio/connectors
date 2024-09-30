@@ -23,16 +23,16 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
-  )
-  @ApiTags("Github")
-  @core.TypedRoute.Post("analyze")
-  async analyze(
-    @TypedBody() input: IGithub.IAnalyzeInput,
-  ): Promise<IRag.IAnalysisOutput> {
-    return this.githubProvider.analyze(input);
-  }
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  // )
+  // @ApiTags("Github")
+  // @core.TypedRoute.Post("analyze")
+  // async analyze(
+  //   @TypedBody() input: IGithub.IAnalyzeInput,
+  // ): Promise<IRag.IAnalysisOutput> {
+  //   return this.githubProvider.analyze(input);
+  // }
 
   /**
    * List events received by the authenticated user
