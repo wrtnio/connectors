@@ -217,20 +217,44 @@
         "type": "object",
         "properties": {
           "senderName": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Sender's name"
           },
           "receiverAddr": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Recipient Address"
           },
           "firstDetail": {
-            "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ISweetTracker.TrackingDetail"
+              }
+            ],
             "title": "It means the first path among the paths, and corresponds to the 0th index of the `trackingDetails` array",
             "description": "It means the first path among the paths, and corresponds to the 0th index of the `trackingDetails` array."
           },
           "level": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": 1,
                 "title": "배송 준비 중",
@@ -265,7 +289,14 @@
             "title": "Progress stage"
           },
           "lastDetail": {
-            "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ISweetTracker.TrackingDetail"
+              }
+            ],
             "title": "It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array",
             "description": "It means the last path among the paths, and corresponds to the last index of the `trackingDetails` array."
           },
@@ -282,15 +313,36 @@
             "description": "Text in the format '15:00~17:00'"
           },
           "itemImage": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Product Image URL"
           },
           "adUrl": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Address used by courier companies for advertising purposes"
           },
           "lastStateDetail": {
-            "$ref": "#/components/schemas/ISweetTracker.TrackingDetail",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ISweetTracker.TrackingDetail"
+              }
+            ],
             "title": "lastStateDetail"
           },
           "zipCode": {
@@ -305,11 +357,21 @@
             "title": "Postal address"
           },
           "invoiceNo": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "tracking number"
           },
           "completeYN": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": "Y",
                 "title": "배송 완료",
@@ -335,19 +397,47 @@
             "title": "Order Number"
           },
           "complete": {
-            "type": "boolean",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
             "title": "Delivery Completed"
           },
           "recipient": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Recipient Information"
           },
           "receiverName": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Recipient"
           },
           "result": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Search Results"
           },
           "productInfo": {
@@ -362,28 +452,20 @@
             "title": "Product Information"
           },
           "itemName": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Product Name"
           }
         },
         "required": [
-          "firstDetail",
           "level",
-          "lastDetail",
-          "estimate",
-          "itemImage",
-          "adUrl",
-          "lastStateDetail",
-          "zipCode",
-          "invoiceNo",
-          "completeYN",
-          "orderNumber",
-          "complete",
-          "recipient",
-          "receiverName",
-          "result",
-          "productInfo",
-          "itemName"
+          "estimate"
         ]
       },
       "ISweetTracker.TrackingDetail": {
@@ -401,11 +483,21 @@
             "title": "Delivery Status Code"
           },
           "kind": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Progress status"
           },
           "level": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": 1,
                 "title": "배송 준비 중",
@@ -440,11 +532,25 @@
             "title": "Progress stage"
           },
           "manName": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Delivery driver name"
           },
           "manPic": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Delivery driver phone number"
           },
           "remark": {
@@ -459,39 +565,61 @@
             "title": "Note"
           },
           "telno": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Delivery driver phone number"
           },
           "telno2": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Delivery driver phone number"
           },
           "time": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "Progress time"
           },
           "timeString": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Progress time"
           },
           "where": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Progress location"
           }
-        },
-        "required": [
-          "code",
-          "kind",
-          "level",
-          "manName",
-          "manPic",
-          "remark",
-          "telno",
-          "telno2",
-          "time",
-          "timeString",
-          "where"
-        ]
+        }
       },
       "ISweetTracker.IGetTrackingInfoInput": {
         "type": "object",
