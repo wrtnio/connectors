@@ -163,6 +163,9 @@ export namespace ConnectorGlobal {
     // DISCORD
     DISCORD_BOT_TOKEN: string;
 
+    // OPENWEATHER
+    OPEN_WEATHER_API_KEY: string;
+
     //----
     // INHOUSE SERVERS
     //----

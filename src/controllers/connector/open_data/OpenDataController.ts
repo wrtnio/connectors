@@ -326,7 +326,7 @@ export class OpenDataController {
   async getShortTermForecast(
     @TypedBody()
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
-  ): Promise<IKoreaMeteorologicalAdministration.IGetForecastOutput[]> {
+  ): Promise<IKoreaMeteorologicalAdministration.IWeatherResponse> {
     return retry(() => OpenDataProvider.getShortTermForecast(input))();
   }
 

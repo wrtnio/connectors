@@ -100,6 +100,21 @@ export const test_api_connector_open_data_get_short_term_forecast_7 = async (
   typia.assert(ulsan);
 };
 
+// open data forecast failed scenario -> call open weather service
+export const test_api_connector_open_data_get_short_term_forecast_call_open_weather =
+  async (connection: CApi.IConnection) => {
+    const failedScenario =
+      await CApi.functional.connector.open_data.getShortTermForecast(
+        connection,
+        {
+          nx: 126.978,
+          ny: 37.5665,
+          type: "latitude_and_longitude",
+        },
+      );
+    typia.assert(failedScenario);
+  };
+
 export const test_api_connector_open_data_get_short_term_forecast_by_grid_coordinates =
   async (connection: CApi.IConnection) => {
     const grids = [
