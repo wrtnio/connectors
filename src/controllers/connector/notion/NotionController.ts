@@ -712,6 +712,28 @@ export class NotionController {
   }
 
   /**
+   * Retrieve block children
+   *
+   * Returns a paginated array of child block objects contained in the block using the ID specified.
+   * In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.
+   * Returns only the first level of children for the specified block. See block objects for more detail on determining if that block has nested children.
+   *
+   * @summary Retrieve block children
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("/get/page/contents")
+  async readPageContents(
+    @core.TypedBody() input: INotion.IReadPageContentInput,
+  ) {
+    return retry(() => NotionProvider.readPageContents(input))();
+  }
+
+  /**
    * Retrieve a list of all pages in your Notion workspace.
    *
    * @summary Retrieve a list of pages

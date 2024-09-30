@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { markdownToBlocks } from "@tryfabric/martian";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -488,6 +489,23 @@ export namespace NotionProvider {
       console.error(JSON.stringify(error));
       throw error;
     }
+  }
+
+  export async function readPageContents(
+    input: INotion.IReadPageContentInput,
+  ): Promise<INotion.IReadPageContentOutput> {
+    const { block_id, secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://api.notion.com/v1/blocks/${block_id}/children?${queryParameter}`;
+
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Notion-Version": "2022-06-28",
+      },
+    });
+
+    return res.data;
   }
 
   export async function readPageList(

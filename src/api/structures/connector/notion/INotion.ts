@@ -398,6 +398,52 @@ export namespace INotion {
    */
   type IconType = "emoji" | "external" | "file";
 
+  export interface IReadPageContentOutput {
+    /**
+     * @title object
+     * It may be just "list".
+     */
+    object: string;
+
+    /**
+     * @title blocks
+     * As a result of the inquiry, it consists of a very complex combination of blocks.
+     */
+    results: any[];
+
+    /**
+     * @title next_cursor
+     */
+    next_cursor: string | null;
+
+    /**
+     * @title has_more
+     */
+    has_more: boolean;
+  }
+
+  export interface IReadPageContentInput extends INotion.ISecret {
+    /**
+     * @title block_id
+     *
+     * Indicates the ID of the page.
+     * If you have already looked up the page, only the first root blocks of the page will be looked up, so you can put the block ID back into this factor and use it to look up the child blocks.
+     */
+    block_id: PageIdInput["pageId"];
+
+    /**
+     * @title start_cursor
+     * If supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results.
+     */
+    start_cursor?: string;
+
+    /**
+     * @title page_size
+     * The number of items from the full list desired in the response. Maximum: 100
+     */
+    page_size?: number & tags.Type<"uint32"> & tags.Default<100>;
+  }
+
   /**
    * @title Conditions required to create a page
    */
@@ -1053,8 +1099,6 @@ export namespace INotion {
      * Calling this connector requires the correct page ID,
      * so it should only be called if you have previously created a page to obtain that ID, viewed the page,
      * or obtained a link or page ID from the user in advance.
-     *
-     * This is a Uuid format without the "-" symbol.
      */
     pageId: string &
       (
