@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.248",
+    "version": "0.1.250",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -21511,7 +21511,7 @@
                 "url": {
                   "type": "string",
                   "format": "iri",
-                  "title": "URL of the image."
+                  "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
                 },
                 "text": {
                   "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21594,7 +21594,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               }
             },
             "required": [
@@ -21641,7 +21641,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21693,7 +21693,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21745,7 +21745,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21829,7 +21829,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21862,7 +21862,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21896,7 +21896,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
@@ -21929,7 +21929,7 @@
               "url": {
                 "type": "string",
                 "format": "iri",
-                "title": "URL of the image."
+                "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
               }
             },
             "required": [
@@ -21959,7 +21959,7 @@
                 "url": {
                   "type": "string",
                   "format": "iri",
-                  "title": "URL of the image."
+                  "title": "URL of the image\n\nIf there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
                 },
                 "text": {
                   "$ref": "#/components/schemas/IGoogleSlides.InsertText",
