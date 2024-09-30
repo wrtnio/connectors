@@ -15,7 +15,6 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { getOffset } from "../../../utils/getOffset";
 import type { Rename } from "../../../api/structures/types/Rename";
-import { IOpenWeather } from "@wrtn/connector-api/lib/structures/connector/open_weather/IOpenWeather";
 
 export namespace OpenDataProvider {
   export function getPagination<T>(
@@ -375,6 +374,9 @@ export namespace OpenDataProvider {
   export async function getShortTermForecast(
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ): Promise<IKoreaMeteorologicalAdministration.IWeatherResponse> {
+    let nx: number | null = input.nx;
+    let ny: number | null = input.ny;
+
     try {
       const baseUrl = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
@@ -390,8 +392,6 @@ export namespace OpenDataProvider {
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = `00`;
 
-      let nx: number | null = input.nx;
-      let ny: number | null = input.ny;
       if (input.type === "latitude_and_longitude") {
         const { x, y } = dfs_xy_conv("toXY", input.ny, input.nx);
         nx = x;
@@ -421,31 +421,40 @@ export namespace OpenDataProvider {
         return { ...el, nx: lat, ny: lng };
       });
     } catch (error) {
-      const res = await axios.get(
-        "https://api.openweathermap.org/data/2.5/weather",
-        {
-          params: {
-            appid: ConnectorGlobal.env.OPEN_WEATHER_API_KEY,
-            lat: input.ny,
-            lon: input.nx,
-          },
-        },
-      );
-      const kelvinToCelsius = (kelvin: number) =>
-        Number((kelvin - 273.15).toFixed(1));
-      const { name, main, weather, wind } = res.data;
-      return {
-        city_name: name,
-        weather_main: weather[0].main,
-        weather_description: weather[0].description,
-        temperature: kelvinToCelsius(main.temp),
-        feel_like_temperature: kelvinToCelsius(main.feels_like),
-        temperature_min: kelvinToCelsius(main.temp_min),
-        temperature_max: kelvinToCelsius(main.temp_max),
-        wind_speed: wind.speed,
-        humidity: main.humidity,
-      };
+      const type = "latitude_and_longitude" as const;
+      return await getShortTermForecastByOpenWhatherMap({ type, nx, ny });
     }
+  }
+
+  export async function getShortTermForecastByOpenWhatherMap(
+    input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
+  ) {
+    const res = await axios.get(
+      "https://api.openweathermap.org/data/2.5/weather",
+      {
+        params: {
+          appid: ConnectorGlobal.env.OPEN_WEATHER_API_KEY,
+          lat: input.ny,
+          lon: input.nx,
+        },
+      },
+    );
+
+    console.log(JSON.stringify(res.data, null, 2));
+    const kelvinToCelsius = (kelvin: number) =>
+      Number((kelvin - 273.15).toFixed(1));
+    const { name, main, weather, wind } = res.data;
+    return {
+      city_name: name,
+      weather_main: weather[0].main,
+      weather_description: weather[0].description,
+      temperature: kelvinToCelsius(main.temp),
+      feel_like_temperature: kelvinToCelsius(main.feels_like),
+      temperature_min: kelvinToCelsius(main.temp_min),
+      temperature_max: kelvinToCelsius(main.temp_max),
+      wind_speed: wind.speed,
+      humidity: main.humidity,
+    };
   }
 
   export async function getCopyRight(
