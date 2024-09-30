@@ -17,7 +17,7 @@ export class GoogleMapProvider {
       };
 
       const res = await getJson(params);
-      const results = res["local_results"];
+      const results = res["local_results"] ?? [res.place_results];
 
       const output: IGoogleMap.IResponse[] = [];
       for (const result of results) {
@@ -25,7 +25,7 @@ export class GoogleMapProvider {
           title: result.title,
           place_id: result.place_id,
           gps_coordinate: result.gps_coordinates,
-          rating: result?.rating,
+          rating: result?.rating ?? 0,
           reviews: result?.reviews,
           address: result.address,
           open_state: result?.open_state,
@@ -37,6 +37,8 @@ export class GoogleMapProvider {
         };
         output.push(data);
       }
+      // rating이 undefined일 경우 0으로 처리
+      output.sort((a, b) => b.rating! - a.rating!);
       return output;
     } catch (err) {
       console.error(JSON.stringify(err));

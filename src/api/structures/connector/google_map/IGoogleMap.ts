@@ -12,7 +12,7 @@ export namespace IGoogleMap {
      *
      * @title Search term
      */
-    keyword: string & Placeholder<"강남역 맛집">;
+    keyword: string & tags.MinLength<1> & Placeholder<"강남역 맛집">;
   }
 
   /**

@@ -135,20 +135,20 @@ export namespace IConnector {
      *
      * @title Must be included keywords
      */
-    and_keywords: Array<string & Placeholder<"biology">>;
+    and_keywords: Array<string & tags.MinLength<1> & Placeholder<"biology">>;
 
     /**
      * Keywords that you would like to see included in your search results.
      *
      * @title Keywords that you would like to see included
      */
-    or_keywords?: Array<string & Placeholder<"ecosystem">>;
+    or_keywords?: Array<string & tags.MinLength<1> & Placeholder<"ecosystem">>;
 
     /**
      * Keywords that should not be included in search results.
      *
      * @title Keywords that should not be included
      */
-    not_keywords?: Array<string & Placeholder<"pollution">>;
+    not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"pollution">>;
   }
 }
