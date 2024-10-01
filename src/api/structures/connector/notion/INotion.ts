@@ -398,50 +398,32 @@ export namespace INotion {
    */
   type IconType = "emoji" | "external" | "file";
 
-  export interface IReadPageContentOutput {
-    /**
-     * @title object
-     * It may be just "list".
-     */
-    object: string;
+  export type AccurateMarkdownBlock = {
+    type?: string;
+    id: string & tags.Format<"uuid">;
+    text?: string;
+    children?: MarkdownBlock[];
+    hasChild?: boolean;
+  };
 
-    /**
-     * @title blocks
-     * As a result of the inquiry, it consists of a very complex combination of blocks.
-     */
-    results: any[];
+  export type MarkdownBlock = StrictOmit<AccurateMarkdownBlock, "children"> & {
+    children?: MarkdownBlock[];
+  };
 
-    /**
-     * @title next_cursor
-     */
-    next_cursor: string | null;
+  export type IMarkdownBlock = StrictOmit<AccurateMarkdownBlock, "children"> & {
+    // 재귀 타입은 빌드가 불가능하기 때문에 any로 바꾸되, Provider 레벨에서는 `MarkdownBlock` 타입을 쓴다.
+    children?: any[];
+  };
 
-    /**
-     * @title has_more
-     */
-    has_more: boolean;
-  }
-
+  export type IReadPageContentOutput = IMarkdownBlock[];
   export interface IReadPageContentInput extends INotion.ISecret {
     /**
      * @title block_id
      *
      * Indicates the ID of the page.
-     * If you have already looked up the page, only the first root blocks of the page will be looked up, so you can put the block ID back into this factor and use it to look up the child blocks.
+     * you can put the block ID back into this factor and use it to look up the child blocks.
      */
     block_id: PageIdInput["pageId"];
-
-    /**
-     * @title start_cursor
-     * If supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results.
-     */
-    start_cursor?: string;
-
-    /**
-     * @title page_size
-     * The number of items from the full list desired in the response. Maximum: 100
-     */
-    page_size?: number & tags.Type<"uint32"> & tags.Default<100>;
   }
 
   /**
@@ -1930,6 +1912,16 @@ export namespace INotion {
     3,
     true
   >;
+
+  export interface IDeleteBlockInput extends INotion.ISecret {
+    /**
+     * @title block_id
+     *
+     * Indicates the ID of the page or block within the page to be deleted.
+     * If you delete the page, it will go to the trash, so recovery is possible.
+     */
+    block_id: PageIdInput["pageId"];
+  }
 
   export interface IAppendPageByMarkdownInput
     extends PageIdInput,
