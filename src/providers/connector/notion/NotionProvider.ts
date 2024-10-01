@@ -494,18 +494,18 @@ export namespace NotionProvider {
   export async function readPageContents(
     input: INotion.IReadPageContentInput,
   ): Promise<INotion.IReadPageContentOutput> {
-    const { block_id, secretKey, ...rest } = input;
-    const queryParameter = createQueryParameter(rest);
-    const url = `https://api.notion.com/v1/blocks/${block_id}/children?${queryParameter}`;
+    try {
+      const { block_id, secretKey, ...rest } = input;
+      const queryParameter = createQueryParameter(rest);
+      const headers = await getHeaders(input.secretKey);
+      const url = `https://api.notion.com/v1/blocks/${block_id}/children?${queryParameter}`;
+      const res = await axios.get(url, { headers: headers });
 
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${secretKey}`,
-        "Notion-Version": "2022-06-28",
-      },
-    });
-
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 
   export async function readPageList(
