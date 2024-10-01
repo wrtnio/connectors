@@ -1,6 +1,4 @@
 import CApi from "@wrtn/connector-api/lib/index";
-import { randomUUID } from "crypto";
-import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_notion_delete_block_and_page = async (
@@ -33,8 +31,15 @@ export const test_api_connector_notion_delete_block_and_page = async (
 
   console.log(JSON.stringify(blocks, null, 2));
 
-  // await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
-  //   block_id: "",
-  //   secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-  // });
+  for await (const block of blocks) {
+    await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
+      block_id: block.id as string,
+      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+    });
+  }
+
+  await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
+    block_id: page.id as string,
+    secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  });
 };
