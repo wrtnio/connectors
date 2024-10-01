@@ -29,8 +29,6 @@ export const test_api_connector_notion_delete_block_and_page = async (
       },
     );
 
-  console.log(JSON.stringify(blocks, null, 2));
-
   for await (const block of blocks) {
     await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
       block_id: block.id as string,
