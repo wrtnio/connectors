@@ -4,17 +4,18 @@ import axios from "axios";
 
 import { markdownToBlocks } from "@tryfabric/martian";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
-import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { Block } from "@tryfabric/martian/build/src/notion/blocks";
+import typia from "typia";
 
 export namespace NotionProvider {
   export async function deleteBlock(
     input: INotion.IDeleteBlockInput,
   ): Promise<void> {
-    const { secretKey } = input;
+    const { block_id, secretKey } = input;
     const headers = await getHeaders(secretKey);
-    const url = `https://api.notion.com/v1/blocks/${blockId}`;
+    const url = `https://api.notion.com/v1/blocks/${block_id}`;
     await axios.delete(url, { headers: headers });
   }
 
@@ -502,19 +503,51 @@ export namespace NotionProvider {
 
   export async function readPageContents(
     input: INotion.IReadPageContentInput,
-  ): Promise<INotion.IReadPageContentOutput> {
+  ): Promise<INotion.MarkdownBlock[]> {
     try {
-      const { block_id, secretKey, ...rest } = input;
-      const queryParameter = createQueryParameter(rest);
-      const headers = await getHeaders(input.secretKey);
-      const url = `https://api.notion.com/v1/blocks/${block_id}/children?${queryParameter}`;
-      const res = await axios.get(url, { headers: headers });
+      const { block_id } = input;
 
-      return res.data;
+      async function getPageContent(block_id: string, indent: number = 0) {
+        indent++;
+        const blocks = await getAllPageContents({ ...input, block_id }, indent);
+
+        await Promise.allSettled(
+          blocks.map(async (block) => {
+            block.children = (await getPageContent(block.id)).blocks;
+          }),
+        );
+        // for await (const block of blocks) {
+        //   block.children = (await getPageContent(block.id)).blocks;
+        // }
+
+        indent--;
+        return { blocks: blocks };
+      }
+
+      const blocks = (await getPageContent(block_id)).blocks;
+      return typia.misc.assertClone<INotion.MarkdownBlock[]>(blocks);
     } catch (err) {
       console.error(err);
       throw err;
     }
+  }
+
+  export async function getAllPageContents(
+    input: INotion.IReadPageContentInput,
+    indent: number = 0,
+  ) {
+    let response: any[] = [];
+    let next_cursor = null;
+    do {
+      const url = `https://api.notion.com/v1/blocks/${input.block_id}/children`;
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.get(url, { headers: headers });
+
+      response = response.concat(res.data.results);
+      next_cursor = res.data.next_cursor;
+    } while (next_cursor !== null);
+
+    return blocksToMarkdown(response, indent);
   }
 
   export async function readPageList(
@@ -1050,5 +1083,141 @@ export namespace NotionProvider {
       console.error(JSON.stringify(error));
       throw error;
     }
+  }
+
+  export function blocksToMarkdown<T extends Block & { id: string }>(
+    blocks: T[],
+    indent: number = 0,
+  ): INotion.AccurateMarkdownBlock[] {
+    return blocks.map((block: T) => {
+      if (block.type === "audio") {
+      } else if (block.type === "bookmark") {
+      } else if (block.type === "breadcrumb") {
+      } else if (block.type === "bulleted_list_item") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "callout") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "code") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "column") {
+      } else if (block.type === "column_list") {
+      } else if (block.type === "divider") {
+      } else if (block.type === "embed") {
+      } else if (block.type === "equation") {
+      } else if (block.type === "file") {
+      } else if (block.type === "heading_1") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "heading_2") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "heading_3") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "image") {
+      } else if (block.type === "link_to_page") {
+      } else if (block.type === "numbered_list_item") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "paragraph") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "pdf") {
+      } else if (block.type === "quote") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "synced_block") {
+      } else if (block.type === "table") {
+      } else if (block.type === "table_of_contents") {
+      } else if (block.type === "table_row") {
+      } else if (block.type === "template") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "to_do") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "toggle") {
+        const rich_text = block[block["type"]]["rich_text"];
+        if (rich_text instanceof Array) {
+          const text = rich_text
+            .map((el) => (el.type === "text" ? el.text.content : ""))
+            .join("");
+
+          return { ...block, text };
+        }
+      } else if (block.type === "video") {
+      }
+
+      return block;
+    });
   }
 }

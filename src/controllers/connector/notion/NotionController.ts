@@ -10,6 +10,16 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/notion")
 export class NotionController {
+  /**
+   * Delete a block
+   *
+   * Sets a Block object, including page blocks,
+   * to archived: true using the ID specified. Note: in the Notion UI application, this moves the block to the "Trash" where it can still be accessed and restored.
+   *
+   * @summary Delete a block
+   * @param input
+   * @returns
+   */
   @core.TypedRoute.Delete("page/block")
   async deleteBlock(
     @core.TypedBody() input: INotion.IDeleteBlockInput,
@@ -722,9 +732,8 @@ export class NotionController {
    * Retrieve block children
    *
    * Returns a paginated array of child block objects contained in the block using the ID specified.
-   * In order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.
-   * Returns only the first level of children for the specified block. See block objects for more detail on determining if that block has nested children.
    * It is used to check the contents of the page by inquiring about the children of the page or block.
+   * It recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.
    *
    * @summary Retrieve block children
    * @param input
