@@ -1931,6 +1931,16 @@ export namespace INotion {
     true
   >;
 
+  export interface IDeleteBlockInput extends INotion.ISecret {
+    /**
+     * @title block_id
+     *
+     * Indicates the ID of the page or block within the page to be deleted.
+     * If you delete the page, it will go to the trash, so recovery is possible.
+     */
+    block_id: PageIdInput["pageId"];
+  }
+
   export interface IAppendPageByMarkdownInput
     extends PageIdInput,
       ICommon.ISecret<"notion"> {

@@ -10,6 +10,13 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/notion")
 export class NotionController {
+  @core.TypedRoute.Delete("page/block")
+  async deleteBlock(
+    @core.TypedBody() input: INotion.IDeleteBlockInput,
+  ): Promise<void> {
+    return retry(() => NotionProvider.deleteBlock(input))();
+  }
+
   /**
    * Append block by markdown format
    *

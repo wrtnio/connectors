@@ -9,6 +9,15 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 export namespace NotionProvider {
+  export async function deleteBlock(
+    input: INotion.IDeleteBlockInput,
+  ): Promise<void> {
+    const { secretKey } = input;
+    const headers = await getHeaders(secretKey);
+    const url = `https://api.notion.com/v1/blocks/${blockId}`;
+    await axios.delete(url, { headers: headers });
+  }
+
   export async function getPageById(input: { secretKey: string }) {
     const notion = await createClient(input.secretKey);
     const page = await notion.pages.retrieve({
