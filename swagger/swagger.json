@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.252",
+    "version": "0.1.253",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -6427,6 +6427,32 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg"
       }
     },
+    "/connector/notion/page/block": {
+      "delete": {
+        "summary": "Delete a block",
+        "description": "Delete a block\n\nSets a Block object, including page blocks,\nto archived: true using the ID specified. Note: in the Notion UI application, this moves the block to the \"Trash\" where it can still be accessed and restored.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IDeleteBlockInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
     "/connector/notion/page/markdown": {
       "post": {
         "summary": "Append block by markdown format",
@@ -6871,7 +6897,7 @@
     "/connector/notion/get/page/contents": {
       "post": {
         "summary": "Retrieve block children",
-        "description": "Retrieve block children\n\nReturns a paginated array of child block objects contained in the block using the ID specified.\nIn order to receive a complete representation of a block, you may need to recursively retrieve the block children of child blocks.\nReturns only the first level of children for the specified block. See block objects for more detail on determining if that block has nested children.\nIt is used to check the contents of the page by inquiring about the children of the page or block.",
+        "description": "Retrieve block children\n\nReturns a paginated array of child block objects contained in the block using the ID specified.\nIt is used to check the contents of the page by inquiring about the children of the page or block.\nIt recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.",
         "tags": [
           "Notion"
         ],
@@ -6892,7 +6918,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IReadPageContentOutput"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/INotion.IMarkdownBlock"
+                  }
                 }
               }
             }
@@ -28782,6 +28811,44 @@
         ],
         "title": "Information needed to convert a Csv file to an Excel file"
       },
+      "INotion.IDeleteBlockInput": {
+        "type": "object",
+        "properties": {
+          "block_id": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "block_id\n\nIndicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "block_id",
+          "secretKey"
+        ]
+      },
       "INotion.IAppendPageByMarkdownInput": {
         "type": "object",
         "properties": {
@@ -30658,39 +30725,29 @@
         ],
         "title": "Conditions required to create a page"
       },
-      "INotion.IReadPageContentOutput": {
+      "INotion.IMarkdownBlock": {
         "type": "object",
         "properties": {
-          "object": {
+          "type": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "id": {
             "type": "string",
-            "title": "object\nIt may be just \"list\"."
+            "format": "uuid"
           },
-          "results": {
+          "hasChild": {
+            "type": "boolean"
+          },
+          "children": {
             "type": "array",
-            "items": {},
-            "title": "blocks\nAs a result of the inquiry, it consists of a very complex combination of blocks."
-          },
-          "next_cursor": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "next_cursor"
-          },
-          "has_more": {
-            "type": "boolean",
-            "title": "has_more"
+            "items": {}
           }
         },
         "required": [
-          "object",
-          "results",
-          "next_cursor",
-          "has_more"
+          "id"
         ]
       },
       "INotion.IReadPageContentInput": {
@@ -30717,16 +30774,7 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "block_id\n\nIndicates the ID of the page.\nIf you have already looked up the page, only the first root blocks of the page will be looked up, so you can put the block ID back into this factor and use it to look up the child blocks."
-          },
-          "start_cursor": {
-            "type": "string",
-            "title": "start_cursor\nIf supplied, this endpoint will return a page of results starting after the cursor provided. If not supplied, this endpoint will return the first page of results."
-          },
-          "page_size": {
-            "type": "integer",
-            "default": 100,
-            "title": "page_size\nThe number of items from the full list desired in the response. Maximum: 100"
+            "title": "block_id\n\nIndicates the ID of the page.\nyou can put the block ID back into this factor and use it to look up the child blocks."
           },
           "secretKey": {
             "type": "string",
