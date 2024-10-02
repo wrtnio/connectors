@@ -58,7 +58,7 @@ export namespace GoogleScholarProvider {
                 file_format: resource.file_format,
                 link: resource.link,
               })) ?? null,
-            citation_count: result.inline_links.cited_by.total ?? 0,
+            citation_count: result.inline_links?.cited_by?.total ?? 0,
             related_pages_link: result.inline_links.related_pages_link,
             version_info: {
               version: result.inline_links.versions?.total ?? null,
