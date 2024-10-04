@@ -4,6 +4,8 @@ import * as stream from "stream";
 
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
+import axios from "axios";
+import typia, { tags } from "typia";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -29,6 +31,7 @@ export class GoogleDriveProvider {
     if (!files || !files.length) {
       return { data: [] };
     }
+
     const output = files.map((file) => {
       return {
         id: file.id,
@@ -36,6 +39,28 @@ export class GoogleDriveProvider {
       };
     });
     return { data: output };
+  }
+
+  async getFolderByName(
+    input: { name: string } & IGoogleDrive.ISecret,
+  ): Promise<string | null> {
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+
+    try {
+      const drive = google.drive({ version: "v3", auth: authClient });
+      const res = await drive.files.list({
+        q: `mimeType = 'application/vnd.google-apps.folder' and trashed = false and name = '${input.name}'`,
+      });
+
+      return res.data.files?.at(0)?.id ?? null;
+    } catch (err) {
+      console.error(JSON.stringify((err as any)?.response.data));
+      throw err;
+    }
   }
 
   async fileList(
@@ -64,6 +89,7 @@ export class GoogleDriveProvider {
       return {
         id: file.id,
         name: file.name,
+        webContentLink: file.webContentLink,
       };
     });
 
@@ -108,6 +134,11 @@ export class GoogleDriveProvider {
     });
   }
 
+  /**
+   * @deprecated
+   * @param input
+   * @returns
+   */
   async createFile(
     input: IGoogleDrive.ICreateFileGoogleDriveInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
@@ -126,6 +157,32 @@ export class GoogleDriveProvider {
     const res = await drive.files.create({
       requestBody: fileMetadata,
     });
+    const id = res.data.id;
+    // response id can be null even when exception wasn't explictly thrown, so handle as unknown error
+    if (!id) {
+      throw new Error("Failed to create new file");
+    }
+
+    return { id };
+  }
+
+  async uploadFile(
+    input: IGoogleDrive.IUploadFileInput,
+  ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
+    const { name, folderIds, arrayBuffer } = input;
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+    const drive = google.drive({ version: "v3", auth: authClient });
+    const body = stream.Readable.from(Buffer.from(arrayBuffer));
+    const res = await drive.files.create({
+      media: { body: body },
+      requestBody: { mimeType: "image/jpg", name, parents: folderIds },
+    });
+
+    console.log(JSON.stringify(res.data, null, 2));
     const id = res.data.id;
     // response id can be null even when exception wasn't explictly thrown, so handle as unknown error
     if (!id) {
@@ -164,18 +221,23 @@ export class GoogleDriveProvider {
 
     authClient.setCredentials({ access_token: accessToken });
 
-    const drive = google.drive({ version: "v3", auth: authClient });
-    for (const permission of permissions) {
-      const input = {
-        emailAddress: permission.email,
-        role: permission.role,
-        type: permission.type,
-      };
-      await drive.permissions.create({
-        fileId: fileId || folderId,
-        requestBody: input,
-        sendNotificationEmail: false,
-      });
+    try {
+      const drive = google.drive({ version: "v3", auth: authClient });
+      for (const permission of permissions) {
+        const input = {
+          emailAddress: permission.email,
+          role: permission.role,
+          type: permission.type,
+        };
+        await drive.permissions.create({
+          fileId: fileId || folderId,
+          requestBody: input,
+          sendNotificationEmail: false,
+        });
+      }
+    } catch (err) {
+      console.error(JSON.stringify((err as any)?.response.data));
+      throw err;
     }
   }
 
@@ -213,7 +275,6 @@ export class GoogleDriveProvider {
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
-
     const drive = google.drive({ version: "v3", auth: authClient });
     const res = await drive.files.get(
       {
@@ -235,6 +296,31 @@ export class GoogleDriveProvider {
           reject(err);
         });
     });
+  }
+
+  async getFileWebContentLink(
+    input: { id: string } & IGoogleDrive.ISecret,
+  ): Promise<(string & tags.Format<"iri">) | null> {
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/drive/v2/files/${input.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      return typia.assert<(string & tags.Format<"iri">) | null>(
+        res.data.webContentLink,
+      );
+    } catch (err) {
+      console.error(JSON.stringify((err as any)?.response.data));
+      throw err;
+    }
   }
 
   private async getToken(secretValue: string): Promise<string> {
