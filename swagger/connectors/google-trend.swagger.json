@@ -17,7 +17,7 @@
   "info": {
     "title": "Google Trend",
     "description": "오늘의 트렌드를 검색해봐요",
-    "version": "0.1.253",
+    "version": "0.1.254",
     "license": {
       "name": "AGPL-3.0-only"
     }
