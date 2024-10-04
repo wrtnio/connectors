@@ -2,17 +2,23 @@ import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { v4 } from "uuid";
 
+import sharp from "sharp";
+
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
+import typia from "typia";
+import { imageExtensions } from "../../../utils/constants/extensions";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
+import { GoogleDriveProvider } from "../google_drive/GoogleDriveProvider";
 
 @Injectable()
 export class GoogleSlidesProvider {
   private readonly uploadPrefix: string = "google-slides-connector";
   constructor(
+    private readonly googleDriveProvider: GoogleDriveProvider,
     private readonly googleProvider: GoogleProvider,
     private readonly awsProvider: AwsProvider,
   ) {}
@@ -104,12 +110,18 @@ export class GoogleSlidesProvider {
     }
   }
 
-  // NOTE: quick fix for s3 urls - need a more centralized solution
+  /**
+   * quick fix for s3 urls - need a more centralized solution
+   * s3 bucket에 있는 이미지인 경우 presigned url 형식으로 변경
+   *
+   * @param input
+   * @returns
+   */
   async transformUrl(
     input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.AppendSlideInput> {
     // if there are s3 buckets urls, get presigned url
-    const matches = Array.from(
+    const matched = Array.from(
       new Set(
         JSON.stringify(input).match(
           /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_%]+)/gu, // 여기는 gu 플래그, 특히 무조건 g를 써야 한다.
@@ -117,16 +129,16 @@ export class GoogleSlidesProvider {
       ),
     );
 
-    if (!matches) {
+    if (!matched) {
       return input;
     }
 
     const transformed = await Promise.all(
-      matches.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
+      matched.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
     );
 
     // let stringified = JSON.stringify(input);
-    // matches.forEach((match, index) => {
+    // matched.forEach((match, index) => {
     //   stringified = stringified.replaceAll(match, transformed[index]);
     // });
 
@@ -134,7 +146,7 @@ export class GoogleSlidesProvider {
     //   JSON.parse(stringified),
     // );
 
-    matches.forEach((matchedUrl, index) => {
+    matched.forEach((matchedUrl, index) => {
       for (const template of input.templates) {
         if (template.contents instanceof Array) {
           template.contents.forEach((content) => {
@@ -966,14 +978,66 @@ export class GoogleSlidesProvider {
     const token = await this.getToken(input.secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
 
-    await axios.post(
-      `https://slides.googleapis.com/v1/presentations/${presentationId}:batchUpdate`,
-      input.body,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
+    const is = typia.createIs<{
+      createImage: IGoogleSlides.CreateImageRequest;
+    }>();
+
+    const name = "connector/google-slides";
+
+    let googleSlideFolderId = await this.googleDriveProvider.getFolderByName({
+      name: name,
+      secretKey: input.secretKey,
+    });
+
+    if (googleSlideFolderId === null) {
+      googleSlideFolderId = (
+        await this.googleDriveProvider.createFolder({
+          name,
+          secretKey: input.secretKey,
+        })
+      ).id;
+    }
+
+    // 이미지가 저장된 적 없는 이미지인 경우, 즉 s3 저장소가 아닌 경우 저장을 하여 대치한다.
+    await Promise.all(
+      input.body.requests.map(async (request) => {
+        if (is(request)) {
+          if (request.createImage.url) {
+            const res = await axios.get(request.createImage.url, {
+              responseType: "arraybuffer",
+            });
+
+            const originalImage = sharp(res.data);
+            const format = (await originalImage.metadata()).format;
+            if (imageExtensions.some((ext) => ext === format)) {
+              const jpg = await originalImage.jpeg({ quality: 100 }).toBuffer();
+              const saved = await AwsProvider.uploadObject({
+                contentType: "image/jpg",
+                data: jpg,
+                key: `${v4()}.jpg`,
+              });
+
+              request.createImage.url =
+                await this.awsProvider.getGetObjectUrl(saved);
+            }
+          }
+        }
+      }),
     );
+
+    try {
+      await axios.post(
+        `https://slides.googleapis.com/v1/presentations/${presentationId}:batchUpdate`,
+        input.body,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify((err as any).response.data));
+      throw err;
+    }
   }
 }

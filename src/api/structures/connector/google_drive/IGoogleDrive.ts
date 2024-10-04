@@ -106,6 +106,11 @@ export namespace IGoogleDrive {
        * @title Google drive file name.
        */
       name?: string | null;
+
+      /**
+       * @title webContentLink
+       */
+      webContentLink?: (string & tags.Format<"iri">) | null;
     }[];
   }
 
@@ -175,6 +180,45 @@ export namespace IGoogleDrive {
   }
 
   /**
+   * @title Information required to create a file in Google Drive
+   */
+  export interface IUploadFileInput
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/drive"]
+    > {
+    /**
+     * File name to be created in drive.
+     *
+     * @title Google drive file name.
+     */
+    name: string;
+
+    /**
+     * A list of folder ids that will contain the files to be created in the drive.
+     *
+     * @title Google drive folder ids.
+     */
+    folderIds: (string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/folders";
+        jmesPath: JMESPath<
+          IFolderListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
+      }>)[] &
+      tags.MinItems<1>;
+
+    /**
+     * Contents of the file to be created in drive.
+     *
+     * @title Google drive file content.
+     */
+    arrayBuffer: ArrayBuffer;
+  }
+
+  /**
    * @title Result of creating a file in Google Drive
    */
   export interface ICreateFileGoogleDriveOutput {
@@ -192,10 +236,11 @@ export namespace IGoogleDrive {
   export interface IPermission {
     /**
      * The email address of the user to whom you wish to grant access to Google Drive.
+     * Required only when the type is a user type.
      *
      * @title The email address of the user to whom you wish to grant access.
      */
-    email: string & tags.Format<"email">;
+    email?: string & tags.Format<"email">;
 
     /**
      * The type of permission to grant.

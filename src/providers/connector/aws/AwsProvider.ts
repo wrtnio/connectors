@@ -12,8 +12,8 @@ import {
 } from "@nestjs/common";
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
 import { randomUUID } from "crypto";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { Readable } from "stream";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class AwsProvider {
@@ -128,9 +128,7 @@ export class AwsProvider {
    * Transforms S3 URLs in output to presigned URLs
    */
   async getGetObjectUrl(fileUrl: string): Promise<string> {
-    const match = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
-    );
+    const match = fileUrl.match(AwsProvider.S3BucketURL);
 
     if (!match) {
       throw new Error("Invalid format");
@@ -159,9 +157,7 @@ export class AwsProvider {
 
   async getFileSize(fileUrl: string): Promise<number> {
     const [url] = fileUrl.split("?"); // 쿼리파라미터 부분 제거
-    const matches = url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
-    );
+    const matches = url.match(AwsProvider.S3BucketURL);
 
     if (!matches) {
       throw new Error("Invalid S3 URL");
@@ -195,9 +191,7 @@ export namespace AwsProvider {
     key: string;
   } {
     try {
-      const match = url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
-      );
+      const match = url.match(AwsProvider.S3BucketURL);
       if (!match) {
         throw new BadRequestException("Invalid S3 URL");
       }
@@ -235,4 +229,7 @@ export namespace AwsProvider {
     await s3.send(putObjectConfig);
     return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${input.key}`;
   }
+
+  export const S3BucketURL =
+    /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/;
 }

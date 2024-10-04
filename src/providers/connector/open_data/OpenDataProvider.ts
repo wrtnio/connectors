@@ -11,10 +11,10 @@ import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/con
 
 import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import typia, { tags } from "typia";
+import type { Rename } from "../../../api/structures/types/Rename";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { getOffset } from "../../../utils/getOffset";
-import type { Rename } from "../../../api/structures/types/Rename";
 
 export namespace OpenDataProvider {
   export function getPagination<T>(

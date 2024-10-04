@@ -426,7 +426,7 @@ export namespace IKoreaMeteorologicalAdministration {
      * If the type property in this object is 'latitude_and_longitude', this value means longitude.
      * If not, use x position value of grid coordinates in Korea.
      */
-    nx: number;
+    nx: number & tags.Maximum<360>;
 
     /**
      * @title Latitude or y_position
@@ -434,7 +434,7 @@ export namespace IKoreaMeteorologicalAdministration {
      * If the type property in this object is 'latitude_and_longitude', this value means latitude.
      * If not, use y position value of grid coordinates in Korea.
      */
-    ny: number;
+    ny: number & tags.Maximum<180>;
   }
 
   /**

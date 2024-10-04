@@ -5,6 +5,7 @@ import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { AwsProvider } from "../../../../../src/providers/connector/aws/AwsProvider";
+import { GoogleDriveProvider } from "../../../../../src/providers/connector/google_drive/GoogleDriveProvider";
 import { GoogleSlidesProvider } from "../../../../../src/providers/connector/google_slides/GoogleSlidesProvider";
 import { GoogleProvider } from "../../../../../src/providers/internal/google/GoogleProvider";
 
@@ -96,7 +97,12 @@ export const test_api_connector_google_slides_fail_case_of_quarter_division_by_d
   async () => {
     const googleProvider = new GoogleProvider();
     const awsProvider = new AwsProvider();
-    const gs = new GoogleSlidesProvider(googleProvider, awsProvider);
+    const googleDriveProvider = new GoogleDriveProvider(googleProvider);
+    const gs = new GoogleSlidesProvider(
+      googleDriveProvider,
+      googleProvider,
+      awsProvider,
+    );
 
     const response = await gs.transformUrl({
       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
@@ -141,7 +147,12 @@ export const test_api_connector_google_slides_fail_case_of_quarter_division_by_d
   async () => {
     const googleProvider = new GoogleProvider();
     const awsProvider = new AwsProvider();
-    const gs = new GoogleSlidesProvider(googleProvider, awsProvider);
+    const googleDriveProvider = new GoogleDriveProvider(googleProvider);
+    const gs = new GoogleSlidesProvider(
+      googleDriveProvider,
+      googleProvider,
+      awsProvider,
+    );
 
     const response = await gs.transformUrl({
       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
@@ -225,4 +236,32 @@ export const test_api_connector_google_slides_fail_case_of_quarter_division =
       );
 
     typia.assert(res);
+  };
+
+// 실패한 케이스에 대한 테스트 코드
+export const test_api_connector_google_slides_append_image_slide_unsupported_format =
+  async (connection: CApi.IConnection) => {
+    const presentation =
+      await CApi.functional.connector.google_slides.presentations.createPresentation(
+        connection,
+        {
+          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+          title: `${randomUUID()} - random presentation`,
+        },
+      );
+
+    const testImage = `https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ08pyetSDfK1ClcxLJ1XFVe0naI9-CZb7UWTnfkArOV0Lu5fvOrZYW0bA6p5UYpHegXoZsiaQSVESzoC66evlB6urq_5l7DidpuW8lDW4NtUcJp50qU6fV&usqp=CAE`;
+
+    await CApi.functional.connector.google_slides.presentations.slides.squares.appendSquareImageSlide(
+      connection,
+      presentation.presentationId as string,
+      {
+        secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+        templates: [
+          {
+            contents: { text: { text: "TEST" }, url: testImage },
+          },
+        ],
+      },
+    );
   };
