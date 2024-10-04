@@ -39,8 +39,11 @@ export namespace GoogleScholarProvider {
         };
 
         const res = await getJson(params);
-        const results = res["organic_results"];
+        if (!res["organic_results"]) {
+          return [];
+        }
 
+        const results = res["organic_results"];
         for (const result of results) {
           if (output.length === input.max_results) {
             break;
