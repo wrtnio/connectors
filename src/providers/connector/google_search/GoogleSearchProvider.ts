@@ -45,6 +45,10 @@ export class GoogleSearchProvider {
           ...(targetSite && { as_sitesearch: targetSite }),
         };
         const res = await getJson(params);
+        if (!res["organic_results"]) {
+          return [];
+        }
+
         const results = res["organic_results"];
 
         if (!results || results.length === 0) {
