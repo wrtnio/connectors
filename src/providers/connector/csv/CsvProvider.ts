@@ -6,10 +6,10 @@ import { WritableStreamBuffer } from "stream-buffers";
 
 import { ICsv } from "@wrtn/connector-api/lib/structures/connector/csv/ICsv";
 
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { Injectable } from "@nestjs/common";
-import { AwsProvider } from "../aws/AwsProvider";
 import { Readable } from "stream";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class CsvProvider {
@@ -18,9 +18,7 @@ export class CsvProvider {
   async read(input: ICsv.IReadInput): Promise<ICsv.IReadOutput> {
     try {
       const { s3Url, delimiter } = input;
-      const match = s3Url.match(
-        /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
-      );
+      const match = s3Url.match(AwsProvider.S3BucketURL);
 
       const body: string = await (async (): Promise<string> => {
         if (match) {
@@ -95,9 +93,7 @@ export class CsvProvider {
     input: ICsv.ICsvToExcelInput,
   ): Promise<ICsv.ICsvToExcelOutput> {
     const { s3Url, delimiter } = input;
-    const match = s3Url.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
-    );
+    const match = s3Url.match(AwsProvider.S3BucketURL);
     if (!match) throw new Error("Invalid S3 URL");
 
     const fileName = match[3];

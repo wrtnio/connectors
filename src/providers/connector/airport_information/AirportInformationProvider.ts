@@ -2,6 +2,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { IAirportInformation } from "@wrtn/connector-api/lib/structures/connector/airport_information/IAirportInformation";
 import AWS from "aws-sdk";
 import * as csv from "fast-csv";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class AirportInformationProvider {
@@ -12,9 +13,7 @@ export class AirportInformationProvider {
     const s3 = new AWS.S3();
     const fileUrl =
       "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/airport_inforamtion.csv";
-    const match = fileUrl.match(
-      /https?:\/\/([^.]+)\.s3(?:\.([^.]+))?\.amazonaws\.com\/([a-zA-Z0-9\/.\-_\s%]+)/,
-    );
+    const match = fileUrl.match(AwsProvider.S3BucketURL);
     if (!match) throw new Error("Invalid S3 URL");
 
     const bucket = match[1];
