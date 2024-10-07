@@ -56,7 +56,6 @@ export class SlackProvider {
         },
       );
 
-      const { url: workspaceUrl } = await this.authTest(input);
       const next_cursor = res.data.response_metadata?.next_cursor;
       const scheduled_messages = res.data.scheduled_messages.map(
         (
@@ -303,6 +302,90 @@ export class SlackProvider {
       secretKey: input.secretKey,
       text: input.text,
     });
+  }
+
+  async getChannelLinkHistories(
+    input: ISlack.IGetChannelHistoryInput,
+  ): Promise<ISlack.IGetChannelLinkHistoryOutput> {
+    const url = `https://slack.com/api/conversations.history?&pretty=1`;
+    const { secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter({
+      channel: rest.channel,
+      cursor: rest.cursor,
+      limit: rest.limit,
+      ...(input.latestDateTime && {
+        latest: this.transformDateTimeToTs(input.latestDateTime),
+      }),
+      ...(input.oldestDateTime && {
+        oldest: this.transformDateTimeToTs(input.oldestDateTime),
+      }),
+    });
+
+    const token = await this.getToken(secretKey);
+
+    const { url: workspaceUrl } = await this.authTest(input);
+    const res = await axios.get(`${url}&${queryParameter}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8;",
+      },
+    });
+
+    const allMembers = await this.getAllUsers(input);
+
+    function extractLinks(text: string): string[] {
+      // URL 패턴을 찾는 정규식
+      /**
+       * <LINK|ALT>에서 LINK만 뽑도록 정의한 RegExp
+       */
+      const linkRegex = /(?<=<)([^|]+)(?=\|)/g;
+
+      // 입력 문자열에서 URL을 추출
+      const links = text.match(linkRegex);
+
+      // 링크가 없다면 빈 문자열 반환
+      return links ? links : [];
+    }
+
+    const next_cursor = res.data.response_metadata?.next_cursor;
+    const messages: ISlack.LinkMessage[] = res.data.messages
+      .map((message: ISlack.Message): ISlack.LinkMessage => {
+        const timestamp = this.transformTsToTimestamp(message.ts);
+        const text = extractLinks(message.text);
+        return {
+          type: message.type,
+          user: message.user ?? null,
+          text: message.text,
+          links: text,
+          ts: String(message.ts),
+          channel: input.channel,
+          reply_count: message?.reply_count ?? 0,
+          reply_users_count: message?.reply_users_count ?? 0,
+          ts_date: new Date(timestamp).toISOString(),
+          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
+          ...(message.attachments && { attachments: message.attachments }),
+        };
+      })
+      .filter((message: ISlack.LinkMessage) => {
+        return message.links.length !== 0;
+      });
+
+    const userIds = Array.from(
+      new Set(messages.map((message) => message.user).filter(Boolean)),
+    );
+
+    const members = userIds
+      .map((userId) => {
+        const member = allMembers.find((el) => el.id === userId);
+        return member;
+      })
+      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+
+    return {
+      messages,
+      next_cursor: next_cursor ? next_cursor : null,
+      members,
+    }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getChannelHistories(

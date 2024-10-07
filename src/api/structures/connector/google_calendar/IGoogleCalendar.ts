@@ -490,7 +490,7 @@ export namespace IGoogleCalendar {
       date: number;
 
       /**
-       * It's a poem.
+       * It's a hour.
        *
        * @title Poetry.
        */

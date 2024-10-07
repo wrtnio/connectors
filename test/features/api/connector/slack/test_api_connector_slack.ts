@@ -376,3 +376,28 @@ export const test_api_connector_slack_reply = async (
     throw new Error("Reply가 추가되지 않은 것으로 추정되는 상태");
   }
 };
+
+export const test_api_connector_slack_get_channel_link_histories = async (
+  connection: CApi.IConnection,
+) => {
+  const [PublicChannel] =
+    await test_api_connector_slack_get_public_channels(connection);
+  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
+    channel: PublicChannel.id as any,
+    text: "1. [뤼튼 홈페이지](https://wrtn.ai)\n2. [뤼튼 홈페이지](https://wrtn.io)",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+
+  const res =
+    await CApi.functional.connector.slack.get_channel_link_histories.getChannelLinkHistories(
+      connection,
+      {
+        channel: PublicChannel.id as string,
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  console.log(res.messages);
+  assert(res.messages.length > 0);
+  typia.assert(res);
+};
