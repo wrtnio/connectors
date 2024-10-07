@@ -335,7 +335,239 @@ export namespace IGoogleDrive {
     text: string;
   }
 
+  export interface IGetFileInput {
+    /**
+     * @title userPermission
+     */
+    userPermission: {
+      /**
+       * @title id
+       */
+      id: string;
+
+      /**
+       * @title type
+       */
+      type: PermissionTypes;
+
+      /**
+       * @title role
+       */
+      role: PermissionRoles;
+
+      /**
+       * @title pendingOwner
+       */
+      pendingOwner: boolean;
+    };
+
+    /**
+     * @example pdf
+     */
+    fileExtension: string;
+
+    /**
+     * @title ownerNames
+     */
+    ownerNames: string[];
+
+    /**
+     * @title lastModifyingUserName
+     */
+    lastModifyingUserName: string;
+
+    /**
+     * @title editable
+     */
+    editable: boolean;
+
+    /**
+     * @title writersCanShare
+     */
+    writersCanShare: boolean;
+
+    /**
+     * @title mimeType
+     */
+    mimeType: string;
+
+    /**
+     * @title parents
+     */
+    parents: {
+      /**
+       * @title       id: string;
+       */
+      id: string;
+      /**
+       * @title isRoot
+       */
+      isRoot: boolean;
+    }[];
+
+    /**
+     * @title thumbnailLink
+     */
+    thumbnailLink: string & tags.Format<"iri">;
+
+    /**
+     * @title appDataContents
+     */
+    appDataContents: boolean;
+
+    /**
+     * @title shared
+     */
+    shared: boolean;
+
+    /**
+     * @title lastModifyingUser
+     */
+    lastModifyingUser: IGoogleDrive.User;
+
+    /**
+     * @title owners
+     */
+    owners: IGoogleDrive.User[];
+
+    /**
+     * @title copyable
+     */
+    copyable: boolean;
+
+    /**
+     * @title alternateLink
+     */
+    alternateLink: string & tags.Format<"iri">;
+
+    /**
+     * @title embedLink
+     */
+    embedLink: string & tags.Format<"iri">;
+
+    /**
+     * @title webContentLink
+     */
+    webContentLink: string & tags.Format<"iri">;
+
+    /**
+     * @title fileSize
+     */
+    fileSize: string;
+
+    /**
+     * @title copyRequiresWriterPermission
+     */
+    copyRequiresWriterPermission: boolean;
+
+    /**
+     * @title spaces
+     */
+    spaces: string[];
+
+    /**
+     * @title id
+     */
+    id: string;
+
+    /**
+     * @title title(filename)
+     */
+    title: string;
+
+    /**
+     * @title labels
+     */
+    labels: {
+      /**
+       * @title viewed
+       */
+      viewed: boolean;
+
+      /**
+       * @title restricted
+       */
+      restricted: boolean;
+
+      /**
+       * @title starred
+       */
+      starred: boolean;
+
+      /**
+       * @title hidden
+       */
+      hidden: boolean;
+
+      /**
+       * @title trashed
+       */
+      trashed: boolean;
+    };
+
+    /**
+     * @title explicitlyTrashed
+     */
+    explicitlyTrashed: boolean;
+
+    /**
+     * @title createdDate
+     */
+    createdDate: string & tags.Format<"date-time">;
+
+    /**
+     * @title modifiedDate
+     */
+    modifiedDate: string & tags.Format<"date-time">;
+
+    /**
+     * @title modifiedByMeDate
+     */
+    modifiedByMeDate: string & tags.Format<"date-time">;
+
+    /**
+     * @title lastViewedByMeDate
+     */
+    lastViewedByMeDate: string & tags.Format<"date-time">;
+
+    /**
+     * @title markedViewedByMeDate
+     */
+    markedViewedByMeDate: string & tags.Format<"date-time">;
+
+    /**
+     * @title quotaBytesUsed
+     */
+    quotaBytesUsed: string;
+
+    /**
+     * @title version
+     */
+    version: string;
+
+    /**
+     * @title originalFilename
+     */
+    originalFilename: string;
+
+    /**
+     * @title capabilities
+     */
+    capabilities: {
+      /**
+       * @title canEdit
+       */
+      canEdit: boolean;
+
+      /**
+       * @title canCopy
+       */
+      canCopy: boolean;
+    };
+  }
+
   /**
+   * @deprecated
    * @title Google Drive file search results
    */
   export interface IReadFileGoogleDriveOutput {
@@ -354,4 +586,36 @@ export namespace IGoogleDrive {
     "google",
     ["https://www.googleapis.com/auth/drive"]
   >;
+
+  export type User = {
+    /**
+     * @title displayName
+     */
+    displayName: string;
+
+    /**
+     * @title isAuthenticatedUser
+     */
+    isAuthenticatedUser: boolean;
+
+    /**
+     * @title permissionId
+     */
+    permissionId: string;
+
+    /**
+     * @title emailAddress
+     */
+    emailAddress: string & tags.Format<"email">;
+
+    /**
+     * @title picture
+     */
+    picture: {
+      /**
+       * @title url
+       */
+      url: string & tags.Format<"iri">;
+    };
+  };
 }
