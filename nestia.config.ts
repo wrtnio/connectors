@@ -4,12 +4,16 @@ import { NestFactory } from "@nestjs/core";
 import { OpenApi } from "@samchon/openapi";
 
 import { StudioModule } from "./src/StudioModule";
+import { AirportInformationModule } from "./src/controllers/connector/airport_information/AirportInformationModule";
 import { ArxivSearchModule } from "./src/controllers/connector/arxiv_search/ArxivSearchModule";
+import { CalendlyModule } from "./src/controllers/connector/calendly/CalendlyModule";
 import { CsvModule } from "./src/controllers/connector/csv/CsvModule";
 import { DallE3Module } from "./src/controllers/connector/dall_e_3/DallE3Module";
 import { DaumModule } from "./src/controllers/connector/daum/DaumModule";
+import { DiscordModule } from "./src/controllers/connector/discord/DiscordModule";
 import { KeywordExtractModule } from "./src/controllers/connector/extract/KeywordExtractModule";
 import { FigmaModule } from "./src/controllers/connector/figma/FigmaModule";
+import { GithubModule } from "./src/controllers/connector/github/GithubModule";
 import { GmailModule } from "./src/controllers/connector/gmail/GmailModule";
 import { GoogleDocsModule } from "./src/controllers/connector/google-docs/GoogleDocsModule";
 import { GoogleSheetModule } from "./src/controllers/connector/google-sheet/GoogleSheetModule";
@@ -37,6 +41,7 @@ import { GoogleSlidesModule } from "./src/controllers/connector/google_slides/Go
 import { GoogleTrendModule } from "./src/controllers/connector/google_trend/GoogleTrendModule";
 import { HancellModule } from "./src/controllers/connector/hancell/HancellModule";
 import { ImwebModule } from "./src/controllers/connector/imweb/ImwebModule";
+import { JiraModule } from "./src/controllers/connector/jira/JiraModule";
 import { KakaoMapModule } from "./src/controllers/connector/kakao_map/KakaoMapModule";
 import { KakaoNaviModule } from "./src/controllers/connector/kakao_navi/KakaoNaviModule";
 import { KakaoTalkModule } from "./src/controllers/connector/kakao_talk/KakaoTalkModule";
@@ -48,6 +53,7 @@ import { NotionModule } from "./src/controllers/connector/notion/NotionModule";
 import { OpenDataModule } from "./src/controllers/connector/open_data/OpenDataModule";
 import { PromptModule } from "./src/controllers/connector/prompts/PromptModule";
 import { RagModule } from "./src/controllers/connector/rag/RagModule";
+import { SlackModule } from "./src/controllers/connector/slack/SlackModule";
 import { RankModule } from "./src/controllers/connector/sort/RankModule";
 import { StableDiffusionBetaModule } from "./src/controllers/connector/stable_diffustion_beta/StableDiffusionBetaModule";
 import { StoryGeneratorModule } from "./src/controllers/connector/story_generator/StoryGeneratorModule";
@@ -608,6 +614,54 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
       description: "",
     },
     output: "packages/api/connectors/zoom.swagger.json",
+  }),
+  swagger({
+    module: SlackModule,
+    info: {
+      title: "Slack",
+      description: "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
+    },
+    output: "packages/api/connectors/slack.swagger.json",
+  }),
+  swagger({
+    module: JiraModule,
+    info: {
+      title: "Jira",
+      description: "Jira로 프로젝트 이슈를 관리해요.",
+    },
+    output: "packages/api/connectors/jira.swagger.json",
+  }),
+  swagger({
+    module: DiscordModule,
+    info: {
+      title: "Discord",
+      description: "디스코드로 메세지를 보내요.",
+    },
+    output: "packages/api/connectors/discord.swagger.json",
+  }),
+  swagger({
+    module: AirportInformationModule,
+    info: {
+      title: "Airport Infomation",
+      description: "항공 정보를 조회해요.",
+    },
+    output: "packages/api/connectors/airport-infomation.swagger.json",
+  }),
+  swagger({
+    module: CalendlyModule,
+    info: {
+      title: "Calendly",
+      description: "Calendly에서 고객과의 미팅을 잡을 수 있어요",
+    },
+    output: "packages/api/connectors/calendly.swagger.json",
+  }),
+  swagger({
+    module: GithubModule,
+    info: {
+      title: "Github",
+      description: "Github에서 코드를 읽고 분석하고 작성해요",
+    },
+    output: "packages/api/connectors/github.swagger.json",
   }),
 ];
 export default NESTIA_CONFIG;
