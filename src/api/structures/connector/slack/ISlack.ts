@@ -330,6 +330,25 @@ export namespace ISlack {
       }>;
   }
 
+  export interface IGetChannelLinkHistoryOutput
+    extends ICommonPaginationOutput {
+    /**
+     * @title message
+     *
+     * This refers to the history of conversations made on the channel.
+     * The closer you are to the 0th in the array, the more recent it is.
+     * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
+     */
+    messages: StrictOmit<ISlack.LinkMessage, "type">[];
+
+    /**
+     * @title members
+     *
+     * This is a list of people who participated in the conversation in this conversation list.
+     */
+    members: Pick<IGetUserOutput, "id" | "display_name">[];
+  }
+
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
     /**
      * @title message
@@ -581,6 +600,15 @@ export namespace ISlack {
      * @title when the user scheduled the message
      */
     date_created: string & Placeholder<"1234567890.123456">;
+  }
+
+  export interface LinkMessage extends Message {
+    /**
+     * @title links
+     *
+     * Links from the chat
+     */
+    links: (string & tags.Format<"iri">)[];
   }
 
   export interface Message {

@@ -1,10 +1,10 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { RouteIcon } from "@wrtnio/decorators";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/slack")
 export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
@@ -39,7 +39,7 @@ export class SlackController {
    * If you want to cancel, please refer to the message created through another connector and call the delete connector again.
    *
    * Users may be embarrassed if the message you booked is not viewed in the Slack desktop app,
-   * so although it cannot be viewed in Slack before and after transmission,
+   * so although it cannot be viewed before and after transmission,
    * it would be a good idea to let them know that it will actually be transmitted in our service.
    *
    * @param input
@@ -86,7 +86,7 @@ export class SlackController {
    * Therefore, even if you don't specify a channel,
    * you send a message to the `im` channel that corresponds to your own user id.
    *
-   * @summary post text message to myself in slack
+   * @summary post text message to myself
    * @param input
    * @returns created message
    */
@@ -134,7 +134,7 @@ export class SlackController {
    * Slack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.
    * You must send the contents after receiving confirmation from the user.
    *
-   * @summary post text message in slack
+   * @summary post text message
    * @param input
    * @returns created message
    */
@@ -171,7 +171,7 @@ export class SlackController {
   }
 
   /**
-   * Look up the list of users in Slack.
+   * Look up the list of users.
    *
    * Users include bots and refer to all users in the team who are looking up.
    * Here, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.
@@ -220,7 +220,43 @@ export class SlackController {
   }
 
   /**
-   * get channel histories in slack
+   * get channel links from channel histories
+   *
+   * Look up conversations that have been made in and out of the channel.
+   *
+   * The 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.
+   * Therefore, if the user does not hand over the ID when looking for the conversation history of the channel,
+   * it is prioritized to find the channel ID.
+   * Usually, users don't know their channel ID.
+   * Therefore, most users will ask for a channel by its name or with only the keywords they remember.
+   * Therefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.
+   *
+   * When you look up a conversation,
+   * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
+   *
+   * Messages without links are removed, leaving only messages with links.
+   * This is because it only leaves messages with links as connectors to find links in conversations.
+   * Links are arranged in links properties.
+   *
+   * If you want to filter by date, prioritize using the datetime format.
+   *
+   * @summary get links from channel histories
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Post("get-channel-link-histories")
+  async getChannelLinkHistories(
+    @TypedBody() input: ISlack.IGetChannelHistoryInput,
+  ): Promise<ISlack.IGetChannelLinkHistoryOutput> {
+    return retry(() => this.slackProvider.getChannelLinkHistories(input))();
+  }
+
+  /**
+   * get channel histories
    *
    * Look up conversations that have been made in and out of the channel.
    *
@@ -240,7 +276,7 @@ export class SlackController {
    *
    * If you want to filter by date, prioritize using the datetime format.
    *
-   * @summary get channel histories in slack
+   * @summary get channel histories
    * @param input
    * @returns channel histories
    */
@@ -256,16 +292,16 @@ export class SlackController {
   }
 
   /**
-   * get private channels in slack
+   * get private channels
    *
-   * View channels in Slack.
+   * View channels.
    * This connector will only look up its own `private` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * `private` channel is a locked channel that can only be viewed by those invited to the channel.
    *
    * If you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.
    *
-   * @summary get private channels in slack
+   * @summary get private channels
    * @param input
    * @returns private channels
    */
@@ -281,15 +317,15 @@ export class SlackController {
   }
 
   /**
-   * get public channels in slack
+   * get public channels
    *
-   * View channels in Slack.
+   * View channels.
    * This connector will only look up its own `public` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * The `public` channel is anyone's accessible.
    * This does not require an invitation process, and users can join the channel themselves if necessary.
    *
-   * @summary get public channels in slack
+   * @summary get public channels
    * @param input
    * @returns public channels
    */
@@ -305,15 +341,15 @@ export class SlackController {
   }
 
   /**
-   * get im channels in slack
+   * get im channels
    *
-   * View channels in Slack.
+   * View channels.
    * This connector will only look up its own `im` channel.
    * The channel ID is required to look up the conversation history within the channel later.
    * `im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.
    * Users also use chat as storage or notepad, such as storing files and images here.
    *
-   * @summary get im channels in slack
+   * @summary get im channels
    * @param input
    * @returns im channels
    */

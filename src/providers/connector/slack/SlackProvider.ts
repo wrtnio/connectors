@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
+import slackifyMarkdown from "slackify-markdown";
 import { tags } from "typia";
-import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -55,7 +56,6 @@ export class SlackProvider {
         },
       );
 
-      const { url: workspaceUrl } = await this.authTest(input);
       const next_cursor = res.data.response_metadata?.next_cursor;
       const scheduled_messages = res.data.scheduled_messages.map(
         (
@@ -140,29 +140,12 @@ export class SlackProvider {
   async sendReply(
     input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const url = `https://slack.com/api/chat.postMessage`;
-    const token = await this.getToken(input.secretKey);
-
-    try {
-      const res = await axios.post(
-        url,
-        {
-          channel: input.channel,
-          thread_ts: input.ts,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      return { ts: res.data.ts };
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
+    return this.sendMessage({
+      channel: input.channel,
+      secretKey: input.secretKey,
+      text: input.text,
+      thread_ts: input.ts,
+    });
   }
 
   async getReplies(
@@ -256,17 +239,33 @@ export class SlackProvider {
   async sendTextToMyself(
     input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
+    const { channels } = await this.getImChannels(input);
+    const auth = await this.authTest(input);
+    const channel = channels.find((el) => el.user === auth.user_id);
+    return this.sendMessage({
+      channel: channel?.id as string,
+      secretKey: input.secretKey,
+      text: input.text,
+    });
+  }
+
+  private async sendMessage(input: {
+    channel: string;
+    text: string;
+    secretKey: string;
+    thread_ts?: string;
+  }): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
     const token = await this.getToken(input.secretKey);
     try {
-      const { channels } = await this.getImChannels(input);
-      const auth = await this.authTest(input);
-      const mySelf = channels.find((el) => el.user === auth.user_id);
+      const preconfiged = `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n${input.text}`;
+      const text = slackifyMarkdown(preconfiged);
       const res = await axios.post(
         url,
         {
-          channel: mySelf?.id,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
+          channel: input.channel,
+          text: text,
+          ...(input.thread_ts && { thread_ts: input.thread_ts }),
         },
         {
           headers: {
@@ -298,27 +297,95 @@ export class SlackProvider {
   async sendText(
     input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const url = `https://slack.com/api/chat.postMessage`;
-    const token = await this.getToken(input.secretKey);
-    try {
-      const res = await axios.post(
-        url,
-        {
-          channel: input.channel,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+    return this.sendMessage({
+      channel: input.channel,
+      secretKey: input.secretKey,
+      text: input.text,
+    });
+  }
 
-      return { ts: res.data.ts };
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
+  async getChannelLinkHistories(
+    input: ISlack.IGetChannelHistoryInput,
+  ): Promise<ISlack.IGetChannelLinkHistoryOutput> {
+    const url = `https://slack.com/api/conversations.history?&pretty=1`;
+    const { secretKey, ...rest } = input;
+    const queryParameter = createQueryParameter({
+      channel: rest.channel,
+      cursor: rest.cursor,
+      limit: rest.limit,
+      ...(input.latestDateTime && {
+        latest: this.transformDateTimeToTs(input.latestDateTime),
+      }),
+      ...(input.oldestDateTime && {
+        oldest: this.transformDateTimeToTs(input.oldestDateTime),
+      }),
+    });
+
+    const token = await this.getToken(secretKey);
+
+    const { url: workspaceUrl } = await this.authTest(input);
+    const res = await axios.get(`${url}&${queryParameter}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8;",
+      },
+    });
+
+    const allMembers = await this.getAllUsers(input);
+
+    function extractLinks(text: string): string[] {
+      // URL 패턴을 찾는 정규식
+      /**
+       * <LINK|ALT>에서 LINK만 뽑도록 정의한 RegExp
+       */
+      const linkRegex = /(?<=<)([^|]+)(?=\|)/g;
+
+      // 입력 문자열에서 URL을 추출
+      const links = text.match(linkRegex);
+
+      // 링크가 없다면 빈 문자열 반환
+      return links ? links : [];
     }
+
+    const next_cursor = res.data.response_metadata?.next_cursor;
+    const messages: ISlack.LinkMessage[] = res.data.messages
+      .map((message: ISlack.Message): ISlack.LinkMessage => {
+        const timestamp = this.transformTsToTimestamp(message.ts);
+        const text = extractLinks(message.text);
+        return {
+          type: message.type,
+          user: message.user ?? null,
+          text: message.text,
+          links: text,
+          ts: String(message.ts),
+          channel: input.channel,
+          reply_count: message?.reply_count ?? 0,
+          reply_users_count: message?.reply_users_count ?? 0,
+          ts_date: new Date(timestamp).toISOString(),
+          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
+          ...(message.attachments && { attachments: message.attachments }),
+        };
+      })
+      .filter((message: ISlack.LinkMessage) => {
+        return message.links.length !== 0;
+      });
+
+    const userIds = Array.from(
+      new Set(messages.map((message) => message.user).filter(Boolean)),
+    );
+
+    const members = userIds
+      .map((userId) => {
+        const member = allMembers.find((el) => el.id === userId);
+        return member;
+      })
+      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+
+    return {
+      messages,
+      next_cursor: next_cursor ? next_cursor : null,
+      members,
+    }; // next_cursor가 빈 문자인 경우 대비
   }
 
   async getChannelHistories(
@@ -513,12 +580,8 @@ export class SlackProvider {
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
-    const { secretKey, ...rest } = input;
-    const queryParameter = createQueryParameter({
-      ...rest,
-      types: "im",
-    });
-
+    const { secretKey } = input;
+    const queryParameter = createQueryParameter({ secretKey, types: "im" });
     const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {
