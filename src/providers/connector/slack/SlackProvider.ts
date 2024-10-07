@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { markdownToBlocks } from "@tryfabric/mack";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
+import slackifyMarkdown from "slackify-markdown";
 import { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
@@ -141,9 +141,6 @@ export class SlackProvider {
   async sendReply(
     input: ISlack.IPostMessageReplyInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const url = `https://slack.com/api/chat.postMessage`;
-    const token = await this.getToken(input.secretKey);
-
     return this.sendMessage({
       channel: input.channel,
       secretKey: input.secretKey,
@@ -263,12 +260,12 @@ export class SlackProvider {
     const token = await this.getToken(input.secretKey);
     try {
       const preconfiged = `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n${input.text}`;
-      const blocks = await markdownToBlocks(preconfiged);
+      const text = slackifyMarkdown(preconfiged);
       const res = await axios.post(
         url,
         {
           channel: input.channel,
-          blocks: blocks,
+          text: text,
           ...(input.thread_ts && { thread_ts: input.thread_ts }),
         },
         {
