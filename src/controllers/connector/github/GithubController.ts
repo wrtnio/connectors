@@ -2,7 +2,6 @@ import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { IGithub } from "@wrtn/connector-api/lib/structures/connector/github/IGithub";
-import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
 
@@ -643,6 +642,24 @@ export class GithubController {
     @TypedBody() input: IGithub.IGetPullRequestCommentsInput,
   ): Promise<IGithub.IGetIssueCommentsOutput> {
     return this.githubProvider.getPullRequestComments(input);
+  }
+
+  /**
+   * Create an pull request comment
+   *
+   * @summary Create an pull request comment
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
+  @ApiTags("Github")
+  @core.TypedRoute.Post("repositories/pull-requests/comments")
+  async createPullRequestComments(
+    @TypedBody() input: IGithub.ICreateIssueCommentInput,
+  ): Promise<IGithub.ICreateIssueCommentOutput> {
+    return this.githubProvider.createIssueComments(input);
   }
 
   /**
