@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.255",
+    "version": "0.1.256",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -1997,7 +1997,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.IReadFileGoogleDriveOutput"
+                  "$ref": "#/components/schemas/IGoogleDrive.IGetFileOutput"
                 }
               }
             }
@@ -7530,7 +7530,7 @@
     },
     "/connector/slack/scheduleMessage/text": {
       "post": {
-        "description": "Create a schduled message\n\nBy default,\nit is not much different from sending a message except for specifying a schduled time,\nand requires a channel ID and message content.\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.\n\nMessages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.\nTherefore, be careful in writing messages.\nIf you want to cancel, please refer to the message created through another connector and call the delete connector again.\n\nUsers may be embarrassed if the message you booked is not viewed in the Slack desktop app,\nso although it cannot be viewed in Slack before and after transmission,\nit would be a good idea to let them know that it will actually be transmitted in our service.",
+        "description": "Create a schduled message\n\nBy default,\nit is not much different from sending a message except for specifying a schduled time,\nand requires a channel ID and message content.\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.\n\nMessages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.\nTherefore, be careful in writing messages.\nIf you want to cancel, please refer to the message created through another connector and call the delete connector again.\n\nUsers may be embarrassed if the message you booked is not viewed in the Slack desktop app,\nso although it cannot be viewed before and after transmission,\nit would be a good idea to let them know that it will actually be transmitted in our service.",
         "tags": [
           "Slack"
         ],
@@ -7591,7 +7591,7 @@
     },
     "/connector/slack/postMessage/text/myself": {
       "post": {
-        "summary": "post text message to myself in slack",
+        "summary": "post text message to myself",
         "description": "send message to myself\n\nHere, you can send a message as long as you have the message.\nThis feature identifies who the token's users are inside and sends a message to themselves.\nTherefore, even if you don't specify a channel,\nyou send a message to the `im` channel that corresponds to your own user id.",
         "tags": [
           "Slack"
@@ -7657,7 +7657,7 @@
     },
     "/connector/slack/postMessage/text": {
       "post": {
-        "summary": "post text message in slack",
+        "summary": "post text message",
         "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.",
         "tags": [
           "Slack"
@@ -7719,8 +7719,8 @@
     },
     "/connector/slack/get-users": {
       "post": {
-        "summary": "Look up the list of users in Slack",
-        "description": "Look up the list of users in Slack.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
+        "summary": "Look up the list of users",
+        "description": "Look up the list of users.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
         "tags": [
           "Slack"
         ],
@@ -7782,10 +7782,43 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
+    "/connector/slack/get-channel-link-histories": {
+      "post": {
+        "summary": "get links from channel histories",
+        "description": "get channel links from channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nMessages without links are removed, leaving only messages with links.\nThis is because it only leaves messages with links as connectors to find links in conversations.\nLinks are arranged in links properties.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelHistoryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetChannelLinkHistoryOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
     "/connector/slack/get-channel-histories": {
       "post": {
-        "summary": "get channel histories in slack",
-        "description": "get channel histories in slack\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "summary": "get channel histories",
+        "description": "get channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
         "tags": [
           "Slack"
         ],
@@ -7817,8 +7850,8 @@
     },
     "/connector/slack/get-private-channels": {
       "post": {
-        "summary": "get private channels in slack",
-        "description": "get private channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.\n\nIf you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.",
+        "summary": "get private channels",
+        "description": "get private channels\n\nView channels.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.\n\nIf you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.",
         "tags": [
           "Slack"
         ],
@@ -7853,8 +7886,8 @@
     },
     "/connector/slack/get-public-channels": {
       "post": {
-        "summary": "get public channels in slack",
-        "description": "get public channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `public` channel.\nThe channel ID is required to look up the conversation history within the channel later.\nThe `public` channel is anyone's accessible.\nThis does not require an invitation process, and users can join the channel themselves if necessary.",
+        "summary": "get public channels",
+        "description": "get public channels\n\nView channels.\nThis connector will only look up its own `public` channel.\nThe channel ID is required to look up the conversation history within the channel later.\nThe `public` channel is anyone's accessible.\nThis does not require an invitation process, and users can join the channel themselves if necessary.",
         "tags": [
           "Slack"
         ],
@@ -7889,8 +7922,8 @@
     },
     "/connector/slack/get-im-channels": {
       "post": {
-        "summary": "get im channels in slack",
-        "description": "get im channels in slack\n\nView channels in Slack.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
+        "summary": "get im channels",
+        "description": "get im channels\n\nView channels.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
         "tags": [
           "Slack"
         ],
@@ -9592,6 +9625,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGithub.IGetIssueCommentsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+      }
+    },
+    "/connector/github/repositories/pull-requests/comments": {
+      "post": {
+        "summary": "Create an pull request comment",
+        "description": "Create an pull request comment",
+        "tags": [
+          "Github"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGithub.ICreateIssueCommentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGithub.IssueComment"
                 }
               }
             }
@@ -14383,7 +14449,7 @@
           "hour": {
             "type": "number",
             "title": "Poetry.",
-            "description": "It's a poem."
+            "description": "It's a hour."
           }
         },
         "required": [
@@ -14953,19 +15019,355 @@
         ],
         "title": "Information required to add text to Google Drive file"
       },
-      "IGoogleDrive.IReadFileGoogleDriveOutput": {
+      "IGoogleDrive.IGetFileOutput": {
         "type": "object",
         "properties": {
-          "data": {
+          "userPermission": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "id"
+              },
+              "type": {
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "group"
+                  },
+                  {
+                    "const": "domain"
+                  },
+                  {
+                    "const": "anyone"
+                  }
+                ],
+                "title": "type"
+              },
+              "role": {
+                "oneOf": [
+                  {
+                    "const": "owner"
+                  },
+                  {
+                    "const": "writer"
+                  },
+                  {
+                    "const": "commenter"
+                  },
+                  {
+                    "const": "reader"
+                  },
+                  {
+                    "const": "organizer"
+                  },
+                  {
+                    "const": "fileOrganizer"
+                  }
+                ],
+                "title": "role"
+              },
+              "pendingOwner": {
+                "type": "boolean",
+                "title": "pendingOwner"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "role",
+              "pendingOwner"
+            ],
+            "title": "userPermission"
+          },
+          "fileExtension": {
             "type": "string",
-            "title": "Google drive file data.",
-            "description": "Text data extracted from the drive file."
+            "title": "fileExtension"
+          },
+          "ownerNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "ownerNames"
+          },
+          "lastModifyingUserName": {
+            "type": "string",
+            "title": "lastModifyingUserName"
+          },
+          "editable": {
+            "type": "boolean",
+            "title": "editable"
+          },
+          "writersCanShare": {
+            "type": "boolean",
+            "title": "writersCanShare"
+          },
+          "mimeType": {
+            "type": "string",
+            "title": "mimeType"
+          },
+          "parents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "id: string;"
+                },
+                "isRoot": {
+                  "type": "boolean",
+                  "title": "isRoot"
+                }
+              },
+              "required": [
+                "id",
+                "isRoot"
+              ]
+            },
+            "title": "parents"
+          },
+          "thumbnailLink": {
+            "type": "string",
+            "format": "iri",
+            "title": "thumbnailLink"
+          },
+          "appDataContents": {
+            "type": "boolean",
+            "title": "appDataContents"
+          },
+          "shared": {
+            "type": "boolean",
+            "title": "shared"
+          },
+          "lastModifyingUser": {
+            "$ref": "#/components/schemas/IGoogleDrive.User",
+            "title": "lastModifyingUser"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleDrive.User"
+            },
+            "title": "owners"
+          },
+          "copyable": {
+            "type": "boolean",
+            "title": "copyable"
+          },
+          "alternateLink": {
+            "type": "string",
+            "format": "iri",
+            "title": "alternateLink\nA link to view the file in Google Drive's preview mode."
+          },
+          "embedLink": {
+            "type": "string",
+            "format": "iri",
+            "title": "embedLink\nA link to embed the file in a webpage via an iframe."
+          },
+          "webContentLink": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "webContentLink\nA link to directly access or download the file content."
+          },
+          "fileSize": {
+            "type": "string",
+            "title": "fileSize"
+          },
+          "copyRequiresWriterPermission": {
+            "type": "boolean",
+            "title": "copyRequiresWriterPermission"
+          },
+          "spaces": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "spaces"
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title(filename)"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "viewed": {
+                "type": "boolean",
+                "title": "viewed"
+              },
+              "restricted": {
+                "type": "boolean",
+                "title": "restricted"
+              },
+              "starred": {
+                "type": "boolean",
+                "title": "starred"
+              },
+              "hidden": {
+                "type": "boolean",
+                "title": "hidden"
+              },
+              "trashed": {
+                "type": "boolean",
+                "title": "trashed"
+              }
+            },
+            "required": [
+              "viewed",
+              "restricted",
+              "starred",
+              "hidden",
+              "trashed"
+            ],
+            "title": "labels"
+          },
+          "explicitlyTrashed": {
+            "type": "boolean",
+            "title": "explicitlyTrashed"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "createdDate"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "modifiedDate"
+          },
+          "modifiedByMeDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "modifiedByMeDate"
+          },
+          "lastViewedByMeDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "lastViewedByMeDate"
+          },
+          "markedViewedByMeDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "markedViewedByMeDate"
+          },
+          "quotaBytesUsed": {
+            "type": "string",
+            "title": "quotaBytesUsed"
+          },
+          "version": {
+            "type": "string",
+            "title": "version"
+          },
+          "originalFilename": {
+            "type": "string",
+            "title": "originalFilename"
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "canEdit": {
+                "type": "boolean",
+                "title": "canEdit"
+              },
+              "canCopy": {
+                "type": "boolean",
+                "title": "canCopy"
+              }
+            },
+            "required": [
+              "canEdit",
+              "canCopy"
+            ],
+            "title": "capabilities"
           }
         },
         "required": [
-          "data"
-        ],
-        "title": "Google Drive file search results"
+          "userPermission",
+          "ownerNames",
+          "lastModifyingUserName",
+          "editable",
+          "writersCanShare",
+          "mimeType",
+          "parents",
+          "appDataContents",
+          "shared",
+          "lastModifyingUser",
+          "owners",
+          "copyable",
+          "alternateLink",
+          "embedLink",
+          "copyRequiresWriterPermission",
+          "spaces",
+          "id",
+          "title",
+          "labels",
+          "explicitlyTrashed",
+          "createdDate",
+          "modifiedDate",
+          "modifiedByMeDate",
+          "markedViewedByMeDate",
+          "quotaBytesUsed",
+          "version",
+          "capabilities"
+        ]
+      },
+      "IGoogleDrive.User": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "title": "displayName"
+          },
+          "isAuthenticatedUser": {
+            "type": "boolean",
+            "title": "isAuthenticatedUser"
+          },
+          "permissionId": {
+            "type": "string",
+            "title": "permissionId"
+          },
+          "emailAddress": {
+            "type": "string",
+            "format": "email",
+            "title": "emailAddress"
+          },
+          "picture": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "url"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "picture"
+          }
+        },
+        "required": [
+          "displayName",
+          "isAuthenticatedUser",
+          "permissionId",
+          "emailAddress",
+          "picture"
+        ]
       },
       "ISelectorLlmResponse": {
         "type": "object",
@@ -34421,13 +34823,13 @@
           "secretKey"
         ]
       },
-      "ISlack.IGetChannelHistoryOutput": {
+      "ISlack.IGetChannelLinkHistoryOutput": {
         "type": "object",
         "properties": {
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitISlack.Messagetype"
+              "$ref": "#/components/schemas/StrictOmitISlack.LinkMessagetype"
             },
             "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
@@ -34456,7 +34858,7 @@
           "next_cursor"
         ]
       },
-      "StrictOmitISlack.Messagetype": {
+      "StrictOmitISlack.LinkMessagetype": {
         "type": "object",
         "properties": {
           "user": {
@@ -34507,6 +34909,14 @@
           "ts_date": {
             "type": "string",
             "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri"
+            },
+            "title": "links\n\nLinks from the chat"
           }
         },
         "required": [
@@ -34517,7 +34927,8 @@
           "ts",
           "reply_count",
           "reply_users_count",
-          "ts_date"
+          "ts_date",
+          "links"
         ]
       },
       "PickISlack.IGetUserOutputiddisplay_name": {
@@ -34621,6 +35032,105 @@
         "required": [
           "channel",
           "secretKey"
+        ]
+      },
+      "ISlack.IGetChannelHistoryOutput": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitISlack.Messagetype"
+            },
+            "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+            },
+            "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "messages",
+          "members",
+          "next_cursor"
+        ]
+      },
+      "StrictOmitISlack.Messagetype": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "reply_count": {
+            "type": "number",
+            "title": "reply_count\n\nIndicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+          },
+          "reply_users_count": {
+            "type": "number",
+            "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+          },
+          "ts_date": {
+            "type": "string",
+            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          }
+        },
+        "required": [
+          "user",
+          "link",
+          "text",
+          "channel",
+          "ts",
+          "reply_count",
+          "reply_users_count",
+          "ts_date"
         ]
       },
       "ISlack.PrivateChannel": {
@@ -41987,6 +42497,45 @@
           "secretKey"
         ]
       },
+      "IGithub.ICreateIssueCommentInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "title": "The contents of the comment"
+          },
+          "issue_number": {
+            "type": "integer",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repositories/get-issues",
+              "jmesPath": "fetchedIssues[].{value:number, label:title}"
+            },
+            "title": "issue number to get detailed info"
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "github",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "body",
+          "issue_number",
+          "owner",
+          "repo",
+          "secretKey"
+        ]
+      },
       "IGithub.IReadPullRequestRequestedReviewerOutput": {
         "type": "object",
         "properties": {
@@ -44275,45 +44824,6 @@
           }
         },
         "required": [
-          "issue_number",
-          "owner",
-          "repo",
-          "secretKey"
-        ]
-      },
-      "IGithub.ICreateIssueCommentInput": {
-        "type": "object",
-        "properties": {
-          "body": {
-            "type": "string",
-            "title": "The contents of the comment"
-          },
-          "issue_number": {
-            "type": "integer",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/github/repositories/get-issues",
-              "jmesPath": "fetchedIssues[].{value:number, label:title}"
-            },
-            "title": "issue number to get detailed info"
-          },
-          "owner": {
-            "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
-          },
-          "repo": {
-            "type": "string",
-            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "github",
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "body",
           "issue_number",
           "owner",
           "repo",

@@ -1,0 +1,121 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Airport Infomation",
+    "description": "항공 정보를 조회해요.",
+    "version": "0.1.256",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/airport-information/search": {
+      "post": {
+        "summary": "Search for airport information",
+        "description": "Search for airport information using the entered search term.",
+        "tags": [
+          "Search Airport Information"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for searching for airport information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IAirportInformation.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Search results for airport information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IAirportInformation.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
+        "x-wrtn-standalone": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IAirportInformation.IResponse": {
+        "type": "object",
+        "properties": {
+          "country_name": {
+            "type": "string",
+            "title": "Country",
+            "description": "Country Name"
+          },
+          "city_name": {
+            "type": "string",
+            "title": "City",
+            "description": "City Name"
+          },
+          "airport_name": {
+            "type": "string",
+            "title": "Airport",
+            "description": "Airport Name"
+          },
+          "airport_code": {
+            "type": "string",
+            "title": "Airport Code",
+            "description": "Airport Code"
+          }
+        },
+        "required": [
+          "country_name",
+          "city_name",
+          "airport_name",
+          "airport_code"
+        ],
+        "title": "Airport information search results"
+      },
+      "IAirportInformation.IRequest": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "Search term",
+            "description": "Enter the name of the country or city you want to search for."
+          }
+        },
+        "required": [
+          "keyword"
+        ],
+        "title": "Airport information search conditions"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Search Airport Information"
+    }
+  ],
+  "x-samchon-emended": true
+}

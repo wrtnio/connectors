@@ -1,0 +1,4408 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Jira",
+    "description": "Jira로 프로젝트 이슈를 관리해요.",
+    "version": "0.1.256",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/jira/issues/comments": {
+      "delete": {
+        "summary": "delete comment",
+        "description": "Delete the comment\n\nDelete the comments on the issue.\nIn order to delete the comments on the issue, you need the issue ID or key and the ID of the comment to be deleted.\nPlease be careful because deleted comments will not be able to be viewed again.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/comments/markdown": {
+      "put": {
+        "summary": "modify comment body",
+        "description": "modify comment\n\nModify the comment. You can only modify the body of the comment here.\nTo create comment in issue, Just write markdown string format contents.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.IUpdateCommentByMarkdownInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      },
+      "post": {
+        "summary": "creates a comment on an issue",
+        "description": "Creates a comment on an issue\nHere, user can write the body of the comment you want to write with the ID or key of the issue.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "condition of creation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.ICreateCommentByMarkdownInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.ICreateCommentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/get-comments": {
+      "post": {
+        "summary": "get comments by issue id or key",
+        "description": "Get comments by issue id or key\n\nThis connector uses the issue's key or ID value to query the comments written on the issue.\nComments are also visible when looking up issues,\nbut not all comments inside are visible,\nso user have to use this connector to look up them in pagination.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "issue id or key",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetCommentInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "comments of this issue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetCommentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/get-transitions": {
+      "post": {
+        "summary": "Inquire the transition of an issue",
+        "description": "Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue\nIf the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.\nIn Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.\nWhen designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.\nIn this case, you need to move two edges to turn the backoff issue into 'done'.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetTransitionOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/asignee": {
+      "delete": {
+        "description": "Unassign the assignee from the Jira issue",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIUnAssignInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      },
+      "put": {
+        "summary": "assign the assignee",
+        "description": "Assign the assignee from the Jira issue",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIAssignInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/status": {
+      "put": {
+        "summary": "change issue status",
+        "description": "Change issue status\n\nChanging the status of an issue must be done after inquiring about changeable Transitions from the current issue.\nThis is forced by the person who designed the workflow in the project, so you must change the status in the order set.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIUpdateStatusInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/{id}": {
+      "put": {
+        "summary": "update issue in jira",
+        "description": "Update an issue\n\nYou can modify any element in the field.\nIt can be used to modify the issue type, person in charge, summary, and description.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " issue id to update"
+          }
+        ],
+        "requestBody": {
+          "description": "fields to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIUpdateIssueInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/markdown": {
+      "post": {
+        "summary": "create issue by markdown in jira",
+        "description": "Create an issue by markdown\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "issue information to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IJira.ICreateIssueByMarkdownInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "id and key of created issue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.ICreateIssueOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-issue-detail": {
+      "post": {
+        "summary": "get detailed Issue Information",
+        "description": "Get detailed issue information\n\nProvides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetIssueDetailInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Detailed Issue Information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueDetailOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-issues": {
+      "post": {
+        "summary": "Find The Jira issues.",
+        "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "condition of request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "paginated list of issues visible to the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-projects": {
+      "post": {
+        "summary": "Find the Jira projects.",
+        "description": "Find the Jira projects\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "condition of request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetProjectInputByBasicAuthemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "paginated list of projects visible to the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetProjectOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-issue-labels": {
+      "post": {
+        "summary": "Find issue labels",
+        "description": "Find issue labels",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetIssueLabelInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "paginated list of labels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueLabelOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-issue-types": {
+      "post": {
+        "summary": "Find issue types",
+        "description": "Find issue types\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetIssueTypeInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "issue types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueTypeOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-issue-statuses": {
+      "post": {
+        "summary": "Find issue statuses",
+        "description": "Find issue statuses for searching issue",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetIssueStatusInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "issue statuses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IJira.IGetIssueStatusOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-issue-priorities": {
+      "post": {
+        "summary": "Inquire the priority levels that can be assigned to the issue.",
+        "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "issue priorities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PickIJira.Prioritynameid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/issues/get-users-assignable": {
+      "post": {
+        "summary": "Find assignable users in issue",
+        "description": "Find a person within the issue who can be assigned as assignee.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetIssueAssignableInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "assignable users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/projects/get-users-assignable": {
+      "post": {
+        "summary": "Find assignable users in project",
+        "description": "Find a person within the project who can be assigned as assignee.",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitIGetProjectAssignableInputemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "assignable users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    },
+    "/connector/jira/get-status-categories": {
+      "post": {
+        "summary": "get status categories",
+        "description": "Get status categories",
+        "tags": [
+          "Jira"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IJira.StatusCategory"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "commentId": {
+            "type": "string",
+            "title": "ID of comment to delete"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issueIdOrKey",
+          "commentId",
+          "secretKey"
+        ]
+      },
+      "IJira.IUpdateCommentByMarkdownInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/components/schemas/StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring",
+            "title": "body of comment"
+          },
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "commentId": {
+            "type": "string",
+            "title": "ID of comment to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "body",
+          "issueIdOrKey",
+          "commentId",
+          "secretKey"
+        ]
+      },
+      "StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "type": {
+            "const": "doc"
+          },
+          "content": {
+            "type": "string",
+            "title": "contents of description\n\nYou must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+          }
+        },
+        "required": [
+          "version",
+          "type",
+          "content"
+        ]
+      },
+      "IJira.ICreateCommentOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID of comment"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "IJira.ICreateCommentByMarkdownInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/components/schemas/StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring.o1",
+            "title": "body of comment"
+          },
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "body",
+          "issueIdOrKey",
+          "secretKey"
+        ]
+      },
+      "StrictOmittypedocversion1contentTopLevelBlockNodecontentcontentstring.o1": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "type": {
+            "const": "doc"
+          },
+          "content": {
+            "type": "string",
+            "title": "contents of description\n\nYou must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+          }
+        },
+        "required": [
+          "version",
+          "type",
+          "content"
+        ]
+      },
+      "IJira.IGetCommentOutput": {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor"
+            },
+            "title": "comments"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "comments",
+          "total"
+        ]
+      },
+      "PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id of comment"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "doc"
+              },
+              "version": {
+                "const": 1
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ListNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.HeadingNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.PanelNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.ParagraphNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.TableNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.RuleNode"
+                    }
+                  ]
+                },
+                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
+                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
+              }
+            },
+            "required": [
+              "type",
+              "version",
+              "content"
+            ],
+            "title": "body of comment"
+          },
+          "updated": {
+            "type": "string",
+            "title": "updated time of this comment"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "author of this comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
+          },
+          "updateAuthor": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "who updates this comment"
+          }
+        },
+        "required": [
+          "id",
+          "body",
+          "updated",
+          "author",
+          "created",
+          "updateAuthor"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.BlockquoteNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "blockquote",
+            "title": "blockquote type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ListNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
+                }
+              ]
+            },
+            "minItems": 1,
+            "description": "content must contain array of one or more of the following nodes:\n- paragraph with no marks.\n- bulletList\n- orderedList"
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "Blockquote node\n\nThe blockquote node is a container for quotes.\nblockquote is a top-level block node."
+      },
+      "ListNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "bulletList"
+              },
+              {
+                "const": "orderedList"
+              }
+            ]
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListItemNode_1"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "ListItemNode_1": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "listItem"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "oneOf": [
+                        {
+                          "const": "bulletList"
+                        },
+                        {
+                          "const": "orderedList"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              ]
+            },
+            "title": "content\ncontent must contain at least one of the following nodes:\n- bulletList\n- codeBlock with no marks\n- mediaSingle\n- orderedList\n- paragraph with no marks"
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.CodeBlockNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "codeBlock"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "language": {
+                "type": "string",
+                "x-wrtn-placeholder": "TypeScript",
+                "title": "programming language name"
+              }
+            },
+            "title": "attrs\n\nIf you do not specify a programming language, this property may not exist."
+          },
+          "content": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "text"
+                  },
+                  "text": {
+                    "type": "string",
+                    "title": "text includeing code"
+                  }
+                },
+                "required": [
+                  "type",
+                  "text"
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "code content\n\ncontent takes an array of one or more text nodes without marks."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "code block"
+      },
+      "IJira.MediaSingleNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mediaSingle",
+            "title": "mediaSingle type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "layout": {
+                "oneOf": [
+                  {
+                    "const": "wrap-left"
+                  },
+                  {
+                    "const": "center"
+                  },
+                  {
+                    "const": "wrap-right"
+                  },
+                  {
+                    "const": "wide"
+                  },
+                  {
+                    "const": "full-width"
+                  },
+                  {
+                    "const": "align-start"
+                  },
+                  {
+                    "const": "align-end"
+                  }
+                ],
+                "title": "layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page",
+                "description": "layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page."
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "title": "width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width",
+                "description": "width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width."
+              },
+              "widthType": {
+                "oneOf": [
+                  {
+                    "const": "pixel",
+                    "default": "percentage"
+                  },
+                  {
+                    "const": "percentage",
+                    "default": "percentage"
+                  }
+                ],
+                "title": "widthType [optional] determines what the \"unit\" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage",
+                "description": "widthType [optional] determines what the \"unit\" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage."
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "content": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "media"
+                      },
+                      "attrs": {
+                        "type": "object",
+                        "properties": {
+                          "width": {
+                            "type": "number",
+                            "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                          },
+                          "height": {
+                            "type": "number",
+                            "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                          },
+                          "id": {
+                            "type": "string",
+                            "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                            "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                          },
+                          "type": {
+                            "oneOf": [
+                              {
+                                "const": "link"
+                              },
+                              {
+                                "const": "file"
+                              }
+                            ],
+                            "title": "type\nThere are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                          }
+                        },
+                        "required": [
+                          "type"
+                        ],
+                        "title": "Attributes"
+                      },
+                      "marks": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "const": "link"
+                          },
+                          "attrs": {
+                            "type": "object",
+                            "properties": {
+                              "href": {
+                                "type": "string",
+                                "format": "iri",
+                                "title": "link"
+                              }
+                            },
+                            "required": [
+                              "href"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "attrs"
+                        ],
+                        "title": "marks"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "attrs",
+                      "marks"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "media"
+                      },
+                      "attrs": {
+                        "type": "object",
+                        "properties": {
+                          "width": {
+                            "type": "number",
+                            "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                          },
+                          "height": {
+                            "type": "number",
+                            "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                          },
+                          "id": {
+                            "type": "string",
+                            "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                            "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                          },
+                          "type": {
+                            "const": "external",
+                            "title": "type\nThere are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "iri",
+                            "title": "url"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "url"
+                        ],
+                        "title": "Attributes"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "attrs"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "additionalItems": false,
+            "title": "media\n\nonly single of media node type"
+          }
+        },
+        "required": [
+          "type",
+          "attrs",
+          "content"
+        ],
+        "description": "The mediaSingle node is a container for one media item.\nThis node enables the display of the content in full,\nin contrast to a mediaGroup that is intended for a list of attachments.\nA common use case is to display an image,\nbut it can also be used for videos,\nor other types of content usually renderable by a"
+      },
+      "IJira.ParagraphContentWithoutNoMarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "paragraph",
+            "title": "paragraph type"
+          },
+          "attrs": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.InlineCardNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
+                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
+                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardNodemarks",
+                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
+                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
+                }
+              }
+            },
+            "title": "content\n\nIf you want to make a new line, there will be an empty array."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "paragraph type"
+      },
+      "Recordstringnever": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T"
+      },
+      "OmitIJira.EmojiNodemarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "emoji",
+            "title": "emoji type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Emoji service ID of the emoji\n\nFor custom emojis by atlasian or user, you may have an ID."
+              },
+              "shortName": {
+                "type": "string",
+                "pattern": "^(:(.*):)$",
+                "title": "icon name\n\nA string exists between a colon and a colon, meaning a name for representing the emoji."
+              },
+              "text": {
+                "type": "string",
+                "title": "emoji icon"
+              }
+            },
+            "required": [
+              "shortName"
+            ],
+            "title": "attributes of emoji node"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OmitIJira.HardBreakNodemarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "hardBreak",
+            "title": "hardBreak type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "const": "\n",
+                "title": "text\n\nIt can be only `\\n` text for braking."
+              }
+            },
+            "title": "attributes of hard break node"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OmitIJira.InlineCardNodemarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "inlineCard",
+            "title": "inline card type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "url\nIndicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
+              },
+              "data": {
+                "$ref": "#/components/schemas/object",
+                "title": "representation of the link"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "attributes of inline card node"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "object": {
+        "type": "object",
+        "properties": {}
+      },
+      "OmitIJira.MentionNodemarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mention",
+            "title": "mention type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "id\n\nadd any string like as uuid"
+              },
+              "text": {
+                "type": "string",
+                "pattern": "^(@(.*))",
+                "title": "Who is mentioned\n\nIt means a string that connects @ and the user's name"
+              },
+              "accessLevel": {
+                "type": "string",
+                "title": "accessLevel"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "content of this mention content"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OmitIJira.TextContentmarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "title": "text type"
+          },
+          "text": {
+            "type": "string",
+            "title": "content of this text content"
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "IJira.HeadingNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "heading",
+            "title": "heading type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MentionNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.TextContent"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/IJira.TextContent"
+                }
+              }
+            },
+            "title": "content\n\nHeading node's content can be combined with only inline nodes."
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "oneOf": [
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": 3
+                  },
+                  {
+                    "const": 4
+                  },
+                  {
+                    "const": 5
+                  },
+                  {
+                    "const": 6
+                  }
+                ],
+                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
+                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
+              }
+            },
+            "required": [
+              "level"
+            ],
+            "title": "attributes of heading node"
+          }
+        },
+        "required": [
+          "type",
+          "content",
+          "attrs"
+        ],
+        "title": "heading node\n\nIt means h1, h2, h3, h4, h5, h6 node."
+      },
+      "IJira.EmojiNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "emoji",
+            "title": "emoji type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Emoji service ID of the emoji\n\nFor custom emojis by atlasian or user, you may have an ID."
+              },
+              "shortName": {
+                "type": "string",
+                "pattern": "^(:(.*):)$",
+                "title": "icon name\n\nA string exists between a colon and a colon, meaning a name for representing the emoji."
+              },
+              "text": {
+                "type": "string",
+                "title": "emoji icon"
+              }
+            },
+            "required": [
+              "shortName"
+            ],
+            "title": "attributes of emoji node"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "title": "emoji node"
+      },
+      "IJira.HardBreakNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "hardBreak",
+            "title": "hardBreak type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "const": "\n",
+                "title": "text\n\nIt can be only `\\n` text for braking."
+              }
+            },
+            "title": "attributes of hard break node"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "hard break node"
+      },
+      "IJira.InlineCardNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "inlineCard",
+            "title": "inline card type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "url\nIndicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
+              },
+              "data": {
+                "$ref": "#/components/schemas/object",
+                "title": "representation of the link"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "attributes of inline card node"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "title": "inline card\n\nThe inlineCard node is an Atlassian link card with a type icon and content description derived from the link."
+      },
+      "IJira.MentionNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mention",
+            "title": "mention type"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "id\n\nadd any string like as uuid"
+              },
+              "text": {
+                "type": "string",
+                "pattern": "^(@(.*))",
+                "title": "Who is mentioned\n\nIt means a string that connects @ and the user's name"
+              },
+              "accessLevel": {
+                "type": "string",
+                "title": "accessLevel"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "content of this mention content"
+          }
+        },
+        "required": [
+          "type",
+          "attrs"
+        ],
+        "title": "content with mention"
+      },
+      "IJira.TextContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "title": "text type"
+          },
+          "text": {
+            "type": "string",
+            "title": "content of this text content"
+          },
+          "marks": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "backgroundColor"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "color": {
+                          "type": "string",
+                          "pattern": "^#([0-9A-Fa-f]{6})$",
+                          "title": "color\n\nColor can be expressed using symbols('#') and RGB values."
+                        }
+                      },
+                      "required": [
+                        "color"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "code"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "em"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "strike"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "strong"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "underline"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "link"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "href": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "link"
+                        }
+                      },
+                      "required": [
+                        "href"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "subsup"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "oneOf": [
+                            {
+                              "const": "sub"
+                            },
+                            {
+                              "const": "sup"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "textColor"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "color": {
+                          "type": "string",
+                          "pattern": "^#([0-9A-Fa-f]{6})$",
+                          "title": "color\n\nColor can be expressed using symbols('#') and RGB values."
+                        }
+                      },
+                      "required": [
+                        "color"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                }
+              ]
+            },
+            "title": "marks\n\nIt means the emphasis of the markdown format, and it means that there is a string between the backticks."
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "title": "content with only text"
+      },
+      "IJira.PanelNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "panel"
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "panelType": {
+                "oneOf": [
+                  {
+                    "const": "info"
+                  },
+                  {
+                    "const": "error"
+                  },
+                  {
+                    "const": "note"
+                  },
+                  {
+                    "const": "warning"
+                  },
+                  {
+                    "const": "success"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "panelType"
+            ]
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ListNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HeadingNodeWithoutMarks"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "type",
+          "attrs",
+          "content"
+        ],
+        "description": "The panel node is a container that highlights content."
+      },
+      "IJira.HeadingNodeWithoutMarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "heading",
+            "title": "heading type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.InlineCardNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
+                },
+                {
+                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
+                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
+                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardNodemarks",
+                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
+                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
+                }
+              }
+            },
+            "title": "content\n\nHeading node's content can be combined with only inline nodes.\nA property called marks is not available here."
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "oneOf": [
+                  {
+                    "const": 1,
+                    "title": "1",
+                    "description": "level"
+                  },
+                  {
+                    "const": 2,
+                    "title": "2",
+                    "description": "level"
+                  },
+                  {
+                    "const": 3,
+                    "title": "3",
+                    "description": "level"
+                  },
+                  {
+                    "const": 4,
+                    "title": "4",
+                    "description": "level"
+                  },
+                  {
+                    "const": 5,
+                    "title": "5",
+                    "description": "level"
+                  },
+                  {
+                    "const": 6,
+                    "title": "6",
+                    "description": "level"
+                  }
+                ],
+                "title": "level\n\nlevel represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
+              }
+            },
+            "required": [
+              "level"
+            ],
+            "title": "attributes of heading node"
+          }
+        },
+        "required": [
+          "type",
+          "content",
+          "attrs"
+        ],
+        "title": "heading node without `marks` property"
+      },
+      "IJira.ParagraphNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "paragraph",
+            "title": "paragraph type"
+          },
+          "attrs": {
+            "$ref": "#/components/schemas/Recordstringnever"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MentionNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.TextContent"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/IJira.TextContent"
+                }
+              }
+            },
+            "title": "content\n\nIf you want to make a new line, there will be an empty array."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "paragraph type\nThe paragraph node is a container for a block of formatted text delineated by a carriage return. It's the equivalent of the HTML <p> tag."
+      },
+      "IJira.TableNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "table"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.TableRowNode"
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "isNumberColumnEnabled": {
+                "type": "boolean",
+                "default": true,
+                "title": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows",
+                "description": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows."
+              },
+              "width": {
+                "type": "number",
+                "minimum": 0,
+                "title": "width sets the length (in pixels) of the table on the page",
+                "description": "width sets the length (in pixels) of the table on the page.\nThis value is independent of the table's column width, this allows control of the table's overflow.\nIt supersedes the existing layout attribute and will be used instead of it at runtime.\nIf width is not provided the editor will convert layout to pixels (default=760, wide=960 and full-width=1800).\nAlthough no minimum and maximum width is enforced it is recommended to follow these guidelines:\n\n- Minimum width\n\n- 1 column table = 48px\n- 2 column table = 96px\n- 3 column table = 144px\n- > 3 column table = 144px\n- Maximum width\n- 1800"
+              },
+              "layout": {
+                "oneOf": [
+                  {
+                    "const": "center"
+                  },
+                  {
+                    "const": "align-start"
+                  }
+                ],
+                "title": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported",
+                "description": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.\nThe layout values are mapped as follows:\n- 'center' : will align the table to the center of page, its width can be larger than the line length\n- 'align-start' : will align the table left of the line length, its width cannot be larger than the line length"
+              },
+              "displayMode": {
+                "oneOf": [
+                  {
+                    "const": "default"
+                  },
+                  {
+                    "const": "fixed"
+                  }
+                ],
+                "description": "displayMode attribute controls how tables adapt to narrow screens:\nWhen displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.\nWhen displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size."
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "description": "The table node provides a container for the nodes that define a table.\n\nNote: only supported on web and desktop. Mobile rendering support for tables is not available."
+      },
+      "IJira.TableRowNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "tableRow"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.TableHeaderNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.TableCellNode"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "tableHeader": "#/components/schemas/IJira.TableHeaderNode",
+                  "tableCell": "#/components/schemas/IJira.TableCellNode"
+                }
+              }
+            },
+            "title": "content takes an array of one or more tableHeader or tableCell nodes",
+            "description": "content takes an array of one or more tableHeader or tableCell nodes."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ],
+        "description": "The tableRow node defines rows within a table and is a container for table heading and table cell nodes.\ntableRow is a child block node of the table node."
+      },
+      "IJira.TableHeaderNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "tableHeader"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                },
+                {
+                  "$ref": "#/components/schemas/ListNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HeadingNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.PanelNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.RuleNode"
+                }
+              ]
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "background": {
+                "type": "string",
+                "description": "Short or long hex color code or HTML color name"
+              },
+              "colspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "colspan\ncolspan defines the number of columns the cell spans."
+              },
+              "colwidth": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
+              },
+              "rowspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "rowspan\nrowspan defines the number of rows a cell spans."
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.MediaGroupNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mediaGroup"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "media"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number",
+                          "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "height": {
+                          "type": "number",
+                          "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                        },
+                        "type": {
+                          "oneOf": [
+                            {
+                              "const": "link"
+                            },
+                            {
+                              "const": "file"
+                            }
+                          ],
+                          "title": "type\nThere are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "title": "Attributes"
+                    },
+                    "marks": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "link"
+                        },
+                        "attrs": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri",
+                              "title": "link"
+                            }
+                          },
+                          "required": [
+                            "href"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "attrs"
+                      ],
+                      "title": "marks"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs",
+                    "marks"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "media"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number",
+                          "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "height": {
+                          "type": "number",
+                          "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                        },
+                        "type": {
+                          "const": "external",
+                          "title": "type\nThere are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                        },
+                        "url": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "url"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "url"
+                      ],
+                      "title": "Attributes"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                }
+              ]
+            },
+            "title": "content\ncontent must contain one or more media nodes."
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "IJira.RuleNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rule"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "The rule node represents a divider, it is equivalent to the HTML <hr/> tag."
+      },
+      "IJira.TableCellNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "tableCell"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                },
+                {
+                  "$ref": "#/components/schemas/ListNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HeadingNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.PanelNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.ParagraphNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.RuleNode"
+                }
+              ]
+            }
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "background": {
+                "type": "string",
+                "description": "Short or long hex color code or HTML color name"
+              },
+              "colspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "colspan\ncolspan defines the number of columns the cell spans."
+              },
+              "colwidth": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
+              },
+              "rowspan": {
+                "type": "integer",
+                "default": 1,
+                "title": "rowspan\nrowspan defines the number of rows a cell spans."
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "content"
+        ]
+      },
+      "PickIJira.UseractiveaccountIddisplayName": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          },
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          }
+        },
+        "required": [
+          "active",
+          "accountId",
+          "displayName"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "StrictOmitIGetCommentInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issueIdOrKey",
+          "secretKey"
+        ]
+      },
+      "IJira.IGetTransitionOutput": {
+        "type": "object",
+        "properties": {
+          "transitions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "id of transition"
+                },
+                "to": {
+                  "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategory",
+                  "title": "to\n\nStatusDetail.\nDetails of the issue status after the transition."
+                }
+              },
+              "required": [
+                "id",
+                "to"
+              ]
+            },
+            "title": "transition list of this jira issue"
+          }
+        },
+        "required": [
+          "transitions"
+        ]
+      },
+      "PickIJira.StatusdescriptionnameidstatusCategory": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "status description"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "해야 할 일",
+            "title": "status name"
+          },
+          "id": {
+            "type": "string",
+            "title": "status id"
+          },
+          "statusCategory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "title": "category id"
+              },
+              "key": {
+                "type": "string",
+                "x-wrtn-placeholder": "new",
+                "title": "category key"
+              }
+            },
+            "required": [
+              "id",
+              "key"
+            ],
+            "title": "status category"
+          }
+        },
+        "required": [
+          "description",
+          "name",
+          "id",
+          "statusCategory"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issueIdOrKey",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIUnAssignInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "issueId": {
+            "type": "string",
+            "title": "ID of issue"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issueId",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIAssignInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "asigneeId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/issues/get-users-assignable",
+                  "jmesPath": "[].{value:accountId, label:displayName}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/project/get-users-assignable",
+                  "jmesPath": "[].{value:accountId, label:displayName}"
+                }
+              }
+            ],
+            "title": "accountId of the user you want to designate as the person in charge\n\nIf you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.\nThe person in charge is inevitably one of Jira's users."
+          },
+          "issueId": {
+            "type": "string",
+            "title": "ID of issue"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "asigneeId",
+          "issueId",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIUpdateStatusInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "transitionId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/issue-get-transitions",
+              "jmesPath": "transitions[].{value:id, label: to.name}"
+            },
+            "title": "ID of transition"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issueIdOrKey",
+          "transitionId",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIUpdateIssueInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "$ref": "#/components/schemas/MyPartial__type",
+            "title": "fields to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "fields",
+          "secretKey"
+        ]
+      },
+      "MyPartial__type": {
+        "type": "object",
+        "properties": {
+          "assignee": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/issues/get-users-assignable",
+                      "jmesPath": "[].{value:accountId, label:displayName}"
+                    }
+                  },
+                  {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/project/get-users-assignable",
+                      "jmesPath": "[].{value:accountId, label:displayName}"
+                    }
+                  }
+                ],
+                "title": "accountId of the user you want to designate as the person in charge\n\nIf you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.\nThe person in charge is inevitably one of Jira's users."
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "Specify a representative at the same time as you create"
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "doc",
+                "title": "type of description\n\nAllow doc type only Now"
+              },
+              "version": {
+                "const": 1,
+                "title": "version"
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ListNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.HeadingNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.PanelNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.ParagraphNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.TableNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.RuleNode"
+                    }
+                  ]
+                },
+                "title": "contents of description\n\nYou must use node types that are configured with TopLevelBlockNodes.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+              }
+            },
+            "required": [
+              "type",
+              "version",
+              "content"
+            ],
+            "title": "description\n\nThe content of the Jira issue consists of a combination of various contents."
+          },
+          "duedate": {
+            "type": "string",
+            "format": "date",
+            "title": "due date\n\ndate format type.\nIndicates the schedule you want to be closed.Of course, it will be good to create a date or today."
+          },
+          "issuetype": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "0": {
+                  "type": "string",
+                  "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/jira/get-issue-types",
+                    "jmesPath": "issuetypes[].{value:id, label:name}"
+                  }
+                },
+                "title": "id of issue type\n\nThe ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "issuetype"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels\nYou can add labels to make it easier to read issues.\nLabels are simply strings, which can be added immediately without having to look up using other connectors."
+          },
+          "parent": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                },
+                "title": "key of parent issue\n\nSometimes an issue can be a sub-issue of another issue.\nIn this case, you need to specify the key for the parent issue.\nIf you want to know the key, use an issue list query or another connector to look up the details of the issue."
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "title": "parent of this issue"
+          },
+          "priority": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "0": {
+                  "type": "string",
+                  "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/jira/get-issue-priorities",
+                    "jmesPath": "[].{value:id, label:name}"
+                  }
+                },
+                "title": "id of proirity\n\nYou can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "priority"
+          },
+          "project": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "0": {
+                      "type": "string",
+                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                      "x-wrtn-prerequisite": {
+                        "method": "post",
+                        "path": "/connector/jira/get-projects",
+                        "jmesPath": "[].{value:id, label:name}"
+                      }
+                    },
+                    "title": "id of project"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-project",
+                      "jmesPath": "[].{value:key, label:name}"
+                    },
+                    "title": "key of project"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            ],
+            "title": "project\n\nIssues must inevitably belong to the project.\nAt this point, the project can be specified by receiving an ID or key.\nIf you do not know the key or ID of the project, you should first look up the project."
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary\n\nMeaning the title of the issue.\nMake sure you write a sentence that best represents this issue."
+          }
+        }
+      },
+      "IJira.ICreateIssueOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID of the issue that was created just now"
+          },
+          "key": {
+            "type": "string",
+            "title": "Key of the issue that was created just now"
+          }
+        },
+        "required": [
+          "id",
+          "key"
+        ],
+        "title": "output of creation of issue"
+      },
+      "IJira.ICreateIssueByMarkdownInput": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "properties": {
+              "assignee": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/issues/get-users-assignable",
+                          "jmesPath": "[].{value:accountId, label:displayName}"
+                        }
+                      },
+                      {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/project/get-users-assignable",
+                          "jmesPath": "[].{value:accountId, label:displayName}"
+                        }
+                      }
+                    ],
+                    "title": "accountId of the user you want to designate as the person in charge\n\nIf you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.\nThe person in charge is inevitably one of Jira's users."
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "Specify a representative at the same time as you create"
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "doc",
+                    "title": "type of description\n\nAllow doc type only Now"
+                  },
+                  "version": {
+                    "const": 1,
+                    "title": "version"
+                  },
+                  "content": {
+                    "type": "string",
+                    "title": "contents of description\n\nYou must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+                  }
+                },
+                "required": [
+                  "type",
+                  "version",
+                  "content"
+                ],
+                "title": "description\n\nThe content of the Jira issue consists of a combination of various contents."
+              },
+              "duedate": {
+                "type": "string",
+                "format": "date",
+                "title": "due date\n\ndate format type.\nIndicates the schedule you want to be closed.Of course, it will be good to create a date or today."
+              },
+              "issuetype": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "0": {
+                      "type": "string",
+                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                      "x-wrtn-prerequisite": {
+                        "method": "post",
+                        "path": "/connector/jira/get-issue-types",
+                        "jmesPath": "issuetypes[].{value:id, label:name}"
+                      }
+                    },
+                    "title": "id of issue type\n\nThe ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "issuetype"
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "labels\nYou can add labels to make it easier to read issues.\nLabels are simply strings, which can be added immediately without having to look up using other connectors."
+              },
+              "parent": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issues",
+                      "jmesPath": "issues[].{value:key, label:key}"
+                    },
+                    "title": "key of parent issue\n\nSometimes an issue can be a sub-issue of another issue.\nIn this case, you need to specify the key for the parent issue.\nIf you want to know the key, use an issue list query or another connector to look up the details of the issue."
+                  }
+                },
+                "required": [
+                  "key"
+                ],
+                "title": "parent of this issue"
+              },
+              "priority": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "0": {
+                      "type": "string",
+                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                      "x-wrtn-prerequisite": {
+                        "method": "post",
+                        "path": "/connector/jira/get-issue-priorities",
+                        "jmesPath": "[].{value:id, label:name}"
+                      }
+                    },
+                    "title": "id of proirity\n\nYou can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "priority"
+              },
+              "project": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "0": {
+                          "type": "string",
+                          "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                          "x-wrtn-prerequisite": {
+                            "method": "post",
+                            "path": "/connector/jira/get-projects",
+                            "jmesPath": "[].{value:id, label:name}"
+                          }
+                        },
+                        "title": "id of project"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-project",
+                          "jmesPath": "[].{value:key, label:name}"
+                        },
+                        "title": "key of project"
+                      }
+                    },
+                    "required": [
+                      "key"
+                    ]
+                  }
+                ],
+                "title": "project\n\nIssues must inevitably belong to the project.\nAt this point, the project can be specified by receiving an ID or key.\nIf you do not know the key or ID of the project, you should first look up the project."
+              },
+              "summary": {
+                "type": "string",
+                "title": "summary\n\nMeaning the title of the issue.\nMake sure you write a sentence that best represents this issue."
+              }
+            },
+            "required": [
+              "issuetype",
+              "project",
+              "summary"
+            ],
+            "title": "fields\n\nIndicates the fields that you need to fill in when you want to create an issue."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "fields",
+          "secretKey"
+        ]
+      },
+      "IJira.IGetIssueDetailOutput": {
+        "type": "object",
+        "properties": {
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels attached to the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/IJira.DetailedIssueField",
+            "title": "Details of the issue"
+          },
+          "id": {
+            "type": "string",
+            "title": "The ID of the issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the issue"
+          }
+        },
+        "required": [
+          "fields",
+          "id",
+          "key"
+        ]
+      },
+      "IJira.DetailedIssueField": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "object",
+            "properties": {
+              "maxResults": {
+                "type": "number",
+                "title": "Number of comments viewed at one time"
+              },
+              "total": {
+                "type": "number",
+                "title": "Total count of comments"
+              },
+              "startAt": {
+                "type": "number",
+                "title": "page offset",
+                "description": "The index of the first item to return in a page of results (page offset)."
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IJira.Comment"
+                },
+                "title": "list of comments"
+              }
+            },
+            "required": [
+              "maxResults",
+              "total",
+              "startAt",
+              "comments"
+            ],
+            "title": "comment infomation"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ListNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.HeadingNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.PanelNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.ParagraphNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.TableNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IJira.RuleNode"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            ]
+          },
+          "statuscategorychangedate": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "statuscategorychangedate\n\nThe date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
+          },
+          "reporter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "reporter"
+          },
+          "creator": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "creator"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "assignee"
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary"
+          },
+          "issuetype": {
+            "$ref": "#/components/schemas/PickIJira.IssueTypenameid",
+            "title": "issue type"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "title": "status"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/PickIJira.Prioritynameid",
+            "title": "priority"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/IJira.Parent",
+            "title": "parent of this issue"
+          }
+        },
+        "required": [
+          "comment",
+          "description",
+          "status",
+          "priority"
+        ]
+      },
+      "IJira.Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id of comment"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "author of this comment"
+          },
+          "updateAuthor": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "who updates this comment"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "doc"
+              },
+              "version": {
+                "const": 1
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ListNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.HeadingNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.PanelNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.ParagraphNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.TableNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
+                    },
+                    {
+                      "$ref": "#/components/schemas/IJira.RuleNode"
+                    }
+                  ]
+                },
+                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
+                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
+              }
+            },
+            "required": [
+              "type",
+              "version",
+              "content"
+            ],
+            "title": "body of comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
+          },
+          "updated": {
+            "type": "string",
+            "title": "updated time of this comment"
+          }
+        },
+        "required": [
+          "id",
+          "author",
+          "updateAuthor",
+          "body",
+          "created",
+          "updated"
+        ]
+      },
+      "IJira.User": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          }
+        },
+        "required": [
+          "accountId",
+          "displayName",
+          "active"
+        ]
+      },
+      "PickIJira.IssueTypenameid": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "스토리",
+            "title": "issue type name\n\nIt may be name, bug, story or etc."
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "status description"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "해야 할 일",
+            "title": "status name"
+          },
+          "id": {
+            "type": "string",
+            "title": "status id"
+          },
+          "statusCategory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "title": "category id"
+              },
+              "key": {
+                "type": "string",
+                "x-wrtn-placeholder": "new",
+                "title": "category key"
+              }
+            },
+            "required": [
+              "id",
+              "key"
+            ],
+            "title": "status category"
+          },
+          "untranslatedName": {
+            "type": "string",
+            "title": "untranslated name"
+          }
+        },
+        "required": [
+          "description",
+          "name",
+          "id",
+          "statusCategory"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "PickIJira.Prioritynameid": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "priority name\n\nIt may be Low, Medium, High."
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "id"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.Parent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "The ID of the parent issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the parent issue"
+          },
+          "fields": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "string",
+                "title": "summary"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "fields"
+        ]
+      },
+      "StrictOmitIGetIssueDetailInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "issueIdOrKey": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:id, label:key}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issues",
+                  "jmesPath": "issues[].{value:key, label:key}"
+                }
+              }
+            ],
+            "title": "issue id or key\n\nThis connector doesn't matter the key or ID of the issue.\nIf you hand over one of them, you can use it to look up."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "issueIdOrKey",
+          "secretKey"
+        ]
+      },
+      "IJira.IGetIssueOutput": {
+        "type": "object",
+        "properties": {
+          "issues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickIJira.Issuekeyidfields"
+            },
+            "title": "Jira issue list"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "issues",
+          "total"
+        ]
+      },
+      "PickIJira.Issuekeyidfields": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "The key of the issue"
+          },
+          "id": {
+            "type": "string",
+            "title": "The ID of the issue"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/IJira.IssueField",
+            "title": "fields"
+          }
+        },
+        "required": [
+          "key",
+          "id",
+          "fields"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "IJira.IssueField": {
+        "type": "object",
+        "properties": {
+          "statuscategorychangedate": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "statuscategorychangedate\n\nThe date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
+          },
+          "reporter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "reporter"
+          },
+          "creator": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "creator"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "assignee"
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary"
+          },
+          "issuetype": {
+            "$ref": "#/components/schemas/PickIJira.IssueTypenameid",
+            "title": "issue type"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "title": "status"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/PickIJira.Prioritynameid",
+            "title": "priority"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/IJira.Parent",
+            "title": "parent of this issue"
+          }
+        },
+        "required": [
+          "status",
+          "priority"
+        ]
+      },
+      "StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "status": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-statuses",
+              "jmesPath": "[].{value:id, label:untranslatedName}"
+            },
+            "title": "status"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "project_key": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project"
+          },
+          "issuetype": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-issue-types",
+              "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
+            },
+            "title": "issue type"
+          },
+          "assignee": {
+            "type": "string",
+            "title": "name of assignee"
+          },
+          "reporter": {
+            "type": "string",
+            "title": "name of reporter"
+          },
+          "created_start_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Search for issues created after this date"
+          },
+          "created_end_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Search for issues created after this date"
+          },
+          "priority": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-issue-priorities",
+              "jmesPath": "[].{value:name, label:name}"
+            },
+            "title": "priority name\n\nIf you want to search based on priority, deliver the name of the priority.\nThere are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nAlthough it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.\nIt also exists as our connector, so use it if necessary."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "label titles\n\nComplex searches are possible using various labels."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "project_key",
+          "secretKey"
+        ]
+      },
+      "IJira.IGetProjectOutput": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.Project"
+            },
+            "title": "Jira project list"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "values",
+          "total"
+        ],
+        "title": "output of getting Jira projects"
+      },
+      "IJira.Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "id"
+          },
+          "key": {
+            "type": "string",
+            "title": "key of project\n\nKey properties used to query the inside of a project."
+          },
+          "name": {
+            "type": "string",
+            "title": "name of this project"
+          },
+          "projectCategory": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "title": "description"
+              },
+              "id": {
+                "type": "string",
+                "title": "id"
+              },
+              "name": {
+                "type": "string",
+                "title": "name"
+              }
+            },
+            "required": [
+              "description",
+              "id",
+              "name"
+            ],
+            "title": "project category info"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "name"
+        ]
+      },
+      "StrictOmitIGetProjectInputByBasicAuthemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "orderBy": {
+            "oneOf": [
+              {
+                "const": "issueCount",
+                "title": "issueCount",
+                "description": "Sorts by the total number of issues in each project."
+              },
+              {
+                "const": "lastIssueUpdatedTime",
+                "title": "lastIssueUpdatedTime",
+                "description": "Sorts by the last issue update time."
+              },
+              {
+                "const": "name",
+                "title": "name",
+                "description": "Sorts by project name."
+              }
+            ],
+            "title": "order by",
+            "description": "Order the results by a field.\n\n- issueCount : Sorts by the total number of issues in each project.\n- lastIssueUpdatedTime : Sorts by the last issue update time.\n- name : Sorts by project name."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IJira.IGetIssueLabelOutput": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "label list"
+          },
+          "isLast": {
+            "type": "boolean",
+            "title": "Wheather is last page"
+          },
+          "total": {
+            "type": "integer",
+            "title": "total count"
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          }
+        },
+        "required": [
+          "values",
+          "total"
+        ]
+      },
+      "StrictOmitIGetIssueLabelInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IJira.IGetIssueTypeOutput": {
+        "type": "object",
+        "properties": {
+          "issuetypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IJira.IssueType"
+            },
+            "title": "issue types in this projects"
+          }
+        },
+        "required": [
+          "issuetypes"
+        ]
+      },
+      "IJira.IssueType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+          },
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "스토리",
+            "title": "issue type name\n\nIt may be name, bug, story or etc."
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "subtask": {
+            "type": "boolean",
+            "title": "whether is for substask issue type"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "subtask"
+        ]
+      },
+      "StrictOmitIGetIssueTypeInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connectors/jira/get-projects",
+                "jmesPath": "values[].{value:id,label:name}"
+              }
+            },
+            "title": "id of project"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "projectId",
+          "secretKey"
+        ]
+      },
+      "IJira.IGetIssueStatusOutput": {
+        "type": "object",
+        "properties": {
+          "statuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickStatusnameiduntranslatedNameprojectIdstringundefined"
+            }
+          }
+        },
+        "required": [
+          "statuses"
+        ]
+      },
+      "PickStatusnameiduntranslatedNameprojectIdstringundefined": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "해야 할 일",
+            "title": "status name"
+          },
+          "id": {
+            "type": "string",
+            "title": "status id"
+          },
+          "untranslatedName": {
+            "type": "string",
+            "title": "untranslated name"
+          },
+          "projectId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "StrictOmitIGetIssueStatusInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "0": {
+              "type": "string",
+              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connectors/jira/get-projects",
+                "jmesPath": "values[].{value:id,label:name}"
+              }
+            },
+            "title": "id of project\n\nIf the status does not have the project ID,\nit means this status is beyond the scope of the project and can be selected by the entire team.\nIt can also be the default status created from the beginning by Jira."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGetIssueAssignableInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "project": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
+          },
+          "issueKey": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connectors/jira/get-issues",
+              "jmesPath": "issues[].{value:key, label:key}"
+            },
+            "title": "key of issue\n\nIt refers to the key of the issue to search for the user to be assigned."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "project",
+          "issueKey",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGetProjectAssignableInputemaildomaintokenIBasicSecret": {
+        "type": "object",
+        "properties": {
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "startAt": {
+            "type": "integer",
+            "default": 0,
+            "title": "page offset",
+            "description": "The index of the first item to return in a page of results (page offset)."
+          },
+          "project_key": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "project_key",
+          "secretKey"
+        ]
+      },
+      "IJira.StatusCategory": {
+        "type": "object",
+        "properties": {
+          "colorName": {
+            "type": "string",
+            "title": "name of color"
+          },
+          "id": {
+            "type": "number",
+            "title": "The ID of status category"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of status category"
+          },
+          "name": {
+            "type": "string",
+            "title": "name of the status category"
+          }
+        },
+        "required": [
+          "colorName",
+          "id",
+          "key",
+          "name"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Jira"
+    }
+  ],
+  "x-samchon-emended": true
+}

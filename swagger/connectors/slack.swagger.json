@@ -1,0 +1,1756 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Slack",
+    "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
+    "version": "0.1.256",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/slack/conversation/mark": {
+      "post": {
+        "summary": "Marks a specific message in a Slack channel as read",
+        "description": "Marks a specific message in a Slack channel as read\n\nYou need to know both the channel ID and the ts value of the message.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IMarkInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/scheduleMessage/text": {
+      "post": {
+        "description": "Create a schduled message\n\nBy default,\nit is not much different from sending a message except for specifying a schduled time,\nand requires a channel ID and message content.\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message.\n\nMessages booked through this feature are not visible in the Slack desktop app and can only be canceled through the API.\nTherefore, be careful in writing messages.\nIf you want to cancel, please refer to the message created through another connector and call the delete connector again.\n\nUsers may be embarrassed if the message you booked is not viewed in the Slack desktop app,\nso although it cannot be viewed before and after transmission,\nit would be a good idea to let them know that it will actually be transmitted in our service.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.ISCheduleMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "scheduled message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.ScheduledMessagepost_at"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/scheduleMessage": {
+      "delete": {
+        "summary": "Delete the scheduled message",
+        "description": "Delete the scheduled message\n\nTo clear a scheduled message,\nyou must get the exact id of that message, so you must first use the scheduled message lookup connector.\nWhen using this connector,\nthe ID of the channel is also required, which can be retrieved from the message object by querying the channel or by querying the scheduled message.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IDeleteSCheduleMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/postMessage/text/myself": {
+      "post": {
+        "summary": "post text message to myself",
+        "description": "send message to myself\n\nHere, you can send a message as long as you have the message.\nThis feature identifies who the token's users are inside and sends a message to themselves.\nTherefore, even if you don't specify a channel,\nyou send a message to the `im` channel that corresponds to your own user id.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IPostMessageToMyselfInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "created message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/postMessage/reply": {
+      "post": {
+        "summary": "post reply message to thread",
+        "description": "send reply message to thread\n\nCreates a reply.\nTo reply, you must first look up the thread.\nYou can look up the thread and pass on the 'ts' value of that thread.\nYou still need the channel's ID here.\nThe channel's ID will start with a C or D and be an unknown string,\nnot a natural language name recognized by the user.\nTherefore, if you don't know the channel ID, you should also look up the channel.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IPostMessageReplyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "created message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/postMessage/text": {
+      "post": {
+        "summary": "post text message",
+        "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IPostMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "created message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-scheduled-messages": {
+      "post": {
+        "description": "Get a list of scheduled messages\n\nLook up the messages you booked.\nYou can use `post_at` and `post_at_date` to find out when the message will be sent.\nIf you want to clear the message, use the `id` value in the scheduled message.\n\nIf a user wants to send a reservation message to himself,\nhe or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.\nWhat is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetScheduledMessageListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetScheduledMessageListOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/slack/get-users": {
+      "post": {
+        "summary": "Look up the list of users",
+        "description": "Look up the list of users.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetUserListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetUserListOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-replies": {
+      "post": {
+        "description": "Inquire the inside of the thread in History\n\nIf you have inquired the history of a channel,\nyou can use the 'ts' values of its history elements to query the internal thread for each history again.\nEach channel history has a number of replies, so if this number is more than 1, it is worth looking up.\n'Reply' is basically no different from the 'Message'(=Channel History).",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetReplyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Replies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetReplyOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-channel-link-histories": {
+      "post": {
+        "summary": "get links from channel histories",
+        "description": "get channel links from channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nMessages without links are removed, leaving only messages with links.\nThis is because it only leaves messages with links as connectors to find links in conversations.\nLinks are arranged in links properties.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelHistoryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetChannelLinkHistoryOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-channel-histories": {
+      "post": {
+        "summary": "get channel histories",
+        "description": "get channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelHistoryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "channel histories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetChannelHistoryOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-private-channels": {
+      "post": {
+        "summary": "get private channels",
+        "description": "get private channels\n\nView channels.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.\n\nIf you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "private channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ISlack.PrivateChannel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-public-channels": {
+      "post": {
+        "summary": "get public channels",
+        "description": "get public channels\n\nView channels.\nThis connector will only look up its own `public` channel.\nThe channel ID is required to look up the conversation history within the channel later.\nThe `public` channel is anyone's accessible.\nThis does not require an invitation process, and users can join the channel themselves if necessary.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "public channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ISlack.PublicChannel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-im-channels": {
+      "post": {
+        "summary": "get im channels",
+        "description": "get im channels\n\nView channels.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetChannelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "im channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ISlack.ImChannel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ISlack.IMarkInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to mark the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "messages[].{value: ts, label: text}"
+            },
+            "title": "ts",
+            "description": "It means the 'ts' value of the chat you want to mark"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "ts",
+          "secretKey"
+        ]
+      },
+      "PickISlack.ScheduledMessagepost_at": {
+        "type": "object",
+        "properties": {
+          "post_at": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          }
+        },
+        "required": [
+          "post_at"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "ISlack.ISCheduleMessageInput": {
+        "type": "object",
+        "properties": {
+          "post_at": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "Transfer Schedule Time",
+            "description": "You can schedule the time you want to send the message in advance.\nThe scheduled time must be in the same form as the ts property in the Message."
+          },
+          "thread_ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "thread ts\n\nIf the message you want to schedule is within a specific thread, you must pass the ts value of the parent message."
+          },
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "post_at",
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
+      "ISlack.IDeleteSCheduleMessageInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to delete the scheduled message.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "scheduled_message_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-scheduled-messages",
+              "jmesPath": "scheduled_messages[].{value:id, label:text}"
+            },
+            "title": "scheduled message id to delete"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "scheduled_message_id",
+          "secretKey"
+        ]
+      },
+      "PickISlack.Messagets": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          }
+        },
+        "required": [
+          "ts"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "ISlack.IPostMessageToMyselfInput": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "text",
+          "secretKey"
+        ]
+      },
+      "ISlack.IPostMessageReplyInput": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "messages[].{value: ts, label: text}"
+            },
+            "title": "ts",
+            "description": "It means the 'ts' value of the chat you want to reply"
+          },
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "ts",
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
+      "ISlack.IPostMessageInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetScheduledMessageListOutput": {
+        "type": "object",
+        "properties": {
+          "scheduled_messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduledMessageidstringpost_at_datestring"
+            },
+            "title": "scheduled messages"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "scheduled_messages",
+          "next_cursor"
+        ]
+      },
+      "ScheduledMessageidstringpost_at_datestring": {
+        "type": "object",
+        "properties": {
+          "post_at": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "date_created": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "when the user scheduled the message"
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
+          "id": {
+            "type": "string",
+            "title": "id of scheduled message"
+          },
+          "post_at_date": {
+            "type": "string",
+            "title": "date-time format of post_at"
+          }
+        },
+        "required": [
+          "post_at",
+          "date_created",
+          "text",
+          "channel",
+          "id",
+          "post_at_date"
+        ]
+      },
+      "PickISlack.Attachmenttitleid": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title\n\nLarge title text near the top of the attachment."
+          },
+          "id": {
+            "type": "number",
+            "title": "id"
+          }
+        },
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "ISlack.IGetScheduledMessageListInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetUserListOutput": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.IGetUserOutput"
+            },
+            "title": "user list"
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "users",
+          "next_cursor"
+        ]
+      },
+      "ISlack.IGetUserOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          },
+          "real_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "real_name",
+            "description": "The user's first and last name.\nUpdating this field will update first_name and last_name.\nIf only one name is provided, the value of last_name will be cleared."
+          },
+          "deleted": {
+            "type": "boolean",
+            "title": "deleted",
+            "description": "This value is used to distinguish between deleted users."
+          },
+          "profile_image": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri",
+                "contentMediaType": "image/*"
+              }
+            ],
+            "title": "profile image",
+            "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "display_name",
+          "real_name",
+          "deleted",
+          "profile_image"
+        ]
+      },
+      "ISlack.IGetUserListInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetReplyOutput": {
+        "type": "object",
+        "properties": {
+          "replies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.Reply"
+            },
+            "title": "replies",
+            "description": "This value refers to replies that depend on the currently viewed thread."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "replies",
+          "next_cursor"
+        ]
+      },
+      "ISlack.Reply": {
+        "type": "object",
+        "properties": {
+          "thread_ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "thread ts"
+          },
+          "parent_user_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made parent message of this message\n\nIf this Reply has been published from thread to thread,\noutside of thread, and also as a channel,\nthere is no parent_user_id."
+          },
+          "type": {
+            "const": "message",
+            "title": "type"
+          },
+          "user": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "ts_date": {
+            "type": "string",
+            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          }
+        },
+        "required": [
+          "thread_ts",
+          "parent_user_id",
+          "type",
+          "user",
+          "text",
+          "ts",
+          "ts_date"
+        ]
+      },
+      "ISlack.IGetReplyInput": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-channel-histories",
+              "jmesPath": "messages[].{value: ts, label: text}"
+            },
+            "title": "ts",
+            "description": "It means the 'ts' value of the chat you want to look up."
+          },
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
+          },
+          "latestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "latestDateTime\n\nOnly messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
+          },
+          "oldestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "oldestDateTime\n\nOnly messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "ts",
+          "channel",
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetChannelLinkHistoryOutput": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitISlack.LinkMessagetype"
+            },
+            "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+            },
+            "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "messages",
+          "members",
+          "next_cursor"
+        ]
+      },
+      "StrictOmitISlack.LinkMessagetype": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "reply_count": {
+            "type": "number",
+            "title": "reply_count\n\nIndicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+          },
+          "reply_users_count": {
+            "type": "number",
+            "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+          },
+          "ts_date": {
+            "type": "string",
+            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri"
+            },
+            "title": "links\n\nLinks from the chat"
+          }
+        },
+        "required": [
+          "user",
+          "link",
+          "text",
+          "channel",
+          "ts",
+          "reply_count",
+          "reply_users_count",
+          "ts_date",
+          "links"
+        ]
+      },
+      "PickISlack.IGetUserOutputiddisplay_name": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          }
+        },
+        "required": [
+          "id",
+          "display_name"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "ISlack.IGetChannelHistoryInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "channels[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
+          },
+          "latestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "latestDateTime\n\nOnly messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
+          },
+          "oldestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "oldestDateTime\n\nOnly messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+          },
+          "cursor": {
+            "type": "string",
+            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+          }
+        },
+        "required": [
+          "channel",
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetChannelHistoryOutput": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitISlack.Messagetype"
+            },
+            "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+            },
+            "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
+          },
+          "next_cursor": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+          }
+        },
+        "required": [
+          "messages",
+          "members",
+          "next_cursor"
+        ]
+      },
+      "StrictOmitISlack.Messagetype": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+            },
+            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          },
+          "reply_count": {
+            "type": "number",
+            "title": "reply_count\n\nIndicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+          },
+          "reply_users_count": {
+            "type": "number",
+            "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+          },
+          "ts_date": {
+            "type": "string",
+            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          }
+        },
+        "required": [
+          "user",
+          "link",
+          "text",
+          "channel",
+          "ts",
+          "reply_count",
+          "reply_users_count",
+          "ts_date"
+        ]
+      },
+      "ISlack.PrivateChannel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "channel name"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "ISlack.IGetChannelInput": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "200",
+            "deprecated": true,
+            "title": "limit"
+          },
+          "cursor": {
+            "type": "string",
+            "deprecated": true,
+            "title": "cursor"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "request condition"
+      },
+      "ISlack.PublicChannel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "channel name"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "ISlack.ImChannel": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "title": "created time"
+          },
+          "is_im": {
+            "const": true,
+            "title": "Is it the `im` type or not"
+          },
+          "is_org_shared": {
+            "const": false,
+            "title": "is org shared"
+          },
+          "is_user_deleted": {
+            "type": "boolean",
+            "title": "is user deleted"
+          },
+          "priority": {
+            "type": "number",
+            "title": "priority"
+          },
+          "user": {
+            "type": "string",
+            "title": "channel owner's id"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
+          }
+        },
+        "required": [
+          "created",
+          "is_im",
+          "is_org_shared",
+          "is_user_deleted",
+          "priority",
+          "user",
+          "id"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Slack"
+    }
+  ],
+  "x-samchon-emended": true
+}

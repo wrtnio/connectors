@@ -18,7 +18,7 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.255",
+    "version": "0.1.256",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -806,7 +806,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.IReadFileGoogleDriveOutput"
+                  "$ref": "#/components/schemas/IGoogleDrive.IGetFileOutput"
                 }
               }
             }
@@ -1904,19 +1904,355 @@
         ],
         "title": "Information required to add text to Google Drive file"
       },
-      "IGoogleDrive.IReadFileGoogleDriveOutput": {
+      "IGoogleDrive.IGetFileOutput": {
         "type": "object",
         "properties": {
-          "data": {
+          "userPermission": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "id"
+              },
+              "type": {
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "group"
+                  },
+                  {
+                    "const": "domain"
+                  },
+                  {
+                    "const": "anyone"
+                  }
+                ],
+                "title": "type"
+              },
+              "role": {
+                "oneOf": [
+                  {
+                    "const": "owner"
+                  },
+                  {
+                    "const": "writer"
+                  },
+                  {
+                    "const": "commenter"
+                  },
+                  {
+                    "const": "reader"
+                  },
+                  {
+                    "const": "organizer"
+                  },
+                  {
+                    "const": "fileOrganizer"
+                  }
+                ],
+                "title": "role"
+              },
+              "pendingOwner": {
+                "type": "boolean",
+                "title": "pendingOwner"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "role",
+              "pendingOwner"
+            ],
+            "title": "userPermission"
+          },
+          "fileExtension": {
             "type": "string",
-            "title": "Google drive file data.",
-            "description": "Text data extracted from the drive file."
+            "title": "fileExtension"
+          },
+          "ownerNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "ownerNames"
+          },
+          "lastModifyingUserName": {
+            "type": "string",
+            "title": "lastModifyingUserName"
+          },
+          "editable": {
+            "type": "boolean",
+            "title": "editable"
+          },
+          "writersCanShare": {
+            "type": "boolean",
+            "title": "writersCanShare"
+          },
+          "mimeType": {
+            "type": "string",
+            "title": "mimeType"
+          },
+          "parents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "id: string;"
+                },
+                "isRoot": {
+                  "type": "boolean",
+                  "title": "isRoot"
+                }
+              },
+              "required": [
+                "id",
+                "isRoot"
+              ]
+            },
+            "title": "parents"
+          },
+          "thumbnailLink": {
+            "type": "string",
+            "format": "iri",
+            "title": "thumbnailLink"
+          },
+          "appDataContents": {
+            "type": "boolean",
+            "title": "appDataContents"
+          },
+          "shared": {
+            "type": "boolean",
+            "title": "shared"
+          },
+          "lastModifyingUser": {
+            "$ref": "#/components/schemas/IGoogleDrive.User",
+            "title": "lastModifyingUser"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleDrive.User"
+            },
+            "title": "owners"
+          },
+          "copyable": {
+            "type": "boolean",
+            "title": "copyable"
+          },
+          "alternateLink": {
+            "type": "string",
+            "format": "iri",
+            "title": "alternateLink\nA link to view the file in Google Drive's preview mode."
+          },
+          "embedLink": {
+            "type": "string",
+            "format": "iri",
+            "title": "embedLink\nA link to embed the file in a webpage via an iframe."
+          },
+          "webContentLink": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "webContentLink\nA link to directly access or download the file content."
+          },
+          "fileSize": {
+            "type": "string",
+            "title": "fileSize"
+          },
+          "copyRequiresWriterPermission": {
+            "type": "boolean",
+            "title": "copyRequiresWriterPermission"
+          },
+          "spaces": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "spaces"
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title(filename)"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "viewed": {
+                "type": "boolean",
+                "title": "viewed"
+              },
+              "restricted": {
+                "type": "boolean",
+                "title": "restricted"
+              },
+              "starred": {
+                "type": "boolean",
+                "title": "starred"
+              },
+              "hidden": {
+                "type": "boolean",
+                "title": "hidden"
+              },
+              "trashed": {
+                "type": "boolean",
+                "title": "trashed"
+              }
+            },
+            "required": [
+              "viewed",
+              "restricted",
+              "starred",
+              "hidden",
+              "trashed"
+            ],
+            "title": "labels"
+          },
+          "explicitlyTrashed": {
+            "type": "boolean",
+            "title": "explicitlyTrashed"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "createdDate"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "modifiedDate"
+          },
+          "modifiedByMeDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "modifiedByMeDate"
+          },
+          "lastViewedByMeDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "lastViewedByMeDate"
+          },
+          "markedViewedByMeDate": {
+            "type": "string",
+            "format": "date-time",
+            "title": "markedViewedByMeDate"
+          },
+          "quotaBytesUsed": {
+            "type": "string",
+            "title": "quotaBytesUsed"
+          },
+          "version": {
+            "type": "string",
+            "title": "version"
+          },
+          "originalFilename": {
+            "type": "string",
+            "title": "originalFilename"
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "canEdit": {
+                "type": "boolean",
+                "title": "canEdit"
+              },
+              "canCopy": {
+                "type": "boolean",
+                "title": "canCopy"
+              }
+            },
+            "required": [
+              "canEdit",
+              "canCopy"
+            ],
+            "title": "capabilities"
           }
         },
         "required": [
-          "data"
-        ],
-        "title": "Google Drive file search results"
+          "userPermission",
+          "ownerNames",
+          "lastModifyingUserName",
+          "editable",
+          "writersCanShare",
+          "mimeType",
+          "parents",
+          "appDataContents",
+          "shared",
+          "lastModifyingUser",
+          "owners",
+          "copyable",
+          "alternateLink",
+          "embedLink",
+          "copyRequiresWriterPermission",
+          "spaces",
+          "id",
+          "title",
+          "labels",
+          "explicitlyTrashed",
+          "createdDate",
+          "modifiedDate",
+          "modifiedByMeDate",
+          "markedViewedByMeDate",
+          "quotaBytesUsed",
+          "version",
+          "capabilities"
+        ]
+      },
+      "IGoogleDrive.User": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "title": "displayName"
+          },
+          "isAuthenticatedUser": {
+            "type": "boolean",
+            "title": "isAuthenticatedUser"
+          },
+          "permissionId": {
+            "type": "string",
+            "title": "permissionId"
+          },
+          "emailAddress": {
+            "type": "string",
+            "format": "email",
+            "title": "emailAddress"
+          },
+          "picture": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "url"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "picture"
+          }
+        },
+        "required": [
+          "displayName",
+          "isAuthenticatedUser",
+          "permissionId",
+          "emailAddress",
+          "picture"
+        ]
       },
       "IAws.IGetPutObjectUrlOutput": {
         "type": "object",
