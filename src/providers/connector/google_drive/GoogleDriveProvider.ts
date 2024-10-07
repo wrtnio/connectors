@@ -181,7 +181,6 @@ export class GoogleDriveProvider {
       requestBody: { mimeType: "image/jpg", name, parents: folderIds },
     });
 
-    console.log(JSON.stringify(res.data, null, 2));
     const id = res.data.id;
     // response id can be null even when exception wasn't explictly thrown, so handle as unknown error
     if (!id) {

@@ -362,9 +362,11 @@ export namespace IGoogleDrive {
     };
 
     /**
+     * @title fileExtension
+     *
      * @example pdf
      */
-    fileExtension: string;
+    fileExtension?: string;
 
     /**
      * @title ownerNames
@@ -451,12 +453,12 @@ export namespace IGoogleDrive {
      * @title webContentLink
      * A link to directly access or download the file content.
      */
-    webContentLink: string & tags.Format<"iri">;
+    webContentLink?: (string & tags.Format<"iri">) | null;
 
     /**
      * @title fileSize
      */
-    fileSize: string;
+    fileSize?: string;
 
     /**
      * @title copyRequiresWriterPermission
@@ -551,7 +553,7 @@ export namespace IGoogleDrive {
     /**
      * @title originalFilename
      */
-    originalFilename: string;
+    originalFilename?: string;
 
     /**
      * @title capabilities
