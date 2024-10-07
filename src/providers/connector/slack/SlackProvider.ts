@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
+import { markdownToBlocks } from "@tryfabric/mack";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import axios from "axios";
 import { tags } from "typia";
-import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -143,26 +144,12 @@ export class SlackProvider {
     const url = `https://slack.com/api/chat.postMessage`;
     const token = await this.getToken(input.secretKey);
 
-    try {
-      const res = await axios.post(
-        url,
-        {
-          channel: input.channel,
-          thread_ts: input.ts,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      return { ts: res.data.ts };
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
+    return this.sendMessage({
+      channel: input.channel,
+      secretKey: input.secretKey,
+      text: input.text,
+      thread_ts: input.ts,
+    });
   }
 
   async getReplies(
@@ -256,17 +243,33 @@ export class SlackProvider {
   async sendTextToMyself(
     input: ISlack.IPostMessageToMyselfInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
+    const { channels } = await this.getImChannels(input);
+    const auth = await this.authTest(input);
+    const channel = channels.find((el) => el.user === auth.user_id);
+    return this.sendMessage({
+      channel: channel?.id as string,
+      secretKey: input.secretKey,
+      text: input.text,
+    });
+  }
+
+  private async sendMessage(input: {
+    channel: string;
+    text: string;
+    secretKey: string;
+    thread_ts?: string;
+  }): Promise<Pick<ISlack.Message, "ts">> {
     const url = `https://slack.com/api/chat.postMessage`;
     const token = await this.getToken(input.secretKey);
     try {
-      const { channels } = await this.getImChannels(input);
-      const auth = await this.authTest(input);
-      const mySelf = channels.find((el) => el.user === auth.user_id);
+      const preconfiged = `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n${input.text}`;
+      const blocks = await markdownToBlocks(preconfiged);
       const res = await axios.post(
         url,
         {
-          channel: mySelf?.id,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
+          channel: input.channel,
+          blocks: blocks,
+          ...(input.thread_ts && { thread_ts: input.thread_ts }),
         },
         {
           headers: {
@@ -298,27 +301,11 @@ export class SlackProvider {
   async sendText(
     input: ISlack.IPostMessageInput,
   ): Promise<Pick<ISlack.Message, "ts">> {
-    const url = `https://slack.com/api/chat.postMessage`;
-    const token = await this.getToken(input.secretKey);
-    try {
-      const res = await axios.post(
-        url,
-        {
-          channel: input.channel,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      return { ts: res.data.ts };
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
+    return this.sendMessage({
+      channel: input.channel,
+      secretKey: input.secretKey,
+      text: input.text,
+    });
   }
 
   async getChannelHistories(
@@ -513,12 +500,8 @@ export class SlackProvider {
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {
     const url = `https://slack.com/api/conversations.list?pretty=1`;
-    const { secretKey, ...rest } = input;
-    const queryParameter = createQueryParameter({
-      ...rest,
-      types: "im",
-    });
-
+    const { secretKey } = input;
+    const queryParameter = createQueryParameter({ secretKey, types: "im" });
     const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
       headers: {

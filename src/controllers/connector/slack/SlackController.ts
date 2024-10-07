@@ -1,10 +1,10 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { RouteIcon } from "@wrtnio/decorators";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/slack")
 export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
