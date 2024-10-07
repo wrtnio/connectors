@@ -335,7 +335,7 @@ export namespace IGoogleDrive {
     text: string;
   }
 
-  export interface IGetFileInput {
+  export interface IGetFileOutput {
     /**
      * @title userPermission
      */
@@ -408,7 +408,7 @@ export namespace IGoogleDrive {
     /**
      * @title thumbnailLink
      */
-    thumbnailLink: string & tags.Format<"iri">;
+    thumbnailLink?: string & tags.Format<"iri">;
 
     /**
      * @title appDataContents
@@ -437,16 +437,19 @@ export namespace IGoogleDrive {
 
     /**
      * @title alternateLink
+     * A link to view the file in Google Drive's preview mode.
      */
     alternateLink: string & tags.Format<"iri">;
 
     /**
      * @title embedLink
+     * A link to embed the file in a webpage via an iframe.
      */
     embedLink: string & tags.Format<"iri">;
 
     /**
      * @title webContentLink
+     * A link to directly access or download the file content.
      */
     webContentLink: string & tags.Format<"iri">;
 
@@ -528,7 +531,7 @@ export namespace IGoogleDrive {
     /**
      * @title lastViewedByMeDate
      */
-    lastViewedByMeDate: string & tags.Format<"date-time">;
+    lastViewedByMeDate?: string & tags.Format<"date-time">;
 
     /**
      * @title markedViewedByMeDate

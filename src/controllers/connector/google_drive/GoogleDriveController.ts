@@ -4,8 +4,8 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
-import { GoogleDriveProvider } from "../../../providers/connector/google_drive/GoogleDriveProvider";
 import { ApiTags } from "@nestjs/swagger";
+import { GoogleDriveProvider } from "../../../providers/connector/google_drive/GoogleDriveProvider";
 
 @Controller("connector/google-drive")
 export class GoogleDriveController {
@@ -228,7 +228,7 @@ export class GoogleDriveController {
     id: string,
     @core.TypedBody()
     input: IGoogleDrive.ISecret,
-  ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
-    return await this.googleDriveProvider.readFile(id, input);
+  ): Promise<IGoogleDrive.IGetFileOutput> {
+    return await this.googleDriveProvider.getFile(id, input);
   }
 }

@@ -5,7 +5,6 @@ import * as stream from "stream";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import axios from "axios";
-import typia, { tags } from "typia";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -280,6 +279,7 @@ export class GoogleDriveProvider {
       {
         fileId: id,
         alt: "media",
+        fields: "id, name, webContentLink",
       },
       { responseType: "stream" },
     );
@@ -298,15 +298,16 @@ export class GoogleDriveProvider {
     });
   }
 
-  async getFileWebContentLink(
-    input: { id: string } & IGoogleDrive.ISecret,
-  ): Promise<(string & tags.Format<"iri">) | null> {
+  async getFile(
+    fileId: string,
+    input: IGoogleDrive.ISecret,
+  ): Promise<IGoogleDrive.IGetFileOutput> {
     const token = await this.getToken(input.secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
 
     try {
       const res = await axios.get(
-        `https://www.googleapis.com/drive/v2/files/${input.id}`,
+        `https://www.googleapis.com/drive/v2/files/${fileId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -314,9 +315,7 @@ export class GoogleDriveProvider {
         },
       );
 
-      return typia.assert<(string & tags.Format<"iri">) | null>(
-        res.data.webContentLink,
-      );
+      return res.data;
     } catch (err) {
       console.error(JSON.stringify((err as any)?.response.data));
       throw err;
