@@ -177,7 +177,7 @@ export class SlackController {
   @TypedRoute.Post("get-user-detail")
   async getUserDetail(
     @TypedBody() input: ISlack.IGetUserDetailInput,
-  ): Promise<ISlack.IGetUserDetailOutput> {
+  ): Promise<ISlack.IGetUserDetailOutput[]> {
     return this.slackProvider.getUserDetail(input);
   }
 

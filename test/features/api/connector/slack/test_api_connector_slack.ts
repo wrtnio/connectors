@@ -415,7 +415,7 @@ export const test_api_connector_slack_get_user_details = async (
       await CApi.functional.connector.slack.get_user_detail.getUserDetail(
         connection,
         {
-          user: user.id,
+          userIds: [user.id],
           secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
         },
       );

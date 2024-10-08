@@ -204,7 +204,10 @@ export namespace ISlack {
       ISlack.ICommonPaginationInput {}
 
   export interface IGetUserDetailInput extends ISlack.ISecret {
-    user: ISlack.User["id"];
+    /**
+     * @title userIds
+     */
+    userIds: ISlack.User["id"][];
   }
 
   export interface IGetUserListInput

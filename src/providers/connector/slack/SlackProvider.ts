@@ -207,18 +207,23 @@ export class SlackProvider {
 
   async getUserDetail(
     input: ISlack.IGetUserDetailInput,
-  ): Promise<ISlack.IGetUserDetailOutput> {
-    const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${input.user}`;
-    const token = await this.getToken(input.secretKey);
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
-      },
-    });
+  ): Promise<ISlack.IGetUserDetailOutput[]> {
+    const response = [];
+    for await (const userId of input.userIds) {
+      const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${input.user}`;
+      const token = await this.getToken(input.secretKey);
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
+        },
+      });
 
-    const fields = this.getUserProfileFields(res.data.profile);
-    return { ...res.data.profile, fields, id: input.user };
+      const fields = this.getUserProfileFields(res.data.profile);
+      response.push({ ...res.data.profile, fields, id: userId });
+    }
+
+    return response;
   }
 
   async getUsers(
