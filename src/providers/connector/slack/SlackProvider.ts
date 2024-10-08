@@ -287,7 +287,7 @@ export class SlackProvider {
         url,
         {
           channel: input.channel,
-          text: text,
+          text: text.replaceAll("\\n", "\n"), // 줄바꿈 문자를 잘못 입력했을 경우에 대비한다.
           ...(input.thread_ts && { thread_ts: input.thread_ts }),
         },
         {
