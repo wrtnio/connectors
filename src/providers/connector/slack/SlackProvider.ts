@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
+import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
 import slackifyMarkdown from "slackify-markdown";
 import { tags } from "typia";
@@ -204,6 +205,27 @@ export class SlackProvider {
     return response;
   }
 
+  async getUserDetails(
+    input: ISlack.IGetUserDetailInput,
+  ): Promise<ISlack.IGetUserDetailOutput[]> {
+    const response = [];
+    for await (const userId of input.userIds) {
+      const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
+      const token = await this.getToken(input.secretKey);
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
+        },
+      });
+
+      const fields = this.getUserProfileFields(res.data.profile);
+      response.push({ ...res.data.profile, fields, id: userId });
+    }
+
+    return response;
+  }
+
   async getUsers(
     input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
@@ -220,18 +242,19 @@ export class SlackProvider {
     });
 
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const users = res.data.members.map((el: ISlack.User) => {
-      return {
-        id: el.id,
-        name: el.name,
-        real_name: el.profile.real_name ?? null,
-        display_name: el.profile.display_name,
-        deleted: el.deleted,
-        profile_image: el.profile.image_original
-          ? el.profile.image_original
-          : null,
-      };
-    });
+    const users: StrictOmit<ISlack.IGetUserOutput, "fields">[] =
+      res.data.members.map((el: ISlack.User) => {
+        return {
+          id: el.id,
+          name: el.name,
+          real_name: el.profile.real_name ?? null,
+          display_name: el.profile.display_name,
+          deleted: el.deleted,
+          profile_image: el.profile.image_original
+            ? el.profile.image_original
+            : null,
+        };
+      });
 
     return { users, next_cursor: next_cursor ? next_cursor : null };
   }
@@ -594,6 +617,20 @@ export class SlackProvider {
     const channels = res.data.channels;
 
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  private getUserProfileFields(profile: { fields: Record<string, string> }) {
+    if (profile?.fields) {
+      const fields = Object.values(profile.fields)
+        .map((el: any) => {
+          return { [el.label]: el.value };
+        })
+        .reduce((acc, cur) => Object.assign(acc, cur), {});
+
+      return fields;
+    }
+
+    return {};
   }
 
   private transformTsToTimestamp(ts: string) {

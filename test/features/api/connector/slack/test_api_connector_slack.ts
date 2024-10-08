@@ -397,7 +397,28 @@ export const test_api_connector_slack_get_channel_link_histories = async (
       },
     );
 
-  console.log(res.messages);
   assert(res.messages.length > 0);
   typia.assert(res);
+};
+
+export const test_api_connector_slack_get_user_details = async (
+  connection: CApi.IConnection,
+) => {
+  const users = await CApi.functional.connector.slack.get_users.getUsers(
+    connection,
+    { secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET },
+  );
+
+  assert(users.users.length >= 1);
+  for await (const user of users.users) {
+    const detail =
+      await CApi.functional.connector.slack.get_user_details.getUserDetails(
+        connection,
+        {
+          userIds: [user.id],
+          secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        },
+      );
+    typia.assert(detail);
+  }
 };
