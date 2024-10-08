@@ -284,6 +284,10 @@ export namespace ISlack {
 
     /**
      * @title message to send
+     *
+     * When a user enters a markdown format string, the internal function modifies it to the format of the slack.
+     * Users can put text in accordance with the usual markdown grammar.
+     * For user readability, it is recommended that the string be sent with appropriate new-line characters.
      */
     text: string;
   }
