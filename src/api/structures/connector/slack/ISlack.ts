@@ -31,17 +31,17 @@ export namespace ISlack {
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-public-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-private-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-im-channels";
-            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
           }>
       );
 
@@ -85,17 +85,17 @@ export namespace ISlack {
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-public-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-private-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-im-channels";
-            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
           }>
       );
 
@@ -268,22 +268,26 @@ export namespace ISlack {
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-public-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-private-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-im-channels";
-            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
           }>
       );
 
     /**
      * @title message to send
+     *
+     * When a user enters a markdown format string, the internal function modifies it to the format of the slack.
+     * Users can put text in accordance with the usual markdown grammar.
+     * For user readability, it is recommended that the string be sent with appropriate new-line characters.
      */
     text: string;
   }
@@ -404,17 +408,17 @@ export namespace ISlack {
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-public-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-private-channels";
-            jmesPath: "channels[].{value:id, label:name}";
+            jmesPath: "[].{value:id, label:name}";
           }>
         | Prerequisite<{
             method: "post";
             path: "/connector/slack/get-im-channels";
-            jmesPath: "channels[].{value:id, label:name || '개인 채널'}";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
           }>
       );
 

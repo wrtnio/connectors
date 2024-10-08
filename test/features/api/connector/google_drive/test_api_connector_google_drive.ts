@@ -6,67 +6,68 @@ import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/googl
 import { notDeepStrictEqual } from "assert";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_connector_google_drive = async (
+export const test_api_connector_google_drive_create_folder = async (
   connection: CApi.IConnection,
 ) => {
   const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
+  const res = await CApi.functional.connector.google_drive.folder.createFolder(
+    connection,
+    {
+      name: "connector-test-folder",
+      secretKey,
+    },
+  );
+  typia.assert(res);
 
-  /**
-   * create new folder
-   */
-  const createFolderInput = {
-    name: "connector-test-folder",
-    secretKey,
-  };
-  const createFolderOutput =
-    await CApi.functional.connector.google_drive.folder.createFolder(
-      connection,
-      createFolderInput,
-    );
-  typia.assert(createFolderOutput);
+  // 테스트 후 폴더 삭제
+  await CApi.functional.connector.google_drive.folder.deleteFolder(
+    connection,
+    res.id,
+    {
+      secretKey,
+    },
+  );
+};
 
-  /**
-   * get folder list
-   */
-  const findFolderListOutput =
+export const test_api_connector_google_drive_get_folder_list = async (
+  connection: CApi.IConnection,
+) => {
+  const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
+  const res =
     await CApi.functional.connector.google_drive.get.folders.folderList(
       connection,
       {
         secretKey,
       },
     );
-  typia.assert(findFolderListOutput);
+  typia.assert(res);
+};
+
+export const test_api_connector_google_drive = async (
+  connection: CApi.IConnection,
+) => {
+  const secretKey = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
+  const createdFolder =
+    await CApi.functional.connector.google_drive.folder.createFolder(
+      connection,
+      {
+        name: "connector-test-folder",
+        secretKey,
+      },
+    );
 
   /**
    * create new file
    */
-  const createFileInput = {
-    name: "connector-test-file",
-    folderIds: [createFolderOutput.id!],
-    content: "text/plain",
-    secretKey,
-  };
   const createFileOutput =
-    await CApi.functional.connector.google_drive.file.createFile(
-      connection,
-      createFileInput,
-    );
+    await CApi.functional.connector.google_drive.file.createFile(connection, {
+      name: "connector-test-file",
+      folderIds: [createdFolder.id!],
+      fileUrl:
+        "https://studio-api-bucket.s3.ap-northeast-2.amazonaws.com/rag-test-2.pdf",
+      secretKey,
+    });
   typia.assert(createFileOutput);
-
-  /**
-   * append text to text file
-   */
-  const appendTextToFileInput = {
-    text: "hello world",
-    secretKey,
-  };
-  const appendTextToFileOutput =
-    await CApi.functional.connector.google_drive.file.text.createText(
-      connection,
-      createFileOutput.id!,
-      appendTextToFileInput,
-    );
-  typia.assert(appendTextToFileOutput);
 
   /**
    * get text from text file
@@ -106,7 +107,7 @@ export const test_api_connector_google_drive = async (
    * get file list
    */
   const findFileListInput = {
-    folderId: createFolderOutput.id,
+    folderId: createdFolder.id,
     secretKey,
   };
   const findFileListOutput =
@@ -146,7 +147,7 @@ export const test_api_connector_google_drive = async (
   /**
    * delete folder
    */
-  const deleteFolderInput = createFolderOutput.id!;
+  const deleteFolderInput = createdFolder.id!;
   await CApi.functional.connector.google_drive.folder.deleteFolder(
     connection,
     deleteFolderInput,
