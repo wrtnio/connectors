@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.257",
+    "version": "0.1.258",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -533,7 +533,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -542,7 +542,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -551,7 +551,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -627,7 +627,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -636,7 +636,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -645,7 +645,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -653,7 +653,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message to send"
+            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -690,7 +690,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -699,7 +699,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -708,7 +708,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -811,7 +811,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -820,7 +820,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -829,7 +829,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -837,7 +837,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message to send"
+            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -874,7 +874,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -883,7 +883,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -892,7 +892,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -900,7 +900,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message to send"
+            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -1393,7 +1393,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -1402,7 +1402,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -1411,7 +1411,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -1605,7 +1605,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -1614,7 +1614,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -1623,7 +1623,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],

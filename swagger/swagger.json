@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.257",
+    "version": "0.1.258",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -1770,7 +1770,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ICreateFileGoogleDriveInput"
+                "$ref": "#/components/schemas/IGoogleDrive.IUploadFileInput"
               }
             }
           },
@@ -1895,52 +1895,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/IGoogleDrive.IPermissionGoogleDriveInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg"
-      }
-    },
-    "/connector/google-drive/file/{id}/text": {
-      "post": {
-        "summary": "Add text to a Google Drive file.",
-        "description": "Add text to a file.",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/google-drive/get/files",
-                "jmesPath": "data[].{value: id || '', label: name || ''}"
-              }
-            },
-            "required": true,
-            "title": "Unique ID of the file",
-            "description": " Unique ID of the file."
-          }
-        ],
-        "requestBody": {
-          "description": "The text to add.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.IAppendTextGoogleDriveInput"
               }
             }
           },
@@ -14884,7 +14838,7 @@
         ],
         "title": "Result of creating a file in Google Drive"
       },
-      "IGoogleDrive.ICreateFileGoogleDriveInput": {
+      "IGoogleDrive.IUploadFileInput": {
         "type": "object",
         "properties": {
           "name": {
@@ -14906,10 +14860,10 @@
             "title": "Google drive folder ids.",
             "description": "A list of folder ids that will contain the files to be created in the drive."
           },
-          "content": {
+          "fileUrl": {
             "type": "string",
-            "title": "Google drive file content.",
-            "description": "Contents of the file to be created in drive."
+            "format": "iri",
+            "title": "fileToUpload"
           },
           "secretKey": {
             "type": "string",
@@ -14924,7 +14878,7 @@
         "required": [
           "name",
           "folderIds",
-          "content",
+          "fileUrl",
           "secretKey"
         ],
         "title": "Information required to create a file in Google Drive"
@@ -15033,30 +14987,6 @@
           "type"
         ],
         "title": "Access Rights Information"
-      },
-      "IGoogleDrive.IAppendTextGoogleDriveInput": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "Text to add.",
-            "description": "Text to add to the drive file."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "text",
-          "secretKey"
-        ],
-        "title": "Information required to add text to Google Drive file"
       },
       "IGoogleDrive.IGetFileOutput": {
         "type": "object",
@@ -34038,7 +33968,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34047,7 +33977,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34056,7 +33986,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -34132,7 +34062,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34141,7 +34071,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34150,7 +34080,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -34158,7 +34088,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message to send"
+            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -34195,7 +34125,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34204,7 +34134,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34213,7 +34143,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -34316,7 +34246,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34325,7 +34255,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34334,7 +34264,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -34342,7 +34272,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message to send"
+            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -34379,7 +34309,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34388,7 +34318,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34397,7 +34327,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -34405,7 +34335,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message to send"
+            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -34898,7 +34828,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34907,7 +34837,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -34916,7 +34846,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],
@@ -35110,7 +35040,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-public-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -35119,7 +35049,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-private-channels",
-                  "jmesPath": "channels[].{value:id, label:name}"
+                  "jmesPath": "[].{value:id, label:name}"
                 }
               },
               {
@@ -35128,7 +35058,7 @@
                 "x-wrtn-prerequisite": {
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
-                  "jmesPath": "channels[].{value:id, label:name || '개인 채널'}"
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
               }
             ],

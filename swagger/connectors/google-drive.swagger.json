@@ -18,7 +18,7 @@
     "title": "구글 클라우드 스토리지 관리",
     "summary": "구글 드라이브로 파일을 쉽게 저장하고 공유해요.",
     "description": "구글 드라이브를 사용해 파일과 폴더를 효율적으로 관리할 수 있어요. 드라이브 내의 폴더와 파일 목록을 가져오고, 새로운 폴더나 파일을 만들 수 있어요. 불필요한 파일이나 폴더는 삭제할 수 있고, 특정 파일이나 폴더에 대한 접근 권한을 다른 사용자에게 부여할 수도 있어요. 텍스트 파일의 경우 내용을 직접 추가하거나 읽을 수 있어요. 이를 통해 개인 파일 보관, 팀 프로젝트 자료 공유, 대용량 파일 전송 등 다양한 목적으로 활용할 수 있어요. 클라우드 기반이라 어느 기기에서든 접근이 가능하고, 자동 동기화 기능으로 항상 최신 버전의 파일을 유지할 수 있어요.",
-    "version": "0.1.257",
+    "version": "0.1.258",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -139,7 +139,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ICreateFileGoogleDriveInput"
+                "$ref": "#/components/schemas/IGoogleDrive.IUploadFileInput"
               }
             }
           },
@@ -264,52 +264,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/IGoogleDrive.IPermissionGoogleDriveInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg"
-      }
-    },
-    "/connector/google-drive/file/{id}/text": {
-      "post": {
-        "summary": "Add text to a Google Drive file.",
-        "description": "Add text to a file.",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/google-drive/get/files",
-                "jmesPath": "data[].{value: id || '', label: name || ''}"
-              }
-            },
-            "required": true,
-            "title": "Unique ID of the file",
-            "description": " Unique ID of the file."
-          }
-        ],
-        "requestBody": {
-          "description": "The text to add.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.IAppendTextGoogleDriveInput"
               }
             }
           },
@@ -593,7 +547,7 @@
         ],
         "title": "Result of creating a file in Google Drive"
       },
-      "IGoogleDrive.ICreateFileGoogleDriveInput": {
+      "IGoogleDrive.IUploadFileInput": {
         "type": "object",
         "properties": {
           "name": {
@@ -615,10 +569,10 @@
             "title": "Google drive folder ids.",
             "description": "A list of folder ids that will contain the files to be created in the drive."
           },
-          "content": {
+          "fileUrl": {
             "type": "string",
-            "title": "Google drive file content.",
-            "description": "Contents of the file to be created in drive."
+            "format": "iri",
+            "title": "fileToUpload"
           },
           "secretKey": {
             "type": "string",
@@ -633,7 +587,7 @@
         "required": [
           "name",
           "folderIds",
-          "content",
+          "fileUrl",
           "secretKey"
         ],
         "title": "Information required to create a file in Google Drive"
@@ -742,30 +696,6 @@
           "type"
         ],
         "title": "Access Rights Information"
-      },
-      "IGoogleDrive.IAppendTextGoogleDriveInput": {
-        "type": "object",
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "Text to add.",
-            "description": "Text to add to the drive file."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "text",
-          "secretKey"
-        ],
-        "title": "Information required to add text to Google Drive file"
       },
       "IGoogleDrive.IGetFileOutput": {
         "type": "object",
