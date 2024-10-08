@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.256",
+    "version": "0.1.257",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -214,8 +214,11 @@
     },
     "/connector/slack/get-scheduled-messages": {
       "post": {
+        "summary": "Get a list of scheduled messages",
         "description": "Get a list of scheduled messages\n\nLook up the messages you booked.\nYou can use `post_at` and `post_at_date` to find out when the message will be sent.\nIf you want to clear the message, use the `id` value in the scheduled message.\n\nIf a user wants to send a reservation message to himself,\nhe or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.\nWhat is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user.",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -239,6 +242,42 @@
             }
           }
         }
+      }
+    },
+    "/connector/slack/get-user-details": {
+      "post": {
+        "summary": "Inquire user details",
+        "description": "Inquire user details\n\nInquire the user's detailed profile to acquire information such as phone number, email, and position.\nIt cannot be verified if the user has not filled in.\nThis function receives the user's ID in an array and inquires at once.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetUserDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ISlack.IGetUserDetailOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
     "/connector/slack/get-users": {
@@ -1009,13 +1048,106 @@
           "secretKey"
         ]
       },
+      "ISlack.IGetUserDetailOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/Recordstringstring",
+            "title": "custom fields"
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          },
+          "real_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "real_name",
+            "description": "The user's first and last name.\nUpdating this field will update first_name and last_name.\nIf only one name is provided, the value of last_name will be cleared."
+          },
+          "status_text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "status"
+          }
+        },
+        "required": [
+          "id",
+          "fields",
+          "display_name",
+          "real_name"
+        ]
+      },
+      "Recordstringstring": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "ISlack.IGetUserDetailInput": {
+        "type": "object",
+        "properties": {
+          "userIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "userIds"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "userIds",
+          "secretKey"
+        ]
+      },
       "ISlack.IGetUserListOutput": {
         "type": "object",
         "properties": {
           "users": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ISlack.IGetUserOutput"
+              "$ref": "#/components/schemas/StrictOmitISlack.IGetUserOutputfields"
             },
             "title": "user list"
           },
@@ -1036,16 +1168,30 @@
           "next_cursor"
         ]
       },
-      "ISlack.IGetUserOutput": {
+      "StrictOmitISlack.IGetUserOutputfields": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
           "name": {
             "type": "string",
             "title": "name",
             "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
+          },
+          "id": {
+            "type": "string"
+          },
+          "profile_image": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri",
+                "contentMediaType": "image/*"
+              }
+            ],
+            "title": "profile image",
+            "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
           },
           "display_name": {
             "oneOf": [
@@ -1076,28 +1222,25 @@
             "title": "deleted",
             "description": "This value is used to distinguish between deleted users."
           },
-          "profile_image": {
+          "status_text": {
             "oneOf": [
               {
                 "type": "null"
               },
               {
-                "type": "string",
-                "format": "iri",
-                "contentMediaType": "image/*"
+                "type": "string"
               }
             ],
-            "title": "profile image",
-            "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
+            "title": "status"
           }
         },
         "required": [
-          "id",
           "name",
+          "id",
+          "profile_image",
           "display_name",
           "real_name",
-          "deleted",
-          "profile_image"
+          "deleted"
         ]
       },
       "ISlack.IGetUserListInput": {
