@@ -17,7 +17,7 @@
   "info": {
     "title": "Discord",
     "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.258",
+    "version": "0.1.259",
     "license": {
       "name": "AGPL-3.0-only"
     }

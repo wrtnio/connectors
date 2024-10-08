@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.258",
+    "version": "0.1.259",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14371,12 +14371,68 @@
         "type": "object",
         "properties": {
           "time_max": {
-            "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "number",
+                "title": "The year.",
+                "description": "It's the year."
+              },
+              "month": {
+                "type": "number",
+                "title": "The Month.",
+                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
+              },
+              "date": {
+                "type": "number",
+                "title": "Date.",
+                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
+              },
+              "hour": {
+                "type": "number",
+                "title": "hour.",
+                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
+              }
+            },
+            "required": [
+              "year",
+              "month",
+              "date",
+              "hour"
+            ],
             "title": "Information about the last date from which events will be fetched.",
             "description": "Events after that date will not be fetched."
           },
           "time_min": {
-            "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "number",
+                "title": "The year.",
+                "description": "It's the year."
+              },
+              "month": {
+                "type": "number",
+                "title": "The Month.",
+                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
+              },
+              "date": {
+                "type": "number",
+                "title": "Date.",
+                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
+              },
+              "hour": {
+                "type": "number",
+                "title": "hour.",
+                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
+              }
+            },
+            "required": [
+              "year",
+              "month",
+              "date",
+              "hour"
+            ],
             "title": "Information on the start date from which events will be retrieved.",
             "description": "Events prior to that date will not be retrieved."
           },
@@ -14421,38 +14477,6 @@
         ],
         "title": "Information needed to search for events"
       },
-      "IGoogleCalendar.IGoogleCalendarEvent.IDate": {
-        "type": "object",
-        "properties": {
-          "year": {
-            "type": "number",
-            "title": "The year.",
-            "description": "It's the year."
-          },
-          "month": {
-            "type": "number",
-            "title": "Moon.",
-            "description": "It's the moon."
-          },
-          "date": {
-            "type": "number",
-            "title": "Work.",
-            "description": "It's work."
-          },
-          "hour": {
-            "type": "number",
-            "title": "Poetry.",
-            "description": "It's a hour."
-          }
-        },
-        "required": [
-          "year",
-          "month",
-          "date",
-          "hour"
-        ],
-        "title": "Date information"
-      },
       "IGoogleCalendar.ICreateQuickEventInput": {
         "type": "object",
         "properties": {
@@ -14496,12 +14520,68 @@
             "description": "This is the event location to be created."
           },
           "start": {
-            "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "number",
+                "title": "The year.",
+                "description": "It's the year."
+              },
+              "month": {
+                "type": "number",
+                "title": "The Month.",
+                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
+              },
+              "date": {
+                "type": "number",
+                "title": "Date.",
+                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
+              },
+              "hour": {
+                "type": "number",
+                "title": "hour.",
+                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
+              }
+            },
+            "required": [
+              "year",
+              "month",
+              "date",
+              "hour"
+            ],
             "title": "Event start date.",
             "description": "The start date of the event to be created."
           },
           "end": {
-            "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "number",
+                "title": "The year.",
+                "description": "It's the year."
+              },
+              "month": {
+                "type": "number",
+                "title": "The Month.",
+                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
+              },
+              "date": {
+                "type": "number",
+                "title": "Date.",
+                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
+              },
+              "hour": {
+                "type": "number",
+                "title": "hour.",
+                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
+              }
+            },
+            "required": [
+              "year",
+              "month",
+              "date",
+              "hour"
+            ],
             "title": "Event end date.",
             "description": "The end date of the event to be created."
           },
@@ -14537,7 +14617,35 @@
             "description": "The number of times the event is repeated."
           },
           "repeatUntil": {
-            "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IDate",
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "number",
+                "title": "The year.",
+                "description": "It's the year."
+              },
+              "month": {
+                "type": "number",
+                "title": "The Month.",
+                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
+              },
+              "date": {
+                "type": "number",
+                "title": "Date.",
+                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
+              },
+              "hour": {
+                "type": "number",
+                "title": "hour.",
+                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
+              }
+            },
+            "required": [
+              "year",
+              "month",
+              "date",
+              "hour"
+            ],
             "title": "Event repeat deadline.",
             "description": "Event repeat deadline."
           },
