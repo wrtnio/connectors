@@ -170,6 +170,17 @@ export class SlackController {
     return this.slackProvider.getScheduledMessages(input);
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Post("get-user-detail")
+  async getUserDetail(
+    @TypedBody() input: ISlack.IGetUserDetailInput,
+  ): Promise<ISlack.IGetUserDetailOutput> {
+    return this.slackProvider.getUserDetail(input);
+  }
+
   /**
    * Look up the list of users.
    *

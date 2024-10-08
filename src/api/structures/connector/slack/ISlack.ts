@@ -116,8 +116,13 @@ export namespace ISlack {
     /**
      * @title user list
      */
-    users: IGetUserOutput[];
+    users: StrictOmit<IGetUserOutput, "fields">[];
   }
+
+  export type IGetUserDetailOutput = StrictOmit<
+    IGetUserOutput,
+    "name" | "deleted" | "profile_image"
+  >;
 
   export interface IGetUserOutput {
     id: ISlack.User["id"];
@@ -164,6 +169,16 @@ export namespace ISlack {
      * @title profile image
      */
     profile_image: ISlack.User["profile"]["image_original"];
+
+    /**
+     * @title status
+     */
+    status_text?: ISlack.User["status_text"];
+
+    /**
+     * @title custom fields
+     */
+    fields: Record<string, string>;
   }
 
   export interface IGetScheduledMessageListOutput
@@ -187,6 +202,10 @@ export namespace ISlack {
   export interface IGetScheduledMessageListInput
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {}
+
+  export interface IGetUserDetailInput extends ISlack.ISecret {
+    user: ISlack.User["id"];
+  }
 
   export interface IGetUserListInput
     extends ISlack.ISecret,
@@ -555,6 +574,11 @@ export namespace ISlack {
         | (string & tags.Format<"iri"> & ContentMediaType<"image/*">)
         | null;
     };
+
+    /**
+     * @title status
+     */
+    status_text?: string | null;
   }
 
   export interface Reply
