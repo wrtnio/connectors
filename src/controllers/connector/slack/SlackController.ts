@@ -160,9 +160,11 @@ export class SlackController {
    * he or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.
    * What is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user.
    *
+   * @summary Get a list of scheduled messages
    * @param input
    * @returns
    */
+  @ApiTags("Slack")
   @TypedRoute.Post("get-scheduled-messages")
   async getScheduledMessages(
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
@@ -170,15 +172,26 @@ export class SlackController {
     return this.slackProvider.getScheduledMessages(input);
   }
 
+  /**
+   * Inquire user details
+   *
+   * Inquire the user's detailed profile to acquire information such as phone number, email, and position.
+   * It cannot be verified if the user has not filled in.
+   * This function receives the user's ID in an array and inquires at once.
+   *
+   * @summary Inquire user details
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-user-detail")
-  async getUserDetail(
+  @TypedRoute.Post("get-user-details")
+  async getUserDetails(
     @TypedBody() input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    return this.slackProvider.getUserDetail(input);
+    return this.slackProvider.getUserDetails(input);
   }
 
   /**

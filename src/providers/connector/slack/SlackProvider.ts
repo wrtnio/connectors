@@ -205,12 +205,12 @@ export class SlackProvider {
     return response;
   }
 
-  async getUserDetail(
+  async getUserDetails(
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
     const response = [];
     for await (const userId of input.userIds) {
-      const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${input.user}`;
+      const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
       const token = await this.getToken(input.secretKey);
       const res = await axios.get(url, {
         headers: {

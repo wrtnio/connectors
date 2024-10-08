@@ -412,7 +412,7 @@ export const test_api_connector_slack_get_user_details = async (
   assert(users.users.length >= 1);
   for await (const user of users.users) {
     const detail =
-      await CApi.functional.connector.slack.get_user_detail.getUserDetail(
+      await CApi.functional.connector.slack.get_user_details.getUserDetails(
         connection,
         {
           userIds: [user.id],
