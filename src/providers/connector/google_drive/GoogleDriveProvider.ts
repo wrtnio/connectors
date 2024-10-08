@@ -5,6 +5,7 @@ import * as stream from "stream";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import axios from "axios";
+import mime from "mime";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -168,17 +169,28 @@ export class GoogleDriveProvider {
   async uploadFile(
     input: IGoogleDrive.IUploadFileInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
-    const { name, folderIds, arrayBuffer } = input;
+    const { name, folderIds, fileUrl } = input;
+    const { data: arrayBuffer } = await axios.get(fileUrl, {
+      responseType: "arraybuffer",
+    });
     const token = await this.getToken(input.secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
+    const mimeType = mime.lookup(fileUrl);
     authClient.setCredentials({ access_token: accessToken });
     const drive = google.drive({ version: "v3", auth: authClient });
     const body = stream.Readable.from(Buffer.from(arrayBuffer));
+    const { default: fileType } = await import("file-type");
+    const fileTypeResponse = await fileType.fromBuffer(arrayBuffer);
     const res = await drive.files.create({
       media: { body: body },
-      requestBody: { mimeType: "image/jpg", name, parents: folderIds },
+      requestBody: {
+        mimeType:
+          mimeType ?? fileTypeResponse?.mime ?? "application/octet-stream",
+        name,
+        parents: folderIds,
+      },
     });
 
     const id = res.data.id;
@@ -237,64 +249,6 @@ export class GoogleDriveProvider {
       console.error(JSON.stringify((err as any)?.response.data));
       throw err;
     }
-  }
-
-  async appendText(
-    id: string,
-    input: IGoogleDrive.IAppendTextGoogleDriveInput,
-  ): Promise<void> {
-    const { text } = input;
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-
-    const media = {
-      mimeType: "text/plain",
-      body: new stream.PassThrough().end(text),
-    };
-    try {
-      await google.drive({ version: "v3", auth: authClient }).files.update({
-        fileId: id,
-        media: media,
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async readFile(
-    id: string,
-    input: IGoogleDrive.ISecret,
-  ): Promise<IGoogleDrive.IReadFileGoogleDriveOutput> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
-    const authClient = new google.auth.OAuth2();
-
-    authClient.setCredentials({ access_token: accessToken });
-    const drive = google.drive({ version: "v3", auth: authClient });
-    const res = await drive.files.get(
-      {
-        fileId: id,
-        alt: "media",
-        fields: "id, name, webContentLink",
-      },
-      { responseType: "stream" },
-    );
-    let data = "";
-
-    return new Promise((resolve, reject) => {
-      res.data
-        .on("data", (chunk) => (data += chunk))
-        .on("end", () => {
-          resolve({ data: data });
-        })
-        .on("error", (err) => {
-          console.error(err);
-          reject(err);
-        });
-    });
   }
 
   async getFile(

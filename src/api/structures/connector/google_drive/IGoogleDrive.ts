@@ -211,11 +211,9 @@ export namespace IGoogleDrive {
       tags.MinItems<1>;
 
     /**
-     * Contents of the file to be created in drive.
-     *
-     * @title Google drive file content.
+     * @title fileToUpload
      */
-    arrayBuffer: ArrayBuffer;
+    fileUrl: string & tags.Format<"iri">;
   }
 
   /**
@@ -569,19 +567,6 @@ export namespace IGoogleDrive {
        */
       canCopy: boolean;
     };
-  }
-
-  /**
-   * @deprecated
-   * @title Google Drive file search results
-   */
-  export interface IReadFileGoogleDriveOutput {
-    /**
-     * Text data extracted from the drive file.
-     *
-     * @title Google drive file data.
-     */
-    data: string;
   }
 
   /**

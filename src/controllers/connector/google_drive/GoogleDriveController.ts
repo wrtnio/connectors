@@ -90,9 +90,9 @@ export class GoogleDriveController {
   @ApiTags("Google Drive")
   @core.TypedRoute.Post("/file")
   async createFile(
-    @core.TypedBody() input: IGoogleDrive.ICreateFileGoogleDriveInput,
+    @core.TypedBody() input: IGoogleDrive.IUploadFileInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
-    return await this.googleDriveProvider.createFile(input);
+    return await this.googleDriveProvider.uploadFile(input);
   }
 
   /**
@@ -169,36 +169,6 @@ export class GoogleDriveController {
     @core.TypedBody() input: IGoogleDrive.IPermissionGoogleDriveInput,
   ): Promise<void> {
     return await this.googleDriveProvider.permission(input);
-  }
-
-  /**
-   * Add text to a file.
-   *
-   * @summary Add text to a Google Drive file.
-   *
-   * @param id Unique ID of the file.
-   *
-   * @param input The text to add.
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-  )
-  @ApiTags("Google Drive")
-  @core.TypedRoute.Post("/file/:id/text")
-  async createText(
-    /**
-     * @title Select the file to which you want to add text
-     * @description Select the file to which you want to add text
-     */
-    @Prerequisite({
-      neighbor: () => GoogleDriveController.prototype.fileList,
-      jmesPath: "data[].{value: id || '', label: name || ''}",
-    })
-    @core.TypedParam("id")
-    id: string,
-    @core.TypedBody() input: IGoogleDrive.IAppendTextGoogleDriveInput,
-  ): Promise<void> {
-    return await this.googleDriveProvider.appendText(id, input);
   }
 
   /**
