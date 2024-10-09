@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.259",
+    "version": "0.1.260",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1467,7 +1467,7 @@
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitISlack.LinkMessagetype"
+              "$ref": "#/components/schemas/StrictOmitISlack.LinkMessagetypeattachments"
             },
             "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
@@ -1496,7 +1496,7 @@
           "next_cursor"
         ]
       },
-      "StrictOmitISlack.LinkMessagetype": {
+      "StrictOmitISlack.LinkMessagetypeattachments": {
         "type": "object",
         "properties": {
           "user": {
@@ -1518,13 +1518,6 @@
           "text": {
             "type": "string",
             "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
-          },
-          "attachments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
-            },
-            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
           "channel": {
             "type": "string",
@@ -1678,7 +1671,7 @@
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitISlack.Messagetype"
+              "$ref": "#/components/schemas/StrictOmitISlack.Messagetypeattachments"
             },
             "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
@@ -1707,7 +1700,7 @@
           "next_cursor"
         ]
       },
-      "StrictOmitISlack.Messagetype": {
+      "StrictOmitISlack.Messagetypeattachments": {
         "type": "object",
         "properties": {
           "user": {
@@ -1729,13 +1722,6 @@
           "text": {
             "type": "string",
             "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
-          },
-          "attachments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
-            },
-            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
           "channel": {
             "type": "string",
