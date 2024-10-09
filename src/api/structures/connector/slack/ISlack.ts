@@ -365,7 +365,7 @@ export namespace ISlack {
      * The closer you are to the 0th in the array, the more recent it is.
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
      */
-    messages: StrictOmit<ISlack.LinkMessage, "type">[];
+    messages: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
 
     /**
      * @title members
@@ -383,7 +383,7 @@ export namespace ISlack {
      * The closer you are to the 0th in the array, the more recent it is.
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
      */
-    messages: StrictOmit<ISlack.Message, "type">[];
+    messages: StrictOmit<ISlack.Message, "type" | "attachments">[];
 
     /**
      * @title members
