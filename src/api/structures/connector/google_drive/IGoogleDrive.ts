@@ -526,7 +526,7 @@ export namespace IGoogleDrive {
     /**
      * @title modifiedByMeDate
      */
-    modifiedByMeDate: string & tags.Format<"date-time">;
+    modifiedByMeDate?: string & tags.Format<"date-time">;
 
     /**
      * @title lastViewedByMeDate
