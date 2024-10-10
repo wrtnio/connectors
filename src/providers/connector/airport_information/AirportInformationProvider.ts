@@ -1,29 +1,25 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { IAirportInformation } from "@wrtn/connector-api/lib/structures/connector/airport_information/IAirportInformation";
-import AWS from "aws-sdk";
 import * as csv from "fast-csv";
 import { AwsProvider } from "../aws/AwsProvider";
+import { Readable } from "stream";
 
 @Injectable()
 export class AirportInformationProvider {
+  constructor(private readonly awsProvider: AwsProvider) {}
   private readonly logger = new Logger("AirportInformationProvider");
   async search(
     input: IAirportInformation.IRequest,
   ): Promise<IAirportInformation.IResponse[]> {
-    const s3 = new AWS.S3();
     const fileUrl =
       "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/airport_inforamtion.csv";
     const match = fileUrl.match(AwsProvider.S3BucketURL);
     if (!match) throw new Error("Invalid S3 URL");
 
-    const bucket = match[1];
-    const fileName = match[3];
-
-    const params = {
-      Bucket: bucket,
-      Key: fileName,
-    };
-    const s3Stream = s3.getObject(params).createReadStream();
+    const fileBuffer = await this.awsProvider.getObject(fileUrl);
+    const s3Stream = new Readable();
+    s3Stream.push(fileBuffer);
+    s3Stream.push(null);
 
     const results: IAirportInformation.IResponse[] = [];
     return new Promise<IAirportInformation.IResponse[]>((resolve, reject) => {
