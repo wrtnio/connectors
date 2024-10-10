@@ -3,9 +3,10 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
 import slackifyMarkdown from "slackify-markdown";
-import { tags } from "typia";
+import typia, { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
@@ -209,18 +210,32 @@ export class SlackProvider {
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
     const response = [];
-    for await (const userId of input.userIds) {
+
+    const fetch = async (userId: string) => {
       const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
       const token = await this.getToken(input.secretKey);
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
-        },
-      });
+      try {
+        const res = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
+          },
+        });
 
-      const fields = this.getUserProfileFields(res.data.profile);
-      response.push({ ...res.data.profile, fields, id: userId });
+        if (typia.is<{ ok: false; error: "ratelimited" }>(res.data)) {
+          throw new Error(res.data.error);
+        }
+
+        const fields = this.getUserProfileFields(res.data.profile);
+        return { ...res.data.profile, fields };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    for await (const userId of input.userIds) {
+      const fetched = await retry(() => fetch(userId))();
+      response.push({ ...fetched, id: userId });
     }
 
     return response;
