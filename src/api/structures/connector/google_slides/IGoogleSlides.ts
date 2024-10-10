@@ -1,6 +1,7 @@
 import { tags } from "typia";
 
 import { MyPartial } from "../../types/MyPartial";
+import { MyPick } from "../../types/MyPick";
 import { NTpule } from "../../types/NTuple";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
@@ -10,7 +11,7 @@ type OneOf<T extends object, K extends keyof T = keyof T> = K extends any
   : never;
 
 export namespace IGoogleSlides {
-  export type ISimplePresentationIdOutput = Pick<
+  export type ISimplePresentationIdOutput = MyPick<
     Presentation,
     "presentationId" | "pageSize" | "title"
   >;
@@ -708,7 +709,7 @@ export namespace IGoogleSlides {
     "google",
     ["https://www.googleapis.com/auth/presentations"]
   > &
-    Pick<Presentation, "title">;
+    MyPick<Presentation, "title">;
 
   /**
    * @title Google Slides의 Presentation resource.

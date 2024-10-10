@@ -2,6 +2,7 @@ import { tags } from "typia";
 
 import { IAttachmentFile } from "../common/IAttachmentFile";
 import { IPage } from "../common/IPage";
+import { StrictOmit } from "../types/strictOmit";
 
 /**
  * BBS article.
@@ -86,7 +87,7 @@ export namespace IBbsArticle {
   /**
    * Content info.
    */
-  export interface ISnapshot extends Omit<IUpdate, "password"> {
+  export interface ISnapshot extends StrictOmit<IUpdate, "password"> {
     /**
      * Primary key of individual content.
      */

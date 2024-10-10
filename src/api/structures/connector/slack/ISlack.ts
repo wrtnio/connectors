@@ -1,6 +1,7 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
+import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
@@ -387,7 +388,7 @@ export namespace ISlack {
      *
      * This is a list of people who participated in the conversation in this conversation list.
      */
-    members: Pick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name">[];
   }
 
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
@@ -405,7 +406,7 @@ export namespace ISlack {
      *
      * This is a list of people who participated in the conversation in this conversation list.
      */
-    members: Pick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name">[];
   }
 
   export interface IGetChannelHistoryInput
@@ -604,7 +605,7 @@ export namespace ISlack {
   }
 
   export interface Reply
-    extends Pick<
+    extends MyPick<
       Message,
       "type" | "user" | "text" | "ts" | "ts_date" | "attachments"
     > {
@@ -719,7 +720,7 @@ export namespace ISlack {
      * Attachement contains all types of files and can sometimes be an external link.
      * It is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up.
      */
-    attachments?: Pick<ISlack.Attachment, "id" | "title">[];
+    attachments?: MyPick<ISlack.Attachment, "id" | "title">[];
 
     /**
      * @title shortcut link
@@ -994,7 +995,7 @@ export namespace ISlack {
    */
   export interface IGetFileOutput {
     ok: boolean;
-    files: Pick<
+    files: MyPick<
       ISlack.File,
       | "id"
       | "channels"

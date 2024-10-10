@@ -1,3 +1,4 @@
+import { MyPick } from "../../types/MyPick";
 import { IExcel } from "../excel/IExcel";
 
 export namespace IHancell {
@@ -25,7 +26,7 @@ export namespace IHancell {
   /**
    * @title Hansel reading conditions
    */
-  export type IReadHancellInput = Pick<IExcel.IReadExcelInput, "fileUrl">;
+  export type IReadHancellInput = MyPick<IExcel.IReadExcelInput, "fileUrl">;
 
   /**
    * @title Hansel Read Response

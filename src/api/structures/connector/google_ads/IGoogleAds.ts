@@ -2,6 +2,8 @@ import type { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { DeepStrictMerge } from "../../types/DeepStrictMerge";
 import { MyPartial } from "../../types/MyPartial";
+import { MyPick } from "../../types/MyPick";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGoogleAds {
@@ -61,7 +63,7 @@ export namespace IGoogleAds {
       videoQuartileP100Rate?: `${number & tags.Type<"int64">}`;
     };
 
-    adGroupAd: Pick<AdGroupAd, "resourceName">;
+    adGroupAd: MyPick<AdGroupAd, "resourceName">;
   }
 
   export interface IGetAdGroupAdInput extends IGoogleAds.ISecret {
@@ -79,7 +81,7 @@ export namespace IGoogleAds {
       }>;
   }
 
-  export type IGetAdGroupAdOutput = Pick<
+  export type IGetAdGroupAdOutput = MyPick<
     AdGroupAd,
     "resourceName" | "policySummary" | "status"
   >[];
@@ -232,7 +234,7 @@ export namespace IGoogleAds {
   >;
 
   export interface ICreateAdGroupCriteriaInput
-    extends Omit<ICreateKeywordInput, "customerId">,
+    extends StrictOmit<ICreateKeywordInput, "customerId">,
       IGoogleAds.ISecret {
     /**
      * @title Resource name of the ad group to which you want to add the keyword.
@@ -297,7 +299,7 @@ export namespace IGoogleAds {
   };
 
   export interface IGetKeywordsOutputResult {
-    adGroupCriterion: Pick<
+    adGroupCriterion: MyPick<
       AdGroupCriterion,
       | "criterionId"
       | "resourceName"
@@ -336,7 +338,7 @@ export namespace IGoogleAds {
    * @title Keyword creation conditions
    */
   export interface ICreateKeywordInput
-    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
+    extends Required<MyPick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title Keyword to generate
      */
@@ -372,8 +374,8 @@ export namespace IGoogleAds {
   }
 
   export interface IGetAdGroupInput
-    extends Pick<IGoogleAds.ISecret, "customerId">,
-      Pick<IGoogleAds.ISecret, "secretKey"> {
+    extends MyPick<IGoogleAds.ISecret, "customerId">,
+      MyPick<IGoogleAds.ISecret, "secretKey"> {
     /**
      * @title ID of the parent campaign
      * @description If you only want to search for the ID of the campaign
@@ -400,9 +402,9 @@ export namespace IGoogleAds {
   }
 
   export interface IGetAdGroupOutputResult {
-    campaign: Pick<Campaign, "id" | "resourceName" | "status">;
+    campaign: MyPick<Campaign, "id" | "resourceName" | "status">;
 
-    adGroup: Pick<AdGroup, "id" | "type" | "name" | "resourceName">;
+    adGroup: MyPick<AdGroup, "id" | "type" | "name" | "resourceName">;
   }
 
   export interface AdGroupAd {
@@ -464,7 +466,7 @@ export namespace IGoogleAds {
    * @title Create ad group common
    */
   export interface ICreateAdGroupCommon
-    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
+    extends Required<MyPick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title Campaign Resource Name
      */
@@ -507,7 +509,7 @@ export namespace IGoogleAds {
     /**
      * @title Campaign Creation Conditions
      */
-    campaign: Omit<ICreateCampaignInput, "customerId" | "type" | "secretKey">;
+    campaign: StrictOmit<ICreateCampaignInput, "customerId" | "secretKey">;
   }
 
   /**
@@ -519,7 +521,7 @@ export namespace IGoogleAds {
     /**
      * @title Ad Creation Conditions
      */
-    ad: Omit<
+    ad: StrictOmit<
       ICreateAdGroupSearchAdInput,
       "campaignResourceName" | "type" | "customerId"
     >;
@@ -534,7 +536,7 @@ export namespace IGoogleAds {
     /**
      * @title Ad Creation Conditions
      */
-    ad: Omit<
+    ad: StrictOmit<
       ICreateAdGroupDisplayAdInput,
       "campaignResourceName" | "type" | "customerId"
     >;
@@ -563,7 +565,7 @@ export namespace IGoogleAds {
   export type ICreateAdGroupAdInput = IGoogleAds.ISecret &
     ICreateAdGroupAdInputCommon;
 
-  export type IUpdateAdGroupAdInput = Pick<
+  export type IUpdateAdGroupAdInput = MyPick<
     AdGroupAd,
     "resourceName" | "status"
   > &
@@ -580,7 +582,7 @@ export namespace IGoogleAds {
    * @title Search Ad Creation Conditions
    */
   export interface ICreateAdGroupSearchAdInput
-    extends Required<Pick<IGoogleAds.ISecret, "customerId">>,
+    extends Required<MyPick<IGoogleAds.ISecret, "customerId">>,
       ICreateSearchAdGroupInput,
       ICreateKeywordInput {
     /**
@@ -607,7 +609,7 @@ export namespace IGoogleAds {
    * @title Conditions for creating display ads
    */
   export interface ICreateAdGroupDisplayAdInput
-    extends Required<Pick<IGoogleAds.ISecret, "customerId">>,
+    extends Required<MyPick<IGoogleAds.ISecret, "customerId">>,
       ICreateDisplayAdGroupInput,
       ICreateKeywordInput {
     /**
@@ -675,12 +677,12 @@ export namespace IGoogleAds {
    */
   export interface IUpdateCampaignInput
     extends MyPartial<
-        Pick<
+        MyPick<
           ICreateCampaignInput,
           "campaignName" | "campaignBudget" | "endDate"
         >
       >,
-      Pick<IGoogleAds.ISecret, "secretKey">,
+      MyPick<IGoogleAds.ISecret, "secretKey">,
       IGoogleAds.ISecret {
     /**
      * @title Resource ID of the campaign to be modified
@@ -697,7 +699,7 @@ export namespace IGoogleAds {
   }
 
   export interface ICreateCampaignInput
-    extends Omit<ICreateCampaignBudgetInput, "customerId">,
+    extends StrictOmit<ICreateCampaignBudgetInput, "customerId">,
       IGoogleAds.ISecret {
     /**
      * @title Campaign Type
@@ -738,7 +740,7 @@ export namespace IGoogleAds {
   }
 
   export interface ICreateCampaignBudgetInput
-    extends Required<Pick<IGoogleAds.ISecret, "customerId">> {
+    extends Required<MyPick<IGoogleAds.ISecret, "customerId">> {
     /**
      * @title Advertising Budget
      * @description Korean currency unit, Won
@@ -862,24 +864,24 @@ export namespace IGoogleAds {
     /**
      * @title campaign
      */
-    campaign: Pick<IGoogleAds.Campaign, "resourceName" | "id" | "status">;
+    campaign: MyPick<IGoogleAds.Campaign, "resourceName" | "id" | "status">;
 
     /**
      * @title Ad Group
      */
-    adGroup: Pick<AdGroup, "id" | "resourceName" | "type">;
+    adGroup: MyPick<AdGroup, "id" | "resourceName" | "type">;
 
     /**
      * @title List of ads in ad group
      */
-    adGroupAds: Pick<AdGroupAd, "resourceName" | "policySummary">[];
+    adGroupAds: MyPick<AdGroupAd, "resourceName" | "policySummary">[];
 
     /**
      * @title Keyword List
      */
     keywords: DeepStrictMerge<
       Keyword,
-      Pick<AdGroupCriterion, "criterionId" | "resourceName">
+      MyPick<AdGroupCriterion, "criterionId" | "resourceName">
     >[];
   }
 
@@ -936,7 +938,7 @@ export namespace IGoogleAds {
     };
   }
 
-  export type IGetCustomerInput = Pick<IGoogleAds.ISecret, "secretKey">;
+  export type IGetCustomerInput = MyPick<IGoogleAds.ISecret, "secretKey">;
 
   export interface ISecret
     extends ICommon.ISecret<

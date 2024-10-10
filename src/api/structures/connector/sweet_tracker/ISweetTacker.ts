@@ -1,5 +1,6 @@
 import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { StrictOmit } from "../../types/strictOmit";
 
 export namespace ISweetTracker {
   export interface IGetRecommendedCompanyListInput {
@@ -16,7 +17,7 @@ export namespace ISweetTracker {
     /**
      * @title Courier list
      */
-    Recommend: Omit<ISweetTracker.Company, "International">[];
+    Recommend: StrictOmit<ISweetTracker.Company, "International">[];
   }
 
   /**
