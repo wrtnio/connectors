@@ -989,6 +989,9 @@ export namespace ISlack {
     comments_count: number & tags.Type<"uint64">;
   }
 
+  /**
+   * @title File Lookup Results
+   */
   export interface IGetFileOutput {
     ok: boolean;
     files: Pick<

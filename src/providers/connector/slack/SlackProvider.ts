@@ -229,6 +229,7 @@ export class SlackProvider {
         const fields = this.getUserProfileFields(res.data.profile);
         return { ...res.data.profile, fields };
       } catch (err) {
+        console.error(JSON.stringify(err));
         throw err;
       }
     };
