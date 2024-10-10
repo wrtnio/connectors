@@ -1758,7 +1758,7 @@ export namespace IGithub {
       /**
        * @title Cursor to be used to look up the next page
        */
-      endCursor: string;
+      endCursor?: string;
       /**
        * @title hasNextPage
        *
@@ -1850,7 +1850,7 @@ export namespace IGithub {
       /**
        * @title Cursor to be used to look up the next page
        */
-      endCursor: string;
+      endCursor?: string;
       /**
        * @title hasNextPage
        *

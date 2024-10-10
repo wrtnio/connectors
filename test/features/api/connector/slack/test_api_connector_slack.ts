@@ -422,3 +422,56 @@ export const test_api_connector_slack_get_user_details = async (
     typia.assert(detail);
   }
 };
+
+export const test_api_connector_slack_get_one_user_detail = async (
+  connection: CApi.IConnection,
+) => {
+  const detail =
+    await CApi.functional.connector.slack.get_user_details.getUserDetails(
+      connection,
+      {
+        userIds: ["U07EDKF5EKZ"],
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  typia.assert(detail);
+};
+
+export const test_api_connector_slack_get_files = async (
+  connection: CApi.IConnection,
+) => {
+  const pages = [1, 2, 3, 4, 5];
+  for await (const page of pages) {
+    const files = await CApi.functional.connector.slack.get_files.getFiles(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        page: page,
+      },
+    );
+
+    typia.assert(files);
+  }
+};
+
+export const test_api_connector_slack_get_image_and_pdf_files = async (
+  connection: CApi.IConnection,
+) => {
+  const pages = [1, 2, 3, 4, 5];
+  for await (const page of pages) {
+    const files = await CApi.functional.connector.slack.get_files.getFiles(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+        types: {
+          images: true,
+          pdfs: true,
+        },
+        page: page,
+      },
+    );
+
+    typia.assert(files);
+  }
+};

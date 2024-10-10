@@ -387,4 +387,24 @@ export class SlackController {
   ): Promise<ISlack.IGetImChannelOutput["channels"]> {
     return retry(() => this.slackProvider.getAllImChannels(input))();
   }
+
+  /**
+   * get files in workspace
+   *
+   * You can look up Slack workspace and channels, or all files sent from users.
+   * It is pagenation and can filter by file type, and also provides thumbnail links, download links, and original message links.
+   *
+   * @summary get files in workspace
+   * @param input
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Post("get-files")
+  async getFiles(
+    @TypedBody() input: ISlack.IGetFileInput,
+  ): Promise<ISlack.IGetFileOutput> {
+    return retry(() => this.slackProvider.getFiles(input))();
+  }
 }
