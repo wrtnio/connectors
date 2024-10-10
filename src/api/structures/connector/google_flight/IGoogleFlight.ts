@@ -1,5 +1,6 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { StrictOmit } from "../../types/strictOmit";
 import { IAirportInformation } from "../airport_information/IAirportInformation";
 
 export namespace IGoogleFlight {
