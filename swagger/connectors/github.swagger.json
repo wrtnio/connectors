@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.260",
+    "version": "0.1.261",
     "license": {
       "name": "AGPL-3.0-only"
     }
