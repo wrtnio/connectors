@@ -645,6 +645,38 @@ export class SlackProvider {
     return { channels, next_cursor: next_cursor ? next_cursor : null }; // next_cursor가 빈 문자인 경우 대비
   }
 
+  async getFiles(input: ISlack.IGetFileInput): Promise<ISlack.IGetFileOutput> {
+    const url = `https://slack.com/api/files.list`;
+    const queryParameters = createQueryParameter({
+      channel: input.channel,
+      count: input.limit,
+      page: input.page,
+      ...(input.latestDateTime && {
+        ts_to: this.transformDateTimeToTs(input.latestDateTime),
+      }),
+      ...(input.oldestDateTime && {
+        ts_from: this.transformDateTimeToTs(input.oldestDateTime),
+      }),
+      ...(input.types && {
+        types: Object.entries(input.types)
+          .filter(([key, value]) => value === true)
+          .map(([key]) => key)
+          .join(","),
+      }),
+      user: input.user,
+    });
+
+    const token = await this.getToken(input.secretKey);
+    const res = await axios.get(`${url}?${queryParameters}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8;",
+      },
+    });
+
+    return res.data;
+  }
+
   private getUserProfileFields(profile: { fields: Record<string, string> }) {
     if (profile?.fields) {
       const fields = Object.values(profile.fields)

@@ -16,6 +16,7 @@ export namespace ISlack {
       "groups:read",
       "chat:write",
       "users:read",
+      "files:read",
     ]
   >;
 
@@ -518,7 +519,7 @@ export namespace ISlack {
     /**
      * @title is org shared
      */
-    is_org_shared: false;
+    is_org_shared: boolean;
 
     /**
      * @title is user deleted
@@ -783,5 +784,357 @@ export namespace ISlack {
      * A valid URL that turns the title text into a hyperlink.
      */
     title_link?: string;
+  }
+
+  export interface File {
+    /**
+     * @title id
+     */
+    id: string;
+
+    /**
+     * @title created
+     */
+    created: number;
+
+    /**
+     * @title timestamp
+     */
+    timestamp: number;
+
+    /**
+     * @title name
+     * @example "tedair.gif"
+     */
+    name: string;
+
+    /**
+     * @title title
+     * @example "tedair.gif"
+     */
+    title: string;
+
+    /**
+     * @title mimetype
+     * @example "image/gif"
+     */
+    mimetype: string;
+
+    /**
+     * @title filetype
+     * @example "gif"
+     */
+    filetype: string;
+
+    /**
+     * @title pretty_type
+     * @example "GIF"
+     */
+    pretty_type: string;
+
+    /**
+     * @title user
+     * @example "U061F7AUR"
+     */
+    user: string;
+
+    /**
+     * @title editable
+     */
+    editable: boolean;
+
+    /**
+     * @title size
+     */
+    size: number & tags.Type<"uint64">;
+
+    /**
+     * @title mode
+     */
+    mode: string;
+
+    /**
+     * @title is_external
+     */
+    is_external: boolean;
+
+    /**
+     * @title external_type
+     */
+    external_type: string;
+
+    /**
+     * @title is_public
+     */
+    is_public: boolean;
+
+    /**
+     * @title public_url_shared
+     */
+    public_url_shared: boolean;
+
+    /**
+     * @title display_as_bot
+     */
+    display_as_bot: boolean;
+
+    /**
+     * @title username
+     */
+    username: string;
+
+    /**
+     * @title url_private
+     */
+    url_private?: string & tags.Format<"iri">;
+
+    /**
+     * @title url_private_download
+     */
+    url_private_download?: string & tags.Format<"iri">;
+
+    /**
+     * @title thumb_64
+     */
+    thumb_64?: string & tags.Format<"iri">;
+
+    /**
+     * @title thumb_80
+     */
+    thumb_80?: string & tags.Format<"iri">;
+
+    /**
+     * @title thumb_360
+     */
+    thumb_360?: string & tags.Format<"iri">;
+
+    /**
+     * @title thumb_360_w
+     */
+    thumb_360_w?: number & tags.Type<"uint64">;
+
+    /**
+     * @title thumb_360_h
+     */
+    thumb_360_h?: number & tags.Type<"uint64">;
+
+    /**
+     * @title thumb_160
+     */
+    thumb_160?: string & tags.Format<"iri">;
+
+    /**
+     * @title thumb_360_gif
+     */
+    thumb_360_gif?: string & tags.Format<"iri">;
+
+    /**
+     * @title image_exif_rotation
+     */
+    image_exif_rotation?: number & tags.Type<"uint64">;
+
+    /**
+     * @title original_w
+     */
+    original_w: number & tags.Type<"uint64">;
+
+    /**
+     * @title original_h
+     */
+    original_h: number & tags.Type<"uint64">;
+
+    /**
+     * @title deanimate_gif
+     */
+    deanimate_gif: string & tags.Format<"iri">;
+
+    /**
+     * @title pjpeg
+     */
+    pjpeg: string & tags.Format<"iri">;
+
+    /**
+     * @title permalink
+     */
+    permalink: string & tags.Format<"iri">;
+
+    /**
+     * @title permalink_public
+     */
+    permalink_public: string & tags.Format<"iri">;
+
+    /**
+     * @title thumb_1024
+     */
+    thumb_1024?: string & tags.Format<"iri">;
+
+    /**
+     * @title channels
+     */
+    channels: Channel["id"][];
+
+    /**
+     * @title groups
+     */
+    groups: string[];
+
+    /**
+     * @title ims
+     */
+    ims: string[];
+
+    /**
+     * @title comments_count
+     */
+    comments_count: number & tags.Type<"uint64">;
+  }
+
+  export interface IGetFileOutput {
+    ok: boolean;
+    files: Pick<
+      ISlack.File,
+      | "id"
+      | "channels"
+      | "comments_count"
+      | "created"
+      | "user"
+      | "mimetype"
+      | "size"
+      | "url_private"
+      | "url_private_download"
+      | "thumb_1024"
+      | "name"
+    >[];
+    paging: {
+      /**
+       * @title current file count
+       */
+      count: number;
+
+      /**
+       * @title total page
+       */
+      total: number;
+
+      /**
+       * @title current page
+       */
+      page: number;
+
+      /**
+       * @title total page
+       */
+      pages: number;
+    };
+  }
+
+  export interface IGetFileInput
+    extends ISlack.ISecret,
+      StrictOmit<ICommonPaginationInput, "cursor"> {
+    /**
+     * @title page
+     */
+    page?: number & tags.Default<1>;
+
+    /**
+     * @title Channel ID to browse the file
+     *
+     * If not specified, the entire Slack workspace will be explored.
+     */
+    channel?: Channel["id"] &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
+
+    /**
+     * @title user id
+     *
+     * If you only want to check files sent by a particular user, enter your ID.
+     */
+    user?: ISlack.User["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-users";
+        jmesPath: "users[].{value: id, label: display_name}";
+      }>;
+
+    /**
+     * @title file types to include
+     *
+     * The file types you may encounter include (but are not limited to):
+     * If you want to look up all of them regardless of the file type, you can ignore the properties.
+     * If the file type is important, you can specify the file type property as true inside the object.
+     */
+    types?: {
+      /**
+       * @title spaces
+       *
+       * Slack's Post is a feature that allows users to write and share long forms of documents or writings.
+       * It is more formatting free than regular messages and can contain code blocks or sections, which are useful for creating structured documents.
+       * Slack often categorizes these documented files into spaces, helping to share knowledge or information easily within the team.
+       */
+      spaces: boolean;
+
+      /**
+       * @title snippets
+       *
+       * Snippets are used to share short code or text snippets.
+       * They are usually useful when programmers share short code blocks or snippets of log files with their teams.
+       * Snippets quickly uploads text or code, and allows others to refer to or copy the content. In Slack, these files are classified into a file type called snippets.
+       */
+      snippets: boolean;
+
+      /**
+       * @title images
+       */
+      images: boolean;
+
+      /**
+       * @title gdocs
+       *
+       * Google docs
+       */
+      gdocs: boolean;
+
+      /**
+       * @title zips
+       */
+      zips: boolean;
+
+      /**
+       * @title pdfs
+       */
+      pdfs: boolean;
+    };
+
+    /**
+     * @title latestDateTime
+     *
+     * Only files before this date-time will be included in results. Default is the current time.
+     * It is a value that takes precedence over 'latest', 'latestTimestamp'.
+     */
+    latestDateTime?: string & tags.Format<"date-time">;
+
+    /**
+     * @title oldestDateTime
+     *
+     * Only files after this date-time will be included in results.
+     * It is a value that takes precedence over 'oldest', 'oldestTimestamp'.
+     */
+    oldestDateTime?: string & tags.Format<"date-time">;
   }
 }
