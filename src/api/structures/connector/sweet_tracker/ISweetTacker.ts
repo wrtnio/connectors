@@ -16,7 +16,7 @@ export namespace ISweetTracker {
     /**
      * @title Courier list
      */
-    Recommend: Omit<ISweetTracker.Company, "International">[];
+    Recommend: StrictOmit<ISweetTracker.Company, "International">[];
   }
 
   /**

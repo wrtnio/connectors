@@ -346,7 +346,7 @@ export namespace IGoogleFlight {
   /**
    * @title Transfer information
    */
-  interface ILayover extends Omit<IAirport, "time"> {
+  interface ILayover extends StrictOmit<IAirport, "time"> {
     /**
      * It's transfer time.
      *

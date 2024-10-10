@@ -1,5 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { MyPick } from "../../types/MyPick";
 
 /**
  * @title Korea Copyright Association Type
@@ -44,7 +45,7 @@ export namespace KoreaCopyrightCommission {
    * @title Copyright search results
    */
   export interface IGetCopyRightOutput
-    extends Pick<IGetCopyRightInput, "page" | "perPage"> {
+    extends MyPick<IGetCopyRightInput, "page" | "perPage"> {
     /**
      * @title Current page count
      */
@@ -58,7 +59,10 @@ export namespace KoreaCopyrightCommission {
     /**
      * @title Search Results
      */
-    data: (Pick<IGetCopyRightInput, "REG_ID" | "CONT_TITLE" | "AUTHOR_NAME"> & {
+    data: (MyPick<
+      IGetCopyRightInput,
+      "REG_ID" | "CONT_TITLE" | "AUTHOR_NAME"
+    > & {
       /**
        * @title Copyright registration date
        */

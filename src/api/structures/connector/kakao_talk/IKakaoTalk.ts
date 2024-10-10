@@ -2,6 +2,7 @@ import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import type { ContentMediaType } from "typia/lib/tags";
+import { MyPick } from "../../types/MyPick";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IKakaoTalk {
@@ -461,7 +462,7 @@ export namespace IKakaoTalk {
   /**
    * @title Refresh Access Token
    */
-  export type IRefreshAccessTokenOutput = Pick<
+  export type IRefreshAccessTokenOutput = MyPick<
     IGetAccessTokenOutput,
     "access_token" | "expires_in" | "token_type"
   >;
@@ -869,7 +870,7 @@ export namespace IKakaoTalk {
   /**
    * @title List Template
    */
-  export interface IListMemoInput extends Pick<MemoBase, "button_title"> {
+  export interface IListMemoInput extends MyPick<MemoBase, "button_title"> {
     /**
      * @title List Type
      */
@@ -1101,7 +1102,7 @@ export namespace IKakaoTalk {
   /**
    * @title Text Template
    */
-  export interface ITextMemoInput extends Pick<MemoBase, "button_title"> {
+  export interface ITextMemoInput extends MyPick<MemoBase, "button_title"> {
     /**
      * @title Text Type
      */

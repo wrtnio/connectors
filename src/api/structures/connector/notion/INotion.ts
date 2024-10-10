@@ -6,6 +6,7 @@ import {
   CreatePageParameters,
 } from "@notionhq/client/build/src/api-endpoints";
 import { Hierarchy } from "../../types/Hierarchy";
+import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
@@ -441,7 +442,7 @@ export namespace INotion {
   }
 
   export interface ICreatePageContentInput
-    extends Pick<CreatePageParameters, "children"> {
+    extends MyPick<CreatePageParameters, "children"> {
     children: BlockObjectRequest[];
   }
 

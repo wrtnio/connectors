@@ -1,5 +1,6 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { MyPick } from "../../types/MyPick";
 import { PickPartial } from "../../types/PickPartial";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
@@ -106,7 +107,7 @@ export namespace IGithub {
     state: "open" | "closed"; // 더 확인이 필요
     title: string;
     description: string;
-    creator: Pick<User, "id" | "login" | "type">;
+    creator: MyPick<User, "id" | "login" | "type">;
     open_issues: number & tags.Type<"uint64"> & tags.Minimum<0>;
     closed_issues: number & tags.Type<"uint64"> & tags.Minimum<0>;
     created_at: string & tags.Format<"date-time">;
@@ -200,7 +201,7 @@ export namespace IGithub {
 
   export interface IGetReviewCommentInput
     extends IReadPullRequestDetailInput,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * @title review_id
      */
@@ -213,14 +214,14 @@ export namespace IGithub {
   }
 
   export interface IPullRequestComment
-    extends Pick<IGithub.ReviewComment, "path" | "position" | "body"> {
+    extends MyPick<IGithub.ReviewComment, "path" | "position" | "body"> {
     line: number & tags.Type<"uint64">;
     side: string;
     start_line: number & tags.Type<"uint64">;
     start_side: string;
   }
 
-  export type IReviewPullRequestOutput = Pick<IGithub.Review, "id">;
+  export type IReviewPullRequestOutput = MyPick<IGithub.Review, "id">;
 
   export interface IReviewPullRequestInput extends IReadPullRequestDetailInput {
     /**
@@ -267,7 +268,7 @@ export namespace IGithub {
 
   export interface IReadPullRequestFileInput
     extends IReadPullRequestDetailInput,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
   export interface IReadPullRequestCommitOutput
     extends IGithub.ICommonPaginationOutput {
@@ -279,7 +280,7 @@ export namespace IGithub {
 
   export interface IReadPullRequestCommitInput
     extends IReadPullRequestDetailInput,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
   export interface IReadPullRequestRequestedReviewerOutput {
     /**
@@ -290,7 +291,7 @@ export namespace IGithub {
     /**
      * @title team
      */
-    teams: Pick<
+    teams: MyPick<
       Team,
       | "id"
       | "name"
@@ -372,7 +373,7 @@ export namespace IGithub {
 
   export interface IReadPullRequestReviewInput
     extends IReadPullRequestDetailInput,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
   export interface IRequestReviewerInput extends IReadPullRequestDetailInput {
     /**
@@ -452,7 +453,7 @@ export namespace IGithub {
 
   export interface IGetAuthenticatedUserOrganizationInput
     extends ICommon.ISecret<"github", ["user"]>,
-      Pick<IGithub.ICommonPaginationInput, "page" | "per_page"> {}
+      MyPick<IGithub.ICommonPaginationInput, "page" | "per_page"> {}
 
   export type IGetRepositoryFolderStructureOutput = (
     | (RepositoryFolder & {
@@ -469,7 +470,10 @@ export namespace IGithub {
   )[];
 
   export interface IGetRepositoryFolderStructureInput
-    extends Pick<IGithub.IGetFileContentInput, "secretKey" | "owner" | "repo"> {
+    extends MyPick<
+      IGithub.IGetFileContentInput,
+      "secretKey" | "owner" | "repo"
+    > {
     /**
      * @title folder name
      *
@@ -598,7 +602,7 @@ export namespace IGithub {
     branch?: Branch["name"];
   }
 
-  export type IGetReadmeFileContentInput = Pick<
+  export type IGetReadmeFileContentInput = MyPick<
     IGithub.IGetFileContentInput,
     "secretKey" | "owner" | "repo"
   >;
@@ -644,14 +648,14 @@ export namespace IGithub {
     result: IGithub.Collaborator[];
   }
 
-  export type Collaborator = Pick<
+  export type Collaborator = MyPick<
     IGithub.User,
     "id" | "login" | "html_url" | "avatar_url" | "type"
   >;
 
   export interface IGetCollaboratorInput
     extends ICommon.ISecret<"github", ["admin:org", "repo"]>,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * @title owner's name
      *
@@ -885,7 +889,7 @@ export namespace IGithub {
 
   export type IGetCommitHeadOutput = {
     sha: Commit["sha"];
-    commit: Pick<
+    commit: MyPick<
       Commit,
       "author" | "committer" | "comment_count" | "message" | "tree" | "url"
     >;
@@ -1061,17 +1065,17 @@ export namespace IGithub {
       /**
        * @title user
        */
-      actor: Pick<User, "id" | "login">;
+      actor: MyPick<User, "id" | "login">;
 
       /**
        * @title repo
        */
-      repo: Pick<Repository, "id" | "name">;
+      repo: MyPick<Repository, "id" | "name">;
 
       /**
        * @title org
        */
-      org?: Pick<Organization, "id" | "display_login" | "login">;
+      org?: MyPick<Organization, "id" | "display_login" | "login">;
 
       /**
        * @@title payload
@@ -1196,7 +1200,7 @@ export namespace IGithub {
     /**
      * @title followees
      */
-    result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
+    result: MyPick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
   export type IUpdateIssueOutput = IGithub.Issue;
@@ -1306,7 +1310,7 @@ export namespace IGithub {
   };
 
   export interface IGetLabelInput
-    extends Pick<ICommonPaginationInput, "per_page" | "page">,
+    extends MyPick<ICommonPaginationInput, "per_page" | "page">,
       ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title user's nickname
@@ -1323,7 +1327,7 @@ export namespace IGithub {
     /**
      * @title followers
      */
-    result: Pick<User, "id" | "login" | "avatar_url" | "html_url">[];
+    result: MyPick<User, "id" | "login" | "avatar_url" | "html_url">[];
   }
 
   export interface IGetFollowerInput
@@ -1341,7 +1345,7 @@ export namespace IGithub {
      */
     result: {
       sha: Commit["sha"];
-      commit: Pick<Commit, "url" | "author" | "committer" | "message">;
+      commit: MyPick<Commit, "url" | "author" | "committer" | "message">;
     }[];
   }
 
@@ -1417,7 +1421,7 @@ export namespace IGithub {
     /**
      * @title Parents of this commit
      */
-    parents: Pick<Commit, "sha">[];
+    parents: MyPick<Commit, "sha">[];
 
     stats: {
       /**
@@ -1547,7 +1551,7 @@ export namespace IGithub {
 
   export type IGetUserPinnedRepositoryOutput = Repository["name"][];
 
-  export type IGetUserPinnedRepositoryInput = Pick<
+  export type IGetUserPinnedRepositoryInput = MyPick<
     IGetUserRepositoryInput,
     "username" | "secretKey"
   >;
@@ -1628,14 +1632,14 @@ export namespace IGithub {
     result: IGithub.Issue[];
   }
 
-  export type IUpdatePullRequestOutput = Pick<
+  export type IUpdatePullRequestOutput = MyPick<
     PullRequest,
     "title" | "number" | "id"
   >;
 
   export interface IUpdatePullRequestInput
     extends PickPartial<ICreatePullRequestInput, "head" | "base">,
-      Pick<IUpdateIssueInput, "labels"> {
+      MyPick<IUpdateIssueInput, "labels"> {
     /**
      * @title pull request number to update
      */
@@ -1666,7 +1670,7 @@ export namespace IGithub {
       | tags.Constant<"closed", { title: "closed" }>;
   }
 
-  export type ICreatePullRequestOutput = Pick<
+  export type ICreatePullRequestOutput = MyPick<
     PullRequest,
     "title" | "number" | "id"
   >;
@@ -1769,7 +1773,7 @@ export namespace IGithub {
   }
 
   export interface FetchedIssue
-    extends Pick<Issue, "number" | "title" | "body"> {
+    extends MyPick<Issue, "number" | "title" | "body"> {
     /**
      * @title issue id
      */
@@ -1814,20 +1818,20 @@ export namespace IGithub {
      * @title labels
      */
     labels: {
-      nodes: Pick<Label, "name" | "description">[];
+      nodes: MyPick<Label, "name" | "description">[];
     };
 
     /**
      * @title assignees
      */
     assignees: {
-      nodes: Pick<User, "login">[];
+      nodes: MyPick<User, "login">[];
     };
 
     /**
      * @title author
      */
-    author: Pick<User, "login">;
+    author: MyPick<User, "login">;
 
     /**
      * @title createdAt
@@ -1915,20 +1919,20 @@ export namespace IGithub {
      * @title labels
      */
     labels: {
-      nodes: Pick<Label, "name" | "description">[];
+      nodes: MyPick<Label, "name" | "description">[];
     };
 
     /**
      * @title assignees
      */
     assignees: {
-      nodes: Pick<User, "login">[];
+      nodes: MyPick<User, "login">[];
     };
 
     /**
      * @title author
      */
-    author: Pick<User, "login">;
+    author: MyPick<User, "login">;
 
     /**
      * @title createdAt
@@ -1942,7 +1946,7 @@ export namespace IGithub {
   }
 
   export interface IFetchRepositoryPullRequestInput
-    extends Pick<
+    extends MyPick<
       IFetchRepositoryInput,
       | "secretKey"
       | "owner"
@@ -2023,7 +2027,7 @@ export namespace IGithub {
     /**
      * @title closed_by
      */
-    closed_by?: Pick<User, "id" | "login" | "type"> | null;
+    closed_by?: MyPick<User, "id" | "login" | "type"> | null;
   }
 
   export interface IGetIssueCommentsOutput
@@ -2048,7 +2052,7 @@ export namespace IGithub {
 
   export interface IGetPullRequestCommentsInput
     extends IReadPullRequestDetailInput,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
   export type ICreateIssueCommentOutput = IssueComment;
 
@@ -2061,7 +2065,7 @@ export namespace IGithub {
 
   export interface IGetIssueCommentsInput
     extends IGetIssueDetailInput,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {}
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
   export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
     /**
@@ -2192,7 +2196,7 @@ export namespace IGithub {
 
   export interface IGetAuthenticatedUserIssueInput
     extends ICommon.ISecret<"github", ["user", "repo"]>,
-      Pick<ICommonPaginationInput, "page" | "per_page"> {
+      MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * @title direction
      * The order to sort by.
@@ -2301,7 +2305,7 @@ export namespace IGithub {
   }
 
   export interface IGetUserProfileOutput
-    extends Pick<User, "id" | "login" | "avatar_url" | "type"> {
+    extends MyPick<User, "id" | "login" | "avatar_url" | "type"> {
     /**
      * @title name
      * It means the actual name that the user has written, not the user's nickname.
@@ -2784,7 +2788,7 @@ export namespace IGithub {
     /**
      * @title actor
      */
-    actor: Pick<User, "id" | "login" | "avatar_url" | "type">;
+    actor: MyPick<User, "id" | "login" | "avatar_url" | "type">;
   };
 
   export type Organization = {
@@ -2848,7 +2852,7 @@ export namespace IGithub {
     /**
      * @title user
      */
-    user: Pick<IGithub.User, "id" | "login" | "type">;
+    user: MyPick<IGithub.User, "id" | "login" | "type">;
 
     /**
      * @title body
@@ -2879,14 +2883,14 @@ export namespace IGithub {
     /**
      * @title assignee
      */
-    assignee: Pick<IGithub.User, "login"> | null;
+    assignee: MyPick<IGithub.User, "login"> | null;
 
     /**
      * @title assignees
      *
      * If there are many people in charge, you can be included in the array.
      */
-    assignees?: Pick<IGithub.User, "login">[] | null;
+    assignees?: MyPick<IGithub.User, "login">[] | null;
   };
 
   export type Milestone = {
@@ -2898,7 +2902,7 @@ export namespace IGithub {
      */
     title: string;
     description: string | null;
-    creator: Pick<IGithub.User, "id" | "login" | "type">;
+    creator: MyPick<IGithub.User, "id" | "login" | "type">;
     open_issues: number & tags.Type<"uint64">;
     closed_issues: number & tags.Type<"uint64">;
     created_at: string & tags.Format<"date-time">;
@@ -2940,12 +2944,12 @@ export namespace IGithub {
       /**
        * @title user
        */
-      user: Pick<IGithub.User, "id" | "login" | "type">;
+      user: MyPick<IGithub.User, "id" | "login" | "type">;
 
       /**
        * @title repo
        */
-      repo: Pick<Repository, "full_name"> | null;
+      repo: MyPick<Repository, "full_name"> | null;
     };
 
     /**
@@ -2970,12 +2974,12 @@ export namespace IGithub {
       /**
        * @title user
        */
-      user: Pick<IGithub.User, "id" | "login" | "type">;
+      user: MyPick<IGithub.User, "id" | "login" | "type">;
 
       /**
        * @title repo
        */
-      repo: Pick<Repository, "full_name"> | null;
+      repo: MyPick<Repository, "full_name"> | null;
     };
 
     /**
@@ -2993,7 +2997,7 @@ export namespace IGithub {
     /**
      * @title requested_reviewers
      */
-    requested_reviewers: Pick<User, "login" | "id" | "type">[];
+    requested_reviewers: MyPick<User, "login" | "id" | "type">[];
 
     /**
      * @title requested_teams
@@ -3028,7 +3032,7 @@ export namespace IGithub {
     /**
      * @title merged_by
      */
-    merged_by: Pick<User, "login" | "id" | "type"> | null;
+    merged_by: MyPick<User, "login" | "id" | "type"> | null;
 
     /**
      * @title maintainer_can_modify
@@ -3168,7 +3172,7 @@ export namespace IGithub {
     /**
      * @title user
      */
-    user: Pick<
+    user: MyPick<
       IGithub.User,
       "id" | "login" | "type" | "avatar_url" | "html_url"
     >;
@@ -3260,7 +3264,7 @@ export namespace IGithub {
   }
 
   export interface UploadFileInput {
-    files: Pick<IGithub.RepositoryFile, "path" | "content">[];
+    files: MyPick<IGithub.RepositoryFile, "path" | "content">[];
     key: string;
   }
 

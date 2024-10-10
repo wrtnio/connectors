@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";

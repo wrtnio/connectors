@@ -1,5 +1,6 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
+import { MyPick } from "../../types/MyPick";
 
 export namespace IKakaoNavi {
   /**
@@ -138,7 +139,7 @@ export namespace IKakaoNavi {
   }
 
   export interface Summary
-    extends Pick<Section, "bound" | "distance" | "duration"> {
+    extends MyPick<Section, "bound" | "distance" | "duration"> {
     /**
      * @title Departure information
      */
@@ -303,7 +304,9 @@ export namespace IKakaoNavi {
   /**
    * @title Guide information
    */
-  export interface Guide extends Place, Pick<Section, "distance" | "duration"> {
+  export interface Guide
+    extends Place,
+      MyPick<Section, "distance" | "duration"> {
     /**
      * @title Guide type
      */

@@ -1,6 +1,7 @@
 import type { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import type { tags } from "typia";
 import { MyPartial } from "../../types/MyPartial";
+import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import type { ICommon } from "../common/ISecretValue";
 import type { ListNode } from "./ListNode";
@@ -151,7 +152,7 @@ export namespace IJira {
     /**
      * @title comments
      */
-    comments: Pick<
+    comments: MyPick<
       IJira.Comment,
       "id" | "author" | "body" | "created" | "updated" | "updateAuthor"
     >[];
@@ -295,7 +296,7 @@ export namespace IJira {
        * StatusDetail.
        * Details of the issue status after the transition.
        */
-      to: Pick<Status, "id" | "description" | "name" | "statusCategory">;
+      to: MyPick<Status, "id" | "description" | "name" | "statusCategory">;
     }[];
   }
 
@@ -840,12 +841,12 @@ export namespace IJira {
     extends BasicAuthorization,
       ICommonPaginationInput {}
 
-  export type IGetIssuePriorityOutput = Pick<Priority, "id" | "name">[];
+  export type IGetIssuePriorityOutput = MyPick<Priority, "id" | "name">[];
 
   export type IGetIssuePriorityInput = BasicAuthorization;
 
   export interface IGetIssueStatusOutput {
-    statuses: (Pick<Status, "id" | "name" | "untranslatedName"> & {
+    statuses: (MyPick<Status, "id" | "name" | "untranslatedName"> & {
       projectId?: string;
     })[];
   }
@@ -1138,11 +1139,11 @@ export namespace IJira {
      * A property called marks is not available here.
      */
     content: (
-      | Omit<EmojiNode, "marks">
-      | Omit<HardBreakNode, "marks">
-      | Omit<InlineCardNode, "marks">
-      | Omit<MentionNode, "marks">
-      | Omit<TextContent, "marks">
+      | StrictOmit<EmojiNode, "marks">
+      | StrictOmit<HardBreakNode, "marks">
+      | StrictOmit<InlineCardNode, "marks">
+      | StrictOmit<MentionNode, "marks">
+      | StrictOmit<TextContent, "marks">
     )[];
 
     /**
@@ -1414,11 +1415,11 @@ export namespace IJira {
      * If you want to make a new line, there will be an empty array.
      */
     content: (
-      | Omit<EmojiNode, "marks">
-      | Omit<HardBreakNode, "marks">
-      | Omit<InlineCardNode, "marks">
-      | Omit<MentionNode, "marks">
-      | Omit<TextContent, "marks">
+      | StrictOmit<EmojiNode, "marks">
+      | StrictOmit<HardBreakNode, "marks">
+      | StrictOmit<InlineCardNode, "marks">
+      | StrictOmit<MentionNode, "marks">
+      | StrictOmit<TextContent, "marks">
     )[];
   };
 
@@ -1659,7 +1660,7 @@ export namespace IJira {
       ICommonPaginationInput,
       IGetIssueCommonRequestInput {}
 
-  export type IGetIssueAssignableOutput = Pick<
+  export type IGetIssueAssignableOutput = MyPick<
     User,
     "accountId" | "displayName" | "active"
   >[];
@@ -1692,12 +1693,12 @@ export namespace IJira {
       }>;
   }
 
-  export type IGetProjectAssignableOutput = Pick<
+  export type IGetProjectAssignableOutput = MyPick<
     User,
     "accountId" | "displayName" | "active"
   >[];
 
-  export type IGetStatusOutput = Pick<
+  export type IGetStatusOutput = MyPick<
     Status,
     "id" | "name" | "statusCategory" | "description" | "untranslatedName"
   >[];
@@ -1728,7 +1729,7 @@ export namespace IJira {
     /**
      * @title Jira issue list
      */
-    issues: Pick<Issue, "fields" | "id" | "key">[];
+    issues: MyPick<Issue, "fields" | "id" | "key">[];
   }
 
   export interface IGetIssueTypeOutput {
@@ -1915,12 +1916,12 @@ export namespace IJira {
     /**
      * @title author of this comment
      */
-    author: Pick<User, "accountId" | "active" | "displayName">;
+    author: MyPick<User, "accountId" | "active" | "displayName">;
 
     /**
      * @title who updates this comment
      */
-    updateAuthor: Pick<User, "accountId" | "active" | "displayName">;
+    updateAuthor: MyPick<User, "accountId" | "active" | "displayName">;
 
     /**
      * @title body of comment
@@ -1985,12 +1986,12 @@ export namespace IJira {
     /**
      * @title issue type
      */
-    issuetype?: Pick<IssueType, "id" | "name">;
+    issuetype?: MyPick<IssueType, "id" | "name">;
 
     /**
      * @title status
      */
-    status: Pick<
+    status: MyPick<
       Status,
       "id" | "name" | "description" | "statusCategory" | "untranslatedName"
     >;
@@ -1998,7 +1999,7 @@ export namespace IJira {
     /**
      * @title priority
      */
-    priority: Pick<Priority, "id" | "name">;
+    priority: MyPick<Priority, "id" | "name">;
 
     /**
      * @title parent of this issue

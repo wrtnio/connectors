@@ -10,6 +10,7 @@ import {
 } from "@figma/rest-api-spec";
 import { tags } from "typia";
 
+import { MyPick } from "../../types/MyPick";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IFigma {
@@ -258,7 +259,7 @@ export namespace IFigma {
 
   export interface IGetProjectStatisticsInput
     extends IFigma.Secret,
-      Pick<IFigma.IReadCommentInput, "as_md">,
+      MyPick<IFigma.IReadCommentInput, "as_md">,
       IFigma.IGetProjectInput {}
 
   export interface IGetProejctOutput {
@@ -362,7 +363,7 @@ export namespace IFigma {
     };
   }
 
-  export interface IGetStatisticsOutput extends Pick<Project, "id" | "name"> {
+  export interface IGetStatisticsOutput extends MyPick<Project, "id" | "name"> {
     /**
      * @title Statistics by canvas within the project
      */

@@ -2,6 +2,7 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
+import { MyPick } from "@wrtn/connector-api/lib/structures/types/MyPick";
 import { RouteIcon } from "@wrtnio/decorators";
 import { SlackProvider } from "../../../providers/connector/slack/SlackProvider";
 import { retry } from "../../../utils/retry";
@@ -52,7 +53,7 @@ export class SlackController {
   @TypedRoute.Post("scheduleMessage/text")
   async sendScheduleMessage(
     @TypedBody() input: ISlack.ISCheduleMessageInput,
-  ): Promise<Pick<ISlack.ScheduledMessage, "post_at">> {
+  ): Promise<MyPick<ISlack.ScheduledMessage, "post_at">> {
     return retry(() => this.slackProvider.sendScheduleMessage(input))();
   }
 
@@ -97,7 +98,7 @@ export class SlackController {
   @TypedRoute.Post("postMessage/text/myself")
   async sendTextToMyself(
     @TypedBody() input: ISlack.IPostMessageToMyselfInput,
-  ): Promise<Pick<ISlack.Message, "ts">> {
+  ): Promise<MyPick<ISlack.Message, "ts">> {
     return retry(() => this.slackProvider.sendTextToMyself(input))();
   }
 
@@ -123,7 +124,7 @@ export class SlackController {
   @TypedRoute.Post("postMessage/reply")
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
-  ): Promise<Pick<ISlack.Message, "ts">> {
+  ): Promise<MyPick<ISlack.Message, "ts">> {
     return this.slackProvider.sendReply(input);
   }
 
@@ -145,7 +146,7 @@ export class SlackController {
   @TypedRoute.Post("postMessage/text")
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
-  ): Promise<Pick<ISlack.Message, "ts">> {
+  ): Promise<MyPick<ISlack.Message, "ts">> {
     return this.slackProvider.sendText(input);
   }
 

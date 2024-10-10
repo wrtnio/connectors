@@ -41,9 +41,9 @@ type RemoveAfterDot<
  * {@link DeepStrictObjectKeys} 을 이용해서 뽑을 키를 고를 수 있다.
  *
  * ```ts
- * type Example1 = DeepStrictPick<{ a: { b: 1; c: 2 } }, "a.b">;
- * type Example2 = DeepStrictPick<{ a: { b: 1; c: { d: number }[] } }, "a.c[*].d">;
- * type Example3 = DeepStrictPick<{ a: 1 }[], "[*].a">;
+ * type Example1 = DeepStrictMyPick<{ a: { b: 1; c: 2 } }, "a.b">;
+ * type Example2 = DeepStrictMyPick<{ a: { b: 1; c: { d: number }[] } }, "a.c[*].d">;
+ * type Example3 = DeepStrictMyPick<{ a: 1 }[], "[*].a">;
  * ```
  */
 export type DeepStrictPick<

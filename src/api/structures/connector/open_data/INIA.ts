@@ -1,4 +1,5 @@
 import { Prerequisite } from "@wrtnio/decorators";
+import { MyPick } from "../../types/MyPick";
 import { IOpenData } from "./IOpenData";
 
 /**
@@ -10,7 +11,7 @@ export namespace INIA {
    * @description Search is possible only if the road name address or street address matches exactly
    */
   export type IGetParkingLotInput = IOpenData.ICommon.IPaginationInput &
-    (Pick<ParkingLot, "rdnmadr"> | Pick<ParkingLot, "lnmadr">);
+    (MyPick<ParkingLot, "rdnmadr"> | MyPick<ParkingLot, "lnmadr">);
 
   export type ParkingLot = {
     /**
