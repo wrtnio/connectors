@@ -1139,10 +1139,10 @@ export namespace IJira {
      * A property called marks is not available here.
      */
     content: (
-      | StrictOmit<EmojiNode, "marks">
-      | StrictOmit<HardBreakNode, "marks">
-      | StrictOmit<InlineCardNode, "marks">
-      | StrictOmit<MentionNode, "marks">
+      | EmojiNode
+      | HardBreakNode
+      | InlineCardNode
+      | MentionNode
       | StrictOmit<TextContent, "marks">
     )[];
 
@@ -1415,10 +1415,10 @@ export namespace IJira {
      * If you want to make a new line, there will be an empty array.
      */
     content: (
-      | StrictOmit<EmojiNode, "marks">
-      | StrictOmit<HardBreakNode, "marks">
-      | StrictOmit<InlineCardNode, "marks">
-      | StrictOmit<MentionNode, "marks">
+      | EmojiNode
+      | HardBreakNode
+      | InlineCardNode
+      | MentionNode
       | StrictOmit<TextContent, "marks">
     )[];
   };
