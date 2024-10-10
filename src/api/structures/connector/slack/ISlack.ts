@@ -119,6 +119,12 @@ export namespace ISlack {
     users: StrictOmit<IGetUserOutput, "fields">[];
   }
 
+  /**
+   * @title profile
+   *
+   * User information will usually include user's directories, start date, email, phone number, and status information.
+   * The start date usually records when this member joined Slack or when he joined the team, but all the information here is written by the individual user and not by the HR person.
+   */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
     "name" | "deleted" | "profile_image"
@@ -206,8 +212,16 @@ export namespace ISlack {
   export interface IGetUserDetailInput extends ISlack.ISecret {
     /**
      * @title userIds
+     *
+     * You can enter the ID value of the user who wants to look up the details.
      */
-    userIds: ISlack.User["id"][];
+    userIds: (ISlack.User["id"] &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/slack/get-users";
+        jmesPath: "users[].{value: id, label: display_name}";
+      }>)[] &
+      tags.MinItems<1>;
   }
 
   export interface IGetUserListInput
