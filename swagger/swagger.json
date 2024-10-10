@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.261",
+    "version": "0.1.262",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7941,6 +7941,39 @@
                   "items": {
                     "$ref": "#/components/schemas/ISlack.ImChannel"
                   }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-files": {
+      "post": {
+        "summary": "get files in workspace",
+        "description": "get files in workspace\n\nYou can look up Slack workspace and channels, or all files sent from users.\nIt is pagenation and can filter by file type, and also provides thumbnail links, download links, and original message links.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IGetFileInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetFileOutput"
                 }
               }
             }
@@ -34121,7 +34154,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34208,7 +34242,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34276,7 +34311,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34320,7 +34356,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34392,7 +34429,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34455,7 +34493,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34569,7 +34608,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34641,7 +34681,8 @@
           "fields",
           "display_name",
           "real_name"
-        ]
+        ],
+        "title": "profile\n\nUser information will usually include user's directories, start date, email, phone number, and status information.\nThe start date usually records when this member joined Slack or when he joined the team, but all the information here is written by the individual user and not by the HR person."
       },
       "Recordstringstring": {
         "type": "object",
@@ -34657,9 +34698,15 @@
           "userIds": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/slack/get-users",
+                "jmesPath": "users[].{value: id, label: display_name}"
+              }
             },
-            "title": "userIds"
+            "minItems": 1,
+            "title": "userIds\n\nYou can enter the ID value of the user who wants to look up the details."
           },
           "secretKey": {
             "type": "string",
@@ -34672,7 +34719,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34799,7 +34847,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34980,7 +35029,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35185,7 +35235,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35344,7 +35395,8 @@
               "groups:history",
               "groups:read",
               "chat:write",
-              "users:read"
+              "users:read",
+              "files:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35385,7 +35437,7 @@
             "title": "Is it the `im` type or not"
           },
           "is_org_shared": {
-            "const": false,
+            "type": "boolean",
             "title": "is org shared"
           },
           "is_user_deleted": {
@@ -35414,6 +35466,238 @@
           "priority",
           "user",
           "id"
+        ]
+      },
+      "ISlack.IGetFileOutput": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024"
+            }
+          },
+          "paging": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "number",
+                "title": "current file count"
+              },
+              "total": {
+                "type": "number",
+                "title": "total page"
+              },
+              "page": {
+                "type": "number",
+                "title": "current page"
+              },
+              "pages": {
+                "type": "number",
+                "title": "total page"
+              }
+            },
+            "required": [
+              "count",
+              "total",
+              "page",
+              "pages"
+            ]
+          }
+        },
+        "required": [
+          "ok",
+          "files",
+          "paging"
+        ],
+        "title": "File Lookup Results"
+      },
+      "PickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "user": {
+            "type": "string",
+            "title": "user"
+          },
+          "size": {
+            "type": "integer",
+            "title": "size"
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "channels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^((C(.*))|(D(.*))|(G(.*)))"
+            },
+            "title": "channels"
+          },
+          "comments_count": {
+            "type": "integer",
+            "title": "comments_count"
+          },
+          "created": {
+            "type": "number",
+            "title": "created"
+          },
+          "mimetype": {
+            "type": "string",
+            "title": "mimetype"
+          },
+          "url_private": {
+            "type": "string",
+            "format": "iri",
+            "title": "url_private"
+          },
+          "url_private_download": {
+            "type": "string",
+            "format": "iri",
+            "title": "url_private_download"
+          },
+          "thumb_1024": {
+            "type": "string",
+            "format": "iri",
+            "title": "thumb_1024"
+          }
+        },
+        "required": [
+          "name",
+          "user",
+          "size",
+          "id",
+          "channels",
+          "comments_count",
+          "created",
+          "mimetype"
+        ],
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "ISlack.IGetFileInput": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "default": 1,
+            "title": "page"
+          },
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "Channel ID to browse the file\n\nIf not specified, the entire Slack workspace will be explored."
+          },
+          "user": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/slack/get-users",
+              "jmesPath": "users[].{value: id, label: display_name}"
+            },
+            "title": "user id\n\nIf you only want to check files sent by a particular user, enter your ID."
+          },
+          "types": {
+            "type": "object",
+            "properties": {
+              "spaces": {
+                "type": "boolean",
+                "title": "spaces\n\nSlack's Post is a feature that allows users to write and share long forms of documents or writings.\nIt is more formatting free than regular messages and can contain code blocks or sections, which are useful for creating structured documents.\nSlack often categorizes these documented files into spaces, helping to share knowledge or information easily within the team."
+              },
+              "snippets": {
+                "type": "boolean",
+                "title": "snippets\n\nSnippets are used to share short code or text snippets.\nThey are usually useful when programmers share short code blocks or snippets of log files with their teams.\nSnippets quickly uploads text or code, and allows others to refer to or copy the content. In Slack, these files are classified into a file type called snippets."
+              },
+              "images": {
+                "type": "boolean",
+                "title": "images"
+              },
+              "gdocs": {
+                "type": "boolean",
+                "title": "gdocs\n\nGoogle docs"
+              },
+              "zips": {
+                "type": "boolean",
+                "title": "zips"
+              },
+              "pdfs": {
+                "type": "boolean",
+                "title": "pdfs"
+              }
+            },
+            "title": "file types to include\n\nThe file types you may encounter include (but are not limited to):\nIf you want to look up all of them regardless of the file type, you can ignore the properties.\nIf the file type is important, you can specify the file type property as true inside the object."
+          },
+          "latestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "latestDateTime\n\nOnly files before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
+          },
+          "oldestDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "oldestDateTime\n\nOnly files after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read",
+              "files:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "x-wrtn-placeholder": "200",
+            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+          }
+        },
+        "required": [
+          "secretKey"
         ]
       },
       "StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret": {
@@ -35602,7 +35886,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor"
+              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
             },
             "title": "comments"
           },
@@ -35632,7 +35916,7 @@
           "total"
         ]
       },
-      "PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor": {
+      "PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
@@ -35699,13 +35983,13 @@
             "type": "string",
             "title": "updated time of this comment"
           },
-          "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
-            "title": "author of this comment"
-          },
           "created": {
             "type": "string",
             "title": "created time of this comment"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "author of this comment"
           },
           "updateAuthor": {
             "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
@@ -35716,8 +36000,8 @@
           "id",
           "body",
           "updated",
-          "author",
           "created",
+          "author",
           "updateAuthor"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
@@ -44445,7 +44729,6 @@
               }
             },
             "required": [
-              "endCursor",
               "hasNextPage"
             ],
             "title": "page info"
@@ -45019,7 +45302,6 @@
               }
             },
             "required": [
-              "endCursor",
               "hasNextPage"
             ],
             "title": "page info"

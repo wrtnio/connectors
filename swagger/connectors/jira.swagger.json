@@ -17,7 +17,7 @@
   "info": {
     "title": "Jira",
     "description": "Jira로 프로젝트 이슈를 관리해요.",
-    "version": "0.1.261",
+    "version": "0.1.262",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -871,7 +871,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor"
+              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
             },
             "title": "comments"
           },
@@ -901,7 +901,7 @@
           "total"
         ]
       },
-      "PickIJira.CommentidbodyupdatedauthorcreatedupdateAuthor": {
+      "PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
@@ -968,13 +968,13 @@
             "type": "string",
             "title": "updated time of this comment"
           },
-          "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
-            "title": "author of this comment"
-          },
           "created": {
             "type": "string",
             "title": "created time of this comment"
+          },
+          "author": {
+            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "title": "author of this comment"
           },
           "updateAuthor": {
             "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
@@ -985,8 +985,8 @@
           "id",
           "body",
           "updated",
-          "author",
           "created",
+          "author",
           "updateAuthor"
         ],
         "description": "From T, pick a set of properties whose keys are in the union K"
