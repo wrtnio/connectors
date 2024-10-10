@@ -1087,7 +1087,7 @@ export namespace ISlack {
        * It is more formatting free than regular messages and can contain code blocks or sections, which are useful for creating structured documents.
        * Slack often categorizes these documented files into spaces, helping to share knowledge or information easily within the team.
        */
-      spaces: boolean;
+      spaces?: boolean;
 
       /**
        * @title snippets
@@ -1096,29 +1096,29 @@ export namespace ISlack {
        * They are usually useful when programmers share short code blocks or snippets of log files with their teams.
        * Snippets quickly uploads text or code, and allows others to refer to or copy the content. In Slack, these files are classified into a file type called snippets.
        */
-      snippets: boolean;
+      snippets?: boolean;
 
       /**
        * @title images
        */
-      images: boolean;
+      images?: boolean;
 
       /**
        * @title gdocs
        *
        * Google docs
        */
-      gdocs: boolean;
+      gdocs?: boolean;
 
       /**
        * @title zips
        */
-      zips: boolean;
+      zips?: boolean;
 
       /**
        * @title pdfs
        */
-      pdfs: boolean;
+      pdfs?: boolean;
     };
 
     /**
