@@ -18,7 +18,7 @@
     "title": "통합 택배 추적기",
     "summary": "택배 정보를 쉽게 확인할 수 있어요.",
     "description": "택배사를 조회하고, 송장번호에 맞는 택배사를 추천받을 수 있어요. 송장 조회로 택배 배송 상태를 실시간으로 확인할 수 있어요. 여러 택배사의 배송 정보를 한 번에 관리할 수 있고, 배송 알림을 설정할 수도 있어요. 개인 사용자는 물론 온라인 쇼핑몰 운영자나 물류 관리자들이 효율적으로 배송 상황을 추적하고 관리할 수 있어요.",
-    "version": "0.1.262",
+    "version": "0.1.263",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -126,7 +126,7 @@
           "Recommend": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OmitISweetTracker.CompanyInternational"
+              "$ref": "#/components/schemas/StrictOmitISweetTracker.CompanyInternational"
             },
             "title": "Courier list"
           }
@@ -136,7 +136,7 @@
         ],
         "title": "DTO List of couriers matching the invoice number"
       },
-      "OmitISweetTracker.CompanyInternational": {
+      "StrictOmitISweetTracker.CompanyInternational": {
         "type": "object",
         "properties": {
           "Name": {
@@ -152,8 +152,7 @@
         "required": [
           "Name",
           "Code"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
       "ISweetTracker.IGetRecommendedCompanyListInput": {
         "type": "object",

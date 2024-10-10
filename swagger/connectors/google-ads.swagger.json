@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.262",
+    "version": "0.1.263",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -298,7 +298,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary"
+                    "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary"
                   }
                 }
               }
@@ -1292,24 +1292,24 @@
         "type": "object",
         "properties": {
           "campaign": {
-            "$ref": "#/components/schemas/PickIGoogleAds.CampaignidresourceNamestatus",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignidresourceNamestatus",
             "title": "campaign"
           },
           "adGroup": {
-            "$ref": "#/components/schemas/PickIGoogleAds.AdGrouptypeidresourceName",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGrouptypeidresourceName",
             "title": "Ad Group"
           },
           "adGroupAds": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceNamepolicySummary"
+              "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceNamepolicySummary"
             },
             "title": "List of ads in ad group"
           },
           "keywords": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.KeywordPickIGoogleAds.AdGroupCriterionresourceNamecriterionId"
+              "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.KeywordMyPickIGoogleAds.AdGroupCriterionresourceNamecriterionId"
             },
             "title": "Keyword List"
           }
@@ -1321,7 +1321,7 @@
           "keywords"
         ]
       },
-      "PickIGoogleAds.CampaignidresourceNamestatus": {
+      "MyPickIGoogleAds.CampaignidresourceNamestatus": {
         "type": "object",
         "properties": {
           "id": {
@@ -1366,10 +1366,9 @@
           "id",
           "resourceName",
           "status"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGoogleAds.AdGrouptypeidresourceName": {
+      "MyPickIGoogleAds.AdGrouptypeidresourceName": {
         "type": "object",
         "properties": {
           "type": {
@@ -1402,10 +1401,9 @@
           "type",
           "id",
           "resourceName"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGoogleAds.AdGroupAdresourceNamepolicySummary": {
+      "MyPickIGoogleAds.AdGroupAdresourceNamepolicySummary": {
         "type": "object",
         "properties": {
           "resourceName": {
@@ -1489,10 +1487,9 @@
         "required": [
           "resourceName",
           "policySummary"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "DeepStrictMergeHelperIGoogleAds.KeywordPickIGoogleAds.AdGroupCriterionresourceNamecriterionId": {
+      "DeepStrictMergeHelperIGoogleAds.KeywordMyPickIGoogleAds.AdGroupCriterionresourceNamecriterionId": {
         "type": "object",
         "properties": {
           "text": {
@@ -1587,7 +1584,7 @@
           "secretKey"
         ]
       },
-      "PickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary": {
+      "MyPickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary": {
         "type": "object",
         "properties": {
           "resourceName": {
@@ -1697,8 +1694,7 @@
           "resourceName",
           "status",
           "policySummary"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGoogleAds.IGetAdGroupAdInput": {
         "type": "object",
@@ -1801,7 +1797,7 @@
             ]
           },
           "adGroupAd": {
-            "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceName"
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceName"
           }
         },
         "required": [
@@ -1809,7 +1805,7 @@
           "adGroupAd"
         ]
       },
-      "PickIGoogleAds.AdGroupAdresourceName": {
+      "MyPickIGoogleAds.AdGroupAdresourceName": {
         "type": "object",
         "properties": {
           "resourceName": {
@@ -1822,8 +1818,7 @@
         },
         "required": [
           "resourceName"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGoogleAds.IGetMetricInput": {
         "type": "object",
@@ -1864,14 +1859,14 @@
         "type": "object",
         "properties": {
           "adGroupCriterion": {
-            "$ref": "#/components/schemas/PickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword"
+            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword"
           }
         },
         "required": [
           "adGroupCriterion"
         ]
       },
-      "PickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword": {
+      "MyPickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword": {
         "type": "object",
         "properties": {
           "type": {
@@ -2761,11 +2756,11 @@
         "type": "object",
         "properties": {
           "ad": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName",
             "title": "Ad Creation Conditions"
           },
           "campaign": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateCampaignInputtypesecretKeycustomerId",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId",
             "title": "Campaign Creation Conditions"
           },
           "customerId": {
@@ -2797,7 +2792,7 @@
         ],
         "title": "Request conditions for creating Google search campaigns and ads all at once"
       },
-      "OmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
+      "StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
           "descriptions": {
@@ -2840,10 +2835,9 @@
           "headlines",
           "finalUrl",
           "keywords"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
-      "OmitIGoogleAds.ICreateCampaignInputtypesecretKeycustomerId": {
+      "StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId": {
         "type": "object",
         "properties": {
           "campaignName": {
@@ -2886,18 +2880,17 @@
         "required": [
           "campaignBudget",
           "advertisingChannelType"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
       "IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput": {
         "type": "object",
         "properties": {
           "ad": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName",
             "title": "Ad Creation Conditions"
           },
           "campaign": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateCampaignInputtypesecretKeycustomerId",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId",
             "title": "Campaign Creation Conditions"
           },
           "customerId": {
@@ -2929,7 +2922,7 @@
         ],
         "title": "Request conditions for creating ads from Google display campaigns at once"
       },
-      "OmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
+      "StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
           "descriptions": {
@@ -3025,8 +3018,7 @@
           "landscapeImages",
           "logoImages",
           "squareImages"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       }
     }
   },

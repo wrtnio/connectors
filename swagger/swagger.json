@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.262",
+    "version": "0.1.263",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -4091,10 +4091,10 @@
               "schema": {
                 "oneOf": [
                   {
-                    "$ref": "#/components/schemas/IPaginationInputPickParkingLotrdnmadr"
+                    "$ref": "#/components/schemas/IPaginationInputMyPickParkingLotrdnmadr"
                   },
                   {
-                    "$ref": "#/components/schemas/IPaginationInputPickParkingLotlnmadr"
+                    "$ref": "#/components/schemas/IPaginationInputMyPickParkingLotlnmadr"
                   }
                 ]
               }
@@ -5606,7 +5606,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary"
+                    "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary"
                   }
                 }
               }
@@ -7505,7 +7505,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.ScheduledMessagepost_at"
+                  "$ref": "#/components/schemas/MyPickISlack.ScheduledMessagepost_at"
                 }
               }
             }
@@ -7567,7 +7567,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                  "$ref": "#/components/schemas/MyPickISlack.Messagets"
                 }
               }
             }
@@ -7600,7 +7600,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                  "$ref": "#/components/schemas/MyPickISlack.Messagets"
                 }
               }
             }
@@ -7633,7 +7633,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                  "$ref": "#/components/schemas/MyPickISlack.Messagets"
                 }
               }
             }
@@ -8523,7 +8523,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIJira.Prioritynameid"
+                    "$ref": "#/components/schemas/MyPickIJira.Prioritynameid"
                   }
                 }
               }
@@ -8559,7 +8559,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName"
+                    "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName"
                   }
                 }
               }
@@ -8595,7 +8595,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName"
+                    "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName"
                   }
                 }
               }
@@ -18252,7 +18252,7 @@
           "Recommend": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/OmitISweetTracker.CompanyInternational"
+              "$ref": "#/components/schemas/StrictOmitISweetTracker.CompanyInternational"
             },
             "title": "Courier list"
           }
@@ -18262,7 +18262,7 @@
         ],
         "title": "DTO List of couriers matching the invoice number"
       },
-      "OmitISweetTracker.CompanyInternational": {
+      "StrictOmitISweetTracker.CompanyInternational": {
         "type": "object",
         "properties": {
           "Name": {
@@ -18278,8 +18278,7 @@
         "required": [
           "Name",
           "Code"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
       "ISweetTracker.IGetRecommendedCompanyListInput": {
         "type": "object",
@@ -24247,7 +24246,7 @@
           }
         }
       },
-      "IPaginationInputPickParkingLotrdnmadr": {
+      "IPaginationInputMyPickParkingLotrdnmadr": {
         "type": "object",
         "properties": {
           "numOfRows": {
@@ -24271,7 +24270,7 @@
           }
         }
       },
-      "IPaginationInputPickParkingLotlnmadr": {
+      "IPaginationInputMyPickParkingLotlnmadr": {
         "type": "object",
         "properties": {
           "numOfRows": {
@@ -25521,7 +25520,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate"
+              "$ref": "#/components/schemas/MyPickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate"
             },
             "title": "Search Results"
           },
@@ -25543,7 +25542,7 @@
         ],
         "title": "Copyright search results"
       },
-      "PickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate": {
+      "MyPickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate": {
         "type": "object",
         "properties": {
           "REG_ID": {
@@ -26633,24 +26632,24 @@
         "type": "object",
         "properties": {
           "campaign": {
-            "$ref": "#/components/schemas/PickIGoogleAds.CampaignidresourceNamestatus",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignidresourceNamestatus",
             "title": "campaign"
           },
           "adGroup": {
-            "$ref": "#/components/schemas/PickIGoogleAds.AdGrouptypeidresourceName",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGrouptypeidresourceName",
             "title": "Ad Group"
           },
           "adGroupAds": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceNamepolicySummary"
+              "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceNamepolicySummary"
             },
             "title": "List of ads in ad group"
           },
           "keywords": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.KeywordPickIGoogleAds.AdGroupCriterionresourceNamecriterionId"
+              "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.KeywordMyPickIGoogleAds.AdGroupCriterionresourceNamecriterionId"
             },
             "title": "Keyword List"
           }
@@ -26662,7 +26661,7 @@
           "keywords"
         ]
       },
-      "PickIGoogleAds.CampaignidresourceNamestatus": {
+      "MyPickIGoogleAds.CampaignidresourceNamestatus": {
         "type": "object",
         "properties": {
           "id": {
@@ -26707,10 +26706,9 @@
           "id",
           "resourceName",
           "status"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGoogleAds.AdGrouptypeidresourceName": {
+      "MyPickIGoogleAds.AdGrouptypeidresourceName": {
         "type": "object",
         "properties": {
           "type": {
@@ -26743,10 +26741,9 @@
           "type",
           "id",
           "resourceName"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGoogleAds.AdGroupAdresourceNamepolicySummary": {
+      "MyPickIGoogleAds.AdGroupAdresourceNamepolicySummary": {
         "type": "object",
         "properties": {
           "resourceName": {
@@ -26830,10 +26827,9 @@
         "required": [
           "resourceName",
           "policySummary"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "DeepStrictMergeHelperIGoogleAds.KeywordPickIGoogleAds.AdGroupCriterionresourceNamecriterionId": {
+      "DeepStrictMergeHelperIGoogleAds.KeywordMyPickIGoogleAds.AdGroupCriterionresourceNamecriterionId": {
         "type": "object",
         "properties": {
           "text": {
@@ -26928,7 +26924,7 @@
           "secretKey"
         ]
       },
-      "PickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary": {
+      "MyPickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary": {
         "type": "object",
         "properties": {
           "resourceName": {
@@ -27038,8 +27034,7 @@
           "resourceName",
           "status",
           "policySummary"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGoogleAds.IGetAdGroupAdInput": {
         "type": "object",
@@ -27142,7 +27137,7 @@
             ]
           },
           "adGroupAd": {
-            "$ref": "#/components/schemas/PickIGoogleAds.AdGroupAdresourceName"
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceName"
           }
         },
         "required": [
@@ -27150,7 +27145,7 @@
           "adGroupAd"
         ]
       },
-      "PickIGoogleAds.AdGroupAdresourceName": {
+      "MyPickIGoogleAds.AdGroupAdresourceName": {
         "type": "object",
         "properties": {
           "resourceName": {
@@ -27163,8 +27158,7 @@
         },
         "required": [
           "resourceName"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGoogleAds.IGetMetricInput": {
         "type": "object",
@@ -27205,14 +27199,14 @@
         "type": "object",
         "properties": {
           "adGroupCriterion": {
-            "$ref": "#/components/schemas/PickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword"
+            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword"
           }
         },
         "required": [
           "adGroupCriterion"
         ]
       },
-      "PickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword": {
+      "MyPickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword": {
         "type": "object",
         "properties": {
           "type": {
@@ -28102,11 +28096,11 @@
         "type": "object",
         "properties": {
           "ad": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName",
             "title": "Ad Creation Conditions"
           },
           "campaign": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateCampaignInputtypesecretKeycustomerId",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId",
             "title": "Campaign Creation Conditions"
           },
           "customerId": {
@@ -28138,7 +28132,7 @@
         ],
         "title": "Request conditions for creating Google search campaigns and ads all at once"
       },
-      "OmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
+      "StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
           "descriptions": {
@@ -28181,10 +28175,9 @@
           "headlines",
           "finalUrl",
           "keywords"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
-      "OmitIGoogleAds.ICreateCampaignInputtypesecretKeycustomerId": {
+      "StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId": {
         "type": "object",
         "properties": {
           "campaignName": {
@@ -28227,18 +28220,17 @@
         "required": [
           "campaignBudget",
           "advertisingChannelType"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
       "IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput": {
         "type": "object",
         "properties": {
           "ad": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName",
             "title": "Ad Creation Conditions"
           },
           "campaign": {
-            "$ref": "#/components/schemas/OmitIGoogleAds.ICreateCampaignInputtypesecretKeycustomerId",
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId",
             "title": "Campaign Creation Conditions"
           },
           "customerId": {
@@ -28270,7 +28262,7 @@
         ],
         "title": "Request conditions for creating ads from Google display campaigns at once"
       },
-      "OmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
+      "StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
           "descriptions": {
@@ -28366,8 +28358,7 @@
           "landscapeImages",
           "logoImages",
           "squareImages"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
+        ]
       },
       "IConnector.ISearchOutput": {
         "type": "object",
@@ -34167,7 +34158,7 @@
           "secretKey"
         ]
       },
-      "PickISlack.ScheduledMessagepost_at": {
+      "MyPickISlack.ScheduledMessagepost_at": {
         "type": "object",
         "properties": {
           "post_at": {
@@ -34178,8 +34169,7 @@
         },
         "required": [
           "post_at"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.ISCheduleMessageInput": {
         "type": "object",
@@ -34324,7 +34314,7 @@
           "secretKey"
         ]
       },
-      "PickISlack.Messagets": {
+      "MyPickISlack.Messagets": {
         "type": "object",
         "properties": {
           "ts": {
@@ -34335,8 +34325,7 @@
         },
         "required": [
           "ts"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.IPostMessageToMyselfInput": {
         "type": "object",
@@ -34553,7 +34542,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+              "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
@@ -34580,7 +34569,7 @@
           "post_at_date"
         ]
       },
-      "PickISlack.Attachmenttitleid": {
+      "MyPickISlack.Attachmenttitleid": {
         "type": "object",
         "properties": {
           "title": {
@@ -34591,8 +34580,7 @@
             "type": "number",
             "title": "id"
           }
-        },
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        }
       },
       "ISlack.IGetScheduledMessageListInput": {
         "type": "object",
@@ -34938,7 +34926,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+              "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
@@ -35066,7 +35054,7 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
@@ -35154,7 +35142,7 @@
           "links"
         ]
       },
-      "PickISlack.IGetUserOutputiddisplay_name": {
+      "MyPickISlack.IGetUserOutputiddisplay_name": {
         "type": "object",
         "properties": {
           "id": {
@@ -35176,8 +35164,7 @@
         "required": [
           "id",
           "display_name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
@@ -35271,7 +35258,7 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
@@ -35477,7 +35464,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -35515,7 +35502,7 @@
         ],
         "title": "File Lookup Results"
       },
-      "PickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "name": {
@@ -35579,8 +35566,7 @@
           "comments_count",
           "created",
           "mimetype"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.IGetFileInput": {
         "type": "object",
@@ -35886,7 +35872,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
+              "$ref": "#/components/schemas/MyPickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
             },
             "title": "comments"
           },
@@ -35916,7 +35902,7 @@
           "total"
         ]
       },
-      "PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
+      "MyPickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
@@ -35988,11 +35974,11 @@
             "title": "created time of this comment"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
           },
           "updateAuthor": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "who updates this comment"
           }
         },
@@ -36003,8 +35989,7 @@
           "created",
           "author",
           "updateAuthor"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IJira.BlockquoteNode": {
         "type": "object",
@@ -36370,202 +36355,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
-                },
-                {
-                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
-                },
-                {
-                  "$ref": "#/components/schemas/OmitIJira.InlineCardNodemarks"
-                },
-                {
-                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
-                },
-                {
-                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
-                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
-                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardNodemarks",
-                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
-                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
-                }
-              }
-            },
-            "title": "content\n\nIf you want to make a new line, there will be an empty array."
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ],
-        "title": "paragraph type"
-      },
-      "OmitIJira.EmojiNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "emoji",
-            "title": "emoji type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "Emoji service ID of the emoji\n\nFor custom emojis by atlasian or user, you may have an ID."
-              },
-              "shortName": {
-                "type": "string",
-                "pattern": "^(:(.*):)$",
-                "title": "icon name\n\nA string exists between a colon and a colon, meaning a name for representing the emoji."
-              },
-              "text": {
-                "type": "string",
-                "title": "emoji icon"
-              }
-            },
-            "required": [
-              "shortName"
-            ],
-            "title": "attributes of emoji node"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "OmitIJira.HardBreakNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "hardBreak",
-            "title": "hardBreak type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "text": {
-                "const": "\n",
-                "title": "text\n\nIt can be only `\\n` text for braking."
-              }
-            },
-            "title": "attributes of hard break node"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "OmitIJira.InlineCardNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "inlineCard",
-            "title": "inline card type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "url\nIndicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
-              },
-              "data": {
-                "$ref": "#/components/schemas/object",
-                "title": "representation of the link"
-              }
-            },
-            "required": [
-              "url"
-            ],
-            "title": "attributes of inline card node"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "object": {
-        "type": "object",
-        "properties": {}
-      },
-      "OmitIJira.MentionNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "mention",
-            "title": "mention type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "id\n\nadd any string like as uuid"
-              },
-              "text": {
-                "type": "string",
-                "pattern": "^(@(.*))",
-                "title": "Who is mentioned\n\nIt means a string that connects @ and the user's name"
-              },
-              "accessLevel": {
-                "type": "string",
-                "title": "accessLevel"
-              }
-            },
-            "required": [
-              "text"
-            ],
-            "title": "content of this mention content"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "OmitIJira.TextContentmarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "text",
-            "title": "text type"
-          },
-          "text": {
-            "type": "string",
-            "title": "content of this text content"
-          }
-        },
-        "required": [
-          "type",
-          "text"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "IJira.HeadingNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "heading",
-            "title": "heading type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
                   "$ref": "#/components/schemas/IJira.EmojiNode"
                 },
                 {
@@ -36578,7 +36367,7 @@
                   "$ref": "#/components/schemas/IJira.MentionNode"
                 },
                 {
-                  "$ref": "#/components/schemas/IJira.TextContent"
+                  "$ref": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               ],
               "discriminator": {
@@ -36588,52 +36377,18 @@
                   "hardBreak": "#/components/schemas/IJira.HardBreakNode",
                   "inlineCard": "#/components/schemas/IJira.InlineCardNode",
                   "mention": "#/components/schemas/IJira.MentionNode",
-                  "text": "#/components/schemas/IJira.TextContent"
+                  "text": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               }
             },
-            "title": "content\n\nHeading node's content can be combined with only inline nodes."
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "level": {
-                "oneOf": [
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": 3
-                  },
-                  {
-                    "const": 4
-                  },
-                  {
-                    "const": 5
-                  },
-                  {
-                    "const": 6
-                  }
-                ],
-                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
-                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
-              }
-            },
-            "required": [
-              "level"
-            ],
-            "title": "attributes of heading node"
+            "title": "content\n\nIf you want to make a new line, there will be an empty array."
           }
         },
         "required": [
           "type",
-          "content",
-          "attrs"
+          "content"
         ],
-        "title": "heading node\n\nIt means h1, h2, h3, h4, h5, h6 node."
+        "title": "paragraph type"
       },
       "IJira.EmojiNode": {
         "type": "object",
@@ -36726,6 +36481,10 @@
         ],
         "title": "inline card\n\nThe inlineCard node is an Atlassian link card with a type icon and content description derived from the link."
       },
+      "object": {
+        "type": "object",
+        "properties": {}
+      },
       "IJira.MentionNode": {
         "type": "object",
         "properties": {
@@ -36761,6 +36520,104 @@
           "attrs"
         ],
         "title": "content with mention"
+      },
+      "StrictOmitIJira.TextContentmarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "title": "text type"
+          },
+          "text": {
+            "type": "string",
+            "title": "content of this text content"
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ]
+      },
+      "IJira.HeadingNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "heading",
+            "title": "heading type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MentionNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.TextContent"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/IJira.TextContent"
+                }
+              }
+            },
+            "title": "content\n\nHeading node's content can be combined with only inline nodes."
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "oneOf": [
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": 3
+                  },
+                  {
+                    "const": 4
+                  },
+                  {
+                    "const": 5
+                  },
+                  {
+                    "const": 6
+                  }
+                ],
+                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
+                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
+              }
+            },
+            "required": [
+              "level"
+            ],
+            "title": "attributes of heading node"
+          }
+        },
+        "required": [
+          "type",
+          "content",
+          "attrs"
+        ],
+        "title": "heading node\n\nIt means h1, h2, h3, h4, h5, h6 node."
       },
       "IJira.TextContent": {
         "type": "object",
@@ -37017,29 +36874,29 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.InlineCardNodemarks"
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
+                  "$ref": "#/components/schemas/IJira.MentionNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
+                  "$ref": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               ],
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
-                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
-                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardNodemarks",
-                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
-                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               }
             },
@@ -37549,7 +37406,7 @@
           "content"
         ]
       },
-      "PickIJira.UseractiveaccountIddisplayName": {
+      "MyPickIJira.UseractiveaccountIddisplayName": {
         "type": "object",
         "properties": {
           "active": {
@@ -37569,8 +37426,7 @@
           "active",
           "accountId",
           "displayName"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "StrictOmitIGetCommentInputemaildomaintokenIBasicSecret": {
         "type": "object",
@@ -37633,7 +37489,7 @@
                   "title": "id of transition"
                 },
                 "to": {
-                  "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategory",
+                  "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategory",
                   "title": "to\n\nStatusDetail.\nDetails of the issue status after the transition."
                 }
               },
@@ -37649,7 +37505,7 @@
           "transitions"
         ]
       },
-      "PickIJira.StatusdescriptionnameidstatusCategory": {
+      "MyPickIJira.StatusdescriptionnameidstatusCategory": {
         "type": "object",
         "properties": {
           "description": {
@@ -37690,8 +37546,7 @@
           "name",
           "id",
           "statusCategory"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret": {
         "type": "object",
@@ -38450,15 +38305,15 @@
             "title": "summary"
           },
           "issuetype": {
-            "$ref": "#/components/schemas/PickIJira.IssueTypenameid",
+            "$ref": "#/components/schemas/MyPickIJira.IssueTypenameid",
             "title": "issue type"
           },
           "status": {
-            "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
             "title": "status"
           },
           "priority": {
-            "$ref": "#/components/schemas/PickIJira.Prioritynameid",
+            "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
             "title": "priority"
           },
           "parent": {
@@ -38481,11 +38336,11 @@
             "title": "id of comment"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
           },
           "updateAuthor": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "who updates this comment"
           },
           "body": {
@@ -38584,7 +38439,7 @@
           "active"
         ]
       },
-      "PickIJira.IssueTypenameid": {
+      "MyPickIJira.IssueTypenameid": {
         "type": "object",
         "properties": {
           "name": {
@@ -38600,10 +38455,9 @@
         "required": [
           "name",
           "id"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName": {
+      "MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName": {
         "type": "object",
         "properties": {
           "description": {
@@ -38648,10 +38502,9 @@
           "name",
           "id",
           "statusCategory"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIJira.Prioritynameid": {
+      "MyPickIJira.Prioritynameid": {
         "type": "object",
         "properties": {
           "name": {
@@ -38667,8 +38520,7 @@
         "required": [
           "name",
           "id"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IJira.Parent": {
         "type": "object",
@@ -38739,7 +38591,7 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.Issuekeyidfields"
+              "$ref": "#/components/schemas/MyPickIJira.Issuekeyidfields"
             },
             "title": "Jira issue list"
           },
@@ -38769,7 +38621,7 @@
           "total"
         ]
       },
-      "PickIJira.Issuekeyidfields": {
+      "MyPickIJira.Issuekeyidfields": {
         "type": "object",
         "properties": {
           "key": {
@@ -38789,8 +38641,7 @@
           "key",
           "id",
           "fields"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IJira.IssueField": {
         "type": "object",
@@ -38844,15 +38695,15 @@
             "title": "summary"
           },
           "issuetype": {
-            "$ref": "#/components/schemas/PickIJira.IssueTypenameid",
+            "$ref": "#/components/schemas/MyPickIJira.IssueTypenameid",
             "title": "issue type"
           },
           "status": {
-            "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
             "title": "status"
           },
           "priority": {
-            "$ref": "#/components/schemas/PickIJira.Prioritynameid",
+            "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
             "title": "priority"
           },
           "parent": {
@@ -39225,7 +39076,7 @@
           "statuses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickStatusnameiduntranslatedNameprojectIdstringundefined"
+              "$ref": "#/components/schemas/MyPickStatusnameiduntranslatedNameprojectIdstringundefined"
             }
           }
         },
@@ -39233,7 +39084,7 @@
           "statuses"
         ]
       },
-      "PickStatusnameiduntranslatedNameprojectIdstringundefined": {
+      "MyPickStatusnameiduntranslatedNameprojectIdstringundefined": {
         "type": "object",
         "properties": {
           "name": {
@@ -39749,15 +39600,15 @@
                   "title": "event type\nThere are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`."
                 },
                 "actor": {
-                  "$ref": "#/components/schemas/PickIGithub.Useridlogin",
+                  "$ref": "#/components/schemas/MyPickIGithub.Useridlogin",
                   "title": "user"
                 },
                 "repo": {
-                  "$ref": "#/components/schemas/PickIGithub.Repositorynameid",
+                  "$ref": "#/components/schemas/MyPickIGithub.Repositorynameid",
                   "title": "repo"
                 },
                 "org": {
-                  "$ref": "#/components/schemas/PickIGithub.Organizationidlogindisplay_login",
+                  "$ref": "#/components/schemas/MyPickIGithub.Organizationidlogindisplay_login",
                   "title": "org"
                 },
                 "payload": {
@@ -39840,7 +39691,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Useridlogin": {
+      "MyPickIGithub.Useridlogin": {
         "type": "object",
         "properties": {
           "id": {
@@ -39855,10 +39706,9 @@
         "required": [
           "id",
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGithub.Repositorynameid": {
+      "MyPickIGithub.Repositorynameid": {
         "type": "object",
         "properties": {
           "name": {
@@ -39873,10 +39723,9 @@
         "required": [
           "name",
           "id"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGithub.Organizationidlogindisplay_login": {
+      "MyPickIGithub.Organizationidlogindisplay_login": {
         "type": "object",
         "properties": {
           "id": {
@@ -39895,8 +39744,7 @@
         "required": [
           "id",
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.Payload": {
         "type": "object",
@@ -39956,7 +39804,7 @@
             "description": "Title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "body": {
@@ -40025,7 +39873,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -40038,7 +39886,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -40056,7 +39904,7 @@
           "assignee"
         ]
       },
-      "PickIGithub.Usertypeidlogin": {
+      "MyPickIGithub.Usertypeidlogin": {
         "type": "object",
         "properties": {
           "type": {
@@ -40086,10 +39934,9 @@
           "type",
           "id",
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGithub.Userlogin": {
+      "MyPickIGithub.Userlogin": {
         "type": "object",
         "properties": {
           "login": {
@@ -40099,8 +39946,7 @@
         },
         "required": [
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.Comment": {
         "type": "object",
@@ -40114,7 +39960,7 @@
             "title": "body"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
             "title": "user"
           },
           "created_at": {
@@ -40142,7 +39988,7 @@
           "updated_at"
         ]
       },
-      "PickIGithub.Usertypeidloginhtml_urlavatar_url": {
+      "MyPickIGithub.Usertypeidloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -40184,8 +40030,7 @@
           "login",
           "html_url",
           "avatar_url"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.Page": {
         "type": "object",
@@ -42385,7 +42230,7 @@
             "title": "activity type"
           },
           "actor": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginavatar_url",
             "title": "actor"
           }
         },
@@ -42397,7 +42242,7 @@
           "actor"
         ]
       },
-      "PickIGithub.Usertypeidloginavatar_url": {
+      "MyPickIGithub.Usertypeidloginavatar_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -42433,8 +42278,7 @@
           "id",
           "login",
           "avatar_url"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetRepositoryActivityInput": {
         "type": "object",
@@ -42854,7 +42698,7 @@
             "title": "author_association"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
             "title": "user"
           },
           "id": {
@@ -42999,7 +42843,7 @@
           "teams": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy"
+              "$ref": "#/components/schemas/MyPickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy"
             },
             "title": "team"
           }
@@ -43009,7 +42853,7 @@
           "teams"
         ]
       },
-      "PickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy": {
+      "MyPickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy": {
         "type": "object",
         "properties": {
           "description": {
@@ -43056,8 +42900,7 @@
           "slug",
           "notification_setting",
           "privacy"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IReadPullRequestDetailInput": {
         "type": "object",
@@ -44201,7 +44044,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -44210,7 +44053,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -44241,7 +44084,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -44250,7 +44093,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -44301,7 +44144,7 @@
           "requested_reviewers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
             },
             "title": "requested_reviewers"
           },
@@ -44351,7 +44194,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
               }
             ],
             "title": "merged_by"
@@ -44462,7 +44305,7 @@
             "description": "Title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "body": {
@@ -44531,7 +44374,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -44544,7 +44387,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -44611,7 +44454,7 @@
             "type": "string"
           },
           "creator": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
           },
           "open_issues": {
             "type": "integer",
@@ -44653,7 +44496,7 @@
           "due_on"
         ]
       },
-      "PickIGithub.Repositoryfull_name": {
+      "MyPickIGithub.Repositoryfull_name": {
         "type": "object",
         "properties": {
           "full_name": {
@@ -44663,8 +44506,7 @@
         },
         "required": [
           "full_name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "PartialIGithub.Team": {
         "type": "object",
@@ -44819,7 +44661,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                  "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
                 }
               }
             },
@@ -44834,7 +44676,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             },
@@ -44844,7 +44686,7 @@
             "title": "assignees"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Userlogin",
             "title": "author"
           },
           "createdAt": {
@@ -44872,7 +44714,7 @@
           "updatedAt"
         ]
       },
-      "PickIGithub.Labeldescriptionname": {
+      "MyPickIGithub.Labeldescriptionname": {
         "type": "object",
         "properties": {
           "description": {
@@ -44894,8 +44736,7 @@
         "required": [
           "description",
           "name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IFetchRepositoryPullRequestInput": {
         "type": "object",
@@ -45055,7 +44896,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
               }
             ],
             "title": "closed_by"
@@ -45098,7 +44939,7 @@
             "description": "Title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "body": {
@@ -45167,7 +45008,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -45180,7 +45021,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -45347,7 +45188,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                  "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
                 }
               }
             },
@@ -45357,7 +45198,7 @@
             "title": "labels"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Userlogin",
             "title": "author"
           },
           "state": {
@@ -45408,7 +45249,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             },
@@ -46462,7 +46303,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -46471,7 +46312,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -46487,7 +46328,7 @@
             "title": "base branch info"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "head": {
@@ -46506,7 +46347,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -46515,7 +46356,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -46559,7 +46400,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -46625,7 +46466,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -46684,7 +46525,7 @@
           "requested_reviewers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
             },
             "title": "requested_reviewers"
           },
@@ -46807,7 +46648,7 @@
             "type": "string"
           },
           "commit": {
-            "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommittertreecomment_count"
+            "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommittertreecomment_count"
           },
           "files": {
             "type": "array",
@@ -46822,7 +46663,7 @@
           "files"
         ]
       },
-      "PickIGithub.Commitmessageurlauthorcommittertreecomment_count": {
+      "MyPickIGithub.Commitmessageurlauthorcommittertreecomment_count": {
         "type": "object",
         "properties": {
           "message": {
@@ -46903,8 +46744,7 @@
           "committer",
           "tree",
           "comment_count"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetCommitHeadInput": {
         "type": "object",
@@ -46958,7 +46798,7 @@
           "parents": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Commitsha"
+              "$ref": "#/components/schemas/MyPickIGithub.Commitsha"
             },
             "title": "Parents of this commit"
           },
@@ -47001,7 +46841,7 @@
           "files"
         ]
       },
-      "PickIGithub.Commitsha": {
+      "MyPickIGithub.Commitsha": {
         "type": "object",
         "properties": {
           "sha": {
@@ -47011,8 +46851,7 @@
         },
         "required": [
           "sha"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetCommitInput": {
         "type": "object",
@@ -47062,7 +46901,7 @@
                   "type": "string"
                 },
                 "commit": {
-                  "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommitter"
+                  "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommitter"
                 }
               },
               "required": [
@@ -47120,7 +46959,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Commitmessageurlauthorcommitter": {
+      "MyPickIGithub.Commitmessageurlauthorcommitter": {
         "type": "object",
         "properties": {
           "message": {
@@ -47180,8 +47019,7 @@
           "url",
           "author",
           "committer"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetCommitListInput": {
         "type": "object",
@@ -47266,7 +47104,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Useridloginhtml_urlavatar_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followers"
           },
@@ -47318,7 +47156,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Useridloginhtml_urlavatar_url": {
+      "MyPickIGithub.Useridloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
           "id": {
@@ -47345,8 +47183,7 @@
           "login",
           "html_url",
           "avatar_url"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetFollowerInput": {
         "type": "object",
@@ -47400,7 +47237,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Useridloginhtml_urlavatar_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followees"
           },
@@ -47766,7 +47603,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.RepositoryFilecontentpath"
+              "$ref": "#/components/schemas/MyPickIGithub.RepositoryFilecontentpath"
             }
           },
           "key": {
@@ -47778,7 +47615,7 @@
           "key"
         ]
       },
-      "PickIGithub.RepositoryFilecontentpath": {
+      "MyPickIGithub.RepositoryFilecontentpath": {
         "type": "object",
         "properties": {
           "content": {
@@ -47793,8 +47630,7 @@
         "required": [
           "content",
           "path"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IShortLink.IResponse": {
         "type": "object",

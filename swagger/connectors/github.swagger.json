@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.262",
+    "version": "0.1.263",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2216,15 +2216,15 @@
                   "title": "event type\nThere are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`."
                 },
                 "actor": {
-                  "$ref": "#/components/schemas/PickIGithub.Useridlogin",
+                  "$ref": "#/components/schemas/MyPickIGithub.Useridlogin",
                   "title": "user"
                 },
                 "repo": {
-                  "$ref": "#/components/schemas/PickIGithub.Repositorynameid",
+                  "$ref": "#/components/schemas/MyPickIGithub.Repositorynameid",
                   "title": "repo"
                 },
                 "org": {
-                  "$ref": "#/components/schemas/PickIGithub.Organizationidlogindisplay_login",
+                  "$ref": "#/components/schemas/MyPickIGithub.Organizationidlogindisplay_login",
                   "title": "org"
                 },
                 "payload": {
@@ -2307,7 +2307,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Useridlogin": {
+      "MyPickIGithub.Useridlogin": {
         "type": "object",
         "properties": {
           "id": {
@@ -2322,10 +2322,9 @@
         "required": [
           "id",
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGithub.Repositorynameid": {
+      "MyPickIGithub.Repositorynameid": {
         "type": "object",
         "properties": {
           "name": {
@@ -2340,10 +2339,9 @@
         "required": [
           "name",
           "id"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGithub.Organizationidlogindisplay_login": {
+      "MyPickIGithub.Organizationidlogindisplay_login": {
         "type": "object",
         "properties": {
           "id": {
@@ -2362,8 +2360,7 @@
         "required": [
           "id",
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.Payload": {
         "type": "object",
@@ -2423,7 +2420,7 @@
             "description": "Title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "body": {
@@ -2492,7 +2489,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -2505,7 +2502,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -2523,7 +2520,7 @@
           "assignee"
         ]
       },
-      "PickIGithub.Usertypeidlogin": {
+      "MyPickIGithub.Usertypeidlogin": {
         "type": "object",
         "properties": {
           "type": {
@@ -2553,10 +2550,9 @@
           "type",
           "id",
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIGithub.Userlogin": {
+      "MyPickIGithub.Userlogin": {
         "type": "object",
         "properties": {
           "login": {
@@ -2566,8 +2562,7 @@
         },
         "required": [
           "login"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.Comment": {
         "type": "object",
@@ -2581,7 +2576,7 @@
             "title": "body"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
             "title": "user"
           },
           "created_at": {
@@ -2609,7 +2604,7 @@
           "updated_at"
         ]
       },
-      "PickIGithub.Usertypeidloginhtml_urlavatar_url": {
+      "MyPickIGithub.Usertypeidloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -2651,8 +2646,7 @@
           "login",
           "html_url",
           "avatar_url"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.Page": {
         "type": "object",
@@ -4852,7 +4846,7 @@
             "title": "activity type"
           },
           "actor": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginavatar_url",
             "title": "actor"
           }
         },
@@ -4864,7 +4858,7 @@
           "actor"
         ]
       },
-      "PickIGithub.Usertypeidloginavatar_url": {
+      "MyPickIGithub.Usertypeidloginavatar_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -4900,8 +4894,7 @@
           "id",
           "login",
           "avatar_url"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetRepositoryActivityInput": {
         "type": "object",
@@ -5321,7 +5314,7 @@
             "title": "author_association"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
             "title": "user"
           },
           "id": {
@@ -5466,7 +5459,7 @@
           "teams": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy"
+              "$ref": "#/components/schemas/MyPickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy"
             },
             "title": "team"
           }
@@ -5476,7 +5469,7 @@
           "teams"
         ]
       },
-      "PickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy": {
+      "MyPickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy": {
         "type": "object",
         "properties": {
           "description": {
@@ -5523,8 +5516,7 @@
           "slug",
           "notification_setting",
           "privacy"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IReadPullRequestDetailInput": {
         "type": "object",
@@ -6668,7 +6660,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -6677,7 +6669,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -6708,7 +6700,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -6717,7 +6709,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -6768,7 +6760,7 @@
           "requested_reviewers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
             },
             "title": "requested_reviewers"
           },
@@ -6818,7 +6810,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
               }
             ],
             "title": "merged_by"
@@ -6929,7 +6921,7 @@
             "description": "Title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "body": {
@@ -6998,7 +6990,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -7011,7 +7003,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -7078,7 +7070,7 @@
             "type": "string"
           },
           "creator": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
           },
           "open_issues": {
             "type": "integer",
@@ -7120,7 +7112,7 @@
           "due_on"
         ]
       },
-      "PickIGithub.Repositoryfull_name": {
+      "MyPickIGithub.Repositoryfull_name": {
         "type": "object",
         "properties": {
           "full_name": {
@@ -7130,8 +7122,7 @@
         },
         "required": [
           "full_name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "PartialIGithub.Team": {
         "type": "object",
@@ -7286,7 +7277,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                  "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
                 }
               }
             },
@@ -7301,7 +7292,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             },
@@ -7311,7 +7302,7 @@
             "title": "assignees"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Userlogin",
             "title": "author"
           },
           "createdAt": {
@@ -7339,7 +7330,7 @@
           "updatedAt"
         ]
       },
-      "PickIGithub.Labeldescriptionname": {
+      "MyPickIGithub.Labeldescriptionname": {
         "type": "object",
         "properties": {
           "description": {
@@ -7361,8 +7352,7 @@
         "required": [
           "description",
           "name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IFetchRepositoryPullRequestInput": {
         "type": "object",
@@ -7522,7 +7512,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
               }
             ],
             "title": "closed_by"
@@ -7565,7 +7555,7 @@
             "description": "Title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "body": {
@@ -7634,7 +7624,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -7647,7 +7637,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -7814,7 +7804,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Labeldescriptionname"
+                  "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
                 }
               }
             },
@@ -7824,7 +7814,7 @@
             "title": "labels"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIGithub.Userlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Userlogin",
             "title": "author"
           },
           "state": {
@@ -7875,7 +7865,7 @@
               "nodes": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             },
@@ -8929,7 +8919,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -8938,7 +8928,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -8954,7 +8944,7 @@
             "title": "base branch info"
           },
           "user": {
-            "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
           },
           "head": {
@@ -8973,7 +8963,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
                 "title": "user"
               },
               "repo": {
@@ -8982,7 +8972,7 @@
                     "type": "null"
                   },
                   {
-                    "$ref": "#/components/schemas/PickIGithub.Repositoryfull_name"
+                    "$ref": "#/components/schemas/MyPickIGithub.Repositoryfull_name"
                   }
                 ],
                 "title": "repo"
@@ -9026,7 +9016,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
               }
             ],
             "title": "assignee"
@@ -9092,7 +9082,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PickIGithub.Userlogin"
+                  "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
                 }
               }
             ],
@@ -9151,7 +9141,7 @@
           "requested_reviewers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Usertypeidlogin"
+              "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
             },
             "title": "requested_reviewers"
           },
@@ -9274,7 +9264,7 @@
             "type": "string"
           },
           "commit": {
-            "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommittertreecomment_count"
+            "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommittertreecomment_count"
           },
           "files": {
             "type": "array",
@@ -9289,7 +9279,7 @@
           "files"
         ]
       },
-      "PickIGithub.Commitmessageurlauthorcommittertreecomment_count": {
+      "MyPickIGithub.Commitmessageurlauthorcommittertreecomment_count": {
         "type": "object",
         "properties": {
           "message": {
@@ -9370,8 +9360,7 @@
           "committer",
           "tree",
           "comment_count"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetCommitHeadInput": {
         "type": "object",
@@ -9425,7 +9414,7 @@
           "parents": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Commitsha"
+              "$ref": "#/components/schemas/MyPickIGithub.Commitsha"
             },
             "title": "Parents of this commit"
           },
@@ -9468,7 +9457,7 @@
           "files"
         ]
       },
-      "PickIGithub.Commitsha": {
+      "MyPickIGithub.Commitsha": {
         "type": "object",
         "properties": {
           "sha": {
@@ -9478,8 +9467,7 @@
         },
         "required": [
           "sha"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetCommitInput": {
         "type": "object",
@@ -9529,7 +9517,7 @@
                   "type": "string"
                 },
                 "commit": {
-                  "$ref": "#/components/schemas/PickIGithub.Commitmessageurlauthorcommitter"
+                  "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommitter"
                 }
               },
               "required": [
@@ -9587,7 +9575,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Commitmessageurlauthorcommitter": {
+      "MyPickIGithub.Commitmessageurlauthorcommitter": {
         "type": "object",
         "properties": {
           "message": {
@@ -9647,8 +9635,7 @@
           "url",
           "author",
           "committer"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetCommitListInput": {
         "type": "object",
@@ -9733,7 +9720,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Useridloginhtml_urlavatar_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followers"
           },
@@ -9785,7 +9772,7 @@
           "nextPage"
         ]
       },
-      "PickIGithub.Useridloginhtml_urlavatar_url": {
+      "MyPickIGithub.Useridloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
           "id": {
@@ -9812,8 +9799,7 @@
           "login",
           "html_url",
           "avatar_url"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IGithub.IGetFollowerInput": {
         "type": "object",
@@ -9867,7 +9853,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.Useridloginhtml_urlavatar_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followees"
           },
@@ -10233,7 +10219,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIGithub.RepositoryFilecontentpath"
+              "$ref": "#/components/schemas/MyPickIGithub.RepositoryFilecontentpath"
             }
           },
           "key": {
@@ -10245,7 +10231,7 @@
           "key"
         ]
       },
-      "PickIGithub.RepositoryFilecontentpath": {
+      "MyPickIGithub.RepositoryFilecontentpath": {
         "type": "object",
         "properties": {
           "content": {
@@ -10260,8 +10246,7 @@
         "required": [
           "content",
           "path"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IRag.IAnalysisOutput": {
         "type": "object",

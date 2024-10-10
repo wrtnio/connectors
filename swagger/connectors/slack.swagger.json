@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.262",
+    "version": "0.1.263",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -75,7 +75,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.ScheduledMessagepost_at"
+                  "$ref": "#/components/schemas/MyPickISlack.ScheduledMessagepost_at"
                 }
               }
             }
@@ -137,7 +137,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                  "$ref": "#/components/schemas/MyPickISlack.Messagets"
                 }
               }
             }
@@ -170,7 +170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                  "$ref": "#/components/schemas/MyPickISlack.Messagets"
                 }
               }
             }
@@ -203,7 +203,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PickISlack.Messagets"
+                  "$ref": "#/components/schemas/MyPickISlack.Messagets"
                 }
               }
             }
@@ -625,7 +625,7 @@
           "secretKey"
         ]
       },
-      "PickISlack.ScheduledMessagepost_at": {
+      "MyPickISlack.ScheduledMessagepost_at": {
         "type": "object",
         "properties": {
           "post_at": {
@@ -636,8 +636,7 @@
         },
         "required": [
           "post_at"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.ISCheduleMessageInput": {
         "type": "object",
@@ -782,7 +781,7 @@
           "secretKey"
         ]
       },
-      "PickISlack.Messagets": {
+      "MyPickISlack.Messagets": {
         "type": "object",
         "properties": {
           "ts": {
@@ -793,8 +792,7 @@
         },
         "required": [
           "ts"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.IPostMessageToMyselfInput": {
         "type": "object",
@@ -1011,7 +1009,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+              "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
@@ -1038,7 +1036,7 @@
           "post_at_date"
         ]
       },
-      "PickISlack.Attachmenttitleid": {
+      "MyPickISlack.Attachmenttitleid": {
         "type": "object",
         "properties": {
           "title": {
@@ -1049,8 +1047,7 @@
             "type": "number",
             "title": "id"
           }
-        },
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        }
       },
       "ISlack.IGetScheduledMessageListInput": {
         "type": "object",
@@ -1396,7 +1393,7 @@
           "attachments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.Attachmenttitleid"
+              "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
             },
             "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
@@ -1524,7 +1521,7 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
@@ -1612,7 +1609,7 @@
           "links"
         ]
       },
-      "PickISlack.IGetUserOutputiddisplay_name": {
+      "MyPickISlack.IGetUserOutputiddisplay_name": {
         "type": "object",
         "properties": {
           "id": {
@@ -1634,8 +1631,7 @@
         "required": [
           "id",
           "display_name"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
@@ -1729,7 +1725,7 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
@@ -1935,7 +1931,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -1973,7 +1969,7 @@
         ],
         "title": "File Lookup Results"
       },
-      "PickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "name": {
@@ -2037,8 +2033,7 @@
           "comments_count",
           "created",
           "mimetype"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "ISlack.IGetFileInput": {
         "type": "object",

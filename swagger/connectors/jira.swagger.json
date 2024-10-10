@@ -17,7 +17,7 @@
   "info": {
     "title": "Jira",
     "description": "Jira로 프로젝트 이슈를 관리해요.",
-    "version": "0.1.262",
+    "version": "0.1.263",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -564,7 +564,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIJira.Prioritynameid"
+                    "$ref": "#/components/schemas/MyPickIJira.Prioritynameid"
                   }
                 }
               }
@@ -600,7 +600,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName"
+                    "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName"
                   }
                 }
               }
@@ -636,7 +636,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName"
+                    "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName"
                   }
                 }
               }
@@ -871,7 +871,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
+              "$ref": "#/components/schemas/MyPickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
             },
             "title": "comments"
           },
@@ -901,7 +901,7 @@
           "total"
         ]
       },
-      "PickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
+      "MyPickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
@@ -973,11 +973,11 @@
             "title": "created time of this comment"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
           },
           "updateAuthor": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "who updates this comment"
           }
         },
@@ -988,8 +988,7 @@
           "created",
           "author",
           "updateAuthor"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IJira.BlockquoteNode": {
         "type": "object",
@@ -1355,29 +1354,29 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.InlineCardNodemarks"
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
+                  "$ref": "#/components/schemas/IJira.MentionNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
+                  "$ref": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               ],
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
-                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
-                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardNodemarks",
-                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
-                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               }
             },
@@ -1394,236 +1393,6 @@
         "type": "object",
         "properties": {},
         "description": "Construct a type with a set of properties K of type T"
-      },
-      "OmitIJira.EmojiNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "emoji",
-            "title": "emoji type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "Emoji service ID of the emoji\n\nFor custom emojis by atlasian or user, you may have an ID."
-              },
-              "shortName": {
-                "type": "string",
-                "pattern": "^(:(.*):)$",
-                "title": "icon name\n\nA string exists between a colon and a colon, meaning a name for representing the emoji."
-              },
-              "text": {
-                "type": "string",
-                "title": "emoji icon"
-              }
-            },
-            "required": [
-              "shortName"
-            ],
-            "title": "attributes of emoji node"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "OmitIJira.HardBreakNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "hardBreak",
-            "title": "hardBreak type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "text": {
-                "const": "\n",
-                "title": "text\n\nIt can be only `\\n` text for braking."
-              }
-            },
-            "title": "attributes of hard break node"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "OmitIJira.InlineCardNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "inlineCard",
-            "title": "inline card type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "url\nIndicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
-              },
-              "data": {
-                "$ref": "#/components/schemas/object",
-                "title": "representation of the link"
-              }
-            },
-            "required": [
-              "url"
-            ],
-            "title": "attributes of inline card node"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "object": {
-        "type": "object",
-        "properties": {}
-      },
-      "OmitIJira.MentionNodemarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "mention",
-            "title": "mention type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "id\n\nadd any string like as uuid"
-              },
-              "text": {
-                "type": "string",
-                "pattern": "^(@(.*))",
-                "title": "Who is mentioned\n\nIt means a string that connects @ and the user's name"
-              },
-              "accessLevel": {
-                "type": "string",
-                "title": "accessLevel"
-              }
-            },
-            "required": [
-              "text"
-            ],
-            "title": "content of this mention content"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "OmitIJira.TextContentmarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "text",
-            "title": "text type"
-          },
-          "text": {
-            "type": "string",
-            "title": "content of this text content"
-          }
-        },
-        "required": [
-          "type",
-          "text"
-        ],
-        "description": "Construct a type with the properties of T except for those in type K."
-      },
-      "IJira.HeadingNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "heading",
-            "title": "heading type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.EmojiNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HardBreakNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.InlineCardNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MentionNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.TextContent"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "emoji": "#/components/schemas/IJira.EmojiNode",
-                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
-                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
-                  "mention": "#/components/schemas/IJira.MentionNode",
-                  "text": "#/components/schemas/IJira.TextContent"
-                }
-              }
-            },
-            "title": "content\n\nHeading node's content can be combined with only inline nodes."
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "level": {
-                "oneOf": [
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": 3
-                  },
-                  {
-                    "const": 4
-                  },
-                  {
-                    "const": 5
-                  },
-                  {
-                    "const": 6
-                  }
-                ],
-                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
-                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
-              }
-            },
-            "required": [
-              "level"
-            ],
-            "title": "attributes of heading node"
-          }
-        },
-        "required": [
-          "type",
-          "content",
-          "attrs"
-        ],
-        "title": "heading node\n\nIt means h1, h2, h3, h4, h5, h6 node."
       },
       "IJira.EmojiNode": {
         "type": "object",
@@ -1716,6 +1485,10 @@
         ],
         "title": "inline card\n\nThe inlineCard node is an Atlassian link card with a type icon and content description derived from the link."
       },
+      "object": {
+        "type": "object",
+        "properties": {}
+      },
       "IJira.MentionNode": {
         "type": "object",
         "properties": {
@@ -1751,6 +1524,104 @@
           "attrs"
         ],
         "title": "content with mention"
+      },
+      "StrictOmitIJira.TextContentmarks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "title": "text type"
+          },
+          "text": {
+            "type": "string",
+            "title": "content of this text content"
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ]
+      },
+      "IJira.HeadingNode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "heading",
+            "title": "heading type"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.MentionNode"
+                },
+                {
+                  "$ref": "#/components/schemas/IJira.TextContent"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/IJira.TextContent"
+                }
+              }
+            },
+            "title": "content\n\nHeading node's content can be combined with only inline nodes."
+          },
+          "attrs": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "oneOf": [
+                  {
+                    "const": 1
+                  },
+                  {
+                    "const": 2
+                  },
+                  {
+                    "const": 3
+                  },
+                  {
+                    "const": 4
+                  },
+                  {
+                    "const": 5
+                  },
+                  {
+                    "const": 6
+                  }
+                ],
+                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
+                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
+              }
+            },
+            "required": [
+              "level"
+            ],
+            "title": "attributes of heading node"
+          }
+        },
+        "required": [
+          "type",
+          "content",
+          "attrs"
+        ],
+        "title": "heading node\n\nIt means h1, h2, h3, h4, h5, h6 node."
       },
       "IJira.TextContent": {
         "type": "object",
@@ -2007,29 +1878,29 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/OmitIJira.EmojiNodemarks"
+                  "$ref": "#/components/schemas/IJira.EmojiNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.HardBreakNodemarks"
+                  "$ref": "#/components/schemas/IJira.HardBreakNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.InlineCardNodemarks"
+                  "$ref": "#/components/schemas/IJira.InlineCardNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.MentionNodemarks"
+                  "$ref": "#/components/schemas/IJira.MentionNode"
                 },
                 {
-                  "$ref": "#/components/schemas/OmitIJira.TextContentmarks"
+                  "$ref": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               ],
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "emoji": "#/components/schemas/OmitIJira.EmojiNodemarks",
-                  "hardBreak": "#/components/schemas/OmitIJira.HardBreakNodemarks",
-                  "inlineCard": "#/components/schemas/OmitIJira.InlineCardNodemarks",
-                  "mention": "#/components/schemas/OmitIJira.MentionNodemarks",
-                  "text": "#/components/schemas/OmitIJira.TextContentmarks"
+                  "emoji": "#/components/schemas/IJira.EmojiNode",
+                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
+                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
+                  "mention": "#/components/schemas/IJira.MentionNode",
+                  "text": "#/components/schemas/StrictOmitIJira.TextContentmarks"
                 }
               }
             },
@@ -2539,7 +2410,7 @@
           "content"
         ]
       },
-      "PickIJira.UseractiveaccountIddisplayName": {
+      "MyPickIJira.UseractiveaccountIddisplayName": {
         "type": "object",
         "properties": {
           "active": {
@@ -2559,8 +2430,7 @@
           "active",
           "accountId",
           "displayName"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "StrictOmitIGetCommentInputemaildomaintokenIBasicSecret": {
         "type": "object",
@@ -2623,7 +2493,7 @@
                   "title": "id of transition"
                 },
                 "to": {
-                  "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategory",
+                  "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategory",
                   "title": "to\n\nStatusDetail.\nDetails of the issue status after the transition."
                 }
               },
@@ -2639,7 +2509,7 @@
           "transitions"
         ]
       },
-      "PickIJira.StatusdescriptionnameidstatusCategory": {
+      "MyPickIJira.StatusdescriptionnameidstatusCategory": {
         "type": "object",
         "properties": {
           "description": {
@@ -2680,8 +2550,7 @@
           "name",
           "id",
           "statusCategory"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret": {
         "type": "object",
@@ -3440,15 +3309,15 @@
             "title": "summary"
           },
           "issuetype": {
-            "$ref": "#/components/schemas/PickIJira.IssueTypenameid",
+            "$ref": "#/components/schemas/MyPickIJira.IssueTypenameid",
             "title": "issue type"
           },
           "status": {
-            "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
             "title": "status"
           },
           "priority": {
-            "$ref": "#/components/schemas/PickIJira.Prioritynameid",
+            "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
             "title": "priority"
           },
           "parent": {
@@ -3471,11 +3340,11 @@
             "title": "id of comment"
           },
           "author": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
           },
           "updateAuthor": {
-            "$ref": "#/components/schemas/PickIJira.UseractiveaccountIddisplayName",
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "who updates this comment"
           },
           "body": {
@@ -3574,7 +3443,7 @@
           "active"
         ]
       },
-      "PickIJira.IssueTypenameid": {
+      "MyPickIJira.IssueTypenameid": {
         "type": "object",
         "properties": {
           "name": {
@@ -3590,10 +3459,9 @@
         "required": [
           "name",
           "id"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName": {
+      "MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName": {
         "type": "object",
         "properties": {
           "description": {
@@ -3638,10 +3506,9 @@
           "name",
           "id",
           "statusCategory"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
-      "PickIJira.Prioritynameid": {
+      "MyPickIJira.Prioritynameid": {
         "type": "object",
         "properties": {
           "name": {
@@ -3657,8 +3524,7 @@
         "required": [
           "name",
           "id"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IJira.Parent": {
         "type": "object",
@@ -3729,7 +3595,7 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickIJira.Issuekeyidfields"
+              "$ref": "#/components/schemas/MyPickIJira.Issuekeyidfields"
             },
             "title": "Jira issue list"
           },
@@ -3759,7 +3625,7 @@
           "total"
         ]
       },
-      "PickIJira.Issuekeyidfields": {
+      "MyPickIJira.Issuekeyidfields": {
         "type": "object",
         "properties": {
           "key": {
@@ -3779,8 +3645,7 @@
           "key",
           "id",
           "fields"
-        ],
-        "description": "From T, pick a set of properties whose keys are in the union K"
+        ]
       },
       "IJira.IssueField": {
         "type": "object",
@@ -3834,15 +3699,15 @@
             "title": "summary"
           },
           "issuetype": {
-            "$ref": "#/components/schemas/PickIJira.IssueTypenameid",
+            "$ref": "#/components/schemas/MyPickIJira.IssueTypenameid",
             "title": "issue type"
           },
           "status": {
-            "$ref": "#/components/schemas/PickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
             "title": "status"
           },
           "priority": {
-            "$ref": "#/components/schemas/PickIJira.Prioritynameid",
+            "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
             "title": "priority"
           },
           "parent": {
@@ -4215,7 +4080,7 @@
           "statuses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PickStatusnameiduntranslatedNameprojectIdstringundefined"
+              "$ref": "#/components/schemas/MyPickStatusnameiduntranslatedNameprojectIdstringundefined"
             }
           }
         },
@@ -4223,7 +4088,7 @@
           "statuses"
         ]
       },
-      "PickStatusnameiduntranslatedNameprojectIdstringundefined": {
+      "MyPickStatusnameiduntranslatedNameprojectIdstringundefined": {
         "type": "object",
         "properties": {
           "name": {
