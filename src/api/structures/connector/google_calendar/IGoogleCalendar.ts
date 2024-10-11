@@ -58,6 +58,8 @@ export namespace IGoogleCalendar {
     /**
      * Events after that date will not be fetched.
      *
+     * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
+     *
      * @title Information about the last date from which events will be fetched.
      */
     time_max: {
@@ -98,6 +100,8 @@ export namespace IGoogleCalendar {
 
     /**
      * Events prior to that date will not be retrieved.
+     *
+     * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
      * @title Information on the start date from which events will be retrieved.
      */
@@ -539,6 +543,8 @@ export namespace IGoogleCalendar {
       /**
        * It's the year.
        *
+       * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
+       *
        * @title The year.
        */
       year: number;
@@ -620,6 +626,8 @@ export namespace IGoogleCalendar {
     /**
      * The start date of the event to be created.
      *
+     * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
+     *
      * @title Event start date.
      */
     start: {
@@ -660,6 +668,8 @@ export namespace IGoogleCalendar {
 
     /**
      * The end date of the event to be created.
+     *
+     * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
      * @title Event end date.
      */
@@ -729,6 +739,8 @@ export namespace IGoogleCalendar {
 
     /**
      * Event repeat deadline.
+     *
+     * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
      * @title Event repeat deadline.
      */
