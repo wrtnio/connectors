@@ -297,7 +297,7 @@ export class SlackProvider {
     const url = `https://slack.com/api/chat.postMessage`;
     const token = await this.getToken(input.secretKey);
     try {
-      const preconfiged = `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n${input.text}`;
+      const preconfiged = `${input.text}\n\n> By Wrtn Studio Pro Action Agent.`;
       const text = slackifyMarkdown(preconfiged);
       const res = await axios.post(
         url,
