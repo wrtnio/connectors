@@ -104,8 +104,8 @@ export class GoogleCalendarProvider {
       const calendar = google.calendar({ version: "v3", auth: authClient });
       const response = await calendar.events.list({
         calendarId: calendarId,
-        timeMin: input.time_min ? this.makeDateForKST(input.time_min) : "",
-        timeMax: input.time_max ? this.makeDateForKST(input.time_max) : "",
+        timeMin: input.time_min ? this.makeDateForUTC(input.time_min) : "",
+        timeMax: input.time_max ? this.makeDateForUTC(input.time_max) : "",
         maxResults: input.max_results,
         q: input.query,
         singleEvents: true,
@@ -320,12 +320,12 @@ export class GoogleCalendarProvider {
 
     const requestBody: any = {
       start: {
-        dateTime: this.makeDateForKST(start),
-        timeZone: "Asia/Seoul",
+        dateTime: this.makeDateForUTC(start),
+        timeZone: "UTC",
       },
       end: {
-        dateTime: this.makeDateForKST(end),
-        timeZone: "Asia/Seoul",
+        dateTime: this.makeDateForUTC(end),
+        timeZone: "UTC",
       },
       summary: title,
       description: description,
@@ -372,9 +372,10 @@ export class GoogleCalendarProvider {
   /**
    * 이벤트 시작 / 종료날짜 지정시 KST로 변환해서 지정해줘야 함
    */
-  makeDateForKST(input: IGoogleCalendar.IGoogleCalendarEvent.IDate) {
-    const date = new Date(input.year, input.month - 1, input.date, input.hour);
-    date.setHours(date.getHours() + 9);
+  makeDateForUTC(input: IGoogleCalendar.IGoogleCalendarEvent.IDate) {
+    const date = new Date(
+      Date.UTC(input.year, input.month - 1, input.date, input.hour),
+    );
     const kstDate = date.toISOString();
     return kstDate;
   }
