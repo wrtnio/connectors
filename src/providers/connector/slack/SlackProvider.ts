@@ -98,7 +98,7 @@ export class SlackProvider {
         url,
         {
           channel: input.channel,
-          text: `${input.text}\n\n> By Wrtn Studio Pro Action Agent.`,
+          text: `${input.text}\n\n\n\n> Sent by Action Agent in Wrtn Studio Pro`,
           post_at: input.post_at,
           ...(input.thread_ts && { thread_ts: input.thread_ts }),
         },
@@ -297,7 +297,7 @@ export class SlackProvider {
     const url = `https://slack.com/api/chat.postMessage`;
     const token = await this.getToken(input.secretKey);
     try {
-      const preconfiged = `${input.text}\n\n> By Wrtn Studio Pro Action Agent.`;
+      const preconfiged = `${input.text}\n\n\n\n> Sent by Action Agent in Wrtn Studio Pro`;
       const text = slackifyMarkdown(preconfiged);
       const res = await axios.post(
         url,
