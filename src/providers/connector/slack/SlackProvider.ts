@@ -98,7 +98,7 @@ export class SlackProvider {
         url,
         {
           channel: input.channel,
-          text: `이 메세지는 뤼튼 스튜디오 프로에 의해 전송됩니다.\n\n ${input.text}`,
+          text: `${input.text}\n\n> By Wrtn Studio Pro Action Agent.`,
           post_at: input.post_at,
           ...(input.thread_ts && { thread_ts: input.thread_ts }),
         },
