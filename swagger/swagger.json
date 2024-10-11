@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.263",
+    "version": "0.1.264",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14434,7 +14434,7 @@
               "hour"
             ],
             "title": "Information about the last date from which events will be fetched.",
-            "description": "Events after that date will not be fetched."
+            "description": "Events after that date will not be fetched.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "time_min": {
             "type": "object",
@@ -14467,7 +14467,7 @@
               "hour"
             ],
             "title": "Information on the start date from which events will be retrieved.",
-            "description": "Events prior to that date will not be retrieved."
+            "description": "Events prior to that date will not be retrieved.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "max_results": {
             "type": "integer",
@@ -14583,7 +14583,7 @@
               "hour"
             ],
             "title": "Event start date.",
-            "description": "The start date of the event to be created."
+            "description": "The start date of the event to be created.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "end": {
             "type": "object",
@@ -14616,7 +14616,7 @@
               "hour"
             ],
             "title": "Event end date.",
-            "description": "The end date of the event to be created."
+            "description": "The end date of the event to be created.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "attendeesEmail": {
             "type": "array",
@@ -14680,7 +14680,7 @@
               "hour"
             ],
             "title": "Event repeat deadline.",
-            "description": "Event repeat deadline."
+            "description": "Event repeat deadline.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "isBusy": {
             "type": "boolean",
