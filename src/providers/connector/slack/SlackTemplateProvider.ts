@@ -4,7 +4,7 @@ export namespace SlackTemplateProvider {
   export function voteTemplate(input: {
     requester: string;
     title: string;
-    items: { text: string }[];
+    items: { text: string; link: string }[];
   }): (Block | KnownBlock)[] {
     return [
       {
@@ -21,7 +21,7 @@ export namespace SlackTemplateProvider {
         return [
           {
             type: "section",
-            text: { type: "mrkdwn", text: item.text },
+            text: { type: "mrkdwn", text: `<${item.link}|${item.text}>` },
             accessory: {
               type: "button",
               text: { type: "plain_text", emoji: true, text: "Vote" },

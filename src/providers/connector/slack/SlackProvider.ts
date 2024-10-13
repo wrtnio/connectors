@@ -680,16 +680,22 @@ export class SlackProvider {
     return res.data;
   }
 
-  async vote(input: { secretKey: string; channel: string; title: string }) {
+  async vote(input: {
+    secretKey: string;
+    channel: string;
+    title: string;
+    items: { text: string; link: string }[];
+  }) {
     const client = new WebClient(input.secretKey);
     const auth = await client.auth.test();
     const user = await client.users.profile.get({ user: auth.user_id });
+
     const res = await client.chat.postMessage({
       channel: input.channel,
       blocks: SlackTemplateProvider.voteTemplate({
         requester: user.profile?.display_name ?? "",
         title: input.title,
-        items: [],
+        items: input.items,
       }),
     });
 
