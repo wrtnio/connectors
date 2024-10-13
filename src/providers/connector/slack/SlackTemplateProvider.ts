@@ -54,16 +54,16 @@ export namespace SlackTemplateProvider {
       {
         type: "divider",
       },
-      {
-        type: "actions",
-        elements: [
-          {
-            type: "button",
-            text: { type: "plain_text", emoji: true, text: "Add a suggestion" },
-            value: "suggestion",
-          },
-        ],
-      },
+      // {
+      //   type: "actions",
+      //   elements: [
+      //     {
+      //       type: "button",
+      //       text: { type: "plain_text", emoji: true, text: "Add a suggestion" },
+      //       value: "suggestion",
+      //     },
+      //   ],
+      // },
     ];
   }
 }

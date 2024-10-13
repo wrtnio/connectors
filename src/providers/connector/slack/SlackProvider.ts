@@ -754,11 +754,15 @@ export class SlackProvider {
     const auth = await client.auth.test();
     const user = await client.users.profile.get({ user: auth.user_id });
 
+    const requester = user.profile?.display_name
+      ? user.profile?.display_name
+      : user.profile?.real_name ?? "";
+
     const res = await client.chat.postMessage({
       channel: input.channel,
       blocks: SlackTemplateProvider.voteTemplate({
         secretKey: input.secretKey,
-        requester: user.profile?.display_name ?? "",
+        requester,
         title: input.title,
         items: input.items,
       }),
